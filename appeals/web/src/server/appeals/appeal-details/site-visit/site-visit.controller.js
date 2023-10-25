@@ -12,6 +12,7 @@ import {
 	dateToDisplayDate
 } from '#lib/dates.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
  *
@@ -333,7 +334,7 @@ export const postSetVisitType = async (request, response) => {
 					apiVisitType
 				);
 
-				request.session.siteVisitTypeSelected = true;
+				addNotificationBannerToSession(request.session, 'siteVisitTypeSelected', appealIdNumber);
 
 				return response.redirect(`/appeals-service/appeal-details/${appealDetails.appealId}`);
 			}

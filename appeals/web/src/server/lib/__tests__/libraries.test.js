@@ -24,7 +24,9 @@ import {
 	mapReasonsToReasonsList,
 	getNotValidReasonsTextFromRequestBody
 } from '../mappers/validation-outcome-reasons.mapper.js';
-import { appellantCaseInvalidReasons } from '#testing/app/fixtures/referencedata.js';
+import { appellantCaseInvalidReasons, baseSession } from '#testing/app/fixtures/referencedata.js';
+import { stringContainsDigitsOnly } from '#lib/string-utilities.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -1028,6 +1030,86 @@ describe('Libraries', () => {
 
 				expect(result).toEqual({
 					22: ['test reason text 1', 'test reason text 2']
+				});
+			});
+		});
+	});
+
+	describe('string utilities', () => {
+		describe('stringContainsDigitsOnly', () => {
+			it('should return true if the supplied string only contains digits', () => {
+				expect(stringContainsDigitsOnly('0')).toBe(true);
+				expect(stringContainsDigitsOnly('9')).toBe(true);
+				expect(stringContainsDigitsOnly('123')).toBe(true);
+				expect(stringContainsDigitsOnly(' 12 ')).toBe(true);
+			});
+
+			it('should return false if the supplied string contains any non-digit characters', () => {
+				expect(stringContainsDigitsOnly('')).toBe(false);
+				expect(stringContainsDigitsOnly(' ')).toBe(false);
+				expect(stringContainsDigitsOnly('one')).toBe(false);
+				expect(stringContainsDigitsOnly('.')).toBe(false);
+				expect(stringContainsDigitsOnly('£1')).toBe(false);
+				expect(stringContainsDigitsOnly('0.')).toBe(false);
+				expect(stringContainsDigitsOnly('0.9')).toBe(false);
+				expect(stringContainsDigitsOnly('3.141')).toBe(false);
+				expect(stringContainsDigitsOnly('1!')).toBe(false);
+				expect(stringContainsDigitsOnly('2a')).toBe(false);
+				expect(stringContainsDigitsOnly('1 2')).toBe(false);
+			});
+		});
+	});
+
+	describe('session utilities', () => {
+		describe('addNotificationBannerToSession', () => {
+			it('should return false without modifying the session notificationBanners object if an unrecognised bannerDefinitionKey is provided', () => {
+				const testSession = { ...baseSession };
+
+				const result = addNotificationBannerToSession(testSession, 'anUnrecognisedKey', 1);
+
+				expect(result).toBe(false);
+				expect(testSession).toEqual(baseSession);
+			});
+
+			it('should return true and add a notificationBanners property to the session and add a property with name matching the bannerDefinitionKey and value of an object containing the provided appealId to the session notificationBanners object if a recognised bannerDefinitionKey is provided and there is no notificationBanners property in the session already', () => {
+				const testSession = { ...baseSession };
+
+				const result = addNotificationBannerToSession(testSession, 'siteVisitTypeSelected', 1);
+
+				expect(result).toBe(true);
+				expect(testSession).toEqual({
+					...baseSession,
+					notificationBanners: {
+						siteVisitTypeSelected: {
+							appealId: 1
+						}
+					}
+				});
+			});
+
+			it('should return true and add a property with name matching the bannerDefinitionKey and value of an object containing the provided appealId to the session notificationBanners object if a recognised bannerDefinitionKey is provided and there is already a notificationBanners property in the session', () => {
+				const testSession = {
+					...baseSession,
+					notificationBanners: {
+						allocationDetailsUpdated: {
+							appealId: 1
+						}
+					}
+				};
+
+				const result = addNotificationBannerToSession(testSession, 'siteVisitTypeSelected', 1);
+
+				expect(result).toBe(true);
+				expect(testSession).toEqual({
+					...baseSession,
+					notificationBanners: {
+						allocationDetailsUpdated: {
+							appealId: 1
+						},
+						siteVisitTypeSelected: {
+							appealId: 1
+						}
+					}
 				});
 			});
 		});

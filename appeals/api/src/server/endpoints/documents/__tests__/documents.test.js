@@ -55,6 +55,7 @@ describe('/appeals/:appealId/document-folders/:folderId', () => {
 				documents: [
 					{
 						id: savedFolder.documents[0].guid,
+						latestDocumentVersion: {},
 						name: savedFolder.documents[0].name
 					}
 				]

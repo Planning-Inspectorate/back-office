@@ -16,7 +16,12 @@ router
 router
 	.route('/date')
 	.get(controller.getUpdateDueDate)
-	.post(validators.validateUpdateDueDate, controller.postUpdateDueDate);
+	.post(
+		validators.validateDueDateFields,
+		validators.validateDueDateValid,
+		validators.validateDueDateInFuture,
+		controller.postUpdateDueDate
+	);
 
 router.route('/confirmation').get(controller.getConfirmation);
 

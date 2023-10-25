@@ -1,3 +1,4 @@
+/** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleFolderResponse} SingleFolderResponse */
 
@@ -8,9 +9,12 @@
 const formatFolder = (folder) => ({
 	caseId: folder.caseId,
 	documents:
-		folder.documents?.map((document) => ({
+		folder.documents?.map((/** @type {Document} */ document) => ({
 			id: document.guid,
-			name: document.name
+			name: document.name,
+			latestDocumentVersion: {
+				publishedStatus: document?.latestDocumentVersion?.publishedStatus
+			}
 		})) || null,
 	id: folder.id,
 	path: folder.path

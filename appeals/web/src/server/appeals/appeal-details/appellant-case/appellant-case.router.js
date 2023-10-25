@@ -1,6 +1,7 @@
 import { Router as createRouter } from 'express';
 import * as controller from './appellant-case.controller.js';
 import * as validators from './appellant-case.validators.js';
+import * as documentsValidators from '../../appeal-documents/appeal-documents.validators.js';
 import outcomeValidRouter from './outcome-valid/outcome-valid.router.js';
 import outcomeInvalidRouter from './outcome-invalid/outcome-invalid.router.js';
 import outcomeIncompleteRouter from './outcome-incomplete/outcome-incomplete.router.js';
@@ -38,5 +39,18 @@ router
 router
 	.route('/add-documents/:folderId/:documentId?')
 	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getAddDocuments));
+
+router
+	.route('/add-document-details/:folderId')
+	.get(validateCaseFolderId, controller.getAddDocumentDetails)
+	.post(
+		validateCaseFolderId,
+		documentsValidators.validateDocumentDetailsBodyFormat,
+		documentsValidators.validateDocumentDetailsReceivedDatesFields,
+		documentsValidators.validateDocumentDetailsReceivedDateValid,
+		documentsValidators.validateDocumentDetailsRedactionStatuses,
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		controller.postAddDocumentDetails
+	);
 
 export default router;

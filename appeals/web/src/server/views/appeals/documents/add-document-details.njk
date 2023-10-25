@@ -1,0 +1,82 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/date-input/macro.njk" import govukDateInput -%}
+{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+
+{%- set pageTitle = "Add document details - GOV.UK" -%}
+
+{%- set backLinkUrl -%}
+	{{ backButtonUrl }}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-9">{{ documentTypeHeading }} documents</h1>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	<form method="post" novalidate="novalidate">
+		{%- for item in detailsItems -%}
+			<div class="govuk-form-group">
+				<h2 class="govuk-heading-m">{{ item.documentName }}</h2>
+				{{ govukInput({
+					type: 'hidden',
+					name: 'items[' + loop.index0 + '][documentId]',
+					value: item.documentId
+				}) }}
+				{{ govukDateInput({
+					id: 'items[' + loop.index0 + ']receivedDate',
+					namePrefix: 'items[' + loop.index0 + '][receivedDate]',
+					items: [
+						{
+							classes: "govuk-input govuk-date-input__input govuk-input--width-2",
+							id: 'items[' + loop.index0 + '].receivedDate.day',
+							name: "[day]",
+							label: "day",
+							value: item.receivedDate.day if item.receivedDate.day else ''
+						},
+						{
+							classes: "govuk-input govuk-date-input__input govuk-input--width-2",
+							id: 'items[' + loop.index0 + '].receivedDate.month',
+							name: "[month]",
+							label: "month",
+							value: item.receivedDate.month if item.receivedDate.month else ''
+						},
+						{
+							classes: "govuk-input govuk-date-input__input govuk-input--width-4",
+							id: 'items[' + loop.index0 + '].receivedDate.year',
+							name: "[year]",
+							label: "year",
+							value: item.receivedDate.year if item.receivedDate.year else ''
+						}
+					]
+				}) }}
+				{{ govukRadios({
+					name: 'items[' + loop.index0 + '][redactionStatus]',
+					items: [{
+						text: 'Redacted',
+						value: 'redacted',
+						checked: item.redactionStatus === 'redacted'
+					},{
+						text: 'Unredacted',
+						value: 'unredacted',
+						checked: item.redactionStatus === 'unredacted'
+					},{
+						text: 'No redaction required',
+						value: 'no redaction required',
+						checked: item.redactionStatus === 'no redaction required'
+					}]
+				}) }}
+				{%- if loop.index0 < (detailsItems | length) -%}
+					<hr class="govuk-!-margin-top-7">
+				{%- endif -%}
+			</div>
+		{%- endfor -%}
+		{{ govukButton({
+			text: submitButtonText if submitButtonText else "Confirm",
+			type: "submit"
+		}) }}
+	</form>
+{%- endblock -%}

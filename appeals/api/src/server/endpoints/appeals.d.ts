@@ -342,11 +342,16 @@ interface FolderInfo {
 	documents: DocumentInfo[];
 }
 
+interface LatestDocumentVersionInfo {
+	publishedStatus?: string | null;
+}
+
 interface DocumentInfo {
 	id: string;
 	name: string;
 	folderId?: number;
 	caseId?: number;
+	latestDocumentVersion?: LatestDocumentVersionInfo;
 }
 
 interface SingleSiteVisitDetailsResponse {
