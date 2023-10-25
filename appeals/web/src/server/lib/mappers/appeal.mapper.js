@@ -908,12 +908,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					html: dateToDisplayDate(data.appeal.startedAt) || ''
 				},
 				actions: {
-					items: [
-						{
-							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/start-date`
-						}
-					]
+					items: []
 				}
 			}
 		}
@@ -924,7 +919,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'LPA Questionnaire due'
+					text: 'LPA Questionnaire'
 				},
 				value: {
 					html:
@@ -934,7 +929,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				actions: {
 					items: [
 						{
-							text: data.appeal?.lpaQuestionnaireId ? 'Change' : 'Schedule',
+							text: 'Change',
 							href: `${currentRoute}/appeal-timetables/lpa-questionnaire`
 						}
 					]
