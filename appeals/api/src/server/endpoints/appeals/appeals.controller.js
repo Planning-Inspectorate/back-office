@@ -1,6 +1,7 @@
 import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 import appealRepository from '#repositories/appeal.repository.js';
 import { getPageCount } from '#utils/database-pagination.js';
+import { sortAppeals } from '#utils/appeal-sorter.js';
 import logger from '#utils/logger.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 import {
@@ -10,9 +11,10 @@ import {
 	AUDIT_TRAIL_REMOVED_INSPECTOR,
 	DEFAULT_PAGE_NUMBER,
 	DEFAULT_PAGE_SIZE,
-	ERROR_FAILED_TO_SAVE_DATA
+	ERROR_FAILED_TO_SAVE_DATA,
+	ERROR_CANNOT_BE_EMPTY_STRING
 } from '../constants.js';
-import { formatAppeal, formatAppeals } from './appeals.formatter.js';
+import { formatAppeal, formatAppeals, formatMyAppeals } from './appeals.formatter.js';
 import { assignUser, assignedUserType } from './appeals.service.js';
 
 /** @typedef {import('express').Request} Request */
@@ -43,6 +45,39 @@ const getAppeals = async (req, res) => {
 		pageCount: getPageCount(itemCount, pageSize),
 		pageSize
 	});
+};
+
+/**
+ * @param {Request} req
+ * @param {Response} res
+ * @returns {Promise<Response>}
+ */
+const getMyAppeals = async (req, res) => {
+	const { query } = req;
+	const pageNumber = Number(query.pageNumber) || DEFAULT_PAGE_NUMBER;
+	const pageSize = Number(query.pageSize) || DEFAULT_PAGE_SIZE;
+	const status = String(query.status);
+	const azureUserId = req.get('azureAdUserId');
+
+	if (azureUserId) {
+		const [itemCount, appeals = []] = await appealRepository.getUserAppeals(
+			azureUserId,
+			pageNumber,
+			pageSize,
+			status
+		);
+		const formattedAppeals = sortAppeals(appeals.map((appeal) => formatMyAppeals(appeal)));
+
+		return res.send({
+			itemCount,
+			items: formattedAppeals,
+			page: pageNumber,
+			pageCount: getPageCount(itemCount, pageSize),
+			pageSize
+		});
+	}
+
+	return res.status(404).send({ errors: { azureUserId: ERROR_CANNOT_BE_EMPTY_STRING } });
 };
 
 /**
@@ -111,4 +146,4 @@ const updateAppealById = async (req, res) => {
 	return res.send(body);
 };
 
-export { getAppealById, getAppeals, updateAppealById };
+export { getAppealById, getAppeals, getMyAppeals, updateAppealById };
