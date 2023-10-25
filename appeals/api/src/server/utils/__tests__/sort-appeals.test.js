@@ -31,7 +31,7 @@ describe('Sort appeals', () => {
 				appealType: 'Householder'
 			},
 			{
-				createdAt: '2023-01-02T00:00:55.000Z',
+				createdAt: '2023-11-02T00:00:55.000Z',
 				appealId: 1,
 				appealReference: 'APP/Q9999/D/21/33813',
 				appealStatus: 'ready_to_start',
@@ -61,6 +61,6 @@ describe('Sort appeals', () => {
 
 		const result = data.map((a) => a?.appealId);
 
-		expect(result).toEqual([3, 1, 6, 2, 5, 4]);
+		expect(result).toEqual([3, 6, 2, 5, 1, 4]);
 	});
 });

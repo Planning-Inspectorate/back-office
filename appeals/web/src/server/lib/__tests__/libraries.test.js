@@ -63,9 +63,9 @@ describe('Libraries', () => {
 					want: ''
 				},
 				{
-					name: 'invalid',
+					name: 'valid 0',
 					ref: 'APP/5141/9999',
-					want: 'APP/5141/9999'
+					want: '9999'
 				},
 				{
 					name: 'valid 1',
