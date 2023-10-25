@@ -2134,7 +2134,7 @@
 						"name": "status",
 						"in": "query",
 						"description": "The appeal status",
-						"example": "LPA Questionnaire",
+						"example": "lpa_questionnaire_due",
 						"schema": {
 							"type": "string"
 						}

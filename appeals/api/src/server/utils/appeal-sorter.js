@@ -5,11 +5,19 @@ import {
 	STATE_TARGET_ARRANGE_SITE_VISIT,
 	STATE_TARGET_ISSUE_DETERMINATION,
 	STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
-	STATE_TARGET_READY_TO_START,
-	CONFIG_APPEAL_TIMETABLE
+	STATE_TARGET_READY_TO_START
 } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
+
+const approxStageCompletion = {
+	STATE_TARGET_READY_TO_START: 5,
+	STATE_TARGET_LPA_QUESTIONNAIRE_DUE: 10,
+	STATE_TARGET_ARRANGE_SITE_VISIT: 15,
+	STATE_TARGET_ISSUE_DETERMINATION: 30,
+	STATE_TARGET_STATEMENT_REVIEW: 55,
+	STATE_TARGET_FINAL_COMMENT_REVIEW: 60
+};
 
 /**
  *
@@ -22,7 +30,7 @@ export const sortAppeals = (appeals) => {
 				return {
 					appealId: appeal.appealId,
 					dueDate: add(new Date(appeal.createdAt), {
-						days: CONFIG_APPEAL_TIMETABLE.HAS.lpaQuestionnaireDueDate.daysFromStartDate
+						days: approxStageCompletion.STATE_TARGET_ARRANGE_SITE_VISIT
 					})
 				};
 			case STATE_TARGET_LPA_QUESTIONNAIRE_DUE:
@@ -35,21 +43,27 @@ export const sortAppeals = (appeals) => {
 				return {
 					appealId: appeal.appealId,
 					dueDate: add(new Date(appeal.createdAt), {
-						days: CONFIG_APPEAL_TIMETABLE.FPA.statementReviewDate.daysFromStartDate
+						days: approxStageCompletion.STATE_TARGET_LPA_QUESTIONNAIRE_DUE
 					})
 				};
 			case STATE_TARGET_ARRANGE_SITE_VISIT:
 				return {
 					appealId: appeal.appealId,
 					dueDate: add(new Date(appeal.createdAt), {
-						days: CONFIG_APPEAL_TIMETABLE.HAS.lpaQuestionnaireDueDate.daysFromStartDate
+						days: approxStageCompletion.STATE_TARGET_ARRANGE_SITE_VISIT
 					})
 				};
 			case STATE_TARGET_ISSUE_DETERMINATION: {
+				if (appeal.appealTimetable?.issueDeterminationDate) {
+					return {
+						appealId: appeal.appealId,
+						dueDate: new Date(appeal.appealTimetable?.issueDeterminationDate)
+					};
+				}
 				return {
 					appealId: appeal.appealId,
 					dueDate: add(new Date(appeal.createdAt), {
-						days: CONFIG_APPEAL_TIMETABLE.HAS.lpaQuestionnaireDueDate.daysFromStartDate
+						days: approxStageCompletion.STATE_TARGET_ISSUE_DETERMINATION
 					})
 				};
 			}
@@ -63,7 +77,7 @@ export const sortAppeals = (appeals) => {
 				return {
 					appealId: appeal.appealId,
 					dueDate: add(new Date(appeal.createdAt), {
-						days: CONFIG_APPEAL_TIMETABLE.FPA.statementReviewDate.daysFromStartDate
+						days: approxStageCompletion.STATE_TARGET_STATEMENT_REVIEW
 					})
 				};
 			}
@@ -77,7 +91,7 @@ export const sortAppeals = (appeals) => {
 				return {
 					appealId: appeal.appealId,
 					dueDate: add(new Date(appeal.createdAt), {
-						days: CONFIG_APPEAL_TIMETABLE.FPA.finalCommentReviewDate.daysFromStartDate
+						days: approxStageCompletion.STATE_TARGET_FINAL_COMMENT_REVIEW
 					})
 				};
 			}

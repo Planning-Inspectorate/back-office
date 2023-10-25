@@ -48,6 +48,7 @@ interface AppealTimetable {
 	finalCommentReviewDate?: Date | null;
 	lpaQuestionnaireDueDate: Date | null;
 	statementReviewDate?: Date | null;
+	issueDeterminationDate?: Date | null;
 }
 
 interface RepositoryGetAllResultItem {

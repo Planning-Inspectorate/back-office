@@ -44,7 +44,8 @@ const formatMyAppeals = (appeal) => ({
 				lpaQuestionnaireDueDate: appeal.appealTimetable.lpaQuestionnaireDueDate || null,
 				...(isFPA(appeal.appealType) && {
 					finalCommentReviewDate: appeal.appealTimetable.finalCommentReviewDate || null,
-					statementReviewDate: appeal.appealTimetable.statementReviewDate || null
+					statementReviewDate: appeal.appealTimetable.statementReviewDate || null,
+					issueDeterminationDate: appeal.appealTimetable.issueDeterminationDate || null
 				})
 		  }
 		: undefined

@@ -70,7 +70,7 @@ router.get(
 		#swagger.parameters['status'] = {
 			in: 'query',
 			description: 'The appeal status',
-			example: 'LPA Questionnaire',
+			example: 'lpa_questionnaire_due',
 		}
 		#swagger.responses[200] = {
 			description: 'Requested appeals',
