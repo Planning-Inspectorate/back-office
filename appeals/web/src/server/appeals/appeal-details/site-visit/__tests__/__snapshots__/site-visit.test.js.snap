@@ -1433,6 +1433,8 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                         <ul class="govuk-list govuk-error-summary__list">
                             <li><a href="#visit-start-time-hour">Start time hour cannot be less than 0 or greater than 23</a>
                             </li>
+                            <li><a href="#">start time must be before end time</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -1680,8 +1682,6 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
                             <li><a href="#visit-start-time-minute">Start time minute cannot be less than 0 or greater than 59</a>
-                            </li>
-                            <li><a href="#">start time must be before end time</a>
                             </li>
                         </ul>
                     </div>

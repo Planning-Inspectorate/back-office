@@ -24,6 +24,7 @@ import {
 	mapReasonsToReasonsList,
 	getNotValidReasonsTextFromRequestBody
 } from '../mappers/validation-outcome-reasons.mapper.js';
+import { timeIsBeforeTime } from '#lib/times.js';
 import { appellantCaseInvalidReasons, baseSession } from '#testing/app/fixtures/referencedata.js';
 import { stringContainsDigitsOnly } from '#lib/string-utilities.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
@@ -1031,6 +1032,28 @@ describe('Libraries', () => {
 				expect(result).toEqual({
 					22: ['test reason text 1', 'test reason text 2']
 				});
+			});
+		});
+	});
+
+	describe('times', () => {
+		describe('timeIsBeforeTime', () => {
+			it('should return true if the provided time is before the provided beforeTime', () => {
+				expect(timeIsBeforeTime(0, 1, 0, 2)).toBe(true);
+				expect(timeIsBeforeTime(1, 0, 2, 0)).toBe(true);
+				expect(timeIsBeforeTime(1, 59, 2, 0)).toBe(true);
+				expect(timeIsBeforeTime(12, 45, 13, 0)).toBe(true);
+			});
+
+			it('should return false if the provided time is not before the provided beforeTime', () => {
+				expect(timeIsBeforeTime(0, 1, 0, 1)).toBe(false);
+				expect(timeIsBeforeTime(1, 0, 1, 0)).toBe(false);
+				expect(timeIsBeforeTime(0, 2, 0, 1)).toBe(false);
+				expect(timeIsBeforeTime(2, 0, 1, 0)).toBe(false);
+				expect(timeIsBeforeTime(9, 15, 9, 15)).toBe(false);
+				expect(timeIsBeforeTime(9, 30, 9, 15)).toBe(false);
+				expect(timeIsBeforeTime(12, 45, 9, 0)).toBe(false);
+				expect(timeIsBeforeTime(23, 45, 23, 30)).toBe(false);
 			});
 		});
 	});
