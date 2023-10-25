@@ -154,7 +154,7 @@ const renderConfirmationPage = async (request, response) => {
 				rows: [
 					...rows,
 					{
-						text: 'Go to case details',
+						text: 'Go back to case details',
 						href: `/appeals-service/appeal-details/${appealId}`
 					}
 				]
