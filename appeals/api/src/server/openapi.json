@@ -2098,6 +2098,70 @@
 				}
 			}
 		},
+		"/appeals/my-appeals": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets appeals assigned to the current user",
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "pageNumber",
+						"in": "query",
+						"description": "The pagination page number - required if pageSize is given",
+						"example": 1,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The pagination page size - required if pageNumber is given",
+						"example": 30,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "The appeal status",
+						"example": "LPA Questionnaire",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Requested appeals",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppeals"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppeals"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}": {
 			"get": {
 				"tags": ["Appeals"],

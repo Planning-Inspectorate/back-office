@@ -58,6 +58,7 @@ interface RepositoryGetAllResultItem {
 	id: number;
 	lpa: LPA;
 	reference: string;
+	appealTimetable?: Schema.AppealTimetable | null;
 }
 
 interface RepositoryGetByIdResultItem {
@@ -318,6 +319,7 @@ interface AppealListResponse {
 	appealType?: string;
 	createdAt: Date;
 	localPlanningDepartment: string;
+	appealTimetable?: AppealTimetable;
 }
 
 type BankHolidayFeedDivisions =
