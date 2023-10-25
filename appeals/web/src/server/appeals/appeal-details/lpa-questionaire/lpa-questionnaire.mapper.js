@@ -29,7 +29,7 @@ export const pageHeading = 'LPA questionnaire';
 
 /**
  * @typedef {Object} LPAQData
- * @property {import("../appeal-details.types.js").SingleLPAQuestionnaireResponse} lpaQ
+ * @property {import("../appeal-details.types.js").SingleLPAQuestionnaireResponse} lpaq
  */
 
 /**
@@ -39,7 +39,7 @@ export const pageHeading = 'LPA questionnaire';
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  */
 export async function lpaQuestionnairePage(lpaqData, appealData, currentRoute, session) {
-	const mappedLPAQData = initialiseAndMapLPAQData(lpaqData, currentRoute);
+	const mappedLPAQData = await initialiseAndMapLPAQData(lpaqData, currentRoute);
 	const mappedAppealData = await initialiseAndMapAppealData(appealData, currentRoute, session);
 	const appealType = appealData.appeal.appealType;
 
@@ -68,7 +68,7 @@ export async function lpaQuestionnairePage(lpaqData, appealData, currentRoute, s
 			break;
 	}
 
-	const reviewOutcome = mappedLPAQData.lpaQ.reviewOutcome.input?.filter(
+	const reviewOutcome = mappedLPAQData.lpaq.reviewOutcome.input?.filter(
 		(/** @type {{ type: string; }} */ inputOption) => inputOption.type === 'radio'
 	);
 
@@ -89,7 +89,7 @@ export async function lpaQuestionnairePage(lpaqData, appealData, currentRoute, s
  * @returns {import('#lib/mappers/notification-banners.mapper.js').NotificationBannerPageComponent[]}
  */
 function mapNotificationBannerComponentParameters(session, lpaqData, appealId) {
-	const validationOutcome = lpaqData.lpaQ.validation?.outcome?.toLowerCase();
+	const validationOutcome = lpaqData.lpaq.validation?.outcome?.toLowerCase();
 
 	if (validationOutcome === 'incomplete') {
 		if (!('notificationBanners' in session)) {
@@ -100,7 +100,7 @@ function mapNotificationBannerComponentParameters(session, lpaqData, appealId) {
 			appealId,
 			titleText: `LPA Questionnaire is ${String(validationOutcome)}`,
 			html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${(
-				lpaqData.lpaQ.validation?.incompleteReasons || []
+				lpaqData.lpaq.validation?.incompleteReasons || []
 			)
 				.map(
 					(reason) =>
@@ -149,12 +149,12 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 			}
 		},
 		rows: [
-			mappedLPAQData.lpaQ?.isCorrectAppealType?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.doesAffectAListedBuilding?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.affectsListedBuildingDetails?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.inCAOrrelatesToCA?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.conservationAreaMap?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.siteWithinGreenBelt?.display.summaryListItem
+			mappedLPAQData.lpaq?.isCorrectAppealType?.display.summaryListItem,
+			mappedLPAQData.lpaq?.doesAffectAListedBuilding?.display.summaryListItem,
+			mappedLPAQData.lpaq?.affectsListedBuildingDetails?.display.summaryListItem,
+			mappedLPAQData.lpaq?.inCAOrrelatesToCA?.display.summaryListItem,
+			mappedLPAQData.lpaq?.conservationAreaMap?.display.summaryListItem,
+			mappedLPAQData.lpaq?.siteWithinGreenBelt?.display.summaryListItem
 		]
 	};
 
@@ -169,11 +169,11 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 			}
 		},
 		rows: [
-			mappedLPAQData.lpaQ?.notifyingParties?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.lpaNotificationMethods?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.siteNotices?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.lettersToNeighbours?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.pressAdvert?.display.summaryListItem
+			mappedLPAQData.lpaq?.notifyingParties?.display.summaryListItem,
+			mappedLPAQData.lpaq?.lpaNotificationMethods?.display.summaryListItem,
+			mappedLPAQData.lpaq?.siteNotices?.display.summaryListItem,
+			mappedLPAQData.lpaq?.lettersToNeighbours?.display.summaryListItem,
+			mappedLPAQData.lpaq?.pressAdvert?.display.summaryListItem
 		]
 	};
 
@@ -188,8 +188,8 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 			}
 		},
 		rows: [
-			mappedLPAQData.lpaQ?.hasRepresentationsFromOtherParties?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.representations?.display.summaryListItem
+			mappedLPAQData.lpaq?.hasRepresentationsFromOtherParties?.display.summaryListItem,
+			mappedLPAQData.lpaq?.representations?.display.summaryListItem
 		]
 	};
 
@@ -203,15 +203,19 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 				text: '4. Planning officer’s report and supplementary documents'
 			}
 		},
-		rows: [mappedLPAQData.lpaQ?.officersReport?.display.summaryListItem]
+		rows: [mappedLPAQData.lpaq?.officersReport?.display.summaryListItem]
 	};
 
+	const neighbouringSitesSummaryListsKeys = Object.keys(mappedLPAQData.lpaq).filter(
+		(key) => key.indexOf('neighbouringSiteAddress') >= 0
+	);
+	/**
+	 * @type {(SummaryListRowProperties | undefined)[]}
+	 */
 	const neighbouringSitesSummaryLists = [];
-	if (mappedLPAQData.lpaQ.neighbouringSite && mappedLPAQData.lpaQ.neighbouringSite.length > 0) {
-		for (const site of mappedLPAQData.lpaQ.neighbouringSite) {
-			neighbouringSitesSummaryLists.push(site.display.summaryListItem);
-		}
-	}
+	neighbouringSitesSummaryListsKeys.forEach((key) =>
+		neighbouringSitesSummaryLists.push(mappedLPAQData.lpaq[key].display.summaryListItem)
+	);
 
 	const sectionFive = {
 		type: 'summary-list',
@@ -224,11 +228,11 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 			}
 		},
 		rows: [
-			mappedLPAQData.lpaQ?.siteAccess?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.isAffectingNeighbouringSites?.display.summaryListItem,
-			neighbouringSitesSummaryLists,
-			mappedLPAQData.lpaQ?.lpaHealthAndSafety?.display.summaryListItem
-		].flat()
+			mappedLPAQData.lpaq?.siteAccess?.display.summaryListItem,
+			mappedLPAQData.lpaq?.isAffectingNeighbouringSites?.display.summaryListItem,
+			...neighbouringSitesSummaryLists,
+			mappedLPAQData.lpaq?.lpaHealthAndSafety?.display.summaryListItem
+		]
 	};
 
 	const sectionSix = {
@@ -242,8 +246,8 @@ const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
 			}
 		},
 		rows: [
-			mappedLPAQData.lpaQ?.otherAppeals?.display.summaryListItem,
-			mappedLPAQData.lpaQ?.newConditions?.display.summaryListItem
+			mappedLPAQData.lpaq?.otherAppeals?.display.summaryListItem,
+			mappedLPAQData.lpaq?.newConditions?.display.summaryListItem
 		]
 	};
 

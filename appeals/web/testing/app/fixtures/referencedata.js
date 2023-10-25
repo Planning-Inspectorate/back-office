@@ -385,6 +385,33 @@ export const lpaQuestionnaireData = {
 	],
 	lpaQuestionnaireId: 2,
 	meetsOrExceedsThresholdOrCriteriaInColumn2: true,
+	neighbouringSiteContacts: [
+		{
+			address: {
+				addressLine1: '19 Beauchamp Road',
+				town: 'Bristol',
+				postCode: 'BS7 8LQ'
+			},
+			contactId: 103,
+			email: 'test5@example.com',
+			firstName: 'Ryan',
+			lastName: 'Marshall',
+			telephone: '01234567891'
+		},
+		{
+			address: {
+				addressLine1: '96 The Avenue',
+				addressLine2: 'Maidstone',
+				county: 'Kent',
+				postCode: 'MD21 5XY'
+			},
+			contactId: 104,
+			email: 'test9@example.com',
+			firstName: 'Eva',
+			lastName: 'Sharma',
+			telephone: '01234567891'
+		}
+	],
 	otherAppeals: [
 		{
 			appealId: 2,

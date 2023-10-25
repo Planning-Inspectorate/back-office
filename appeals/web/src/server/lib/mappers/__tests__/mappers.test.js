@@ -1,89 +1,66 @@
-import { appealData, baseSession } from '#testing/app/fixtures/referencedata.js';
+import {
+	appealData,
+	baseSession,
+	lpaQuestionnaireData
+} from '#testing/app/fixtures/referencedata.js';
 import { createAccountInfo } from '#testing/app/app.js';
 import { initialiseAndMapAppealData } from '../appeal.mapper.js';
+import { initialiseAndMapLPAQData } from '../lpaQuestionnaire.mapper.js';
+import { areIdsDefinedAndUnique } from '#testing/lib/testMappers.js';
 import {
 	buildNotificationBanners,
 	notificationBannerDefinitions
 } from '../notification-banners.mapper.js';
 
 /** @typedef {import('../../../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
+/** @typedef {import('../appeal.mapper.js').MappedAppealInstructions} MappedAppealInstructions */
+/** @typedef {import('../lpaQuestionnaire.mapper.js').MappedLPAQInstructions} MappedLPAQInstructions */
+/** @typedef  {import('../appeal.mapper.js').AppealInstructionCollection} AppealInstructionCollection*/
+/** @typedef {import('../lpaQuestionnaire.mapper.js').LPAQInstructionCollection} LPAQInstructionCollection */
 
 describe('appeal-mapper', () => {
+	/**
+	 * @type {string}
+	 */
+	let currentRoute;
+	/**
+	 * @type {SessionWithAuth}
+	 */
+	let session;
+	/**
+	 * @type {MappedAppealInstructions}
+	 */
+	let validMappedData;
+
 	describe('Test 1: Basic functionality', () => {
-		it('should return a valid MappedAppealInstructions object for valid inputs', async () => {
-			const currentRoute = 'testroute/';
-			/**
-			 * @type {SessionWithAuth}
-			 */
+		beforeAll(async () => {
+			currentRoute = 'testroute/';
 			// @ts-ignore
-			const session = { account: createAccountInfo() };
-			const mappedData = await initialiseAndMapAppealData(
+			session = { account: createAccountInfo() };
+			validMappedData = await initialiseAndMapAppealData(
 				{ appeal: appealData },
 				currentRoute,
 				session
 			);
-			const expectedInstructions = [
-				'appealType',
-				'caseProcedure',
-				'appellantName',
-				'agentName',
-				'linkedAppeals',
-				'otherAppeals',
-				'allocationDetails',
-				'lpaReference',
-				'decision',
-				'siteAddress',
-				'localPlanningAuthority',
-				'appealStatus',
-				'lpaInspectorAccess',
-				'appellantInspectorAccess',
-				'neighbouringSiteIsAffected',
-				'neighbouringSite',
-				'lpaHealthAndSafety',
-				'appellantHealthAndSafety',
-				'visitType',
-				'startedAt',
-				'lpaQuestionnaireDueDate',
-				'statementReviewDueDate',
-				'finalCommentReviewDueDate',
-				'siteVisitDate',
-				'caseOfficer',
-				'inspector',
-				'appellantCase',
-				'lpaQuestionnaire',
-				'issueDeterminationDate',
-				'completeDate'
-			];
-			expect(mappedData).toBeDefined();
-			expect(Object.keys(mappedData.appeal)).toEqual(expectedInstructions);
+		});
+
+		it('should return a valid MappedAppealInstructions object for valid inputs', async () => {
+			expect(validMappedData).toBeDefined();
 		});
 		it('should throw an error when data is undefined', async () => {
-			const currentRoute = 'testroute/';
-			/**
-			 * @type {SessionWithAuth}
-			 */
-			// @ts-ignore
-			const session = { account: createAccountInfo() };
 			await expect(initialiseAndMapAppealData(undefined, currentRoute, session)).rejects.toThrow();
+		});
+		it('should have an id that is unique', async () => {
+			const idsAreUnique = areIdsDefinedAndUnique(validMappedData.appeal);
+			expect(idsAreUnique).toBe(true);
 		});
 	});
 	describe('Test 2: Value transformation', () => {
 		it('should format dates using UK format', async () => {
-			const currentRoute = 'testroute/';
-			/**
-			 * @type {SessionWithAuth}
-			 */
-			// @ts-ignore
-			const session = { account: createAccountInfo() };
-			const mappedData = await initialiseAndMapAppealData(
-				{ appeal: appealData },
-				currentRoute,
-				session
-			);
 			const preFormattedDate = appealData.appealTimetable.lpaQuestionnaireDueDate;
 			const mappedDateHtml =
 				// @ts-ignore
-				mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem?.value.html;
+				validMappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem?.value.html;
 
 			// Check date is the same after being formatted
 			expect(new Date(mappedDateHtml).getDate()).toEqual(new Date(preFormattedDate).getDate());
@@ -105,6 +82,52 @@ describe('appeal-mapper', () => {
 			}
 
 			expect(isDateInCorrectFormat(mappedDateHtml)).toBe(true);
+		});
+		it('should create as many neighbouringSiteAddress objects as there are in the appealData', async () => {
+			const neighbouringSitesSummaryListsKeys = Object.keys(validMappedData.appeal).filter(
+				(key) => key.indexOf('neighbouringSiteAddress') >= 0
+			);
+
+			expect(neighbouringSitesSummaryListsKeys.length).toEqual(
+				appealData.neighbouringSite.contacts.length
+			);
+		});
+	});
+});
+
+describe('lpaQuestionnaire-mapper', () => {
+	/**
+	 * @type {string}
+	 */
+	let currentRoute;
+	/**
+	 * @type {MappedLPAQInstructions}
+	 */
+	let validMappedData;
+	beforeAll(async () => {
+		currentRoute = 'testroute/';
+		validMappedData = await initialiseAndMapLPAQData({ lpaq: lpaQuestionnaireData }, currentRoute);
+	});
+	describe('Test 1: Basic functionality', () => {
+		it('should return a valid MappedLPAQInstructions object for valid inputs', async () => {
+			expect(validMappedData).toBeDefined();
+		});
+		it('should throw an error when data is undefined', async () => {
+			await expect(initialiseAndMapLPAQData(undefined, currentRoute)).rejects.toThrow();
+		});
+		it('should have an id that is unique', async () => {
+			expect(areIdsDefinedAndUnique(validMappedData.lpaq)).toBe(true);
+		});
+	});
+	describe('Test 2: Value transformation', () => {
+		it('should create as many neighbouringSiteAddress objects as there are in the appealData', async () => {
+			const neighbouringSitesSummaryListsKeys = Object.keys(validMappedData.lpaq).filter(
+				(key) => key.indexOf('neighbouringSiteAddress') >= 0
+			);
+
+			expect(neighbouringSitesSummaryListsKeys.length).toEqual(
+				lpaQuestionnaireData.neighbouringSiteContacts.length
+			);
 		});
 	});
 });

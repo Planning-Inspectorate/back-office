@@ -2,7 +2,7 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% macro documentUploadInfo(params) %}
-  {{ 
+  {{
     govukInsetText({
       text: "File size should be no more than 15MB"
     })
@@ -18,7 +18,7 @@
 {% macro fileFormatDetails() %}
   <p class="govuk-body">Your file must be in one of the following formats:</p>
   <ul class="govuk-list govuk-list--bullet">
-    {% for extname in[
+    {% for extname in [
       'pdf',
       'doc',
       'docx',
