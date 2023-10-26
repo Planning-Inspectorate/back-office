@@ -5,7 +5,12 @@ import * as displayPageFormatter from '#lib/display-page-formatter.js';
 import usersService from '../../appeals/appeal-users/users-service.js';
 import config from '#environment/config.js';
 import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
-import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter.js';
+import {
+	conditionalFormatter,
+	dateAndTimeFormatter,
+	mapAddressInput
+} from './global-mapper-formatter.js';
+import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
 
 // TODO: Limit the input types to constants
 /**
@@ -994,7 +999,12 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Site visit'
 				},
 				value: {
-					html: dateToDisplayDate(data.appeal.siteVisit?.visitDate) || 'Visit date not yet set'
+					html:
+						dateAndTimeFormatter(
+							dateToDisplayDate(data.appeal.siteVisit?.visitDate),
+							convert24hTo12hTimeStringFormat(data.appeal.siteVisit?.visitStartTime),
+							convert24hTo12hTimeStringFormat(data.appeal.siteVisit?.visitEndTime)
+						) || 'Visit date not yet set'
 				},
 				actions: {
 					items: [
