@@ -1,4 +1,5 @@
 import { validateHTML } from '../validate-html.js';
+import { TEST_HTML } from '../__files__/test-document.js';
 
 describe('HTML validation', () => {
 	test('does not throw for a YouTube iframe', async () => {
@@ -35,5 +36,9 @@ describe('HTML validation', () => {
     `;
 
 		await expect(() => validateHTML(html)).not.toThrow();
+	});
+
+	test('does not throw for a real HTML example', async () => {
+		await expect(() => validateHTML(TEST_HTML)).not.toThrow();
 	});
 });

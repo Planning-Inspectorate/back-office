@@ -29,17 +29,21 @@ const sanitizeOptions = {
 		html: ['lang'],
 		meta: ['charset', 'name', 'content'],
 		link: ['rel', 'type', 'media', 'href'],
-		a: ['href', 'title', 'rel', 'target'],
+		a: ['href', 'title', 'rel', 'target', 'class'],
 		iframe: ['width', 'height', 'src', 'frameborder', 'allow', 'allowfullscreen'],
 		img: ['class', 'alt', 'src'],
-		div: ['style', 'id', 'class'],
+		div: ['style', 'id', 'class', 'role'],
 		body: ['class'],
 		footer: ['id', 'role'],
-		aside: ['id', 'class']
+		aside: ['id', 'class', 'role'],
+		header: ['id', 'class', 'role'],
+		h1: ['id'],
+		span: ['style']
 	},
 	allowedSchemes: ['https'], // only https allowed because of the iframe source
 	allowedSchemesByTag: { iframe: ['https'] },
-	allowedIframeHostnames: ['www.youtube.com']
+	allowedIframeHostnames: ['www.youtube.com'],
+	nonBooleanAttributes: []
 };
 
 /**
