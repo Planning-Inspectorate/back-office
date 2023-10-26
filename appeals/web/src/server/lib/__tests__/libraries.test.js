@@ -24,7 +24,11 @@ import {
 	mapReasonsToReasonsList,
 	getNotValidReasonsTextFromRequestBody
 } from '../mappers/validation-outcome-reasons.mapper.js';
-import { timeIsBeforeTime } from '#lib/times.js';
+import {
+	timeIsBeforeTime,
+	convert24hTo12hTimeStringFormat,
+	is24HourTimeValid
+} from '#lib/times.js';
 import { appellantCaseInvalidReasons, baseSession } from '#testing/app/fixtures/referencedata.js';
 import { stringContainsDigitsOnly } from '#lib/string-utilities.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
@@ -399,6 +403,67 @@ describe('Libraries', () => {
 				const gmtDate = displayDate(date);
 
 				expect(gmtDate).toEqual('29 October 2023');
+			});
+		});
+		describe('convert24hTo12hTimeFormat', () => {
+			it('should take a valid 24h timestring and convert it to a 12h timestring', () => {
+				const validTimes = [
+					{
+						input: '00:00',
+						expectedOutput: '12am'
+					},
+					{
+						input: '00:01',
+						expectedOutput: '12:01am'
+					},
+					{
+						input: '06:12',
+						expectedOutput: '6:12am'
+					},
+					{
+						input: '6:12',
+						expectedOutput: '6:12am'
+					},
+					{
+						input: '6:2',
+						expectedOutput: '6:02am'
+					},
+					{
+						input: '12:00',
+						expectedOutput: '12pm'
+					},
+					{
+						input: '16:30',
+						expectedOutput: '4:30pm'
+					}
+				];
+				for (const set of validTimes) {
+					expect(convert24hTo12hTimeStringFormat(set.input)).toBe(set.expectedOutput);
+				}
+			});
+			it('should return an undefined value if the input is undefined or null', () => {
+				expect(convert24hTo12hTimeStringFormat(undefined)).toBe(undefined);
+				expect(convert24hTo12hTimeStringFormat(null)).toBe(undefined);
+			});
+			it('should return undefined for invalid 24h time', () => {
+				expect(convert24hTo12hTimeStringFormat('25:00')).toBe(undefined);
+				expect(convert24hTo12hTimeStringFormat('21:00:00')).toBe(undefined);
+				expect(convert24hTo12hTimeStringFormat('12:60')).toBe(undefined);
+				expect(convert24hTo12hTimeStringFormat('1200')).toBe(undefined);
+			});
+		});
+		describe('is24HoursTimeValid', () => {
+			it('should return true for valid times', () => {
+				const validTimes = ['00:00', '06:12', '6:12', '12:00', '16:30'];
+				for (const set of validTimes) {
+					expect(is24HourTimeValid(set)).toBe(true);
+				}
+			});
+			it('should return false for invalid times', () => {
+				const validTimes = ['0000', '26:12', '24:00', '13:60', '16:30:00'];
+				for (const set of validTimes) {
+					expect(is24HourTimeValid(set)).toBe(false);
+				}
 			});
 		});
 	});
