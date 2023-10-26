@@ -24,7 +24,7 @@ describe('Update Project Information', () => {
 	context('As Inspector', () => {
 		let projectInfo = projectInformation();
 
-		before(() => {
+		beforeEach(() => {
 			cy.login(applicationsUsers.caseAdmin);
 			createCasePage.createCase(projectInfo);
 		});
@@ -46,7 +46,7 @@ describe('Update Project Information', () => {
 		let projectInfo = projectInformation();
 		let projectInfoNew = projectInformation();
 
-		before(() => {
+		beforeEach(() => {
 			cy.login(applicationsUsers.caseTeam);
 			createCasePage.createCase(projectInfo, true);
 		});
@@ -76,7 +76,7 @@ describe('Update Project Information', () => {
 		let projectInfo = projectInformation();
 		let projectInfoNew = projectInformation();
 
-		before(() => {
+		beforeEach(() => {
 			cy.login(applicationsUsers.caseAdmin);
 			createCasePage.createCase(projectInfo, true);
 		});

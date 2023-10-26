@@ -18,7 +18,7 @@ const { applications: applicationsUsers } = users;
 describe('Document Upload', () => {
 	let projectInfo;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);

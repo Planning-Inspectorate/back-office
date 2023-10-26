@@ -24,13 +24,16 @@ describe('Document Properties', () => {
 	let projectInfo;
 	let caseRef;
 
-	before(() => {
+	/*before(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
-	});
+	});*/
 
 	beforeEach(() => {
+		projectInfo = projectInformation();
+		cy.login(applicationsUsers.caseAdmin);
+		createCasePage.createCase(projectInfo);
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');

@@ -40,12 +40,14 @@ describe('Examination Timetable Errors', () => {
 	let projectInfo = projectInformation();
 	let caseRef;
 
-	before(() => {
+	/* before(() => {
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
-	});
+	});*/
 
 	beforeEach(() => {
+		cy.login(applicationsUsers.caseAdmin);
+		createCasePage.createCase(projectInfo);
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);

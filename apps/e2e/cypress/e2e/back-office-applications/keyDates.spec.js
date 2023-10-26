@@ -24,7 +24,7 @@ describe('Update Key Dates', () => {
 	context('As Case Team Admin', () => {
 		let projectInfo = projectInformation();
 
-		before(() => {
+		beforeEach(() => {
 			cy.login(applicationsUsers.caseAdmin);
 			createCasePage.createCase(projectInfo, true);
 		});
