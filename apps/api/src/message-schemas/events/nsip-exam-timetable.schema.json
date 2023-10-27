@@ -4,12 +4,16 @@
 	"title": "Examination Timetable",
 	"description": "Examination Timetable for an NSIP Project",
 	"type": "object",
-	"required": [],
+	"required": ["examinationTimetableId", "caseReference", "events"],
 	"properties": {
 		"examinationTimetableId": {
 			"type": "number",
 			"examples": [1242],
 			"description": "Unique ID of NSIP Case Examination Timetable"
+		},
+		"caseReference": {
+			"type": "string",
+			"description": "Unique string reference of the associated Case"
 		},
 		"events": {
 			"type": "array",
