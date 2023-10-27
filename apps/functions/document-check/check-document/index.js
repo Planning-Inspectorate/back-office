@@ -48,21 +48,18 @@ export const index = async (context, eventGridEvent) => {
 	}
 
 	const blobInfo = await getBlobProperties(storageUrl, container, blobPath);
-	if (blobInfo.contentType !== 'text/html') {
-		await handleNotInfected(context, guid);
-		return;
-	}
+	if (blobInfo.contentType === 'text/html') {
+		// Need to re-fetch the blob stream as checkMyBlob will consume its data
+		const blobStream2 = await getBlobStream(storageUrl, container, blobPath);
 
-	// Need to re-fetch the blob stream as checkMyBlob will consume its data
-	const blobStream2 = await getBlobStream(storageUrl, container, blobPath);
-
-	const html = await readStreamToString(blobStream2);
-	try {
-		validateHTML(html);
-	} catch (err) {
-		context.log.error(err);
-		await handleInvalidHTML(context, guid);
-		return;
+		const html = await readStreamToString(blobStream2);
+		try {
+			validateHTML(html);
+		} catch (err) {
+			context.log.error(err);
+			await handleInvalidHTML(context, guid);
+			return;
+		}
 	}
 
 	await handleNotInfected(context, guid);
