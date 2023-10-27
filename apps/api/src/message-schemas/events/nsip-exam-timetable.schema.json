@@ -76,10 +76,7 @@
 			"type": "object",
 			"required": ["description"],
 			"properties": {
-				"eventLineItemId": {
-					"type": "number"
-				},
-				"eventLineItemDescription": {
+				"description": {
 					"type": "string"
 				}
 			}
