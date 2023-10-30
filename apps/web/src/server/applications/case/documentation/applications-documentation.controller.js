@@ -369,11 +369,11 @@ export async function removeApplicationsCaseDocumentationPublishingQueue(request
 }
 
 /**
- * Handle unpublishing a document
+ * Handle unpublishing multiple documents
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {documentGuids: string[]}, {}, {}>}
  * */
-export async function postUnpublishDocuments({ body }, response) {
+export async function postUnpublishDocuments({ body, session }, response) {
 	const { documentGuids } = body;
 	const { caseId } = response.locals;
 
@@ -388,7 +388,12 @@ export async function postUnpublishDocuments({ body }, response) {
 		});
 	}
 
+	const backLinkFolder = getSessionFolderPage(session) ?? '';
+	const backlinkFolderId = getFolderIdFromFolderPath(backLinkFolder);
+	const backlinkFolderBreadcrumbItems = await buildBreadcrumbItems(caseId, backlinkFolderId);
+
 	return response.render('applications/case-documentation/documentation-success-banner', {
+		breadcrumbItems: backlinkFolderBreadcrumbItems,
 		serviceName: 'Document/s successfully unpublished',
 		selectedPageType: 'documentation-unpublish-success',
 		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${response.locals.case.reference}</p>`,
