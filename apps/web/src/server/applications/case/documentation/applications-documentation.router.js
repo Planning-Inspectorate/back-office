@@ -61,7 +61,8 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/unpublish')
-	.get(asyncRoute(controller.viewApplicationsCaseDocumentationUnpublishSinglePage));
+	.get(asyncRoute(controller.viewApplicationsCaseDocumentationUnpublishSinglePage))
+	.post(asyncRoute(controller.postUnpublishDocuments));
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folders/upload')
