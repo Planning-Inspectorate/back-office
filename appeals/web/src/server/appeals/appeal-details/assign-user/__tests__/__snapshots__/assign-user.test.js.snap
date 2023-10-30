@@ -822,7 +822,12 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
-                            <dd class="govuk-summary-list__value">9 October 2023</dd>
+                            <dd class="govuk-summary-list__value">
+                                <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
+                                    <li>9 October 2023</li>
+                                    <li>9:38am - 10:44am</li>
+                                </ul>
+                            </dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
                             </dd>
                         </div>
@@ -1290,7 +1295,12 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
-                            <dd class="govuk-summary-list__value">9 October 2023</dd>
+                            <dd class="govuk-summary-list__value">
+                                <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
+                                    <li>9 October 2023</li>
+                                    <li>9:38am - 10:44am</li>
+                                </ul>
+                            </dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
                             </dd>
                         </div>
@@ -1619,7 +1629,12 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
-                            <dd class="govuk-summary-list__value">9 October 2023</dd>
+                            <dd class="govuk-summary-list__value">
+                                <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
+                                    <li>9 October 2023</li>
+                                    <li>9:38am - 10:44am</li>
+                                </ul>
+                            </dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
                             </dd>
                         </div>
@@ -1948,7 +1963,12 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
-                            <dd class="govuk-summary-list__value">9 October 2023</dd>
+                            <dd class="govuk-summary-list__value">
+                                <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
+                                    <li>9 October 2023</li>
+                                    <li>9:38am - 10:44am</li>
+                                </ul>
+                            </dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
                             </dd>
                         </div>

@@ -96,3 +96,14 @@ export function conditionalFormatter(id, name, hint, details, type = 'textarea')
 	  </div>`
 	};
 }
+
+/**
+ * @param {string} date
+ * @param {string} [startTime]
+ * @param {string} [endTime]
+ */
+export function dateAndTimeFormatter(date, startTime, endTime) {
+	const to = endTime ? ` - ${endTime}` : '';
+	const fromToListItem = startTime ? `<li>${startTime}${to}</li>` : '';
+	return `<ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0"><li>${date}</li>${fromToListItem}</ul>`;
+}

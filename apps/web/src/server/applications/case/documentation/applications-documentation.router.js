@@ -60,6 +60,10 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/unpublish')
+	.get(asyncRoute(controller.viewApplicationsCaseDocumentationUnpublishSinglePage));
+
+applicationsDocumentationRouter
 	.route('/:folderId/:folders/upload')
 	.get(
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
