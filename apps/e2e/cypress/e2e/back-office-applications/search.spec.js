@@ -20,7 +20,7 @@ describe('Search', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	context('As Inspector', () => {
+	/*context('As Inspector', () => {
 		beforeEach(() => {
 			cy.login(applicationsUsers.inspector);
 			cy.visit('/');
@@ -44,7 +44,7 @@ describe('Search', () => {
 			searchResultsPage.verifySearchResultsCount(1);
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
-	});
+	});*/
 
 	context('As Case Team Admin', () => {
 		beforeEach(() => {

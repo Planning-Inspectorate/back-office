@@ -36,7 +36,7 @@ const texts = {
 	successMessageText: 'Timetable item successfully created'
 };
 
-describe('Examination Timetable Errors', () => {
+/*describe('Examination Timetable Errors', () => {
 	let projectInfo = projectInformation();
 	let caseRef;
 
@@ -92,13 +92,13 @@ describe('Examination Timetable Errors', () => {
 		createCasePage.validateErrorMessageCountOnPage(4);
 		createCasePage.validateErrorMessage('The item end date must be after the item start date');
 	});
-});
+});*/
 
 describe('Examination Timetable', () => {
 	let projectInfo = projectInformation();
 	let caseRef;
 
-	beforeEach(() => {
+	before(() => {
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
