@@ -1,7 +1,6 @@
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_EXAM_TIMETABLE } from '#infrastructure/topics.js';
 import * as examinationTimetableRepository from '../../repositories/examination-timetable.repository.js';
-import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as folderRepository from '../../repositories/folder.repository.js';
@@ -10,7 +9,7 @@ import { EventType } from '@pins/event-client';
 
 /**
  * @typedef {import('../../../message-schemas/events/nsip-exam-timetable.js').NSIPExamTimetableItem} NSIPExamTimetableItem
- * @typedef {import('../../../message-schemas/events/nsip-exam-timetable.js').NSIPExamTimetableItemDescriptionLineItem} NSIPExamTimetableItemDescriptionLineItem
+ * @typedef {import('../../../message-schemas/events/nsip-exam-timetable.js').NSIPExamTimetable} NSIPExamTimetable
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
  */
 
@@ -19,7 +18,7 @@ import { EventType } from '@pins/event-client';
  * NSIPExamTimetableItemDescriptionLineItem array.
  *
  * @param {import('@prisma/client').ExaminationTimetableItem} examinationTimetableItem
- * @returns { { description: string, eventLineItems: NSIPExamTimetableItemDescriptionLineItem[] } }
+ * @returns { { description: string, eventLineItems: { description: string }[] } }
  */
 function extractDescriptionAndLineItems(examinationTimetableItem) {
 	if (!examinationTimetableItem.description) {
@@ -29,18 +28,12 @@ function extractDescriptionAndLineItems(examinationTimetableItem) {
 		};
 	}
 
+	/** @type {{ preText: string, bulletPoints: string[] }} */
 	const parsedDescription = JSON.parse(examinationTimetableItem.description);
-
-	// The event line items are the bullet points that are added to the description. They are different from ExaminationTimetableItems.
-	const eventLineItems = parsedDescription.bulletPoints.map((/** @type {string} */ bulletPoint) => {
-		return {
-			eventLineItemDescription: bulletPoint
-		};
-	});
 
 	return {
 		description: parsedDescription.preText,
-		eventLineItems
+		eventLineItems: parsedDescription.bulletPoints.map((bp) => ({ description: bp }))
 	};
 }
 
@@ -48,24 +41,34 @@ function extractDescriptionAndLineItems(examinationTimetableItem) {
  * Returns the payload containing all the examination timetable items.
  *
  * @param {number} examinationTimetableId
- * @returns { Promise<NSIPExamTimetableItem[]> }
+ * @returns { Promise<NSIPExamTimetable | null> }
  */
 async function buildExamTimetableItemsPayload(examinationTimetableId) {
-	const examinationTimetableItems =
-		await examinationTimetableItemsRepository.getByExaminationTimetableId(examinationTimetableId);
-
-	if (!examinationTimetableItems) {
-		return [];
+	const examinationTimetable = await examinationTimetableRepository.getWithItems(
+		examinationTimetableId
+	);
+	if (!examinationTimetable) {
+		return null;
 	}
 
-	return examinationTimetableItems?.map(buildSingleExaminationTimetableItemPayload) ?? [];
+	if (!examinationTimetable.case?.reference) {
+		throw new Error(`'reference' was undefined for case with ID ${examinationTimetable.caseId}`);
+	}
+
+	return {
+		caseReference: examinationTimetable.case.reference,
+		events:
+			examinationTimetable.ExaminationTimetableItem?.map(
+				buildSingleExaminationTimetableItemPayload
+			) ?? []
+	};
 }
 
 /**
  * Returns a single examination timetable item to add to the full payload.
  *
  * @param {import('@prisma/client').ExaminationTimetableItem} examinationTimetableItem
- * @returns NSIPExamTimetableItem
+ * @returns {NSIPExamTimetableItem}
  */
 function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
 	const { description, eventLineItems } = extractDescriptionAndLineItems(examinationTimetableItem);
@@ -90,8 +93,10 @@ function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
  * @returns {Promise<void>}
  */
 export async function publish(id) {
-	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(id);
-	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Publish);
+	const examTimetablePayload = await buildExamTimetableItemsPayload(id);
+	if (examTimetablePayload) {
+		await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, [examTimetablePayload], EventType.Publish);
+	}
 
 	const now = new Date();
 	await examinationTimetableRepository.update(id, {
@@ -109,8 +114,11 @@ export async function publish(id) {
  * @returns {Promise<void>}
  */
 export async function unPublish(id) {
-	const examTimetableItemsPayload = await buildExamTimetableItemsPayload(id);
-	await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, examTimetableItemsPayload, EventType.Unpublish);
+	const examTimetablePayload = await buildExamTimetableItemsPayload(id);
+	if (examTimetablePayload) {
+		await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, [examTimetablePayload], EventType.Unpublish);
+	}
+
 	await examinationTimetableRepository.update(id, {
 		published: false
 	});
@@ -186,7 +194,6 @@ export const createDeadlineSubFolders = async (
  *
  * @param {Number} caseId
  * @param {Number} parentFolderId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.BatchPayload>}
  */
 export const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 	const subFolders = await folderRepository.getByCaseId(caseId, parentFolderId);
@@ -195,7 +202,7 @@ export const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 		return;
 	}
 
-	const idsToDelete = subFolders.map(folder => folder.id);
+	const idsToDelete = subFolders.map((folder) => folder.id);
 	await folderRepository.deleteFolderMany(idsToDelete);
 	logger.info(`Sub folders deleted successfully in folder: ${parentFolderId}`);
 };
