@@ -95,6 +95,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-updates/create`;
 		case 'project-updates-step':
 			return `${domainUrl}/case/${caseId}/project-updates/${projectUpdateId}/${step}`;
+		case 'project-team':
+			return `${domainUrl}/case/${caseId}/project-team/${step}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 's51-create':
@@ -112,7 +114,7 @@ export const url = (key, filterArguments = {}) => {
 		case 's51-queue-remove':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/publishing-queue/remove/${adviceId}`;
 		case 's51-unpublish':
-				return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/unpublish/${adviceId}`;
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/s51-advice/unpublish/${adviceId}`;
 		case 'timetable':
 			return `${domainUrl}/case/${caseId}/examination-timetable/${step}`;
 		case 'timetable-item':
