@@ -1,6 +1,20 @@
 import { databaseConnector } from '../utils/database-connector.js';
 
 /**
+ * @param {number} id
+ * @returns {import('apps/api/src/database/schema.js').ExaminationTimetableWithItems}
+ * */
+export const getWithItems = (id) => {
+	return databaseConnector.examinationTimetable.findUnique({
+		where: { id },
+		include: {
+			ExaminationTimetableItem: true,
+			case: true
+		}
+	});
+};
+
+/**
  *
  * @param {number} caseId
  * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetable | null>}
