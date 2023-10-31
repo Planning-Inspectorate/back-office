@@ -1,0 +1,49 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% set serviceName = "Project team" %}
+{% set pageTitle = "Search for a team member" %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+		text: "Back to Project team",
+		href: 'project-team'|url({caseId: caseId })
+	}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+		{{ pageTitle }}
+	</h1>
+
+	<form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
+		<div class="govuk-grid-column-full display--flex govuk-grid-row">
+
+			{{ govukInput({
+  				label: {
+				text: "Search by name or email address",
+				classes: "govuk-hint colour--secondary"
+				},
+				formGroup: {
+				classes: 'govuk-grid-column-two-thirds'
+				},
+				id: "query",
+				name: "query"
+			}) }}
+
+			{{ govukButton({ text: 'Search', classes: 'govuk-!-margin-top-6'}) }}
+		</div>
+	</form>
+{% endblock %}
