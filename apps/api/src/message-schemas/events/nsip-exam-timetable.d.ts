@@ -2,11 +2,6 @@
  * nsip-exam-timetable schema for use in code
  */
 
-export interface NSIPExamTimetableItemDescriptionLineItem {
-	eventLineItemId?: number;
-	eventLineItemDescription: string;
-}
-
 export interface NSIPExamTimetableItem {
 	eventId?: number;
 	type:
@@ -26,5 +21,10 @@ export interface NSIPExamTimetableItem {
 	description: string;
 	eventDeadlineStartDate?: string;
 	date: string;
-	eventLineItems?: NSIPExamTimetableItemDescriptionLineItem[];
+	eventLineItems?: { description: string }[];
+}
+
+export interface NSIPExamTimetable {
+	caseReference: string;
+	events: NSIPExamTimetableItem;
 }

@@ -37,7 +37,7 @@ describe('publish-valid-representations', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Publish documents');
+				expect(element.innerHTML).toContain('Publish representations');
 			});
 		});
 
@@ -55,7 +55,7 @@ describe('publish-valid-representations', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).not.toContain('Publish documents');
+				expect(element.innerHTML).not.toContain('Publish representations');
 			});
 		});
 	});

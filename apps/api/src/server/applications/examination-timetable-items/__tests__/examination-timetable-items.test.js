@@ -182,87 +182,61 @@ const publishExaminationTimetableItemsData = [
 	}
 ];
 
-const expectedPublishExaminationTimetableItemsPayload = [
-	{
-		date: '2022-01-01T00:00:00.000',
-		description: 'Some description',
-		eventDeadlineStartDate: undefined,
-		eventId: 1,
-		eventLineItems: [
-			{
-				eventLineItemDescription: 'Line item 1'
-			},
-			{
-				eventLineItemDescription: 'Line item 2'
-			},
-			{
-				eventLineItemDescription: 'Line item 3'
-			}
-		],
-		eventTitle: 'My timetable',
-		type: 'Accompanied Site Inspection'
-	},
-	{
-		date: '2023-06-20T00:00:00.000',
-		description: 'Description',
-		eventDeadlineStartDate: '2022-12-12T00:00:00.000',
-		eventId: 2,
-		eventLineItems: [
-			{
-				eventLineItemDescription: 'Line item 1'
-			},
-			{
-				eventLineItemDescription: 'Line item 2'
-			}
-		],
-		eventTitle: 'Test deadline',
-		type: 'Deadline'
-	},
-	{
-		date: '2023-06-20T00:00:00.000',
-		description: 'Description',
-		eventDeadlineStartDate: '2022-12-12T00:00:00.000',
-		eventId: 3,
-		eventLineItems: [
-			{
-				eventLineItemDescription: 'Line item 1'
-			},
-			{
-				eventLineItemDescription: 'Line item 2'
-			},
-			{
-				eventLineItemDescription: 'Line item 3'
-			},
-			{
-				eventLineItemDescription: 'Line item 4'
-			}
-		],
-		eventTitle: 'Deadline For Close Of Examination',
-		type: 'Deadline For Close Of Examination'
-	},
-	{
-		date: '2023-06-20T00:00:00.000',
-		description: 'Description',
-		eventDeadlineStartDate: '2022-12-12T00:00:00.000',
-		eventId: 4,
-		eventLineItems: [
-			{
-				eventLineItemDescription: 'Line item 1'
-			},
-			{
-				eventLineItemDescription: 'Line item 2'
-			},
-			{
-				eventLineItemDescription: 'Line item 3'
-			},
-			{
-				eventLineItemDescription: 'Line item 4'
-			}
-		],
-		eventTitle: 'Preliminary Meeting',
-		type: 'Preliminary Meeting'
-	}
-];
+const expectedPublishExaminationTimetablePayload = {
+	caseReference: 'REF-ID-1',
+	events: [
+		{
+			date: '2022-01-01T00:00:00.000',
+			description: 'Some description',
+			eventDeadlineStartDate: undefined,
+			eventId: 1,
+			eventLineItems: [
+				{ description: 'Line item 1' },
+				{ description: 'Line item 2' },
+				{ description: 'Line item 3' }
+			],
+			eventTitle: 'My timetable',
+			type: 'Accompanied Site Inspection'
+		},
+		{
+			date: '2023-06-20T00:00:00.000',
+			description: 'Description',
+			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+			eventId: 2,
+			eventLineItems: [{ description: 'Line item 1' }, { description: 'Line item 2' }],
+			eventTitle: 'Test deadline',
+			type: 'Deadline'
+		},
+		{
+			date: '2023-06-20T00:00:00.000',
+			description: 'Description',
+			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+			eventId: 3,
+			eventLineItems: [
+				{ description: 'Line item 1' },
+				{ description: 'Line item 2' },
+				{ description: 'Line item 3' },
+				{ description: 'Line item 4' }
+			],
+			eventTitle: 'Deadline For Close Of Examination',
+			type: 'Deadline For Close Of Examination'
+		},
+		{
+			date: '2023-06-20T00:00:00.000',
+			description: 'Description',
+			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+			eventId: 4,
+			eventLineItems: [
+				{ description: 'Line item 1' },
+				{ description: 'Line item 2' },
+				{ description: 'Line item 3' },
+				{ description: 'Line item 4' }
+			],
+			eventTitle: 'Preliminary Meeting',
+			type: 'Preliminary Meeting'
+		}
+	]
+};
 
 describe('Test examination timetable items API', () => {
 	afterEach(() => {
@@ -421,14 +395,15 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('publish examination timetable item publishes examination items for the case', async () => {
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 123 });
-		databaseConnector.examinationTimetable.findUnique.mockResolvedValueOnce({ id: 123 });
+		databaseConnector.case.findUnique.mockResolvedValueOnce({});
+
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue({
+			id: 1,
+			ExaminationTimetableItem: publishExaminationTimetableItemsData,
+			case: { id: 123, reference: 'REF-ID-1' }
+		});
 
 		databaseConnector.examinationTimetable.update.mockResolvedValueOnce({ id: 123 });
-
-		databaseConnector.examinationTimetableItem.findMany.mockResolvedValueOnce(
-			publishExaminationTimetableItemsData
-		);
 
 		const resp = await request
 			.patch('/applications/examination-timetable-items/publish/123')
@@ -436,14 +411,14 @@ describe('Test examination timetable items API', () => {
 
 		expect(databaseConnector.examinationTimetable.update).toHaveBeenCalledWith({
 			where: {
-				id: 123
+				id: 1
 			},
 			data: { published: true, publishedAt: expect.any(Date), updatedAt: expect.any(Date) }
 		});
 
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_EXAM_TIMETABLE,
-			expectedPublishExaminationTimetableItemsPayload,
+			[expectedPublishExaminationTimetablePayload],
 			EventType.Publish
 		);
 
@@ -459,9 +434,14 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('unpublish examination timetable item unpublishes examination items for the case', async () => {
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 123 });
+		databaseConnector.case.findUnique.mockResolvedValueOnce({});
+
 		databaseConnector.examinationTimetable.update.mockResolvedValueOnce({ id: 123 });
-		databaseConnector.examinationTimetable.findUnique.mockResolvedValueOnce({ id: 123 });
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue({
+			id: 1,
+			ExaminationTimetableItem: publishExaminationTimetableItemsData,
+			case: { id: 1, reference: 'REF-ID-1' }
+		});
 		databaseConnector.examinationTimetableItem.findMany.mockResolvedValueOnce(
 			publishExaminationTimetableItemsData
 		);
@@ -470,14 +450,14 @@ describe('Test examination timetable items API', () => {
 			.send({});
 		expect(databaseConnector.examinationTimetable.update).toHaveBeenCalledWith({
 			where: {
-				id: 123
+				id: 1
 			},
 			data: { published: false }
 		});
 
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_EXAM_TIMETABLE,
-			expectedPublishExaminationTimetableItemsPayload,
+			[expectedPublishExaminationTimetablePayload],
 			EventType.Unpublish
 		);
 
