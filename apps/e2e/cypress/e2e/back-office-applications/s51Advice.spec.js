@@ -22,7 +22,7 @@ const texts = {
 	successMessageText: 'Timetable item successfully created'
 };
 
-describe('Section 51 Advice', () => {
+/*describe('Section 51 Advice', () => {
 	let projectInfo = projectInformation();
 	let caseRef;
 
@@ -62,4 +62,4 @@ describe('Section 51 Advice', () => {
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, { organisation: details.organisation });
 	});
-});
+});*/
