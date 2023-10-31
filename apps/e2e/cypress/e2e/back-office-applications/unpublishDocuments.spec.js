@@ -29,6 +29,7 @@ describe('Document Upload', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
+//Tests are running locally fine but in CI/CD some of the tests are failing due to this some of the tests are commented for time being
 
 /*	it('Case Team Admin user should be able to upload, publish and unpublish the document to a case', () => {
 		cy.login(applicationUsers.caseAdmin);
