@@ -222,6 +222,37 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 
 /**
  *
+ * @param {{caseId: number, skipValue: number, pageSize: number, documentVersion?: number}} caseId
+ * @returns {import('@prisma/client').PrismaPromise<Document[]>}
+ */
+export const getDocumentsInCase = ({ caseId, skipValue, pageSize, documentVersion = 1 }) => {
+	return databaseConnector.document.findMany({
+		include: {
+			documentVersion: true,
+			latestDocumentVersion: true,
+			folder: true
+		},
+		skip: skipValue,
+		take: pageSize,
+		orderBy: [
+			{
+				createdAt: 'desc'
+			}
+		],
+		where: {
+			caseId,
+			documentVersion: {
+				some: {
+					version: documentVersion
+				}
+			},
+			isDeleted: false
+		}
+	});
+};
+
+/**
+ *
  * @param {number} folderId
  *  @returns {import('@prisma/client').PrismaPromise<number>}
  */
@@ -294,6 +325,26 @@ export const updateDocumentStatus = ({ guid, status }) => {
 export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => {
 	/** @type {{folderId: number, isDeleted?:boolean}} */
 	const where = { folderId };
+
+	if (!getAllDocuments) {
+		where.isDeleted = false;
+	}
+
+	return databaseConnector.document.count({
+		where
+	});
+};
+
+/**
+ * Returns total number of documents in a case
+ *
+ * @param {number} caseId
+ * @param {boolean} getAllDocuments
+ * @returns {import('@prisma/client').PrismaPromise<number>}
+ */
+export const getDocumentsCountInCase = (caseId, getAllDocuments = false) => {
+	/** @type {{caseId: number, isDeleted?:boolean}} */
+	const where = { caseId };
 
 	if (!getAllDocuments) {
 		where.isDeleted = false;
