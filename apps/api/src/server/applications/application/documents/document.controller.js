@@ -15,6 +15,7 @@ import {
 } from '#utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
+	getDocumentsInCase,
 	extractDuplicates,
 	getIndexFromReference,
 	handleUpdateDocument,
@@ -608,9 +609,13 @@ export const markAsUnpublished = async ({ params }, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler}
+ * Gets paginated array of documents in a case/application
+ *
+ * @type {import('express').RequestHandler<{ caseId: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
  */
-export const searchDocuments = async ({ params }, response) => {
-	const { id } = params;
-	response.send(id);
+export const searchDocuments = async ({ params, body }, response) => {
+	const { pageNumber, pageSize } = body;
+	const paginatedDocuments = await getDocumentsInCase(params.caseId, pageNumber, pageSize);
+	console.log('paginatedDocuments:', paginatedDocuments);
+	response.send(paginatedDocuments);
 };
