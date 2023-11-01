@@ -1393,6 +1393,69 @@
 						}
 					}
 				}
+			},
+			"get": {
+				"tags": ["Applications"],
+				"description": "search documents on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "The page number to return, defaults to 1",
+						"example": 1,
+						"type": "string"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of results per page, defaults to 25",
+						"example": 25,
+						"type": "string"
+					},
+					{
+						"name": "criteria",
+						"in": "query",
+						"description": "search criteria",
+						"example": "search string",
+						"type": "string",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Matching documents",
+						"schema": {
+							"$ref": "#/definitions/DocumentsPublished"
+						}
+					},
+					"400": {
+						"description": "Example of an error response",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"documents": {
+											"type": "string",
+											"example": "Unknown document guid 0084b156-006b-48b1-a47f-e7176414db29"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/applications/{id}/documents/unpublish": {
