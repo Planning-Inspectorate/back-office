@@ -2,6 +2,7 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 import { validateApplicationId } from '../../application/application.validators.js';
+import { validatePaginationParameters } from '#middleware/pagination-validation.js';
 import { validateFolderId, validateFolderIds } from '../../documents/documents.validators.js';
 import {
 	deleteDocumentSoftly,
@@ -19,6 +20,7 @@ import {
 	markAsPublished,
 	markAsUnpublished,
 	unpublishDocuments,
+	searchDocuments,
 	getManyDocumentsProperties
 } from './document.controller.js';
 import {
@@ -556,6 +558,51 @@ router.patch(
 	validateDocumentsToUpdateProvided,
 	validateDocumentIds,
 	asyncHandler(publishDocuments)
+);
+
+router.get(
+	'/:id/documents',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents'
+        #swagger.description = 'search documents on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['page'] = {
+			in: 'query',
+			description: 'The page number to return, defaults to 1',
+			example: 1,
+		}
+		#swagger.parameters['pageSize'] = {
+			in: 'query',
+			description: 'The number of results per page, defaults to 25',
+			example: 25,
+		}
+
+      	#swagger.parameters['criteria'] = {
+            in: 'query',
+            description: 'search criteria',
+			example: 'search string',
+			type: 'string',
+			required: true
+
+    	}
+        #swagger.responses[200] = {
+            description: 'Matching documents',
+            schema: { $ref: '#/definitions/DocumentsPublished' }
+        }
+		#swagger.responses[400] = {
+            description: 'Example of an error response',
+            schema: { errors: { documents: "Unknown document guid 0084b156-006b-48b1-a47f-e7176414db29" } }
+        }
+	 */
+	validateApplicationId,
+	validatePaginationParameters(),
+	asyncHandler(searchDocuments)
 );
 
 export { router as documentRoutes };
