@@ -3,7 +3,14 @@
 	"$id": "register-representation.schema.json",
 	"title": "Register Representation",
 	"type": "object",
-	"required": ["referenceId", "caseReference", "originalRepresentation", "representationFrom", "registerFor", "represented"],
+	"required": [
+		"referenceId",
+		"caseReference",
+		"originalRepresentation",
+		"representationFrom",
+		"registerFor",
+		"represented"
+	],
 	"properties": {
 		"referenceId": {
 			"type": "string",
@@ -25,11 +32,11 @@
 			"enum": ["PERSON", "ORGANISATION", "FAMILY_GROUP"]
 		},
 		"represented": {
-			"$ref": "interested-party.schema.json",
+			"$ref": "../events/interested-party.schema.json",
 			"description": "Person or organisation being represented"
 		},
 		"representative": {
-			"$ref": "interested-party.schema.json",
+			"$ref": "../events/interested-party.schema.json",
 			"description": "Person or organisation submitting representation in the case of Agent representationFrom"
 		}
 	}
