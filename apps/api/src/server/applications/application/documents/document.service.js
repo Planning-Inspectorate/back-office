@@ -831,7 +831,7 @@ export const getDocumentsInCase = async (caseId, criteria, pageNumber = 1, pageS
 
 	// need to exclude all S51 Advice docs.  If there are any, they are in the top level folder for S51 advice
 	const s51AdviceFolder = await getS51AdviceFolder(caseId);
-
+	console.log(s51AdviceFolder);
 	const documentsCount = await documentRepository.getDocumentsCountInCase(
 		caseId,
 		criteria,
