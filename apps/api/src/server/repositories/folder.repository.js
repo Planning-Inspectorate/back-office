@@ -249,6 +249,22 @@ export const updateFolderById = (folderId, updateValues) => {
 };
 
 /**
+ * Get the S51 Advice folder on a case
+ *
+ * @param {number} caseId
+ * @returns {Promise<Folder |null>}
+ */
+export const getS51AdviceFolder = (caseId) => {
+	return databaseConnector.folder.findFirst({
+		where: {
+			caseId,
+			displayNameEn: 'S51 advice',
+			parentFolderId: null
+		}
+	});
+};
+
+/**
  * The default template folder structure for a new NI Applications type case
  *
  * @type {FolderTemplate[]} defaultCaseFolders

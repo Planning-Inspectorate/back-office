@@ -576,11 +576,13 @@ router.get(
 			in: 'query',
 			description: 'The page number to return, defaults to 1',
 			example: 1,
+			type: 'integer'
 		}
 		#swagger.parameters['pageSize'] = {
 			in: 'query',
 			description: 'The number of results per page, defaults to 25',
 			example: 25,
+			type: 'integer'
 		}
       	#swagger.parameters['criteria'] = {
             in: 'query',
