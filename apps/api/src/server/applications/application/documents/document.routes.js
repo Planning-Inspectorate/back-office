@@ -28,7 +28,8 @@ import {
 	validateDocumentsToUpdateProvided,
 	validateDocumentsToUploadProvided,
 	validateDocumentToUploadProvided,
-	validateMarkDocumentAsPublished
+	validateMarkDocumentAsPublished,
+	validateParameterCriteria
 } from './document.validators.js';
 
 const router = createRouter();
@@ -605,6 +606,7 @@ router.get(
         }
 	 */
 	validateApplicationId,
+	validateParameterCriteria,
 	validatePaginationParameters(),
 	asyncHandler(searchDocuments)
 );
