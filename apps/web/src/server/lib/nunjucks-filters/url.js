@@ -59,6 +59,7 @@ export const url = (key, filterArguments = {}) => {
 	const documentGuid = getArgument('documentGuid', filterArguments);
 	const timetableId = getArgument('timetableId', filterArguments);
 	const adviceId = getArgument('adviceId', filterArguments);
+	const userId = getArgument('userId', filterArguments);
 	const isPreviewActive = getArgument('isPreviewActive', filterArguments);
 	const step = getArgument('step', filterArguments);
 	const representationId = getArgument('representationId', filterArguments);
@@ -97,6 +98,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-updates/${projectUpdateId}/${step}`;
 		case 'project-team':
 			return `${domainUrl}/case/${caseId}/project-team/${step}`;
+		case 'project-team-role':
+			return `${domainUrl}/case/${caseId}/project-team/${userId}/choose-role`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 's51-create':

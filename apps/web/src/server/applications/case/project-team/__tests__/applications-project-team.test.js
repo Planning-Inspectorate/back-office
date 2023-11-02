@@ -57,15 +57,36 @@ describe('Project team', () => {
 	});
 
 	describe('Search page', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+		});
+
 		describe('GET /case/123/project-team/search', () => {
 			it('should render the page with the search bar', async () => {
-				await request.get('/applications-service/case-team');
-
 				const response = await request.get(`${baseUrl}/search`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Search for a team member');
+			});
+		});
+
+		describe('POST /case/123/project-team/search', () => {
+			it('should render an error if search term is empty', async () => {
+				const response = await request.post(`${baseUrl}/search`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Enter a search term');
+			});
+
+			it('should render results', async () => {
+				const response = await request.post(`${baseUrl}/search`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Enter a search term');
 			});
 		});
 	});

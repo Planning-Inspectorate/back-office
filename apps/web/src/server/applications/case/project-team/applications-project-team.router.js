@@ -4,6 +4,10 @@ import asyncRoute from '../../../lib/async-route.js';
 import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
 import * as controller from './applications-project-team.controller.js';
+import {
+	validateApplicationsProjectTeamMinLengthSearch,
+	validateApplicationsProjectTeamNotEmptySearch
+} from './applications-project-team.validators.js';
 
 const applicationsProjectTeamRouter = createRouter({ mergeParams: true });
 
@@ -15,6 +19,11 @@ applicationsProjectTeamRouter
 
 applicationsProjectTeamRouter
 	.route('/search')
-	.get(asyncRoute(controller.viewProjectTeamSearchPage));
+	.get(asyncRoute(controller.viewProjectTeamSearchPage))
+	.post(
+		validateApplicationsProjectTeamNotEmptySearch,
+		validateApplicationsProjectTeamMinLengthSearch,
+		asyncRoute(controller.searchProjectTeamMembersPage)
+	);
 
 export default applicationsProjectTeamRouter;

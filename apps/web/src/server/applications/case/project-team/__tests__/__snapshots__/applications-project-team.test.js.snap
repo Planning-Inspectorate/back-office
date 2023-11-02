@@ -65,14 +65,36 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Search for a team member</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-6\\">
-        <div class=\\"govuk-grid-column-full display--flex govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row\\">
             <div class=\\"govuk-form-group govuk-grid-column-two-thirds\\">
                 <label class=\\"govuk-label govuk-hint colour--secondary\\" for=\\"query\\">Search by name or email address</label>
                 <input class=\\"govuk-input\\" id=\\"query\\"
                 name=\\"query\\" type=\\"text\\">
             </div>
-            <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Search</button>
+            <div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+            </div>
         </div>
     </form>
+</main>"
+`;
+
+exports[`Project team Search page POST /case/123/project-team/search should render an error if search term is empty 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Search for a team member</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-6\\">
+        <div class=\\"govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row\\">
+            <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-two-thirds\\">
+                <label class=\\"govuk-label govuk-hint colour--secondary\\" for=\\"query\\">Search by name or email address</label>
+                <p id=\\"query-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a search term</p>
+                <input                 class=\\"govuk-input govuk-input--error\\" id=\\"query\\" name=\\"query\\" type=\\"text\\"
+                aria-describedby=\\"query-error\\">
+            </div>
+            <div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+            </div>
+        </div>
+    </form>
+    <p class='govuk-body font-weight--700'>0 results</p>
 </main>"
 `;
