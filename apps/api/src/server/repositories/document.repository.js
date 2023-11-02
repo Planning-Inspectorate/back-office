@@ -222,20 +222,34 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 
 /**
  *
- * @param {{caseId: number, criteria: string, skipValue: number, pageSize: number, documentVersion?: number}} caseId
+ * @param {{caseId: number, criteria: string, skipValue: number, pageSize: number}} caseId
  * @returns {import('@prisma/client').PrismaPromise<Document[]>}
  */
-export const getDocumentsInCase = ({
-	caseId,
-	criteria,
-	skipValue,
-	pageSize,
-	documentVersion = 1
-}) => {
+export const getDocumentsInCase = ({ caseId, criteria, skipValue, pageSize }) => {
 	return databaseConnector.document.findMany({
 		include: {
-			documentVersion: {
-				where: {
+			documentVersion: true,
+			latestDocumentVersion: true,
+			folder: true
+		},
+		skip: skipValue,
+		take: pageSize,
+		orderBy: [
+			{
+				reference: 'asc'
+			}
+		],
+		where: {
+			caseId,
+			/* AND: {
+				OR: [
+					{
+						reference: { contains: criteria }
+					}
+				]
+			}, */
+			latestDocumentVersion: {
+				AND: {
 					OR: [
 						{
 							fileName: { contains: criteria }
@@ -250,46 +264,6 @@ export const getDocumentsInCase = ({
 							author: { contains: criteria }
 						}
 					]
-				}
-			},
-			latestDocumentVersion: true,
-			folder: true
-		},
-		skip: skipValue,
-		take: pageSize,
-		orderBy: [
-			{
-				createdAt: 'desc'
-			}
-		],
-		where: {
-			caseId,
-			/* AND: {
-				OR: [
-					{
-						reference: { contains: criteria }
-					}
-				]
-			}, */
-			documentVersion: {
-				some: {
-					version: documentVersion,
-					AND: {
-						OR: [
-							{
-								fileName: { contains: criteria }
-							},
-							{
-								description: { contains: criteria }
-							},
-							{
-								representative: { contains: criteria }
-							},
-							{
-								author: { contains: criteria }
-							}
-						]
-					}
 				}
 			},
 			isDeleted: false
