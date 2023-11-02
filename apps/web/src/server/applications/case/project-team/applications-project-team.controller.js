@@ -50,7 +50,6 @@ async function searchProjectTeamMembersData(searchTerm, pageNumber, validationEr
 		if (apiResults) {
 			results = apiResults;
 
-			console.log(53, results);
 			paginationButtons = {
 				...(pageNumber === 1
 					? {}
