@@ -834,7 +834,7 @@ export const getDocumentsInCase = async (caseId, criteria, pageNumber = 1, pageS
 		skipValue,
 		pageSize
 	});
-
+	console.log('get docs:', documents);
 	// @ts-ignore
 	const mapDocument = documents.map(({ documentVersion, ...Document }) => ({
 		Document,
