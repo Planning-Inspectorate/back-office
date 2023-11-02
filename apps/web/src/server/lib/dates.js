@@ -1,3 +1,9 @@
+import { isPast, endOfDay } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
+import enGB from 'date-fns/locale/en-GB/index.js';
+
+export const timeZone = 'Europe/London';
+
 /**
  * @param {number} year
  * @param {number} month
@@ -30,3 +36,24 @@ export const isDateInstance = (date) => {
 		!Number.isNaN(date.getFullYear())
 	);
 };
+
+/**
+ * @param {Date | number | string | null | undefined} date
+ * @param {{ condensed?: boolean }} options
+ * @returns {string}
+ */
+export function dateToDisplayDate(date, { condensed = false } = {}) {
+	if (typeof date === 'undefined' || date === null) {
+		return '';
+	}
+
+	return formatInTimeZone(new Date(date), timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
+		locale: enGB
+	});
+}
+
+/**
+ * @param {Date} date
+ * @returns {boolean}
+ */
+export const isDatePastToday = (date) => date && isPast(endOfDay(date));

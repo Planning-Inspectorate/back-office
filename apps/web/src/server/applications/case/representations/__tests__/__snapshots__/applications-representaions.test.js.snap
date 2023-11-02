@@ -97,7 +97,14 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <button class=\\"govuk-button\\" id=\\"toggleButton\\" data-module=\\"govuk-button\\">Apply filters</button>
                 </div>
             </div>
-            <div class=\\"govuk-grid-column-one-half\\"><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
+            <div class=\\"govuk-grid-column-one-half\\">
+                <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-6\\"> Key dates</h3>
+                <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong>1 January 2023</strong>
+                </p>
+                <p class=\\"govuk-body govuk-!-margin-bottom-6\\">Closed date</p>
+                <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong> 13 January 2023</strong>
+                </p>
+                <p class=\\"govuk-body govuk-!-margin-bottom-6\\">Target date for review and completion</p><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
                 role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
                 data-module=\\"govuk-button\\"> Add a representation</a>
                 <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/api/download\\"
@@ -105,6 +112,8 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </p>
             </div>
         </div>
+        <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/select-representations-for-publishing\\">View publishing queue</a>
+        </p>
         <h3 class=\\"govuk-heading-m\\">Search representations</h3>
         <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
@@ -279,7 +288,14 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     <button class=\\"govuk-button\\" id=\\"toggleButton\\" data-module=\\"govuk-button\\">Apply filters</button>
                 </div>
             </div>
-            <div class=\\"govuk-grid-column-one-half\\"><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
+            <div class=\\"govuk-grid-column-one-half\\">
+                <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-6\\"> Key dates</h3>
+                <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong>1 January 2023</strong>
+                </p>
+                <p class=\\"govuk-body govuk-!-margin-bottom-6\\">Closed date</p>
+                <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong> 13 January 2023</strong>
+                </p>
+                <p class=\\"govuk-body govuk-!-margin-bottom-6\\">Target date for review and completion</p><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
                 role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
                 data-module=\\"govuk-button\\"> Add a representation</a>
                 <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/api/download\\"
@@ -287,6 +303,8 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 </p>
             </div>
         </div>
+        <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/select-representations-for-publishing\\">View publishing queue</a>
+        </p>
         <h3 class=\\"govuk-heading-m\\">Search representations</h3>
         <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">

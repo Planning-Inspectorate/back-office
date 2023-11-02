@@ -13,7 +13,7 @@ const mockCaseReference = {
 	reference: 'mock reference',
 	keyDates: {
 		preExamination: {
-			dateOfRelevantRepresentationClose: '2021-01-01'
+			dateOfRelevantRepresentationClose: '1672531200'
 		}
 	}
 };

@@ -94,15 +94,47 @@
 			<div class="govuk-grid-column-one-half">
 				{{ preSearch(filters) }}
 			</div>
-			<div class="govuk-grid-column-one-half">
 
+			<div class="govuk-grid-column-one-half">
+				<h3 class="govuk-heading-m govuk-!-margin-bottom-6">
+					Key dates
+				</h3>
+
+				<p class="govuk-body govuk-!-margin-bottom-1">
+					<strong>{{ keyDates.closingDate }}</strong>
+				</p>
+
+				<p class="govuk-body govuk-!-margin-bottom-6">
+					{% if keyDates.state == 'open' %}
+						Closing date
+					{% else %}
+						Closed date
+					{% endif %}
+				</p>
+
+				<p class="govuk-body govuk-!-margin-bottom-1">
+					<strong>
+					{% if keyDates.state == 'published' %}
+						{{ keyDates.publishedDate }}
+					{% else %}
+						{{ keyDates.reviewDate }}
+					{% endif %}
+					</strong>
+				</p>
+
+				<p class="govuk-body govuk-!-margin-bottom-6">
+					{% if keyDates.state == 'published' %}
+						Published date
+					{% else %}
+						Target date for review and completion
+					{% endif %}
+				</p>
 
 				{{ govukButton({
 					text: "Add a representation",
 					href: "/applications-service/case/" + caseId + "/relevant-representations/contact-details?repType=represented",
 					classes: "govuk-button--secondary"
 				}) }}
-
 
 				<p class="govuk-body">
 					<a class="govuk-link"
