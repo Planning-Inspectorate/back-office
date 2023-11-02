@@ -1,5 +1,6 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
+import { param } from 'express-validator';
 import joi from 'joi';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import * as DocumentRepository from '#repositories/document.repository.js';
@@ -207,3 +208,9 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (docu
 		invalid: documentIds.filter((id) => !publishableIds.has(id))
 	};
 };
+
+export const validateParameterCriteria = composeMiddleware(
+	param('criteria')
+		.isLength({ min: 3 })
+		.withMessage('Search criteria must have at least 3 characters')
+);
