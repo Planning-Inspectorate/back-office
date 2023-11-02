@@ -1410,14 +1410,14 @@
 						"in": "query",
 						"description": "The page number to return, defaults to 1",
 						"example": 1,
-						"type": "string"
+						"type": "integer"
 					},
 					{
 						"name": "pageSize",
 						"in": "query",
 						"description": "The number of results per page, defaults to 25",
 						"example": 25,
-						"type": "string"
+						"type": "integer"
 					},
 					{
 						"name": "criteria",

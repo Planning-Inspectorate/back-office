@@ -5,6 +5,7 @@ import { mapDocumentVersionDetails } from '#utils/mapping/map-document-details.j
 import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
+import { getS51AdviceFolder } from '#repositories/folder.repository.js';
 import { getStorageLocation } from '#utils/document-storage.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
@@ -817,7 +818,7 @@ export const unpublishDocuments = async (guids) => {
 };
 
 /**
- * Returns paginated array of documents in a folder on a case
+ * Returns paginated array of documents in a folder on a case, excluding S51 Advice docs
  *
  * @param {number} caseId
  * @param {string} criteria
@@ -827,14 +828,23 @@ export const unpublishDocuments = async (guids) => {
  */
 export const getDocumentsInCase = async (caseId, criteria, pageNumber = 1, pageSize = 50) => {
 	const skipValue = getSkipValue(pageNumber, pageSize);
-	const documentsCount = await documentRepository.getDocumentsCountInCase(caseId, criteria);
-	const documents = await documentRepository.getDocumentsInCase({
+
+	// need to exclude all S51 Advice docs.  If there are any, they are in the top level folder for S51 advice
+	const s51AdviceFolder = await getS51AdviceFolder(caseId);
+
+	const documentsCount = await documentRepository.getDocumentsCountInCase(
 		caseId,
 		criteria,
+		s51AdviceFolder?.id
+	);
+	const documents = await documentRepository.getDocumentsInCase(
+		caseId,
+		criteria,
+		s51AdviceFolder?.id,
 		skipValue,
 		pageSize
-	});
-	console.log('get docs:', documents);
+	);
+
 	// @ts-ignore
 	const mapDocument = documents.map(({ documentVersion, ...Document }) => ({
 		Document,

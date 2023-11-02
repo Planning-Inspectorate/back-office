@@ -221,11 +221,83 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 };
 
 /**
+ * returns the where clause for getting / counting all docs in a case, exluding S51 Advice docs
  *
- * @param {{caseId: number, criteria: string, skipValue: number, pageSize: number}} caseId
+ * @param {number} caseId
+ * @param {string} criteria
+ * @param {boolean} includeDeletedDocuments
+ * @param {number |undefined} s51AdviceFolderId
+ * @returns {*}
+ */
+const buildWhereClause_AllDocsOnCaseWithoutS51Advice = (
+	caseId,
+	criteria,
+	s51AdviceFolderId,
+	includeDeletedDocuments
+) => {
+	const whereClause = {
+		caseId,
+		AND: {
+			OR: [
+				{
+					reference: { contains: criteria }
+				},
+				{
+					latestDocumentVersion: {
+						OR: [
+							{
+								fileName: { contains: criteria }
+							},
+							{
+								description: { contains: criteria }
+							},
+							{
+								representative: { contains: criteria }
+							},
+							{
+								author: { contains: criteria }
+							}
+						]
+					}
+				}
+			]
+		},
+		NOT: { folderId: s51AdviceFolderId }
+	};
+
+	if (!includeDeletedDocuments) {
+		// @ts-ignore
+		whereClause.isDeleted = false;
+	}
+	return whereClause;
+};
+
+/**
+ * gets an array of all documents on a case, excluding S51 Advice documents
+ *
+ * @param {number} caseId
+ * @param {string} criteria
+ * @param {number |undefined} s51AdviceFolderId
+ * @param {number} skipValue
+ * @param {number} pageSize
+ * @param {boolean} includeDeletedDocuments
  * @returns {import('@prisma/client').PrismaPromise<Document[]>}
  */
-export const getDocumentsInCase = ({ caseId, criteria, skipValue, pageSize }) => {
+export const getDocumentsInCase = (
+	caseId,
+	criteria,
+	s51AdviceFolderId,
+	skipValue,
+	pageSize,
+	includeDeletedDocuments = false
+) => {
+	const whereClause = buildWhereClause_AllDocsOnCaseWithoutS51Advice(
+		caseId,
+		criteria,
+		s51AdviceFolderId,
+		includeDeletedDocuments
+	);
+
 	return databaseConnector.document.findMany({
 		include: {
 			documentVersion: true,
@@ -233,41 +305,13 @@ export const getDocumentsInCase = ({ caseId, criteria, skipValue, pageSize }) =>
 			folder: true
 		},
 		skip: skipValue,
-		take: pageSize,
+		take: Number(pageSize),
 		orderBy: [
 			{
 				reference: 'asc'
 			}
 		],
-		where: {
-			caseId,
-			/* AND: {
-				OR: [
-					{
-						reference: { contains: criteria }
-					}
-				]
-			}, */
-			latestDocumentVersion: {
-				AND: {
-					OR: [
-						{
-							fileName: { contains: criteria }
-						},
-						{
-							description: { contains: criteria }
-						},
-						{
-							representative: { contains: criteria }
-						},
-						{
-							author: { contains: criteria }
-						}
-					]
-				}
-			},
-			isDeleted: false
-		}
+		where: whereClause
 	});
 };
 
@@ -356,24 +400,30 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
 };
 
 /**
- * Returns total number of documents in a case
+ * Returns total number of documents in a case, ignoring S51 Advice documents
  *
  * @param {number} caseId
  * @param {string} criteria
- * @param {boolean} getAllDocuments
+ * @param {number |undefined} s51AdviceFolderId
+ * @param {boolean} includeDeletedDocuments
  * @returns {import('@prisma/client').PrismaPromise<number>}
  */
-export const getDocumentsCountInCase = (caseId, criteria, getAllDocuments = false) => {
+export const getDocumentsCountInCase = (
+	caseId,
+	criteria,
+	s51AdviceFolderId,
+	includeDeletedDocuments = false
+) => {
 	/** @type {{caseId: number, isDeleted?:boolean}} */
-	const where = { caseId };
-
-	if (!getAllDocuments) {
-		where.isDeleted = false;
-	}
+	const whereClause = buildWhereClause_AllDocsOnCaseWithoutS51Advice(
+		caseId,
+		criteria,
+		s51AdviceFolderId,
+		includeDeletedDocuments
+	);
 
 	return databaseConnector.document.count({
-		where
-		/* TODO: also will need the search criteria filters */
+		where: whereClause
 	});
 };
 
