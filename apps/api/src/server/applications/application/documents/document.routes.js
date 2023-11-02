@@ -582,22 +582,24 @@ router.get(
 			description: 'The number of results per page, defaults to 25',
 			example: 25,
 		}
-
       	#swagger.parameters['criteria'] = {
             in: 'query',
             description: 'search criteria',
 			example: 'search string',
 			type: 'string',
 			required: true
-
     	}
         #swagger.responses[200] = {
-            description: 'Matching documents',
-            schema: { $ref: '#/definitions/DocumentsPublished' }
+			description: 'An paginated data set of matching documents and their properties',
+            schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
         }
 		#swagger.responses[400] = {
             description: 'Example of an error response',
             schema: { errors: { documents: "Unknown document guid 0084b156-006b-48b1-a47f-e7176414db29" } }
+        }
+		#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
         }
 	 */
 	validateApplicationId,

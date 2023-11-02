@@ -820,15 +820,17 @@ export const unpublishDocuments = async (guids) => {
  * Returns paginated array of documents in a folder on a case
  *
  * @param {number} caseId
+ * @param {string} criteria
  * @param {number} pageNumber
  * @param {number} pageSize
  * @returns {Promise<PaginatedDocumentDetails>}
  */
-export const getDocumentsInCase = async (caseId, pageNumber = 1, pageSize = 50) => {
+export const getDocumentsInCase = async (caseId, criteria, pageNumber = 1, pageSize = 50) => {
 	const skipValue = getSkipValue(pageNumber, pageSize);
-	const documentsCount = await documentRepository.getDocumentsCountInCase(caseId);
+	const documentsCount = await documentRepository.getDocumentsCountInCase(caseId, criteria);
 	const documents = await documentRepository.getDocumentsInCase({
 		caseId,
+		criteria,
 		skipValue,
 		pageSize
 	});

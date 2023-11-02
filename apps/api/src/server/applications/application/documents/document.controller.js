@@ -611,11 +611,16 @@ export const markAsUnpublished = async ({ params }, response) => {
 /**
  * Gets paginated array of documents in a case/application
  *
- * @type {import('express').RequestHandler<{ caseId: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
+ * @type {import('express').RequestHandler<{ caseId: number }, ?, {criteria: string, pageNumber?: number, pageSize?: number}, any>}
  */
 export const searchDocuments = async ({ params, body }, response) => {
 	const { pageNumber, pageSize } = body;
-	const paginatedDocuments = await getDocumentsInCase(params.caseId, pageNumber, pageSize);
+	const paginatedDocuments = await getDocumentsInCase(
+		params.caseId,
+		body.criteria,
+		pageNumber,
+		pageSize
+	);
 	console.log('paginatedDocuments:', paginatedDocuments);
 	response.send(paginatedDocuments);
 };
