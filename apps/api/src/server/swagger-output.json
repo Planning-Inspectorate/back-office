@@ -1430,9 +1430,9 @@
 				],
 				"responses": {
 					"200": {
-						"description": "Matching documents",
+						"description": "An paginated data set of matching documents and their properties",
 						"schema": {
-							"$ref": "#/definitions/DocumentsPublished"
+							"$ref": "#/definitions/PaginatedDocumentDetails"
 						}
 					},
 					"400": {
@@ -1446,6 +1446,26 @@
 										"documents": {
 											"type": "string",
 											"example": "Unknown document guid 0084b156-006b-48b1-a47f-e7176414db29"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
 										}
 									}
 								}

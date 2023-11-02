@@ -222,13 +222,36 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 
 /**
  *
- * @param {{caseId: number, skipValue: number, pageSize: number, documentVersion?: number}} caseId
+ * @param {{caseId: number, criteria: string, skipValue: number, pageSize: number, documentVersion?: number}} caseId
  * @returns {import('@prisma/client').PrismaPromise<Document[]>}
  */
-export const getDocumentsInCase = ({ caseId, skipValue, pageSize, documentVersion = 1 }) => {
+export const getDocumentsInCase = ({
+	caseId,
+	criteria,
+	skipValue,
+	pageSize,
+	documentVersion = 1
+}) => {
 	return databaseConnector.document.findMany({
 		include: {
-			documentVersion: true,
+			documentVersion: {
+				where: {
+					OR: [
+						{
+							fileName: { contains: criteria }
+						},
+						{
+							description: { contains: criteria }
+						},
+						{
+							representative: { contains: criteria }
+						},
+						{
+							author: { contains: criteria }
+						}
+					]
+				}
+			},
 			latestDocumentVersion: true,
 			folder: true
 		},
@@ -241,9 +264,32 @@ export const getDocumentsInCase = ({ caseId, skipValue, pageSize, documentVersio
 		],
 		where: {
 			caseId,
+			/* AND: {
+				OR: [
+					{
+						reference: { contains: criteria }
+					}
+				]
+			}, */
 			documentVersion: {
 				some: {
-					version: documentVersion
+					version: documentVersion,
+					AND: {
+						OR: [
+							{
+								fileName: { contains: criteria }
+							},
+							{
+								description: { contains: criteria }
+							},
+							{
+								representative: { contains: criteria }
+							},
+							{
+								author: { contains: criteria }
+							}
+						]
+					}
 				}
 			},
 			isDeleted: false
@@ -339,10 +385,11 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
  * Returns total number of documents in a case
  *
  * @param {number} caseId
+ * @param {string} criteria
  * @param {boolean} getAllDocuments
  * @returns {import('@prisma/client').PrismaPromise<number>}
  */
-export const getDocumentsCountInCase = (caseId, getAllDocuments = false) => {
+export const getDocumentsCountInCase = (caseId, criteria, getAllDocuments = false) => {
 	/** @type {{caseId: number, isDeleted?:boolean}} */
 	const where = { caseId };
 
@@ -352,6 +399,7 @@ export const getDocumentsCountInCase = (caseId, getAllDocuments = false) => {
 
 	return databaseConnector.document.count({
 		where
+		/* TODO: also will need the search criteria filters */
 	});
 };
 
