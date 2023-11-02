@@ -70,6 +70,14 @@ describe('Project team', () => {
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Search for a team member');
 			});
+
+			it('should render the page with the search bar and the results of the query', async () => {
+				const response = await request.get(`${baseUrl}/search?q=searchTerm`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('200 results');
+			});
 		});
 
 		describe('POST /case/123/project-team/search', () => {
@@ -81,12 +89,12 @@ describe('Project team', () => {
 				expect(element.innerHTML).toContain('Enter a search term');
 			});
 
-			it('should render results', async () => {
-				const response = await request.post(`${baseUrl}/search`);
+			it('should render results of the search', async () => {
+				const response = await request.post(`${baseUrl}/search`).send({ query: 'search term' });
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter a search term');
+				expect(element.innerHTML).toContain('200 results');
 			});
 		});
 	});

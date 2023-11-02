@@ -23,7 +23,7 @@ applicationsProjectTeamRouter
 	.post(
 		validateApplicationsProjectTeamNotEmptySearch,
 		validateApplicationsProjectTeamMinLengthSearch,
-		asyncRoute(controller.searchProjectTeamMembersPage)
+		asyncRoute(controller.viewProjectTeamSearchPage)
 	);
 
 export default applicationsProjectTeamRouter;

@@ -1,4 +1,3 @@
-import { paginationParams } from '../../../lib/pagination-params.js';
 import { searchProjectTeamMembers } from './applications-project-team.service.js';
 
 /** @typedef {import('../../applications.types').ProjectTeamMember} ProjectTeamMember */
@@ -18,41 +17,59 @@ export async function viewProjectTeamListPage(request, response) {
 /**
  * View search bar for project team members
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {query: string}, {q: string, number: string}>}
  */
-export async function viewProjectTeamSearchPage(request, response) {
-	return response.render(`applications/case-project-team/project-team-search.njk`);
+export async function viewProjectTeamSearchPage({ body, query, errors }, response) {
+	const searchTerm = body.query?.length ? body.query : query.q;
+	const pageNumber = Number(query.number || '1');
+
+	const templateData = await searchProjectTeamMembersData(searchTerm, pageNumber, errors);
+
+	return response.render(`applications/case-project-team/project-team-search.njk`, templateData);
 }
 
 /**
  * Search project team members and return results
- *
- * @type {import('@pins/express').RenderHandler<{}, {}, {query: string}, {number: string}, {}>}
+ * @param {string} searchTerm
+ * @param {number} pageNumber
+ * @param {ValidationErrors | undefined} validationErrors
  */
-export async function searchProjectTeamMembersPage(
-	{ query, body, errors: validationErrors },
-	response
-) {
-	/** @type{{items:ProjectTeamMember[]}} */
-	let results = { items: [] };
+async function searchProjectTeamMembersData(searchTerm, pageNumber, validationErrors) {
+	let results;
 	let errors = validationErrors;
-	const pageNumber = Number(query.number || '1');
 	let paginationButtons;
 
-	if (!validationErrors) {
-		const { errors: apiErrors, results: apiResults } = await searchProjectTeamMembers(body.query);
+	if (!validationErrors && searchTerm) {
+		results = { items: [] };
+		const { errors: apiErrors, results: apiResults } = await searchProjectTeamMembers(
+			searchTerm,
+			pageNumber
+		);
 		errors = apiErrors;
 
 		if (apiResults) {
 			results = apiResults;
-			paginationButtons = paginationParams(25, pageNumber, apiResults.pageCount).buttons;
-			console.log(paginationButtons);
+
+			console.log(53, results);
+			paginationButtons = {
+				...(pageNumber === 1
+					? {}
+					: { previous: { href: `?number=${pageNumber - 1}&q=${searchTerm}` } }),
+				...(pageNumber === apiResults.pageCount
+					? {}
+					: { next: { href: `?number=${pageNumber + 1}&q=${searchTerm}` } }),
+				items: [...Array.from({ length: apiResults.pageCount || 0 }).keys()].map((index) => ({
+					number: index + 1,
+					href: `?number=${index + 1}&q=${searchTerm}`,
+					current: index + 1 === pageNumber
+				}))
+			};
 		}
 	}
 
-	return response.render(`applications/case-project-team/project-team-search.njk`, {
+	return {
 		results,
 		errors,
 		paginationButtons
-	});
+	};
 }
