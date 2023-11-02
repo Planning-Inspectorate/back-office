@@ -9,9 +9,10 @@ import pino from '../../../lib/logger.js';
  * Retrieve the paginated list of the team members matching the query
  *
  * @param {string} query
+ * @param {number} pageNumber
  * @returns {Promise<{results: PaginatedProjectTeamMembers, errors: ValidationErrors}>}
  */
-export const searchProjectTeamMembers = async (query) => {
+export const searchProjectTeamMembers = async (query, pageNumber) => {
 	let response;
 
 	try {
@@ -19,7 +20,7 @@ export const searchProjectTeamMembers = async (query) => {
 
 		// TODO: this is just a mock
 		response = new Promise((resolve) => {
-			const results = fixturePaginatedProjectTeamMembers(1, 25);
+			const results = fixturePaginatedProjectTeamMembers(pageNumber, 25);
 			resolve({ results, query });
 		});
 	} catch (/** @type {*} */ error) {

@@ -55,10 +55,10 @@
 	{% if results %}
 
 		<p class='govuk-body font-weight--700'>
-			{{results.items.length if results.items else 0}} results
+			{{results.itemCount if results.itemCount else 0}} results
 		</p>
 
-		{% if results.items.length %}
+		{% if results.itemCount %}
 			{% set searchResults = [] %}
 			{% for teamMember in results.items %}
 				{% set teamMemberRolePageUrl %}
@@ -95,7 +95,7 @@
 				{{ govukPagination(paginationButtons) }}
 			{% endif %}
 
-		{% elif errors === null%}
+		{% else %}
 			<hr class='govuk-!-margin-top-6 govuk-!-margin-bottom-6 govuk-section-break govuk-section-break--visible'>
 
 			<p class='govuk-body font-weight--700'>There are no matching results </p>

@@ -79,6 +79,217 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
 </main>"
 `;
 
+exports[`Project team Search page GET /case/123/project-team/search should render the page with the search bar and the results of the query 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Search for a team member</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-6\\">
+        <div class=\\"govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row\\">
+            <div class=\\"govuk-form-group govuk-grid-column-two-thirds\\">
+                <label class=\\"govuk-label govuk-hint colour--secondary\\" for=\\"query\\">Search by name or email address</label>
+                <input class=\\"govuk-input\\" id=\\"query\\"
+                name=\\"query\\" type=\\"text\\">
+            </div>
+            <div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+            </div>
+        </div>
+    </form>
+    <p class='govuk-body font-weight--700'>200 results</p>
+    <table class=\\"govuk-table\\">
+        <thead class=\\"govuk-table__head\\">
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                <th scope=\\"col\\" class=\\"govuk-table__header\\">Email</th>
+                <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
+            </tr>
+        </thead>
+        <tbody class=\\"govuk-table__body\\">
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Margarette Klein</th>
+                <td class=\\"govuk-table__cell\\">Margarette.Klein@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/1/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Pedro Kovacek</th>
+                <td class=\\"govuk-table__cell\\">Pedro.Kovacek@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/2/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eloisa Fisher</th>
+                <td class=\\"govuk-table__cell\\">Eloisa.Fisher@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Carolyn Langosh</th>
+                <td class=\\"govuk-table__cell\\">Carolyn.Langosh@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/4/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Rhea Zboncak</th>
+                <td class=\\"govuk-table__cell\\">Rhea.Zboncak@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/5/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Liliane Willms</th>
+                <td class=\\"govuk-table__cell\\">Liliane.Willms@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/6/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Myrna Powlowski</th>
+                <td class=\\"govuk-table__cell\\">Myrna.Powlowski@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/7/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Jeremie Padberg</th>
+                <td class=\\"govuk-table__cell\\">Jeremie.Padberg@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/8/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amani Emmerich</th>
+                <td class=\\"govuk-table__cell\\">Amani.Emmerich@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/9/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Ignatius Brown</th>
+                <td class=\\"govuk-table__cell\\">Ignatius.Brown@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/10/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Gertrude Osinski</th>
+                <td class=\\"govuk-table__cell\\">Gertrude.Osinski@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/11/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Deangelo Parker</th>
+                <td class=\\"govuk-table__cell\\">Deangelo.Parker@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/12/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Paula Wyman</th>
+                <td class=\\"govuk-table__cell\\">Paula.Wyman@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/13/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Caleb Gaylord</th>
+                <td class=\\"govuk-table__cell\\">Caleb.Gaylord@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/14/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Alexanne Kreiger</th>
+                <td class=\\"govuk-table__cell\\">Alexanne.Kreiger@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/15/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Kade Bogisich</th>
+                <td class=\\"govuk-table__cell\\">Kade.Bogisich@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/16/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Lauren Harber</th>
+                <td class=\\"govuk-table__cell\\">Lauren.Harber@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/17/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Alexandrea Casper</th>
+                <td class=\\"govuk-table__cell\\">Alexandrea.Casper@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/18/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Laron Daniel</th>
+                <td class=\\"govuk-table__cell\\">Laron.Daniel@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/19/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Melvin Kerluke</th>
+                <td class=\\"govuk-table__cell\\">Melvin.Kerluke@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/20/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Aglae Gerhold</th>
+                <td class=\\"govuk-table__cell\\">Aglae.Gerhold@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/21/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Anastacio Beer</th>
+                <td class=\\"govuk-table__cell\\">Anastacio.Beer@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/22/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Robbie Klein</th>
+                <td class=\\"govuk-table__cell\\">Robbie.Klein@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/23/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Nyasia Graham</th>
+                <td class=\\"govuk-table__cell\\">Nyasia.Graham@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/24/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Oren Weber</th>
+                <td class=\\"govuk-table__cell\\">Oren.Weber@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/25/choose-role'>Select</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav class=\\"govuk-pagination\\" role=\\"navigation\\" aria-label=\\"results\\">
+        <ul class=\\"govuk-pagination__list\\">
+            <li class=\\"govuk-pagination__item govuk-pagination__item--current\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=1&amp;q=searchTerm\\"
+                aria-label=\\"Page 1\\" aria-current=\\"page\\"> 1</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2&amp;q=searchTerm\\"
+                aria-label=\\"Page 2\\"> 2</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=3&amp;q=searchTerm\\"
+                aria-label=\\"Page 3\\"> 3</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=4&amp;q=searchTerm\\"
+                aria-label=\\"Page 4\\"> 4</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=5&amp;q=searchTerm\\"
+                aria-label=\\"Page 5\\"> 5</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=6&amp;q=searchTerm\\"
+                aria-label=\\"Page 6\\"> 6</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=7&amp;q=searchTerm\\"
+                aria-label=\\"Page 7\\"> 7</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=8&amp;q=searchTerm\\"
+                aria-label=\\"Page 8\\"> 8</a>
+            </li>
+        </ul>
+        <div class=\\"govuk-pagination__next\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2&amp;q=searchTerm\\"
+            rel=\\"next\\"><span class=\\"govuk-pagination__link-title\\">Next</span><svg class=\\"govuk-pagination__icon govuk-pagination__icon--next\\" xmlns=\\"http://www.w3.org/2000/svg\\" height=\\"13\\" width=\\"15\\" aria-hidden=\\"true\\" focusable=\\"false\\" viewBox=\\"0 0 15 13\\"><path d=\\"m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z\\"></path></svg></a>
+        </div>
+    </nav>
+</main>"
+`;
+
 exports[`Project team Search page POST /case/123/project-team/search should render an error if search term is empty 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Search for a team member</h1>
@@ -95,6 +306,216 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
             </div>
         </div>
     </form>
-    <p class='govuk-body font-weight--700'>0 results</p>
+</main>"
+`;
+
+exports[`Project team Search page POST /case/123/project-team/search should render results of the search 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Search for a team member</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-6\\">
+        <div class=\\"govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row\\">
+            <div class=\\"govuk-form-group govuk-grid-column-two-thirds\\">
+                <label class=\\"govuk-label govuk-hint colour--secondary\\" for=\\"query\\">Search by name or email address</label>
+                <input class=\\"govuk-input\\" id=\\"query\\"
+                name=\\"query\\" type=\\"text\\">
+            </div>
+            <div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+            </div>
+        </div>
+    </form>
+    <p class='govuk-body font-weight--700'>200 results</p>
+    <table class=\\"govuk-table\\">
+        <thead class=\\"govuk-table__head\\">
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                <th scope=\\"col\\" class=\\"govuk-table__header\\">Email</th>
+                <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
+            </tr>
+        </thead>
+        <tbody class=\\"govuk-table__body\\">
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Margarette Klein</th>
+                <td class=\\"govuk-table__cell\\">Margarette.Klein@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/1/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Pedro Kovacek</th>
+                <td class=\\"govuk-table__cell\\">Pedro.Kovacek@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/2/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eloisa Fisher</th>
+                <td class=\\"govuk-table__cell\\">Eloisa.Fisher@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Carolyn Langosh</th>
+                <td class=\\"govuk-table__cell\\">Carolyn.Langosh@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/4/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Rhea Zboncak</th>
+                <td class=\\"govuk-table__cell\\">Rhea.Zboncak@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/5/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Liliane Willms</th>
+                <td class=\\"govuk-table__cell\\">Liliane.Willms@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/6/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Myrna Powlowski</th>
+                <td class=\\"govuk-table__cell\\">Myrna.Powlowski@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/7/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Jeremie Padberg</th>
+                <td class=\\"govuk-table__cell\\">Jeremie.Padberg@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/8/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amani Emmerich</th>
+                <td class=\\"govuk-table__cell\\">Amani.Emmerich@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/9/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Ignatius Brown</th>
+                <td class=\\"govuk-table__cell\\">Ignatius.Brown@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/10/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Gertrude Osinski</th>
+                <td class=\\"govuk-table__cell\\">Gertrude.Osinski@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/11/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Deangelo Parker</th>
+                <td class=\\"govuk-table__cell\\">Deangelo.Parker@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/12/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Paula Wyman</th>
+                <td class=\\"govuk-table__cell\\">Paula.Wyman@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/13/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Caleb Gaylord</th>
+                <td class=\\"govuk-table__cell\\">Caleb.Gaylord@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/14/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Alexanne Kreiger</th>
+                <td class=\\"govuk-table__cell\\">Alexanne.Kreiger@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/15/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Kade Bogisich</th>
+                <td class=\\"govuk-table__cell\\">Kade.Bogisich@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/16/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Lauren Harber</th>
+                <td class=\\"govuk-table__cell\\">Lauren.Harber@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/17/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Alexandrea Casper</th>
+                <td class=\\"govuk-table__cell\\">Alexandrea.Casper@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/18/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Laron Daniel</th>
+                <td class=\\"govuk-table__cell\\">Laron.Daniel@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/19/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Melvin Kerluke</th>
+                <td class=\\"govuk-table__cell\\">Melvin.Kerluke@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/20/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Aglae Gerhold</th>
+                <td class=\\"govuk-table__cell\\">Aglae.Gerhold@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/21/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Anastacio Beer</th>
+                <td class=\\"govuk-table__cell\\">Anastacio.Beer@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/22/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Robbie Klein</th>
+                <td class=\\"govuk-table__cell\\">Robbie.Klein@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/23/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Nyasia Graham</th>
+                <td class=\\"govuk-table__cell\\">Nyasia.Graham@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/24/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Oren Weber</th>
+                <td class=\\"govuk-table__cell\\">Oren.Weber@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/25/choose-role'>Select</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav class=\\"govuk-pagination\\" role=\\"navigation\\" aria-label=\\"results\\">
+        <ul class=\\"govuk-pagination__list\\">
+            <li class=\\"govuk-pagination__item govuk-pagination__item--current\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=1&amp;q=search term\\"
+                aria-label=\\"Page 1\\" aria-current=\\"page\\"> 1</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2&amp;q=search term\\"
+                aria-label=\\"Page 2\\"> 2</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=3&amp;q=search term\\"
+                aria-label=\\"Page 3\\"> 3</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=4&amp;q=search term\\"
+                aria-label=\\"Page 4\\"> 4</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=5&amp;q=search term\\"
+                aria-label=\\"Page 5\\"> 5</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=6&amp;q=search term\\"
+                aria-label=\\"Page 6\\"> 6</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=7&amp;q=search term\\"
+                aria-label=\\"Page 7\\"> 7</a>
+            </li>
+            <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=8&amp;q=search term\\"
+                aria-label=\\"Page 8\\"> 8</a>
+            </li>
+        </ul>
+        <div class=\\"govuk-pagination__next\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"?number=2&amp;q=search term\\"
+            rel=\\"next\\"><span class=\\"govuk-pagination__link-title\\">Next</span><svg class=\\"govuk-pagination__icon govuk-pagination__icon--next\\" xmlns=\\"http://www.w3.org/2000/svg\\" height=\\"13\\" width=\\"15\\" aria-hidden=\\"true\\" focusable=\\"false\\" viewBox=\\"0 0 15 13\\"><path d=\\"m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z\\"></path></svg></a>
+        </div>
+    </nav>
 </main>"
 `;
