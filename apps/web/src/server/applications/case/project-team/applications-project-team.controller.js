@@ -15,7 +15,7 @@ export async function viewProjectTeamListPage(request, response) {
 }
 
 /**
- * View search bar for project team members
+ * View search bar for project team members and display results
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {query: string}, {q: string, number: string}>}
  */
