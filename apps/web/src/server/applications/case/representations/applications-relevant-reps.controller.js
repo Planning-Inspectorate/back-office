@@ -15,6 +15,7 @@ import { hasUnpublishedRepUpdates } from './utils/has-unpublished-rep-updates.js
 import { tableSortLinks } from './utils/table.js';
 import { isRelevantRepsPeriodClosed } from './utils/is-relevant-reps-period-closed.js';
 import { getPublishQueueUrl } from './utils/get-publish-queue-url.js';
+import { getKeyDates } from './utils/get-key-dates.js';
 
 const view = 'applications/representations/representations.njk';
 
@@ -39,7 +40,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 	} = query;
 
 	const caseReference = await getCase(caseId);
-	const { keyDates } = caseReference;
+	const { keyDates, publishedDate } = caseReference;
 	const { preExamination } = keyDates;
 	const {
 		dateOfRelevantRepresentationClose: repsPeriodCloseDate,
@@ -79,6 +80,7 @@ export async function relevantRepsApplications({ params, query }, res) {
 			page
 		},
 		filters: getFilterViewModel(filters, representations.filters),
-		showUnpublishedRepUpdatesBanner: hasUnpublishedRepUpdates(publishableReps)
+		showUnpublishedRepUpdatesBanner: hasUnpublishedRepUpdates(publishableReps),
+		keyDates: getKeyDates(publishedDate, repsPeriodCloseDate, repsPeriodCloseDateExtension)
 	});
 }

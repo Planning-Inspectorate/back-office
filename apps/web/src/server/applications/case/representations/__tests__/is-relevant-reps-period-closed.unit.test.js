@@ -4,16 +4,16 @@ import { getUnixTime } from 'date-fns';
 describe('is relevant representation period closed', () => {
 	describe('#isRelevantRepsPeriodClosed', () => {
 		describe('and the dates are invalid or null', () => {
-			it('should return false if isRelevantRepsPeriodClosed AND extensionToDateRelevantRepresentationsClose are NULL', () => {
+			it('should return null if isRelevantRepsPeriodClosed AND extensionToDateRelevantRepresentationsClose are NULL', () => {
 				const result = isRelevantRepsPeriodClosed(null, null);
 
-				expect(result).toEqual(false);
+				expect(result).toEqual(null);
 			});
 
-			it('should return false if isRelevantRepsPeriodClosed is an invalid date', () => {
+			it('should return null if isRelevantRepsPeriodClosed is an invalid date', () => {
 				const result = isRelevantRepsPeriodClosed('invalid date', null);
 
-				expect(result).toEqual(false);
+				expect(result).toEqual(null);
 			});
 		});
 

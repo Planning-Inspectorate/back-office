@@ -1,10 +1,11 @@
-import { isPast, endOfDay, isValid, fromUnixTime } from 'date-fns';
+import { isDatePastToday } from '../../../../lib/dates.js';
+import { isValid, fromUnixTime } from 'date-fns';
 
 /**
  * @param {*} date
  * @returns { boolean }
  */
-const isDateValid = (date) => {
+export const isDateValid = (date) => {
 	if (
 		date !== null &&
 		date !== '0000-00-00' &&
@@ -20,11 +21,11 @@ const isDateValid = (date) => {
  * @param {*} extensionDate
  * @returns
  */
-const getRelevantRepsCloseDateOrFalse = (originalDate, extensionDate) => {
+export const getRelevantRepsCloseDateOrNull = (originalDate, extensionDate) => {
 	/**
 	 * @type {*}
 	 */
-	let result = false;
+	let result = null;
 
 	if (isDateValid(originalDate)) {
 		result = originalDate;
@@ -45,9 +46,10 @@ export const isRelevantRepsPeriodClosed = (
 	dateOfRelevantRepresentationClose,
 	extensionToDateRelevantRepresentationsClose
 ) => {
-	const actualCloseDate = getRelevantRepsCloseDateOrFalse(
+	const actualCloseDate = getRelevantRepsCloseDateOrNull(
 		dateOfRelevantRepresentationClose,
 		extensionToDateRelevantRepresentationsClose
 	);
-	return actualCloseDate && isPast(endOfDay(actualCloseDate));
+
+	return isDatePastToday(actualCloseDate);
 };
