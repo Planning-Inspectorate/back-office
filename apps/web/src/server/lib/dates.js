@@ -43,9 +43,7 @@ export const isDateInstance = (date) => {
  * @returns {string}
  */
 export function dateToDisplayDate(date, { condensed = false } = {}) {
-	if (typeof date === 'undefined' || date === null) {
-		return '';
-	}
+	if (typeof date === 'undefined' || date === null || date === '0000-00-00') return '';
 
 	return formatInTimeZone(new Date(date), timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
 		locale: enGB
