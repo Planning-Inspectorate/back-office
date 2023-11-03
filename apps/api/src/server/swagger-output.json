@@ -1436,16 +1436,16 @@
 						}
 					},
 					"400": {
-						"description": "Example of an error response",
+						"description": "Search criteria too short",
 						"schema": {
 							"type": "object",
 							"properties": {
 								"errors": {
 									"type": "object",
 									"properties": {
-										"documents": {
+										"criteria": {
 											"type": "string",
-											"example": "Unknown document guid 0084b156-006b-48b1-a47f-e7176414db29"
+											"example": "Search criteria must have at least 3 characters"
 										}
 									}
 								}

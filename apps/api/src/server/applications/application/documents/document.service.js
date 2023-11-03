@@ -1,3 +1,4 @@
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../constants.js';
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import * as caseRepository from '#repositories/case.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
@@ -826,12 +827,16 @@ export const unpublishDocuments = async (guids) => {
  * @param {number} pageSize
  * @returns {Promise<PaginatedDocumentDetails>}
  */
-export const getDocumentsInCase = async (caseId, criteria, pageNumber = 1, pageSize = 50) => {
+export const getDocumentsInCase = async (
+	caseId,
+	criteria,
+	pageNumber = DEFAULT_PAGE_NUMBER,
+	pageSize = DEFAULT_PAGE_SIZE
+) => {
 	const skipValue = getSkipValue(pageNumber, pageSize);
 
 	// need to exclude all S51 Advice docs.  If there are any, they are in the top level folder for S51 advice
 	const s51AdviceFolder = await getS51AdviceFolder(caseId);
-	console.log(s51AdviceFolder);
 	const documentsCount = await documentRepository.getDocumentsCountInCase(
 		caseId,
 		criteria,

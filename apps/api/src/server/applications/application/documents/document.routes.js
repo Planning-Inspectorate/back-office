@@ -597,8 +597,8 @@ router.get(
             schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
         }
 		#swagger.responses[400] = {
-            description: 'Example of an error response',
-            schema: { errors: { documents: "Unknown document guid 0084b156-006b-48b1-a47f-e7176414db29" } }
+            description: 'Search criteria too short',
+            schema: { errors: { criteria: "Search criteria must have at least 3 characters" } }
         }
 		#swagger.responses[404] = {
             description: 'Error: Not Found',
