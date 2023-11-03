@@ -1762,7 +1762,7 @@
 				}
 			}
 		},
-		"/applications/documents/properties": {
+		"/applications/{id}/documents/properties": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets the properties of the specified files",
@@ -1770,9 +1770,9 @@
 					{
 						"name": "id",
 						"in": "path",
-						"description": "Application ID",
 						"required": true,
-						"type": "integer"
+						"type": "integer",
+						"description": "Application ID"
 					},
 					{
 						"name": "guids",
