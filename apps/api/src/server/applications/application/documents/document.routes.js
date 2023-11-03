@@ -344,7 +344,7 @@ router.get(
 	'/:id/documents/properties',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/documents/properties'
+        #swagger.path = '/applications/{id}/documents/properties'
         #swagger.description = 'Gets the properties of the specified files'
 		 #swagger.parameters['id'] = {
             in: 'path',
