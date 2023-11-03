@@ -4,7 +4,6 @@ import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
-
 import BackOfficeAppError from '#utils/app-error.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
@@ -249,28 +248,22 @@ export const getDocumentFolderPath = async ({ params: { guid } }, response) => {
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
 export const getDocumentProperties = async ({ params: { guid } }, response) => {
-	// Step 1: Retrieve the document by its GUID and case ID.
 	const document = await documentRepository.getById(guid);
-
 	if (!document) {
 		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
 	}
 
-	// Step 2: Retrieve the metadata for the document version associated with the GUID.
 	const documentVersion = await documentVersionRepository.getById(
 		document.guid,
 		document.latestVersionId ?? 1
 	);
 
-	// Step 3: If the document metadata is not found, throw an error.
 	if (documentVersion === null || typeof documentVersion === 'undefined') {
 		throw new BackOfficeAppError(`Unknown document metadata guid ${guid}`, 404);
 	}
 
-	// Step 4: Map the document metadata to a format to be returned in the API response.
 	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
 
-	// Step 5: Return the document metadata in the response.
 	response.status(200).send(documentDetails);
 };
 
@@ -312,29 +305,38 @@ export const getDocumentVersionProperties = async ({ params: { guid, version } }
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
 export const getManyDocumentsProperties = async ({ query: { guids, published } }, response) => {
+	/** @type {string[]} */
 	const filesGuid = JSON.parse(guids);
 	const onlyPublished = published === 'true';
 
-	const documentsVersion = await documentVersionRepository.getManyByIdAndStatus(
-		filesGuid,
-		onlyPublished ? 'published' : undefined
+	const uniqueGuids = filesGuid.reduce(
+		(acc, guid) => (acc.includes(guid) ? acc : [...acc, guid]),
+		/** @type {string[]} */ ([])
 	);
 
-	/** @type {DocumentVersionWithDocument[]} */
-	const foundDocuments = documentsVersion.flatMap((document, index) => {
-		if (document === null) {
-			logger.warn(`No published version of document ${filesGuid[index]} found`);
-			return [];
-		}
+	const documents = await documentRepository.getDocumentsByGUID(uniqueGuids);
+	if (!documents) {
+		throw new BackOfficeAppError(`no results returned for document GUIDs: ${filesGuid}`, 404);
+	}
 
-		return [document];
-	});
+	const filteredDocuments = onlyPublished
+		? documents.filter((doc) =>
+				doc.documentVersion.some((version) => version.publishedStatus === 'published')
+		  )
+		: documents;
 
-	// Map the documents metadata to a format to be returned in the API response.
-	const documentDetails = mapDocumentVersionDetails(foundDocuments);
+	const results = filteredDocuments.map((doc) =>
+		mapSingleDocumentDetailsFromVersion({
+			...doc.documentVersion[0],
+			publishedStatus: doc.documentVersion.some(
+				(version) => version.publishedStatus === 'published'
+			)
+				? 'published'
+				: doc.documentVersion[0].publishedStatus
+		})
+	);
 
-	// Return the documents metadata in the response.
-	response.status(200).send(documentDetails);
+	response.status(200).send(results);
 };
 
 /**
@@ -474,7 +476,7 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
  */
 export const storeDocumentVersion = async (request, response) => {
 	// Extract caseId and guid from the request parameters
-	const { guid } = request.params;
+	const { guid, id: caseId } = request.params;
 
 	// Validate the request body and extract the document version metadata
 	/** @type {DocumentVersion} */
@@ -485,6 +487,24 @@ export const storeDocumentVersion = async (request, response) => {
 
 	if (!document) {
 		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
+	}
+
+	if (documentVersionMetadataBody.transcript) {
+		const transcriptReference = documentVersionMetadataBody.transcript;
+
+		const transcriptDocument = await documentRepository.getByReferenceRelatedToCaseId(
+			transcriptReference,
+			+caseId
+		);
+
+		if (!transcriptDocument) {
+			const transcriptErrorMsg = `Transcript document not found: reference ${transcriptReference}`;
+			response.status(404).send({ errors: { transcript: transcriptErrorMsg } });
+
+			throw new BackOfficeAppError(transcriptErrorMsg, 404);
+		} else {
+			documentVersionMetadataBody.transcript = { connect: { guid: transcriptDocument.guid } };
+		}
 	}
 
 	// Upsert the document version metadata to the database and get the updated document details
