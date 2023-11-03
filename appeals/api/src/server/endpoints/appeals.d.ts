@@ -346,12 +346,48 @@ interface FolderInfo {
 }
 
 interface LatestDocumentVersionInfo {
-	publishedStatus?: string | null;
+	published: boolean | null | undefined;
+	dateReceived: Date | null | undefined;
+	redactionStatusId: number | null | undefined;
+	documentGuid?: string | null | undefined;
+	version?: number | null | undefined;
+	lastModified?: any;
+	documentType?: string | null | undefined;
+	sourceSystem?: string | null | undefined;
+	origin?: any;
+	originalFilename?: string | null | undefined;
+	fileName?: string | null | undefined;
+	representative?: any;
+	description?: any;
+	owner?: any;
+	author?: any;
+	securityClassification?: any;
+	mime?: string | null | undefined;
+	horizonDataID?: any;
+	fileMD5?: any;
+	path?: any;
+	virusCheckStatus?: any;
+	size?: number | null | undefined;
+	stage?: string | null | undefined;
+	filter1?: any;
+	blobStorageContainer?: string | null | undefined;
+	blobStoragePath?: string | null | undefined;
+	dateCreated?: string | null | undefined;
+	datePublished?: any;
+	isDeleted?: boolean | null | undefined;
+	examinationRefNo?: any;
+	filter2?: any;
+	publishedStatus?: string | null | undefined;
+	publishedStatusPrev?: any;
+	redactionStatus?: number | null | undefined;
+	redacted?: boolean | null | undefined;
+	documentURI?: string | null | undefined;
 }
 
 interface DocumentInfo {
 	id: string;
 	name: string;
+	createdAt?: string;
 	folderId?: number;
 	caseId?: number;
 	latestDocumentVersion?: LatestDocumentVersionInfo;
@@ -555,6 +591,7 @@ export {
 	CreateAuditTrail,
 	CreateAuditTrailRequest,
 	DocumentationSummary,
+	LatestDocumentVersionInfo,
 	DocumentInfo,
 	FolderInfo,
 	IncompleteInvalidReasons,

@@ -14,7 +14,9 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
 import {
 	renderDocumentUpload,
 	renderDocumentDetails,
-	postDocumentDetails
+	postDocumentDetails,
+	renderManageFolder,
+	renderManageDocument
 } from '../../appeal-documents/appeal-documents.controller.js';
 
 /**
@@ -313,5 +315,24 @@ export const postAddDocumentDetails = async (request, response) => {
 		response,
 		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/add-documents/{{folderId}}`,
 		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getManageFolder = async (request, response) => {
+	renderManageFolder(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/`,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/{{folderId}}/{{documentId}}`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getManageDocument = async (request, response) => {
+	renderManageDocument(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/{{folderId}}`
 	);
 };

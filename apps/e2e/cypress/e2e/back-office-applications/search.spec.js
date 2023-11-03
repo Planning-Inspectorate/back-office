@@ -20,9 +20,8 @@ describe('Search', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	//Tests are running locally fine but in CI/CD some of the tests are failing due to this some of the tests are commented for time being
 
-	/*context('As Inspector', () => {
+	context('As Inspector', () => {
 		beforeEach(() => {
 			cy.login(applicationsUsers.inspector);
 			cy.visit('/');
@@ -46,7 +45,7 @@ describe('Search', () => {
 			searchResultsPage.verifySearchResultsCount(1);
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
-	});*/
+	});
 
 	context('As Case Team Admin', () => {
 		beforeEach(() => {

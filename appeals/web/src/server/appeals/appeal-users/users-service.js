@@ -29,6 +29,40 @@ const getUsersByRole = async (roleName, session) => {
 };
 
 /**
+ * @typedef {Object} User
+ * @property {string} id
+ * @property {string} name
+ * @property {string} email
+ */
+
+/**
+ * Get a user by id from any group
+ * Requires the web project to run over https, with auth enabled. An empty array will be returned if these conditions are not met.
+ * @param {string} id - GUID representing the user in AD (same as user.id in returned data)
+ * @param {SessionWithAuth} session The current user's session
+ * @returns {Promise<User|undefined>}
+ */
+const getUserById = async (id, session) => {
+	const caseOfficerUsers = await getUsersByRole(
+		config.referenceData.appeals.caseOfficerGroupId,
+		session
+	);
+	const inspectorUsers = await getUsersByRole(
+		config.referenceData.appeals.inspectorGroupId,
+		session
+	);
+
+	// TODO: add users from other groups as required
+	const users = [...caseOfficerUsers, ...inspectorUsers];
+
+	for (const user of users) {
+		if (user.id === id) {
+			return user;
+		}
+	}
+};
+
+/**
  * Get an individual user by ID from the specified group
  *
  * @param {string} roleName The group name or ID in Active Directory
@@ -48,11 +82,17 @@ const getUserByRoleAndId = async (roleName, session, id) => {
 };
 
 /**
+ * @typedef {Object} UserData
+ * @property {string} id
+ * @property {string} name
+ * @property {string} email
+ */
+
+/**
  * Get all the users belonging to a specific group, from AD
- *
  * @param {string} roleName
  * @param {SessionWithAuth} session
- * @returns {Promise<{ id:string; name: string; email:string;}[]>}
+ * @returns {Promise<UserData[]>}
  */
 const fetchRolesAndUsersFromGraph = async (roleName, session) => {
 	const token = await getActiveDirectoryAccessToken(session, [
@@ -126,5 +166,6 @@ const getUserName = (user) => {
 
 export default {
 	getUsersByRole,
+	getUserById,
 	getUserByRoleAndId
 };

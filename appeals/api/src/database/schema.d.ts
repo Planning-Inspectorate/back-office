@@ -68,7 +68,7 @@ export interface AppellantCase extends schema.AppellantCase {
 }
 
 export interface Folder extends schema.Folder {
-	documents?: schema.Document[] | null;
+	documents?: Document[] | null;
 }
 
 export interface Document extends schema.Document {

@@ -16,7 +16,6 @@ export const getDocumentById = (guid) => {
 	return databaseConnector.document.findUnique({
 		where: { guid },
 		include: {
-			documentRedactionStatus: true,
 			latestDocumentVersion: true
 		}
 	});
@@ -79,14 +78,17 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize }) => {
 export const updateDocuments = (data) =>
 	Promise.all(
 		data.map((document) =>
-			databaseConnector.document.update({
+			databaseConnector.documentVersion.update({
 				data: {
-					receivedAt: document.receivedDate,
-					documentRedactionStatusId: document.redactionStatus
+					dateReceived: document.receivedDate,
+					redactionStatus: {
+						connect: {
+							id: document.redactionStatus
+						}
+					},
+					published: true
 				},
-				where: {
-					guid: document.id
-				}
+				where: { documentGuid_version: { documentGuid: document.id, version: 1 } }
 			})
 		)
 	);

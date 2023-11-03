@@ -13,6 +13,8 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
 import {
 	renderDocumentUpload,
 	renderDocumentDetails,
+	renderManageFolder,
+	renderManageDocument,
 	postDocumentDetails
 } from '../../appeal-documents/appeal-documents.controller.js';
 
@@ -278,5 +280,24 @@ export const postAddDocumentDetails = async (request, response) => {
 		response,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getManageFolder = async (request, response) => {
+	renderManageFolder(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/{{folderId}}/{{documentId}}`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getManageDocument = async (request, response) => {
+	renderManageDocument(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/{{folderId}}`
 	);
 };

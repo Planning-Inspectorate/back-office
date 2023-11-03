@@ -107,6 +107,7 @@
  *
  * @typedef SharedButtonProperties
  * @type {object}
+ * @property {string} id The ID of the button.
  * @property {string} [name] Name for the input or button.
  * @property {'button' | 'submit' | 'reset'} [type] Type of input or button – button, submit or reset. Defaults to submit.
  * @property {string} [value] Value for the button tag.
@@ -115,7 +116,6 @@
  * @property {string} [classes] Classes to add to the button component.
  * @property {boolean} [preventDoubleClick] Prevent accidental double clicks on submit buttons from submitting forms multiple times
  * @property {boolean} [isStartButton] 	Use for the main call to action on your service's start page. https://design-system.service.gov.uk/patterns/start-using-a-service/
- * @property {string} id The ID of the button.
  */
 
 /**
@@ -570,33 +570,22 @@
  * - Use the table component to make information easier to compare and scan for users.
  * - Documentation: https://design-system.service.gov.uk/components/table/
  * @type {object}
- * @property {TableRowProperties[]} rows Array of table rows and cells.
- * @property {TableHeadProperties[]} head Array of table head cells.
+ * @property {TableCellProperties[][]} rows Array of table body rows (each row is an array of table cells).
+ * @property {TableCellProperties[]} head Array of table head cells.
  * @property {string} [caption] Caption text
  * @property {string} [captionClasses] Classes for caption text size. Classes should correspond to the available typography heading classes.
  * @property {boolean} [firstCellIsHeader] If set to true, first cell in table row will be a TH instead of a TD.
  * @property {string} [classes] Classes to add to the table container.
  *
- * @typedef TableRowProperties
- * @type {SharedTableRowProperties & TextProperty | SharedTableRowProperties & HtmlProperty}
+ * @typedef TableCellProperties
+ * @type {SharedTableCellProperties & TextProperty | SharedTableCellProperties & HtmlProperty}
  *
- * @typedef SharedTableRowProperties
+ * @typedef SharedTableCellProperties
  * @type {object}
  * @property {string} [format] Specify format of a cell. Currently we only use "numeric".
  * @property {string} [classes] Classes to add to the table row cell.
  * @property {number} [colspan] Specify how many columns a cell extends.
  * @property {number} [rowspan] Specify how many rows a cell extends.
- *
- * @typedef TableHeadProperties
- * @type {SharedTableHeadProperties & TextProperty | SharedTableHeadProperties & HtmlProperty}
- *
- * @typedef SharedTableHeadProperties
- * @type {object}
- * @property {string} [format] Specify format of a cell. Currently we only use "numeric".
- * @property {string} [classes] Classes to add to the table head cell.
- * @property {number} [colspan] Specify how many columns a cell extends.
- * @property {number} [rowspan] Specify how many rows a cell extends.
- *
  */
 
 /**

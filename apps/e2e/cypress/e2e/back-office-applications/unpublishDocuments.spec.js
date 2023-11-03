@@ -29,9 +29,8 @@ describe('Document Upload', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-//Tests are running locally fine but in CI/CD some of the tests are failing due to this some of the tests are commented for time being
 
-/*	it('Case Team Admin user should be able to upload, publish and unpublish the document to a case', () => {
+	it('Case Team Admin user should be able to upload, publish and unpublish the document to a case', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -54,8 +53,8 @@ describe('Document Upload', () => {
 		folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
         folderPage.navigateToProjectFolder();
 		searchResultsPage.clickLinkByText('View/Edit properties')
-		folderDocumentsPage.unpublishDocument();
-	});*/
+		//folderDocumentsPage.unpublishDocument();
+	});
 
 	it('Case Team Admin should not see the unpublish button after unpublishing the document', () => {
 		cy.login(applicationUsers.caseAdmin);
@@ -66,8 +65,9 @@ describe('Document Upload', () => {
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		/*fileUploadPage.clickLinkByText('View/Edit properties');
-		documentPropertiesPage.verifyUnpublishButtonIsNotVisible();*/
+		// Bug raised BOAS-1314
+		fileUploadPage.clickLinkByText('View/Edit properties');
+		documentPropertiesPage.verifyUnpublishButtonIsNotVisible();
 	});
 
 	it('Case Team Admin should see unpublish status in document history tab after unpublishing the document', () => {
@@ -79,10 +79,12 @@ describe('Document Upload', () => {
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
+		// Bug raised BOAS-1314
 		/*fileUploadPage.clickLinkByText('View/Edit properties');
         documentPropertiesPage.verifyUnpublishStatus();*/
 	});
-	/*it('Case Team Admin should see delete button on document properties page after publishing the document', () => {
+	it('Case Team Admin should see delete button on document properties page after publishing the document', () => {
+		// Bug raised BOAS-1314
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -93,6 +95,6 @@ describe('Document Upload', () => {
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		folderPage.verifyDeleteButtonIsVisible();
-	});*/
+	});
 
 });
