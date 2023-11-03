@@ -35,7 +35,7 @@ import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter
  * @type {object}
  * @property {SummaryListRowProperties} [summaryListItem] To create a row in a summary list
  * @property {StatusTag} [statusTag] To create a Status Tag
- * @property {TableRowProperties[]} [tableItem] To create a table row
+ * @property {TableCellProperties[]} [tableItem] To create a table row
  */
 /**
  * @typedef InputInstruction
@@ -50,11 +50,15 @@ import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter
  */
 
 /**
+ * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
+ * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
+ */
+
+/**
  * @param {*} data
  * @param {string} currentRoute
  * @returns {Promise<MappedLPAQInstructions>}
  */
-
 export async function initialiseAndMapLPAQData(data, currentRoute) {
 	/** @type {MappedLPAQInstructions} */
 	const mappedData = {};
@@ -373,9 +377,20 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				},
 				actions: {
 					items: [
+						...((data.lpaq.documents.conservationAreaMap.documents || []).length
+							? [
+									{
+										text: 'Manage',
+										href: mapDocumentManageUrl(
+											data.lpaq.appealId,
+											data.lpaq.lpaQuestionnaireId,
+											data.lpaq.documents.conservationAreaMap
+										)
+									}
+							  ]
+							: []),
 						{
-							text:
-								data.lpaq.documents.conservationAreaMap.documents?.length > 0 ? 'Change' : 'Add',
+							text: 'Add',
 							href: displayFormatter.formatDocumentActionLink(
 								data.lpaq.appealId,
 								data.lpaq.documents.conservationAreaMap,
@@ -453,8 +468,20 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				},
 				actions: {
 					items: [
+						...((data.lpaq.documents.notifyingParties.documents || []).length
+							? [
+									{
+										text: 'Manage',
+										href: mapDocumentManageUrl(
+											data.lpaq.appealId,
+											data.lpaq.lpaQuestionnaireId,
+											data.lpaq.documents.notifyingParties
+										)
+									}
+							  ]
+							: []),
 						{
-							text: data.lpaq.documents.notifyingParties?.documents?.length > 0 ? 'Change' : 'Add',
+							text: 'Add',
 							href: displayFormatter.formatDocumentActionLink(
 								data.lpaq.appealId,
 								data.lpaq.documents.notifyingParties,
@@ -551,8 +578,20 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					actions: {
 						items: [
+							...((data.lpaq.documents.siteNotices.documents || []).length
+								? [
+										{
+											text: 'Manage',
+											href: mapDocumentManageUrl(
+												data.lpaq.appealId,
+												data.lpaq.lpaQuestionnaireId,
+												data.lpaq.documents.siteNotices
+											)
+										}
+								  ]
+								: []),
 							{
-								text: data.lpaq.documents.siteNotices?.documents?.length > 0 ? 'Change' : 'Add',
+								text: 'Add',
 								href: displayFormatter.formatDocumentActionLink(
 									data.lpaq.appealId,
 									data.lpaq.documents.siteNotices,
@@ -588,9 +627,20 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					actions: {
 						items: [
+							...((data.lpaq.documents.lettersToNeighbours.documents || []).length
+								? [
+										{
+											text: 'Manage',
+											href: mapDocumentManageUrl(
+												data.lpaq.appealId,
+												data.lpaq.lpaQuestionnaireId,
+												data.lpaq.documents.lettersToNeighbours
+											)
+										}
+								  ]
+								: []),
 							{
-								text:
-									data.lpaq.documents.lettersToNeighbours?.documents?.length > 0 ? 'Change' : 'Add',
+								text: 'Add',
 								href: displayFormatter.formatDocumentActionLink(
 									data.lpaq.appealId,
 									data.lpaq.documents.lettersToNeighbours,
@@ -706,8 +756,20 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					actions: {
 						items: [
+							...((data.lpaq.documents.representations.documents || []).length
+								? [
+										{
+											text: 'Manage',
+											href: mapDocumentManageUrl(
+												data.lpaq.appealId,
+												data.lpaq.lpaQuestionnaireId,
+												data.lpaq.documents.representations
+											)
+										}
+								  ]
+								: []),
 							{
-								text: data.lpaq.documents.representations?.documents?.length > 0 ? 'Change' : 'Add',
+								text: 'Add',
 								href: displayFormatter.formatDocumentActionLink(
 									data.lpaq.appealId,
 									data.lpaq.documents.representations,
@@ -737,8 +799,20 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				},
 				actions: {
 					items: [
+						...((data.lpaq.documents.officersReport.documents || []).length
+							? [
+									{
+										text: 'Manage',
+										href: mapDocumentManageUrl(
+											data.lpaq.appealId,
+											data.lpaq.lpaQuestionnaireId,
+											data.lpaq.documents.officersReport
+										)
+									}
+							  ]
+							: []),
 						{
-							text: data.lpaq.documents.officersReport?.documents?.length > 0 ? 'Change' : 'Add',
+							text: 'Add',
 							href: displayFormatter.formatDocumentActionLink(
 								data.lpaq.appealId,
 								data.lpaq.documents.officersReport,
@@ -1085,4 +1159,15 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
  */
 const buildDocumentUploadUrlTemplate = (lpaQuestionnaireId) => {
 	return `/appeals-service/appeal-details/{{appealId}}/lpa-questionnaire/${lpaQuestionnaireId}/add-documents/{{folderId}}/{{documentId}}`;
+};
+
+/**
+ *
+ * @param {Number} caseId
+ * @param {string} lpaQuestionnaireId
+ * @param {FolderInfo} folder
+ * @returns {string}
+ */
+const mapDocumentManageUrl = (caseId, lpaQuestionnaireId, folder) => {
+	return `/appeals-service/appeal-details/${caseId}/lpa-questionnaire/${lpaQuestionnaireId}/manage-documents/${folder.folderId}/`;
 };

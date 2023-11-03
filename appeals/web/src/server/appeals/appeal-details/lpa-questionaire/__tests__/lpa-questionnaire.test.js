@@ -1,16 +1,19 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
+import { jest } from '@jest/globals';
 import {
 	lpaQuestionnaireData,
 	lpaQuestionnaireIncompleteReasons,
 	documentFolderInfo,
 	documentFileInfo,
-	documentFolderInfoWithDocuments,
-	documentRedactionStatuses
+	documentFileVersionsInfo,
+	documentRedactionStatuses,
+	activeDirectoryUsersData
 } from '#testing/app/fixtures/referencedata.js';
 import { createTestEnvironment } from '#testing/index.js';
 import { textInputCharacterLimits } from '../../../appeal.constants.js';
+import usersService from '#appeals/appeal-users/users-service.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -688,11 +691,9 @@ describe('LPA Questionnaire review', () => {
 		});
 	});
 
-	describe('GET /appellant-case/add-document-details/:folderId/', () => {
+	describe('GET /lpa-questionnaire/2/add-document-details/:folderId/', () => {
 		it('should render the add document details page with one item per unpublished document', async () => {
-			nock('http://test/')
-				.get('/appeals/1/document-folders/1')
-				.reply(200, documentFolderInfoWithDocuments);
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
 
 			const response = await request.get(`${baseUrl}/add-document-details/1`);
 			const element = parseHtml(response.text);
@@ -701,7 +702,7 @@ describe('LPA Questionnaire review', () => {
 		});
 	});
 
-	describe('POST /appellant-case/add-document-details/:folderId/', () => {
+	describe('POST /lpa-questionnaire/2/add-document-details/:folderId/', () => {
 		beforeEach(() => {
 			nock('http://test/')
 				.get('/appeals/document-redaction-statuses')
@@ -981,6 +982,74 @@ describe('LPA Questionnaire review', () => {
 			});
 
 			expect(response.statusCode).toBe(302);
+		});
+	});
+
+	describe('GET /lpa-questionnaire/2/manage-documents/:folderId/', () => {
+		beforeEach(() => {
+			// @ts-ignore
+			usersService.getUserByRoleAndId = jest.fn().mockResolvedValue(activeDirectoryUsersData[0]);
+
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+		});
+
+		it('should render a 404 error page if the folderId is not valid', async () => {
+			const response = await request.get(`${baseUrl}/manage-documents/99/`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the manage documents listing page with one document item for each document present in the folder, if the folderId is valid', async () => {
+			const response = await request.get(`${baseUrl}/manage-documents/1/`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId', () => {
+		beforeEach(() => {
+			// @ts-ignore
+			usersService.getUsersByRole = jest.fn().mockResolvedValue(activeDirectoryUsersData);
+			// @ts-ignore
+			usersService.getUserByRoleAndId = jest.fn().mockResolvedValue(activeDirectoryUsersData[0]);
+			// @ts-ignore
+			usersService.getUserById = jest.fn().mockResolvedValue(activeDirectoryUsersData[0]);
+
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfo);
+		});
+
+		it('should render a 404 error page if the folderId is not valid', async () => {
+			const response = await request.get(`${baseUrl}/manage-documents/99/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a 404 error page if the documentId is not valid', async () => {
+			const response = await request.get(`${baseUrl}/manage-documents/1/99`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the manage individual document page with the expected content if the folderId and documentId are both valid', async () => {
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
 });

@@ -13,7 +13,7 @@ describe('user-scoped api client', () => {
 		const req = {
 			session: {
 				account: {
-					homeAccountId: 'user87326549238765'
+					localAccountId: 'user87326549238765'
 				}
 			}
 		};
