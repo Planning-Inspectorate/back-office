@@ -102,15 +102,23 @@ describe('Libraries', () => {
 								title: 'Row 1',
 								value: 'Yes',
 								valueType: 'text',
-								actionText: 'Change',
-								actionLink: '#'
+								actions: [
+									{
+										text: 'Change',
+										href: '#'
+									}
+								]
 							},
 							{
 								title: 'Row 2',
 								value: ['Option One', 'Option two'],
 								valueType: 'text',
-								actionText: 'Change',
-								actionLink: '#'
+								actions: [
+									{
+										text: 'Change',
+										href: '#'
+									}
+								]
 							}
 						]
 					},
@@ -125,15 +133,23 @@ describe('Libraries', () => {
 									{ href: 'link', title: 'link', target: '_self' }
 								],
 								valueType: 'link',
-								actionText: 'Details',
-								actionLink: '#'
+								actions: [
+									{
+										text: 'Details',
+										href: '#'
+									}
+								]
 							},
 							{
 								title: 'Row 4',
 								value: { href: 'link', title: 'link', target: '_new' },
 								valueType: 'link',
-								actionText: 'Details',
-								actionLink: '#'
+								actions: [
+									{
+										text: 'Details',
+										href: '#'
+									}
+								]
 							}
 						]
 					}

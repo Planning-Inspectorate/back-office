@@ -53,4 +53,10 @@ router
 		controller.postAddDocumentDetails
 	);
 
+router.route('/manage-documents/:folderId/').get(validateCaseFolderId, controller.getManageFolder);
+
+router
+	.route('/manage-documents/:folderId/:documentId')
+	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument);
+
 export default router;

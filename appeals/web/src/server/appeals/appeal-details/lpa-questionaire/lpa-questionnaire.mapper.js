@@ -353,15 +353,23 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 			title: 'Review outcome',
 			value: 'Incomplete',
 			valueType: 'text',
-			actionText: 'Change',
-			actionLink: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`
+			actions: [
+				{
+					text: 'Change',
+					href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`
+				}
+			]
 		},
 		{
 			title: 'Incomplete reasons',
 			value: reasonsList,
 			valueType: 'unorderedList',
-			actionText: 'Change',
-			actionLink: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete`
+			actions: [
+				{
+					text: 'Change',
+					href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete`
+				}
+			]
 		}
 	];
 
@@ -370,8 +378,12 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 			title: `Updated due date`,
 			value: webDateToDisplayDate(updatedDueDate),
 			valueType: 'text',
-			actionText: 'Change',
-			actionLink: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
+			actions: [
+				{
+					text: 'Change',
+					href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
+				}
+			]
 		});
 	}
 

@@ -9,8 +9,7 @@ import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builde
  * @type {object}
  * @property {string} title - key column
  * @property {(string | Array<string|string[]> | HtmlLink[] | HtmlLink)} value - value column
- * @property {string} actionText - text for button
- * @property {string} actionLink - url for button
+ * @property {ActionItemProperties[]} actions
  * @property {HtmlTagType} valueType - determines html tags
  * @property {string} [actionVisuallyHiddenText] - additional text for button for screen readers
  */
@@ -19,7 +18,7 @@ import { buildHtmlLink, buildHtmSpan, buildHtmUnorderedList } from './tag-builde
  * @typedef {{title: {text: string}}} Card Card for header
  * @typedef {{text: string}} Key Key column
  * @typedef {{html: string}} Value Value column
- * @typedef {{items: {href: string, text: string, visuallyHiddenText: string}[]}} Actions Array of button actions: [{button link, button text, button hidden text}]
+ * @typedef {{items: ActionItemProperties[]}} Actions Array of button actions: [{button link, button text, button hidden text}]
  */
 
 /**
@@ -49,13 +48,10 @@ export function generateSummaryList(params) {
 				html: formatRowValue(row)
 			},
 			actions: {
-				items: [
-					{
-						href: row.actionLink,
-						text: row.actionText,
-						visuallyHiddenText: row.actionVisuallyHiddenText || row.title
-					}
-				]
+				items: row.actions.map((action) => ({
+					...action,
+					visuallyHiddenText: row.actionVisuallyHiddenText || row.title
+				}))
 			}
 		}))
 	};

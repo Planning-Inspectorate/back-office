@@ -40,7 +40,7 @@ router
 router.use('/:lpaQuestionnaireId/change-lpa-questionnaire', changePageRouter);
 
 router
-	.route('/:lpaQId/add-document-details/:folderId')
+	.route('/:lpaQuestionnaireId/add-document-details/:folderId')
 	.get(validateCaseFolderId, controller.getAddDocumentDetails)
 	.post(
 		validateCaseFolderId,
@@ -51,5 +51,13 @@ router
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		controller.postAddDocumentDetails
 	);
+
+router
+	.route('/:lpaQuestionnaireId/manage-documents/:folderId/')
+	.get(validateCaseFolderId, controller.getManageFolder);
+
+router
+	.route('/:lpaQuestionnaireId/manage-documents/:folderId/:documentId')
+	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument);
 
 export default router;

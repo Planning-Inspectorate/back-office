@@ -13,7 +13,11 @@ const formatFolder = (folder) => ({
 			id: document.guid,
 			name: document.name,
 			latestDocumentVersion: {
-				publishedStatus: document?.latestDocumentVersion?.publishedStatus
+				published: document?.latestDocumentVersion?.published,
+				dateReceived: document?.latestDocumentVersion?.dateReceived,
+				redactionStatus: document?.latestDocumentVersion?.redactionStatusId,
+				size: document?.latestDocumentVersion?.size,
+				mime: document?.latestDocumentVersion?.mime
 			}
 		})) || null,
 	id: folder.id,

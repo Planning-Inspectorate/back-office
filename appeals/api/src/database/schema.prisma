@@ -401,22 +401,19 @@ model Folder {
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
 model Document {
-  guid                      String                    @id @default(uuid())
-  name                      String
-  folderId                  Int
-  createdAt                 DateTime                  @default(now())
-  isDeleted                 Boolean                   @default(false)
-  latestVersionId           Int?
-  caseId                    Int
-  receivedAt                DateTime?
-  documentRedactionStatusId Int?
-  folder                    Folder                    @relation(fields: [folderId], references: [id])
-  documentVersion           DocumentVersion[]         @relation("VersionHistory")
-  representationAttachment  RepresentationAttachment? @relation("AttachmentDocument")
-  latestDocumentVersion     DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
-  case                      Appeal                    @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
-  documentRedactionStatus   DocumentRedactionStatus?  @relation(fields: [documentRedactionStatusId], references: [id])
-  versionAudit              DocumentVersionAudit[]    @relation("audit")
+  guid                     String                    @id @default(uuid())
+  name                     String
+  folderId                 Int
+  createdAt                DateTime                  @default(now())
+  isDeleted                Boolean                   @default(false)
+  latestVersionId          Int?
+  caseId                   Int
+  folder                   Folder                    @relation(fields: [folderId], references: [id])
+  documentVersion          DocumentVersion[]         @relation("VersionHistory")
+  representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
+  latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
+  case                     Appeal                    @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  versionAudit             DocumentVersionAudit[]    @relation("audit")
 
   @@unique([name, folderId])
   @@unique([guid, latestVersionId])
@@ -431,8 +428,8 @@ model DocumentVersion {
   version                Int
   lastModified           DateTime?
   documentType           String?
-  published              Boolean   @default(false)
-  sourceSystem           String    @default("back-office-appeals")
+  published              Boolean                  @default(false)
+  sourceSystem           String                   @default("back-office-appeals")
   origin                 String?
   originalFilename       String?
   fileName               String?
@@ -451,19 +448,20 @@ model DocumentVersion {
   filter1                String?
   blobStorageContainer   String?
   blobStoragePath        String?
-  dateCreated            DateTime? @default(now())
+  dateCreated            DateTime?                @default(now())
   datePublished          DateTime?
-  isDeleted              Boolean   @default(false)
+  isDeleted              Boolean                  @default(false)
   examinationRefNo       String?
   filter2                String?
-  publishedStatus        String?   @default("awaiting_upload")
+  publishedStatus        String?                  @default("awaiting_upload")
   publishedStatusPrev    String?
-  redactedStatus         String?
-  redacted               Boolean   @default(false)
+  redactionStatusId      Int?
+  redacted               Boolean                  @default(false)
   documentURI            String?
   dateReceived           DateTime?
-  parentDocument         Document? @relation("VersionHistory", fields: [documentGuid], references: [guid])
-  latestVersionDocument  Document? @relation("LatestVersion")
+  parentDocument         Document?                @relation("VersionHistory", fields: [documentGuid], references: [guid])
+  latestVersionDocument  Document?                @relation("LatestVersion")
+  redactionStatus        DocumentRedactionStatus? @relation(fields: [redactionStatusId], references: [id])
 
   @@id([documentGuid, version])
   @@index([filter1], map: "filter1")
@@ -725,9 +723,9 @@ model LPAQuestionnaireIncompleteReasonText {
 }
 
 model DocumentRedactionStatus {
-  id        Int        @id @default(autoincrement())
-  name      String     @unique
-  documents Document[]
+  id        Int               @id @default(autoincrement())
+  name      String            @unique
+  documents DocumentVersion[]
 }
 
 model AuditTrail {
