@@ -92,6 +92,21 @@ export function dateToDisplayDate(date, { condensed = false } = {}) {
 }
 
 /**
+ * @param {Date | null | undefined} date
+ * @returns {string}
+ */
+export function dateToDisplayTime(date) {
+	if (typeof date === 'undefined' || date === null) {
+		return '';
+	}
+
+	const hours = date.getHours();
+	const minutes = date.getMinutes();
+
+	return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+}
+
+/**
  * @param {import('../appeals/appeals.types.js').DayMonthYear} dayMonthYear
  * @returns {string}
  */

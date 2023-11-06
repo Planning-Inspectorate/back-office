@@ -4,7 +4,6 @@ import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
-
 import BackOfficeAppError from '#utils/app-error.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
@@ -15,6 +14,7 @@ import {
 } from '#utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
+	getDocumentsInCase,
 	extractDuplicates,
 	getIndexFromReference,
 	handleUpdateDocument,
@@ -626,4 +626,17 @@ export const markAsUnpublished = async ({ params }, response) => {
 	const updateResponse = await markDocumentVersionAsUnpublished({ guid });
 
 	response.send(updateResponse);
+};
+
+/**
+ * Gets paginated array of documents in a case/application
+ *
+ * @type {import('express').RequestHandler<{id: number}, ?, ?, {criteria: string, page?: number, pageSize?: number}>}
+ */
+export const searchDocuments = async ({ params, query }, response) => {
+	const { id: caseId } = params;
+	const { page, pageSize, criteria } = query;
+
+	const paginatedDocuments = await getDocumentsInCase(caseId, criteria, page, pageSize);
+	response.send(paginatedDocuments);
 };

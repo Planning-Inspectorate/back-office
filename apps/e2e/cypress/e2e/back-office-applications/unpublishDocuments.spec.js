@@ -27,8 +27,6 @@ describe('Unpublish Documents', () => {
 		projectInfo = projectInformation();
 		cy.login(applicationUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
-		caseRef = Cypress.env('currentCreatedCase');
-
 	});
 
 

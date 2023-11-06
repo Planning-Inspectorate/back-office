@@ -2,13 +2,13 @@ import { addressToString } from '#lib/address-formatter.js';
 import { convertFromBooleanToYesNo } from '#lib/boolean-formatter.js';
 import { dayMonthYearToApiDateString, webDateToDisplayDate } from '#lib/dates.js';
 import { capitalize } from 'lodash-es';
-import { mapFolder } from '#appeals/appeal-documents/appeal-documents.mapper.js';
 import {
 	mapReasonOptionsToCheckboxItemParameters,
 	mapReasonsToReasonsList
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
+import { mapDocumentsForDisplay } from '#appeals/appeal-documents/appeal-documents.mapper.js';
 
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
@@ -23,9 +23,8 @@ import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-build
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedFolderForListBuilder} MappedFolderForListBuilder
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedDocumentForListBuilder} MappedDocumentForListBuilder
  * @typedef {import('#lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType} HtmlTagType
- * @typedef {import('#lib/nunjucks-template-builders/tag-builders.js').HtmlLink} HtmlLink
  * @typedef {import("#lib/nunjucks-template-builders/summary-list-builder.js").Row} SummaryListBuilderRowArray
- * @typedef {Object<[key: string], SummaryListBuilderRowArray | Array<SummaryListBuilderRowArray>>} MappedAppellantCaseData
+ * @typedef {Object<string, SummaryListBuilderRowArray>} MappedAppellantCaseData
  * @typedef {import("#lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
  */
 
@@ -82,15 +81,23 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 			title: 'Review outcome',
 			value: capitalize(validationOutcomeAsString),
 			valueType: 'text',
-			actionText: 'Change',
-			actionLink: `/appeals-service/appeal-details/${appealId}/appellant-case`
+			actions: [
+				{
+					text: 'Change',
+					href: `/appeals-service/appeal-details/${appealId}/appellant-case`
+				}
+			]
 		},
 		{
 			title: `${capitalize(validationOutcomeAsString)} reasons`,
 			value: reasonsList,
 			valueType: 'unorderedList',
-			actionText: 'Change',
-			actionLink: `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcomeAsString.toLowerCase()}`
+			actions: [
+				{
+					text: 'Change',
+					href: `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcomeAsString.toLowerCase()}`
+				}
+			]
 		}
 	];
 
@@ -99,8 +106,12 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 			title: `Updated due date`,
 			value: webDateToDisplayDate(updatedDueDate),
 			valueType: 'text',
-			actionText: 'Change',
-			actionLink: `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcomeAsString.toLowerCase()}/date`
+			actions: [
+				{
+					text: 'Change',
+					href: `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcomeAsString.toLowerCase()}/date`
+				}
+			]
 		});
 	}
 
@@ -270,14 +281,19 @@ export function mapWebReviewOutcomeToApiReviewOutcome(
  * @returns {MappedAppellantCaseData}
  */
 function mapData(appellantCaseData, permissions) {
+	/** @type {MappedAppellantCaseData} */
 	const mappedData = {};
 
 	mappedData.appellantName = {
 		title: 'Name',
-		value: appellantCaseData.appellant.name,
+		value: appellantCaseData.appellant.name || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.applicantName = {
@@ -285,18 +301,26 @@ function mapData(appellantCaseData, permissions) {
 		value:
 			appellantCaseData.applicant.firstName && appellantCaseData.applicant.surname
 				? `${appellantCaseData.applicant.firstName} ${appellantCaseData.applicant.surname}`
-				: appellantCaseData.appellant.name,
+				: appellantCaseData.appellant.name || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.applicationReference = {
 		title: 'Application reference',
 		value: appellantCaseData.planningApplicationReference,
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.siteAddress = {
@@ -309,64 +333,97 @@ function mapData(appellantCaseData, permissions) {
 			county: appellantCaseData.appealSite.county || ''
 		}),
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.siteFullyOwned = {
 		title: 'Site fully owned',
-		value: convertFromBooleanToYesNo(appellantCaseData.siteOwnership.isFullyOwned),
+		value: convertFromBooleanToYesNo(appellantCaseData.siteOwnership.isFullyOwned) || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.sitePartiallyOwned = {
 		title: 'Site partially owned',
-		value: convertFromBooleanToYesNo(appellantCaseData.siteOwnership.isPartiallyOwned),
+		value: convertFromBooleanToYesNo(appellantCaseData.siteOwnership.isPartiallyOwned) || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.allOwnersKnown = {
 		title: 'All owners known',
-		value: convertFromBooleanToYesNo(appellantCaseData.siteOwnership.areAllOwnersKnown),
+		value: convertFromBooleanToYesNo(appellantCaseData.siteOwnership.areAllOwnersKnown) || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.attemptedToIdentifyOwners = {
 		title: 'Attempted to identify owners',
-		value: convertFromBooleanToYesNo(appellantCaseData.siteOwnership.hasAttemptedToIdentifyOwners),
+		value:
+			convertFromBooleanToYesNo(appellantCaseData.siteOwnership.hasAttemptedToIdentifyOwners) || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.advertisedAppeal = {
 		title: 'Advertised appeal',
-		value: convertFromBooleanToYesNo(appellantCaseData.hasAdvertisedAppeal),
+		value: convertFromBooleanToYesNo(appellantCaseData.hasAdvertisedAppeal) || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.visibility = {
 		title: 'Visibility',
-		value: convertFromBooleanToYesNo(appellantCaseData.visibility.isVisible),
+		value: convertFromBooleanToYesNo(appellantCaseData.visibility.isVisible) || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.healthAndSafetyIssues = {
 		title: 'Site health and safety issues',
-		value: convertFromBooleanToYesNo(appellantCaseData.healthAndSafety.hasIssues),
+		value: convertFromBooleanToYesNo(appellantCaseData.healthAndSafety.hasIssues) || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.applicationForm = {
@@ -374,6 +431,8 @@ function mapData(appellantCaseData, permissions) {
 		...mapDocumentsForDisplay(
 			appellantCaseData.appealId,
 			appellantCaseData.documents.applicationForm,
+			mapDocumentUploadUrl,
+			mapDocumentManageUrl,
 			!permissions.setAppellantCaseData
 		)
 	};
@@ -383,6 +442,8 @@ function mapData(appellantCaseData, permissions) {
 		...mapDocumentsForDisplay(
 			appellantCaseData.appealId,
 			appellantCaseData.documents.decisionLetter,
+			mapDocumentUploadUrl,
+			mapDocumentManageUrl,
 			!permissions.setAppellantCaseData
 		)
 	};
@@ -392,6 +453,8 @@ function mapData(appellantCaseData, permissions) {
 		...mapDocumentsForDisplay(
 			appellantCaseData.appealId,
 			appellantCaseData.documents.appealStatement,
+			mapDocumentUploadUrl,
+			mapDocumentManageUrl,
 			!permissions.setAppellantCaseData
 		)
 	};
@@ -401,10 +464,14 @@ function mapData(appellantCaseData, permissions) {
 
 	mappedData.addNewSupportingDocuments = {
 		title: 'Add new supporting documents',
-		value: convertFromBooleanToYesNo(hasNewSupportingDocuments),
+		value: convertFromBooleanToYesNo(hasNewSupportingDocuments) || '',
 		valueType: 'text',
-		actionText: 'Change',
-		actionLink: '#'
+		actions: [
+			{
+				text: 'Change',
+				href: '#'
+			}
+		]
 	};
 
 	mappedData.newSupportingDocuments = {
@@ -412,6 +479,8 @@ function mapData(appellantCaseData, permissions) {
 		...mapDocumentsForDisplay(
 			appellantCaseData.appealId,
 			appellantCaseData.documents.newSupportingDocuments,
+			mapDocumentUploadUrl,
+			mapDocumentManageUrl,
 			!permissions.setAppellantCaseData,
 			false
 		)
@@ -419,10 +488,7 @@ function mapData(appellantCaseData, permissions) {
 
 	if (!permissions.setAppellantCaseData) {
 		Object.keys(mappedData).forEach((key) => {
-			// @ts-ignore
-			mappedData[key].actionText = '';
-			// @ts-ignore
-			mappedData[key].actionLink = '';
+			mappedData[key].actions = [];
 		});
 	}
 
@@ -488,56 +554,11 @@ function appealDataList(mappedData) {
 }
 
 /**
- * @typedef {Object} MappedDocumentRow
- * @property {(string[] | string | HtmlLink[] | HtmlLink)} value
- * @property {string} actionText
- * @property {string} actionLink
- * @property {import('#lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType} valueType
- * @property {{[key: string]: string} | null} [attributes]
- */
-/**
- *
- * @param {Number} caseId
- * @param {FolderInfo} folder
- * @param {boolean?} [readOnly]
- * @param {boolean?} [singleDocument]
- * @returns {MappedDocumentRow}
- */
-const mapDocumentsForDisplay = (caseId, folder, readOnly = false, singleDocument = true) => {
-	const mappedFolder = mapFolder(caseId, folder, mapDocumentUploadUrl, singleDocument);
-	const { documents } = mappedFolder;
-	if (singleDocument && documents?.length) {
-		const d = documents[0];
-		return {
-			value: { ...d, target: '_docpreview' },
-			actionText: readOnly ? '' : 'Change',
-			actionLink: readOnly ? '' : d.addVersionUrl,
-			valueType: 'link'
-		};
-	} else if (!documents?.length) {
-		return {
-			value: 'none',
-			actionText: readOnly ? '' : 'Add',
-			actionLink: readOnly ? '' : mappedFolder.addDocumentUrl,
-			valueType: 'text'
-		};
-	}
-
-	return {
-		value: documents.map((/** @type {MappedDocumentForListBuilder} */ d) => {
-			return { ...d, target: '_docpreview' };
-		}),
-		actionText: readOnly ? '' : 'Add',
-		actionLink: readOnly ? '' : mappedFolder.addDocumentUrl,
-		valueType: 'link'
-	};
-};
-
-/**
  *
  * @param {Number} caseId
  * @param {FolderInfo} folder
  * @param {DocumentInfo | null} doc
+ * @returns {string}
  */
 const mapDocumentUploadUrl = (caseId, folder, doc = null) => {
 	if (doc) {
@@ -545,4 +566,14 @@ const mapDocumentUploadUrl = (caseId, folder, doc = null) => {
 	}
 
 	return `/appeals-service/appeal-details/${caseId}/appellant-case/add-documents/${folder.folderId}/`;
+};
+
+/**
+ *
+ * @param {Number} caseId
+ * @param {FolderInfo} folder
+ * @returns {string}
+ */
+const mapDocumentManageUrl = (caseId, folder) => {
+	return `/appeals-service/appeal-details/${caseId}/appellant-case/manage-documents/${folder.folderId}/`;
 };

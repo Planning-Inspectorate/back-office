@@ -1,8 +1,12 @@
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../constants.js';
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import * as caseRepository from '#repositories/case.repository.js';
+import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import { mapDocumentVersionDetails } from '#utils/mapping/map-document-details.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
+import { getS51AdviceFolder } from '#repositories/folder.repository.js';
 import { getStorageLocation } from '#utils/document-storage.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
@@ -25,7 +29,9 @@ import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './documen
  * @typedef {import('@pins/applications.api').Api.DocumentToSave} DocumentToSave
  * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
  * @typedef {import('@pins/applications.api').Api.DocumentBlobStoragePayload} DocumentBlobStoragePayload
- */
+ * @typedef {import('@pins/applications.api').Api.PaginatedDocumentDetails} PaginatedDocumentDetails
+
+*/
 
 /**
  * Remove extension from document name
@@ -810,4 +816,51 @@ export const unpublishDocuments = async (guids) => {
 	);
 
 	return unpublishedDocuments.map((doc) => doc.documentGuid);
+};
+
+/**
+ * Returns paginated array of documents in a folder on a case, excluding S51 Advice docs
+ *
+ * @param {number} caseId
+ * @param {string} criteria
+ * @param {number} pageNumber
+ * @param {number} pageSize
+ * @returns {Promise<PaginatedDocumentDetails>}
+ */
+export const getDocumentsInCase = async (
+	caseId,
+	criteria,
+	pageNumber = DEFAULT_PAGE_NUMBER,
+	pageSize = DEFAULT_PAGE_SIZE
+) => {
+	const skipValue = getSkipValue(pageNumber, pageSize);
+
+	// need to exclude all S51 Advice docs.  If there are any, they are in the top level folder for S51 advice
+	const s51AdviceFolder = await getS51AdviceFolder(caseId);
+	const documentsCount = await documentRepository.getDocumentsCountInCase(
+		caseId,
+		criteria,
+		s51AdviceFolder?.id
+	);
+	const documents = await documentRepository.getDocumentsInCase(
+		caseId,
+		criteria,
+		s51AdviceFolder?.id,
+		skipValue,
+		pageSize
+	);
+
+	// @ts-ignore
+	const mapDocument = documents.map(({ documentVersion, ...Document }) => ({
+		Document,
+		...documentVersion[documentVersion.length - 1]
+	}));
+
+	return {
+		page: pageNumber,
+		pageDefaultSize: pageSize,
+		pageCount: getPageCount(documentsCount, pageSize),
+		itemCount: documentsCount,
+		items: mapDocumentVersionDetails(mapDocument)
+	};
 };

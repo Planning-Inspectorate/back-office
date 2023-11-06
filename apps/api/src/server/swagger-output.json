@@ -1393,6 +1393,89 @@
 						}
 					}
 				}
+			},
+			"get": {
+				"tags": ["Applications"],
+				"description": "search documents on a case",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "The page number to return, defaults to 1",
+						"example": 1,
+						"type": "integer"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The number of results per page, defaults to 25",
+						"example": 25,
+						"type": "integer"
+					},
+					{
+						"name": "criteria",
+						"in": "query",
+						"description": "search criteria",
+						"example": "search string",
+						"type": "string",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "An paginated data set of matching documents and their properties",
+						"schema": {
+							"$ref": "#/definitions/PaginatedDocumentDetails"
+						}
+					},
+					"400": {
+						"description": "Search criteria too short",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"criteria": {
+											"type": "string",
+											"example": "Search criteria must have at least 3 characters"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/applications/{id}/documents/unpublish": {
@@ -1679,7 +1762,7 @@
 				}
 			}
 		},
-		"/applications/documents/properties": {
+		"/applications/{id}/documents/properties": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets the properties of the specified files",
@@ -1687,9 +1770,9 @@
 					{
 						"name": "id",
 						"in": "path",
-						"description": "Application ID",
 						"required": true,
-						"type": "integer"
+						"type": "integer",
+						"description": "Application ID"
 					},
 					{
 						"name": "guids",
