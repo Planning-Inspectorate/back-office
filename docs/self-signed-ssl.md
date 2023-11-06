@@ -4,4 +4,9 @@ When developing locally, by default we are simulating the authentication workflo
 
 A local self-signed certificate can be created either using OS built-in tools, or using tools such as `mkcert (https://github.com/FiloSottile/mkcert)`. This tool will create a certificate for the ip address(es) or domains passed as input, e.g.: `mkcert localhost 127.0.0.1`.
 
+Alternatively on windows you can run the following commands:
+&"C:\Program Files\Git\usr\bin\openssl" genrsa -out client-key.pem 2048;
+&"C:\Program Files\Git\usr\bin\openssl" req -new -key client-key.pem -out client.csr;
+&"C:\Program Files\Git\usr\bin\openssl" x509 -req -in client.csr -signkey client-key.pem -out client-cert.pem
+
 Once a certificate is created, it can be put in the root of the solution, and referenced when configuring the site over HTTPS.
