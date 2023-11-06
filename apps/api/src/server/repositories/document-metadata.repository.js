@@ -9,16 +9,25 @@ import { databaseConnector } from '#utils/database-connector.js';
 
 /**
 
- * @param {any} metadata
+ * @param {DocumentVersion} metadata
  * @returns {import('@prisma/client').PrismaPromise<DocumentVersion>}
  */
-export const upsert = ({ documentGuid, version = 1, ...metadata }) => {
+export const upsert = ({ documentGuid, version = 1, transcriptGuid, ...metadata }) => {
 	return databaseConnector.documentVersion.upsert({
-		create: { ...metadata, version, Document: { connect: { guid: documentGuid } } },
+		create: {
+			...metadata,
+			version,
+			...(transcriptGuid ? { transcript: { connect: { guid: transcriptGuid } } } : {}),
+			Document: { connect: { guid: documentGuid } }
+		},
 
 		where: { documentGuid_version: { documentGuid, version } },
 
-		update: { ...metadata, version },
+		update: {
+			...metadata,
+			transcriptGuid,
+			version
+		},
 
 		include: {
 			Document: {
