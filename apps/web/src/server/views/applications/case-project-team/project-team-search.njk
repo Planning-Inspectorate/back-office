@@ -1,0 +1,110 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+{% set serviceName = "Project team" %}
+{% set pageTitle = "Search for a team member" %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back to Project team",
+			href: 'project-team'|url({caseId: caseId })
+	}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+{% block errorSummary %}{% endblock %}
+
+{% block pageContent %}
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+		{{ pageTitle }}
+	</h1>
+
+	<form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
+		<div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
+
+			{{ govukInput({
+  				label: {
+					text: "Search by name or email address",
+					classes: "govuk-hint colour--secondary"
+				},
+				formGroup: {
+					classes: 'govuk-grid-column-two-thirds'
+				},
+				id: "query",
+				name: "query",
+				errorMessage: errors.query | errorMessage
+			}) }}
+			<div>
+				{{ govukButton({ text: 'Search'}) }}
+			</div>
+		</div>
+	</form>
+
+	{% if results %}
+
+		<p class='govuk-body font-weight--700'>
+			{{results.itemCount if results.itemCount else 0}} results
+		</p>
+
+		{% if results.itemCount %}
+			{% set searchResults = [] %}
+			{% for teamMember in results.items %}
+				{% set teamMemberRolePageUrl %}
+				<a class='govuk-link' href='{{'project-team-role'|url({
+						caseId: caseId,
+						userId: teamMember.id}
+					)}}'>Select</a>
+				{% endset %}
+
+				{% set searchResults = searchResults | concat([
+					[
+						{
+							text: teamMember.name
+						}, {
+							text: teamMember.email
+						}, {
+							html: teamMemberRolePageUrl
+						}
+					]
+				]) %}
+			{% endfor %}
+
+			{{ govukTable({
+				firstCellIsHeader: true,
+				head: [
+					{ text: "Name" },
+					{ text: "Email" },
+					{ text: "Action" }
+				],
+				rows: searchResults
+			}) }}
+
+			{% if results.itemCount > 25 %}
+				{{ govukPagination(paginationButtons) }}
+			{% endif %}
+
+		{% else %}
+			<hr class='govuk-!-margin-top-6 govuk-!-margin-bottom-6 govuk-section-break govuk-section-break--visible'>
+
+			<h2 class='govuk-body font-weight--700'>There are no matching results </h2>
+			<p class='govuk-body'>Improve your search by</p>
+			<ul>
+				<li class='govuk-body govuk-!-margin-bottom-0'>double checking your spelling</li>
+				<li class='govuk-body'>entering at least 2 characters</li>
+			</ul>
+		{% endif %}
+
+	{% endif %}
+{% endblock %}

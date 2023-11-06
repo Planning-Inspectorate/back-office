@@ -177,51 +177,57 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                             <input class="govuk-input" id="" name="items[0][documentId]" type="hidden">
                         </div>
                         <div class="govuk-form-group">
-                            <div class="govuk-date-input" id="items[0]receivedDate">
-                                <div class="govuk-date-input__item">
-                                    <div class="govuk-form-group">
-                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">day</label>
-                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
-                                        id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                            <fieldset class="govuk-fieldset" role="group">
+                                <legend class="govuk-fieldset__legend">Date received</legend>
+                                <div class="govuk-date-input" id="items[0]receivedDate">
+                                    <div class="govuk-date-input__item">
+                                        <div class="govuk-form-group">
+                                            <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
+                                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                            id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
+                                            inputmode="numeric">
+                                        </div>
+                                    </div>
+                                    <div class="govuk-date-input__item">
+                                        <div class="govuk-form-group">
+                                            <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
+                                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                            id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
+                                            type="text" inputmode="numeric">
+                                        </div>
+                                    </div>
+                                    <div class="govuk-date-input__item">
+                                        <div class="govuk-form-group">
+                                            <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
+                                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                            id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
+                                            inputmode="numeric">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="govuk-date-input__item">
-                                    <div class="govuk-form-group">
-                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">month</label>
-                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
-                                        id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
-                                    </div>
-                                </div>
-                                <div class="govuk-date-input__item">
-                                    <div class="govuk-form-group">
-                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">year</label>
-                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                                        id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
-                                    </div>
-                                </div>
-                            </div>
+                            </fieldset>
                         </div>
                         <div class="govuk-form-group">
-                            <div class="govuk-radios" data-module="govuk-radios">
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
-                                    type="radio" value="redacted">
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]">Redacted</label>
+                            <fieldset class="govuk-fieldset">
+                                <legend class="govuk-fieldset__legend">Redaction</legend>
+                                <div class="govuk-radios" data-module="govuk-radios">
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
+                                        type="radio" value="redacted">
+                                        <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]">Redacted</label>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="items[0][redactionStatus]-2" name="items[0][redactionStatus]"
+                                        type="radio" value="unredacted">
+                                        <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                        type="radio" value="no redaction required">
+                                        <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    </div>
                                 </div>
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-2" name="items[0][redactionStatus]"
-                                    type="radio" value="unredacted">
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
-                                </div>
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
-                                    type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
-                                </div>
-                            </div>
+                            </fieldset>
                         </div>
                         <hr class="govuk-!-margin-top-7">
                     </div>
@@ -247,23 +253,7 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span> Your file must be 
-PDF, 
-DOC, 
-DOCX, 
-PPT, 
-PPTX, 
-XLS, 
-XLSX, 
-JPG, 
-JPEG, 
-MPEG, 
-MP3, 
-MP4, 
-MOV, 
-PNG, 
-TIF, 
-	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -305,23 +295,7 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span> Your file must be 
-PDF, 
-DOC, 
-DOCX, 
-PPT, 
-PPTX, 
-XLS, 
-XLSX, 
-JPG, 
-JPEG, 
-MPEG, 
-MP3, 
-MP4, 
-MOV, 
-PNG, 
-TIF, 
-	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">

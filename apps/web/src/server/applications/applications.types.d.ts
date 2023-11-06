@@ -180,3 +180,9 @@ export interface CaseStage {
 	name: string;
 	displayNameEn: string;
 }
+
+export interface ProjectTeamMember {
+	name: string;
+	id: number;
+	email: string;
+}
