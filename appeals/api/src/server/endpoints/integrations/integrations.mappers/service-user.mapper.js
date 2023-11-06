@@ -2,6 +2,8 @@
 // TODO: schemas (PINS data model)
 // TODO: local data model for service user
 
+import { ODW_SYSTEM_ID } from '#endpoints/constants.js';
+
 export const mapServiceUserIn = (data) => {
 	const user = {
 		create: {
@@ -23,9 +25,9 @@ export const mapServiceUserIn = (data) => {
 
 export const mapServiceUserOut = (data, serviceUserType, caseReference) => {
 	const user = {
-		sourceSystem: 'back-office-appeals',
-		sourceSuid: `back-office-appeals-${data.customer.id}`,
-		ID: data.customer.id,
+		sourceSystem: ODW_SYSTEM_ID,
+		sourceSuid: data.customer.id,
+		id: data.customer.id,
 		firstName: data.customer.firstName,
 		lastName: data.customer.lastName,
 		emailAddress: data.customer.email,

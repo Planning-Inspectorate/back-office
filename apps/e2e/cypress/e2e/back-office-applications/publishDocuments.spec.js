@@ -20,7 +20,7 @@ const folderPage = new FolderDocumentsPage();
 const publishingQueuePage = new PublishingQueuePage();
 const { applications: applicationsUsers } = users;
 
-describe('Document Properties', () => {
+describe('Publish Documents', () => {
 	let projectInfo;
 	let caseRef;
 

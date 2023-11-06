@@ -48,6 +48,7 @@ interface AppealTimetable {
 	finalCommentReviewDate?: Date | null;
 	lpaQuestionnaireDueDate: Date | null;
 	statementReviewDate?: Date | null;
+	issueDeterminationDate?: Date | null;
 }
 
 interface RepositoryGetAllResultItem {
@@ -58,6 +59,7 @@ interface RepositoryGetAllResultItem {
 	id: number;
 	lpa: LPA;
 	reference: string;
+	appealTimetable?: Schema.AppealTimetable | null;
 }
 
 interface RepositoryGetByIdResultItem {
@@ -318,6 +320,7 @@ interface AppealListResponse {
 	appealType?: string;
 	createdAt: Date;
 	localPlanningDepartment: string;
+	appealTimetable?: AppealTimetable;
 }
 
 type BankHolidayFeedDivisions =
@@ -342,11 +345,16 @@ interface FolderInfo {
 	documents: DocumentInfo[];
 }
 
+interface LatestDocumentVersionInfo {
+	publishedStatus?: string | null;
+}
+
 interface DocumentInfo {
 	id: string;
 	name: string;
 	folderId?: number;
 	caseId?: number;
+	latestDocumentVersion?: LatestDocumentVersionInfo;
 }
 
 interface SingleSiteVisitDetailsResponse {

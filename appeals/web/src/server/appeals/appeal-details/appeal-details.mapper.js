@@ -1,6 +1,6 @@
 import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
-import { notificationBanners as notificationBannerConstants } from '#appeals/appeal.constants.js';
+import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 
 export const backLink = {
 	text: 'Back to National list',
@@ -45,14 +45,12 @@ export async function appealDetailsPage(data, currentRoute, session) {
 			mappedData.appeal?.decision?.display.summaryListItem
 		]
 	};
-
-	// Extracting display from each affected site address
-	let neighbouringSitesSummaryLists = [];
-	if (data.appeal.neighbouringSite.contacts && data.appeal.neighbouringSite.contacts.length > 0) {
-		for (const site of mappedData.appeal.neighbouringSite) {
-			neighbouringSitesSummaryLists.push(site.display.summaryListItem);
-		}
-	}
+	/**
+	 * @type {(SummaryListRowProperties | undefined)[]}
+	 */
+	const neighbouringSitesSummaryLists = Object.keys(mappedData.appeal)
+		.filter((key) => key.indexOf('neighbouringSiteAddress') >= 0)
+		.map((key) => mappedData.appeal[key].display.summaryListItem);
 
 	const siteDetails = {
 		type: 'summary-list',
@@ -157,56 +155,13 @@ export async function appealDetailsPage(data, currentRoute, session) {
 		}
 	});
 
-	const notificationBanners = buildNotificationBanners(session);
+	const notificationBanners = buildNotificationBanners(
+		session,
+		'appealDetails',
+		data.appeal.appealId
+	);
 
 	return [...notificationBanners, statusTag, caseSummary, appealDetailsAccordion];
-}
-
-/**
- * @typedef NotificationBannerPageComponent
- * @property {string} type
- * @property {NotificationBannerProperties} bannerProperties
- */
-
-/**
- *
- * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
- * @returns {NotificationBannerPageComponent[]}
- */
-function buildNotificationBanners(session) {
-	/**
-	 * @type {NotificationBannerPageComponent[]}
-	 */
-	const notificationBanners = [];
-
-	Object.keys(session).forEach((key) => {
-		if (Object.keys(notificationBannerConstants).indexOf(key) !== -1) {
-			const bannerConstant = notificationBannerConstants[key];
-			let titleText = '';
-
-			switch (bannerConstant.type) {
-				case 'success':
-					titleText = 'Success';
-					break;
-				default:
-					break;
-			}
-
-			notificationBanners.push({
-				type: 'notification-banner',
-				bannerProperties: {
-					titleText,
-					titleHeadingLevel: 3,
-					type: bannerConstant.type,
-					text: bannerConstant.text
-				}
-			});
-
-			delete session[key];
-		}
-	});
-
-	return notificationBanners;
 }
 
 /**

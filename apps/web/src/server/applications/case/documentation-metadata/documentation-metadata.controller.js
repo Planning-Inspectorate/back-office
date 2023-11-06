@@ -2,7 +2,7 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author"} MetaDataNames */
+/** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author"| "transcript"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
@@ -74,6 +74,12 @@ const layouts = {
 		],
 		pageTitle: 'Select the document status',
 		metaDataName: 'publishedStatus'
+	},
+	transcript: {
+		label: 'Transcript (optional)',
+		hint: 'E.g. TR010060-000110',
+		pageTitle: 'Enter the document reference number of the associated transcript',
+		metaDataName: 'transcript'
 	},
 	type: {
 		items: [

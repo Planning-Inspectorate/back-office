@@ -99,7 +99,7 @@ export const mapDocumentRepresentationAttachments = (attachments) =>
 		return {
 			attachmentId: attachment.id,
 			documentId: attachment.documentGuid,
-			filename: attachment.Document?.name
+			filename: attachment.Document?.latestDocumentVersion?.fileName
 		};
 	});
 

@@ -3,15 +3,21 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
 /**
  * @typedef {import('@prisma/client').Document} Document
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
- * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
+ * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocumentAndActivityLog} DocumentVersionWithDocumentAndActivityLog
  */
 
 /**
+ * Returns a flat set of the document properties wanted by the UI
  *
- * @param { DocumentVersionWithDocument } documentVersion
+ * @param { DocumentVersionWithDocumentAndActivityLog } documentVersion
  * @returns { DocumentDetails }
  */
-export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersion }) => {
+export const mapSingleDocumentDetailsFromVersion = ({
+	Document,
+	DocumentActivityLog,
+	publishedStatus,
+	...documentVersion
+}) => {
 	return {
 		documentGuid: documentVersion.documentGuid,
 		documentId: documentVersion?.documentId ?? null,
@@ -35,13 +41,14 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 
 		mime: documentVersion.mime ?? '',
 
-		publishedStatus: documentVersion.publishedStatus ?? '',
+		publishedStatus: publishedStatus ?? '',
 
 		redactedStatus: documentVersion.redactedStatus ?? '',
 
-		datePublished: documentVersion?.datePublished
-			? mapDateStringToUnixTimestamp(documentVersion?.datePublished?.toString())
-			: null,
+		datePublished:
+			DocumentActivityLog?.[0].status === 'published'
+				? mapDateStringToUnixTimestamp(DocumentActivityLog[0].createdAt)
+				: null,
 
 		description: documentVersion?.description,
 		version: documentVersion?.version,
@@ -53,7 +60,8 @@ export const mapSingleDocumentDetailsFromVersion = ({ Document, ...documentVersi
 		filter1: documentVersion?.filter1 ?? null,
 		filter2: documentVersion?.filter2 ?? null,
 		examinationRefNo: documentVersion.examinationRefNo ?? '',
-		fromFrontOffice: Document?.fromFrontOffice ?? false
+		fromFrontOffice: Document?.fromFrontOffice ?? false,
+		transcript: documentVersion?.transcript?.reference ?? ''
 	};
 };
 

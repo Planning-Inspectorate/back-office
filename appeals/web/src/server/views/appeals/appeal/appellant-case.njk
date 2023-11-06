@@ -13,10 +13,15 @@
 {%- endset -%}
 
 {%- block pageHeading -%}
-	{%- if notificationBannerParameters -%}
+	{%- if notificationBannerComponents -%}
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-two-thirds">
-				{{ govukNotificationBanner(notificationBannerParameters) }}
+				{%- for component in notificationBannerComponents -%}
+					{%- if component.type === 'notification-banner' -%}
+						{{ govukNotificationBanner(component.bannerProperties) }}
+					{%- endif -%}
+				{%- endfor -%}
+				{#  #}
 			</div>
 		</div>
 	{%- endif -%}

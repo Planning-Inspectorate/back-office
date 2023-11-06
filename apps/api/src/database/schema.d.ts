@@ -87,6 +87,7 @@ export interface DocumentDetails {
 	documentType: string | null;
 	caseRef: string | null;
 	examinationRefNo: string;
+	transcript: string | null;
 }
 
 export interface DocumentVersion extends schema.DocumentVersion {}
@@ -102,6 +103,12 @@ export interface DocumentVersionWithDocument extends DocumentVersion {
 	Document?: DocumentWithSubTables;
 }
 
+export interface DocumentVersionWithDocumentAndActivityLog extends DocumentVersion {
+	documentName?: string;
+	Document?: DocumentWithSubTables;
+	DocumentActivityLog?: DocumentActivityLog;
+}
+
 export interface DocumentVersionInput extends DocumentVersion {
 	documentName?: string;
 }
@@ -109,6 +116,11 @@ export interface DocumentVersionInput extends DocumentVersion {
 export interface DocumentMetadata extends schema.DocumentMetadata {}
 
 export interface ExaminationTimetableType extends schema.ExaminationTimetableType {}
+
+export interface ExaminationTimetableWithItems extends schema.ExaminationTimetable {
+	ExaminationTimetableItem: ExaminationTimetableItem[];
+	case: Case;
+}
 
 export interface S51Advice extends schema.S51Advice {}
 

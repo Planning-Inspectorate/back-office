@@ -126,8 +126,10 @@ export const appealData = {
 	},
 	siteVisit: {
 		siteVisitId: 0,
-		visitDate: '2023-09-18T13:18:01.673Z',
-		visitType: 'Access required'
+		visitDate: '2023-10-09T01:00:00.000Z',
+		visitEndTime: '10:44',
+		visitStartTime: '09:38',
+		visitType: 'Accompanied'
 	},
 	startedAt: '2023-05-23T10:27:06.626Z',
 	documentationSummary: {
@@ -383,6 +385,33 @@ export const lpaQuestionnaireData = {
 	],
 	lpaQuestionnaireId: 2,
 	meetsOrExceedsThresholdOrCriteriaInColumn2: true,
+	neighbouringSiteContacts: [
+		{
+			address: {
+				addressLine1: '19 Beauchamp Road',
+				town: 'Bristol',
+				postCode: 'BS7 8LQ'
+			},
+			contactId: 103,
+			email: 'test5@example.com',
+			firstName: 'Ryan',
+			lastName: 'Marshall',
+			telephone: '01234567891'
+		},
+		{
+			address: {
+				addressLine1: '96 The Avenue',
+				addressLine2: 'Maidstone',
+				county: 'Kent',
+				postCode: 'MD21 5XY'
+			},
+			contactId: 104,
+			email: 'test9@example.com',
+			firstName: 'Eva',
+			lastName: 'Sharma',
+			telephone: '01234567891'
+		}
+	],
 	otherAppeals: [
 		{
 			appealId: 2,
@@ -556,13 +585,6 @@ export const allocationDetailsData = {
 	]
 };
 
-export const documentFolderInfo = {
-	folderId: 23,
-	path: 'appellant_case/appealStatement',
-	caseId: 'APP/Q9999/D/21/941501',
-	documents: []
-};
-
 export const documentFileInfo = {
 	guid: 'd51f408c-7c6f-4f49-bcc0-abbb5bea3be6',
 	name: 'ph0.jpeg',
@@ -570,7 +592,7 @@ export const documentFileInfo = {
 	createdAt: '2023-10-11T13:57:41.592Z',
 	isDeleted: false,
 	latestVersionId: 1,
-	caseId: 85,
+	caseId: 1,
 	receivedAt: null,
 	documentRedactionStatusId: null,
 	documentRedactionStatus: null,
@@ -612,5 +634,110 @@ export const documentFileInfo = {
 		documentURI:
 			'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be6/v1/ph0.jpeg',
 		dateReceived: null
+	}
+};
+
+export const documentFileInfoPublished = {
+	guid: 'd51f408c-7c6f-4f49-bcc0-abbb5bea3be7',
+	name: 'test-document.pdf',
+	folderId: 1269,
+	createdAt: '2023-10-11T13:57:41.592Z',
+	isDeleted: false,
+	latestVersionId: 1,
+	caseId: 1,
+	receivedAt: null,
+	documentRedactionStatusId: null,
+	documentRedactionStatus: null,
+	latestDocumentVersion: {
+		documentGuid: 'd51f408c-7c6f-4f49-bcc0-abbb5bea3be7',
+		version: 1,
+		lastModified: null,
+		documentType: 'conservationAreaMap',
+		published: false,
+		sourceSystem: 'back-office',
+		origin: null,
+		originalFilename: 'test-document.pdf',
+		fileName: 'test-document.pdf',
+		representative: null,
+		description: null,
+		owner: null,
+		author: null,
+		securityClassification: null,
+		mime: 'application/pdf',
+		horizonDataID: null,
+		fileMD5: null,
+		path: null,
+		virusCheckStatus: null,
+		size: 58861,
+		stage: 'lpa_questionnaire',
+		filter1: null,
+		blobStorageContainer: 'document-service-uploads',
+		blobStoragePath:
+			'appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be7/v1/test-document.pdf',
+		dateCreated: '2023-10-11T13:57:41.592Z',
+		datePublished: null,
+		isDeleted: false,
+		examinationRefNo: null,
+		filter2: null,
+		publishedStatus: 'published',
+		publishedStatusPrev: null,
+		redactedStatus: null,
+		redacted: false,
+		documentURI:
+			'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be7/v1/test-document.pdf',
+		dateReceived: null
+	}
+};
+
+export const documentFolderInfo = {
+	id: 23,
+	folderId: 23,
+	path: 'appellant_case/appealStatement',
+	caseId: 'APP/Q9999/D/21/941501',
+	documents: []
+};
+
+export const documentFolderInfoWithDocuments = {
+	folderId: 23,
+	path: 'appellant_case/appealStatement',
+	caseId: 'APP/Q9999/D/21/941501',
+	documents: [documentFileInfo, documentFileInfoPublished]
+};
+
+export const documentRedactionStatuses = [
+	{
+		id: 1,
+		name: 'Redacted'
+	},
+	{
+		id: 2,
+		name: 'Unredacted'
+	},
+	{
+		id: 3,
+		name: 'No redaction required'
+	}
+];
+
+export const baseSession = {
+	id: '',
+	cookie: { originalMaxAge: 1 },
+	regenerate: function () {
+		throw new Error('Function not implemented.');
+	},
+	destroy: function () {
+		throw new Error('Function not implemented.');
+	},
+	reload: function () {
+		throw new Error('Function not implemented.');
+	},
+	resetMaxAge: function () {
+		throw new Error('Function not implemented.');
+	},
+	save: function () {
+		throw new Error('Function not implemented.');
+	},
+	touch: function () {
+		throw new Error('Function not implemented.');
 	}
 };

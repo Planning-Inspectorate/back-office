@@ -1,6 +1,7 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 import { capitalize } from 'lodash-es';
+import { timeIsBeforeTime } from '#lib/times.js';
 
 export const createTimeInputValidator = (
 	fieldNamePrefix = 'time',
@@ -85,7 +86,7 @@ export const createStartTimeBeforeEndTimeValidator = (
 					!Number.isNaN(startTimeMinute) &&
 					!Number.isNaN(endTimeHour) &&
 					!Number.isNaN(endTimeMinute) &&
-					startTimeHour + startTimeMinute < endTimeHour + endTimeMinute
+					timeIsBeforeTime(startTimeHour, startTimeMinute, endTimeHour, endTimeMinute)
 				);
 			})
 			.withMessage(

@@ -136,7 +136,7 @@ export async function viewApplicationsCaseDocumentationVersionUpload({ params },
 /**
  * View the unpublishing documentation page
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {folderName: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {folderId: string, folderName: string}>}
  */
 export async function viewApplicationsCaseDocumentationUnpublishPage(request, response) {
 	if (request.errors) {
@@ -162,19 +162,36 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 		});
 	}
 
-	const pathMatch = request.url.match(/(\d+)\/([a-zA-Z-]+)\/unpublishing-queue$/);
-	const backLink = pathMatch
-		? url('document-category', {
-				caseId: response.locals.caseId,
-				documentationCategory: { id: parseInt(pathMatch[1]), displayNameEn: pathMatch[2] }
-		  })
-		: url('case-view', {
-				caseId: response.locals.caseId
-		  });
-
 	return response.render(`applications/case-documentation/documentation-unpublish`, {
 		documentationFiles,
-		backLink
+		backLink: url('document-category', {
+			caseId: response.locals.caseId,
+			documentationCategory: {
+				id: parseInt(request.params.folderId),
+				displayNameEn: request.params.folderName
+			}
+		})
+	});
+}
+
+/**
+ * View the unpublishing documentation page for a single document
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {folderId: string, folderName: string, documentGuid: string}>}
+ */
+export async function viewApplicationsCaseDocumentationUnpublishSinglePage(request, response) {
+	const caseId = parseInt(response.locals.caseId);
+
+	const file = await getCaseDocumentationFileInfo(caseId, request.params.documentGuid);
+
+	return response.render(`applications/case-documentation/documentation-unpublish`, {
+		documentationFiles: [file],
+		backLink: url('document', {
+			caseId,
+			folderId: parseInt(request.params.folderId),
+			documentGuid: request.params.documentGuid,
+			step: 'properties'
+		})
 	});
 }
 
@@ -352,11 +369,11 @@ export async function removeApplicationsCaseDocumentationPublishingQueue(request
 }
 
 /**
- * Handle unpublishing a document
+ * Handle unpublishing multiple documents
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {documentGuids: string[]}, {}, {}>}
  * */
-export async function postUnpublishDocuments({ body }, response) {
+export async function postUnpublishDocuments({ body, session }, response) {
 	const { documentGuids } = body;
 	const { caseId } = response.locals;
 
@@ -371,10 +388,15 @@ export async function postUnpublishDocuments({ body }, response) {
 		});
 	}
 
+	const backLinkFolder = getSessionFolderPage(session) ?? '';
+	const backlinkFolderId = getFolderIdFromFolderPath(backLinkFolder);
+	const backlinkFolderBreadcrumbItems = await buildBreadcrumbItems(caseId, backlinkFolderId);
+
 	return response.render('applications/case-documentation/documentation-success-banner', {
+		breadcrumbItems: backlinkFolderBreadcrumbItems,
 		serviceName: 'Document/s successfully unpublished',
 		selectedPageType: 'documentation-unpublish-success',
-		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${documentationFiles[0].caseRef}</p>`,
+		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${response.locals.case.reference}</p>`,
 		extraMessage: 'The document/s will be unpublished from the NI website within the hour.'
 	});
 }

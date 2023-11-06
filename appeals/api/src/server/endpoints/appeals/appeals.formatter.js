@@ -27,6 +27,31 @@ const formatAppeals = (appeal) => ({
 });
 
 /**
+ * @param {RepositoryGetAllResultItem} appeal
+ * @returns {AppealListResponse}}
+ */
+const formatMyAppeals = (appeal) => ({
+	appealId: appeal.id,
+	appealReference: appeal.reference,
+	appealSite: formatAddress(appeal.address),
+	appealStatus: appeal.appealStatus[0].status,
+	appealType: appeal.appealType?.type,
+	createdAt: appeal.createdAt,
+	localPlanningDepartment: appeal.lpa.name,
+	appealTimetable: appeal.appealTimetable
+		? {
+				appealTimetableId: appeal.appealTimetable.id,
+				lpaQuestionnaireDueDate: appeal.appealTimetable.lpaQuestionnaireDueDate || null,
+				...(isFPA(appeal.appealType) && {
+					finalCommentReviewDate: appeal.appealTimetable.finalCommentReviewDate || null,
+					statementReviewDate: appeal.appealTimetable.statementReviewDate || null,
+					issueDeterminationDate: appeal.appealTimetable.issueDeterminationDate || null
+				})
+		  }
+		: undefined
+});
+
+/**
  * @param {RepositoryGetByIdResultItem} appeal
  * @returns {SingleAppealDetailsResponse | void}}
  */
@@ -119,4 +144,4 @@ const formatAppeal = (appeal) => {
 	}
 };
 
-export { formatAppeal, formatAppeals };
+export { formatAppeal, formatAppeals, formatMyAppeals };

@@ -1165,6 +1165,62 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/documents/{documentId}/versions": {
+			"get": {
+				"tags": ["Documents"],
+				"description": "Returns a single document by id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "documentId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns a single document by id and its versions",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/documents": {
 			"post": {
 				"tags": ["Documents"],
@@ -1289,6 +1345,70 @@
 								"$ref": "#/components/schemas/UpdateDocumentsRequest"
 							}
 						}
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/documents/{documentId}/{version}": {
+			"delete": {
+				"tags": ["Documents"],
+				"description": "Delete a document version and sets the previous as current version",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "documentId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "version",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns a single document by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/DocumentDetails"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
 					}
 				}
 			}
@@ -1951,6 +2071,70 @@
 						"in": "query",
 						"description": "The search term - does a partial, case-insensitive match of appeal reference and postcode fields",
 						"example": "NR35 2ND",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Requested appeals",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppeals"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AllAppeals"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/my-appeals": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets appeals assigned to the current user",
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "pageNumber",
+						"in": "query",
+						"description": "The pagination page number - required if pageSize is given",
+						"example": 1,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "The pagination page size - required if pageNumber is given",
+						"example": 30,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "The appeal status",
+						"example": "lpa_questionnaire_due",
 						"schema": {
 							"type": "string"
 						}

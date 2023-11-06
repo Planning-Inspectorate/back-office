@@ -73,6 +73,7 @@ export interface Folder extends schema.Folder {
 
 export interface Document extends schema.Document {
 	latestDocumentVersion?: schema.DocumentVersion | null;
+	documentVersion?: schema.DocumentVersion[] | null;
 }
 
 export interface DocumentVersions extends schema.Document {

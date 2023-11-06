@@ -26,7 +26,7 @@ export class CasePage extends Page {
 			.answerCell(question)
 			.scrollIntoView()
 			.then(($elem) => {
-				expect($elem.text().trim()).to.eq(answer);
+				expect($elem.text().trim().replaceAll("\n", "")).to.eq(answer);
 			});
 	}
 

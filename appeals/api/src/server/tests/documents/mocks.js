@@ -89,6 +89,7 @@ export const blobInfo = {
 	caseReference: folder.caseId,
 	GUID: guid,
 	documentName: fileName,
+	versionId: 1,
 	blobStoreUrl: `appeal/APP-Q9999-D-21-941501/${guid}/v1/${fileName}`
 };
 

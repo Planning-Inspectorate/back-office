@@ -64,7 +64,7 @@ export const formatAnswerAndDetails = (answer, details) => {
 export const formatListOfAppeals = (
 	/** @type {{appealId: Number, appealReference: string}[]} */ listOfAppeals
 ) => {
-	if (listOfAppeals.length > 0) {
+	if (listOfAppeals && listOfAppeals.length > 0) {
 		let formattedLinks = ``;
 		for (let i = 0; i < listOfAppeals.length; i++) {
 			const shortAppealReference = appealShortReference(listOfAppeals[i].appealReference);

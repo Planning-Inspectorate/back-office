@@ -7,7 +7,7 @@ exports[`documents upload should render upload form if appeal ID and folder ID a
             <h1 class="govuk-heading-l">Upload files</h1>
         </div>
     </div>
-    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1"
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1"
     data-case-id="1" data-folder-id="1" data-document-type="docs" data-document-stage="appellantCase"
     data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1" data-blob-storage-container="document-service-uploads"
     data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
@@ -15,23 +15,7 @@ exports[`documents upload should render upload form if appeal ID and folder ID a
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span> Your file must be 
-PDF, 
-DOC, 
-DOCX, 
-PPT, 
-PPTX, 
-XLS, 
-XLSX, 
-JPG, 
-JPEG, 
-MPEG, 
-MP3, 
-MP4, 
-MOV, 
-PNG, 
-TIF, 
-	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -64,7 +48,7 @@ exports[`documents upload should render upload form if appeal ID, folder ID and 
             <h1 class="govuk-heading-l">Upload files</h1>
         </div>
     </div>
-    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1"
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1"
     data-case-id="1" data-folder-id="1" data-document-type="docs" data-document-stage="appellantCase"
     data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1" data-blob-storage-container="document-service-uploads"
     data-document-id="0e4ce48f-2d67-4659-9082-e80a15182386" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
@@ -72,23 +56,7 @@ exports[`documents upload should render upload form if appeal ID, folder ID and 
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span> Your file must be 
-PDF, 
-DOC, 
-DOCX, 
-PPT, 
-PPTX, 
-XLS, 
-XLSX, 
-JPG, 
-JPEG, 
-MPEG, 
-MP3, 
-MP4, 
-MOV, 
-PNG, 
-TIF, 
-	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">

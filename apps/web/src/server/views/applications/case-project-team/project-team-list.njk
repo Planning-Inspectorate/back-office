@@ -1,0 +1,15 @@
+{% extends "../case/layouts/applications-case-layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block sectionContent %}
+
+	<h3 class="govuk-heading-m">Project team</h3>
+
+	<p class="govuk-body">Add team members and their roles to the project. </p>
+
+	<a class='govuk-button govuk-!-margin-top-6'
+		href='{{'project-team'|url({caseId: caseId, step: 'search'})}}'>
+		Add team member
+	</a>
+
+{% endblock %}
