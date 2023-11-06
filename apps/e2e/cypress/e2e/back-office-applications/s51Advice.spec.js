@@ -22,28 +22,25 @@ const texts = {
 	successMessageText: 'Timetable item successfully created'
 };
 
-//Tests are running locally fine but in CI/CD some of the tests are failing due to this some of the tests are commented for time being
 
-/*describe('Section 51 Advice', () => {
-	let projectInfo = projectInformation();
-	let caseRef;
+describe('Section 51 Advice', () => {
+	let projectInfo;
 
-	before(() => {
+	beforeEach(() => {
+		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
-	beforeEach(() => {
+	it('S51 Advice - Enquirer Full Details', () => {
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
-		caseRef = Cypress.env('currentCreatedCase');
+		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
 		s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
 		s51AdvicePage.clickButtonByText(texts.createS51AdviceButtonText);
-	});
-
-	it('S51 Advice - Enquirer Full Details', () => {
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, {
 			organisation: details.organisation,
@@ -53,6 +50,14 @@ const texts = {
 	});
 
 	it('S51 Advice - Enquirer Name Only', () => {
+		cy.login(applicationsUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
+		s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
+		s51AdvicePage.clickButtonByText(texts.createS51AdviceButtonText);
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, {
 			firstName: details.firstName,
@@ -61,7 +66,15 @@ const texts = {
 	});
 
 	it('S51 Advice - Enquirer Org Only', () => {
+		cy.login(applicationsUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
+		s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
+		s51AdvicePage.clickButtonByText(texts.createS51AdviceButtonText);
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, { organisation: details.organisation });
 	});
-});*/
+});

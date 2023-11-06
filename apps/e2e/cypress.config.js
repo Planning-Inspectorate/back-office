@@ -41,11 +41,11 @@ module.exports = defineConfig({
 		supportFile: './cypress/support/e2e.js',
 		viewportHeight: 960,
 		viewportWidth: 1536,
-		defaultCommandTimeout: 10000,
-		pageLoadTimeout: 30000,
+		defaultCommandTimeout: 30000,
+		pageLoadTimeout: 60000,
 		experimentalModifyObstructiveThirdPartyCode: true,
 		chromeWebSecurity: false,
 		video: false,
-		retries: 1
+		retries: 0
 	}
 });

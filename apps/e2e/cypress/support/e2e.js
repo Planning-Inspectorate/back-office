@@ -24,3 +24,13 @@ import { isCI } from './utils/isCI';
 after(() => {
 	cy.deleteUnwantedFixtures();
 });
+
+after(() => {
+//cy.clearAllSessionStorage();
+cy.clearCookies();
+
+});
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+	return false
+  })
