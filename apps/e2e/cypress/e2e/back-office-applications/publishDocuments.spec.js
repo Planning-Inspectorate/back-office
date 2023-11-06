@@ -22,7 +22,6 @@ const { applications: applicationsUsers } = users;
 
 describe('Publish Documents', () => {
 	let projectInfo;
-	let caseRef;
 
 	before(() => {
 		projectInfo = projectInformation();
@@ -33,7 +32,7 @@ describe('Publish Documents', () => {
 	beforeEach(() => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
-		caseRef = Cypress.env('currentCreatedCase');
+		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		searchResultsPage.clickLinkByText('Update project information');

@@ -39,7 +39,6 @@ let projectInfo;
 
 describe('Examination Timetable Errors', () => {
 
-
 	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
@@ -118,7 +117,6 @@ describe('Examination Timetable Errors', () => {
 });
 
 describe('Examination Timetable', () => {
-	let projectInfo;
 	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
