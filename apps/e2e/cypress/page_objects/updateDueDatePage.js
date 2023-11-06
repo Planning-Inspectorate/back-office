@@ -25,7 +25,7 @@ export class UpdateDueDatePage extends Page {
 	// E L E M E N T S
 
 	updateDueDateElements = {
-		enterDateDay: () => cy.get(this.selectors.datInputDay),
+		enterDateDay: () => cy.get(this.selectors.dateInputDay),
 		enterDateMonth: () => cy.get(this.selectors.dateInputMonth),
 		enterDateYear: () => cy.get(this.selectors.dateInputYear),
 		clickSkipButton: () => cy.contains(this.selectors.skipButton, 'Skip'),

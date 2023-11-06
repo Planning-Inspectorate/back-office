@@ -180,6 +180,30 @@ describe('Edit applications documentation metadata', () => {
 		});
 	});
 
+	describe('Transcript', () => {
+		describe('GET /case/123/project-documentation/18/document/456/edit/transcript', () => {
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/transcript`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain(
+					'Enter the document reference number of the associated transcript'
+				);
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/transcript', () => {
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/transcript`).send({
+					transcript: 'abc'
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
 	describe('Edit webfilter (filter1)', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/webfilter', () => {
 			it('should render the page with values', async () => {

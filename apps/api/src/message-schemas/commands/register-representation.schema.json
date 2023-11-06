@@ -3,13 +3,41 @@
 	"$id": "register-representation.schema.json",
 	"title": "Register Representation",
 	"type": "object",
-	"required": ["representation", "interestedParty"],
+	"required": [
+		"referenceId",
+		"caseReference",
+		"originalRepresentation",
+		"representationFrom",
+		"registerFor",
+		"represented"
+	],
 	"properties": {
-		"representation": {
-			"$ref": "nsip-representation.schema.json"
+		"referenceId": {
+			"type": "string",
+			"description": "registration identification number"
 		},
-		"interestedParty": {
-			"$ref": "service-user.schema.json"
+		"caseReference": {
+			"type": "string",
+			"description": "The unique reference of the case"
+		},
+		"originalRepresentation": {
+			"type": "string"
+		},
+		"representationFrom": {
+			"type": "string",
+			"enum": ["PERSON", "ORGANISATION", "AGENT"]
+		},
+		"registerFor": {
+			"type": "string",
+			"enum": ["PERSON", "ORGANISATION", "FAMILY_GROUP"]
+		},
+		"represented": {
+			"$ref": "../events/interested-party.schema.json",
+			"description": "Person or organisation being represented"
+		},
+		"representative": {
+			"$ref": "../events/interested-party.schema.json",
+			"description": "Person or organisation submitting representation in the case of Agent representationFrom"
 		}
 	}
 }

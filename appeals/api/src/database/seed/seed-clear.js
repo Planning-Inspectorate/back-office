@@ -2,6 +2,7 @@
  * @param {import('../../server/utils/db-client/index.js').PrismaClient} databaseConnector
  */
 export async function deleteAllRecords(databaseConnector) {
+	const deleteDocAudits = databaseConnector.documentVersionAudit.deleteMany();
 	const deleteLPAs = databaseConnector.lPA.deleteMany();
 	const deleteAudits = databaseConnector.auditTrail.deleteMany();
 	const deleteFolders = databaseConnector.folder.deleteMany();
@@ -78,6 +79,7 @@ export async function deleteAllRecords(databaseConnector) {
 	// delete references to internal users on appeals
 	await databaseConnector.$queryRawUnsafe(`UPDATE Appeal SET appellantId = NULL, agentId = NULL;`);
 
+	await deleteDocAudits;
 	await deleteDocumentsVersions;
 	await deleteDocuments;
 

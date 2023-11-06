@@ -2,6 +2,7 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 import { validateApplicationId } from '../../application/application.validators.js';
+import { validatePaginationParameters } from '#middleware/pagination-validation.js';
 import { validateFolderId, validateFolderIds } from '../../documents/documents.validators.js';
 import {
 	deleteDocumentSoftly,
@@ -17,7 +18,9 @@ import {
 	updateDocuments,
 	getDocumentVersionProperties,
 	markAsPublished,
+	markAsUnpublished,
 	unpublishDocuments,
+	searchDocuments,
 	getManyDocumentsProperties
 } from './document.controller.js';
 import {
@@ -25,7 +28,8 @@ import {
 	validateDocumentsToUpdateProvided,
 	validateDocumentsToUploadProvided,
 	validateDocumentToUploadProvided,
-	validateMarkDocumentAsPublished
+	validateMarkDocumentAsPublished,
+	validateParameterCriteria
 } from './document.validators.js';
 
 const router = createRouter();
@@ -247,6 +251,49 @@ router.post(
 	asyncHandler(markAsPublished)
 );
 
+router.post(
+	'/:id/documents/:guid/version/:version/mark-as-unpublished',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents/{guid}/mark-as-unpublished'
+        #swagger.description = 'Marks as unpublished'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['guid'] = {
+            in: 'path',
+			description: 'Document GUID',
+			required: true,
+			type: 'string'
+        }
+		#swagger.parameters['version'] = {
+            in: 'path',
+			description: 'Version',
+			required: true,
+			type: 'integer'
+        }
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Mark as unpublished Request',
+            schema: { $ref: '#/definitions/markAsPublishedRequestBody' },
+			required: true
+        }
+        #swagger.responses[200] = {
+            description: 'Updated document response',
+            schema: { guid: '0084b156-006b-48b1-a47f-e7176414db29' }
+        }
+		#swagger.responses[400] = {
+            description: 'Example of an error response',
+            schema: { errors: { id: "Must be an existing application" } }
+        }
+	 */
+	validateApplicationId,
+	asyncHandler(markAsUnpublished)
+);
+
 router.get(
 	'/:id/documents/:guid/properties',
 	/*
@@ -297,7 +344,7 @@ router.get(
 	'/:id/documents/properties',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/documents/properties'
+        #swagger.path = '/applications/{id}/documents/properties'
         #swagger.description = 'Gets the properties of the specified files'
 		 #swagger.parameters['id'] = {
             in: 'path',
@@ -512,6 +559,56 @@ router.patch(
 	validateDocumentsToUpdateProvided,
 	validateDocumentIds,
 	asyncHandler(publishDocuments)
+);
+
+router.get(
+	'/:id/documents',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/documents'
+        #swagger.description = 'search documents on a case'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+        }
+		#swagger.parameters['page'] = {
+			in: 'query',
+			description: 'The page number to return, defaults to 1',
+			example: 1,
+			type: 'integer'
+		}
+		#swagger.parameters['pageSize'] = {
+			in: 'query',
+			description: 'The number of results per page, defaults to 25',
+			example: 25,
+			type: 'integer'
+		}
+      	#swagger.parameters['criteria'] = {
+            in: 'query',
+            description: 'search criteria',
+			example: 'search string',
+			type: 'string',
+			required: true
+    	}
+        #swagger.responses[200] = {
+			description: 'An paginated data set of matching documents and their properties',
+            schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
+        }
+		#swagger.responses[400] = {
+            description: 'Search criteria too short',
+            schema: { errors: { criteria: "Search criteria must have at least 3 characters" } }
+        }
+		#swagger.responses[404] = {
+            description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+        }
+	 */
+	validateApplicationId,
+	validateParameterCriteria,
+	validatePaginationParameters(),
+	asyncHandler(searchDocuments)
 );
 
 export { router as documentRoutes };

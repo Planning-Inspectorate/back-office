@@ -6,7 +6,9 @@ export class AppealsListPage extends Page {
 	// Examples
 
 	_selectors = {
-		uniqueSelector: 'selector-name'
+		link: 'govuk-link',
+		uniqueSelector: 'selector-name',
+		summaryListValue: '.govuk-summary-list__value'
 	};
 
 	clickMyUniqueElement() {
@@ -24,6 +26,14 @@ export class AppealsListPage extends Page {
 		// Selectors from base page eg this.selectors
 		cy.get(this.selectors.errorMessage).should('have.text', 'this is an error message');
 	}
+
+	//ELEMENTS
+
+	appealsPageElements = {
+		answerCellAppeals: (answer) =>
+			cy.contains(this.selectors.summaryListValue, answer, { matchCase: false }),
+		link: () => cy.get(this._selectors.link)
+	};
 
 	//ACTIONS
 
@@ -53,16 +63,31 @@ export class AppealsListPage extends Page {
 			.click();
 	}
 
-	clickChangeVisitTypeHasCaseTimetable(position) {
+	clickChangeVisitTypeHasCaseTimetable() {
 		this.clickAccordionByText('Case timetable');
-		this.basePageElements.summaryListActions().eq(position - 1);
-		this.basePageElements.linkByText('Change Site visit').click();
+		cy.get(
+			'#accordion-default425-content-3 > .govuk-summary-list > :nth-child(3) > .govuk-summary-list__actions > .govuk-link'
+		).click();
 	}
 
-	clickChangeVisitTypeHasSiteDetails(position) {
+	clickChangeVisitTypeHasSiteDetails() {
 		this.clickAccordionByText('Site details');
-		this.basePageElements.summaryListActions().eq(position - 1);
-		this.basePageElements.linkByText('Change visit type').click();
+		cy.get(':nth-child(8) > .govuk-summary-list__actions > .govuk-link').click();
+	}
+	fillInput(text, index = 0) {
+		this.basePageElements.input().eq(index).clear().type(text);
+	}
+
+	fillInput1(text, index = 1) {
+		this.basePageElements.input().eq(index).clear().type(text);
+	}
+
+	fillInput2(text, index = 2) {
+		this.basePageElements.input().eq(index).clear().type(text);
+	}
+
+	addAnotherButton() {
+		cy.get('#conditional-incompleteReason-2 > .pins-add-another > .govuk-button').click();
 	}
 
 	nationalListSearch(text) {
@@ -92,5 +117,34 @@ export class AppealsListPage extends Page {
 		cy.contains(this.selectors.bannerContent);
 	}
 
-	//ASSERTIONS
+	clickCaseOfficer() {
+		this.clickAccordionByText('Case Team');
+		cy.get(
+			'#accordion-default423-content-5 > .govuk-summary-list > :nth-child(1) > .govuk-summary-list__actions > .govuk-link'
+		).click();
+	}
+	clickInspector() {
+		this.clickAccordionByText('Case Team');
+		cy.get(
+			'#accordion-default423-content-5 > .govuk-summary-list > :nth-child(2) > .govuk-summary-list__actions > .govuk-link'
+		).click();
+	}
+
+	checkAnswerSummaryValue(answer) {
+		this.appealsPageElements.answerCellAppeals(answer).then(($elem) => {
+			cy.wrap($elem)
+				.invoke('text')
+				.then((text) => expect(text.trim()).to.equal(answer));
+		});
+	}
+
+	checkValueIsBlank(position) {
+		this.clickAccordionByText('Case Team');
+		this.basePageElements
+			.summaryListValue()
+			.eq(position - 1)
+			.should('not.have.text');
+	}
 }
+
+//ASSERTIONS

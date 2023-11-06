@@ -55,6 +55,7 @@ describe('/appeals/:appealId/document-folders/:folderId', () => {
 				documents: [
 					{
 						id: savedFolder.documents[0].guid,
+						latestDocumentVersion: {},
 						name: savedFolder.documents[0].name
 					}
 				]
@@ -344,6 +345,8 @@ describe('/appeals/:appealId/documents', () => {
 				azureAdUserId
 			});
 
+			//databaseConnector.documentVersionAudit.create.mockResolvedValue();
+
 			databaseConnector.$transaction = jest.fn().mockImplementation((callback) =>
 				callback({
 					document: {
@@ -389,7 +392,7 @@ describe('/appeals/:appealId/documents', () => {
 			expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
 				data: {
 					appealId: householdAppeal.id,
-					details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_UPLOADED, [documentUpdated.name]),
+					details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_UPLOADED, [documentUpdated.name, 1]),
 					loggedAt: expect.any(Date),
 					userId: householdAppeal.caseOfficer.id
 				}

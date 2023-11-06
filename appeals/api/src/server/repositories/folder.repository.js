@@ -13,7 +13,14 @@ import { databaseConnector } from '#utils/database-connector.js';
 export const getById = (id) => {
 	return databaseConnector.folder.findUnique({
 		where: { id },
-		include: { documents: true }
+		include: {
+			documents: {
+				include: {
+					documentRedactionStatus: true,
+					latestDocumentVersion: true
+				}
+			}
+		}
 	});
 };
 

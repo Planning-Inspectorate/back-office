@@ -12,7 +12,7 @@ const application1 = applicationFactoryForTests({
 /**
  * @type {any[]}
  */
-const documents = [
+const documentVersions = [
 	{
 		documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
 		version: 1,
@@ -48,13 +48,25 @@ const documents = [
 	}
 ];
 
+const document = {
+	guid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
+	reference: 'test-ref',
+	folderId: 1,
+	createdeAt: new Date(),
+	isDeleted: false,
+	latestVersionId: 1,
+	caseId: 1,
+	documentVersion: documentVersions,
+	latestDocumentVersion: documentVersions[0]
+};
+
 describe('Published documents', () => {
 	test('returns all documents metadata on a case', async () => {
 		// GIVEN
 		// @ts-ignore
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		// @ts-ignore
-		databaseConnector.documentVersion.findMany.mockResolvedValue(documents);
+		databaseConnector.document.findMany.mockResolvedValue([document]);
 
 		const filesGuid = ['688fad5e-b41c-45d5-8fb3-dcad37d38092'];
 		// WHEN
@@ -64,12 +76,15 @@ describe('Published documents', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(databaseConnector.documentVersion.findMany).toHaveBeenCalledWith({
+		expect(databaseConnector.document.findMany).toHaveBeenCalledWith({
 			where: {
-				documentGuid: {
+				guid: {
 					in: ['688fad5e-b41c-45d5-8fb3-dcad37d38092']
 				},
 				isDeleted: false
+			},
+			include: {
+				documentVersion: true
 			}
 		});
 		expect(response.body).toEqual([
@@ -84,6 +99,7 @@ describe('Published documents', () => {
 				documentRef: null,
 				documentType: '',
 				examinationRefNo: '',
+				transcript: '',
 				fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
 				filter1: null,
 				filter2: null,
@@ -109,7 +125,7 @@ describe('Published documents', () => {
 		// @ts-ignore
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		// @ts-ignore
-		databaseConnector.documentVersion.findMany.mockResolvedValue(documents);
+		databaseConnector.document.findMany.mockResolvedValue([document]);
 
 		const filesGuid = ['688fad5e-b41c-45d5-8fb3-dcad37d38092'];
 		// WHEN
@@ -119,13 +135,15 @@ describe('Published documents', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(databaseConnector.documentVersion.findMany).toHaveBeenCalledWith({
+		expect(databaseConnector.document.findMany).toHaveBeenCalledWith({
 			where: {
-				documentGuid: {
+				guid: {
 					in: ['688fad5e-b41c-45d5-8fb3-dcad37d38092']
 				},
-				publishedStatus: 'published',
 				isDeleted: false
+			},
+			include: {
+				documentVersion: true
 			}
 		});
 		expect(response.body).toEqual([
@@ -139,6 +157,7 @@ describe('Published documents', () => {
 				documentId: null,
 				documentRef: null,
 				documentType: '',
+				transcript: '',
 				examinationRefNo: '',
 				fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
 				filter1: null,

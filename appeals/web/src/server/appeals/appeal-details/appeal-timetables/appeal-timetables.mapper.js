@@ -81,14 +81,11 @@ export const appealTimetablesMapper = (appealTimetables, timetableProperty) => {
 				text: `${changeOrScheduleText} LPA questionnaire due date`
 			},
 			confirmation: {
-				title: 'LPA Questionnaire due date updated',
-				preTitle: 'The due date for the LPA Questionnaire has been updated.',
+				title: 'LPA questionnaire due date updated',
+				preTitle: 'The due date for the LPA questionnaire has been updated.',
 				rows: [
 					{
 						text: 'We’ve sent an email to the appellant and LPA to inform them about changes to the timetable.'
-					},
-					{
-						text: 'We also sent them a reminder about the appeal’s due date.'
 					}
 				]
 			}

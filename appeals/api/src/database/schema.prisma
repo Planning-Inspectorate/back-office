@@ -416,6 +416,7 @@ model Document {
   latestDocumentVersion     DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
   case                      Appeal                    @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
   documentRedactionStatus   DocumentRedactionStatus?  @relation(fields: [documentRedactionStatusId], references: [id])
+  versionAudit              DocumentVersionAudit[]    @relation("audit")
 
   @@unique([name, folderId])
   @@unique([guid, latestVersionId])
@@ -431,7 +432,7 @@ model DocumentVersion {
   lastModified           DateTime?
   documentType           String?
   published              Boolean   @default(false)
-  sourceSystem           String    @default("back-office")
+  sourceSystem           String    @default("back-office-appeals")
   origin                 String?
   originalFilename       String?
   fileName               String?
@@ -467,6 +468,20 @@ model DocumentVersion {
   @@id([documentGuid, version])
   @@index([filter1], map: "filter1")
   @@index([documentGuid], map: "documentGuid")
+}
+
+/// DocumentVersionAudit model
+/// Stores information pertaining to each version of a document.
+/// Versions are stored against the `version` value (starting with 1).
+/// The physical location of these documents should be stored here.
+model DocumentVersionAudit {
+  id           Int         @id @default(autoincrement())
+  documentGuid String
+  version      Int
+  auditTrailId Int         @unique
+  action       String
+  auditTrail   AuditTrail? @relation("auditTrails", fields: [auditTrailId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  document     Document?   @relation("audit", fields: [documentGuid], references: [guid])
 }
 
 /// Representation model
@@ -716,11 +731,12 @@ model DocumentRedactionStatus {
 }
 
 model AuditTrail {
-  id       Int      @id @default(autoincrement())
+  id       Int                   @id @default(autoincrement())
   appealId Int
   userId   Int
   loggedAt DateTime
   details  String
-  appeal   Appeal   @relation(fields: [appealId], references: [id])
-  user     User     @relation(fields: [userId], references: [id])
+  appeal   Appeal                @relation(fields: [appealId], references: [id])
+  user     User                  @relation(fields: [userId], references: [id])
+  doc      DocumentVersionAudit? @relation("auditTrails")
 }

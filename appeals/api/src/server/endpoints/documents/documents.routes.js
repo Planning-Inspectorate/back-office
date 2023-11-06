@@ -63,6 +63,30 @@ router.get(
 	asyncHandler(controller.getDocument)
 );
 
+router.get(
+	'/:appealId/documents/:documentId/versions',
+	/*
+		#swagger.tags = ['Documents']
+		#swagger.path = '/appeals/{appealId}/documents/{documentId}/versions'
+		#swagger.description = Returns a single document by id
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
+		#swagger.responses[200] = {
+			description: 'Returns a single document by id and its versions',
+			schema: { $ref: '#/definitions/DocumentDetails' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
+	getDocumentIdValidator,
+	asyncHandler(controller.getDocumentAndVersions)
+);
+
 router.post(
 	'/:appealId/documents',
 	/*
@@ -152,6 +176,31 @@ router.patch(
 	patchDocumentsValidator,
 	checkAppealExistsAndAddToRequest,
 	asyncHandler(controller.updateDocuments)
+);
+
+router.delete(
+	'/:appealId/documents/:documentId/:version',
+	/*
+		#swagger.tags = ['Documents']
+		#swagger.path = '/appeals/{appealId}/documents/{documentId}/{version}'
+		#swagger.description = Delete a document version and sets the previous as current version
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
+		#swagger.responses[200] = {
+			description: 'Returns a single document by id',
+			schema: { $ref: '#/definitions/DocumentDetails' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	getAppealValidator,
+	checkAppealExistsAndAddToRequest,
+	getDocumentIdValidator,
+	validateDocumentAndAddToRequest,
+	asyncHandler(controller.deleteDocumentVersion)
 );
 
 export { router as documentsRoutes };

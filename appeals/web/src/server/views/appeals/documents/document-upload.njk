@@ -17,7 +17,7 @@
 	{{ fileUploader({
 		text: 'Save and continue',
 		formId: 1,
-		caseId: caseId,
+		caseId: appealId,
 		folderId: folderId,
 		documentId: documentId,
 		documentType: documentType,
@@ -26,7 +26,7 @@
 		useBlobEmulator: useBlobEmulator,
 		blobStorageContainer: blobStorageContainer,
 		formTitle: serviceName,
-		nextPageUrl: ['/appeals-service/appeal-details/', caseId] | join,
+		nextPageUrl: nextPageUrl if nextPageUrl else (['/appeals-service/appeal-details/', caseId] | join),
 		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
 		disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
 		multiple: multiple
