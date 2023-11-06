@@ -7,8 +7,9 @@ import {
 	mapReasonsToReasonsList
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
-import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
+import nunjucks from 'nunjucks';
 import { mapDocumentsForDisplay } from '#appeals/appeal-documents/appeal-documents.mapper.js';
+import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
 
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
@@ -141,23 +142,39 @@ export function mapNotificationBannerComponentParameters(
 			session.notificationBanners = {};
 		}
 
+		const listClasses = 'govuk-!-margin-top-0';
+		const renderedDetailsItems = (notValidReasons || [])
+			.filter((reason) => reason.name.hasText)
+			.map((reason) =>
+				nunjucks.render('appeals/components/govuk-details.njk', {
+					params: {
+						summaryText: reason.name?.name,
+						html: buildHtmUnorderedList(reason.text || [], 0, listClasses)
+					}
+				})
+			);
+
+		const reasonsWithoutText = (notValidReasons || []).filter((reason) => !reason.name.hasText);
+
+		if (reasonsWithoutText.length > 0) {
+			renderedDetailsItems.unshift(
+				nunjucks.render('appeals/components/govuk-details.njk', {
+					params: {
+						summaryText: 'Incorrect name and/or missing documents',
+						html: buildHtmUnorderedList(
+							reasonsWithoutText.map((reason) => reason.name.name),
+							0,
+							listClasses
+						)
+					}
+				})
+			);
+		}
+
 		session.notificationBanners.appellantCaseNotValid = {
 			appealId,
 			titleText: `Appeal is ${String(validationOutcome)}`,
-			html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${notValidReasons
-				.map(
-					(reason) =>
-						`<li>${reason?.name?.name}${reason?.text?.length ? ':' : ''}</li>${
-							reason?.text?.length
-								? buildHtmUnorderedList(
-										reason?.text,
-										0,
-										'govuk-!-margin-top-0 govuk-!-padding-left-4'
-								  )
-								: ''
-						}`
-				)
-				.join('')}</ul>`
+			html: renderedDetailsItems.join('')
 		};
 	}
 

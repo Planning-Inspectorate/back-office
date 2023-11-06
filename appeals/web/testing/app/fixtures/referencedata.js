@@ -165,41 +165,70 @@ export const appealData = {
 };
 
 export const appellantCaseData = {
-	appealId: 170,
-	appealReference: 'APP/Q9999/D/21/431220',
+	appealId: 1,
+	appealReference: 'TEST/919276',
 	appealSite: {
-		addressLine1: '92 Huntsmoor Road',
-		town: 'Tadley',
-		postCode: 'RG26 4BX'
+		addressId: 1,
+		addressLine1: '96 The Avenue',
+		addressLine2: 'Maidstone',
+		county: 'Kent',
+		postCode: 'MD21 5XY'
 	},
 	appellantCaseId: 1,
 	appellant: {
-		company: 'Eva Sharma Ltd',
-		name: 'Eva Sharma'
+		appellantId: 1,
+		company: null,
+		name: 'Fiona Burgess'
 	},
 	applicant: {
 		firstName: null,
 		surname: null
 	},
+	planningApplicationReference: '48269/APP/2021/1482',
 	documents: {
-		appealStatement: {
-			folderId: 1,
-			path: 'appellantCase/appealStatement',
-			documents: []
-		},
 		applicationForm: {
-			folderId: 2,
-			path: 'appellantCase/applicationForm',
+			folderId: 1,
+			path: 'appellant_case/applicationForm',
 			documents: []
 		},
 		decisionLetter: {
+			folderId: 2,
+			path: 'appellant_case/decisionLetter',
+			documents: []
+		},
+		designAndAccessStatement: {
 			folderId: 3,
-			path: 'appellantCase/decisionLetter',
+			path: 'appellant_case/designAndAccessStatement',
+			documents: []
+		},
+		planningObligation: {
+			folderId: 4,
+			path: 'appellant_case/planningObligation',
+			documents: []
+		},
+		plansDrawingsSupportingDocuments: {
+			folderId: 5,
+			path: 'appellant_case/plansDrawingsSupportingDocuments',
+			documents: []
+		},
+		separateOwnershipCertificate: {
+			folderId: 6,
+			path: 'appellant_case/separateOwnershipCertificate',
+			documents: []
+		},
+		newPlansOrDrawings: {
+			folderId: 7,
+			path: 'appellant_case/newPlansOrDrawings',
 			documents: []
 		},
 		newSupportingDocuments: {
-			folderId: 4,
-			path: 'appellantCase/newSupportingDocuments',
+			folderId: 8,
+			path: 'appellant_case/newSupportingDocuments',
+			documents: []
+		},
+		appealStatement: {
+			folderId: 9,
+			path: 'appellant_case/appealStatement',
 			documents: []
 		}
 	},
@@ -210,7 +239,7 @@ export const appellantCaseData = {
 		hasIssues: false
 	},
 	isAppellantNamedOnApplication: true,
-	localPlanningDepartment: 'Waveney District Council',
+	localPlanningDepartment: 'Worthing Borough Council',
 	siteOwnership: {
 		areAllOwnersKnown: null,
 		hasAttemptedToIdentifyOwners: null,
@@ -218,6 +247,35 @@ export const appellantCaseData = {
 		isFullyOwned: true,
 		isPartiallyOwned: null,
 		knowsOtherLandowners: null
+	},
+	validation: {
+		outcome: 'Incomplete',
+		incompleteReasons: [
+			{
+				name: {
+					id: 1,
+					name: 'Appellant name is not the same on the application form and appeal form',
+					hasText: false
+				},
+				text: []
+			},
+			{
+				name: {
+					id: 2,
+					name: 'Attachments and/or appendices have not been included to the full statement of case',
+					hasText: true
+				},
+				text: ['test reason 1']
+			},
+			{
+				name: {
+					id: 10,
+					name: 'Other',
+					hasText: true
+				},
+				text: ['test reason 2', 'test reason 3']
+			}
+		]
 	},
 	visibility: {
 		details: null,
@@ -422,7 +480,36 @@ export const lpaQuestionnaireData = {
 	scheduleType: 'Schedule 2',
 	sensitiveAreaDetails: 'The area is prone to flooding',
 	siteWithinGreenBelt: true,
-	statutoryConsulteesDetails: 'Some other people need to be consulted'
+	statutoryConsulteesDetails: 'Some other people need to be consulted',
+	validation: {
+		outcome: 'Incomplete',
+		incompleteReasons: [
+			{
+				name: {
+					id: 1,
+					name: 'Policies are missing',
+					hasText: true
+				},
+				text: ['test reason 1']
+			},
+			{
+				name: {
+					id: 2,
+					name: 'Other documents or information are missing',
+					hasText: true
+				},
+				text: ['test reason 2', 'test reason 3']
+			},
+			{
+				name: {
+					id: 3,
+					name: 'Other',
+					hasText: true
+				},
+				text: ['test reason 4', 'test reason 5', 'test reason 6']
+			}
+		]
+	}
 };
 
 export const getRandomLocalPlanningDepartment = () =>
