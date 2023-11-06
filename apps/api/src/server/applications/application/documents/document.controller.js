@@ -479,8 +479,9 @@ export const storeDocumentVersion = async (request, response) => {
 	const { guid, id: caseId } = request.params;
 
 	// Validate the request body and extract the document version metadata
-	/** @type {DocumentVersion} */
-	const documentVersionMetadataBody = validateDocumentVersionMetadataBody(request.body);
+	const { documentVersion, transcriptReference } = validateDocumentVersionMetadataBody(
+		request.body
+	);
 
 	// Retrieve the document from the database using the provided guid and caseId
 	const document = await documentRepository.getById(guid);
@@ -488,9 +489,7 @@ export const storeDocumentVersion = async (request, response) => {
 		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
 	}
 
-	if (documentVersionMetadataBody.transcript) {
-		const transcriptReference = documentVersionMetadataBody.transcript;
-
+	if (transcriptReference) {
 		const transcriptDocument = await documentRepository.getByReferenceRelatedToCaseId(
 			transcriptReference,
 			Number(caseId)
@@ -503,14 +502,13 @@ export const storeDocumentVersion = async (request, response) => {
 			throw new BackOfficeAppError(transcriptErrorMsg, 404);
 		}
 
-		documentVersionMetadataBody.transcriptGuid = transcriptDocument.guid;
-		delete documentVersionMetadataBody.transcript;
+		documentVersion.transcriptGuid = transcriptDocument.guid;
 	}
 
 	// Upsert the document version metadata to the database and get the updated document details
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,
-		documentVersionMetadataBody,
+		documentVersion,
 		document.latestVersionId ?? 1
 	);
 
