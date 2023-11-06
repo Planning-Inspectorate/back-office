@@ -1,5 +1,5 @@
 import { composeMiddleware } from '@pins/express';
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 import joi from 'joi';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import * as DocumentRepository from '#repositories/document.repository.js';
@@ -107,7 +107,8 @@ export const validateDocumentVersionMetadataBody = (documentVersonEventBody) => 
 			.optional(),
 		filter1: joi.string().optional(),
 		filter2: joi.string().optional(),
-		examinationRefNo: joi.string().optional()
+		examinationRefNo: joi.string().optional(),
+		transcript: joi.string().optional()
 	});
 
 	// Validate the document version event body using the schema
@@ -206,3 +207,10 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (docu
 		invalid: documentIds.filter((id) => !publishableIds.has(id))
 	};
 };
+
+export const validateParameterCriteria = composeMiddleware(
+	query('criteria')
+		.isLength({ min: 3 })
+		.withMessage('Search criteria must have at least 3 characters'),
+	validationErrorHandler
+);

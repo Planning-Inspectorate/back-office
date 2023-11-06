@@ -23,15 +23,15 @@ exports[`applications representations GET /applications-service/:caseId/relevant
         </div>
         <div class=\\"govuk-notification-banner__content\\">
             <p class=\\"govuk-notification-banner__heading\\">Changes have been made. These changes have not been published.</p>
-            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/select-representations-for-publishing\\"> Preview and publish the changes</a>
-            </p>
-            <button id=\\"clear-notification-btn\\" class=\\"govuk-button govuk-button--secondary\\"
-            type=\\"button\\">Clear notification</button>
+            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/relevant-representations/select-representations-for-publishing\\"> Preview and publish the changes</a>
+            </p><a href=\\"#\\" id=\\"clear-update-notification-link\\" class=\\"govuk-link\\">Clear notification</a>
         </div>
     </div>
     <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
-        document.getElementById('clear-notification-btn').addEventListener('click', () =>
-        				document.getElementById('unpublished-changes-banner').style.display = 'none');
+        document.getElementById('clear-update-notification-link').addEventListener('click', (e) => {
+        				e.preventDefault()
+        				document.getElementById('unpublished-changes-banner').style.display = 'none'
+        			});
     </script>
     <h2 class=\\"govuk-heading-l\\">Relevant representations</h2>
     <form method=\\"GET\\">
@@ -205,15 +205,15 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
         </div>
         <div class=\\"govuk-notification-banner__content\\">
             <p class=\\"govuk-notification-banner__heading\\">Changes have been made. These changes have not been published.</p>
-            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/select-representations-for-publishing\\"> Preview and publish the changes</a>
-            </p>
-            <button id=\\"clear-notification-btn\\" class=\\"govuk-button govuk-button--secondary\\"
-            type=\\"button\\">Clear notification</button>
+            <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/relevant-representations/select-representations-for-publishing\\"> Preview and publish the changes</a>
+            </p><a href=\\"#\\" id=\\"clear-update-notification-link\\" class=\\"govuk-link\\">Clear notification</a>
         </div>
     </div>
     <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
-        document.getElementById('clear-notification-btn').addEventListener('click', () =>
-        				document.getElementById('unpublished-changes-banner').style.display = 'none');
+        document.getElementById('clear-update-notification-link').addEventListener('click', (e) => {
+        				e.preventDefault()
+        				document.getElementById('unpublished-changes-banner').style.display = 'none'
+        			});
     </script>
     <h2 class=\\"govuk-heading-l\\">Relevant representations</h2>
     <form method=\\"GET\\">

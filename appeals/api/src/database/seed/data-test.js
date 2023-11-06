@@ -47,7 +47,7 @@ function getDateTwoWeeksAgo() {
 function generateAppealReference() {
 	const number = Math.floor(Math.random() * 999_999 + 1);
 
-	return `APP/Q9999/D/21/${number}`;
+	return `TEST/${number}`;
 }
 
 /**
@@ -282,11 +282,6 @@ const appealsLpaQuestionnaireDue = [
 
 const appealsStatementReview = [
 	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'statement_review' },
-		invalidValidationDecision: true
-	}),
-	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: { status: 'statement_review' },
 		invalidValidationDecision: true
@@ -294,11 +289,6 @@ const appealsStatementReview = [
 ];
 
 const appealsFinalCommentReview = [
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'final_comment_review' },
-		incompleteValidationDecision: true
-	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: { status: 'final_comment_review' },

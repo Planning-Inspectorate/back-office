@@ -66,6 +66,49 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
 };
 
 /**
+ * @param {string} userId
+ * @param {number} pageNumber
+ * @param {number} pageSize
+ * @param {string} status
+ * @returns {Promise<[number, RepositoryGetAllResultItem[]]>}
+ */
+const getUserAppeals = (userId, pageNumber, pageSize, status) => {
+	const where = {
+		...(status !== 'undefined' && {
+			appealStatus: {
+				some: { valid: true, status }
+			}
+		}),
+		OR: [
+			{ inspector: { azureAdUserId: { equals: userId } } },
+			{ caseOfficer: { azureAdUserId: { equals: userId } } }
+		]
+	};
+
+	return databaseConnector.$transaction([
+		databaseConnector.appeal.count({
+			where
+		}),
+		databaseConnector.appeal.findMany({
+			where,
+			include: {
+				address: true,
+				appealStatus: {
+					where: {
+						valid: true
+					}
+				},
+				appealTimetable: true,
+				appealType: true,
+				lpa: true
+			},
+			skip: getSkipValue(pageNumber, pageSize),
+			take: pageSize
+		})
+	]);
+};
+
+/**
  * @param {number} id
  * @returns {Promise<RepositoryGetByIdResultItem | void>}
  */
@@ -213,4 +256,4 @@ const updateAppealById = (id, { dueDate, startedAt, caseOfficer, inspector }) =>
 		}
 	});
 
-export default { getAppealById, getAllAppeals, updateAppealById };
+export default { getAppealById, getAllAppeals, getUserAppeals, updateAppealById };

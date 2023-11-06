@@ -1,5 +1,5 @@
 import { isEmpty, pick } from 'lodash-es';
-import { mapValuesUsingObject } from '../../utils/mapping/map-values-using-object.js';
+import { mapValuesUsingObject } from '#utils/mapping/map-values-using-object.js';
 
 /**
  * @param {import('@pins/applications').CreateUpdateApplication} applicationDetails

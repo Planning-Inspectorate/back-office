@@ -1,16 +1,16 @@
 import { keys } from 'lodash-es';
-import * as caseRepository from '../../repositories/case.repository.js';
-import { mapApplicationWithSectorAndSubSector } from '../../utils/mapping/map-application-with-sector-and-subsector.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import { mapApplicationWithSectorAndSubSector } from '#utils/mapping/map-application-with-sector-and-subsector.js';
 import { applicationStates } from '../state-machine/application.machine.js';
 
 /**
- * @typedef {import('apps/api/src/server/utils/mapping/map-sector.js').SectorResponse} SectorResponse
-  @typedef {import('apps/api/src/server/utils/mapping/map-application-with-sector-and-subsector').ApplicationWithSectorResponse} ApplicationWithSectorResponse */
+ * @typedef {import('@pins/applications.api').Api.ApplicationSummary} ApplicationSummary
+ */
 
 /**
  *
  * @param {import('@pins/applications.api').Schema.Case[]} applications
- * @returns {ApplicationWithSectorResponse[]}
+ * @returns {ApplicationSummary[]}
  */
 const mapApplicationsWithSectorAndSubSector = (applications) => {
 	return applications.map((application) => mapApplicationWithSectorAndSubSector(application));

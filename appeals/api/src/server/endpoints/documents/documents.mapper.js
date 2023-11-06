@@ -48,6 +48,7 @@ export const mapDocumentsForBlobStorage = (documents, caseReference, versionId =
 			return {
 				caseType: 'appeal',
 				caseReference,
+				versionId,
 				GUID: document.documentGuid,
 				documentName: fileName,
 				blobStoreUrl: mapBlobPath(document.documentGuid, caseReference, fileName, versionId)
@@ -121,14 +122,16 @@ const mapFoldersLayoutForAppealFolder = (folders, path) => {
 			folderId: folder.id,
 			path: folder.path,
 			documents:
-				folder.documents?.map((d) => {
-					return {
-						id: d.guid,
-						name: d.name,
-						folderId: d.folderId,
-						caseId: folder.caseId
-					};
-				}) || []
+				folder.documents
+					?.filter((d) => !d.isDeleted)
+					.map((d) => {
+						return {
+							id: d.guid,
+							name: d.name,
+							folderId: d.folderId,
+							caseId: folder.caseId
+						};
+					}) || []
 		};
 	}
 };

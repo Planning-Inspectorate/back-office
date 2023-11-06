@@ -258,6 +258,7 @@ model Document {
   representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
   s51AdviceDocument        S51AdviceDocument?        @relation("S51AdviceDocument")
   latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
+  transcriptedDocuments    DocumentVersion[]         @relation("TranscriptedDocuments")
   case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
   fromFrontOffice          Boolean                   @default(false)
 
@@ -305,6 +306,8 @@ model DocumentVersion {
   redacted               Boolean               @default(false)
   Document               Document?             @relation("VersionHistory", fields: [documentGuid], references: [guid])
   latestVersionDocument  Document?             @relation("LatestVersion")
+  transcript             Document?             @relation("TranscriptedDocuments", fields: [transcriptGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
+  transcriptGuid         String?
   DocumentActivityLog    DocumentActivityLog[]
 
   @@id([documentGuid, version])

@@ -145,7 +145,15 @@ export const getById = async (id, caseId) => {
 				select: {
 					id: true,
 					documentGuid: true,
-					Document: true
+					Document: {
+						select: {
+							latestDocumentVersion: {
+								select: {
+									fileName: true
+								}
+							}
+						}
+					}
 				}
 			}
 		},

@@ -29,7 +29,18 @@ export const getDocumentById = (guid) => {
 export const getDocumentWithAllVersionsById = (guid) => {
 	return databaseConnector.document.findUnique({
 		where: { guid },
-		include: { documentVersion: true }
+		include: {
+			documentVersion: true,
+			versionAudit: {
+				include: {
+					auditTrail: {
+						include: {
+							user: true
+						}
+					}
+				}
+			}
+		}
 	});
 };
 
@@ -44,16 +55,6 @@ export const getDocumentsByAppealId = (caseId) => {
 			caseId
 		},
 		include: { latestDocumentVersion: true }
-	});
-};
-
-/**
- * @param {string} guid
- * @returns {PrismaPromise<Document>}
- */
-export const deleteDocument = (guid) => {
-	return databaseConnector.document.delete({
-		where: { guid }
 	});
 };
 

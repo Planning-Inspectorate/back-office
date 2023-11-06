@@ -11,6 +11,7 @@ import {
 	assignNewUserRouter
 } from './assign-user/assign-user.router.js';
 import * as controller from './appeal-details.controller.js';
+import changePageRouter from '../question-page/question-page.router.js';
 
 const router = createRouter();
 
@@ -24,5 +25,5 @@ router.use('/:appealId/site-visit', siteVisitRouter);
 router.use('/:appealId/assign-user', assignUserRouter);
 router.use('/:appealId/unassign-user', unassignUserRouter);
 router.use('/:appealId/assign-new-user', assignNewUserRouter);
-
+router.use('/:appealId/change-appeal-details', changePageRouter);
 export default router;

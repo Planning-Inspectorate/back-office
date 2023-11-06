@@ -19,23 +19,34 @@
 {% endblock %}
 
 {% block pageContent %}
-    <h1 class="govuk-heading-l">
-        {{ layout.pageTitle }}
-    </h1>
-    {% if noPublish %}
-      {{ govukInsetText({
-        text: "The file's current status is '" + (documentMetaData.publishedStatus | statusName) + "'. The file cannot be published or downloaded."
-      }) }}
-    {% endif %}
-    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
-        {% include 'app/includes/csrf.njk' %}
-        {{ renderComponent(layout.metaDataName) }}
-        <div class="govuk-grid-row">
-            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
-                {{ govukButton({ text: 'Save and return' }) }}
-            </div>
-        </div>
-    </form>
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			<h1 class="govuk-heading-l">
+				{{ layout.pageTitle }}
+			</h1>
+			{% if noPublish %}
+			{{ govukInsetText({
+				text: "The file's current status is '" + (documentMetaData.publishedStatus | statusName) + "'. The file cannot be published or downloaded."
+			}) }}
+			{% endif %}
+			<form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+				{% include 'app/includes/csrf.njk' %}
+				{{ renderComponent(layout.metaDataName) }}
+
+				{% if layout.metaDataName === 'transcript' %}
+					{{ govukInsetText({
+  						text: "The transcript will appear underneath this file on the NI website when you publish both documents."
+					}) }}
+				{% endif %}
+
+				<div class="govuk-grid-row">
+					<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+						{{ govukButton({ text: 'Save and return' }) }}
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 {% endblock %}
 
 {% macro renderComponent(componentName) %}
@@ -55,4 +66,5 @@
     {% else %}
         {{ maxLengthInput(layout, documentMetaData[layout.metaDataName], errors) }}
     {% endif %}
+
 {% endmacro %}

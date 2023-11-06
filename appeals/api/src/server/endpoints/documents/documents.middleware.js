@@ -9,7 +9,7 @@ export const validateDocumentAndAddToRequest = async (req, res, next) => {
 	const { documentId } = req.params;
 	const document = await getDocumentById(documentId);
 
-	if (!document) {
+	if (!document || document.isDeleted) {
 		return res.status(404).send({ errors: { documentId: ERROR_NOT_FOUND } });
 	}
 

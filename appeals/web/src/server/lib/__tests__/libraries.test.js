@@ -24,7 +24,14 @@ import {
 	mapReasonsToReasonsList,
 	getNotValidReasonsTextFromRequestBody
 } from '../mappers/validation-outcome-reasons.mapper.js';
-import { appellantCaseInvalidReasons } from '#testing/app/fixtures/referencedata.js';
+import {
+	timeIsBeforeTime,
+	convert24hTo12hTimeStringFormat,
+	is24HourTimeValid
+} from '#lib/times.js';
+import { appellantCaseInvalidReasons, baseSession } from '#testing/app/fixtures/referencedata.js';
+import { stringContainsDigitsOnly } from '#lib/string-utilities.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -60,9 +67,9 @@ describe('Libraries', () => {
 					want: ''
 				},
 				{
-					name: 'invalid',
+					name: 'valid 0',
 					ref: 'APP/5141/9999',
-					want: 'APP/5141/9999'
+					want: '9999'
 				},
 				{
 					name: 'valid 1',
@@ -396,6 +403,67 @@ describe('Libraries', () => {
 				const gmtDate = displayDate(date);
 
 				expect(gmtDate).toEqual('29 October 2023');
+			});
+		});
+		describe('convert24hTo12hTimeFormat', () => {
+			it('should take a valid 24h timestring and convert it to a 12h timestring', () => {
+				const validTimes = [
+					{
+						input: '00:00',
+						expectedOutput: '12am'
+					},
+					{
+						input: '00:01',
+						expectedOutput: '12:01am'
+					},
+					{
+						input: '06:12',
+						expectedOutput: '6:12am'
+					},
+					{
+						input: '6:12',
+						expectedOutput: '6:12am'
+					},
+					{
+						input: '6:2',
+						expectedOutput: '6:02am'
+					},
+					{
+						input: '12:00',
+						expectedOutput: '12pm'
+					},
+					{
+						input: '16:30',
+						expectedOutput: '4:30pm'
+					}
+				];
+				for (const set of validTimes) {
+					expect(convert24hTo12hTimeStringFormat(set.input)).toBe(set.expectedOutput);
+				}
+			});
+			it('should return an undefined value if the input is undefined or null', () => {
+				expect(convert24hTo12hTimeStringFormat(undefined)).toBe(undefined);
+				expect(convert24hTo12hTimeStringFormat(null)).toBe(undefined);
+			});
+			it('should return undefined for invalid 24h time', () => {
+				expect(convert24hTo12hTimeStringFormat('25:00')).toBe(undefined);
+				expect(convert24hTo12hTimeStringFormat('21:00:00')).toBe(undefined);
+				expect(convert24hTo12hTimeStringFormat('12:60')).toBe(undefined);
+				expect(convert24hTo12hTimeStringFormat('1200')).toBe(undefined);
+			});
+		});
+		describe('is24HoursTimeValid', () => {
+			it('should return true for valid times', () => {
+				const validTimes = ['00:00', '06:12', '6:12', '12:00', '16:30'];
+				for (const set of validTimes) {
+					expect(is24HourTimeValid(set)).toBe(true);
+				}
+			});
+			it('should return false for invalid times', () => {
+				const validTimes = ['0000', '26:12', '24:00', '13:60', '16:30:00'];
+				for (const set of validTimes) {
+					expect(is24HourTimeValid(set)).toBe(false);
+				}
 			});
 		});
 	});
@@ -1028,6 +1096,108 @@ describe('Libraries', () => {
 
 				expect(result).toEqual({
 					22: ['test reason text 1', 'test reason text 2']
+				});
+			});
+		});
+	});
+
+	describe('times', () => {
+		describe('timeIsBeforeTime', () => {
+			it('should return true if the provided time is before the provided beforeTime', () => {
+				expect(timeIsBeforeTime(0, 1, 0, 2)).toBe(true);
+				expect(timeIsBeforeTime(1, 0, 2, 0)).toBe(true);
+				expect(timeIsBeforeTime(1, 59, 2, 0)).toBe(true);
+				expect(timeIsBeforeTime(12, 45, 13, 0)).toBe(true);
+			});
+
+			it('should return false if the provided time is not before the provided beforeTime', () => {
+				expect(timeIsBeforeTime(0, 1, 0, 1)).toBe(false);
+				expect(timeIsBeforeTime(1, 0, 1, 0)).toBe(false);
+				expect(timeIsBeforeTime(0, 2, 0, 1)).toBe(false);
+				expect(timeIsBeforeTime(2, 0, 1, 0)).toBe(false);
+				expect(timeIsBeforeTime(9, 15, 9, 15)).toBe(false);
+				expect(timeIsBeforeTime(9, 30, 9, 15)).toBe(false);
+				expect(timeIsBeforeTime(12, 45, 9, 0)).toBe(false);
+				expect(timeIsBeforeTime(23, 45, 23, 30)).toBe(false);
+			});
+		});
+	});
+
+	describe('string utilities', () => {
+		describe('stringContainsDigitsOnly', () => {
+			it('should return true if the supplied string only contains digits', () => {
+				expect(stringContainsDigitsOnly('0')).toBe(true);
+				expect(stringContainsDigitsOnly('9')).toBe(true);
+				expect(stringContainsDigitsOnly('123')).toBe(true);
+				expect(stringContainsDigitsOnly(' 12 ')).toBe(true);
+			});
+
+			it('should return false if the supplied string contains any non-digit characters', () => {
+				expect(stringContainsDigitsOnly('')).toBe(false);
+				expect(stringContainsDigitsOnly(' ')).toBe(false);
+				expect(stringContainsDigitsOnly('one')).toBe(false);
+				expect(stringContainsDigitsOnly('.')).toBe(false);
+				expect(stringContainsDigitsOnly('£1')).toBe(false);
+				expect(stringContainsDigitsOnly('0.')).toBe(false);
+				expect(stringContainsDigitsOnly('0.9')).toBe(false);
+				expect(stringContainsDigitsOnly('3.141')).toBe(false);
+				expect(stringContainsDigitsOnly('1!')).toBe(false);
+				expect(stringContainsDigitsOnly('2a')).toBe(false);
+				expect(stringContainsDigitsOnly('1 2')).toBe(false);
+			});
+		});
+	});
+
+	describe('session utilities', () => {
+		describe('addNotificationBannerToSession', () => {
+			it('should return false without modifying the session notificationBanners object if an unrecognised bannerDefinitionKey is provided', () => {
+				const testSession = { ...baseSession };
+
+				const result = addNotificationBannerToSession(testSession, 'anUnrecognisedKey', 1);
+
+				expect(result).toBe(false);
+				expect(testSession).toEqual(baseSession);
+			});
+
+			it('should return true and add a notificationBanners property to the session and add a property with name matching the bannerDefinitionKey and value of an object containing the provided appealId to the session notificationBanners object if a recognised bannerDefinitionKey is provided and there is no notificationBanners property in the session already', () => {
+				const testSession = { ...baseSession };
+
+				const result = addNotificationBannerToSession(testSession, 'siteVisitTypeSelected', 1);
+
+				expect(result).toBe(true);
+				expect(testSession).toEqual({
+					...baseSession,
+					notificationBanners: {
+						siteVisitTypeSelected: {
+							appealId: 1
+						}
+					}
+				});
+			});
+
+			it('should return true and add a property with name matching the bannerDefinitionKey and value of an object containing the provided appealId to the session notificationBanners object if a recognised bannerDefinitionKey is provided and there is already a notificationBanners property in the session', () => {
+				const testSession = {
+					...baseSession,
+					notificationBanners: {
+						allocationDetailsUpdated: {
+							appealId: 1
+						}
+					}
+				};
+
+				const result = addNotificationBannerToSession(testSession, 'siteVisitTypeSelected', 1);
+
+				expect(result).toBe(true);
+				expect(testSession).toEqual({
+					...baseSession,
+					notificationBanners: {
+						allocationDetailsUpdated: {
+							appealId: 1
+						},
+						siteVisitTypeSelected: {
+							appealId: 1
+						}
+					}
 				});
 			});
 		});

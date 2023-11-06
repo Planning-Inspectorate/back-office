@@ -15,7 +15,8 @@ const MIMEs = {
 	mov: 'video/quicktime',
 	png: 'image/png',
 	tiff: 'image/tiff',
-	tif: 'image/tiff'
+	tif: 'image/tiff',
+	html: 'text/html'
 };
 
 /**

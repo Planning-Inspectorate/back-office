@@ -1,6 +1,6 @@
 import { request } from '../../../../app-test.js';
-import { applicationFactoryForTests } from '../../../../utils/application-factory-for-tests.js';
-const { databaseConnector } = await import('../../../../utils/database-connector.js');
+import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const application1 = applicationFactoryForTests({
 	id: 1,
@@ -296,7 +296,8 @@ describe('Get folder details', () => {
 					filter1: null,
 					filter2: null,
 					examinationRefNo: '',
-					fromFrontOffice: false
+					fromFrontOffice: false,
+					transcript: ''
 				}
 			]
 		});

@@ -1,5 +1,7 @@
 import { databaseConnector } from '#utils/database-connector.js';
+import { findPreviousVersion } from '#utils/find-previous-version.js';
 import { mapBlobPath } from '#endpoints/documents/documents.mapper.js';
+import { randomUUID } from 'node:crypto';
 
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
@@ -98,4 +100,113 @@ export const addDocumentVersion = async ({ context, documentGuid, ...metadata })
 	});
 
 	return transaction;
+};
+
+/**
+ * @param {string} documentGuid
+ * @param {number} version
+ */
+export const deleteDocumentVersion = async (documentGuid, version) => {
+	const transaction = await databaseConnector.$transaction(async (tx) => {
+		const document = await tx.document.findFirst({
+			include: {
+				documentVersion: true,
+				latestDocumentVersion: true
+			},
+			where: { guid: documentGuid }
+		});
+
+		if (document && document.latestDocumentVersion && document.documentVersion) {
+			const versionToDelete = document.documentVersion.find((v) => v.version === version);
+			const versionCount = document.documentVersion.filter((v) => !v.isDeleted).length;
+
+			if (versionToDelete) {
+				if (versionToDelete.version !== document.latestDocumentVersion.version) {
+					await deleteVersion(tx, document.guid, versionToDelete.version);
+				} else {
+					if (versionCount === 1) {
+						await deleteVersion(tx, document.guid, versionToDelete.version);
+						await deleteDocument(tx, document.guid, document.name);
+					} else {
+						await setPreviousVersion(tx, document, versionToDelete.version);
+						await deleteVersion(tx, document.guid, versionToDelete.version);
+					}
+				}
+
+				return {
+					...document,
+					isDeleted: versionCount === 1,
+					latestDocumentVersion: null,
+					latestVersionId: null,
+					documentVersion: []
+				};
+			}
+		}
+	});
+
+	return transaction;
+};
+
+/**
+ * @param {string} documentGuid
+ * @param {number} version
+ * @param {string} action
+ * @param {number} auditTrailId
+ */
+export const addDocumentVersionAudit = async (documentGuid, version, action, auditTrailId) => {
+	await databaseConnector.documentVersionAudit.create({
+		data: {
+			documentGuid,
+			version,
+			action,
+			auditTrailId
+		}
+	});
+};
+
+/**
+ * @param {any} tx
+ * @param {string} documentGuid
+ * @param {number} version
+ */
+const deleteVersion = async (tx, documentGuid, version) => {
+	await tx.documentVersion.update({
+		where: { documentGuid_version: { documentGuid, version } },
+		data: { isDeleted: true }
+	});
+};
+
+/**
+ * @param {any} tx
+ * @param {string} documentGuid
+ * @param {string} name
+ */
+const deleteDocument = async (tx, documentGuid, name) => {
+	await tx.document.update({
+		where: { guid: documentGuid },
+		data: {
+			isDeleted: true,
+			name: `_${randomUUID()}_${name}`
+		}
+	});
+};
+
+/**
+ * @param {any} tx
+ * @param {Document} document
+ * @param {number} version
+ */
+const setPreviousVersion = async (tx, document, version) => {
+	const versions = document.documentVersion?.filter((v) => !v.isDeleted).map((v) => v.version);
+
+	if (!versions) {
+		return;
+	}
+	const previousVersion = findPreviousVersion(versions, version);
+	if (previousVersion) {
+		await tx.document.update({
+			where: { guid: document.guid },
+			data: { latestVersionId: previousVersion }
+		});
+	}
 };
