@@ -35,34 +35,40 @@ const texts = {
 	createTimetableButtonText: 'Create new timetable item',
 	successMessageText: 'Timetable item successfully created'
 };
-//Tests are running locally fine but in CI/CD some of the tests are failing due to this some of the tests are commented for time being
+let projectInfo;
 
-/*describe('Examination Timetable Errors', () => {
-	let projectInfo = projectInformation();
-	let caseRef;
+describe('Examination Timetable Errors', () => {
 
-	before(() => {
+
+	beforeEach(() => {
+		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
-	beforeEach(() => {
+
+	it('The dropdown should have correct items', () => {
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
-		caseRef = Cypress.env('currentCreatedCase');
+		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
 		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
-	});
-
-	it('The dropdown should have correct items', () => {
 		cy.get('#timetable-type option').then((options) => {
-			const optionValues = [...options].map((o) => o.value);
-			expect(optionValues).to.deep.equal(itemOptions);
+		const optionValues = [...options].map((o) => o.value);
+		expect(optionValues).to.deep.equal(itemOptions);
 		});
 	});
 
 	it('Should trigger validation errors - name, start time', () => {
+		cy.login(applicationsUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
+		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		cy.get('#timetable-type').select(itemOptions[0]);
 		examTimetablePage.clickButtonByText('Continue');
 		examTimetablePage.clickButtonByText('Continue');
@@ -73,6 +79,13 @@ const texts = {
 	});
 
 	it('Should trigger validation errors - name, end time', () => {
+		cy.login(applicationsUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
+		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		cy.get('#timetable-type').select(itemOptions[2]);
 		examTimetablePage.clickButtonByText('Continue');
 		examTimetablePage.clickButtonByText('Continue');
@@ -83,6 +96,15 @@ const texts = {
 	});
 
 	it('Should trigger validation errors - end date', () => {
+		projectInfo = projectInformation();
+		cy.login(applicationsUsers.caseAdmin);
+		createCasePage.createCase(projectInfo);
+		const caseRef = Cypress.env('currentCreatedCase');
+		cy.visit('/');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
+		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		const itemType = itemOptions[2];
 		const options = timetableItem();
 		options.endYear = (options.currentYear - 2).toString();
@@ -93,20 +115,20 @@ const texts = {
 		createCasePage.validateErrorMessageCountOnPage(4);
 		createCasePage.validateErrorMessage('The item end date must be after the item start date');
 	});
-});*/
+});
 
 describe('Examination Timetable', () => {
-	let projectInfo = projectInformation();
-	let caseRef;
-
-	before(() => {
+	let projectInfo;
+	beforeEach(() => {
+		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
 	it('Should create timetable item - only start dates (StartTime Mandatory Template)', () => {
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
-		caseRef = Cypress.env('currentCreatedCase');
+		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
@@ -139,8 +161,9 @@ describe('Examination Timetable', () => {
 	});
 
 	it('Should create timetable item - start and end dates (Deadline Template)', () => {
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
-		caseRef = Cypress.env('currentCreatedCase');
+		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
@@ -175,8 +198,9 @@ describe('Examination Timetable', () => {
 	});
 
 	it('Should create timetable item - (NoTimes Template)', () => {
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
-		caseRef = Cypress.env('currentCreatedCase');
+		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
@@ -205,8 +229,9 @@ describe('Examination Timetable', () => {
 	});
 
 	it('Should create timetable item - (Deadline StartDate Template)', () => {
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
-		caseRef = Cypress.env('currentCreatedCase');
+		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);

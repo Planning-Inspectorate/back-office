@@ -51,7 +51,7 @@ export class Page {
 		summaryErrorMessages: '.govuk-list.govuk-error-summary__list',
 		xlHeader: '.govuk-heading-xl',
 		projectManagement: 'span.font-weight--700:nth-child(2)',
-		unpublish: 'button[type="submit"]'
+		unpublish: '#main-content > div > div > nav > a:nth-child(5)'
 	};
 
 	// E L E M E N T S
