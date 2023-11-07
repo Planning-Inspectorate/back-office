@@ -53,7 +53,7 @@ describe('Document Upload', () => {
 		folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
         folderPage.navigateToProjectFolder();
 		searchResultsPage.clickLinkByText('View/Edit properties')
-		//folderDocumentsPage.unpublishDocument();
+		folderDocumentsPage.unpublishDocument();
 	});
 
 	it('Case Team Admin should not see the unpublish button after unpublishing the document', () => {
@@ -65,7 +65,6 @@ describe('Document Upload', () => {
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		// Bug raised BOAS-1314
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.verifyUnpublishButtonIsNotVisible();
 	});
@@ -79,12 +78,10 @@ describe('Document Upload', () => {
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		// Bug raised BOAS-1314
-		/*fileUploadPage.clickLinkByText('View/Edit properties');
-        documentPropertiesPage.verifyUnpublishStatus();*/
+		fileUploadPage.clickLinkByText('View/Edit properties');
+        documentPropertiesPage.verifyUnpublishStatus();
 	});
 	it('Case Team Admin should see delete button on document properties page after publishing the document', () => {
-		// Bug raised BOAS-1314
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
