@@ -2,7 +2,7 @@ import { hideErrors, showErrors } from './_errors.js';
 import serverActions from './_server-actions.js';
 import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from './_html.js';
 import { relevantRepresentationsAttachmentUpload } from './_relevant_representations_attachment.js';
-import { validateHTML } from './html-validation.js';
+import { sanitizeHtml } from './html-validation.js';
 
 /** @typedef {import('./_html.js').AnError} AnError */
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
@@ -231,27 +231,9 @@ const clientActions = (uploadForm) => {
 			});
 
 			const contents = await contentsPromise;
-			try {
-				validateHTML(contents);
-			} catch (err) {
-				showErrors(
-					{
-						message: 'HTML_SINGLE_FILE',
-						details: [
-							{
-								message: 'HTML upload was not valid.',
-								fileRowId: `file_row_${file.lastModified}_${file.size}`,
-								name: file.name
-							}
-						]
-					},
-					uploadForm
-				);
+			const sanitizedHtml = sanitizeHtml(contents);
 
-				continue;
-			}
-
-			const updatedFile = new File([contents], file.name, { type: file.type });
+			const updatedFile = new File([sanitizedHtml], file.name, { type: file.type });
 			sanitized.push(updatedFile);
 		}
 

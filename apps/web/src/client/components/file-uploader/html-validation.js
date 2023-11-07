@@ -1,4 +1,4 @@
-import sanitizeHtml from 'sanitize-html';
+import _sanitizeHtml from 'sanitize-html';
 
 const sanitizeOptions = {
 	allowedTags: [
@@ -48,13 +48,6 @@ const sanitizeOptions = {
 
 /**
  * @param {string} html
- * @throws {Error}
+ * @returns {string}
  * */
-export const validateHTML = async (html) => {
-	const trimmed = html.trim();
-	const sanitized = sanitizeHtml(trimmed, sanitizeOptions).trim();
-
-	if (sanitized !== trimmed) {
-		throw new Error('HTML failed validation');
-	}
-};
+export const sanitizeHtml = (html) => _sanitizeHtml(html, sanitizeOptions);
