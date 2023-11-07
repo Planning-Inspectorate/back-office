@@ -11,6 +11,7 @@ export {
 	DocumentUpdateInput,
 	DocumentVersion,
 	DocumentVersionUpdateInput,
+	DocumentVersionUpsertInput,
 	DocumentActivityLog,
 	ExaminationTimetableItem,
 	ExaminationTimetableType,
