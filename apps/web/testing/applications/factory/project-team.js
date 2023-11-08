@@ -7,24 +7,23 @@ import { createRandomDescription, createUniqueRandomNumberFromSeed } from './uti
  * @param {Partial<ProjectTeamMember>} [options={}]
  * @returns {ProjectTeamMember}
  */
-export function createProjectTeamMember({ id = fake.createUniqueId() } = {}) {
-	const firstName = `${createRandomDescription({
+export function createProjectTeamMember({ id = `${fake.createUniqueId()}` } = {}) {
+	const givenName = `${createRandomDescription({
 		wordsNumber: 1,
-		startOffset: createUniqueRandomNumberFromSeed(3, 12, id)
+		startOffset: createUniqueRandomNumberFromSeed(3, 12, +id)
 	})}`;
 
-	const lastName = `${createRandomDescription({
+	const surname = `${createRandomDescription({
 		wordsNumber: 1,
-		startOffset: createUniqueRandomNumberFromSeed(4, 12, id)
+		startOffset: createUniqueRandomNumberFromSeed(4, 12, +id)
 	})}`;
 
-	const name = `${firstName} ${lastName}`;
-
-	const email = `${firstName}.${lastName}@planninginspectorate.gov.uk`;
+	const userPrincipalName = `${givenName}.${surname}@planninginspectorate.gov.uk`;
 
 	return {
-		name,
-		email,
+		givenName,
+		surname,
+		userPrincipalName,
 		id
 	};
 }

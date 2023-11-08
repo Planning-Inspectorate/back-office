@@ -254,6 +254,1056 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
                 <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/25/choose-role'>Select</a>
                 </td>
             </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/26/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/27/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/28/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/29/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/30/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Do.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/31/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/32/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/33/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/34/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/35/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/36/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/37/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/38/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/39/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/40/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/41/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/42/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/43/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/44/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/45/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/46/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/47/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/48/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/49/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/50/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/51/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/52/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/53/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/54/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/55/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/56/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/57/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/58/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/59/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/60/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/61/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/62/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/63/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/64/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Do.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/65/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/66/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/67/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/68/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/69/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/70/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/71/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/72/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/73/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/74/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Tempor</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/75/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/76/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/77/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/78/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/79/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/80/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/81/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/82/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/83/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/84/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/85/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Tempor</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/86/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/87/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/88/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/89/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/90/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/91/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/92/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/93/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/94/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/95/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/96/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/97/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/98/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/99/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/100/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/101/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/102/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/103/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/104/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/105/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/106/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/107/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/108/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/109/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/110/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/111/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/112/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/113/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/114/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/115/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/116/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/117/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/118/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/119/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/120/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Do.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/121/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/122/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/123/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/124/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/125/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Do.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/126/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/127/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/128/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/129/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/130/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/131/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/132/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/133/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/134/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/135/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/136/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/137/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/138/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/139/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/140/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/141/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/142/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/143/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/144/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/145/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/146/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/147/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/148/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/149/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/150/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/151/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/152/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/153/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/154/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/155/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/156/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/157/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/158/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/159/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/160/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/161/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/162/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/163/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/164/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/165/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/166/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/167/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/168/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/169/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/170/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/171/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/172/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/173/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/174/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/175/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/176/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Tempor</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/177/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/178/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/179/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/180/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/181/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/182/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/183/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/184/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/185/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/186/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/187/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/188/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/189/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/190/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/191/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/192/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/193/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/194/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/195/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/196/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/197/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/198/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/199/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/200/choose-role'>Select</a>
+                </td>
+            </tr>
         </tbody>
     </table>
     <nav class=\\"govuk-pagination\\" role=\\"navigation\\" aria-label=\\"results\\">
@@ -290,6 +1340,53 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
 </main>"
 `;
 
+exports[`Project team Search page POST /case/123/project-team/search should render an empty list if there are no results 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Search for a team member</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-6\\">
+        <div class=\\"govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row\\">
+            <div class=\\"govuk-form-group govuk-grid-column-two-thirds\\">
+                <label class=\\"govuk-label govuk-hint colour--secondary\\" for=\\"query\\">Search by name or email address</label>
+                <input class=\\"govuk-input\\" id=\\"query\\"
+                name=\\"query\\" type=\\"text\\">
+            </div>
+            <div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+            </div>
+        </div>
+    </form>
+    <p class='govuk-body font-weight--700'>0 results</p>
+    <hr class='govuk-!-margin-top-6 govuk-!-margin-bottom-6 govuk-section-break govuk-section-break--visible'>
+    <h2 class='govuk-body font-weight--700'>There are no matching results </h2>
+    <p class='govuk-body'>Improve your search by</p>
+    <ul>
+        <li class='govuk-body govuk-!-margin-bottom-0'>double checking your spelling</li>
+        <li class='govuk-body'>entering at least 2 characters</li>
+    </ul>
+</main>"
+`;
+
+exports[`Project team Search page POST /case/123/project-team/search should render an error if AD token is not found 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Search for a team member</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-6\\">
+        <div class=\\"govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row\\">
+            <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-two-thirds\\">
+                <label class=\\"govuk-label govuk-hint colour--secondary\\" for=\\"query\\">Search by name or email address</label>
+                <p id=\\"query-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You don&#39;t have the
+                    permissions to search for team members. Please, try loggin out and try
+                    again.</p>
+                <input class=\\"govuk-input govuk-input--error\\" id=\\"query\\" name=\\"query\\"
+                type=\\"text\\" aria-describedby=\\"query-error\\">
+            </div>
+            <div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Search</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`Project team Search page POST /case/123/project-team/search should render an error if search term is empty 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Search for a team member</h1>
@@ -309,7 +1406,7 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
 </main>"
 `;
 
-exports[`Project team Search page POST /case/123/project-team/search should render results of the search 1`] = `
+exports[`Project team Search page POST /case/123/project-team/search should render the result list 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Search for a team member</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-grid-row govuk-!-margin-top-6\\">
@@ -482,6 +1579,1056 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
                 <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
                 <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/25/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/26/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/27/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/28/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/29/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/30/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Do.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/31/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/32/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/33/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/34/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/35/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/36/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/37/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/38/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/39/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/40/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/41/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/42/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/43/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/44/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/45/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/46/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/47/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/48/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/49/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/50/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/51/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/52/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/53/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/54/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/55/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/56/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/57/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/58/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/59/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/60/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/61/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/62/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/63/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/64/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Do.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/65/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/66/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/67/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/68/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/69/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/70/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/71/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/72/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/73/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/74/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Tempor</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/75/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/76/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/77/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/78/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/79/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/80/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/81/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/82/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/83/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/84/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/85/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Tempor</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/86/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/87/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/88/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/89/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/90/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/91/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/92/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/93/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/94/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/95/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/96/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/97/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/98/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/99/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/100/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/101/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/102/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/103/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/104/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/105/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/106/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/107/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/108/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/109/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/110/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/111/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/112/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/113/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/114/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/115/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/116/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/117/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/118/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/119/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/120/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Do.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/121/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/122/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/123/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/124/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/125/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Do.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/126/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/127/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/128/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/129/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/130/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/131/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/132/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/133/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/134/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/135/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/136/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/137/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/138/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/139/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/140/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/141/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/142/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/143/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/144/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/145/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/146/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/147/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/148/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/149/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/150/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/151/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/152/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/153/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/154/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/155/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/156/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/157/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/158/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/159/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/160/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/161/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/162/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/163/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/164/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/165/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/166/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/167/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/168/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Sed</th>
+                <td class=\\"govuk-table__cell\\">Elit.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/169/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/170/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/171/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Eiusmod</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Eiusmod@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/172/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/173/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/174/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/175/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/176/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Eiusmod Tempor</th>
+                <td class=\\"govuk-table__cell\\">Eiusmod.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/177/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/178/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/179/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/180/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/181/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sit Amet</th>
+                <td class=\\"govuk-table__cell\\">Sit.Amet@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/182/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Tempor Tempor</th>
+                <td class=\\"govuk-table__cell\\">Tempor.Tempor@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/183/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Do Do</th>
+                <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/184/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Do</th>
+                <td class=\\"govuk-table__cell\\">Sed.Do@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/185/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/186/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sed Sed</th>
+                <td class=\\"govuk-table__cell\\">Sed.Sed@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/187/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Elit Elit</th>
+                <td class=\\"govuk-table__cell\\">Elit.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/188/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Adipiscing Elit</th>
+                <td class=\\"govuk-table__cell\\">Adipiscing.Elit@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/189/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/190/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/191/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/192/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/193/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/194/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/195/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/196/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/197/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/198/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
+                <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/199/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class=\\"govuk-table__row\\">
+                <th scope=\\"row\\" class=\\"govuk-table__header\\">Amet Consectetur</th>
+                <td class=\\"govuk-table__cell\\">Amet.Consectetur@planninginspectorate.gov.uk</td>
+                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/200/choose-role'>Select</a>
                 </td>
             </tr>
         </tbody>
