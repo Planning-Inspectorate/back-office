@@ -1,14 +1,24 @@
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 
 /**
+ * @typedef {import('@prisma/client').Prisma.ExaminationTimetableGetPayload<{include: {ExaminationTimetableItem: {include: {ExaminationTimetableType: true}}, case: true } }>} ExaminationTimetableWithCaseAndItemsAndType
+ */
+
+/**
+ * Returns a whole Examination Timetable inc case, with associated Examination Timetable Item records inc Exam Type records
+ *
  * @param {number} id
- * @returns {import('apps/api/src/database/schema.js').ExaminationTimetableWithItems}
+ * @returns {import('@prisma/client').PrismaPromise<ExaminationTimetableWithCaseAndItemsAndType>}
  * */
 export const getWithItems = (id) => {
 	return databaseConnector.examinationTimetable.findUnique({
 		where: { id },
 		include: {
-			ExaminationTimetableItem: true,
+			ExaminationTimetableItem: {
+				include: {
+					ExaminationTimetableType: true
+				}
+			},
 			case: true
 		}
 	});
