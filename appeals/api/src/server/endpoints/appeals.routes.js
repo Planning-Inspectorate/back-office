@@ -24,6 +24,7 @@ import { addressesRoutes } from './addresses/addresses.routes.js';
 import { appealTimetablesRoutes } from './appeal-timetables/appeal-timetables.routes.js';
 import { documentRedactionStatusesRoutes } from './document-redaction-statuses/document-redaction-statuses.routes.js';
 import { auditTrailsRoutes } from './audit-trails/audit-trails.routes.js';
+import { appealsDecisionRoutes } from './appeal-decision/appeal-decision.routes.js';
 import checkAzureAdUserIdHeaderExists from '#middleware/check-azure-ad-user-id-header-exists.js';
 
 const router = createRouter();
@@ -32,6 +33,7 @@ router.use(integrationsRoutes);
 router.use('/', checkAzureAdUserIdHeaderExists);
 router.use('/', initNotifyClientAndAddToRequest);
 
+router.use(appealsDecisionRoutes);
 router.use(addressesRoutes);
 router.use(appealAllocationRouter);
 router.use(appealTimetablesRoutes);

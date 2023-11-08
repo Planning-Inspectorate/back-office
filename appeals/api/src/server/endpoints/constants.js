@@ -3,6 +3,11 @@ export const VALIDATION_OUTCOME_INCOMPLETE = 'Incomplete';
 export const VALIDATION_OUTCOME_INVALID = 'Invalid';
 export const VALIDATION_OUTCOME_VALID = 'Valid';
 
+export const CASE_OUTCOME_ALLOWED = 'allowed';
+export const CASE_OUTCOME_DISALLOWED = 'disallowed';
+export const CASE_OUTCOME_SPLIT = 'split decision';
+export const CASE_OUTCOME_INVALID = 'invalid';
+
 export const APPEAL_TYPE_SHORTHAND_FPA = 'FPA';
 export const APPEAL_TYPE_SHORTHAND_HAS = 'HAS';
 
@@ -67,6 +72,7 @@ export const ERROR_MUST_BE_CORRECT_DATE_FORMAT = `must be a valid date and in th
 export const ERROR_MUST_BE_CORRECT_TIME_FORMAT = 'must be a valid time and in the format hh:mm';
 export const ERROR_MUST_BE_GREATER_THAN_ZERO = 'must be greater than 0';
 export const ERROR_MUST_BE_IN_FUTURE = 'must be in the future';
+export const ERROR_MUST_BE_IN_PAST = 'must be in the past';
 export const ERROR_MUST_BE_INCOMPLETE_INVALID_REASON =
 	'must be an array of objects containing a required id number parameter and an optional text string array parameter containing 10 or less items';
 export const ERROR_MUST_BE_NUMBER = 'must be a number';
@@ -99,6 +105,8 @@ export const ERROR_INVALID_APPELLANT_CASE_DATA =
 	'The integration payload APPELLANT_CASE is invalid.';
 export const ERROR_INVALID_LPAQ_DATA = 'The integration payload LPA_QUESTIONNAIRE is invalid.';
 export const ERROR_INVALID_DOCUMENT_DATA = 'The integration payload DOCUMENT is invalid.';
+export const ERROR_INVALID_APPEAL_STATE = 'The action is invalid on the current appeal state.';
+export const ERROR_CASE_OUTCOME_MUST_BE_ONE_OF = `The case outcome must be one of ${CASE_OUTCOME_ALLOWED}, ${CASE_OUTCOME_DISALLOWED}, ${CASE_OUTCOME_SPLIT}, ${CASE_OUTCOME_INVALID}`;
 
 export const LENGTH_1 = 1;
 export const LENGTH_8 = 8;
@@ -175,11 +183,13 @@ export const CONFIG_APPEAL_FOLDER_PATHS = [
 	'lpa_questionnaire/screeningDirection',
 	'lpa_questionnaire/siteNotices',
 	'lpa_questionnaire/supplementaryPlanningDocuments',
-	'lpa_questionnaire/treePreservationOrder'
+	'lpa_questionnaire/treePreservationOrder',
+	'appeal_decision/decisionLetter'
 ];
 
 export const CONFIG_APPEAL_STAGES = {
 	// stage mapping for ODW
 	appellantCase: 'appellant_case',
-	lpaQuestionnaire: 'lpa_questionnaire'
+	lpaQuestionnaire: 'lpa_questionnaire',
+	decision: 'appeal_decision'
 };

@@ -10,6 +10,10 @@ import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
  * @typedef {import('@pins/appeals.api').Appeals.LatestDocumentVersionInfo} LatestDocumentVersionInfo
  * @typedef {import('@pins/appeals.api').Appeals.SingleFolderResponse} SingleFolderResponse
  * @typedef {import('#lib/nunjucks-template-builders/tag-builders.js').HtmlLink} HtmlLink
+ * @typedef {import('@pins/appeals.api').Schema.DocumentRedactionStatus} RedactionStatus
+ * @typedef {import('@pins/appeals.api').Api.DocumentDetails} DocumentDetails
+ * @typedef {import('@pins/appeals.api').Api.DocumentVersionDetails} DocumentVersionDetails
+ * @typedef {import('@pins/appeals.api').Api.DocumentVersionAuditEntry} DocumentVersionAuditEntry
  */
 
 /**
@@ -159,7 +163,7 @@ export const mapFolderToAddDetailsPageParams = (folder, bodyItems) => ({
 /**
  *
  * @param {SingleFolderResponse} folder
- * @param {import('@pins/appeals.api').Schema.DocumentRedactionStatus[]} redactionStatuses
+ * @param {RedactionStatus[]} redactionStatuses
  * @param {string} viewAndEditUrl
  * @returns {ManageFolderPageParams}
  */
@@ -229,8 +233,8 @@ export const mapFolderToManageFolderPageParameters = (
  */
 
 /**
- * @param {import('@pins/appeals.api').Schema.DocumentRedactionStatus[]} redactionStatuses
- * @param {import('@pins/appeals.api/src/server/openapi-types.js').DocumentDetails} document
+ * @param {RedactionStatus[]} redactionStatuses
+ * @param {DocumentDetails} document
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @returns {Promise<ManageDocumentPageParams>}
  */
@@ -347,7 +351,7 @@ export const mapDocumentDetailsToManageDocumentPageParameters = async (
 				{
 					html: await mapDocumentVersionToAuditActivityHtml(
 						documentVersion,
-						document.versionAudit,
+						document.versionAudit || [],
 						session
 					)
 				},
@@ -363,8 +367,8 @@ export const mapDocumentDetailsToManageDocumentPageParameters = async (
 });
 
 /**
- * @param {import('@pins/appeals.api/src/server/openapi-types.js').DocumentDetails} document
- * @returns {import('@pins/appeals.api/src/server/openapi-types.js').DocumentVersionDetails|undefined}
+ * @param {DocumentDetails} document
+ * @returns {DocumentVersionDetails|undefined}
  */
 const getDocumentLatestVersion = (document) => {
 	return document?.documentVersion?.find(
@@ -374,8 +378,8 @@ const getDocumentLatestVersion = (document) => {
 
 /**
  *
- * @param {import('@pins/appeals.api/src/server/openapi-types.js').DocumentVersionDetails} documentVersion
- * @param {import('@pins/appeals.api/src/server/openapi-types.js').DocumentVersionAuditEntry[]} documentVersionAuditItems
+ * @param {DocumentVersionDetails} documentVersion
+ * @param {DocumentVersionAuditEntry[]} documentVersionAuditItems
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  */
 const mapDocumentVersionToAuditActivityHtml = async (
@@ -383,7 +387,7 @@ const mapDocumentVersionToAuditActivityHtml = async (
 	documentVersionAuditItems,
 	session
 ) => {
-	const matchingAuditItem = documentVersionAuditItems.find(
+	const matchingAuditItem = (documentVersionAuditItems || []).find(
 		(auditItem) => auditItem.version === documentVersion.version
 	);
 
@@ -391,14 +395,18 @@ const mapDocumentVersionToAuditActivityHtml = async (
 		return '';
 	}
 
-	const loggedAt = new Date(matchingAuditItem.auditTrail.loggedAt);
+	if (matchingAuditItem.auditTrail?.loggedAt && matchingAuditItem.auditTrail?.user) {
+		const loggedAt = new Date(matchingAuditItem.auditTrail.loggedAt);
 
-	return `<p class="govuk-body"><strong>${matchingAuditItem.action}</strong>: ${dateToDisplayTime(
-		loggedAt
-	)}, ${dateToDisplayDate(loggedAt)},<br/>by ${await mapAuditTrailUserToName(
-		matchingAuditItem.auditTrail?.user,
-		session
-	)}</p>`;
+		return `<p class="govuk-body"><strong>${matchingAuditItem.action}</strong>: ${dateToDisplayTime(
+			loggedAt
+		)}, ${dateToDisplayDate(loggedAt)},<br/>by ${await mapAuditTrailUserToName(
+			matchingAuditItem.auditTrail?.user,
+			session
+		)}</p>`;
+	}
+
+	return '';
 };
 
 /**
@@ -407,7 +415,7 @@ const mapDocumentVersionToAuditActivityHtml = async (
  * @returns {Promise<string>}
  */
 const mapAuditTrailUserToName = async (auditTrailUser, session) => {
-	let user = await usersService.getUserById(auditTrailUser.azureAdUserId, session);
+	let user = await usersService.getUserById(auditTrailUser.azureAdUserId || '', session);
 
 	// TODO: how to handle sapId?
 

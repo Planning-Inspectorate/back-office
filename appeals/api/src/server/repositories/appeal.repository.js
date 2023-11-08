@@ -6,6 +6,9 @@ import { DATABASE_ORDER_BY_DESC } from '#endpoints/constants.js';
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateAppealRequest} UpdateAppealRequest */
+/** @typedef {import('@pins/appeals.api').Appeals.SetAppealDecisionRequest} SetAppealDecisionRequest */
+/** @typedef {import('@pins/appeals.api').Schema.InspectorDecision} InspectorDecision */
+/** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Schema.User} User */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
@@ -231,6 +234,7 @@ const getAppealById = async (id) => {
 			  })
 			: [];
 
+		// @ts-ignore
 		return {
 			...appeal,
 			linkedAppeals,
@@ -256,4 +260,49 @@ const updateAppealById = (id, { dueDate, startedAt, caseOfficer, inspector }) =>
 		}
 	});
 
-export default { getAppealById, getAllAppeals, getUserAppeals, updateAppealById };
+/**
+ * @param {number} id
+ * @param {SetAppealDecisionRequest} data
+ * @returns {PrismaPromise<[InspectorDecision, DocumentVersion]>}
+ */
+const setAppealDecision = (id, { documentDate, documentGuid, version, outcome }) => {
+	const decisionDate = new Date(documentDate).toISOString();
+	// @ts-ignore
+	return databaseConnector.$transaction([
+		databaseConnector.inspectorDecision.create({
+			data: {
+				appeal: {
+					connect: {
+						id
+					}
+				},
+				outcome,
+				decisionLetter: {
+					connect: {
+						guid: documentGuid
+					}
+				}
+			}
+		}),
+		databaseConnector.documentVersion.update({
+			where: {
+				documentGuid_version: {
+					documentGuid,
+					version
+				}
+			},
+			data: {
+				dateReceived: decisionDate,
+				published: true
+			}
+		})
+	]);
+};
+
+export default {
+	getAppealById,
+	getAllAppeals,
+	getUserAppeals,
+	updateAppealById,
+	setAppealDecision
+};
