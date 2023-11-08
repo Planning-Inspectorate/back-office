@@ -8,7 +8,7 @@ import { databaseConnector } from '#utils/database-connector.js';
  * Returns a whole Examination Timetable inc case, with associated Examination Timetable Item records inc Exam Type records
  *
  * @param {number} id
- * @returns {import('@prisma/client').PrismaPromise<ExaminationTimetableWithCaseAndItemsAndType>}
+ * @returns {import('@prisma/client').PrismaPromise<ExaminationTimetableWithCaseAndItemsAndType |null>}
  * */
 export const getWithItems = (id) => {
 	return databaseConnector.examinationTimetable.findUnique({
