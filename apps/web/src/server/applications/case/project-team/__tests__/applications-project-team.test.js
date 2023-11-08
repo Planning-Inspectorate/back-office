@@ -114,10 +114,6 @@ describe('Project team', () => {
 			it('should render the result list', async () => {
 				installMockADToken(fixtureProjectTeamMembers);
 
-				nock('http://test/')
-					.get('/v1.0/groups/applications_case_admin_officer/members/microsoft.graph.user')
-					.reply(200, { value: [{ givenName: 'Mario' }] });
-
 				const response = await request.post(`${baseUrl}/search`).send({ query: 'search term' });
 				const element = parseHtml(response.text);
 
