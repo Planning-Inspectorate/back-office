@@ -4,8 +4,8 @@ export const VALIDATION_OUTCOME_INVALID = 'Invalid';
 export const VALIDATION_OUTCOME_VALID = 'Valid';
 
 export const CASE_OUTCOME_ALLOWED = 'allowed';
-export const CASE_OUTCOME_DISALLOWED = 'disallowed';
-export const CASE_OUTCOME_SPLIT = 'split decision';
+export const CASE_OUTCOME_DISMISSED = 'dismissed';
+export const CASE_OUTCOME_SPLIT_DECISION = 'split decision';
 export const CASE_OUTCOME_INVALID = 'invalid';
 
 export const APPEAL_TYPE_SHORTHAND_FPA = 'FPA';
@@ -106,7 +106,7 @@ export const ERROR_INVALID_APPELLANT_CASE_DATA =
 export const ERROR_INVALID_LPAQ_DATA = 'The integration payload LPA_QUESTIONNAIRE is invalid.';
 export const ERROR_INVALID_DOCUMENT_DATA = 'The integration payload DOCUMENT is invalid.';
 export const ERROR_INVALID_APPEAL_STATE = 'The action is invalid on the current appeal state.';
-export const ERROR_CASE_OUTCOME_MUST_BE_ONE_OF = `The case outcome must be one of ${CASE_OUTCOME_ALLOWED}, ${CASE_OUTCOME_DISALLOWED}, ${CASE_OUTCOME_SPLIT}, ${CASE_OUTCOME_INVALID}`;
+export const ERROR_CASE_OUTCOME_MUST_BE_ONE_OF = `The case outcome must be one of ${CASE_OUTCOME_ALLOWED}, ${CASE_OUTCOME_DISMISSED}, ${CASE_OUTCOME_SPLIT_DECISION}, ${CASE_OUTCOME_INVALID}`;
 
 export const LENGTH_1 = 1;
 export const LENGTH_8 = 8;
