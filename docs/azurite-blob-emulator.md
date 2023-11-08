@@ -2,6 +2,8 @@
 
 To run a local emulator, there are a number of required steps. In order to successfully write to the emulator, it is necessary to configure it over https, using a self-signed certificate, and with a Shared Access Signature (SAS).
 
+**For Windows setup go [here](./azurite-blob-emulator-windows.md)**
+
 1. The first step is to create a [local self-signed certificate](./self-signed-ssl.md)
 
 2. Once the certificate is created, it needs to be accessible by docker, in order to start the Azurite emulator with https.
