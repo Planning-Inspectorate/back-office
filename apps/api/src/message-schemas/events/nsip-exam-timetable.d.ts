@@ -26,5 +26,5 @@ export interface NSIPExamTimetableItem {
 
 export interface NSIPExamTimetable {
 	caseReference: string;
-	events: NSIPExamTimetableItem;
+	events: NSIPExamTimetableItem[];
 }

@@ -3019,16 +3019,23 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "query",
-						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "Examination timetable items published"
+						"description": "Examination timetable items published",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"success": {
+									"type": "boolean",
+									"example": true
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					}
 				}
 			}
@@ -3044,16 +3051,23 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
-					},
-					{
-						"name": "body",
-						"in": "query",
-						"type": "string"
 					}
 				],
 				"responses": {
 					"200": {
-						"description": "Examination timetable items unpublished"
+						"description": "Examination timetable items unpublished",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"success": {
+									"type": "boolean",
+									"example": true
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					}
 				}
 			}
