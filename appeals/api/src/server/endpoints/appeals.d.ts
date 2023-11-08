@@ -77,7 +77,7 @@ interface RepositoryGetByIdResultItem {
 	dueDate: Date | null;
 	id: number;
 	inspector: User | null;
-	inspectorDecision?: { outcome: string } | null;
+	inspectorDecision?: Schema.InspectorDecision | null;
 	linkedAppealId: number | null;
 	linkedAppeals: Appeal[];
 	lpa: LPA;
@@ -193,7 +193,12 @@ interface SingleAppealDetailsResponse {
 	appellantCaseId?: number;
 	appellantName?: string;
 	caseOfficer: string | null;
-	decision?: string;
+	decision?: {
+		outcome?: string;
+		documentId?: string;
+		folderId: number;
+	};
+
 	documentationSummary: DocumentationSummary;
 	healthAndSafety: {
 		appellantCase: {
@@ -528,6 +533,13 @@ interface UpdateAppealRequest {
 	inspector?: number | null;
 }
 
+interface SetAppealDecisionRequest {
+	documentDate: Date;
+	documentGuid: string;
+	version: number;
+	outcome: string;
+}
+
 interface UsersToAssign {
 	caseOfficer?: string | null;
 	inspector?: string | null;
@@ -624,5 +636,6 @@ export {
 	UpdateLPAQuestionnaireRequest,
 	UpdateTimetableRequest,
 	UsersToAssign,
-	ValidationOutcomeResponse
+	ValidationOutcomeResponse,
+	SetAppealDecisionRequest
 };

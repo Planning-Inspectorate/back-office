@@ -126,6 +126,15 @@ export interface QuestionnaireData {
 	documents?: any[];
 }
 
+export interface DecisionInfo {
+	/** @example "allowed" */
+	outcome?: string;
+	/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+	documentGuid?: string;
+	/** @example "2023-08-17T15:22:20.827Z" */
+	documentDate?: string;
+}
+
 export interface DocumentMetaImport {
 	/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
 	documentGuid?: string;
@@ -238,35 +247,12 @@ export interface DocumentVersionDetails {
 	/** @example "awaiting_upload" */
 	publishedStatus?: string;
 	publishedStatusPrev?: any;
-	redactedStatus?: any;
-	redactionStatusId?: number;
+	redactionStatusId?: any;
 	/** @example false */
 	redacted?: boolean;
 	/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf" */
 	documentURI?: string;
 	dateReceived?: any;
-}
-
-export interface AuditTrailUserInfo {
-	id: number;
-	azureAdUserId: string;
-	sapId: any;
-}
-
-export interface DocumentVersionAuditEntry {
-	id: number;
-	documentGuid: string;
-	version: number;
-	auditTrailId: number;
-	action: string;
-	auditTrail: {
-		id: number;
-		appealId: number;
-		userId: number;
-		loggedAt: string;
-		details: string;
-		user: AuditTrailUserInfo;
-	};
 }
 
 export interface DocumentDetails {
@@ -284,8 +270,134 @@ export interface DocumentDetails {
 	latestVersionId?: number;
 	/** @example 492 */
 	caseId?: number;
-	documentVersion?: DocumentVersionDetails[];
-	versionAudit: DocumentVersionAuditEntry[];
+	documentVersion?: {
+		/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+		documentGuid?: string;
+		/** @example 1 */
+		version?: number;
+		lastModified?: any;
+		/** @example "applicationForm" */
+		documentType?: string;
+		/** @example false */
+		published?: boolean;
+		/** @example "back-office" */
+		sourceSystem?: string;
+		origin?: any;
+		/** @example "appeal-statement.pdf" */
+		originalFilename?: string;
+		/** @example "appeal-statement.pdf" */
+		fileName?: string;
+		representative?: any;
+		description?: any;
+		owner?: any;
+		author?: any;
+		securityClassification?: any;
+		/** @example "application/pdf" */
+		mime?: string;
+		horizonDataID?: any;
+		fileMD5?: any;
+		path?: any;
+		virusCheckStatus?: any;
+		/** @example 146995 */
+		size?: number;
+		/** @example "appellant_case" */
+		stage?: string;
+		filter1?: any;
+		/** @example "document-service-uploads" */
+		blobStorageContainer?: string;
+		/** @example "appeal/APPREF-123/v1/appeal-statement.pdf" */
+		blobStoragePath?: string;
+		/** @example "2023-08-17T15:22:20.827Z" */
+		dateCreated?: string;
+		datePublished?: any;
+		/** @example false */
+		isDeleted?: boolean;
+		examinationRefNo?: any;
+		filter2?: any;
+		/** @example "awaiting_upload" */
+		publishedStatus?: string;
+		publishedStatusPrev?: any;
+		redactionStatusId?: any;
+		/** @example false */
+		redacted?: boolean;
+		/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf" */
+		documentURI?: string;
+		dateReceived?: any;
+	}[];
+	versionAudit?: {
+		/** @example 1 */
+		id?: number;
+		/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+		documentGuid?: string;
+		/** @example 1 */
+		version?: number;
+		/** @example 1 */
+		auditTrailId?: number;
+		/** @example "Create" */
+		action?: string;
+		auditTrail?: {
+			/** @example 1 */
+			id?: number;
+			/** @example 1 */
+			appealId?: number;
+			/** @example 1 */
+			userId?: number;
+			/** @example "2023-11-10" */
+			loggedAt?: string;
+			/** @example "" */
+			details?: string;
+			user?: {
+				/** @example 1 */
+				id?: number;
+				/** @example "71625421654" */
+				azureAdUserId?: string;
+				/** @example "" */
+				sapId?: string;
+			};
+		};
+	}[];
+}
+
+export interface AuditTrailUserInfo {
+	/** @example 1 */
+	id?: number;
+	/** @example "71625421654" */
+	azureAdUserId?: string;
+	/** @example "" */
+	sapId?: string;
+}
+
+export interface DocumentVersionAuditEntry {
+	/** @example 1 */
+	id?: number;
+	/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+	documentGuid?: string;
+	/** @example 1 */
+	version?: number;
+	/** @example 1 */
+	auditTrailId?: number;
+	/** @example "Create" */
+	action?: string;
+	auditTrail?: {
+		/** @example 1 */
+		id?: number;
+		/** @example 1 */
+		appealId?: number;
+		/** @example 1 */
+		userId?: number;
+		/** @example "2023-11-10" */
+		loggedAt?: string;
+		/** @example "" */
+		details?: string;
+		user?: {
+			/** @example 1 */
+			id?: number;
+			/** @example "71625421654" */
+			azureAdUserId?: string;
+			/** @example "" */
+			sapId?: string;
+		};
+	};
 }
 
 export interface AllAppeals {

@@ -142,6 +142,71 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/inspector-decision": {
+			"post": {
+				"tags": ["Inspector Decision"],
+				"description": "Closes an appeal by setting the inspector decision",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets the decision info or null",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DecisionInfo"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/DecisionInfo"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Decision info",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DecisionInfo"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/DecisionInfo"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/appeal-timetables/{appealTimetableId}": {
 			"patch": {
 				"tags": ["Appeal Timetables"],
@@ -2559,6 +2624,26 @@
 					"name": "QuestionnaireData"
 				}
 			},
+			"DecisionInfo": {
+				"type": "object",
+				"properties": {
+					"outcome": {
+						"type": "string",
+						"example": "allowed"
+					},
+					"documentGuid": {
+						"type": "string",
+						"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+					},
+					"documentDate": {
+						"type": "string",
+						"example": "2023-08-17T15:22:20.827Z"
+					}
+				},
+				"xml": {
+					"name": "DecisionInfo"
+				}
+			},
 			"DocumentMetaImport": {
 				"type": "object",
 				"properties": {
@@ -2679,6 +2764,100 @@
 					"name": "Folder"
 				}
 			},
+			"DocumentVersionDetails": {
+				"type": "object",
+				"properties": {
+					"documentGuid": {
+						"type": "string",
+						"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+					},
+					"version": {
+						"type": "number",
+						"example": 1
+					},
+					"lastModified": {},
+					"documentType": {
+						"type": "string",
+						"example": "applicationForm"
+					},
+					"published": {
+						"type": "boolean",
+						"example": false
+					},
+					"sourceSystem": {
+						"type": "string",
+						"example": "back-office"
+					},
+					"origin": {},
+					"originalFilename": {
+						"type": "string",
+						"example": "appeal-statement.pdf"
+					},
+					"fileName": {
+						"type": "string",
+						"example": "appeal-statement.pdf"
+					},
+					"representative": {},
+					"description": {},
+					"owner": {},
+					"author": {},
+					"securityClassification": {},
+					"mime": {
+						"type": "string",
+						"example": "application/pdf"
+					},
+					"horizonDataID": {},
+					"fileMD5": {},
+					"path": {},
+					"virusCheckStatus": {},
+					"size": {
+						"type": "number",
+						"example": 146995
+					},
+					"stage": {
+						"type": "string",
+						"example": "appellant_case"
+					},
+					"filter1": {},
+					"blobStorageContainer": {
+						"type": "string",
+						"example": "document-service-uploads"
+					},
+					"blobStoragePath": {
+						"type": "string",
+						"example": "appeal/APPREF-123/v1/appeal-statement.pdf"
+					},
+					"dateCreated": {
+						"type": "string",
+						"example": "2023-08-17T15:22:20.827Z"
+					},
+					"datePublished": {},
+					"isDeleted": {
+						"type": "boolean",
+						"example": false
+					},
+					"examinationRefNo": {},
+					"filter2": {},
+					"publishedStatus": {
+						"type": "string",
+						"example": "awaiting_upload"
+					},
+					"publishedStatusPrev": {},
+					"redactionStatusId": {},
+					"redacted": {
+						"type": "boolean",
+						"example": false
+					},
+					"documentURI": {
+						"type": "string",
+						"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf"
+					},
+					"dateReceived": {}
+				},
+				"xml": {
+					"name": "DocumentVersionDetails"
+				}
+			},
 			"DocumentDetails": {
 				"type": "object",
 				"properties": {
@@ -2710,100 +2889,263 @@
 						"type": "number",
 						"example": 492
 					},
-					"latestDocumentVersion": {
-						"type": "object",
-						"properties": {
-							"documentGuid": {
-								"type": "string",
-								"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
-							},
-							"version": {
-								"type": "number",
-								"example": 1
-							},
-							"lastModified": {},
-							"documentType": {
-								"type": "string",
-								"example": "applicationForm"
-							},
-							"published": {
-								"type": "boolean",
-								"example": false
-							},
-							"sourceSystem": {
-								"type": "string",
-								"example": "back-office"
-							},
-							"origin": {},
-							"originalFilename": {
-								"type": "string",
-								"example": "appeal-statement.pdf"
-							},
-							"fileName": {
-								"type": "string",
-								"example": "appeal-statement.pdf"
-							},
-							"representative": {},
-							"description": {},
-							"owner": {},
-							"author": {},
-							"securityClassification": {},
-							"mime": {
-								"type": "string",
-								"example": "application/pdf"
-							},
-							"horizonDataID": {},
-							"fileMD5": {},
-							"path": {},
-							"virusCheckStatus": {},
-							"size": {
-								"type": "number",
-								"example": 146995
-							},
-							"stage": {
-								"type": "string",
-								"example": "appellant_case"
-							},
-							"filter1": {},
-							"blobStorageContainer": {
-								"type": "string",
-								"example": "document-service-uploads"
-							},
-							"blobStoragePath": {
-								"type": "string",
-								"example": "appeal/APPREF-123/v1/appeal-statement.pdf"
-							},
-							"dateCreated": {
-								"type": "string",
-								"example": "2023-08-17T15:22:20.827Z"
-							},
-							"datePublished": {},
-							"isDeleted": {
-								"type": "boolean",
-								"example": false
-							},
-							"examinationRefNo": {},
-							"filter2": {},
-							"publishedStatus": {
-								"type": "string",
-								"example": "awaiting_upload"
-							},
-							"publishedStatusPrev": {},
-							"redactedStatus": {},
-							"redacted": {
-								"type": "boolean",
-								"example": false
-							},
-							"documentURI": {
-								"type": "string",
-								"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf"
-							},
-							"dateReceived": {}
+					"documentVersion": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"documentGuid": {
+									"type": "string",
+									"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+								},
+								"version": {
+									"type": "number",
+									"example": 1
+								},
+								"lastModified": {},
+								"documentType": {
+									"type": "string",
+									"example": "applicationForm"
+								},
+								"published": {
+									"type": "boolean",
+									"example": false
+								},
+								"sourceSystem": {
+									"type": "string",
+									"example": "back-office"
+								},
+								"origin": {},
+								"originalFilename": {
+									"type": "string",
+									"example": "appeal-statement.pdf"
+								},
+								"fileName": {
+									"type": "string",
+									"example": "appeal-statement.pdf"
+								},
+								"representative": {},
+								"description": {},
+								"owner": {},
+								"author": {},
+								"securityClassification": {},
+								"mime": {
+									"type": "string",
+									"example": "application/pdf"
+								},
+								"horizonDataID": {},
+								"fileMD5": {},
+								"path": {},
+								"virusCheckStatus": {},
+								"size": {
+									"type": "number",
+									"example": 146995
+								},
+								"stage": {
+									"type": "string",
+									"example": "appellant_case"
+								},
+								"filter1": {},
+								"blobStorageContainer": {
+									"type": "string",
+									"example": "document-service-uploads"
+								},
+								"blobStoragePath": {
+									"type": "string",
+									"example": "appeal/APPREF-123/v1/appeal-statement.pdf"
+								},
+								"dateCreated": {
+									"type": "string",
+									"example": "2023-08-17T15:22:20.827Z"
+								},
+								"datePublished": {},
+								"isDeleted": {
+									"type": "boolean",
+									"example": false
+								},
+								"examinationRefNo": {},
+								"filter2": {},
+								"publishedStatus": {
+									"type": "string",
+									"example": "awaiting_upload"
+								},
+								"publishedStatusPrev": {},
+								"redactionStatusId": {},
+								"redacted": {
+									"type": "boolean",
+									"example": false
+								},
+								"documentURI": {
+									"type": "string",
+									"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf"
+								},
+								"dateReceived": {}
+							}
+						}
+					},
+					"versionAudit": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"documentGuid": {
+									"type": "string",
+									"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+								},
+								"version": {
+									"type": "number",
+									"example": 1
+								},
+								"auditTrailId": {
+									"type": "number",
+									"example": 1
+								},
+								"action": {
+									"type": "string",
+									"example": "Create"
+								},
+								"auditTrail": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "number",
+											"example": 1
+										},
+										"appealId": {
+											"type": "number",
+											"example": 1
+										},
+										"userId": {
+											"type": "number",
+											"example": 1
+										},
+										"loggedAt": {
+											"type": "string",
+											"example": "2023-11-10"
+										},
+										"details": {
+											"type": "string",
+											"example": ""
+										},
+										"user": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number",
+													"example": 1
+												},
+												"azureAdUserId": {
+													"type": "string",
+													"example": "71625421654"
+												},
+												"sapId": {
+													"type": "string",
+													"example": ""
+												}
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				},
 				"xml": {
 					"name": "DocumentDetails"
+				}
+			},
+			"AuditTrailUserInfo": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"azureAdUserId": {
+						"type": "string",
+						"example": "71625421654"
+					},
+					"sapId": {
+						"type": "string",
+						"example": ""
+					}
+				},
+				"xml": {
+					"name": "AuditTrailUserInfo"
+				}
+			},
+			"DocumentVersionAuditEntry": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"example": 1
+					},
+					"documentGuid": {
+						"type": "string",
+						"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+					},
+					"version": {
+						"type": "number",
+						"example": 1
+					},
+					"auditTrailId": {
+						"type": "number",
+						"example": 1
+					},
+					"action": {
+						"type": "string",
+						"example": "Create"
+					},
+					"auditTrail": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "number",
+								"example": 1
+							},
+							"appealId": {
+								"type": "number",
+								"example": 1
+							},
+							"userId": {
+								"type": "number",
+								"example": 1
+							},
+							"loggedAt": {
+								"type": "string",
+								"example": "2023-11-10"
+							},
+							"details": {
+								"type": "string",
+								"example": ""
+							},
+							"user": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "number",
+										"example": 1
+									},
+									"azureAdUserId": {
+										"type": "string",
+										"example": "71625421654"
+									},
+									"sapId": {
+										"type": "string",
+										"example": ""
+									}
+								}
+							}
+						}
+					}
+				},
+				"xml": {
+					"name": "DocumentVersionAuditEntry"
 				}
 			},
 			"AllAppeals": {

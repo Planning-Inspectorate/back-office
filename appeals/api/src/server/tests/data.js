@@ -119,9 +119,6 @@ const householdAppeal = {
 		id: 2,
 		azureAdUserId: 'e8f89175-d02c-4a60-870e-dc954d5b530a'
 	},
-	inspectorDecision: {
-		outcome: 'Not issued yet'
-	},
 	siteVisit: {
 		id: 1,
 		appealId: 1,

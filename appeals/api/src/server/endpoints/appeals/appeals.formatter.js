@@ -7,6 +7,7 @@ import {
 } from '#utils/format-documentation-status.js';
 
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
+/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -53,9 +54,10 @@ const formatMyAppeals = (appeal) => ({
 
 /**
  * @param {RepositoryGetByIdResultItem} appeal
+ * @param {Folder[]} folders
  * @returns {SingleAppealDetailsResponse | void}}
  */
-const formatAppeal = (appeal) => {
+const formatAppeal = (appeal, folders) => {
 	if (appeal) {
 		return {
 			agentName: appeal.agent?.name,
@@ -84,7 +86,11 @@ const formatAppeal = (appeal) => {
 			appellantCaseId: appeal.appellantCase?.id,
 			appellantName: appeal.appellant?.name,
 			caseOfficer: appeal.caseOfficer?.azureAdUserId || null,
-			decision: appeal.inspectorDecision?.outcome,
+			decision: {
+				folderId: folders[0].id,
+				outcome: appeal.inspectorDecision?.outcome,
+				documentId: appeal.inspectorDecision?.decisionLetterGuid
+			},
 			healthAndSafety: {
 				appellantCase: {
 					details: appeal.appellantCase?.healthAndSafetyIssues || null,
