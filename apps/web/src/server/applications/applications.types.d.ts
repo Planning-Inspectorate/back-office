@@ -185,5 +185,6 @@ export interface ProjectTeamMember {
 	givenName: string;
 	surname: string;
 	id: string;
+	// userPrincipalName is the email
 	userPrincipalName: string;
 }
