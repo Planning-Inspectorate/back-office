@@ -9,8 +9,8 @@ import { createProjectTeamMember } from '../factory/project-team.js';
  *
  * @type {ProjectTeamMember[]}
  */
-const fixtureProjectTeamMembers = [...Array.from({ length: 200 }).keys()].map((id) =>
-	createProjectTeamMember({ id: id + 1 })
+export const fixtureProjectTeamMembers = [...Array.from({ length: 200 }).keys()].map((id) =>
+	createProjectTeamMember({ id: `${id + 1}` })
 );
 
 /**

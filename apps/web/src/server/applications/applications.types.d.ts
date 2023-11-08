@@ -182,7 +182,8 @@ export interface CaseStage {
 }
 
 export interface ProjectTeamMember {
-	name: string;
-	id: number;
-	email: string;
+	givenName: string;
+	surname: string;
+	id: string;
+	userPrincipalName: string;
 }

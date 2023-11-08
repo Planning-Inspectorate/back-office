@@ -3,6 +3,8 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { fixtureCases } from '../../../../../../testing/applications/applications.js';
+import { installMockADToken } from '../../../../../../testing/app/mocks/project-team.js';
+import { fixtureProjectTeamMembers } from '../../../../../../testing/applications/fixtures/project-team.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -72,6 +74,8 @@ describe('Project team', () => {
 			});
 
 			it('should render the page with the search bar and the results of the query', async () => {
+				installMockADToken(fixtureProjectTeamMembers);
+
 				const response = await request.get(`${baseUrl}/search?q=searchTerm`);
 				const element = parseHtml(response.text);
 
@@ -89,7 +93,31 @@ describe('Project team', () => {
 				expect(element.innerHTML).toContain('Enter a search term');
 			});
 
-			it('should render results of the search', async () => {
+			it('should render an error if AD token is not found', async () => {
+				const response = await request.post(`${baseUrl}/search`).send({ query: 'search term' });
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('permissions to search for team members');
+			});
+
+			it('should render an empty list if there are no results', async () => {
+				installMockADToken([]);
+
+				const response = await request.post(`${baseUrl}/search`).send({ query: 'search term' });
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There are no matching results');
+			});
+
+			it('should render the result list', async () => {
+				installMockADToken(fixtureProjectTeamMembers);
+
+				nock('http://test/')
+					.get('/v1.0/groups/applications_case_admin_officer/members/microsoft.graph.user')
+					.reply(200, { value: [{ givenName: 'Mario' }] });
+
 				const response = await request.post(`${baseUrl}/search`).send({ query: 'search term' });
 				const element = parseHtml(response.text);
 
