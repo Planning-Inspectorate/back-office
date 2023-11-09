@@ -9,9 +9,9 @@ import addressRepository from '#repositories/address.repository.js';
 /**
  * @param {Request} req
  * @param {Response} res
- * @returns {Response}
+ * @returns {Promise<Response>}
  */
-const getAddressById = (req, res) => {
+const getAddressById = async (req, res) => {
 	const { address } = req.appeal;
 	const formattedAddress = (address && formatAddress(address)) || {};
 
