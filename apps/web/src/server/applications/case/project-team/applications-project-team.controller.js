@@ -54,38 +54,32 @@ export async function viewProjectTeamSearchPage(
  * @param {number} pageNumber
  */
 async function searchProjectTeamMembersData(searchTerm, token, pageNumber) {
-	let paginationButtons = null;
+	const { errors, results } = await searchProjectTeamMembers(searchTerm, token, pageNumber);
 
-	/** @type {{items: ProjectTeamMember[]}} */
-	let results = { items: [] };
-
-	const { errors, results: apiResults } = await searchProjectTeamMembers(
-		searchTerm,
-		token,
-		pageNumber
-	);
-
-	if (apiResults) {
-		results = apiResults;
-
-		paginationButtons = {
-			...(pageNumber === 1
-				? {}
-				: { previous: { href: `?number=${pageNumber - 1}&q=${searchTerm}` } }),
-			...(pageNumber === apiResults.pageCount
-				? {}
-				: { next: { href: `?number=${pageNumber + 1}&q=${searchTerm}` } }),
-			items: [...Array.from({ length: apiResults.pageCount || 0 }).keys()].map((index) => ({
-				number: index + 1,
-				href: `?number=${index + 1}&q=${searchTerm}`,
-				current: index + 1 === pageNumber
-			}))
+	if (!results) {
+		return {
+			results: { items: [] },
+			errors,
+			paginationButtons: null
 		};
 	}
 
+	const paginationButtons = {
+		...(pageNumber === 1
+			? {}
+			: { previous: { href: `?number=${pageNumber - 1}&q=${searchTerm}` } }),
+		...(pageNumber === results.pageCount
+			? {}
+			: { next: { href: `?number=${pageNumber + 1}&q=${searchTerm}` } }),
+		items: [...Array.from({ length: results.pageCount || 0 }).keys()].map((index) => ({
+			number: index + 1,
+			href: `?number=${index + 1}&q=${searchTerm}`,
+			current: index + 1 === pageNumber
+		}))
+	};
+
 	return {
 		results,
-		errors,
 		paginationButtons
 	};
 }
