@@ -1,5 +1,5 @@
 import getActiveDirectoryAccessToken from '../../../lib/active-directory-token.js';
-import { msGraphGet } from '../../../lib/msGraph.js';
+import { msGraphGet } from '../../../lib/msGraphRequest.js';
 import config from '@pins/applications.web/environment/config.js';
 
 /** @typedef {import('../../applications.types.js').ProjectTeamMember} ProjectTeamMember */
