@@ -117,6 +117,14 @@ extends:
               - template: ../steps/function_app_deploy.yml
                 appName: pins-func-doc-publisher-doc-publisher-$(ENVIRONMENT)-$(REGION_SHORT)-001
                 resourceGroup: $(resourceGroup)
+          - name: Deploy Malware Detected Function
+            artifact:
+              name: malware-detected-function
+              sourcePipeline: Back Office Build
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                appName: pins-func-malware-detected-malware-detected-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                resourceGroup: $(resourceGroup)
           - name: Deploy ODW Integration Functions
             artifact:
               name: odw-integration-functions
@@ -150,6 +158,7 @@ extends:
                   WEB_VERSION=$(cat apps/web/.release-version)
                   DOCUMENT_CHECK_FUNCTION_VERSION=$(cat apps/document-check-function/.release-version)
                   DOCUMENT_PUBLISH_FUNCTION_VERSION=$(cat apps/document-publish-function/.release-version)
+                  MALWARE_DETECTED_FUNCTION_VERSION=$(cat apps/malware-detected-function/.release-version)
                   ODW_INTEGRATION_FUNCTION_VERSION=$(cat apps/functions/odw-integration/.release-version)
 
                   RELEASE=false
@@ -192,6 +201,16 @@ extends:
                   else
                     DOCUMENT_PUBLISH_FUNCTION_VERSION=$(git describe --match "document-publish-function@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
                     echo "Function version: $DOCUMENT_PUBLISH_FUNCTION_VERSION (No change)"
+                  fi
+
+                  if [[ ! -z "$MALWARE_DETECTED_FUNCTION_VERSION" ]]; then
+                    echo "Web version: $MALWARE_DETECTED_FUNCTION_VERSION"
+                    echo "##vso[task.setvariable variable=malwareDetectedFunctionVersion;isOutput=true]$MALWARE_DETECTED_FUNCTION_VERSION"
+                    echo "##vso[task.setvariable variable=malwareDetectedFunctionRelease;isOutput=true]true"
+                    RELEASE=true
+                  else
+                    MALWARE_DETECTED_FUNCTION_VERSION=$(git describe --match "malware-detected-function@*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
+                    echo "Function version: $MALWARE_DETECTED_FUNCTION_VERSION (No change)"
                   fi
 
                   if [[ ! -z "$ODW_INTEGRATION_FUNCTION_VERSION" ]]; then
