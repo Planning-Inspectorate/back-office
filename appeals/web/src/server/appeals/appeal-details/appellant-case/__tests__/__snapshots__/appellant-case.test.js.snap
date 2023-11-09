@@ -3,7 +3,44 @@
 exports[`appellant-case GET /appellant-case should render the appellant case page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>Appellant name is not the same on the application form and appeal form</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
@@ -26,19 +63,20 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
-                        <dd class="govuk-summary-list__value"><span>Eva Sharma</span>
+                        <dd class="govuk-summary-list__value"><span>Fiona Burgess</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Name</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Another individual</dt>
-                        <dd class="govuk-summary-list__value"><span>Eva Sharma</span>
+                        <dd class="govuk-summary-list__value"><span>Fiona Burgess</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Another individual</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application reference</dt>
-                        <dd class="govuk-summary-list__value"></dd>
+                        <dd class="govuk-summary-list__value"><span>48269/APP/2021/1482</span>
+                        </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Application reference</span></a>
                         </dd>
                     </div>
@@ -52,7 +90,7 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
-                        <dd class="govuk-summary-list__value"><span>92 Huntsmoor Road, Tadley, RG26 4BX</span>
+                        <dd class="govuk-summary-list__value"><span>96 The Avenue, Maidstone, Kent, MD21 5XY</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Site address</span></a>
                         </dd>
@@ -107,19 +145,19 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form known</dt>
                         <dd class="govuk-summary-list__value"><span>none</span>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/170/appellant-case/add-documents/2/"> Add<span class="govuk-visually-hidden"> Application form known</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/1/"> Add<span class="govuk-visually-hidden"> Application form known</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision letter</dt>
                         <dd class="govuk-summary-list__value"><span>none</span>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/170/appellant-case/add-documents/3/"> Add<span class="govuk-visually-hidden"> Decision letter</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/2/"> Add<span class="govuk-visually-hidden"> Decision letter</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal statement</dt>
                         <dd class="govuk-summary-list__value"><span>none</span>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/170/appellant-case/add-documents/1/"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9/"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Add new supporting documents</dt>
@@ -131,7 +169,7 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                         <dd                         class="govuk-summary-list__value"><span>none</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/170/appellant-case/add-documents/4/"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8/"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
                             </dd>
                     </div>
                 </dl>
@@ -1134,7 +1172,44 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
         </div>
     </div>
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>Appellant name is not the same on the application form and appeal form</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
@@ -1157,19 +1232,20 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
-                        <dd class="govuk-summary-list__value"><span>Eva Sharma</span>
+                        <dd class="govuk-summary-list__value"><span>Fiona Burgess</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Name</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Another individual</dt>
-                        <dd class="govuk-summary-list__value"><span>Eva Sharma</span>
+                        <dd class="govuk-summary-list__value"><span>Fiona Burgess</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Another individual</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application reference</dt>
-                        <dd class="govuk-summary-list__value"></dd>
+                        <dd class="govuk-summary-list__value"><span>48269/APP/2021/1482</span>
+                        </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Application reference</span></a>
                         </dd>
                     </div>
@@ -1183,7 +1259,7 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
-                        <dd class="govuk-summary-list__value"><span>92 Huntsmoor Road, Tadley, RG26 4BX</span>
+                        <dd class="govuk-summary-list__value"><span>96 The Avenue, Maidstone, Kent, MD21 5XY</span>
                         </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change<span class="govuk-visually-hidden"> Site address</span></a>
                         </dd>
@@ -1238,19 +1314,19 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form known</dt>
                         <dd class="govuk-summary-list__value"><span>none</span>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/170/appellant-case/add-documents/2/"> Add<span class="govuk-visually-hidden"> Application form known</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/1/"> Add<span class="govuk-visually-hidden"> Application form known</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision letter</dt>
                         <dd class="govuk-summary-list__value"><span>none</span>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/170/appellant-case/add-documents/3/"> Add<span class="govuk-visually-hidden"> Decision letter</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/2/"> Add<span class="govuk-visually-hidden"> Decision letter</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal statement</dt>
                         <dd class="govuk-summary-list__value"><span>none</span>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/170/appellant-case/add-documents/1/"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9/"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Add new supporting documents</dt>
@@ -1262,7 +1338,7 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                         <dd                         class="govuk-summary-list__value"><span>none</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/170/appellant-case/add-documents/4/"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8/"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
                             </dd>
                     </div>
                 </dl>

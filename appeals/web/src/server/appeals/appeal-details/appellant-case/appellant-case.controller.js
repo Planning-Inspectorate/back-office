@@ -236,7 +236,7 @@ export const postCheckAndConfirm = async (request, response) => {
 		delete request.session.webAppellantCaseReviewOutcome;
 
 		if (validationOutcome === 'invalid' || validationOutcome === 'incomplete') {
-			response.redirect(
+			return response.redirect(
 				`/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcome}/confirmation`
 			);
 		} else {
