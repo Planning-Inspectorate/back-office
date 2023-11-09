@@ -1,10 +1,8 @@
 import appealRepository from '#repositories/appeal.repository.js';
 import transitionState from '#state/transition-state.js';
-import stringTokenReplacement from '#utils/string-token-replacement.js';
 import { getDocumentById } from '#repositories/document.repository.js';
-import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 import { broadcastAppealState } from '#endpoints/integrations/integrations.service.js';
-import { STATE_TARGET_COMPLETE, AUDIT_TRAIL_PROGRESSED_TO_STATUS } from '#endpoints/constants.js';
+import { STATE_TARGET_COMPLETE } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.InspectorDecision} Decision */
@@ -37,11 +35,6 @@ export const publishDecision = async (appeal, outcome, documentDate, documentGui
 				appeal.appealStatus,
 				STATE_TARGET_COMPLETE
 			);
-			await createAuditTrail({
-				appealId: appeal.id,
-				azureAdUserId: azureUserId,
-				details: stringTokenReplacement(AUDIT_TRAIL_PROGRESSED_TO_STATUS, [STATE_TARGET_COMPLETE])
-			});
 			await broadcastAppealState(appeal.id);
 
 			return result;
