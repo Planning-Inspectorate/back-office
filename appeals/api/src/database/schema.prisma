@@ -362,11 +362,12 @@ model SiteVisit {
 /// InspectorDecision model
 /// Contains decisioin made by an inspector against an appeal post site visit
 model InspectorDecision {
-  id                     Int     @id @default(autoincrement())
-  appealId               Int     @unique
-  outcome                String
-  decisionLetterFilename String?
-  appeal                 Appeal  @relation(fields: [appealId], references: [id])
+  id                 Int       @id @default(autoincrement())
+  appealId           Int       @unique
+  outcome            String
+  decisionLetterGuid String    @unique
+  appeal             Appeal    @relation(fields: [appealId], references: [id])
+  decisionLetter     Document? @relation("decision", fields: [decisionLetterGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
 }
 
 /// User model
@@ -414,6 +415,7 @@ model Document {
   latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
   case                     Appeal                    @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
   versionAudit             DocumentVersionAudit[]    @relation("audit")
+  inspectorDecision        InspectorDecision?        @relation("decision")
 
   @@unique([name, folderId])
   @@unique([guid, latestVersionId])

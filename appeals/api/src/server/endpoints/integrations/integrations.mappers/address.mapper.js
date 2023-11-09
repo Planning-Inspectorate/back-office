@@ -14,8 +14,8 @@ export const mapAddressIn = (appeal) => {
 export const mapAddressOut = (appeal) => {
 	return {
 		siteAddressLine1: appeal.address.addressLine1,
-		siteAddressLine2: appeal.address.addressLine2,
-		siteAddressCounty: appeal.address.addressCounty,
+		siteAddressLine2: appeal.address.addressLine2 || '',
+		siteAddressCounty: appeal.address.addressCounty || '',
 		siteAddressPostcode: appeal.address.postcode,
 		siteAddressTown: appeal.address.addressTown
 	};
