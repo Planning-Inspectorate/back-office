@@ -17,6 +17,10 @@
 			"type": "number",
 			"examples": [1234]
 		},
+		"caseReference": {
+			"type": "string",
+			"examples": ["BC0110002"]
+		},
 		"title": {
 			"type": "string",
 			"description": "Title of the advice",
