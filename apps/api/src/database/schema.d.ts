@@ -118,11 +118,6 @@ export interface DocumentMetadata extends schema.DocumentMetadata {}
 
 export interface ExaminationTimetableType extends schema.ExaminationTimetableType {}
 
-export interface ExaminationTimetableWithItems extends schema.ExaminationTimetable {
-	ExaminationTimetableItem: ExaminationTimetableItem[];
-	case: Case;
-}
-
 export interface S51Advice extends schema.S51Advice {}
 
 export interface S51AdviceDocument extends schema.S51AdviceDocument {}

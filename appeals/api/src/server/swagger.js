@@ -1,6 +1,13 @@
-import { document as testDocument } from '#tests/data.js';
 import { validAppellantCase, validLpaQuestionnaire } from '#tests/integrations/mocks.js';
-import { folder } from '#tests/documents/mocks.js';
+import {
+	folder,
+	documentMetaImport,
+	documentVersionDetails,
+	documentDetails,
+	auditTrailUserInfo,
+	documentVersionAuditEntry
+} from '#tests/documents/mocks.js';
+import { document as testDocument } from '#tests/data.js';
 
 export const spec = {
 	info: {
@@ -40,91 +47,28 @@ export const spec = {
 		QuestionnaireData: {
 			...validLpaQuestionnaire
 		},
-		DocumentMetaImport: {
+		DecisionInfo: {
+			outcome: 'allowed',
 			documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
-			caseRef: '600012341',
-			version: 1,
-			documentType: 'applicationForm',
-			published: false,
-			sourceSystem: 'back-office',
-			origin: null,
-			originalFilename: 'appeal-statement.pdf',
-			filename: 'appeal-statement.pdf',
-			representative: null,
-			description: null,
-			owner: null,
-			author: null,
-			securityClassification: null,
-			mime: 'application/pdf',
-			horizonDataID: null,
-			fileMD5: null,
-			path: null,
-			virusCheckStatus: null,
-			size: 146995,
-			stage: 'appellant_case',
-			filter1: null,
-			blobStorageContainer: 'document-service-uploads',
-			blobStoragePath: 'appeal/APPREF-123/v1/appeal-statement.pdf',
-			dateCreated: '2023-08-17T15:22:20.827Z',
-			isDeleted: false,
-			examinationRefNo: null,
-			filter2: null,
-			publishedStatus: 'awaiting_upload',
-			publishedStatusPrev: null,
-			redactedStatus: null,
-			redacted: false,
-			documentURI:
-				'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf'
+			documentDate: '2023-08-17T15:22:20.827Z'
+		},
+		DocumentMetaImport: {
+			...documentMetaImport
 		},
 		Folder: {
 			...folder
 		},
+		DocumentVersionDetails: {
+			...documentVersionDetails
+		},
 		DocumentDetails: {
-			guid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
-			name: 'appeal-statement.pdf',
-			folderId: 3779,
-			createdAt: '2023-08-17T15:22:20.827Z',
-			isDeleted: false,
-			latestVersionId: 1,
-			caseId: 492,
-			latestDocumentVersion: {
-				documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
-				version: 1,
-				lastModified: null,
-				documentType: 'applicationForm',
-				published: false,
-				sourceSystem: 'back-office',
-				origin: null,
-				originalFilename: 'appeal-statement.pdf',
-				fileName: 'appeal-statement.pdf',
-				representative: null,
-				description: null,
-				owner: null,
-				author: null,
-				securityClassification: null,
-				mime: 'application/pdf',
-				horizonDataID: null,
-				fileMD5: null,
-				path: null,
-				virusCheckStatus: null,
-				size: 146995,
-				stage: 'appellant_case',
-				filter1: null,
-				blobStorageContainer: 'document-service-uploads',
-				blobStoragePath: 'appeal/APPREF-123/v1/appeal-statement.pdf',
-				dateCreated: '2023-08-17T15:22:20.827Z',
-				datePublished: null,
-				isDeleted: false,
-				examinationRefNo: null,
-				filter2: null,
-				publishedStatus: 'awaiting_upload',
-				publishedStatusPrev: null,
-				redactedStatus: null,
-				redacted: false,
-				documentURI:
-					'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf',
-				dateReceived: null
-			}
+			...documentDetails
+		},
+		AuditTrailUserInfo: {
+			...auditTrailUserInfo
+		},
+		DocumentVersionAuditEntry: {
+			...documentVersionAuditEntry
 		},
 		AllAppeals: {
 			itemCount: 57,

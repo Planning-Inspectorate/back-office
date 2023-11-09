@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../middleware/async-handler.js';
+import { asyncHandler } from '#middleware/async-handler.js';
 import {
 	createExaminationTimetableItem,
 	getExaminationTimetableItem,
@@ -91,9 +91,9 @@ router.patch(
 			required: true,
 			type: 'integer'
         }
-        #swagger.parameters['body'] = {}
         #swagger.responses[200] = {
             description: 'Examination timetable items published',
+			schema: { success: true } }
         }
     */
 	validateApplicationId,
@@ -112,9 +112,9 @@ router.patch(
 			required: true,
 			type: 'integer'
         }
-        #swagger.parameters['body'] = {}
         #swagger.responses[200] = {
             description: 'Examination timetable items unpublished',
+			schema: { success: true } }
         }
     */
 	validateApplicationId,

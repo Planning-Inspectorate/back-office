@@ -1,4 +1,5 @@
 import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
+import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
 import appealRepository from '#repositories/appeal.repository.js';
 import { getPageCount } from '#utils/database-pagination.js';
 import { sortAppeals } from '#utils/appeal-sorter.js';
@@ -12,7 +13,8 @@ import {
 	DEFAULT_PAGE_NUMBER,
 	DEFAULT_PAGE_SIZE,
 	ERROR_FAILED_TO_SAVE_DATA,
-	ERROR_CANNOT_BE_EMPTY_STRING
+	ERROR_CANNOT_BE_EMPTY_STRING,
+	CONFIG_APPEAL_STAGES
 } from '../constants.js';
 import { formatAppeal, formatAppeals, formatMyAppeals } from './appeals.formatter.js';
 import { assignUser, assignedUserType } from './appeals.service.js';
@@ -83,11 +85,12 @@ const getMyAppeals = async (req, res) => {
 /**
  * @param {Request} req
  * @param {Response} res
- * @returns {Response}
+ * @returns {Promise<Response>}
  */
-const getAppealById = (req, res) => {
+const getAppealById = async (req, res) => {
 	const { appeal } = req;
-	const formattedAppeal = formatAppeal(appeal);
+	const folders = await getFoldersForAppeal(appeal, CONFIG_APPEAL_STAGES.decision);
+	const formattedAppeal = formatAppeal(appeal, folders);
 
 	return res.send(formattedAppeal);
 };

@@ -1,16 +1,17 @@
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_EXAM_TIMETABLE } from '#infrastructure/topics.js';
-import * as examinationTimetableRepository from '../../repositories/examination-timetable.repository.js';
-import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
-import * as documentRepository from '../../repositories/document.repository.js';
-import * as folderRepository from '../../repositories/folder.repository.js';
-import logger from '../../utils/logger.js';
+import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
+import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
+import logger from '#utils/logger.js';
 import { EventType } from '@pins/event-client';
 
 /**
  * @typedef {import('../../../message-schemas/events/nsip-exam-timetable.js').NSIPExamTimetableItem} NSIPExamTimetableItem
  * @typedef {import('../../../message-schemas/events/nsip-exam-timetable.js').NSIPExamTimetable} NSIPExamTimetable
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
+ * @typedef {import('@prisma/client').Prisma.ExaminationTimetableItemGetPayload<{include: {ExaminationTimetableType: true} }>} ExaminationTimetableItemWithType
  */
 
 /**
@@ -67,7 +68,7 @@ async function buildExamTimetableItemsPayload(examinationTimetableId) {
 /**
  * Returns a single examination timetable item to add to the full payload.
  *
- * @param {import('@prisma/client').ExaminationTimetableItem} examinationTimetableItem
+ * @param {ExaminationTimetableItemWithType} examinationTimetableItem
  * @returns {NSIPExamTimetableItem}
  */
 function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {

@@ -5,6 +5,7 @@ import { NODE_ENV_PRODUCTION } from '#endpoints/constants.js';
 
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
 const mockCaseUpdate = jest.fn().mockResolvedValue({});
+const mockAppealDecision = jest.fn().mockResolvedValue({});
 const mockApplicationDetailsFindUnique = jest.fn().mockResolvedValue({});
 const mockZoomLevelFindUnique = jest.fn().mockResolvedValue({});
 const mockSubSectorFindUnique = jest.fn().mockResolvedValue({});
@@ -497,6 +498,12 @@ class MockPrismaClient {
 		return {
 			findMany: mockAuditTrailFindMany,
 			create: mockAuditTrailCreate
+		};
+	}
+
+	get inspectorDecision() {
+		return {
+			create: mockAppealDecision
 		};
 	}
 
