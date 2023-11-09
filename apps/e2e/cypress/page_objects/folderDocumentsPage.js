@@ -52,6 +52,21 @@ export class FolderDocumentsPage extends Page {
 		this.validateSuccessPanelTitle('Document/s successfully unpublished');
 	}
 	verifyDeleteButtonIsVisible(){
-		cy.get('a.govuk-button:nth-child(3)').should('exist');
+		cy.get('a.govuk-button:nth-child(4)').should('exist');
+	}
+	applyChangesWithoutSelectingDocument() {
+		this.setOverallStatus('Ready to publish');
+		this.clickButtonByText('Apply changes');
+	}
+	applyChanges(redacted = false) {
+		this.setOverallStatus('Ready to publish');
+		this.selectAllDocuments();
+		this.clickButtonByText('Apply changes');
+	}
+	clickOnPublishButton() {
+		this.clickButtonByText('Publish documents');
+	}
+	verifyDocumentSelectError(){
+         cy.get('li:nth-child(1) > a').contains('You must select documents to publish');
 	}
 }

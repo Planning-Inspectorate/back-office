@@ -20,7 +20,7 @@ const folderDocumentsPage = new FolderDocumentsPage();
 const { applications: applicationUsers } = users;
 
 
-describe('Document Upload', () => {
+describe('Unpublish Documents', () => {
 	let projectInfo;
 
 	before(() => {
@@ -52,7 +52,8 @@ describe('Document Upload', () => {
 		folderPage.publishAllDocumentsInList();
 		folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
         folderPage.navigateToProjectFolder();
-		searchResultsPage.clickLinkByText('View/Edit properties')
+		searchResultsPage.clickLinkByText('View/Edit properties');
+		documentPropertiesPage.verifyPublishStatus();
 		folderDocumentsPage.unpublishDocument();
 	});
 
@@ -92,6 +93,29 @@ describe('Document Upload', () => {
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		folderPage.verifyDeleteButtonIsVisible();
+	});
+	it('Case Team Admin trying to apply changes without selecting the document', () => {
+		cy.login(applicationUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		searchResultsPage.clickLinkByText('Project documentation');
+		searchResultsPage.clickLinkByText('Project management');
+		folderDocumentsPage.applyChangesWithoutSelectingDocument();
+		fileUploadPage.verifyDocumentSelectError();
+	});
+	it('Case Team Admin trying to click on publish document button without selecting the document', () => {
+		cy.login(applicationUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		searchResultsPage.clickLinkByText('Project documentation');
+		searchResultsPage.clickLinkByText('Project management');
+		folderDocumentsPage.applyChanges();
+		folderPage.clickLinkByText('View publishing queue');
+		folderDocumentsPage.clickOnPublishButton();
 	});
 
 });
