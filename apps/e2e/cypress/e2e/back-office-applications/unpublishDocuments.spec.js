@@ -94,6 +94,7 @@ describe('Unpublish Documents', () => {
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		folderPage.verifyDeleteButtonIsVisible();
 	});
+
 	it('Case Team Admin trying to apply changes without selecting the document', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
@@ -116,6 +117,30 @@ describe('Unpublish Documents', () => {
 		folderDocumentsPage.applyChanges();
 		folderPage.clickLinkByText('View publishing queue');
 		folderDocumentsPage.clickOnPublishButton();
+	});
+
+	it('Case Team Admin able to navigate back from delete the document page', () => {
+		cy.login(applicationUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		searchResultsPage.clickLinkByText('Project documentation');
+		searchResultsPage.clickLinkByText('Project management');
+		fileUploadPage.clickLinkByText('View/Edit properties');
+		documentPropertiesPage.verifyNaviagtedBackToDocPropertiesPage();
+	});
+
+	it('Case Team Admin able to delete the document', () => {
+		cy.login(applicationUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		searchResultsPage.clickLinkByText('Project documentation');
+		searchResultsPage.clickLinkByText('Project management');
+		fileUploadPage.clickLinkByText('View/Edit properties');
+		documentPropertiesPage.verifyDocumentIsDeleted();
 	});
 
 });
