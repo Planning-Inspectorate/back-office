@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../middleware/async-handler.js';
+import { asyncHandler } from '#middleware/async-handler.js';
 import { getAddressById, updateAddressById } from './addresses.controller.js';
 import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { checkAddressExists } from './addresses.service.js';
