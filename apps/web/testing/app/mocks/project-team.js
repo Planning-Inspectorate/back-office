@@ -9,19 +9,8 @@ import projectTeamADService from '../../../src/server/applications/case/project-
  * @param {ProjectTeamMember[]} mockedMembers
  */
 export const installMockADToken = (mockedMembers) => {
-	const mockGetToken = () => {
-		return new Promise((resolve) => {
-			resolve({
-				token: 'mock_token'
-			});
-		});
-	};
-
-	const mockGetMembers = () => {
-		return new Promise((resolve) => {
-			resolve(mockedMembers);
-		});
-	};
+	const mockGetToken = () => Promise.resolve({ token: 'mock_token' });
+	const mockGetMembers = () => Promise.resolve(mockedMembers);
 
 	jest.spyOn(projectTeamADService, 'getTokenOrAuthErrors').mockImplementationOnce(mockGetToken);
 	jest.spyOn(projectTeamADService, 'searchADMember').mockImplementationOnce(mockGetMembers);

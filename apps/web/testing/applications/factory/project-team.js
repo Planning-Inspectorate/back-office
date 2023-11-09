@@ -10,12 +10,12 @@ import { createRandomDescription, createUniqueRandomNumberFromSeed } from './uti
 export function createProjectTeamMember({ id = `${fake.createUniqueId()}` } = {}) {
 	const givenName = `${createRandomDescription({
 		wordsNumber: 1,
-		startOffset: createUniqueRandomNumberFromSeed(3, 12, +id)
+		startOffset: createUniqueRandomNumberFromSeed(3, 12, Number(id))
 	})}`;
 
 	const surname = `${createRandomDescription({
 		wordsNumber: 1,
-		startOffset: createUniqueRandomNumberFromSeed(4, 12, +id)
+		startOffset: createUniqueRandomNumberFromSeed(4, 12, Number(id))
 	})}`;
 
 	const userPrincipalName = `${givenName}.${surname}@planninginspectorate.gov.uk`;
