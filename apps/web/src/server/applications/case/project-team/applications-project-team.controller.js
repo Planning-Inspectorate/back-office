@@ -54,7 +54,7 @@ export async function viewProjectTeamSearchPage(
  * @param {number} pageNumber
  */
 async function searchProjectTeamMembersData(searchTerm, token, pageNumber) {
-	let paginationButtons;
+	let paginationButtons = null;
 
 	/** @type {{items: ProjectTeamMember[]}} */
 	let results = { items: [] };
