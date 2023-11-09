@@ -124,4 +124,14 @@ export class DocumentPropertiesPage extends Page {
 	    cy.get('p:nth-child(2) strong').should('have.text','Published:');
 
 	}
+	verifyDocumentIsDeleted(){
+		cy.get('a:nth-child(4)').click();
+		cy.get('.govuk-button').click();
+		cy.get('.govuk-panel').contains('Document successfully deleted');
+	}
+	verifyNaviagtedBackToDocPropertiesPage(){
+		cy.get('a:nth-child(4)').click();
+		cy.get('.govuk-back-link').click();
+		cy.get('#tab_document-history').should('exist');
+	}
 }
