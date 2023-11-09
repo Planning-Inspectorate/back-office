@@ -112,11 +112,16 @@ export class DocumentPropertiesPage extends Page {
 		cy.get(`${this.selectors.tableBody} > ${this.selectors.tableRow}`).should('have.length', count);
 	}
 	verifyUnpublishButtonIsNotVisible(){
-		cy.get('button[type="submit"]').should('not.exist');
+		cy.get('a.govuk-button:nth-child(5)').should('not.exist');
 	}
 	verifyUnpublishStatus(){
 		cy.get('#tab_document-history').click();
-	    cy.get('p:nth-child(3) strong:nth-child(1)').should('have.text','Unpublished:');
+	    cy.get('p:nth-child(3) strong').should('have.text','Unpublished:');
+
+	}
+	verifyPublishStatus(){
+		cy.get('#tab_document-history').click();
+	    cy.get('p:nth-child(2) strong').should('have.text','Published:');
 
 	}
 }
