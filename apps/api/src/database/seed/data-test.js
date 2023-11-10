@@ -34,9 +34,10 @@ function pickRandom(list) {
  *
  * @param {string} caseReference
  * @param {number} index
+ * @param {boolean} isValidStatus
  * @returns {any}
  */
-function createRepresentation(caseReference, index) {
+function createRepresentation(caseReference, index, isValidStatus = false) {
 	const { contacts, ...rep } = pickRandom(representations);
 
 	const statuses = [
@@ -49,7 +50,7 @@ function createRepresentation(caseReference, index) {
 		'VALID'
 	];
 
-	const status = statuses[Math.floor(Math.random() * statuses.length)];
+	const status = isValidStatus ? 'VALID' : pickRandom(statuses);
 	const unpublishedUpdates = status === 'PUBLISHED' ? Math.floor(Math.random() * 8) === 0 : false;
 
 	return {
@@ -129,8 +130,8 @@ const createApplication = async (databaseConnector, subSector, index) => {
 
 	if (caseStatus !== 'draft') {
 		if (subSector.name === 'office_use' && index === 1) {
-			for (let loopIndex = 0; loopIndex < 3000; loopIndex += 1) {
-				representations.push(createRepresentation(reference, loopIndex));
+			for (let loopIndex = 0; loopIndex < 5000; loopIndex += 1) {
+				representations.push(createRepresentation(reference, loopIndex, true));
 			}
 		} else {
 			representations = [
