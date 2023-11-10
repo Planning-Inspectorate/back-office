@@ -15,7 +15,7 @@ import { getRelevantRepFolder } from './applications-relevant-rep-details.servic
  */
 export const getRepresentationDetailsViewModel = async (
 	{ caseId, representationId },
-	{ repMode },
+	{ repMode, depublished },
 	{ representation }
 ) => ({
 	...getPageLinks(caseId, repMode, representationId, representation.status),
@@ -27,5 +27,6 @@ export const getRepresentationDetailsViewModel = async (
 	representationWorkflowValues: getRepresentationWorkflowValues(representation),
 	relevantRepDocumentFolder: await getRelevantRepFolder(caseId),
 	organisationOrFullname: getOrganisationOrFullname(representation.represented),
-	repModePageURLs: getRepModePageURLs(representation)
+	repModePageURLs: getRepModePageURLs(representation),
+	depublishedRepresentation: depublished === 'true'
 });

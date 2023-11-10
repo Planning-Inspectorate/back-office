@@ -7,6 +7,7 @@ import {
 	mapStatusPayload,
 	getRepresentationDetailsPageUrl
 } from '../representation-status.utils.js';
+import { isRepresentationDepublished } from './utils/is-representation-depublished.js';
 
 const view =
 	'applications/representations/representation-details/representation-status/representation-status-notes.njk';
@@ -38,9 +39,10 @@ export const postRepresentationStatusNotesController = async (req, res) => {
 	const { caseId, representationId } = params;
 	const { changeStatus: newStatus } = req.query;
 
-	if (errors) {
-		const representationDetails = await getRepresentationDetails(caseId, representationId);
+	const representationDetails = await getRepresentationDetails(caseId, representationId);
+	const { status: oldStatus } = representationDetails;
 
+	if (errors) {
 		return res.render(view, {
 			...getRepresentationStatusNotesViewModel(
 				caseId,
@@ -60,5 +62,11 @@ export const postRepresentationStatusNotesController = async (req, res) => {
 	};
 
 	await patchRepresentationStatus(caseId, String(representationId), mapStatusPayload(payload));
-	res.redirect(getRepresentationDetailsPageUrl(caseId, String(representationId)));
+
+	if (isRepresentationDepublished(oldStatus, newStatus))
+		return res.redirect(
+			`${getRepresentationDetailsPageUrl(caseId, String(representationId))}?depublished=true`
+		);
+
+	return res.redirect(getRepresentationDetailsPageUrl(caseId, String(representationId)));
 };

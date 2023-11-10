@@ -1,4 +1,5 @@
 import { getContactDetailsByContactType } from '../../representation/representation.middleware.js';
+import { repStatusMap } from '../utils/representation-status-map.js';
 import { getRepresentationDetailsPageUrl } from './representation-status.utils.js';
 
 /**
@@ -13,27 +14,27 @@ import { getRepresentationDetailsPageUrl } from './representation-status.utils.j
 const getRadioItems = (status, isStatusEdit) => {
 	const optionsList = [
 		{
-			value: 'AWAITING_REVIEW',
+			value: repStatusMap.awaitingReview,
 			text: 'Awaiting review',
 			checked: false
 		},
 		{
-			value: 'REFERRED',
+			value: repStatusMap.referred,
 			text: 'Referred',
 			checked: false
 		},
 		{
-			value: 'INVALID',
+			value: repStatusMap.invalid,
 			text: 'Invalid',
 			checked: false
 		},
 		{
-			value: 'VALID',
+			value: repStatusMap.valid,
 			text: 'Valid',
 			checked: false
 		},
 		{
-			value: 'WITHDRAWN',
+			value: repStatusMap.withdrawn,
 			text: 'Withdrawn',
 			checked: false
 		}
