@@ -211,6 +211,26 @@ describe('/applications-service/case/1/relevant-representations/1/representation
 				expect(element.innerHTML).toMatchSnapshot();
 			});
 		});
+
+		describe('and the representation has been depublished', () => {
+			beforeEach(async () => {
+				nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
+				nock('http://test/')
+					.get('/applications/1/representations/1')
+					.reply(200, {
+						...representationDetailsFixture,
+						status: 'REFERRED'
+					});
+				nock('http://test/').get('/applications/1/folders').reply(200, mockFolders);
+			});
+			it('should render the depublish success banner', async () => {
+				const response = await request.get(`${baseUrl}?depublished=true`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toContain('You have depublished this representation');
+				expect(element.innerHTML).toMatchSnapshot();
+			});
+		});
 	});
 
 	describe('POST /applications-service/case/1/relevant-representations/1/representation-details', () => {
