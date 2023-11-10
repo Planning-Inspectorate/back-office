@@ -119,4 +119,12 @@ export class DocumentPropertiesPage extends Page {
 	    cy.get('p:nth-child(3) strong:nth-child(1)').should('have.text','Unpublished:');
 
 	}
+	getDocumentReferenceNumber(){
+		cy.get('li:nth-child(3)').then((doctext)=>{
+        let docRef=doctext.text();
+        cy.log(docRef);
+		})
+	}
+
+
 }
