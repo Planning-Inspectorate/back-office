@@ -8,7 +8,7 @@ Once a certificate is created, it can be put in the root of the solution, and re
 
 #### Windows steps
 
-1. Navigate to back-office/appeals/web/docs in your terminal
+1. Navigate to back-office/appeals/web in your terminal
 2. Run the following command to generate the pem files:
 
 ```
