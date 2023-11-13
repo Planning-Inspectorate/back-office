@@ -8,6 +8,7 @@ import { truncateTable } from '../prisma.truncate.js';
 export async function deleteAllRecords(databaseConnector) {
 	const deleteCases = databaseConnector.case.deleteMany();
 	const deleteCaseStatuses = databaseConnector.caseStatus.deleteMany();
+	const deleteCasePublishedStates = databaseConnector.casePublishedState.deleteMany();
 	const deleteApplicationDetails = databaseConnector.applicationDetails.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
 	const deleteAddresses = databaseConnector.address.deleteMany();
@@ -68,6 +69,7 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteServiceUsers,
 		deleteApplicationDetails,
 		deleteCaseStatuses,
+		deleteCasePublishedStates,
 		deleteCases,
 		deleteUsers,
 		deleteAddresses,
