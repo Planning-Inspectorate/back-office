@@ -6,13 +6,15 @@ To run a local emulator, there are a number of required steps. In order to succe
 
 2. Once the certificate is created, it needs to be accessible by docker, in order to start the Azurite emulator with https. The following command will create a docker container running the emulator, mapping a local folder containing the certificate:
 
-Windows Command Line:
+In your terminal, navigate to the folder where you created the certificates (should be `/back-office/appeals/web`).
+
+**_Windows Command Line:_**
 
 ```
 docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 -v %cd%:/workspace --name pins_azurite -d mcr.microsoft.com/azure-storage/azurite azurite --blobHost 0.0.0.0  --queueHost 0.0.0.0 --tableHost 0.0.0.0 --cert /workspace/cert.pem --key /workspace/key.pem --oauth basic --skipApiVersionCheck
 ```
 
-Powershell:
+**_Powershell:_**
 
 ```
 docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 -v ${PWD}:/workspace --name pins_azurite -d mcr.microsoft.com/azure-storage/azurite azurite --blobHost 0.0.0.0  --queueHost 0.0.0.0 --tableHost 0.0.0.0 --cert /workspace/cert.pem --key /workspace/key.pem --oauth basic --skipApiVersionCheck
@@ -34,7 +36,7 @@ Exposed Headers: *
 Max Age (in seconds): 5
 ```
 
-Be sure to save the new rule.
+**Be sure to save the new rule.**
 
 6. The final step is to configure the application to use the emulator. That is achieved by adding the following to `./appeals/web/.env`:
 
