@@ -5,22 +5,24 @@
 import { ODW_SYSTEM_ID } from '#endpoints/constants.js';
 
 export const mapServiceUserIn = (data) => {
-	const user = {
-		create: {
-			name: `${data.firstName} ${data.lastName}`,
-			customer: {
-				connectOrCreate: {
-					where: { email: data.emailAddress },
-					create: {
-						firstName: data.firstName,
-						lastName: data.lastName,
-						email: data.emailAddress
+	if (data) {
+		const user = {
+			create: {
+				name: `${data.firstName} ${data.lastName}`,
+				customer: {
+					connectOrCreate: {
+						where: { email: data.emailAddress },
+						create: {
+							firstName: data.firstName,
+							lastName: data.lastName,
+							email: data.emailAddress
+						}
 					}
 				}
 			}
-		}
-	};
-	return user;
+		};
+		return user;
+	}
 };
 
 export const mapServiceUserOut = (data, serviceUserType, caseReference) => {
