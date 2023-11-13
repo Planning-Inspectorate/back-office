@@ -165,41 +165,70 @@ export const appealData = {
 };
 
 export const appellantCaseData = {
-	appealId: 170,
-	appealReference: 'APP/Q9999/D/21/431220',
+	appealId: 1,
+	appealReference: 'TEST/919276',
 	appealSite: {
-		addressLine1: '92 Huntsmoor Road',
-		town: 'Tadley',
-		postCode: 'RG26 4BX'
+		addressId: 1,
+		addressLine1: '96 The Avenue',
+		addressLine2: 'Maidstone',
+		county: 'Kent',
+		postCode: 'MD21 5XY'
 	},
 	appellantCaseId: 1,
 	appellant: {
-		company: 'Eva Sharma Ltd',
-		name: 'Eva Sharma'
+		appellantId: 1,
+		company: null,
+		name: 'Fiona Burgess'
 	},
 	applicant: {
 		firstName: null,
 		surname: null
 	},
+	planningApplicationReference: '48269/APP/2021/1482',
 	documents: {
-		appealStatement: {
-			folderId: 1,
-			path: 'appellantCase/appealStatement',
-			documents: []
-		},
 		applicationForm: {
-			folderId: 2,
-			path: 'appellantCase/applicationForm',
+			folderId: 1,
+			path: 'appellant_case/applicationForm',
 			documents: []
 		},
 		decisionLetter: {
+			folderId: 2,
+			path: 'appellant_case/decisionLetter',
+			documents: []
+		},
+		designAndAccessStatement: {
 			folderId: 3,
-			path: 'appellantCase/decisionLetter',
+			path: 'appellant_case/designAndAccessStatement',
+			documents: []
+		},
+		planningObligation: {
+			folderId: 4,
+			path: 'appellant_case/planningObligation',
+			documents: []
+		},
+		plansDrawingsSupportingDocuments: {
+			folderId: 5,
+			path: 'appellant_case/plansDrawingsSupportingDocuments',
+			documents: []
+		},
+		separateOwnershipCertificate: {
+			folderId: 6,
+			path: 'appellant_case/separateOwnershipCertificate',
+			documents: []
+		},
+		newPlansOrDrawings: {
+			folderId: 7,
+			path: 'appellant_case/newPlansOrDrawings',
 			documents: []
 		},
 		newSupportingDocuments: {
-			folderId: 4,
-			path: 'appellantCase/newSupportingDocuments',
+			folderId: 8,
+			path: 'appellant_case/newSupportingDocuments',
+			documents: []
+		},
+		appealStatement: {
+			folderId: 9,
+			path: 'appellant_case/appealStatement',
 			documents: []
 		}
 	},
@@ -210,7 +239,7 @@ export const appellantCaseData = {
 		hasIssues: false
 	},
 	isAppellantNamedOnApplication: true,
-	localPlanningDepartment: 'Waveney District Council',
+	localPlanningDepartment: 'Worthing Borough Council',
 	siteOwnership: {
 		areAllOwnersKnown: null,
 		hasAttemptedToIdentifyOwners: null,
@@ -218,6 +247,35 @@ export const appellantCaseData = {
 		isFullyOwned: true,
 		isPartiallyOwned: null,
 		knowsOtherLandowners: null
+	},
+	validation: {
+		outcome: 'Incomplete',
+		incompleteReasons: [
+			{
+				name: {
+					id: 1,
+					name: 'Appellant name is not the same on the application form and appeal form',
+					hasText: false
+				},
+				text: []
+			},
+			{
+				name: {
+					id: 2,
+					name: 'Attachments and/or appendices have not been included to the full statement of case',
+					hasText: true
+				},
+				text: ['test reason 1']
+			},
+			{
+				name: {
+					id: 10,
+					name: 'Other',
+					hasText: true
+				},
+				text: ['test reason 2', 'test reason 3']
+			}
+		]
 	},
 	visibility: {
 		details: null,
@@ -422,7 +480,36 @@ export const lpaQuestionnaireData = {
 	scheduleType: 'Schedule 2',
 	sensitiveAreaDetails: 'The area is prone to flooding',
 	siteWithinGreenBelt: true,
-	statutoryConsulteesDetails: 'Some other people need to be consulted'
+	statutoryConsulteesDetails: 'Some other people need to be consulted',
+	validation: {
+		outcome: 'Incomplete',
+		incompleteReasons: [
+			{
+				name: {
+					id: 1,
+					name: 'Policies are missing',
+					hasText: true
+				},
+				text: ['test reason 1']
+			},
+			{
+				name: {
+					id: 2,
+					name: 'Other documents or information are missing',
+					hasText: true
+				},
+				text: ['test reason 2', 'test reason 3']
+			},
+			{
+				name: {
+					id: 3,
+					name: 'Other',
+					hasText: true
+				},
+				text: ['test reason 4', 'test reason 5', 'test reason 6']
+			}
+		]
+	}
 };
 
 export const getRandomLocalPlanningDepartment = () =>
@@ -633,7 +720,7 @@ export const documentFileInfo = {
 		redacted: false,
 		documentURI:
 			'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be6/v1/ph0.jpeg',
-		dateReceived: null
+		dateReceived: '2023-10-11T13:57:41.592Z'
 	}
 };
 
@@ -653,7 +740,7 @@ export const documentFileInfoPublished = {
 		version: 1,
 		lastModified: null,
 		documentType: 'conservationAreaMap',
-		published: false,
+		published: true,
 		sourceSystem: 'back-office',
 		origin: null,
 		originalFilename: 'test-document.pdf',
@@ -685,23 +772,60 @@ export const documentFileInfoPublished = {
 		redacted: false,
 		documentURI:
 			'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be7/v1/test-document.pdf',
-		dateReceived: null
+		dateReceived: '2023-10-11T13:57:41.592Z'
 	}
 };
 
 export const documentFolderInfo = {
-	id: 23,
-	folderId: 23,
-	path: 'appellant_case/appealStatement',
-	caseId: 'APP/Q9999/D/21/941501',
-	documents: []
-};
-
-export const documentFolderInfoWithDocuments = {
-	folderId: 23,
-	path: 'appellant_case/appealStatement',
-	caseId: 'APP/Q9999/D/21/941501',
-	documents: [documentFileInfo, documentFileInfoPublished]
+	caseId: 103,
+	documents: [
+		{
+			id: '15d19184-155b-4b6c-bba6-2bd2a61ca9a3',
+			name: 'test-pdf.pdf',
+			latestDocumentVersion: {
+				published: true,
+				dateReceived: '2023-02-01T01:00:00.000Z',
+				redactionStatus: 1,
+				size: 129363,
+				mime: 'application/pdf'
+			}
+		},
+		{
+			id: '47d8f073-c837-4f07-9161-c1a5626eba56',
+			name: 'sample-20s.mp4',
+			latestDocumentVersion: {
+				published: true,
+				dateReceived: '2024-03-02T01:00:00.000Z',
+				redactionStatus: 2,
+				size: 11815175,
+				mime: 'video/mp4'
+			}
+		},
+		{
+			id: '97260151-4334-407f-a76a-0b5666cbcfa6',
+			name: 'ph0.jpeg',
+			latestDocumentVersion: {
+				published: false,
+				dateReceived: '2025-04-03T01:00:00.000Z',
+				redactionStatus: 3,
+				size: 58861,
+				mime: 'image/jpeg'
+			}
+		},
+		{
+			id: '97260151-4334-407f-a76a-0b5666cbcfa7',
+			name: 'ph1.jpeg',
+			latestDocumentVersion: {
+				published: false,
+				dateReceived: '2025-04-03T01:00:00.000Z',
+				redactionStatus: 2,
+				size: 58987,
+				mime: 'image/jpeg'
+			}
+		}
+	],
+	id: 2864,
+	path: 'appellant_case/newSupportingDocuments'
 };
 
 export const documentRedactionStatuses = [
@@ -718,6 +842,78 @@ export const documentRedactionStatuses = [
 		name: 'No redaction required'
 	}
 ];
+
+export const documentFileVersionsInfo = {
+	guid: '15d19184-155b-4b6c-bba6-2bd2a61ca9a3',
+	name: 'test-pdf.pdf',
+	folderId: 2864,
+	createdAt: '2023-10-31T13:14:14.474Z',
+	isDeleted: false,
+	latestVersionId: 1,
+	caseId: 103,
+	documentVersion: [
+		{
+			documentGuid: '15d19184-155b-4b6c-bba6-2bd2a61ca9a3',
+			version: 1,
+			lastModified: null,
+			documentType: 'newSupportingDocuments',
+			published: true,
+			sourceSystem: 'back-office-appeals',
+			origin: null,
+			originalFilename: 'test-pdf.pdf',
+			fileName: 'test-pdf.pdf',
+			representative: null,
+			description: null,
+			owner: null,
+			author: null,
+			securityClassification: null,
+			mime: 'application/pdf',
+			horizonDataID: null,
+			fileMD5: null,
+			path: null,
+			virusCheckStatus: null,
+			size: 129363,
+			stage: 'appellant_case',
+			filter1: null,
+			blobStorageContainer: 'document-service-uploads',
+			blobStoragePath:
+				'appeal/APP-Q9999-D-21-254218/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/v1/test-pdf.pdf',
+			dateCreated: '2023-10-31T13:14:14.474Z',
+			datePublished: null,
+			isDeleted: false,
+			examinationRefNo: null,
+			filter2: null,
+			publishedStatus: 'awaiting_upload',
+			publishedStatusPrev: null,
+			redactionStatusId: 1,
+			redacted: false,
+			documentURI:
+				'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-254218/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/v1/test-pdf.pdf',
+			dateReceived: '2023-02-01T01:00:00.000Z'
+		}
+	],
+	versionAudit: [
+		{
+			id: 2008,
+			documentGuid: '15d19184-155b-4b6c-bba6-2bd2a61ca9a3',
+			version: 1,
+			auditTrailId: 2008,
+			action: 'Create',
+			auditTrail: {
+				id: 2008,
+				appealId: 103,
+				userId: 1007,
+				loggedAt: '2023-10-31T13:14:14.534Z',
+				details: 'The document test-pdf.pdf was uploaded (v1)',
+				user: {
+					id: 1007,
+					azureAdUserId: '923ac03b-9031-4cf4-8b17-348c274321f9',
+					sapId: null
+				}
+			}
+		}
+	]
+};
 
 export const baseSession = {
 	id: '',

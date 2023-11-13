@@ -1,8 +1,16 @@
 import config from '@pins/appeals.web/environment/config.js';
 import logger from '#lib/logger.js';
 import { mapFolderToAddDetailsPageParams } from './appeal-documents.mapper.js';
-import { getDocumentRedactionStatuses, updateDocuments } from './appeal.documents.service.js';
-import { mapDocumentDetailsFormDataToAPIRequest } from './appeal-documents.mapper.js';
+import {
+	getDocumentRedactionStatuses,
+	updateDocuments,
+	getFileVersionsInfo
+} from './appeal.documents.service.js';
+import {
+	mapDocumentDetailsFormDataToAPIRequest,
+	mapFolderToManageFolderPageParameters,
+	mapDocumentDetailsToManageDocumentPageParameters
+} from './appeal-documents.mapper.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
@@ -62,6 +70,82 @@ export const renderDocumentDetails = async (request, response, backButtonUrl) =>
 		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
 		documentTypeHeading: mappedDocumentData.folderName,
 		detailsItems: mappedDocumentData.detailsItems,
+		errors
+	});
+};
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {string} backButtonUrl
+ * @param {string} viewAndEditUrl
+ */
+export const renderManageFolder = async (request, response, backButtonUrl, viewAndEditUrl) => {
+	const { currentFolder, errors } = request;
+
+	if (!currentFolder) {
+		return response.status(404).render('app/404.njk');
+	}
+
+	const redactionStatuses = await getDocumentRedactionStatuses(request.apiClient);
+
+	if (!redactionStatuses) {
+		return response.render('app/500.njk');
+	}
+
+	const mappedPageParameters = mapFolderToManageFolderPageParameters(
+		currentFolder,
+		redactionStatuses,
+		viewAndEditUrl
+	);
+
+	return response.render('appeals/documents/manage-folder.njk', {
+		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
+		...mappedPageParameters,
+		errors
+	});
+};
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {string} backButtonUrl
+ */
+export const renderManageDocument = async (request, response, backButtonUrl) => {
+	const {
+		currentFolder,
+		errors,
+		params: { appealId, documentId }
+	} = request;
+
+	if (!currentFolder) {
+		return response.status(404).render('app/404.njk');
+	}
+
+	const [document, redactionStatuses] = await Promise.all([
+		getFileVersionsInfo(request.apiClient, appealId, documentId),
+		getDocumentRedactionStatuses(request.apiClient)
+	]);
+
+	if (!document) {
+		return response.status(404).render('app/404.njk');
+	}
+
+	if (!redactionStatuses) {
+		return response.render('app/500.njk');
+	}
+
+	const mappedPageParameters = await mapDocumentDetailsToManageDocumentPageParameters(
+		document,
+		redactionStatuses,
+		request.session
+	);
+
+	return response.render('appeals/documents/manage-document.njk', {
+		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
+		...mappedPageParameters,
 		errors
 	});
 };

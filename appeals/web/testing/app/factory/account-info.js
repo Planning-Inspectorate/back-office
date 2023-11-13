@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { camelCase, snakeCase } from 'lodash-es';
+import { snakeCase } from 'lodash-es';
 
 /** @typedef {import('@pins/platform').PlanningInspectorAccountInfo} AccountInfo */
 /** @typedef {Omit<AccountInfo, 'idTokenClaims'> & { groups?: string[] }} AccountInfoOptions */
@@ -14,7 +14,7 @@ export function createAccountInfo({
 	environment = 'login.planninginspectorate.gov.uk',
 	tenantId = 'PlanningInspectorate',
 	username = snakeCase(name),
-	localAccountId = camelCase(name),
+	localAccountId = faker.datatype.uuid(),
 	groups = [
 		'appeals_case_officer',
 		'appeals_inspector',

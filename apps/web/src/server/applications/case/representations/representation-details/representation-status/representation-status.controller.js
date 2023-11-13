@@ -7,6 +7,7 @@ import {
 } from './representation-status.utils.js';
 import { patchRepresentationStatus } from './representation-status.service.js';
 import { getFormattedErrorSummary } from '../../representation/representation.utilities.js';
+import { repStatusMap } from '../utils/representation-status-map.js';
 
 const view =
 	'applications/representations/representation-details/representation-status/representation-status.njk';
@@ -54,7 +55,7 @@ export const postRepresentationStatus = async ({ body, params, errors, session }
 		updatedBy: authSession.getAccount(session)?.name
 	};
 
-	if (payload.status === 'VALID') {
+	if (payload.status === repStatusMap.valid) {
 		await patchRepresentationStatus(caseId, representationId, payload);
 		res.redirect(getRepresentationDetailsPageUrl(caseId, representationId));
 	} else {

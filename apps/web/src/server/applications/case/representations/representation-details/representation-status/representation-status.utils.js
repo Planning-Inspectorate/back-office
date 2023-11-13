@@ -1,4 +1,6 @@
 import { url } from '../../../../../lib/nunjucks-filters/url.js';
+import { repStatusMap } from '../utils/representation-status-map.js';
+
 /**
  *
  * @param {{status: string, updatedBy: string|undefined, body: {notes?: string, statusResult?: string} }} statusUpdate
@@ -11,8 +13,9 @@ export const mapStatusPayload = (statusUpdate) => {
 	mappedPayload.updatedBy = statusUpdate.updatedBy;
 
 	if (statusUpdate.body.notes) mappedPayload.notes = statusUpdate.body.notes;
-	if (statusUpdate.status === 'REFERRED') mappedPayload.referredTo = statusUpdate.body.statusResult;
-	if (statusUpdate.status === 'INVALID')
+	if (statusUpdate.status === repStatusMap.referred)
+		mappedPayload.referredTo = statusUpdate.body.statusResult;
+	if (statusUpdate.status === repStatusMap.invalid)
 		mappedPayload.invalidReason = statusUpdate.body.statusResult;
 
 	return mappedPayload;

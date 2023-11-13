@@ -9,9 +9,13 @@ import { getAccount } from '../app/auth/auth-session.service.js';
  * Get the Azure Active Directory access token using logged account credentials
  *
  * @param {SessionWithAuth} session
+ * @param {Array<string>} customScopes
  * @returns {Promise<AccessToken>}
  */
-const getActiveDirectoryAccessToken = async (session) => {
+const getActiveDirectoryAccessToken = async (
+	session,
+	customScopes = ['https://storage.azure.com/user_impersonation']
+) => {
 	const sessionAccount = getAccount(session);
 
 	if (!sessionAccount) {
@@ -19,9 +23,7 @@ const getActiveDirectoryAccessToken = async (session) => {
 	}
 
 	/** @type {{accessToken: string, expiresOn: any} | null} * */
-	const blobResourceAuthResult = await acquireTokenSilent(sessionAccount, [
-		'https://storage.azure.com/user_impersonation'
-	]);
+	const blobResourceAuthResult = await acquireTokenSilent(sessionAccount, customScopes);
 
 	if (!blobResourceAuthResult?.accessToken) {
 		throw new Error('Active Directory access token not found');

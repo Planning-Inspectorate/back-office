@@ -44,10 +44,14 @@ export async function mapAssignedUserToSummaryListBuilderParameters(
 				title: surnameFirstToFullName(user.name),
 				value: user.email,
 				valueType: 'text',
-				actionText: 'Remove',
-				actionLink: `/appeals-service/appeal-details/${appealId}/unassign-user/${
-					isInspector ? 'inspector' : 'case-officer'
-				}/${assignedUserId}/confirm`
+				actions: [
+					{
+						text: 'Remove',
+						href: `/appeals-service/appeal-details/${appealId}/unassign-user/${
+							isInspector ? 'inspector' : 'case-officer'
+						}/${assignedUserId}/confirm`
+					}
+				]
 			}
 		]
 	};

@@ -38,6 +38,23 @@ export const getFileInfo = async (apiClient, appealId, fileGuid) => {
 
 /**
  * @param {import('got').Got} apiClient
+ * @param {string} appealId
+ * @param {string} fileGuid
+ * @returns {Promise<import('@pins/appeals.api/src/server/openapi-types.js').DocumentDetails|undefined>}
+ */
+export const getFileVersionsInfo = async (apiClient, appealId, fileGuid) => {
+	try {
+		const fileInfo = await apiClient
+			.get(`appeals/${appealId}/documents/${fileGuid}/versions`)
+			.json();
+		return fileInfo;
+	} catch {
+		return undefined;
+	}
+};
+
+/**
+ * @param {import('got').Got} apiClient
  * @returns {Promise<DocumentRedactionStatus[]|undefined>}
  */
 export const getDocumentRedactionStatuses = async (apiClient) => {

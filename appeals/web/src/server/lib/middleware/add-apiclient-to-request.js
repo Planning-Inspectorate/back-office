@@ -31,12 +31,12 @@ const getInstance = (/** @type {string} */ userId) =>
  */
 export const addApiClientToRequest = async (req, res, next) => {
 	const user = authSession.getAccount(req.session);
-	if (!user || !user.homeAccountId) {
+	if (!user || !user.localAccountId) {
 		pino.error(`Unauthenticated user should not get here...`);
 		return res.status(500).send('Unauthenticated user');
 	}
 
-	pino.info(`Creating API client for user '${user.homeAccountId}'`);
-	req.apiClient = getInstance(user.homeAccountId);
+	pino.info(`Creating API client for user '${user.localAccountId}'`);
+	req.apiClient = getInstance(user.localAccountId);
 	next();
 };

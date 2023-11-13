@@ -22,9 +22,8 @@ const texts = {
 	successMessageText: 'Timetable item successfully created'
 };
 
-//Tests are running locally fine but in CI/CD some of the tests are failing due to this some of the tests are commented for time being
 
-/*describe('Section 51 Advice', () => {
+describe('Section 51 Advice', () => {
 	let projectInfo = projectInformation();
 	let caseRef;
 
@@ -64,4 +63,4 @@ const texts = {
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, { organisation: details.organisation });
 	});
-});*/
+});

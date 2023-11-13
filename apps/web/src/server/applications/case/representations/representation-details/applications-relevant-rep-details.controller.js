@@ -3,6 +3,7 @@ import { getFormattedErrorSummary } from '../representation/representation.utili
 import { getRepresentationBaseUrl } from '../representation/utils/get-representation-page-urls.js';
 import { getRepresentationDetailsViewModel } from './applications-relevant-rep-details.view-model.js';
 import { getCheckAnswerErrors } from './utils/get-check-answer-errors.js';
+import { repStatusMap } from './utils/representation-status-map.js';
 
 const view = 'applications/representations/representation-details/index.njk';
 
@@ -33,7 +34,7 @@ export const postRepresentationDetailsController = async (req, res) => {
 	}
 
 	await patchRepresentationNoMap(caseId, String(representationId), '', {
-		status: 'AWAITING_REVIEW'
+		status: repStatusMap.awaitingReview
 	});
 
 	return res.redirect(getRepresentationBaseUrl(caseId));

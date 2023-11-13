@@ -19,6 +19,10 @@ parameters:
     displayName: Deploy Document Publish Function
     type: boolean
     default: true
+  - name: deployMalwareDetectedFunction
+    displayName: Deploy Malware Detected Function
+    type: boolean
+    default: true
   - name: deployFunctionHandleSubscriptions
     displayName: Deploy Function - Handle Subscriptions
     type: boolean
@@ -155,6 +159,16 @@ extends:
               - template: ../steps/function_app_deploy.yml
                 parameters:
                   appName: pins-func-doc-publisher-doc-publisher-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Malware Detected
+            artifact:
+              name: function-malware-detected
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployMalwareDetectedFunction }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-malware-detected-malware-detected-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Handle Subscriptions
             artifact:

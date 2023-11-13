@@ -112,25 +112,7 @@ describe('/appeals/:appealId/documents', () => {
 				.send(requestBody)
 				.set('azureAdUserId', azureAdUserId);
 
-			expect(databaseConnector.document.update).toHaveBeenCalledTimes(2);
-			expect(databaseConnector.document.update).toHaveBeenCalledWith({
-				data: {
-					receivedAt: joinDateAndTime(requestBody.documents[0].receivedDate),
-					documentRedactionStatusId: requestBody.documents[0].redactionStatus
-				},
-				where: {
-					guid: requestBody.documents[0].id
-				}
-			});
-			expect(databaseConnector.document.update).toHaveBeenCalledWith({
-				data: {
-					receivedAt: joinDateAndTime(requestBody.documents[1].receivedDate),
-					documentRedactionStatusId: requestBody.documents[1].redactionStatus
-				},
-				where: {
-					guid: requestBody.documents[1].id
-				}
-			});
+			expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(2);
 			expect(response.status).toEqual(200);
 			expect(response.body).toEqual({
 				documents: [
@@ -369,23 +351,22 @@ describe('/appeals/:appealId/documents', () => {
 				})
 				.set('azureAdUserId', azureAdUserId);
 
-			expect(databaseConnector.document.update).toHaveBeenCalledTimes(2);
-			expect(databaseConnector.document.update).toHaveBeenCalledWith({
+			expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 				data: {
-					receivedAt: joinDateAndTime(requestBody.documents[0].receivedDate),
-					documentRedactionStatusId: requestBody.documents[0].redactionStatus
+					dateReceived: joinDateAndTime(requestBody.documents[0].receivedDate),
+					redactionStatus: {
+						connect: {
+							id: 1
+						}
+					},
+					published: true
 				},
 				where: {
-					guid: requestBody.documents[0].id
-				}
-			});
-			expect(databaseConnector.document.update).toHaveBeenCalledWith({
-				data: {
-					receivedAt: joinDateAndTime(requestBody.documents[1].receivedDate),
-					documentRedactionStatusId: requestBody.documents[1].redactionStatus
-				},
-				where: {
-					guid: requestBody.documents[1].id
+					documentGuid_version: {
+						documentGuid: '987e66e0-1db4-404b-8213-8082919159e9',
+						version: 1
+					}
 				}
 			});
 			expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(2);

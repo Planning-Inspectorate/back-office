@@ -1,0 +1,37 @@
+{%- extends "app/layouts/app.layout.njk" -%}
+
+{%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/details/macro.njk" import govukDetails -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+{%- set pageTitle = "Manage documents - GOV.UK" -%}
+
+{%- set backLinkUrl -%}
+	{{ backButtonUrl }}
+{%- endset -%}
+
+{%- block pageHeading -%}
+	<span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-9">{{ documentName }}</h1>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			{{ govukSummaryList(summaryListProperties) }}
+			{{ govukButton(updateDocumentButtonProperties) }}
+			{{ govukButton(removeDocumentButtonProperties) }}
+		</div>
+	</div>
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<h2>Document history</h2>
+			<p class="govuk-body">See version history, a change log or remove old documents</p>
+			{{ govukDetails({
+				summaryText: "Document history",
+				html: govukTable(documentHistoryTableProperties)
+			}) }}
+		</div>
+	</div>
+{%- endblock -%}

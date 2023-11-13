@@ -16,7 +16,6 @@ export const getById = (id) => {
 		include: {
 			documents: {
 				include: {
-					documentRedactionStatus: true,
 					latestDocumentVersion: true
 				}
 			}

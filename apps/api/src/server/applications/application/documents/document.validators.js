@@ -1,5 +1,5 @@
 import { composeMiddleware } from '@pins/express';
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 import joi from 'joi';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import * as DocumentRepository from '#repositories/document.repository.js';
@@ -18,6 +18,8 @@ import logger from '#utils/logger.js';
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
  * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('@pins/applications.api').Api.DocumentVersionUpsertRequestBody} DocumentVersionUpsertRequestBody
+ * @typedef {import('@pins/applications.api').Schema.DocumentVersionUpsertInput} DocumentVersionUpsertInput
  */
 
 export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
@@ -61,10 +63,10 @@ export const fetchDocumentByGuidAndCaseId = async (
 /**
  * Validates that the event body for document metadata exists based on the provided DocumentVersion schema.
  *
- * @param {DocumentVersion} documentVersonEventBody - the event body for document metadata to validate
- * @returns {DocumentVersion} - the validated document metadata event body
+ * @param {DocumentVersionUpsertRequestBody} documentVersionEventBody - the event body for document metadata to validate
+ * @returns {{ documentVersion: DocumentVersionUpsertInput, transcriptReference: string | null }} - the validated document metadata event body
  */
-export const validateDocumentVersionMetadataBody = (documentVersonEventBody) => {
+export const validateDocumentVersionMetadataBody = (documentVersionEventBody) => {
 	// Define the schema for the document version
 	const documentVersionSchema = joi.object({
 		version: joi.number().positive().optional(),
@@ -112,7 +114,7 @@ export const validateDocumentVersionMetadataBody = (documentVersonEventBody) => 
 	});
 
 	// Validate the document version event body using the schema
-	const { error } = documentVersionSchema.validate(documentVersonEventBody, {
+	const { error } = documentVersionSchema.validate(documentVersionEventBody, {
 		abortEarly: false
 	});
 
@@ -128,7 +130,14 @@ export const validateDocumentVersionMetadataBody = (documentVersonEventBody) => 
 	logger.info(
 		'[validateDocumentVersionMetadataBody] Successfully validated document version event body'
 	);
-	return documentVersonEventBody;
+
+	const transcriptReference = documentVersionEventBody.transcript ?? null;
+	delete documentVersionEventBody.transcript;
+
+	return {
+		documentVersion: documentVersionEventBody,
+		transcriptReference
+	};
 };
 
 /**
@@ -207,3 +216,10 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (docu
 		invalid: documentIds.filter((id) => !publishableIds.has(id))
 	};
 };
+
+export const validateParameterCriteria = composeMiddleware(
+	query('criteria')
+		.isLength({ min: 3 })
+		.withMessage('Search criteria must have at least 3 characters'),
+	validationErrorHandler
+);

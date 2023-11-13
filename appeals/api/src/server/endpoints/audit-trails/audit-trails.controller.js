@@ -6,9 +6,9 @@ import { formatAuditTrail } from './audit-trails.formatter.js';
 /**
  * @param {Request} req
  * @param {Response} res
- * @returns {Response}
+ * @returns {Promise<Response>}
  */
-const getAuditTrailById = (req, res) => {
+const getAuditTrailById = async (req, res) => {
 	const { auditTrail } = req.appeal;
 	const formattedAuditTrail = formatAuditTrail(auditTrail);
 

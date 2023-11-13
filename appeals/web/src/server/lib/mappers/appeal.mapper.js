@@ -46,7 +46,7 @@ import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
  * @type {object}
  * @property {SummaryListRowProperties} [summaryListItem] To create a row in a summary list
  * @property {StatusTag} [statusTag] To create a Status Tag
- * @property {TableRowProperties[]} [tableItem] To create a table row
+ * @property {TableCellProperties[]} [tableItem] To create a table row
  */
 /**
  * @typedef InputInstruction

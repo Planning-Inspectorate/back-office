@@ -4,7 +4,6 @@ import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
-
 import BackOfficeAppError from '#utils/app-error.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
@@ -15,6 +14,7 @@ import {
 } from '#utils/mapping/map-document-details.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import {
+	getDocumentsInCase,
 	extractDuplicates,
 	getIndexFromReference,
 	handleUpdateDocument,
@@ -479,22 +479,20 @@ export const storeDocumentVersion = async (request, response) => {
 	const { guid, id: caseId } = request.params;
 
 	// Validate the request body and extract the document version metadata
-	/** @type {DocumentVersion} */
-	const documentVersionMetadataBody = validateDocumentVersionMetadataBody(request.body);
+	const { documentVersion, transcriptReference } = validateDocumentVersionMetadataBody(
+		request.body
+	);
 
 	// Retrieve the document from the database using the provided guid and caseId
 	const document = await documentRepository.getById(guid);
-
 	if (!document) {
 		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
 	}
 
-	if (documentVersionMetadataBody.transcript) {
-		const transcriptReference = documentVersionMetadataBody.transcript;
-
+	if (transcriptReference) {
 		const transcriptDocument = await documentRepository.getByReferenceRelatedToCaseId(
 			transcriptReference,
-			+caseId
+			Number(caseId)
 		);
 
 		if (!transcriptDocument) {
@@ -502,15 +500,15 @@ export const storeDocumentVersion = async (request, response) => {
 			response.status(404).send({ errors: { transcript: transcriptErrorMsg } });
 
 			throw new BackOfficeAppError(transcriptErrorMsg, 404);
-		} else {
-			documentVersionMetadataBody.transcript = { connect: { guid: transcriptDocument.guid } };
 		}
+
+		documentVersion.transcriptGuid = transcriptDocument.guid;
 	}
 
 	// Upsert the document version metadata to the database and get the updated document details
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		document.guid,
-		documentVersionMetadataBody,
+		documentVersion,
 		document.latestVersionId ?? 1
 	);
 
@@ -626,4 +624,17 @@ export const markAsUnpublished = async ({ params }, response) => {
 	const updateResponse = await markDocumentVersionAsUnpublished({ guid });
 
 	response.send(updateResponse);
+};
+
+/**
+ * Gets paginated array of documents in a case/application
+ *
+ * @type {import('express').RequestHandler<{id: number}, ?, ?, {criteria: string, page?: number, pageSize?: number}>}
+ */
+export const searchDocuments = async ({ params, query }, response) => {
+	const { id: caseId } = params;
+	const { page, pageSize, criteria } = query;
+
+	const paginatedDocuments = await getDocumentsInCase(caseId, criteria, page, pageSize);
+	response.send(paginatedDocuments);
 };

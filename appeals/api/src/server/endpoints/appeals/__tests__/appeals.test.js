@@ -15,6 +15,7 @@ import {
 	ERROR_NOT_FOUND,
 	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 } from '../../constants.js';
+import { savedFolder } from '#tests/documents/mocks.js';
 import {
 	azureAdUserId,
 	fullPlanningAppeal,
@@ -436,6 +437,8 @@ describe('appeals routes', () => {
 		describe('GET', () => {
 			test('gets a single household appeal', async () => {
 				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([savedFolder]);
+				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
 				databaseConnector.appeal.findMany
@@ -469,7 +472,9 @@ describe('appeals routes', () => {
 					appellantCaseId: 1,
 					appellantName: householdAppeal.appellant.name,
 					caseOfficer: householdAppeal.caseOfficer.azureAdUserId,
-					decision: householdAppeal.inspectorDecision.outcome,
+					decision: {
+						folderId: savedFolder.id
+					},
 					documentationSummary: {
 						appellantCase: {
 							status: 'received',
@@ -539,6 +544,8 @@ describe('appeals routes', () => {
 
 			test('gets a single full planning appeal', async () => {
 				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([savedFolder]);
+				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
 				// @ts-ignore
 				databaseConnector.appeal.findMany
@@ -574,7 +581,9 @@ describe('appeals routes', () => {
 					appellantCaseId: 1,
 					appellantName: fullPlanningAppeal.appellant.name,
 					caseOfficer: fullPlanningAppeal.caseOfficer.azureAdUserId,
-					decision: fullPlanningAppeal.inspectorDecision.outcome,
+					decision: {
+						folderId: savedFolder.id
+					},
 					documentationSummary: {
 						appellantCase: {
 							status: 'received',

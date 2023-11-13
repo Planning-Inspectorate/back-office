@@ -7,6 +7,7 @@ import {
 	mapReasonsToReasonsList
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
+import nunjucks from 'nunjucks';
 import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
 
 /**
@@ -96,25 +97,41 @@ function mapNotificationBannerComponentParameters(session, lpaqData, appealId) {
 			session.notificationBanners = {};
 		}
 
+		const listClasses = 'govuk-!-margin-top-0';
+		const renderedDetailsItems = (lpaqData.lpaq.validation?.incompleteReasons || [])
+			.filter((reason) => reason.name.hasText)
+			.map((reason) =>
+				nunjucks.render('appeals/components/govuk-details.njk', {
+					params: {
+						summaryText: reason.name?.name,
+						html: buildHtmUnorderedList(reason.text || [], 0, listClasses)
+					}
+				})
+			);
+
+		const reasonsWithoutText = (lpaqData.lpaq.validation?.incompleteReasons || []).filter(
+			(reason) => !reason.name.hasText
+		);
+
+		if (reasonsWithoutText.length > 0) {
+			renderedDetailsItems.unshift(
+				nunjucks.render('appeals/components/govuk-details.njk', {
+					params: {
+						summaryText: 'Incorrect name and/or missing documents',
+						html: buildHtmUnorderedList(
+							reasonsWithoutText.map((reason) => reason.name.name),
+							0,
+							listClasses
+						)
+					}
+				})
+			);
+		}
+
 		session.notificationBanners.lpaQuestionnaireNotValid = {
 			appealId,
 			titleText: `LPA Questionnaire is ${String(validationOutcome)}`,
-			html: `<ul class="govuk-!-margin-top-0 govuk-!-padding-left-4">${(
-				lpaqData.lpaq.validation?.incompleteReasons || []
-			)
-				.map(
-					(reason) =>
-						`<li>${reason?.name?.name}${reason?.text?.length ? ':' : ''}</li>${
-							reason?.text?.length
-								? buildHtmUnorderedList(
-										reason?.text,
-										0,
-										'govuk-!-margin-top-0 govuk-!-padding-left-4'
-								  )
-								: ''
-						}`
-				)
-				.join('')}</ul>`
+			html: renderedDetailsItems.join('')
 		};
 	}
 
@@ -353,15 +370,23 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 			title: 'Review outcome',
 			value: 'Incomplete',
 			valueType: 'text',
-			actionText: 'Change',
-			actionLink: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`
+			actions: [
+				{
+					text: 'Change',
+					href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`
+				}
+			]
 		},
 		{
 			title: 'Incomplete reasons',
 			value: reasonsList,
 			valueType: 'unorderedList',
-			actionText: 'Change',
-			actionLink: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete`
+			actions: [
+				{
+					text: 'Change',
+					href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete`
+				}
+			]
 		}
 	];
 
@@ -370,8 +395,12 @@ export function mapReviewOutcomeToSummaryListBuilderParameters(
 			title: `Updated due date`,
 			value: webDateToDisplayDate(updatedDueDate),
 			valueType: 'text',
-			actionText: 'Change',
-			actionLink: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
+			actions: [
+				{
+					text: 'Change',
+					href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
+				}
+			]
 		});
 	}
 

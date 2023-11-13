@@ -106,3 +106,113 @@ export const savedFolder = {
 		}
 	]
 };
+
+export const documentMetaImport = {
+	documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
+	caseRef: '600012341',
+	version: 1,
+	documentType: 'applicationForm',
+	published: false,
+	sourceSystem: 'back-office',
+	origin: null,
+	originalFilename: 'appeal-statement.pdf',
+	filename: 'appeal-statement.pdf',
+	representative: null,
+	description: null,
+	owner: null,
+	author: null,
+	securityClassification: null,
+	mime: 'application/pdf',
+	horizonDataID: null,
+	fileMD5: null,
+	path: null,
+	virusCheckStatus: null,
+	size: 146995,
+	stage: 'appellant_case',
+	filter1: null,
+	blobStorageContainer: 'document-service-uploads',
+	blobStoragePath: 'appeal/APPREF-123/v1/appeal-statement.pdf',
+	dateCreated: '2023-08-17T15:22:20.827Z',
+	isDeleted: false,
+	examinationRefNo: null,
+	filter2: null,
+	publishedStatus: 'awaiting_upload',
+	publishedStatusPrev: null,
+	redactedStatus: null,
+	redacted: false,
+	documentURI:
+		'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf'
+};
+
+export const documentVersionDetails = {
+	documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
+	version: 1,
+	lastModified: null,
+	documentType: 'applicationForm',
+	published: false,
+	sourceSystem: 'back-office',
+	origin: null,
+	originalFilename: 'appeal-statement.pdf',
+	fileName: 'appeal-statement.pdf',
+	representative: null,
+	description: null,
+	owner: null,
+	author: null,
+	securityClassification: null,
+	mime: 'application/pdf',
+	horizonDataID: null,
+	fileMD5: null,
+	path: null,
+	virusCheckStatus: null,
+	size: 146995,
+	stage: 'appellant_case',
+	filter1: null,
+	blobStorageContainer: 'document-service-uploads',
+	blobStoragePath: 'appeal/APPREF-123/v1/appeal-statement.pdf',
+	dateCreated: '2023-08-17T15:22:20.827Z',
+	datePublished: null,
+	isDeleted: false,
+	examinationRefNo: null,
+	filter2: null,
+	publishedStatus: 'awaiting_upload',
+	publishedStatusPrev: null,
+	redactionStatusId: null,
+	redacted: false,
+	documentURI:
+		'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf',
+	dateReceived: null
+};
+
+export const auditTrailUserInfo = {
+	id: 1,
+	azureAdUserId: '71625421654',
+	sapId: ''
+};
+
+export const documentVersionAuditEntry = {
+	id: 1,
+	documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
+	version: 1,
+	auditTrailId: 1,
+	action: 'Create',
+	auditTrail: {
+		id: 1,
+		appealId: 1,
+		userId: 1,
+		loggedAt: '2023-11-10',
+		details: '',
+		user: auditTrailUserInfo
+	}
+};
+
+export const documentDetails = {
+	guid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
+	name: 'appeal-statement.pdf',
+	folderId: 3779,
+	createdAt: '2023-08-17T15:22:20.827Z',
+	isDeleted: false,
+	latestVersionId: 1,
+	caseId: 492,
+	documentVersion: [documentVersionDetails],
+	versionAudit: [documentVersionAuditEntry]
+};
