@@ -18,7 +18,7 @@ const fileUploadPage = new FileUploadPage();
 const documentPropertiesPage = new DocumentPropertiesPage();
 const { applications: applicationsUsers } = users;
 
-describe('Html file Upload', () => {
+describe('Upload vido file', () => {
 	let projectInfo;
 	before(() => {
 		projectInfo = projectInformation();
@@ -26,7 +26,7 @@ describe('Html file Upload', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Case Team Admin user should be able to upload a html file to a case', () => {
+	it('Case Team Admin user should be able to upload a video file to a case', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -37,10 +37,10 @@ describe('Html file Upload', () => {
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile('sample-file.html');
+		fileUploadPage.uploadFile('sample-video.mp4');
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
-		fileUploadPage.verifyDocumentUploaded('sample-file');
+		fileUploadPage.verifyDocumentUploaded('sample-video');
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		cy.wrap(documentPropertiesPage.getDocumentRefNumber()).then(()=>{
@@ -70,7 +70,7 @@ describe('Html file Upload', () => {
 	});
 
 
-	it('Inspector user should not be able to upload a html document to a case', () => {
+	it('Inspector user should not be able to upload a video document to a case', () => {
 		cy.login(applicationsUsers.inspector);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');

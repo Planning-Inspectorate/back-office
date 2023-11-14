@@ -18,7 +18,7 @@ const fileUploadPage = new FileUploadPage();
 const documentPropertiesPage = new DocumentPropertiesPage();
 const { applications: applicationsUsers } = users;
 
-describe('Html file Upload', () => {
+describe('Upload MP3 File', () => {
 	let projectInfo;
 	before(() => {
 		projectInfo = projectInformation();
@@ -26,7 +26,7 @@ describe('Html file Upload', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Case Team Admin user should be able to upload a html file to a case', () => {
+	it('Case Team Admin user should be able to upload MP3 file to a case', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -37,10 +37,10 @@ describe('Html file Upload', () => {
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile('sample-file.html');
+		fileUploadPage.uploadFile('Sample.mp3');
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
-		fileUploadPage.verifyDocumentUploaded('sample-file');
+		fileUploadPage.verifyDocumentUploaded('Sample');
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		cy.wrap(documentPropertiesPage.getDocumentRefNumber()).then(()=>{

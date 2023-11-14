@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { faker } from '@faker-js/faker';
 import { Page } from './basePage';
-
+let getText;
 export class DocumentPropertiesPage extends Page {
 	elements = {
 		changeLink: (property) =>
@@ -119,6 +119,7 @@ export class DocumentPropertiesPage extends Page {
 	    cy.get('p:nth-child(3) strong').should('have.text','Unpublished:');
 
 	}
+<<<<<<< HEAD
 
 	getDocumentReferenceNumber(){
 		cy.get('li:nth-child(3)').then((doctext)=>{
@@ -141,6 +142,33 @@ export class DocumentPropertiesPage extends Page {
 		cy.get('a:nth-child(4)').click();
 		cy.get('.govuk-back-link').click();
 		cy.get('#tab_document-history').should('exist');
+=======
+	getDocumentRefNumber(){
+		cy.get('li:nth-child(3)').then(($value)=>{
+		const getElementText = $value.text();
+		cy.log("printling the text value :-> "+getElementText);
+		Cypress.env('DocRef', getElementText);
+		});
+
+	}
+
+	enterDocumentRefNumber(docmentNumber){
+		cy.get('#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a').click();
+		cy.get('#transcript').type(docmentNumber);
+		cy.get('.govuk-button').click();
+	}
+	validateTranscriptValue(){
+		const caseRef = Cypress.env('currentCreatedCase');
+		cy.get('.govuk-summary-list__row:nth-child(8) > dd:nth-child(2)').contains(caseRef);
+	}
+	enterIncorrectDocumentRefNumber(docmentNumber){
+		cy.get('#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a').click();
+		cy.get('#transcript').type(docmentNumber);
+		cy.get('.govuk-button').click();
+	}
+	validateDocumentErrorMessage(){
+		cy.get('#transcript-error').contains('Please enter a valid document reference number.');
+>>>>>>> 93505076 (test(e2e): added mpg/video  tests)
 	}
 
 }
