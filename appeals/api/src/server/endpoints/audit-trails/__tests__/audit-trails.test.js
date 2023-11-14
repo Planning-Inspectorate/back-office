@@ -1,6 +1,7 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test.js';
-import { azureAdUserId, householdAppeal } from '../../../tests/data.js';
+import { azureAdUserId } from '#tests/shared/mocks.js';
+import { householdAppeal } from '#tests/appeals/mocks.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 const request = supertest(app);

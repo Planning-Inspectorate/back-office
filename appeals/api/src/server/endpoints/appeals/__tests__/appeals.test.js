@@ -16,14 +16,14 @@ import {
 	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 } from '../../constants.js';
 import { savedFolder } from '#tests/documents/mocks.js';
+import { azureAdUserId } from '#tests/shared/mocks.js';
 import {
-	azureAdUserId,
-	fullPlanningAppeal,
 	householdAppeal,
+	fullPlanningAppeal,
 	householdAppealAppellantCaseIncomplete,
 	linkedAppeals,
 	otherAppeals
-} from '#tests/data.js';
+} from '#tests/appeals/mocks.js';
 import formatAddress from '#utils/format-address.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 

@@ -15,7 +15,9 @@ import {
 	SITE_VISIT_TYPE_UNACCOMPANIED,
 	STATE_TARGET_ISSUE_DETERMINATION
 } from '../../constants.js';
-import { azureAdUserId, householdAppeal as householdAppealData } from '../../../tests/data.js';
+
+import { householdAppeal as householdAppealData } from '#tests/appeals/mocks.js';
+import { azureAdUserId } from '#tests/shared/mocks.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 import { format, parseISO } from 'date-fns';
 

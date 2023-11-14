@@ -1194,12 +1194,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
+									"$ref": "#/components/schemas/AddDocumentsResponse"
 								}
 							},
 							"application/xml": {
 								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
+									"$ref": "#/components/schemas/AddDocumentsResponse"
 								}
 							}
 						}
@@ -1218,12 +1218,12 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
+								"$ref": "#/components/schemas/AddDocumentVersionRequest"
 							}
 						},
 						"application/xml": {
 							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
+								"$ref": "#/components/schemas/AddDocumentVersionRequest"
 							}
 						}
 					}
@@ -1315,12 +1315,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
+									"$ref": "#/components/schemas/AddDocumentsResponse"
 								}
 							},
 							"application/xml": {
 								"schema": {
-									"$ref": "#/components/schemas/DocumentDetails"
+									"$ref": "#/components/schemas/AddDocumentsResponse"
 								}
 							}
 						}
@@ -1339,12 +1339,12 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
+								"$ref": "#/components/schemas/AddDocumentsRequest"
 							}
 						},
 						"application/xml": {
 							"schema": {
-								"$ref": "#/components/schemas/DocumentDetails"
+								"$ref": "#/components/schemas/AddDocumentsRequest"
 							}
 						}
 					}
@@ -2644,99 +2644,137 @@
 					"name": "DecisionInfo"
 				}
 			},
-			"DocumentMetaImport": {
+			"AddDocumentsRequest": {
 				"type": "object",
 				"properties": {
-					"documentGuid": {
+					"blobStorageHost": {
 						"type": "string",
-						"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+						"example": "host"
 					},
-					"caseRef": {
-						"type": "string",
-						"example": "600012341"
-					},
-					"version": {
-						"type": "number",
-						"example": 1
-					},
-					"documentType": {
-						"type": "string",
-						"example": "applicationForm"
-					},
-					"published": {
-						"type": "boolean",
-						"example": false
-					},
-					"sourceSystem": {
-						"type": "string",
-						"example": "back-office"
-					},
-					"origin": {},
-					"originalFilename": {
-						"type": "string",
-						"example": "appeal-statement.pdf"
-					},
-					"filename": {
-						"type": "string",
-						"example": "appeal-statement.pdf"
-					},
-					"representative": {},
-					"description": {},
-					"owner": {},
-					"author": {},
-					"securityClassification": {},
-					"mime": {
-						"type": "string",
-						"example": "application/pdf"
-					},
-					"horizonDataID": {},
-					"fileMD5": {},
-					"path": {},
-					"virusCheckStatus": {},
-					"size": {
-						"type": "number",
-						"example": 146995
-					},
-					"stage": {
-						"type": "string",
-						"example": "appellant_case"
-					},
-					"filter1": {},
 					"blobStorageContainer": {
 						"type": "string",
 						"example": "document-service-uploads"
 					},
-					"blobStoragePath": {
-						"type": "string",
-						"example": "appeal/APPREF-123/v1/appeal-statement.pdf"
-					},
-					"dateCreated": {
-						"type": "string",
-						"example": "2023-08-17T15:22:20.827Z"
-					},
-					"isDeleted": {
-						"type": "boolean",
-						"example": false
-					},
-					"examinationRefNo": {},
-					"filter2": {},
-					"publishedStatus": {
-						"type": "string",
-						"example": "awaiting_upload"
-					},
-					"publishedStatusPrev": {},
-					"redactedStatus": {},
-					"redacted": {
-						"type": "boolean",
-						"example": false
-					},
-					"documentURI": {
-						"type": "string",
-						"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf"
+					"documents": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"caseId": {
+									"type": "number",
+									"example": 1
+								},
+								"documentName": {
+									"type": "string",
+									"example": "mydoc.pdf"
+								},
+								"documentType": {
+									"type": "string",
+									"example": "application/pdf"
+								},
+								"documentSize": {
+									"type": "number",
+									"example": 14699
+								},
+								"fileRowId": {
+									"type": "string",
+									"example": "file_row_1685470289030_16995"
+								},
+								"folderId": {
+									"type": "number",
+									"example": 23
+								}
+							}
+						}
 					}
 				},
 				"xml": {
-					"name": "DocumentMetaImport"
+					"name": "AddDocumentsRequest"
+				}
+			},
+			"AddDocumentVersionRequest": {
+				"type": "object",
+				"properties": {
+					"blobStorageHost": {
+						"type": "string",
+						"example": "host"
+					},
+					"blobStorageContainer": {
+						"type": "string",
+						"example": "document-service-uploads"
+					},
+					"document": {
+						"type": "object",
+						"properties": {
+							"caseId": {
+								"type": "number",
+								"example": 1
+							},
+							"documentName": {
+								"type": "string",
+								"example": "mydoc.pdf"
+							},
+							"documentType": {
+								"type": "string",
+								"example": "application/pdf"
+							},
+							"documentSize": {
+								"type": "number",
+								"example": 14699
+							},
+							"fileRowId": {
+								"type": "string",
+								"example": "file_row_1685470289030_16995"
+							},
+							"folderId": {
+								"type": "number",
+								"example": 23
+							}
+						}
+					}
+				},
+				"xml": {
+					"name": "AddDocumentVersionRequest"
+				}
+			},
+			"AddDocumentsResponse": {
+				"type": "object",
+				"properties": {
+					"documents": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"caseType": {
+									"type": "string",
+									"example": "appeal"
+								},
+								"caseReference": {
+									"type": "string",
+									"example": "APP/Q9999/D/21/1345264"
+								},
+								"GUID": {
+									"type": "string",
+									"example": "27d0fda4-8a9a-4f5a-a158-68eaea676158"
+								},
+								"documentName": {
+									"type": "string",
+									"example": "mydoc.pdf"
+								},
+								"versionId": {
+									"type": "number",
+									"example": 1
+								},
+								"blobStoreUrl": {
+									"type": "string",
+									"example": "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
+								}
+							}
+						}
+					}
+				},
+				"xml": {
+					"name": "AddDocumentsResponse"
 				}
 			},
 			"Folder": {
@@ -2752,7 +2790,7 @@
 					},
 					"caseId": {
 						"type": "string",
-						"example": "APP/Q9999/D/21/941501"
+						"example": "APP/Q9999/D/21/1345264"
 					},
 					"documents": {
 						"type": "array",
@@ -2769,7 +2807,7 @@
 				"properties": {
 					"documentGuid": {
 						"type": "string",
-						"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+						"example": "27d0fda4-8a9a-4f5a-a158-68eaea676158"
 					},
 					"version": {
 						"type": "number",
@@ -2786,16 +2824,16 @@
 					},
 					"sourceSystem": {
 						"type": "string",
-						"example": "back-office"
+						"example": "back-office-appeals"
 					},
 					"origin": {},
 					"originalFilename": {
 						"type": "string",
-						"example": "appeal-statement.pdf"
+						"example": "mydoc.pdf"
 					},
 					"fileName": {
 						"type": "string",
-						"example": "appeal-statement.pdf"
+						"example": "mydoc.pdf"
 					},
 					"representative": {},
 					"description": {},
@@ -2825,7 +2863,7 @@
 					},
 					"blobStoragePath": {
 						"type": "string",
-						"example": "appeal/APPREF-123/v1/appeal-statement.pdf"
+						"example": "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
 					},
 					"dateCreated": {
 						"type": "string",
@@ -2850,7 +2888,7 @@
 					},
 					"documentURI": {
 						"type": "string",
-						"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf"
+						"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
 					},
 					"dateReceived": {}
 				},
@@ -2863,11 +2901,11 @@
 				"properties": {
 					"guid": {
 						"type": "string",
-						"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+						"example": "27d0fda4-8a9a-4f5a-a158-68eaea676158"
 					},
 					"name": {
 						"type": "string",
-						"example": "appeal-statement.pdf"
+						"example": "mydoc.pdf"
 					},
 					"folderId": {
 						"type": "number",
@@ -2896,7 +2934,7 @@
 							"properties": {
 								"documentGuid": {
 									"type": "string",
-									"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+									"example": "27d0fda4-8a9a-4f5a-a158-68eaea676158"
 								},
 								"version": {
 									"type": "number",
@@ -2913,16 +2951,16 @@
 								},
 								"sourceSystem": {
 									"type": "string",
-									"example": "back-office"
+									"example": "back-office-appeals"
 								},
 								"origin": {},
 								"originalFilename": {
 									"type": "string",
-									"example": "appeal-statement.pdf"
+									"example": "mydoc.pdf"
 								},
 								"fileName": {
 									"type": "string",
-									"example": "appeal-statement.pdf"
+									"example": "mydoc.pdf"
 								},
 								"representative": {},
 								"description": {},
@@ -2952,7 +2990,7 @@
 								},
 								"blobStoragePath": {
 									"type": "string",
-									"example": "appeal/APPREF-123/v1/appeal-statement.pdf"
+									"example": "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
 								},
 								"dateCreated": {
 									"type": "string",
@@ -2977,7 +3015,7 @@
 								},
 								"documentURI": {
 									"type": "string",
-									"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf"
+									"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
 								},
 								"dateReceived": {}
 							}
@@ -2994,7 +3032,7 @@
 								},
 								"documentGuid": {
 									"type": "string",
-									"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+									"example": "27d0fda4-8a9a-4f5a-a158-68eaea676158"
 								},
 								"version": {
 									"type": "number",
@@ -3040,7 +3078,7 @@
 												},
 												"azureAdUserId": {
 													"type": "string",
-													"example": "71625421654"
+													"example": "6f930ec9-7f6f-448c-bb50-b3b898035959"
 												},
 												"sapId": {
 													"type": "string",
@@ -3067,7 +3105,7 @@
 					},
 					"azureAdUserId": {
 						"type": "string",
-						"example": "71625421654"
+						"example": "6f930ec9-7f6f-448c-bb50-b3b898035959"
 					},
 					"sapId": {
 						"type": "string",
@@ -3087,7 +3125,7 @@
 					},
 					"documentGuid": {
 						"type": "string",
-						"example": "c957e9d0-1a02-4650-acdc-f9fdd689c210"
+						"example": "27d0fda4-8a9a-4f5a-a158-68eaea676158"
 					},
 					"version": {
 						"type": "number",
@@ -3133,7 +3171,7 @@
 									},
 									"azureAdUserId": {
 										"type": "string",
-										"example": "71625421654"
+										"example": "6f930ec9-7f6f-448c-bb50-b3b898035959"
 									},
 									"sapId": {
 										"type": "string",
