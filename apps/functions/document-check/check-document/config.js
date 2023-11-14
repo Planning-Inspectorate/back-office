@@ -6,6 +6,7 @@ const schema = joi.object({
 	API_HOST: joi.string(),
 	CLAM_AV_HOST: joi.string(),
 	CLAM_AV_PORT: joi.number(),
+	EXCLUDED_STORAGE_ACCOUNTS: joi.array().items(joi.string()),
 	serviceBus: {
 		host: joi.string(),
 		topic: joi.string()
@@ -22,6 +23,7 @@ const { value, error } = schema.validate({
 	API_HOST: environment.API_HOST,
 	CLAM_AV_HOST: environment.CLAM_AV_HOST,
 	CLAM_AV_PORT: environment.CLAM_AV_PORT,
+	EXCLUDED_STORAGE_ACCOUNTS: JSON.parse(environment.EXCLUDED_STORAGE_ACCOUNTS ?? '[]'),
 	serviceBus: {
 		host: environment.SERVICE_BUS_HOST,
 		topic: environment.SERVICE_BUS_TOPIC
