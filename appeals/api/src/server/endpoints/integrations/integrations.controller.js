@@ -74,7 +74,6 @@ export const postAppealSubmission = async (req, res) => {
 			await addDocumentAudit(documentTopic.documentGuid, 1, auditTrail, 'Create');
 		}
 	}
-
 	await produceDocumentUpdate(documentsTopic, EventType.Create);
 
 	return res.send(appealTopic);
@@ -110,6 +109,16 @@ export const postLpaqSubmission = async (req, res) => {
 	await produceAppealUpdate(appealTopic, EventType.Update);
 
 	const documentsTopic = documents.map((d) => mapDocument(d));
+	for (const documentTopic of documentsTopic) {
+		const auditTrail = await createAuditTrail({
+			appealId: dbSavedResult.id,
+			azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID,
+			details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_IMPORTED, [documentTopic.documentGuid])
+		});
+		if (auditTrail) {
+			await addDocumentAudit(documentTopic.documentGuid, 1, auditTrail, 'Create');
+		}
+	}
 	await produceDocumentUpdate(documentsTopic, EventType.Create);
 
 	return res.send(appealTopic);
