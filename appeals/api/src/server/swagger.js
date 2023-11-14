@@ -1,13 +1,15 @@
 import { validAppellantCase, validLpaQuestionnaire } from '#tests/integrations/mocks.js';
 import {
 	folder,
-	documentMetaImport,
+	addDocumentsRequest,
+	addDocumentVersionRequest,
+	blobInfo,
 	documentVersionDetails,
 	documentDetails,
 	auditTrailUserInfo,
-	documentVersionAuditEntry
+	documentVersionAuditEntry,
+	folderWithDocs
 } from '#tests/documents/mocks.js';
-import { document as testDocument } from '#tests/data.js';
 
 export const spec = {
 	info: {
@@ -52,8 +54,14 @@ export const spec = {
 			documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
 			documentDate: '2023-08-17T15:22:20.827Z'
 		},
-		DocumentMetaImport: {
-			...documentMetaImport
+		AddDocumentsRequest: {
+			...addDocumentsRequest
+		},
+		AddDocumentVersionRequest: {
+			...addDocumentVersionRequest
+		},
+		AddDocumentsResponse: {
+			documents: [{ ...blobInfo }]
 		},
 		Folder: {
 			...folder
@@ -305,25 +313,25 @@ export const spec = {
 			],
 			developmentDescription: '',
 			documents: {
-				communityInfrastructureLevy: testDocument,
-				conservationAreaMapAndGuidance: testDocument,
-				consultationResponses: testDocument,
-				definitiveMapAndStatement: testDocument,
-				emergingPlans: testDocument,
-				environmentalStatementResponses: testDocument,
-				issuedScreeningOption: testDocument,
-				lettersToNeighbours: testDocument,
-				otherRelevantPolicies: testDocument,
-				planningOfficersReport: testDocument,
-				policiesFromStatutoryDevelopment: testDocument,
-				pressAdvert: testDocument,
-				relevantPartiesNotification: testDocument,
-				representationsFromOtherParties: testDocument,
-				responsesOrAdvice: testDocument,
-				screeningDirection: testDocument,
-				siteNotice: testDocument,
-				supplementaryPlanningtestDocuments: testDocument,
-				treePreservationOrder: testDocument
+				communityInfrastructureLevy: folderWithDocs,
+				conservationAreaMapAndGuidance: folderWithDocs,
+				consultationResponses: folderWithDocs,
+				definitiveMapAndStatement: folderWithDocs,
+				emergingPlans: folderWithDocs,
+				environmentalStatementResponses: folderWithDocs,
+				issuedScreeningOption: folderWithDocs,
+				lettersToNeighbours: folderWithDocs,
+				otherRelevantPolicies: folderWithDocs,
+				planningOfficersReport: folderWithDocs,
+				policiesFromStatutoryDevelopment: folderWithDocs,
+				pressAdvert: folderWithDocs,
+				relevantPartiesNotification: folderWithDocs,
+				representationsFromOtherParties: folderWithDocs,
+				responsesOrAdvice: folderWithDocs,
+				screeningDirection: folderWithDocs,
+				siteNotice: folderWithDocs,
+				supplementaryPlanningtestDocuments: folderWithDocs,
+				treePreservationOrder: folderWithDocs
 			},
 			doesAffectAListedBuilding: true,
 			doesAffectAScheduledMonument: true,

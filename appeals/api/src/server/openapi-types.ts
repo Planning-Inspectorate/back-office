@@ -135,58 +135,63 @@ export interface DecisionInfo {
 	documentDate?: string;
 }
 
-export interface DocumentMetaImport {
-	/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
-	documentGuid?: string;
-	/** @example "600012341" */
-	caseRef?: string;
-	/** @example 1 */
-	version?: number;
-	/** @example "applicationForm" */
-	documentType?: string;
-	/** @example false */
-	published?: boolean;
-	/** @example "back-office" */
-	sourceSystem?: string;
-	origin?: any;
-	/** @example "appeal-statement.pdf" */
-	originalFilename?: string;
-	/** @example "appeal-statement.pdf" */
-	filename?: string;
-	representative?: any;
-	description?: any;
-	owner?: any;
-	author?: any;
-	securityClassification?: any;
-	/** @example "application/pdf" */
-	mime?: string;
-	horizonDataID?: any;
-	fileMD5?: any;
-	path?: any;
-	virusCheckStatus?: any;
-	/** @example 146995 */
-	size?: number;
-	/** @example "appellant_case" */
-	stage?: string;
-	filter1?: any;
+export interface AddDocumentsRequest {
+	/** @example "host" */
+	blobStorageHost?: string;
 	/** @example "document-service-uploads" */
 	blobStorageContainer?: string;
-	/** @example "appeal/APPREF-123/v1/appeal-statement.pdf" */
-	blobStoragePath?: string;
-	/** @example "2023-08-17T15:22:20.827Z" */
-	dateCreated?: string;
-	/** @example false */
-	isDeleted?: boolean;
-	examinationRefNo?: any;
-	filter2?: any;
-	/** @example "awaiting_upload" */
-	publishedStatus?: string;
-	publishedStatusPrev?: any;
-	redactedStatus?: any;
-	/** @example false */
-	redacted?: boolean;
-	/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf" */
-	documentURI?: string;
+	documents?: {
+		/** @example 1 */
+		caseId?: number;
+		/** @example "mydoc.pdf" */
+		documentName?: string;
+		/** @example "application/pdf" */
+		documentType?: string;
+		/** @example 14699 */
+		documentSize?: number;
+		/** @example "file_row_1685470289030_16995" */
+		fileRowId?: string;
+		/** @example 23 */
+		folderId?: number;
+	}[];
+}
+
+export interface AddDocumentVersionRequest {
+	/** @example "host" */
+	blobStorageHost?: string;
+	/** @example "document-service-uploads" */
+	blobStorageContainer?: string;
+	document?: {
+		/** @example 1 */
+		caseId?: number;
+		/** @example "mydoc.pdf" */
+		documentName?: string;
+		/** @example "application/pdf" */
+		documentType?: string;
+		/** @example 14699 */
+		documentSize?: number;
+		/** @example "file_row_1685470289030_16995" */
+		fileRowId?: string;
+		/** @example 23 */
+		folderId?: number;
+	};
+}
+
+export interface AddDocumentsResponse {
+	documents?: {
+		/** @example "appeal" */
+		caseType?: string;
+		/** @example "APP/Q9999/D/21/1345264" */
+		caseReference?: string;
+		/** @example "27d0fda4-8a9a-4f5a-a158-68eaea676158" */
+		GUID?: string;
+		/** @example "mydoc.pdf" */
+		documentName?: string;
+		/** @example 1 */
+		versionId?: number;
+		/** @example "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
+		blobStoreUrl?: string;
+	}[];
 }
 
 export interface Folder {
@@ -194,14 +199,14 @@ export interface Folder {
 	folderId?: number;
 	/** @example "appellant_case/appealStatement" */
 	path?: string;
-	/** @example "APP/Q9999/D/21/941501" */
+	/** @example "APP/Q9999/D/21/1345264" */
 	caseId?: string;
 	/** @example [] */
 	documents?: any[];
 }
 
 export interface DocumentVersionDetails {
-	/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+	/** @example "27d0fda4-8a9a-4f5a-a158-68eaea676158" */
 	documentGuid?: string;
 	/** @example 1 */
 	version?: number;
@@ -210,12 +215,12 @@ export interface DocumentVersionDetails {
 	documentType?: string;
 	/** @example false */
 	published?: boolean;
-	/** @example "back-office" */
+	/** @example "back-office-appeals" */
 	sourceSystem?: string;
 	origin?: any;
-	/** @example "appeal-statement.pdf" */
+	/** @example "mydoc.pdf" */
 	originalFilename?: string;
-	/** @example "appeal-statement.pdf" */
+	/** @example "mydoc.pdf" */
 	fileName?: string;
 	representative?: any;
 	description?: any;
@@ -235,7 +240,7 @@ export interface DocumentVersionDetails {
 	filter1?: any;
 	/** @example "document-service-uploads" */
 	blobStorageContainer?: string;
-	/** @example "appeal/APPREF-123/v1/appeal-statement.pdf" */
+	/** @example "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
 	blobStoragePath?: string;
 	/** @example "2023-08-17T15:22:20.827Z" */
 	dateCreated?: string;
@@ -250,15 +255,15 @@ export interface DocumentVersionDetails {
 	redactionStatusId?: any;
 	/** @example false */
 	redacted?: boolean;
-	/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf" */
+	/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
 	documentURI?: string;
 	dateReceived?: any;
 }
 
 export interface DocumentDetails {
-	/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+	/** @example "27d0fda4-8a9a-4f5a-a158-68eaea676158" */
 	guid?: string;
-	/** @example "appeal-statement.pdf" */
+	/** @example "mydoc.pdf" */
 	name?: string;
 	/** @example 3779 */
 	folderId?: number;
@@ -271,7 +276,7 @@ export interface DocumentDetails {
 	/** @example 492 */
 	caseId?: number;
 	documentVersion?: {
-		/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+		/** @example "27d0fda4-8a9a-4f5a-a158-68eaea676158" */
 		documentGuid?: string;
 		/** @example 1 */
 		version?: number;
@@ -280,12 +285,12 @@ export interface DocumentDetails {
 		documentType?: string;
 		/** @example false */
 		published?: boolean;
-		/** @example "back-office" */
+		/** @example "back-office-appeals" */
 		sourceSystem?: string;
 		origin?: any;
-		/** @example "appeal-statement.pdf" */
+		/** @example "mydoc.pdf" */
 		originalFilename?: string;
-		/** @example "appeal-statement.pdf" */
+		/** @example "mydoc.pdf" */
 		fileName?: string;
 		representative?: any;
 		description?: any;
@@ -305,7 +310,7 @@ export interface DocumentDetails {
 		filter1?: any;
 		/** @example "document-service-uploads" */
 		blobStorageContainer?: string;
-		/** @example "appeal/APPREF-123/v1/appeal-statement.pdf" */
+		/** @example "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
 		blobStoragePath?: string;
 		/** @example "2023-08-17T15:22:20.827Z" */
 		dateCreated?: string;
@@ -320,14 +325,14 @@ export interface DocumentDetails {
 		redactionStatusId?: any;
 		/** @example false */
 		redacted?: boolean;
-		/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf" */
+		/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
 		documentURI?: string;
 		dateReceived?: any;
 	}[];
 	versionAudit?: {
 		/** @example 1 */
 		id?: number;
-		/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+		/** @example "27d0fda4-8a9a-4f5a-a158-68eaea676158" */
 		documentGuid?: string;
 		/** @example 1 */
 		version?: number;
@@ -349,7 +354,7 @@ export interface DocumentDetails {
 			user?: {
 				/** @example 1 */
 				id?: number;
-				/** @example "71625421654" */
+				/** @example "6f930ec9-7f6f-448c-bb50-b3b898035959" */
 				azureAdUserId?: string;
 				/** @example "" */
 				sapId?: string;
@@ -361,7 +366,7 @@ export interface DocumentDetails {
 export interface AuditTrailUserInfo {
 	/** @example 1 */
 	id?: number;
-	/** @example "71625421654" */
+	/** @example "6f930ec9-7f6f-448c-bb50-b3b898035959" */
 	azureAdUserId?: string;
 	/** @example "" */
 	sapId?: string;
@@ -370,7 +375,7 @@ export interface AuditTrailUserInfo {
 export interface DocumentVersionAuditEntry {
 	/** @example 1 */
 	id?: number;
-	/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
+	/** @example "27d0fda4-8a9a-4f5a-a158-68eaea676158" */
 	documentGuid?: string;
 	/** @example 1 */
 	version?: number;
@@ -392,7 +397,7 @@ export interface DocumentVersionAuditEntry {
 		user?: {
 			/** @example 1 */
 			id?: number;
-			/** @example "71625421654" */
+			/** @example "6f930ec9-7f6f-448c-bb50-b3b898035959" */
 			azureAdUserId?: string;
 			/** @example "" */
 			sapId?: string;

@@ -1,8 +1,13 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
 import * as folderRepository from '#repositories/folder.repository.js';
+import { householdAppeal } from '#tests/appeals/mocks.js';
 import {
-	appeal,
+	azureAdUserId,
+	documentRedactionStatuses,
+	documentRedactionStatusIds
+} from '#tests/shared/mocks.js';
+import {
 	folder,
 	addDocumentsRequest,
 	addDocumentVersionRequest,
@@ -17,12 +22,6 @@ import * as mappers from '../documents.mapper.js';
 import * as service from '../documents.service.js';
 import * as controller from '../documents.controller.js';
 import { request } from '../../../app-test.js';
-import {
-	azureAdUserId,
-	documentRedactionStatuses,
-	documentRedactionStatusIds,
-	householdAppeal
-} from '../../../tests/data.js';
 import joinDateAndTime from '#utils/join-date-and-time.js';
 import {
 	AUDIT_TRAIL_DOCUMENT_UPLOADED,
@@ -419,7 +418,7 @@ describe('appeals documents', () => {
 
 	describe('mappers', () => {
 		test('appeal reference is safely escaped for blob URLs', async () => {
-			const mappedRef = mappers.mapCaseReferenceForStorageUrl(appeal.reference);
+			const mappedRef = mappers.mapCaseReferenceForStorageUrl(householdAppeal.reference);
 			expect(mappedRef).not.toContain('/');
 			expect(blobInfo.blobStoreUrl).toContain(mappedRef);
 		});
@@ -444,7 +443,7 @@ describe('appeals documents', () => {
 		});
 
 		test('add new version thows error when document not exist', async () => {
-			databaseConnector.appeal.findUnique.mockResolvedValue(appeal);
+			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 			databaseConnector.document.findUnique.mockResolvedValue(null);
 			got.post.mockReturnValue({ json: jest.fn().mockResolvedValue(null) });
 
@@ -453,7 +452,7 @@ describe('appeals documents', () => {
 
 		test('post single document', async () => {
 			const mappedReq = mappers.mapDocumentsForDatabase(
-				appeal.id,
+				householdAppeal.id,
 				addDocumentsRequest.blobStorageHost,
 				addDocumentsRequest.blobStorageContainer,
 				addDocumentsRequest.documents
@@ -477,13 +476,13 @@ describe('appeals documents', () => {
 			databaseConnector.$transaction = jest
 				.fn()
 				.mockImplementation((callback) => callback(prismaMock));
-			const response = await service.addDocumentsToAppeal(addDocumentsRequest, appeal);
+			const response = await service.addDocumentsToAppeal(addDocumentsRequest, householdAppeal);
 			expect(response).toEqual({ documents: [blobInfo] });
 		});
 
 		test('post new document version', async () => {
 			const mappedReq = mappers.mapDocumentsForDatabase(
-				appeal.id,
+				householdAppeal.id,
 				addDocumentVersionRequest.blobStorageHost,
 				addDocumentVersionRequest.blobStorageContainer,
 				[addDocumentVersionRequest.document]
@@ -510,7 +509,7 @@ describe('appeals documents', () => {
 
 			const response = await service.addVersionToDocument(
 				addDocumentVersionRequest,
-				appeal,
+				householdAppeal,
 				documentCreated.guid
 			);
 			expect(response).toEqual({ documents: [blobInfo] });
@@ -520,7 +519,7 @@ describe('appeals documents', () => {
 	describe('documents services', () => {
 		test('get folders for appeal', async () => {
 			databaseConnector.folder.findMany.mockReturnValue([folder]);
-			const folders = await service.getFoldersForAppeal(appeal, 'appellantCase');
+			const folders = await service.getFoldersForAppeal(householdAppeal, 'appellantCase');
 			expect(folders).toEqual([folder]);
 		});
 	});
