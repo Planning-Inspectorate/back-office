@@ -21,6 +21,7 @@ export const AUDIT_TRAIL_CASE_TIMELINE_CREATED = 'The case timeline was created'
 export const AUDIT_TRAIL_CASE_TIMELINE_UPDATED = 'The case timeline was updated';
 export const AUDIT_TRAIL_DOCUMENT_UPLOADED =
 	'The document {replacement0} was uploaded (v{replacement1})';
+export const AUDIT_TRAIL_DOCUMENT_IMPORTED = 'The document {replacement0} was received';
 export const AUDIT_TRAIL_DOCUMENT_DELETED =
 	'Version {replacement1} of document {replacement0} was removed';
 export const AUDIT_TRAIL_LPAQ_IMPORT_MSG = 'The LPA questionnaire was received';

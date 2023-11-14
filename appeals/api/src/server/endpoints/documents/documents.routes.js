@@ -101,12 +101,12 @@ router.post(
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appeal documents to post',
-			schema: { $ref: '#/definitions/DocumentDetails' },
+			schema: { $ref: '#/definitions/AddDocumentsRequest' },
 			required: true
 		}
 		#swagger.responses[200] = {
 			description: 'Document metadata successfully added',
-			schema: { $ref: '#/definitions/DocumentDetails' }
+			schema: { $ref: '#/definitions/AddDocumentsResponse' }
 		}
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
@@ -131,12 +131,12 @@ router.post(
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Appeal documents to post',
-			schema: { $ref: '#/definitions/DocumentDetails' },
+			schema: { $ref: '#/definitions/AddDocumentVersionRequest' },
 			required: true
 		}
 		#swagger.responses[200] = {
 			description: 'Document metadata successfully added',
-			schema: { $ref: '#/definitions/DocumentDetails' }
+			schema: { $ref: '#/definitions/AddDocumentsResponse' }
 		}
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}

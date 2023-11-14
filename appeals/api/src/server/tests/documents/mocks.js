@@ -1,18 +1,20 @@
+import { householdAppeal } from '#tests/appeals/mocks.js';
+import { azureAdUserId } from '#tests/shared/mocks.js';
+import { mapCaseReferenceForStorageUrl } from '#endpoints/documents/documents.mapper.js';
+
 const guid = '27d0fda4-8a9a-4f5a-a158-68eaea676158';
 const version = 1;
 const originalFileName = 'mydoc.pdf';
-const fileName = 'mydoc';
+const fileName = 'mydoc.pdf';
 const folderId = 23;
-
-export const appeal = {
-	id: 34,
-	reference: 'APP/Q9999/D/21/941501'
-};
+const blobStoreUrl = `appeal/${mapCaseReferenceForStorageUrl(
+	householdAppeal.reference
+)}/${guid}/v1/${fileName}`;
 
 export const folder = {
 	folderId: 23,
 	path: 'appellant_case/appealStatement',
-	caseId: appeal.reference,
+	caseId: householdAppeal.reference,
 	documents: []
 };
 
@@ -21,7 +23,7 @@ export const addDocumentsRequest = {
 	blobStorageContainer: 'document-service-uploads',
 	documents: [
 		{
-			caseId: appeal.id,
+			caseId: householdAppeal.id,
 			documentName: originalFileName,
 			documentType: 'application/pdf',
 			documentSize: 14699,
@@ -35,7 +37,7 @@ export const addDocumentVersionRequest = {
 	blobStorageHost: 'host',
 	blobStorageContainer: 'document-service-uploads',
 	document: {
-		caseId: appeal.id,
+		caseId: householdAppeal.id,
 		documentName: originalFileName,
 		documentType: 'application/pdf',
 		documentSize: 14699,
@@ -47,7 +49,7 @@ export const addDocumentVersionRequest = {
 export const documentCreated = {
 	guid,
 	name: fileName,
-	case: { reference: appeal.reference },
+	case: { reference: householdAppeal.reference },
 	latestDocumentVersion: {
 		version: 1
 	},
@@ -62,7 +64,7 @@ export const documentUpdated = {
 	guid,
 	name: fileName,
 	latestVersionId: version,
-	case: { reference: appeal.reference }
+	case: { reference: householdAppeal.reference }
 };
 
 export const documentVersionUpdated = {
@@ -90,7 +92,7 @@ export const blobInfo = {
 	GUID: guid,
 	documentName: fileName,
 	versionId: 1,
-	blobStoreUrl: `appeal/APP-Q9999-D-21-941501/${guid}/v1/${fileName}`
+	blobStoreUrl: blobStoreUrl
 };
 
 export const savedFolder = {
@@ -99,7 +101,7 @@ export const savedFolder = {
 	caseId: 1,
 	documents: [
 		{
-			caseId: appeal.id,
+			caseId: householdAppeal.id,
 			folderId,
 			guid,
 			name: originalFileName
@@ -107,16 +109,16 @@ export const savedFolder = {
 	]
 };
 
-export const documentMetaImport = {
-	documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
-	caseRef: '600012341',
+export const documentMeta = {
+	documentGuid: guid,
+	caseRef: householdAppeal.reference,
 	version: 1,
 	documentType: 'applicationForm',
 	published: false,
-	sourceSystem: 'back-office',
+	sourceSystem: 'back-office-appeals',
 	origin: null,
-	originalFilename: 'appeal-statement.pdf',
-	filename: 'appeal-statement.pdf',
+	originalFilename: originalFileName,
+	filename: fileName,
 	representative: null,
 	description: null,
 	owner: null,
@@ -131,7 +133,7 @@ export const documentMetaImport = {
 	stage: 'appellant_case',
 	filter1: null,
 	blobStorageContainer: 'document-service-uploads',
-	blobStoragePath: 'appeal/APPREF-123/v1/appeal-statement.pdf',
+	blobStoragePath: blobStoreUrl,
 	dateCreated: '2023-08-17T15:22:20.827Z',
 	isDeleted: false,
 	examinationRefNo: null,
@@ -140,20 +142,19 @@ export const documentMetaImport = {
 	publishedStatusPrev: null,
 	redactedStatus: null,
 	redacted: false,
-	documentURI:
-		'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf'
+	documentURI: `https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/${blobStoreUrl}`
 };
 
 export const documentVersionDetails = {
-	documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
+	documentGuid: guid,
 	version: 1,
 	lastModified: null,
 	documentType: 'applicationForm',
 	published: false,
-	sourceSystem: 'back-office',
+	sourceSystem: 'back-office-appeals',
 	origin: null,
-	originalFilename: 'appeal-statement.pdf',
-	fileName: 'appeal-statement.pdf',
+	originalFilename: fileName,
+	fileName: originalFileName,
 	representative: null,
 	description: null,
 	owner: null,
@@ -168,7 +169,7 @@ export const documentVersionDetails = {
 	stage: 'appellant_case',
 	filter1: null,
 	blobStorageContainer: 'document-service-uploads',
-	blobStoragePath: 'appeal/APPREF-123/v1/appeal-statement.pdf',
+	blobStoragePath: blobStoreUrl,
 	dateCreated: '2023-08-17T15:22:20.827Z',
 	datePublished: null,
 	isDeleted: false,
@@ -178,20 +179,19 @@ export const documentVersionDetails = {
 	publishedStatusPrev: null,
 	redactionStatusId: null,
 	redacted: false,
-	documentURI:
-		'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APPREF-123/c957e9d0-1a02-4650-acdc-f9fdd689c210/v1/appeal-statement.pdf',
+	documentURI: `https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/${blobStoreUrl}`,
 	dateReceived: null
 };
 
 export const auditTrailUserInfo = {
 	id: 1,
-	azureAdUserId: '71625421654',
+	azureAdUserId: azureAdUserId,
 	sapId: ''
 };
 
 export const documentVersionAuditEntry = {
 	id: 1,
-	documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
+	documentGuid: guid,
 	version: 1,
 	auditTrailId: 1,
 	action: 'Create',
@@ -206,8 +206,8 @@ export const documentVersionAuditEntry = {
 };
 
 export const documentDetails = {
-	guid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
-	name: 'appeal-statement.pdf',
+	guid: guid,
+	name: fileName,
 	folderId: 3779,
 	createdAt: '2023-08-17T15:22:20.827Z',
 	isDeleted: false,
@@ -215,4 +215,17 @@ export const documentDetails = {
 	caseId: 492,
 	documentVersion: [documentVersionDetails],
 	versionAudit: [documentVersionAuditEntry]
+};
+
+export const folderWithDocs = {
+	folderId: 1,
+	path: 'path/to/document/folder',
+	documents: [
+		{
+			id: 'fdadc281-f686-40ee-97cf-9bafdd02b1cb',
+			name: 'an appeal related document.pdf',
+			folderId: 1,
+			caseId: 2
+		}
+	]
 };

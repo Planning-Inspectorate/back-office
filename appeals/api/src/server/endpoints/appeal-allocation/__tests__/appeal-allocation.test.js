@@ -1,5 +1,6 @@
 import { request } from '#tests/../app-test.js';
-import { azureAdUserId, householdAppeal } from '#tests/data.js';
+import { azureAdUserId } from '#tests/shared/mocks.js';
+import { householdAppeal } from '#tests/appeals/mocks.js';
 import {
 	AUDIT_TRAIL_ALLOCATION_DETAILS_ADDED,
 	ERROR_APPEAL_ALLOCATION_LEVELS,

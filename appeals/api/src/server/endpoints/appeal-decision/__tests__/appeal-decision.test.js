@@ -1,5 +1,6 @@
 import { request } from '../../../app-test.js';
-import { azureAdUserId, householdAppeal } from '#tests/data.js';
+import { azureAdUserId } from '#tests/shared/mocks.js';
+import { householdAppeal } from '#tests/appeals/mocks.js';
 import { documentCreated } from '#tests/documents/mocks.js';
 import { add, sub } from 'date-fns';
 import {
