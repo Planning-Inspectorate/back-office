@@ -9,7 +9,8 @@ import {
 	LENGTH_300,
 	LENGTH_8
 } from '../../constants.js';
-import { azureAdUserId, householdAppeal } from '#tests/data.js';
+import { azureAdUserId } from '#tests/shared/mocks.js';
+import { householdAppeal } from '#tests/appeals/mocks.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');

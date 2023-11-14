@@ -16,20 +16,23 @@ import {
 	produceDocumentUpdate
 } from './integrations.service.js';
 
+import { addDocumentAudit } from '#endpoints/documents/documents.service.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 import { EventType } from '@pins/event-client';
 import BackOfficeAppError from '#utils/app-error.js';
 import {
-	AUDIT_TRAIL_SYSTEM_UUID,
 	AUDIT_TRAIL_APPELLANT_IMPORT_MSG,
-	AUDIT_TRAIL_LPAQ_IMPORT_MSG
+	AUDIT_TRAIL_LPAQ_IMPORT_MSG,
+	AUDIT_TRAIL_DOCUMENT_IMPORTED,
+	AUDIT_TRAIL_SYSTEM_UUID
 } from '#endpoints/constants.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
 /** @typedef {import('#config/../openapi-types.js').AppellantCaseData} AppellantCaseData */
 /** @typedef {import('#config/../openapi-types.js').QuestionnaireData} QuestionnaireData */
-/** @typedef {import('#config/../openapi-types.js').DocumentMetaImport} DocumentMetaImport */
+/** @typedef {import('#config/../openapi-types.js').AddDocumentsRequest} AddDocumentsRequest */
 
 /**
  * @param {{body: AppellantCaseData}} req
@@ -61,6 +64,16 @@ export const postAppealSubmission = async (req, res) => {
 	}
 
 	const documentsTopic = documents.map((d) => mapDocument(d));
+	for (const documentTopic of documentsTopic) {
+		const auditTrail = await createAuditTrail({
+			appealId: dbSavedResult.id,
+			azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID,
+			details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_IMPORTED, [documentTopic.documentGuid])
+		});
+		if (auditTrail) {
+			await addDocumentAudit(documentTopic.documentGuid, 1, auditTrail, 'Create');
+		}
+	}
 	await produceDocumentUpdate(documentsTopic, EventType.Create);
 
 	return res.send(appealTopic);
@@ -96,13 +109,23 @@ export const postLpaqSubmission = async (req, res) => {
 	await produceAppealUpdate(appealTopic, EventType.Update);
 
 	const documentsTopic = documents.map((d) => mapDocument(d));
+	for (const documentTopic of documentsTopic) {
+		const auditTrail = await createAuditTrail({
+			appealId: dbSavedResult.id,
+			azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID,
+			details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_IMPORTED, [documentTopic.documentGuid])
+		});
+		if (auditTrail) {
+			await addDocumentAudit(documentTopic.documentGuid, 1, auditTrail, 'Create');
+		}
+	}
 	await produceDocumentUpdate(documentsTopic, EventType.Create);
 
 	return res.send(appealTopic);
 };
 
 /**
- * @param {{body: DocumentMetaImport}} req
+ * @param {{body: AddDocumentsRequest}} req
  * @param {Response} res
  * @returns {Promise<Response>}
  */

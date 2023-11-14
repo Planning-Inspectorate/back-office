@@ -8,7 +8,8 @@ import {
 	ERROR_MUST_NOT_HAVE_TIMETABLE_DATE,
 	ERROR_NOT_FOUND
 } from '../../constants.js';
-import { azureAdUserId, fullPlanningAppeal, householdAppeal } from '#tests/data.js';
+import { azureAdUserId } from '#tests/shared/mocks.js';
+import { householdAppeal, fullPlanningAppeal } from '#tests/appeals/mocks.js';
 import joinDateAndTime from '#utils/join-date-and-time.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 

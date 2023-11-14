@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import { app } from '../../../app-test.js';
-import { appellantCaseValidationOutcomes, azureAdUserId } from '../../../tests/data.js';
+import { appellantCaseValidationOutcomes, azureAdUserId } from '#tests/shared/mocks.js';
 import { ERROR_FAILED_TO_GET_DATA, ERROR_NOT_FOUND } from '../../constants.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');

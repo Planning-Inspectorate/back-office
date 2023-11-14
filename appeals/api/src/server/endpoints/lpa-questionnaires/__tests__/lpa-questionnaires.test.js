@@ -27,16 +27,18 @@ import {
 	STATE_TARGET_STATEMENT_REVIEW
 } from '../../constants.js';
 import {
-	azureAdUserId,
-	baseExpectedLPAQuestionnaireResponse,
+	lpaQuestionnaireIncompleteReasons,
+	lpaQuestionnaireValidationOutcomes,
+	azureAdUserId
+} from '#tests/shared/mocks.js';
+import {
 	fullPlanningAppeal,
 	householdAppeal,
 	householdAppealLPAQuestionnaireComplete,
 	householdAppealLPAQuestionnaireIncomplete,
-	lpaQuestionnaireIncompleteReasons,
-	lpaQuestionnaireValidationOutcomes,
 	otherAppeals
-} from '../../../tests/data.js';
+} from '#tests/appeals/mocks.js';
+import { baseExpectedLPAQuestionnaireResponse } from '#tests/appeals/expectation.js';
 import createManyToManyRelationData from '#utils/create-many-to-many-relation-data.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 

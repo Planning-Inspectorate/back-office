@@ -33,8 +33,9 @@ import {
 	appellantCaseIncompleteReasons,
 	appellantCaseInvalidReasons,
 	appellantCaseValidationOutcomes,
-	azureAdUserId,
-	baseExpectedAppellantCaseResponse,
+	azureAdUserId
+} from '#tests/shared/mocks.js';
+import {
 	fullPlanningAppeal,
 	fullPlanningAppealAppellantCaseIncomplete,
 	fullPlanningAppealAppellantCaseInvalid,
@@ -42,7 +43,9 @@ import {
 	householdAppealAppellantCaseIncomplete,
 	householdAppealAppellantCaseInvalid,
 	householdAppealAppellantCaseValid
-} from '../../../tests/data.js';
+} from '#tests/appeals/mocks.js';
+import { baseExpectedAppellantCaseResponse } from '#tests/appeals/expectation.js';
+
 import joinDateAndTime from '#utils/join-date-and-time.js';
 import { calculateTimetable } from '../../../utils/business-days.js';
 import config from '../../../config/config.js';
