@@ -1,5 +1,5 @@
 import { Readable } from 'node:stream';
-import { getBlobStream, parseBlobFromUrl } from './blob-utils.js';
+import { accountIsExcluded, getBlobStream, parseBlobFromUrl } from './blob-utils.js';
 import { checkMyBlob } from './check-my-blob.js';
 import { handleInfected, handleNotInfected } from './event-client.js';
 
@@ -32,6 +32,13 @@ export const index = async (context, eventGridEvent) => {
 		contentLength,
 		'Bytes'
 	);
+
+	if (accountIsExcluded(context.log, storageUrl)) {
+		context.log.warn(
+			`stopped: malware scanning is now handled by Microsoft Defender For Cloud for storage URI ${storageUrl}`
+		);
+		return;
+	}
 
 	const blobStream = await getBlobStream(storageUrl, container, blobPath);
 
