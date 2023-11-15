@@ -32,6 +32,10 @@
 			"examples": ["National Highways"],
 			"pattern": "^.*$"
 		},
+		"jobTitle": {
+			"type": "string",
+			"examples": ["Communications Manager"]
+		},
 		"contactMethod": {
 			"type": "string",
 			"enum": ["email", "post"]
