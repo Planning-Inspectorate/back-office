@@ -32,15 +32,19 @@
 			"examples": ["National Highways"],
 			"pattern": "^.*$"
 		},
+		"jobTitle": {
+			"type": "string",
+			"examples": ["Communications Manager"]
+		},
 		"contactMethod": {
 			"type": "string",
 			"enum": ["email", "post"]
 		},
-		"emailAddress": {
+		"email": {
 			"type": "string",
 			"examples": ["alan.turing@planninginspectorate.gov.uk"]
 		},
-		"telephone": {
+		"phoneNumber": {
 			"type": "string",
 			"examples": ["0137732432"]
 		},
@@ -64,6 +68,10 @@
 				"postcode": {
 					"type": "string",
 					"examples": ["B32 1AF"]
+				},
+				"country": {
+					"type": "string",
+					"examples": ["England"]
 				}
 			}
 		}
