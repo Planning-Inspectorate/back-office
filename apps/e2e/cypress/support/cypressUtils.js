@@ -76,6 +76,7 @@ const deleteUnwantedFixtures = () => {
 		'sample-doc.pdf',
 		'sample-file.doc',
 		'sample-file.html',
+		'sample-error-file.html',
 		'Sample.mp3',
 		'sample-img.gif',
 		'sample-img.jpeg',
