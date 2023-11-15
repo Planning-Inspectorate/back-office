@@ -134,4 +134,29 @@ export class DocumentPropertiesPage extends Page {
 		cy.get('.govuk-back-link').click();
 		cy.get('#tab_document-history').should('exist');
 	}
+	getDocumentRefNumber(){
+		cy.get('li:nth-child(3)').then(($value)=>{
+		const getElementText = $value.text();
+		cy.log("printling the text value :-> "+getElementText);
+		Cypress.env('DocRef', getElementText);
+		});
+
+	}
+	enterDocumentRefNumber(docmentNumber){
+		cy.get('#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a').click();
+		cy.get('#transcript').type(docmentNumber);
+		cy.get('.govuk-button').click();
+	}
+	validateTranscriptValue(){
+		const caseRef = Cypress.env('currentCreatedCase');
+		cy.get('.govuk-summary-list__row:nth-child(8) > dd:nth-child(2)').contains(caseRef);
+	}
+	enterIncorrectDocumentRefNumber(docmentNumber){
+		cy.get('#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a').click();
+		cy.get('#transcript').type(docmentNumber);
+		cy.get('.govuk-button').click();
+	}
+	validateDocumentErrorMessage(){
+		cy.get('#transcript-error').contains('Please enter a valid document reference number.');
+	}
 }

@@ -75,6 +75,8 @@ const deleteUnwantedFixtures = () => {
 		'folder-structure.json',
 		'sample-doc.pdf',
 		'sample-file.doc',
+		'sample-file.html',
+		'Sample.mp3',
 		'sample-img.gif',
 		'sample-img.jpeg',
 		'sample-img.jpg',
