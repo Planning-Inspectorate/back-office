@@ -9,6 +9,11 @@ import { get, patch, post } from '../../../lib/request.js';
  * @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
  */
 
+//document search
+/** @typedef {import('./applications-documentation.types.js').ApplicationsSearchResultsBody} ApplicationsSearchResultsBody */
+/** @typedef {import('../../applications.types').Case} Case */
+/** @typedef {import('../../applications.types').PaginatedResponse<Case>} PaginatedApplicationsResponse */
+
 /**
  * Get all the subfolders in a folder, or the top level folders for the case
  *
@@ -242,4 +247,16 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
 		logger.error(`[API] ${error?.response?.body?.errors || 'Unknow error'}`);
 		return { errors: { msg: 'Your documents could not be published, please try again' } };
 	}
+};
+
+//document search
+/**
+ * @param {ApplicationsSearchResultsBody} payload
+ * @returns {Promise<PaginatedApplicationsResponse>}
+ */
+
+export const searchDocuments = async (payload) => {
+	//	return post('applications/search', { json: payload });
+	console.log(payload);
+	return get('/applications/1/documents?page=1&pageSize=5&criteria=abc');
 };

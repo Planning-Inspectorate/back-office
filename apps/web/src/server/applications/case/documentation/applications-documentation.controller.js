@@ -27,6 +27,9 @@ import {
 } from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 
+//document search
+import * as applicationsDocumentationService from './applications-documentation.service.js';
+
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
 /** @typedef {import('../../applications.types').DocumentationCategory} DocumentationCategory */
@@ -38,6 +41,10 @@ import { paginationParams } from '../../../lib/pagination-params.js';
 /** @typedef {import('./applications-documentation.types').CaseDocumentationProps} CaseDocumentationProps */
 /** @typedef {import('./applications-documentation.types').PaginationButtons} PaginationButtons */
 /** @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles */
+
+//Search document
+/** @typedef {import('./applications-documentation.types').ApplicationsSearchResultsBody} ApplicationsSearchResultsBody */
+/** @typedef {import('./applications-documentation.types').ApplicationsSearchResultsProps} ApplicationsSearchResultsProps */
 
 /**
  * View the documentation for a single case - the top level folders
@@ -487,3 +494,66 @@ const getPaginationButtonData = (currentPageNumber, pageCount) => {
 		}))
 	};
 };
+
+/**
+ * Search documents.
+ *
+  @type {import('@pins/express').RenderHandler<ApplicationsSearchResultsProps, {}, ApplicationsSearchResultsBody, {q: string}, {pageNumber: string}>} */
+export async function searchDocuments(req, response) {
+	const { errors, body, params } = req;
+	const { query: bodyQuery } = body;
+
+	const query = bodyQuery ?? req.query.q;
+
+	const role = response.locals.domainType;
+
+	if (errors || !query) {
+		return response.render(
+			'applications/case/case-documentation/search-results/document-search-results',
+			{
+				errors: errors || {},
+				searchApplicationsItems: [],
+				itemCount: 0,
+				query
+			}
+		);
+	}
+
+	const pageSize = 50;
+	const pageNumber = Number.parseInt(params?.pageNumber, 10) || 1;
+
+	const searchResponse = await applicationsDocumentationService.searchDocuments({
+		role,
+		query,
+		pageSize,
+		pageNumber
+	});
+
+	const searchApplicationsItems = searchResponse?.items || [];
+	const itemCount = searchResponse?.itemCount || 0;
+	const pagesNumber = Math.ceil(itemCount / pageSize);
+
+	const pagination = {
+		previous:
+			pageNumber > 1 ? { href: url('search-results', { step: `${pageNumber - 1}`, query }) } : {},
+		next:
+			pageNumber < pagesNumber
+				? { href: url('search-results', { step: `${pageNumber + 1}`, query }) }
+				: {},
+		items: Array.from({ length: pagesNumber }).map((value, key) => ({
+			number: key + 1,
+			current: key + 1 === pageNumber,
+			href: url('search-results', { step: `${key + 1}`, query })
+		}))
+	};
+
+	return response.render(
+		'applications/case/case-documentation/search-results/document-search-results',
+		{
+			searchApplicationsItems,
+			query,
+			itemCount,
+			pagination
+		}
+	);
+}
