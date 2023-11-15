@@ -554,7 +554,7 @@ export type ApplicationProjectUpdate = ApplicationProjectUpdateCreateRequest & {
 	 * @example "2022-12-21T12:42:40.885Z"
 	 */
 	datePublished?: string;
-	/** the type of update - which determines which subscribers will recieve the notification emails */
+	/** the type of update - which determines which subscribers will receive the notification emails */
 	type?: 'general' | 'applicationSubmitted' | 'applicationDecided' | 'registrationOpen';
 };
 
@@ -904,6 +904,218 @@ export interface DocumentProperties {
 	fromFrontOffice?: boolean;
 }
 
+export interface DocumentPropertiesWithVersionWithCase {
+	/**
+	 * Document guid
+	 * @example "ab12cd34-5678-90ef-ghij-klmnopqrstuv"
+	 */
+	documentGuid?: string;
+	/**
+	 * Document version
+	 * @example 1
+	 */
+	version?: number;
+	/**
+	 * Last modified Unix timestamp
+	 * @example 1696418643
+	 */
+	lastModified?: number;
+	/** @example null */
+	documentType?: string;
+	/** @example false */
+	published?: boolean;
+	/**
+	 * Source system of the document
+	 * @example "back-office"
+	 */
+	sourceSystem?: string;
+	/** @example null */
+	origin?: string;
+	/**
+	 * The original filename
+	 * @example "Small1.pdf"
+	 */
+	originalFilename?: string;
+	/**
+	 * File Title
+	 * @example "Small Doc 1"
+	 */
+	fileName?: string;
+	/** @example null */
+	representative?: string;
+	/** @example null */
+	description?: string;
+	/** @example null */
+	owner?: string;
+	/** @example null */
+	author?: string;
+	/** @example null */
+	securityClassification?: string;
+	/**
+	 * Document mime type
+	 * @example "application/pdf"
+	 */
+	mime?: string;
+	/** @example null */
+	horizonDataID?: string;
+	/** @example null */
+	fileMD5?: string;
+	/** @example null */
+	virusCheckStatus?: string;
+	/**
+	 * File size in bytes
+	 * @example 1024
+	 */
+	size?: number;
+	/** @example 3 */
+	stage?: number;
+	/** @example "some filter" */
+	filter1?: string;
+	/**
+	 * Back Office blob storage container
+	 * @example "document-service-uploads"
+	 */
+	privateBlobContainer?: string;
+	/**
+	 * Back Office blob storage path
+	 * @example "https://intranet.planninginspectorate.gov.uk/wp-content/uploads/2023/10/Lightbulb-L-and-D.gif"
+	 */
+	privateBlobPath?: string;
+	/**
+	 * Published blob storage container
+	 * @example "published-documents"
+	 */
+	publishedBlobContainer?: string;
+	/**
+	 * Published blob storage path
+	 * @example "published/bc0110001-filename.pdf"
+	 */
+	publishedBlobPath?: string;
+	/**
+	 * Date document was created
+	 * @example "2022-12-21T12:42:40.885Z"
+	 */
+	dateCreated?: string;
+	/**
+	 * Date document was published
+	 * @example "2022-12-21T12:42:40.885Z"
+	 */
+	datePublished?: string;
+	/**
+	 * Is the document marked as deleted
+	 * @example false
+	 */
+	isDeleted?: boolean;
+	/**
+	 * Examination Timetable reference number
+	 * @example null
+	 */
+	examinationRefNo?: string;
+	/** @example "some filter" */
+	filter2?: string;
+	/**
+	 * Published status
+	 * @example "ready_to_publish"
+	 */
+	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
+	/**
+	 * The previous status
+	 * @example "not_checked"
+	 */
+	publishedStatusPrev?:
+		| 'not_checked'
+		| 'checked'
+		| 'ready_to_publish'
+		| 'published'
+		| 'not_published';
+	Document?: {
+		/**
+		 * Document guid
+		 * @example "ab12cd34-5678-90ef-ghij-klmnopqrstuv"
+		 */
+		guid?: string;
+		/**
+		 * Document Reference
+		 * @example "BC011001-000001"
+		 */
+		documentRef?: string;
+		/**
+		 * Folder Id
+		 * @example 2
+		 */
+		folderId?: number;
+		/**
+		 * Date document was created
+		 * @example "2022-12-21T12:42:40.885Z"
+		 */
+		createdAt?: string;
+		/**
+		 * Is the document marked as deleted
+		 * @example false
+		 */
+		isDeleted?: boolean;
+		/**
+		 * Document latest version id
+		 * @example 2
+		 */
+		latestVersionId?: number;
+		/**
+		 * Application case id
+		 * @example 1
+		 */
+		caseId?: number;
+		/**
+		 * Document from front office
+		 * @example false
+		 */
+		fromFrontOffice?: boolean;
+	};
+	case?: {
+		/**
+		 * Application id
+		 * @example 1
+		 */
+		id?: number;
+		/**
+		 * Application unique reference
+		 * @example "BC0110001"
+		 */
+		reference?: string;
+		/**
+		 * The date this case was last modified
+		 * @format date-time
+		 * @example "2022-12-21T12:42:40.885Z"
+		 */
+		modifiedAt?: string;
+		/**
+		 * The date this case was created
+		 * @format date-time
+		 * @example "2022-12-21T12:42:40.885Z"
+		 */
+		createdAt?: string;
+		/**
+		 * Application description
+		 * @example "A description of the application"
+		 */
+		description?: string;
+		/**
+		 * Application title
+		 * @example "NSIP Application Title"
+		 */
+		title?: string;
+		/**
+		 * Does case have unpublished changes
+		 * @example true
+		 */
+		hasUnpublishedChanges?: boolean;
+		/**
+		 * Applicant Id
+		 * @example "1000000"
+		 */
+		applicantId?: number;
+	};
+}
+
 export interface DocumentPropertiesWithAuditHistory {
 	/**
 	 * Username
@@ -983,12 +1195,12 @@ export interface DocumentPropertiesWithAuditHistory {
 	privateBlobPath?: string;
 	/**
 	 * Published blob storage container
-	 * @example null
+	 * @example "published-documents"
 	 */
 	publishedBlobContainer?: string;
 	/**
 	 * Published blob storage path
-	 * @example null
+	 * @example "published/bc0110001-filename.pdf"
 	 */
 	publishedBlobPath?: string;
 	/**
@@ -1273,6 +1485,35 @@ export interface DocumentsUnpublishResponseBody {
 		msg?: msg;
 	}[];
 	successful?: string[];
+}
+
+export interface DocumentMarkAsPublishedRequestBody {
+	/**
+	 * The published blob path
+	 * @example "published/en010120-filename.pdf"
+	 */
+	publishedBlobPath?: string;
+	/**
+	 * The published blob container
+	 * @example "published-documents"
+	 */
+	publishedBlobContainer?: string;
+	/**
+	 * The published date
+	 * @example "2023-11-14T00:00:00Z"
+	 */
+	publishedDate?: string;
+}
+
+export interface DocumentMarkAsPublishedBadRequest {
+	errors?: {
+		/** @example "Must provide a published blob path" */
+		publishedBlobPath?: string;
+		/** @example "Must provide a published blob container" */
+		publishedBlobContainer?: string;
+		/** @example "Must provide a published date" */
+		publishedDate?: string;
+	};
 }
 
 export interface PaginationRequestBody {

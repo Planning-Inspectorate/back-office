@@ -211,8 +211,8 @@ router.post(
 	'/:id/documents/:guid/version/:version/mark-as-published',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/documents/{guid}/mark-as-published'
-        #swagger.description = 'Marks as published'
+        #swagger.path = '/applications/{id}/documents/{guid}/version/{version}/mark-as-published'
+        #swagger.description = 'Completes publishing to mark as document as Published'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
@@ -231,17 +231,21 @@ router.post(
 			required: true,
 			type: 'integer'
         }
-        #swagger.parameters['body'] = {
+		#swagger.parameters['body'] = {
             in: 'body',
             description: 'Mark as Published Request',
-            schema: { $ref: '#/definitions/markAsPublishedRequestBody' },
+            schema: { $ref: '#/definitions/DocumentMarkAsPublishedRequestBody' },
 			required: true
         }
         #swagger.responses[200] = {
             description: 'Updated document response',
-            schema: { guid: '0084b156-006b-48b1-a47f-e7176414db29' }
+            schema: { $ref: '#definitions/DocumentPropertiesWithVersionWithCase' }
         }
 		#swagger.responses[400] = {
+            description: 'Example of a missing body error response',
+            schema: { $ref: '#/definitions/DocumentMarkAsPublishedBadRequest' }
+        }
+		#swagger.responses[404] = {
             description: 'Example of an error response',
             schema: { errors: { id: "Must be an existing application" } }
         }
@@ -255,8 +259,8 @@ router.post(
 	'/:id/documents/:guid/version/:version/mark-as-unpublished',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/{id}/documents/{guid}/mark-as-unpublished'
-        #swagger.description = 'Marks as unpublished'
+        #swagger.path = '/applications/{id}/documents/{guid}/version/{version}/mark-as-unpublished'
+        #swagger.description = 'Completes unpublishing to mark as document as Unpublished'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
@@ -275,17 +279,11 @@ router.post(
 			required: true,
 			type: 'integer'
         }
-        #swagger.parameters['body'] = {
-            in: 'body',
-            description: 'Mark as unpublished Request',
-            schema: { $ref: '#/definitions/markAsPublishedRequestBody' },
-			required: true
-        }
         #swagger.responses[200] = {
             description: 'Updated document response',
-            schema: { guid: '0084b156-006b-48b1-a47f-e7176414db29' }
+            schema: { $ref: '#definitions/DocumentPropertiesWithVersionWithCase' }
         }
-		#swagger.responses[400] = {
+		#swagger.responses[404] = {
             description: 'Example of an error response',
             schema: { errors: { id: "Must be an existing application" } }
         }
