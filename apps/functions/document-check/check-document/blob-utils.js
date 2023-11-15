@@ -1,6 +1,7 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { BlobStorageClient } from '@pins/blob-storage-client';
 import { Readable } from 'node:stream';
+import config from './config.js';
 
 const blobUrlRegex = /^(https:\/\/[\w-]+\.blob\.core\.windows\.net)\/([\w-]+)\/(.+)$/;
 
@@ -51,4 +52,20 @@ export const deleteBlob = async (storageUrl, container, blobPath) => {
 	const client = BlobStorageClient.fromUrlAndCredential(storageUrl, new DefaultAzureCredential());
 
 	await client.deleteBlobIfExists(container, blobPath);
+};
+
+/**
+ * @param {import('@azure/functions').Logger} log
+ * @param {string} storageUrl
+ * @returns {boolean}
+ * */
+export const accountIsExcluded = (log, storageUrl) => {
+	if (!config.EXCLUDED_STORAGE_ACCOUNTS) {
+		log.warn('EXCLUDED_STORAGE_ACCOUNTS config value is undefined');
+		return false;
+	}
+
+	return config.EXCLUDED_STORAGE_ACCOUNTS.some((/** @type {string} */ accountName) =>
+		storageUrl.match(accountName)
+	);
 };
