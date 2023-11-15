@@ -64,6 +64,10 @@
 				"postcode": {
 					"type": "string",
 					"examples": ["B32 1AF"]
+				},
+				"country": {
+					"type": "string",
+					"examples": ["England"]
 				}
 			}
 		}
