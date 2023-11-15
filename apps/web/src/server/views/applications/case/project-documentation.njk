@@ -1,5 +1,6 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../applications/case-documentation/search-results/document-search.component.njk" import applicationDocumentSearch %}
 
 {% block sectionMenu %}{% endblock %}
 
@@ -15,6 +16,12 @@
 {% block sectionContent %}
 
 	<h2 class="govuk-heading-m">Project documentation</h2>
+
+	<!-- document search start-->
+	<div class="{{ 'govuk-grid-column-full'}}">
+		{{ applicationDocumentSearch(searchParameters) }}
+	</div>
+	<!-- document search end -->
 
 	<p class="govuk-body-s colour--secondary">All documents relating to the project</p>
 

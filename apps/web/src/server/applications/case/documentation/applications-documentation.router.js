@@ -3,6 +3,8 @@ import { Router as createRouter } from 'express';
 import asyncRoute from '../../../lib/async-route.js';
 import * as locals from '../applications-case.locals.js';
 import * as controller from './applications-documentation.controller.js';
+import * as validators from './applications-documentation.validators.js';
+
 import {
 	validateApplicationsDocumentations,
 	validateApplicationsDocumentationsActions,
@@ -116,5 +118,11 @@ applicationsDocumentationRouter
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
 		asyncRoute(controller.viewApplicationsCaseDocumentationPages)
 	);
+
+console.log('I am here');
+applicationsDocumentationRouter
+	.route('/document-search-results/:pageNumber?')
+	.get(asyncRoute(controller.searchDocuments))
+	.post(validators.validateSearchApplicationsTerm, asyncRoute(controller.searchDocuments));
 
 export default applicationsDocumentationRouter;
