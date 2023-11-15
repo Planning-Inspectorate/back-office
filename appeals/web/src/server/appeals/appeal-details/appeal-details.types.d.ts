@@ -1,4 +1,4 @@
-import { Address, AppealSite } from '@pins/appeals';
+import { Address } from '@pins/appeals';
 import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionaire/lpa-questionnaire.types';
 
 export interface AppealHealthAndSafetyEntry {
@@ -306,20 +306,20 @@ export type DesignatedSite =
 export type ScheduleTypeOption = 'Yes, schedule 1' | 'Yes, schedule 2' | 'No';
 
 interface NeighbouringSiteContactsResponse {
-	address: AppealSite;
+	address: Address;
 }
 
 export interface SingleLPAQuestionnaireResponse {
 	affectsListedBuildingDetails: ListedBuildingDetailsResponse | null;
 	appealId: number;
 	appealReference: string;
-	appealSite: AppealSite;
+	appealSite: Address;
 	communityInfrastructureLevyAdoptionDate?: Date | null;
 	designatedSites?: DesignatedSiteDetails[] | null;
 	developmentDescription?: string | null;
 	documents: {
 		communityInfrastructureLevy: FolderInfo | {};
-		conservationAreaMapAndGuidance: FolderInfo | {};
+		conservationAreaMap: FolderInfo | {};
 		consultationResponses: FolderInfo | {};
 		definitiveMapAndStatement: FolderInfo | {};
 		emergingPlans: FolderInfo | {};
@@ -327,16 +327,17 @@ export interface SingleLPAQuestionnaireResponse {
 		issuedScreeningOption: FolderInfo | {};
 		lettersToNeighbours: FolderInfo | {};
 		otherRelevantPolicies: FolderInfo | {};
-		planningOfficersReport: FolderInfo | {};
+		officersReport: FolderInfo | {};
 		policiesFromStatutoryDevelopment: FolderInfo | {};
 		pressAdvert: FolderInfo | {};
 		relevantPartiesNotification: FolderInfo | {};
-		representationsFromOtherParties: FolderInfo | {};
+		representations: FolderInfo | {};
 		responsesOrAdvice: FolderInfo | {};
 		screeningDirection: FolderInfo | {};
-		siteNotice: FolderInfo | {};
+		siteNotices: FolderInfo | {};
 		supplementaryPlanningDocuments: FolderInfo | {};
 		treePreservationOrder: FolderInfo | {};
+		notifyingParties: FolderInfo | {};
 	};
 	doesAffectAListedBuilding?: boolean | null;
 	doesAffectAScheduledMonument?: boolean | null;
@@ -360,6 +361,7 @@ export interface SingleLPAQuestionnaireResponse {
 	includesScreeningOption?: boolean | null;
 	inquiryDays?: number | null;
 	inspectorAccessDetails?: string | null;
+	isAffectingNeighbouringSites: boolean | null;
 	isCommunityInfrastructureLevyFormallyAdopted?: boolean | null;
 	isConservationArea?: boolean | null;
 	isCorrectAppealType: boolean | null;
@@ -373,7 +375,7 @@ export interface SingleLPAQuestionnaireResponse {
 	listedBuildingDetails: ListedBuildingDetailsResponse | null;
 	localPlanningDepartment: string | null;
 	lpaNotificationMethods?: LPANotificationMethodDetails[] | null;
-	lpaQuestionnaireId?: number;
+	lpaQuestionnaireId: number;
 	meetsOrExceedsThresholdOrCriteriaInColumn2?: boolean | null;
 	neighbouringSiteContacts: NeighbouringSiteContactsResponse[] | null;
 	otherAppeals: LinkedAppeal[];

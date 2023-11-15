@@ -3,12 +3,6 @@ import { addressToString } from '#lib/address-formatter.js';
 import * as displayFormatter from '#lib/display-page-formatter.js';
 import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter.js';
 
-// TODO: Limit the input types to constants (not working??)
-/**
- * @typedef {object} ComponentType
- * @prop {string} type
- */
-
 /**
  * @typedef MappedLPAQInstructions
  * @type {object}
@@ -37,11 +31,65 @@ import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter
  * @property {StatusTag} [statusTag] To create a Status Tag
  * @property {TableCellProperties[]} [tableItem] To create a table row
  */
+
+/**
+ * @typedef {Object} CheckboxesInputInstruction
+ * @property {'checkboxes'} type
+ * @property {CheckboxesProperties} properties
+ */
+/**
+ * @typedef {Object} RadiosInputInstruction
+ * @property {'radios'} type
+ * @property {RadiosProperties} properties
+ */
+/**
+ * @typedef {Object} InputInputInstruction
+ * @property {'input'} type
+ * @property {InputProperties} properties
+ */
+/**
+ * @typedef {Object} FieldsetInputInstruction
+ * @property {'fieldset'} type
+ * @property {FieldsetProperties} properties
+ */
+
 /**
  * @typedef InputInstruction
- * A series of instruction to for pages where you input the data
- * @type {ComponentType & (RadioProperties | TextInputProperties | FieldsetProperties)}
+ * @type {CheckboxesInputInstruction | RadiosInputInstruction | InputInputInstruction | FieldsetInputInstruction}
  */
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is CheckboxesInputInstruction}
+ */
+export function inputInstructionIsCheckboxesInputInstruction(inputOption) {
+    return inputOption.type === 'checkboxes';
+}
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is RadiosInputInstruction}
+ */
+export function inputInstructionIsRadiosInputInstruction(inputOption) {
+    return inputOption.type === 'radios';
+}
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is InputInputInstruction}
+ */
+export function inputInstructionIsInputInputInstruction(inputOption) {
+    return inputOption.type === 'input';
+}
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is FieldsetInputInstruction}
+ */
+export function inputInstructionIsFieldsetInputInstruction(inputOption) {
+    return inputOption.type === 'fieldset';
+}
+
 /**
  * @typedef StatusTag
  * @type {object}
@@ -55,7 +103,12 @@ import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter
  */
 
 /**
- * @param {*} data
+ * @typedef {Object} LPAQData
+ * @property {import("#appeals/appeal-details/appeal-details.types.js").SingleLPAQuestionnaireResponse} lpaq
+ */
+
+/**
+ * @param {LPAQData} data
  * @param {string} currentRoute
  * @returns {Promise<MappedLPAQInstructions>}
  */
@@ -86,28 +139,29 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'is-listed-building',
-				name: 'isListedBuilding',
-				fieldset: {
-					legend: {
-						text: 'Does the proposed development change a listed building?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.lpaq.isListedBuilding
+				type: 'radios',
+				properties: {
+					name: 'isListedBuilding',
+					fieldset: {
+						legend: {
+							text: 'Does the proposed development change a listed building?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.isListedBuilding
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							checked: data.lpaq.isListedBuilding || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.isListedBuilding
+						}
+					]
+				}
 			}
 		]
 	};
@@ -162,28 +216,29 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'does-affect-a-listed-building',
-				name: 'doesAffectAListedBuilding',
-				fieldset: {
-					legend: {
-						text: 'Do the plans affect the setting of a listed building or site?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.lpaq.isListedBuilding
+				type: 'radios',
+				properties: {
+					name: 'doesAffectAListedBuilding',
+					fieldset: {
+						legend: {
+							text: 'Do the plans affect the setting of a listed building or site?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.isListedBuilding
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							checked: data.lpaq.isListedBuilding || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.isListedBuilding
+						}
+					]
+				}
 			}
 		]
 	};
@@ -238,28 +293,29 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'affects-scheduled-monument',
-				name: 'affectsAScheduledMonument',
-				fieldset: {
-					legend: {
-						text: 'Would the development affect a scheduled monument?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.lpaq.doesAffectAScheduledMonument
+				type: 'radios',
+				properties: {
+					name: 'affectsAScheduledMonument',
+					fieldset: {
+						legend: {
+							text: 'Would the development affect a scheduled monument?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.doesAffectAScheduledMonument
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							checked: data.lpaq.doesAffectAScheduledMonument || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.doesAffectAScheduledMonument
+						}
+					]
+				}
 			}
 		]
 	};
@@ -287,28 +343,29 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'is-correct-appeal-type',
-				name: 'isCorrectAppealType',
-				fieldset: {
-					legend: {
-						text: 'Is this the correct type of appeal?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.lpaq.doesAffectAScheduledMonument
+				type: 'radios',
+				properties: {
+					name: 'isCorrectAppealType',
+					fieldset: {
+						legend: {
+							text: 'Is this the correct type of appeal?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.doesAffectAScheduledMonument
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							checked: data.lpaq.doesAffectAScheduledMonument || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.doesAffectAScheduledMonument
+						}
+					]
+				}
 			}
 		]
 	};
@@ -335,28 +392,29 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'in-or-relates-to-ca',
-				name: 'inOrrelatesToCa',
-				fieldset: {
-					legend: {
-						text: 'Is the site in, or next to a conservation area?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.lpaq.inCAOrrelatesToCA
+				type: 'radios',
+				properties: {
+					name: 'inOrrelatesToCa',
+					fieldset: {
+						legend: {
+							text: 'Is the site in, or next to a conservation area?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.inCAOrrelatesToCA
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							checked: data.lpaq.inCAOrrelatesToCA || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.inCAOrrelatesToCA
+						}
+					]
+				}
 			}
 		]
 	};
@@ -426,28 +484,29 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'site-within-green-belt',
-				name: 'siteWithinGreenBelt',
-				fieldset: {
-					legend: {
-						text: 'Is the site in a green belt?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.lpaq.siteWithinGreenBelt
+				type: 'radios',
+				properties: {
+					name: 'siteWithinGreenBelt',
+					fieldset: {
+						legend: {
+							text: 'Is the site in a green belt?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.siteWithinGreenBelt
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							checked: data.lpaq.siteWithinGreenBelt || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.siteWithinGreenBelt
+						}
+					]
+				}
 			}
 		]
 	};
@@ -520,45 +579,47 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		input: [
 			//TODO: Post MVP => Can only be Written for HAS
 			{
-				type: 'checkbox',
-				name: 'notification-methods',
-				fieldset: {
-					legend: {
-						text: 'How did were people notified about the planning application?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						value: '1017',
-						text: 'A site notice',
-						checked: data.lpaq.lpaNotificationMethods.some(
-							(/** @type {{ name: string; }} */ value) => value.name === 'A site notice'
-						)
+				type: 'checkboxes',
+				properties: {
+					name: 'notification-methods',
+					fieldset: {
+						legend: {
+							text: 'How did were people notified about the planning application?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						value: '1018',
-						text: 'Letters or emails to interested parties',
-						checked: data.lpaq.lpaNotificationMethods.some(
-							(/** @type {{ name: string; }} */ value) =>
-								value.name === 'Letter/email to interested parties'
-						)
-					},
-					{
-						value: '1019',
-						text: 'An advert in the local press',
-						checked: data.lpaq.lpaNotificationMethods.some(
-							(/** @type {{ name: string; }} */ value) => value.name === 'A press advert'
-						)
-					}
-				]
+					items: [
+						{
+							value: '1017',
+							text: 'A site notice',
+							checked: data.lpaq.lpaNotificationMethods?.some(
+								(/** @type {{ name: string; }} */ value) => value.name === 'A site notice'
+							)
+						},
+						{
+							value: '1018',
+							text: 'Letters or emails to interested parties',
+							checked: data.lpaq.lpaNotificationMethods?.some(
+								(/** @type {{ name: string; }} */ value) =>
+									value.name === 'Letter/email to interested parties'
+							)
+						},
+						{
+							value: '1019',
+							text: 'An advert in the local press',
+							checked: data.lpaq.lpaNotificationMethods?.some(
+								(/** @type {{ name: string; }} */ value) => value.name === 'A press advert'
+							)
+						}
+					]
+				}
 			}
 		]
 	};
 
 	if (
-		data.lpaq.lpaNotificationMethods.some(
+		data.lpaq.lpaNotificationMethods?.some(
 			(/** @type {{ name: string; }} */ method) => method.name === 'A site notice'
 		)
 	) {
@@ -606,7 +667,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 	}
 
 	if (
-		data.lpaq.lpaNotificationMethods.some(
+		data.lpaq.lpaNotificationMethods?.some(
 			(/** @type {{ name: string; }} */ method) =>
 				method.name === 'Letter/email to interested parties'
 		)
@@ -655,7 +716,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 	}
 
 	if (
-		data.lpaq.lpaNotificationMethods.some(
+		data.lpaq.lpaNotificationMethods?.some(
 			(/** @type {{ name: string; }} */ method) => method.name === 'Advertisement'
 		)
 	) {
@@ -713,28 +774,29 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'has-representations-from-other-parties',
-				name: 'hasRepresentationsFromOtherParties',
-				fieldset: {
-					legend: {
-						text: 'Did you receive representations from members of the public or other parties?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.lpaq.hasRepresentationsFromOtherParties
+				type: 'radios',
+				properties: {
+					name: 'hasRepresentationsFromOtherParties',
+					fieldset: {
+						legend: {
+							text: 'Did you receive representations from members of the public or other parties?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.hasRepresentationsFromOtherParties
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							checked: data.lpaq.hasRepresentationsFromOtherParties || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.hasRepresentationsFromOtherParties
+						}
+					]
+				}
 			}
 		]
 	};
@@ -848,28 +910,29 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'does-site-require-inspector-access',
-				name: 'doesSiteRequireInspectorAccess',
-				fieldset: {
-					legend: {
-						text: 'Did you receive representations from members of the public or other parties?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.lpaq.doesSiteRequireInspectorAccess
+				type: 'radios',
+				properties: {
+					name: 'doesSiteRequireInspectorAccess',
+					fieldset: {
+						legend: {
+							text: 'Did you receive representations from members of the public or other parties?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.doesSiteRequireInspectorAccess
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							checked: data.lpaq.doesSiteRequireInspectorAccess || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.doesSiteRequireInspectorAccess
+						}
+					]
+				}
 			}
 		]
 	};
@@ -897,28 +960,29 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'is-affecting-neighbouring-sites',
-				name: 'isAffectingNeighbouringSites',
-				fieldset: {
-					legend: {
-						text: 'Might the inspector need to enter a neighbour’s land or property?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.lpaq.isAffectingNeighbouringSites
+				type: 'radios',
+				properties: {
+					name: 'isAffectingNeighbouringSites',
+					fieldset: {
+						legend: {
+							text: 'Might the inspector need to enter a neighbour’s land or property?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.isAffectingNeighbouringSites
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							checked: data.lpaq.isAffectingNeighbouringSites || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.isAffectingNeighbouringSites
+						}
+					]
+				}
 			}
 		]
 	};
@@ -979,34 +1043,35 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'health-and-safety',
-				name: 'healthAndSafety',
-				fieldset: {
-					legend: {
-						text: 'Are there any health and safety concerns?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						conditional: conditionalFormatter(
-							'health-and-safety-text',
-							'healthAndSafetyText',
-							'Tell us why the inspector will need to enter the appeal site',
-							displayFormatter.nullToEmptyString(data.lpaq.healthAndSafetyDetails)
-						),
-						checked: data.lpaq.doesSiteHaveHealthAndSafetyIssues
+				type: 'radios',
+				properties: {
+					name: 'healthAndSafety',
+					fieldset: {
+						legend: {
+							text: 'Are there any health and safety concerns?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.doesSiteHaveHealthAndSafetyIssues
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							conditional: conditionalFormatter(
+								'health-and-safety-text',
+								'healthAndSafetyText',
+								'Tell us why the inspector will need to enter the appeal site',
+								displayFormatter.nullToEmptyString(data.lpaq.healthAndSafetyDetails)
+							),
+							checked: data.lpaq.doesSiteHaveHealthAndSafetyIssues || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.doesSiteHaveHealthAndSafetyIssues
+						}
+					]
+				}
 			}
 		]
 	};
@@ -1034,12 +1099,14 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'text-input',
-				id: 'other-appeals',
-				name: 'otherAppeals',
-				value: displayFormatter.nullToEmptyString(data.lpaq.otherAppeals),
-				label: {
-					text: 'What appeals are the other associated with this appeal?'
+				type: 'input',
+				properties: {
+					id: 'other-appeals',
+					name: 'otherAppeals',
+					value: displayFormatter.nullToEmptyString(data.lpaq.otherAppeals),
+					label: {
+						text: 'What appeals are the other associated with this appeal?'
+					}
 				}
 			}
 		]
@@ -1071,34 +1138,35 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				id: 'extra-conditions',
-				name: 'extraConditions',
-				fieldset: {
-					legend: {
-						text: 'Are there any new conditions?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
-					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						conditional: conditionalFormatter(
-							'extra-conditions-text',
-							'extraConditionsText',
-							'Tell us about the new conditions',
-							displayFormatter.nullToEmptyString(data.lpaq.extraConditions)
-						),
-						checked: data.lpaq.hasExtraConditions
+				type: 'radios',
+				properties: {
+					name: 'extraConditions',
+					fieldset: {
+						legend: {
+							text: 'Are there any new conditions?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
 					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.lpaq.hasExtraConditions
-					}
-				]
+					items: [
+						{
+							text: 'Yes',
+							value: 'yes',
+							conditional: conditionalFormatter(
+								'extra-conditions-text',
+								'extraConditionsText',
+								'Tell us about the new conditions',
+								displayFormatter.nullToEmptyString(data.lpaq.extraConditions)
+							),
+							checked: data.lpaq.hasExtraConditions || false
+						},
+						{
+							text: 'No',
+							value: 'no',
+							checked: !data.lpaq.hasExtraConditions
+						}
+					]
+				}
 			}
 		]
 	};
@@ -1125,27 +1193,28 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 		},
 		input: [
 			{
-				type: 'radio',
-				name: 'review-outcome',
-				id: 'review-outcome',
-				fieldset: {
-					legend: {
-						text: 'What is the outcome of your review?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--m'
-					}
-				},
-				value: data.lpaq.validation?.outcome || null,
-				items: [
-					{
-						value: 'complete',
-						text: 'Complete'
+				type: 'radios',
+				properties: {
+					name: 'review-outcome',
+					fieldset: {
+						legend: {
+							text: 'What is the outcome of your review?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--m'
+						}
 					},
-					{
-						value: 'incomplete',
-						text: 'Incomplete'
-					}
-				]
+					value: data.lpaq.validation?.outcome,
+					items: [
+						{
+							value: 'complete',
+							text: 'Complete'
+						},
+						{
+							value: 'incomplete',
+							text: 'Incomplete'
+						}
+					]
+				}
 			}
 		]
 	};
@@ -1154,7 +1223,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 }
 
 /**
- * @param {string} lpaQuestionnaireId
+ * @param {string|number} lpaQuestionnaireId
  * @returns {string}
  */
 const buildDocumentUploadUrlTemplate = (lpaQuestionnaireId) => {
@@ -1164,7 +1233,7 @@ const buildDocumentUploadUrlTemplate = (lpaQuestionnaireId) => {
 /**
  *
  * @param {Number} caseId
- * @param {string} lpaQuestionnaireId
+ * @param {string|number} lpaQuestionnaireId
  * @param {FolderInfo} folder
  * @returns {string}
  */

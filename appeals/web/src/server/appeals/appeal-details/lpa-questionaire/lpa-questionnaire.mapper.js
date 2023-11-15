@@ -1,6 +1,9 @@
 import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
-import { initialiseAndMapLPAQData } from '#lib/mappers/lpaQuestionnaire.mapper.js';
+import {
+	initialiseAndMapLPAQData,
+	inputInstructionIsRadiosInputInstruction
+} from '#lib/mappers/lpaQuestionnaire.mapper.js';
 import { dayMonthYearToApiDateString, webDateToDisplayDate } from '../../../lib/dates.js';
 import {
 	mapReasonOptionsToCheckboxItemParameters,
@@ -8,6 +11,8 @@ import {
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
+import { isDefined } from '#lib/ts-utilities.js';
+import { removeActions } from '#lib/mappers/mapper-utilities.js';
 
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
@@ -17,6 +22,8 @@ import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-build
  * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
  * @typedef {import('../appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
  * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} SessionValidationOutcome
+ * @typedef {import('#lib/mappers/lpaQuestionnaire.mapper.js').InputInstruction} InputInstruction
+ * @typedef {import('#lib/mappers/lpaQuestionnaire.mapper.js').RadiosInputInstruction} RadiosInputInstruction
  */
 
 export const backLink = (/** @type {import("../appeal-details.types.js").Appeal} */ appeal) => {
@@ -28,49 +35,58 @@ export const backLink = (/** @type {import("../appeal-details.types.js").Appeal}
 export const pageHeading = 'LPA questionnaire';
 
 /**
- * @typedef {Object} LPAQData
- * @property {import("../appeal-details.types.js").SingleLPAQuestionnaireResponse} lpaq
- */
-
-/**
- * @param {LPAQData} lpaqData
+ * @param {import('#lib/mappers/lpaQuestionnaire.mapper.js').LPAQData} lpaqData
  * @param {{ appeal: import("../appeal-details.types.js").Appeal}} appealData
  * @param {string} currentRoute
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
+ * @returns {Promise<PageComponent[]>}
  */
 export async function lpaQuestionnairePage(lpaqData, appealData, currentRoute, session) {
 	const mappedLPAQData = await initialiseAndMapLPAQData(lpaqData, currentRoute);
 	const mappedAppealData = await initialiseAndMapAppealData(appealData, currentRoute, session);
 	const appealType = appealData.appeal.appealType;
 
+	/**
+	 * @type {PageComponent}
+	 */
 	const caseSummary = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		classes: 'govuk-summary-list--no-border',
-		rows: [
-			removeActions(mappedAppealData.appeal.siteAddress.display.summaryListItem),
-			removeActions(mappedAppealData.appeal.localPlanningAuthority.display.summaryListItem)
-		]
+		parameters: {
+			classes: 'govuk-summary-list--no-border',
+			rows: [
+				...(mappedAppealData.appeal.siteAddress.display.summaryListItem ? [
+					mappedAppealData.appeal.siteAddress.display.summaryListItem
+				]: []),
+				...(mappedAppealData.appeal.localPlanningAuthority.display.summaryListItem ? [
+					mappedAppealData.appeal.localPlanningAuthority.display.summaryListItem
+				]: [])
+			]
+		}
 	};
 
-	/**
-	 * @type {{ type: string; noActions: boolean; card: { title: { text: string; }; }; rows: (SummaryListRowProperties | undefined)[]; }[]}
-	 */
-	let pageSections = [];
+	/** @type {PageComponent[]} */
+	let appealTypeSpecificPageComponents = [];
 
 	switch (appealType) {
 		case 'Householder':
-			pageSections = householderLpaQuestionnairePage(mappedLPAQData, session);
+			appealTypeSpecificPageComponents = householderLpaQuestionnairePage(mappedLPAQData);
 			break;
 		default:
 			break;
 	}
 
-	const reviewOutcome = mappedLPAQData.lpaq.reviewOutcome.input?.filter(
-		(/** @type {{ type: string; }} */ inputOption) => inputOption.type === 'radio'
-	);
+	const reviewOutcomeRadiosInputInstruction = mappedLPAQData.lpaq.reviewOutcome.input
+		?.find(inputInstructionIsRadiosInputInstruction);
+
+	/** @type {PageComponent[]} */
+	const reviewOutcomeComponents = [];
+
+	if (reviewOutcomeRadiosInputInstruction) {
+		reviewOutcomeComponents.push({
+			type: 'radios',
+			parameters: reviewOutcomeRadiosInputInstruction.properties
+		});
+	}
 
 	const notificationBanners = mapNotificationBannerComponentParameters(
 		session,
@@ -78,15 +94,27 @@ export async function lpaQuestionnairePage(lpaqData, appealData, currentRoute, s
 		appealData.appeal.appealId
 	);
 
-	return [...notificationBanners, caseSummary, pageSections, reviewOutcome].flat();
+	const pageComponents = [...notificationBanners, caseSummary, ...appealTypeSpecificPageComponents, ...reviewOutcomeComponents];
+
+	if (!session.account.idTokenClaims.groups.includes(
+		config.referenceData.appeals.caseOfficerGroupId
+	)) {
+		pageComponents.forEach((component) => {
+			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
+				component.parameters.rows.map(row => removeActions(row));
+			}
+		});
+	}
+
+	return pageComponents;
 }
 
 /**
- *
+
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
- * @param {LPAQData} lpaqData
+ * @param {import('#lib/mappers/lpaQuestionnaire.mapper.js').LPAQData} lpaqData
  * @param {number} appealId
- * @returns {import('#lib/mappers/notification-banners.mapper.js').NotificationBannerPageComponent[]}
+ * @returns {PageComponent[]}
  */
 function mapNotificationBannerComponentParameters(session, lpaqData, appealId) {
 	const validationOutcome = lpaqData.lpaq.validation?.outcome?.toLowerCase();
@@ -122,151 +150,125 @@ function mapNotificationBannerComponentParameters(session, lpaqData, appealId) {
 }
 
 /**
- * @param {SummaryListRowProperties | undefined} row
- * @returns {SummaryListRowProperties | undefined}
- */
-function removeActions(row) {
-	if (row && row.actions) {
-		Reflect.deleteProperty(row, 'actions');
-	}
-	return row;
-}
-/**
  *
  * @param {import('#lib/mappers/lpaQuestionnaire.mapper.js').MappedLPAQInstructions} mappedLPAQData
- * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
- * @returns
+ * @returns {PageComponent[]}
  */
-const householderLpaQuestionnairePage = (mappedLPAQData, session) => {
-	const sectionOne = {
+const householderLpaQuestionnairePage = (mappedLPAQData) => {
+	/** @type {PageComponent[]} */
+	const pageComponents = [];
+
+	pageComponents.push({
+		/** @type {'summary-list'} */
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		card: {
-			title: {
-				text: '1. Constraints, designations and other issues'
-			}
-		},
-		rows: [
-			mappedLPAQData.lpaq?.isCorrectAppealType?.display.summaryListItem,
-			mappedLPAQData.lpaq?.doesAffectAListedBuilding?.display.summaryListItem,
-			mappedLPAQData.lpaq?.affectsListedBuildingDetails?.display.summaryListItem,
-			mappedLPAQData.lpaq?.inCAOrrelatesToCA?.display.summaryListItem,
-			mappedLPAQData.lpaq?.conservationAreaMap?.display.summaryListItem,
-			mappedLPAQData.lpaq?.siteWithinGreenBelt?.display.summaryListItem
-		]
-	};
-
-	const sectionTwo = {
-		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		card: {
-			title: {
-				text: '2. Notifying relevant parties of the application'
-			}
-		},
-		rows: [
-			mappedLPAQData.lpaq?.notifyingParties?.display.summaryListItem,
-			mappedLPAQData.lpaq?.lpaNotificationMethods?.display.summaryListItem,
-			mappedLPAQData.lpaq?.siteNotices?.display.summaryListItem,
-			mappedLPAQData.lpaq?.lettersToNeighbours?.display.summaryListItem,
-			mappedLPAQData.lpaq?.pressAdvert?.display.summaryListItem
-		]
-	};
-
-	const sectionThree = {
-		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		card: {
-			title: {
-				text: '3. Consultation responses and representations'
-			}
-		},
-		rows: [
-			mappedLPAQData.lpaq?.hasRepresentationsFromOtherParties?.display.summaryListItem,
-			mappedLPAQData.lpaq?.representations?.display.summaryListItem
-		]
-	};
-
-	const sectionFour = {
-		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		card: {
-			title: {
-				text: '4. Planning officer’s report and supplementary documents'
-			}
-		},
-		rows: [mappedLPAQData.lpaq?.officersReport?.display.summaryListItem]
-	};
-
-	const neighbouringSitesSummaryListsKeys = Object.keys(mappedLPAQData.lpaq).filter(
-		(key) => key.indexOf('neighbouringSiteAddress') >= 0
-	);
-	/**
-	 * @type {(SummaryListRowProperties | undefined)[]}
-	 */
-	const neighbouringSitesSummaryLists = [];
-	neighbouringSitesSummaryListsKeys.forEach((key) =>
-		neighbouringSitesSummaryLists.push(mappedLPAQData.lpaq[key].display.summaryListItem)
-	);
-
-	const sectionFive = {
-		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		card: {
-			title: {
-				text: '5. Site access'
-			}
-		},
-		rows: [
-			mappedLPAQData.lpaq?.siteAccess?.display.summaryListItem,
-			mappedLPAQData.lpaq?.isAffectingNeighbouringSites?.display.summaryListItem,
-			...neighbouringSitesSummaryLists,
-			mappedLPAQData.lpaq?.lpaHealthAndSafety?.display.summaryListItem
-		]
-	};
-
-	const sectionSix = {
-		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		card: {
-			title: {
-				text: '6. Appeal process'
-			}
-		},
-		rows: [
-			mappedLPAQData.lpaq?.otherAppeals?.display.summaryListItem,
-			mappedLPAQData.lpaq?.newConditions?.display.summaryListItem
-		]
-	};
-
-	let allSections = [
-		sectionOne,
-		sectionTwo,
-		sectionThree,
-		sectionFour,
-		sectionFive,
-		sectionSix
-	].filter((item) => item !== undefined);
-
-	allSections.forEach((item) => {
-		if ('noActions' in item && item.noActions && 'rows' in item) {
-			item.rows.forEach((row) => (row ? Reflect.deleteProperty(row, 'actions') : undefined));
+		parameters: {
+			card: {
+				title: {
+					text: '1. Constraints, designations and other issues'
+				}
+			},
+			rows: [
+				mappedLPAQData.lpaq?.isCorrectAppealType?.display.summaryListItem,
+				mappedLPAQData.lpaq?.doesAffectAListedBuilding?.display.summaryListItem,
+				mappedLPAQData.lpaq?.affectsListedBuildingDetails?.display.summaryListItem,
+				mappedLPAQData.lpaq?.inCAOrrelatesToCA?.display.summaryListItem,
+				mappedLPAQData.lpaq?.conservationAreaMap?.display.summaryListItem,
+				mappedLPAQData.lpaq?.siteWithinGreenBelt?.display.summaryListItem
+			].filter(isDefined)
 		}
 	});
 
-	return allSections;
+	pageComponents.push({
+		/** @type {'summary-list'} */
+		type: 'summary-list',
+		parameters: {
+			card: {
+				title: {
+					text: '2. Notifying relevant parties of the application'
+				}
+			},
+			rows: [
+				mappedLPAQData.lpaq?.notifyingParties?.display.summaryListItem,
+				mappedLPAQData.lpaq?.lpaNotificationMethods?.display.summaryListItem,
+				mappedLPAQData.lpaq?.siteNotices?.display.summaryListItem,
+				mappedLPAQData.lpaq?.lettersToNeighbours?.display.summaryListItem,
+				mappedLPAQData.lpaq?.pressAdvert?.display.summaryListItem
+			].filter(isDefined)
+		}
+	});
+
+	pageComponents.push({
+		/** @type {'summary-list'} */
+		type: 'summary-list',
+		parameters: {
+			card: {
+				title: {
+					text: '3. Consultation responses and representations'
+				}
+			},
+			rows: [
+				mappedLPAQData.lpaq?.hasRepresentationsFromOtherParties?.display.summaryListItem,
+				mappedLPAQData.lpaq?.representations?.display.summaryListItem
+			].filter(isDefined)
+		}
+	});
+
+	pageComponents.push({
+		/** @type {'summary-list'} */
+		type: 'summary-list',
+		parameters: {
+			card: {
+				title: {
+					text: '4. Planning officer’s report and supplementary documents'
+				}
+			},
+			rows: [
+				mappedLPAQData.lpaq?.officersReport?.display.summaryListItem
+			].filter(isDefined)
+		}
+	});
+
+	/** @type {SummaryListRowProperties[]} */
+	const neighbouringSitesSummaryLists = Object.keys(mappedLPAQData.lpaq)
+		.filter(key => key.indexOf('neighbouringSiteAddress') >= 0)
+		.map(key => mappedLPAQData.lpaq[key].display.summaryListItem)
+		.filter(isDefined);
+
+	pageComponents.push({
+		/** @type {'summary-list'} */
+		type: 'summary-list',
+		parameters: {
+			card: {
+				title: {
+					text: '5. Site access'
+				}
+			},
+			rows: [
+				mappedLPAQData.lpaq?.siteAccess?.display.summaryListItem,
+				mappedLPAQData.lpaq?.isAffectingNeighbouringSites?.display.summaryListItem,
+				...neighbouringSitesSummaryLists,
+				mappedLPAQData.lpaq?.lpaHealthAndSafety?.display.summaryListItem
+			].filter(isDefined)
+		}
+	});
+
+	pageComponents.push({
+		/** @type {'summary-list'} */
+		type: 'summary-list',
+		parameters: {
+			card: {
+				title: {
+					text: '6. Appeal process'
+				}
+			},
+			rows: [
+				mappedLPAQData.lpaq?.otherAppeals?.display.summaryListItem,
+				mappedLPAQData.lpaq?.newConditions?.display.summaryListItem
+			].filter(isDefined)
+		}
+	});
+
+	return pageComponents;
 };
 
 /**

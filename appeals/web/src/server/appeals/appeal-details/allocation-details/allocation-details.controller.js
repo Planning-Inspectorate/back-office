@@ -39,7 +39,7 @@ const renderAllocationDetailsLevels = async (request, response, errors = null) =
 			backLink: backLink(appealDetails),
 			pageHeading,
 			appealReference: appealDetails.appealReference,
-			pageContents: pageComponents,
+			pageComponents,
 			errors
 		});
 	}
@@ -85,7 +85,7 @@ const renderAllocationDetailsSpecialism = async (request, response, errors = nul
 			},
 			pageHeading: 'Allocation specialism',
 			appealReference: appealDetails.appealReference,
-			pageContents: pageComponents,
+			pageComponents,
 			errors
 		});
 	} else {
@@ -144,7 +144,7 @@ const renderAllocationDetailsCheckAnswers = async (request, response) => {
 			},
 			pageHeading: 'Check answers',
 			appealReference: appealDetails.appealReference,
-			pageContents: pageComponents
+			pageComponents
 		});
 	} else {
 		return response.render('app/500.njk');

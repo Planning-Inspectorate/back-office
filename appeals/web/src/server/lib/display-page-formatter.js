@@ -31,26 +31,25 @@ export const formatDocumentActionLink = (appealId, listOfDocuments, documentUplo
 };
 
 /**
- * @param {string | any[]} notificationMethods
+ * @param {import('@pins/appeals.api/src/database/schema.js').LPANotificationMethodDetails[] | null | undefined} notificationMethods
  * @returns {string}
  */
 export const formatListOfNotificationMethodsToHtml = (notificationMethods) => {
-	let html = ``;
-	if (notificationMethods.length > 0) {
-		for (const method of notificationMethods) {
-			html += `<span>${method.name}</span>`;
-			html += notificationMethods.indexOf(method) !== notificationMethods.length - 1 ? `</br>` : ``; //TODO: change this to ul
-		}
+	if (!notificationMethods || !notificationMethods.length) {
+		return '';
 	}
-	return html;
+	return `<ul>${notificationMethods.map(method => `<li>${method.name}</li>`).join('')}</ul>`;
 };
 
 /**
  * @param {string} answer
- * @param {string} details
+ * @param {string|null|undefined} details
  * @returns {string}
  */
 export const formatAnswerAndDetails = (answer, details) => {
+	if (!details) {
+		return '';
+	}
 	return answer === 'Yes'
 		? `${buildHtmSpan(answer)}<br>${buildHtmSpan(details)}`
 		: `${buildHtmSpan(answer)}`;
