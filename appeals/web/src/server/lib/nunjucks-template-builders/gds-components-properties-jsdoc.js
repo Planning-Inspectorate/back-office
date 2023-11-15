@@ -919,3 +919,12 @@
 /**
  * @typedef {SharedPageComponentProperties & (AccordionPageComponent | BackLinkPageComponent | BreadcrumbsPageComponent | ButtonPageComponent | CharacterCountPageComponent | CheckboxesPageComponent | CookieBannerPageComponent | DateInputPageComponent | DetailsPageComponent | ErrorMessagePageComponent | ErrorSummaryPageComponent | ExitThisPagePageComponent | FieldsetPageComponent | FileUploadPageComponent | HintPageComponent | InputPageComponent | InsetTextPageComponent | LabelPageComponent | NotificationBannerPageComponent | PaginationPageComponent | PanelPageComponent | PhaseBannerPageComponent | RadiosPageComponent | SelectPageComponent | SkipLinkPageComponent | SummaryListPageComponent | TablePageComponent | TabsPageComponent | TagPageComponent | TextareaPageComponent | WarningTextPageComponent | StatusTagPageComponent)} PageComponent
  */
+
+/**
+ * @typedef {Object} PageContent type for content that needs to be passed to page templates but which can't be a PageComponent
+ * @property {string} [title]
+ * @property {string} [backLinkUrl]
+ * @property {string} [preHeading]
+ * @property {string} [heading]
+ * @property {string} [continueButtonText]
+ */

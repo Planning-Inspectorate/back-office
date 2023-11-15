@@ -29,17 +29,27 @@ export const appealBackLink = (appealId) => {
 	};
 };
 
+/** @typedef {import('#lib/mappers/appeal.mapper.js').Instructions} Instructions */
+
+/**
+ * @typedef {Object} QuestionPage
+ * @property {PageComponent[]} pageComponents
+ * @property {string} titleText
+ */
+
 /**
  *
  * @param {string} question
  * @param {{appeal: import("#appeals/appeal-details/appeal-details.service.js").Appeal}} data
  * @param {string} currentRoute
  * @param {import('../../app/auth/auth-session.service').SessionWithAuth} session
- * @returns {Promise<import("#lib/mappers/appeal.mapper.js").InputInstruction[] | undefined>}
+ * @returns {Promise<QuestionPage>}
  */
 export async function appealQuestionPage(question, data, currentRoute, session) {
 	const mappedData = await initialiseAndMapAppealData(data, currentRoute, session);
-	return getInputInstructions(question, mappedData.appeal);
+	const instructionsForQuestion = getInstructions(question, mappedData.appeal);
+
+	return mapInstructionsToQuestionPage(instructionsForQuestion);
 }
 
 /**
@@ -47,25 +57,41 @@ export async function appealQuestionPage(question, data, currentRoute, session) 
  * @param {string} question
  * @param {{lpaq: import("#appeals/appeal-details/appeal-details.types.js").SingleLPAQuestionnaireResponse}} data
  * @param {string} currentRoute
- * @returns {Promise<import("#lib/mappers/appeal.mapper.js").InputInstruction[] | undefined>}
+ * @returns {Promise<QuestionPage>}
  */
 export async function lpaQQuestionPage(question, data, currentRoute) {
 	const mappedData = await initialiseAndMapLPAQData(data, currentRoute);
-	return getInputInstructions(question, mappedData.lpaq);
+	const instructionsForQuestion = getInstructions(question, mappedData.lpaq);
+
+	return mapInstructionsToQuestionPage(instructionsForQuestion);
+}
+
+/**
+ * @param {Instructions | undefined} instructions
+ * @returns {QuestionPage}
+ */
+function mapInstructionsToQuestionPage (instructions) {
+	return {
+		pageComponents: (instructions?.input || []).map(instruction => ({
+			type: instruction.type,
+			parameters: instruction.properties
+		})),
+		titleText: instructions?.display?.displayText || ''
+	}
 }
 
 /**
  *
  * @param {string} question
  * @param {import("#lib/mappers/appeal.mapper.js").AppealInstructionCollection} instructions
- * @returns {import('#lib/mappers/appeal.mapper.js').InputInstruction[]| undefined}
+ * @returns {import('#lib/mappers/appeal.mapper.js').Instructions| undefined}
  */
-function getInputInstructions(question, instructions) {
+function getInstructions(question, instructions) {
 	for (const instruction in instructions) {
 		if (instructions[instruction].id === question) {
-			return instructions[instruction].input;
+			return instructions[instruction];
 		}
 	}
-	logger.error(`No input instructions found for ${question}`);
+	logger.error(`No instructions found for ${question}`);
 	return undefined;
 }

@@ -18,14 +18,14 @@ const renderQuestionPage = async (request, response) => {
 		const currentUrl = request.originalUrl;
 		const currentUrlFragments = currentUrl.split('/');
 		const origin = currentUrlFragments[currentUrlFragments.length - 2];
-		let mappedData;
+		let mappedQuestionPage;
 		let data;
 		const appealId = request.params.appealId;
 		let backLink;
 		switch (origin) {
 			case 'change-appeal-details':
 				data = await getAppealDetailsFromId(request.apiClient, appealId);
-				mappedData = await appealQuestionPage(
+				mappedQuestionPage = await appealQuestionPage(
 					request.params.question,
 					{ appeal: data },
 					currentUrl,
@@ -39,7 +39,7 @@ const renderQuestionPage = async (request, response) => {
 					request.params.appealId,
 					request.params.lpaQuestionnaireId
 				);
-				mappedData = await lpaQQuestionPage(request.params.question, { lpaq: data }, currentUrl);
+				mappedQuestionPage = await lpaQQuestionPage(request.params.question, { lpaq: data }, currentUrl);
 				backLink = lpaQuestionnaireBackLink(
 					request.params.appealId,
 					request.params.lpaQuestionnaireId
@@ -49,13 +49,14 @@ const renderQuestionPage = async (request, response) => {
 				return response.render('app/500.njk');
 		}
 
-		if (data === undefined || mappedData === undefined) {
+		if (data === undefined || mappedQuestionPage === undefined) {
 			return response.render('app/404.njk');
 		} else {
 			const shortReference = appealShortReference(data.appealReference);
 
 			return response.render('patterns/question-page.pattern.njk', {
-				pageContents: mappedData,
+				pageTitle: `Change ${mappedQuestionPage.titleText}`,
+				pageComponents: mappedQuestionPage.pageComponents,
 				appealId: appealId,
 				appealReference: shortReference,
 				backLinkUrl: backLink

@@ -1,9 +1,9 @@
 import config from '#environment/config.js';
-import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
 import {
-	initialiseAndMapLPAQData,
+	initialiseAndMapAppealData,
 	inputInstructionIsRadiosInputInstruction
-} from '#lib/mappers/lpaQuestionnaire.mapper.js';
+} from '#lib/mappers/appeal.mapper.js';
+import { initialiseAndMapLPAQData } from '#lib/mappers/lpaQuestionnaire.mapper.js';
 import { dayMonthYearToApiDateString, webDateToDisplayDate } from '../../../lib/dates.js';
 import {
 	mapReasonOptionsToCheckboxItemParameters,
@@ -23,8 +23,8 @@ import { removeActions } from '#lib/mappers/mapper-utilities.js';
  * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
  * @typedef {import('../appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
  * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} SessionValidationOutcome
- * @typedef {import('#lib/mappers/lpaQuestionnaire.mapper.js').InputInstruction} InputInstruction
- * @typedef {import('#lib/mappers/lpaQuestionnaire.mapper.js').RadiosInputInstruction} RadiosInputInstruction
+ * @typedef {import('#lib/mappers/appeal.mapper.js').InputInstruction} InputInstruction
+ * @typedef {import('#lib/mappers/appeal.mapper.js').RadiosInputInstruction} RadiosInputInstruction
  */
 
 export const backLink = (/** @type {import("../appeal-details.types.js").Appeal} */ appeal) => {

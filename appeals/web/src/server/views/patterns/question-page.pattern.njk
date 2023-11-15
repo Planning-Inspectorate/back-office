@@ -5,6 +5,7 @@
 {%- from "govuk/components/input/macro.njk" import govukInput -%}
 {%- from "govuk/components/fieldset/macro.njk" import govukFieldset -%}
 
+{%- set pageTitle = (pageTitle if pageTitle else "Change") + " - GOV.UK" -%}
 {%- set backLinkUrl = backLinkUrl.link -%}
 
 {%- block pageHeading -%}
@@ -16,24 +17,10 @@
 {%- endblock -%}
 
 {%- block pageContent -%}
-	{%- for component in pageContents -%}
-		{%- if component.type === "radio" -%}
-			{{ govukRadios(component) }}
-		{%- elif component.type === "checkbox" -%}
-			{{ govukCheckboxes(component) }}
-		{%- elif component.type === "text-input" -%}
-			{{ govukInput(component) }}
-		{%- elif component.type === "text-area" -%}
-			{{ govukInput(component) }}
-		{%- elif component.type === "date-input" -%}
-			{{ govukInput(component) }}
-		{%- elif component.type === "field-set" -%}
-			{{ govukFieldset(component) }}
-		{%- elif component.type === "file-upload" -%}
-			{{ govukInput(component) }}
-		{%- elif component.type === "select" -%}
-			{{ govukInput(component) }}
-		{%- endif -%}
+	{%- for component in pageComponents -%}
+		{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
+		{%- include "../appeals/components/page-component.njk" -%}
+		{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
 	{%- endfor -%}
 	<form method="POST" novalidate="novalidate">
 		{{ govukButton({

@@ -13,6 +13,64 @@ import {
 import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
 
 /**
+ * @typedef {Object} CheckboxesInputInstruction
+ * @property {'checkboxes'} type
+ * @property {CheckboxesProperties} properties
+ */
+/**
+ * @typedef {Object} RadiosInputInstruction
+ * @property {'radios'} type
+ * @property {RadiosProperties} properties
+ */
+/**
+ * @typedef {Object} InputInputInstruction
+ * @property {'input'} type
+ * @property {InputProperties} properties
+ */
+/**
+ * @typedef {Object} FieldsetInputInstruction
+ * @property {'fieldset'} type
+ * @property {FieldsetProperties} properties
+ */
+
+/**
+ * @typedef InputInstruction
+ * @type {CheckboxesInputInstruction | RadiosInputInstruction | InputInputInstruction | FieldsetInputInstruction}
+ */
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is CheckboxesInputInstruction}
+ */
+export function inputInstructionIsCheckboxesInputInstruction(inputOption) {
+    return inputOption.type === 'checkboxes';
+}
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is RadiosInputInstruction}
+ */
+export function inputInstructionIsRadiosInputInstruction(inputOption) {
+    return inputOption.type === 'radios';
+}
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is InputInputInstruction}
+ */
+export function inputInstructionIsInputInputInstruction(inputOption) {
+    return inputOption.type === 'input';
+}
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is FieldsetInputInstruction}
+ */
+export function inputInstructionIsFieldsetInputInstruction(inputOption) {
+    return inputOption.type === 'fieldset';
+}
+
+/**
  * @typedef MappedAppealInstructions
  * @type {object}
  * @property {AppealInstructionCollection} appeal
@@ -42,6 +100,7 @@ import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
  * @property {SummaryListRowProperties} [summaryListItem] To create a row in a summary list
  * @property {StatusTagProperties} [statusTag] To create a Status Tag
  * @property {TableCellProperties[]} [tableItem] To create a table row
+ * @property {string} [displayText] human-readable text name of the associated data item
  */
 
 /**
@@ -68,6 +127,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.appealType = {
 		id: 'appeal-type',
 		display: {
+			displayText: 'Appeal type',
 			summaryListItem: {
 				key: {
 					text: 'Appeal type'
@@ -116,9 +176,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.caseProcedure = {
 		id: 'case-procedure',
 		display: {
+			displayText: 'Case procedure',
 			summaryListItem: {
 				key: {
-					text: 'Case Procedure'
+					text: 'Case procedure'
 				},
 				value: {
 					text: data.appeal.procedureType || `No case procedure`
@@ -181,6 +242,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.appellantName = {
 		id: 'appellant-name',
 		display: {
+			displayText: 'Appellant name',
 			summaryListItem: {
 				key: {
 					text: 'Appellant name'
@@ -228,6 +290,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.agentName = {
 		id: 'agent-name',
 		display: {
+			displayText: 'Agent name',
 			summaryListItem: {
 				key: {
 					text: 'Agent name'
@@ -276,9 +339,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.linkedAppeals = {
 		id: 'linked-appeals',
 		display: {
+			displayText: 'Linked appeals',
 			summaryListItem: {
 				key: {
-					text: 'Linked Appeals'
+					text: 'Linked appeals'
 				},
 				value: {
 					html:
@@ -315,9 +379,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.otherAppeals = {
 		id: 'other-appeals',
 		display: {
+			displayText: 'Other appeals',
 			summaryListItem: {
 				key: {
-					text: 'Other Appeals'
+					text: 'Other appeals'
 				},
 				value: {
 					html:
@@ -354,6 +419,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.allocationDetails = {
 		id: 'allocation-details',
 		display: {
+			displayText: 'Allocation details',
 			summaryListItem: {
 				key: {
 					text: 'Allocation details'
@@ -428,9 +494,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.lpaReference = {
 		id: 'lpa-reference',
 		display: {
+			displayText: 'LPA reference',
 			summaryListItem: {
 				key: {
-					text: 'LPA Reference'
+					text: 'LPA reference'
 				},
 				value: {
 					text: data.appeal.appealReference || 'No LPA reference for this appeal'
@@ -451,6 +518,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.decision = {
 		id: 'decision',
 		display: {
+			displayText: 'Decision',
 			summaryListItem: {
 				key: {
 					text: 'Decision'
@@ -495,9 +563,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.siteAddress = {
 		id: 'site-address',
 		display: {
+			displayText: 'Site address',
 			summaryListItem: {
 				key: {
-					text: 'Site Address'
+					text: 'Site address'
 				},
 				value: {
 					text: addressToString(data.appeal.appealSite)
@@ -518,6 +587,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.localPlanningAuthority = {
 		id: 'local-planning-department',
 		display: {
+			displayText: 'Local planning authority',
 			summaryListItem: {
 				key: {
 					text: 'Local planning authority'
@@ -540,9 +610,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.appealStatus = {
 		id: 'appeal-status',
 		display: {
+			displayText: 'Appeal status',
 			summaryListItem: {
 				key: {
-					text: 'Appeal Status'
+					text: 'Appeal status'
 				},
 				value: {
 					text: data.appeal.appealStatus
@@ -558,6 +629,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.lpaInspectorAccess = {
 		id: 'lpa-inspector-access',
 		display: {
+			displayText: "Inspector access (LPA's answer)",
 			summaryListItem: {
 				key: {
 					text: "Inspector access (LPA's answer)"
@@ -619,6 +691,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.appellantInspectorAccess = {
 		id: 'appellant-case-inspector-access',
 		display: {
+			displayText: "Inspector access (Appellant's answer)",
 			summaryListItem: {
 				key: {
 					text: "Inspector access (Appellant's answer)"
@@ -680,6 +753,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.neighbouringSiteIsAffected = {
 		id: 'neighbouring-site-is-affected',
 		display: {
+			displayText: 'Could a neighbouring site be affected?',
 			summaryListItem: {
 				key: {
 					text: 'Could a neighbouring site be affected?'
@@ -732,6 +806,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 			mappedData.appeal[`neighbouringSiteAddress${i}`] = {
 				id: `neighbouring-site-address-${i}`,
 				display: {
+					displayText: `Neighbour address ${i + 1}`,
 					summaryListItem: {
 						key: {
 							text: `Neighbour address ${i + 1}`
@@ -760,6 +835,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.lpaHealthAndSafety = {
 		id: 'lpa-health-and-safety',
 		display: {
+			displayText: "Potential safety risks (LPA's answer)",
 			summaryListItem: {
 				key: {
 					text: "Potential safety risks (LPA's answer)"
@@ -822,6 +898,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.appellantHealthAndSafety = {
 		id: 'appellant-case-health-and-safety',
 		display: {
+			displayText: "Potential safety risks (Appellant's answer)",
 			summaryListItem: {
 				key: {
 					text: "Potential safety risks (Appellant's answer)"
@@ -884,6 +961,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.visitType = {
 		id: 'set-visit-type',
 		display: {
+			displayText: 'Visit type',
 			summaryListItem: {
 				key: {
 					text: 'Visit type'
@@ -908,6 +986,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.startedAt = {
 		id: 'start-date',
 		display: {
+			displayText: 'Start date',
 			summaryListItem: {
 				key: {
 					text: 'Start date'
@@ -925,6 +1004,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.lpaQuestionnaireDueDate = {
 		id: 'lpa-questionnaire-due-date',
 		display: {
+			displayText: 'LPA Questionnaire',
 			summaryListItem: {
 				key: {
 					text: 'LPA Questionnaire'
@@ -949,6 +1029,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.statementReviewDueDate = {
 		id: 'statement-review-due-date',
 		display: {
+			displayText: 'Statement review due',
 			summaryListItem: {
 				key: {
 					text: 'Statement review due'
@@ -973,6 +1054,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.finalCommentReviewDueDate = {
 		id: 'final-comment-review-due-date',
 		display: {
+			displayText: 'Final comment review due',
 			summaryListItem: {
 				key: {
 					text: 'Final comment review due'
@@ -997,6 +1079,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.siteVisitDate = {
 		id: 'schedule-visit',
 		display: {
+			displayText: 'Site visit',
 			summaryListItem: {
 				key: {
 					text: 'Site visit'
@@ -1041,9 +1124,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.caseOfficer = {
 		id: 'case-officer',
 		display: {
+			displayText: 'Case officer',
 			summaryListItem: {
 				key: {
-					text: 'Case Officer'
+					text: 'Case officer'
 				},
 				value: {
 					html: caseOfficerRowValue
@@ -1080,6 +1164,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.inspector = {
 		id: 'inspector',
 		display: {
+			displayText: 'Inspector',
 			summaryListItem: {
 				key: {
 					text: 'Inspector'
@@ -1102,9 +1187,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.appellantCase = {
 		id: 'appellant-case',
 		display: {
+			displayText: 'Appellant case',
 			tableItem: [
 				{
-					text: 'Appellant Case'
+					text: 'Appellant case'
 				},
 				{
 					text: displayPageFormatter.mapDocumentStatus(
@@ -1127,9 +1213,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.lpaQuestionnaire = {
 		id: 'lpa-questionnaire',
 		display: {
+			displayText: 'LPA questionnaire',
 			tableItem: [
 				{
-					text: 'LPA Questionnaire'
+					text: 'LPA questionnaire'
 				},
 				{
 					text: displayPageFormatter.mapDocumentStatus(
@@ -1153,9 +1240,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.issueDeterminationDate = {
 		id: 'issue-determination',
 		display: {
+			displayText: 'Issue determination',
 			summaryListItem: {
 				key: {
-					text: 'Issue Determination'
+					text: 'Issue determination'
 				},
 				value: {
 					html:
@@ -1178,6 +1266,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	mappedData.appeal.completeDate = {
 		id: 'complete-date',
 		display: {
+			displayText: 'Complete',
 			summaryListItem: {
 				key: {
 					text: 'Complete'

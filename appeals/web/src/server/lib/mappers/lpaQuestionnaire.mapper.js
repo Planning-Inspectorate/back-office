@@ -3,6 +3,8 @@ import { addressToString } from '#lib/address-formatter.js';
 import * as displayFormatter from '#lib/display-page-formatter.js';
 import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter.js';
 
+/** @typedef {import('#lib/mappers/appeal.mapper.js').InputInstruction} InputInstruction */
+
 /**
  * @typedef MappedLPAQInstructions
  * @type {object}
@@ -31,64 +33,6 @@ import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter
  * @property {StatusTag} [statusTag] To create a Status Tag
  * @property {TableCellProperties[]} [tableItem] To create a table row
  */
-
-/**
- * @typedef {Object} CheckboxesInputInstruction
- * @property {'checkboxes'} type
- * @property {CheckboxesProperties} properties
- */
-/**
- * @typedef {Object} RadiosInputInstruction
- * @property {'radios'} type
- * @property {RadiosProperties} properties
- */
-/**
- * @typedef {Object} InputInputInstruction
- * @property {'input'} type
- * @property {InputProperties} properties
- */
-/**
- * @typedef {Object} FieldsetInputInstruction
- * @property {'fieldset'} type
- * @property {FieldsetProperties} properties
- */
-
-/**
- * @typedef InputInstruction
- * @type {CheckboxesInputInstruction | RadiosInputInstruction | InputInputInstruction | FieldsetInputInstruction}
- */
-
-/**
- * @param {InputInstruction} inputOption
- * @returns {inputOption is CheckboxesInputInstruction}
- */
-export function inputInstructionIsCheckboxesInputInstruction(inputOption) {
-    return inputOption.type === 'checkboxes';
-}
-
-/**
- * @param {InputInstruction} inputOption
- * @returns {inputOption is RadiosInputInstruction}
- */
-export function inputInstructionIsRadiosInputInstruction(inputOption) {
-    return inputOption.type === 'radios';
-}
-
-/**
- * @param {InputInstruction} inputOption
- * @returns {inputOption is InputInputInstruction}
- */
-export function inputInstructionIsInputInputInstruction(inputOption) {
-    return inputOption.type === 'input';
-}
-
-/**
- * @param {InputInstruction} inputOption
- * @returns {inputOption is FieldsetInputInstruction}
- */
-export function inputInstructionIsFieldsetInputInstruction(inputOption) {
-    return inputOption.type === 'fieldset';
-}
 
 /**
  * @typedef StatusTag
