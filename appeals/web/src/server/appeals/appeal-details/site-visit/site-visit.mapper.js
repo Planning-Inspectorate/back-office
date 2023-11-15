@@ -1,5 +1,5 @@
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
-import { removeActions } from '../appeal-details.mapper.js';
+import { removeActions } from '#lib/mappers/mapper-utilities.js';
 
 /**
  * @typedef {'unaccompanied'|'accompanied'|'accessRequired'} WebSiteVisitType

@@ -7,7 +7,7 @@ import { appealDetailsPage, backLink, pageHeading } from './appeal-details.mappe
  * @property {Object} backLink
  * @property {string} pageHeading
  * @property {string | null | undefined} appealReference
- * @property {Object} pageContents
+ * @property {PageComponent[]} pageComponents
  */
 
 /** @type {import('@pins/express').RenderHandler<ViewAppealDetailsRenderOptions>}  */
@@ -26,7 +26,7 @@ export const viewAppealDetails = async (request, response) => {
 			backLink: backLink,
 			pageHeading: pageHeading,
 			appealReference: appealDetails.appealReference,
-			pageContents: pageComponents
+			pageComponents
 		});
 	} else {
 		response.render('app/404.njk');

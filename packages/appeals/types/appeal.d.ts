@@ -1,7 +1,7 @@
 export interface Address {
-	addressLine1: string;
+	addressLine1?: string;
 	addressLine2?: string;
-	town: string;
+	town?: string;
 	county?: string;
 	postCode: string;
 }
@@ -64,14 +64,6 @@ export type AppealStatus =
 	| 'arrange_site_visit'
 	| 'issue_determination'
 	| 'complete';
-
-export interface AppealSite {
-	addressLine1?: string;
-	addressLine2?: string;
-	town?: string;
-	county?: string;
-	postCode?: string | null;
-}
 
 export interface GovukInputLabel {
 	text?: string;

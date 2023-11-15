@@ -34,7 +34,6 @@ const renderLpaQuestionnaire = async (request, response, errors = null) => {
 		request.apiClient,
 		request.params.appealId
 	);
-	// Running the API calls in parallel
 	const [lpaQuestionnaire, appealDetails] = await Promise.all([
 		lpaQuestionnairePromise,
 		appealDetailsPromise
@@ -42,11 +41,10 @@ const renderLpaQuestionnaire = async (request, response, errors = null) => {
 	const session = request.session;
 
 	if (lpaQuestionnaire && appealDetails) {
-		const currentUrl = request.originalUrl;
 		const pageComponents = await lpaQuestionnairePage(
 			{ lpaq: lpaQuestionnaire },
 			{ appeal: appealDetails },
-			currentUrl,
+			request.originalUrl,
 			session
 		);
 
@@ -54,7 +52,7 @@ const renderLpaQuestionnaire = async (request, response, errors = null) => {
 			backLink: backLink(appealDetails),
 			pageHeading: pageHeading,
 			appealReference: appealDetails.appealReference,
-			pageContents: pageComponents,
+			pageComponents,
 			errors
 		});
 	}

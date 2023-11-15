@@ -24,9 +24,9 @@
 {%- endmacro -%}
 
 {%- block pageHeading -%}
-	{%- for component in pageContents -%}
+	{%- for component in pageComponents -%}
 		{%- if component.type === 'notification-banner' -%}
-			{{ govukNotificationBanner(component.bannerProperties) }}
+			{{ govukNotificationBanner(component.parameters) }}
 		{%- endif -%}
 	{%- endfor -%}
 	<div class="govuk-grid-row">
@@ -37,75 +37,25 @@
 	</div>
 {%- endblock -%}
 
-{# TODO: Replace this with a filter using a switch or object litteral to determine which component to display#}
 {%- block pageContent -%}
-	{%- for component in pageContents -%}
-		{%- if component.wrapperClasses -%}
-			<div class="{{ component.wrapperClasses }}">
-		{%- endif -%}
-
-		{%- if component.type === 'summary-list'-%}
-			{{ govukSummaryList(component) }}
-		{%- elif component.type === 'table' -%}
-			{{ govukTable(component)}}
-		{%- elif component.type === 'accordion' -%}
-			{%- set accordionItems = [] -%}
-			{%- for accordionItem in component.items -%}
-				{%- set obj = {
-						heading: accordionItem.heading,
-						content: {
-							html: createAccordionItem(accordionItem),
-							text: accordionItem.text
-						}
-					}-%}
-				{%- set accordionItems = accordionItems | concat(obj) -%}
-			{%- endfor -%}
-			{{ govukAccordion(
-				{
-					id: component.id,
-					headingLevel: component.headingLevel,
-					classes: component.classes,
-					rememberExpanded: component.rememberExpanded,
-					hideAllSectionsText: component.hideAllSecionsText,
-					hideSectionAriaLabelText: component.hideSectionAriaLabelText,
-					showAllSectionsText: component.showAllSectionsText,
-					showSectionText: component.showSectionText,
-					showSectionAriaLabelText: component.showSectionAriaLabelText,
-					items: accordionItems
-				}
-			)}}
-		{%- elif component.type === 'status-tag' -%}
-			{{ statusTag(component.status, component.classes) }}
-		{%- elif component.type === 'radio'-%}
-			<div class="govuk-grid-row">
-				<div class="govuk-grid-column-full">
-					<form action="" method="POST" novalidate>
-						{{ govukRadios(component)}}
-						{{ govukButton({text: "Continue"}) }}
-					</form>
+	{%- for component in pageComponents -%}
+		{%- if component.type !== 'notification-banner' -%}
+			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
+			{%- if component.type === 'status-tag' -%}
+				{{ statusTag(component.parameters.status, component.parameters.classes) }}
+			{%- elif component.type === 'radios' or component.type === 'checkboxes' -%}
+				<div class="govuk-grid-row">
+					<div class="govuk-grid-column-full">
+						<form action="" method="POST" novalidate>
+							{%- include "../appeals/components/page-component.njk" -%}
+							{{ govukButton({text: "Continue"}) }}
+						</form>
+					</div>
 				</div>
-			</div>
-		{%- elif component.type === 'checkbox'-%}
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full">
-                    <form action="" method="POST" novalidate>
-                        {{ govukCheckboxes(component)}}
-                        {{ govukButton({text: "Continue"}) }}
-                    </form>
-                </div>
-            </div>
-		{%- elif component.type === 'confirm'-%}
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full">
-                    <form action="" method="POST" novalidate>
-                        {{ govukButton({text: "Confirm"}) }}
-                    </form>
-                </div>
-            </div>
-		{%- endif -%}
-		{%- if component.wrapperClasses -%}
-			</div>
+			{%- else -%}
+				{%- include "../appeals/components/page-component.njk" -%}
+			{%- endif -%}
+			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
 		{%- endif -%}
 	{%- endfor -%}
-
 {%- endblock -%}
