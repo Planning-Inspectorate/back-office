@@ -455,7 +455,7 @@ export const spec = {
 							type: 'string',
 							enum: ['general', 'applicationSubmitted', 'applicationDecided', 'registrationOpen'],
 							description:
-								'the type of update - which determines which subscribers will recieve the notification emails'
+								'the type of update - which determines which subscribers will receive the notification emails'
 						}
 					}
 				}
@@ -819,6 +819,178 @@ export const spec = {
 				}
 			}
 		},
+		DocumentPropertiesWithVersionWithCase: {
+			type: 'object',
+			properties: {
+				documentGuid: {
+					type: 'string',
+					description: 'Document guid',
+					example: 'ab12cd34-5678-90ef-ghij-klmnopqrstuv'
+				},
+				version: { type: 'integer', description: 'Document version', example: 1 },
+				lastModified: {
+					type: 'integer',
+					description: 'Last modified Unix timestamp',
+					example: 1696418643
+				},
+				documentType: { type: 'string', description: '', example: null },
+				published: { type: 'boolean', description: '', example: false },
+				sourceSystem: {
+					type: 'string',
+					description: 'Source system of the document',
+					example: 'back-office'
+				},
+				origin: { type: 'string', description: '', example: null },
+				originalFilename: {
+					type: 'string',
+					description: 'The original filename',
+					example: 'Small1.pdf'
+				},
+				fileName: { type: 'string', description: 'File Title', example: 'Small Doc 1' },
+				representative: { type: 'string', description: '', example: null },
+				description: { type: 'string', description: '', example: null },
+				owner: { type: 'string', description: '', example: null },
+				author: { type: 'string', description: '', example: null },
+				securityClassification: { type: 'string', description: '', example: null },
+				mime: { type: 'string', description: 'Document mime type', example: 'application/pdf' },
+				horizonDataID: { type: 'string', description: '', example: null },
+				fileMD5: { type: 'string', description: '', example: null },
+				virusCheckStatus: { type: 'string', description: '', example: null },
+				size: { type: 'integer', description: 'File size in bytes', example: 1024 },
+				stage: { type: 'integer', description: '', example: 3 },
+				filter1: { type: 'string', description: '', example: 'some filter' },
+				privateBlobContainer: {
+					type: 'string',
+					description: 'Back Office blob storage container',
+					example: 'document-service-uploads'
+				},
+				privateBlobPath: {
+					type: 'string',
+					description: 'Back Office blob storage path',
+					example:
+						'https://intranet.planninginspectorate.gov.uk/wp-content/uploads/2023/10/Lightbulb-L-and-D.gif'
+				},
+				publishedBlobContainer: {
+					type: 'string',
+					description: 'Published blob storage container',
+					example: 'published-documents'
+				},
+				publishedBlobPath: {
+					type: 'string',
+					description: 'Published blob storage path',
+					example: 'published/bc0110001-filename.pdf'
+				},
+				dateCreated: {
+					type: 'string',
+					description: 'Date document was created',
+					example: '2022-12-21T12:42:40.885Z'
+				},
+				datePublished: {
+					type: 'string',
+					description: 'Date document was published',
+					example: '2022-12-21T12:42:40.885Z'
+				},
+				isDeleted: {
+					type: 'boolean',
+					description: 'Is the document marked as deleted',
+					example: false
+				},
+				examinationRefNo: {
+					type: 'string',
+					description: 'Examination Timetable reference number',
+					example: null
+				},
+				filter2: { type: 'string', description: '', example: 'some filter' },
+				publishedStatus: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'Published status',
+					example: 'ready_to_publish'
+				},
+				publishedStatusPrev: {
+					type: 'string',
+					enum: ['not_checked', 'checked', 'ready_to_publish', 'published', 'not_published'],
+					description: 'The previous status',
+					example: 'not_checked'
+				},
+				Document: {
+					type: 'object',
+					properties: {
+						guid: {
+							type: 'string',
+							description: 'Document guid',
+							example: 'ab12cd34-5678-90ef-ghij-klmnopqrstuv'
+						},
+						documentRef: {
+							type: 'string',
+							description: 'Document Reference',
+							example: 'BC011001-000001'
+						},
+						folderId: { type: 'integer', description: 'Folder Id', example: 2 },
+						createdAt: {
+							type: 'string',
+							description: 'Date document was created',
+							example: '2022-12-21T12:42:40.885Z'
+						},
+						isDeleted: {
+							type: 'boolean',
+							description: 'Is the document marked as deleted',
+							example: false
+						},
+						latestVersionId: {
+							type: 'integer',
+							description: 'Document latest version id',
+							example: 2
+						},
+						caseId: { type: 'integer', description: 'Application case id', example: 1 },
+						fromFrontOffice: {
+							type: 'boolean',
+							description: 'Document from front office',
+							example: false
+						}
+					}
+				},
+				case: {
+					type: 'object',
+					properties: {
+						id: { type: 'number', description: 'Application id', example: 1 },
+						reference: {
+							type: 'string',
+							description: 'Application unique reference',
+							example: 'BC0110001'
+						},
+						modifiedAt: {
+							type: 'string',
+							format: 'date-time',
+							description: 'The date this case was last modified',
+							example: '2022-12-21T12:42:40.885Z'
+						},
+						createdAt: {
+							type: 'string',
+							format: 'date-time',
+							description: 'The date this case was created',
+							example: '2022-12-21T12:42:40.885Z'
+						},
+						description: {
+							type: 'string',
+							description: 'Application description',
+							example: 'A description of the application'
+						},
+						title: {
+							type: 'string',
+							description: 'Application title',
+							example: 'NSIP Application Title'
+						},
+						hasUnpublishedChanges: {
+							type: 'boolean',
+							description: 'Does case have unpublished changes',
+							example: true
+						},
+						applicantId: { type: 'number', description: 'Applicant Id', example: '1000000' }
+					}
+				}
+			}
+		},
 		DocumentPropertiesWithAuditHistory: {
 			type: 'object',
 			properties: {
@@ -873,12 +1045,12 @@ export const spec = {
 				publishedBlobContainer: {
 					type: 'string',
 					description: 'Published blob storage container',
-					example: null
+					example: 'published-documents'
 				},
 				publishedBlobPath: {
 					type: 'string',
 					description: 'Published blob storage path',
-					example: null
+					example: 'published/bc0110001-filename.pdf'
 				},
 				dateCreated: {
 					type: 'integer',
@@ -1181,6 +1353,48 @@ export const spec = {
 				successful: {
 					type: 'array',
 					items: { type: 'string' }
+				}
+			}
+		},
+		DocumentMarkAsPublishedRequestBody: {
+			type: 'object',
+			properties: {
+				publishedBlobPath: {
+					type: 'string',
+					description: 'The published blob path',
+					example: 'published/en010120-filename.pdf'
+				},
+				publishedBlobContainer: {
+					type: 'string',
+					description: 'The published blob container',
+					example: 'published-documents'
+				},
+				publishedDate: {
+					type: 'string',
+					description: 'The published date',
+					example: '2023-11-14T00:00:00Z'
+				}
+			}
+		},
+		DocumentMarkAsPublishedBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						publishedBlobPath: {
+							type: 'string',
+							example: 'Must provide a published blob path'
+						},
+						publishedBlobContainer: {
+							type: 'string',
+							example: 'Must provide a published blob container'
+						},
+						publishedDate: {
+							type: 'string',
+							example: 'Must provide a published date'
+						}
+					}
 				}
 			}
 		},
