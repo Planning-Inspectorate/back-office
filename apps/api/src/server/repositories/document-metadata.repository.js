@@ -229,8 +229,6 @@ export const update = (documentGuid, { version = 1, ...documentDetails }) => {
  * @returns {Promise<DocumentVersionWithDocument[]>}
  */
 export const updateAll = async (documentVersionIds, documentDetails) => {
-	console.log('upd unpub versionids:', documentVersionIds);
-	console.log('upd unpub details:', documentDetails);
 	const results = [];
 
 	for (const { documentGuid, version } of documentVersionIds) {
