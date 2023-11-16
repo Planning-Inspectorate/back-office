@@ -171,7 +171,7 @@ export const getAll = () => {
 };
 
 /**
- * Get all published version of a document
+ * Get 'all' published versions of a document (there should only be one)
  *
  * @param {string} documentGuid
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.DocumentVersion[] |null>}
@@ -229,6 +229,8 @@ export const update = (documentGuid, { version = 1, ...documentDetails }) => {
  * @returns {Promise<DocumentVersionWithDocument[]>}
  */
 export const updateAll = async (documentVersionIds, documentDetails) => {
+	console.log('upd unpub versionids:', documentVersionIds);
+	console.log('upd unpub details:', documentDetails);
 	const results = [];
 
 	for (const { documentGuid, version } of documentVersionIds) {
