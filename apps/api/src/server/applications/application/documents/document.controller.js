@@ -555,8 +555,8 @@ export const getReadyToPublishDocuments = async ({ params: { id }, body }, respo
 };
 
 /**
- * Publishes an array of documents
- * on any errors, none are published
+ * Publishes an array of documents. If there are any errors, none are published.
+ * It publishes the latest version of each document, and auto unpublishes any older published version
  *
  * @type {import('express').RequestHandler}
  */

@@ -1,4 +1,4 @@
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../constants.js';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, SYSTEM_USER_NAME } from '../../constants.js';
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import * as caseRepository from '#repositories/case.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
@@ -30,8 +30,7 @@ import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './documen
  * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
  * @typedef {import('@pins/applications.api').Api.DocumentBlobStoragePayload} DocumentBlobStoragePayload
  * @typedef {import('@pins/applications.api').Api.PaginatedDocumentDetails} PaginatedDocumentDetails
-
-*/
+ */
 
 /**
  * Remove extension from document name
@@ -450,6 +449,8 @@ export const formatDocumentUpdateResponseBody = (guid, status, redactedStatus) =
 };
 
 /**
+ * returns all the published versions for the array of document guids passed
+ *
  * @param {string[]} documentGuids
  * @returns {Promise<import('@pins/applications.api').Schema.DocumentVersion[]>}
  * */
@@ -464,6 +465,8 @@ export const getCurrentlyPublished = async (documentGuids) => {
 };
 
 /**
+ * publishes an array of documents, publishing the latest version.
+ * If there are any published older versions, these are auto unpublished too
  *
  * @param {{documentGuid: string, version: number}[]} documentVersionIds
  * @returns {Promise<import('@pins/applications.api').Schema.DocumentVersionWithDocument[]>}
@@ -496,12 +499,13 @@ export const publishDocumentVersions = async (documentVersionIds) => {
 		}
 	);
 
+	// unpublish all the old published versions
 	await Promise.all(
 		unpublishedDocuments.map((doc) =>
 			documentActivityLogRepository.create({
 				documentGuid: doc.documentGuid,
 				version: doc.version,
-				user: doc.owner,
+				user: SYSTEM_USER_NAME,
 				status: 'unpublished'
 			})
 		)
