@@ -11,3 +11,7 @@ export const validateApplicationsProjectTeamMinLengthSearch = createValidator(
 		.isLength({ min: 3 })
 		.withMessage('The search term must be at least 3 characters long')
 );
+
+export const validateApplicationsProjectTeamRole = createValidator(
+	body('role').trim().isLength({ min: 1 }).withMessage('You must select a role')
+);

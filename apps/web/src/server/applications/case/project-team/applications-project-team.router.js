@@ -6,7 +6,8 @@ import { registerCaseId } from '../../create-new-case/applications-create.locals
 import * as controller from './applications-project-team.controller.js';
 import {
 	validateApplicationsProjectTeamMinLengthSearch,
-	validateApplicationsProjectTeamNotEmptySearch
+	validateApplicationsProjectTeamNotEmptySearch,
+	validateApplicationsProjectTeamRole
 } from './applications-project-team.validators.js';
 
 const applicationsProjectTeamRouter = createRouter({ mergeParams: true });
@@ -20,7 +21,7 @@ applicationsProjectTeamRouter
 applicationsProjectTeamRouter
 	.route('/:userId/choose-role')
 	.get(asyncRoute(controller.viewProjectTeamChooseRolePage))
-	.post(asyncRoute(controller.updateProjectTeamChooseRole));
+	.post(validateApplicationsProjectTeamRole, asyncRoute(controller.updateProjectTeamChooseRole));
 
 applicationsProjectTeamRouter
 	.route('/search')

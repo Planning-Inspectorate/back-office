@@ -130,6 +130,168 @@ exports[`Project team Choose role page GET /case/123/project-team/1/choose-role 
 </main>"
 `;
 
+exports[`Project team Choose role page POST /case/123/project-team/1/choose-role should render a API error if upserting did not work 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#query\\">The role could not be saved, try again.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"><span class=\\"govuk-caption-l\\"> Do
+			Do</span> Change role</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-!-margin-top-6\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"case_manager\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role\\">Case Manager</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-2\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"environmental_services\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-2\\">Environmental Services</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-3\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"inspector\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-3\\">Inspector</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-4\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"lead_inspector\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-4\\">Lead Inspector</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-5\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"legal_officer\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-5\\">Legal Officer</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-6\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"NSIP_administration_officer\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-6\\">NSIP Administration Officer</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-7\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"NSIP_officer\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-7\\">NSIP Officer</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-8\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"officer\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-8\\">Officer</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-9\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"operations_lead\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-9\\">Operations Lead</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-10\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"operations_manager\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-10\\">Operations Manager</label>
+                </div>
+            </div>
+        </div>
+        <button class=\\"govuk-button govuk-!-margin-top-4\\" data-module=\\"govuk-button\\">Save and return</button>
+        <button type=\\"submit\\" formaction=\\"?toSearchPage=1\\"
+        class=\\"govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4\\">Save and add another</button>
+    </form>
+</main>"
+`;
+
+exports[`Project team Choose role page POST /case/123/project-team/1/choose-role should render an error if role is not selected 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#role\\">You must select a role</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"><span class=\\"govuk-caption-l\\"> Do
+			Do</span> Change role</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-!-margin-top-6\\">
+        <div class=\\"govuk-form-group\\">
+            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"case_manager\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role\\">Case Manager</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-2\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"environmental_services\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-2\\">Environmental Services</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-3\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"inspector\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-3\\">Inspector</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-4\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"lead_inspector\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-4\\">Lead Inspector</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-5\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"legal_officer\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-5\\">Legal Officer</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-6\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"NSIP_administration_officer\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-6\\">NSIP Administration Officer</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-7\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"NSIP_officer\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-7\\">NSIP Officer</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-8\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"officer\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-8\\">Officer</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-9\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"operations_lead\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-9\\">Operations Lead</label>
+                </div>
+                <div class=\\"govuk-radios__item\\">
+                    <input class=\\"govuk-radios__input\\" id=\\"role-10\\" name=\\"role\\" type=\\"radio\\"
+                    value=\\"operations_manager\\">
+                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"role-10\\">Operations Manager</label>
+                </div>
+            </div>
+        </div>
+        <button class=\\"govuk-button govuk-!-margin-top-4\\" data-module=\\"govuk-button\\">Save and return</button>
+        <button type=\\"submit\\" formaction=\\"?toSearchPage=1\\"
+        class=\\"govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4\\">Save and add another</button>
+    </form>
+</main>"
+`;
+
 exports[`Project team List page GET /case/123/project-team/ If user is inspector should not render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">

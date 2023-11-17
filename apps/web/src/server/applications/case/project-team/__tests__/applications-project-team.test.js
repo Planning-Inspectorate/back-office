@@ -191,5 +191,45 @@ describe('Project team', () => {
 				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
 			});
 		});
+
+		describe('POST /case/123/project-team/1/choose-role', () => {
+			beforeEach(() => {
+				installMockADToken(fixtureProjectTeamMembers);
+			});
+
+			it('should render an error if role is not selected', async () => {
+				const response = await request.post(`${baseUrl}/1/choose-role`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('must select a role');
+			});
+
+			it('should render a API error if upserting did not work', async () => {
+				const response = await request.post(`${baseUrl}/1/choose-role`).send({ role: 'officer' });
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('The role could not be saved, try again');
+			});
+
+			it('should redirect to project-team page if no errors', async () => {
+				nock('http://test/').patch('/applications/123/project-team/1').reply(200, {});
+
+				const response = await request.post(`${baseUrl}/1/choose-role`).send({ role: 'officer' });
+
+				expect(response?.headers?.location).toEqual('../');
+			});
+
+			it('should redirect to project-team page if no errors and click on "add another', async () => {
+				nock('http://test/').patch('/applications/123/project-team/1').reply(200, {});
+
+				const response = await request
+					.post(`${baseUrl}/1/choose-role?toSearchPage=1`)
+					.send({ role: 'officer' });
+
+				expect(response?.headers?.location).toEqual('../search');
+			});
+		});
 	});
 });

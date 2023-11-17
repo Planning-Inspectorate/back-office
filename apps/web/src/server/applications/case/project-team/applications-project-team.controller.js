@@ -66,13 +66,20 @@ export async function viewProjectTeamChooseRolePage({ params, session }, respons
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {role: string}, {toSearchPage: string}, {userId: string}>}
  */
-export async function updateProjectTeamChooseRole({ query, params, session, body }, response) {
+export async function updateProjectTeamChooseRole(
+	{ query, params, session, body, errors: validationErrors },
+	response
+) {
 	const { caseId } = response.locals;
 	const { userId } = params;
 	const { role } = body;
 	const { toSearchPage } = query;
+	let errors = validationErrors;
 
-	const { errors } = await updateProjectTeamMemberRole(caseId, userId, role);
+	if (!validationErrors) {
+		const { errors: apiErrors } = await updateProjectTeamMemberRole(caseId, userId, role);
+		errors = apiErrors;
+	}
 
 	if (errors) {
 		const projectTeamMember = await getSingleProjectTeamMemberInfo(caseId, userId, session);
