@@ -2353,6 +2353,18 @@ export const spec = {
 				}
 			}
 		},
+		ProjectTeamMember: {
+			type: 'object',
+			properties: {
+				userId: { type: 'string', example: 'abcd-0001-fghi' },
+				caseId: { type: 'number', example: 1 },
+				role: { type: 'string', example: 'officer' }
+			}
+		},
+		ProjectTeamMembers: {
+			type: 'array',
+			items: { $ref: '#/definitions/ProjectTeamMembers' }
+		},
 		GeneralError: {
 			type: 'object',
 			properties: {

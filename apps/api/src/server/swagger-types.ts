@@ -2312,6 +2312,17 @@ export interface Subscription {
 	language?: 'English' | 'Welsh';
 }
 
+export interface ProjectTeamMember {
+	/** @example "abcd-0001-fghi" */
+	userId?: string;
+	/** @example 1 */
+	caseId?: number;
+	/** @example "officer" */
+	role?: string;
+}
+
+export type ProjectTeamMembers = ProjectTeamMembers[];
+
 export interface GeneralError {
 	errors?: {
 		/** @example "something went wrong" */

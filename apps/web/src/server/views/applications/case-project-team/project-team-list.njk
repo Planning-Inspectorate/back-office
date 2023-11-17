@@ -1,5 +1,7 @@
 {% extends "../case/layouts/applications-case-layout.njk" %}
+
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% block sectionContent %}
 
@@ -7,6 +9,57 @@
 
 	<p class="govuk-body">Add team members and their roles to the project. </p>
 
+	{% if projectTeamMembers.length > 0 %}
+		{% set teamMembersRows = [] %}
+
+		{% for teamMember in projectTeamMembers %}
+
+			{% set teamMemberRole = '' %}
+			{% for role in allRoles %}
+				{% if role.value === teamMember.role %}
+					{% set teamMemberRole = role.text %}
+				{% endif %}
+			{% endfor %}
+
+			{% set teamMemberRolePageUrl %}
+			<a class='govuk-link govuk-!-margin-right-3' href='{{'project-team-role'|url({
+						caseId: caseId,
+						userId: teamMember.id}
+					)}}'>Change role </a>
+			{% endset %}
+
+			{% set teamMemberDeletePageUrl %}
+			<a class='govuk-link' href='{{'project-team-role'|url({
+						caseId: caseId,
+						userId: teamMember.id}
+					)}}'>Remove</a>
+			{% endset %}
+
+			{% set row = [
+				{
+					html: '<strong>' + teamMemberRole + '</strong>'
+				}, {
+					text: (teamMember.givenName + ' ' + teamMember.surname)
+				}, {
+					html: (teamMemberRolePageUrl + teamMemberDeletePageUrl)
+				}
+			]
+ %}
+
+			{% set teamMembersRows = teamMembersRows.concat([row]) %}
+
+		{% endfor %}
+
+		{{govukTable({
+			head: [
+								{ text: "Role" },
+								{ text: "Team Member" },
+								{ text: "Actions" }
+							],
+							rows: teamMembersRows
+						})}}
+
+	{% endif %}
 	<a class='govuk-button govuk-!-margin-top-6'
 		href='{{'project-team'|url({caseId: caseId, step: 'search'})}}'>
 		Add team member

@@ -101,6 +101,9 @@ const mockS51AdviceDocumentCreate = jest.fn().mockResolvedValue({});
 const mockS51AdviceDocumentUpdateMany = jest.fn().mockResolvedValue({});
 const mockS51AdviceDocumentDelete = jest.fn().mockResolvedValue({});
 
+const mockProjectTeamFindUnique = jest.fn().mockResolvedValue({});
+const mockProjectTeamFindMany = jest.fn().mockResolvedValue({});
+
 class MockPrismaClient {
 	get address() {
 		return {
@@ -242,6 +245,13 @@ class MockPrismaClient {
 		return {
 			findMany: mockSubSectorFindMany,
 			findUnique: mockSubSectorFindUnique
+		};
+	}
+
+	get projectTeam() {
+		return {
+			findMany: mockProjectTeamFindMany,
+			findUnique: mockProjectTeamFindUnique
 		};
 	}
 

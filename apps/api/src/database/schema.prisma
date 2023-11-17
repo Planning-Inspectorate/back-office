@@ -538,3 +538,11 @@ model S51AdviceDocument {
   S51Advice    S51Advice @relation(fields: [adviceId], references: [id], onUpdate: NoAction)
   Document     Document  @relation("S51AdviceDocument", fields: [documentGuid], references: [guid])
 }
+
+model ProjectTeam {
+  caseId Int
+  userId String
+  role   String
+
+  @@id([caseId, userId])
+}

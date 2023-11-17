@@ -1,0 +1,24 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- CreateTable
+CREATE TABLE [dbo].[ProjectTeam] (
+    [caseId] INT NOT NULL,
+    [userId] NVARCHAR(1000) NOT NULL,
+    [role] NVARCHAR(1000) NOT NULL,
+    CONSTRAINT [ProjectTeam_pkey] PRIMARY KEY CLUSTERED ([caseId],[userId])
+);
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH

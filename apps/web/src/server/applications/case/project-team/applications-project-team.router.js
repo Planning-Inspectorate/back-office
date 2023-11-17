@@ -18,6 +18,11 @@ applicationsProjectTeamRouter
 	.get(registerCase, asyncRoute(controller.viewProjectTeamListPage));
 
 applicationsProjectTeamRouter
+	.route('/:userId/choose-role')
+	.get(asyncRoute(controller.viewProjectTeamChooseRolePage))
+	.post(asyncRoute(controller.updateProjectTeamChooseRole));
+
+applicationsProjectTeamRouter
 	.route('/search')
 	.get(asyncRoute(controller.viewProjectTeamSearchPage))
 	.post(
