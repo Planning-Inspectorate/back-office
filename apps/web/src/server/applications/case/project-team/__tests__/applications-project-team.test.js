@@ -171,6 +171,7 @@ describe('Project team', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).not.toContain('checked');
+				expect(element.innerHTML).toContain('Choose role');
 				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
 				expect(element.innerHTML).toContain('another');
 			});
@@ -187,6 +188,7 @@ describe('Project team', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('checked');
+				expect(element.innerHTML).toContain('Change role');
 				expect(element.innerHTML).not.toContain('another');
 				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
 			});
