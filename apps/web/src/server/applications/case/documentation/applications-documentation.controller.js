@@ -506,7 +506,7 @@ export async function searchDocuments(req, response) {
 	const query = bodyQuery ?? req.query.q;
 
 	const role = response.locals.domainType;
-
+	console.log('searchDocumnetcontroller');
 	if (errors || !query) {
 		return response.render(
 			'applications/case/case-documentation/search-results/document-search-results',
@@ -518,7 +518,7 @@ export async function searchDocuments(req, response) {
 			}
 		);
 	}
-
+	console.log('passed error code');
 	const pageSize = 50;
 	const pageNumber = Number.parseInt(params?.pageNumber, 10) || 1;
 
@@ -528,32 +528,33 @@ export async function searchDocuments(req, response) {
 		pageSize,
 		pageNumber
 	});
-
+	//console.log("Search Reponse:", searchResponse);
 	const searchApplicationsItems = searchResponse?.items || [];
+	console.log('search application items: ', searchApplicationsItems);
 	const itemCount = searchResponse?.itemCount || 0;
 	const pagesNumber = Math.ceil(itemCount / pageSize);
 
 	const pagination = {
 		previous:
-			pageNumber > 1 ? { href: url('search-results', { step: `${pageNumber - 1}`, query }) } : {},
+			pageNumber > 1
+				? { href: url('document-search-results', { step: `${pageNumber - 1}`, query }) }
+				: {},
 		next:
 			pageNumber < pagesNumber
-				? { href: url('search-results', { step: `${pageNumber + 1}`, query }) }
+				? { href: url('document-search-results', { step: `${pageNumber + 1}`, query }) }
 				: {},
 		items: Array.from({ length: pagesNumber }).map((value, key) => ({
 			number: key + 1,
 			current: key + 1 === pageNumber,
-			href: url('search-results', { step: `${key + 1}`, query })
+			href: url('document-search-results', { step: `${key + 1}`, query })
 		}))
 	};
-
-	return response.render(
-		'applications/case/case-documentation/search-results/document-search-results',
-		{
-			searchApplicationsItems,
-			query,
-			itemCount,
-			pagination
-		}
-	);
+	console.log('Controller:passed URL functions pagination:', pagination);
+	//just callng the nunjuck page not the router
+	return response.render('applications/case-documentation/search-results/document-search-results', {
+		searchApplicationsItems,
+		query,
+		itemCount,
+		pagination
+	});
 }

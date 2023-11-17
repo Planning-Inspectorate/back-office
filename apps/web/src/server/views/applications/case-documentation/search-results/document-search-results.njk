@@ -1,9 +1,9 @@
-{% extends "../layouts/applications.layout.njk" %}
+{% extends "../../layouts/applications.layout.njk" %}
 
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "../components/status-tag.component.njk" import statusTag %}
+{% from "../../components/status-tag.component.njk" import statusTag %}
 {% from "./document-search.component.njk" import applicationDocumentSearch %}
 
 
@@ -26,7 +26,7 @@
 
 
 	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-one-half">
+		<div class="govuk-grid-column-one-third">
 			{{ applicationDocumentSearch(searchParameters) }}
 		</div>
 	</div>
@@ -38,9 +38,11 @@
 
 		{% set rows = [] %}
 		{% for searchItem in searchApplicationsItems %}
+
 			{% set rows = rows | concat ([[
 				{ html: casePageLink(searchItem) },
-				{ html: statusTag(searchItem.status), classes: 'govuk-!-width-one-quarter text-align--right' }
+				{ html: searchItem.fileName},
+				{ html: "view", classes: 'govuk-!-width-one-quarter text-align--right' }
 			]]) %}
 		{% endfor %}
 
@@ -48,8 +50,9 @@
 			{{ govukTable({
 				classes: 'pins-table--fixed pins-table--bordered',
 				head: [
-					{ text: "Name", classes: 'govuk-!-width-one-half' },
-					{ text: "Stage", classes: 'text-align--right' }
+					{ text: "Document reference", classes: 'govuk-!-width-one-half' },
+					{ text: "File name", classes: 'govuk-!-width-one-half' },
+					{ text: "", classes: 'text-align--right' }
 				],
 				rows: rows
 			}) }}
@@ -82,6 +85,6 @@
 
 
 	<a class="govuk-body" href="{{ rowHref }}">
-		{{ [rowTitle, searchItem.title]|join }}
+		{{ [rowTitle, searchItem.documentRef]|join }}
 	</a>
 {% endmacro %}
