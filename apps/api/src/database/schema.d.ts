@@ -23,7 +23,8 @@ export {
 	RepresentationContact,
 	Sector,
 	SubSector,
-	ZoomLevel
+	ZoomLevel,
+	ProjectTeam
 } from '@prisma/client';
 
 export interface Case extends schema.Case {

@@ -21,6 +21,7 @@ import { s51AdviceRoutes } from './s51advice/s51-advice.routes.js';
 import { projectUpdateNotificationLogsRoutes } from './application/project-updates/notification-logs/notification-logs.routes.js';
 import { keyDatesRoutes } from './key-dates/key-dates.routes.js';
 import { caseStageRoutes } from './case-stage/case-stage.routes.js';
+import { projectTeamRoutes } from './project-team/project-team.routes.js';
 
 const router = createRouter();
 
@@ -55,6 +56,8 @@ router.use('/', projectUpdateRoutes);
 router.use('/', projectUpdateNotificationLogsRoutes);
 
 router.use('/', keyDatesRoutes);
+
+router.use('/', projectTeamRoutes);
 
 router.use('/', applicationRoutes);
 

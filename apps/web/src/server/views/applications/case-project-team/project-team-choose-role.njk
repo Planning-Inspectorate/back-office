@@ -1,0 +1,49 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set serviceName = "Project team" %}
+{% set pageTitle = "Change role" %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{# {% block sectionMenu %}{% endblock %} #}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back to Project team",
+			href: 'project-team'|url({caseId: caseId })
+	}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+		<span class="govuk-caption-l">
+			{{projectTeamMember.givenName}}
+			{{projectTeamMember.surname}}
+		</span>
+
+		{{ pageTitle }}
+	</h1>
+
+	<form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+
+		{{ govukRadios({
+				name: "role",
+				items: allRoles | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: projectTeamMember.role})
+
+			}) }}
+
+		{{ govukButton({ classes: 'govuk-!-margin-top-4', text: 'Save and return' }) }}
+
+	</form>
+
+{% endblock %}

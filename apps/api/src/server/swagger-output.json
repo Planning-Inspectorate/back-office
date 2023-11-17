@@ -3980,6 +3980,97 @@
 					}
 				}
 			}
+		},
+		"/applications/{id}/project-team": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all project team members of a case ",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of project team members",
+						"schema": {
+							"$ref": "#/definitions/ProjectTeamMembers"
+						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/project-team/{userId}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets project team member by azure reference id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Azure reference for the user"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Project team member",
+						"schema": {
+							"$ref": "#/definitions/ProjectTeamMember"
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Change role of project team member",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "Azure reference for the user"
+					},
+					{
+						"name": "role",
+						"in": "body",
+						"description": "New role",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Project team member",
+						"schema": {
+							"$ref": "#/definitions/ProjectTeamMember"
+						}
+					}
+				}
+			}
 		}
 	},
 	"definitions": {
@@ -7435,6 +7526,29 @@
 					"enum": ["English", "Welsh"],
 					"default": "English"
 				}
+			}
+		},
+		"ProjectTeamMember": {
+			"type": "object",
+			"properties": {
+				"userId": {
+					"type": "string",
+					"example": "abcd-0001-fghi"
+				},
+				"caseId": {
+					"type": "number",
+					"example": 1
+				},
+				"role": {
+					"type": "string",
+					"example": "officer"
+				}
+			}
+		},
+		"ProjectTeamMembers": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/ProjectTeamMembers"
 			}
 		},
 		"GeneralError": {
