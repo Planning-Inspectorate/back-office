@@ -540,9 +540,10 @@ model S51AdviceDocument {
 }
 
 model ProjectTeam {
-  caseId Int
-  userId String
-  role   String
+  caseId    Int
+  userId    String
+  role      String
+  createdAt DateTime @default(now())
 
   @@id([caseId, userId])
 }

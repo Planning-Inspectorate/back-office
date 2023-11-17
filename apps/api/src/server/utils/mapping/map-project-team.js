@@ -6,7 +6,7 @@ import { pick } from 'lodash-es';
  * @returns {{role: string, userId: string}}
  */
 export const mapProjectTeamMember = (teamMember) => {
-	return pick(teamMember, ['role', 'userId']);
+	return pick(teamMember, ['role', 'userId', 'createdAt']);
 };
 
 /**

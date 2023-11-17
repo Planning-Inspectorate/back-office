@@ -7,6 +7,7 @@ CREATE TABLE [dbo].[ProjectTeam] (
     [caseId] INT NOT NULL,
     [userId] NVARCHAR(1000) NOT NULL,
     [role] NVARCHAR(1000) NOT NULL,
+    [createdAt] DATETIME2 NOT NULL CONSTRAINT [ProjectTeam_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT [ProjectTeam_pkey] PRIMARY KEY CLUSTERED ([caseId],[userId])
 );
 

@@ -43,7 +43,11 @@
 			}) }}
 
 		{{ govukButton({ classes: 'govuk-!-margin-top-4', text: 'Save and return' }) }}
-
+		{% if projectTeamMember.role == '' %}
+			<button type="submit" formaction="?toSearchPage=1" class="govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4">
+				Save and add another
+			</button>
+		{% endif %}
 	</form>
 
 {% endblock %}

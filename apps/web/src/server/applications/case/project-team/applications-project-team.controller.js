@@ -64,12 +64,13 @@ export async function viewProjectTeamChooseRolePage({ params, session }, respons
 /**
  * Update role of the project team member
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {role: string}, {}, {userId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {role: string}, {toSearchPage: string}, {userId: string}>}
  */
-export async function updateProjectTeamChooseRole({ params, session, body }, response) {
+export async function updateProjectTeamChooseRole({ query, params, session, body }, response) {
 	const { caseId } = response.locals;
 	const { userId } = params;
 	const { role } = body;
+	const { toSearchPage } = query;
 
 	const { errors } = await updateProjectTeamMemberRole(caseId, userId, role);
 
@@ -82,7 +83,10 @@ export async function updateProjectTeamChooseRole({ params, session, body }, res
 			errors
 		});
 	}
-
+	console.log(8686868, toSearchPage);
+	if (toSearchPage) {
+		return response.redirect('../search');
+	}
 	return response.redirect('../');
 }
 
