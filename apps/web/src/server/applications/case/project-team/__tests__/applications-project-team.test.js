@@ -167,6 +167,7 @@ describe('Project team', () => {
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).not.toContain('checked');
 				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
+				expect(element.innerHTML).toContain('another');
 			});
 
 			it('should render the page with the name of the existing user and default option', async () => {
@@ -181,6 +182,7 @@ describe('Project team', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('checked');
+				expect(element.innerHTML).not.toContain('another');
 				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
 			});
 		});

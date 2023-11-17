@@ -60,6 +60,8 @@ exports[`Project team Choose role page GET /case/123/project-team/1/choose-role 
             </div>
         </div>
         <button class=\\"govuk-button govuk-!-margin-top-4\\" data-module=\\"govuk-button\\">Save and return</button>
+        <button type=\\"submit\\" formaction=\\"?toSearchPage=1\\"
+        class=\\"govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4\\">Save and add another</button>
     </form>
 </main>"
 `;

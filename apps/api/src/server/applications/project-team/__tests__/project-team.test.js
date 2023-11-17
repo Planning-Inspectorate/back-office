@@ -7,12 +7,14 @@ const projectTeamInDatabase = [
 	{
 		userId: 'abcdef1234',
 		role: 'officer',
-		caseId: 1
+		caseId: 1,
+		createdAt: '2023-11-17T14:43:42.773Z'
 	},
 	{
 		userId: 'hilmn6789',
 		role: 'inspector',
-		caseId: 1
+		caseId: 1,
+		createdAt: '2023-11-17T14:43:49.808Z'
 	}
 ];
 
@@ -31,7 +33,8 @@ describe('Test Project team members', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			userId: 'abcdef1234',
-			role: 'officer'
+			role: 'officer',
+			createdAt: '2023-11-17T14:43:42.773Z'
 		});
 	});
 
@@ -46,11 +49,13 @@ describe('Test Project team members', () => {
 		expect(response.body).toEqual([
 			{
 				userId: 'abcdef1234',
-				role: 'officer'
+				role: 'officer',
+				createdAt: '2023-11-17T14:43:42.773Z'
 			},
 			{
 				userId: 'hilmn6789',
-				role: 'inspector'
+				role: 'inspector',
+				createdAt: '2023-11-17T14:43:49.808Z'
 			}
 		]);
 	});

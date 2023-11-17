@@ -7,7 +7,8 @@ import { databaseConnector } from '#utils/database-connector.js';
  */
 export const getByCaseId = (caseId) => {
 	return databaseConnector.projectTeam.findMany({
-		where: { caseId }
+		where: { caseId },
+		orderBy: { createdAt: 'asc' }
 	});
 };
 
