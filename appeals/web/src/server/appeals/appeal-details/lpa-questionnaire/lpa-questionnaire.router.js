@@ -10,7 +10,7 @@ import {
 	validateCaseDocumentId
 } from '../../appeal-documents/appeal-documents.middleware.js';
 import asyncRoute from '#lib/async-route.js';
-import changePageRouter from '../../question-page/question-page.router.js';
+import changePageRouter from '../../change-page/change-page.router.js';
 
 const router = createRouter({ mergeParams: true });
 

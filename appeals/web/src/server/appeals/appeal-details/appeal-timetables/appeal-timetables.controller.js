@@ -1,10 +1,10 @@
 import logger from '#lib/logger.js';
-
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { setAppealTimetables } from './appeal-timetables.service.js';
 import {
 	routeToObjectMapper,
-	appealTimetablesMapper,
+	mapUpdateDueDatePage,
+	mapConfirmationPage,
 	apiErrorMapper
 } from './appeal-timetables.mapper.js';
 
@@ -24,16 +24,16 @@ const renderUpdateDueDate = async (request, response, apiErrors) => {
 	const appealId = appealDetails.appealId;
 	const { timetableType } = request.params;
 	const timetableProperty = routeToObjectMapper[timetableType];
-	const mappedPageData = appealTimetablesMapper(appealDetails?.appealTimetable, timetableProperty, appealDetails);
+	const mappedPageContent = mapUpdateDueDatePage(appealDetails?.appealTimetable, timetableProperty, appealDetails);
 
-	if (!appealId || !timetableProperty || !mappedPageData) {
+	if (!appealId || !timetableProperty || !mappedPageContent) {
 		return response.render('app/500.njk');
 	}
 
 	let errors = request.errors || apiErrors;
 
 	return response.render('appeals/appeal/update-due-date.njk', {
-		...mappedPageData,
+		pageContent: mappedPageContent,
 		errors
 	});
 };
@@ -125,35 +125,13 @@ const renderConfirmationPage = async (request, response) => {
 	const appealDetails = request.currentAppeal;
 	const timetableProperty = routeToObjectMapper[timetableType];
 
-	const confirmationMap = appealTimetablesMapper(appealDetails?.appealTimetable, timetableProperty);
+	const mappedPageData = mapConfirmationPage(appealDetails?.appealTimetable, timetableProperty, appealDetails);
 
-	// TODO: write new mapper specifically for confirmation data
-	if (!confirmationMap?.confirmation) {
+	if (!mappedPageData) {
 		return response.render('app/500.njk');
 	} else {
-		const { title, preTitle, rows } = confirmationMap.confirmation;
-
 		response.render('app/confirmation.njk', {
-			panel: {
-				title,
-				appealReference: {
-					label: 'Appeal ID',
-					reference: appealReference
-				}
-			},
-			body: {
-				preTitle,
-				title: {
-					text: 'What happens next'
-				},
-				rows: [
-					...rows,
-					{
-						text: 'Go back to case details',
-						href: `/appeals-service/appeal-details/${appealId}`
-					}
-				]
-			}
+			...mappedPageData
 		});
 	}
 };

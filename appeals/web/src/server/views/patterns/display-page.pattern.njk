@@ -9,36 +9,26 @@
 {%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
 {%- from "../appeals/components/status-tag.njk" import statusTag -%}
 
-{%- set backLinkUrl = backLink.link -%}
-{%- set pageTitle = pageHeading + " - " +  appealReference | appealShortReference + " - GOV.UK" -%}
-{% set backLinkText = backLink.text -%}
-
-{%- macro createAccordionItem(accordionItem)-%}
-	{%- if accordionItem.type === 'summary-list'-%}
-		{{ govukSummaryList(accordionItem.content.html)}}
-	{%- elif accordionItem.type === 'table'-%}
-		{{ govukTable(accordionItem.content.html)}}
-	{%- elif accordionItem.type === 'inset-text'-%}
-		{{ govukInsetText(accordionItem.content.html)}}
-	{%- endif -%}
-{%- endmacro -%}
+{%- set backLinkUrl = pageContent.backLinkUrl -%}
+{%- set backLinkText = pageContent.backLinkText -%}
+{%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
 {%- block pageHeading -%}
-	{%- for component in pageComponents -%}
+	{%- for component in pageContent.pageComponents -%}
 		{%- if component.type === 'notification-banner' -%}
 			{{ govukNotificationBanner(component.parameters) }}
 		{%- endif -%}
 	{%- endfor -%}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
-			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appealReference | appealShortReference }}</span>
-			<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">{{pageHeading}}</h1>
+			{%- if pageContent.preHeading -%}<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ pageContent.preHeading }}</span>{%- endif -%}
+			{%- if pageContent.heading -%}<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">{{ pageContent.heading }}</h1>{%- endif -%}
 		</div>
 	</div>
 {%- endblock -%}
 
 {%- block pageContent -%}
-	{%- for component in pageComponents -%}
+	{%- for component in pageContent.pageComponents -%}
 		{%- if component.type !== 'notification-banner' -%}
 			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
 			{%- if component.type === 'status-tag' -%}

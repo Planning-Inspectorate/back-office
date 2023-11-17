@@ -1,5 +1,5 @@
 import { Address } from '@pins/appeals';
-import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionaire/lpa-questionnaire.types';
+import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionnaire/lpa-questionnaire.types';
 
 export interface AppealHealthAndSafetyEntry {
 	details: string | null;
@@ -11,35 +11,10 @@ export interface AppealHealthAndSafety {
 	lpaQuestionnaire: AppealHealthAndSafetyEntry;
 }
 
-export interface Appeal {
-	agentName: string;
-	allocationDetails: string;
-	appealId: number;
-	appealReference: string;
-	appealSite: Address;
-	appealStatus: string;
-	appealType: string;
-	appellantName: string;
-	appellantCaseId: number;
-	healthAndSafety: AppealHealthAndSafety;
-	procedureType: string;
-	caseOfficer?: string;
-	inspector?: string;
-	developmentType: string;
-	decision?: string;
-	eventType: string;
-	lpaQuestionnaireId?: number | null;
-	linkedAppeals: AppealLink[] | [];
-	localPlanningDepartment: string;
-	otherAppeals: AppealLink[] | [];
-	planningApplicationReference: string;
-	documentationSummary?: AppealDocumentationSummary;
-	startedAt: string | null;
-	appealTimetable: AppealTimetable;
-	siteVisit: AppealSiteVisit;
-	inspectorAccess: AppealInspectorAccess;
-	neighbouringSite: AppealNeighbouringSite;
-	healthAndSafety: AppealHealthAndSafety;
+export interface AppealAllocationDetails {
+	level: string;
+	band: number;
+	specialisms: string[];
 }
 
 export type Contact = {

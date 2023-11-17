@@ -57,12 +57,10 @@ export const formatAnswerAndDetails = (answer, details) => {
 
 /**
  *
- * @param {{appealId: Number, appealReference: string}[]} listOfAppeals
+ * @param {import('@pins/appeals.api').Appeals.LinkedAppeal[]} listOfAppeals
  * @returns {string}
  */
-export const formatListOfAppeals = (
-	/** @type {{appealId: Number, appealReference: string}[]} */ listOfAppeals
-) => {
+export const formatListOfAppeals = (listOfAppeals) => {
 	if (listOfAppeals && listOfAppeals.length > 0) {
 		let formattedLinks = ``;
 		for (let i = 0; i < listOfAppeals.length; i++) {
@@ -138,7 +136,7 @@ export function nullToEmptyString(value) {
 }
 
 /**
- * @param {string} status
+ * @param {string|undefined} status
  * @returns {string}
  */
 export function mapDocumentStatus(status) {

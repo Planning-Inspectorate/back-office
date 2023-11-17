@@ -3,19 +3,25 @@ import { capitalize } from 'lodash-es';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
- * @typedef AppealTimetablesMap
- * @type {object}
+ * @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} Appeal
+ */
+
+/**
+ * @typedef {Object} AppealTimetablesMap
  * @property {string | null | undefined} sideNote
  * @property { object } page
  * @property { AppealTimetablesConfirmation } confirmation
  */
 
 /**
- * @typedef AppealTimetablesConfirmation
- * @type {object}
+ * @typedef {Object} AppealTimetablesConfirmation
  * @property { string } title
  * @property { string } preTitle
  * @property { object[] } rows
+ */
+
+/**
+ * @typedef {'finalCommentReviewDate' | 'issueDeterminationDate' | 'lpaQuestionnaireDueDate' | 'statementReviewDate'} AppealTimetableType
  */
 
 /**
@@ -30,60 +36,77 @@ export const routeToObjectMapper = {
 
 /**
  * @param {import('./appeal-timetables.service.js').AppealTimetables} appealTimetables
- * @param { 'finalCommentReviewDate' | 'issueDeterminationDate' | 'lpaQuestionnaireDueDate' | 'statementReviewDate' } timetableProperty
- * @param {import('../appeal-details.types').Appeal} appealDetails
- * @returns {{pageContent: PageContent, pageComponents: PageComponent[]}}
+ * @param {AppealTimetableType} timetableType
+ * @param {Appeal} appealDetails
+ * @returns {PageContent}
  */
-export const appealTimetablesMapper = (appealTimetables, timetableProperty, appealDetails) => {
-	const currentDueDateIso = appealTimetables && appealTimetables[timetableProperty];
+export const mapUpdateDueDatePage = (appealTimetables, timetableType, appealDetails) => {
+	const currentDueDateIso = appealTimetables && appealTimetables[timetableType];
 	const currentDueDate = currentDueDateIso && dateToDisplayDate(currentDueDateIso);
 	const changeOrScheduleText = currentDueDate ? 'Change' : 'Schedule';
+	const timetableTypeText = getTimetableTypeText(timetableType);
 
-	/** @type {{pageContent: PageContent, pageComponents: PageComponent[]}} */
-	const pageData = {
-		pageContent: {
-			title: 'Update due date',
-			backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
-			preHeading: `Appeal ${appealShortReference(appealDetails.appealReference)}`,
-			heading: 'Update due date',
-			continueButtonText: 'Continue'
-		},
+	/** @type {PageContent} */
+	const pageContent = {
+		title: `Update${timetableTypeText ? ' ' + capitalize(timetableTypeText) : ''} due date`,
+		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
+		preHeading: `Appeal ${appealShortReference(appealDetails.appealReference)}`,
+		heading: `${changeOrScheduleText} ${timetableTypeText} due date`,
+		submitButtonText: 'Continue',
 		pageComponents: []
 	};
 
-	let timetablePropertyText;
-
-	switch (timetableProperty) {
-		case 'finalCommentReviewDate':
-			timetablePropertyText = 'final comment review';
-			break;
-		case 'issueDeterminationDate':
-			timetablePropertyText = 'issue determination';
-			break;
-		case 'lpaQuestionnaireDueDate':
-			timetablePropertyText = 'LPA questionnaire';
-			break;
-		case 'statementReviewDate':
-			timetablePropertyText = 'statement review';
-			break;
-		default:
-			break;
-	}
-
-	pageData.pageContent.title = `Update${timetablePropertyText ? ' ' + capitalize(timetablePropertyText) : ''} due date`;
-	pageData.pageContent.heading = `${changeOrScheduleText} ${timetablePropertyText} due date`;
-
 	if (currentDueDate) {
-		pageData.pageComponents.push({
+		pageContent.pageComponents.push({
 			type: 'inset-text',
 			parameters: {
-				text: `The current due date for the ${timetablePropertyText} is ${currentDueDate}`,
-				classes: ''
+				text: `The current due date for the ${timetableTypeText} is ${currentDueDate}`,
+				classes: 'govuk-!-margin-bottom-7'
 			}
 		});
 	}
 
-	return pageData;
+	return pageContent;
+};
+
+/**
+ * @param {import('./appeal-timetables.service.js').AppealTimetables} appealTimetables
+ * @param {AppealTimetableType} timetableType
+ * @param {Appeal} appealDetails
+ * @returns {ConfirmationPage}
+ */
+export const mapConfirmationPage = (appealTimetables, timetableType, appealDetails) => {
+	const timetableTypeText = getTimetableTypeText(timetableType);
+	const titleText = timetableType === 'lpaQuestionnaireDueDate' ? timetableTypeText : capitalize(timetableTypeText);
+
+	/** @type {ConfirmationPage} */
+	const confirmationPage = {
+		pageTitle: `${titleText} due date updated`,
+		panel: {
+			title: `${titleText} due date updated`,
+			appealReference: {
+				label: 'Appeal ID',
+				reference: appealDetails.appealReference
+			}
+		},
+		body: {
+			preTitle: `The due date for the ${titleText} has been updated.`,
+			title: {
+				text: 'What happens next'
+			},
+			rows: [
+				{
+					text: `We’ve sent an email to the appellant${timetableType === 'lpaQuestionnaireDueDate' ? ' and LPA' : ''} to inform them about changes to the timetable.`
+				},
+				{
+					text: 'Go back to case details',
+					href: `/appeals-service/appeal-details/${appealDetails.appealId}`
+				}
+			]
+		}
+	};
+
+	return confirmationPage;
 };
 
 /**
@@ -99,3 +122,22 @@ export const apiErrorMapper = (updatedDueDateDay, apiError) => ({
 		location: 'body'
 	}
 });
+
+/**
+ * @param {AppealTimetableType} timetableType
+ * @returns {string}
+ */
+const getTimetableTypeText = (timetableType) => {
+	switch (timetableType) {
+		case 'finalCommentReviewDate':
+			return 'final comment review';
+		case 'issueDeterminationDate':
+			return 'issue determination';
+		case 'lpaQuestionnaireDueDate':
+			return 'LPA questionnaire';
+		case 'statementReviewDate':
+			return 'statement review';
+		default:
+			return '';
+	}
+}

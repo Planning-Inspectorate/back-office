@@ -1,10 +1,8 @@
 import * as lpaQuestionnaireService from './lpa-questionnaire.service.js';
 import {
-	backLink,
 	lpaQuestionnairePage,
 	mapReviewOutcomeToSummaryListBuilderParameters,
 	mapWebValidationOutcomeToApiValidationOutcome,
-	pageHeading
 } from './lpa-questionnaire.mapper.js';
 import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
 import logger from '#lib/logger.js';
@@ -25,34 +23,29 @@ import {
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
 const renderLpaQuestionnaire = async (request, response, errors = null) => {
-	let lpaQuestionnairePromise = lpaQuestionnaireService.getLpaQuestionnaireFromId(
-		request.apiClient,
-		request.params.appealId,
-		request.params.lpaQuestionnaireId
-	);
-	let appealDetailsPromise = appealDetailsService.getAppealDetailsFromId(
-		request.apiClient,
-		request.params.appealId
-	);
 	const [lpaQuestionnaire, appealDetails] = await Promise.all([
-		lpaQuestionnairePromise,
-		appealDetailsPromise
+		lpaQuestionnaireService.getLpaQuestionnaireFromId(
+			request.apiClient,
+			request.params.appealId,
+			request.params.lpaQuestionnaireId
+		),
+		appealDetailsService.getAppealDetailsFromId(
+			request.apiClient,
+			request.params.appealId
+		)
 	]);
 	const session = request.session;
 
 	if (lpaQuestionnaire && appealDetails) {
-		const pageComponents = await lpaQuestionnairePage(
-			{ lpaq: lpaQuestionnaire },
-			{ appeal: appealDetails },
+		const mappedPageContent = await lpaQuestionnairePage(
+			lpaQuestionnaire,
+			appealDetails,
 			request.originalUrl,
 			session
 		);
 
 		return response.render('patterns/display-page.pattern.njk', {
-			backLink: backLink(appealDetails),
-			pageHeading: pageHeading,
-			appealReference: appealDetails.appealReference,
-			pageComponents,
+			pageContent: mappedPageContent,
 			errors
 		});
 	}

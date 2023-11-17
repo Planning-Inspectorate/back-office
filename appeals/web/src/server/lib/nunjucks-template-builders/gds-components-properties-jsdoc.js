@@ -916,15 +916,44 @@
  * @property {StatusTagProperties} parameters
  */
 
+// TODO: move the page builder related types below to a more appropriate location
+
 /**
  * @typedef {SharedPageComponentProperties & (AccordionPageComponent | BackLinkPageComponent | BreadcrumbsPageComponent | ButtonPageComponent | CharacterCountPageComponent | CheckboxesPageComponent | CookieBannerPageComponent | DateInputPageComponent | DetailsPageComponent | ErrorMessagePageComponent | ErrorSummaryPageComponent | ExitThisPagePageComponent | FieldsetPageComponent | FileUploadPageComponent | HintPageComponent | InputPageComponent | InsetTextPageComponent | LabelPageComponent | NotificationBannerPageComponent | PaginationPageComponent | PanelPageComponent | PhaseBannerPageComponent | RadiosPageComponent | SelectPageComponent | SkipLinkPageComponent | SummaryListPageComponent | TablePageComponent | TabsPageComponent | TagPageComponent | TextareaPageComponent | WarningTextPageComponent | StatusTagPageComponent)} PageComponent
  */
 
 /**
- * @typedef {Object} PageContent type for content that needs to be passed to page templates but which can't be a PageComponent
+ * @typedef {Object} PageContent
  * @property {string} [title]
  * @property {string} [backLinkUrl]
+ * @property {string} [backLinkText]
  * @property {string} [preHeading]
  * @property {string} [heading]
- * @property {string} [continueButtonText]
+ * @property {string} [submitButtonText]
+ * @property {PageComponent[]} pageComponents
+ */
+
+/**
+ * @typedef {Object} PageBodyRow
+ * @property {string} text
+ * @property {string} [href]
+ */
+
+/**
+ * @typedef {Object} ConfirmationPage
+ * @property {string} pageTitle
+ * @property {Object} panel
+ * @property {string} panel.title
+ * @property {Object} panel.appealReference
+ * @property {string} panel.appealReference.label
+ * @property {string} panel.appealReference.reference
+ * @property {string} [panel.classes]
+ * @property {Object} body
+ * @property {string} [body.containerClasses]
+ * @property {string} body.preTitle
+ * @property {Object} body.title
+ * @property {string} body.title.text
+ * @property {number} [body.title.headingLevel]
+ * @property {string} [body.title.classes]
+ * @property {PageBodyRow[]} body.rows
  */

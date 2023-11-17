@@ -4,6 +4,7 @@ import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapp
 import { isDefined } from '#lib/ts-utilities.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 export const backLink = {
 	text: 'Back to National list',
@@ -12,13 +13,24 @@ export const backLink = {
 export const pageHeading = 'Case details';
 
 /**
- * @param {{appeal: any}} data
+ * @param {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} appealDetails
  * @param {string} currentRoute
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
- * @returns {Promise<PageComponent[]>}
+ * @returns {Promise<PageContent>}
  */
-export async function appealDetailsPage(data, currentRoute, session) {
-	const mappedData = await initialiseAndMapAppealData(data, currentRoute, session);
+export async function appealDetailsPage(appealDetails, currentRoute, session) {
+	const mappedData = await initialiseAndMapAppealData(appealDetails, currentRoute, session);
+	const shortAppealReference = appealShortReference(appealDetails.appealReference);
+
+	/** @type {PageContent} */
+	const pageContent = {
+		title: `Case details - ${shortAppealReference}`,
+		backLinkText: 'Back to National list',
+		backLinkUrl: '/appeals-service/appeals-list',
+		preHeading: `Appeal ${shortAppealReference}`,
+		heading: 'Case details',
+		pageComponents: []
+	};
 
 	/** @type {PageComponent|undefined} */
 	let statusTag;
@@ -84,7 +96,7 @@ export async function appealDetailsPage(data, currentRoute, session) {
 	};
 
 	/** @type {PageComponent} */
-	const caseTimetable = data.appeal.startedAt
+	const caseTimetable = appealDetails.startedAt
 		? {
 			type: 'summary-list',
 			parameters: {
@@ -100,7 +112,7 @@ export async function appealDetailsPage(data, currentRoute, session) {
 		: {
 			type: 'inset-text',
 			parameters: {
-				html: `<p class="govuk-body">Case not started</p><a href="/appeals-service/appeal-details/${data.appeal.appealId}/appellant-case" class="govuk-link">Review appeal</a>`
+				html: `<p class="govuk-body">Case not started</p><a href="/appeals-service/appeal-details/${appealDetails.appealId}/appellant-case" class="govuk-link">Review appeal</a>`
 			}
 		};
 
@@ -132,7 +144,7 @@ export async function appealDetailsPage(data, currentRoute, session) {
 	const appealDetailsAccordion = {
 		type: 'accordion',
 		parameters: {
-			id: 'accordion-default' + data.appeal.appealId,
+			id: 'accordion-default' + appealDetails.appealId,
 			items: [
 				{
 					heading: { text: 'Case Overview' },
@@ -176,12 +188,14 @@ export async function appealDetailsPage(data, currentRoute, session) {
 	const notificationBanners = buildNotificationBanners(
 		session,
 		'appealDetails',
-		data.appeal.appealId
+		appealDetails.appealId
 	);
 
 	const pageComponents = [...notificationBanners, ...(statusTag ? [statusTag] : []), caseSummary, appealDetailsAccordion];
 
 	preRenderPageComponents(pageComponents);
 
-	return pageComponents;
+	pageContent.pageComponents = pageComponents;
+
+	return pageContent;
 }

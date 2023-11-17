@@ -12,6 +12,11 @@
 		<div class="govuk-grid-column-full">
 			<span class="govuk-caption-xl govuk-!-margin-bottom-1">{{ pageContent.preHeading }}</span>
 			<h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">{{ pageContent.heading }}</h1>
+			{%- for component in pageContent.pageComponents -%}
+				{%- if component.type === 'inset-text' -%}
+					{{ govukInsetText(component.parameters) }}
+				{%- endif -%}
+			{%- endfor -%}
 		</div>
 	</div>
 {%- endblock -%}
@@ -30,7 +35,7 @@
 		{% endif %}
 		<div class="govuk-button-group">
 			{{ govukButton({
-				text: pageContent.continueButtonText,
+				text: pageContent.submitButtonText,
 				type: "submit"
 			}) }}
 			{% if pageContent.skipButtonUrl %}
