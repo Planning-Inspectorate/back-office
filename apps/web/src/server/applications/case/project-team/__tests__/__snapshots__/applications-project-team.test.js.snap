@@ -3,7 +3,7 @@
 exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the NEW user and no default option 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"><span class=\\"govuk-caption-l\\"> Do
-			Do</span> Change role</h1>
+			Do</span> Choose role</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-!-margin-top-6\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -148,7 +148,7 @@ exports[`Project team Choose role page POST /case/123/project-team/1/choose-role
         </div>
     </div>
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"><span class=\\"govuk-caption-l\\"> Do
-			Do</span> Change role</h1>
+			Do</span> Choose role</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-!-margin-top-6\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -229,7 +229,7 @@ exports[`Project team Choose role page POST /case/123/project-team/1/choose-role
         </div>
     </div>
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"><span class=\\"govuk-caption-l\\"> Do
-			Do</span> Change role</h1>
+			Do</span> Choose role</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"govuk-!-margin-top-6\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">

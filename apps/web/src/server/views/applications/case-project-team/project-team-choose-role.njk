@@ -5,13 +5,11 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set serviceName = "Project team" %}
-{% set pageTitle = "Change role" %}
+{% set pageTitle = ('Choose' if projectTeamMember.role == '' else 'Change') +" role" %}
 
 {% block pageTitle %}
 	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
 {% endblock %}
-
-{# {% block sectionMenu %}{% endblock %} #}
 
 {% block beforeContent %}
 	<aside>
