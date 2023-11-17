@@ -83,7 +83,6 @@ export async function updateProjectTeamChooseRole({ query, params, session, body
 			errors
 		});
 	}
-	console.log(8686868, toSearchPage);
 	if (toSearchPage) {
 		return response.redirect('../search');
 	}
@@ -102,6 +101,7 @@ export async function viewProjectTeamSearchPage(
 	const template = `applications/case-project-team/project-team-search`;
 	const searchTerm = body.query?.length ? body.query : query.q;
 	const pageNumber = Number(query.number || '1');
+	const { caseId } = response.locals;
 
 	// checkpoint 1: render empty search page when query not valid or empty
 	if (validationErrors || !searchTerm) {
@@ -112,7 +112,12 @@ export async function viewProjectTeamSearchPage(
 	const allAzureUsers = await projectTeamADService.getAllCachedUsers(session);
 
 	// checkpoint 3: search member and render paginated list of results
-	const searchResults = await searchProjectTeamMembersData(searchTerm, allAzureUsers, pageNumber);
+	const searchResults = await searchProjectTeamMembersData(
+		searchTerm,
+		allAzureUsers,
+		pageNumber,
+		caseId
+	);
 
 	return response.render(template, searchResults);
 }
@@ -123,8 +128,10 @@ export async function viewProjectTeamSearchPage(
  * @param {string} searchTerm
  * @param {ProjectTeamMember[]} allAzureUsers
  * @param {number} pageNumber
+ * @param {number} caseId
  */
-async function searchProjectTeamMembersData(searchTerm, allAzureUsers, pageNumber) {
+async function searchProjectTeamMembersData(searchTerm, allAzureUsers, pageNumber, caseId) {
+	// perform search looking inside the cached users
 	const { results } = await searchProjectTeamMembers(searchTerm, allAzureUsers, pageNumber);
 
 	if (!results) {
@@ -133,6 +140,20 @@ async function searchProjectTeamMembersData(searchTerm, allAzureUsers, pageNumbe
 			paginationButtons: null
 		};
 	}
+
+	// query the internal database to retrieve roles and ids
+	const { projectTeamMembers } = await getProjectTeamMembers(caseId);
+
+	// add the label "isAdded" if a result item has been already added to the project
+	results.items = results.items.map((resultItem) => {
+		const isAlreadyAdded = (projectTeamMembers || []).find(
+			(existingMember) => existingMember.userId === resultItem.id
+		);
+		if (isAlreadyAdded) {
+			return { ...resultItem, isAdded: true };
+		}
+		return resultItem;
+	});
 
 	const paginationButtons = {
 		...(pageNumber === 1
@@ -190,7 +211,7 @@ const getManyProjectTeamMembersInfo = async (projectTeamMembers, session) => {
 const getSingleProjectTeamMemberInfo = async (caseId, userId, session) => {
 	let role = '';
 
-	// check if user alreay belong to the project
+	// check if user alreay belongs to the project
 	// if yes => show existing role and update
 	// if no => show all options blank and add new user
 	const { projectTeamMember, errors } = await getProjectTeamMemberById(caseId, userId);

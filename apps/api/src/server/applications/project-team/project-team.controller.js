@@ -45,7 +45,7 @@ export const updateProjectTeamMemberRole = async ({ params, body }, response) =>
 
 	if (!projectTeamMember) {
 		throw new BackOfficeAppError(
-			`An error occured member during the upsert of user id ${userId} for the case ${id}`,
+			`An error occured during the upsert of user id ${userId} for the case ${id}`,
 			500
 		);
 	}
