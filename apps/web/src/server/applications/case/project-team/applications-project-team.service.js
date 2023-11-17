@@ -108,10 +108,10 @@ export const updateProjectTeamMemberRole = async (caseId, userId, role) => {
 
 		response = { projectTeamMember };
 	} catch (/** @type {*} */ error) {
-		pino.error(`[API] ${error?.response?.body?.error?.code || 'Unknown error'}`);
+		pino.error(`[API] ${error?.response?.body?.errors || 'Unknown error'}`);
 
 		response = new Promise((resolve) => {
-			resolve({ errors: { query: 'An error occurred, please try again later' } });
+			resolve({ errors: { query: 'The role could not be saved, try again.' } });
 		});
 	}
 

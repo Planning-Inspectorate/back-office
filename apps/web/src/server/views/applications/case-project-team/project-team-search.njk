@@ -62,10 +62,14 @@
 			{% set searchResults = [] %}
 			{% for teamMember in results.items %}
 				{% set teamMemberRolePageUrl %}
-				<a class='govuk-link' href='{{'project-team-role'|url({
+				{% if teamMember.isAdded%}
+					Added
+				{% else %}
+					<a class='govuk-link' href='{{'project-team-role'|url({
 						caseId: caseId,
 						userId: teamMember.id}
 					)}}'>Select</a>
+				{% endif %}
 				{% endset %}
 
 				{% set searchResults = searchResults | concat([

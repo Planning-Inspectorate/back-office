@@ -1741,8 +1741,7 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
             <tr class=\\"govuk-table__row\\">
                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>
                 <td class=\\"govuk-table__cell\\">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
-                <td class=\\"govuk-table__cell\\"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
-                </td>
+                <td class=\\"govuk-table__cell\\">Added</td>
             </tr>
             <tr class=\\"govuk-table__row\\">
                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Consectetur Adipiscing</th>

@@ -140,12 +140,17 @@ describe('Project team', () => {
 
 			it('should render the result list', async () => {
 				installMockADToken(fixtureProjectTeamMembers);
+				nock('http://test/')
+					.get('/applications/123/project-team')
+					.reply(200, [{ userId: '3' }]);
 
 				const response = await request.post(`${baseUrl}/search`).send({ query });
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('17 results');
+				expect(element.innerHTML).toContain('Added');
+				expect(element.innerHTML).toContain('Select');
 			});
 		});
 	});
