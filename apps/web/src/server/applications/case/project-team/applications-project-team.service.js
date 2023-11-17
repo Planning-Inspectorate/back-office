@@ -17,12 +17,13 @@ export const searchProjectTeamMembers = async (searchTerm, allAzureUsers, pageNu
 	const searchResults = allAzureUsers.filter((azureUser) => {
 		const { givenName, surname, userPrincipalName: email } = azureUser;
 
-		const recordString =
-			(givenName || '').toLocaleLowerCase() +
+		const recordString = (
+			(givenName || '') +
 			' ' +
-			(surname || '').toLocaleLowerCase() +
+			(surname || '') +
 			' ' +
-			(email || '').toLocaleLowerCase();
+			(email || '')
+		).toLocaleLowerCase();
 
 		return recordString.includes(searchTerm);
 	});

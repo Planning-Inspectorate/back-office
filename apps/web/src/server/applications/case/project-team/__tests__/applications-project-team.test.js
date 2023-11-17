@@ -29,6 +29,11 @@ describe('Project team', () => {
 	});
 
 	const baseUrl = '/applications-service/case/123/project-team';
+	const query = (
+		fixtureProjectTeamMembers[2].givenName +
+		' ' +
+		fixtureProjectTeamMembers[2].surname
+	).toLocaleLowerCase();
 
 	describe('List page', () => {
 		describe('GET /case/123/project-team/', () => {
@@ -45,13 +50,33 @@ describe('Project team', () => {
 			});
 
 			describe('If user is not inspector', () => {
-				it('should render the page', async () => {
+				it('should render the page without users', async () => {
+					nock('http://test/').get('/applications/123/project-team').reply(200, []);
+					installMockADToken(fixtureProjectTeamMembers);
+
 					await request.get('/applications-service/case-team');
 
 					const response = await request.get(`${baseUrl}`);
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).not.toContain('Actions');
+					expect(element.innerHTML).toContain('Project team');
+				});
+
+				it('should render the page with users', async () => {
+					nock('http://test/')
+						.get('/applications/123/project-team')
+						.reply(200, [fixtureProjectTeamMembers[0]]);
+					installMockADToken(fixtureProjectTeamMembers);
+
+					await request.get('/applications-service/case-team');
+
+					const response = await request.get(`${baseUrl}`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
 					expect(element.innerHTML).toContain('Project team');
 				});
 			});
@@ -73,14 +98,24 @@ describe('Project team', () => {
 				expect(element.innerHTML).toContain('Search for a team member');
 			});
 
-			it('should render the page with the search bar and the results of the query', async () => {
+			it('should render the page with the search bar and the pagination', async () => {
 				installMockADToken(fixtureProjectTeamMembers);
 
-				const response = await request.get(`${baseUrl}/search?q=searchTerm`);
+				const response = await request.get(`${baseUrl}/search?q=a`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('200 results');
+			});
+
+			it('should render the page with the results of the query', async () => {
+				installMockADToken(fixtureProjectTeamMembers);
+
+				const response = await request.get(`${baseUrl}/search?q=${query}`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('17 results');
 			});
 		});
 
@@ -93,18 +128,10 @@ describe('Project team', () => {
 				expect(element.innerHTML).toContain('Enter a search term');
 			});
 
-			it('should render an error if AD token is not found', async () => {
-				const response = await request.post(`${baseUrl}/search`).send({ query: 'search term' });
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('permissions to search for team members');
-			});
-
 			it('should render an empty list if there are no results', async () => {
 				installMockADToken([]);
 
-				const response = await request.post(`${baseUrl}/search`).send({ query: 'search term' });
+				const response = await request.post(`${baseUrl}/search`).send({ query });
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -114,11 +141,47 @@ describe('Project team', () => {
 			it('should render the result list', async () => {
 				installMockADToken(fixtureProjectTeamMembers);
 
-				const response = await request.post(`${baseUrl}/search`).send({ query: 'search term' });
+				const response = await request.post(`${baseUrl}/search`).send({ query });
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('200 results');
+				expect(element.innerHTML).toContain('17 results');
+			});
+		});
+	});
+
+	describe('Choose role page', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+		});
+
+		describe('GET /case/123/project-team/1/choose-role', () => {
+			it('should render the page with the name of the NEW user and no default option', async () => {
+				nock('http://test/').get('/applications/123/project-team/1').reply(500, {});
+				installMockADToken(fixtureProjectTeamMembers);
+
+				const response = await request.get(`${baseUrl}/1/choose-role`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain('checked');
+				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
+			});
+
+			it('should render the page with the name of the existing user and default option', async () => {
+				const mockedTeamMemberWithRole = { ...fixtureProjectTeamMembers[0], role: 'inspector' };
+				nock('http://test/')
+					.get('/applications/123/project-team/1')
+					.reply(200, mockedTeamMemberWithRole);
+				installMockADToken(fixtureProjectTeamMembers);
+
+				const response = await request.get(`${baseUrl}/1/choose-role`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('checked');
+				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
 			});
 		});
 	});
