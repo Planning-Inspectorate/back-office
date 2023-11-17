@@ -258,5 +258,5 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
 export const searchDocuments = async (payload) => {
 	//	return post('applications/search', { json: payload });
 	console.log(payload);
-	return get('/applications/1/documents?page=1&pageSize=5&criteria=abc');
+	return get('applications/1/documents?page=1&pageSize=5&criteria=dummy');
 };
