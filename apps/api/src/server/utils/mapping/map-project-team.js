@@ -14,6 +14,4 @@ export const mapProjectTeamMember = (teamMember) => {
  * @param {import('@pins/applications.api').Schema.ProjectTeam[]} teamMembers
  * @returns {{role: string, userId: string}[]}
  */
-export const mapProjectTeamMembers = (teamMembers) => {
-	return teamMembers?.map((teamMember) => mapProjectTeamMember(teamMember));
-};
+export const mapProjectTeamMembers = (teamMembers) => teamMembers?.map(mapProjectTeamMember) ?? [];

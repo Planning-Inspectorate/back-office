@@ -56,7 +56,7 @@ export const getAllADUsers = async (ADToken) => {
 		.flat(1)
 		.filter(
 			(value, index, self) =>
-				!!value && index === self.findIndex((selfItem) => selfItem.id === value.id)
+				Boolean(value) && index === self.findIndex((selfItem) => selfItem.id === value.id)
 		);
 };
 

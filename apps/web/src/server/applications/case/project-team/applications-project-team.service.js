@@ -17,13 +17,7 @@ export const searchProjectTeamMembers = async (searchTerm, allAzureUsers, pageNu
 	const searchResults = allAzureUsers.filter((azureUser) => {
 		const { givenName, surname, userPrincipalName: email } = azureUser;
 
-		const recordString = (
-			(givenName || '') +
-			' ' +
-			(surname || '') +
-			' ' +
-			(email || '')
-		).toLocaleLowerCase();
+		const recordString = `${givenName || ''} ${surname || ''} ${email || ''}`.toLocaleLowerCase();
 
 		return recordString.includes(searchTerm);
 	});
@@ -45,22 +39,16 @@ export const searchProjectTeamMembers = async (searchTerm, allAzureUsers, pageNu
  * Retrieve the case team members stored in the db
  *
  * @param {number} caseId
- * @returns {Promise<{projectTeamMembers: {userId: string, role: string}[], errors: ValidationErrors}>}
+ * @returns {Promise<{projectTeamMembers?: {userId: string, role: string}[], errors?: {query: string}}>}
  */
 export const getProjectTeamMembers = async (caseId) => {
-	let response;
-
 	try {
-		response = { projectTeamMembers: await get(`applications/${caseId}/project-team`) };
+		return { projectTeamMembers: await get(`applications/${caseId}/project-team`) };
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.error?.code || 'Unknown error'}`);
 
-		response = new Promise((resolve) => {
-			resolve({ errors: { query: 'An error occurred, please try again later' } });
-		});
+		return { errors: { query: 'An error occurred, please try again later' } };
 	}
-
-	return response;
 };
 
 /**
@@ -68,24 +56,18 @@ export const getProjectTeamMembers = async (caseId) => {
  *
  * @param {number} caseId
  * @param {string} userId
- * @returns {Promise<{projectTeamMember: {userId: string, role: string} , errors: ValidationErrors}>}
+ * @returns {Promise<{projectTeamMember?: {userId: string, role: string} , errors?: {query: string}}>}
  */
 export const getProjectTeamMemberById = async (caseId, userId) => {
-	let response;
-
 	try {
 		const projectTeamMember = await get(`applications/${caseId}/project-team/${userId}`);
 
-		response = { projectTeamMember };
+		return { projectTeamMember };
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.error?.code || 'Unknown error'}`);
 
-		response = new Promise((resolve) => {
-			resolve({ errors: { query: 'An error occurred, please try again later' } });
-		});
+		return { errors: { query: 'An error occurred, please try again later' } };
 	}
-
-	return response;
 };
 
 /**
@@ -94,11 +76,9 @@ export const getProjectTeamMemberById = async (caseId, userId) => {
  * @param {number} caseId
  * @param {string} userId
  * @param {string} role
- * @returns {Promise<{projectTeamMember: {userId: string, role: string} , errors: ValidationErrors}>}
+ * @returns {Promise<{projectTeamMember?: {userId: string, role: string} , errors?: {query: string}}>}
  */
 export const updateProjectTeamMemberRole = async (caseId, userId, role) => {
-	let response;
-
 	try {
 		const projectTeamMember = await patch(`applications/${caseId}/project-team/${userId}`, {
 			json: {
@@ -106,14 +86,10 @@ export const updateProjectTeamMemberRole = async (caseId, userId, role) => {
 			}
 		});
 
-		response = { projectTeamMember };
+		return { projectTeamMember };
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors || 'Unknown error'}`);
 
-		response = new Promise((resolve) => {
-			resolve({ errors: { query: 'The role could not be saved, try again.' } });
-		});
+		return { errors: { query: 'The role could not be saved, try again.' } };
 	}
-
-	return response;
 };
