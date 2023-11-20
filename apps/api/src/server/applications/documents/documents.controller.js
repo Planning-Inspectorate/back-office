@@ -1,5 +1,6 @@
+import BackOfficeAppError from '#utils/app-error.js';
 import { obtainURLsForDocuments } from '../application/documents/document.service.js';
-import { updateStatus } from './documents.service.js';
+import { updateStatus, extractYouTubeURLFromHTML } from './documents.service.js';
 
 /**
  * Provides document upload URLs.
@@ -43,7 +44,10 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 export const processHTMLForYouTube = async ({ body }, response) => {
 	const html = body.html;
 
-	console.log(html);
+	const youtubeUrl = extractYouTubeURLFromHTML(html);
+	if (!youtubeUrl) {
+		throw new BackOfficeAppError('no YouTube iframe found in the HTML snippet provided', 400);
+	}
 
 	response.status(501).end();
 };
