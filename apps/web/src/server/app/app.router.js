@@ -10,7 +10,8 @@ import authRouter from './auth/auth.router.js';
 import getDocumentsDownload from './components/file-downloader.component.js';
 import {
 	postDocumentsUpload,
-	postUploadDocumentVersion
+	postUploadDocumentVersion,
+	postProcessHTMLFile
 } from './components/file-uploader.component.js';
 
 const router = createRouter();
@@ -52,6 +53,7 @@ router.route('/documents/:caseId/upload/:documentId/add-version').post(postUploa
 router
 	.route('/documents/:caseId/download/:guid/version/:version/:preview?')
 	.get(asyncRoute(getDocumentsDownload));
+router.route('/documents/process-html').post(postProcessHTMLFile);
 router.use('/applications-service', applicationsRouter);
 
 export default router;

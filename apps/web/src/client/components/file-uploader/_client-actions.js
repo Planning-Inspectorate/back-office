@@ -203,6 +203,34 @@ const clientActions = (uploadForm) => {
 	};
 
 	/**
+	 * @param {File[]} files
+	 * @returns {Promise<File[]>}
+	 * */
+	const prepareFilesForUpload = async (files) => {
+		const { processHTMLForYouTube } = serverActions(uploadForm);
+
+		/** @type {File[]} */
+		let processedList = [];
+		let errors = [];
+
+		for (const f of files) {
+			if (f.type !== 'text/html') {
+				processedList.push(f);
+				continue;
+			}
+
+			const { file: newFile, errors: _errors } = await processHTMLForYouTube(f);
+			if (_errors.length > 0) {
+				errors.push(_errors);
+			}
+
+			processedList.push(newFile);
+		}
+
+		return processedList;
+	};
+
+	/**
 		@param {Event} clickEvent
 	 */
 	const onSubmit = async (clickEvent) => {
@@ -223,18 +251,20 @@ const clientActions = (uploadForm) => {
 			let errors = null;
 			let uploadInfo;
 
-			if (fileList.length === 1 && uploadForm.dataset?.documentId) {
-				uploadInfo = await getVersionUploadInfoFromInternalDB(fileList[0]);
+			const processedList = await prepareFilesForUpload(fileList);
+
+			if (processedList.length === 1 && uploadForm.dataset?.documentId) {
+				uploadInfo = await getVersionUploadInfoFromInternalDB(processedList[0]);
 				await relevantRepresentationsAttachmentUpload(uploadInfo?.response, uploadForm);
-				errors = await uploadFile(fileList, uploadInfo);
+				errors = await uploadFile(processedList, uploadInfo);
 			} else {
-				uploadInfo = await getUploadInfoFromInternalDB(fileList);
+				uploadInfo = await getUploadInfoFromInternalDB(processedList);
 				errors = uploadInfo.errors;
 			}
 
 			if (uploadInfo?.response?.documents) {
 				await relevantRepresentationsAttachmentUpload(uploadInfo?.response, uploadForm);
-				errors = await uploadFiles(fileList, uploadInfo?.response);
+				errors = await uploadFiles(processedList, uploadInfo?.response);
 			}
 
 			finalizeUpload(errors);

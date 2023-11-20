@@ -1,7 +1,7 @@
 /** @typedef {import('./_html.js').AnError} AnError */
 /** @typedef {import('./_html.js').FileWithRowId} FileWithRowId */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
-/** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
+/** @typedef {{documentName: string, documentType: string, fileRowId: string, blobStoreUrl?: string, failedReason?: string}} DocumentUploadInfo */
 /** @typedef {{documents: DocumentUploadInfo[], blobStorageHost: string, privateBlobContainer: string, accessToken: AccessToken}} UploadInfo */
 /** @typedef {{fileRowId: string, document: DocumentUploadInfo, blobStorageHost: string, privateBlobContainer: string, accessToken: AccessToken}} UploadFileInfo */
 
@@ -103,6 +103,47 @@ const serverActions = (uploadForm) => {
 
 				return documentUploadInfo;
 			});
+	};
+
+	/**
+	 * @param {File} file
+	 * @returns {Promise<{ file: File | null, errors: AnError[] }>}
+	 * */
+	const processHTMLForYouTube = async (file) => {
+		const readerPromise = new Promise((resolve, reject) => {
+			const fr = new FileReader();
+			fr.onload = () => resolve(fr);
+			fr.onerror = reject;
+			fr.readAsText(file);
+		});
+
+		try {
+			const reader = await readerPromise;
+			const html = reader.result;
+
+			const response = await fetch('/documents/process-html', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ html })
+			});
+
+			const { html: renderedHTML } = await response.json();
+			const newFile = new File([renderedHTML], file.name, {
+				type: 'text/html'
+			});
+
+			return { file: newFile, errors: [] };
+		} catch (/** @type {*} */ error) {
+			failedUploads.push({
+				message: 'GENERIC_SINGLE_FILE',
+				fileRowId: `file_row_${file.lastModified}_${file.size}`,
+				name: file.name
+			});
+
+			return { file: null, errors: [error] };
+		}
 	};
 
 	/**
@@ -209,7 +250,8 @@ const serverActions = (uploadForm) => {
 		getUploadInfoFromInternalDB,
 		uploadFiles,
 		uploadFile,
-		getVersionUploadInfoFromInternalDB
+		getVersionUploadInfoFromInternalDB,
+		processHTMLForYouTube
 	};
 };
 
