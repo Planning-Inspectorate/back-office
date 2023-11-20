@@ -34,3 +34,16 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 
 	response.send(updateResponse);
 };
+
+/**
+ * Processes arbitrary HTML file into the agreed YouTube template for Front Office
+ *
+ * @type {import('express').RequestHandler<any, any, { html: string }, any>}
+ * */
+export const processHTMLForYouTube = async ({ body }, response) => {
+	const html = body.html;
+
+	console.log(html);
+
+	response.status(501).end();
+};

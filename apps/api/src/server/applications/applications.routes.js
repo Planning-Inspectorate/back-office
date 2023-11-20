@@ -7,7 +7,7 @@ import { fileFoldersRoutes } from './application/file-folders/folders.routes.js'
 import { projectUpdateRoutes } from './application/project-updates/project-updates.routes.js';
 import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
 import { caseTeamRoutes } from './case-team/case-team.routes.js';
-import { updateDocumentStatus } from './documents/documents.controller.js';
+import { updateDocumentStatus, processHTMLForYouTube } from './documents/documents.controller.js';
 import { validateDocumentGUID, validateMachineAction } from './documents/documents.validators.js';
 import { examinationTimetableItemRoutes } from './examination-timetable-items/examination-timetable-items.routes.js';
 import { examinationTimetableTypeRoutes } from './examination-timetable-type/examination-timetable-type.routes.js';
@@ -84,6 +84,30 @@ router.patch(
 	validateMachineAction,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateDocumentStatus)
+);
+
+router.post(
+	'/documents/process-html',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path =  '/applications/documents/process-html'
+        #swagger.description = 'Accepts an HTML string and returns a different HTML string matching the YouTube video template for Front Office'
+        #swagger.parameters['html'] = {
+            in: 'body',
+            description: 'HTML string',
+			required: true,
+			type: 'string'
+        }
+        #swagger.responses[200] = {
+            description: 'Document status updated',
+            schema: { $ref: '#/definitions/DocumentHTMLResponse' }
+        }
+        #swagger.responses[400] = {
+            description: 'HTML string does not contain a YouTube iframe',
+            schema: { $ref: '#/definitions/DocumentBadHTMLResponse' }
+        }
+	 */
+	asyncHandler(processHTMLForYouTube)
 );
 
 export { router as applicationsRoutes };
