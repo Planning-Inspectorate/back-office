@@ -489,7 +489,10 @@ export const storeDocumentVersion = async (request, response) => {
 		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
 	}
 
-	if (transcriptReference) {
+	if (transcriptReference === '') {
+		// user requested to explicitly clear the transcription field value
+		documentVersion.transcriptGuid = null;
+	} else if (transcriptReference) {
 		const transcriptDocument = await documentRepository.getByReferenceRelatedToCaseId(
 			transcriptReference,
 			Number(caseId)
@@ -498,7 +501,6 @@ export const storeDocumentVersion = async (request, response) => {
 		if (!transcriptDocument) {
 			const transcriptErrorMsg = `Transcript document not found: reference ${transcriptReference}`;
 			response.status(404).send({ errors: { transcript: transcriptErrorMsg } });
-
 			throw new BackOfficeAppError(transcriptErrorMsg, 404);
 		}
 
