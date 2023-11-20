@@ -507,10 +507,11 @@ export async function searchDocuments(req, response) {
 	const query = bodyQuery ?? req.query.q;
 
 	// get the search page url
-	const searchDocumentsUrl = url('document-search-results', { caseId: caseId }).replace(
-		'/?q=undefined',
-		''
-	);
+	//const searchDocumentsUrl = url('document-search-results', { caseId: caseId }).replace(
+	//	'/?q=undefined',
+	//	''
+	//);
+	const searchDocumentsUrl = url('document-search-results', { caseId: caseId, query });
 
 	if (errors || !query) {
 		return response.render(
@@ -524,7 +525,7 @@ export async function searchDocuments(req, response) {
 		);
 	}
 
-	const pageSize = 50;
+	const pageSize = 2;
 	const pageNumber = Number.parseInt(params?.pageNumber, 10) || 1;
 
 	const searchResponse = await applicationsDocumentationService.searchDocuments(caseId, {
@@ -540,16 +541,28 @@ export async function searchDocuments(req, response) {
 	const pagination = {
 		previous:
 			pageNumber > 1
-				? { href: url('document-search-results', { step: `${pageNumber - 1}`, query }) }
+				? {
+						href: url('document-search-results', {
+							caseId: caseId,
+							step: `${pageNumber - 1}`,
+							query
+						})
+				  }
 				: {},
 		next:
 			pageNumber < pagesNumber
-				? { href: url('document-search-results', { step: `${pageNumber + 1}`, query }) }
+				? {
+						href: url('document-search-results', {
+							caseId: caseId,
+							step: `${pageNumber + 1}`,
+							query
+						})
+				  }
 				: {},
 		items: Array.from({ length: pagesNumber }).map((value, key) => ({
 			number: key + 1,
 			current: key + 1 === pageNumber,
-			href: url('document-search-results', { step: `${key + 1}`, query })
+			href: url('document-search-results', { caseId: caseId, step: `${key + 1}`, query })
 		}))
 	};
 
