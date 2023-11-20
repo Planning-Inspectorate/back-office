@@ -251,12 +251,18 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
 
 //document search
 /**
+ * @param {number} caseId
  * @param {ApplicationsSearchResultsBody} payload
  * @returns {Promise<PaginatedApplicationsResponse>}
  */
 
-export const searchDocuments = async (payload) => {
+export const searchDocuments = async (caseId, payload) => {
 	//	return post('applications/search', { json: payload });
+	console.log('caseID', caseId);
 	console.log(payload);
-	return get('applications/1/documents?page=1&pageSize=5&criteria=dummy');
+	//	return get('applications/1/documents?page=1&pageSize=5&criteria=dummy');
+	//   return get('applications/1/documents?page=1&pageSize=5&criteria=dummy');
+	return get(
+		`applications/${caseId}/documents?page=${payload.pageNumber}&pageSize=${payload.pageSize}&&criteria=${payload.query}`
+	);
 };
