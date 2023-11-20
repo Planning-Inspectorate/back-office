@@ -4,6 +4,7 @@ import { NSIP_DOCUMENT } from '../../infrastructure/topics.js';
 import { buildNsipDocumentPayload } from '../application/documents/document.js';
 import * as documentRepository from '../../repositories/document.repository.js';
 import * as documentVersionRepository from '../../repositories/document-metadata.repository.js';
+import { YouTubeHTMLTemplate } from './youtube-html-template.js';
 
 /**
  * @param {string} guid
@@ -62,3 +63,12 @@ export const extractYouTubeURLFromHTML = (html) => {
 
 	return match[1];
 };
+
+/**
+ * Render HTML YouTube template for Front Office
+ *
+ * @param {string} youtubeUrl
+ * @returns {string}
+ * */
+export const renderYouTubeTemplate = (youtubeUrl) =>
+	YouTubeHTMLTemplate.replace('{{youtubeUrl}}', youtubeUrl);
