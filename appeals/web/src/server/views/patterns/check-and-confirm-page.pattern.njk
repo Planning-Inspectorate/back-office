@@ -1,0 +1,33 @@
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+
+{%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
+{%- set backLinkUrl = pageContent.backLinkUrl -%}
+{%- set backLinkText = pageContent.backLinkText -%}
+
+{%- set gridColumnClasses = gridColumnClasses if gridColumnClasses else 'govuk-grid-column-full' -%}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			{%- if pageContent.preHeading -%}<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ pageContent.preHeading }}</span>{%- endif -%}
+			{%- if pageContent.heading -%}<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">{{ pageContent.heading }}</h1>{%- endif -%}
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- block pageContent -%}
+	{%- for component in pageContent.pageComponents -%}
+		{%- if component.type === 'summary-list' or component.type === 'inset-text' -%}
+			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
+			{%- include "../appeals/components/page-component.njk" -%}
+			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
+		{%- endif -%}
+	{%- endfor -%}
+	<form method="post" novalidate="novalidate">
+		{{ govukButton({
+			text: submitButtonText if submitButtonText else "Confirm",
+			type: "submit"
+		}) }}
+	</form>
+{%- endblock -%}

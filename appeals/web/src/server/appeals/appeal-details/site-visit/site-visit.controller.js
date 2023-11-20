@@ -132,7 +132,7 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 					: 'Address not known';
 				const formattedSiteVisitDate = dateToDisplayDate(siteVisit.visitDate);
 
-				return response.render('app/confirmation.njk', {
+				return response.render('appeals/confirmation.njk', {
 					panel: {
 						title: 'Site visit booked',
 						appealReference: {

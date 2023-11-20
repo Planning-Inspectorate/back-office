@@ -87,6 +87,10 @@ export function inputInstructionIsFieldsetInputInstruction(inputOption) {
  */
 
 /**
+ * @typedef {Object<string, Instructions>} MappedInstructions
+ */
+
+/**
  *
  * @param {import('@pins/appeals.api').Appeals.AppealSite} appealSite
  * @returns {import('./lpaQuestionnaire.mapper.js').InputInstruction[]}

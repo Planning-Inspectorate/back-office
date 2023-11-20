@@ -1,23 +1,12 @@
 import { convertFromBooleanToYesNo } from '../boolean-formatter.js';
 import { addressToString } from '#lib/address-formatter.js';
-import * as displayFormatter from '#lib/display-page-formatter.js';
+import * as displayPageFormatter from '#lib/display-page-formatter.js';
 import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter.js';
 
 /**
  * @typedef {import('#lib/mappers/global-mapper-formatter.js').InputInstruction} InputInstruction
  * @typedef {import('#lib/mappers/global-mapper-formatter.js').Instructions} Instructions
- */
-
-/**
- * @typedef LPAQInstructionCollection
- * A collection of Instructions to display Appeal Data
- * @type {Object<string, Instructions>}
- */
-
-/**
- * @typedef MappedLPAQInstructions
- * @type {object}
- * @prop {LPAQInstructionCollection} lpaq
+ * @typedef {import('./global-mapper-formatter.js').MappedInstructions} MappedInstructions
  */
 
 /**
@@ -35,10 +24,10 @@ import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter
 /**
  * @param {import("#appeals/appeal-details/appeal-details.types.js").SingleLPAQuestionnaireResponse} data
  * @param {string} currentRoute
- * @returns {Promise<MappedLPAQInstructions>}
+ * @returns {Promise<{lpaq: MappedInstructions}>}
  */
 export async function initialiseAndMapLPAQData(data, currentRoute) {
-	/** @type {MappedLPAQInstructions} */
+	/** @type {{lpaq: MappedInstructions}} */
 	const mappedData = {};
 	mappedData.lpaq = {};
 	/** @type {Instructions} */
@@ -97,7 +86,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						text: 'Listed building details'
 					},
 					value: {
-						html: displayFormatter.formatListOfListedBuildingNumbers(
+						html: displayPageFormatter.formatListOfListedBuildingNumbers(
 							data.listedBuildingDetails
 						)
 					},
@@ -170,7 +159,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						text: 'Affected listed building details'
 					},
 					value: {
-						html: displayFormatter.formatListOfListedBuildingNumbers(
+						html: displayPageFormatter.formatListOfListedBuildingNumbers(
 							data.affectsListedBuildingDetails
 						)
 					},
@@ -333,7 +322,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					text: 'Conservation area map and guidance'
 				},
 				value: {
-					html: displayFormatter.formatDocumentValues(
+					html: displayPageFormatter.formatDocumentValues(
 						data.appealId,
 						data.documents.conservationAreaMap
 					)
@@ -354,7 +343,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							: []),
 						{
 							text: 'Add',
-							href: displayFormatter.formatDocumentActionLink(
+							href: displayPageFormatter.formatDocumentActionLink(
 								data.appealId,
 								data.documents.conservationAreaMap,
 								buildDocumentUploadUrlTemplate(data.lpaQuestionnaireId)
@@ -421,7 +410,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					text: 'Who was notified'
 				},
 				value: {
-					html: displayFormatter.formatDocumentValues(
+					html: displayPageFormatter.formatDocumentValues(
 						data.appealId,
 						data.documents.notifyingParties
 					)
@@ -442,7 +431,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							: []),
 						{
 							text: 'Add',
-							href: displayFormatter.formatDocumentActionLink(
+							href: displayPageFormatter.formatDocumentActionLink(
 								data.appealId,
 								data.documents.notifyingParties,
 								buildDocumentUploadUrlTemplate(data.lpaQuestionnaireId)
@@ -463,7 +452,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					text: 'Notification methods'
 				},
 				value: {
-					html: displayFormatter.formatListOfNotificationMethodsToHtml(
+					html: displayPageFormatter.formatListOfNotificationMethodsToHtml(
 						data.lpaNotificationMethods
 					)
 				},
@@ -528,7 +517,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						text: 'Site Notice'
 					},
 					value: {
-						html: displayFormatter.formatDocumentValues(
+						html: displayPageFormatter.formatDocumentValues(
 							data.appealId,
 							data.documents.siteNotices
 						)
@@ -549,7 +538,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								: []),
 							{
 								text: 'Add',
-								href: displayFormatter.formatDocumentActionLink(
+								href: displayPageFormatter.formatDocumentActionLink(
 									data.appealId,
 									data.documents.siteNotices,
 									buildDocumentUploadUrlTemplate(data.lpaQuestionnaireId)
@@ -577,7 +566,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						text: 'Letter/email to interested parties'
 					},
 					value: {
-						html: displayFormatter.formatDocumentValues(
+						html: displayPageFormatter.formatDocumentValues(
 							data.appealId,
 							data.documents.lettersToNeighbours
 						)
@@ -598,7 +587,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								: []),
 							{
 								text: 'Add',
-								href: displayFormatter.formatDocumentActionLink(
+								href: displayPageFormatter.formatDocumentActionLink(
 									data.appealId,
 									data.documents.lettersToNeighbours,
 									buildDocumentUploadUrlTemplate(data.lpaQuestionnaireId)
@@ -625,7 +614,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						text: 'Advertisement'
 					},
 					value: {
-						html: displayFormatter.formatDocumentValues(
+						html: displayPageFormatter.formatDocumentValues(
 							data.appealId,
 							data.documents.pressAdvert
 						)
@@ -634,7 +623,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						items: [
 							{
 								text: data.documents.pressAdvert?.documents?.length > 0 ? 'Change' : 'Add',
-								href: displayFormatter.formatDocumentActionLink(
+								href: displayPageFormatter.formatDocumentActionLink(
 									data.appealId,
 									data.documents.pressAdvert,
 									buildDocumentUploadUrlTemplate(data.lpaQuestionnaireId)
@@ -703,7 +692,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						text: 'Representations from other parties documents'
 					},
 					value: {
-						html: displayFormatter.formatDocumentValues(
+						html: displayPageFormatter.formatDocumentValues(
 							data.appealId,
 							data.documents.representations
 						)
@@ -724,7 +713,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								: []),
 							{
 								text: 'Add',
-								href: displayFormatter.formatDocumentActionLink(
+								href: displayPageFormatter.formatDocumentActionLink(
 									data.appealId,
 									data.documents.representations,
 									buildDocumentUploadUrlTemplate(data.lpaQuestionnaireId)
@@ -746,7 +735,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					text: "Planning officer's report"
 				},
 				value: {
-					html: displayFormatter.formatDocumentValues(
+					html: displayPageFormatter.formatDocumentValues(
 						data.appealId,
 						data.documents.officersReport
 					)
@@ -767,7 +756,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							: []),
 						{
 							text: 'Add',
-							href: displayFormatter.formatDocumentActionLink(
+							href: displayPageFormatter.formatDocumentActionLink(
 								data.appealId,
 								data.documents.officersReport,
 								buildDocumentUploadUrlTemplate(data.lpaQuestionnaireId)
@@ -910,7 +899,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					text: 'Potential safety risks'
 				},
 				value: {
-					html: displayFormatter.formatAnswerAndDetails(
+					html: displayPageFormatter.formatAnswerAndDetails(
 						convertFromBooleanToYesNo(data.doesSiteHaveHealthAndSafetyIssues) || '',
 						data.healthAndSafetyDetails
 					)
@@ -940,7 +929,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 									'health-and-safety-text',
 									'healthAndSafetyText',
 									'Tell us why the inspector will need to enter the appeal site',
-									displayFormatter.nullToEmptyString(data.healthAndSafetyDetails)
+									displayPageFormatter.nullToEmptyString(data.healthAndSafetyDetails)
 								),
 								checked: data.doesSiteHaveHealthAndSafetyIssues || false
 							},
@@ -965,7 +954,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					text: 'Appeals near the site'
 				},
 				value: {
-					html: displayFormatter.formatListOfAppeals(data.otherAppeals) || 'No other appeals'
+					html: displayPageFormatter.formatListOfAppeals(data.otherAppeals) || 'No other appeals'
 				},
 				actions: {
 					items: [
@@ -985,7 +974,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					properties: {
 						id: 'other-appeals',
 						name: 'otherAppeals',
-						value: displayFormatter.nullToEmptyString(data.otherAppeals),
+						value: displayPageFormatter.nullToEmptyString(data.otherAppeals),
 						label: {
 							text: 'What appeals are the other associated with this appeal?'
 						}
@@ -1004,7 +993,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					text: 'Extra conditions'
 				},
 				value: {
-					html: displayFormatter.formatAnswerAndDetails(
+					html: displayPageFormatter.formatAnswerAndDetails(
 						convertFromBooleanToYesNo(data.hasExtraConditions) || '',
 						data.extraConditions
 					)
@@ -1034,7 +1023,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 									'extra-conditions-text',
 									'extraConditionsText',
 									'Tell us about the new conditions',
-									displayFormatter.nullToEmptyString(data.extraConditions)
+									displayPageFormatter.nullToEmptyString(data.extraConditions)
 								),
 								checked: data.hasExtraConditions || false
 							},

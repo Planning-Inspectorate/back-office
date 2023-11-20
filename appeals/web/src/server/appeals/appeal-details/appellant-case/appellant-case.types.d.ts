@@ -31,7 +31,7 @@ export interface AppellantCaseValidationOutcomeRequest {
 }
 
 export interface AppellantCaseValidationOutcomeResponse {
-	outcome: string;
+	outcome: AppellantCaseValidationOutcome;
 	invalidReasons?: NotValidReasonResponse[];
 	incompleteReasons?: NotValidReasonResponse[];
 }

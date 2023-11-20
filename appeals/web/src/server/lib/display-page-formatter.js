@@ -98,7 +98,7 @@ export const formatListOfListedBuildingNumbers = (
  *
  * @param {number} appealId
  * @param {any[] | any} listOfDocuments
- * @returns
+ * @returns {string}
  */
 export const formatDocumentValues = (appealId, listOfDocuments) => {
 	let formattedDocumentList = ``;

@@ -1,14 +1,12 @@
 import * as lpaQuestionnaireService from './lpa-questionnaire.service.js';
 import {
 	lpaQuestionnairePage,
-	mapReviewOutcomeToSummaryListBuilderParameters,
+	checkAndConfirmPage,
 	mapWebValidationOutcomeToApiValidationOutcome,
 } from './lpa-questionnaire.mapper.js';
-import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
 import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
 import {
 	renderDocumentUpload,
 	renderDocumentDetails,
@@ -129,7 +127,7 @@ export const renderLpaQuestionnaireReviewCompletePage = async (request, response
 
 	const { appealId, appealReference } = request.session;
 
-	return response.render('app/confirmation.njk', {
+	return response.render('appeals/confirmation.njk', {
 		panel: {
 			appealReference: {
 				label: 'Appeal ID',
@@ -183,31 +181,20 @@ const renderCheckAndConfirm = async (request, response) => {
 			throw new Error('error retrieving invalid reason options');
 		}
 
-		const mappedCheckAndConfirmSection = mapReviewOutcomeToSummaryListBuilderParameters(
+		const mappedPageContent = checkAndConfirmPage(
 			appealId,
+			appealReference,
 			lpaQuestionnaireId,
 			reasonOptions,
 			'incomplete',
+			request.session,
 			webLPAQuestionnaireReviewOutcome.reasons,
 			webLPAQuestionnaireReviewOutcome.reasonsText,
 			webLPAQuestionnaireReviewOutcome.updatedDueDate
 		);
-		const formattedSections = [generateSummaryList(mappedCheckAndConfirmSection)];
 
-		return response.render('app/check-and-confirm.njk', {
-			appeal: {
-				id: appealId,
-				shortReference: appealShortReference(appealReference)
-			},
-			page: {
-				title: 'Check answers'
-			},
-			title: {
-				text: 'Check your answers before confirming your review'
-			},
-			insetText: 'Confirming this review will inform the appellant and LPA of the outcome',
-			summaryList: { formattedSections },
-			backLinkUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
+		return response.render('patterns/check-and-confirm-page.pattern.njk', {
+			pageContent: mappedPageContent
 		});
 	} catch (error) {
 		logger.error(

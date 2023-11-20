@@ -24,7 +24,7 @@ const renderInvalidReason = async (request, response) => {
 		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
-	if (!appealDetails) {
+	if (!appealDetails || !appealDetails.appellantCaseId) {
 		return response.render('app/404.njk');
 	}
 
@@ -89,7 +89,7 @@ const renderDecisionInvalidConfirmationPage = async (request, response) => {
 
 	const { appealId, appealReference } = request.session;
 
-	response.render('app/confirmation.njk', {
+	response.render('appeals/confirmation.njk', {
 		panel: {
 			title: 'Appeal invalid',
 			appealReference: {

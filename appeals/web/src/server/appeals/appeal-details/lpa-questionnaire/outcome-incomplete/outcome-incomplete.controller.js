@@ -1,6 +1,6 @@
 import logger from '#lib/logger.js';
 import * as lpaQuestionnaireService from '../lpa-questionnaire.service.js';
-import { mapIncompleteReasonOptionsToCheckboxItemParameters } from '../lpa-questionnaire.mapper.js';
+import { mapIncompleteReasonOptionsToCheckboxItemParameters, updateDueDatePage } from '../lpa-questionnaire.mapper.js';
 import { getLPAQuestionnaireIncompleteReasonOptions } from '../lpa-questionnaire.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { webDateToDisplayDate, dateToDisplayDate } from '#lib/dates.js';
@@ -76,8 +76,6 @@ const renderUpdateDueDate = async (request, response) => {
 	const lpaQCurrentDueDateIso =
 		request.currentAppeal?.documentationSummary?.lpaQuestionnaire?.dueDate;
 	const lpaQCurrentDueDate = lpaQCurrentDueDateIso && dateToDisplayDate(lpaQCurrentDueDateIso);
-	const sideNote =
-		lpaQCurrentDueDate && `The current due date for the LPA questionnaire is ${lpaQCurrentDueDate}`;
 
 	if (
 		!objectContainsAllKeys(request.session, ['appealId', 'appealReference', 'lpaQuestionnaireId'])
@@ -87,19 +85,15 @@ const renderUpdateDueDate = async (request, response) => {
 
 	const { appealId, appealReference, lpaQuestionnaireId } = request.session;
 
+	const mappedPageContent = updateDueDatePage(
+		appealId,
+		appealReference,
+		lpaQuestionnaireId,
+		lpaQCurrentDueDate
+	);
+
 	return response.render('appeals/appeal/update-due-date.njk', {
-		appeal: {
-			id: appealId,
-			shortReference: appealShortReference(appealReference)
-		},
-		sideNote,
-		page: {
-			title: 'LPA questionnaire due date',
-			text: 'Update LPA questionnaire due date'
-		},
-		submitButtonText: 'Save and continue',
-		backButtonUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/`,
-		skipButtonUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/check-your-answers`,
+		pageContent: mappedPageContent,
 		errors
 	});
 };
@@ -136,7 +130,7 @@ export const renderDecisionIncompleteConfirmationPage = async (request, response
 		href: `/appeals-service/appeal-details/${appealId}`
 	});
 
-	response.render('app/confirmation.njk', {
+	response.render('appeals/confirmation.njk', {
 		panel: {
 			title: 'LPA questionnaire incomplete',
 			appealReference: {

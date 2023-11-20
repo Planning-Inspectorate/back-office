@@ -5,7 +5,7 @@ import { initialiseAndMapLPAQData } from '#lib/mappers/lpaQuestionnaire.mapper.j
 import { dayMonthYearToApiDateString, webDateToDisplayDate } from '../../../lib/dates.js';
 import {
 	mapReasonOptionsToCheckboxItemParameters,
-	mapReasonsToReasonsList
+	mapReasonsToReasonsListHtml
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 import nunjucks from 'nunjucks';
@@ -110,7 +110,148 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 }
 
 /**
+ * @param {number} appealId
+ * @param {string} appealReference
+ * @param {number} lpaQuestionnaireId
+ * @param {string} [currentDueDate]
+ * @returns {PageContent}
+ */
+export function updateDueDatePage(appealId, appealReference, lpaQuestionnaireId, currentDueDate) {
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Check answers',
+		backLinkUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`,
+		preHeading: `Appeal ${appealShortReference(appealReference)}`,
+		heading: 'Update LPA questionnaire due date',
+		submitButtonText: 'Save and continue',
+		pageComponents: []
+	};
 
+	if (currentDueDate) {
+		pageContent.pageComponents.push({
+			type: 'inset-text',
+			parameters: {
+				text: `The current due date for the LPA questionnaire is ${currentDueDate}`
+			}
+		});
+		pageContent.skipButtonUrl = `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/check-your-answers`;
+	}
+
+	return pageContent;
+}
+
+/**
+ * @param {number} appealId
+ * @param {string} appealReference
+ * @param {number} lpaQuestionnaireId
+ * @param {NotValidReasonOption[]} incompleteReasonOptions
+ * @param {LPAQuestionnaireValidationOutcome} validationOutcome
+ * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
+ * @param {string|string[]} [incompleteReasons]
+ * @param {Object<string, string[]>} [incompleteReasonsText]
+ * @param {DayMonthYear} [updatedDueDate]
+ * @returns {PageContent}
+ */
+export function checkAndConfirmPage(appealId, appealReference, lpaQuestionnaireId, incompleteReasonOptions, validationOutcome, session, incompleteReasons, incompleteReasonsText, updatedDueDate) {
+	if (validationOutcome === 'incomplete' && !incompleteReasons) {
+		throw new Error('validationOutcome incomplete requires incompleteReasons');
+	}
+
+	/** @type {PageComponent} */
+	const summaryListComponent = {
+		type: 'summary-list',
+		parameters: {
+			rows: [
+				{
+					key: {
+						text: 'Review outcome'
+					},
+					value: {
+						text: 'Incomplete'
+					},
+					actions: {
+						items: [
+							{
+								text: 'Change',
+								href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`
+							}
+						]
+					}
+				},
+				{
+					key: {
+						text: 'Incomplete reasons'
+					},
+					value: {
+						html: mapReasonsToReasonsListHtml(
+							incompleteReasonOptions,
+							incompleteReasons,
+							incompleteReasonsText
+						)
+					},
+					actions: {
+						items: [
+							{
+								text: 'Change',
+								href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete`
+							}
+						]
+					}
+				}
+			]
+		}
+	};
+
+	if (updatedDueDate) {
+		summaryListComponent.parameters.rows.push({
+			key: {
+				text: 'Updated due date'
+			},
+			value: {
+				text: webDateToDisplayDate(updatedDueDate)
+			},
+			actions: {
+				items: [
+					{
+						text: 'Change',
+						href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
+					}
+				]
+			}
+		});
+	}
+
+	/** @type {PageComponent} */
+	const insetTextComponent = {
+		type: 'inset-text',
+		parameters: {
+			text: 'Confirming this review will inform the appellant and LPA of the outcome'
+		}
+	};
+
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Check answers',
+		backLinkUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`,
+		preHeading: `Appeal ${appealShortReference(appealReference)}`,
+		heading: 'Check your answers before confirming your review',
+		pageComponents: [summaryListComponent, insetTextComponent]
+	};
+
+	if (!session.account.idTokenClaims.groups.includes(
+		config.referenceData.appeals.caseOfficerGroupId
+	)) {
+		pageContent.pageComponents.forEach((component) => {
+			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
+				component.parameters.rows = component.parameters.rows.map(row => removeActions(row));
+			}
+		});
+	}
+
+	return pageContent;
+}
+
+/**
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @param {LPAQuestionnaire} lpaqData
  * @param {number} appealId
@@ -167,7 +308,7 @@ function mapNotificationBannerComponentParameters(session, lpaqData, appealId) {
 
 /**
  *
- * @param {import('#lib/mappers/lpaQuestionnaire.mapper.js').MappedLPAQInstructions} mappedLPAQData
+ * @param {{lpaq: import('#lib/mappers/global-mapper-formatter.js').MappedInstructions}} mappedLPAQData
  * @returns {PageComponent[]}
  */
 const householderLpaQuestionnairePage = (mappedLPAQData) => {
@@ -333,79 +474,6 @@ export function mapIncompleteReasonOptionsToCheckboxItemParameters(
 		bodyValidationBaseKey,
 		sessionValidationOutcome
 	);
-}
-
-/**
- *
- * @param {number} appealId
- * @param {number} lpaQuestionnaireId
- * @param {NotValidReasonOption[]} incompleteReasonOptions
- * @param {LPAQuestionnaireValidationOutcome} validationOutcome
- * @param {string|string[]} [incompleteReasons]
- * @param {Object<string, string[]>} [incompleteReasonsText]
- * @param {DayMonthYear} [updatedDueDate]
- * @returns {SummaryListBuilderParameters}
- */
-export function mapReviewOutcomeToSummaryListBuilderParameters(
-	appealId,
-	lpaQuestionnaireId,
-	incompleteReasonOptions,
-	validationOutcome,
-	incompleteReasons,
-	incompleteReasonsText,
-	updatedDueDate
-) {
-	if (validationOutcome === 'incomplete' && !incompleteReasons) {
-		throw new Error('validationOutcome incomplete requires incompleteReasons');
-	}
-
-	const reasonsList = mapReasonsToReasonsList(
-		incompleteReasonOptions,
-		incompleteReasons,
-		incompleteReasonsText
-	);
-
-	/** @type {import('../../../lib/nunjucks-template-builders/summary-list-builder.js').Row[]} */
-	const sectionData = [
-		{
-			title: 'Review outcome',
-			value: 'Incomplete',
-			valueType: 'text',
-			actions: [
-				{
-					text: 'Change',
-					href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}`
-				}
-			]
-		},
-		{
-			title: 'Incomplete reasons',
-			value: reasonsList,
-			valueType: 'unorderedList',
-			actions: [
-				{
-					text: 'Change',
-					href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete`
-				}
-			]
-		}
-	];
-
-	if (updatedDueDate) {
-		sectionData.push({
-			title: `Updated due date`,
-			value: webDateToDisplayDate(updatedDueDate),
-			valueType: 'text',
-			actions: [
-				{
-					text: 'Change',
-					href: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete/date`
-				}
-			]
-		});
-	}
-
-	return { rows: sectionData };
 }
 
 /**

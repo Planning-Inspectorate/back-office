@@ -130,7 +130,7 @@ const renderConfirmationPage = async (request, response) => {
 	if (!mappedPageData) {
 		return response.render('app/500.njk');
 	} else {
-		response.render('app/confirmation.njk', {
+		response.render('appeals/confirmation.njk', {
 			...mappedPageData
 		});
 	}

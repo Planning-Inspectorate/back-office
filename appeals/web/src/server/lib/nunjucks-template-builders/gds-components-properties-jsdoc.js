@@ -930,6 +930,7 @@
  * @property {string} [preHeading]
  * @property {string} [heading]
  * @property {string} [submitButtonText]
+ * @property {string} [skipButtonUrl]
  * @property {PageComponent[]} pageComponents
  */
 

@@ -16,19 +16,14 @@ import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
  * @typedef {import('./global-mapper-formatter.js').DisplayInstructions} DisplayInstructions
  * @typedef {import('./global-mapper-formatter.js').InputInstruction} InputInstruction
  * @typedef {import('./global-mapper-formatter.js').Instructions} Instructions
- */
-
-/**
- * @typedef MappedAppealInstructions
- * @type {object}
- * @property {Object<string, Instructions>} appeal
+ * @typedef {import('./global-mapper-formatter.js').MappedInstructions} MappedInstructions
  */
 
 /**
  * @param {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} appealDetails
  * @param {string} currentRoute
  * @param {import('../../app/auth/auth-session.service').SessionWithAuth} session
- * @returns {Promise<MappedAppealInstructions>}
+ * @returns {Promise<{appeal: MappedInstructions}>}
  */
 export async function initialiseAndMapAppealData(appealDetails, currentRoute, session) {
 	if (appealDetails === undefined) {
@@ -38,7 +33,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	currentRoute =
 		currentRoute[currentRoute.length - 1] === '/' ? currentRoute.slice(0, -1) : currentRoute;
 
-	/** @type {MappedAppealInstructions} */
+	/** @type {{appeal: MappedInstructions}} */
 	let mappedData = {};
 	mappedData.appeal = {};
 	/** @type {Instructions} */

@@ -12,7 +12,7 @@ const renderDecisionValidConfirmationPage = async (request, response) => {
 
 	const { appealId, appealReference } = request.session;
 
-	response.render('app/confirmation.njk', {
+	response.render('appeals/confirmation.njk', {
 		panel: {
 			title: 'Appeal valid',
 			appealReference: {
