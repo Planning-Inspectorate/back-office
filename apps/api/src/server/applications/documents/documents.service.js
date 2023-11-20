@@ -47,3 +47,18 @@ export const updateStatus = async (guid, status) => {
 		status: updatedDocument.publishedStatus
 	};
 };
+
+/**
+ * Extract YouTube URL from an iframe in a snippet of HTML
+ *
+ * @param {string} html
+ * @returns {string | null}
+ * */
+export const extractYouTubeURLFromHTML = (html) => {
+	const match = html.match(/<iframe.+?src=["|'](.+?)["|']/);
+	if (!match) {
+		return null;
+	}
+
+	return match[1];
+};
