@@ -37,6 +37,22 @@ export const createNewDocumentVersion = async (caseId, documentId, payload) => {
 };
 
 /**
+ * @param {{body: { html: string }}} request
+ * @param {*} response
+ * @returns {Promise<{}>}
+ */
+export async function postProcessHTMLFile({ body }, response) {
+	const { html } = body;
+
+	try {
+		const result = await post(`applications/documents/process-html`, { json: { html } });
+		return response.send(result);
+	} catch (err) {
+		return response.end();
+	}
+}
+
+/**
  * Remove extension from document name
  *
  * @param {string} documentNameWithExtension
