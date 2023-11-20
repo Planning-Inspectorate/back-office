@@ -10,13 +10,13 @@ const getTownOrCountry = (address) => (address.town ? address.town : address.cou
 
 const getCountryIfTown = (address) => (address?.town ? address?.country : '');
 const mapContactDetails = (data) => {
-	const [represented, agent] = data.contacts;
-	const { type, email, address, contactMethod, organisationName, firstName, lastName } = agent
-		? agent
+	const [represented, representative] = data;
+	const { email, address, contactMethod, organisationName, firstName, lastName } = representative
+		? representative
 		: represented;
 
 	return {
-		'On behalf of': type === 'AGENT' ? getOrgNameOrName(represented) : '',
+		'On behalf of': representative ? getOrgNameOrName(represented) : '',
 		'Email Address': email,
 		'address line 1': getOrgNameOrName({ organisationName, firstName, lastName }),
 		'address line 2': addressLineTwo(address),
@@ -33,5 +33,6 @@ const mapToCSV = (arrayToMap) =>
 		'IP number': representaion.reference,
 		...mapContactDetails(representaion)
 	}));
+
 export const mapRepToCsv = (chunk) =>
 	stringify(mapToCSV(chunk), { header: chunk.setCSVHeader, escape_formulas: true });

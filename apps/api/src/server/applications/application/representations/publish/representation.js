@@ -17,11 +17,11 @@ export const buildNsipRepresentationPayload = (representation) => {
 		attachments: representation.attachments?.map(buildAttachment)
 	};
 
-	const representative = representation.contacts.find((contact) => contact.type === 'AGENT');
-	const represented = representation.contacts.find((contact) => contact.type !== 'AGENT');
+	const { representative, represented } = representation;
+
 	nsipRepresentation = {
 		...nsipRepresentation,
-		representationFrom: (representative || represented)?.type,
+		representationFrom: representative ? 'AGENT' : representation.representedType,
 		representative: buildNsipInterestedPartyPayload(representative),
 		registerFor: represented?.type,
 		represented: buildNsipInterestedPartyPayload(represented)

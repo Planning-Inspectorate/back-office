@@ -37,17 +37,22 @@ model Case {
 // ServiceUser model which represents a person or oranisation who can have some role in a case
 // Example roles: applicant, represented, representative, subscriber
 model ServiceUser {
-  id               Int      @id @default(autoincrement())
+  id               Int              @id @default(autoincrement())
   organisationName String?
   firstName        String?
   middleName       String?
   lastName         String?
-  email            String?
+  jobTitle         String? // role?
+  under18          Boolean?
+  email            String? // In practice this should be unique
   website          String?
   phoneNumber      String?
+  contactMethod    String? // Email | Phone Number
   addressId        Int?
-  address          Address? @relation(fields: [addressId], references: [id])
+  address          Address?         @relation(fields: [addressId], references: [id])
   Case             Case[]
+  Represented      Representation[] @relation("Represented")
+  Representative   Representation[] @relation("Representative")
 }
 
 /// GridReference model
@@ -180,15 +185,14 @@ model SubSector {
 /// Address model
 /// Contains information on addresses
 model Address {
-  id                    Int                     @id @default(autoincrement())
-  addressLine1          String?
-  addressLine2          String?
-  postcode              String?
-  county                String?
-  town                  String?
-  country               String?
-  ServiceUser           ServiceUser[]
-  RepresentationContact RepresentationContact[]
+  id           Int           @id @default(autoincrement())
+  addressLine1 String?
+  addressLine2 String?
+  postcode     String?
+  county       String?
+  town         String?
+  country      String?
+  ServiceUser  ServiceUser[]
 }
 
 /// Region model
@@ -327,32 +331,18 @@ model Representation {
   redacted               Boolean                    @default(false)
   userId                 Int?
   received               DateTime?
+  representativeId       Int?
+  representedId          Int?
   case                   Case                       @relation(fields: [caseId], references: [id])
   user                   User?                      @relation(fields: [userId], references: [id])
   type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
-  contacts               RepresentationContact[]
+  representedType        String? // PERSON|ORGANISATION|FAMILY_GROUP
   attachments            RepresentationAttachment[]
   representationActions  RepresentationAction[]
+  representative         ServiceUser?               @relation("Representative", fields: [representativeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  represented            ServiceUser?               @relation("Represented", fields: [representedId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([reference], name: "reference")
-}
-
-/// RepresentationContact model
-model RepresentationContact {
-  id               Int            @id @default(autoincrement())
-  representationId Int
-  firstName        String?
-  lastName         String?
-  jobTitle         String?
-  under18          Boolean?
-  type             String? // AGENT|PERSON|ORGANISATION|FAMILY_GROUP
-  organisationName String?
-  email            String?
-  phoneNumber      String?
-  contactMethod    String? // Email | Phone Number
-  addressId        Int?
-  address          Address?       @relation(fields: [addressId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Representation   Representation @relation(fields: [representationId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 // RepresentationAction model

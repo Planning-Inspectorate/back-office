@@ -124,19 +124,6 @@ export const mapCaseRepresentationsStatusCount = (statusWithCount) =>
  */
 
 /**
- *
- * @param {under18Data[]} under18Counts
- * @return {{count: number, name: string}}
- */
-export const mapCaseRepresentationsUnderCount = (under18Counts) => {
-	let ticker = 0;
-	under18Counts.forEach((el) => {
-		ticker += el._count.contacts;
-	});
-	return { count: ticker, name: 'UNDER_18' };
-};
-
-/**
  * Return subset of Representation properties
  * @param {Prisma.RepresentationSelect} representation
  * @return {{id: string, reference: string, status: string, redacted: boolean, received: boolean, firstName: string, lastName: string, organisationName: string}}
@@ -150,7 +137,9 @@ export const mapRepresentationSummary = (representation) => {
 		'received'
 	]);
 
-	const contact = representation.contacts?.[0];
+	console.info({ representation });
+
+	const contact = representation.represented;
 
 	return {
 		...representationSummary,

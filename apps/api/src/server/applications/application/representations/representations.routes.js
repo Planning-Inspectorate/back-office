@@ -14,7 +14,6 @@ import {
 	patchRepresentation
 } from './representations.controller.js';
 import { representationPatchValidator } from './representation.validators.js';
-import { representationsContactsRouter } from './contacts/contacts.route.js';
 import { representationsAttachmentRouter } from './attachment/attachment.route.js';
 import { representationsStatusRouter } from './status/status.route.js';
 import { getRepDownloadRouter } from './download/rep-download.router.js';
@@ -133,7 +132,8 @@ router.get(
 							originalRepresentation: '',
 							redactedRepresentation: '',
 							redactedBy: {},
-							contacts: [],
+							represented: {},
+							representative: {},
 							attachments: []
 					}
 			}
@@ -255,7 +255,6 @@ router.patch(
 
 router.use('/:repId/redact', representaionsRedactRouter);
 
-router.use('/:repId/contacts/:contactId', representationsContactsRouter);
 router.use('/:repId/attachment', representationsAttachmentRouter);
 router.use('/:repId/status', representationsStatusRouter);
 

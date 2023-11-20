@@ -20,7 +20,6 @@ export {
 	Region,
 	RegionsOnApplicationDetails,
 	Representation,
-	RepresentationContact,
 	Sector,
 	SubSector,
 	ZoomLevel

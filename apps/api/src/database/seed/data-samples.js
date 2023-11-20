@@ -109,18 +109,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'FAMILY_GROUP',
-					organisationName: 'Árni G',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'FAMILY_GROUP',
+				organisationName: 'Árni G',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		},
 		representationActions: {
 			create: [
@@ -157,18 +155,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'Tom',
-					lastName: 'Tom',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: 'Tom',
+				lastName: 'Tom',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -189,18 +185,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'Michael',
-					lastName: 'Vick',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: 'Michael',
+				lastName: 'Vick',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -221,18 +215,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'ORGANISATION',
-					organisationName: 'Test Organisation for John',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'ORGANISATION',
+				organisationName: 'Test Organisation for John',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -251,18 +243,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'FAMILY_GROUP',
-					organisationName: 'Test Organisation for John Wick 2',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'FAMILY_GROUP',
+				organisationName: 'Test Organisation for John Wick 2',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -281,18 +271,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'Vijaya',
-					lastName: 'Krishna',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: 'Vijaya',
+				lastName: 'Krishna',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -311,18 +299,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'ORGANISATION',
-					organisationName: 'Test Organisation',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'ORGANISATION',
+				organisationName: 'Test Organisation',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -332,18 +318,16 @@ export const representations = [
 		redactedRepresentation: null,
 		redacted: false,
 		received: new Date(),
-		contacts: {
-			create: [
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'ORGANISATION',
-					organisationName: 'Environment Agency',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'ORGANISATION',
+				organisationName: 'Environment Agency',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -364,27 +348,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'ORGANISATION',
-					organisationName: 'Vijaya Krishna Vasantha',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'ORGANISATION',
+				organisationName: 'Vijaya Krishna Vasantha',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -405,27 +389,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Bart',
-					lastName: 'Simms',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Bart',
+				lastName: 'Simms',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -446,27 +430,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Paul',
-					lastName: 'test',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Paul',
+				lastName: 'test',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -487,27 +471,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Mrs',
-					lastName: 'Test',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Mrs',
+				lastName: 'Test',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -528,27 +512,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'ORGANISATION',
-					organisationName: 'Association Fields Allotment Association',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'ORGANISATION',
+				organisationName: 'Association Fields Allotment Association',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -569,18 +553,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'FAMILY_GROUP',
-					organisationName: 'Local Highways ',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'FAMILY_GROUP',
+				organisationName: 'Local Highways ',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -601,27 +583,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Peter',
-					lastName: 'Testerer',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Peter',
+				lastName: 'Testerer',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -642,27 +624,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'ORGANISATION',
-					organisationName: 'Test2  Planning Alliance (Community Planning Alliance)',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'ORGANISATION',
+				organisationName: 'Test2  Planning Alliance (Community Planning Alliance)',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -683,27 +665,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Mrs',
-					lastName: 'F',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Mrs',
+				lastName: 'F',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -724,27 +706,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Road',
-					lastName: 'Test',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Road',
+				lastName: 'Test',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -754,27 +736,27 @@ export const representations = [
 		redactedRepresentation: null,
 		redacted: false,
 		received: new Date(),
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'James',
-					lastName: 'Test',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'James',
+				lastName: 'Test',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -795,27 +777,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'ORGANISATION',
-					organisationName: 'Test Association (Church Fields Allotment Association)',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'ORGANISATION',
+				organisationName: 'Test Association (Church Fields Allotment Association)',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -836,18 +818,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'FAMILY_GROUP',
-					organisationName: 'National Highways (National Highways)',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'FAMILY_GROUP',
+				organisationName: 'National Highways (National Highways)',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -868,27 +848,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Peter',
-					lastName: 'Test',
-					under18: true,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Peter',
+				lastName: 'Test',
+				under18: true,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -909,18 +889,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'ORGANISATION',
-					organisationName: 'Test Planning Alliance (Community Planning Alliance)',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'ORGANISATION',
+				organisationName: 'Test Planning Alliance (Community Planning Alliance)',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -930,27 +908,27 @@ export const representations = [
 		redactedRepresentation: null,
 		redacted: false,
 		received: new Date(),
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Mrs',
-					lastName: 'Sue',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Mrs',
+				lastName: 'Sue',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -971,27 +949,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Pearl',
-					lastName: 'Test',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Pearl',
+				lastName: 'Test',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -1012,27 +990,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Arthur',
-					lastName: 'Test',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Arthur',
+				lastName: 'Test',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -1053,18 +1031,16 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: '',
-					lastName: '',
-					under18: false,
-					type: 'FAMILY_GROUP',
-					organisationName: 'Nina Test',
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		represented: {
+			create: {
+				firstName: '',
+				lastName: '',
+				under18: false,
+				type: 'FAMILY_GROUP',
+				organisationName: 'Nina Test',
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	},
 	{
@@ -1085,27 +1061,27 @@ export const representations = [
 				}
 			}
 		},
-		contacts: {
-			create: [
-				{
-					firstName: 'James',
-					lastName: 'Bond',
-					under18: false,
-					type: 'AGENT',
-					organisationName: '',
-					email: 'test-agent@example.com',
-					phoneNumber: '01234 567890'
-				},
-				{
-					firstName: 'Jimbo',
-					lastName: 'Test',
-					under18: false,
-					type: 'PERSON',
-					organisationName: null,
-					email: 'test@example.com',
-					phoneNumber: '01234 567890'
-				}
-			]
+		representative: {
+			create: {
+				firstName: 'James',
+				lastName: 'Bond',
+				under18: false,
+				type: 'AGENT',
+				organisationName: '',
+				email: 'test-agent@example.com',
+				phoneNumber: '01234 567890'
+			}
+		},
+		represented: {
+			create: {
+				firstName: 'Jimbo',
+				lastName: 'Test',
+				under18: false,
+				type: 'PERSON',
+				organisationName: null,
+				email: 'test@example.com',
+				phoneNumber: '01234 567890'
+			}
 		}
 	}
 ];

@@ -2,7 +2,8 @@ export type Representation = {
 	id: number;
 	reference: string;
 	status: string;
-	contacts: Contact[];
+	represented: Contact;
+	representative: Contact;
 	redacted: boolean;
 	received: string;
 	originalRepresentation: string;

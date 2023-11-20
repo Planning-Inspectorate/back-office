@@ -1,5 +1,4 @@
 import { get, patch, post } from '../../../../lib/request.js';
-import request from '../../../../lib/request.js';
 import { getRepresentationContactPayload } from './representation.utilities.js';
 
 /**
@@ -52,13 +51,3 @@ export const patchRepresentationNoMap = async (caseId, repId, repType, body) =>
 	patch(`applications/${caseId}/representations/${repId}`, {
 		json: body
 	});
-
-/**
- *
- * @param {string} caseId
- * @param {string} repId
- * @param {string} contactId
- * @returns {Promise<any>}
- */
-export const deleteRepresentationContact = async (caseId, repId, contactId) =>
-	request.delete(`applications/${caseId}/representations/${repId}/contacts/${contactId}`);

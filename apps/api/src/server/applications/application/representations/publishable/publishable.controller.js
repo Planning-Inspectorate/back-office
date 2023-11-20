@@ -8,6 +8,7 @@ export const getPublishableRepresentations = async ({ params }, response) => {
 	const publishableRepresentations = await getPublishableCaseRepresentations(params.id);
 	const previouslyPublished = await isRepresentationsPreviouslyPublished(params.id);
 
+	console.info('getPublishableRepresentations', publishableRepresentations);
 	return response.status(200).json({
 		previouslyPublished,
 		itemCount: publishableRepresentations.length,

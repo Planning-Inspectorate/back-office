@@ -7,7 +7,7 @@ import { databaseConnector } from '../utils/database-connector.js';
  *  represented?: { organisationName?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null, jobTitle?: string | null, under18: boolean, type: string},
  *  representedAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null},
  *  representative?: { organisationName?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null, jobTitle?: string | null, under18: boolean, type: string},
- *  representedAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} CreateRepresentationParams
+ *  representativeAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} CreateRepresentationParams
  */
 
 /**
@@ -37,21 +37,11 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 				status: true,
 				redacted: true,
 				received: true,
-				contacts: {
+				represented: {
 					select: {
 						firstName: true,
 						lastName: true,
 						organisationName: true
-					},
-					where: {
-						OR: [
-							{
-								NOT: { type: 'AGENT' }
-							},
-							{
-								type: null
-							}
-						]
 					}
 				}
 			},
@@ -66,6 +56,28 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 		count,
 		items
 	};
+};
+
+const serviceUserInclude = {
+	id: true,
+	firstName: true,
+	lastName: true,
+	organisationName: true,
+	jobTitle: true,
+	under18: true,
+	contactMethod: true,
+	email: true,
+	phoneNumber: true,
+	address: {
+		select: {
+			addressLine1: true,
+			addressLine2: true,
+			town: true,
+			county: true,
+			postcode: true,
+			country: true
+		}
+	}
 };
 
 /**
@@ -95,34 +107,17 @@ export const getById = async (id, caseId) => {
 			originalRepresentation: true,
 			redactedRepresentation: true,
 			type: true,
+			representedType: true,
 			user: {
 				select: {
 					azureReference: true
 				}
 			},
-			contacts: {
-				select: {
-					id: true,
-					type: true,
-					firstName: true,
-					lastName: true,
-					organisationName: true,
-					jobTitle: true,
-					under18: true,
-					contactMethod: true,
-					email: true,
-					phoneNumber: true,
-					address: {
-						select: {
-							addressLine1: true,
-							addressLine2: true,
-							town: true,
-							county: true,
-							postcode: true,
-							country: true
-						}
-					}
-				}
+			represented: {
+				select: serviceUserInclude
+			},
+			representative: {
+				select: serviceUserInclude
 			},
 			representationActions: {
 				select: {
@@ -198,29 +193,16 @@ export const getStatusCountByCaseId = async (caseId) => {
 		}
 	});
 
-	const repFindManyWithContactsCountUnder18 = databaseConnector.representation.findMany({
+	const representedUnder18Count = databaseConnector.representation.count({
 		where: {
-			caseId
-		},
-		select: {
-			_count: {
-				select: {
-					contacts: {
-						where: {
-							under18: true,
-							NOT: {
-								type: 'AGENT'
-							}
-						}
-					}
-				}
+			caseId,
+			represented: {
+				under18: true
 			}
 		}
 	});
-	return databaseConnector.$transaction([
-		groupRepStatusWithCount,
-		repFindManyWithContactsCountUnder18
-	]);
+
+	return databaseConnector.$transaction([groupRepStatusWithCount, representedUnder18Count]);
 };
 
 /**
@@ -237,33 +219,32 @@ export const createApplicationRepresentation = async ({
 		...representationDetails
 	};
 
-	representation.contacts = {
-		create: [
-			{
-				...represented,
+	representation.represented = {
+		create: {
+			...represented,
+			...(representedAddress && {
 				address: {
-					create: {
-						...representedAddress
-					}
+					create: representedAddress
 				}
-			}
-		]
+			})
+		}
 	};
+
 	if (!isEmpty(representative)) {
-		representation.contacts.create.push({
-			...representative,
-			address: {
-				create: {
-					...representativeAddress
-				}
+		representation.representative = {
+			create: {
+				...representative,
+				...(representativeAddress && {
+					address: {
+						create: representativeAddress
+					}
+				})
 			}
-		});
+		};
 	}
 
 	const createResponse = await databaseConnector.representation.create({
-		data: {
-			...representation
-		}
+		data: representation
 	});
 
 	// Using the DB Id to generate a short reference id, references will also be created in FO so prefix id with 'B'
@@ -294,33 +275,6 @@ export const updateApplicationRepresentation = async (
 
 	if (response.status === 'PUBLISHED') representationDetails.unpublishedUpdates = true;
 
-	const whereIsRepresented = {
-		OR: [
-			{
-				NOT: { type: 'AGENT' }
-			},
-			{
-				type: null
-			}
-		],
-		AND: {
-			representationId
-		}
-	};
-
-	const whereIsRepresentative = {
-		representationId,
-		type: { in: ['AGENT'] }
-	};
-	const findRepresentationContactRepresented = async () =>
-		databaseConnector.representationContact.findFirst({
-			where: whereIsRepresented
-		});
-	const findRepresentationContactRepresentative = async () =>
-		databaseConnector.representationContact.findFirst({
-			where: whereIsRepresentative
-		});
-
 	if (!isEmpty(representationDetails)) {
 		await databaseConnector.representation.update({
 			where: { id: representationId },
@@ -331,76 +285,66 @@ export const updateApplicationRepresentation = async (
 	}
 
 	if (!isEmpty(represented)) {
-		const data = await findRepresentationContactRepresented();
-
-		await databaseConnector.representationContact.update({
+		await databaseConnector.representation.update({
 			where: {
-				id: data.id
+				id: representationId
 			},
 			data: {
-				...represented
+				represented: {
+					update: represented
+				}
 			}
 		});
 	}
 
 	if (!isEmpty(representedAddress)) {
-		const data = await databaseConnector.representationContact.findFirst({
-			where: whereIsRepresented
-		});
-
-		await databaseConnector.representationContact.update({
+		await databaseConnector.representation.update({
 			where: {
-				id: data.id
+				id: representationId
 			},
 			data: {
-				address: {
-					update: {
-						...representedAddress
+				represented: {
+					upsert: {
+						create: {
+							address: representedAddress
+						},
+						update: {
+							address: representedAddress
+						}
+					}
+				}
+			}
+		});
+	}
+	if (!isEmpty(representative)) {
+		await databaseConnector.representation.update({
+			where: {
+				id: representationId
+			},
+			data: {
+				representative: {
+					upsert: {
+						create: representative,
+						update: representative
 					}
 				}
 			}
 		});
 	}
 
-	if (!isEmpty(representative)) {
-		try {
-			const data = await findRepresentationContactRepresentative();
-
-			await databaseConnector.representationContact.update({
-				where: {
-					id: data.id
-				},
-				data: {
-					...representative
-				}
-			});
-		} catch (e) {
-			await databaseConnector.representationContact.create({
-				data: {
-					...representative,
-					representationId
-				}
-			});
-		}
-	}
-
 	if (!isEmpty(representativeAddress)) {
-		const data = await databaseConnector.representationContact.findFirst({
-			where: whereIsRepresentative
-		});
-
-		await databaseConnector.representationContact.update({
+		await databaseConnector.representation.update({
 			where: {
-				id: data.id
+				id: representationId
 			},
 			data: {
-				address: {
+				representative: {
 					upsert: {
 						create: {
-							...representativeAddress
+							address: representativeAddress
 						},
 						update: {
-							...representativeAddress
+							address: representativeAddress
 						}
 					}
 				}
@@ -450,49 +394,6 @@ export const updateApplicationRepresentationRedaction = async (
 
 /**
  *
- * @param repId
- * @param contactId
- * @return {Prisma.Prisma__RepresentationContactClient<Prisma.RepresentationContactGetPayload<{where: {id}}>>}
- */
-export const deleteApplicationRepresentationContact = async (repId, contactId) => {
-	const representation = await getFirstById(repId);
-
-	const data = await databaseConnector.representationContact.findFirst({
-		where: { id: contactId }
-	});
-
-	const deleteAddressById = [];
-
-	if (data.addressId) {
-		deleteAddressById.push(
-			databaseConnector.address.delete({
-				where: { id: Number(data.addressId) }
-			})
-		);
-	}
-
-	const deleteRepresentationContactById = databaseConnector.representationContact.delete({
-		where: { id: contactId }
-	});
-
-	const transactionItems = [...deleteAddressById, deleteRepresentationContactById];
-
-	if (representation.status === 'PUBLISHED') {
-		transactionItems.push(
-			databaseConnector.representation.update({
-				where: { id: representation.id },
-				data: {
-					unpublishedUpdates: true
-				}
-			})
-		);
-	}
-
-	return databaseConnector.$transaction(transactionItems);
-};
-
-/**
- *
  * @param {string} rawSearchTerm
  * @returns {any}
  */
@@ -512,22 +413,16 @@ function buildSearch(rawSearchTerm) {
 				}
 			},
 			{
-				contacts: {
-					some: {
-						// Exclude agent contact from search
-						NOT: {
-							type: 'AGENT'
+				represented: {
+					OR: [
+						{
+							organisationName: {
+								contains: searchTerm
+							}
 						},
-						OR: [
-							{
-								organisationName: {
-									contains: searchTerm
-								}
-							},
-							...buildSplitContains('firstName', searchTerm),
-							...buildSplitContains('lastName', searchTerm)
-						]
-					}
+						...buildSplitContains('firstName', searchTerm),
+						...buildSplitContains('lastName', searchTerm)
+					]
 				}
 			}
 		]
@@ -701,9 +596,28 @@ export const getApplicationRepresentationForDownload = async (caseId, skip, batc
 		where: { caseId, status: { in: ['VALID', 'PUBLISHED'] } },
 		select: {
 			reference: true,
-			contacts: {
+			representedType: true,
+			represented: {
 				select: {
-					type: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					contactMethod: true,
+					email: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			},
+			representative: {
+				select: {
 					firstName: true,
 					lastName: true,
 					organisationName: true,
@@ -739,21 +653,11 @@ export const getPublishableRepresentations = async (caseId) =>
 			status: true,
 			redacted: true,
 			received: true,
-			contacts: {
+			represented: {
 				select: {
 					firstName: true,
 					lastName: true,
 					organisationName: true
-				},
-				where: {
-					OR: [
-						{
-							NOT: { type: 'AGENT' }
-						},
-						{
-							type: null
-						}
-					]
 				}
 			}
 		},
@@ -793,7 +697,8 @@ export const getPublishableRepresentationsById = async (caseId, representationId
 			user: true,
 			attachments: true,
 			case: true,
-			contacts: true,
+			represented: true,
+			representative: true,
 			representationActions: true
 		}
 	});
@@ -833,13 +738,8 @@ function buildFilters(filters = {}) {
 
 			if (name === 'under18') {
 				return {
-					contacts: {
-						some: {
-							NOT: {
-								type: 'AGENT'
-							},
-							under18: values
-						}
+					represented: {
+						under18: values
 					}
 				};
 			}

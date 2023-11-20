@@ -9,7 +9,6 @@ import {
 import {
 	getLatestRedaction,
 	mapCaseRepresentationsStatusCount,
-	mapCaseRepresentationsUnderCount,
 	mapCreateOrUpdateRepRequestToRepository,
 	mapDocumentRepresentationAttachments,
 	mapRepresentationSummary
@@ -30,6 +29,8 @@ export const getRepresentation = async ({ params }, response) => {
 
 	const latestRedaction = getLatestRedaction(representation);
 	representation.attachments = mapDocumentRepresentationAttachments(representation.attachments);
+
+	console.info('getRepresentation', representation);
 
 	return response.send({
 		...representation,
@@ -73,15 +74,17 @@ export const getRepresentations = async ({ params, query }, response) => {
 		}
 	);
 
-	const [representationCountStatus, under18Data] = await getCaseRepresentationsStatusCount(
+	const [representationCountStatus, under18Count] = await getCaseRepresentationsStatusCount(
 		params.id
 	);
+
+	console.info('getRepresentations', items.map(mapRepresentationSummary));
 
 	response.send({
 		page,
 		pageSize,
 		filters: [
-			mapCaseRepresentationsUnderCount(under18Data),
+			{ count: under18Count, name: 'UNDER_18' },
 			...mapCaseRepresentationsStatusCount(representationCountStatus)
 		],
 		pageCount: Math.ceil(Math.max(1, count) / pageSize),
