@@ -35,7 +35,10 @@ export async function viewProjectTeamListPage({ session }, response) {
 	const { projectTeamMembers } = await getProjectTeamMembers(caseId);
 
 	// add users info from the cache containing the results of ms graph api query
-	const projectTeamMembersInfo = await getManyProjectTeamMembersInfo(projectTeamMembers, session);
+	const projectTeamMembersInfo = await getManyProjectTeamMembersInfo(
+		projectTeamMembers || [],
+		session
+	);
 
 	return response.render(`applications/case-project-team/project-team-list.njk`, {
 		selectedPageType: 'project-team',
@@ -74,22 +77,23 @@ export async function updateProjectTeamChooseRole(
 	const { userId } = params;
 	const { role } = body;
 	const { toSearchPage } = query;
-	let errors = validationErrors;
+	let apiErrors = null;
 
 	if (!validationErrors) {
-		const { errors: apiErrors } = await updateProjectTeamMemberRole(caseId, userId, role);
-		errors = apiErrors;
+		const { errors } = await updateProjectTeamMemberRole(caseId, userId, role);
+		apiErrors = errors;
 	}
 
-	if (errors) {
+	if (validationErrors || apiErrors) {
 		const projectTeamMember = await getSingleProjectTeamMemberInfo(caseId, userId, session);
 
 		return response.render(`applications/case-project-team/project-team-choose-role.njk`, {
 			projectTeamMember,
 			allRoles,
-			errors
+			errors: validationErrors || apiErrors
 		});
 	}
+
 	if (toSearchPage) {
 		return response.redirect('../search');
 	}
@@ -223,7 +227,7 @@ const getSingleProjectTeamMemberInfo = async (caseId, userId, session) => {
 	// if no => show all options blank and add new user
 	const { projectTeamMember, errors } = await getProjectTeamMemberById(caseId, userId);
 
-	if (!errors) {
+	if (!errors && projectTeamMember) {
 		// if the api request has no errors, it means that the user already belongs to the project
 		// display the radio options with the preselected role
 		role = projectTeamMember.role;
