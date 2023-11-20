@@ -1398,6 +1398,28 @@ export const spec = {
 				}
 			}
 		},
+		DocumentHTMLResponse: {
+			type: 'object',
+			properties: {
+				html: {
+					description: 'HTML string matching Front Office YouTube template',
+					type: 'string'
+				}
+			}
+		},
+		DocumentBadHTMLResponse: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						message: {
+							type: 'string'
+						}
+					}
+				}
+			}
+		},
 		PaginationRequestBody: {
 			type: 'object',
 			properties: {
