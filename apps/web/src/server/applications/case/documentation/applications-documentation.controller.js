@@ -43,8 +43,8 @@ import * as applicationsDocumentationService from './applications-documentation.
 /** @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles */
 
 //Search document
-/** @typedef {import('./applications-documentation.types').ApplicationsSearchResultsBody} ApplicationsSearchResultsBody */
-/** @typedef {import('./applications-documentation.types').ApplicationsSearchResultsProps} ApplicationsSearchResultsProps */
+/** @typedef {import('./applications-documentation.types').DocumentsSearchResultsBody} DocumentsSearchResultsBody */
+/** @typedef {import('./applications-documentation.types').DocumentsSearchResultsProps} DocumentsSearchResultsProps */
 
 /**
  * View the documentation for a single case - the top level folders
@@ -496,42 +496,44 @@ const getPaginationButtonData = (currentPageNumber, pageCount) => {
 };
 
 /**
- * Search documents.
+ * Search for documents in a case. paginated.
  *
-  @type {import('@pins/express').RenderHandler<ApplicationsSearchResultsProps, {}, ApplicationsSearchResultsBody, {q: string}, {pageNumber: string}>} */
+ *  @type {import('@pins/express').RenderHandler<DocumentsSearchResultsProps, {}, DocumentsSearchResultsBody, {q: string}, {pageNumber: string}>}
+ */
 export async function searchDocuments(req, response) {
 	const { errors, body, params } = req;
 	const { query: bodyQuery } = body;
 	const { caseId } = response.locals;
-	console.log('caseid', caseId);
 	const query = bodyQuery ?? req.query.q;
 
-	const role = response.locals.domainType;
-	console.log('searchDocumnetcontroller');
+	// get the search page url
+	const searchDocumentsUrl = url('document-search-results', { caseId: caseId }).replace(
+		'/?q=undefined',
+		''
+	);
+
 	if (errors || !query) {
 		return response.render(
-			'applications/case/case-documentation/search-results/document-search-results',
+			'applications/case-documentation/search-results/document-search-results',
 			{
 				errors: errors || {},
-				searchApplicationsItems: [],
+				searchDocumentItems: [],
 				itemCount: 0,
 				query
 			}
 		);
 	}
-	console.log('passed error code');
+
 	const pageSize = 50;
 	const pageNumber = Number.parseInt(params?.pageNumber, 10) || 1;
 
 	const searchResponse = await applicationsDocumentationService.searchDocuments(caseId, {
-		role,
 		query,
 		pageSize,
 		pageNumber
 	});
-	//console.log("Search Reponse:", searchResponse);
-	const searchApplicationsItems = searchResponse?.items || [];
-	console.log('search application items: ', searchApplicationsItems);
+
+	const searchDocumentItems = searchResponse?.items || [];
 	const itemCount = searchResponse?.itemCount || 0;
 	const pagesNumber = Math.ceil(itemCount / pageSize);
 
@@ -550,10 +552,11 @@ export async function searchDocuments(req, response) {
 			href: url('document-search-results', { step: `${key + 1}`, query })
 		}))
 	};
-	console.log('Controller:passed URL functions pagination:', pagination);
+
 	//just callng the nunjuck page not the router
 	return response.render('applications/case-documentation/search-results/document-search-results', {
-		searchApplicationsItems,
+		searchDocumentsUrl,
+		searchDocumentItems,
 		query,
 		itemCount,
 		pagination
