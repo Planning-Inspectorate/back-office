@@ -28,5 +28,6 @@ export const getRepresentationDetailsViewModel = async (
 	relevantRepDocumentFolder: await getRelevantRepFolder(caseId),
 	organisationOrFullname: getOrganisationOrFullname(representation.represented),
 	repModePageURLs: getRepModePageURLs(representation),
-	depublishedRepresentation: depublished === 'true'
+	depublishedRepresentation: depublished === 'true',
+	representedType: representation.representative?.id ? 'AGENT' : representation.representedType
 });

@@ -15,13 +15,13 @@ const nocks = () => {
 
 	nock('http://test/')
 		.patch(`/applications/1/representations/1`, {
-			represented: { type: 'PERSON' }
+			representedType: 'PERSON'
 		})
 		.reply(200, { message: 'ok' });
 
 	nock('http://test/')
 		.patch(`/applications/1/representations/1`, {
-			representative: { type: 'AGENT' }
+			representedType: 'AGENT'
 		})
 		.reply(200, { message: 'ok' });
 

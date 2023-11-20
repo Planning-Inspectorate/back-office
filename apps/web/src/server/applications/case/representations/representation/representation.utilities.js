@@ -1,4 +1,4 @@
-import { omitBy } from 'lodash-es';
+import { isEmpty, omitBy } from 'lodash-es';
 
 /**
  * @typedef {import('../relevant-representation.types.js').Representation} Representation
@@ -10,12 +10,11 @@ import { omitBy } from 'lodash-es';
 /**
  *
  * @param {Contact} contact
- * @returns {object}
+ * @returns {Record<string, any>}
  */
 
 export const formatContactDetails = (contact = {}) => ({
 	id: contact.id,
-	type: contact.type,
 	organisationName: contact.organisationName || '',
 	fullName: contact.firstName || contact.lastName ? `${contact.firstName} ${contact.lastName}` : '',
 	firstName: contact.firstName,
@@ -85,8 +84,14 @@ const stripEmptyStringKeyValueFromObject = (obj) => omitBy(obj, (v) => v === '')
  *
  * @param {string} repType
  * @param {object} body
- * @returns {{json: object}}
+ * @returns {Record<string, any>}
  */
-export const getRepresentationContactPayload = (repType, body) => ({
-	json: { [repType]: stripEmptyStringKeyValueFromObject(body) }
-});
+export const getRepresentationContactPayload = (repType, body) => {
+	// @ts-ignore
+	const { type, ...attributes } = body;
+
+	return {
+		...(type ? { representedType: type } : {}),
+		...(!isEmpty(attributes) ? { [repType]: stripEmptyStringKeyValueFromObject(attributes) } : {})
+	};
+};

@@ -1,6 +1,6 @@
 import { getRepresentationDetails } from '../applications-relevant-rep-details.service.js';
 import { getRepresentationDetailsTaskLogViewModel } from './task-list.view-model.js';
-import { getContactDetailsByContactType } from '../../representation/representation.middleware.js';
+import { formatContactDetails } from '../../representation/representation.utilities.js';
 
 const view = 'applications/representations/representation-details/task-log.njk';
 
@@ -10,7 +10,6 @@ const view = 'applications/representations/representation-details/task-log.njk';
 export const getRepresentationDetailsTaskLogController = async (req, res) => {
 	const { caseId, representationId } = req.params;
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
-	const { represented } = getContactDetailsByContactType(representationDetails);
 
 	return res.render(
 		view,
@@ -18,7 +17,7 @@ export const getRepresentationDetailsTaskLogController = async (req, res) => {
 			representationDetails,
 			caseId,
 			representationId,
-			represented
+			formatContactDetails(representationDetails.represented)
 		)
 	);
 };

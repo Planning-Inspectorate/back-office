@@ -16,8 +16,8 @@ const titles = {
  * @param {object} representation
  * @param {object} representation.representative
  * @param {string|*} representation.representative.id
+ * @param {string|undefined} representation.representedType
  * @param {object} representation.represented
- * @param {string|null} representation.represented.type
  * @returns {Array<RepresentationEntityOption>} contactMethodOptions array
  */
 export const getRepresentationEntityOptions = (representation) => {
@@ -39,7 +39,7 @@ export const getRepresentationEntityOptions = (representation) => {
 		}
 	];
 
-	const type = representation.representative.id ? 'AGENT' : representation.represented.type;
+	const type = representation.representative?.id ? 'AGENT' : representation.representedType;
 
 	return optionsList.map((option) => {
 		if (option.value === type) {

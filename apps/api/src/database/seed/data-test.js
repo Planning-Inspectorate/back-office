@@ -38,7 +38,7 @@ function pickRandom(list) {
  * @returns {any}
  */
 function createRepresentation(caseReference, index, isValidStatus = false) {
-	const { contacts, ...rep } = pickRandom(representations);
+	const { represented, representative, ...rep } = pickRandom(representations);
 
 	const statuses = [
 		'AWAITING_REVIEW',
@@ -58,11 +58,17 @@ function createRepresentation(caseReference, index, isValidStatus = false) {
 		...rep,
 		status: status,
 		unpublishedUpdates: unpublishedUpdates,
-		contacts: {
-			create: contacts.create.map((contact) => ({
-				...contact,
+		represented: {
+			create: {
+				...represented,
 				address: { create: pickRandom(addressesList) }
-			}))
+			}
+		},
+		representative: {
+			create: {
+				...representative,
+				address: { create: pickRandom(addressesList) }
+			}
 		}
 	};
 }

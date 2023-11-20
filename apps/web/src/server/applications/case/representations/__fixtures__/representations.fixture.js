@@ -37,44 +37,43 @@ export const representationFixture = {
 		'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO (Redacted)',
 	type: 'Local authorities',
 	user: null,
-	contacts: [
-		{
-			type: 'PERSON',
-			firstName: 'Mrs',
-			lastName: 'Sue',
-			organisationName: null,
-			jobTitle: null,
-			under18: false,
-			contactMethod: 'email',
-			email: 'test@example.com',
-			phoneNumber: '01234 567890',
-			address: {
-				addressLine1: '96 The Avenue',
-				addressLine2: 'Maidstone',
-				town: null,
-				county: 'Kent',
-				postcode: 'MD21 5XY'
-			}
-		},
-		{
-			type: 'AGENT',
-			firstName: 'James',
-			lastName: 'Bond',
-			organisationName: '',
-			jobTitle: null,
-			under18: false,
-			contactMethod: 'email',
-			email: 'test-agent@example.com',
-			phoneNumber: '01234 567890',
-			address: {
-				addressLine1: '92 Huntsmoor Road',
-				addressLine2: null,
-				town: null,
-				county: 'Tadley',
-				postcode: 'RG26 4BX'
-			}
+	representedType: undefined,
+	represented: {
+		id: 1,
+		firstName: 'Mrs',
+		lastName: 'Sue',
+		organisationName: null,
+		jobTitle: null,
+		under18: false,
+		contactMethod: 'email',
+		email: 'test@example.com',
+		phoneNumber: '01234 567890',
+		address: {
+			addressLine1: '96 The Avenue',
+			addressLine2: 'Maidstone',
+			town: null,
+			county: 'Kent',
+			postcode: 'MD21 5XY'
 		}
-	],
+	},
+	representative: {
+		id: 2,
+		firstName: 'James',
+		lastName: 'Bond',
+		organisationName: '',
+		jobTitle: null,
+		under18: false,
+		contactMethod: 'email',
+		email: 'test-agent@example.com',
+		phoneNumber: '01234 567890',
+		address: {
+			addressLine1: '92 Huntsmoor Road',
+			addressLine2: null,
+			town: null,
+			county: 'Tadley',
+			postcode: 'RG26 4BX'
+		}
+	},
 	attachments: [],
 	representationActions: [
 		{

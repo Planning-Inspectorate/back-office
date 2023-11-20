@@ -15,13 +15,11 @@ const representations = [
 		redacted: true,
 		userId: null,
 		received: '2023-08-11T10:52:56.516Z',
-		contacts: [
-			{
-				firstName: 'Jane',
-				lastName: 'Bloggs',
-				organisationName: 'Something Ltd'
-			}
-		]
+		represented: {
+			firstName: 'Jane',
+			lastName: 'Bloggs',
+			organisationName: 'Something Ltd'
+		}
 	},
 	{
 		id: 6579,
@@ -34,12 +32,10 @@ const representations = [
 		redacted: false,
 		userId: null,
 		received: '2023-08-11T10:52:56.516Z',
-		contacts: [
-			{
-				firstName: 'Joe',
-				lastName: 'Bloggs'
-			}
-		]
+		represented: {
+			firstName: 'Joe',
+			lastName: 'Bloggs'
+		}
 	}
 ];
 

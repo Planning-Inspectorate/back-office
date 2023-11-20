@@ -51,23 +51,11 @@ describe('Representation repository', () => {
 					status: true,
 					redacted: true,
 					received: true,
-					contacts: {
+					represented: {
 						select: {
 							firstName: true,
 							lastName: true,
 							organisationName: true
-						},
-						where: {
-							OR: [
-								{
-									NOT: {
-										type: 'AGENT'
-									}
-								},
-								{
-									type: null
-								}
-							]
 						}
 					}
 				},
@@ -117,23 +105,11 @@ describe('Representation repository', () => {
 					status: true,
 					redacted: true,
 					received: true,
-					contacts: {
+					represented: {
 						select: {
 							firstName: true,
 							lastName: true,
 							organisationName: true
-						},
-						where: {
-							OR: [
-								{
-									NOT: {
-										type: 'AGENT'
-									}
-								},
-								{
-									type: null
-								}
-							]
 						}
 					}
 				},
@@ -188,39 +164,34 @@ describe('Representation repository', () => {
 						}
 					},
 					{
-						contacts: {
-							some: {
-								NOT: {
-									type: 'AGENT'
-								},
-								OR: [
-									{
-										organisationName: {
-											contains: 'James Bond'
-										}
-									},
-									{
-										firstName: {
-											contains: 'James'
-										}
-									},
-									{
-										firstName: {
-											contains: 'Bond'
-										}
-									},
-									{
-										lastName: {
-											contains: 'James'
-										}
-									},
-									{
-										lastName: {
-											contains: 'Bond'
-										}
+						represented: {
+							OR: [
+								{
+									organisationName: {
+										contains: 'James Bond'
 									}
-								]
-							}
+								},
+								{
+									firstName: {
+										contains: 'James'
+									}
+								},
+								{
+									firstName: {
+										contains: 'Bond'
+									}
+								},
+								{
+									lastName: {
+										contains: 'James'
+									}
+								},
+								{
+									lastName: {
+										contains: 'Bond'
+									}
+								}
+							]
 						}
 					}
 				]
@@ -236,23 +207,11 @@ describe('Representation repository', () => {
 					status: true,
 					redacted: true,
 					received: true,
-					contacts: {
+					represented: {
 						select: {
 							firstName: true,
 							lastName: true,
 							organisationName: true
-						},
-						where: {
-							OR: [
-								{
-									NOT: {
-										type: 'AGENT'
-									}
-								},
-								{
-									type: null
-								}
-							]
 						}
 					}
 				},
@@ -298,13 +257,8 @@ describe('Representation repository', () => {
 				caseId: 1,
 				AND: [
 					{
-						contacts: {
-							some: {
-								NOT: {
-									type: 'AGENT'
-								},
-								under18: true
-							}
+						represented: {
+							under18: true
 						}
 					},
 					{
@@ -325,23 +279,11 @@ describe('Representation repository', () => {
 					status: true,
 					redacted: true,
 					received: true,
-					contacts: {
+					represented: {
 						select: {
 							firstName: true,
 							lastName: true,
 							organisationName: true
-						},
-						where: {
-							OR: [
-								{
-									NOT: {
-										type: 'AGENT'
-									}
-								},
-								{
-									type: null
-								}
-							]
 						}
 					}
 				},
@@ -394,23 +336,11 @@ describe('Representation repository', () => {
 					status: true,
 					redacted: true,
 					received: true,
-					contacts: {
+					represented: {
 						select: {
 							firstName: true,
 							lastName: true,
 							organisationName: true
-						},
-						where: {
-							OR: [
-								{
-									NOT: {
-										type: 'AGENT'
-									}
-								},
-								{
-									type: null
-								}
-							]
 						}
 					}
 				},
@@ -447,10 +377,33 @@ describe('Representation repository', () => {
 					azureReference: true
 				}
 			},
-			contacts: {
+			representedType: true,
+			represented: {
 				select: {
 					id: true,
-					type: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			},
+			representative: {
+				select: {
+					id: true,
 					firstName: true,
 					lastName: true,
 					organisationName: true,
@@ -619,31 +572,35 @@ describe('Representation repository', () => {
 			expect(databaseConnector.representation.create).toHaveBeenCalledWith({
 				data: {
 					status: 'DRAFT',
-					caseId: 1,
-					contacts: {
-						create: [
-							{
-								firstName: 'Joe',
-								lastName: 'Bloggs',
-								under18: false,
-								type: 'PERSON',
-								received: '2023-05-11T09:57:06.139Z',
-								address: { create: { addressLine1: 'Test Address Line 1' } }
-							},
-							{
-								firstName: 'Jack',
-								lastName: 'Jones',
-								under18: false,
-								type: 'AGENT',
-								received: '2023-05-11T09:57:06.139Z',
-								address: {
-									create: {
-										addressLine1: 'Test Address2 Line 1',
-										postcode: 'XX2 9XX'
-									}
+					case: {
+						connect: {
+							id: 1
+						}
+					},
+					represented: {
+						create: {
+							firstName: 'Joe',
+							lastName: 'Bloggs',
+							under18: false,
+							type: 'PERSON',
+							received: '2023-05-11T09:57:06.139Z',
+							address: { create: { addressLine1: 'Test Address Line 1' } }
+						}
+					},
+					representative: {
+						create: {
+							firstName: 'Jack',
+							lastName: 'Jones',
+							under18: false,
+							type: 'AGENT',
+							received: '2023-05-11T09:57:06.139Z',
+							address: {
+								create: {
+									addressLine1: 'Test Address2 Line 1',
+									postcode: 'XX2 9XX'
 								}
 							}
-						]
+						}
 					}
 				}
 			});

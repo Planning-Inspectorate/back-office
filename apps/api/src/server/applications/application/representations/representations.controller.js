@@ -9,7 +9,6 @@ import {
 import {
 	getLatestRedaction,
 	mapCaseRepresentationsStatusCount,
-	mapCaseRepresentationsUnderCount,
 	mapCreateOrUpdateRepRequestToRepository,
 	mapDocumentRepresentationAttachments,
 	mapRepresentationSummary
@@ -73,7 +72,7 @@ export const getRepresentations = async ({ params, query }, response) => {
 		}
 	);
 
-	const [representationCountStatus, under18Data] = await getCaseRepresentationsStatusCount(
+	const [representationCountStatus, under18Count] = await getCaseRepresentationsStatusCount(
 		params.id
 	);
 
@@ -81,7 +80,7 @@ export const getRepresentations = async ({ params, query }, response) => {
 		page,
 		pageSize,
 		filters: [
-			mapCaseRepresentationsUnderCount(under18Data),
+			{ count: under18Count, name: 'UNDER_18' },
 			...mapCaseRepresentationsStatusCount(representationCountStatus)
 		],
 		pageCount: Math.ceil(Math.max(1, count) / pageSize),

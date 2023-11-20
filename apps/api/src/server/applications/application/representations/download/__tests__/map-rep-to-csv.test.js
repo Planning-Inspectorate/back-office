@@ -6,35 +6,30 @@ describe('Map Application Representation Download', () => {
 			{
 				reference: '1234',
 				type: 'VALID',
-				contacts: [
-					{
-						address: {}
-					},
-					{ address: {} }
-				]
+				represented: {
+					address: {}
+				},
+				representative: { address: {} }
 			}
 		]);
-		expect(response).toEqual('1234,,, , ,,,,,,\n');
+		expect(response).toEqual('1234, ,, , ,,,,,,\n');
 	});
 	it('should map the first element if the second element (agent) is not in the contacts array', () => {
 		const response = mapRepToCsv([
 			{
 				reference: '1234',
 				type: 'VALID',
-				contacts: [
-					{
-						type: 'PERSON',
-						organisationName: 'an org',
-						email: 'an email',
-						address: {
-							addressLine1: 'line 1',
-							addressLine2: 'line 2',
-							town: 'a town',
-							country: ' a country',
-							postcode: 'a post code'
-						}
+				represented: {
+					organisationName: 'an org',
+					email: 'an email',
+					address: {
+						addressLine1: 'line 1',
+						addressLine2: 'line 2',
+						town: 'a town',
+						country: ' a country',
+						postcode: 'a post code'
 					}
-				]
+				}
 			}
 		]);
 		// Expect csv to have the data for the type other than person
@@ -47,33 +42,29 @@ describe('Map Application Representation Download', () => {
 			{
 				reference: '1234',
 				type: 'VALID',
-				contacts: [
-					{
-						type: 'PERSON',
-						firstName: 'first name',
-						lastName: 'last name',
-						email: 'an email',
-						address: {
-							addressLine1: 'line 1',
-							addressLine2: 'line 2',
-							town: 'a town',
-							country: ' a country',
-							postcode: 'a post code'
-						}
-					},
-					{
-						type: 'AGENT',
-						organisationName: 'agent org',
-						email: 'agent email',
-						address: {
-							addressLine1: 'agent line 1',
-							addressLine2: 'agent line 2',
-							town: 'agent town',
-							country: 'agent country',
-							postcode: 'agent post code'
-						}
+				represented: {
+					firstName: 'first name',
+					lastName: 'last name',
+					email: 'an email',
+					address: {
+						addressLine1: 'line 1',
+						addressLine2: 'line 2',
+						town: 'a town',
+						country: ' a country',
+						postcode: 'a post code'
 					}
-				]
+				},
+				representative: {
+					organisationName: 'agent org',
+					email: 'agent email',
+					address: {
+						addressLine1: 'agent line 1',
+						addressLine2: 'agent line 2',
+						town: 'agent town',
+						country: 'agent country',
+						postcode: 'agent post code'
+					}
+				}
 			}
 		]);
 		expect(response).toEqual(

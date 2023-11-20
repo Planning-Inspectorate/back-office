@@ -38,8 +38,9 @@ export const postContactDetails = async (req, res) => {
 
 	let redirectUrl = representation.pageLinks.redirectUrl;
 
-	if (repId) await patchRepresentation(caseId, String(repId), String(repType), body);
-	else {
+	if (repId) {
+		await patchRepresentation(caseId, String(repId), String(repType), body);
+	} else {
 		const { id } = await postRepresentation(caseId, String(repType), body);
 
 		redirectUrl = buildRepresentationPageURL('/address-details', caseId, id, String(repType));
