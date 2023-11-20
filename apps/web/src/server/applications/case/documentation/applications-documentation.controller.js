@@ -502,7 +502,8 @@ const getPaginationButtonData = (currentPageNumber, pageCount) => {
 export async function searchDocuments(req, response) {
 	const { errors, body, params } = req;
 	const { query: bodyQuery } = body;
-
+	const { caseId } = response.locals;
+	console.log('caseid', caseId);
 	const query = bodyQuery ?? req.query.q;
 
 	const role = response.locals.domainType;
@@ -522,7 +523,7 @@ export async function searchDocuments(req, response) {
 	const pageSize = 50;
 	const pageNumber = Number.parseInt(params?.pageNumber, 10) || 1;
 
-	const searchResponse = await applicationsDocumentationService.searchDocuments({
+	const searchResponse = await applicationsDocumentationService.searchDocuments(caseId, {
 		role,
 		query,
 		pageSize,

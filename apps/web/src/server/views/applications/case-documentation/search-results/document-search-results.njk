@@ -1,9 +1,7 @@
 {% extends "../../layouts/applications.layout.njk" %}
-
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "../../components/status-tag.component.njk" import statusTag %}
 {% from "./document-search.component.njk" import applicationDocumentSearch %}
 
 
@@ -40,9 +38,18 @@
 		{% for searchItem in searchApplicationsItems %}
 
 			{% set rows = rows | concat ([[
-				{ html: casePageLink(searchItem) },
+				{ html: searchItem.documentRef },
 				{ html: searchItem.fileName},
-				{ html: "view", classes: 'govuk-!-width-one-quarter text-align--right' }
+				{ html: createOptionalLink(
+												{
+													classes: 'govuk-body-s',
+													href: 'document'|url({caseId: caseId, folderId: searchItem.folderId, documentGuid: searchItem.documentGuid, step: 'properties'}),
+													text:'View'
+												}
+											), classes: 'govuk-!-width-one-quarter text-align--right' }
+
+
+
 			]]) %}
 		{% endfor %}
 
@@ -76,15 +83,7 @@
 
 {% endblock %}
 
-
-{% macro casePageLink(searchItem) %}
-	{% set viewCaseLink = 'case-view'|url({domainType: domainType, caseId: searchItem.id}) %}
-	{% set checkYourAnswersLink = 'case-create'|url({domainType: domainType, caseId: searchItem.id, step: 'check-your-answers'}) %}
-	{% set rowHref = viewCaseLink if searchItem.reference else checkYourAnswersLink %}
-	{% set rowTitle = [searchItem.reference, " - "]|join if searchItem.reference else "" %}
-
-
-	<a class="govuk-body" href="{{ rowHref }}">
-		{{ [rowTitle, searchItem.documentRef]|join }}
-	</a>
-{% endmacro %}
+		{% macro createOptionalLink(params) %}
+				{% set dataAction = ["data-action=", params.data]|join if params.data else "" %}
+				<a {{ dataAction }} class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}</a>
+		{% endmacro %}
