@@ -1,4 +1,5 @@
 import { request } from '../../../../app-test.js';
+
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
 
 const existingRepresentations = [
@@ -40,14 +41,17 @@ const existingRepresentations = [
 ];
 
 describe('Get Application Representations', () => {
+	const numberOfRepresentations = existingRepresentations.length;
+	const numberOfRepresentationsWhereRepresentedUnder18 = 3;
+
 	beforeEach(() => {
-		databaseConnector.representation.count.mockResolvedValue(existingRepresentations.length);
+		databaseConnector.representation.count
+			.mockResolvedValueOnce(numberOfRepresentations)
+			.mockResolvedValueOnce(numberOfRepresentationsWhereRepresentedUnder18);
 		databaseConnector.representation.groupBy.mockReturnValueOnce([
-			{ _count: { _all: 444 }, status: 'WITHDRAWN' }
+			{ _count: { _all: 2 }, status: 'WITHDRAWN' }
 		]);
-		databaseConnector.representation.findMany
-			.mockReturnValueOnce(existingRepresentations)
-			.mockReturnValueOnce([{ _count: { contacts: 2 } }, { _count: { contacts: 1 } }]);
+		databaseConnector.representation.findMany.mockReturnValueOnce(existingRepresentations);
 	});
 
 	it('gets all reps for a case, defaulting pagination', async () => {
@@ -61,7 +65,7 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
-					count: 444,
+					count: 2,
 					name: 'WITHDRAWN'
 				}
 			],
@@ -87,7 +91,7 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
-					count: 444,
+					count: 2,
 					name: 'WITHDRAWN'
 				}
 			],
@@ -124,7 +128,7 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
-					count: 444,
+					count: 2,
 					name: 'WITHDRAWN'
 				}
 			],
@@ -149,7 +153,7 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
-					count: 444,
+					count: 2,
 					name: 'WITHDRAWN'
 				}
 			],
@@ -172,7 +176,7 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
-					count: 444,
+					count: 2,
 					name: 'WITHDRAWN'
 				}
 			],
@@ -195,7 +199,7 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
-					count: 444,
+					count: 2,
 					name: 'WITHDRAWN'
 				}
 			],
@@ -218,7 +222,7 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
-					count: 444,
+					count: 2,
 					name: 'WITHDRAWN'
 				}
 			],

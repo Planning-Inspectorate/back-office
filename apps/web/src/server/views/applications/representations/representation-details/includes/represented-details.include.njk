@@ -1,14 +1,9 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-
 {% from "../components/representation-address.component.njk" import representationAddress %}
 {% from "../components/representation-summary-list.component.njk" import representationSummaryList %}
-
 {% set represented = representation.represented %}
-
 <h3 class="govuk-heading-m">Contact details</h3>
-
-{{
-  representationSummaryList([
+{{ representationSummaryList([
     {
       items: [
         {
@@ -91,5 +86,4 @@
       link: repModePageURLs.representationEntity,
       linkText: "Change representation on behalf of"
     }
-  ])
-}}
+  ]) }}

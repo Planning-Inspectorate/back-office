@@ -3,7 +3,7 @@
  * @param {string} repType
  * @returns {boolean}
  */
-const hasPostcode = (representation, repType) => representation[repType].address.postcode;
+const hasPostcode = (representation, repType) => representation[repType].address?.postcode;
 
 /**
  * @param {string|undefined} stage

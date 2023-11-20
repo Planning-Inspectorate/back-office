@@ -20,6 +20,7 @@ export interface CreateUpdateRepresentation {
 	redacted?: boolean;
 	received?: Date;
 	originalRepresentation?: string;
+	representedType?: string;
 	represented?: Contact;
 	representative?: Contact;
 }

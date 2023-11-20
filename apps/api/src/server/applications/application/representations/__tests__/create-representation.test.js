@@ -1,4 +1,5 @@
 import { request } from '../../../../app-test.js';
+
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
 
 const createdRepresentation = {
@@ -39,21 +40,19 @@ describe('Create Representation', () => {
 		expect(databaseConnector.representation.create).toHaveBeenCalledWith({
 			data: {
 				reference: '',
-				caseId: 1,
+				case: { connect: { id: 1 } },
 				status: 'DRAFT',
 				originalRepresentation: '',
 				redacted: false,
 				received: '2023-05-11T09:57:06.139Z',
-				contacts: {
-					create: [
-						{
-							firstName: 'Joe',
-							lastName: 'Bloggs',
-							address: {
-								create: {}
-							}
+				represented: {
+					create: {
+						firstName: 'Joe',
+						lastName: 'Bloggs',
+						address: {
+							create: {}
 						}
-					]
+					}
 				}
 			}
 		});
@@ -104,35 +103,34 @@ describe('Create Representation', () => {
 		expect(databaseConnector.representation.create).toHaveBeenCalledWith({
 			data: {
 				reference: '',
-				caseId: 1,
+				case: { connect: { id: 1 } },
 				status: 'DRAFT',
 				originalRepresentation: 'This is a rep',
 				redacted: false,
 				received: '2023-05-11T09:57:06.139Z',
-				contacts: {
-					create: [
-						{
-							firstName: 'Joe',
-							lastName: 'Bloggs',
-							under18: true,
-							address: {
-								create: {
-									addressLine1: 'Test Address'
-								}
-							}
-						},
-						{
-							firstName: 'John',
-							lastName: 'Smith',
-							type: 'AGENT',
-							address: {
-								create: {
-									addressLine1: 'Test Address1',
-									postcode: 'XX1 9XX'
-								}
+				represented: {
+					create: {
+						firstName: 'Joe',
+						lastName: 'Bloggs',
+						under18: true,
+						address: {
+							create: {
+								addressLine1: 'Test Address'
 							}
 						}
-					]
+					}
+				},
+				representative: {
+					create: {
+						firstName: 'John',
+						lastName: 'Smith',
+						address: {
+							create: {
+								addressLine1: 'Test Address1',
+								postcode: 'XX1 9XX'
+							}
+						}
+					}
 				}
 			}
 		});
