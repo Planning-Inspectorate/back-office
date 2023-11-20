@@ -4,6 +4,8 @@
 
 {% block sectionMenu %}{% endblock %}
 
+{% set searchParameters = {query: null, errors: null, csrfToken: csrfToken, label: 'Search documents', searchDocumentsUrl: 'project-documentation/document-search-results'} %}
+
 {% block beforeContent %}
 <aside>
 	{{ govukBackLink({

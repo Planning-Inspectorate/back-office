@@ -10,9 +10,7 @@ import { get, patch, post } from '../../../lib/request.js';
  */
 
 //document search
-/** @typedef {import('./applications-documentation.types.js').ApplicationsSearchResultsBody} ApplicationsSearchResultsBody */
-/** @typedef {import('../../applications.types').Case} Case */
-/** @typedef {import('../../applications.types').PaginatedResponse<Case>} PaginatedApplicationsResponse */
+/** @typedef {import('./applications-documentation.types.js').DocumentsSearchResultsBody} DocumentsSearchResultsBody */
 
 /**
  * Get all the subfolders in a folder, or the top level folders for the case
@@ -249,19 +247,14 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
 	}
 };
 
-//document search
 /**
+ * returns a paginated set of documents on a case, matching passed search criteria
+ *
  * @param {number} caseId
- * @param {ApplicationsSearchResultsBody} payload
- * @returns {Promise<PaginatedApplicationsResponse>}
+ * @param {DocumentsSearchResultsBody} payload
+ * @returns {Promise<PaginatedDocumentationFiles>}
  */
-
 export const searchDocuments = async (caseId, payload) => {
-	//	return post('applications/search', { json: payload });
-	console.log('caseID', caseId);
-	console.log(payload);
-	//	return get('applications/1/documents?page=1&pageSize=5&criteria=dummy');
-	//   return get('applications/1/documents?page=1&pageSize=5&criteria=dummy');
 	return get(
 		`applications/${caseId}/documents?page=${payload.pageNumber}&pageSize=${payload.pageSize}&&criteria=${payload.query}`
 	);

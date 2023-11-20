@@ -119,7 +119,6 @@ applicationsDocumentationRouter
 		asyncRoute(controller.viewApplicationsCaseDocumentationPages)
 	);
 
-console.log('I am here');
 applicationsDocumentationRouter
 	.route('/document-search-results/:pageNumber?')
 	.get(asyncRoute(controller.searchDocuments))
