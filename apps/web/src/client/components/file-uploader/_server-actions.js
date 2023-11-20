@@ -6,6 +6,7 @@
 /** @typedef {{fileRowId: string, document: DocumentUploadInfo, blobStorageHost: string, privateBlobContainer: string, accessToken: AccessToken}} UploadFileInfo */
 
 import { BlobStorageClient } from '@pins/blob-storage-client';
+import sanitizeHtml from 'sanitize-html';
 
 /**
  *
@@ -119,7 +120,9 @@ const serverActions = (uploadForm) => {
 
 		try {
 			const reader = await readerPromise;
-			const html = reader.result;
+			const html = sanitizeHtml(reader.result, {
+				allowedAttributes: ['src']
+			});
 
 			const response = await fetch('/documents/process-html', {
 				method: 'POST',
