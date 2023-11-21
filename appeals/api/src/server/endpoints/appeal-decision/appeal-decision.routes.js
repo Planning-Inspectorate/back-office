@@ -1,7 +1,12 @@
 import { Router as createRouter } from 'express';
 import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { postInspectorDecision } from './appeal-decision.controller.js';
-import { getOutcomeValidator, getDateValidator } from './appeal-decision.validator.js';
+import {
+	getOutcomeValidator,
+	getDateValidator,
+	getDocumentValidator
+} from './appeal-decision.validator.js';
+import { validateDecisionDocumentAndAddToRequest } from './appeal-decision.middleware.js';
 import { asyncHandler } from '#middleware/async-handler.js';
 
 const router = createRouter();
@@ -33,6 +38,8 @@ router.post(
 	checkAppealExistsAndAddToRequest,
 	getOutcomeValidator,
 	getDateValidator,
+	getDocumentValidator,
+	validateDecisionDocumentAndAddToRequest,
 	asyncHandler(postInspectorDecision)
 );
 

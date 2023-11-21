@@ -40,7 +40,7 @@ export interface Appeal extends schema.Appeal {
 	id: number;
 	inspectorDecision?: InspectorDecision;
 	linkedAppealId?: number | null;
-	lpa: LPA;
+	lpa: schema.LPA;
 	lpaQuestionnaire?: schema.LPAQuestionnaire;
 	otherAppealId?: number | null;
 	planningApplicationReference: string;
