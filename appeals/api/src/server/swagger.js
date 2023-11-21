@@ -52,7 +52,7 @@ export const spec = {
 		DecisionInfo: {
 			outcome: 'allowed',
 			documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
-			documentDate: '2023-08-17T15:22:20.827Z'
+			documentDate: '2023-08-17'
 		},
 		AddDocumentsRequest: {
 			...addDocumentsRequest
