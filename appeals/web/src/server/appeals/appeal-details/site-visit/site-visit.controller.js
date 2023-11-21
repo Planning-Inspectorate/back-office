@@ -73,7 +73,7 @@ const renderScheduleSiteVisit = async (request, response) => {
 		}
 
 		const siteDetailsRows = await buildSiteDetailsSummaryListRows(
-			{ appeal: appealDetails },
+			appealDetails,
 			request.originalUrl,
 			request.session
 		);

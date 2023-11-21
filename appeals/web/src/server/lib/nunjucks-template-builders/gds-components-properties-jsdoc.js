@@ -291,7 +291,7 @@
  * @typedef DetailsProperties
  * - Make a page easier to scan by letting users reveal more detailed information only if they need it.
  * - Documentation: https://design-system.service.gov.uk/components/details/
- * @type {SharedDetailsProperties & SummaryTextProperty & TextProperty | SharedDetailsProperties & SummaryTextProperty & HtmlProperty | SharedDetailsProperties & SummaryHtmlProperty & HtmlProperty }
+ * @type {SharedDetailsProperties & SummaryTextProperty & TextProperty | SharedDetailsProperties & SummaryTextProperty & HtmlProperty | SharedDetailsProperties & SummaryHtmlProperty & TextProperty | SharedDetailsProperties & SummaryHtmlProperty & HtmlProperty }
  *
  * @typedef SharedDetailsProperties
  * @type {Object<string, any>}
@@ -708,6 +708,16 @@
  */
 
 /**
+ * @typedef TimeInputProperties
+ * @type {Object<string, any>}
+ * @property {string} id
+ * @property {{value: number}} hour
+ * @property {{value: number}} minute
+ */
+
+// TODO: move the page builder related types to a more appropriate location
+
+/**
  * @typedef {Object} PageComponentWrapperHtml
  * @property {string} opening
  * @property {string} closing
@@ -911,15 +921,13 @@
  */
 
 /**
- * @typedef {Object} ConfirmButtonPageComponent
- * @property {'confirm'} type
- * @property {StatusTagProperties} parameters
+ * @typedef {Object} TimeInputPageComponent
+ * @property {'time-input'} type
+ * @property {TimeInputProperties} parameters
  */
 
-// TODO: move the page builder related types below to a more appropriate location
-
 /**
- * @typedef {SharedPageComponentProperties & (AccordionPageComponent | BackLinkPageComponent | BreadcrumbsPageComponent | ButtonPageComponent | CharacterCountPageComponent | CheckboxesPageComponent | CookieBannerPageComponent | DateInputPageComponent | DetailsPageComponent | ErrorMessagePageComponent | ErrorSummaryPageComponent | ExitThisPagePageComponent | FieldsetPageComponent | FileUploadPageComponent | HintPageComponent | InputPageComponent | InsetTextPageComponent | LabelPageComponent | NotificationBannerPageComponent | PaginationPageComponent | PanelPageComponent | PhaseBannerPageComponent | RadiosPageComponent | SelectPageComponent | SkipLinkPageComponent | SummaryListPageComponent | TablePageComponent | TabsPageComponent | TagPageComponent | TextareaPageComponent | WarningTextPageComponent | StatusTagPageComponent)} PageComponent
+ * @typedef {SharedPageComponentProperties & (AccordionPageComponent | BackLinkPageComponent | BreadcrumbsPageComponent | ButtonPageComponent | CharacterCountPageComponent | CheckboxesPageComponent | CookieBannerPageComponent | DateInputPageComponent | DetailsPageComponent | ErrorMessagePageComponent | ErrorSummaryPageComponent | ExitThisPagePageComponent | FieldsetPageComponent | FileUploadPageComponent | HintPageComponent | InputPageComponent | InsetTextPageComponent | LabelPageComponent | NotificationBannerPageComponent | PaginationPageComponent | PanelPageComponent | PhaseBannerPageComponent | RadiosPageComponent | SelectPageComponent | SkipLinkPageComponent | SummaryListPageComponent | TablePageComponent | TabsPageComponent | TagPageComponent | TextareaPageComponent | WarningTextPageComponent | StatusTagPageComponent | TimeInputPageComponent)} PageComponent
  */
 
 /**
