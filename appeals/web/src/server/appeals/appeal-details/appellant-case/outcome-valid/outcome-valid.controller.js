@@ -21,7 +21,7 @@ const renderDecisionValidConfirmationPage = async (request, response) => {
 			}
 		},
 		body: {
-			preTitle: 'The timetable is now created and published.',
+			preHeading: 'The timetable is now created and published.',
 			title: {
 				text: 'What happens next'
 			},

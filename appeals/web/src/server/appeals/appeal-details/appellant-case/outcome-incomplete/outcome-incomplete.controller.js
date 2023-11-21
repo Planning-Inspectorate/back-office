@@ -128,7 +128,7 @@ const renderDecisionIncompleteConfirmationPage = async (request, response) => {
 			}
 		},
 		body: {
-			preTitle: 'The appeal has been reviewed.',
+			preHeading: 'The appeal has been reviewed.',
 			title: {
 				text: 'What happens next'
 			},

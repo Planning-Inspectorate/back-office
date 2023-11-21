@@ -152,11 +152,13 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		appealDetails?.appealId
 	);
 
+	const shortAppealReference = appealShortReference(appealDetails.appealReference);
+
 	/** @type {PageContent} */
 	const pageContent = {
-		title: `Appellant case - ${appealDetails.appealId}`,
+		title: `Appellant case - ${shortAppealReference}`,
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
-		preHeading: `Appeal ${appealShortReference(appealDetails.appealReference)}`,
+		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'Appellant case',
 		pageComponents: [...notificationBanners, appellantCaseSummary, appellantSummary, appealSiteSummary, appealSummary, ...reviewOutcomeComponents]
 	};

@@ -98,7 +98,7 @@ const renderDecisionInvalidConfirmationPage = async (request, response) => {
 			}
 		},
 		body: {
-			preTitle: 'The appeal has been closed.',
+			preHeading: 'The appeal has been closed.',
 			title: {
 				text: 'What happens next'
 			},

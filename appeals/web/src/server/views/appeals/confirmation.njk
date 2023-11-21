@@ -29,7 +29,7 @@
 			</div>
 			<div class="govuk-grid-row">
 				<div class="{{ gridColumnClasses }} {{ bodyContainerClasses }}">
-					{%- if body.preTitle -%}<p class="govuk-body">{{ body.preTitle }}</p>{%- endif -%}
+					{%- if body.preHeading -%}<span class="govuk-body">{{ body.preHeading }}</span>{%- endif -%}
 					{%- if body.title -%}<h{{ bodyTitleHeadingLevel }} class="{{ bodyTitleClasses }}">{{ body.title.text }}</h{{ bodyTitleHeadingLevel }}>{%- endif -%}
 					{%- if body.rows -%}
 						{%- for row in body.rows -%}

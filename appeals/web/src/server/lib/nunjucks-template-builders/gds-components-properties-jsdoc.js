@@ -959,7 +959,7 @@
  * @property {string} [panel.classes]
  * @property {Object} body
  * @property {string} [body.containerClasses]
- * @property {string} body.preTitle
+ * @property {string} body.preHeading
  * @property {Object} body.title
  * @property {string} body.title.text
  * @property {number} [body.title.headingLevel]

@@ -3,8 +3,8 @@ import * as appealDetailsService from '../appeal-details.service.js';
 import * as siteVisitService from './site-visit.service.js';
 import {
 	mapWebVisitTypeToApiVisitType,
-	mapGetApiVisitTypeToWebVisitType,
-	buildSiteDetailsSummaryListRows
+	scheduleSiteVisitPage,
+	setVisitTypePage
 } from './site-visit.mapper.js';
 import {
 	hourMinuteToApiDateString,
@@ -40,60 +40,22 @@ const renderScheduleSiteVisit = async (request, response) => {
 			}
 		} = request;
 
-		// Nullish coalescing assignment https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
-		visitType ??= mapGetApiVisitTypeToWebVisitType(appealDetails.siteVisit.visitType);
-		visitDateDay ??= appealDetails.siteVisit?.visitDate
-			? new Date(appealDetails.siteVisit?.visitDate).getDate()
-			: null;
-		visitDateMonth ??= appealDetails.siteVisit?.visitDate
-			? new Date(appealDetails.siteVisit?.visitDate).getMonth() + 1
-			: null;
-		visitDateYear ??= appealDetails.siteVisit?.visitDate
-			? new Date(appealDetails.siteVisit?.visitDate).getFullYear()
-			: null;
-		visitStartTimeHour ??= appealDetails.siteVisit?.visitStartTime
-			? appealDetails.siteVisit?.visitStartTime.split(':')[0]
-			: null;
-		visitStartTimeMinute ??= appealDetails.siteVisit?.visitStartTime
-			? appealDetails.siteVisit?.visitStartTime.split(':')[1]
-			: null;
-		visitEndTimeHour ??= appealDetails.siteVisit?.visitEndTime
-			? appealDetails.siteVisit?.visitEndTime.split(':')[0]
-			: null;
-		visitEndTimeMinute ??= appealDetails.siteVisit?.visitEndTime
-			? appealDetails.siteVisit?.visitEndTime.split(':')[1]
-			: null;
-
-		const healthAndSafetyIssues = [];
-		if (appealDetails.healthAndSafety?.appellantCase?.hasIssues) {
-			healthAndSafetyIssues.push(appealDetails.healthAndSafety?.appellantCase?.details);
-		}
-		if (appealDetails.healthAndSafety?.lpaQuestionnaire?.hasIssues) {
-			healthAndSafetyIssues.push(appealDetails.healthAndSafety?.lpaQuestionnaire?.details);
-		}
-
-		const siteDetailsRows = await buildSiteDetailsSummaryListRows(
+		const mappedPageContent = await scheduleSiteVisitPage(
 			appealDetails,
 			request.originalUrl,
-			request.session
+			request.session,
+			visitType,
+			visitDateDay,
+			visitDateMonth,
+			visitDateYear,
+			visitStartTimeHour,
+			visitStartTimeMinute,
+			visitEndTimeHour,
+			visitEndTimeMinute
 		);
 
 		return response.render('appeals/appeal/schedule-site-visit.njk', {
-			siteDetailsRows,
-			appeal: {
-				id: appealDetails?.appealId,
-				shortReference: appealShortReference(appealDetails?.appealReference)
-			},
-			siteVisit: {
-				visitType,
-				visitDateDay,
-				visitDateMonth,
-				visitDateYear,
-				visitStartTimeHour,
-				visitStartTimeMinute,
-				visitEndTimeHour,
-				visitEndTimeMinute
-			},
+			pageContent: mappedPageContent,
 			errors
 		});
 	}
@@ -141,7 +103,7 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 						}
 					},
 					body: {
-						preTitle: `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${
+						preHeading: `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${
 							formattedSiteVisitType !== 'unaccompanied'
 								? `, starting at ${siteVisit.visitStartTime}`
 								: ''
@@ -188,15 +150,10 @@ const renderSetVisitType = async (request, response) => {
 			body: { 'visit-type': visitType }
 		} = request;
 
+		const mappedPageContent = setVisitTypePage(appealDetails, visitType);
+
 		return response.render('appeals/appeal/set-site-visit-type.njk', {
-			appeal: {
-				id: appealDetails?.appealId,
-				reference: appealDetails?.appealReference,
-				shortReference: appealShortReference(appealDetails?.appealReference)
-			},
-			siteVisit: {
-				visitType
-			},
+			pageContent: mappedPageContent,
 			errors
 		});
 	}

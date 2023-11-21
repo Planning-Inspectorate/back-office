@@ -1,8 +1,8 @@
-import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
+import { isDefined } from '#lib/ts-utilities.js';
 
 /**
  * @typedef {'unaccompanied'|'accompanied'|'accessRequired'} WebSiteVisitType
@@ -39,35 +39,6 @@ export function mapGetApiVisitTypeToWebVisitType(getApiVisitType) {
 		default:
 			return null;
 	}
-}
-
-/**
- *
- * @param {*} data
- * @param {string} currentRoute
- * @param {import('../../../app/auth/auth-session.service').SessionWithAuth} session
- * @returns {Promise<(SummaryListRowProperties|undefined)[]>}
- */
-export async function buildSiteDetailsSummaryListRows(data, currentRoute, session) {
-	const mappedData = await initialiseAndMapAppealData(data, currentRoute, session);
-
-	/**
-	 * @type {(SummaryListRowProperties | undefined)[]}
-	 */
-	const neighbouringSitesSummaryLists = Object.keys(mappedData.appeal)
-		.filter((key) => key.indexOf('neighbouringSiteAddress') >= 0)
-		.map((key) => mappedData.appeal[key].display.summaryListItem);
-
-	const rows = [
-		mappedData.appeal.siteAddress.display.summaryListItem,
-		mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
-		mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
-		...neighbouringSitesSummaryLists
-	];
-
-	rows.forEach((row) => removeActions(row));
-
-	return rows;
 }
 
 /**
@@ -122,6 +93,14 @@ export async function scheduleSiteVisitPage (
 		? (appealDetails.siteVisit?.visitEndTime.split(':')[1])?.toString()
 		: undefined;
 
+	/**
+	 * @type {(SummaryListRowProperties)[]}
+	 */
+	const neighbouringSitesSummaryLists = Object.keys(mappedData.appeal)
+		.filter((key) => key.indexOf('neighbouringSiteAddress') >= 0)
+		.map((key) => mappedData.appeal[key].display.summaryListItem)
+		.filter(isDefined);
+
 	/** @type {PageComponent} */
 	const siteInformationComponent = {
 		type: 'details',
@@ -132,11 +111,13 @@ export async function scheduleSiteVisitPage (
 				{
 					type: 'summary-list',
 					parameters: {
+						classes: 'govuk-summary-list--no-border',
 						rows: [
 							mappedData.appeal.siteAddress.display.summaryListItem,
 							mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
-							mappedData.appeal.appellantHealthAndSafety.display.summaryListItem
-						]
+							mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
+							...neighbouringSitesSummaryLists
+						].map(row => removeActions(row))
 					}
 				}
 			]
@@ -212,7 +193,7 @@ export async function scheduleSiteVisitPage (
 	const selectStartTimeComponent = {
 		type: 'time-input',
 		wrapperHtml: {
-			opening: '<h2>Select a time</h2><p class="govuk-body">Time is optional for unaccompanied site visits</p><p class="govuk-body">Enter a time, for example 9:00 or 16:30</p><fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>', // TODO: this is hacky af - need a PageComponent type for basic body html elements like p, headings etc.
+			opening: '<fieldset class="govuk-fieldset govuk-!-margin-bottom-4"><legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>',
 			closing: '</fieldset>'
 		},
 		parameters: {
@@ -230,7 +211,7 @@ export async function scheduleSiteVisitPage (
 	const selectEndTimeComponent = {
 		type: 'time-input',
 		wrapperHtml: {
-			opening: '<fieldset class="govuk-fieldset"><legend class="govuk-fieldset__legend govuk-fieldset__legend--s">End time</legend>',
+			opening: '<fieldset class="govuk-fieldset govuk-!-margin-bottom-6"><legend class="govuk-fieldset__legend govuk-fieldset__legend--s">End time</legend>',
 			closing: '</fieldset>'
 		},
 		parameters: {
@@ -244,11 +225,13 @@ export async function scheduleSiteVisitPage (
 		}
 	};
 
+	const shortAppealReference = appealShortReference(appealDetails.appealReference);
+
 	/** @type {PageContent} */
 	const pageContent = {
-		title: `Schedule site visit - ${appealDetails.appealId}`,
+		title: `Schedule site visit - ${shortAppealReference}`,
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
-		preHeading: `Appeal ${appealShortReference(appealDetails.appealReference)}`,
+		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'Schedule site visit',
 		pageComponents: [
 			siteInformationComponent,
@@ -259,18 +242,58 @@ export async function scheduleSiteVisitPage (
 		]
 	};
 
-	if (!session.account.idTokenClaims.groups.includes(
-		config.referenceData.appeals.caseOfficerGroupId
-	)) {
-		pageContent.pageComponents.forEach((component) => {
-			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map(row => removeActions(row));
-			}
-		});
-	}
-
-	// TODO: appeal-details.mapper.js does this slightly differently (build array, prerender, then assign to pageContent.pageComponents) - don't think it matters, but check to make sure
 	preRenderPageComponents(pageContent.pageComponents);
+
+	return pageContent;
+}
+
+/**
+ * @param {Appeal} appealDetails
+ * @param {string|undefined} visitType
+ * @returns {PageContent}
+ */
+export function setVisitTypePage (appealDetails, visitType) {
+	/** @type {PageComponent} */
+	const selectVisitTypeComponent = {
+		type: 'radios',
+		parameters: {
+			name: 'visit-type',
+			fieldset: {
+				legend: {
+					text: 'Select visit type',
+					classes: 'govuk-fieldset__legend--m'
+				}
+			},
+			items: [
+				{
+					value: 'unaccompanied',
+					text: 'Unaccompanied',
+					checked: visitType === 'unaccompanied'
+				},
+				{
+					value: 'accessRequired',
+					text: 'Access required',
+					checked: visitType === 'accessRequired'
+				},
+				{
+					value: 'accompanied',
+					text: 'Accompanied',
+					checked: visitType === 'accompanied'
+				}
+			]
+		}
+	};
+
+	const shortAppealReference = appealShortReference(appealDetails.appealReference);
+
+	/** @type {PageContent} */
+	const pageContent = {
+		title: `Select site visit type - ${shortAppealReference}`,
+		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
+		preHeading: `Appeal ${shortAppealReference}`,
+		heading: 'Select site visit type',
+		pageComponents: [selectVisitTypeComponent]
+	};
 
 	return pageContent;
 }

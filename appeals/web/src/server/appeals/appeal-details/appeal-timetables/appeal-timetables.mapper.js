@@ -16,7 +16,7 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
 /**
  * @typedef {Object} AppealTimetablesConfirmation
  * @property { string } title
- * @property { string } preTitle
+ * @property { string } preHeading
  * @property { object[] } rows
  */
 
@@ -90,7 +90,7 @@ export const mapConfirmationPage = (appealTimetables, timetableType, appealDetai
 			}
 		},
 		body: {
-			preTitle: `The due date for the ${titleText} has been updated.`,
+			preHeading: `The due date for the ${titleText} has been updated.`,
 			title: {
 				text: 'What happens next'
 			},

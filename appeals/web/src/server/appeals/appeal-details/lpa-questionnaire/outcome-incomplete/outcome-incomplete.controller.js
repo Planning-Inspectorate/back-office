@@ -139,7 +139,7 @@ export const renderDecisionIncompleteConfirmationPage = async (request, response
 			}
 		},
 		body: {
-			preTitle: 'The review of LPA questionnaire is finished.',
+			preHeading: 'The review of LPA questionnaire is finished.',
 			title: {
 				text: 'What happens next'
 			},

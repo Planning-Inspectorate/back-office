@@ -87,11 +87,13 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 		appealDetails.appealId
 	);
 
+	const shortAppealReference = appealShortReference(appealDetails.appealReference);
+
 	/** @type {PageContent} */
 	const pageContent = {
-		title: `LPA questionnaire - ${appealDetails.appealId}`,
+		title: `LPA questionnaire - ${shortAppealReference}`,
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
-		preHeading: `Appeal ${appealShortReference(appealDetails.appealReference)}`,
+		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'LPA questionnaire',
 		pageComponents: [...notificationBanners, caseSummary, ...appealTypeSpecificPageComponents, ...reviewOutcomeComponents]
 	};
