@@ -11,8 +11,10 @@ const view = 'applications/representations/representation-details/index.njk';
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
-export const getRepresentationDetailsController = async (req, res) =>
-	res.render(view, await getRepresentationDetailsViewModel(req.params, req.query, res.locals));
+export const getRepresentationDetailsController = async (req, res) => {
+	const viewModel = await getRepresentationDetailsViewModel(req.params, req.query, res.locals);
+	return res.render(view, viewModel);
+};
 
 /**
  * @param {import("express").Request} req
@@ -22,6 +24,8 @@ export const postRepresentationDetailsController = async (req, res) => {
 	const { errors, params, query } = req;
 	const { locals } = res;
 	const { caseId, representationId } = params;
+
+	console.info('postRepresentationDetailsController', locals);
 
 	const checkAnswersErrors = errors ? getCheckAnswerErrors(locals, errors) : null;
 

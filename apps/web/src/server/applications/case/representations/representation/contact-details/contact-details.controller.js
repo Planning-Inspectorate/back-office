@@ -38,12 +38,16 @@ export const postContactDetails = async (req, res) => {
 
 	let redirectUrl = representation.pageLinks.redirectUrl;
 
+	console.info('POSTING CONTACT DETAILS', body);
+
 	if (repId) await patchRepresentation(caseId, String(repId), String(repType), body);
 	else {
+		console.info('POSTING REP', body);
 		const { id } = await postRepresentation(caseId, String(repType), body);
 
 		redirectUrl = buildRepresentationPageURL('/address-details', caseId, id, String(repType));
 	}
 
+	console.info('REDIRECTING', redirectUrl);
 	return res.redirect(redirectUrl);
 };

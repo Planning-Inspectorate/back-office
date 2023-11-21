@@ -87,6 +87,18 @@ const stripEmptyStringKeyValueFromObject = (obj) => omitBy(obj, (v) => v === '')
  * @param {object} body
  * @returns {{json: object}}
  */
-export const getRepresentationContactPayload = (repType, body) => ({
-	json: { [repType]: stripEmptyStringKeyValueFromObject(body) }
-});
+export const getRepresentationContactPayload = (repType, body) => {
+	// @ts-ignore
+	const { type, ...contact } = body;
+
+	console.info('getRepresentationContactPayload', contact);
+	return {
+		json: {
+			[repType]: stripEmptyStringKeyValueFromObject(contact),
+			...(repType === 'represented' &&
+				type && {
+					representedType: type
+				})
+		}
+	};
+};

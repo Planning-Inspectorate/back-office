@@ -1,6 +1,7 @@
 import { getRepresentationPageURLs } from './utils/get-representation-page-urls.js';
 import { getCase, getRepresentation } from './representation.service.js';
 import { getPageLinks } from './utils/get-page-links.js';
+import { formatContactDetails } from './representation.utilities.js';
 
 /**
  * @typedef {import('../relevant-representation.types.js').Representation} Representation
@@ -51,6 +52,12 @@ export const addRepresentationToLocals = async (req, res, next) => {
 
 		if (repId) {
 			const representationData = await getRepresentation(caseId, String(repId));
+
+			// These were originally initialised as empty objects when undefined, consequentially because of how pick works
+			representationData.represented = formatContactDetails(representationData.represented || {});
+			representationData.representative = formatContactDetails(
+				representationData.representative || {}
+			);
 
 			res.locals.representation = {
 				...res.locals.representation,

@@ -1,77 +1,52 @@
 {% extends "applications/layouts/applications.layout.njk" %}
-
 {% from "govuk/components/button/macro.njk" import govukButton %}
-
 {% from "applications/representations/representation/components/representation-heading.component.njk" import representationHeading %}
 {% from "applications/representations/representation/components/representation-details-heading.component.njk" import representationDetailsHeading %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-
-{% block pageHeading %}
-{% endblock %}
-
+{% block pageHeading %}{% endblock %}
 {% block pageTitle %}
-	{{ pageTitle }}
+  {{ pageTitle }}
 {% endblock %}
-
 {% block pageContent %}
-
-	{% if depublishedRepresentation %}
-		{% set depublishBannerHtml %}
-			<p class="govuk-notification-banner__heading">
-				You have depublished this representation and it has been removed from the website.
-			</p>
-
-			<a href="?" id="clear-notification-link" class="govuk-link">Clear notification</a>
-		{% endset %}
-
-		{{ govukNotificationBanner({
+  {% if depublishedRepresentation %}
+    {% set depublishBannerHtml %}
+    <p class="govuk-notification-banner__heading">
+      You have depublished this representation and it has been removed from the website.
+    </p>
+    <a href="?" id="clear-notification-link" class="govuk-link">Clear notification</a>
+    {% endset %}
+    {{ govukNotificationBanner({
 			attributes: { id: "success-banner" },
 			html: depublishBannerHtml,
 			type: 'success'
 		}) }}
-	{% endif %}
-
+  {% endif %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {% if representation.status == 'DRAFT' %}
-
-        {{ representationHeading(pageHeading, 'Add a representation', case.projectName) }}
-
+        {{ representationHeading(pageHeading, 'Add a representation2', case.projectName) }}
       {% else %}
-
         {{ representationDetailsHeading(organisationOrFullname, representation.status, case.projectName) }}
-
       {% endif %}
-
       {% include "./includes/represented-details.include.njk" %}
-
       {% if representation.representative.type %}
         {% include "./includes/representative-details.include.njk" %}
       {% endif %}
-
       {% if representation.status == 'DRAFT' %}
-
         {% include "./includes/check/representation.include.njk" %}
-
         {% if representation.attachments | length > 0 %}
-
           {% include "./includes/check/attachments.include.njk" %}
-
         {% endif %}
-
         <form method="post">
           {{ govukButton({
             text: "Submit for review",
             value: representation.id
           }) }}
         </form>
-
       {% else %}
-
         {% include "./includes/change/representation.include.njk" %}
         {% include "./includes/change/workflow.include.njk" %}
         {% include "./includes/change/attachments.include.njk" %}
-
       {% endif %}
     </div>
   </div>

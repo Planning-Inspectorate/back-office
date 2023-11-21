@@ -21,6 +21,8 @@ export const postRepresentationType = async (req, res) => {
 	const { caseId } = params;
 	const { repId, repType } = query;
 
+	console.info('Patching rep type', query);
+
 	if (errors) {
 		return res.render(view, {
 			...getRepresentationTypeViewModel(query, locals),

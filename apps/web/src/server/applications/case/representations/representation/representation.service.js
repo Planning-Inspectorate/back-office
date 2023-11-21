@@ -34,11 +34,13 @@ export const postRepresentation = async (caseId, repType, body) =>
  * @param {object} body
  * @returns {Promise<any>}
  */
-export const patchRepresentation = async (caseId, repId, repType, body) =>
-	patch(
+export const patchRepresentation = async (caseId, repId, repType, body) => {
+	console.info('patchRepresentation', getRepresentationContactPayload(repType, body));
+	return patch(
 		`applications/${caseId}/representations/${repId}`,
 		getRepresentationContactPayload(repType, body)
 	);
+};
 
 /**
  * @param {string} caseId
@@ -47,7 +49,9 @@ export const patchRepresentation = async (caseId, repId, repType, body) =>
  * @param {object} body
  * @returns {Promise<any>}
  */
-export const patchRepresentationNoMap = async (caseId, repId, repType, body) =>
-	patch(`applications/${caseId}/representations/${repId}`, {
+export const patchRepresentationNoMap = async (caseId, repId, repType, body) => {
+	console.info('patchRepresentationNoMap', body);
+	return patch(`applications/${caseId}/representations/${repId}`, {
 		json: body
 	});
+};

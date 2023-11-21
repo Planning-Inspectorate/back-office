@@ -211,22 +211,29 @@ export const getStatusCountByCaseId = async (caseId) => {
 export const createApplicationRepresentation = async ({
 	representationDetails,
 	represented,
-	representedAddress,
+	representedAddress = {},
 	representative,
-	representativeAddress
+	representativeAddress = {}
 }) => {
-	const representation = {
-		...representationDetails
+	const { caseId, ...representation } = representationDetails;
+
+	representation.case = {
+		connect: {
+			id: caseId
+		}
 	};
 
 	representation.represented = {
 		create: {
 			...represented,
-			...(representedAddress && {
-				address: {
-					create: representedAddress
-				}
-			})
+			//...(representedAddress && {
+			//	address: {
+			//		create: representedAddress
+			//	}
+			//})
+			address: {
+				create: representedAddress
+			}
 		}
 	};
 
@@ -234,14 +241,19 @@ export const createApplicationRepresentation = async ({
 		representation.representative = {
 			create: {
 				...representative,
-				...(representativeAddress && {
-					address: {
-						create: representativeAddress
-					}
-				})
+				//...(representativeAddress && {
+				//	address: {
+				//		create: representativeAddress
+				//	}
+				//})
+				address: {
+					create: representativeAddress
+				}
 			}
 		};
 	}
+
+	console.info('==== representation to create', representation.represented);
 
 	const createResponse = await databaseConnector.representation.create({
 		data: representation
@@ -285,6 +297,7 @@ export const updateApplicationRepresentation = async (
 	}
 
 	if (!isEmpty(represented)) {
+		console.info('updating represented', represented);
 		await databaseConnector.representation.update({
 			where: {
 				id: representationId
@@ -298,35 +311,34 @@ export const updateApplicationRepresentation = async (
 	}
 
 	if (!isEmpty(representedAddress)) {
-		await databaseConnector.representation.update({
+		await databaseConnector.serviceUser.update({
 			where: {
-				id: representationId
+				id: response.representedId
 			},
 			data: {
-				represented: {
+				address: {
 					upsert: {
-						create: {
-							address: representedAddress
-						},
-						update: {
-							address: representedAddress
-						}
+						create: representedAddress,
+						update: representedAddress
 					}
 				}
 			}
 		});
 	}
+
 	if (!isEmpty(representative)) {
+		console.info('updating representative', representative);
 		await databaseConnector.representation.update({
 			where: {
 				id: representationId
 			},
 			data: {
 				representative: {
-					upsert: {
-						create: representative,
-						update: representative
-					}
+					update: representative
+					//upsert: {
+					//	create: representative,
+					//	update: representative
+					//}
 				}
 			}
 		});
