@@ -279,6 +279,8 @@ const clientActions = (uploadForm) => {
 			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {
 			showErrors(error, uploadForm);
+
+			throw error;
 		}
 	};
 
