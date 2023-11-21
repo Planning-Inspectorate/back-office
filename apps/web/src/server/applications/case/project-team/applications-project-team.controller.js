@@ -1,8 +1,14 @@
 import projectTeamADService from './application-project-team.azure-service.js';
 import {
+	setSuccessBanner,
+	getSuccessBanner,
+	destroySuccessBanner
+} from '../../../applications/common/services/session.service.js';
+import {
 	getManyProjectTeamMembersInfo,
 	getProjectTeamMemberById,
 	getProjectTeamMembers,
+	removeProjectTeamMember,
 	searchProjectTeamMembers,
 	updateProjectTeamMemberRole
 } from './applications-project-team.service.js';
@@ -41,10 +47,14 @@ export async function viewProjectTeamListPage({ session }, response) {
 		session
 	);
 
+	const showSuccessBanner = getSuccessBanner(session);
+	destroySuccessBanner(session);
+
 	return response.render(`applications/case-project-team/project-team-list.njk`, {
 		selectedPageType: 'project-team',
 		projectTeamMembers: projectTeamMembersInfo,
-		allRoles
+		allRoles,
+		showSuccessBanner
 	});
 }
 
@@ -63,6 +73,47 @@ export async function viewProjectTeamChooseRolePage({ params, session }, respons
 		projectTeamMember,
 		allRoles
 	});
+}
+
+/**
+ * Page for removing team member from project
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {userId: string}>}
+ */
+export async function viewProjectTeamRemovePage({ params, session }, response) {
+	const { caseId } = response.locals;
+	const { userId } = params;
+
+	const projectTeamMember = await getSingleProjectTeamMemberInfo(caseId, userId, session);
+
+	return response.render(`applications/case-project-team/project-team-remove.njk`, {
+		projectTeamMember
+	});
+}
+
+/**
+ * Execute removal of team member from project
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {userId: string}>}
+ */
+export async function updateProjectTeamRemove({ params, session }, response) {
+	const { caseId } = response.locals;
+	const { userId } = params;
+
+	const { errors } = await removeProjectTeamMember(caseId, userId);
+
+	if (errors) {
+		const projectTeamMember = await getSingleProjectTeamMemberInfo(caseId, userId, session);
+
+		return response.render(`applications/case-project-team/project-team-remove.njk`, {
+			projectTeamMember,
+			errors
+		});
+	}
+
+	setSuccessBanner(session);
+
+	return response.redirect('../');
 }
 
 /**

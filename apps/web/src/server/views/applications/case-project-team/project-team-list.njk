@@ -2,8 +2,22 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block sectionContent %}
+
+	{% if showSuccessBanner %}
+		{% set html %}
+		<h3 class="govuk-notification-banner__heading">
+			Team member removed
+		</h3>
+		{% endset %}
+
+		{{ govukNotificationBanner({
+			html: html,
+			type: 'success'
+		}) }}
+	{% endif %}
 
 	<h3 class="govuk-heading-m">Project team</h3>
 
@@ -22,17 +36,19 @@
 			{% endfor %}
 
 			{% set teamMemberRolePageUrl %}
-			<a class='govuk-link govuk-!-margin-right-3' href='{{'project-team-role'|url({
+			<a class='govuk-link govuk-!-margin-right-3' href='{{'project-team-member'|url({
 						caseId: caseId,
-						userId: teamMember.id}
-					)}}'>Change role </a>
+						userId: teamMember.id,
+						step: 'choose-role'
+						})}}'>Change role </a>
 			{% endset %}
 
 			{% set teamMemberDeletePageUrl %}
-			<a class='govuk-link' href='{{'project-team-role'|url({
+			<a class='govuk-link' href='{{'project-team-member'|url({
 						caseId: caseId,
-						userId: teamMember.id}
-					)}}'>Remove</a>
+						userId: teamMember.id,
+						step: 'remove'
+						})}}'>Remove</a>
 			{% endset %}
 
 			{% set row = [

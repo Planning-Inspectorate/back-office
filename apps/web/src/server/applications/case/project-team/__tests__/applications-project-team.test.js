@@ -234,4 +234,46 @@ describe('Project team', () => {
 			});
 		});
 	});
+
+	describe('Remove member', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
+
+			const mockedTeamMemberWithRole = { ...fixtureProjectTeamMembers[0], role: 'inspector' };
+			nock('http://test/')
+				.get('/applications/123/project-team/1')
+				.reply(200, mockedTeamMemberWithRole);
+			installMockADToken(fixtureProjectTeamMembers);
+		});
+
+		describe('GET /case/123/project-team/1/remove', () => {
+			it('should render the page', async () => {
+				const response = await request.get(`${baseUrl}/1/remove`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Remove team member');
+				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
+			});
+		});
+
+		describe('POST /case/123/project-team/1/remove', () => {
+			it('should render an error if removal did not work', async () => {
+				const response = await request.post(`${baseUrl}/1/remove`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('The team member could not be removed');
+			});
+
+			it('should redirect to project-team page if no errors', async () => {
+				nock('http://test/').post('/applications/123/project-team/remove-member').reply(200, {});
+
+				const response = await request.post(`${baseUrl}/1/remove`);
+
+				expect(response?.headers?.location).toEqual('../');
+			});
+		});
+	});
 });

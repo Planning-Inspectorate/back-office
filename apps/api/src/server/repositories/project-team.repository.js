@@ -38,3 +38,15 @@ export const upsert = (userId, caseId, role) => {
 		update: { role }
 	});
 };
+
+/**
+ *
+ * @param {string} userId
+ * @param {number} caseId
+ * @returns {Promise<import('@pins/applications.api').Schema.ProjectTeam>}
+ */
+export const remove = (userId, caseId) => {
+	return databaseConnector.projectTeam.delete({
+		where: { caseId_userId: { caseId, userId } }
+	});
+};

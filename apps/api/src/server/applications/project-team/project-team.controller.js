@@ -52,3 +52,31 @@ export const updateProjectTeamMemberRole = async ({ params, body }, response) =>
 
 	response.send(mapProjectTeamMember(projectTeamMember));
 };
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const removeProjectTeamMember = async ({ params, body }, response) => {
+	const { id } = params;
+	const { userId } = body;
+
+	const projectTeamMember = await projectTeamRepository.getByUserIdRelatedToCaseId(
+		userId,
+		Number(id)
+	);
+
+	if (!projectTeamMember) {
+		throw new BackOfficeAppError(
+			`No project team member found with id ${userId} for the case ${id}`,
+			404
+		);
+	}
+
+	try {
+		await projectTeamRepository.remove(userId, Number(id));
+
+		response.send({});
+	} catch {
+		throw new BackOfficeAppError(`Error while removing user ${userId} for the case ${id}`, 500);
+	}
+};

@@ -3,7 +3,8 @@ import { asyncHandler } from '#middleware/async-handler.js';
 import {
 	getProjectTeamMembers,
 	getProjectTeamMemberById,
-	updateProjectTeamMemberRole
+	updateProjectTeamMemberRole,
+	removeProjectTeamMember
 } from './project-team.controller.js';
 import { validateApplicationId } from '../application/application.validators.js';
 
@@ -55,6 +56,33 @@ router.get(
     */
 	validateApplicationId,
 	asyncHandler(getProjectTeamMemberById)
+);
+
+router.post(
+	'/:id/project-team/remove-member',
+	/*
+			#swagger.tags = ['Applications']
+			#swagger.path = '/applications/{id}/project-team/remove-member'
+			#swagger.description = 'Remove team member from project'
+			#swagger.parameters['id'] = {
+				in: 'path',
+				description: 'Application case ID',
+				required: true,
+				type: 'integer'
+			}
+			#swagger.parameters['userId'] = {
+				in: 'body',
+				description: 'Id of the user being removed',
+				required: true,
+				type: 'string'
+			}
+			#swagger.responses[200] = {
+				description: 'Project team member',
+				schema: { {} }
+			}
+		*/
+	validateApplicationId,
+	asyncHandler(removeProjectTeamMember)
 );
 
 router.patch(
