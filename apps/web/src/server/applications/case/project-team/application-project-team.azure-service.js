@@ -50,14 +50,24 @@ export const getAllADUsers = async (ADToken) => {
 		})
 	);
 
-	// remodel response and filter out null or duplicate results (same user can be in multiple groups)
-	return allResults
-		.map((c) => c.value)
-		.flat(1)
-		.filter(
-			(value, index, self) =>
-				Boolean(value) && index === self.findIndex((selfItem) => selfItem.id === value.id)
-		);
+	return (
+		allResults
+			// remodel response
+			.map((result) => result.value)
+			.flat(1)
+			// filter out null or duplicate results (same user can be in multiple groups)
+			.filter(
+				(value, index, self) =>
+					Boolean(value) && index === self.findIndex((selfItem) => selfItem.id === value.id)
+			)
+			// replace potential null values with empty strings
+			.map((result) => ({
+				id: result.id,
+				surname: result.surname || '',
+				givenName: result.givenName || '',
+				userPrincipalName: result.userPrincipalName || ''
+			}))
+	);
 };
 
 /**
