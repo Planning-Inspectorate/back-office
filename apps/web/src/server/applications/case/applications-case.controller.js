@@ -19,8 +19,6 @@ export async function viewApplicationsCaseOverview({ session }, response) {
 	// query the internal database to retrieve roles and ids
 	const { projectTeamMembers } = await getProjectTeamMembers(caseId);
 
-	console.log(222222, projectTeamMembers);
-
 	const displayableMembers = (projectTeamMembers || [])
 		// filter NSIP Officer and Case Manager role
 		.filter(
@@ -38,12 +36,6 @@ export async function viewApplicationsCaseOverview({ session }, response) {
 		displayableMembers.length === 0 &&
 		displayableMembers.length !== (projectTeamMembers || []).length;
 
-	console.log(
-		404040,
-		notDisplayableMembersExist,
-		displayableMembers.length,
-		projectTeamMembers?.length
-	);
 	// add users info from the cache containing the results of ms graph api query
 	const displayableMembersInfo = await getManyProjectTeamMembersInfo(
 		displayableMembers || [],
