@@ -1516,6 +1516,17 @@ export interface DocumentMarkAsPublishedBadRequest {
 	};
 }
 
+export interface DocumentHTMLResponse {
+	/** HTML string matching Front Office YouTube template */
+	html?: string;
+}
+
+export interface DocumentBadHTMLResponse {
+	errors?: {
+		message?: string;
+	};
+}
+
 export interface PaginationRequestBody {
 	/**
 	 * Page number requested

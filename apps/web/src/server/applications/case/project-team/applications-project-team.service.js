@@ -1,5 +1,5 @@
 import pino from '../../../lib/logger.js';
-import { get, patch } from '../../../lib/request.js';
+import { get, patch, post } from '../../../lib/request.js';
 import projectTeamADService from './application-project-team.azure-service.js';
 
 /** @typedef {import("../../../app/auth/auth-session.service.js").SessionWithAuth} SessionWithAuth */
@@ -49,6 +49,26 @@ export const getProjectTeamMembers = async (caseId) => {
 		pino.error(`[API] ${error?.response?.body?.error?.code || 'Unknown error'}`);
 
 		return { errors: { query: 'An error occurred, please try again later' } };
+	}
+};
+
+/**
+ * Remove team member from project
+ *
+ * @param {number} caseId
+ * @param {string} userId
+ * @returns {Promise<{projectTeamMember?: {userId: string, role: string}, errors?: {query: string}}>}
+ */
+export const removeProjectTeamMember = async (caseId, userId) => {
+	try {
+		const projectTeamMember = await post(`applications/${caseId}/project-team/remove-member`, {
+			json: { userId }
+		});
+		return { projectTeamMember };
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors || 'Unknown error'}`);
+
+		return { errors: { query: 'The team member could not be removed, try again.' } };
 	}
 };
 

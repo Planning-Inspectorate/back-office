@@ -24,6 +24,11 @@ applicationsProjectTeamRouter
 	.post(validateApplicationsProjectTeamRole, asyncRoute(controller.updateProjectTeamChooseRole));
 
 applicationsProjectTeamRouter
+	.route('/:userId/remove')
+	.get(asyncRoute(controller.viewProjectTeamRemovePage))
+	.post(validateApplicationsProjectTeamRole, asyncRoute(controller.updateProjectTeamRemove));
+
+applicationsProjectTeamRouter
 	.route('/search')
 	.get(asyncRoute(controller.viewProjectTeamSearchPage))
 	.post(

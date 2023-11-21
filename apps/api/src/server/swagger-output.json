@@ -2733,6 +2733,38 @@
 				}
 			}
 		},
+		"/applications/documents/process-html": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Accepts an HTML string and returns a different HTML string matching the YouTube video template for Front Office",
+				"parameters": [
+					{
+						"name": "html",
+						"in": "body",
+						"description": "HTML string",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Document status updated",
+						"schema": {
+							"$ref": "#/definitions/DocumentHTMLResponse"
+						}
+					},
+					"400": {
+						"description": "HTML string does not contain a YouTube iframe",
+						"schema": {
+							"$ref": "#/definitions/DocumentBadHTMLResponse"
+						}
+					}
+				}
+			}
+		},
 		"/applications/case-team": {
 			"get": {
 				"tags": ["Applications"],
@@ -4070,6 +4102,32 @@
 						}
 					}
 				}
+			}
+		},
+		"/applications/{id}/project-team/remove-member": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Remove team member from project",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application case ID"
+					},
+					{
+						"name": "userId",
+						"in": "body",
+						"description": "Id of the user being removed",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					}
+				],
+				"responses": {}
 			}
 		}
 	},
@@ -6428,6 +6486,28 @@
 						"publishedDate": {
 							"type": "string",
 							"example": "Must provide a published date"
+						}
+					}
+				}
+			}
+		},
+		"DocumentHTMLResponse": {
+			"type": "object",
+			"properties": {
+				"html": {
+					"description": "HTML string matching Front Office YouTube template",
+					"type": "string"
+				}
+			}
+		},
+		"DocumentBadHTMLResponse": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"message": {
+							"type": "string"
 						}
 					}
 				}

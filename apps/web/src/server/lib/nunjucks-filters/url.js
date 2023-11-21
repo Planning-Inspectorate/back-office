@@ -98,8 +98,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-updates/${projectUpdateId}/${step}`;
 		case 'project-team':
 			return `${domainUrl}/case/${caseId}/project-team/${step}`;
-		case 'project-team-role':
-			return `${domainUrl}/case/${caseId}/project-team/${userId}/choose-role`;
+		case 'project-team-member':
+			return `${domainUrl}/case/${caseId}/project-team/${userId}/${step}`;
 		case 'search-results':
 			return `${domainUrl}/search-results/${step}?q=${query}`;
 		case 's51-create':
