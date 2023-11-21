@@ -3,6 +3,8 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { fixtureCases } from '../../../../../testing/applications/fixtures/cases.js';
 import { createTestEnvironment } from '../../../../../testing/index.js';
+import { installMockADToken } from '../../../../../testing/app/mocks/project-team.js';
+import { fixtureProjectTeamMembers } from '../../../../../testing/applications/fixtures/project-team.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -27,14 +29,49 @@ describe('Applications case pages', () => {
 			beforeEach(async () => {
 				nocks();
 				await request.get('/applications-service/case-team');
+
+				installMockADToken(fixtureProjectTeamMembers);
 			});
 
-			it('should render the page', async () => {
+			it('should render the page with no project team members', async () => {
 				const response = await request.get(baseUrl);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Overview');
+				expect(element.innerHTML).toContain('No project members have been added yet');
+			});
+
+			it('should render the page with no displayable members', async () => {
+				const mockedTeamMembersWithRole = [{ ...fixtureProjectTeamMembers[0], role: 'inspector' }];
+				nock('http://test/')
+					.get('/applications/123/project-team')
+					.reply(200, mockedTeamMembersWithRole);
+
+				const response = await request.get(baseUrl);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Overview');
+				expect(element.innerHTML).toContain(
+					'Some team members have been added, but only Case Managers and NSIP Officers'
+				);
+			});
+
+			it('should render the page with displayable members', async () => {
+				const mockedTeamMembersWithRole = [
+					{ ...fixtureProjectTeamMembers[0], role: 'case_manager' }
+				];
+				nock('http://test/')
+					.get('/applications/123/project-team')
+					.reply(200, mockedTeamMembersWithRole);
+
+				const response = await request.get(baseUrl);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Overview');
+				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
 			});
 		});
 	});
