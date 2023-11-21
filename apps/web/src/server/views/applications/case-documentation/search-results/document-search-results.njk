@@ -7,7 +7,7 @@
 
 {% set pageTitle = 'Document search results' %}
 
-{% set searchParameters = {query: query, errors: errors, csrfToken: csrfToken, label: 'Search documents', searchDocumentsUrl: searchDocumentsUrl} %}
+{% set searchParameters = {query: query, errors: errors, csrfToken: csrfToken, label: "Search cases"} %}
 
 {% block errorSummary %}{% endblock %}
 
@@ -24,7 +24,7 @@
 
 
 	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-one-third">
+		<div class="govuk-grid-column-two-thirds">
 			{{ applicationDocumentSearch(searchParameters) }}
 		</div>
 	</div>
@@ -35,7 +35,7 @@
 		</p>
 
 		{% set rows = [] %}
-		{% for searchItem in searchDocumentItems %}
+		{% for searchItem in searchApplicationsItems %}
 
 			{% set rows = rows | concat ([[
 				{ html: searchItem.documentRef },

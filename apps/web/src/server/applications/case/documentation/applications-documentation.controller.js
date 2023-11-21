@@ -501,6 +501,7 @@ const getPaginationButtonData = (currentPageNumber, pageCount) => {
  *  @type {import('@pins/express').RenderHandler<DocumentsSearchResultsProps, {}, DocumentsSearchResultsBody, {q: string}, {pageNumber: string}>}
  */
 export async function searchDocuments(req, response) {
+	console.log('Inside the body');
 	const { errors, body, params } = req;
 	const { query: bodyQuery } = body;
 	const { caseId } = response.locals;
@@ -537,7 +538,7 @@ export async function searchDocuments(req, response) {
 	const searchDocumentItems = searchResponse?.items || [];
 	const itemCount = searchResponse?.itemCount || 0;
 	const pagesNumber = Math.ceil(itemCount / pageSize);
-
+	console.log('Before pagination');
 	const pagination = {
 		previous:
 			pageNumber > 1
@@ -565,6 +566,7 @@ export async function searchDocuments(req, response) {
 			href: url('document-search-results', { caseId: caseId, step: `${key + 1}`, query })
 		}))
 	};
+	console.log('After pagination');
 
 	//just callng the nunjuck page not the router
 	return response.render('applications/case-documentation/search-results/document-search-results', {
