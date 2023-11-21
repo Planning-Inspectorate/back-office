@@ -1,7 +1,8 @@
 import pino from '../../../lib/logger.js';
 import { get, patch } from '../../../lib/request.js';
+import projectTeamADService from './application-project-team.azure-service.js';
 
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import("../../../app/auth/auth-session.service.js").SessionWithAuth} SessionWithAuth */
 /** @typedef {import('../../applications.types').ProjectTeamMember} ProjectTeamMember */
 /** @typedef {import('../../applications.types').PaginatedResponse<ProjectTeamMember>} PaginatedProjectTeamMembers */
 
@@ -92,4 +93,29 @@ export const updateProjectTeamMemberRole = async (caseId, userId, role) => {
 
 		return { errors: { query: 'The role could not be saved, try again.' } };
 	}
+};
+
+/**
+ * Add extra info (name and email) to the internally stored data of team members (id and role)
+ *
+ * @param {{userId: string, role: string}[]} projectTeamMembers
+ * @param {SessionWithAuth} session
+ * @returns {Promise<Partial<ProjectTeamMember>[]>}
+ */
+export const getManyProjectTeamMembersInfo = async (projectTeamMembers, session) => {
+	// retrieve all the AD users or throw error
+	// this list contains extra info such as names or emails
+	const allAzureUsers = await projectTeamADService.getAllCachedUsers(session);
+
+	// merge the info retrieved from Azure to the internally stored data
+	const projectTeamMembersInfo = projectTeamMembers.map((teamMember) => {
+		const teamMemberInfo = allAzureUsers.find((azureUser) => azureUser.id === teamMember.userId);
+
+		return {
+			...teamMember,
+			...teamMemberInfo
+		};
+	});
+
+	return projectTeamMembersInfo;
 };

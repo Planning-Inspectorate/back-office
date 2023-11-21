@@ -38,16 +38,24 @@ applicationsCaseRouter
 		[assertDomainTypeIsNotInspector, locals.registerCase],
 		asyncRoute(controller.updateApplicationsCasePublishPage)
 	);
+
 applicationsCaseRouter
 	.route('/:caseId/unpublish')
+	.get(locals.registerCase, asyncRoute(controller.viewApplicationsCaseUnpublishPage))
 	.post(
 		[assertDomainTypeIsNotInspector, locals.registerCase],
 		asyncRoute(controller.unpublishApplicationsCase)
 	);
 
-applicationsCaseRouter.use('/:caseId/:pageType?', applicationsCaseSummaryRouter);
+applicationsCaseRouter.use('/:caseId', applicationsCaseSummaryRouter);
 
 applicationsCaseSummaryRouter.use(locals.registerCase);
-applicationsCaseSummaryRouter.route('/').get(asyncRoute(controller.viewApplicationsCasePages));
+applicationsCaseSummaryRouter
+	.route('/project-information')
+	.get(asyncRoute(controller.viewApplicationsCaseInformation));
+
+applicationsCaseSummaryRouter
+	.route('/:overview?')
+	.get(asyncRoute(controller.viewApplicationsCaseOverview));
 
 export default applicationsCaseRouter;

@@ -1,28 +1,79 @@
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
+import { allRoles } from './project-team/applications-project-team.controller.js';
+import {
+	getManyProjectTeamMembersInfo,
+	getProjectTeamMembers
+} from './project-team/applications-project-team.service.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/**
- * @typedef {object} CasePageProps
- * @property {string} selectedPageType
- * @property {boolean} [isFirstTimePublished]
- * @property {boolean} [showPublishedBanner]
- * @property {ValidationErrors} [errors]
- */
 
 /**
- * View the details for a single case
+ * View the overview for a single case
  *
- * @type {import('@pins/express').RenderHandler<CasePageProps, {}, {}, {}, {pageType?: string}>}
+ * @type {import('@pins/express').RenderHandler<{}>}
  */
-export async function viewApplicationsCasePages({ params }, response) {
-	const { pageType } = params;
+export async function viewApplicationsCaseOverview({ session }, response) {
+	const { caseId } = response.locals;
 
-	const selectedPageType = pageType ?? 'overview';
+	// query the internal database to retrieve roles and ids
+	const { projectTeamMembers } = await getProjectTeamMembers(caseId);
 
-	response.render(`applications/case/${selectedPageType}`, {
-		selectedPageType
+	console.log(222222, projectTeamMembers);
+
+	const displayableMembers = (projectTeamMembers || [])
+		// filter NSIP Officer and Case Manager role
+		.filter(
+			(teamMember) => teamMember.role === 'case_manager' || teamMember.role === 'NSIP_officer'
+		)
+		// replace role vale with its displayName
+		.map((teamMember) => ({
+			...teamMember,
+			role: allRoles.find((role) => role.value === teamMember.role)?.text || ''
+		}))
+		// make sure case_manager members come before nsip officers members
+		.sort((usr1, usr2) => (usr1.role > usr2.role ? 1 : -1));
+
+	const notDisplayableMembersExist =
+		displayableMembers.length === 0 &&
+		displayableMembers.length !== (projectTeamMembers || []).length;
+
+	console.log(
+		404040,
+		notDisplayableMembersExist,
+		displayableMembers.length,
+		projectTeamMembers?.length
+	);
+	// add users info from the cache containing the results of ms graph api query
+	const displayableMembersInfo = await getManyProjectTeamMembersInfo(
+		displayableMembers || [],
+		session
+	);
+
+	response.render(`applications/case/overview`, {
+		selectedPageType: 'overview',
+		displayableMembers: displayableMembersInfo,
+		notDisplayableMembersExist
 	});
+}
+/**
+ * View the project information page for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{}>}
+ */
+export async function viewApplicationsCaseInformation(_, response) {
+	response.render(`applications/case/project-information`, {
+		selectedPageType: 'project-information'
+	});
+}
+
+/**
+ * View the unpublish page for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{}>}
+ */
+export async function viewApplicationsCaseUnpublishPage(_, response) {
+	response.render(`applications/case/unpublish`);
 }
 
 /**
