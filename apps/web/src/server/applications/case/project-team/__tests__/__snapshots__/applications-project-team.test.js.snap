@@ -451,7 +451,7 @@ exports[`Project team Remove member POST /case/123/project-team/1/remove should 
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#query\\">The team member could not be removed, try again.</a>
+                            <li><a href=\\"#msg\\">The team member could not be removed, try again.</a>
                             </li>
                         </ul>
                     </div>
