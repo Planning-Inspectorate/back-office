@@ -57,7 +57,7 @@ export const getProjectTeamMembers = async (caseId) => {
  *
  * @param {number} caseId
  * @param {string} userId
- * @returns {Promise<{projectTeamMember?: {userId: string, role: string}, errors?: {query: string}}>}
+ * @returns {Promise<{projectTeamMember?: {userId: string, role: string}, errors?: {msg: string}}>}
  */
 export const removeProjectTeamMember = async (caseId, userId) => {
 	try {
@@ -68,7 +68,7 @@ export const removeProjectTeamMember = async (caseId, userId) => {
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors || 'Unknown error'}`);
 
-		return { errors: { query: 'The team member could not be removed, try again.' } };
+		return { errors: { msg: 'The team member could not be removed, try again.' } };
 	}
 };
 
