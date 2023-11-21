@@ -496,7 +496,7 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
         </div>
     </form>
     <p class='govuk-body font-weight--700'>17 results</p>
-    <table class=\\"govuk-table\\">
+    <table class=\\"govuk-table stretch-last-column\\">
         <thead class=\\"govuk-table__head\\">
             <tr class=\\"govuk-table__row\\">
                 <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
@@ -646,7 +646,7 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
         </div>
     </form>
     <p class='govuk-body font-weight--700'>200 results</p>
-    <table class=\\"govuk-table\\">
+    <table class=\\"govuk-table stretch-last-column\\">
         <thead class=\\"govuk-table__head\\">
             <tr class=\\"govuk-table__row\\">
                 <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
@@ -1952,7 +1952,7 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
         </div>
     </form>
     <p class='govuk-body font-weight--700'>17 results</p>
-    <table class=\\"govuk-table\\">
+    <table class=\\"govuk-table stretch-last-column\\">
         <thead class=\\"govuk-table__head\\">
             <tr class=\\"govuk-table__row\\">
                 <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
