@@ -186,17 +186,31 @@ const serverActions = (uploadForm) => {
 			);
 			const { blobStoreUrl } = documentUploadInfo;
 
-			if (fileToUpload && blobStoreUrl) {
-				const errorOutcome = await uploadOnBlobStorage(
-					fileToUpload,
-					blobStoreUrl,
-					blobStorageClient,
-					privateBlobContainer
+			if (!fileToUpload) {
+				throw new Error(
+					`Failed to upload document to blob storage because \`fileToUpload\` is undefined: ${JSON.stringify(
+						documentUploadInfo
+					)}`
 				);
+			}
 
-				if (errorOutcome) {
-					failedUploads.push(errorOutcome);
-				}
+			if (!blobStoreUrl) {
+				throw new Error(
+					`Failed to upload document to blob storage because \`blobStoreUrl\` is undefined: ${JSON.stringify(
+						documentUploadInfo
+					)}`
+				);
+			}
+
+			const errorOutcome = await uploadOnBlobStorage(
+				fileToUpload,
+				blobStoreUrl,
+				blobStorageClient,
+				privateBlobContainer
+			);
+
+			if (errorOutcome) {
+				failedUploads.push(errorOutcome);
 			}
 		}
 
