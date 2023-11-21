@@ -58,7 +58,7 @@ export const updateStatus = async (guid, status) => {
 export const extractYouTubeURLFromHTML = (html) => {
 	const match = html.match(/<iframe.+?src=["|'](.+?)["|']/);
 	if (!match) {
-		throw new Error('no iframe found in the HTML');
+		throw new Error('No iframe found in the HTML');
 	}
 
 	const isYouTube = /^https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(match[1]);

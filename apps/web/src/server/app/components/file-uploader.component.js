@@ -47,8 +47,12 @@ export async function postProcessHTMLFile({ body }, response) {
 	try {
 		const result = await post(`applications/documents/process-html`, { json: { html } });
 		return response.send(result);
-	} catch (err) {
-		return response.end();
+	} catch (/** @type {*} */ err) {
+		if (err.response.statusCode === 400) {
+			return response.status(400).send({ errors: 'BAD_HTML_FILE' });
+		}
+
+		return response.status(err.response.statusCode).send(err.response.body);
 	}
 }
 

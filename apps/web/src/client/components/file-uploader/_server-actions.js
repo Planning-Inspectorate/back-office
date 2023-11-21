@@ -135,22 +135,37 @@ const serverActions = (uploadForm) => {
 				body: JSON.stringify({ html })
 			});
 
-			const { html: renderedHTML } = await response.json();
-			const newFile = new File([renderedHTML], file.name, {
+			const result = await response.json();
+			if (result.errors) {
+				return {
+					file: null,
+					errors: [
+						{
+							message: result.errors,
+							name: file.name,
+							fileRowId: `file_row_${file.lastModified}_${file.size}`
+						}
+					]
+				};
+			}
+
+			const newFile = new File([result.html], file.name, {
 				type: 'text/html'
 			});
 
 			return { file: newFile, errors: [] };
 		} catch (/** @type {*} */ error) {
 			console.error(error);
-
-			failedUploads.push({
-				message: 'GENERIC_SINGLE_FILE',
-				fileRowId: `file_row_${file.lastModified}_${file.size}`,
-				name: file.name
-			});
-
-			return { file: null, errors: [error] };
+			return {
+				file: null,
+				errors: [
+					{
+						message: error.message,
+						name: file.name,
+						fileRowId: `file_row_${file.lastModified}_${file.size}`
+					}
+				]
+			};
 		}
 	};
 
