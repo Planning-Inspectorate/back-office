@@ -48,11 +48,12 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 export const processHTMLForYouTube = async ({ body }, response) => {
 	const html = body.html;
 
-	const youtubeUrl = extractYouTubeURLFromHTML(html);
-	if (!youtubeUrl) {
-		throw new BackOfficeAppError('no YouTube iframe found in the HTML snippet provided', 400);
-	}
+	try {
+		const youtubeUrl = extractYouTubeURLFromHTML(html);
+		const renderedHTML = renderYouTubeTemplate(youtubeUrl);
 
-	const renderedHTML = renderYouTubeTemplate(youtubeUrl);
-	response.send({ html: renderedHTML });
+		response.send({ html: renderedHTML });
+	} catch (/** @type {*} */ err) {
+		throw new BackOfficeAppError(err, 400);
+	}
 };
