@@ -121,7 +121,10 @@ const serverActions = (uploadForm) => {
 		try {
 			const reader = await readerPromise;
 			const html = sanitizeHtml(reader.result, {
-				allowedAttributes: ['src']
+				allowedTags: ['iframe'],
+				allowedAttributes: {
+					iframe: ['src']
+				}
 			});
 
 			const response = await fetch('/documents/process-html', {
@@ -139,6 +142,8 @@ const serverActions = (uploadForm) => {
 
 			return { file: newFile, errors: [] };
 		} catch (/** @type {*} */ error) {
+			console.error(error);
+
 			failedUploads.push({
 				message: 'GENERIC_SINGLE_FILE',
 				fileRowId: `file_row_${file.lastModified}_${file.size}`,
