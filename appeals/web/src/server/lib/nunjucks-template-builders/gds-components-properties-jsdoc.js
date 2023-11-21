@@ -931,6 +931,12 @@
  */
 
 /**
+ * @typedef {Object} PageComponentGroup
+ * @property {PageComponentWrapperHtml} [wrapperHtml]
+ * @property {PageComponent[]} pageComponents
+ */
+
+/**
  * @typedef {Object} PageContent
  * @property {string} [title]
  * @property {string} [backLinkUrl]
@@ -939,7 +945,8 @@
  * @property {string} [heading]
  * @property {string} [submitButtonText]
  * @property {string} [skipButtonUrl]
- * @property {PageComponent[]} pageComponents
+ * @property {PageComponent[]} [pageComponents]
+ * @property {PageComponentGroup[]} [pageComponentGroups]
  */
 
 /**
