@@ -39,6 +39,11 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
+	.route('/document-search-results/:pageNumber?')
+	.post(validators.validateSearchApplicationsTerm, asyncRoute(controller.searchDocuments))
+	.get(asyncRoute(controller.searchDocuments));
+
+applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
 	.get(
 		assertFolderIsNotReps,
@@ -118,11 +123,5 @@ applicationsDocumentationRouter
 		[assertDomainTypeIsNotInspector, locals.registerFolder],
 		asyncRoute(controller.viewApplicationsCaseDocumentationPages)
 	);
-
-console.log('hello call 1');
-applicationsDocumentationRouter
-	.route('/document-search-results/:pageNumber?')
-	.get(asyncRoute(controller.searchDocuments))
-	.post(validators.validateSearchApplicationsTerm, asyncRoute(controller.searchDocuments));
 
 export default applicationsDocumentationRouter;

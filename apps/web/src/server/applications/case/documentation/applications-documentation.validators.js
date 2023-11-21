@@ -31,8 +31,8 @@ export const validateApplicationsDocumentationsDeleteStatus = createValidator(
 export const validateSearchApplicationsTerm = createValidator(
 	body('query')
 		.trim()
-		.isLength({ min: 1 })
-		.withMessage('Enter a search term')
+		.isLength({ min: 3 })
+		.withMessage('The search term must be at least 3 characters long')
 		.isLength({ max: 500 })
 		.withMessage('Search term must be 500 characters or fewer')
 );

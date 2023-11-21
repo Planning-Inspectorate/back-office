@@ -62,7 +62,9 @@ export const registerFolderId = async ({ params }, response, next) => {
  *
  * @type {import('@pins/express').RequestHandler<ApplicationCaseLocals>}
  */
+
 export const registerFolder = async ({ params }, response, next) => {
+	console.log('Register Folder');
 	const folderId = Number.parseInt(params.folderId, 10);
 	const { caseId } = response.locals;
 

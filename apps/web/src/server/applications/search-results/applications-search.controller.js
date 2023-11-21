@@ -10,6 +10,7 @@ import * as applicationsService from './application-search.service.js';
  *
   @type {import('@pins/express').RenderHandler<ApplicationsSearchResultsProps, {}, ApplicationsSearchResultsBody, {q: string}, {pageNumber: string}>} */
 export async function searchApplications(req, response) {
+	console.log('Inside the main search body');
 	const { errors, body, params } = req;
 	const { query: bodyQuery } = body;
 
@@ -39,6 +40,7 @@ export async function searchApplications(req, response) {
 	const searchApplicationsItems = searchResponse?.items || [];
 	const itemCount = searchResponse?.itemCount || 0;
 	const pagesNumber = Math.ceil(itemCount / pageSize);
+	console.log('Before main search Pagination');
 
 	const pagination = {
 		previous:
@@ -54,6 +56,7 @@ export async function searchApplications(req, response) {
 		}))
 	};
 
+	console.log('After main search Pagination');
 	return response.render('applications/search-results/search-results', {
 		searchApplicationsItems,
 		query,
