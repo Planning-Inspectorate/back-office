@@ -16,6 +16,7 @@ const { applications: applicationUsers } = users;
 
 describe('Project team related scenarios ', () => {
 	let projectInfo;
+	const email;
 
 	before(() => {
 		projectInfo = projectInformation();
@@ -23,15 +24,17 @@ describe('Project team related scenarios ', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Add team member and verify the role is added to project team', () => {
+	it.only('Add team member and verify the role is added to project team', () => {
 		cy.login(applicationUsers.caseAdmin);
+		cy.log(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
-		projectTeamPage.addTeamMeber('');
+		email=Cypress.env('CASE_ADMIN_EMAIL');
+		projectTeamPage.addTeamMeber(email);
 		projectTeamPage.verifyCaseManagerRoleAdded();
 	});
 
@@ -43,7 +46,8 @@ describe('Project team related scenarios ', () => {
 		searchResultsPage.clickTopSearchResult();
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
-		projectTeamPage.searchTeamMemberByEmail('');
+		email=Cypress.env('CASE_ADMIN_EMAIL');
+		projectTeamPage.searchTeamMemberByEmail(email);
         projectTeamPage.verifyTeamMemberIsAdded();
 	});
 
