@@ -18,9 +18,15 @@ export const searchProjectTeamMembers = async (searchTerm, allAzureUsers, pageNu
 	const searchResults = allAzureUsers.filter((azureUser) => {
 		const { givenName, surname, userPrincipalName: email } = azureUser;
 
-		const recordString = `${givenName || ''} ${surname || ''} ${email || ''}`.toLocaleLowerCase();
-
-		return recordString.includes(searchTerm);
+		// check whether the search matches perfectly the name, the surname or the email
+		// for example, ‘Mil’ will not return ‘Miles’. Users will need to enter ‘Miles’
+		return (
+			`${givenName || ''} ${surname || ''}`.toLocaleLowerCase() === searchTerm ||
+			`${surname || ''} ${givenName || ''}`.toLocaleLowerCase() === searchTerm ||
+			`${givenName || ''}`.toLocaleLowerCase() === searchTerm ||
+			`${surname || ''}`.toLocaleLowerCase() === searchTerm ||
+			`${email || ''}`.toLocaleLowerCase() === searchTerm
+		);
 	});
 
 	/** @type {PaginatedProjectTeamMembers} */
@@ -126,6 +132,11 @@ export const getManyProjectTeamMembersInfo = async (projectTeamMembers, session)
 	// retrieve all the AD users or throw error
 	// this list contains extra info such as names or emails
 	const allAzureUsers = await projectTeamADService.getAllCachedUsers(session);
+
+	// if for some reason no user can be retrieved from Azure, just return an empty array
+	if (allAzureUsers.length === 0) {
+		return [];
+	}
 
 	// merge the info retrieved from Azure to the internally stored data
 	const projectTeamMembersInfo = projectTeamMembers.map((teamMember) => {
