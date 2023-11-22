@@ -9,7 +9,8 @@ import {
 	getCaseTimetableItemById,
 	deleteCaseTimetableItem,
 	updateCaseTimetableItem,
-	getCaseTimetableItemTypeByName
+	getCaseTimetableItemTypeByName,
+	getCaseTimetableItemTypeById
 } from './applications-timetable.service.js';
 import pino from '../../../lib/logger.js';
 
@@ -381,6 +382,11 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 	}
 
 	if (errors) {
+		// need to repopulate the item type info into body
+		const selectedItemType = await getCaseTimetableItemTypeById(Number(body.timetableTypeId));
+		body.itemTypeName = selectedItemType.name;
+		body.templateType = selectedItemType.templateType;
+
 		const rows = getCheckYourAnswersRows(body);
 		return response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
 			isEditing: !!payload.id,
