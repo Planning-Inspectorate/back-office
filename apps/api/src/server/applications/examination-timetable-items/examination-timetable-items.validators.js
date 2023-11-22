@@ -51,7 +51,14 @@ export const validateCreateExaminationTimetableItem = composeMiddleware(
 		.toInt()
 		.custom(validateExistingExaminationTimetableType)
 		.withMessage('Must be valid examination type'),
-	body('name').notEmpty().withMessage('Name not be empty'),
+	body('name')
+		.notEmpty()
+		.withMessage('Name not be empty')
+		.not()
+		.toUpperCase()
+		.trim()
+		.equals('OTHER')
+		.withMessage('Name cannot be Other, please enter another name'),
 	body('description').optional({ nullable: true }),
 	body('date').toDate(),
 	body('startDate').toDate().optional({ nullable: true }),
@@ -73,7 +80,13 @@ export const validateUpdateExaminationTimetableItem = composeMiddleware(
 		.custom(validateExistingExaminationTimetableType)
 		.withMessage('Must be valid examination type')
 		.optional({ nullable: true }),
-	body('name').optional({ nullable: true }),
+	body('name')
+		.not()
+		.toUpperCase()
+		.trim()
+		.equals('OTHER')
+		.withMessage('Name cannot be Other, please enter another name')
+		.optional({ nullable: true }),
 	body('description').optional({ nullable: true }),
 	body('date').toDate().optional({ nullable: true }),
 	body('startDate').toDate().optional({ nullable: true }),
