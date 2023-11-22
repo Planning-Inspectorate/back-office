@@ -7,7 +7,7 @@ import api from './back-office-api-client.js';
  * @param {*} msg
  */
 export default async function (context, msg) {
-	context.log('Appellant case import command', msg);
+	context.log('Employee import command', msg);
 
 	const applicationProperties = context?.bindingData?.applicationProperties;
 
@@ -21,22 +21,17 @@ export default async function (context, msg) {
 
 	const type = applicationProperties?.type;
 
-	if (type !== EventType.Create) {
+	if (type !== EventType.Create && type !== EventType.Update) {
 		context.log.warn(`Ignoring invalid message, unsupported type '${type}'`, msg);
-		return;
-	}
-
-	if (!msg.appeal) {
-		context.log.warn(`Ignoring invalid message, 'appeal' is required`, msg);
 		return;
 	}
 
 	try {
 		const res = await api.post(msg);
 
-		const { reference } = res;
+		const { id } = res;
 
-		context.log.info(`Appeal created: ${reference}`);
+		context.log.info(`Employee created: ${id}`);
 	} catch (e) {
 		context.log.error('Error creating appeal', e);
 	}
