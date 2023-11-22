@@ -47,7 +47,7 @@ parameters:
     displayName: Build Function - Appeals User Import
     type: boolean
     default: true
-	- name: buildFunctionAppealsDocProcessing
+  - name: buildFunctionAppealsDocProcessing
     displayName: Build Function - Appeals Document Processing
     type: boolean
     default: true
