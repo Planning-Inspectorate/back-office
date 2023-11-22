@@ -1,7 +1,8 @@
 import pino from '../../../lib/logger.js';
-import { get, patch } from '../../../lib/request.js';
+import { get, patch, post } from '../../../lib/request.js';
+import projectTeamADService from './application-project-team.azure-service.js';
 
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import("../../../app/auth/auth-session.service.js").SessionWithAuth} SessionWithAuth */
 /** @typedef {import('../../applications.types').ProjectTeamMember} ProjectTeamMember */
 /** @typedef {import('../../applications.types').PaginatedResponse<ProjectTeamMember>} PaginatedProjectTeamMembers */
 
@@ -17,9 +18,15 @@ export const searchProjectTeamMembers = async (searchTerm, allAzureUsers, pageNu
 	const searchResults = allAzureUsers.filter((azureUser) => {
 		const { givenName, surname, userPrincipalName: email } = azureUser;
 
-		const recordString = `${givenName || ''} ${surname || ''} ${email || ''}`.toLocaleLowerCase();
-
-		return recordString.includes(searchTerm);
+		// check whether the search matches perfectly the name, the surname or the email
+		// for example, ‘Mil’ will not return ‘Miles’. Users will need to enter ‘Miles’
+		return (
+			`${givenName || ''} ${surname || ''}`.toLocaleLowerCase() === searchTerm ||
+			`${surname || ''} ${givenName || ''}`.toLocaleLowerCase() === searchTerm ||
+			`${givenName || ''}`.toLocaleLowerCase() === searchTerm ||
+			`${surname || ''}`.toLocaleLowerCase() === searchTerm ||
+			`${email || ''}`.toLocaleLowerCase() === searchTerm
+		);
 	});
 
 	/** @type {PaginatedProjectTeamMembers} */
@@ -48,6 +55,26 @@ export const getProjectTeamMembers = async (caseId) => {
 		pino.error(`[API] ${error?.response?.body?.error?.code || 'Unknown error'}`);
 
 		return { errors: { query: 'An error occurred, please try again later' } };
+	}
+};
+
+/**
+ * Remove team member from project
+ *
+ * @param {number} caseId
+ * @param {string} userId
+ * @returns {Promise<{projectTeamMember?: {userId: string, role: string}, errors?: {msg: string}}>}
+ */
+export const removeProjectTeamMember = async (caseId, userId) => {
+	try {
+		const projectTeamMember = await post(`applications/${caseId}/project-team/remove-member`, {
+			json: { userId }
+		});
+		return { projectTeamMember };
+	} catch (/** @type {*} */ error) {
+		pino.error(`[API] ${error?.response?.body?.errors || 'Unknown error'}`);
+
+		return { errors: { msg: 'The team member could not be removed, try again.' } };
 	}
 };
 
@@ -92,4 +119,34 @@ export const updateProjectTeamMemberRole = async (caseId, userId, role) => {
 
 		return { errors: { query: 'The role could not be saved, try again.' } };
 	}
+};
+
+/**
+ * Add extra info (name and email) to the internally stored data of team members (id and role)
+ *
+ * @param {{userId: string, role: string}[]} projectTeamMembers
+ * @param {SessionWithAuth} session
+ * @returns {Promise<Partial<ProjectTeamMember>[]>}
+ */
+export const getManyProjectTeamMembersInfo = async (projectTeamMembers, session) => {
+	// retrieve all the AD users or throw error
+	// this list contains extra info such as names or emails
+	const allAzureUsers = await projectTeamADService.getAllCachedUsers(session);
+
+	// if for some reason no user can be retrieved from Azure, just return an empty array
+	if (allAzureUsers.length === 0) {
+		return [];
+	}
+
+	// merge the info retrieved from Azure to the internally stored data
+	const projectTeamMembersInfo = projectTeamMembers.map((teamMember) => {
+		const teamMemberInfo = allAzureUsers.find((azureUser) => azureUser.id === teamMember.userId);
+
+		return {
+			...teamMember,
+			...teamMemberInfo
+		};
+	});
+
+	return projectTeamMembersInfo;
 };

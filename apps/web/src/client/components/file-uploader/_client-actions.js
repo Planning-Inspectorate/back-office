@@ -204,13 +204,15 @@ const clientActions = (uploadForm) => {
 
 	/**
 	 * @param {File[]} files
-	 * @returns {Promise<File[]>}
+	 * @returns {Promise<{ files: File[], errors: AnError[] }>}
 	 * */
 	const prepareFilesForUpload = async (files) => {
 		const { processHTMLForYouTube } = serverActions(uploadForm);
 
 		/** @type {File[]} */
 		let processedList = [];
+
+		/** @type {AnError[]} */
 		let errors = [];
 
 		for (const f of files) {
@@ -221,13 +223,14 @@ const clientActions = (uploadForm) => {
 
 			const { file: newFile, errors: _errors } = await processHTMLForYouTube(f);
 			if (_errors.length > 0) {
-				errors.push(_errors);
+				errors.push(..._errors);
+				continue;
 			}
 
 			processedList.push(newFile);
 		}
 
-		return processedList;
+		return { files: processedList, errors };
 	};
 
 	/**
@@ -248,28 +251,36 @@ const clientActions = (uploadForm) => {
 
 			buildProgressMessage({ show: true }, uploadForm);
 
-			let errors = null;
+			const errors = [];
 			let uploadInfo;
 
-			const processedList = await prepareFilesForUpload(fileList);
+			const { files: processedList, errors: _errors } = await prepareFilesForUpload(fileList);
+			errors.push(..._errors);
 
-			if (processedList.length === 1 && uploadForm.dataset?.documentId) {
+			if (processedList.length === 0) {
+				finalizeUpload(errors);
+				return;
+			} else if (processedList.length === 1 && uploadForm.dataset?.documentId) {
 				uploadInfo = await getVersionUploadInfoFromInternalDB(processedList[0]);
 				await relevantRepresentationsAttachmentUpload(uploadInfo?.response, uploadForm);
-				errors = await uploadFile(processedList, uploadInfo);
+				const uploadErrors = await uploadFile(processedList, uploadInfo);
+				errors.push(...uploadErrors);
 			} else {
 				uploadInfo = await getUploadInfoFromInternalDB(processedList);
-				errors = uploadInfo.errors;
+				errors.push(...uploadInfo.errors);
 			}
 
 			if (uploadInfo?.response?.documents) {
 				await relevantRepresentationsAttachmentUpload(uploadInfo?.response, uploadForm);
-				errors = await uploadFiles(processedList, uploadInfo?.response);
+				const uploadErrors = await uploadFiles(processedList, uploadInfo?.response);
+				errors.push(...uploadErrors);
 			}
 
 			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {
 			showErrors(error, uploadForm);
+
+			throw error;
 		}
 	};
 

@@ -10,22 +10,19 @@
 				"LPACode",
 				"LPAName",
 				"appealType",
-				"isListedBuilding",
-				"decision",
-				"originalCaseDecisionDate",
-				"costsAppliedForIndicator",
 				"LPAApplicationReference",
 				"siteAddressLine1",
 				"siteAddressLine2",
 				"siteAddressTown",
 				"siteAddressCounty",
 				"siteAddressPostcode",
+				"isListedBuilding",
+				"decision",
+				"originalCaseDecisionDate",
+				"costsAppliedForIndicator",
 				"isSiteFullyOwned",
-				"hasToldOwners",
 				"isSiteVisible",
-				"inspectorAccessDetails",
-				"doesSiteHaveHealthAndSafetyIssues",
-				"healthAndSafetyIssuesDetails"
+				"doesSiteHaveHealthAndSafetyIssues"
 			],
 			"properties": {
 				"LPACode": {

@@ -33,10 +33,9 @@ const serverActions = (uploadForm) => {
 			fileRowId: file.fileRowId
 		}));
 
-		let documentUploadUrl = `/documents/${caseId}/upload/`;
-		if (adviceId) {
-			documentUploadUrl = `/documents/${caseId}/s51-advice/${adviceId}/upload/`;
-		}
+		const documentUploadUrl = adviceId
+			? `/documents/${caseId}/s51-advice/${adviceId}/upload/`
+			: `/documents/${caseId}/upload/`;
 
 		return fetch(documentUploadUrl, {
 			method: 'POST',
@@ -107,8 +106,8 @@ const serverActions = (uploadForm) => {
 	};
 
 	/**
-	 * @param {File} file
-	 * @returns {Promise<{ file: File | null, errors: AnError[] }>}
+	 * @param {FileWithRowId} file
+	 * @returns {Promise<{ file: FileWithRowId | null, errors: AnError[] }>}
 	 * */
 	const processHTMLForYouTube = async (file) => {
 		const readerPromise = new Promise((resolve, reject) => {
@@ -135,22 +134,40 @@ const serverActions = (uploadForm) => {
 				body: JSON.stringify({ html })
 			});
 
-			const { html: renderedHTML } = await response.json();
-			const newFile = new File([renderedHTML], file.name, {
+			const result = await response.json();
+			if (result.errors) {
+				return {
+					file: null,
+					errors: [
+						{
+							message: result.errors,
+							name: file.name,
+							fileRowId: `file_row_${file.lastModified}_${file.size}`
+						}
+					]
+				};
+			}
+
+			const newFile = new File([result.html], file.name, {
 				type: 'text/html'
 			});
 
-			return { file: newFile, errors: [] };
+			return {
+				file: { ...newFile, fileRowId: file.fileRowId },
+				errors: []
+			};
 		} catch (/** @type {*} */ error) {
 			console.error(error);
-
-			failedUploads.push({
-				message: 'GENERIC_SINGLE_FILE',
-				fileRowId: `file_row_${file.lastModified}_${file.size}`,
-				name: file.name
-			});
-
-			return { file: null, errors: [error] };
+			return {
+				file: null,
+				errors: [
+					{
+						message: error.message,
+						name: file.name,
+						fileRowId: `file_row_${file.lastModified}_${file.size}`
+					}
+				]
+			};
 		}
 	};
 
@@ -171,17 +188,31 @@ const serverActions = (uploadForm) => {
 			);
 			const { blobStoreUrl } = documentUploadInfo;
 
-			if (fileToUpload && blobStoreUrl) {
-				const errorOutcome = await uploadOnBlobStorage(
-					fileToUpload,
-					blobStoreUrl,
-					blobStorageClient,
-					privateBlobContainer
+			if (!fileToUpload) {
+				throw new Error(
+					`Failed to upload document to blob storage because \`fileToUpload\` is undefined: ${JSON.stringify(
+						documentUploadInfo
+					)}`
 				);
+			}
 
-				if (errorOutcome) {
-					failedUploads.push(errorOutcome);
-				}
+			if (!blobStoreUrl) {
+				throw new Error(
+					`Failed to upload document to blob storage because \`blobStoreUrl\` is undefined: ${JSON.stringify(
+						documentUploadInfo
+					)}`
+				);
+			}
+
+			const errorOutcome = await uploadOnBlobStorage(
+				fileToUpload,
+				blobStoreUrl,
+				blobStorageClient,
+				privateBlobContainer
+			);
+
+			if (errorOutcome) {
+				failedUploads.push(errorOutcome);
 			}
 		}
 

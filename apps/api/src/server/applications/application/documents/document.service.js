@@ -284,18 +284,15 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 	);
 
 	/** @type {Promise<import('@prisma/client').DocumentActivityLog>[]} */
-	const documentActivityLogs = [];
 	// TODO: refactor to use createMany instead?
-	requestToDocumentStorage.forEach((document) => {
-		documentActivityLogs.push(
-			documentActivityLogRepository.create({
-				documentGuid: document.GUID,
-				version: document.version,
-				user: documentsToUpload[0].username,
-				status: 'uploaded'
-			})
-		);
-	});
+	const documentActivityLogs = requestToDocumentStorage.map((document) =>
+		documentActivityLogRepository.create({
+			documentGuid: document.GUID,
+			version: document.version,
+			user: documentsToUpload[0].username,
+			status: 'uploaded'
+		})
+	);
 
 	await Promise.all(documentActivityLogs);
 

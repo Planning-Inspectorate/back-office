@@ -9,7 +9,8 @@ import {
 	ERROR_MUST_BE_STRING,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_IN_PAST,
-	ERROR_CASE_OUTCOME_MUST_BE_ONE_OF
+	ERROR_CASE_OUTCOME_MUST_BE_ONE_OF,
+	ERROR_MUST_BE_UUID
 } from '#endpoints/constants.js';
 
 import { dateIsAfterDate } from '#utils/date-comparison.js';
@@ -35,4 +36,9 @@ const getDateValidator = composeMiddleware(
 	validationErrorHandler
 );
 
-export { getOutcomeValidator, getDateValidator };
+const getDocumentValidator = composeMiddleware(
+	body('documentGuid').isUUID().withMessage(ERROR_MUST_BE_UUID),
+	validationErrorHandler
+);
+
+export { getOutcomeValidator, getDateValidator, getDocumentValidator };

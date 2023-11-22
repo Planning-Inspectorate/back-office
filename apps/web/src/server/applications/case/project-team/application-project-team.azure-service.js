@@ -50,14 +50,32 @@ export const getAllADUsers = async (ADToken) => {
 		})
 	);
 
-	// remodel response and filter out null or duplicate results (same user can be in multiple groups)
-	return allResults
-		.map((c) => c.value)
-		.flat(1)
-		.filter(
-			(value, index, self) =>
-				Boolean(value) && index === self.findIndex((selfItem) => selfItem.id === value.id)
-		);
+	return (
+		allResults
+			// remodel response
+			.map((result) => result.value)
+			.flat(1)
+			// filter out null or duplicate results (same user can be in multiple groups)
+			.filter(
+				(value, index, self) =>
+					Boolean(value) && index === self.findIndex((selfItem) => selfItem.id === value.id)
+			)
+			// replace potential null values with empty strings
+			.map((result) => ({
+				id: result.id,
+				surname: result.surname || '',
+				givenName: result.givenName || '',
+				userPrincipalName: result.userPrincipalName || ''
+			}))
+			// sort by first name
+			// if first name is the same, sort by surname
+			.sort((usr1, usr2) => {
+				if (usr1.givenName !== usr2.givenName) {
+					return usr1.givenName > usr2.givenName ? 1 : -1;
+				}
+				return usr1.surname > usr2.surname ? 1 : -1;
+			})
+	);
 };
 
 /**
@@ -67,6 +85,11 @@ export const getAllADUsers = async (ADToken) => {
  * @returns {Promise<ProjectTeamMember[]>}
  */
 const getAllCachedUsers = async (session) => {
+	if (config.authDisabled) {
+		// In development only, do not trigger any Azure request
+		return [];
+	}
+
 	const cacheName = `cache_applications_users`;
 
 	let cachedUsers = await fetchFromCache(cacheName);

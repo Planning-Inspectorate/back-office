@@ -13,8 +13,8 @@ import {
  * @returns {Promise<Response>}
  */
 export const postInspectorDecision = async (req, res) => {
-	const { appeal } = req;
-	const { documentDate, documentGuid, outcome } = req.body;
+	const { appeal, document } = req;
+	const { documentDate, outcome } = req.body;
 
 	if (appeal.appealStatus[0].status !== STATE_TARGET_ISSUE_DETERMINATION) {
 		res.status(400).send({ errors: { state: ERROR_INVALID_APPEAL_STATE } });
@@ -24,7 +24,7 @@ export const postInspectorDecision = async (req, res) => {
 		appeal,
 		outcome,
 		documentDate,
-		documentGuid,
+		document,
 		req.get('azureAdUserId') || ''
 	);
 

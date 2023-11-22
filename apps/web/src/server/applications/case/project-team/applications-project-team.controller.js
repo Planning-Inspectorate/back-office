@@ -1,7 +1,14 @@
 import projectTeamADService from './application-project-team.azure-service.js';
 import {
+	setSuccessBanner,
+	getSuccessBanner,
+	destroySuccessBanner
+} from '../../../applications/common/services/session.service.js';
+import {
+	getManyProjectTeamMembersInfo,
 	getProjectTeamMemberById,
 	getProjectTeamMembers,
+	removeProjectTeamMember,
 	searchProjectTeamMembers,
 	updateProjectTeamMemberRole
 } from './applications-project-team.service.js';
@@ -10,7 +17,7 @@ import {
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import("../../../app/auth/auth-session.service.js").SessionWithAuth} SessionWithAuth */
 
-const allRoles = [
+export const allRoles = [
 	{ value: 'case_manager', text: 'Case Manager' },
 	{ value: 'environmental_services', text: 'Environmental Services' },
 	{ value: 'inspector', text: 'Inspector' },
@@ -40,10 +47,14 @@ export async function viewProjectTeamListPage({ session }, response) {
 		session
 	);
 
+	const showSuccessBanner = getSuccessBanner(session);
+	destroySuccessBanner(session);
+
 	return response.render(`applications/case-project-team/project-team-list.njk`, {
 		selectedPageType: 'project-team',
 		projectTeamMembers: projectTeamMembersInfo,
-		allRoles
+		allRoles,
+		showSuccessBanner
 	});
 }
 
@@ -62,6 +73,47 @@ export async function viewProjectTeamChooseRolePage({ params, session }, respons
 		projectTeamMember,
 		allRoles
 	});
+}
+
+/**
+ * Page for removing team member from project
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {userId: string}>}
+ */
+export async function viewProjectTeamRemovePage({ params, session }, response) {
+	const { caseId } = response.locals;
+	const { userId } = params;
+
+	const projectTeamMember = await getSingleProjectTeamMemberInfo(caseId, userId, session);
+
+	return response.render(`applications/case-project-team/project-team-remove.njk`, {
+		projectTeamMember
+	});
+}
+
+/**
+ * Execute removal of team member from project
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {userId: string}>}
+ */
+export async function updateProjectTeamRemove({ params, session }, response) {
+	const { caseId } = response.locals;
+	const { userId } = params;
+
+	const { errors } = await removeProjectTeamMember(caseId, userId);
+
+	if (errors) {
+		const projectTeamMember = await getSingleProjectTeamMemberInfo(caseId, userId, session);
+
+		return response.render(`applications/case-project-team/project-team-remove.njk`, {
+			projectTeamMember,
+			errors
+		});
+	}
+
+	setSuccessBanner(session);
+
+	return response.redirect('../');
 }
 
 /**
@@ -143,7 +195,11 @@ export async function viewProjectTeamSearchPage(
  */
 async function searchProjectTeamMembersData(searchTerm, allAzureUsers, pageNumber, caseId) {
 	// perform search looking inside the cached users
-	const { results } = await searchProjectTeamMembers(searchTerm, allAzureUsers, pageNumber);
+	const { results } = await searchProjectTeamMembers(
+		searchTerm.toLocaleLowerCase(),
+		allAzureUsers,
+		pageNumber
+	);
 
 	if (!results) {
 		return {
@@ -185,31 +241,6 @@ async function searchProjectTeamMembersData(searchTerm, allAzureUsers, pageNumbe
 		paginationButtons
 	};
 }
-
-/**
- * Add extra info (name and email) to the internally stored data of team members (id and role)
- *
- * @param {{userId: string, role: string}[]} projectTeamMembers
- * @param {SessionWithAuth} session
- * @returns {Promise<Partial<ProjectTeamMember>[]>}
- */
-const getManyProjectTeamMembersInfo = async (projectTeamMembers, session) => {
-	// retrieve all the AD users or throw error
-	// this list contains extra info such as names or emails
-	const allAzureUsers = await projectTeamADService.getAllCachedUsers(session);
-
-	// merge the info retrieved from Azure to the internally stored data
-	const projectTeamMembersInfo = projectTeamMembers.map((teamMember) => {
-		const teamMemberInfo = allAzureUsers.find((azureUser) => azureUser.id === teamMember.userId);
-
-		return {
-			...teamMember,
-			...teamMemberInfo
-		};
-	});
-
-	return projectTeamMembersInfo;
-};
 
 /**
  * Add extra info (name and email) to the internally stored data of team members (id and role)

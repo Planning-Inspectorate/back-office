@@ -65,10 +65,11 @@
 				{% if teamMember.isAdded%}
 					Added
 				{% else %}
-					<a class='govuk-link' href='{{'project-team-role'|url({
+					<a class='govuk-link' href='{{'project-team-member'|url({
 						caseId: caseId,
-						userId: teamMember.id}
-					)}}'>Select</a>
+						userId: teamMember.id,
+						step: 'choose-role'
+						})}}'>Select</a>
 				{% endif %}
 				{% endset %}
 
@@ -87,6 +88,7 @@
 
 			{{ govukTable({
 				firstCellIsHeader: true,
+				classes: 'stretch-last-column',
 				head: [
 					{ text: "Name" },
 					{ text: "Email" },

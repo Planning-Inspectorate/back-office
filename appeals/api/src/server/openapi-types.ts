@@ -131,7 +131,7 @@ export interface DecisionInfo {
 	outcome?: string;
 	/** @example "c957e9d0-1a02-4650-acdc-f9fdd689c210" */
 	documentGuid?: string;
-	/** @example "2023-08-17T15:22:20.827Z" */
+	/** @example "2023-08-17" */
 	documentDate?: string;
 }
 

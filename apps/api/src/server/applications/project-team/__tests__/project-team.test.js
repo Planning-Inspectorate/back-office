@@ -59,4 +59,16 @@ describe('Test Project team members', () => {
 			}
 		]);
 	});
+
+	test('Team member is removed from project', async () => {
+		databaseConnector.projectTeam.findUnique.mockResolvedValue(projectTeamInDatabase[0]);
+		databaseConnector.projectTeam.delete.mockResolvedValue({});
+
+		const response = await request
+			.post('/applications/1/project-team/remove-member')
+			.send({ userId: 'abcdef1234' });
+
+		expect(response.status).toEqual(200);
+		expect(databaseConnector.projectTeam.delete).toHaveBeenCalledTimes(1);
+	});
 });

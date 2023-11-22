@@ -158,3 +158,10 @@
 	}
 }
 
+.stretch-last-column {
+	.govuk-table__header:last-child,
+	.govuk-table__cell:last-child {
+		width: 1%;
+		white-space: nowrap;
+	}
+}

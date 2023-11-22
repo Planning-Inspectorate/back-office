@@ -8,8 +8,8 @@ export const validateApplicationsProjectTeamNotEmptySearch = createValidator(
 export const validateApplicationsProjectTeamMinLengthSearch = createValidator(
 	body('query')
 		.trim()
-		.isLength({ min: 3 })
-		.withMessage('The search term must be at least 3 characters long')
+		.isLength({ min: 2 })
+		.withMessage('The search term must be at least 2 characters long')
 );
 
 export const validateApplicationsProjectTeamRole = createValidator(

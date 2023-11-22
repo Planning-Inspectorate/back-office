@@ -2637,7 +2637,7 @@
 					},
 					"documentDate": {
 						"type": "string",
-						"example": "2023-08-17T15:22:20.827Z"
+						"example": "2023-08-17"
 					}
 				},
 				"xml": {
