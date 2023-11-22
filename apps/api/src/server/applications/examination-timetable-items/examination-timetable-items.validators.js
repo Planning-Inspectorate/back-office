@@ -1,12 +1,13 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import { param } from 'express-validator';
-import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
-import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
+import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
+import * as examinationTimetableItemsRepository from '#repositories/examination-timetable-items.repository.js';
 import { validateExistingApplication } from '../application/application.validators.js';
-import { validationErrorHandler } from '../../middleware/error-handler.js';
+import { validationErrorHandler } from '#middleware/error-handler.js';
 
 /**
+ * Validate that an exam timetable item type exists
  *
  * @param {number} value
  * @throws {Error}
@@ -21,6 +22,7 @@ const validateExistingExaminationTimetableType = async (value) => {
 };
 
 /**
+ * Validate that an exam timetable item record exists
  *
  * @param {number} value
  * @throws {Error}

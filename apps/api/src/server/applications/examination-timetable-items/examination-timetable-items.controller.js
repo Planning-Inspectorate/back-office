@@ -1,10 +1,10 @@
-import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
-import * as examinationTimetableRepository from '../../repositories/examination-timetable.repository.js';
-import * as folderRepository from '../../repositories/folder.repository.js';
-import BackOfficeAppError from '../../utils/app-error.js';
+import * as examinationTimetableItemsRepository from '#repositories/examination-timetable-items.repository.js';
+import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
+import BackOfficeAppError from '#utils/app-error.js';
 import { format } from 'date-fns';
-import logger from '../../utils/logger.js';
-import { mapUpdateExaminationTimetableItemRequest } from '../../utils/mapping/map-examination-timetable-item.js';
+import logger from '#utils/logger.js';
+import { mapUpdateExaminationTimetableItemRequest } from '#utils/mapping/map-examination-timetable-item.js';
 import * as service from './examination-timetable-items.service.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
@@ -71,6 +71,9 @@ export const getExaminationTimetableItem = async (_request, response) => {
 };
 
 /**
+ * Create a new timetable item.  Will also create a parent Timetable record if one does not exist.
+ * Will create a matching folder in Examination Timetable folder for this item, and any line item sub folders for Deadline line items.
+ *
  * @type {import('express').RequestHandler}
  * @throws {Error}
  * @returns {Promise<void>}
@@ -92,6 +95,21 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 
 	if (!examinationFolder) {
 		throw new BackOfficeAppError(`Examination folder not found for the case ${body.caseId}`, 404);
+	}
+
+	// check the new timetable item name is unique
+	const examinationTimetableMatchingItems =
+		await examinationTimetableItemsRepository.getByExaminationTimetableName(
+			examinationTimetable.id,
+			body.name,
+			null
+		);
+
+	if (examinationTimetableMatchingItems && examinationTimetableMatchingItems.length > 0) {
+		const uniqueErrorMsg = `Examination timetable item name ${body.name} is not unique, please enter a new name`;
+
+		response.status(400).send({ errors: { unique: uniqueErrorMsg } });
+		throw new BackOfficeAppError(uniqueErrorMsg, 400);
 	}
 
 	const folderName = `${format(new Date(body.date), 'dd MMM yyyy')} - ${body.name}`;
@@ -226,13 +244,30 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 		logger.info(`Examination timetable item with id: ${id} has submission.`);
 		throw new BackOfficeAppError('Can not delete examination timetable item.', 400);
 	}
-
 	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
+
+	// if changing the name, check the new timetable item name is unique
+	if (timetableBeforeUpdate.name !== mappedExamTimetableDetails.name) {
+		const examinationTimetableMatchingItems =
+			await examinationTimetableItemsRepository.getByExaminationTimetableName(
+				timetableBeforeUpdate.examinationTimetableId,
+				body.name,
+				+id
+			);
+		if (examinationTimetableMatchingItems && examinationTimetableMatchingItems.length > 0) {
+			const uniqueErrorMsg = `Examination timetable item name ${body.name} is not unique, please enter a new name`;
+
+			response.status(400).send({ errors: { unique: uniqueErrorMsg } });
+			throw new BackOfficeAppError(uniqueErrorMsg, 400);
+		}
+	}
+
 	const updatedExaminationTimetableItem = await examinationTimetableItemsRepository.update(
 		Number(id),
 		mappedExamTimetableDetails
 	);
 
+	// if name or dates have changed, then need to rename matching folders
 	if (
 		timetableBeforeUpdate.name !== mappedExamTimetableDetails.name ||
 		timetableBeforeUpdate.date !== mappedExamTimetableDetails.date
