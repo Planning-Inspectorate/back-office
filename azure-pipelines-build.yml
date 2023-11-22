@@ -43,8 +43,12 @@ parameters:
     displayName: Build Function - Appeals Casedata Import
     type: boolean
     default: true
-  - name: buildFunctionAppealsEmployeeImport
-    displayName: Build Function - Appeals Employee Import
+  - name: buildFunctionAppealsUserImport
+    displayName: Build Function - Appeals User Import
+    type: boolean
+    default: true
+	- name: buildFunctionAppealsDocProcessing
+    displayName: Build Function - Appeals Document Processing
     type: boolean
     default: true
 
@@ -125,8 +129,10 @@ extends:
                   path: apps/functions/applications-migration
                 - name: function-appeals-casedata-import
                   path: appeals/functions/casedata-import
-                - name: function-appeals-hrdata-import
-                  path: appeals/functions/hrdata-import
+                - name: function-appeals-user-import
+                  path: appeals/functions/user-import
+                - name: function-appeals-document-processing
+                  path: appeals/functions/document-processing
               stepName: check_files
       - name: Build API
         condition: >-
@@ -596,20 +602,20 @@ extends:
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
             artifact: function-appeals-casedata-import
             displayName: Publish Functions Artifact
-      - name: Build Function - Appeal Employee Import
+      - name: Build Function - Appeal User Import
         condition: >-
           and(
             succeeded(),
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildFunctionAppealsEmployeeImport }}, 'true')
+                eq(${{ parameters.buildFunctionAppealsUserImport }}, 'true')
               ),
               and(
                 ne(variables['Build.Reason'], 'Manual'),
                 or(
                   eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-appeals-hrdata-import'], 'true')
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-appeals-user-import'], 'true')
                 )
               )
             )
@@ -624,15 +630,55 @@ extends:
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/appeals/functions/hrdata-import/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/appeals/functions/hrdata-import/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/appeals/functions/hrdata-import/node_modules/@pins
+              mkdir -p $(Build.Repository.LocalPath)/appeals/functions/user-import/node_modules/@pins
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/appeals/functions/user-import/node_modules/
+              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/appeals/functions/user-import/node_modules/@pins
           - task: ArchiveFiles@2
             displayName: Archive files
             inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/appeals/functions/hrdata-import
+              rootFolderOrFile: $(Build.Repository.LocalPath)/appeals/functions/user-import
               includeRootFolder: false
               archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
           - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-appeals-hrdata-import
+            artifact: function-appeals-user-import
+            displayName: Publish Functions Artifact
+      - name: Build Function - Appeal Document Processing
+        condition: >-
+          and(
+            succeeded(),
+            or(
+              and(
+                eq(variables['Build.Reason'], 'Manual'),
+                eq(${{ parameters.buildFunctionAppealsDocProcessing }}, 'true')
+              ),
+              and(
+                ne(variables['Build.Reason'], 'Manual'),
+                or(
+                  eq(variables['Build.SourceBranchName'], 'main'),
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-appeals-document-processing'], 'true')
+                )
+              )
+            )
+          )
+        dependsOn:
+          - Run Linting & Tests
+        steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 18
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-bo-appeals-hrdata-import
+              workingDirectory: $(Build.Repository.LocalPath)
+          - script: |
+              source ~/.bashrc
+              mkdir -p $(Build.Repository.LocalPath)/appeals/functions/document-processing/node_modules/@pins
+              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/appeals/functions/document-processing/node_modules/
+              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/appeals/functions/document-processing/node_modules/@pins
+          - task: ArchiveFiles@2
+            displayName: Archive files
+            inputs:
+              rootFolderOrFile: $(Build.Repository.LocalPath)/appeals/functions/document-processing
+              includeRootFolder: false
+              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+          - publish: $(System.DefaultWorkingDirectory)/functions.zip
+            artifact: function-appeals-document-processing
             displayName: Publish Functions Artifact
