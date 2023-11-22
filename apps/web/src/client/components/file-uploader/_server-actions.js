@@ -106,8 +106,8 @@ const serverActions = (uploadForm) => {
 	};
 
 	/**
-	 * @param {File} file
-	 * @returns {Promise<{ file: File | null, errors: AnError[] }>}
+	 * @param {FileWithRowId} file
+	 * @returns {Promise<{ file: FileWithRowId | null, errors: AnError[] }>}
 	 * */
 	const processHTMLForYouTube = async (file) => {
 		const readerPromise = new Promise((resolve, reject) => {
@@ -152,7 +152,10 @@ const serverActions = (uploadForm) => {
 				type: 'text/html'
 			});
 
-			return { file: newFile, errors: [] };
+			return {
+				file: { ...newFile, fileRowId: file.fileRowId },
+				errors: []
+			};
 		} catch (/** @type {*} */ error) {
 			console.error(error);
 			return {
