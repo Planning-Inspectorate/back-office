@@ -195,7 +195,11 @@ export async function viewProjectTeamSearchPage(
  */
 async function searchProjectTeamMembersData(searchTerm, allAzureUsers, pageNumber, caseId) {
 	// perform search looking inside the cached users
-	const { results } = await searchProjectTeamMembers(searchTerm, allAzureUsers, pageNumber);
+	const { results } = await searchProjectTeamMembers(
+		searchTerm.toLocaleLowerCase(),
+		allAzureUsers,
+		pageNumber
+	);
 
 	if (!results) {
 		return {
