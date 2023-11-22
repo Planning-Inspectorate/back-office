@@ -432,7 +432,7 @@ exports[`Project team Remove member GET /case/123/project-team/1/remove should r
             </thead>
             <tbody class=\\"govuk-table__body\\">
                 <tr class=\\"govuk-table__row\\">
-                    <td class=\\"govuk-table__cell\\">DoDo</td>
+                    <td class=\\"govuk-table__cell\\">Do Do</td>
                     <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
                 </tr>
             </tbody>
@@ -470,7 +470,7 @@ exports[`Project team Remove member POST /case/123/project-team/1/remove should 
             </thead>
             <tbody class=\\"govuk-table__body\\">
                 <tr class=\\"govuk-table__row\\">
-                    <td class=\\"govuk-table__cell\\">DoDo</td>
+                    <td class=\\"govuk-table__cell\\">Do Do</td>
                     <td class=\\"govuk-table__cell\\">Do.Do@planninginspectorate.gov.uk</td>
                 </tr>
             </tbody>
