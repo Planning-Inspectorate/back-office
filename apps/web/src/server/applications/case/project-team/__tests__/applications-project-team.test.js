@@ -99,13 +99,14 @@ describe('Project team', () => {
 			});
 
 			it('should render the page with the search bar and the pagination', async () => {
-				installMockADToken(fixtureProjectTeamMembers);
+				installMockADToken(Array(50).fill(fixtureProjectTeamMembers[2]));
 
-				const response = await request.get(`${baseUrl}/search?q=a`);
+				const response = await request.get(`${baseUrl}/search?q=${query}`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('200 results');
+				expect(element.innerHTML).toContain('Page 2');
+				expect(element.innerHTML).toContain('50 results');
 			});
 
 			it('should render the page with the results of the query', async () => {

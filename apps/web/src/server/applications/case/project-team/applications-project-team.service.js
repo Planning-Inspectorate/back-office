@@ -21,6 +21,8 @@ export const searchProjectTeamMembers = async (searchTerm, allAzureUsers, pageNu
 		// check whether the search matches perfectly the name, the surname or the email
 		// for example, ‘Mil’ will not return ‘Miles’. Users will need to enter ‘Miles’
 		return (
+			`${givenName || ''} ${surname || ''}`.toLocaleLowerCase() === searchTerm ||
+			`${surname || ''} ${givenName || ''}`.toLocaleLowerCase() === searchTerm ||
 			`${givenName || ''}`.toLocaleLowerCase() === searchTerm ||
 			`${surname || ''}`.toLocaleLowerCase() === searchTerm ||
 			`${email || ''}`.toLocaleLowerCase() === searchTerm
