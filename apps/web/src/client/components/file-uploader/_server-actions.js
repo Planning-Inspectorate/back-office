@@ -142,18 +142,22 @@ const serverActions = (uploadForm) => {
 						{
 							message: result.errors,
 							name: file.name,
-							fileRowId: `file_row_${file.lastModified}_${file.size}`
+							fileRowId: file.fileRowId ?? ''
 						}
 					]
 				};
 			}
 
+			/** @type {File} */
 			const newFile = new File([result.html], file.name, {
 				type: 'text/html'
 			});
 
+			// @ts-ignore
+			newFile.fileRowId = file.fileRowId;
+
 			return {
-				file: { ...newFile, fileRowId: file.fileRowId },
+				file: newFile,
 				errors: []
 			};
 		} catch (/** @type {*} */ error) {
@@ -164,7 +168,7 @@ const serverActions = (uploadForm) => {
 					{
 						message: error.message,
 						name: file.name,
-						fileRowId: `file_row_${file.lastModified}_${file.size}`
+						fileRowId: file.fileRowId ?? ''
 					}
 				]
 			};
