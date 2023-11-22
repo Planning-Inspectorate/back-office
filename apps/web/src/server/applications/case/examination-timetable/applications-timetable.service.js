@@ -31,10 +31,16 @@ export const createCaseTimetableItem = async (payload) => {
 		});
 		response = { updatedTimetable };
 	} catch (/** @type {*} */ error) {
-		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+		let errorMsg = 'There was an issue and your item could not be saved, try again';
+		if (error?.response?.body?.errors?.unique) {
+			// unique name test failed
+			errorMsg = error.response.body.errors.unique;
+		}
+
+		pino.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
 
 		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+			resolve({ errors: { msg: errorMsg } });
 		});
 	}
 
@@ -55,10 +61,16 @@ export const updateCaseTimetableItem = async (payload) => {
 		});
 		response = { updatedTimetable };
 	} catch (/** @type {*} */ error) {
-		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
+		let errorMsg = 'There was an issue and your item could not be saved, try again';
+		if (error?.response?.body?.errors?.unique) {
+			// unique name test failed
+			errorMsg = error.response.body.errors.unique;
+		}
+
+		pino.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
 
 		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+			resolve({ errors: { msg: errorMsg } });
 		});
 	}
 
@@ -94,6 +106,26 @@ export const getCaseTimetableItemTypeByName = async (selectedItemTypeName) => {
 
 	const selectedItemType =
 		timetableItemTypes.find((itemType) => itemType.name === selectedItemTypeName) ||
+		timetableItemTypes[0];
+
+	return {
+		name: selectedItemType.name || '',
+		templateType: selectedItemType.templateType,
+		id: selectedItemType.id
+	};
+};
+
+/**
+ * Return Timetable Item Type by its id
+ *
+ * @param {number} selectedItemTypeId
+ * @returns {Promise<{name: string, templateType: string, id: number}>}
+ */
+export const getCaseTimetableItemTypeById = async (selectedItemTypeId) => {
+	const timetableItemTypes = await getCaseTimetableItemTypes();
+
+	const selectedItemType =
+		timetableItemTypes.find((itemType) => itemType.id === selectedItemTypeId) ||
 		timetableItemTypes[0];
 
 	return {
