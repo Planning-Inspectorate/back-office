@@ -35,6 +35,9 @@ export const createCaseTimetableItem = async (payload) => {
 		if (error?.response?.body?.errors?.unique) {
 			// unique name test failed
 			errorMsg = error.response.body.errors.unique;
+		} else if (error?.response?.body?.errors?.name) {
+			// Name 'Other' name test failed
+			errorMsg = error.response.body.errors.name;
 		}
 
 		pino.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
@@ -65,6 +68,9 @@ export const updateCaseTimetableItem = async (payload) => {
 		if (error?.response?.body?.errors?.unique) {
 			// unique name test failed
 			errorMsg = error.response.body.errors.unique;
+		} else if (error?.response?.body?.errors?.name) {
+			// Name 'Other' name test failed
+			errorMsg = error.response.body.errors.name;
 		}
 
 		pino.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
