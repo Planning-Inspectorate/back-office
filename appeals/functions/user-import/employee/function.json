@@ -5,7 +5,7 @@
 			"type": "serviceBusTrigger",
 			"direction": "in",
 			"topicName": "employee",
-			"subscriptionName": "register-odw-hrdata-subscription",
+			"subscriptionName": "register-odw-employee-subscription",
 			"connection": "ServiceBusConnection"
 		}
 	]

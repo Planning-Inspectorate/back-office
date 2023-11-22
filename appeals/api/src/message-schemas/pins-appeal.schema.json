@@ -6,6 +6,9 @@
 	"type": "object",
 	"required": [],
 	"properties": {
+		"caseReference": {
+			"type": "string"
+		},
 		"band": {
 			"type": "number"
 		},

@@ -7,7 +7,7 @@ import api from './back-office-api-client.js';
  * @param {*} msg
  */
 export default async function (context, msg) {
-	context.log('LPA questionnaire import command', msg);
+	context.log('Appellant case import command', msg);
 
 	const applicationProperties = context?.bindingData?.applicationProperties;
 
@@ -21,23 +21,24 @@ export default async function (context, msg) {
 
 	const type = applicationProperties?.type;
 
-	if (type !== EventType.Create && type !== EventType.Update) {
+	if (type !== EventType.Create) {
 		context.log.warn(`Ignoring invalid message, unsupported type '${type}'`, msg);
 		return;
 	}
 
-	if (!msg.questionnaire) {
-		context.log.warn(`Ignoring invalid message, 'questionnaire' is required`, msg);
+	if (!msg.appeal) {
+		context.log.warn(`Ignoring invalid message, 'appeal' is required`, msg);
 		return;
 	}
 
 	try {
 		const res = await api.post(msg);
 
-		const { reference } = res;
+		const { caseReference } = res;
 
-		context.log.info(`LPA questionnaire created for appeal: ${reference}`);
+		context.log.info(`Appeal created: ${caseReference}`);
 	} catch (e) {
-		context.log.error('Error creating LPA questionnaire', e);
+		context.log.error('Error creating appeal', e);
+		throw e;
 	}
 }

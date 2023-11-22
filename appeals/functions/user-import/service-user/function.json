@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "registerSubscription",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "service-user",
+			"subscriptionName": "register-odw-service-user-subscription",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}
