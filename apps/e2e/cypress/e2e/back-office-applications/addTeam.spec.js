@@ -14,7 +14,7 @@ const applicationsHomePage = new ApplicationsHomePage();
 const searchResultsPage = new SearchResultsPage();
 const { applications: applicationUsers } = users;
 
-describe('Create case ', () => {
+describe('Project team related scenarios ', () => {
 	let projectInfo;
 
 	before(() => {
@@ -31,7 +31,7 @@ describe('Create case ', () => {
 		searchResultsPage.clickTopSearchResult();
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
-		projectTeamPage.addTeamMeber('caseofficeradmin.test@planninginspectorate.gov.uk');
+		projectTeamPage.addTeamMeber('');
 		projectTeamPage.verifyCaseManagerRoleAdded();
 	});
 
@@ -43,7 +43,7 @@ describe('Create case ', () => {
 		searchResultsPage.clickTopSearchResult();
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
-		projectTeamPage.searchTeamMemberByEmail('caseofficeradmin.test@planninginspectorate.gov.uk');
+		projectTeamPage.searchTeamMemberByEmail('');
         projectTeamPage.verifyTeamMemberIsAdded();
 	});
 
