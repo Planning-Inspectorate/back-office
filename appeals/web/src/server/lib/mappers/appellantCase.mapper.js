@@ -5,10 +5,6 @@ import { nameToString } from '#lib/person-name-formatter.js';
 import { mapAddressInput } from './global-mapper-formatter.js';
 
 /**
- * @typedef {import('./global-mapper-formatter.js').DisplayInstructions} DisplayInstructions
- * @typedef {import('./global-mapper-formatter.js').InputInstruction} InputInstruction
- * @typedef {import('./global-mapper-formatter.js').Instructions} Instructions
- * @typedef {import('./global-mapper-formatter.js').MappedInstructions} MappedInstructions
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  */
 
@@ -154,7 +150,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					text: 'Site address'
 				},
 				value: {
-					text: appealSiteToAddressString(appellantCaseData.appealSite),
+					text: appealSiteToAddressString(appellantCaseData.appealSite)
 				},
 				actions: {
 					items: [
@@ -183,7 +179,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					text: 'Local planning authority'
 				},
 				value: {
-					text: appellantCaseData.localPlanningDepartment,
+					text: appellantCaseData.localPlanningDepartment
 				},
 				actions: {
 					items: [
@@ -364,7 +360,10 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					text: 'Attempted to identify owners'
 				},
 				value: {
-					text: convertFromBooleanToYesNo(appellantCaseData.siteOwnership.hasAttemptedToIdentifyOwners) || ''
+					text:
+						convertFromBooleanToYesNo(
+							appellantCaseData.siteOwnership.hasAttemptedToIdentifyOwners
+						) || ''
 				},
 				actions: {
 					items: [
@@ -679,7 +678,10 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					text: 'Add new supporting documents'
 				},
 				value: {
-					text: convertFromBooleanToYesNo(appellantCaseData.documents.newSupportingDocuments.documents?.length > 0) || ''
+					text:
+						convertFromBooleanToYesNo(
+							appellantCaseData.documents.newSupportingDocuments.documents?.length > 0
+						) || ''
 				},
 				actions: {
 					items: [
@@ -791,7 +793,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 						fieldset: {
 							legend: {
 								text: 'What is the outcome of your review?',
-								classes: "govuk-fieldset__legend--m"
+								classes: 'govuk-fieldset__legend--m'
 							}
 						},
 						items: [
@@ -817,7 +819,8 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 	return mappedData;
 }
 
-const documentUploadUrlTemplate = '/appeals-service/appeal-details/{{appealId}}/appellant-case/add-documents/{{folderId}}/{{documentId}}';
+const documentUploadUrlTemplate =
+	'/appeals-service/appeal-details/{{appealId}}/appellant-case/add-documents/{{folderId}}/{{documentId}}';
 
 /**
  *

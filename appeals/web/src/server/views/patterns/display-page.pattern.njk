@@ -31,9 +31,7 @@
 	{%- for component in pageContent.pageComponents -%}
 		{%- if component.type !== 'notification-banner' -%}
 			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
-			{%- if component.type === 'status-tag' -%}
-				{{ statusTag(component.parameters.status, component.parameters.classes) }}
-			{%- elif component.type === 'radios' or component.type === 'checkboxes' -%}
+			{%- if component.type === 'radios' or component.type === 'checkboxes' -%}
 				<div class="govuk-grid-row">
 					<div class="govuk-grid-column-full">
 						<form action="" method="POST" novalidate>

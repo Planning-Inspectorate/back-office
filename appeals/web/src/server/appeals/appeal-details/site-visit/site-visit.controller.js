@@ -281,6 +281,7 @@ export const postSetVisitType = async (request, response) => {
 
 			if (
 				appealDetails.siteVisit?.siteVisitId !== null &&
+				appealDetails.siteVisit?.siteVisitId !== undefined &&
 				Number.isInteger(appealDetails.siteVisit?.siteVisitId) &&
 				appealDetails.siteVisit?.siteVisitId > -1
 			) {

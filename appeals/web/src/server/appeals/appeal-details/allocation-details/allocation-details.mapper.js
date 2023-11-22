@@ -1,10 +1,10 @@
-import { appealShortReference } from "#lib/appeals-formatter.js";
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
  * @typedef {import("./allocation-details.service.js").AllocationDetailsLevel} AllocationDetailsLevel
  * @typedef {import("./allocation-details.service.js").AllocationDetailsSpecialism} AllocationDetailsSpecialism
- * @typedef {import('../appeal-details.types').Appeal} Appeal
+ * @typedef {import("../appeal-details.types.js").WebAppeal} Appeal
  */
 
 /**
@@ -13,7 +13,11 @@ import { appealShortReference } from "#lib/appeals-formatter.js";
  * @param {Appeal} appealDetails
  * @returns {PageContent}
  */
-export function allocationDetailsLevelPage(allocationDetailsData, selectedAllocationLevel, appealDetails) {
+export function allocationDetailsLevelPage(
+	allocationDetailsData,
+	selectedAllocationLevel,
+	appealDetails
+) {
 	const shortAppealReference = appealShortReference(appealDetails.appealReference);
 
 	/** @type {PageContent} */
@@ -72,7 +76,8 @@ export function allocationDetailsSpecialismPage(
 			{
 				type: 'table',
 				wrapperHtml: {
-					opening: '<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">',
+					opening:
+						'<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">',
 					closing: '</div></div>'
 				},
 				parameters: {
@@ -112,7 +117,8 @@ export function allocationDetailsSpecialismPage(
 					items: allocationDetailsData.allocationDetailsSpecialisms.map((item) => ({
 						text: item.name,
 						value: item.id,
-						checked: selectedAllocationSpecialisms && selectedAllocationSpecialisms.includes(item.id)
+						checked:
+							selectedAllocationSpecialisms && selectedAllocationSpecialisms.includes(item.id)
 					}))
 				}
 			}
@@ -149,7 +155,8 @@ export function allocationDetailsCheckAnswersPage(
 			{
 				type: 'table',
 				wrapperHtml: {
-					opening: '<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">',
+					opening:
+						'<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">',
 					closing: '</div></div>'
 				},
 				parameters: {

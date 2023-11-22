@@ -24,7 +24,11 @@ const renderInvalidReason = async (request, response) => {
 		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
-	if (!appealDetails || !appealDetails.appellantCaseId) {
+	if (
+		!appealDetails ||
+		appealDetails.appellantCaseId === null ||
+		appealDetails.appellantCaseId === undefined
+	) {
 		return response.render('app/404.njk');
 	}
 

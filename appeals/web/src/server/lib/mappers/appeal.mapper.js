@@ -13,14 +13,7 @@ import {
 import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
 
 /**
- * @typedef {import('./global-mapper-formatter.js').DisplayInstructions} DisplayInstructions
- * @typedef {import('./global-mapper-formatter.js').InputInstruction} InputInstruction
- * @typedef {import('./global-mapper-formatter.js').Instructions} Instructions
- * @typedef {import('./global-mapper-formatter.js').MappedInstructions} MappedInstructions
- */
-
-/**
- * @param {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} appealDetails
+ * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @param {string} currentRoute
  * @param {import('../../app/auth/auth-session.service').SessionWithAuth} session
  * @returns {Promise<{appeal: MappedInstructions}>}
@@ -165,7 +158,6 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			displayName: 'Appellant name',
 			instructions: [
 				{
-
 					type: 'input',
 					properties: {
 						id: 'appellant-name',
@@ -206,7 +198,6 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			displayName: 'Agent name',
 			instructions: [
 				{
-
 					type: 'input',
 					properties: {
 						id: 'agent-name',
@@ -292,7 +283,6 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			displayName: 'Other appeals',
 			instructions: [
 				{
-
 					type: 'input',
 					properties: {
 						id: 'other-appeals',
@@ -668,7 +658,10 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			]
 		}
 	};
-	if (appealDetails.neighbouringSite.contacts && appealDetails.neighbouringSite.contacts.length > 0) {
+	if (
+		appealDetails.neighbouringSite.contacts &&
+		appealDetails.neighbouringSite.contacts.length > 0
+	) {
 		for (let i = 0; i < appealDetails.neighbouringSite.contacts.length; i++) {
 			mappedData.appeal[`neighbouringSiteAddress${i}`] = {
 				id: `neighbouring-site-address-${i}`,
@@ -821,7 +814,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					text: 'Visit type'
 				},
 				value: {
-					text: appealDetails.siteVisit.visitType
+					text: appealDetails.siteVisit?.visitType || ''
 				},
 				actions: {
 					items: [

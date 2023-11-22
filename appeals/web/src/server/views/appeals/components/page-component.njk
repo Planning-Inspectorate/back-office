@@ -30,6 +30,9 @@
 {%- from "govuk/components/tag/macro.njk" import govukTag -%}
 {%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
 {%- from "govuk/components/warning-text/macro.njk" import govukWarningText -%}
+{%- from "./status-tag.njk" import statusTag -%}
+{%- from "../../app/components/time-input.njk" import govukTimeInput -%}
+
 {%- if component.type === 'accordion' -%}
 {{ govukAccordion(component.parameters) }}
 {%- elif component.type === 'back-link' -%}
@@ -82,6 +85,8 @@
 {{ govukSelect(component.parameters) }}
 {%- elif component.type === 'skip-link' -%}
 {{ govukSkipLink(component.parameters) }}
+{%- elif component.type === 'status-tag' -%}
+{{ statusTag(component.parameters.status, component.parameters.classes) }}
 {%- elif component.type === 'summary-list' -%}
 {{ govukSummaryList(component.parameters) }}
 {%- elif component.type === 'table' -%}
@@ -92,6 +97,8 @@
 {{ govukTag(component.parameters) }}
 {%- elif component.type === 'textarea' -%}
 {{ govukTextarea(component.parameters) }}
+{%- elif component.type === 'time-input' -%}
+{{ govukTimeInput(component.parameters) }}
 {%- elif component.type === 'warning-text' -%}
 {{ govukWarningText(component.parameters) }}
 {%- endif -%}

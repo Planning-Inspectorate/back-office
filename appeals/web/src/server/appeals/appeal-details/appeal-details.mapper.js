@@ -13,7 +13,7 @@ export const backLink = {
 export const pageHeading = 'Case details';
 
 /**
- * @param {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} appealDetails
+ * @param {import('./appeal-details.types.js').WebAppeal} appealDetails
  * @param {string} currentRoute
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @returns {Promise<PageContent>}
@@ -98,29 +98,34 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 	/** @type {PageComponent} */
 	const caseTimetable = appealDetails.startedAt
 		? {
-			type: 'summary-list',
-			parameters: {
-				rows: [
-					mappedData.appeal.startedAt.display.summaryListItem,
-					mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem,
-					mappedData.appeal.siteVisitDate.display.summaryListItem,
-					mappedData.appeal.issueDeterminationDate?.display.summaryListItem,
-					mappedData.appeal.completeDate?.display.summaryListItem
-				].filter(isDefined)
-			}
-		}
+				type: 'summary-list',
+				parameters: {
+					rows: [
+						mappedData.appeal.startedAt.display.summaryListItem,
+						mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem,
+						mappedData.appeal.siteVisitDate.display.summaryListItem,
+						mappedData.appeal.issueDeterminationDate?.display.summaryListItem,
+						mappedData.appeal.completeDate?.display.summaryListItem
+					].filter(isDefined)
+				}
+		  }
 		: {
-			type: 'inset-text',
-			parameters: {
-				html: `<p class="govuk-body">Case not started</p><a href="/appeals-service/appeal-details/${appealDetails.appealId}/appellant-case" class="govuk-link">Review appeal</a>`
-			}
-		};
+				type: 'inset-text',
+				parameters: {
+					html: `<p class="govuk-body">Case not started</p><a href="/appeals-service/appeal-details/${appealDetails.appealId}/appellant-case" class="govuk-link">Review appeal</a>`
+				}
+		  };
 
 	/** @type {PageComponent} */
 	const caseDocumentation = {
 		type: 'table',
 		parameters: {
-			head: [{ text: 'Documentation' }, { text: 'Status' }, { text: 'Due date' }, { text: 'Action' }],
+			head: [
+				{ text: 'Documentation' },
+				{ text: 'Status' },
+				{ text: 'Due date' },
+				{ text: 'Action' }
+			],
 			rows: [
 				mappedData.appeal.appellantCase.display.tableItem,
 				mappedData.appeal.lpaQuestionnaire.display.tableItem
@@ -179,10 +184,10 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		caseTeam
 	];
 
-	if (!session.account.idTokenClaims.groups.includes(
-		config.referenceData.appeals.caseOfficerGroupId
-	)) {
-		components.map(component => removeActions(component));
+	if (
+		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
+	) {
+		components.map((component) => removeActions(component));
 	}
 
 	const notificationBanners = buildNotificationBanners(
@@ -191,7 +196,12 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		appealDetails.appealId
 	);
 
-	const pageComponents = [...notificationBanners, ...(statusTag ? [statusTag] : []), caseSummary, appealDetailsAccordion];
+	const pageComponents = [
+		...notificationBanners,
+		...(statusTag ? [statusTag] : []),
+		caseSummary,
+		appealDetailsAccordion
+	];
 
 	preRenderPageComponents(pageComponents);
 

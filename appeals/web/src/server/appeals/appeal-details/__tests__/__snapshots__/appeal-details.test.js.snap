@@ -22,7 +22,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         </div>
     </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
     <dl     class="govuk-summary-list govuk-summary-list--no-border">
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
@@ -38,11 +38,11 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default1-heading-1">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
-                            <dd class="govuk-summary-list__value">household</dd>
+                            <dd class="govuk-summary-list__value">householder</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appeal-type"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Procedure</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
                             <dd class="govuk-summary-list__value">Written</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/case-procedure"> Change</a>
                             </dd>
@@ -53,18 +53,18 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                            <dd class="govuk-summary-list__value">No agent for this appeal</dd>
+                            <dd class="govuk-summary-list__value">Ryan Marshall</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/agent-name"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked Appeals</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value">
                                 <ul class="govuk-list"
                                 "><li><a href='/appeals-service/appeal-details/1' class="govuk-link
                                 ">725284</a></li><li><a href='/appeals-service/appeal-details/2' class="govuk-link ">123456</a></li></ul></dd><dd class="govuk-summary-list__actions
                                 "><a class="govuk-link " href="/appeals-service/appeal-details/1/change-appeal-details/linked-appeals
                                 "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                                "> Other Appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
+                                "> Other appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
                                     <li><a href='/appeals-service/appeal-details/3' class="govuk-link">765413</a>
                                     </li>
                                     <li><a href='/appeals-service/appeal-details/4' class="govuk-link">523467</a>
@@ -86,11 +86,11 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
                             <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
-                            <dd class="govuk-summary-list__value">Not issued yet</dd>
+                            <dd class="govuk-summary-list__value">[object Object]</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/decision"> Change</a>
                             </dd>
                         </div>
@@ -125,7 +125,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
-                            <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
+                            <dd class="govuk-summary-list__value">FOR TRAINERS ONLY, 96 The Avenue, Kent, MD21 5XY</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/neighbouring-site-address-1"> Change</a>
                             </dd>
                         </div>
@@ -174,7 +174,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
@@ -204,14 +204,14 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </thead>
                         <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Appellant Case</th>
+                                <th scope="row" class="govuk-table__header">Appellant case</th>
                                 <td class="govuk-table__cell">Received</td>
                                 <td class="govuk-table__cell">2 October 2024</td>
                                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case" class="govuk-link">Review</a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">LPA Questionnaire</th>
+                                <th scope="row" class="govuk-table__header">LPA questionnaire</th>
                                 <td class="govuk-table__cell">Not received</td>
                                 <td class="govuk-table__cell">11 October 2024</td>
                                 <td class="govuk-table__cell"></td>
@@ -227,7 +227,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
                     <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case officer</dt>
                             <dd class="govuk-summary-list__value"></dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/case-officer"> Assign</a>
                             </dd>
@@ -252,7 +252,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         </div>
     </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
     <dl     class="govuk-summary-list govuk-summary-list--no-border">
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
@@ -268,11 +268,11 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default3-heading-1">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
-                            <dd class="govuk-summary-list__value">household</dd>
+                            <dd class="govuk-summary-list__value">householder</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/appeal-type"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Procedure</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
                             <dd class="govuk-summary-list__value">Written</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/case-procedure"> Change</a>
                             </dd>
@@ -283,17 +283,17 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                            <dd class="govuk-summary-list__value">No agent for this appeal</dd>
+                            <dd class="govuk-summary-list__value">Ryan Marshall</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/agent-name"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked Appeals</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/linked-appeals"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Other Appeals</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Other appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/other-appeals"> Change</a>
@@ -311,11 +311,11 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
                             <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
-                            <dd class="govuk-summary-list__value">Not issued yet</dd>
+                            <dd class="govuk-summary-list__value">[object Object]</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/decision"> Change</a>
                             </dd>
                         </div>
@@ -350,7 +350,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
-                            <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
+                            <dd class="govuk-summary-list__value">FOR TRAINERS ONLY, 96 The Avenue, Kent, MD21 5XY</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/neighbouring-site-address-1"> Change</a>
                             </dd>
                         </div>
@@ -399,7 +399,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/schedule-visit"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
@@ -429,14 +429,14 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </thead>
                         <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Appellant Case</th>
+                                <th scope="row" class="govuk-table__header">Appellant case</th>
                                 <td class="govuk-table__cell">Received</td>
                                 <td class="govuk-table__cell">2 October 2024</td>
                                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/3/appellant-case" class="govuk-link">Review</a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">LPA Questionnaire</th>
+                                <th scope="row" class="govuk-table__header">LPA questionnaire</th>
                                 <td class="govuk-table__cell">Not received</td>
                                 <td class="govuk-table__cell">11 October 2024</td>
                                 <td class="govuk-table__cell"></td>
@@ -452,7 +452,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 <div id="accordion-default3-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default3-heading-5">
                     <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case officer</dt>
                             <dd class="govuk-summary-list__value"></dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/assign-user/case-officer"> Assign</a>
                             </dd>
@@ -477,7 +477,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         </div>
     </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
     <dl     class="govuk-summary-list govuk-summary-list--no-border">
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
@@ -493,11 +493,11 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default2-heading-1">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
-                            <dd class="govuk-summary-list__value">household</dd>
+                            <dd class="govuk-summary-list__value">householder</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appeal-type"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Procedure</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
                             <dd class="govuk-summary-list__value">Written</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/case-procedure"> Change</a>
                             </dd>
@@ -508,17 +508,17 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                            <dd class="govuk-summary-list__value">No agent for this appeal</dd>
+                            <dd class="govuk-summary-list__value">Ryan Marshall</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/agent-name"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked Appeals</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value">
                                 <ul class="govuk-list"
                                 "><li><a href='/appeals-service/appeal-details/1' class="govuk-link ">725284</a></li></ul></dd><dd class="govuk-summary-list__actions
                                 "><a class="govuk-link " href="/appeals-service/appeal-details/2/change-appeal-details/linked-appeals
                                 "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                                "> Other Appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
+                                "> Other appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
                                     <li><a href='/appeals-service/appeal-details/3' class="govuk-link">765413</a>
                                     </li>
                                 </ul>
@@ -538,11 +538,11 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
                             <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
-                            <dd class="govuk-summary-list__value">Not issued yet</dd>
+                            <dd class="govuk-summary-list__value">[object Object]</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/decision"> Change</a>
                             </dd>
                         </div>
@@ -577,7 +577,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
-                            <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
+                            <dd class="govuk-summary-list__value">FOR TRAINERS ONLY, 96 The Avenue, Kent, MD21 5XY</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/neighbouring-site-address-1"> Change</a>
                             </dd>
                         </div>
@@ -626,7 +626,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/schedule-visit"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue determination</dt>
                             <dd class="govuk-summary-list__value">Due date not yet set</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/appeal-timetables/issue-determination"> Schedule</a>
                             </dd>
@@ -656,14 +656,14 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </thead>
                         <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Appellant Case</th>
+                                <th scope="row" class="govuk-table__header">Appellant case</th>
                                 <td class="govuk-table__cell">Received</td>
                                 <td class="govuk-table__cell">2 October 2024</td>
                                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/2/appellant-case" class="govuk-link">Review</a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">LPA Questionnaire</th>
+                                <th scope="row" class="govuk-table__header">LPA questionnaire</th>
                                 <td class="govuk-table__cell">Not received</td>
                                 <td class="govuk-table__cell">11 October 2024</td>
                                 <td class="govuk-table__cell"></td>
@@ -679,7 +679,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 <div id="accordion-default2-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default2-heading-5">
                     <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case officer</dt>
                             <dd class="govuk-summary-list__value"></dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/assign-user/case-officer"> Assign</a>
                             </dd>
@@ -704,7 +704,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         </div>
     </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
     <dl     class="govuk-summary-list govuk-summary-list--no-border">
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
@@ -720,11 +720,11 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default1-heading-1">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
-                            <dd class="govuk-summary-list__value">household</dd>
+                            <dd class="govuk-summary-list__value">householder</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appeal-type"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Procedure</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
                             <dd class="govuk-summary-list__value">Written</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/case-procedure"> Change</a>
                             </dd>
@@ -735,18 +735,18 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                            <dd class="govuk-summary-list__value">No agent for this appeal</dd>
+                            <dd class="govuk-summary-list__value">Ryan Marshall</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/agent-name"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked Appeals</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value">
                                 <ul class="govuk-list"
                                 "><li><a href='/appeals-service/appeal-details/1' class="govuk-link
                                 ">725284</a></li><li><a href='/appeals-service/appeal-details/2' class="govuk-link ">123456</a></li></ul></dd><dd class="govuk-summary-list__actions
                                 "><a class="govuk-link " href="/appeals-service/appeal-details/2/change-appeal-details/linked-appeals
                                 "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                                "> Other Appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
+                                "> Other appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
                                     <li><a href='/appeals-service/appeal-details/3' class="govuk-link">765413</a>
                                     </li>
                                     <li><a href='/appeals-service/appeal-details/4' class="govuk-link">523467</a>
@@ -768,11 +768,11 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/allocation-details/allocation-level"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA Reference</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
                             <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
-                            <dd class="govuk-summary-list__value">Not issued yet</dd>
+                            <dd class="govuk-summary-list__value">[object Object]</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/decision"> Change</a>
                             </dd>
                         </div>
@@ -807,7 +807,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
-                            <dd class="govuk-summary-list__value">92 Huntsmoor Road, Tadley, RG26 4BX</dd>
+                            <dd class="govuk-summary-list__value">FOR TRAINERS ONLY, 96 The Avenue, Kent, MD21 5XY</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/neighbouring-site-address-1"> Change</a>
                             </dd>
                         </div>
@@ -860,14 +860,14 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </thead>
                         <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Appellant Case</th>
+                                <th scope="row" class="govuk-table__header">Appellant case</th>
                                 <td class="govuk-table__cell">Received</td>
                                 <td class="govuk-table__cell">2 October 2024</td>
                                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/2/appellant-case" class="govuk-link">Review</a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">LPA Questionnaire</th>
+                                <th scope="row" class="govuk-table__header">LPA questionnaire</th>
                                 <td class="govuk-table__cell">Not received</td>
                                 <td class="govuk-table__cell">11 October 2024</td>
                                 <td class="govuk-table__cell"></td>
@@ -883,7 +883,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
                     <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case Officer</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case officer</dt>
                             <dd class="govuk-summary-list__value"></dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/assign-user/case-officer"> Assign</a>
                             </dd>

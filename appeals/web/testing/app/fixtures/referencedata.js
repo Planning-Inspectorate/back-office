@@ -47,8 +47,14 @@ export const appealsNationalList = {
 	pageSize: 30
 };
 
+// /**
+//  * @type {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse}
+//  */
+/**
+ * @type {import('../../../src/server/appeals/appeal-details/appeal-details.types.d').WebAppeal}
+ */
 export const appealData = {
-	agentName: null,
+	agentName: 'Ryan Marshall',
 	allocationDetails: {
 		level: 'A',
 		band: 3,
@@ -62,12 +68,39 @@ export const appealData = {
 		postCode: 'SW4 0HY'
 	},
 	appealStatus: 'received_appeal',
-	appealType: 'household',
-	appellantName: 'Eva Sharma',
+	appealTimetable: {
+		appealTimetableId: 1053,
+		lpaQuestionnaireDueDate: '2023-10-11T01:00:00.000Z'
+	},
+	appealType: 'householder',
 	appellantCaseId: 0,
-	procedureType: 'Written',
-	developmentType: 'Minor Dwellings',
-	eventType: 'Site Visit',
+	appellantName: 'Eva Sharma',
+	caseOfficer: null,
+	decision: {
+		folderId: 123
+	},
+	healthAndSafety: {
+		appellantCase: {
+			details: 'Dogs on site',
+			hasIssues: true
+		},
+		lpaQuestionnaire: {
+			details: null,
+			hasIssues: null
+		}
+	},
+	inspector: null,
+	inspectorAccess: {
+		appellantCase: {
+			details: null,
+			isRequired: false
+		},
+		lpaQuestionnaire: {
+			details: null,
+			isRequired: null
+		}
+	},
+	isParentAppeal: false,
 	linkedAppeals: [
 		{
 			appealId: 1,
@@ -79,7 +112,7 @@ export const appealData = {
 		}
 	],
 	localPlanningDepartment: 'Wiltshire Council',
-	lpaQuestionnaireId: null,
+	lpaQuestionnaireId: 1,
 	neighbouringSite: {
 		contacts: [
 			{
@@ -88,23 +121,18 @@ export const appealData = {
 					county: 'Wandsworth',
 					postCode: 'SW4 0HY'
 				},
-				contactId: 1016,
-				email: 'appellant@example.com',
 				firstName: 'Haley',
-				lastName: 'Eland',
-				telephone: '01234567891'
+				lastName: 'Eland'
 			},
 			{
 				address: {
-					addressLine1: '92 Huntsmoor Road',
-					town: 'Tadley',
-					postCode: 'RG26 4BX'
+					addressLine1: 'FOR TRAINERS ONLY',
+					addressLine2: '96 The Avenue',
+					county: 'Kent',
+					postCode: 'MD21 5XY'
 				},
-				contactId: 1017,
-				email: 'appellant@example.com',
 				firstName: 'Fiona',
-				lastName: 'Burgess',
-				telephone: '01234567891'
+				lastName: 'Burgess'
 			}
 		],
 		isAffected: true
@@ -120,10 +148,7 @@ export const appealData = {
 		}
 	],
 	planningApplicationReference: '48269/APP/2021/1482',
-	appealTimetable: {
-		appealTimetableId: 1053,
-		lpaQuestionnaireDueDate: '2023-10-11T01:00:00.000Z'
-	},
+	procedureType: 'Written',
 	siteVisit: {
 		siteVisitId: 0,
 		visitDate: '2023-10-09T01:00:00.000Z',
@@ -140,26 +165,6 @@ export const appealData = {
 		lpaQuestionnaire: {
 			status: 'not_received',
 			dueDate: '2024-10-11T10:27:06.626Z'
-		}
-	},
-	healthAndSafety: {
-		appellantCase: {
-			details: 'Dogs on site',
-			hasIssues: true
-		},
-		lpaQuestionnaire: {
-			details: null,
-			hasIssues: null
-		}
-	},
-	inspectorAccess: {
-		appellantCase: {
-			details: null,
-			isRequired: false
-		},
-		lpaQuestionnaire: {
-			details: null,
-			isRequired: null
 		}
 	}
 };
@@ -392,6 +397,162 @@ export const lpaQuestionnaireData = {
 					caseId: 1
 				}
 			]
+		},
+		communityInfrastructureLevy: {
+			folderId: 8,
+			path: 'lpa_questionnaire/communityInfrastructureLevy',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56h',
+					name: 'communityInfrastructureLevy.docx',
+					folderId: 8,
+					caseId: 1
+				}
+			]
+		},
+		consultationResponses: {
+			folderId: 9,
+			path: 'lpa_questionnaire/consultationResponses',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56i',
+					name: 'consultationResponses.docx',
+					folderId: 9,
+					caseId: 1
+				}
+			]
+		},
+		definitiveMapAndStatement: {
+			folderId: 10,
+			path: 'lpa_questionnaire/definitiveMapAndStatement',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56j',
+					name: 'definitiveMapAndStatement.docx',
+					folderId: 10,
+					caseId: 1
+				}
+			]
+		},
+		emergingPlans: {
+			folderId: 11,
+			path: 'lpa_questionnaire/emergingPlans',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56k',
+					name: 'emergingPlans.docx',
+					folderId: 11,
+					caseId: 1
+				}
+			]
+		},
+		environmentalStatementResponses: {
+			folderId: 12,
+			path: 'lpa_questionnaire/environmentalStatementResponses',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56l',
+					name: 'environmentalStatementResponses.docx',
+					folderId: 12,
+					caseId: 1
+				}
+			]
+		},
+		issuedScreeningOption: {
+			folderId: 13,
+			path: 'lpa_questionnaire/issuedScreeningOption',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56m',
+					name: 'issuedScreeningOption.docx',
+					folderId: 13,
+					caseId: 1
+				}
+			]
+		},
+		otherRelevantPolicies: {
+			folderId: 14,
+			path: 'lpa_questionnaire/otherRelevantPolicies',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56n',
+					name: 'otherRelevantPolicies.docx',
+					folderId: 14,
+					caseId: 1
+				}
+			]
+		},
+		policiesFromStatutoryDevelopment: {
+			folderId: 15,
+			path: 'lpa_questionnaire/policiesFromStatutoryDevelopment',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56o',
+					name: 'policiesFromStatutoryDevelopment.docx',
+					folderId: 15,
+					caseId: 1
+				}
+			]
+		},
+		relevantPartiesNotification: {
+			folderId: 16,
+			path: 'lpa_questionnaire/relevantPartiesNotification',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56p',
+					name: 'relevantPartiesNotification.docx',
+					folderId: 16,
+					caseId: 1
+				}
+			]
+		},
+		responsesOrAdvice: {
+			folderId: 17,
+			path: 'lpa_questionnaire/responsesOrAdvice',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56q',
+					name: 'responsesOrAdvice.docx',
+					folderId: 17,
+					caseId: 1
+				}
+			]
+		},
+		screeningDirection: {
+			folderId: 18,
+			path: 'lpa_questionnaire/screeningDirection',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56r',
+					name: 'screeningDirection.docx',
+					folderId: 18,
+					caseId: 1
+				}
+			]
+		},
+		supplementaryPlanningDocuments: {
+			folderId: 19,
+			path: 'lpa_questionnaire/supplementaryPlanningDocuments',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56s',
+					name: 'supplementaryPlanningDocuments.docx',
+					folderId: 19,
+					caseId: 1
+				}
+			]
+		},
+		treePreservationOrder: {
+			folderId: 20,
+			path: 'lpa_questionnaire/treePreservationOrder',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56t',
+					name: 'treePreservationOrder.docx',
+					folderId: 20,
+					caseId: 1
+				}
+			]
 		}
 	},
 	doesAffectAListedBuilding: true,
@@ -416,7 +577,9 @@ export const lpaQuestionnaireData = {
 	includesScreeningOption: true,
 	inquiryDays: 2,
 	inspectorAccessDetails: 'The entrance is at the back of the property',
+	isAffectingNeighbouringSites: true,
 	isCommunityInfrastructureLevyFormallyAdopted: true,
+	isCorrectAppealType: true,
 	isEnvironmentalStatementRequired: true,
 	isGypsyOrTravellerSite: true,
 	isListedBuilding: true,

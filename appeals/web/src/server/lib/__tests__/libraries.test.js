@@ -21,7 +21,7 @@ import {
 import { addConditionalHtml } from '#lib/nunjucks-filters/add-conditional-html.js';
 import {
 	mapReasonOptionsToCheckboxItemParameters,
-	mapReasonsToReasonsList,
+	mapReasonsToReasonsListHtml,
 	getNotValidReasonsTextFromRequestBody
 } from '../mappers/validation-outcome-reasons.mapper.js';
 import {
@@ -1030,51 +1030,51 @@ describe('Libraries', () => {
 			});
 		});
 
-		describe('mapReasonsToReasonsList', () => {
-			it('should return an empty array if reasons is undefined', () => {
-				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, undefined, undefined);
+		describe('mapReasonsToReasonsListHtml', () => {
+			it('should return an empty string if reasons is undefined', () => {
+				const result = mapReasonsToReasonsListHtml(
+					appellantCaseInvalidReasons,
+					undefined,
+					undefined
+				);
 
-				expect(result).toEqual([]);
+				expect(result).toEqual('');
 			});
 
-			it('should return an empty array if reasons is an empty array', () => {
-				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, [], undefined);
+			it('should return an empty string if reasons is an empty array', () => {
+				const result = mapReasonsToReasonsListHtml(appellantCaseInvalidReasons, [], undefined);
 
-				expect(result).toEqual([]);
+				expect(result).toEqual('');
 			});
 
-			it('should return an array of strings or string arrays with the expected properties if reasonsText is undefined', () => {
-				const result = mapReasonsToReasonsList(
+			it('should return a string containing the expected html if reasonsText is undefined', () => {
+				const result = mapReasonsToReasonsListHtml(
 					appellantCaseInvalidReasons,
 					['22', '23'],
 					undefined
 				);
 
-				expect(result).toEqual([
-					'Documents have not been submitted on time',
-					"The appellant doesn't have the right to appeal"
-				]);
+				expect(result).toEqual(
+					'<ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0"><li>Documents have not been submitted on time</li><li>The appellant doesn\'t have the right to appeal</li></ul>'
+				);
 			});
 
-			it('should return an array of strings or string arrays with the expected properties if reasonsText is an empty object', () => {
-				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, ['22', '23'], {});
+			it('should return a string containing the expected html if reasonsText is an empty object', () => {
+				const result = mapReasonsToReasonsListHtml(appellantCaseInvalidReasons, ['22', '23'], {});
 
-				expect(result).toEqual([
-					'Documents have not been submitted on time',
-					"The appellant doesn't have the right to appeal"
-				]);
+				expect(result).toEqual(
+					'<ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0"><li>Documents have not been submitted on time</li><li>The appellant doesn\'t have the right to appeal</li></ul>'
+				);
 			});
 
-			it('should return an array of strings or string arrays with the expected properties if reasons and reasonsText are defined and populated with values', () => {
-				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, ['22', '23'], {
+			it('should return a string containing the expected html if reasons and reasonsText are defined and populated with values', () => {
+				const result = mapReasonsToReasonsListHtml(appellantCaseInvalidReasons, ['22', '23'], {
 					22: ['test reason text 1', 'test reason text 2']
 				});
 
-				expect(result).toEqual([
-					'Documents have not been submitted on time:',
-					['test reason text 1', 'test reason text 2'],
-					"The appellant doesn't have the right to appeal"
-				]);
+				expect(result).toEqual(
+					'<ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0"><li>Documents have not been submitted on time:</li><li><ul class=""><li>test reason text 1</li><li>test reason text 2</li></ul></li><li>The appellant doesn\'t have the right to appeal</li></ul>'
+				);
 			});
 		});
 

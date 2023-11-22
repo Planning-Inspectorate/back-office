@@ -27,7 +27,11 @@ const renderIncompleteReason = async (request, response) => {
 		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
-	if (!appealDetails || !appealDetails.appellantCaseId) {
+	if (
+		!appealDetails ||
+		appealDetails.appellantCaseId === null ||
+		appealDetails.appellantCaseId === undefined
+	) {
 		return response.render('app/404.njk');
 	}
 
@@ -96,10 +100,7 @@ const renderUpdateDueDate = async (request, response) => {
 
 	const { appealId, appealReference } = request.session;
 
-	const mappedPageContent = updateDueDatePage(
-		appealId,
-		appealReference
-	);
+	const mappedPageContent = updateDueDatePage(appealId, appealReference);
 
 	return response.render('appeals/appeal/update-due-date.njk', {
 		pageContent: mappedPageContent,

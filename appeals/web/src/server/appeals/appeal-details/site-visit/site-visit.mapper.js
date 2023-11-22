@@ -6,8 +6,8 @@ import { isDefined } from '#lib/ts-utilities.js';
 
 /**
  * @typedef {'unaccompanied'|'accompanied'|'accessRequired'} WebSiteVisitType
- * @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} Appeal
- * @typedef {string|null} GetApiVisitType
+ * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
+ * @typedef {string|null|undefined} ApiVisitType
  */
 
 /**
@@ -25,7 +25,7 @@ export function mapWebVisitTypeToApiVisitType(webVisitType) {
 }
 /**
  *
- * @param {GetApiVisitType} getApiVisitType
+ * @param {ApiVisitType} getApiVisitType
  * @returns {WebSiteVisitType | null}
  */
 export function mapGetApiVisitTypeToWebVisitType(getApiVisitType) {
@@ -55,7 +55,7 @@ export function mapGetApiVisitTypeToWebVisitType(getApiVisitType) {
  * @param {string|null|undefined} visitEndTimeMinute
  * @returns {Promise<PageContent>}
  */
-export async function scheduleSiteVisitPage (
+export async function scheduleSiteVisitPage(
 	appealDetails,
 	currentRoute,
 	session,
@@ -70,7 +70,7 @@ export async function scheduleSiteVisitPage (
 ) {
 	const mappedData = await initialiseAndMapAppealData(appealDetails, currentRoute, session);
 
-	visitType ??= mapGetApiVisitTypeToWebVisitType(appealDetails.siteVisit.visitType);
+	visitType ??= mapGetApiVisitTypeToWebVisitType(appealDetails.siteVisit?.visitType);
 	visitDateDay ??= appealDetails.siteVisit?.visitDate
 		? new Date(appealDetails.siteVisit?.visitDate).getDate().toString()
 		: undefined;
@@ -81,16 +81,16 @@ export async function scheduleSiteVisitPage (
 		? new Date(appealDetails.siteVisit?.visitDate).getFullYear().toString()
 		: undefined;
 	visitStartTimeHour ??= appealDetails.siteVisit?.visitStartTime
-		? (appealDetails.siteVisit?.visitStartTime.split(':')[0])?.toString()
+		? appealDetails.siteVisit?.visitStartTime.split(':')[0]?.toString()
 		: undefined;
 	visitStartTimeMinute ??= appealDetails.siteVisit?.visitStartTime
-		? (appealDetails.siteVisit?.visitStartTime.split(':')[1])?.toString()
+		? appealDetails.siteVisit?.visitStartTime.split(':')[1]?.toString()
 		: undefined;
 	visitEndTimeHour ??= appealDetails.siteVisit?.visitEndTime
-		? (appealDetails.siteVisit?.visitEndTime.split(':')[0])?.toString()
+		? appealDetails.siteVisit?.visitEndTime.split(':')[0]?.toString()
 		: undefined;
 	visitEndTimeMinute ??= appealDetails.siteVisit?.visitEndTime
-		? (appealDetails.siteVisit?.visitEndTime.split(':')[1])?.toString()
+		? appealDetails.siteVisit?.visitEndTime.split(':')[1]?.toString()
 		: undefined;
 
 	/**
@@ -117,7 +117,7 @@ export async function scheduleSiteVisitPage (
 							mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
 							mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
 							...neighbouringSitesSummaryLists
-						].map(row => removeActions(row))
+						].map((row) => removeActions(row))
 					}
 				}
 			]
@@ -171,18 +171,18 @@ export async function scheduleSiteVisitPage (
 			},
 			items: [
 				{
-					classes: "govuk-input govuk-date-input__input govuk-input--width-2",
-					name: "day",
+					classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+					name: 'day',
 					value: visitDateDay || ''
 				},
 				{
-					classes: "govuk-input govuk-date-input__input govuk-input--width-2",
-					name: "month",
+					classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+					name: 'month',
 					value: visitDateMonth || ''
 				},
 				{
-					classes: "govuk-input govuk-date-input__input govuk-input--width-4",
-					name: "year",
+					classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
+					name: 'year',
 					value: visitDateYear || ''
 				}
 			]
@@ -193,13 +193,14 @@ export async function scheduleSiteVisitPage (
 	const selectStartTimeComponent = {
 		type: 'time-input',
 		wrapperHtml: {
-			opening: '<fieldset class="govuk-fieldset govuk-!-margin-bottom-4"><legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>',
+			opening:
+				'<fieldset class="govuk-fieldset govuk-!-margin-bottom-4"><legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>',
 			closing: '</fieldset>'
 		},
 		parameters: {
 			id: 'visit-start-time',
 			hour: {
-				value: visitStartTimeHour,
+				value: visitStartTimeHour
 			},
 			minute: {
 				value: visitStartTimeMinute
@@ -211,13 +212,14 @@ export async function scheduleSiteVisitPage (
 	const selectEndTimeComponent = {
 		type: 'time-input',
 		wrapperHtml: {
-			opening: '<fieldset class="govuk-fieldset govuk-!-margin-bottom-6"><legend class="govuk-fieldset__legend govuk-fieldset__legend--s">End time</legend>',
+			opening:
+				'<fieldset class="govuk-fieldset govuk-!-margin-bottom-6"><legend class="govuk-fieldset__legend govuk-fieldset__legend--s">End time</legend>',
 			closing: '</fieldset>'
 		},
 		parameters: {
 			id: 'visit-end-time',
 			hour: {
-				value: visitEndTimeHour,
+				value: visitEndTimeHour
 			},
 			minute: {
 				value: visitEndTimeMinute
@@ -242,7 +244,9 @@ export async function scheduleSiteVisitPage (
 		]
 	};
 
-	preRenderPageComponents(pageContent.pageComponents);
+	if (pageContent.pageComponents) {
+		preRenderPageComponents(pageContent.pageComponents);
+	}
 
 	return pageContent;
 }
@@ -252,7 +256,7 @@ export async function scheduleSiteVisitPage (
  * @param {string|undefined} visitType
  * @returns {PageContent}
  */
-export function setVisitTypePage (appealDetails, visitType) {
+export function setVisitTypePage(appealDetails, visitType) {
 	/** @type {PageComponent} */
 	const selectVisitTypeComponent = {
 		type: 'radios',

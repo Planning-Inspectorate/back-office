@@ -26,7 +26,7 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedFolderForListBuilder} MappedFolderForListBuilder
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedDocumentForListBuilder} MappedDocumentForListBuilder
  * @typedef {import('#lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType} HtmlTagType
- * @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} Appeal
+ * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
  */
 
 /**
@@ -48,17 +48,20 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		parameters: {
 			classes: 'govuk-summary-list--no-border',
 			rows: [
-				...(mappedAppellantCaseData.siteAddress.display.summaryListItem ? [
-					mappedAppellantCaseData.siteAddress.display.summaryListItem
-				]: []),
-				...(mappedAppellantCaseData.localPlanningAuthority.display.summaryListItem ? [
-					mappedAppellantCaseData.localPlanningAuthority.display.summaryListItem
-				]: [])
+				...(mappedAppellantCaseData.siteAddress.display.summaryListItem
+					? [mappedAppellantCaseData.siteAddress.display.summaryListItem]
+					: []),
+				...(mappedAppellantCaseData.localPlanningAuthority.display.summaryListItem
+					? [mappedAppellantCaseData.localPlanningAuthority.display.summaryListItem]
+					: [])
 			]
 		}
 	};
 
-	appellantCaseSummary.parameters.rows = appellantCaseSummary.parameters.rows.map((/** @type {import('#lib/nunjucks-template-builders/summary-list-builder.js').Row} */ row) => removeActions(row));
+	appellantCaseSummary.parameters.rows = appellantCaseSummary.parameters.rows.map(
+		(/** @type {import('#lib/nunjucks-template-builders/summary-list-builder.js').Row} */ row) =>
+			removeActions(row)
+	);
 
 	/**
 	 * @type {PageComponent}
@@ -111,7 +114,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		parameters: {
 			card: {
 				title: {
-					text: '3. The appeal',
+					text: '3. The appeal'
 				}
 			},
 			rows: [
@@ -124,8 +127,10 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		}
 	};
 
-	const reviewOutcomeRadiosInputInstruction = mappedAppellantCaseData.reviewOutcome.input
-		?.instructions.find(inputInstructionIsRadiosInputInstruction);
+	const reviewOutcomeRadiosInputInstruction =
+		mappedAppellantCaseData.reviewOutcome.input?.instructions.find(
+			inputInstructionIsRadiosInputInstruction
+		);
 
 	/** @type {PageComponent[]} */
 	const reviewOutcomeComponents = [];
@@ -140,7 +145,9 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 	const existingValidationOutcomeString = appellantCaseData.validation?.outcome?.toLowerCase();
 
 	/** @type {AppellantCaseValidationOutcome|undefined} */
-	const existingValidationOutcome = stringIsAppellantCaseValidationOutcome(existingValidationOutcomeString)
+	const existingValidationOutcome = stringIsAppellantCaseValidationOutcome(
+		existingValidationOutcomeString
+	)
 		? existingValidationOutcomeString
 		: undefined;
 	const notificationBanners = mapNotificationBannerComponentParameters(
@@ -160,15 +167,22 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'Appellant case',
-		pageComponents: [...notificationBanners, appellantCaseSummary, appellantSummary, appealSiteSummary, appealSummary, ...reviewOutcomeComponents]
+		pageComponents: [
+			...notificationBanners,
+			appellantCaseSummary,
+			appellantSummary,
+			appealSiteSummary,
+			appealSummary,
+			...reviewOutcomeComponents
+		]
 	};
 
-	if (!session.account.idTokenClaims.groups.includes(
-		config.referenceData.appeals.caseOfficerGroupId
-	)) {
-		pageContent.pageComponents.forEach((component) => {
+	if (
+		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
+	) {
+		pageContent.pageComponents?.forEach((component) => {
 			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map(row => removeActions(row));
+				component.parameters.rows = component.parameters.rows.map((row) => removeActions(row));
 			}
 		});
 	}
@@ -176,15 +190,14 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 	return pageContent;
 }
 
-
-
 /**
  * @param {string|undefined} outcomeString
  * @returns {outcomeString is AppellantCaseValidationOutcome}
  */
 export function stringIsAppellantCaseValidationOutcome(outcomeString) {
-    return outcomeString !== undefined && (
-		outcomeString === 'valid' || outcomeString === 'invalid' || outcomeString === 'incomplete'
+	return (
+		outcomeString !== undefined &&
+		(outcomeString === 'valid' || outcomeString === 'invalid' || outcomeString === 'incomplete')
 	);
 }
 
@@ -314,20 +327,21 @@ export function checkAndConfirmPage(
 	/** @type {PageContent} */
 	const pageContent = {
 		title: 'Check answers',
-		backLinkUrl: validationOutcome === 'incomplete'
-			? `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcome}/date`
-			: `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcome}`,
+		backLinkUrl:
+			validationOutcome === 'incomplete'
+				? `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcome}/date`
+				: `/appeals-service/appeal-details/${appealId}/appellant-case/${validationOutcome}`,
 		preHeading: `Appeal ${appealShortReference(appealReference)}`,
 		heading: 'Check your answers before confirming your review',
 		pageComponents: [summaryListComponent, insetTextComponent]
 	};
 
-	if (!session.account.idTokenClaims.groups.includes(
-		config.referenceData.appeals.caseOfficerGroupId
-	)) {
-		pageContent.pageComponents.forEach((component) => {
+	if (
+		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
+	) {
+		pageContent.pageComponents?.forEach((component) => {
 			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map(row => removeActions(row));
+				component.parameters.rows = component.parameters.rows.map((row) => removeActions(row));
 			}
 		});
 	}

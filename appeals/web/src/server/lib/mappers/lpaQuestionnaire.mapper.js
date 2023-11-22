@@ -4,12 +4,6 @@ import * as displayPageFormatter from '#lib/display-page-formatter.js';
 import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter.js';
 
 /**
- * @typedef {import('#lib/mappers/global-mapper-formatter.js').InputInstruction} InputInstruction
- * @typedef {import('#lib/mappers/global-mapper-formatter.js').Instructions} Instructions
- * @typedef {import('./global-mapper-formatter.js').MappedInstructions} MappedInstructions
- */
-
-/**
  * @typedef StatusTag
  * @type {object}
  * @property {string} status
@@ -86,9 +80,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						text: 'Listed building details'
 					},
 					value: {
-						html: displayPageFormatter.formatListOfListedBuildingNumbers(
-							data.listedBuildingDetails
-						)
+						html: displayPageFormatter.formatListOfListedBuildingNumbers(data.listedBuildingDetails)
 					},
 					actions: {
 						items: [
@@ -485,8 +477,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								value: '1018',
 								text: 'Letters or emails to interested parties',
 								checked: data.lpaNotificationMethods?.some(
-									(value) =>
-										value.name === 'Letter/email to interested parties'
+									(value) => value.name === 'Letter/email to interested parties'
 								)
 							},
 							{

@@ -1,5 +1,12 @@
 import { Address } from '@pins/appeals';
 import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionnaire/lpa-questionnaire.types';
+import {
+	SingleAppealDetailsResponse,
+	AppealTimetable,
+	DocumentationSummaryEntry,
+	DocumentationSummary
+} from '@pins/appeals.api/src/server/endpoints/appeals';
+import { SiteVisit } from '@pins/appeals.api/src/database/schema';
 
 export interface AppealHealthAndSafetyEntry {
 	details: string | null;
@@ -32,6 +39,8 @@ export type AppealTimetable = {
 	finalCommentReviewDate: string | null;
 	lpaQuestionnaireDueDate: string | null;
 	statementReviewDate: string | null;
+	issueDeterminationDate: string | null;
+	completeDate: string | null;
 };
 
 export type AppealSiteVisit = {
@@ -289,7 +298,7 @@ export interface SingleLPAQuestionnaireResponse {
 	appealId: number;
 	appealReference: string;
 	appealSite: Address;
-	communityInfrastructureLevyAdoptionDate?: Date | null;
+	communityInfrastructureLevyAdoptionDate?: string | null;
 	designatedSites?: DesignatedSiteDetails[] | null;
 	developmentDescription?: string | null;
 	documents: {
@@ -374,3 +383,38 @@ export interface NotValidReasonResponse {
 }
 
 export type BodyValidationOutcome = Object<string, string | string[]>;
+
+// The following types are required because the corresponding types defined in the API specify Date fields, but the dates are formatted as strings in the API response data
+
+export interface WebAppealTimetable extends AppealTimetable {
+	finalCommentReviewDate?: string | null;
+	lpaQuestionnaireDueDate: string | null;
+	statementReviewDate?: string | null;
+	issueDeterminationDate?: string | null;
+	completeDate?: string | null;
+}
+
+export interface WebSiteVisit extends SiteVisit {
+	visitDate: string | null;
+	siteVisitId: number | null;
+	visitEndTime: string | null;
+	visitStartTime: string | null;
+	visitType: string | null;
+}
+
+export interface WebDocumentationSummaryEntry extends DocumentationSummaryEntry {
+	status: string;
+	dueDate: string | undefined | null;
+}
+
+export interface WebDocumentationSummary extends DocumentationSummary {
+	appellantCase?: WebDocumentationSummaryEntry;
+	lpaQuestionnaire?: WebDocumentationSummaryEntry;
+}
+
+export interface WebAppeal extends SingleAppealDetailsResponse {
+	appealTimetable: WebAppealTimetable | null;
+	siteVisit: WebSiteVisit | null;
+	startedAt: string | null;
+	documentationSummary: WebDocumentationSummary;
+}

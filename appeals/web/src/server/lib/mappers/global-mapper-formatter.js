@@ -1,53 +1,11 @@
 import * as displayPageFormatter from '#lib/display-page-formatter.js';
 
-
-/**
- * @typedef DisplayInstructions
- * Display Instructions
- * @type {object}
- * @property {SummaryListRowProperties} [summaryListItem] To create a row in a summary list
- * @property {StatusTagProperties} [statusTag] To create a Status Tag
- * @property {TableCellProperties[]} [tableItem] To create a table row
- */
-
-/**
- * @typedef {Object} CheckboxesInputInstruction
- * @property {'checkboxes'} type
- * @property {CheckboxesProperties} properties
- */
-/**
- * @typedef {Object} RadiosInputInstruction
- * @property {'radios'} type
- * @property {RadiosProperties} properties
- */
-/**
- * @typedef {Object} InputInputInstruction
- * @property {'input'} type
- * @property {InputProperties} properties
- */
-/**
- * @typedef {Object} FieldsetInputInstruction
- * @property {'fieldset'} type
- * @property {FieldsetProperties} properties
- */
-
-/**
- * @typedef InputInstruction
- * @type {CheckboxesInputInstruction | RadiosInputInstruction | InputInputInstruction | FieldsetInputInstruction}
- */
-
-/**
- * @typedef {Object} InputInstructions
- * @property {InputInstruction[]} instructions
- * @property {string} [displayName]
- */
-
 /**
  * @param {InputInstruction} inputOption
  * @returns {inputOption is CheckboxesInputInstruction}
  */
 export function inputInstructionIsCheckboxesInputInstruction(inputOption) {
-    return inputOption.type === 'checkboxes';
+	return inputOption.type === 'checkboxes';
 }
 
 /**
@@ -55,7 +13,7 @@ export function inputInstructionIsCheckboxesInputInstruction(inputOption) {
  * @returns {inputOption is RadiosInputInstruction}
  */
 export function inputInstructionIsRadiosInputInstruction(inputOption) {
-    return inputOption.type === 'radios';
+	return inputOption.type === 'radios';
 }
 
 /**
@@ -63,7 +21,7 @@ export function inputInstructionIsRadiosInputInstruction(inputOption) {
  * @returns {inputOption is InputInputInstruction}
  */
 export function inputInstructionIsInputInputInstruction(inputOption) {
-    return inputOption.type === 'input';
+	return inputOption.type === 'input';
 }
 
 /**
@@ -71,29 +29,13 @@ export function inputInstructionIsInputInputInstruction(inputOption) {
  * @returns {inputOption is FieldsetInputInstruction}
  */
 export function inputInstructionIsFieldsetInputInstruction(inputOption) {
-    return inputOption.type === 'fieldset';
+	return inputOption.type === 'fieldset';
 }
-
-/**
- * @typedef Instructions
- * A series of instructions pages where you display data, input data, and the API associated with that data
- * @type {object}
- * @property {string} id
- * @property {DisplayInstructions} display Collection of display instructions
- * TODO: move InputInstruction definition to a shared location
- * @property {InputInstructions} [input] Collection of input instructions
- * @property {string} [submitApi]
- * @property {string} [inputItemApi]
- */
-
-/**
- * @typedef {Object<string, Instructions>} MappedInstructions
- */
 
 /**
  *
  * @param {import('@pins/appeals.api').Appeals.AppealSite} appealSite
- * @returns {import('./lpaQuestionnaire.mapper.js').InputInstruction[]}
+ * @returns {InputInstruction[]}
  */
 export function mapAddressInput(appealSite) {
 	return [

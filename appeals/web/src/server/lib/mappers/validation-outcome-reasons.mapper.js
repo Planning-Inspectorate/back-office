@@ -117,8 +117,8 @@ function getAddAnotherTextItemsFromBody(
  * @returns {string} string containing unordered list html
  */
 export function mapReasonsToReasonsListHtml(reasonOptions, reasons, reasonsText) {
-	if (!reasons) {
-		reasons = [];
+	if (!reasons || reasons.length === 0) {
+		return '';
 	}
 
 	if (!Array.isArray(reasons)) {

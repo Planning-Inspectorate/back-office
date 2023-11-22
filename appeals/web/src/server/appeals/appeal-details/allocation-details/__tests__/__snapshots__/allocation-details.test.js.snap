@@ -7,45 +7,43 @@ exports[`Allocation Details should render "Check answers" Page 1`] = `
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Check answers</h1>
         </div>
     </div>
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-0 govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-        <table class="govuk-table">
-            <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Level</strong>
-                    </td>
-                    <td class="govuk-table__cell">A</td>
-                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/allocation-details/allocation-level">Change</a>
-                    </td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Band</strong>
-                    </td>
-                    <td class="govuk-table__cell">3</td>
-                    <td class="govuk-table__cell"></td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Specialism</strong>
-                    </td>
-                    <td class="govuk-table__cell">
-                        <ul class="govuk-!-padding-0 govuk-!-margin-0 govuk-!-margin-left-4">
-                            <li>Specialism 1</li>
-                            <li>Specialism 2</li>
-                            <li>Specialism 3</li>
-                        </ul>
-                    </td>
-                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/allocation-details/allocation-specialism">Change</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <form action="" method="POST" novalidate>
-                <button class="govuk-button" data-module="govuk-button">Confirm</button>
-            </form>
+        <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+            <table class="govuk-table">
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Level</strong>
+                        </td>
+                        <td class="govuk-table__cell">A</td>
+                        <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/allocation-details/allocation-level">Change</a>
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Band</strong>
+                        </td>
+                        <td class="govuk-table__cell">3</td>
+                        <td class="govuk-table__cell"></td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Specialism</strong>
+                        </td>
+                        <td class="govuk-table__cell">
+                            <ul class="govuk-!-padding-0 govuk-!-margin-0 govuk-!-margin-left-4">
+                                <li>Specialism 1</li>
+                                <li>Specialism 2</li>
+                                <li>Specialism 3</li>
+                            </ul>
+                        </td>
+                        <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/allocation-details/allocation-specialism">Change</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+    <form action="" method="POST" novalidate>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+    </form>
 </main>"
 `;
 
@@ -56,21 +54,23 @@ exports[`Allocation Details should render "Select allocation specialism" Page 1`
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Allocation specialism</h1>
         </div>
     </div>
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-0 govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-        <table class="govuk-table">
-            <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Level</strong>
-                    </td>
-                    <td class="govuk-table__cell">A</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Band</strong>
-                    </td>
-                    <td class="govuk-table__cell">3</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+            <table class="govuk-table">
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Level</strong>
+                        </td>
+                        <td class="govuk-table__cell">A</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Band</strong>
+                        </td>
+                        <td class="govuk-table__cell">3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -128,21 +128,23 @@ exports[`Allocation Details should render "Select allocation specialism" with er
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Allocation specialism</h1>
         </div>
     </div>
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-0 govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-        <table class="govuk-table">
-            <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Level</strong>
-                    </td>
-                    <td class="govuk-table__cell">A</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Band</strong>
-                    </td>
-                    <td class="govuk-table__cell">3</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+            <table class="govuk-table">
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Level</strong>
+                        </td>
+                        <td class="govuk-table__cell">A</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Band</strong>
+                        </td>
+                        <td class="govuk-table__cell">3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -190,20 +192,18 @@ exports[`Allocation Details should render "Select the allocation level" Page 1`]
             <div class="govuk-grid-column-full">
                 <form action="" method="POST" novalidate>
                     <div class="govuk-form-group">
-                        <fieldset class="govuk-fieldset">
-                            <div class="govuk-radios" data-module="govuk-radios">
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="allocation-level" name="allocation-level"
-                                    type="radio" value="A">
-                                    <label class="govuk-label govuk-radios__label" for="allocation-level">A</label>
-                                </div>
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="allocation-level-2" name="allocation-level"
-                                    type="radio" value="B">
-                                    <label class="govuk-label govuk-radios__label" for="allocation-level-2">B</label>
-                                </div>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="allocation-level" name="allocation-level"
+                                type="radio" value="A">
+                                <label class="govuk-label govuk-radios__label" for="allocation-level">A</label>
                             </div>
-                        </fieldset>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="allocation-level-2" name="allocation-level"
+                                type="radio" value="B">
+                                <label class="govuk-label govuk-radios__label" for="allocation-level-2">B</label>
+                            </div>
+                        </div>
                     </div>
                     <button class="govuk-button" data-module="govuk-button">Continue</button>
                 </form>
@@ -240,20 +240,18 @@ exports[`Allocation Details should render "Select the allocation level" with err
             <div class="govuk-grid-column-full">
                 <form action="" method="POST" novalidate>
                     <div class="govuk-form-group">
-                        <fieldset class="govuk-fieldset">
-                            <div class="govuk-radios" data-module="govuk-radios">
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="allocation-level" name="allocation-level"
-                                    type="radio" value="A">
-                                    <label class="govuk-label govuk-radios__label" for="allocation-level">A</label>
-                                </div>
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="allocation-level-2" name="allocation-level"
-                                    type="radio" value="B">
-                                    <label class="govuk-label govuk-radios__label" for="allocation-level-2">B</label>
-                                </div>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="allocation-level" name="allocation-level"
+                                type="radio" value="A">
+                                <label class="govuk-label govuk-radios__label" for="allocation-level">A</label>
                             </div>
-                        </fieldset>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="allocation-level-2" name="allocation-level"
+                                type="radio" value="B">
+                                <label class="govuk-label govuk-radios__label" for="allocation-level-2">B</label>
+                            </div>
+                        </div>
                     </div>
                     <button class="govuk-button" data-module="govuk-button">Continue</button>
                 </form>

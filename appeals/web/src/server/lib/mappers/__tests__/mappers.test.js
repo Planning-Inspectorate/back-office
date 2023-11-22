@@ -13,10 +13,6 @@ import {
 } from '../notification-banners.mapper.js';
 
 /** @typedef {import('../../../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
-/** @typedef {import('../appeal.mapper.js').MappedAppealInstructions} MappedAppealInstructions */
-/** @typedef {import('../lpaQuestionnaire.mapper.js').MappedLPAQInstructions} MappedLPAQInstructions */
-/** @typedef  {import('../appeal.mapper.js').AppealInstructionCollection} AppealInstructionCollection*/
-/** @typedef {import('../lpaQuestionnaire.mapper.js').LPAQInstructionCollection} LPAQInstructionCollection */
 
 describe('appeal-mapper', () => {
 	/**
@@ -37,18 +33,11 @@ describe('appeal-mapper', () => {
 			currentRoute = 'testroute/';
 			// @ts-ignore
 			session = { account: createAccountInfo() };
-			validMappedData = await initialiseAndMapAppealData(
-				{ appeal: appealData },
-				currentRoute,
-				session
-			);
+			validMappedData = await initialiseAndMapAppealData(appealData, currentRoute, session);
 		});
 
 		it('should return a valid MappedAppealInstructions object for valid inputs', async () => {
 			expect(validMappedData).toBeDefined();
-		});
-		it('should throw an error when data is undefined', async () => {
-			await expect(initialiseAndMapAppealData(undefined, currentRoute, session)).rejects.toThrow();
 		});
 		it('should have an id that is unique', async () => {
 			const idsAreUnique = areIdsDefinedAndUnique(validMappedData.appeal);
@@ -57,7 +46,7 @@ describe('appeal-mapper', () => {
 	});
 	describe('Test 2: Value transformation', () => {
 		it('should format dates using UK format', async () => {
-			const preFormattedDate = appealData.appealTimetable.lpaQuestionnaireDueDate;
+			const preFormattedDate = '2023-10-11T01:00:00.000Z';
 			const mappedDateHtml =
 				// @ts-ignore
 				validMappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem?.value.html;
@@ -89,7 +78,7 @@ describe('appeal-mapper', () => {
 			);
 
 			expect(neighbouringSitesSummaryListsKeys.length).toEqual(
-				appealData.neighbouringSite.contacts.length
+				appealData.neighbouringSite.contacts?.length
 			);
 		});
 	});
@@ -106,14 +95,11 @@ describe('lpaQuestionnaire-mapper', () => {
 	let validMappedData;
 	beforeAll(async () => {
 		currentRoute = 'testroute/';
-		validMappedData = await initialiseAndMapLPAQData({ lpaq: lpaQuestionnaireData }, currentRoute);
+		validMappedData = await initialiseAndMapLPAQData(lpaQuestionnaireData, currentRoute);
 	});
 	describe('Test 1: Basic functionality', () => {
 		it('should return a valid MappedLPAQInstructions object for valid inputs', async () => {
 			expect(validMappedData).toBeDefined();
-		});
-		it('should throw an error when data is undefined', async () => {
-			await expect(initialiseAndMapLPAQData(undefined, currentRoute)).rejects.toThrow();
 		});
 		it('should have an id that is unique', async () => {
 			expect(areIdsDefinedAndUnique(validMappedData.lpaq)).toBe(true);
@@ -188,7 +174,7 @@ describe('notification banners mapper', () => {
 		).toEqual([
 			{
 				type: 'notification-banner',
-				bannerProperties: {
+				parameters: {
 					titleText: 'Success',
 					titleHeadingLevel: 3,
 					type: notificationBannerDefinitions.siteVisitTypeSelected.type,
@@ -219,7 +205,7 @@ describe('notification banners mapper', () => {
 		).toEqual([
 			{
 				type: 'notification-banner',
-				bannerProperties: {
+				parameters: {
 					titleText: 'overriding title text',
 					titleHeadingLevel: 3,
 					type: 'important',

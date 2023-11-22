@@ -27,7 +27,11 @@ const renderAppellantCase = async (request, response) => {
 		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
-	if (appealDetails && appealDetails.appellantCaseId) {
+	if (
+		appealDetails &&
+		appealDetails.appellantCaseId !== null &&
+		appealDetails.appellantCaseId !== undefined
+	) {
 		const appellantCaseResponse = await appellantCaseService
 			.getAppellantCaseFromAppealId(
 				request.apiClient,
@@ -128,7 +132,11 @@ export const postAppellantCase = async (request, response) => {
 			.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 			.catch((error) => logger.error(error));
 
-		if (appealDetails && appealDetails.appellantCaseId) {
+		if (
+			appealDetails &&
+			appealDetails.appellantCaseId !== null &&
+			appealDetails.appellantCaseId !== undefined
+		) {
 			const { appealId, appellantCaseId, appealReference } = appealDetails;
 
 			request.session.appealId = appealId;

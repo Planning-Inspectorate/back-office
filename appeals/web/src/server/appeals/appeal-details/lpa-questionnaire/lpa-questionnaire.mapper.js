@@ -16,7 +16,7 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  * @typedef {import('#appeals/appeal-details/appeal-details.types.js').SingleLPAQuestionnaireResponse} LPAQuestionnaire
- * @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} Appeal
+ * @typedef {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} Appeal
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
  * @typedef {import('#lib/nunjucks-template-builders/summary-list-builder.js').BuilderParameters} SummaryListBuilderParameters
  * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
@@ -35,7 +35,11 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
  */
 export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRoute, session) {
 	const mappedLpaqDetails = await initialiseAndMapLPAQData(lpaqDetails, currentRoute);
-	const mappedAppealDetails = await initialiseAndMapAppealData(appealDetails, currentRoute, session);
+	const mappedAppealDetails = await initialiseAndMapAppealData(
+		appealDetails,
+		currentRoute,
+		session
+	);
 	const appealType = appealDetails.appealType;
 
 	/**
@@ -46,16 +50,19 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 		parameters: {
 			classes: 'govuk-summary-list--no-border',
 			rows: [
-				...(mappedAppealDetails.appeal.siteAddress.display.summaryListItem ? [
-					mappedAppealDetails.appeal.siteAddress.display.summaryListItem
-				]: []),
-				...(mappedAppealDetails.appeal.localPlanningAuthority.display.summaryListItem ? [
-					mappedAppealDetails.appeal.localPlanningAuthority.display.summaryListItem
-				]: [])
+				...(mappedAppealDetails.appeal.siteAddress.display.summaryListItem
+					? [mappedAppealDetails.appeal.siteAddress.display.summaryListItem]
+					: []),
+				...(mappedAppealDetails.appeal.localPlanningAuthority.display.summaryListItem
+					? [mappedAppealDetails.appeal.localPlanningAuthority.display.summaryListItem]
+					: [])
 			]
 		}
 	};
-	caseSummary.parameters.rows = caseSummary.parameters.rows.map((/** @type {import('#lib/nunjucks-template-builders/summary-list-builder.js').Row} */ row) => removeActions(row));
+	caseSummary.parameters.rows = caseSummary.parameters.rows.map(
+		(/** @type {import('#lib/nunjucks-template-builders/summary-list-builder.js').Row} */ row) =>
+			removeActions(row)
+	);
 
 	/** @type {PageComponent[]} */
 	let appealTypeSpecificPageComponents = [];
@@ -68,8 +75,10 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 			break;
 	}
 
-	const reviewOutcomeRadiosInputInstruction = mappedLpaqDetails.lpaq.reviewOutcome.input
-		?.instructions.find(inputInstructionIsRadiosInputInstruction);
+	const reviewOutcomeRadiosInputInstruction =
+		mappedLpaqDetails.lpaq.reviewOutcome.input?.instructions.find(
+			inputInstructionIsRadiosInputInstruction
+		);
 
 	/** @type {PageComponent[]} */
 	const reviewOutcomeComponents = [];
@@ -95,15 +104,20 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'LPA questionnaire',
-		pageComponents: [...notificationBanners, caseSummary, ...appealTypeSpecificPageComponents, ...reviewOutcomeComponents]
+		pageComponents: [
+			...notificationBanners,
+			caseSummary,
+			...appealTypeSpecificPageComponents,
+			...reviewOutcomeComponents
+		]
 	};
 
-	if (!session.account.idTokenClaims.groups.includes(
-		config.referenceData.appeals.caseOfficerGroupId
-	)) {
-		pageContent.pageComponents.forEach((component) => {
+	if (
+		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
+	) {
+		pageContent.pageComponents?.forEach((component) => {
 			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map(row => removeActions(row));
+				component.parameters.rows = component.parameters.rows.map((row) => removeActions(row));
 			}
 		});
 	}
@@ -130,7 +144,7 @@ export function updateDueDatePage(appealId, appealReference, lpaQuestionnaireId,
 	};
 
 	if (currentDueDate) {
-		pageContent.pageComponents.push({
+		pageContent.pageComponents?.push({
 			type: 'inset-text',
 			parameters: {
 				text: `The current due date for the LPA questionnaire is ${currentDueDate}`
@@ -154,7 +168,17 @@ export function updateDueDatePage(appealId, appealReference, lpaQuestionnaireId,
  * @param {DayMonthYear} [updatedDueDate]
  * @returns {PageContent}
  */
-export function checkAndConfirmPage(appealId, appealReference, lpaQuestionnaireId, incompleteReasonOptions, validationOutcome, session, incompleteReasons, incompleteReasonsText, updatedDueDate) {
+export function checkAndConfirmPage(
+	appealId,
+	appealReference,
+	lpaQuestionnaireId,
+	incompleteReasonOptions,
+	validationOutcome,
+	session,
+	incompleteReasons,
+	incompleteReasonsText,
+	updatedDueDate
+) {
 	if (validationOutcome === 'incomplete' && !incompleteReasons) {
 		throw new Error('validationOutcome incomplete requires incompleteReasons');
 	}
@@ -240,12 +264,12 @@ export function checkAndConfirmPage(appealId, appealReference, lpaQuestionnaireI
 		pageComponents: [summaryListComponent, insetTextComponent]
 	};
 
-	if (!session.account.idTokenClaims.groups.includes(
-		config.referenceData.appeals.caseOfficerGroupId
-	)) {
-		pageContent.pageComponents.forEach((component) => {
+	if (
+		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
+	) {
+		pageContent.pageComponents?.forEach((component) => {
 			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map(row => removeActions(row));
+				component.parameters.rows = component.parameters.rows.map((row) => removeActions(row));
 			}
 		});
 	}
@@ -310,7 +334,7 @@ function mapNotificationBannerComponentParameters(session, lpaqData, appealId) {
 
 /**
  *
- * @param {{lpaq: import('#lib/mappers/global-mapper-formatter.js').MappedInstructions}} mappedLPAQData
+ * @param {{lpaq: MappedInstructions}} mappedLPAQData
  * @returns {PageComponent[]}
  */
 const householderLpaQuestionnairePage = (mappedLPAQData) => {
@@ -381,16 +405,14 @@ const householderLpaQuestionnairePage = (mappedLPAQData) => {
 					text: '4. Planning officer’s report and supplementary documents'
 				}
 			},
-			rows: [
-				mappedLPAQData.lpaq?.officersReport?.display.summaryListItem
-			].filter(isDefined)
+			rows: [mappedLPAQData.lpaq?.officersReport?.display.summaryListItem].filter(isDefined)
 		}
 	});
 
 	/** @type {SummaryListRowProperties[]} */
 	const neighbouringSitesSummaryLists = Object.keys(mappedLPAQData.lpaq)
-		.filter(key => key.indexOf('neighbouringSiteAddress') >= 0)
-		.map(key => mappedLPAQData.lpaq[key].display.summaryListItem)
+		.filter((key) => key.indexOf('neighbouringSiteAddress') >= 0)
+		.map((key) => mappedLPAQData.lpaq[key].display.summaryListItem)
 		.filter(isDefined);
 
 	pageComponents.push({

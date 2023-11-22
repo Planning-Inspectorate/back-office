@@ -4,8 +4,7 @@ import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
 import { initialiseAndMapLPAQData } from '#lib/mappers/lpaQuestionnaire.mapper.js';
 
 /**
- * @typedef {import('#lib/mappers/appeal.mapper.js').Instructions} Instructions
- * @typedef {import('../appeal-details/appeal-details.types').Appeal} Appeal
+ * @typedef {import('../appeal-details/appeal-details.types.js').WebAppeal} Appeal
  */
 
 /**
@@ -55,24 +54,24 @@ export async function lpaQuestionnaireChangePage(question, appealData, lpaqData,
  * @param {string} backLinkText
  * @returns {PageContent}
  */
-function mapInstructionsToChangePage (instructions, appealData, backLinkUrl, backLinkText) {
+function mapInstructionsToChangePage(instructions, appealData, backLinkUrl, backLinkText) {
 	return {
 		title: `Change ${instructions?.input?.displayName || ''}`,
 		backLinkUrl,
 		backLinkText,
 		preHeading: `Appeal ${appealShortReference(appealData.appealReference)}`,
 		heading: instructions?.input?.displayName || '',
-		pageComponents: (instructions?.input?.instructions || []).map(instruction => ({
+		pageComponents: (instructions?.input?.instructions || []).map((instruction) => ({
 			type: instruction.type,
 			parameters: instruction.properties
 		}))
-	}
+	};
 }
 
 /**
  *
  * @param {string} question
- * @param {import("#lib/mappers/appeal.mapper.js").AppealInstructionCollection} instructions
+ * @param {MappedInstructions} instructions
  * @returns {Instructions| undefined}
  */
 function getInstructions(question, instructions) {

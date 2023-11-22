@@ -3,7 +3,7 @@ import { capitalize } from 'lodash-es';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
- * @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} Appeal
+ * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
  */
 
 /**
@@ -57,7 +57,7 @@ export const mapUpdateDueDatePage = (appealTimetables, timetableType, appealDeta
 	};
 
 	if (currentDueDate) {
-		pageContent.pageComponents.push({
+		pageContent.pageComponents?.push({
 			type: 'inset-text',
 			parameters: {
 				text: `The current due date for the ${timetableTypeText} is ${currentDueDate}`,
@@ -77,7 +77,8 @@ export const mapUpdateDueDatePage = (appealTimetables, timetableType, appealDeta
  */
 export const mapConfirmationPage = (appealTimetables, timetableType, appealDetails) => {
 	const timetableTypeText = getTimetableTypeText(timetableType);
-	const titleText = timetableType === 'lpaQuestionnaireDueDate' ? timetableTypeText : capitalize(timetableTypeText);
+	const titleText =
+		timetableType === 'lpaQuestionnaireDueDate' ? timetableTypeText : capitalize(timetableTypeText);
 
 	/** @type {ConfirmationPage} */
 	const confirmationPage = {
@@ -96,7 +97,9 @@ export const mapConfirmationPage = (appealTimetables, timetableType, appealDetai
 			},
 			rows: [
 				{
-					text: `We’ve sent an email to the appellant${timetableType === 'lpaQuestionnaireDueDate' ? ' and LPA' : ''} to inform them about changes to the timetable.`
+					text: `We’ve sent an email to the appellant${
+						timetableType === 'lpaQuestionnaireDueDate' ? ' and LPA' : ''
+					} to inform them about changes to the timetable.`
 				},
 				{
 					text: 'Go back to case details',
@@ -140,4 +143,4 @@ const getTimetableTypeText = (timetableType) => {
 		default:
 			return '';
 	}
-}
+};
