@@ -79,7 +79,6 @@ export const getExaminationTimetableItem = async (_request, response) => {
  * @returns {Promise<void>}
  */
 export const createExaminationTimetableItem = async ({ body }, response) => {
-	console.log('create body: ', body);
 	let examinationTimetable = await examinationTimetableRepository.getByCaseId(body.caseId);
 	if (!examinationTimetable) {
 		// @ts-ignore
@@ -229,9 +228,7 @@ export const deleteExaminationTimetableItem = async ({ params }, response) => {
  * @returns {Promise<void>}
  */
 export const updateExaminationTimetableItem = async ({ params, body }, response) => {
-	console.log('update request body: ', body);
 	const { id } = params;
-
 	const timetableBeforeUpdate = await examinationTimetableItemsRepository.getById(+id);
 
 	if (!timetableBeforeUpdate) {
