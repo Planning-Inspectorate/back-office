@@ -893,7 +893,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 						{
 							text: 'Change',
 							href: `${currentRoute}/site-visit/${
-								data.appeal.siteVisit?.visitType ? 'set-visit-type' : 'schedule-visit'
+								data.appeal.siteVisit?.visitType ? 'visit-booked' : 'schedule-visit'
 							}`
 						}
 					]
@@ -1009,8 +1009,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				actions: {
 					items: [
 						{
-							text: data.appeal.siteVisit?.visitDate ? 'Change' : 'Schedule',
-							href: `${currentRoute}/site-visit/schedule-visit`
+							text: data.appeal.siteVisit?.visitDate ? 'Manage' : 'Schedule',
+							href: `${currentRoute}/site-visit/${
+								data.appeal.siteVisit?.visitDate ? 'manage' : 'schedule'
+							}-visit`
 						}
 					]
 				}

@@ -59,8 +59,8 @@ export async function updateSiteVisit(
 			json: {
 				visitType,
 				...(visitDate && { visitDate }),
-				...(visitStartTime && { visitStartTime }),
-				...(visitEndTime && { visitEndTime })
+				visitStartTime,
+				visitEndTime
 			}
 		})
 		.json();
