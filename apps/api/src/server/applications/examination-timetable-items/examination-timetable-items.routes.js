@@ -32,7 +32,7 @@ router.get(
         }
         #swagger.responses[200] = {
             description: 'List of examination timetable items',
-            schema: { $ref: '#/definitions/ExaminationTimetableItems' }
+            schema: { $ref: '#/definitions/ExaminationTimetableWithItems' }
         }
     */
 	asyncHandler(getExaminationTimetableItems)
@@ -52,7 +52,7 @@ router.get(
         }
         #swagger.responses[200] = {
             description: 'Examination timetable item',
-            schema: { $ref: '#/definitions/ExaminationTimetableItemResponseBody' }
+            schema: { $ref: '#/definitions/ExaminationTimetableItemWithExamTimetable' }
         }
     */
 	asyncHandler(getExaminationTimetableItem)
@@ -66,13 +66,17 @@ router.post(
         #swagger.description = 'Create an examination timetable item for the case'
         #swagger.parameters['body'] = {
             in: 'body',
-            description: 'document pagination parameters',
-            schema: { $ref: '#/definitions/ExaminationTimetableItemRequestBody' },
+            description: 'New examination timetable item',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemCreateRequestBody' },
             required: true
         }
         #swagger.responses[200] = {
             description: 'Created examination timetable item',
-            schema: { $ref: '#/definitions/ExaminationTimetableItemResponseBody' }
+            schema: { $ref: '#/definitions/ExaminationTimetableItemSaveResponse' }
+        }
+		#swagger.responses[400] = {
+            description: 'Bad Request',
+            schema: { $ref: '#/definitions/ExaminationTimetableItemSaveBadRequest' }
         }
     */
 	validateCreateExaminationTimetableItem,
@@ -145,7 +149,7 @@ router.patch(
 	'/:id',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications/examination-timetable-items/{id}/update'
+        #swagger.path = '/applications/examination-timetable-items/{id}'
         #swagger.description = 'Updates an examination timetable item'
         #swagger.parameters['id'] = {
             in: 'path',
@@ -156,12 +160,12 @@ router.patch(
 		#swagger.parameters['body'] = {
             in: 'body',
             description: 'Examination timetable item update details',
-            schema: { $ref: '#/definitions/ExaminationTimetableItemRequestBody' },
+            schema: { $ref: '#/definitions/ExaminationTimetableItemUpdateRequestBody' },
 			required: true
         }
         #swagger.responses[200] = {
             description: 'Examination timetable item',
-            schema: { $ref: '#/definitions/ExaminationTimetableItemResponseBody' }
+            schema: { $ref: '#/definitions/ExaminationTimetableItemSaveResponse' }
         }
 		#swagger.responses[400] = {
             description: 'Example of an error response',

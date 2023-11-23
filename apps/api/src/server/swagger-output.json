@@ -2942,7 +2942,7 @@
 					"200": {
 						"description": "List of examination timetable items",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItems"
+							"$ref": "#/definitions/ExaminationTimetableWithItems"
 						}
 					}
 				}
@@ -2965,7 +2965,7 @@
 					"200": {
 						"description": "Examination timetable item",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
+							"$ref": "#/definitions/ExaminationTimetableItemWithExamTimetable"
 						}
 					}
 				}
@@ -2992,6 +2992,56 @@
 						"description": "Examination timetable item successfully deleted"
 					}
 				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates an examination timetable item",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Examination timetable item ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Examination timetable item update details",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemUpdateRequestBody"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Examination timetable item",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemSaveResponse"
+						}
+					},
+					"400": {
+						"description": "Example of an error response",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing examination timetable item"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/applications/examination-timetable-items": {
@@ -3002,9 +3052,9 @@
 					{
 						"name": "body",
 						"in": "body",
-						"description": "document pagination parameters",
+						"description": "New examination timetable item",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemRequestBody"
+							"$ref": "#/definitions/ExaminationTimetableItemCreateRequestBody"
 						},
 						"required": true
 					}
@@ -3013,7 +3063,13 @@
 					"200": {
 						"description": "Created examination timetable item",
 						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
+							"$ref": "#/definitions/ExaminationTimetableItemSaveResponse"
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItemSaveBadRequest"
 						}
 					}
 				}
@@ -3073,58 +3129,6 @@
 								"success": {
 									"type": "boolean",
 									"example": true
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/examination-timetable-items/{id}/update": {
-			"patch": {
-				"tags": ["Applications"],
-				"description": "Updates an examination timetable item",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Examination timetable item ID"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"description": "Examination timetable item update details",
-						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemRequestBody"
-						},
-						"required": true
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Examination timetable item",
-						"schema": {
-							"$ref": "#/definitions/ExaminationTimetableItemResponseBody"
-						}
-					},
-					"400": {
-						"description": "Example of an error response",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"errors": {
-									"type": "object",
-									"properties": {
-										"id": {
-											"type": "string",
-											"example": "Must be an existing examination timetable item"
-										}
-									}
 								}
 							},
 							"xml": {
@@ -4493,188 +4497,6 @@
 						"type": "string",
 						"example": "Region Name Cy"
 					}
-				}
-			}
-		},
-		"ExaminationTimetableTypes": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "number",
-						"example": 1
-					},
-					"templateType": {
-						"type": "string",
-						"example": "starttime-mandatory"
-					},
-					"name": {
-						"type": "string",
-						"example": "Accompanied Site Inspection"
-					},
-					"displayNameEn": {
-						"type": "string",
-						"example": "Accompanied site inspection"
-					},
-					"displayNameCy": {
-						"type": "string",
-						"example": "Accompanied site inspection Cy"
-					}
-				}
-			}
-		},
-		"ExaminationTimetableItems": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "number",
-						"example": 1
-					},
-					"caseId": {
-						"type": "number",
-						"example": 1
-					},
-					"examinationTypeId": {
-						"type": "number",
-						"example": 1
-					},
-					"name": {
-						"type": "string",
-						"example": "Examination Timetable Item"
-					},
-					"description": {
-						"type": "string",
-						"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
-					},
-					"date": {
-						"type": "string",
-						"example": "2023-02-27T10:00:00Z"
-					},
-					"startDate": {
-						"type": "string",
-						"example": "2023-02-27T10:00:00Z"
-					},
-					"published": {
-						"type": "boolean",
-						"example": false
-					},
-					"folderId": {
-						"type": "number",
-						"example": 134
-					},
-					"startTime": {
-						"type": "string",
-						"example": "10:20"
-					},
-					"endTime": {
-						"type": "string",
-						"example": "12:20"
-					},
-					"submissions": {
-						"type": "boolean",
-						"example": true
-					}
-				}
-			}
-		},
-		"ExaminationTimetableItemRequestBody": {
-			"type": "object",
-			"properties": {
-				"caseId": {
-					"type": "number",
-					"example": 1
-				},
-				"examinationTypeId": {
-					"type": "number",
-					"example": 1
-				},
-				"name": {
-					"type": "string",
-					"example": "Examination Timetable Item"
-				},
-				"description": {
-					"type": "string",
-					"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
-				},
-				"date": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
-				},
-				"published": {
-					"type": "boolean",
-					"example": false
-				},
-				"folderId": {
-					"type": "number",
-					"example": 134
-				},
-				"startDate": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
-				},
-				"startTime": {
-					"type": "string",
-					"example": "10:20"
-				},
-				"endTime": {
-					"type": "string",
-					"example": "12:20"
-				}
-			}
-		},
-		"ExaminationTimetableItemResponseBody": {
-			"type": "object",
-			"properties": {
-				"id": {
-					"type": "number",
-					"example": 1
-				},
-				"caseId": {
-					"type": "number",
-					"example": 1
-				},
-				"examinationTypeId": {
-					"type": "number",
-					"example": 1
-				},
-				"name": {
-					"type": "string",
-					"example": "Examination Timetable Item"
-				},
-				"description": {
-					"type": "string",
-					"example": "{\"preText\":\"Examination Timetable Item Description\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
-				},
-				"date": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
-				},
-				"published": {
-					"type": "boolean",
-					"example": false
-				},
-				"folderId": {
-					"type": "number",
-					"example": 134
-				},
-				"startDate": {
-					"type": "string",
-					"example": "2023-02-27T10:00:00Z"
-				},
-				"startTime": {
-					"type": "string",
-					"example": "10:20"
-				},
-				"endTime": {
-					"type": "string",
-					"example": "12:20"
-				},
-				"submissions": {
-					"type": "boolean",
-					"example": true
 				}
 			}
 		},
@@ -6508,6 +6330,449 @@
 					"properties": {
 						"message": {
 							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"ExaminationTimetableType": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Examination timetable type id",
+					"example": 1
+				},
+				"templateType": {
+					"type": "string",
+					"description": "Examination timetable type template type",
+					"example": "starttime-mandatory"
+				},
+				"name": {
+					"type": "string",
+					"description": "Examination timetable type name",
+					"example": "Accompanied Site Inspection"
+				},
+				"displayNameEn": {
+					"type": "string",
+					"description": "Examination timetable type display name",
+					"example": "Accompanied site inspection"
+				},
+				"displayNameCy": {
+					"type": "string",
+					"description": "Examination timetable type display name in Welsh",
+					"example": "Accompanied site inspection Cy"
+				}
+			}
+		},
+		"ExaminationTimetableTypes": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/ExaminationTimetableType"
+			}
+		},
+		"ExaminationTimetable": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Examination timetable id",
+					"example": 1
+				},
+				"caseId": {
+					"type": "integer",
+					"description": "Case Id",
+					"example": 1
+				},
+				"published": {
+					"type": "boolean",
+					"description": "Is the examination timetable published?",
+					"example": true
+				},
+				"publishedAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date Examination timetable was published",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"createdAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date created",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"updateAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date last updated",
+					"example": "2023-02-01T00:00:00.000Z"
+				}
+			}
+		},
+		"ExaminationTimetableWithItems": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Examination timetable id",
+					"example": 1
+				},
+				"caseId": {
+					"type": "integer",
+					"description": "Case Id",
+					"example": 1
+				},
+				"published": {
+					"type": "boolean",
+					"description": "Is the examination timetable published?",
+					"example": true
+				},
+				"publishedAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date Examination timetable was published",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"createdAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date created",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"updateAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date last updated",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/ExaminationTimetableItem"
+					}
+				}
+			}
+		},
+		"ExaminationTimetableItem": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Examination timetable item id",
+					"example": 1
+				},
+				"examinationTimetableId": {
+					"type": "integer",
+					"description": "Examination timetable parent id",
+					"example": 1
+				},
+				"examinationTypeId": {
+					"type": "integer",
+					"description": "Examination timetable type id",
+					"example": 1
+				},
+				"name": {
+					"type": "string",
+					"description": "Examination timetable item name",
+					"example": "Deadline 1"
+				},
+				"description": {
+					"type": "string",
+					"description": "Examination timetable item name including line items",
+					"example": "{\"preText\":\"Deadline 1 line items\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
+				},
+				"date": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item date / end date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startDate": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item start date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startTime": {
+					"type": "string",
+					"description": "Examination timetable start time",
+					"example": "10:20"
+				},
+				"endTime": {
+					"type": "string",
+					"description": "Examination timetable end time",
+					"example": "23:59"
+				},
+				"folderId": {
+					"type": "integer",
+					"description": "Examination timetable item corresponding folder id",
+					"example": 123
+				},
+				"createdAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date created",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"ExaminationTimetableType": {
+					"$ref": "#/definitions/ExaminationTimetableType"
+				},
+				"submissions": {
+					"type": "boolean",
+					"description": "Matching folder contains submissions",
+					"example": true
+				}
+			}
+		},
+		"ExaminationTimetableItemWithExamTimetable": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Examination timetable item id",
+					"example": 1
+				},
+				"examinationTimetableId": {
+					"type": "integer",
+					"description": "Examination timetable parent id",
+					"example": 1
+				},
+				"examinationTypeId": {
+					"type": "integer",
+					"description": "Examination timetable type id",
+					"example": 1
+				},
+				"name": {
+					"type": "string",
+					"description": "Examination timetable item name",
+					"example": "Deadline 1"
+				},
+				"description": {
+					"type": "string",
+					"description": "Examination timetable item name including line items",
+					"example": "{\"preText\":\"Deadline 1 line items\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
+				},
+				"date": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item date / end date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startDate": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item start date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startTime": {
+					"type": "string",
+					"description": "Examination timetable start time",
+					"example": "10:20"
+				},
+				"endTime": {
+					"type": "string",
+					"description": "Examination timetable end time",
+					"example": "23:59"
+				},
+				"folderId": {
+					"type": "integer",
+					"description": "Examination timetable item corresponding folder id",
+					"example": 123
+				},
+				"createdAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date created",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"ExaminationTimetableType": {
+					"$ref": "#/definitions/ExaminationTimetableType"
+				},
+				"ExaminationTimetable": {
+					"$ref": "#/definitions/ExaminationTimetable"
+				},
+				"submissions": {
+					"type": "boolean",
+					"description": "Matching folder contains submissions",
+					"example": true
+				}
+			}
+		},
+		"ExaminationTimetableItemCreateRequestBody": {
+			"type": "object",
+			"properties": {
+				"caseId": {
+					"type": "integer",
+					"description": "Case id",
+					"example": 1
+				},
+				"examinationTypeId": {
+					"type": "integer",
+					"description": "Examination timetable type id",
+					"example": 1
+				},
+				"name": {
+					"type": "string",
+					"description": "Examination timetable item name",
+					"example": "Deadline 1"
+				},
+				"description": {
+					"type": "string",
+					"description": "Examination timetable item name including line items",
+					"example": "{\"preText\":\"Deadline 1 line items\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
+				},
+				"date": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item date / end date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startDate": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item start date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startTime": {
+					"type": "string",
+					"description": "Examination timetable start time",
+					"example": "10:20"
+				},
+				"endTime": {
+					"type": "string",
+					"description": "Examination timetable end time",
+					"example": "23:59"
+				}
+			}
+		},
+		"ExaminationTimetableItemUpdateRequestBody": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Examination timetable item id",
+					"example": 1
+				},
+				"caseId": {
+					"type": "integer",
+					"description": "Case id",
+					"example": 1
+				},
+				"examinationTypeId": {
+					"type": "integer",
+					"description": "Examination timetable type id",
+					"example": 1
+				},
+				"name": {
+					"type": "string",
+					"description": "Examination timetable item name",
+					"example": "Deadline 1"
+				},
+				"description": {
+					"type": "string",
+					"description": "Examination timetable item name including line items",
+					"example": "{\"preText\":\"Deadline 1 line items\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
+				},
+				"date": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item date / end date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startDate": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item start date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startTime": {
+					"type": "string",
+					"description": "Examination timetable start time",
+					"example": "10:20"
+				},
+				"endTime": {
+					"type": "string",
+					"description": "Examination timetable end time",
+					"example": "23:59"
+				}
+			}
+		},
+		"ExaminationTimetableItemSaveResponse": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "Examination timetable item id",
+					"example": 1
+				},
+				"examinationTimetableId": {
+					"type": "integer",
+					"description": "Examination timetable parent id",
+					"example": 1
+				},
+				"examinationTypeId": {
+					"type": "integer",
+					"description": "Examination timetable type id",
+					"example": 1
+				},
+				"name": {
+					"type": "string",
+					"description": "Examination timetable item name",
+					"example": "Deadline 1"
+				},
+				"description": {
+					"type": "string",
+					"description": "Examination timetable item name including line items",
+					"example": "{\"preText\":\"Deadline 1 line items\\r\\n\",\"bulletPoints\":[\" Line item 1\\r\\n\",\" Line item 2\"]}"
+				},
+				"date": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item date / end date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startDate": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Examination timetable item start date",
+					"example": "2023-02-01T00:00:00.000Z"
+				},
+				"startTime": {
+					"type": "string",
+					"description": "Examination timetable start time",
+					"example": "10:20"
+				},
+				"endTime": {
+					"type": "string",
+					"description": "Examination timetable end time",
+					"example": "23:59"
+				},
+				"folderId": {
+					"type": "integer",
+					"description": "Examination timetable item corresponding folder id",
+					"example": 123
+				},
+				"createdAt": {
+					"type": "string",
+					"string": "date-time",
+					"description": "Date created",
+					"example": "2023-02-01T00:00:00.000Z"
+				}
+			}
+		},
+		"ExaminationTimetableItemSaveBadRequest": {
+			"type": "object",
+			"properties": {
+				"errors": {
+					"type": "object",
+					"properties": {
+						"caseId": {
+							"type": "string",
+							"example": "Must be valid case id"
+						},
+						"examinationTypeId": {
+							"type": "string",
+							"example": "Must be valid examination type"
 						}
 					}
 				}
