@@ -800,7 +800,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/set-visit-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -828,7 +828,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
@@ -1273,7 +1273,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/set-visit-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1301,7 +1301,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
@@ -1607,7 +1607,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/set-visit-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1635,7 +1635,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
@@ -1941,7 +1941,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/set-visit-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1969,7 +1969,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>

@@ -146,7 +146,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/set-visit-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -174,7 +174,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
@@ -374,7 +374,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/set-visit-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/visit-booked"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -402,7 +402,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/manage-visit"> Manage</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
@@ -604,7 +604,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/set-visit-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -632,7 +632,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/schedule-visit"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/manage-visit"> Manage</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Issue Determination</dt>
@@ -837,7 +837,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/set-visit-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change</a>
                             </dd>
                         </div>
                     </dl>

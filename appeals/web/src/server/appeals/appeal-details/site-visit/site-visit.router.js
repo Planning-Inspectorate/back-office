@@ -21,7 +21,24 @@ router
 		controller.postScheduleSiteVisit
 	);
 
-router.route('/visit-scheduled').get(controller.getSiteVisitScheduled);
+router
+	.route('/manage-visit')
+	.get(controller.getManageSiteVisit)
+	.post(
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		validators.validateSiteVisitType,
+		validators.validateVisitDateFields,
+		validators.validateVisitDateValid,
+		validators.validateVisitDateInFuture,
+		validators.validateVisitStartTime,
+		validators.validateVisitEndTime,
+		validators.validateVisitStartTimeBeforeEndTime,
+		controller.postManageSiteVisit
+	);
+
+router
+	.route('/visit-scheduled/:confirmationPageTypeToRender')
+	.get(controller.getSiteVisitScheduled);
 
 router
 	.route('/set-visit-type')
@@ -31,5 +48,7 @@ router
 		validators.validateSiteVisitType,
 		controller.postSetVisitType
 	);
+
+router.route('/visit-booked').get(controller.getSiteVisitBooked);
 
 export default router;

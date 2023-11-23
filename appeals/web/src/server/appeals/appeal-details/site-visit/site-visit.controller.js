@@ -18,8 +18,9 @@ import { addNotificationBannerToSession } from '#lib/session-utilities.js';
  *
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {'schedule' | 'manage'} pageType
  */
-const renderScheduleSiteVisit = async (request, response) => {
+const renderScheduleOrManageSiteVisit = async (request, response, pageType) => {
 	const { errors } = request;
 
 	const appealDetails = await appealDetailsService
@@ -78,7 +79,16 @@ const renderScheduleSiteVisit = async (request, response) => {
 			request.session
 		);
 
+		let titlePrefix = '';
+
+		if (pageType === 'schedule') {
+			titlePrefix = 'Schedule';
+		} else if (pageType === 'manage') {
+			titlePrefix = 'Manage';
+		}
+
 		return response.render('appeals/appeal/schedule-site-visit.njk', {
+			titlePrefix,
 			siteDetailsRows,
 			appeal: {
 				id: appealDetails?.appealId,
@@ -106,9 +116,9 @@ const renderScheduleSiteVisit = async (request, response) => {
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
-export const renderScheduleSiteVisitConfirmation = async (request, response) => {
+export const renderScheduleOrManageSiteVisitConfirmation = async (request, response) => {
 	const {
-		params: { appealId }
+		params: { appealId, confirmationPageTypeToRender }
 	} = request;
 
 	const appealDetails = await appealDetailsService
@@ -132,39 +142,184 @@ export const renderScheduleSiteVisitConfirmation = async (request, response) => 
 					: 'Address not known';
 				const formattedSiteVisitDate = dateToDisplayDate(siteVisit.visitDate);
 
-				return response.render('app/confirmation.njk', {
-					panel: {
-						title: 'Site visit booked',
-						appealReference: {
-							label: 'Appeal ID',
-							reference: appealShortReference(appealDetails?.appealReference)
-						}
-					},
-					body: {
-						preTitle: `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${
-							formattedSiteVisitType !== 'unaccompanied'
-								? `, starting at ${siteVisit.visitStartTime}`
-								: ''
-						}.`,
-						title: {
-							text: 'What happens next'
-						},
-						rows: [
-							{
-								text: `We updated the case timetable.${
-									formattedSiteVisitType !== 'unaccompanied'
-										? ` We've sent an email to the LPA and appellant to confirm the site visit.`
-										: ''
-								}`
-							},
-							{
-								text: 'Go back to case details',
-								href: `/appeals-service/appeal-details/${appealId}`
+				const timeText =
+					siteVisit.visitStartTime && siteVisit.visitEndTime
+						? `, between ${siteVisit.visitStartTime} and ${siteVisit.visitEndTime}`
+						: '';
+
+				let contentObject;
+
+				if (confirmationPageTypeToRender === 'new') {
+					contentObject = {
+						panel: {
+							title: 'Site visit booked',
+							appealReference: {
+								label: 'Appeal ID',
+								reference: appealShortReference(appealDetails?.appealReference)
 							}
-						]
-					}
-				});
+						},
+						body: {
+							preTitle: `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${timeText}.`,
+							title: {
+								text: 'What happens next'
+							},
+							rows: [
+								{
+									text: `We updated the case timetable.${
+										formattedSiteVisitType !== 'unaccompanied'
+											? ` We've sent an email to the LPA and appellant to confirm the site visit.`
+											: ''
+									}`
+								},
+								{
+									text: 'Go back to case details',
+									href: `/appeals-service/appeal-details/${appealId}`
+								}
+							]
+						}
+					};
+				} else if (confirmationPageTypeToRender === 'unchanged') {
+					contentObject = {
+						panel: {
+							title: 'No changes were made',
+							appealReference: {
+								label: 'Appeal ID',
+								reference: appealShortReference(appealDetails?.appealReference)
+							}
+						},
+						body: {
+							rows: [
+								{
+									text: `The original details still apply.`
+								},
+								{
+									text: `No emails have been sent to the parties.`
+								},
+								{
+									text: 'Go back to case details',
+									href: `/appeals-service/appeal-details/${appealId}`
+								}
+							]
+						}
+					};
+				} else if (confirmationPageTypeToRender === 'visit-type') {
+					contentObject = {
+						panel: {
+							title: 'Site visit type changed',
+							appealReference: {
+								label: 'Appeal ID',
+								reference: appealShortReference(appealDetails?.appealReference)
+							}
+						},
+						body: {
+							preTitle: `The visit type is now changed to ${formattedSiteVisitType}. Your site visit at ${formattedSiteAddress} is still scheduled for ${formattedSiteVisitDate}${timeText}.`,
+							title: {
+								text: 'What happens next'
+							},
+							rows: [
+								{
+									text: `We updated the case timetable.${
+										formattedSiteVisitType !== 'unaccompanied'
+											? ` We've sent an email to the LPA and appellant to confirm the changes to the site visit.`
+											: ''
+									}`
+								},
+								{
+									text: 'Go back to case details',
+									href: `/appeals-service/appeal-details/${appealId}`
+								}
+							]
+						}
+					};
+				} else if (confirmationPageTypeToRender === 'date-time') {
+					contentObject = {
+						panel: {
+							title: 'Site visit rescheduled',
+							appealReference: {
+								label: 'Appeal ID',
+								reference: appealShortReference(appealDetails?.appealReference)
+							}
+						},
+						body: {
+							preTitle: `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is rescheduled for ${formattedSiteVisitDate}${timeText}.`,
+							title: {
+								text: 'What happens next'
+							},
+							rows: [
+								{
+									text: `We updated the case timetable.${
+										formattedSiteVisitType !== 'unaccompanied'
+											? ` We've sent an email to the LPA and appellant to confirm the site visit.`
+											: ''
+									}`
+								},
+								{
+									text: 'Go back to case details',
+									href: `/appeals-service/appeal-details/${appealId}`
+								}
+							]
+						}
+					};
+				} else if (confirmationPageTypeToRender === 'all') {
+					contentObject = {
+						panel: {
+							title: 'Site visit changed',
+							appealReference: {
+								label: 'Appeal ID',
+								reference: appealShortReference(appealDetails?.appealReference)
+							}
+						},
+						body: {
+							preTitle: `Your site visit at ${formattedSiteAddress} is rescheduled for ${formattedSiteVisitDate}${timeText}. The site visit type is now changed to ${formattedSiteVisitType}.`,
+							title: {
+								text: 'What happens next'
+							},
+							rows: [
+								{
+									text: `We updated the case timetable.${
+										formattedSiteVisitType !== 'unaccompanied'
+											? ` We've sent an email to the LPA and appellant to confirm the changes to the site visit.`
+											: ''
+									}`
+								},
+								{
+									text: 'Go back to case details',
+									href: `/appeals-service/appeal-details/${appealId}`
+								}
+							]
+						}
+					};
+				}
+
+				return response.render('app/confirmation.njk', contentObject);
 			}
+		}
+	}
+
+	return response.render('app/404.njk');
+};
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const renderSiteVisitBooked = async (request, response) => {
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (appealDetails) {
+		const siteVisitIdAsNumber = appealDetails.siteVisit?.siteVisitId;
+
+		if (typeof siteVisitIdAsNumber === 'number' && !Number.isNaN(siteVisitIdAsNumber)) {
+			return response.render('appeals/appeal/site-visit-booked.njk', {
+				appeal: {
+					id: appealDetails?.appealId,
+					reference: appealDetails?.appealReference,
+					shortReference: appealShortReference(appealDetails?.appealReference)
+				}
+			});
 		}
 	}
 
@@ -206,15 +361,35 @@ const renderSetVisitType = async (request, response) => {
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getScheduleSiteVisit = async (request, response) => {
-	renderScheduleSiteVisit(request, response);
+	renderScheduleOrManageSiteVisit(request, response, 'schedule');
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const getManageSiteVisit = async (request, response) => {
+	renderScheduleOrManageSiteVisit(request, response, 'manage');
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const postScheduleSiteVisit = async (request, response) => {
+	postScheduleOrManageSiteVisit(request, response, 'schedule');
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const postManageSiteVisit = async (request, response) => {
+	postScheduleOrManageSiteVisit(request, response, 'manage');
+};
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {'schedule' | 'manage'} pageType
+ */
+export const postScheduleOrManageSiteVisit = async (request, response, pageType) => {
 	const { errors } = request;
 
 	if (errors) {
-		return renderScheduleSiteVisit(request, response);
+		return renderScheduleOrManageSiteVisit(request, response, pageType);
 	}
 
 	const {
@@ -252,6 +427,30 @@ export const postScheduleSiteVisit = async (request, response) => {
 			const apiVisitType = mapWebVisitTypeToApiVisitType(visitType);
 
 			if (appealDetails.siteVisit?.siteVisitId) {
+				const oldApiVisitType = appealDetails.siteVisit.visitType;
+				const oldVisitDate = appealDetails.siteVisit.visitDate?.split('T')[0];
+				const { visitStartTime: oldVisitStartTime } = appealDetails.siteVisit;
+				const { visitEndTime: oldVisitEndTime } = appealDetails.siteVisit;
+
+				const visitTypeChanged =
+					oldApiVisitType &&
+					apiVisitType &&
+					oldApiVisitType.toLowerCase() !== apiVisitType.toLowerCase();
+				const dateTimeChanged =
+					oldVisitDate !== visitDate ||
+					oldVisitStartTime !== visitStartTime ||
+					oldVisitEndTime !== visitEndTime;
+
+				let confirmationPageTypeToRender = 'unchanged';
+
+				if (visitTypeChanged && !dateTimeChanged) {
+					confirmationPageTypeToRender = 'visit-type';
+				} else if (!visitTypeChanged && dateTimeChanged) {
+					confirmationPageTypeToRender = 'date-time';
+				} else if (visitTypeChanged && dateTimeChanged) {
+					confirmationPageTypeToRender = 'all';
+				}
+
 				await siteVisitService.updateSiteVisit(
 					request.apiClient,
 					appealIdNumber,
@@ -260,6 +459,10 @@ export const postScheduleSiteVisit = async (request, response) => {
 					visitDate,
 					visitStartTime,
 					visitEndTime
+				);
+
+				return response.redirect(
+					`/appeals-service/appeal-details/${appealDetails.appealId}/site-visit/visit-scheduled/${confirmationPageTypeToRender}`
 				);
 			} else {
 				await siteVisitService.createSiteVisit(
@@ -270,11 +473,11 @@ export const postScheduleSiteVisit = async (request, response) => {
 					visitStartTime,
 					visitEndTime
 				);
-			}
 
-			return response.redirect(
-				`/appeals-service/appeal-details/${appealDetails.appealId}/site-visit/visit-scheduled`
-			);
+				return response.redirect(
+					`/appeals-service/appeal-details/${appealDetails.appealId}/site-visit/visit-scheduled/new`
+				);
+			}
 		}
 		return response.render('app/404.njk');
 	} catch (error) {
@@ -289,7 +492,12 @@ export const postScheduleSiteVisit = async (request, response) => {
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getSiteVisitScheduled = async (request, response) => {
-	renderScheduleSiteVisitConfirmation(request, response);
+	renderScheduleOrManageSiteVisitConfirmation(request, response);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>}  */
+export const getSiteVisitBooked = async (request, response) => {
+	renderSiteVisitBooked(request, response);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */

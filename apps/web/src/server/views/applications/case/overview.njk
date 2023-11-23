@@ -53,7 +53,7 @@
   }) }}
 	{% if not userIsInspector %}
 		<div class="govuk-!-margin-bottom-8">
-			<a class="govuk-link" href="{{ 'case-view'|url({caseid: case.id, step: 'project-information' }) }}">Update project information</a>
+			<a class="govuk-link" href="{{ 'case-view'|url({caseId: caseId, step: 'project-information' }) }}">Update project information</a>
 		</div>
 	{% endif %}
 	<h2 class="govuk-heading-m">Project team</h2>
@@ -86,7 +86,7 @@
 					}}
 			{% endif %}
 
-			<a href='{{'project-team'|url({caseId: caseId })}}' class='govuk-link'>Update project team</a>
+			<a href="{{'project-team'|url({caseId: caseId })}}" class='govuk-link'>Update project team</a>
 
 		</div>
 	{% else %}
