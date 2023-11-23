@@ -1186,7 +1186,7 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
                     </dd>
                 </div>
             </dl>
-            <div class=\\"govuk-!-margin-bottom-8\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case//project-information\\">Update project information</a>
+            <div class=\\"govuk-!-margin-bottom-8\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-information\\">Update project information</a>
             </div>
             <h2 class=\\"govuk-heading-m\\">Project team</h2>
             <div>
@@ -1194,7 +1194,7 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
                     <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case Manager</dt>
                         <dd class=\\"govuk-summary-list__value\\">Do Do</dd>
                     </div>
-                </dl><a href='/applications-service/case/123/project-team/' class='govuk-link'>Update project team</a>
+                </dl><a href=\\"/applications-service/case/123/project-team/\\" class='govuk-link'>Update project team</a>
             </div>
             <div class=\\"govuk-!-margin-top-9\\"><a href=\\"/applications-service/case/4/preview-and-publish\\" role=\\"button\\"
                 draggable=\\"false\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Preview and publish project</a>
@@ -1266,12 +1266,12 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
                     </dd>
                 </div>
             </dl>
-            <div class=\\"govuk-!-margin-bottom-8\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case//project-information\\">Update project information</a>
+            <div class=\\"govuk-!-margin-bottom-8\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-information\\">Update project information</a>
             </div>
             <h2 class=\\"govuk-heading-m\\">Project team</h2>
             <div>
                 <p class=\\"govuk-body\\">Some team members have been added, but only Case Managers and NSIP Officers
-                    will be visible here.</p><a href='/applications-service/case/123/project-team/'
+                    will be visible here.</p><a href=\\"/applications-service/case/123/project-team/\\"
                 class='govuk-link'>Update project team</a>
             </div>
             <div class=\\"govuk-!-margin-top-9\\"><a href=\\"/applications-service/case/4/preview-and-publish\\" role=\\"button\\"
@@ -1344,7 +1344,7 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
                     </dd>
                 </div>
             </dl>
-            <div class=\\"govuk-!-margin-bottom-8\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case//project-information\\">Update project information</a>
+            <div class=\\"govuk-!-margin-bottom-8\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-information\\">Update project information</a>
             </div>
             <h2 class=\\"govuk-heading-m\\">Project team</h2>
             <p class=\\"govuk-body\\">No project members have been added yet</p>
