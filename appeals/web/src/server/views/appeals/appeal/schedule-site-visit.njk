@@ -7,7 +7,7 @@
 {%- from "../../app/components/time-input.njk" import govukTimeInput -%}}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
 
-{%- set pageTitle = "Schedule site visit - GOV.UK" -%}
+{%- set pageTitle = titlePrefix + " site visit - GOV.UK" -%}
 
 {%- set backLinkUrl -%}
 	/appeals-service/appeal-details/{{ appeal.id }}
@@ -22,8 +22,8 @@
 
 {%- set selectTimeHtml -%}
 	<h2>Select a time</h2>
-	<p class="govuk-body">Time is optional for unaccompanied site visits</p>
-	<p class="govuk-body">Enter a time, for example 9:00 or 16:30</p>
+	<p class="govuk-hint">Time is optional for unaccompanied site visits</p>
+	<p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
 	<fieldset class="govuk-fieldset govuk-!-margin-top-4">
 		<legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
 		<div class="govuk-form-group govuk-!-margin-bottom-4">
@@ -56,7 +56,7 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
-			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">Schedule site visit</h1>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{titlePrefix}} site visit</h1>
 		</div>
 	</div>
 {%- endblock -%}
@@ -125,7 +125,7 @@
 		}) }}
 		{{ selectTimeHtml | safe }}
 		{{ govukButton({
-			text: "Schedule site visit",
+			text: "Confirm",
 			type: "submit",
 			classes: "govuk-!-margin-top-3"
 		}) }}
