@@ -74,9 +74,30 @@ const patchSiteVisitValidator = composeMiddleware(
 	validateSiteVisitRequiredDateTimeFields,
 	validateSiteVisitType(),
 	validateDateParameter({ parameterName: 'visitDate' }),
-	validateTimeParameter('visitStartTime'),
-	validateTimeParameter('visitEndTime'),
-	validateTimeRangeParameters('visitStartTime', 'visitEndTime'),
+	body('visitStartTime')
+		.if(body('visitType').not().equals(SITE_VISIT_TYPE_UNACCOMPANIED))
+		.custom((value, { req }) => {
+			if (value) {
+				return validateTimeParameter('visitStartTime')(req, {}, () => {});
+			}
+			return true;
+		}),
+	body('visitEndTime')
+		.if(body('visitType').not().equals(SITE_VISIT_TYPE_UNACCOMPANIED))
+		.custom((value, { req }) => {
+			if (value) {
+				return validateTimeParameter('visitEndTime')(req, {}, () => {});
+			}
+			return true;
+		}),
+	body(['visitStartTime', 'visitEndTime'])
+		.if(body('visitType').not().equals(SITE_VISIT_TYPE_UNACCOMPANIED))
+		.custom((value, { req }) => {
+			if (req.body.visitStartTime && req.body.visitEndTime) {
+				return validateTimeRangeParameters('visitStartTime', 'visitEndTime')(req, {}, () => {});
+			}
+			return true;
+		}),
 	validationErrorHandler
 );
 
