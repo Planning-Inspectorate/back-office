@@ -34,9 +34,9 @@ export default async function (context, msg) {
 	try {
 		const res = await api.post(msg);
 
-		const { reference } = res;
+		const { caseReference } = res;
 
-		context.log.info(`LPA questionnaire created for appeal: ${reference}`);
+		context.log.info(`LPA questionnaire created for appeal: ${caseReference}`);
 	} catch (e) {
 		context.log.error('Error creating LPA questionnaire', e);
 		throw e;

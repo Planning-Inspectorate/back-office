@@ -3,7 +3,7 @@ import config from './config.js';
 /**
  *
  * @param {*} submission
- * @returns {Promise<{reference: string | null}>}
+ * @returns {Promise<{caseReference: string | null}>}
  */
 async function post(submission) {
 	try {
