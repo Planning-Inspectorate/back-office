@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@azure/identity": "^3.0.1",
+    "@pins/blob-storage-client": "^0.0.0",
     "@pins/platform": "^0.0.0",
     "dotenv": "*",
     "got": "^13.0.0",
