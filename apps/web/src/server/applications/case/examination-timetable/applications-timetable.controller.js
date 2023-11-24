@@ -113,7 +113,7 @@ export async function viewApplicationsCaseTimetablesPreview(_, response) {
 }
 
 /**
- * View the preview page of the examination timetables for a single case
+ * View the unpublish preview page of the examination timetables for a single case
  *
  * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string, stage: string}>}
  */
@@ -224,6 +224,7 @@ export async function deleteApplicationsCaseTimetable(request, response) {
 
 	response.redirect('../../deleted/success');
 }
+
 /**
  * Set the type for a new examination timetable (1st step)
  *
@@ -386,8 +387,12 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		const selectedItemType = await getCaseTimetableItemTypeById(Number(body.timetableTypeId));
 		body.itemTypeName = selectedItemType.name;
 		body.templateType = selectedItemType.templateType;
+		// need to copy timetableTypeId into templateId, as that is the value that the check-your-answers page expects,
+		// otherwise the type value is lost
+		body.templateId = body.timetableTypeId;
 
 		const rows = getCheckYourAnswersRows(body);
+
 		return response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
 			isEditing: !!payload.id,
 			rows,
