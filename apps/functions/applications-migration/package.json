@@ -8,7 +8,7 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "@azure/identity": "^4.0.0",
+    "@azure/identity": "^3.0.1",
     "@pins/platform": "^0.0.0",
     "dotenv": "*",
     "got": "^13.0.0",
