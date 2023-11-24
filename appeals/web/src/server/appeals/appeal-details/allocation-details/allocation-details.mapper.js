@@ -1,7 +1,6 @@
 import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
- * @typedef {import("../../../lib/nunjucks-template-builders/summary-list-builder.js").BuilderParameters} SummaryListBuilderParameters
  * @typedef {import("./allocation-details.service.js").AllocationDetailsLevel} AllocationDetailsLevel
  * @typedef {import("./allocation-details.service.js").AllocationDetailsSpecialism} AllocationDetailsSpecialism
  * @typedef {import("../appeal-details.types.js").WebAppeal} Appeal
