@@ -1,8 +1,10 @@
+import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
+
 /**
  * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
  * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
  * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').NotValidReasonResponse} NotValidReasonResponse
- * @typedef {import('../../appeals/appeal-details/lpa-questionaire/lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} LPAQuestionnaireSessionValidationOutcome
+ * @typedef {import('../../appeals/appeal-details/lpa-questionnaire/lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} LPAQuestionnaireSessionValidationOutcome
  * @typedef {import('../../appeals/appeal-details/appellant-case/appellant-case.types.js').AppellantCaseSessionValidationOutcome} AppellantCaseSessionValidationOutcome
  */
 
@@ -112,43 +114,43 @@ function getAddAnotherTextItemsFromBody(
  * @param {NotValidReasonOption[]} reasonOptions
  * @param {string|string[]|undefined} reasons
  * @param {Object<string, string[]>|undefined} reasonsText
- * @returns {Array<string|string[]>}
+ * @returns {string} string containing unordered list html
  */
-export function mapReasonsToReasonsList(reasonOptions, reasons, reasonsText) {
-	if (!reasons) {
-		reasons = [];
+export function mapReasonsToReasonsListHtml(reasonOptions, reasons, reasonsText) {
+	if (!reasons || reasons.length === 0) {
+		return '';
 	}
 
 	if (!Array.isArray(reasons)) {
 		reasons = [reasons];
 	}
 
-	return (
-		reasons
-			?.map((reason) => reasonOptions.find((option) => option.id === parseInt(reason || '', 10)))
-			.map((option) => {
-				if (!option) {
-					throw new Error('invalid or incomplete reason ID was not recognised');
-				}
+	const items = reasons
+		?.map((reason) => reasonOptions.find((option) => option.id === parseInt(reason || '', 10)))
+		.map((option) => {
+			if (!option) {
+				throw new Error('invalid or incomplete reason ID was not recognised');
+			}
 
-				/** @type {string[]} */
-				let textItems = [];
+			/** @type {string[]} */
+			let textItems = [];
 
-				if (option.hasText && reasonsText && reasonsText[option.id]) {
-					textItems = reasonsText[option.id];
-				}
+			if (option.hasText && reasonsText && reasonsText[option.id]) {
+				textItems = reasonsText[option.id];
+			}
 
-				/** @type {Array<string|string[]>} */
-				const list = [`${option.name}${textItems.length ? ':' : ''}`];
+			/** @type {Array<string|string[]>} */
+			const list = [`${option.name}${textItems.length ? ':' : ''}`];
 
-				if (textItems.length) {
-					list.push(textItems);
-				}
+			if (textItems.length) {
+				list.push(textItems);
+			}
 
-				return list;
-			})
-			.flat() || ['']
-	);
+			return list;
+		})
+		.flat() || [''];
+
+	return buildHtmUnorderedList(items);
 }
 
 /**

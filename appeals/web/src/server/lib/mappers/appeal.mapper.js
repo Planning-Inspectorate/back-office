@@ -1,5 +1,5 @@
 import { convertFromBooleanToYesNo } from '../boolean-formatter.js';
-import { addressToString } from '#lib/address-formatter.js';
+import { appealSiteToAddressString } from '#lib/address-formatter.js';
 import { dateToDisplayDate } from '#lib/dates.js';
 import * as displayPageFormatter from '#lib/display-page-formatter.js';
 import usersService from '../../appeals/appeal-users/users-service.js';
@@ -12,72 +12,21 @@ import {
 } from './global-mapper-formatter.js';
 import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
 
-// TODO: Limit the input types to constants
 /**
- * @typedef {object} ComponentType
- * @property {string} type
- */
-
-/**
- * @typedef MappedAppealInstructions
- * @type {object}
- * @property {AppealInstructionCollection} appeal
- */
-
-/**
- * @typedef AppealInstructionCollection
- * A collection of Instructions to display Appeal Data
- * @type {Object<string, Instructions>}
- */
-
-/**
- * @typedef Instructions
- * A series of instructions pages where you display data, input data, and the API associated with that data
- * @type {object}
- * @property {string} id
- * @property {DisplayInstructions} display Collection of display instructions
- * @property {InputInstruction[]} [input] Collection of input instructions
- * @property {string} [submitApi]
- * @property {string} [inputItemApi]
- */
-/**
- * @typedef DisplayInstructions
- * Display Instructions
- * @type {object}
- * @property {SummaryListRowProperties} [summaryListItem] To create a row in a summary list
- * @property {StatusTag} [statusTag] To create a Status Tag
- * @property {TableCellProperties[]} [tableItem] To create a table row
- */
-/**
- * @typedef InputInstruction
- * A series of instruction to for pages where you input the data
- * @type {ComponentType & (RadioProperties | TextInputProperties | FieldsetProperties)}
- */
-/**
- * @typedef StatusTag
- * @type {object}
- * @property {string} status
- * @property {string} classes
- */
-
-/**
- * @param {*} data
+ * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @param {string} currentRoute
  * @param {import('../../app/auth/auth-session.service').SessionWithAuth} session
- * @returns {Promise<MappedAppealInstructions>}
+ * @returns {Promise<{appeal: MappedInstructions}>}
  */
-export async function initialiseAndMapAppealData(data, currentRoute, session) {
-	if (data === undefined) {
-		throw new Error('Data is undefined');
+export async function initialiseAndMapAppealData(appealDetails, currentRoute, session) {
+	if (appealDetails === undefined) {
+		throw new Error('appealDetails is undefined');
 	}
 
-	if (data.appeal === undefined) {
-		data = { appeal: data };
-	}
 	currentRoute =
 		currentRoute[currentRoute.length - 1] === '/' ? currentRoute.slice(0, -1) : currentRoute;
 
-	/** @type {MappedAppealInstructions} */
+	/** @type {{appeal: MappedInstructions}} */
 	let mappedData = {};
 	mappedData.appeal = {};
 	/** @type {Instructions} */
@@ -89,7 +38,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Appeal type'
 				},
 				value: {
-					text: data.appeal.appealType || 'No appeal type'
+					text: appealDetails.appealType || 'No appeal type'
 				},
 				actions: {
 					items: [
@@ -101,28 +50,25 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'radio',
-				name: 'appeal-type',
-				fieldset: {
-					legend: {
-						text: 'Appeal Type',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
+		input: {
+			displayName: 'Appeal type',
+			instructions: [
+				{
+					type: 'radios',
+					properties: {
+						name: 'appeal-type',
+						items: [
+							{
+								value: '1013',
+								text: 'Householder planning',
+								checked:
+									displayPageFormatter.nullToEmptyString(appealDetails.appealType) === 'Householder'
+							}
+						]
 					}
-				},
-				items: [
-					{
-						value: '1013',
-						text: 'Householder planning',
-						checked:
-							displayPageFormatter.nullToEmptyString(data.appeal.appealType) === 'Householder'
-					}
-					// TODO: Add further appeal types here as they are required (S78, CAS, etc...)
-				]
-			}
-		],
+				}
+			]
+		},
 		submitApi: '#',
 		inputItemApi: '#'
 	};
@@ -132,10 +78,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Case Procedure'
+					text: 'Case procedure'
 				},
 				value: {
-					text: data.appeal.procedureType || `No case procedure`
+					text: appealDetails.procedureType || `No case procedure`
 				},
 				actions: {
 					items: [
@@ -147,47 +93,44 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'checkbox',
-				name: 'case-procedure',
-				fieldset: {
-					legend: {
-						text: 'Case Procedure',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
+		input: {
+			displayName: 'Case procedure',
+			instructions: [
+				{
+					type: 'checkboxes',
+					properties: {
+						name: 'case-procedure',
+						items: [
+							{
+								value: '3',
+								text: 'Written Representation',
+								hint: {
+									text: 'For appeals where the issues are clear from written statements and a site visit. This is the quickest and most common way to make an appeal.'
+								},
+								checked: appealDetails.procedureType === 'Written'
+							},
+							{
+								value: '1',
+								text: 'Hearing',
+								hint: {
+									text: 'For appeals with more complex issues. The Inspector leads a discussion to answer questions they have about the appeal.'
+								},
+								checked: appealDetails.procedureType === 'Hearing'
+							},
+							{
+								value: '2',
+								text: 'Inquiry',
+								hint: {
+									text: 'For appeals with very complex issues. Appeal evidence is tested by legal representatives, who question witnesses under oath.'
+								},
+								checked: appealDetails.procedureType === 'Inquiry'
+							}
+						]
 					}
-				},
-				value: data.appeal.procedureType,
-				items: [
-					{
-						value: '3',
-						text: 'Written Representation',
-						hint: {
-							text: 'For appeals where the issues are clear from written statements and a site visit. This is the quickest and most common way to make an appeal.'
-						},
-						checked: data.appeal.procedureType === 'Written'
-					},
-					{
-						value: '1',
-						text: 'Hearing',
-						hint: {
-							text: 'For appeals with more complex issues. The Inspector leads a discussion to answer questions they have about the appeal.'
-						},
-						checked: data.appeal.procedureType === 'Hearing'
-					},
-					{
-						value: '2',
-						text: 'Inquiry',
-						hint: {
-							text: 'For appeals with very complex issues. Appeal evidence is tested by legal representatives, who question witnesses under oath.'
-						},
-						checked: data.appeal.procedureType === 'Inquiry'
-					}
-				]
-			}
-		],
-		submitApi: `/appeals/${data.appeal.appealId}/lpa-questionnaire/${data.appeal.lpaQuestionnaireId}`,
+				}
+			]
+		},
+		submitApi: `/appeals/${appealDetails.appealId}/lpa-questionnaire/${appealDetails.lpaQuestionnaireId}`,
 		inputItemApi: '#'
 	};
 	/** @type {Instructions} */
@@ -199,7 +142,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Appellant name'
 				},
 				value: {
-					text: data.appeal.appellantName || 'No applicant for this appeal'
+					text: appealDetails.appellantName || 'No applicant for this appeal'
 				},
 				actions: {
 					items: [
@@ -211,26 +154,23 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'field-set',
-				legend: {
-					text: "What is the appellant's name?",
-					isPageHeading: true,
-					classes: 'govuk-fieldset__legend--l'
+		input: {
+			displayName: 'Appellant name',
+			instructions: [
+				{
+					type: 'input',
+					properties: {
+						id: 'appellant-name',
+						name: 'appellantName',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.appellantName),
+						label: {
+							text: 'Fullname',
+							isPageHeading: false
+						}
+					}
 				}
-			},
-			{
-				type: 'text-input',
-				id: 'appellant-name',
-				name: 'appellantName',
-				value: displayPageFormatter.nullToEmptyString(data.appeal.appellantName),
-				label: {
-					text: 'Fullname',
-					isPageHeading: false
-				}
-			}
-		],
+			]
+		},
 		submitApi: '#'
 	};
 	/** @type {Instructions} */
@@ -242,7 +182,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Agent name'
 				},
 				value: {
-					text: data.appeal.agentName || 'No agent for this appeal'
+					text: appealDetails.agentName || 'No agent for this appeal'
 				},
 				actions: {
 					items: [
@@ -254,26 +194,23 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'field-set',
-				legend: {
-					text: "What is the agent's name?",
-					isPageHeading: true,
-					classes: 'govuk-fieldset__legend--l'
+		input: {
+			displayName: 'Agent name',
+			instructions: [
+				{
+					type: 'input',
+					properties: {
+						id: 'agent-name',
+						name: 'agentName',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.agentName),
+						label: {
+							text: 'Fullname',
+							isPageHeading: true
+						}
+					}
 				}
-			},
-			{
-				type: 'text-input',
-				id: 'agent-name',
-				name: 'agentName',
-				value: displayPageFormatter.nullToEmptyString(data.appeal.agentName),
-				label: {
-					text: 'Fullname',
-					isPageHeading: true
-				}
-			}
-		],
+			]
+		},
 		submitApi: '#'
 	};
 	// TODO: Need a decision on how the linked appeals change page looks
@@ -283,11 +220,11 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Linked Appeals'
+					text: 'Linked appeals'
 				},
 				value: {
 					html:
-						displayPageFormatter.formatListOfAppeals(data.appeal.linkedAppeals) ||
+						displayPageFormatter.formatListOfAppeals(appealDetails.linkedAppeals) ||
 						'No linked appeals'
 				},
 				actions: {
@@ -300,17 +237,22 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'text-input',
-				id: 'linked-appeals',
-				name: 'linkedAppeals',
-				value: displayPageFormatter.nullToEmptyString(data.appeal.linkedAppeals),
-				label: {
-					text: 'What appeals are linked to this appeal?'
+		input: {
+			displayName: 'Linked appeals',
+			instructions: [
+				{
+					type: 'input',
+					properties: {
+						id: 'linked-appeals',
+						name: 'linkedAppeals',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.linkedAppeals),
+						label: {
+							text: 'What appeals are linked to this appeal?'
+						}
+					}
 				}
-			}
-		],
+			]
+		},
 		submitApi: '#'
 	};
 	// TODO: Need a decision on how the other appeals change page looks
@@ -320,11 +262,11 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Other Appeals'
+					text: 'Other appeals'
 				},
 				value: {
 					html:
-						displayPageFormatter.formatListOfAppeals(data.appeal.otherAppeals) ||
+						displayPageFormatter.formatListOfAppeals(appealDetails.otherAppeals) ||
 						'<span>No other appeals</span>'
 				},
 				actions: {
@@ -337,17 +279,22 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'text-input',
-				id: 'other-appeals',
-				name: 'otherAppeals',
-				value: displayPageFormatter.nullToEmptyString(data.appeal.otherAppeals),
-				label: {
-					text: 'What appeals are the other associated with this appeal?'
+		input: {
+			displayName: 'Other appeals',
+			instructions: [
+				{
+					type: 'input',
+					properties: {
+						id: 'other-appeals',
+						name: 'otherAppeals',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.otherAppeals),
+						label: {
+							text: 'What appeals are the other associated with this appeal?'
+						}
+					}
 				}
-			}
-		],
+			]
+		},
 		submitApi: '#'
 	};
 
@@ -360,12 +307,12 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Allocation details'
 				},
 				value: {
-					html: data.appeal.allocationDetails
+					html: appealDetails.allocationDetails
 						? `
-						Level: ${data.appeal.allocationDetails.level}<br />
-						Band: ${data.appeal.allocationDetails.band}<br />
+						Level: ${appealDetails.allocationDetails.level}<br />
+						Band: ${appealDetails.allocationDetails.band}<br />
 						Specialisms:
-						<ul class="govuk-!-margin-0"><li>${data.appeal.allocationDetails.specialisms.join(
+						<ul class="govuk-!-margin-0"><li>${appealDetails.allocationDetails.specialisms.join(
 							'</li><li>'
 						)}</li></ul>
 					`
@@ -374,55 +321,51 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				actions: {
 					items: [
 						{
-							text: data.appeal.allocationDetails ? 'Change' : 'Add',
+							text: appealDetails.allocationDetails ? 'Change' : 'Add',
 							href: `${currentRoute}/allocation-details/allocation-level`
 						}
 					]
 				}
 			}
 		},
-		input: [
-			//TODO: Multipage change
-			{
-				type: 'checkbox',
-				id: 'allocation-details',
-				name: 'allocationDetails',
-				fieldset: {
-					legend: {
-						text: 'Case Procedure',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
+		input: {
+			// TODO: Multipage change?
+			displayName: 'Allocation details',
+			instructions: [
+				{
+					type: 'checkboxes',
+					properties: {
+						name: 'allocationDetails',
+						items: [
+							{
+								value: '3',
+								text: 'Written Representation',
+								hint: {
+									text: 'For appeals where the issues are clear from written statements and a site visit. This is the quickest and most common way to make an appeal.'
+								},
+								checked: appealDetails.procedureType === 'Written'
+							},
+							{
+								value: '1',
+								text: 'Hearing',
+								hint: {
+									text: 'For appeals with more complex issues. The Inspector leads a discussion to answer questions they have about the appeal.'
+								},
+								checked: appealDetails.procedureType === 'Hearing'
+							},
+							{
+								value: '2',
+								text: 'Inquiry',
+								hint: {
+									text: 'For appeals with very complex issues. Appeal evidence is tested by legal representatives, who question witnesses under oath.'
+								},
+								checked: appealDetails.procedureType === 'Inquiry'
+							}
+						]
 					}
-				},
-				value: data.appeal.procedureType,
-				items: [
-					{
-						value: '3',
-						text: 'Written Representation',
-						hint: {
-							text: 'For appeals where the issues are clear from written statements and a site visit. This is the quickest and most common way to make an appeal.'
-						},
-						checked: data.appeal.procedureType === 'Written'
-					},
-					{
-						value: '1',
-						text: 'Hearing',
-						hint: {
-							text: 'For appeals with more complex issues. The Inspector leads a discussion to answer questions they have about the appeal.'
-						},
-						checked: data.appeal.procedureType === 'Hearing'
-					},
-					{
-						value: '2',
-						text: 'Inquiry',
-						hint: {
-							text: 'For appeals with very complex issues. Appeal evidence is tested by legal representatives, who question witnesses under oath.'
-						},
-						checked: data.appeal.procedureType === 'Inquiry'
-					}
-				]
-			}
-		],
+				}
+			]
+		},
 		submitApi: '#'
 	};
 	/** @type {Instructions} */
@@ -431,10 +374,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'LPA Reference'
+					text: 'LPA reference'
 				},
 				value: {
-					text: data.appeal.appealReference || 'No LPA reference for this appeal'
+					text: appealDetails.appealReference || 'No LPA reference for this appeal'
 				},
 				actions: {
 					items: [
@@ -457,7 +400,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Decision'
 				},
 				value: {
-					text: data.appeal.decision || 'Not issued yet'
+					text: appealDetails.decision || 'Not issued yet'
 				},
 				actions: {
 					items: [
@@ -469,26 +412,24 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'radio',
-				id: 'decision',
-				name: 'appealDecision',
-				fieldset: {
-					legend: {
-						text: 'What was the decision for the appeal?',
-						isPageHeading: true
+		input: {
+			displayName: 'Decision',
+			instructions: [
+				{
+					type: 'radios',
+					properties: {
+						name: 'appealDecision',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.decision),
+						items: [
+							{
+								text: '',
+								value: '#'
+							}
+						]
 					}
-				},
-				value: displayPageFormatter.nullToEmptyString(data.appeal.decision),
-				items: [
-					{
-						text: '####',
-						value: '#'
-					}
-				]
-			}
-		],
+				}
+			]
+		},
 		submitApi: '#'
 	};
 	/** @type {Instructions} */
@@ -497,10 +438,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Site Address'
+					text: 'Site address'
 				},
 				value: {
-					text: addressToString(data.appeal.appealSite)
+					text: appealSiteToAddressString(appealDetails.appealSite)
 				},
 				actions: {
 					items: [
@@ -512,9 +453,10 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: mapAddressInput('What is the site address?', data.appeal.appealSite)
+		input: {
+			instructions: mapAddressInput(appealDetails.appealSite)
+		}
 	};
-
 	/** @type {Instructions} */
 	mappedData.appeal.localPlanningAuthority = {
 		id: 'local-planning-department',
@@ -524,7 +466,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Local planning authority'
 				},
 				value: {
-					text: data.appeal.localPlanningDepartment
+					text: appealDetails.localPlanningDepartment
 				},
 				actions: {
 					items: [
@@ -537,21 +479,20 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 			}
 		}
 	};
-
 	/** @type {Instructions} */
 	mappedData.appeal.appealStatus = {
 		id: 'appeal-status',
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Appeal Status'
+					text: 'Appeal status'
 				},
 				value: {
-					text: data.appeal.appealStatus
+					text: appealDetails.appealStatus
 				}
 			},
 			statusTag: {
-				status: data.appeal.appealStatus,
+				status: appealDetails?.appealStatus || '',
 				classes: 'govuk-!-margin-bottom-4'
 			}
 		}
@@ -566,9 +507,9 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
-						convertFromBooleanToYesNo(data.appeal.inspectorAccess.lpaQuestionnaire.isRequired) ||
+						convertFromBooleanToYesNo(appealDetails.inspectorAccess.lpaQuestionnaire.isRequired) ||
 							'No answer provided',
-						data.appeal.inspectorAccess.lpaQuestionnaire.details
+						appealDetails.inspectorAccess.lpaQuestionnaire.details
 					)
 				},
 				actions: {
@@ -581,40 +522,37 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'radio',
-				id: 'lpa-inspector-access',
-				name: 'lpaInspectorAccess',
-				fieldset: {
-					legend: {
-						text: 'Might the inspector need access to the appellant’s land or property (LPA)?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
+		input: {
+			displayName: "Inspector access (LPA's answer)",
+			instructions: [
+				{
+					type: 'radios',
+					properties: {
+						name: 'lpaInspectorAccess',
+						items: [
+							{
+								text: 'Yes',
+								value: 'yes',
+								conditional: conditionalFormatter(
+									'lpa-inspector-access-text',
+									'lpaInspectorAccessText',
+									'Tell us why the inspector will need to enter the appeal site',
+									displayPageFormatter.nullToEmptyString(
+										appealDetails.inspectorAccess.lpaQuestionnaire.details
+									)
+								),
+								checked: appealDetails.inspectorAccess.lpaQuestionnaire.isRequired
+							},
+							{
+								text: 'No',
+								value: 'no',
+								checked: !appealDetails.inspectorAccess.lpaQuestionnaire.isRequired
+							}
+						]
 					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						conditional: conditionalFormatter(
-							'lpa-inspector-access-text',
-							'lpaInspectorAccessText',
-							'Tell us why the inspector will need to enter the appeal site',
-							displayPageFormatter.nullToEmptyString(
-								data.appeal.inspectorAccess.lpaQuestionnaire.details
-							)
-						),
-						checked: data.appeal.inspectorAccess.lpaQuestionnaire.isRequired
-					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.appeal.inspectorAccess.lpaQuestionnaire.isRequired
-					}
-				]
-			}
-		]
+				}
+			]
+		}
 	};
 	/** @type {Instructions} */
 	mappedData.appeal.appellantInspectorAccess = {
@@ -626,9 +564,9 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
-						convertFromBooleanToYesNo(data.appeal.inspectorAccess.appellantCase.isRequired) ||
+						convertFromBooleanToYesNo(appealDetails.inspectorAccess.appellantCase.isRequired) ||
 							'No answer provided',
-						data.appeal.inspectorAccess.appellantCase.details
+						appealDetails.inspectorAccess.appellantCase.details
 					)
 				},
 				actions: {
@@ -641,40 +579,37 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'radio',
-				id: 'appellant-case-inspector-access',
-				name: 'appellantCaseInspectorAccess',
-				fieldset: {
-					legend: {
-						text: 'Might the inspector need access to the appellant’s land or property (Appellant)?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
+		input: {
+			displayName: "Inspector access (Appellant's answer)",
+			instructions: [
+				{
+					type: 'radios',
+					properties: {
+						name: 'appellantCaseInspectorAccess',
+						items: [
+							{
+								text: 'Yes',
+								value: 'yes',
+								conditional: conditionalFormatter(
+									'appellant-case-inspector-access-text',
+									'appellantCaseInspectorAccessText',
+									'Tell us why the inspector will need to enter the appeal site',
+									displayPageFormatter.nullToEmptyString(
+										appealDetails.inspectorAccess.appellantCase.details
+									)
+								),
+								checked: appealDetails.inspectorAccess.appellantCase.isRequired
+							},
+							{
+								text: 'No',
+								value: 'no',
+								checked: !appealDetails.inspectorAccess.appellantCase.isRequired
+							}
+						]
 					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						conditional: conditionalFormatter(
-							'appellant-case-inspector-access-text',
-							'appellantCaseInspectorAccessText',
-							'Tell us why the inspector will need to enter the appeal site',
-							displayPageFormatter.nullToEmptyString(
-								data.appeal.inspectorAccess.appellantCase.details
-							)
-						),
-						checked: data.appeal.inspectorAccess.appellantCase.isRequired
-					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.appeal.inspectorAccess.appellantCase.isRequired
-					}
-				]
-			}
-		]
+				}
+			]
+		}
 	};
 	/** @type {Instructions} */
 	mappedData.appeal.neighbouringSiteIsAffected = {
@@ -686,7 +621,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				},
 				value: {
 					html:
-						convertFromBooleanToYesNo(data.appeal.neighbouringSite.isAffected) ||
+						convertFromBooleanToYesNo(appealDetails.neighbouringSite.isAffected) ||
 						'No answer provided'
 				},
 				actions: {
@@ -699,35 +634,35 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'radio',
-				id: 'neighbouring-site-is-affected',
-				name: 'neighbouringSiteIsAffected',
-				fieldset: {
-					legend: {
-						text: 'Could a neighbouring site be affected?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
+		input: {
+			displayName: 'Could a neighbouring site be affected?',
+			instructions: [
+				{
+					type: 'radios',
+					properties: {
+						name: 'neighbouringSiteIsAffected',
+						items: [
+							{
+								text: 'Yes',
+								value: 'yes',
+								checked: appealDetails.neighbouringSite.isAffected
+							},
+							{
+								text: 'No',
+								value: 'no',
+								checked: !appealDetails.neighbouringSite.isAffected
+							}
+						]
 					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						checked: data.appeal.neighbouringSite.isAffected
-					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.appeal.neighbouringSite.isAffected
-					}
-				]
-			}
-		]
+				}
+			]
+		}
 	};
-	if (data.appeal.neighbouringSite.contacts && data.appeal.neighbouringSite.contacts.length > 0) {
-		for (let i = 0; i < data.appeal.neighbouringSite.contacts.length; i++) {
+	if (
+		appealDetails.neighbouringSite.contacts &&
+		appealDetails.neighbouringSite.contacts.length > 0
+	) {
+		for (let i = 0; i < appealDetails.neighbouringSite.contacts.length; i++) {
 			mappedData.appeal[`neighbouringSiteAddress${i}`] = {
 				id: `neighbouring-site-address-${i}`,
 				display: {
@@ -736,7 +671,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 							text: `Neighbour address ${i + 1}`
 						},
 						value: {
-							html: addressToString(data.appeal.neighbouringSite.contacts[i].address)
+							html: appealSiteToAddressString(appealDetails.neighbouringSite.contacts[i].address)
 						},
 						actions: {
 							items: [
@@ -748,10 +683,9 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 						}
 					}
 				},
-				input: mapAddressInput(
-					'What is the neighbours address?',
-					data.appeal.neighbouringSite.contacts[i].address
-				)
+				input: {
+					instructions: mapAddressInput(appealDetails.neighbouringSite.contacts[i].address)
+				}
 			};
 		}
 	}
@@ -765,9 +699,9 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
-						convertFromBooleanToYesNo(data.appeal.healthAndSafety.lpaQuestionnaire.hasIssues) ||
+						convertFromBooleanToYesNo(appealDetails.healthAndSafety.lpaQuestionnaire.hasIssues) ||
 							'No answer provided',
-						data.appeal.healthAndSafety.lpaQuestionnaire.details
+						appealDetails.healthAndSafety.lpaQuestionnaire.details
 					)
 				},
 				actions: {
@@ -780,42 +714,38 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'radio',
-				id: 'lpa-health-and-safety',
-				name: 'lpaHealthAndSafety',
-				fieldset: {
-					legend: {
-						text: 'Are there any health and safety concerns (LPA)?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
+		input: {
+			displayName: "Potential safety risks (LPA's answer)",
+			instructions: [
+				{
+					type: 'radios',
+					properties: {
+						name: 'lpaHealthAndSafety',
+						items: [
+							{
+								text: 'Yes',
+								value: 'yes',
+								conditional: conditionalFormatter(
+									'lpa-health-and-safety-text',
+									'lpaHealthAndSafetyText',
+									'Tell us why the inspector will need to enter the appeal site',
+									displayPageFormatter.nullToEmptyString(
+										appealDetails.healthAndSafety.lpaQuestionnaire.details
+									)
+								),
+								checked: appealDetails.healthAndSafety.lpaQuestionnaire.hasIssues
+							},
+							{
+								text: 'No',
+								value: 'no',
+								checked: !appealDetails.healthAndSafety.lpaQuestionnaire.hasIssues
+							}
+						]
 					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						conditional: conditionalFormatter(
-							'lpa-health-and-safety-text',
-							'lpaHealthAndSafetyText',
-							'Tell us why the inspector will need to enter the appeal site',
-							displayPageFormatter.nullToEmptyString(
-								data.appeal.healthAndSafety.lpaQuestionnaire.details
-							)
-						),
-						checked: data.appeal.healthAndSafety.lpaQuestionnaire.hasIssues
-					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.appeal.healthAndSafety.lpaQuestionnaire.hasIssues
-					}
-				]
-			}
-		]
+				}
+			]
+		}
 	};
-
 	/** @type {Instructions} */
 	mappedData.appeal.appellantHealthAndSafety = {
 		id: 'appellant-case-health-and-safety',
@@ -826,9 +756,9 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
-						convertFromBooleanToYesNo(data.appeal.healthAndSafety.appellantCase.hasIssues) ||
+						convertFromBooleanToYesNo(appealDetails.healthAndSafety.appellantCase.hasIssues) ||
 							'No answer provided',
-						data.appeal.healthAndSafety.appellantCase.details
+						appealDetails.healthAndSafety.appellantCase.details
 					)
 				},
 				actions: {
@@ -841,42 +771,38 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				}
 			}
 		},
-		input: [
-			{
-				type: 'radio',
-				id: 'appellant-case-health-and-safety',
-				name: 'appellantCaseHealthAndSafety',
-				fieldset: {
-					legend: {
-						text: 'Are there any health and safety concerns (Appellant)?',
-						isPageHeading: true,
-						classes: 'govuk-fieldset__legend--l'
+		input: {
+			displayName: "Potential safety risks (Appellant's answer)",
+			instructions: [
+				{
+					type: 'radios',
+					properties: {
+						name: 'appellantCaseHealthAndSafety',
+						items: [
+							{
+								text: 'Yes',
+								value: 'yes',
+								conditional: conditionalFormatter(
+									'appellant-case-health-and-safety-text',
+									'appellantCaseHealthAndSafetyText',
+									'Tell us why the inspector will need to enter the appeal site',
+									displayPageFormatter.nullToEmptyString(
+										appealDetails.healthAndSafety.appellantCase.details
+									)
+								),
+								checked: appealDetails.healthAndSafety.appellantCase.hasIssues
+							},
+							{
+								text: 'No',
+								value: 'no',
+								checked: !appealDetails.healthAndSafety.appellantCase.hasIssues
+							}
+						]
 					}
-				},
-				items: [
-					{
-						text: 'Yes',
-						value: 'yes',
-						conditional: conditionalFormatter(
-							'appellant-case-health-and-safety-text',
-							'appellantCaseHealthAndSafetyText',
-							'Tell us why the inspector will need to enter the appeal site',
-							displayPageFormatter.nullToEmptyString(
-								data.appeal.healthAndSafety.appellantCase.details
-							)
-						),
-						checked: data.appeal.healthAndSafety.appellantCase.hasIssues
-					},
-					{
-						text: 'No',
-						value: 'no',
-						checked: !data.appeal.healthAndSafety.appellantCase.hasIssues
-					}
-				]
-			}
-		]
+				}
+			]
+		}
 	};
-
 	/** @type {Instructions} */
 	mappedData.appeal.visitType = {
 		id: 'set-visit-type',
@@ -886,14 +812,14 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Visit type'
 				},
 				value: {
-					text: data.appeal.siteVisit.visitType
+					text: appealDetails.siteVisit?.visitType || ''
 				},
 				actions: {
 					items: [
 						{
 							text: 'Change',
 							href: `${currentRoute}/site-visit/${
-								data.appeal.siteVisit?.visitType ? 'visit-booked' : 'schedule-visit'
+								appealDetails.siteVisit?.visitType ? 'visit-booked' : 'schedule-visit'
 							}`
 						}
 					]
@@ -910,7 +836,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 					text: 'Start date'
 				},
 				value: {
-					html: dateToDisplayDate(data.appeal.startedAt) || ''
+					html: dateToDisplayDate(appealDetails.startedAt) || ''
 				},
 				actions: {
 					items: []
@@ -928,7 +854,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				},
 				value: {
 					html:
-						dateToDisplayDate(data.appeal.appealTimetable?.lpaQuestionnaireDueDate) ||
+						dateToDisplayDate(appealDetails.appealTimetable?.lpaQuestionnaireDueDate) ||
 						'Due date not yet set'
 				},
 				actions: {
@@ -952,13 +878,13 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				},
 				value: {
 					html:
-						dateToDisplayDate(data.appeal.appealTimetable?.statementReviewDate) ||
+						dateToDisplayDate(appealDetails.appealTimetable?.statementReviewDate) ||
 						'Due date not yet set'
 				},
 				actions: {
 					items: [
 						{
-							text: data.appeal?.statementReviewDate ? 'Change' : 'Schedule',
+							text: appealDetails.appealTimetable?.statementReviewDate ? 'Change' : 'Schedule',
 							href: `${currentRoute}/appeal-timetables/statement-review`
 						}
 					]
@@ -976,13 +902,13 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				},
 				value: {
 					html:
-						dateToDisplayDate(data.appeal.appealTimetable?.finalCommentReviewDate) ||
+						dateToDisplayDate(appealDetails.appealTimetable?.finalCommentReviewDate) ||
 						'Due date not yet set'
 				},
 				actions: {
 					items: [
 						{
-							text: data.appeal?.finalCommentReviewDate ? 'Change' : 'Schedule',
+							text: appealDetails.appealTimetable?.finalCommentReviewDate ? 'Change' : 'Schedule',
 							href: `${currentRoute}/appeal-timetables/final-comment-review`
 						}
 					]
@@ -1001,17 +927,17 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				value: {
 					html:
 						dateAndTimeFormatter(
-							dateToDisplayDate(data.appeal.siteVisit?.visitDate),
-							convert24hTo12hTimeStringFormat(data.appeal.siteVisit?.visitStartTime),
-							convert24hTo12hTimeStringFormat(data.appeal.siteVisit?.visitEndTime)
+							dateToDisplayDate(appealDetails.siteVisit?.visitDate),
+							convert24hTo12hTimeStringFormat(appealDetails.siteVisit?.visitStartTime),
+							convert24hTo12hTimeStringFormat(appealDetails.siteVisit?.visitEndTime)
 						) || 'Visit date not yet set'
 				},
 				actions: {
 					items: [
 						{
-							text: data.appeal.siteVisit?.visitDate ? 'Manage' : 'Schedule',
+							text: appealDetails.siteVisit?.visitDate ? 'Manage' : 'Schedule',
 							href: `${currentRoute}/site-visit/${
-								data.appeal.siteVisit?.visitDate ? 'manage' : 'schedule'
+								appealDetails.siteVisit?.visitDate ? 'manage' : 'schedule'
 							}-visit`
 						}
 					]
@@ -1023,11 +949,11 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	let caseOfficerRowValue = '';
 	let caseOfficerUser;
 
-	if (data.appeal.caseOfficer) {
+	if (appealDetails.caseOfficer) {
 		caseOfficerUser = await usersService.getUserByRoleAndId(
 			config.referenceData.appeals.caseOfficerGroupId,
 			session,
-			data.appeal.caseOfficer
+			appealDetails.caseOfficer
 		);
 		caseOfficerRowValue = caseOfficerUser
 			? `<ul class="govuk-list"><li>${surnameFirstToFullName(caseOfficerUser?.name)}</li><li>${
@@ -1042,7 +968,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Case Officer'
+					text: 'Case officer'
 				},
 				value: {
 					html: caseOfficerRowValue
@@ -1050,7 +976,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				actions: {
 					items: [
 						{
-							text: data.appeal.caseOfficer ? 'Change' : 'Assign',
+							text: appealDetails.caseOfficer ? 'Change' : 'Assign',
 							href: `${currentRoute}/assign-user/case-officer`
 						}
 					]
@@ -1062,11 +988,11 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 	let inspectorRowValue = '';
 	let inspectorUser;
 
-	if (data.appeal.inspector) {
+	if (appealDetails.inspector) {
 		inspectorUser = await usersService.getUserByRoleAndId(
 			config.referenceData.appeals.inspectorGroupId,
 			session,
-			data.appeal.inspector
+			appealDetails.inspector
 		);
 		inspectorRowValue = inspectorUser
 			? `<ul class="govuk-list"><li>${surnameFirstToFullName(inspectorUser?.name)}</li><li>${
@@ -1089,7 +1015,7 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				actions: {
 					items: [
 						{
-							text: data.appeal.inspector ? 'Change' : 'Assign',
+							text: appealDetails.inspector ? 'Change' : 'Assign',
 							href: `${currentRoute}/assign-user/inspector`
 						}
 					]
@@ -1103,19 +1029,19 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			tableItem: [
 				{
-					text: 'Appellant Case'
+					text: 'Appellant case'
 				},
 				{
 					text: displayPageFormatter.mapDocumentStatus(
-						data.appeal?.documentationSummary?.appellantCase?.status
+						appealDetails?.documentationSummary?.appellantCase?.status
 					)
 				},
 				{
-					text: dateToDisplayDate(data.appeal?.documentationSummary?.appellantCase?.dueDate)
+					text: dateToDisplayDate(appealDetails?.documentationSummary?.appellantCase?.dueDate)
 				},
 				{
 					html:
-						data.appeal?.documentationSummary?.appellantCase?.status !== 'not_received'
+						appealDetails?.documentationSummary?.appellantCase?.status !== 'not_received'
 							? `<a href="${currentRoute}/appellant-case" class="govuk-link">Review</a>`
 							: ''
 				}
@@ -1128,20 +1054,20 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			tableItem: [
 				{
-					text: 'LPA Questionnaire'
+					text: 'LPA questionnaire'
 				},
 				{
 					text: displayPageFormatter.mapDocumentStatus(
-						data.appeal?.documentationSummary?.lpaQuestionnaire?.status
+						appealDetails?.documentationSummary?.lpaQuestionnaire?.status
 					)
 				},
 				{
-					text: dateToDisplayDate(data.appeal?.documentationSummary?.lpaQuestionnaire?.dueDate)
+					text: dateToDisplayDate(appealDetails?.documentationSummary?.lpaQuestionnaire?.dueDate)
 				},
 				{
 					html:
-						data.appeal?.documentationSummary?.lpaQuestionnaire?.status !== 'not_received'
-							? `<a href="${currentRoute}/lpa-questionnaire/${data.appeal?.lpaQuestionnaireId}" class="govuk-link">Review</a>`
+						appealDetails?.documentationSummary?.lpaQuestionnaire?.status !== 'not_received'
+							? `<a href="${currentRoute}/lpa-questionnaire/${appealDetails?.lpaQuestionnaireId}" class="govuk-link">Review</a>`
 							: ''
 				}
 			]
@@ -1154,17 +1080,17 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Issue Determination'
+					text: 'Issue determination'
 				},
 				value: {
 					html:
-						dateToDisplayDate(data.appeal.appealTimetable?.issueDeterminationDate) ||
+						dateToDisplayDate(appealDetails.appealTimetable?.issueDeterminationDate) ||
 						'Due date not yet set'
 				},
 				actions: {
 					items: [
 						{
-							text: data.appeal?.issueDeterminationDate ? 'Change' : 'Schedule',
+							text: appealDetails.appealTimetable?.issueDeterminationDate ? 'Change' : 'Schedule',
 							href: `${currentRoute}/appeal-timetables/issue-determination`
 						}
 					]
@@ -1183,12 +1109,12 @@ export async function initialiseAndMapAppealData(data, currentRoute, session) {
 				},
 				value: {
 					html:
-						dateToDisplayDate(data.appeal.appealTimetable?.completeDate) || 'Due date not yet set'
+						dateToDisplayDate(appealDetails.appealTimetable?.completeDate) || 'Due date not yet set'
 				},
 				actions: {
 					items: [
 						{
-							text: data.appealTimetable?.completeDate ? 'Change' : 'Schedule',
+							text: appealDetails.appealTimetable?.completeDate ? 'Change' : 'Schedule',
 							href: `${currentRoute}/change-appeal-details/complete-date`
 						}
 					]

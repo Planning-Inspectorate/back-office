@@ -46,7 +46,7 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
         </div>
     </div>
     <dl class="govuk-summary-list govuk-summary-list--no-border">
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
@@ -57,23 +57,18 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
         <div class="govuk-grid-column-full">
             <form action="" method="POST" novalidate>
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                            <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
-                        </legend>
-                        <div class="govuk-radios" data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
-                                type="radio" value="complete">
-                                <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
-                                type="radio" value="incomplete">
-                                <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                            type="radio" value="complete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                            type="radio" value="incomplete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -98,41 +93,44 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
 exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/check-your-answers should render the check your answers page with the expected content if outcome is "incomplete" and required data is present in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Check your answers before confirming your review</h1>
-                <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Review outcome</dt>
-                        <dd class="govuk-summary-list__value"><span>Incomplete</span>
-                        </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2"> Change<span class="govuk-visually-hidden"> Review outcome</span></a>
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Incomplete reasons</dt>
-                        <dd class="govuk-summary-list__value">
-                            <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
-                                <li>Documents or information are missing:</li>
-                                <li>
-                                    <ul class="">
-                                        <li>test reason text 1</li>
-                                        <li>test reason text 2</li>
-                                    </ul>
-                                </li>
-                                <li>Policies are missing:</li>
-                                <li>
-                                    <ul class="">
-                                        <li>test reason text 1</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete"> Change<span class="govuk-visually-hidden"> Incomplete reasons</span></a>
-                        </dd>
-                    </div>
-                </dl>
-                <div class="govuk-inset-text">Confirming this review will inform the appellant and LPA of the outcome</div>
-                <form                 method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                    </form>
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">Check your answers before confirming your review</h1>
+                </div>
+            </div>
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Review outcome</dt>
+                    <dd class="govuk-summary-list__value">Incomplete</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2"> Change</a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Incomplete reasons</dt>
+                    <dd class="govuk-summary-list__value">
+                        <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
+                            <li>Documents or information are missing:</li>
+                            <li>
+                                <ul class="">
+                                    <li>test reason text 1</li>
+                                    <li>test reason text 2</li>
+                                </ul>
+                            </li>
+                            <li>Policies are missing:</li>
+                            <li>
+                                <ul class="">
+                                    <li>test reason text 1</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete"> Change</a>
+                    </dd>
+                </div>
+            </dl>
+            <div class="govuk-inset-text">Confirming this review will inform the appellant and LPA of the outcome</div>
+            <form             method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+                </form>
         </div>
     </div>
 </main>"
@@ -165,13 +163,12 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
             </div>
         </div>
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
-                <p class="govuk-body">The review of LPA questionnaire is finished.</p>
-                <h2 class="govuk-heading-m">What happens next</h2>
-                <p class="govuk-body">We&#39;ve sent an email to the LPA to confirm their questionnaire is complete
-                    and the the review is finished.</p>
-                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
-                </p>
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2"><span class="govuk-body">The review of LPA questionnaire is finished.</span>
+                <h2                 class="govuk-heading-m">What happens next</h2>
+                    <p class="govuk-body">We&#39;ve sent an email to the LPA to confirm their questionnaire is complete
+                        and the the review is finished.</p>
+                    <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
+                    </p>
             </div>
         </div>
     </div>
@@ -374,13 +371,12 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
             </div>
         </div>
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
-                <p class="govuk-body">The review of LPA questionnaire is finished.</p>
-                <h2 class="govuk-heading-m">What happens next</h2>
-                <p class="govuk-body">We’ve sent an email to the appellant and LPA to confirm their questionnaire
-                    is incomplete, and let them know what to do to complete it.</p>
-                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
-                </p>
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2"><span class="govuk-body">The review of LPA questionnaire is finished.</span>
+                <h2                 class="govuk-heading-m">What happens next</h2>
+                    <p class="govuk-body">We’ve sent an email to the appellant and LPA to confirm their questionnaire
+                        is incomplete, and let them know what to do to complete it.</p>
+                    <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go to case details</a>
+                    </p>
             </div>
         </div>
     </div>
@@ -404,11 +400,9 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -451,133 +445,136 @@ exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-ques
 exports[`LPA Questionnaire review GET /lpa-questionnaire/2/add-document-details/:folderId/ should render the add document details page with one item per unpublished document 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">New supporting documents</h1>
-                <form method="post" novalidate="novalidate">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">New supporting documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph0.jpeg</h2>
                     <div class="govuk-form-group">
-                        <h2 class="govuk-heading-m">ph0.jpeg</h2>
-                        <div class="govuk-form-group">
-                            <input class="govuk-input" id="" name="items[0][documentId]" type="hidden"
-                            value="97260151-4334-407f-a76a-0b5666cbcfa6">
-                        </div>
-                        <div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset" role="group">
-                                <legend class="govuk-fieldset__legend">Date received</legend>
-                                <div class="govuk-date-input" id="items[0]receivedDate">
-                                    <div class="govuk-date-input__item">
-                                        <div class="govuk-form-group">
-                                            <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
-                                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
-                                            id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
-                                            inputmode="numeric">
-                                        </div>
-                                    </div>
-                                    <div class="govuk-date-input__item">
-                                        <div class="govuk-form-group">
-                                            <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
-                                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
-                                            id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
-                                            type="text" inputmode="numeric">
-                                        </div>
-                                    </div>
-                                    <div class="govuk-date-input__item">
-                                        <div class="govuk-form-group">
-                                            <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
-                                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                                            id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
-                                            inputmode="numeric">
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset">
-                                <legend class="govuk-fieldset__legend">Redaction</legend>
-                                <div class="govuk-radios" data-module="govuk-radios">
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
-                                        type="radio" value="redacted">
-                                        <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]">Redacted</label>
-                                    </div>
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="items[0][redactionStatus]-2" name="items[0][redactionStatus]"
-                                        type="radio" value="unredacted">
-                                        <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
-                                    </div>
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
-                                        type="radio" value="no redaction required">
-                                        <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <hr class="govuk-!-margin-top-7">
+                        <input class="govuk-input" id="" name="items[0][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa6">
                     </div>
                     <div class="govuk-form-group">
-                        <h2 class="govuk-heading-m">ph1.jpeg</h2>
-                        <div class="govuk-form-group">
-                            <input class="govuk-input" id="" name="items[1][documentId]" type="hidden"
-                            value="97260151-4334-407f-a76a-0b5666cbcfa7">
-                        </div>
-                        <div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset" role="group">
-                                <legend class="govuk-fieldset__legend">Date received</legend>
-                                <div class="govuk-date-input" id="items[1]receivedDate">
-                                    <div class="govuk-date-input__item">
-                                        <div class="govuk-form-group">
-                                            <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
-                                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
-                                            id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
-                                            inputmode="numeric">
-                                        </div>
-                                    </div>
-                                    <div class="govuk-date-input__item">
-                                        <div class="govuk-form-group">
-                                            <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
-                                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
-                                            id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
-                                            type="text" inputmode="numeric">
-                                        </div>
-                                    </div>
-                                    <div class="govuk-date-input__item">
-                                        <div class="govuk-form-group">
-                                            <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
-                                            <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
-                                            id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
-                                            inputmode="numeric">
-                                        </div>
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[0]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
                                     </div>
                                 </div>
-                            </fieldset>
-                        </div>
-                        <div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset">
-                                <legend class="govuk-fieldset__legend">Redaction</legend>
-                                <div class="govuk-radios" data-module="govuk-radios">
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
-                                        type="radio" value="redacted">
-                                        <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]">Redacted</label>
-                                    </div>
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
-                                        type="radio" value="unredacted">
-                                        <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
-                                    </div>
-                                    <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
-                                        type="radio" value="no redaction required">
-                                        <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
                                     </div>
                                 </div>
-                            </fieldset>
-                        </div>
-                        <hr class="govuk-!-margin-top-7">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
                     </div>
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-2" name="items[0][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="govuk-!-margin-top-7">
+                </div>
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph1.jpeg</h2>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="items[1][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa7">
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[1]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -680,76 +677,80 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
 `;
 
 exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/ should render the manage documents listing page with one document item for each document present in the folder, if the folderId is valid 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-    <h1     class="govuk-heading-l govuk-!-margin-bottom-9">New supporting documents</h1>
-        <table class="govuk-table">
-            <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">Document information</th>
-                    <th scope="col" class="govuk-table__header">Date received</th>
-                    <th scope="col" class="govuk-table__header">Redaction</th>
-                    <th scope="col" class="govuk-table__header">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">
-                        <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf.pdf</a>
-                        </div>
-                        <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
-                            <dd>PDF, 129 KB</dd>
-                        </dl>
-                    </td>
-                    <td class="govuk-table__cell">1 February 2023</td>
-                    <td class="govuk-table__cell">Redacted</td>
-                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
-                        class="govuk-link">View and edit</a>
-                    </td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">
-                        <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/47d8f073-c837-4f07-9161-c1a5626eba56/preview/">sample-20s.mp4</a>
-                        </div>
-                        <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
-                            <dd>MP4, 11.8 MB</dd>
-                        </dl>
-                    </td>
-                    <td class="govuk-table__cell">2 March 2024</td>
-                    <td class="govuk-table__cell">Unredacted</td>
-                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/47d8f073-c837-4f07-9161-c1a5626eba56"
-                        class="govuk-link">View and edit</a>
-                    </td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">
-                        <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/97260151-4334-407f-a76a-0b5666cbcfa6/preview/">ph0.jpeg</a>
-                        </div>
-                        <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
-                            <dd>JPEG, 59 KB</dd>
-                        </dl>
-                    </td>
-                    <td class="govuk-table__cell">3 April 2025</td>
-                    <td class="govuk-table__cell">No redaction required</td>
-                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa6"
-                        class="govuk-link">View and edit</a>
-                    </td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">
-                        <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/97260151-4334-407f-a76a-0b5666cbcfa7/preview/">ph1.jpeg</a>
-                        </div>
-                        <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
-                            <dd>JPEG, 59 KB</dd>
-                        </dl>
-                    </td>
-                    <td class="govuk-table__cell">3 April 2025</td>
-                    <td class="govuk-table__cell">Unredacted</td>
-                    <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa7"
-                        class="govuk-link">View and edit</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">New supporting documents</h1>
+        </div>
+    </div>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Document information</th>
+                <th scope="col" class="govuk-table__header">Date received</th>
+                <th scope="col" class="govuk-table__header">Redaction</th>
+                <th scope="col" class="govuk-table__header">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">
+                    <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf.pdf</a>
+                    </div>
+                    <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
+                        <dd>PDF, 129 KB</dd>
+                    </dl>
+                </td>
+                <td class="govuk-table__cell">1 February 2023</td>
+                <td class="govuk-table__cell">Redacted</td>
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
+                    class="govuk-link">View and edit</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">
+                    <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/47d8f073-c837-4f07-9161-c1a5626eba56/preview/">sample-20s.mp4</a>
+                    </div>
+                    <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
+                        <dd>MP4, 11.8 MB</dd>
+                    </dl>
+                </td>
+                <td class="govuk-table__cell">2 March 2024</td>
+                <td class="govuk-table__cell">Unredacted</td>
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/47d8f073-c837-4f07-9161-c1a5626eba56"
+                    class="govuk-link">View and edit</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">
+                    <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/97260151-4334-407f-a76a-0b5666cbcfa6/preview/">ph0.jpeg</a>
+                    </div>
+                    <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
+                        <dd>JPEG, 59 KB</dd>
+                    </dl>
+                </td>
+                <td class="govuk-table__cell">3 April 2025</td>
+                <td class="govuk-table__cell">No redaction required</td>
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa6"
+                    class="govuk-link">View and edit</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">
+                    <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/97260151-4334-407f-a76a-0b5666cbcfa7/preview/">ph1.jpeg</a>
+                    </div>
+                    <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
+                        <dd>JPEG, 59 KB</dd>
+                    </dl>
+                </td>
+                <td class="govuk-table__cell">3 April 2025</td>
+                <td class="govuk-table__cell">Unredacted</td>
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa7"
+                    class="govuk-link">View and edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </main>"
 `;
 
@@ -782,72 +783,76 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
 `;
 
 exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-    <h1     class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf.pdf</h1>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
-                        <dd class="govuk-summary-list__value"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf.pdf</a>
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Version</dt>
-                        <dd class="govuk-summary-list__value">1</dd>
-                    </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
-                        <dd class="govuk-summary-list__value">1 February 2023</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change</a>
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
-                        <dd class="govuk-summary-list__value">Redacted</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change</a>
-                        </dd>
-                    </div>
-                </dl><a href="#" role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
-                data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
-                <a                 href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                data-module="govuk-button" id="remove-document">Remove this document</a>
-            </div>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf.pdf</h1>
         </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
-                <h2>Document history</h2>
-                <p class="govuk-body">See version history, a change log or remove old documents</p>
-                <details                 class="govuk-details" data-module="govuk-details">
-                    <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
-                    </summary>
-                    <div class="govuk-details__text">
-                        <table class="govuk-table govuk-!-font-size-16">
-                            <thead class="govuk-table__head">
-                                <tr class="govuk-table__row">
-                                    <th scope="col" class="govuk-table__header">Version</th>
-                                    <th scope="col" class="govuk-table__header">Document name</th>
-                                    <th scope="col" class="govuk-table__header">Activity</th>
-                                    <th scope="col" class="govuk-table__header">Redaction</th>
-                                    <th scope="col" class="govuk-table__header">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="govuk-table__body">
-                                <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell">1</td>
-                                    <td class="govuk-table__cell"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf.pdf</a>
-                                        <br><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-top-3">CURRENT VERSION</strong>
-                                    </td>
-                                    <td class="govuk-table__cell">
-                                        <p class="govuk-body"><strong>Create</strong>: 13:14, 31 October 2023,
-                                            <br>by John Smith</p>
-                                    </td>
-                                    <td class="govuk-table__cell">Redacted</td>
-                                    <td class="govuk-table__cell"><a class="govuk-link" href="#">Remove</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    </details>
-            </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf.pdf</a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">1</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                    <dd class="govuk-summary-list__value">1 February 2023</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change</a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                    <dd class="govuk-summary-list__value">Redacted</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change</a>
+                    </dd>
+                </div>
+            </dl><a href="#" role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
+            data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
+            <a             href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button" id="remove-document">Remove this document</a>
         </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h2>Document history</h2>
+            <p class="govuk-body">See version history, a change log or remove old documents</p>
+            <details             class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+                </summary>
+                <div class="govuk-details__text">
+                    <table class="govuk-table govuk-!-font-size-16">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf.pdf</a>
+                                    <br><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-top-3">CURRENT VERSION</strong>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="govuk-body"><strong>Create</strong>: 13:14, 31 October 2023,
+                                        <br>by John Smith</p>
+                                </td>
+                                <td class="govuk-table__cell">Redacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href="#">Remove</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </details>
+        </div>
+    </div>
 </main>"
 `;
 
@@ -912,7 +917,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
         </div>
     </div>
     <dl class="govuk-summary-list govuk-summary-list--no-border">
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site Address</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
@@ -923,23 +928,18 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
         <div class="govuk-grid-column-full">
             <form action="" method="POST" novalidate>
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                            <h1 class="govuk-fieldset__heading"> What is the outcome of your review?</h1>
-                        </legend>
-                        <div class="govuk-radios" data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
-                                type="radio" value="complete">
-                                <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
-                                type="radio" value="incomplete">
-                                <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                            type="radio" value="complete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                            type="radio" value="incomplete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -2157,11 +2157,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2222,11 +2220,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2287,11 +2283,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2352,11 +2346,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2417,11 +2409,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2482,11 +2472,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2547,11 +2535,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2612,11 +2598,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2677,11 +2661,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2746,11 +2728,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2809,11 +2789,9 @@ exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-que
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal 351062</span>
+            <h1             class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
+                <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
         </div>
-    </div>
-    <div class="govuk-!-margin-bottom-7">
-        <h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">Update LPA questionnaire due date</h1>
-        <div class="govuk-inset-text">The current due date for the LPA questionnaire is 11 October 2024</div>
     </div>
     <form method="post" novalidate="novalidate">
         <div class="govuk-form-group">
@@ -2869,11 +2847,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -2895,11 +2877,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -2921,11 +2907,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -2947,11 +2937,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -2971,11 +2965,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -2997,11 +2995,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -3023,11 +3025,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -3049,11 +3055,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -3075,11 +3085,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -3101,11 +3115,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -3127,11 +3145,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -3151,11 +3173,15 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
                         </ul>
                     </div>
                 </div>
-            </div><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
-                <form method="post" novalidate="novalidate">
-                    <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
-                </form>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
         </div>
     </div>
 </main>"

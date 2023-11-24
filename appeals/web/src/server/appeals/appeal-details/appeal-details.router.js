@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import lpaQuestionnaireRouter from './lpa-questionaire/lpa-questionnaire.router.js';
+import lpaQuestionnaireRouter from './lpa-questionnaire/lpa-questionnaire.router.js';
 import allocationDetailsRouter from './allocation-details/allocation-details.router.js';
 import appealTimetablesRouter from './appeal-timetables/appeal-timetables.router.js';
 import appellantCaseRouter from './appellant-case/appellant-case.router.js';
@@ -11,7 +11,7 @@ import {
 	assignNewUserRouter
 } from './assign-user/assign-user.router.js';
 import * as controller from './appeal-details.controller.js';
-import changePageRouter from '../question-page/question-page.router.js';
+import changePageRouter from '../change-page/change-page.router.js';
 
 const router = createRouter();
 

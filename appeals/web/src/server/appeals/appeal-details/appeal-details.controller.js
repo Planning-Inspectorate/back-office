@@ -1,16 +1,12 @@
 import logger from '../../lib/logger.js';
 import * as appealDetailsService from './appeal-details.service.js';
-import { appealDetailsPage, backLink, pageHeading } from './appeal-details.mapper.js';
+import { appealDetailsPage } from './appeal-details.mapper.js';
 
 /**
- * @typedef {Object} ViewAppealDetailsRenderOptions
- * @property {Object} backLink
- * @property {string} pageHeading
- * @property {string | null | undefined} appealReference
- * @property {Object} pageContents
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
-
-/** @type {import('@pins/express').RenderHandler<ViewAppealDetailsRenderOptions>}  */
 export const viewAppealDetails = async (request, response) => {
 	const appealDetails = await appealDetailsService
 		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
@@ -20,13 +16,10 @@ export const viewAppealDetails = async (request, response) => {
 
 	if (appealDetails) {
 		const currentUrl = request.originalUrl;
-		const pageComponents = await appealDetailsPage({ appeal: appealDetails }, currentUrl, session);
+		const mappedPageContent = await appealDetailsPage(appealDetails, currentUrl, session);
 
 		response.render('patterns/display-page.pattern.njk', {
-			backLink: backLink,
-			pageHeading: pageHeading,
-			appealReference: appealDetails.appealReference,
-			pageContents: pageComponents
+			pageContent: mappedPageContent
 		});
 	} else {
 		response.render('app/404.njk');

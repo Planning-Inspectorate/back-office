@@ -1,69 +1,102 @@
 import * as displayPageFormatter from '#lib/display-page-formatter.js';
 
 /**
- *
- * @param {string} pageTitle
- * @param {import('@pins/appeals').AppealSite} appealSite
- * @returns {import('./appeal.mapper.js').InputInstruction[]}
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is CheckboxesInputInstruction}
  */
-export function mapAddressInput(pageTitle, appealSite) {
+export function inputInstructionIsCheckboxesInputInstruction(inputOption) {
+	return inputOption.type === 'checkboxes';
+}
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is RadiosInputInstruction}
+ */
+export function inputInstructionIsRadiosInputInstruction(inputOption) {
+	return inputOption.type === 'radios';
+}
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is InputInputInstruction}
+ */
+export function inputInstructionIsInputInputInstruction(inputOption) {
+	return inputOption.type === 'input';
+}
+
+/**
+ * @param {InputInstruction} inputOption
+ * @returns {inputOption is FieldsetInputInstruction}
+ */
+export function inputInstructionIsFieldsetInputInstruction(inputOption) {
+	return inputOption.type === 'fieldset';
+}
+
+/**
+ *
+ * @param {import('@pins/appeals.api').Appeals.AppealSite} appealSite
+ * @returns {InputInstruction[]}
+ */
+export function mapAddressInput(appealSite) {
 	return [
 		{
-			type: 'field-set',
-			legend: {
-				text: pageTitle,
-				isPageHeading: true,
-				classes: 'govuk-fieldset__legend--l'
+			type: 'input',
+			properties: {
+				id: 'address-line-1',
+				name: 'addressLine1',
+				value: displayPageFormatter.nullToEmptyString(appealSite.addressLine1),
+				label: {
+					text: 'Address Line 1',
+					isPageHeading: false
+				}
 			}
 		},
 		{
-			type: 'text-input',
-			id: 'address-line-1',
-			name: 'addressLine1',
-			value: displayPageFormatter.nullToEmptyString(appealSite.addressLine1),
-			label: {
-				text: 'Address Line 1',
-				isPageHeading: false
+			type: 'input',
+			properties: {
+				id: 'address-line-2',
+				name: 'addressLine2',
+				value: displayPageFormatter.nullToEmptyString(appealSite.addressLine2),
+				label: {
+					text: 'Address Line 2',
+					isPageHeading: false
+				}
 			}
 		},
 		{
-			type: 'text-input',
-			id: 'address-line-2',
-			name: 'addressLine2',
-			value: displayPageFormatter.nullToEmptyString(appealSite.addressLine2),
-			label: {
-				text: 'Address Line 2',
-				isPageHeading: false
+			type: 'input',
+			properties: {
+				id: 'address-town',
+				name: 'addressTown',
+				value: displayPageFormatter.nullToEmptyString(appealSite.town),
+				label: {
+					text: 'Town',
+					isPageHeading: false
+				}
 			}
 		},
 		{
-			type: 'text-input',
-			id: 'address-town',
-			name: 'addressTown',
-			value: displayPageFormatter.nullToEmptyString(appealSite.town),
-			label: {
-				text: 'Town',
-				isPageHeading: false
+			type: 'input',
+			properties: {
+				id: 'address-county',
+				name: 'addressCounty',
+				value: displayPageFormatter.nullToEmptyString(appealSite.county),
+				label: {
+					text: 'County',
+					isPageHeading: false
+				}
 			}
 		},
 		{
-			type: 'text-input',
-			id: 'address-county',
-			name: 'addressCounty',
-			value: displayPageFormatter.nullToEmptyString(appealSite.county),
-			label: {
-				text: 'County',
-				isPageHeading: false
-			}
-		},
-		{
-			type: 'text-input',
-			id: 'address-postcode',
-			name: 'addressPostcode',
-			value: displayPageFormatter.nullToEmptyString(appealSite.postCode),
-			label: {
-				text: 'Postcode',
-				isPageHeading: false
+			type: 'input',
+			properties: {
+				id: 'address-postcode',
+				name: 'addressPostcode',
+				value: displayPageFormatter.nullToEmptyString(appealSite.postCode),
+				label: {
+					text: 'Postcode',
+					isPageHeading: false
+				}
 			}
 		}
 	];
