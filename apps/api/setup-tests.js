@@ -387,3 +387,5 @@ jest.unstable_mockModule('got', () => ({
 		post: mockGotPost
 	}
 }));
+
+process.env.APPLICATIONINSIGHTS_CONNECTION_STRING = 'test-string';
