@@ -1,11 +1,10 @@
 import logger from '#lib/logger.js';
-
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { setAppealTimetables } from './appeal-timetables.service.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
 import {
 	routeToObjectMapper,
-	appealTimetablesMapper,
+	mapUpdateDueDatePage,
+	mapConfirmationPage,
 	apiErrorMapper
 } from './appeal-timetables.mapper.js';
 
@@ -17,29 +16,28 @@ import {
  */
 const renderUpdateDueDate = async (request, response, apiErrors) => {
 	const appealDetails = request.currentAppeal;
+
+	if (!appealDetails) {
+		return response.render('app/404.njk');
+	}
+
 	const appealId = appealDetails.appealId;
 	const { timetableType } = request.params;
 	const timetableProperty = routeToObjectMapper[timetableType];
-	const pageContent = appealTimetablesMapper(appealDetails?.appealTimetable, timetableProperty);
+	const mappedPageContent = mapUpdateDueDatePage(
+		appealDetails?.appealTimetable,
+		timetableProperty,
+		appealDetails
+	);
 
-	if (!appealId || !timetableProperty || !pageContent) {
+	if (!appealId || !timetableProperty || !mappedPageContent) {
 		return response.render('app/500.njk');
 	}
 
 	let errors = request.errors || apiErrors;
 
-	const { sideNote, page } = pageContent;
-
 	return response.render('appeals/appeal/update-due-date.njk', {
-		appeal: {
-			id: appealId,
-			shortReference: appealShortReference(appealDetails.appealReference)
-		},
-		sideNote,
-		page,
-		continueButtonText: 'Continue',
-		backButtonUrl: `/appeals-service/appeal-details/${appealId}`,
-		skipButtonUrl: null,
+		pageContent: mappedPageContent,
 		errors
 	});
 };
@@ -131,34 +129,17 @@ const renderConfirmationPage = async (request, response) => {
 	const appealDetails = request.currentAppeal;
 	const timetableProperty = routeToObjectMapper[timetableType];
 
-	const confirmationMap = appealTimetablesMapper(appealDetails?.appealTimetable, timetableProperty);
+	const mappedPageData = mapConfirmationPage(
+		appealDetails?.appealTimetable,
+		timetableProperty,
+		appealDetails
+	);
 
-	if (!confirmationMap?.confirmation) {
+	if (!mappedPageData) {
 		return response.render('app/500.njk');
 	} else {
-		const { title, preTitle, rows } = confirmationMap.confirmation;
-
-		response.render('app/confirmation.njk', {
-			panel: {
-				title,
-				appealReference: {
-					label: 'Appeal ID',
-					reference: appealReference
-				}
-			},
-			body: {
-				preTitle,
-				title: {
-					text: 'What happens next'
-				},
-				rows: [
-					...rows,
-					{
-						text: 'Go back to case details',
-						href: `/appeals-service/appeal-details/${appealId}`
-					}
-				]
-			}
+		response.render('appeals/confirmation.njk', {
+			...mappedPageData
 		});
 	}
 };

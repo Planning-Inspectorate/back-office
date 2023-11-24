@@ -1,5 +1,8 @@
 import logger from '#lib/logger.js';
-import { mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters } from '../appellant-case.mapper.js';
+import {
+	mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters,
+	updateDueDatePage
+} from '../appellant-case.mapper.js';
 import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
@@ -24,15 +27,19 @@ const renderIncompleteReason = async (request, response) => {
 		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
-	if (!appealDetails) {
+	if (
+		!appealDetails ||
+		appealDetails.appellantCaseId === null ||
+		appealDetails.appellantCaseId === undefined
+	) {
 		return response.render('app/404.njk');
 	}
 
 	const appellantCaseResponse = await appellantCaseService
 		.getAppellantCaseFromAppealId(
 			request.apiClient,
-			appealDetails?.appealId,
-			appealDetails?.appellantCaseId
+			appealDetails.appealId,
+			appealDetails.appellantCaseId
 		)
 		.catch((error) => logger.error(error));
 
@@ -93,18 +100,10 @@ const renderUpdateDueDate = async (request, response) => {
 
 	const { appealId, appealReference } = request.session;
 
+	const mappedPageContent = updateDueDatePage(appealId, appealReference);
+
 	return response.render('appeals/appeal/update-due-date.njk', {
-		appeal: {
-			id: appealId,
-			shortReference: appealShortReference(appealReference)
-		},
-		page: {
-			title: 'Appellant case due date',
-			text: 'Update appeal due date'
-		},
-		continueButtonText: 'Save and continue',
-		backButtonUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/incomplete`,
-		skipButtonUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/check-your-answers`,
+		pageContent: mappedPageContent,
 		errors
 	});
 };
@@ -121,7 +120,7 @@ const renderDecisionIncompleteConfirmationPage = async (request, response) => {
 
 	const { appealId, appealReference } = request.session;
 
-	response.render('app/confirmation.njk', {
+	response.render('appeals/confirmation.njk', {
 		panel: {
 			title: 'Appeal incomplete',
 			appealReference: {
@@ -130,7 +129,7 @@ const renderDecisionIncompleteConfirmationPage = async (request, response) => {
 			}
 		},
 		body: {
-			preTitle: 'The appeal has been reviewed.',
+			preHeading: 'The appeal has been reviewed.',
 			title: {
 				text: 'What happens next'
 			},

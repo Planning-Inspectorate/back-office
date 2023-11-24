@@ -2,14 +2,11 @@ import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
 import * as appellantCaseService from './appellant-case.service.js';
 import {
-	mapResponseToSummaryListBuilderParameters,
+	appellantCasePage,
 	mapWebReviewOutcomeToApiReviewOutcome,
-	mapReviewOutcomeToSummaryListBuilderParameters,
-	mapNotificationBannerComponentParameters
+	checkAndConfirmPage
 } from './appellant-case.mapper.js';
-import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
 import {
 	renderDocumentUpload,
 	renderDocumentDetails,
@@ -30,11 +27,11 @@ const renderAppellantCase = async (request, response) => {
 		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 		.catch((error) => logger.error(error));
 
-	if (appealDetails) {
-		const formattedSiteAddress = appealDetails?.appealSite
-			? Object.values(appealDetails?.appealSite)?.join(', ')
-			: 'Address not known';
-
+	if (
+		appealDetails &&
+		appealDetails.appellantCaseId !== null &&
+		appealDetails.appellantCaseId !== undefined
+	) {
 		const appellantCaseResponse = await appellantCaseService
 			.getAppellantCaseFromAppealId(
 				request.apiClient,
@@ -43,37 +40,15 @@ const renderAppellantCase = async (request, response) => {
 			)
 			.catch((error) => logger.error(error));
 
-		const mappedAppellantCaseSections = mapResponseToSummaryListBuilderParameters(
+		const mappedPageContent = appellantCasePage(
 			appellantCaseResponse,
-			response.locals.permissions
-		);
-		const formattedSections = [];
-		for (const section of mappedAppellantCaseSections) {
-			formattedSections.push(generateSummaryList(section));
-		}
-
-		let notificationBannerComponents;
-		const existingValidationOutcome = appellantCaseResponse.validation?.outcome?.toLowerCase();
-
-		notificationBannerComponents = mapNotificationBannerComponentParameters(
-			request.session,
-			existingValidationOutcome,
-			existingValidationOutcome === 'invalid'
-				? appellantCaseResponse.validation?.invalidReasons
-				: appellantCaseResponse.validation?.incompleteReasons,
-			appealDetails?.appealId
+			appealDetails,
+			request.originalUrl,
+			request.session
 		);
 
-		return response.render('appeals/appeal/appellant-case.njk', {
-			appeal: {
-				id: appealDetails?.appealId,
-				reference: appealDetails?.appealReference,
-				shortReference: appealShortReference(appealDetails?.appealReference),
-				siteAddress: formattedSiteAddress ?? 'No site address for this appeal',
-				localPlanningAuthority: appealDetails?.localPlanningDepartment
-			},
-			notificationBannerComponents,
-			summaryList: { formattedSections },
+		return response.render('patterns/display-page.pattern.njk', {
+			pageContent: mappedPageContent,
 			errors
 		});
 	}
@@ -110,33 +85,19 @@ const renderCheckAndConfirm = async (request, response) => {
 			throw new Error('error retrieving invalid reason options');
 		}
 
-		const mappedCheckAndConfirmSection = mapReviewOutcomeToSummaryListBuilderParameters(
+		const mappedPageContent = checkAndConfirmPage(
 			appealId,
+			appealReference,
 			reasonOptions,
 			webAppellantCaseReviewOutcome.validationOutcome,
+			request.session,
 			webAppellantCaseReviewOutcome.reasons,
 			webAppellantCaseReviewOutcome.reasonsText,
 			webAppellantCaseReviewOutcome.updatedDueDate
 		);
-		const formattedSections = [generateSummaryList(mappedCheckAndConfirmSection)];
 
-		return response.render('app/check-and-confirm.njk', {
-			appeal: {
-				id: appealId,
-				shortReference: appealShortReference(appealReference)
-			},
-			page: {
-				title: 'Check answers'
-			},
-			title: {
-				text: 'Check your answers before confirming your review'
-			},
-			insetText: 'Confirming this review will inform the appellant and LPA of the outcome',
-			summaryList: { formattedSections },
-			backLinkUrl:
-				webAppellantCaseReviewOutcome.validationOutcome === 'incomplete'
-					? `/appeals-service/appeal-details/${appealId}/appellant-case/${webAppellantCaseReviewOutcome.validationOutcome}/date`
-					: `/appeals-service/appeal-details/${appealId}/appellant-case/${webAppellantCaseReviewOutcome.validationOutcome}`
+		return response.render('patterns/check-and-confirm-page.pattern.njk', {
+			pageContent: mappedPageContent
 		});
 	} catch (error) {
 		logger.error(
@@ -171,7 +132,11 @@ export const postAppellantCase = async (request, response) => {
 			.getAppealDetailsFromId(request.apiClient, request.params.appealId)
 			.catch((error) => logger.error(error));
 
-		if (appealDetails) {
+		if (
+			appealDetails &&
+			appealDetails.appellantCaseId !== null &&
+			appealDetails.appellantCaseId !== undefined
+		) {
 			const { appealId, appellantCaseId, appealReference } = appealDetails;
 
 			request.session.appealId = appealId;

@@ -1,18 +1,22 @@
 {%- extends "app/layouts/app.layout.njk" -%}
 
-{% from "govuk/components/table/macro.njk" import govukTable %}
-
-{%- set pageTitle = "Manage documents - GOV.UK" -%}
-
-{%- set backLinkUrl -%}
-	{{ backButtonUrl }}
-{%- endset -%}
+{%- set backLinkUrl = pageContent.backLinkUrl -%}
+{%- set backLinkText = pageContent.backLinkText -%}
+{%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
 {%- block pageHeading -%}
-	<span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-	<h1 class="govuk-heading-l govuk-!-margin-bottom-9">{{ folderName }} documents</h1>
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			{%- if pageContent.preHeading -%}<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ pageContent.preHeading }}</span>{%- endif -%}
+			{%- if pageContent.heading -%}<h1 class="govuk-heading-l govuk-!-margin-bottom-9">{{ pageContent.heading }}</h1>{%- endif -%}
+		</div>
+	</div>
 {%- endblock -%}
 
 {%- block pageContent -%}
-	{{ govukTable(tableProperties) }}
+	{%- for component in pageContent.pageComponents -%}
+		{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
+		{%- include "../components/page-component.njk" -%}
+		{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
+	{%- endfor -%}
 {%- endblock -%}

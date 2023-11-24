@@ -49,6 +49,7 @@ interface AppealTimetable {
 	lpaQuestionnaireDueDate: Date | null;
 	statementReviewDate?: Date | null;
 	issueDeterminationDate?: Date | null;
+	completeDate?: Date | null;
 }
 
 interface RepositoryGetAllResultItem {
@@ -198,7 +199,6 @@ interface SingleAppealDetailsResponse {
 		documentId?: string;
 		folderId: number;
 	};
-
 	documentationSummary: DocumentationSummary;
 	healthAndSafety: {
 		appellantCase: {

@@ -1,5 +1,12 @@
-import { Address, AppealSite } from '@pins/appeals';
-import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionaire/lpa-questionnaire.types';
+import { Address } from '@pins/appeals';
+import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionnaire/lpa-questionnaire.types';
+import {
+	SingleAppealDetailsResponse,
+	AppealTimetable,
+	DocumentationSummaryEntry,
+	DocumentationSummary
+} from '@pins/appeals.api/src/server/endpoints/appeals';
+import { SiteVisit } from '@pins/appeals.api/src/database/schema';
 
 export interface AppealHealthAndSafetyEntry {
 	details: string | null;
@@ -11,35 +18,10 @@ export interface AppealHealthAndSafety {
 	lpaQuestionnaire: AppealHealthAndSafetyEntry;
 }
 
-export interface Appeal {
-	agentName: string;
-	allocationDetails: string;
-	appealId: number;
-	appealReference: string;
-	appealSite: Address;
-	appealStatus: string;
-	appealType: string;
-	appellantName: string;
-	appellantCaseId: number;
-	healthAndSafety: AppealHealthAndSafety;
-	procedureType: string;
-	caseOfficer?: string;
-	inspector?: string;
-	developmentType: string;
-	decision?: string;
-	eventType: string;
-	lpaQuestionnaireId?: number | null;
-	linkedAppeals: AppealLink[] | [];
-	localPlanningDepartment: string;
-	otherAppeals: AppealLink[] | [];
-	planningApplicationReference: string;
-	documentationSummary?: AppealDocumentationSummary;
-	startedAt: string | null;
-	appealTimetable: AppealTimetable;
-	siteVisit: AppealSiteVisit;
-	inspectorAccess: AppealInspectorAccess;
-	neighbouringSite: AppealNeighbouringSite;
-	healthAndSafety: AppealHealthAndSafety;
+export interface AppealAllocationDetails {
+	level: string;
+	band: number;
+	specialisms: string[];
 }
 
 export type Contact = {
@@ -57,6 +39,8 @@ export type AppealTimetable = {
 	finalCommentReviewDate: string | null;
 	lpaQuestionnaireDueDate: string | null;
 	statementReviewDate: string | null;
+	issueDeterminationDate: string | null;
+	completeDate: string | null;
 };
 
 export type AppealSiteVisit = {
@@ -306,20 +290,20 @@ export type DesignatedSite =
 export type ScheduleTypeOption = 'Yes, schedule 1' | 'Yes, schedule 2' | 'No';
 
 interface NeighbouringSiteContactsResponse {
-	address: AppealSite;
+	address: Address;
 }
 
 export interface SingleLPAQuestionnaireResponse {
 	affectsListedBuildingDetails: ListedBuildingDetailsResponse | null;
 	appealId: number;
 	appealReference: string;
-	appealSite: AppealSite;
-	communityInfrastructureLevyAdoptionDate?: Date | null;
+	appealSite: Address;
+	communityInfrastructureLevyAdoptionDate?: string | null;
 	designatedSites?: DesignatedSiteDetails[] | null;
 	developmentDescription?: string | null;
 	documents: {
 		communityInfrastructureLevy: FolderInfo | {};
-		conservationAreaMapAndGuidance: FolderInfo | {};
+		conservationAreaMap: FolderInfo | {};
 		consultationResponses: FolderInfo | {};
 		definitiveMapAndStatement: FolderInfo | {};
 		emergingPlans: FolderInfo | {};
@@ -327,16 +311,17 @@ export interface SingleLPAQuestionnaireResponse {
 		issuedScreeningOption: FolderInfo | {};
 		lettersToNeighbours: FolderInfo | {};
 		otherRelevantPolicies: FolderInfo | {};
-		planningOfficersReport: FolderInfo | {};
+		officersReport: FolderInfo | {};
 		policiesFromStatutoryDevelopment: FolderInfo | {};
 		pressAdvert: FolderInfo | {};
 		relevantPartiesNotification: FolderInfo | {};
-		representationsFromOtherParties: FolderInfo | {};
+		representations: FolderInfo | {};
 		responsesOrAdvice: FolderInfo | {};
 		screeningDirection: FolderInfo | {};
-		siteNotice: FolderInfo | {};
+		siteNotices: FolderInfo | {};
 		supplementaryPlanningDocuments: FolderInfo | {};
 		treePreservationOrder: FolderInfo | {};
+		notifyingParties: FolderInfo | {};
 	};
 	doesAffectAListedBuilding?: boolean | null;
 	doesAffectAScheduledMonument?: boolean | null;
@@ -360,6 +345,7 @@ export interface SingleLPAQuestionnaireResponse {
 	includesScreeningOption?: boolean | null;
 	inquiryDays?: number | null;
 	inspectorAccessDetails?: string | null;
+	isAffectingNeighbouringSites: boolean | null;
 	isCommunityInfrastructureLevyFormallyAdopted?: boolean | null;
 	isConservationArea?: boolean | null;
 	isCorrectAppealType: boolean | null;
@@ -373,7 +359,7 @@ export interface SingleLPAQuestionnaireResponse {
 	listedBuildingDetails: ListedBuildingDetailsResponse | null;
 	localPlanningDepartment: string | null;
 	lpaNotificationMethods?: LPANotificationMethodDetails[] | null;
-	lpaQuestionnaireId?: number;
+	lpaQuestionnaireId: number;
 	meetsOrExceedsThresholdOrCriteriaInColumn2?: boolean | null;
 	neighbouringSiteContacts: NeighbouringSiteContactsResponse[] | null;
 	otherAppeals: LinkedAppeal[];
@@ -397,3 +383,38 @@ export interface NotValidReasonResponse {
 }
 
 export type BodyValidationOutcome = Object<string, string | string[]>;
+
+// The following types are required because the corresponding types defined in the API specify Date fields, but the dates are formatted as strings in the API response data
+
+export interface WebAppealTimetable extends AppealTimetable {
+	finalCommentReviewDate?: string | null;
+	lpaQuestionnaireDueDate: string | null;
+	statementReviewDate?: string | null;
+	issueDeterminationDate?: string | null;
+	completeDate?: string | null;
+}
+
+export interface WebSiteVisit extends SiteVisit {
+	visitDate: string | null;
+	siteVisitId: number | null;
+	visitEndTime: string | null;
+	visitStartTime: string | null;
+	visitType: string | null;
+}
+
+export interface WebDocumentationSummaryEntry extends DocumentationSummaryEntry {
+	status: string;
+	dueDate: string | undefined | null;
+}
+
+export interface WebDocumentationSummary extends DocumentationSummary {
+	appellantCase?: WebDocumentationSummaryEntry;
+	lpaQuestionnaire?: WebDocumentationSummaryEntry;
+}
+
+export interface WebAppeal extends SingleAppealDetailsResponse {
+	appealTimetable: WebAppealTimetable | null;
+	siteVisit: WebSiteVisit | null;
+	startedAt: string | null;
+	documentationSummary: WebDocumentationSummary;
+}

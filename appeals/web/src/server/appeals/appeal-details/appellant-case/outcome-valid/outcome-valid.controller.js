@@ -12,7 +12,7 @@ const renderDecisionValidConfirmationPage = async (request, response) => {
 
 	const { appealId, appealReference } = request.session;
 
-	response.render('app/confirmation.njk', {
+	response.render('appeals/confirmation.njk', {
 		panel: {
 			title: 'Appeal valid',
 			appealReference: {
@@ -21,7 +21,7 @@ const renderDecisionValidConfirmationPage = async (request, response) => {
 			}
 		},
 		body: {
-			preTitle: 'The timetable is now created and published.',
+			preHeading: 'The timetable is now created and published.',
 			title: {
 				text: 'What happens next'
 			},
