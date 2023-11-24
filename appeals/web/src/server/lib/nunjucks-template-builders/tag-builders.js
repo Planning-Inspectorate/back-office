@@ -1,4 +1,8 @@
 /**
+ * @typedef {'text' | 'link' | 'unorderedList'} HtmlTagType
+ */
+
+/**
  * @typedef HtmlLink
  * @type {object}
  * @property {string} title

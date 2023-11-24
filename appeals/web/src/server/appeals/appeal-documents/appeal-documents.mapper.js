@@ -666,7 +666,7 @@ const folderPathToFolderNameText = (folderPath) => {
  * @typedef {Object} MappedDocumentRow
  * @property {(string[] | string | HtmlLink[] | HtmlLink)} value
  * @property {ActionItemProperties[]} actions
- * @property {import('#lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType} valueType
+ * @property {import('#lib/nunjucks-template-builders/tag-builders.js').HtmlTagType} valueType
  * @property {{[key: string]: string} | null} [attributes]
  */
 
