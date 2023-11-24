@@ -35,6 +35,19 @@ const validateExistingExaminationTimetableItem = async (value) => {
 	}
 };
 
+/**
+ * Validate that an exam timetable item name is not 'Other'
+ *
+ * @param {string} value
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+const validateExaminationTimetableItemNameNotOther = async (value) => {
+	if (value.toLowerCase() === 'other') {
+		throw new Error('Cannot use exam item name Other');
+	}
+};
+
 export const validateExistingExaminationTimetableItemId = composeMiddleware(
 	param('id')
 		.isInt()
@@ -52,12 +65,10 @@ export const validateCreateExaminationTimetableItem = composeMiddleware(
 		.custom(validateExistingExaminationTimetableType)
 		.withMessage('Must be valid examination type'),
 	body('name')
+		.trim()
 		.notEmpty()
 		.withMessage('Name not be empty')
-		.not()
-		.toUpperCase()
-		.trim()
-		.equals('OTHER')
+		.custom(validateExaminationTimetableItemNameNotOther)
 		.withMessage('Name cannot be Other, please enter another name'),
 	body('description').optional({ nullable: true }),
 	body('date').toDate(),
@@ -81,10 +92,8 @@ export const validateUpdateExaminationTimetableItem = composeMiddleware(
 		.withMessage('Must be valid examination type')
 		.optional({ nullable: true }),
 	body('name')
-		.not()
-		.toUpperCase()
 		.trim()
-		.equals('OTHER')
+		.custom(validateExaminationTimetableItemNameNotOther)
 		.withMessage('Name cannot be Other, please enter another name')
 		.optional({ nullable: true }),
 	body('description').optional({ nullable: true }),
