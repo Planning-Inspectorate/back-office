@@ -345,7 +345,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/applications) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-applications-migration
+              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) npm install $(npm pack $(Build.Repository.LocalPath)/packages/applications) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-applications-migration
               workingDirectory: $(Build.Repository.LocalPath)
           - script: |
               source ~/.bashrc
