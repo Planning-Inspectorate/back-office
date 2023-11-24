@@ -1,4 +1,4 @@
-import { AppealSite } from '@pins/appeals';
+import { Address } from '@pins/appeals';
 import { NotValidReasonOption, NotValidReasonResponse } from '../appeal-details.types';
 
 // TODO: BOAT-245
@@ -31,7 +31,7 @@ export interface AppellantCaseValidationOutcomeRequest {
 }
 
 export interface AppellantCaseValidationOutcomeResponse {
-	outcome: string;
+	outcome: AppellantCaseValidationOutcome;
 	invalidReasons?: NotValidReasonResponse[];
 	incompleteReasons?: NotValidReasonResponse[];
 }
@@ -52,7 +52,7 @@ export interface SingleAppellantCaseResponse {
 	};
 	appealId: number;
 	appealReference: string;
-	appealSite: AppealSite;
+	appealSite: Address;
 	appellantCaseId: number;
 	appellant: {
 		name: string | null;

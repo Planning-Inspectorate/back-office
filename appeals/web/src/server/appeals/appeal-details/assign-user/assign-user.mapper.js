@@ -10,7 +10,7 @@ import config from '#environment/config.js';
 
 /**
  *
- * @param {string|undefined} assignedUserId
+ * @param {string|null|undefined} assignedUserId
  * @param {number} appealId
  * @param {boolean} isInspector
  * @param {SessionWithAuth} session

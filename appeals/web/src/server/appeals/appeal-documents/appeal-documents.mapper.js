@@ -3,8 +3,10 @@ import { dayMonthYearToApiDateString, dateToDisplayDate, dateToDisplayTime } fro
 import { kilobyte, megabyte, gigabyte } from '#appeals/appeal.constants.js';
 import usersService from '#appeals/appeal-users/users-service.js';
 import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
+import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 
 /**
+ * @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} Appeal
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
  * @typedef {import('@pins/appeals.api').Appeals.LatestDocumentVersionInfo} LatestDocumentVersionInfo
@@ -63,7 +65,7 @@ export const mapFolder = (
 };
 
 /**
- * @param {number} appealId
+ * @param {string|number} appealId
  * @param {string} documentId
  */
 export const mapDocumentDownloadUrl = (appealId, documentId) => {
@@ -120,251 +122,402 @@ const mapDocumentFileTypeAndSize = (document) => {
 };
 
 /**
- * @typedef {Object} AddDocumentDetailsItemParams
- * @property {string} documentName
- * @property {string} documentId
- */
-
-/**
- * @typedef {Object} AddDocumentDetailsPageParams
- * @property {string} folderName
- * @property {AddDocumentDetailsItemParams[]} detailsItems
- */
-
-/**
- * @param {FolderInfo} folder
+ * @param {string} backLinkUrl
+ * @param {FolderInfo & {id: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
  * @param {Object<string, any>} bodyItems
- * @returns {AddDocumentDetailsPageParams}
+ * @returns {PageContent}
  */
-export const mapFolderToAddDetailsPageParams = (folder, bodyItems) => ({
-	folderName: folderPathToFolderNameText(folder.path),
-	detailsItems: folder.documents
-		.filter((document) => document.latestDocumentVersion?.published === false)
-		.map((document) => ({
-			documentName: document.name,
-			documentId: document.id,
-			...(bodyItems && {
-				receivedDate: bodyItems.find(
-					(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-				)?.receivedDate,
-				redactionStatus: bodyItems.find(
-					(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-				)?.redactionStatus
-			})
+export function addDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
+	const unpublishedDocuments = folder.documents.filter(
+		(document) => document.latestDocumentVersion?.published === false
+	);
+
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Add document details',
+		backLinkText: 'Back',
+		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
+		preHeading: 'Add document details',
+		heading: `${folderPathToFolderNameText(folder.path)} documents`,
+		pageComponentGroups: unpublishedDocuments.map((document, index) => ({
+			wrapperHtml: {
+				opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
+				closing:
+					index < unpublishedDocuments.length - 1
+						? '<hr class="govuk-!-margin-top-7"></div>'
+						: '</div>'
+			},
+			pageComponents: [
+				{
+					type: 'input',
+					parameters: {
+						type: 'hidden',
+						name: `items[${index}][documentId]`,
+						value: document.id
+					}
+				},
+				{
+					type: 'date-input',
+					parameters: {
+						id: `items[${index}]receivedDate`,
+						namePrefix: `items[${index}][receivedDate]`,
+						fieldset: {
+							legend: {
+								text: 'Date received'
+							}
+						},
+						items: [
+							{
+								classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+								id: `items[${index}].receivedDate.day`,
+								name: '[day]',
+								label: 'Day',
+								value:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.receivedDate.day || ''
+							},
+							{
+								classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+								id: `items[${index}].receivedDate.month`,
+								name: '[month]',
+								label: 'Month',
+								value:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.receivedDate.month || ''
+							},
+							{
+								classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
+								id: `items[${index}].receivedDate.year`,
+								name: '[year]',
+								label: 'Year',
+								value:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.receivedDate.year || ''
+							}
+						]
+					}
+				},
+				{
+					type: 'radios',
+					parameters: {
+						name: `items[${index}][redactionStatus]`,
+						fieldset: {
+							legend: {
+								text: 'Redaction'
+							}
+						},
+						items: [
+							{
+								text: 'Redacted',
+								value: 'redacted',
+								checked:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.redactionStatus === 'redacted'
+							},
+							{
+								text: 'Unredacted',
+								value: 'unredacted',
+								checked:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.redactionStatus === 'unredacted'
+							},
+							{
+								text: 'No redaction required',
+								value: 'no redaction required',
+								checked:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.redactionStatus === 'no redaction required'
+							}
+						]
+					}
+				}
+			]
 		}))
-});
+	};
+
+	return pageContent;
+}
 
 /**
- * @typedef {Object} ManageFolderPageParams
- * @property {string} folderName
- * @property {TableProperties} tableProperties
- */
-
-/**
- *
- * @param {SingleFolderResponse} folder
- * @param {RedactionStatus[]} redactionStatuses
+ * @param {string} backLinkUrl
  * @param {string} viewAndEditUrl
- * @returns {ManageFolderPageParams}
- */
-export const mapFolderToManageFolderPageParameters = (
-	folder,
-	redactionStatuses,
-	viewAndEditUrl
-) => ({
-	folderName: folderPathToFolderNameText(folder.path),
-	tableProperties: {
-		head: [
-			{
-				text: 'Document information'
-			},
-			{
-				text: 'Date received'
-			},
-			{
-				text: 'Redaction'
-			},
-			{
-				text: 'Actions'
-			}
-		],
-		rows: (folder?.documents || []).map((document) => [
-			{
-				html: `${
-					document && document?.id
-						? `<div class="govuk-!-margin-bottom-4">
-							<a class="govuk-link" href="${mapDocumentDownloadUrl(folder.caseId, document.id)}">${
-								document.name || ''
-						  }</a>
-						</div>`
-						: ''
-				}
-					<dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt><dd>${mapDocumentFileTypeAndSize(
-						document
-					)}</dd></dl>
-				`.trim()
-			},
-			{
-				text: dateToDisplayDate(document?.latestDocumentVersion?.dateReceived)
-			},
-			{
-				text:
-					mapRedactionStatusIdToName(
-						redactionStatuses,
-						document?.latestDocumentVersion?.redactionStatus
-					) || ''
-			},
-			{
-				html: `<a href="${viewAndEditUrl
-					.replace('{{folderId}}', folder.id.toString())
-					.replace('{{documentId}}', document.id)}" class="govuk-link">View and edit</a>`
-			}
-		])
-	}
-});
-
-/**
- * @typedef {Object} ManageDocumentPageParams
- * @property {string} documentName
- * @property {SummaryListProperties} summaryListProperties
- * @property {ButtonProperties} updateDocumentButtonProperties
- * @property {ButtonProperties} removeDocumentButtonProperties
- * @property {TableProperties} documentHistoryTableProperties
- */
-
-/**
+ * @param {FolderInfo & {id: string, caseId: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
  * @param {RedactionStatus[]} redactionStatuses
- * @param {DocumentDetails} document
- * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
- * @returns {Promise<ManageDocumentPageParams>}
+ * @returns {PageContent}
  */
-export const mapDocumentDetailsToManageDocumentPageParameters = async (
-	document,
-	redactionStatuses,
-	session
-) => ({
-	documentName: document?.name || '',
-	summaryListProperties: {
-		rows: [
+export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionStatuses) {
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Manage documents',
+		backLinkText: 'Back',
+		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
+		preHeading: 'Manage documents',
+		heading: `${folderPathToFolderNameText(folder.path)} documents`,
+		pageComponents: [
 			{
-				key: { text: 'File' },
-				value: {
-					html:
-						document && document?.caseId && document?.guid
-							? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
-									document.caseId,
-									document.guid
-							  )}">${document.name || ''}</a>`
-							: ''
-				}
-			},
-			{
-				key: { text: 'Version' },
-				value: {
-					text: document?.latestVersionId?.toString() || ''
-				}
-			},
-			{
-				key: { text: 'Date received' },
-				value: {
-					text: dateToDisplayDate(getDocumentLatestVersion(document)?.dateReceived)
-				},
-				actions: {
-					items: [
+				type: 'table',
+				parameters: {
+					head: [
 						{
-							text: 'Change',
-							href: '#'
-						}
-					]
-				}
-			},
-			{
-				key: { text: 'Redaction' },
-				value: {
-					text: mapRedactionStatusIdToName(
-						redactionStatuses,
-						getDocumentLatestVersion(document)?.redactionStatusId
-					)
-				},
-				actions: {
-					items: [
+							text: 'Document information'
+						},
 						{
-							text: 'Change',
-							href: '#'
+							text: 'Date received'
+						},
+						{
+							text: 'Redaction'
+						},
+						{
+							text: 'Actions'
 						}
-					]
+					],
+					rows: (folder?.documents || []).map((document) => [
+						{
+							html: `${
+								document && document?.id
+									? `<div class="govuk-!-margin-bottom-4">
+										<a class="govuk-link" href="${mapDocumentDownloadUrl(folder.caseId, document.id)}">${
+											document.name || ''
+									  }</a>
+									</div>`
+									: ''
+							}
+								<dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt><dd>${mapDocumentFileTypeAndSize(
+									document
+								)}</dd></dl>
+							`.trim()
+						},
+						{
+							text: dateToDisplayDate(document?.latestDocumentVersion?.dateReceived)
+						},
+						{
+							text:
+								mapRedactionStatusIdToName(
+									redactionStatuses,
+									document?.latestDocumentVersion?.redactionStatus
+								) || ''
+						},
+						{
+							html: `<a href="${viewAndEditUrl
+								.replace('{{folderId}}', folder.id.toString())
+								.replace('{{documentId}}', document.id)}" class="govuk-link">View and edit</a>`
+						}
+					])
 				}
 			}
 		]
-	},
-	updateDocumentButtonProperties: {
-		id: 'upload-updated-document',
-		href: '#',
-		classes: 'govuk-!-margin-right-2',
-		text: 'Upload an updated document'
-	},
-	removeDocumentButtonProperties: {
-		id: 'remove-document',
-		href: '#',
-		classes: 'govuk-button--secondary',
-		text: 'Remove this document'
-	},
-	documentHistoryTableProperties: {
-		classes: 'govuk-!-font-size-16',
-		head: [
+	};
+
+	return pageContent;
+}
+
+/**
+ * @param {string} backLinkUrl
+ * @param {RedactionStatus[]} redactionStatuses
+ * @param {DocumentDetails} document
+ * @param {FolderInfo & {id: string, caseId: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
+ * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
+ * @returns {Promise<PageContent>}
+ */
+export async function manageDocumentPage(
+	backLinkUrl,
+	redactionStatuses,
+	document,
+	folder,
+	session
+) {
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Manage documents',
+		backLinkText: 'Back',
+		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
+		preHeading: 'Manage documents',
+		heading: document?.name || '',
+		pageComponentGroups: [
 			{
-				text: 'Version'
+				wrapperHtml: {
+					opening: '<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">',
+					closing: ''
+				},
+				pageComponents: [
+					{
+						type: 'summary-list',
+						parameters: {
+							rows: [
+								{
+									key: { text: 'File' },
+									value: {
+										html:
+											document && document?.caseId && document?.guid
+												? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
+														document.caseId,
+														document.guid
+												  )}">${document.name || ''}</a>`
+												: ''
+									}
+								},
+								{
+									key: { text: 'Version' },
+									value: {
+										text: document?.latestVersionId?.toString() || ''
+									}
+								},
+								{
+									key: { text: 'Date received' },
+									value: {
+										text: dateToDisplayDate(getDocumentLatestVersion(document)?.dateReceived)
+									},
+									actions: {
+										items: [
+											{
+												text: 'Change',
+												href: '#'
+											}
+										]
+									}
+								},
+								{
+									key: { text: 'Redaction' },
+									value: {
+										text: mapRedactionStatusIdToName(
+											redactionStatuses,
+											getDocumentLatestVersion(document)?.redactionStatusId
+										)
+									},
+									actions: {
+										items: [
+											{
+												text: 'Change',
+												href: '#'
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				]
 			},
 			{
-				text: 'Document name'
+				wrapperHtml: {
+					opening: '',
+					closing: '</div></div>'
+				},
+				pageComponents: [
+					{
+						type: 'button',
+						parameters: {
+							id: 'upload-updated-document',
+							href: '#',
+							classes: 'govuk-!-margin-right-2',
+							text: 'Upload an updated document'
+						}
+					},
+					{
+						type: 'button',
+						parameters: {
+							id: 'remove-document',
+							href: '#',
+							classes: 'govuk-button--secondary',
+							text: 'Remove this document'
+						}
+					}
+				]
 			},
 			{
-				text: 'Activity'
-			},
-			{
-				text: 'Redaction'
-			},
-			{
-				text: 'Action'
+				wrapperHtml: {
+					opening:
+						'<div class="govuk-grid-row"><div class="govuk-grid-column-full"><h2>Document history</h2><p class="govuk-body">See version history, a change log or remove old documents</p>',
+					closing: '</div></div>'
+				},
+				pageComponents: [
+					{
+						type: 'details',
+						parameters: {
+							summaryText: 'Document history',
+							html: '',
+							pageComponents: [
+								{
+									type: 'table',
+									parameters: {
+										classes: 'govuk-!-font-size-16',
+										head: [
+											{
+												text: 'Version'
+											},
+											{
+												text: 'Document name'
+											},
+											{
+												text: 'Activity'
+											},
+											{
+												text: 'Redaction'
+											},
+											{
+												text: 'Action'
+											}
+										],
+										rows: await Promise.all(
+											(document.documentVersion || []).map(async (documentVersion) => [
+												{
+													text: documentVersion.version?.toString() || ''
+												},
+												{
+													html:
+														document?.caseId && document?.guid
+															? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
+																	document.caseId,
+																	document.guid
+															  )}">${document.name || ''}</a>${
+																	typeof document.latestVersionId === 'number' &&
+																	typeof documentVersion.version === 'number' &&
+																	documentVersion.version === document.latestVersionId
+																		? `<br/><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-top-3">CURRENT VERSION</strong>`
+																		: ''
+															  }`
+															: ''
+												},
+												{
+													html: await mapDocumentVersionToAuditActivityHtml(
+														documentVersion,
+														document.versionAudit || [],
+														session
+													)
+												},
+												{
+													text: mapRedactionStatusIdToName(
+														redactionStatuses,
+														documentVersion.redactionStatusId
+													)
+												},
+												{
+													html: '<a class="govuk-link" href="#">Remove</a>'
+												}
+											])
+										)
+									}
+								}
+							]
+						}
+					}
+				]
 			}
-		],
-		rows: await Promise.all(
-			(document.documentVersion || []).map(async (documentVersion) => [
-				{
-					text: documentVersion.version?.toString() || ''
-				},
-				{
-					html:
-						document?.caseId && document?.guid
-							? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
-									document.caseId,
-									document.guid
-							  )}">${document.name || ''}</a>${
-									typeof document.latestVersionId === 'number' &&
-									typeof documentVersion.version === 'number' &&
-									documentVersion.version === document.latestVersionId
-										? `<br/><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-top-3">CURRENT VERSION</strong>`
-										: ''
-							  }`
-							: ''
-				},
-				{
-					html: await mapDocumentVersionToAuditActivityHtml(
-						documentVersion,
-						document.versionAudit || [],
-						session
-					)
-				},
-				{
-					text: mapRedactionStatusIdToName(redactionStatuses, documentVersion.redactionStatusId)
-				},
-				{
-					html: '<a class="govuk-link" href="#">Remove</a>'
-				}
-			])
-		)
-	}
-});
+		]
+	};
+
+	pageContent.pageComponentGroups?.forEach((group) =>
+		preRenderPageComponents(group.pageComponents)
+	);
+
+	return pageContent;
+}
 
 /**
  * @param {DocumentDetails} document
@@ -506,7 +659,7 @@ const folderPathToFolderNameText = (folderPath) => {
 		nameText = nameText.slice(0, -9);
 	}
 
-	return nameText;
+	return nameText.trim();
 };
 
 /**
