@@ -33,6 +33,7 @@ export default async function (context, msg) {
 
 		context.log.info(`Employee created: ${id}`);
 	} catch (e) {
-		context.log.error('Error creating appeal', e);
+		context.log.error('Error creating employee', e);
+		throw e;
 	}
 }
