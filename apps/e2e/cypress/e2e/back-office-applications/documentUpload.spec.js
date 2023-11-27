@@ -66,7 +66,7 @@ describe('Upload different types of document and validate the transcript value',
 		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUpload('sample-file.html');
+		fileUpload('NI_Video_Template_2.html');
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		enterDocRefandValidateTranscriptValue();
 	});
@@ -110,7 +110,7 @@ describe('Upload different types of document and validate the transcript value',
 		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUpload('sample-error-file.html');
+		fileUpload('NI_Template_2.html');
 		fileUploadPage.clickLinkByText('View/Edit properties')
 		documentPropertiesPage.enterIncorrectDocumentRefNumber(caseRef);
 		documentPropertiesPage.validateDocumentErrorMessage();

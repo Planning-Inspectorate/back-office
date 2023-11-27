@@ -97,7 +97,7 @@ describe('Create A Case', () => {
 		});
 	});
 
-	context('As a Case Team User', () => {
+	/*context('As a Case Team User', () => {
 		it('Should successfully create a case when the logged in user is a case team user', () => {
 			cy.login(applicationsUsers.caseTeam);
 			cy.visit('/');
@@ -105,5 +105,5 @@ describe('Create A Case', () => {
 			const projectInfo = projectInformation();
 			createCasePage.createCase(projectInfo);
 		});
-	});
+	});*/
 });

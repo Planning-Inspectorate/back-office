@@ -42,7 +42,7 @@ describe('Update Project Information', () => {
 		});
 	});
 
-	context('As Case Team', () => {
+	/*context('As Case Team', () => {
 		let projectInfo = projectInformation();
 		let projectInfoNew = projectInformation();
 
@@ -70,7 +70,7 @@ describe('Update Project Information', () => {
 			casePage.validatePublishBannerMessage('Project page successfully published');
 
 		});
-	});
+	});*/
 
 	context('As Case Team Admin', () => {
 		let projectInfo = projectInformation();

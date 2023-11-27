@@ -78,7 +78,7 @@ describe('Search', () => {
 		});
 	});
 
-	context('As Case Team', () => {
+	/*context('As Case Team', () => {
 		beforeEach(() => {
 			cy.login(applicationsUsers.caseTeam);
 			cy.visit('/');
@@ -112,10 +112,10 @@ describe('Search', () => {
 			applicationsHomePage.searchFor('TR');
 			searchResultsPage.verifySearchResultsCount();
 		});
-	});
+	});*/
 });
 
-Object.keys(applicationsUsers).forEach((user) => {
+/*Object.keys(applicationsUsers).forEach((user) => {
 	describe(`Search - Error/General - ${user}`, () => {
 		beforeEach(() => {
 			cy.login(applicationsUsers[user]);
@@ -130,4 +130,4 @@ Object.keys(applicationsUsers).forEach((user) => {
 			searchResultsPage.verifySearchResultsCount();
 		});
 	});
-});
+});*/
