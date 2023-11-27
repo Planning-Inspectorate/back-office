@@ -3,8 +3,7 @@ import * as appealDetailsService from '../appeal-details.service.js';
 import usersService from '../../appeal-users/users-service.js';
 import config from '#environment/config.js';
 import { setAppealAssignee } from './assign-user.service.js';
-import { mapAssignedUserToSummaryListBuilderParameters } from './assign-user.mapper.js';
-import { generateSummaryList } from '#lib/nunjucks-template-builders/summary-list-builder.js';
+import { assignUserPage } from './assign-user.mapper.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
@@ -31,31 +30,18 @@ const renderAssignUser = async (
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {
-		const currentlyAssignedUser = await mapAssignedUserToSummaryListBuilderParameters(
-			appealDetails[isInspector ? 'inspector' : 'caseOfficer'],
-			appealDetails.appealId,
+		const mappedPageContent = await assignUserPage(
+			appealDetails,
 			isInspector,
+			Array.isArray(usersMatchingSearchTerm),
+			searchTerm,
+			usersMatchingSearchTerm || [],
+			appealDetails[isInspector ? 'inspector' : 'caseOfficer'],
 			request.session
 		);
 
-		let currentAssignee;
-		if (currentlyAssignedUser) {
-			currentAssignee = generateSummaryList(currentlyAssignedUser);
-		}
-
 		return response.render('appeals/appeal/assign-user.njk', {
-			appeal: {
-				id: appealDetails.appealId,
-				reference: appealDetails.appealReference,
-				shortReference: appealShortReference(appealDetails?.appealReference)
-			},
-			isInspector,
-			currentAssignee,
-			search: {
-				term: searchTerm || '',
-				performed: Array.isArray(usersMatchingSearchTerm),
-				results: usersMatchingSearchTerm || []
-			},
+			pageContent: mappedPageContent,
 			errors
 		});
 	}

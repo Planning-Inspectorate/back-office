@@ -18,7 +18,6 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
  * @typedef {import('#appeals/appeal-details/appeal-details.types.js').SingleLPAQuestionnaireResponse} LPAQuestionnaire
  * @typedef {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} Appeal
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
- * @typedef {import('#lib/nunjucks-template-builders/summary-list-builder.js').BuilderParameters} SummaryListBuilderParameters
  * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
  * @typedef {import('../appeal-details.types.js').NotValidReasonResponse} NotValidReasonResponse
  * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
@@ -60,8 +59,7 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 		}
 	};
 	caseSummary.parameters.rows = caseSummary.parameters.rows.map(
-		(/** @type {import('#lib/nunjucks-template-builders/summary-list-builder.js').Row} */ row) =>
-			removeActions(row)
+		(/** @type {SummaryListRowProperties} */ row) => removeActions(row)
 	);
 
 	/** @type {PageComponent[]} */

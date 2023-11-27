@@ -25,7 +25,6 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
  * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedFolderForListBuilder} MappedFolderForListBuilder
  * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedDocumentForListBuilder} MappedDocumentForListBuilder
- * @typedef {import('#lib/nunjucks-template-builders/summary-list-builder.js').HtmlTagType} HtmlTagType
  * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
  */
 
@@ -59,8 +58,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 	};
 
 	appellantCaseSummary.parameters.rows = appellantCaseSummary.parameters.rows.map(
-		(/** @type {import('#lib/nunjucks-template-builders/summary-list-builder.js').Row} */ row) =>
-			removeActions(row)
+		(/** @type {SummaryListRowProperties} */ row) => removeActions(row)
 	);
 
 	/**
