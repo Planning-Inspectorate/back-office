@@ -1,88 +1,30 @@
 {%- extends "app/layouts/app-two-column.layout.njk" -%}
 
-{%- from "govuk/components/input/macro.njk" import govukInput -%}
-{%- from "govuk/components/date-input/macro.njk" import govukDateInput -%}
-{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
 
-{%- set pageTitle = "Add document details - GOV.UK" -%}
-
-{%- set backLinkUrl -%}
-	{{ backButtonUrl }}
-{%- endset -%}
+{%- set backLinkUrl = pageContent.backLinkUrl -%}
+{%- set backLinkText = pageContent.backLinkText -%}
+{%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
 {%- block pageHeading -%}
-	<span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
-	<h1 class="govuk-heading-l govuk-!-margin-bottom-9">{{ documentTypeHeading }} documents</h1>
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			{%- if pageContent.preHeading -%}<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ pageContent.preHeading }}</span>{%- endif -%}
+			{%- if pageContent.heading -%}<h1 class="govuk-heading-l govuk-!-margin-bottom-9">{{ pageContent.heading }}</h1>{%- endif -%}
+		</div>
+	</div>
 {%- endblock -%}
 
 {%- block pageContent -%}
 	<form method="post" novalidate="novalidate">
-		{%- for item in detailsItems -%}
-			<div class="govuk-form-group">
-				<h2 class="govuk-heading-m">{{ item.documentName }}</h2>
-				{{ govukInput({
-					type: 'hidden',
-					name: 'items[' + loop.index0 + '][documentId]',
-					value: item.documentId
-				}) }}
-				{{ govukDateInput({
-					id: 'items[' + loop.index0 + ']receivedDate',
-					namePrefix: 'items[' + loop.index0 + '][receivedDate]',
-					fieldset: {
-						legend: {
-							text: 'Date received'
-						}
-					},
-					items: [
-						{
-							classes: "govuk-input govuk-date-input__input govuk-input--width-2",
-							id: 'items[' + loop.index0 + '].receivedDate.day',
-							name: "[day]",
-							label: "Day",
-							value: item.receivedDate.day if item.receivedDate.day else ''
-						},
-						{
-							classes: "govuk-input govuk-date-input__input govuk-input--width-2",
-							id: 'items[' + loop.index0 + '].receivedDate.month',
-							name: "[month]",
-							label: "Month",
-							value: item.receivedDate.month if item.receivedDate.month else ''
-						},
-						{
-							classes: "govuk-input govuk-date-input__input govuk-input--width-4",
-							id: 'items[' + loop.index0 + '].receivedDate.year',
-							name: "[year]",
-							label: "Year",
-							value: item.receivedDate.year if item.receivedDate.year else ''
-						}
-					]
-				}) }}
-				{{ govukRadios({
-					name: 'items[' + loop.index0 + '][redactionStatus]',
-					fieldset: {
-						legend: {
-							text: 'Redaction'
-						}
-					},
-					items: [{
-						text: 'Redacted',
-						value: 'redacted',
-						checked: item.redactionStatus === 'redacted'
-					},{
-						text: 'Unredacted',
-						value: 'unredacted',
-						checked: item.redactionStatus === 'unredacted'
-					},{
-						text: 'No redaction required',
-						value: 'no redaction required',
-						checked: item.redactionStatus === 'no redaction required'
-					}]
-				}) }}
-				{%- if loop.index0 < (detailsItems | length) -%}
-					<hr class="govuk-!-margin-top-7">
-				{%- endif -%}
-			</div>
+		{%- for componentGroup in pageContent.pageComponentGroups -%}
+			{%- if componentGroup.wrapperHtml -%}{{ componentGroup.wrapperHtml.opening | safe }}{%- endif -%}
+			{%- for component in componentGroup.pageComponents -%}
+				{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
+				{%- include "../components/page-component.njk" -%}
+				{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
+			{%- endfor -%}
+			{%- if componentGroup.wrapperHtml -%}{{ componentGroup.wrapperHtml.closing | safe }}{%- endif -%}
 		{%- endfor -%}
 		{{ govukButton({
 			text: submitButtonText if submitButtonText else "Confirm",

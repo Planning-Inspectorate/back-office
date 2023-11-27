@@ -1,10 +1,13 @@
-{%- extends "app/layouts/app.layout.njk" -%}
-
+{%- extends "app/layouts/app-two-column.layout.njk" -%}
+{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/fieldset/macro.njk" import govukFieldset -%}
 
 {%- set backLinkUrl = pageContent.backLinkUrl -%}
 {%- set backLinkText = pageContent.backLinkText -%}
-{%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
+{%- set pageTitle = (pageContent.title if pageContent.title else 'Change') + ' - GOV.UK' -%}
 
 {%- block pageHeading -%}
 	<div class="govuk-grid-row">
@@ -16,16 +19,15 @@
 {%- endblock -%}
 
 {%- block pageContent -%}
-	<form method="post" novalidate="novalidate">
+	<form method="POST" novalidate="novalidate">
 		{%- for component in pageContent.pageComponents -%}
 			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
-			{%- include "../components/page-component.njk" -%}
+			{%- include "../appeals/components/page-component.njk" -%}
 			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
 		{%- endfor -%}
 		{{ govukButton({
-			text: "Continue",
-			type: "submit",
-			classes: "govuk-!-margin-top-3"
+			text: pageContent.submitButtonText if pageContent.submitButtonText else "Continue",
+			type: "submit"
 		}) }}
 	</form>
 {%- endblock -%}

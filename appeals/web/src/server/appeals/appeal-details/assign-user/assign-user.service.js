@@ -1,4 +1,4 @@
-/** @typedef {import('../appeal-details.types').Appeal} Appeal */
+/** @typedef {import('../appeal-details.types.js').WebAppeal} Appeal */
 
 /**
  *

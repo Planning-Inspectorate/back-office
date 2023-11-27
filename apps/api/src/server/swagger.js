@@ -171,60 +171,6 @@ export const spec = {
 				displayNameCy: 'Region Name Cy'
 			}
 		],
-		ExaminationTimetableTypes: [
-			{
-				id: 1,
-				templateType: 'starttime-mandatory',
-				name: 'Accompanied Site Inspection',
-				displayNameEn: 'Accompanied site inspection',
-				displayNameCy: 'Accompanied site inspection Cy'
-			}
-		],
-		ExaminationTimetableItems: [
-			{
-				id: 1,
-				caseId: 1,
-				examinationTypeId: 1,
-				name: 'Examination Timetable Item',
-				description:
-					'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}',
-				date: '2023-02-27T10:00:00Z',
-				startDate: '2023-02-27T10:00:00Z',
-				published: false,
-				folderId: 134,
-				startTime: '10:20',
-				endTime: '12:20',
-				submissions: true
-			}
-		],
-		ExaminationTimetableItemRequestBody: {
-			caseId: 1,
-			examinationTypeId: 1,
-			name: 'Examination Timetable Item',
-			description:
-				'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}',
-			date: '2023-02-27T10:00:00Z',
-			published: false,
-			folderId: 134,
-			startDate: '2023-02-27T10:00:00Z',
-			startTime: '10:20',
-			endTime: '12:20'
-		},
-		ExaminationTimetableItemResponseBody: {
-			id: 1,
-			caseId: 1,
-			examinationTypeId: 1,
-			name: 'Examination Timetable Item',
-			description:
-				'{"preText":"Examination Timetable Item Description\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}',
-			date: '2023-02-27T10:00:00Z',
-			published: false,
-			folderId: 134,
-			startDate: '2023-02-27T10:00:00Z',
-			startTime: '10:20',
-			endTime: '12:20',
-			submissions: true
-		},
 		DocumentDetails: {
 			documentId: '123',
 			version: 1,
@@ -1416,6 +1362,386 @@ export const spec = {
 						message: {
 							type: 'string'
 						}
+					}
+				}
+			}
+		},
+		ExaminationTimetableType: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'Examination timetable type id', example: 1 },
+				templateType: {
+					type: 'string',
+					description: 'Examination timetable type template type',
+					example: 'starttime-mandatory'
+				},
+				name: {
+					type: 'string',
+					description: 'Examination timetable type name',
+					example: 'Accompanied Site Inspection'
+				},
+				displayNameEn: {
+					type: 'string',
+					description: 'Examination timetable type display name',
+					example: 'Accompanied site inspection'
+				},
+				displayNameCy: {
+					type: 'string',
+					description: 'Examination timetable type display name in Welsh',
+					example: 'Accompanied site inspection Cy'
+				}
+			}
+		},
+		ExaminationTimetableTypes: {
+			type: 'array',
+			items: { $ref: '#/definitions/ExaminationTimetableType' }
+		},
+		ExaminationTimetable: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'Examination timetable id', example: 1 },
+				caseId: { type: 'integer', description: 'Case Id', example: 1 },
+				published: {
+					type: 'boolean',
+					description: 'Is the examination timetable published?',
+					example: true
+				},
+				publishedAt: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Date Examination timetable was published',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				createdAt: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Date created',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				updateAt: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Date last updated',
+					example: '2023-02-01T00:00:00.000Z'
+				}
+			}
+		},
+		ExaminationTimetableWithItems: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'Examination timetable id', example: 1 },
+				caseId: { type: 'integer', description: 'Case Id', example: 1 },
+				published: {
+					type: 'boolean',
+					description: 'Is the examination timetable published?',
+					example: true
+				},
+				publishedAt: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Date Examination timetable was published',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				createdAt: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Date created',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				updateAt: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Date last updated',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				items: {
+					type: 'array',
+					items: { $ref: '#/definitions/ExaminationTimetableItem' }
+				}
+			}
+		},
+		ExaminationTimetableItem: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'Examination timetable item id', example: 1 },
+				examinationTimetableId: {
+					type: 'integer',
+					description: 'Examination timetable parent id',
+					example: 1
+				},
+				examinationTypeId: {
+					type: 'integer',
+					description: 'Examination timetable type id',
+					example: 1
+				},
+				name: {
+					type: 'string',
+					description: 'Examination timetable item name',
+					example: 'Deadline 1'
+				},
+				description: {
+					type: 'string',
+					description: 'Examination timetable item name including line items',
+					example:
+						'{"preText":"Deadline 1 line items\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}'
+				},
+				date: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item date / end date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startDate: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item start date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startTime: {
+					type: 'string',
+					description: 'Examination timetable start time',
+					example: '10:20'
+				},
+				endTime: {
+					type: 'string',
+					description: 'Examination timetable end time',
+					example: '23:59'
+				},
+				folderId: {
+					type: 'integer',
+					description: 'Examination timetable item corresponding folder id',
+					example: 123
+				},
+				createdAt: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Date created',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				ExaminationTimetableType: { $ref: '#/definitions/ExaminationTimetableType' },
+				submissions: {
+					type: 'boolean',
+					description: 'Matching folder contains submissions',
+					example: true
+				}
+			}
+		},
+		ExaminationTimetableItemWithExamTimetable: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'Examination timetable item id', example: 1 },
+				examinationTimetableId: {
+					type: 'integer',
+					description: 'Examination timetable parent id',
+					example: 1
+				},
+				examinationTypeId: {
+					type: 'integer',
+					description: 'Examination timetable type id',
+					example: 1
+				},
+				name: {
+					type: 'string',
+					description: 'Examination timetable item name',
+					example: 'Deadline 1'
+				},
+				description: {
+					type: 'string',
+					description: 'Examination timetable item name including line items',
+					example:
+						'{"preText":"Deadline 1 line items\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}'
+				},
+				date: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item date / end date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startDate: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item start date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startTime: {
+					type: 'string',
+					description: 'Examination timetable start time',
+					example: '10:20'
+				},
+				endTime: {
+					type: 'string',
+					description: 'Examination timetable end time',
+					example: '23:59'
+				},
+				folderId: {
+					type: 'integer',
+					description: 'Examination timetable item corresponding folder id',
+					example: 123
+				},
+				createdAt: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Date created',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				ExaminationTimetableType: { $ref: '#/definitions/ExaminationTimetableType' },
+				ExaminationTimetable: { $ref: '#/definitions/ExaminationTimetable' },
+				submissions: {
+					type: 'boolean',
+					description: 'Matching folder contains submissions',
+					example: true
+				}
+			}
+		},
+		ExaminationTimetableItemCreateRequestBody: {
+			type: 'object',
+			properties: {
+				caseId: { type: 'integer', description: 'Case id', example: 1 },
+				examinationTypeId: {
+					type: 'integer',
+					description: 'Examination timetable type id',
+					example: 1
+				},
+				name: {
+					type: 'string',
+					description: 'Examination timetable item name',
+					example: 'Deadline 1'
+				},
+				description: {
+					type: 'string',
+					description: 'Examination timetable item name including line items',
+					example:
+						'{"preText":"Deadline 1 line items\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}'
+				},
+				date: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item date / end date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startDate: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item start date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startTime: {
+					type: 'string',
+					description: 'Examination timetable start time',
+					example: '10:20'
+				},
+				endTime: { type: 'string', description: 'Examination timetable end time', example: '23:59' }
+			}
+		},
+		ExaminationTimetableItemUpdateRequestBody: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'Examination timetable item id', example: 1 },
+				caseId: { type: 'integer', description: 'Case id', example: 1 },
+				examinationTypeId: {
+					type: 'integer',
+					description: 'Examination timetable type id',
+					example: 1
+				},
+				name: {
+					type: 'string',
+					description: 'Examination timetable item name',
+					example: 'Deadline 1'
+				},
+				description: {
+					type: 'string',
+					description: 'Examination timetable item name including line items',
+					example:
+						'{"preText":"Deadline 1 line items\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}'
+				},
+				date: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item date / end date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startDate: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item start date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startTime: {
+					type: 'string',
+					description: 'Examination timetable start time',
+					example: '10:20'
+				},
+				endTime: { type: 'string', description: 'Examination timetable end time', example: '23:59' }
+			}
+		},
+		ExaminationTimetableItemSaveResponse: {
+			type: 'object',
+			properties: {
+				id: { type: 'integer', description: 'Examination timetable item id', example: 1 },
+				examinationTimetableId: {
+					type: 'integer',
+					description: 'Examination timetable parent id',
+					example: 1
+				},
+				examinationTypeId: {
+					type: 'integer',
+					description: 'Examination timetable type id',
+					example: 1
+				},
+				name: {
+					type: 'string',
+					description: 'Examination timetable item name',
+					example: 'Deadline 1'
+				},
+				description: {
+					type: 'string',
+					description: 'Examination timetable item name including line items',
+					example:
+						'{"preText":"Deadline 1 line items\\r\\n","bulletPoints":[" Line item 1\\r\\n"," Line item 2"]}'
+				},
+				date: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item date / end date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startDate: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Examination timetable item start date',
+					example: '2023-02-01T00:00:00.000Z'
+				},
+				startTime: {
+					type: 'string',
+					description: 'Examination timetable start time',
+					example: '10:20'
+				},
+				endTime: {
+					type: 'string',
+					description: 'Examination timetable end time',
+					example: '23:59'
+				},
+				folderId: {
+					type: 'integer',
+					description: 'Examination timetable item corresponding folder id',
+					example: 123
+				},
+				createdAt: {
+					type: 'string',
+					string: 'date-time',
+					description: 'Date created',
+					example: '2023-02-01T00:00:00.000Z'
+				}
+			}
+		},
+		ExaminationTimetableItemSaveBadRequest: {
+			type: 'object',
+			properties: {
+				errors: {
+					type: 'object',
+					properties: {
+						caseId: { type: 'string', example: 'Must be valid case id' },
+						examinationTypeId: { type: 'string', example: 'Must be valid examination type' }
 					}
 				}
 			}

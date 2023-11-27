@@ -1,19 +1,27 @@
 import { dateToDisplayDate } from '#lib/dates.js';
+import { capitalize } from 'lodash-es';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
- * @typedef AppealTimetablesMap
- * @type {object}
+ * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
+ */
+
+/**
+ * @typedef {Object} AppealTimetablesMap
  * @property {string | null | undefined} sideNote
  * @property { object } page
  * @property { AppealTimetablesConfirmation } confirmation
  */
 
 /**
- * @typedef AppealTimetablesConfirmation
- * @type {object}
+ * @typedef {Object} AppealTimetablesConfirmation
  * @property { string } title
- * @property { string } preTitle
+ * @property { string } preHeading
  * @property { object[] } rows
+ */
+
+/**
+ * @typedef {'finalCommentReviewDate' | 'issueDeterminationDate' | 'lpaQuestionnaireDueDate' | 'statementReviewDate'} AppealTimetableType
  */
 
 /**
@@ -28,87 +36,80 @@ export const routeToObjectMapper = {
 
 /**
  * @param {import('./appeal-timetables.service.js').AppealTimetables} appealTimetables
- * @param { 'finalCommentReviewDate' | 'issueDeterminationDate' | 'lpaQuestionnaireDueDate' | 'statementReviewDate' } timetableProperty
- * @returns {AppealTimetablesMap | undefined}
+ * @param {AppealTimetableType} timetableType
+ * @param {Appeal} appealDetails
+ * @returns {PageContent}
  */
-export const appealTimetablesMapper = (appealTimetables, timetableProperty) => {
-	const currentDueDateIso = appealTimetables && appealTimetables[timetableProperty];
+export const mapUpdateDueDatePage = (appealTimetables, timetableType, appealDetails) => {
+	const currentDueDateIso = appealTimetables && appealTimetables[timetableType];
 	const currentDueDate = currentDueDateIso && dateToDisplayDate(currentDueDateIso);
 	const changeOrScheduleText = currentDueDate ? 'Change' : 'Schedule';
+	const timetableTypeText = getTimetableTypeText(timetableType);
 
-	if (timetableProperty === 'finalCommentReviewDate') {
-		return {
-			sideNote:
-				currentDueDate && `The current due date for the final comment review is ${currentDueDate}`,
-			page: {
-				title: 'Final comment review due date',
-				text: `${changeOrScheduleText} final comment review due date`
-			},
-			confirmation: {
-				title: 'Final comment review due date updated',
-				preTitle: 'The due date for the final comment review due date has been updated.',
-				rows: [
-					{
-						text: 'We’ve sent an email to the appellant to inform them about changes to the timetable.'
-					}
-				]
+	/** @type {PageContent} */
+	const pageContent = {
+		title: `Update${timetableTypeText ? ' ' + capitalize(timetableTypeText) : ''} due date`,
+		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
+		preHeading: `Appeal ${appealShortReference(appealDetails.appealReference)}`,
+		heading: `${changeOrScheduleText} ${timetableTypeText} due date`,
+		submitButtonText: 'Continue',
+		pageComponents: []
+	};
+
+	if (currentDueDate) {
+		pageContent.pageComponents?.push({
+			type: 'inset-text',
+			parameters: {
+				text: `The current due date for the ${timetableTypeText} is ${currentDueDate}`,
+				classes: 'govuk-!-margin-bottom-7'
 			}
-		};
-	} else if (timetableProperty === 'issueDeterminationDate') {
-		return {
-			sideNote:
-				currentDueDate && `The current due date for the issue determination is ${currentDueDate}`,
-			page: {
-				title: 'Issue determination due date',
-				text: `${changeOrScheduleText} issue determination due date`
-			},
-			confirmation: {
-				title: 'Issue determination due date updated',
-				preTitle: 'The due date for the issue determination has been updated.',
-				rows: [
-					{
-						text: 'We’ve sent an email to the appellant to inform them about changes to the timetable.'
-					}
-				]
-			}
-		};
-	} else if (timetableProperty === 'lpaQuestionnaireDueDate') {
-		return {
-			sideNote:
-				currentDueDate && `The current due date for the LPA questionnaire is ${currentDueDate}`,
-			page: {
-				title: 'LPA questionnaire due date',
-				text: `${changeOrScheduleText} LPA questionnaire due date`
-			},
-			confirmation: {
-				title: 'LPA questionnaire due date updated',
-				preTitle: 'The due date for the LPA questionnaire has been updated.',
-				rows: [
-					{
-						text: 'We’ve sent an email to the appellant and LPA to inform them about changes to the timetable.'
-					}
-				]
-			}
-		};
-	} else if (timetableProperty === 'statementReviewDate') {
-		return {
-			sideNote:
-				currentDueDate && `The current due date for the statement review is ${currentDueDate}`,
-			page: {
-				title: 'Statement review due date',
-				text: `${changeOrScheduleText} statement review due date`
-			},
-			confirmation: {
-				title: 'Statement review due date updated',
-				preTitle: 'The due date for the statement review has been updated.',
-				rows: [
-					{
-						text: 'We’ve sent an email to the appellant to inform them about changes to the timetable.'
-					}
-				]
-			}
-		};
+		});
 	}
+
+	return pageContent;
+};
+
+/**
+ * @param {import('./appeal-timetables.service.js').AppealTimetables} appealTimetables
+ * @param {AppealTimetableType} timetableType
+ * @param {Appeal} appealDetails
+ * @returns {ConfirmationPageContent}
+ */
+export const mapConfirmationPage = (appealTimetables, timetableType, appealDetails) => {
+	const timetableTypeText = getTimetableTypeText(timetableType);
+	const titleText =
+		timetableType === 'lpaQuestionnaireDueDate' ? timetableTypeText : capitalize(timetableTypeText);
+
+	/** @type {ConfirmationPageContent} */
+	const confirmationPage = {
+		pageTitle: `${titleText} due date updated`,
+		panel: {
+			title: `${titleText} due date updated`,
+			appealReference: {
+				label: 'Appeal ID',
+				reference: appealDetails.appealReference
+			}
+		},
+		body: {
+			preHeading: `The due date for the ${titleText} has been updated.`,
+			title: {
+				text: 'What happens next'
+			},
+			rows: [
+				{
+					text: `We’ve sent an email to the appellant${
+						timetableType === 'lpaQuestionnaireDueDate' ? ' and LPA' : ''
+					} to inform them about changes to the timetable.`
+				},
+				{
+					text: 'Go back to case details',
+					href: `/appeals-service/appeal-details/${appealDetails.appealId}`
+				}
+			]
+		}
+	};
+
+	return confirmationPage;
 };
 
 /**
@@ -124,3 +125,22 @@ export const apiErrorMapper = (updatedDueDateDay, apiError) => ({
 		location: 'body'
 	}
 });
+
+/**
+ * @param {AppealTimetableType} timetableType
+ * @returns {string}
+ */
+const getTimetableTypeText = (timetableType) => {
+	switch (timetableType) {
+		case 'finalCommentReviewDate':
+			return 'final comment review';
+		case 'issueDeterminationDate':
+			return 'issue determination';
+		case 'lpaQuestionnaireDueDate':
+			return 'LPA questionnaire';
+		case 'statementReviewDate':
+			return 'statement review';
+		default:
+			return '';
+	}
+};

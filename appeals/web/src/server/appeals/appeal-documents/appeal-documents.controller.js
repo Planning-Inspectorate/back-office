@@ -1,6 +1,5 @@
 import config from '@pins/appeals.web/environment/config.js';
 import logger from '#lib/logger.js';
-import { mapFolderToAddDetailsPageParams } from './appeal-documents.mapper.js';
 import {
 	getDocumentRedactionStatuses,
 	updateDocuments,
@@ -8,8 +7,9 @@ import {
 } from './appeal.documents.service.js';
 import {
 	mapDocumentDetailsFormDataToAPIRequest,
-	mapFolderToManageFolderPageParameters,
-	mapDocumentDetailsToManageDocumentPageParameters
+	addDocumentDetailsPage,
+	manageFolderPage,
+	manageDocumentPage
 } from './appeal-documents.mapper.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
@@ -64,12 +64,10 @@ export const renderDocumentDetails = async (request, response, backButtonUrl) =>
 		return response.status(404).render('app/404.njk');
 	}
 
-	const mappedDocumentData = mapFolderToAddDetailsPageParams(currentFolder, body?.items);
+	const mappedPageContent = addDocumentDetailsPage(backButtonUrl, currentFolder, body?.items);
 
 	return response.render('appeals/documents/add-document-details.njk', {
-		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
-		documentTypeHeading: mappedDocumentData.folderName,
-		detailsItems: mappedDocumentData.detailsItems,
+		pageContent: mappedPageContent,
 		errors
 	});
 };
@@ -94,15 +92,15 @@ export const renderManageFolder = async (request, response, backButtonUrl, viewA
 		return response.render('app/500.njk');
 	}
 
-	const mappedPageParameters = mapFolderToManageFolderPageParameters(
+	const mappedPageContent = manageFolderPage(
+		backButtonUrl,
+		viewAndEditUrl,
 		currentFolder,
-		redactionStatuses,
-		viewAndEditUrl
+		redactionStatuses
 	);
 
 	return response.render('appeals/documents/manage-folder.njk', {
-		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
-		...mappedPageParameters,
+		pageContent: mappedPageContent,
 		errors
 	});
 };
@@ -137,15 +135,16 @@ export const renderManageDocument = async (request, response, backButtonUrl) => 
 		return response.render('app/500.njk');
 	}
 
-	const mappedPageParameters = await mapDocumentDetailsToManageDocumentPageParameters(
-		document,
+	const mappedPageContent = await manageDocumentPage(
+		backButtonUrl,
 		redactionStatuses,
+		document,
+		currentFolder,
 		request.session
 	);
 
 	return response.render('appeals/documents/manage-document.njk', {
-		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
-		...mappedPageParameters,
+		pageContent: mappedPageContent,
 		errors
 	});
 };

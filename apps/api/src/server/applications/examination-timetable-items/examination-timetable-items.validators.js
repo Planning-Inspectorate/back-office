@@ -1,12 +1,13 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import { param } from 'express-validator';
-import * as examinationTimetableTypesRepository from '../../repositories/examination-timetable-types.repository.js';
-import * as examinationTimetableItemsRepository from '../../repositories/examination-timetable-items.repository.js';
+import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
+import * as examinationTimetableItemsRepository from '#repositories/examination-timetable-items.repository.js';
 import { validateExistingApplication } from '../application/application.validators.js';
-import { validationErrorHandler } from '../../middleware/error-handler.js';
+import { validationErrorHandler } from '#middleware/error-handler.js';
 
 /**
+ * Validate that an exam timetable item type exists
  *
  * @param {number} value
  * @throws {Error}
@@ -21,6 +22,7 @@ const validateExistingExaminationTimetableType = async (value) => {
 };
 
 /**
+ * Validate that an exam timetable item record exists
  *
  * @param {number} value
  * @throws {Error}
@@ -30,6 +32,19 @@ const validateExistingExaminationTimetableItem = async (value) => {
 	const examinationTimetableItem = await examinationTimetableItemsRepository.getById(value);
 	if (examinationTimetableItem === null) {
 		throw new Error('Unknown examination item id');
+	}
+};
+
+/**
+ * Validate that an exam timetable item name is not 'Other'
+ *
+ * @param {string} value
+ * @throws {Error}
+ * @returns {Promise<void>}
+ */
+const validateExaminationTimetableItemNameNotOther = async (value) => {
+	if (value.toLowerCase() === 'other') {
+		throw new Error('Cannot use exam item name Other');
 	}
 };
 
@@ -49,7 +64,12 @@ export const validateCreateExaminationTimetableItem = composeMiddleware(
 		.toInt()
 		.custom(validateExistingExaminationTimetableType)
 		.withMessage('Must be valid examination type'),
-	body('name').notEmpty().withMessage('Name not be empty'),
+	body('name')
+		.trim()
+		.notEmpty()
+		.withMessage('Name not be empty')
+		.custom(validateExaminationTimetableItemNameNotOther)
+		.withMessage('Name cannot be Other, please enter another name'),
 	body('description').optional({ nullable: true }),
 	body('date').toDate(),
 	body('startDate').toDate().optional({ nullable: true }),
@@ -71,7 +91,11 @@ export const validateUpdateExaminationTimetableItem = composeMiddleware(
 		.custom(validateExistingExaminationTimetableType)
 		.withMessage('Must be valid examination type')
 		.optional({ nullable: true }),
-	body('name').optional({ nullable: true }),
+	body('name')
+		.trim()
+		.custom(validateExaminationTimetableItemNameNotOther)
+		.withMessage('Name cannot be Other, please enter another name')
+		.optional({ nullable: true }),
 	body('description').optional({ nullable: true }),
 	body('date').toDate().optional({ nullable: true }),
 	body('startDate').toDate().optional({ nullable: true }),

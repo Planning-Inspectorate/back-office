@@ -10,7 +10,6 @@ import {
 } from '../dates.js';
 import { appealShortReference } from '../nunjucks-filters/appeals.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
-import { generateSummaryList } from '../nunjucks-template-builders/summary-list-builder.js';
 import { nameToString } from '../person-name-formatter.js';
 import { objectContainsAllKeys } from '../object-utilities.js';
 import { getIdByNameFromIdNamePairs } from '../id-name-pairs.js';
@@ -21,7 +20,7 @@ import {
 import { addConditionalHtml } from '#lib/nunjucks-filters/add-conditional-html.js';
 import {
 	mapReasonOptionsToCheckboxItemParameters,
-	mapReasonsToReasonsList,
+	mapReasonsToReasonsListHtml,
 	getNotValidReasonsTextFromRequestBody
 } from '../mappers/validation-outcome-reasons.mapper.js';
 import {
@@ -90,164 +89,6 @@ describe('Libraries', () => {
 					expect(got).toEqual(want);
 				});
 			}
-		});
-		describe('summary-list-builder', () => {
-			it('should generate 2 summary lists with 2 rows each', () => {
-				const testMappedSections = [
-					{
-						header: 'Section 1',
-						/** @type {import('../nunjucks-template-builders/summary-list-builder.js').Row[]} */
-						rows: [
-							{
-								title: 'Row 1',
-								value: 'Yes',
-								valueType: 'text',
-								actions: [
-									{
-										text: 'Change',
-										href: '#'
-									}
-								]
-							},
-							{
-								title: 'Row 2',
-								value: ['Option One', 'Option two'],
-								valueType: 'text',
-								actions: [
-									{
-										text: 'Change',
-										href: '#'
-									}
-								]
-							}
-						]
-					},
-					{
-						header: 'Section 2',
-						/** @type {import('../nunjucks-template-builders/summary-list-builder.js').Row[]} */
-						rows: [
-							{
-								title: 'Row 3',
-								value: [
-									{ href: 'link', title: 'link', target: '_new' },
-									{ href: 'link', title: 'link', target: '_self' }
-								],
-								valueType: 'link',
-								actions: [
-									{
-										text: 'Details',
-										href: '#'
-									}
-								]
-							},
-							{
-								title: 'Row 4',
-								value: { href: 'link', title: 'link', target: '_new' },
-								valueType: 'link',
-								actions: [
-									{
-										text: 'Details',
-										href: '#'
-									}
-								]
-							}
-						]
-					}
-				];
-				const expectedReturn = [
-					{
-						card: {
-							title: {
-								text: 'Section 1'
-							}
-						},
-						rows: [
-							{
-								key: {
-									text: 'Row 1'
-								},
-								value: {
-									html: '<span>Yes</span>'
-								},
-								actions: {
-									items: [
-										{
-											href: '#',
-											text: 'Change',
-											visuallyHiddenText: 'Row 1'
-										}
-									]
-								}
-							},
-							{
-								key: {
-									text: 'Row 2'
-								},
-								value: {
-									html: '<span>Option One</span><br><span>Option two</span>'
-								},
-								actions: {
-									items: [
-										{
-											href: '#',
-											text: 'Change',
-											visuallyHiddenText: 'Row 2'
-										}
-									]
-								}
-							}
-						]
-					},
-					{
-						card: {
-							title: {
-								text: 'Section 2'
-							}
-						},
-						rows: [
-							{
-								key: {
-									text: 'Row 3'
-								},
-								value: {
-									html: '<a href="link" target="_new" class="govuk-link">link</a><br><a href="link" target="_self" class="govuk-link">link</a>'
-								},
-								actions: {
-									items: [
-										{
-											href: '#',
-											text: 'Details',
-											visuallyHiddenText: 'Row 3'
-										}
-									]
-								}
-							},
-							{
-								key: {
-									text: 'Row 4'
-								},
-								value: {
-									html: '<a href="link" target="_new" class="govuk-link">link</a>'
-								},
-								actions: {
-									items: [
-										{
-											href: '#',
-											text: 'Details',
-											visuallyHiddenText: 'Row 4'
-										}
-									]
-								}
-							}
-						]
-					}
-				];
-				const formattedSections = [];
-				for (const section of testMappedSections) {
-					formattedSections.push(generateSummaryList(section));
-				}
-				expect(formattedSections).toEqual(expectedReturn);
-			});
 		});
 	});
 
@@ -1030,51 +871,51 @@ describe('Libraries', () => {
 			});
 		});
 
-		describe('mapReasonsToReasonsList', () => {
-			it('should return an empty array if reasons is undefined', () => {
-				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, undefined, undefined);
+		describe('mapReasonsToReasonsListHtml', () => {
+			it('should return an empty string if reasons is undefined', () => {
+				const result = mapReasonsToReasonsListHtml(
+					appellantCaseInvalidReasons,
+					undefined,
+					undefined
+				);
 
-				expect(result).toEqual([]);
+				expect(result).toEqual('');
 			});
 
-			it('should return an empty array if reasons is an empty array', () => {
-				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, [], undefined);
+			it('should return an empty string if reasons is an empty array', () => {
+				const result = mapReasonsToReasonsListHtml(appellantCaseInvalidReasons, [], undefined);
 
-				expect(result).toEqual([]);
+				expect(result).toEqual('');
 			});
 
-			it('should return an array of strings or string arrays with the expected properties if reasonsText is undefined', () => {
-				const result = mapReasonsToReasonsList(
+			it('should return a string containing the expected html if reasonsText is undefined', () => {
+				const result = mapReasonsToReasonsListHtml(
 					appellantCaseInvalidReasons,
 					['22', '23'],
 					undefined
 				);
 
-				expect(result).toEqual([
-					'Documents have not been submitted on time',
-					"The appellant doesn't have the right to appeal"
-				]);
+				expect(result).toEqual(
+					'<ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0"><li>Documents have not been submitted on time</li><li>The appellant doesn\'t have the right to appeal</li></ul>'
+				);
 			});
 
-			it('should return an array of strings or string arrays with the expected properties if reasonsText is an empty object', () => {
-				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, ['22', '23'], {});
+			it('should return a string containing the expected html if reasonsText is an empty object', () => {
+				const result = mapReasonsToReasonsListHtml(appellantCaseInvalidReasons, ['22', '23'], {});
 
-				expect(result).toEqual([
-					'Documents have not been submitted on time',
-					"The appellant doesn't have the right to appeal"
-				]);
+				expect(result).toEqual(
+					'<ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0"><li>Documents have not been submitted on time</li><li>The appellant doesn\'t have the right to appeal</li></ul>'
+				);
 			});
 
-			it('should return an array of strings or string arrays with the expected properties if reasons and reasonsText are defined and populated with values', () => {
-				const result = mapReasonsToReasonsList(appellantCaseInvalidReasons, ['22', '23'], {
+			it('should return a string containing the expected html if reasons and reasonsText are defined and populated with values', () => {
+				const result = mapReasonsToReasonsListHtml(appellantCaseInvalidReasons, ['22', '23'], {
 					22: ['test reason text 1', 'test reason text 2']
 				});
 
-				expect(result).toEqual([
-					'Documents have not been submitted on time:',
-					['test reason text 1', 'test reason text 2'],
-					"The appellant doesn't have the right to appeal"
-				]);
+				expect(result).toEqual(
+					'<ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0"><li>Documents have not been submitted on time:</li><li><ul class=""><li>test reason text 1</li><li>test reason text 2</li></ul></li><li>The appellant doesn\'t have the right to appeal</li></ul>'
+				);
 			});
 		});
 

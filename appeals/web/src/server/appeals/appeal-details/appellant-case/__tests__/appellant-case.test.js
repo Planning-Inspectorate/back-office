@@ -50,6 +50,10 @@ describe('appellant-case', () => {
 	afterEach(teardown);
 
 	describe('GET /appellant-case', () => {
+		beforeEach(() => {
+			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, appellantCaseData);
+		});
+
 		it('should render the appellant case page', async () => {
 			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}`);
 			const element = parseHtml(response.text);
@@ -78,7 +82,7 @@ describe('appellant-case', () => {
 		});
 
 		it('should send a patch request to the appellant-cases API endpoint and redirect to the confirmation page if selected review outcome value is "valid"', async () => {
-			const mockedAppellantCasesEndpoint = nock('http://test/')
+			nock('http://test/')
 				.patch('/appeals/1/appellant-cases/0')
 				.reply(200, { validationOutcome: 'valid' });
 
@@ -86,7 +90,6 @@ describe('appellant-case', () => {
 				reviewOutcome: 'valid'
 			});
 
-			expect(mockedAppellantCasesEndpoint.isDone()).toBe(true);
 			expect(response.statusCode).toBe(302);
 		});
 

@@ -3,12 +3,12 @@ import { join, map, pick } from 'lodash-es';
 /**
  * converts a multi part person name to a single string
  *
- * @param {{firstName:string, lastName:string}} applicant
+ * @param {{firstName:string, lastName:string}} firstNameLastName
  * @returns {string}
  */
-export const nameToString = (applicant) => {
+export const nameToString = (firstNameLastName) => {
 	return join(
-		map(pick(applicant, ['firstName', 'lastName']), (value) => {
+		map(pick(firstNameLastName, ['firstName', 'lastName']), (value) => {
 			return value?.trim();
 		}),
 		' '
