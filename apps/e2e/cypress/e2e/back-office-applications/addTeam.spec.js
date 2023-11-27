@@ -16,7 +16,7 @@ const { applications: applicationUsers } = users;
 
 describe('Project team related scenarios ', () => {
 	let projectInfo;
-	const email;
+	let email;
 
 	before(() => {
 		projectInfo = projectInformation();
@@ -24,7 +24,7 @@ describe('Project team related scenarios ', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it.only('Add team member and verify the role is added to project team', () => {
+	it('Add team member and verify the role is added to project team', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.log(applicationUsers.caseAdmin);
 		cy.visit('/');
