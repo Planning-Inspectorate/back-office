@@ -42,7 +42,9 @@ describe('Update Project Information', () => {
 		});
 	});
 
-	context('As Case Team', () => {
+	// Case team email, is not in use. Once after resetting the password, going to uncomment the code.
+
+	/*context('As Case Team', () => {
 		let projectInfo = projectInformation();
 		let projectInfoNew = projectInformation();
 
@@ -70,7 +72,7 @@ describe('Update Project Information', () => {
 			casePage.validatePublishBannerMessage('Project page successfully published');
 
 		});
-	});
+	});*/
 
 	context('As Case Team Admin', () => {
 		let projectInfo = projectInformation();
