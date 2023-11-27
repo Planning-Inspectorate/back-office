@@ -42,7 +42,7 @@ describe('Update Project Information', () => {
 		});
 	});
 
-	// Case team email, is not in use. Once after resetting the password, going to uncomment the code
+	// Case team email, is not in use. Once after resetting the password, going to uncomment the code.
 
 	/*context('As Case Team', () => {
 		let projectInfo = projectInformation();

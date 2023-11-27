@@ -78,7 +78,8 @@ describe('Search', () => {
 		});
 	});
 
-	// Case team email, is not in use. Once after resetting the password, going to uncomment the code
+	// Case team email, is not in use. Once after resetting the password, going to uncomment the code.
+
 	/*context('As Case Team', () => {
 		beforeEach(() => {
 			cy.login(applicationsUsers.caseTeam);
@@ -115,6 +116,8 @@ describe('Search', () => {
 		});
 	});*/
 });
+
+// Case team email, is not in use. Once after resetting the password, going to uncomment the code.
 
 /*Object.keys(applicationsUsers).forEach((user) => {
 	describe(`Search - Error/General - ${user}`, () => {
