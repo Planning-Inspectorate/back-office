@@ -4,7 +4,7 @@ export default joi
 	.object({
 		NODE_ENV: joi.string().valid('development', 'production', 'test'),
 		PORT: joi.number(),
-		APPLICATIONINSIGHTS_CONNECTION_STRING: joi.string(),
+		APPLICATIONINSIGHTS_CONNECTION_STRING: joi.string().optional(),
 		SWAGGER_JSON_DIR: joi.string(),
 		DATABASE_URL: joi.string(),
 		blobStorageUrl: joi.string().when('NODE_ENV', { not: 'production', then: joi.optional() }),
