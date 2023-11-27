@@ -32,6 +32,38 @@ export const getByExaminationTimetableId = (examinationTimetableId) => {
 };
 
 /**
+ * returns all exam timetable item records for this exam timetable, where the item name matches.
+ * ignoreSelfId ignores that record id, used when updating.  For creating a new record, this should be null
+ *
+ * @param {number} examinationTimetableId
+ * @param {string} examinationTimetableName
+ * @param {number |null} ignoreSelfId
+ * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetableItem[] | null>}
+ */
+export const getByExaminationTimetableName = (
+	examinationTimetableId,
+	examinationTimetableName,
+	ignoreSelfId
+) => {
+	let whereClause = {
+		name: examinationTimetableName,
+		examinationTimetableId: examinationTimetableId
+	};
+	if (ignoreSelfId) {
+		// @ts-ignore
+		whereClause.NOT = { id: ignoreSelfId };
+	}
+
+	return databaseConnector.examinationTimetableItem.findMany({
+		include: { ExaminationTimetableType: true },
+		where: whereClause,
+		orderBy: {
+			date: 'asc'
+		}
+	});
+};
+
+/**
  *
  * @param {import('@pins/applications.api').Schema.ExaminationTimetableItem} examinationTimetableItem
  * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetableItem>}

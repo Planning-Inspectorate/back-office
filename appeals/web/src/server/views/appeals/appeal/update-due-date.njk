@@ -4,33 +4,25 @@
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
 {%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
 
-{%- set pageTitle = (page.title if page.title else "Update due date") + " - GOV.UK" -%}
-
-{%- set headerMarginBottom -%}
-	{% if sideNote %}7{% else %}9{% endif %}
-{%- endset -%}
-
-{%- set backLinkUrl -%}
-	{{ backButtonUrl }}
-{%- endset -%}
+{%- set pageTitle = (pageContent.title if pageContent.title else "Update due date") + " - GOV.UK" -%}
+{%- set backLinkText = pageContent.backLinkText -%}
+{%- set backLinkUrl = pageContent.backLinkUrl -%}
 
 {%- block pageHeading -%}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
-			<span class="govuk-caption-xl govuk-!-margin-bottom-1">Appeal {{ appeal.shortReference }}</span>
+			<span class="govuk-caption-xl govuk-!-margin-bottom-1">{{ pageContent.preHeading }}</span>
+			<h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">{{ pageContent.heading }}</h1>
+			{%- for component in pageContent.pageComponents -%}
+				{%- if component.type === 'inset-text' -%}
+					{{ govukInsetText(component.parameters) }}
+				{%- endif -%}
+			{%- endfor -%}
 		</div>
 	</div>
 {%- endblock -%}
 
 {%- block pageContent -%}
-	<div class="govuk-!-margin-bottom-{{ headerMarginBottom }}">
-		<h1 class="govuk-fieldset__legend--xl govuk-!-margin-top-0">{{ page.text }}</h1>
-		{% if sideNote %}
-			{{ govukInsetText({
-				text: sideNote
-			}) }}
-		{% endif %}
-	</div>
 	<form method="post" novalidate="novalidate">
 		{{ govukDateInput({
 			id: "due-date",
@@ -39,22 +31,21 @@
 				text: "For example, 27 3 2007"
 			}
 		}) }}
-		{% if skipButtonUrl %}
+		{% if pageContent.skipButtonUrl %}
 			<p class="govuk-body">If the existing due date still applies, please skip to the confirmation screen.</p>
 		{% endif %}
 		<div class="govuk-button-group">
 			{{ govukButton({
-				text: continueButtonText,
+				text: pageContent.submitButtonText,
 				type: "submit"
 			}) }}
-			{% if skipButtonUrl %}
+			{% if pageContent.skipButtonUrl %}
 				{{ govukButton({
 					text: "Skip",
-					href: skipButtonUrl,
+					href: pageContent.skipButtonUrl,
 					classes: "govuk-button--secondary"
 				}) }}
 			{% endif %}
-
 		</div>
 	</form>
 {%- endblock -%}

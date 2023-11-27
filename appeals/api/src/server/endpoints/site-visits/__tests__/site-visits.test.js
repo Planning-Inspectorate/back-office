@@ -873,6 +873,50 @@ describe('site visit routes', () => {
 				});
 			});
 
+			test('updates an Unaccompanied site visit with blank time fields', async () => {
+				const { siteVisit } = householdAppeal;
+
+				siteVisit.siteVisitType.name = SITE_VISIT_TYPE_UNACCOMPANIED;
+
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.siteVisitType.findUnique.mockResolvedValue(siteVisit.siteVisitType);
+
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}/site-visits/${siteVisit.id}`)
+					.send({
+						visitDate: siteVisit.visitDate.split('T')[0],
+						visitEndTime: '',
+						visitStartTime: '',
+						visitType: siteVisit.siteVisitType.name
+					})
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(databaseConnector.siteVisit.update).toHaveBeenCalledWith({
+					where: { id: siteVisit.id },
+					data: {
+						visitDate: siteVisit.visitDate,
+						siteVisitTypeId: siteVisit.siteVisitType.id
+					}
+				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+					data: {
+						appealId: householdAppeal.id,
+						details: AUDIT_TRAIL_SITE_VISIT_TYPE_SELECTED,
+						loggedAt: expect.any(Date),
+						userId: householdAppeal.caseOfficer.id
+					}
+				});
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					visitDate: siteVisit.visitDate,
+					visitEndTime: '',
+					visitStartTime: '',
+					visitType: siteVisit.siteVisitType.name
+				});
+			});
+
 			test('returns an error if appealId is not numeric', async () => {
 				const response = await request
 					.patch(`/appeals/one/site-visits/${householdAppeal.siteVisit.id}`)

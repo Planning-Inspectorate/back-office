@@ -1,9 +1,7 @@
 import {
-	backLink,
 	allocationDetailsLevelPage,
 	allocationDetailsSpecialismPage,
-	allocationDetailsCheckAnswersPage,
-	pageHeading
+	allocationDetailsCheckAnswersPage
 } from './allocation-details.mapper.js';
 import logger from '../../../lib/logger.js';
 import * as allocationDetailsService from './allocation-details.service.js';
@@ -28,18 +26,16 @@ const renderAllocationDetailsLevels = async (request, response, errors = null) =
 			delete request.session.allocationSpecialisms;
 		}
 
-		const pageComponents = allocationDetailsLevelPage(
+		const mappedPageContent = allocationDetailsLevelPage(
 			{ allocationDetailsLevels },
 			appealDetails.appealId === request.session.appealId
 				? request.session.allocationLevel
-				: undefined
+				: undefined,
+			appealDetails
 		);
 
 		return response.render('patterns/display-page.pattern.njk', {
-			backLink: backLink(appealDetails),
-			pageHeading,
-			appealReference: appealDetails.appealReference,
-			pageContents: pageComponents,
+			pageContent: mappedPageContent,
 			errors
 		});
 	}
@@ -72,20 +68,15 @@ const renderAllocationDetailsSpecialism = async (request, response, errors = nul
 		allocationDetailsSpecialisms &&
 		selectedAllocationLevel
 	) {
-		const pageComponents = allocationDetailsSpecialismPage(
+		const mappedPageContent = allocationDetailsSpecialismPage(
 			{ allocationDetailsLevels, allocationDetailsSpecialisms },
 			appealDetails.appealId === request.session.appealId ? selectedAllocationLevel : undefined,
-			request.session.allocationSpecialisms
+			request.session.allocationSpecialisms,
+			appealDetails
 		);
 
 		return response.render('patterns/display-page.pattern.njk', {
-			backLink: {
-				text: 'Back',
-				link: `/appeals-service/appeal-details/${appealDetails.appealId}/allocation-details/allocation-level`
-			},
-			pageHeading: 'Allocation specialism',
-			appealReference: appealDetails.appealReference,
-			pageContents: pageComponents,
+			pageContent: mappedPageContent,
 			errors
 		});
 	} else {
@@ -131,20 +122,14 @@ const renderAllocationDetailsCheckAnswers = async (request, response) => {
 		selectedAllocationLevel &&
 		selectedAllocationSpecialisms
 	) {
-		const pageComponents = allocationDetailsCheckAnswersPage(
-			appealDetails.appealId,
+		const mappedPageContent = allocationDetailsCheckAnswersPage(
 			selectedAllocationLevel,
-			selectedAllocationSpecialisms
+			selectedAllocationSpecialisms,
+			appealDetails
 		);
 
 		return response.render('patterns/display-page.pattern.njk', {
-			backLink: {
-				text: 'Back',
-				link: `/appeals-service/appeal-details/${appealDetails.appealId}/allocation-details/allocation-specialism`
-			},
-			pageHeading: 'Check answers',
-			appealReference: appealDetails.appealReference,
-			pageContents: pageComponents
+			pageContent: mappedPageContent
 		});
 	} else {
 		return response.render('app/500.njk');

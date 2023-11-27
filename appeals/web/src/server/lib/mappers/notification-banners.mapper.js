@@ -8,6 +8,7 @@
  * @property {'success'} [type] default is 'important'
  * @property {string} [text]
  * @property {string} [html]
+ * @property {PageComponent[]} [pageComponents]
  * @property {boolean} [persist] default is false
  */
 
@@ -61,17 +62,11 @@ export const notificationBannerDefinitions = {
 };
 
 /**
- * @typedef NotificationBannerPageComponent
- * @property {string} type
- * @property {NotificationBannerProperties} bannerProperties
- */
-
-/**
  *
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @param {ServicePageName} servicePage
  * @param {number} appealId
- * @returns {NotificationBannerPageComponent[]}
+ * @returns {PageComponent[]}
  */
 export function buildNotificationBanners(session, servicePage, appealId) {
 	if (!('notificationBanners' in session)) {
@@ -79,7 +74,7 @@ export function buildNotificationBanners(session, servicePage, appealId) {
 	}
 
 	/**
-	 * @type {NotificationBannerPageComponent[]}
+	 * @type {PageComponent[]}
 	 */
 	const notificationBanners = [];
 
@@ -106,10 +101,11 @@ export function buildNotificationBanners(session, servicePage, appealId) {
 			const bannerType = bannerData?.type || bannerDefinition.type;
 			const bannerText = bannerData?.text || bannerDefinition.text;
 			const bannerHtml = bannerData?.html || bannerDefinition.html;
+			const bannerPageComponents = bannerData?.pageComponents || bannerDefinition.pageComponents;
 
 			notificationBanners.push({
 				type: 'notification-banner',
-				bannerProperties: {
+				parameters: {
 					titleText: bannerData?.titleText || titleText,
 					titleHeadingLevel: 3,
 					...(bannerType && {
@@ -120,6 +116,10 @@ export function buildNotificationBanners(session, servicePage, appealId) {
 					}),
 					...(bannerHtml && {
 						html: bannerHtml
+					}),
+					...(bannerPageComponents && {
+						html: bannerHtml || '',
+						pageComponents: bannerPageComponents
 					})
 				}
 			});

@@ -1,6 +1,10 @@
 import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
+import { isDefined } from '#lib/ts-utilities.js';
+import { removeActions } from '#lib/mappers/mapper-utilities.js';
+import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 export const backLink = {
 	text: 'Back to National list',
@@ -9,135 +13,166 @@ export const backLink = {
 export const pageHeading = 'Case details';
 
 /**
- * @param {{appeal: any}} data
+ * @param {import('./appeal-details.types.js').WebAppeal} appealDetails
  * @param {string} currentRoute
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
+ * @returns {Promise<PageContent>}
  */
-export async function appealDetailsPage(data, currentRoute, session) {
-	const mappedData = await initialiseAndMapAppealData(data, currentRoute, session);
-	const statusTag = { type: 'status-tag', ...mappedData.appeal.appealStatus.display.statusTag };
+export async function appealDetailsPage(appealDetails, currentRoute, session) {
+	const mappedData = await initialiseAndMapAppealData(appealDetails, currentRoute, session);
+	const shortAppealReference = appealShortReference(appealDetails.appealReference);
 
-	const caseSummary = {
-		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		classes: 'govuk-summary-list--no-border',
-		rows: [
-			removeActions(mappedData.appeal.siteAddress.display.summaryListItem),
-			removeActions(mappedData.appeal.localPlanningAuthority.display.summaryListItem)
-		]
-	};
-	const caseOverview = {
-		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		rows: [
-			mappedData.appeal.appealType.display.summaryListItem,
-			mappedData.appeal?.caseProcedure?.display.summaryListItem,
-			mappedData.appeal?.appellantName?.display.summaryListItem,
-			mappedData.appeal?.agentName?.display.summaryListItem,
-			mappedData.appeal?.linkedAppeals?.display.summaryListItem,
-			mappedData.appeal?.otherAppeals?.display.summaryListItem,
-			mappedData.appeal?.allocationDetails?.display.summaryListItem,
-			removeActions(mappedData.appeal?.lpaReference?.display.summaryListItem),
-			mappedData.appeal?.decision?.display.summaryListItem
-		]
-	};
-	/**
-	 * @type {(SummaryListRowProperties | undefined)[]}
-	 */
-	const neighbouringSitesSummaryLists = Object.keys(mappedData.appeal)
-		.filter((key) => key.indexOf('neighbouringSiteAddress') >= 0)
-		.map((key) => mappedData.appeal[key].display.summaryListItem);
-
-	const siteDetails = {
-		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		rows: [
-			mappedData.appeal.lpaInspectorAccess.display.summaryListItem,
-			mappedData.appeal.appellantInspectorAccess.display.summaryListItem,
-			mappedData.appeal.neighbouringSiteIsAffected.display.summaryListItem,
-			...neighbouringSitesSummaryLists,
-			mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
-			mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
-			mappedData.appeal.visitType.display.summaryListItem
-		]
+	/** @type {PageContent} */
+	const pageContent = {
+		title: `Case details - ${shortAppealReference}`,
+		backLinkText: 'Back to National list',
+		backLinkUrl: '/appeals-service/appeals-list',
+		preHeading: `Appeal ${shortAppealReference}`,
+		heading: 'Case details',
+		pageComponents: []
 	};
 
-	let caseTimetable = {};
+	/** @type {PageComponent|undefined} */
+	let statusTag;
 
-	if (data.appeal.startedAt) {
-		caseTimetable.type = 'summary-list';
-		caseTimetable.rows = [
-			mappedData.appeal.startedAt.display.summaryListItem,
-			mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem,
-			mappedData.appeal.siteVisitDate.display.summaryListItem,
-			mappedData.appeal.issueDeterminationDate?.display.summaryListItem,
-			mappedData.appeal.completeDate?.display.summaryListItem
-		];
-	} else {
-		caseTimetable.type = 'inset-text';
-		caseTimetable.html = `<p class="govuk-body">Case not started</p><a href="/appeals-service/appeal-details/${data.appeal.appealId}/appellant-case" class="govuk-link">Review appeal</a>`;
+	if (mappedData.appeal.appealStatus.display?.statusTag) {
+		statusTag = {
+			type: 'status-tag',
+			parameters: {
+				...mappedData.appeal.appealStatus.display.statusTag
+			}
+		};
 	}
 
+	/** @type {PageComponent} */
+	const caseSummary = {
+		type: 'summary-list',
+		parameters: {
+			rows: [
+				removeActions(mappedData.appeal.siteAddress.display.summaryListItem),
+				removeActions(mappedData.appeal.localPlanningAuthority.display.summaryListItem)
+			].filter(isDefined),
+			classes: 'govuk-summary-list--no-border'
+		}
+	};
+
+	/** @type {PageComponent} */
+	const caseOverview = {
+		type: 'summary-list',
+		parameters: {
+			rows: [
+				mappedData.appeal.appealType.display.summaryListItem,
+				mappedData.appeal?.caseProcedure?.display.summaryListItem,
+				mappedData.appeal?.appellantName?.display.summaryListItem,
+				mappedData.appeal?.agentName?.display.summaryListItem,
+				mappedData.appeal?.linkedAppeals?.display.summaryListItem,
+				mappedData.appeal?.otherAppeals?.display.summaryListItem,
+				mappedData.appeal?.allocationDetails?.display.summaryListItem,
+				removeActions(mappedData.appeal?.lpaReference?.display.summaryListItem),
+				mappedData.appeal?.decision?.display.summaryListItem
+			].filter(isDefined)
+		}
+	};
+
+	const neighbouringSitesSummaryLists = Object.keys(mappedData.appeal)
+		.filter((key) => key.indexOf('neighbouringSiteAddress') >= 0)
+		.map((key) => mappedData.appeal[key].display.summaryListItem)
+		.filter(isDefined);
+
+	/** @type {PageComponent} */
+	const siteDetails = {
+		type: 'summary-list',
+		parameters: {
+			rows: [
+				mappedData.appeal.lpaInspectorAccess.display.summaryListItem,
+				mappedData.appeal.appellantInspectorAccess.display.summaryListItem,
+				mappedData.appeal.neighbouringSiteIsAffected.display.summaryListItem,
+				...neighbouringSitesSummaryLists,
+				mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
+				mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
+				mappedData.appeal.visitType.display.summaryListItem
+			].filter(isDefined)
+		}
+	};
+
+	/** @type {PageComponent} */
+	const caseTimetable = appealDetails.startedAt
+		? {
+				type: 'summary-list',
+				parameters: {
+					rows: [
+						mappedData.appeal.startedAt.display.summaryListItem,
+						mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem,
+						mappedData.appeal.siteVisitDate.display.summaryListItem,
+						mappedData.appeal.issueDeterminationDate?.display.summaryListItem,
+						mappedData.appeal.completeDate?.display.summaryListItem
+					].filter(isDefined)
+				}
+		  }
+		: {
+				type: 'inset-text',
+				parameters: {
+					html: `<p class="govuk-body">Case not started</p><a href="/appeals-service/appeal-details/${appealDetails.appealId}/appellant-case" class="govuk-link">Review appeal</a>`
+				}
+		  };
+
+	/** @type {PageComponent} */
 	const caseDocumentation = {
 		type: 'table',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		head: [{ text: 'Documentation' }, { text: 'Status' }, { text: 'Due date' }, { text: 'Action' }],
-		rows: [
-			mappedData.appeal.appellantCase.display.tableItem,
-			mappedData.appeal.lpaQuestionnaire.display.tableItem
-		],
-		firstCellIsHeader: true
+		parameters: {
+			head: [
+				{ text: 'Documentation' },
+				{ text: 'Status' },
+				{ text: 'Due date' },
+				{ text: 'Action' }
+			],
+			rows: [
+				mappedData.appeal.appellantCase.display.tableItem,
+				mappedData.appeal.lpaQuestionnaire.display.tableItem
+			].filter(isDefined),
+			firstCellIsHeader: true
+		}
 	};
 
+	/** @type {PageComponent} */
 	const caseTeam = {
 		type: 'summary-list',
-		noActions: !session.account.idTokenClaims.groups.includes(
-			config.referenceData.appeals.caseOfficerGroupId
-		),
-		rows: [
-			mappedData.appeal.caseOfficer.display.summaryListItem,
-			mappedData.appeal.inspector.display.summaryListItem
-		]
+		parameters: {
+			rows: [
+				mappedData.appeal.caseOfficer.display.summaryListItem,
+				mappedData.appeal.inspector.display.summaryListItem
+			].filter(isDefined)
+		}
 	};
 
+	/** @type {PageComponent} */
 	const appealDetailsAccordion = {
-		id: 'accordion-default' + data.appeal.appealId,
 		type: 'accordion',
-		items: [
-			{
-				heading: { text: 'Case Overview' },
-				type: caseOverview.type,
-				content: { html: caseOverview }
-			},
-			{
-				heading: { text: 'Site Details' },
-				type: siteDetails.type,
-				content: { html: siteDetails }
-			},
-			{
-				heading: { text: 'Case Timetable' },
-				type: caseTimetable.type,
-				content: { html: caseTimetable }
-			},
-			{
-				heading: { text: 'Case documentation' },
-				type: caseDocumentation.type,
-				content: { html: caseDocumentation }
-			},
-			{
-				heading: { text: 'Case Team' },
-				type: caseTeam.type,
-				content: { html: caseTeam }
-			}
-		]
+		parameters: {
+			id: 'accordion-default' + appealDetails.appealId,
+			items: [
+				{
+					heading: { text: 'Case Overview' },
+					content: { html: '', pageComponents: [caseOverview] }
+				},
+				{
+					heading: { text: 'Site Details' },
+					content: { html: '', pageComponents: [siteDetails] }
+				},
+				{
+					heading: { text: 'Case Timetable' },
+					content: { html: '', pageComponents: [caseTimetable] }
+				},
+				{
+					heading: { text: 'Case documentation' },
+					content: { html: '', pageComponents: [caseDocumentation] }
+				},
+				{
+					heading: { text: 'Case Team' },
+					content: { html: '', pageComponents: [caseTeam] }
+				}
+			]
+		}
 	};
 
 	let components = [
@@ -149,28 +184,28 @@ export async function appealDetailsPage(data, currentRoute, session) {
 		caseTeam
 	];
 
-	components.forEach((item) => {
-		if ('noActions' in item && item.noActions && 'rows' in item) {
-			item.rows.forEach((row) => removeActions(row));
-		}
-	});
+	if (
+		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
+	) {
+		components.map((component) => removeActions(component));
+	}
 
 	const notificationBanners = buildNotificationBanners(
 		session,
 		'appealDetails',
-		data.appeal.appealId
+		appealDetails.appealId
 	);
 
-	return [...notificationBanners, statusTag, caseSummary, appealDetailsAccordion];
-}
+	const pageComponents = [
+		...notificationBanners,
+		...(statusTag ? [statusTag] : []),
+		caseSummary,
+		appealDetailsAccordion
+	];
 
-/**
- * @param {object | undefined} row
- */
-export function removeActions(row) {
-	if (row) {
-		Reflect.deleteProperty(row, 'actions');
-		return row;
-	}
-	return undefined;
+	preRenderPageComponents(pageComponents);
+
+	pageContent.pageComponents = pageComponents;
+
+	return pageContent;
 }

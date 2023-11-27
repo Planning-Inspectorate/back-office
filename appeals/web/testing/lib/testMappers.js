@@ -2,7 +2,7 @@ import logger from '#lib/logger.js';
 
 /**
  *
- * @param {import('#lib/mappers/appeal.mapper.js').AppealInstructionCollection} instructions
+ * @param {MappedInstructions} instructions
  * @returns {boolean}
  */
 export function areIdsDefinedAndUnique(instructions) {

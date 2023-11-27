@@ -3,14 +3,12 @@ import * as appealDetailsService from '../appeal-details.service.js';
 import * as siteVisitService from './site-visit.service.js';
 import {
 	mapWebVisitTypeToApiVisitType,
-	mapGetApiVisitTypeToWebVisitType,
-	buildSiteDetailsSummaryListRows
+	scheduleOrManageSiteVisitPage,
+	scheduleOrManageSiteVisitConfirmationPage,
+	setVisitTypePage,
+	stringIsSiteVisitConfirmationPageType
 } from './site-visit.mapper.js';
-import {
-	hourMinuteToApiDateString,
-	dayMonthYearToApiDateString,
-	dateToDisplayDate
-} from '#lib/dates.js';
+import { hourMinuteToApiDateString, dayMonthYearToApiDateString } from '#lib/dates.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
@@ -41,69 +39,23 @@ const renderScheduleOrManageSiteVisit = async (request, response, pageType) => {
 			}
 		} = request;
 
-		// Nullish coalescing assignment https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
-		visitType ??= mapGetApiVisitTypeToWebVisitType(appealDetails.siteVisit.visitType);
-		visitDateDay ??= appealDetails.siteVisit?.visitDate
-			? new Date(appealDetails.siteVisit?.visitDate).getDate()
-			: null;
-		visitDateMonth ??= appealDetails.siteVisit?.visitDate
-			? new Date(appealDetails.siteVisit?.visitDate).getMonth() + 1
-			: null;
-		visitDateYear ??= appealDetails.siteVisit?.visitDate
-			? new Date(appealDetails.siteVisit?.visitDate).getFullYear()
-			: null;
-		visitStartTimeHour ??= appealDetails.siteVisit?.visitStartTime
-			? appealDetails.siteVisit?.visitStartTime.split(':')[0]
-			: null;
-		visitStartTimeMinute ??= appealDetails.siteVisit?.visitStartTime
-			? appealDetails.siteVisit?.visitStartTime.split(':')[1]
-			: null;
-		visitEndTimeHour ??= appealDetails.siteVisit?.visitEndTime
-			? appealDetails.siteVisit?.visitEndTime.split(':')[0]
-			: null;
-		visitEndTimeMinute ??= appealDetails.siteVisit?.visitEndTime
-			? appealDetails.siteVisit?.visitEndTime.split(':')[1]
-			: null;
-
-		const healthAndSafetyIssues = [];
-		if (appealDetails.healthAndSafety?.appellantCase?.hasIssues) {
-			healthAndSafetyIssues.push(appealDetails.healthAndSafety?.appellantCase?.details);
-		}
-		if (appealDetails.healthAndSafety?.lpaQuestionnaire?.hasIssues) {
-			healthAndSafetyIssues.push(appealDetails.healthAndSafety?.lpaQuestionnaire?.details);
-		}
-
-		const siteDetailsRows = await buildSiteDetailsSummaryListRows(
-			{ appeal: appealDetails },
+		const mappedPageContent = await scheduleOrManageSiteVisitPage(
+			pageType,
+			appealDetails,
 			request.originalUrl,
-			request.session
+			request.session,
+			visitType,
+			visitDateDay,
+			visitDateMonth,
+			visitDateYear,
+			visitStartTimeHour,
+			visitStartTimeMinute,
+			visitEndTimeHour,
+			visitEndTimeMinute
 		);
 
-		let titlePrefix = '';
-
-		if (pageType === 'schedule') {
-			titlePrefix = 'Schedule';
-		} else if (pageType === 'manage') {
-			titlePrefix = 'Manage';
-		}
-
 		return response.render('appeals/appeal/schedule-site-visit.njk', {
-			titlePrefix,
-			siteDetailsRows,
-			appeal: {
-				id: appealDetails?.appealId,
-				shortReference: appealShortReference(appealDetails?.appealReference)
-			},
-			siteVisit: {
-				visitType,
-				visitDateDay,
-				visitDateMonth,
-				visitDateYear,
-				visitStartTimeHour,
-				visitStartTimeMinute,
-				visitEndTimeHour,
-				visitEndTimeMinute
-			},
+			pageContent: mappedPageContent,
 			errors
 		});
 	}
@@ -135,163 +87,14 @@ export const renderScheduleOrManageSiteVisitConfirmation = async (request, respo
 				siteVisitIdAsNumber
 			);
 
-			if (siteVisit) {
-				const formattedSiteVisitType = siteVisit.visitType.toLowerCase();
-				const formattedSiteAddress = appealDetails?.appealSite
-					? Object.values(appealDetails?.appealSite)?.join(', ')
-					: 'Address not known';
-				const formattedSiteVisitDate = dateToDisplayDate(siteVisit.visitDate);
+			if (siteVisit && stringIsSiteVisitConfirmationPageType(confirmationPageTypeToRender)) {
+				const mappedConfirmationPage = scheduleOrManageSiteVisitConfirmationPage(
+					confirmationPageTypeToRender,
+					siteVisit,
+					appealDetails
+				);
 
-				const timeText =
-					siteVisit.visitStartTime && siteVisit.visitEndTime
-						? `, between ${siteVisit.visitStartTime} and ${siteVisit.visitEndTime}`
-						: '';
-
-				let contentObject;
-
-				if (confirmationPageTypeToRender === 'new') {
-					contentObject = {
-						panel: {
-							title: 'Site visit booked',
-							appealReference: {
-								label: 'Appeal ID',
-								reference: appealShortReference(appealDetails?.appealReference)
-							}
-						},
-						body: {
-							preTitle: `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${timeText}.`,
-							title: {
-								text: 'What happens next'
-							},
-							rows: [
-								{
-									text: `We updated the case timetable.${
-										formattedSiteVisitType !== 'unaccompanied'
-											? ` We've sent an email to the LPA and appellant to confirm the site visit.`
-											: ''
-									}`
-								},
-								{
-									text: 'Go back to case details',
-									href: `/appeals-service/appeal-details/${appealId}`
-								}
-							]
-						}
-					};
-				} else if (confirmationPageTypeToRender === 'unchanged') {
-					contentObject = {
-						panel: {
-							title: 'No changes were made',
-							appealReference: {
-								label: 'Appeal ID',
-								reference: appealShortReference(appealDetails?.appealReference)
-							}
-						},
-						body: {
-							rows: [
-								{
-									text: `The original details still apply.`
-								},
-								{
-									text: `No emails have been sent to the parties.`
-								},
-								{
-									text: 'Go back to case details',
-									href: `/appeals-service/appeal-details/${appealId}`
-								}
-							]
-						}
-					};
-				} else if (confirmationPageTypeToRender === 'visit-type') {
-					contentObject = {
-						panel: {
-							title: 'Site visit type changed',
-							appealReference: {
-								label: 'Appeal ID',
-								reference: appealShortReference(appealDetails?.appealReference)
-							}
-						},
-						body: {
-							preTitle: `The visit type is now changed to ${formattedSiteVisitType}. Your site visit at ${formattedSiteAddress} is still scheduled for ${formattedSiteVisitDate}${timeText}.`,
-							title: {
-								text: 'What happens next'
-							},
-							rows: [
-								{
-									text: `We updated the case timetable.${
-										formattedSiteVisitType !== 'unaccompanied'
-											? ` We've sent an email to the LPA and appellant to confirm the changes to the site visit.`
-											: ''
-									}`
-								},
-								{
-									text: 'Go back to case details',
-									href: `/appeals-service/appeal-details/${appealId}`
-								}
-							]
-						}
-					};
-				} else if (confirmationPageTypeToRender === 'date-time') {
-					contentObject = {
-						panel: {
-							title: 'Site visit rescheduled',
-							appealReference: {
-								label: 'Appeal ID',
-								reference: appealShortReference(appealDetails?.appealReference)
-							}
-						},
-						body: {
-							preTitle: `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is rescheduled for ${formattedSiteVisitDate}${timeText}.`,
-							title: {
-								text: 'What happens next'
-							},
-							rows: [
-								{
-									text: `We updated the case timetable.${
-										formattedSiteVisitType !== 'unaccompanied'
-											? ` We've sent an email to the LPA and appellant to confirm the site visit.`
-											: ''
-									}`
-								},
-								{
-									text: 'Go back to case details',
-									href: `/appeals-service/appeal-details/${appealId}`
-								}
-							]
-						}
-					};
-				} else if (confirmationPageTypeToRender === 'all') {
-					contentObject = {
-						panel: {
-							title: 'Site visit changed',
-							appealReference: {
-								label: 'Appeal ID',
-								reference: appealShortReference(appealDetails?.appealReference)
-							}
-						},
-						body: {
-							preTitle: `Your site visit at ${formattedSiteAddress} is rescheduled for ${formattedSiteVisitDate}${timeText}. The site visit type is now changed to ${formattedSiteVisitType}.`,
-							title: {
-								text: 'What happens next'
-							},
-							rows: [
-								{
-									text: `We updated the case timetable.${
-										formattedSiteVisitType !== 'unaccompanied'
-											? ` We've sent an email to the LPA and appellant to confirm the changes to the site visit.`
-											: ''
-									}`
-								},
-								{
-									text: 'Go back to case details',
-									href: `/appeals-service/appeal-details/${appealId}`
-								}
-							]
-						}
-					};
-				}
-
-				return response.render('app/confirmation.njk', contentObject);
+				return response.render('appeals/confirmation.njk', mappedConfirmationPage);
 			}
 		}
 	}
@@ -343,15 +146,10 @@ const renderSetVisitType = async (request, response) => {
 			body: { 'visit-type': visitType }
 		} = request;
 
+		const mappedPageContent = setVisitTypePage(appealDetails, visitType);
+
 		return response.render('appeals/appeal/set-site-visit-type.njk', {
-			appeal: {
-				id: appealDetails?.appealId,
-				reference: appealDetails?.appealReference,
-				shortReference: appealShortReference(appealDetails?.appealReference)
-			},
-			siteVisit: {
-				visitType
-			},
+			pageContent: mappedPageContent,
 			errors
 		});
 	}
@@ -361,7 +159,7 @@ const renderSetVisitType = async (request, response) => {
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
 export const getScheduleSiteVisit = async (request, response) => {
-	renderScheduleOrManageSiteVisit(request, response, 'schedule');
+	renderScheduleOrManageSiteVisit(request, response, 'schedule'); // TODO: refactor to boolean for consistency with renderAssignUser isInspector param
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
@@ -415,6 +213,7 @@ export const postScheduleOrManageSiteVisit = async (request, response, pageType)
 				}
 			} = request;
 
+			// TODO: move all this mapping logic into the mapper
 			const appealIdNumber = parseInt(appealId, 10);
 			const visitDate = dayMonthYearToApiDateString({
 				day: parseInt(visitDateDay, 10),
@@ -532,6 +331,7 @@ export const postSetVisitType = async (request, response) => {
 
 			if (
 				appealDetails.siteVisit?.siteVisitId !== null &&
+				appealDetails.siteVisit?.siteVisitId !== undefined &&
 				Number.isInteger(appealDetails.siteVisit?.siteVisitId) &&
 				appealDetails.siteVisit?.siteVisitId > -1
 			) {

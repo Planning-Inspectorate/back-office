@@ -168,96 +168,6 @@ export type MapZoomLevelForApplications = {
 	displayNameCy?: string;
 }[];
 
-export type ExaminationTimetableTypes = {
-	/** @example 1 */
-	id?: number;
-	/** @example "starttime-mandatory" */
-	templateType?: string;
-	/** @example "Accompanied Site Inspection" */
-	name?: string;
-	/** @example "Accompanied site inspection" */
-	displayNameEn?: string;
-	/** @example "Accompanied site inspection Cy" */
-	displayNameCy?: string;
-}[];
-
-export type ExaminationTimetableItems = {
-	/** @example 1 */
-	id?: number;
-	/** @example 1 */
-	caseId?: number;
-	/** @example 1 */
-	examinationTypeId?: number;
-	/** @example "Examination Timetable Item" */
-	name?: string;
-	/** @example "{"preText":"Examination Timetable Item Description\r\n","bulletPoints":[" Line item 1\r\n"," Line item 2"]}" */
-	description?: string;
-	/** @example "2023-02-27T10:00:00Z" */
-	date?: string;
-	/** @example "2023-02-27T10:00:00Z" */
-	startDate?: string;
-	/** @example false */
-	published?: boolean;
-	/** @example 134 */
-	folderId?: number;
-	/** @example "10:20" */
-	startTime?: string;
-	/** @example "12:20" */
-	endTime?: string;
-	/** @example true */
-	submissions?: boolean;
-}[];
-
-export interface ExaminationTimetableItemRequestBody {
-	/** @example 1 */
-	caseId?: number;
-	/** @example 1 */
-	examinationTypeId?: number;
-	/** @example "Examination Timetable Item" */
-	name?: string;
-	/** @example "{"preText":"Examination Timetable Item Description\r\n","bulletPoints":[" Line item 1\r\n"," Line item 2"]}" */
-	description?: string;
-	/** @example "2023-02-27T10:00:00Z" */
-	date?: string;
-	/** @example false */
-	published?: boolean;
-	/** @example 134 */
-	folderId?: number;
-	/** @example "2023-02-27T10:00:00Z" */
-	startDate?: string;
-	/** @example "10:20" */
-	startTime?: string;
-	/** @example "12:20" */
-	endTime?: string;
-}
-
-export interface ExaminationTimetableItemResponseBody {
-	/** @example 1 */
-	id?: number;
-	/** @example 1 */
-	caseId?: number;
-	/** @example 1 */
-	examinationTypeId?: number;
-	/** @example "Examination Timetable Item" */
-	name?: string;
-	/** @example "{"preText":"Examination Timetable Item Description\r\n","bulletPoints":[" Line item 1\r\n"," Line item 2"]}" */
-	description?: string;
-	/** @example "2023-02-27T10:00:00Z" */
-	date?: string;
-	/** @example false */
-	published?: boolean;
-	/** @example 134 */
-	folderId?: number;
-	/** @example "2023-02-27T10:00:00Z" */
-	startDate?: string;
-	/** @example "10:20" */
-	startTime?: string;
-	/** @example "12:20" */
-	endTime?: string;
-	/** @example true */
-	submissions?: boolean;
-}
-
 export interface DocumentDetails {
 	/** @example "123" */
 	documentId?: string;
@@ -1524,6 +1434,390 @@ export interface DocumentHTMLResponse {
 export interface DocumentBadHTMLResponse {
 	errors?: {
 		message?: string;
+	};
+}
+
+export interface ExaminationTimetableType {
+	/**
+	 * Examination timetable type id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Examination timetable type template type
+	 * @example "starttime-mandatory"
+	 */
+	templateType?: string;
+	/**
+	 * Examination timetable type name
+	 * @example "Accompanied Site Inspection"
+	 */
+	name?: string;
+	/**
+	 * Examination timetable type display name
+	 * @example "Accompanied site inspection"
+	 */
+	displayNameEn?: string;
+	/**
+	 * Examination timetable type display name in Welsh
+	 * @example "Accompanied site inspection Cy"
+	 */
+	displayNameCy?: string;
+}
+
+export type ExaminationTimetableTypes = ExaminationTimetableType[];
+
+export interface ExaminationTimetable {
+	/**
+	 * Examination timetable id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Case Id
+	 * @example 1
+	 */
+	caseId?: number;
+	/**
+	 * Is the examination timetable published?
+	 * @example true
+	 */
+	published?: boolean;
+	/**
+	 * Date Examination timetable was published
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	publishedAt?: string;
+	/**
+	 * Date created
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	createdAt?: string;
+	/**
+	 * Date last updated
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	updateAt?: string;
+}
+
+export interface ExaminationTimetableWithItems {
+	/**
+	 * Examination timetable id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Case Id
+	 * @example 1
+	 */
+	caseId?: number;
+	/**
+	 * Is the examination timetable published?
+	 * @example true
+	 */
+	published?: boolean;
+	/**
+	 * Date Examination timetable was published
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	publishedAt?: string;
+	/**
+	 * Date created
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	createdAt?: string;
+	/**
+	 * Date last updated
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	updateAt?: string;
+	items?: ExaminationTimetableItem[];
+}
+
+export interface ExaminationTimetableItem {
+	/**
+	 * Examination timetable item id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Examination timetable parent id
+	 * @example 1
+	 */
+	examinationTimetableId?: number;
+	/**
+	 * Examination timetable type id
+	 * @example 1
+	 */
+	examinationTypeId?: number;
+	/**
+	 * Examination timetable item name
+	 * @example "Deadline 1"
+	 */
+	name?: string;
+	/**
+	 * Examination timetable item name including line items
+	 * @example "{"preText":"Deadline 1 line items\r\n","bulletPoints":[" Line item 1\r\n"," Line item 2"]}"
+	 */
+	description?: string;
+	/**
+	 * Examination timetable item date / end date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	date?: string;
+	/**
+	 * Examination timetable item start date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	startDate?: string;
+	/**
+	 * Examination timetable start time
+	 * @example "10:20"
+	 */
+	startTime?: string;
+	/**
+	 * Examination timetable end time
+	 * @example "23:59"
+	 */
+	endTime?: string;
+	/**
+	 * Examination timetable item corresponding folder id
+	 * @example 123
+	 */
+	folderId?: number;
+	/**
+	 * Date created
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	createdAt?: string;
+	ExaminationTimetableType?: ExaminationTimetableType;
+	/**
+	 * Matching folder contains submissions
+	 * @example true
+	 */
+	submissions?: boolean;
+}
+
+export interface ExaminationTimetableItemWithExamTimetable {
+	/**
+	 * Examination timetable item id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Examination timetable parent id
+	 * @example 1
+	 */
+	examinationTimetableId?: number;
+	/**
+	 * Examination timetable type id
+	 * @example 1
+	 */
+	examinationTypeId?: number;
+	/**
+	 * Examination timetable item name
+	 * @example "Deadline 1"
+	 */
+	name?: string;
+	/**
+	 * Examination timetable item name including line items
+	 * @example "{"preText":"Deadline 1 line items\r\n","bulletPoints":[" Line item 1\r\n"," Line item 2"]}"
+	 */
+	description?: string;
+	/**
+	 * Examination timetable item date / end date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	date?: string;
+	/**
+	 * Examination timetable item start date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	startDate?: string;
+	/**
+	 * Examination timetable start time
+	 * @example "10:20"
+	 */
+	startTime?: string;
+	/**
+	 * Examination timetable end time
+	 * @example "23:59"
+	 */
+	endTime?: string;
+	/**
+	 * Examination timetable item corresponding folder id
+	 * @example 123
+	 */
+	folderId?: number;
+	/**
+	 * Date created
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	createdAt?: string;
+	ExaminationTimetableType?: ExaminationTimetableType;
+	ExaminationTimetable?: ExaminationTimetable;
+	/**
+	 * Matching folder contains submissions
+	 * @example true
+	 */
+	submissions?: boolean;
+}
+
+export interface ExaminationTimetableItemCreateRequestBody {
+	/**
+	 * Case id
+	 * @example 1
+	 */
+	caseId?: number;
+	/**
+	 * Examination timetable type id
+	 * @example 1
+	 */
+	examinationTypeId?: number;
+	/**
+	 * Examination timetable item name
+	 * @example "Deadline 1"
+	 */
+	name?: string;
+	/**
+	 * Examination timetable item name including line items
+	 * @example "{"preText":"Deadline 1 line items\r\n","bulletPoints":[" Line item 1\r\n"," Line item 2"]}"
+	 */
+	description?: string;
+	/**
+	 * Examination timetable item date / end date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	date?: string;
+	/**
+	 * Examination timetable item start date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	startDate?: string;
+	/**
+	 * Examination timetable start time
+	 * @example "10:20"
+	 */
+	startTime?: string;
+	/**
+	 * Examination timetable end time
+	 * @example "23:59"
+	 */
+	endTime?: string;
+}
+
+export interface ExaminationTimetableItemUpdateRequestBody {
+	/**
+	 * Examination timetable item id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Case id
+	 * @example 1
+	 */
+	caseId?: number;
+	/**
+	 * Examination timetable type id
+	 * @example 1
+	 */
+	examinationTypeId?: number;
+	/**
+	 * Examination timetable item name
+	 * @example "Deadline 1"
+	 */
+	name?: string;
+	/**
+	 * Examination timetable item name including line items
+	 * @example "{"preText":"Deadline 1 line items\r\n","bulletPoints":[" Line item 1\r\n"," Line item 2"]}"
+	 */
+	description?: string;
+	/**
+	 * Examination timetable item date / end date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	date?: string;
+	/**
+	 * Examination timetable item start date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	startDate?: string;
+	/**
+	 * Examination timetable start time
+	 * @example "10:20"
+	 */
+	startTime?: string;
+	/**
+	 * Examination timetable end time
+	 * @example "23:59"
+	 */
+	endTime?: string;
+}
+
+export interface ExaminationTimetableItemSaveResponse {
+	/**
+	 * Examination timetable item id
+	 * @example 1
+	 */
+	id?: number;
+	/**
+	 * Examination timetable parent id
+	 * @example 1
+	 */
+	examinationTimetableId?: number;
+	/**
+	 * Examination timetable type id
+	 * @example 1
+	 */
+	examinationTypeId?: number;
+	/**
+	 * Examination timetable item name
+	 * @example "Deadline 1"
+	 */
+	name?: string;
+	/**
+	 * Examination timetable item name including line items
+	 * @example "{"preText":"Deadline 1 line items\r\n","bulletPoints":[" Line item 1\r\n"," Line item 2"]}"
+	 */
+	description?: string;
+	/**
+	 * Examination timetable item date / end date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	date?: string;
+	/**
+	 * Examination timetable item start date
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	startDate?: string;
+	/**
+	 * Examination timetable start time
+	 * @example "10:20"
+	 */
+	startTime?: string;
+	/**
+	 * Examination timetable end time
+	 * @example "23:59"
+	 */
+	endTime?: string;
+	/**
+	 * Examination timetable item corresponding folder id
+	 * @example 123
+	 */
+	folderId?: number;
+	/**
+	 * Date created
+	 * @example "2023-02-01T00:00:00.000Z"
+	 */
+	createdAt?: string;
+}
+
+export interface ExaminationTimetableItemSaveBadRequest {
+	errors?: {
+		/** @example "Must be valid case id" */
+		caseId?: string;
+		/** @example "Must be valid examination type" */
+		examinationTypeId?: string;
 	};
 }
 
