@@ -96,6 +96,8 @@ describe('Create A Case', () => {
 			createCasePage.sections.caseCreated.validateCaseCreated();
 		});
 	});
+	
+	// Case team email, is not in use. Once after resetting the password, going to uncomment the code
 
 	/*context('As a Case Team User', () => {
 		it('Should successfully create a case when the logged in user is a case team user', () => {
