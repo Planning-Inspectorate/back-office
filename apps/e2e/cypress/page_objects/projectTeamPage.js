@@ -15,7 +15,13 @@ export class ProjectTeamPage extends Page {
 		caseManager: () => cy.get('td.govuk-table__cell:nth-child(1) > strong:nth-child(1)'),
 		validateInvalidSearchResults: () => cy.get('h2.govuk-body'),
 		invalidSearchCount: () => cy.get('p.govuk-body:nth-child(3)'),
-		errorMessageForSearch: () => cy.get('#query-error')
+		errorMessageForSearch: () => cy.get('#query-error'),
+		selectOperationsManagerRole: () => cy.get('#role-10'),
+		changeRoleLink: () => cy.get('a[class="govuk-link govuk-!-margin-right-3"]'),
+		removeTeamRoleLink: () => cy.get('tbody tr:nth-child(1) td:nth-child(3) a:nth-child(2)'),
+		updateProjectTeam: () => cy.get('div.govuk-grid-column-full:nth-child(2) > div:nth-child(5) > a:nth-child(2)'),
+		teamRemovedHeading: () => cy.get('.govuk-notification-banner__heading')
+
 	};
 
 	searchTeamMemberByEmail(email) {
@@ -49,6 +55,20 @@ export class ProjectTeamPage extends Page {
 	validateErrorMessageWithoutEnteringAnything() {
 		this.elements.searchTeamMemberButton().click();
 		this.elements.errorMessageForSearch().contains('Enter a search term');
+	}
+	verifyRoleChangedToOperationsManager(){
+		this.elements.changeRoleLink().click();
+		this.elements.selectOperationsManagerRole().click();
+		this.elements.saveAndReturn().click();
+        this.elements.caseManager().contains('Operations Manager');
+	}
+	clickOnProjectTeamLink(){
+		this.elements.updateProjectTeam().click();
+	}
+	verifyTeamRoleIsRemoved(){
+        this.elements.removeTeamRoleLink().click();
+		this.elements.searchTeamMemberButton().click();
+		this.elements.teamRemovedHeading().contains('Team member removed');
 	}
 
 
