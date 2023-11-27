@@ -16,7 +16,11 @@ const MIMEs = {
 	png: 'image/png',
 	tiff: 'image/tiff',
 	tif: 'image/tiff',
-	html: 'text/html'
+	html: 'text/html',
+	prj: 'application/x-anjuta-project',
+	dbf: 'application/dbf',
+	shp: 'application/vnd.shp',
+	shx: 'application/vnd.shx'
 };
 
 /**
