@@ -167,7 +167,7 @@
 		},
 		"ServiceUser": {
 			"type": "object",
-			"required": ["firstName", "lastName", "emailAddress"],
+			"required": ["firstName", "lastName"],
 			"properties": {
 				"sourceSystem": {
 					"type": "string"
