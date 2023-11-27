@@ -5,7 +5,7 @@
 			"type": "serviceBusTrigger",
 			"direction": "in",
 			"topicName": "appeal-fo-lpa-response-submission",
-			"subscriptionName": "register-fo-lpaq-subscription",
+			"subscriptionName": "fo-lpaq-submission-subscription",
 			"connection": "ServiceBusConnection"
 		}
 	]

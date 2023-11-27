@@ -1,0 +1,1 @@
+will copy blobs from source (document metadata) to destination (bo appeal container)
