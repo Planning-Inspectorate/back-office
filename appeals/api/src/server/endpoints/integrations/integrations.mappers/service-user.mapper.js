@@ -6,45 +6,56 @@ import { ODW_SYSTEM_ID } from '#endpoints/constants.js';
 
 export const mapServiceUserIn = (data) => {
 	if (data) {
-		const user = {
-			create: {
-				name: `${data.firstName} ${data.lastName}`,
-				customer: {
-					connectOrCreate: {
-						where: { email: data.emailAddress },
-						create: {
-							firstName: data.firstName,
-							lastName: data.lastName,
-							email: data.emailAddress
+		if (data.emailAddress) {
+			return {
+				create: {
+					name: `${data.firstName} ${data.lastName}`,
+					customer: {
+						connectOrCreate: {
+							where: { email: data.emailAddress },
+							create: {
+								firstName: data.firstName,
+								lastName: data.lastName,
+								email: data.emailAddress
+							}
 						}
 					}
 				}
+			};
+		}
+
+		return {
+			create: {
+				name: `${data.firstName} ${data.lastName}`
 			}
 		};
-		return user;
 	}
 };
 
 export const mapServiceUserOut = (data, serviceUserType, caseReference) => {
-	const user = {
-		sourceSystem: ODW_SYSTEM_ID,
-		sourceSuid: data.customer.id,
-		id: data.customer.id,
-		firstName: data.customer.firstName,
-		lastName: data.customer.lastName,
-		emailAddress: data.customer.email,
-		serviceUserType: serviceUserType,
-		caseReference: caseReference,
-		company: data.customer.organisationName
-	};
+	if (data.customer) {
+		const user = {
+			sourceSystem: ODW_SYSTEM_ID,
+			sourceSuid: data.customer.id,
+			id: data.customer.id,
+			firstName: data.customer.firstName,
+			lastName: data.customer.lastName,
+			emailAddress: data.customer.email,
+			serviceUserType: serviceUserType,
+			caseReference: caseReference,
+			company: data.customer.organisationName
+		};
 
-	if (data.customer.address) {
-		user.addressLine1 = data.customer.address.addressLine1;
-		user.addressLine2 = data.customer.address.addressLine2;
-		user.addressPostcode = data.customer.address.postcode;
-		user.addressTown = data.customer.address.addressTown;
-		user.addressCounty = data.customer.address.addressCounty;
+		if (data.customer.address) {
+			user.addressLine1 = data.customer.address.addressLine1;
+			user.addressLine2 = data.customer.address.addressLine2;
+			user.addressPostcode = data.customer.address.postcode;
+			user.addressTown = data.customer.address.addressTown;
+			user.addressCounty = data.customer.address.addressCounty;
+		}
+
+		return user;
 	}
 
-	return user;
+	return null;
 };

@@ -118,7 +118,7 @@ model Appellant {
   id         Int              @id @default(autoincrement())
   name       String
   appeals    Appeal[]
-  customerId Int
+  customerId Int?
   customer   ServiceCustomer? @relation("appellant", fields: [customerId], references: [id])
 }
 
@@ -128,7 +128,7 @@ model Agent {
   id         Int              @id @default(autoincrement())
   name       String
   appeals    Appeal[]
-  customerId Int
+  customerId Int?
   customer   ServiceCustomer? @relation("agent", fields: [customerId], references: [id])
 }
 
@@ -362,12 +362,13 @@ model SiteVisit {
 /// InspectorDecision model
 /// Contains decisioin made by an inspector against an appeal post site visit
 model InspectorDecision {
-  id                 Int       @id @default(autoincrement())
-  appealId           Int       @unique
-  outcome            String
-  decisionLetterGuid String    @unique
-  appeal             Appeal    @relation(fields: [appealId], references: [id])
-  decisionLetter     Document? @relation("decision", fields: [decisionLetterGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
+  id                    Int       @id @default(autoincrement())
+  appealId              Int       @unique
+  outcome               String
+  decisionLetterGuid    String    @unique
+  invalidDecisionReason String?
+  appeal                Appeal    @relation(fields: [appealId], references: [id])
+  decisionLetter        Document? @relation("decision", fields: [decisionLetterGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
 }
 
 /// User model
