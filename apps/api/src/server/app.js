@@ -6,15 +6,21 @@ import logger from '#utils/logger.js';
 import { buildApp } from './build-app.js';
 import config from './config/config.js';
 
-try {
-	appInsights
-		.setup(config.APPLICATIONINSIGHTS_CONNECTION_STRING)
-		.setAutoDependencyCorrelation(true)
-		.setAutoCollectConsole(true)
-		.setSendLiveMetrics(true)
-		.start();
-} catch (err) {
-	logger.warn({ err }, 'Application insights failed to start: ');
+if (config.APPLICATIONINSIGHTS_CONNECTION_STRING) {
+	try {
+		appInsights
+			.setup(config.APPLICATIONINSIGHTS_CONNECTION_STRING)
+			.setAutoDependencyCorrelation(true)
+			.setAutoCollectConsole(true)
+			.setSendLiveMetrics(true)
+			.start();
+	} catch (err) {
+		logger.warn({ err }, 'Application insights failed to start: ');
+	}
+} else {
+	logger.warn(
+		'Skipped initialising Application Insights because `APPLICATIONINSIGHTS_CONNECTION_STRING` is undefined. If running locally, this is expected.'
+	);
 }
 
 const app = buildApp((expressApp) => {
