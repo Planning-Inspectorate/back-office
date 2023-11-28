@@ -29,6 +29,7 @@ import { paginationParams } from '../../../lib/pagination-params.js';
 
 //document search
 import * as applicationsDocumentationService from './applications-documentation.service.js';
+import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -498,82 +499,80 @@ const getPaginationButtonData = (currentPageNumber, pageCount) => {
 /**
  * Search for documents in a case. paginated.
  *
- *  @type {import('@pins/express').RenderHandler<DocumentsSearchResultsProps, {}, DocumentsSearchResultsBody, {q: string}, {pageNumber: string}>}
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {query: string}, {q: string, number: string}>}
  */
-export async function searchDocuments(req, response) {
-	console.log('Inside the body');
-	const { errors, body, params } = req;
-	const { query: bodyQuery } = body;
+export async function searchDocuments(
+	{ errors: validationErrors, body, query: requestQuery },
+	response
+) {
 	const { caseId } = response.locals;
-	const query = bodyQuery ?? req.query.q;
+	const query = body.query ?? requestQuery.q;
+	const pageSize = 2;
+	const pageNumber = Number.parseInt(requestQuery.number || '1', 10);
 
-	// get the search page url
-	//const searchDocumentsUrl = url('document-search-results', { caseId: caseId }).replace(
-	//	'/?q=undefined',
-	//	''
-	//);
-	const searchDocumentsUrl = url('document-search-results', { caseId: caseId, query });
+	let searchResult = null;
+	let apiErrors = null;
 
-	if (errors || !query) {
-		return response.render(
-			'applications/case-documentation/search-results/document-search-results',
-			{
-				errors: errors || {},
-				searchDocumentItems: [],
-				itemCount: 0,
-				query
-			}
-		);
+	if (!validationErrors) {
+		const { errors, results } = await applicationsDocumentationService.searchDocuments(caseId, {
+			query,
+			pageSize,
+			pageNumber
+		});
+
+		searchResult = results;
+		apiErrors = errors;
 	}
 
-	const pageSize = 2;
-	const pageNumber = Number.parseInt(params?.pageNumber, 10) || 1;
+	if (validationErrors || apiErrors) {
+		return response.render('applications/case-documentation/search/document-search-results', {
+			errors: validationErrors || apiErrors,
+			query
+		});
+	}
 
-	const searchResponse = await applicationsDocumentationService.searchDocuments(caseId, {
+	const pageCount = Math.ceil((searchResult?.itemCount || 0) / pageSize);
+
+	// const pagination = {
+	// 	previous:
+	// 		pageNumber > 1
+	// 			? {
+	// 					href: url('document-search-results', {
+	// 						caseId: caseId,
+	// 						step: `${pageNumber - 1}`,
+	// 						query
+	// 					})
+	// 			  }
+	// 			: {},
+	// 	next:
+	// 		pageNumber < pageCount
+	// 			? {
+	// 					href: url('document-search-results', {
+	// 						caseId: caseId,
+	// 						step: `${pageNumber + 1}`,
+	// 						query
+	// 					})
+	// 			  }
+	// 			: {},
+	// 	items: Array.from({ length: pageCount }).map((value, key) => ({
+	// 		number: key + 1,
+	// 		current: key + 1 === pageNumber,
+	// 		href: url('document-search-results', { caseId: caseId, step: `${key + 1}`, query })
+	// 	}))
+	// };
+
+	const k = getPaginationLinks(
+		pageNumber,
+		pageCount,
+		requestQuery,
+		url('document-search-results', {
+			caseId: caseId
+		})
+	);
+
+	return response.render('applications/case-documentation/search/document-search-results', {
+		searchResult,
 		query,
-		pageSize,
-		pageNumber
-	});
-
-	const searchDocumentItems = searchResponse?.items || [];
-	const itemCount = searchResponse?.itemCount || 0;
-	const pagesNumber = Math.ceil(itemCount / pageSize);
-	console.log('Before pagination');
-	const pagination = {
-		previous:
-			pageNumber > 1
-				? {
-						href: url('document-search-results', {
-							caseId: caseId,
-							step: `${pageNumber - 1}`,
-							query
-						})
-				  }
-				: {},
-		next:
-			pageNumber < pagesNumber
-				? {
-						href: url('document-search-results', {
-							caseId: caseId,
-							step: `${pageNumber + 1}`,
-							query
-						})
-				  }
-				: {},
-		items: Array.from({ length: pagesNumber }).map((value, key) => ({
-			number: key + 1,
-			current: key + 1 === pageNumber,
-			href: url('document-search-results', { caseId: caseId, step: `${key + 1}`, query })
-		}))
-	};
-	console.log('After pagination');
-
-	//just callng the nunjuck page not the router
-	return response.render('applications/case-documentation/search-results/document-search-results', {
-		searchDocumentsUrl,
-		searchDocumentItems,
-		query,
-		itemCount,
-		pagination
+		pagination: k
 	});
 }

@@ -39,9 +39,9 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
-	.route('/document-search-results/:pageNumber?')
-	.post(validators.validateSearchApplicationsTerm, asyncRoute(controller.searchDocuments))
-	.get(asyncRoute(controller.searchDocuments));
+	.route('/search-results')
+	.get(asyncRoute(controller.searchDocuments))
+	.post(validators.validateSearchApplicationsTerm, asyncRoute(controller.searchDocuments));
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName')

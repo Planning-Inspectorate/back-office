@@ -252,10 +252,16 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
  *
  * @param {number} caseId
  * @param {DocumentsSearchResultsBody} payload
- * @returns {Promise<PaginatedDocumentationFiles>}
+ * @returns {Promise<{results?: PaginatedDocumentationFiles, errors?: {msg: string }}>}
  */
 export const searchDocuments = async (caseId, payload) => {
-	return get(
-		`applications/${caseId}/documents?page=${payload.pageNumber}&pageSize=${payload.pageSize}&&criteria=${payload.query}`
-	);
+	try {
+		const results = await get(
+			`applications/${caseId}/documents?page=${payload.pageNumber}&pageSize=${payload.pageSize}&&criteria=${payload.query}`
+		);
+		return { results };
+	} catch (/** @type {*} */ error) {
+		logger.error(`[API] ${error?.response?.body?.errors || 'Unknow error'}`);
+		return { errors: { msg: 'Your documents could not be published, please try again' } };
+	}
 };
