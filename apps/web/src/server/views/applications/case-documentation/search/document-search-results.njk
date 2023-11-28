@@ -1,0 +1,110 @@
+{% extends "../../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./document-search.component.njk" import applicationDocumentSearch %}
+
+{% set serviceName = "Project documentation" %}
+{% set pageTitle = "Search results" %}
+
+{% block pageTitle %}
+	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
+{% endblock %}
+
+{% set searchParameters = {
+	query: query,
+	errors: errors,
+	csrfToken: csrfToken,
+	label: "Search cases"
+} %}
+
+{% block errorSummary %}{% endblock %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+		text: "Back to project documentation",
+		href: 'case-view'|url({caseId:caseId, step: 'project-documentation'})
+	}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+
+	<h1 class="govuk-heading-s govuk-!-margin-bottom-5">
+		{{ pageTitle }}
+	</h1>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			{{ applicationDocumentSearch({caseId: caseId, errors: errors}) }}
+		</div>
+	</div>
+
+	<div>
+		<p class="govuk-heading-s">
+			{{ searchResult.itemCount if searchResult.itemCount > 0 else 0 }}
+			results
+		</p>
+
+		{% set rows = [] %}
+		{% for searchItem in searchResult.items %}
+
+			{% set documentLink %}
+			<a class="govuk-link" href="{{'document'|url({
+					step: 'properties',
+					caseId: caseId,
+					documentGuid: searchItem.documentGuid,
+					folderId: searchItem.folderId
+				})}}">
+					View
+				</a>
+			{% endset %}
+
+			{% set rows = rows | concat([
+				[
+					{
+						html: searchItem.documentRef
+					}, {
+						html: searchItem.fileName
+					}, {
+						html: documentLink
+					}
+
+				]
+			]) %}
+		{% endfor %}
+
+		{% if searchResult.itemCount > 0 %}
+			{{ govukTable({
+				classes: 'pins-table--fixed pins-table--bordered',
+				head: [
+					{ text: "Document reference" },
+					{ text: "File name" },
+					{ text: "" }
+				],
+				rows: rows
+			}) }}
+
+			{% if pagination.items.length > 1 %}
+				{{ govukPagination(pagination) }}
+			{% endif %}
+
+		{% elif searchResult.itemCount === 0 and query.length > 0 %}
+			<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+			<p class="govuk-heading-s"> There are no matching results</p>
+
+			<p class="govuk-body">Improve your search by:</p>
+			<ul class="govuk-list govuk-list--bullet">
+				<li>double-checking your spelling</li>
+				<li>make sure you have the case reference number right</li>
+			</ul>
+		{% endif %}
+	</div>
+
+{% endblock %}
+
+{% macro createOptionalLink(params) %}{% endmacro %}

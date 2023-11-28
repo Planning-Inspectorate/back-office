@@ -3,13 +3,10 @@
 
 {% macro applicationDocumentSearch(params) %}
 
-	{% set csrfToken = params.csrfToken %}
+	<form method="post" action="{{'documents-search'|url({caseId: params.caseId})}}" novalidate class="pins-dashboard-box--form pins-dashboard-form">
 
-	<form method="post" action="{{params.searchDocumentsUrl}}" novalidate class="pins-dashboard-box--form pins-dashboard-form">
-		{% include 'app/includes/csrf.njk' %}
 		{{ govukInput({
 			label: {
-				text: params.label,
 				classes: "pins-dashboard-form--label",
 				isPageHeading: false
 			},
