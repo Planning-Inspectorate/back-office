@@ -2,6 +2,8 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
 
 /** @typedef {import('@pins/applications.api').Schema.S51Advice} S51Advice */
 /** @typedef {import('@pins/applications').S51AdviceDetails} S51AdviceDetails */
+/** @typedef {import('@prisma/client').Prisma.DocumentGetPayload<{include: {latestDocumentVersion: true}}>} DocumentWithLatestVersion */
+/** @typedef {{DocumentWithLatestVersion: DocumentWithLatestVersion}} DocumentWithLatestVersionObj */
 
 /**
  * returns a formatted S52 Advice ref
@@ -20,10 +22,10 @@ export const formatS51AdviceReferenceCode = (caseRef, adviceRef) => {
  *
  * @param { string } caseRef
  * @param { S51Advice } s51Advice
- * @param { { documentName: any; documentType: string; documentSize: string; dateAdded: number; status: string; documentGuid: string, version: number }[] } attachments
+ * @param { { documentName: any; documentType: string; documentSize: string; dateAdded: number; status: string; documentGuid: string, version: number }[] | DocumentWithLatestVersionObj[] } attachments
  * @returns { S51AdviceDetails }
  */
-export const mapS51Advice = (caseRef, s51Advice, attachments) => {
+export const mapS51Advice = (caseRef, s51Advice, attachments, andMapAttachments = false) => {
 	return {
 		id: s51Advice.id,
 		referenceCode: formatS51AdviceReferenceCode(caseRef, s51Advice.referenceNumber),
@@ -42,7 +44,7 @@ export const mapS51Advice = (caseRef, s51Advice, attachments) => {
 		redactedStatus: s51Advice.redactedStatus ?? '',
 		dateCreated: mapDateStringToUnixTimestamp(s51Advice.createdAt.toString()),
 		dateUpdated: mapDateStringToUnixTimestamp(s51Advice.updatedAt.toString()),
-		attachments,
+		attachments: andMapAttachments ? mapS51DocumentsToUI(attachments) : attachments,
 		datePublished: s51Advice?.datePublished
 			? mapDateStringToUnixTimestamp(s51Advice?.datePublished?.toString())
 			: null,
@@ -58,4 +60,34 @@ export const mapS51Advice = (caseRef, s51Advice, attachments) => {
  */
 export const mapManyS51Advice = (caseRef, s51Advices) => {
 	return s51Advices.map((s51Advice) => mapS51Advice(caseRef, s51Advice));
+};
+
+/**
+ * maps a single S51 Advice Document attached to an S51 advice, to UI usable format
+ *
+ * @param { DocumentWithLatestVersion } documentWithDocumentVersion
+ * @returns { { documentName: string |null |undefined; documentType: string |null |undefined; documentSize: number |null |undefined; dateAdded: number |null |undefined; status: string |null |undefined; documentGuid: string |null |undefined, version: number |null |undefined } } attachment
+ */
+export const mapS51DocumentToUI = (documentWithDocumentVersion) => {
+	return {
+		documentName: documentWithDocumentVersion.Document.latestDocumentVersion?.fileName,
+		documentType: documentWithDocumentVersion.Document.latestDocumentVersion?.mime,
+		documentSize: documentWithDocumentVersion.Document.latestDocumentVersion?.size,
+		dateAdded: mapDateStringToUnixTimestamp(
+			documentWithDocumentVersion.Document.latestDocumentVersion?.dateCreated.toString()
+		),
+		status: documentWithDocumentVersion.Document.latestDocumentVersion?.publishedStatus,
+		documentGuid: documentWithDocumentVersion.Document.latestDocumentVersion?.documentGuid,
+		version: documentWithDocumentVersion.Document.latestDocumentVersion?.version
+	};
+};
+
+/**
+ * maps an array of S51 Advice Documents attached to an S51 advice, to UI usable format
+ *
+ * @param { DocumentWithLatestVersionObj[] } documentsWithDocumentVersion
+ * @returns { S51AdviceDetails }
+ */
+export const mapS51DocumentsToUI = (documentsWithDocumentVersion) => {
+	return documentsWithDocumentVersion.map((s51Document) => mapS51DocumentToUI(s51Document));
 };

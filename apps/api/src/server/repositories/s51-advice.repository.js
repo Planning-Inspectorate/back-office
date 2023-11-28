@@ -1,7 +1,7 @@
 import { databaseConnector } from '#utils/database-connector.js';
 
 /**
- * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: {include: {Document: true }} }}>} S51AdviceWithS51AdviceDocumentWithDocument
+ * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: {include: {Document: {include: {latestDocumentVersion: true}}}} }}>} S51AdviceWithS51AdviceDocumentsWithLatestVersion
  */
 
 /**
@@ -175,8 +175,8 @@ export const getPublishedAdvicesByIds = (s51AdviceIds) => {
  * Filter S51 advice table to retrieve documents by 'ready-to-publish' status, ignoring deleted advice,
  * and not including any deleted attachments
  *
- * @param {{skipValue: number, pageSize: number, caseId: number, documentVersion?: number}} params
- * @returns {S51AdviceWithS51AdviceDocumentWithDocument[]}
+ * @param {{skipValue: number, pageSize: number, caseId: number}} params
+ * @returns {import('@prisma/client').PrismaPromise<S51AdviceWithS51AdviceDocumentsWithLatestVersion[]>}
  */
 export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
 	// in order to ensure only non-deleted attachments are included, have to use a select instead of an include, to be able to add a where clause
@@ -216,7 +216,24 @@ export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
 			createdAt: true,
 			updatedAt: true,
 			S51AdviceDocument: {
-				select: { Document: true },
+				select: {
+					Document: {
+						select: {
+							latestDocumentVersion: {
+								select: {
+									fileName: true,
+									mime: true,
+									size: true,
+									dateCreated: true,
+									lastModified: true,
+									publishedStatus: true,
+									documentGuid: true,
+									version: true
+								}
+							}
+						}
+					}
+				},
 				where: {
 					Document: { isDeleted: false }
 				}
