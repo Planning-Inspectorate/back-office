@@ -7,7 +7,7 @@ import api from './back-office-api-client.js';
  * @param {*} msg
  */
 export default async function (context, msg) {
-	context.log('Employee import command', msg);
+	context.log('Service user import command', msg);
 
 	const applicationProperties = context?.bindingData?.applicationProperties;
 
@@ -31,8 +31,9 @@ export default async function (context, msg) {
 
 		const { id } = res;
 
-		context.log.info(`Employee created: ${id}`);
+		context.log.info(`Service user created: ${id}`);
 	} catch (e) {
-		context.log.error('Error creating appeal', e);
+		context.log.error('Error creating service user', e);
+		throw e;
 	}
 }

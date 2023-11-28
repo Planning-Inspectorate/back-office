@@ -1,7 +1,7 @@
 {
-  "name": "@pins/functions-bo-appeals-lpaq-import",
+  "name": "@pins/functions-bo-appeals-user-import",
   "version": "1.0.0",
-  "description": "Azure Function to handle LPA questionnaires submitted on the Service Bus topic",
+  "description": "Azure Function to handle ODW Employee data submitted on the Service Bus topic",
   "scripts": {
     "start": "func start"
   },

@@ -4,8 +4,8 @@
 			"name": "registerSubscription",
 			"type": "serviceBusTrigger",
 			"direction": "in",
-			"topicName": "appeal-fo-lpa-response-submission",
-			"subscriptionName": "register-fo-lpaq-subscription",
+			"topicName": "service-user",
+			"subscriptionName": "register-odw-service-user-subscription",
 			"connection": "ServiceBusConnection"
 		}
 	]

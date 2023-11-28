@@ -4,8 +4,8 @@
 			"name": "registerSubscription",
 			"type": "serviceBusTrigger",
 			"direction": "in",
-			"topicName": "employee",
-			"subscriptionName": "register-odw-hrdata-subscription",
+			"topicName": "appeal-fo-lpa-response-submission",
+			"subscriptionName": "fo-lpaq-submission-subscription",
 			"connection": "ServiceBusConnection"
 		}
 	]

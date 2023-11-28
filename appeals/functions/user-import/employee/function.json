@@ -4,8 +4,8 @@
 			"name": "registerSubscription",
 			"type": "serviceBusTrigger",
 			"direction": "in",
-			"topicName": "appeal-fo-appellant-submission",
-			"subscriptionName": "register-fo-casedata-subscription",
+			"topicName": "employee",
+			"subscriptionName": "register-odw-employee-subscription",
 			"connection": "ServiceBusConnection"
 		}
 	]
