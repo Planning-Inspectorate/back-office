@@ -1,5 +1,5 @@
 {
-  "name": "@pins/functions-bo-appeals-user-import",
+  "name": "@pins/functions-bo-appeals-document-processing",
   "version": "1.0.0",
   "description": "Azure Function to handle ODW Employee data submitted on the Service Bus topic",
   "scripts": {
