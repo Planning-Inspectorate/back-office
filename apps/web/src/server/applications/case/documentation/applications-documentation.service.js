@@ -245,7 +245,7 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
 };
 
 /**
- * returns a paginated set of documents on a case, matching passed search criteria
+ * Returns a paginated list of documents on a case, matching passed search criteria
  *
  * @param {number} caseId
  * @param {string} query
@@ -259,7 +259,7 @@ export const searchDocuments = async (caseId, query, pageNumber) => {
 		);
 		return { searchResult };
 	} catch (/** @type {*} */ error) {
-		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknow error'}`);
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
 		return { errors: { msg: 'Your search could not be carried out, try again.' } };
 	}
 };

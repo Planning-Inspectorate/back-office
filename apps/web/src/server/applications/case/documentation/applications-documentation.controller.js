@@ -491,7 +491,7 @@ const getPaginationButtonData = (currentPageNumber, pageCount) => {
 };
 
 /**
- * Search for documents in a case. paginated.
+ * Search for documents in a case.
  *
  *  @type {import('@pins/express').RenderHandler<{}, {}, {query: string}, {q: string, page: string}>}
  */
@@ -505,13 +505,6 @@ export async function viewApplicationsCaseDocumentationSearchPage(
 
 	const { errors, searchResult } = await searchDocuments(caseId, query, pageNumber);
 
-	if (errors) {
-		return response.render('applications/case-documentation/search/document-search-results', {
-			errors,
-			query
-		});
-	}
-
 	const pagination = getPaginationLinks(
 		pageNumber,
 		searchResult?.pageCount || 0,
@@ -522,6 +515,7 @@ export async function viewApplicationsCaseDocumentationSearchPage(
 	return response.render('applications/case-documentation/search/document-search-results', {
 		searchResult,
 		query,
-		pagination
+		pagination,
+		errors
 	});
 }
