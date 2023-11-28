@@ -468,7 +468,7 @@ export const publishQueueItems = async ({ params: { id }, body }, response) => {
 
 	await eventClient.sendEvents(
 		NSIP_S51_ADVICE,
-		[fulfilled.map(buildNsipS51AdvicePayload)],
+		fulfilled.map(buildNsipS51AdvicePayload),
 		EventType.Publish
 	);
 
