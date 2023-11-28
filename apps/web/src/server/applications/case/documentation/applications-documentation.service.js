@@ -9,9 +9,6 @@ import { get, patch, post } from '../../../lib/request.js';
  * @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
  */
 
-//document search
-/** @typedef {import('./applications-documentation.types.js').DocumentsSearchResultsBody} DocumentsSearchResultsBody */
-
 /**
  * Get all the subfolders in a folder, or the top level folders for the case
  *
@@ -257,10 +254,6 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
  */
 export const searchDocuments = async (caseId, query, pageNumber) => {
 	try {
-		console.log(
-			260260,
-			`applications/${caseId}/documents?page=${pageNumber}&pageSize=25&criteria=${query}`
-		);
 		const searchResult = await get(
 			`applications/${caseId}/documents?page=${pageNumber}&pageSize=25&criteria=${query}`
 		);

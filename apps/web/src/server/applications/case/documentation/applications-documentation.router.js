@@ -3,7 +3,6 @@ import { Router as createRouter } from 'express';
 import asyncRoute from '../../../lib/async-route.js';
 import * as locals from '../applications-case.locals.js';
 import * as controller from './applications-documentation.controller.js';
-
 import {
 	validateApplicationsDocumentations,
 	validateApplicationsDocumentationsActions,
@@ -39,8 +38,8 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/search-results')
-	.get(asyncRoute(controller.searchDocuments))
-	.post(asyncRoute(controller.searchDocuments));
+	.get(asyncRoute(controller.viewApplicationsCaseDocumentationSearchPage))
+	.post(asyncRoute(controller.viewApplicationsCaseDocumentationSearchPage));
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
