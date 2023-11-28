@@ -251,17 +251,22 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
  * returns a paginated set of documents on a case, matching passed search criteria
  *
  * @param {number} caseId
- * @param {DocumentsSearchResultsBody} payload
- * @returns {Promise<{results?: PaginatedDocumentationFiles, errors?: {msg: string }}>}
+ * @param {string} query
+ * @param {number} pageNumber
+ * @returns {Promise<{searchResult?: PaginatedDocumentationFiles, errors?: {msg: string }}>}
  */
-export const searchDocuments = async (caseId, payload) => {
+export const searchDocuments = async (caseId, query, pageNumber) => {
 	try {
-		const results = await get(
-			`applications/${caseId}/documents?page=${payload.pageNumber}&pageSize=${payload.pageSize}&&criteria=${payload.query}`
+		console.log(
+			260260,
+			`applications/${caseId}/documents?page=${pageNumber}&pageSize=25&criteria=${query}`
 		);
-		return { results };
+		const searchResult = await get(
+			`applications/${caseId}/documents?page=${pageNumber}&pageSize=25&criteria=${query}`
+		);
+		return { searchResult };
 	} catch (/** @type {*} */ error) {
-		logger.error(`[API] ${error?.response?.body?.errors || 'Unknow error'}`);
-		return { errors: { msg: 'Your documents could not be published, please try again' } };
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknow error'}`);
+		return { errors: { msg: 'Your search could not be carried out, try again.' } };
 	}
 };

@@ -6,11 +6,6 @@
 	<form method="post" action="{{'documents-search'|url({caseId: params.caseId})}}" novalidate class="pins-dashboard-box--form pins-dashboard-form">
 
 		{{ govukInput({
-			label: {
-				classes: "pins-dashboard-form--label",
-				isPageHeading: false
-			},
-			errorMessage: params.errors.query | errorMessage,
 			inputmode: "search",
 			classes: 'pins-dashboard-form--input',
 			id: "searchDocuments",

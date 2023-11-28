@@ -108,9 +108,12 @@ describe('GET search for non S51 Advice documents in a case', () => {
 		const response = await request.get('/applications/1/documents?criteria=22');
 
 		// THEN
-		expect(response.status).toEqual(400);
+		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
-			errors: { criteria: 'Search criteria must have at least 3 characters' }
+			page: 1,
+			pageCount: 0,
+			itemCount: 0,
+			items: []
 		});
 	});
 

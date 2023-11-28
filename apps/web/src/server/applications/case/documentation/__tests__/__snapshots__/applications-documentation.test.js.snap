@@ -21563,6 +21563,309 @@ exports[`applications documentation Document publishing queue If the user is not
 </main>"
 `;
 
+exports[`applications documentation Document search GET /case/123/project-documentation/search-results page should render with errors if api failed 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#msg\\">Your search could not be carried out, try again.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class=\\"govuk-heading-s govuk-!-margin-bottom-5\\"> Search results</h1>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <form method=\\"post\\" action=\\"/applications-service/case/123/project-documentation/search-results\\"
+            novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                <div class=\\"govuk-form-group\\">
+                    <input class=\\"govuk-input pins-dashboard-form--input\\" id=\\"searchDocuments\\"
+                    name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                </div>
+                <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+            </form>
+        </div>
+    </div>
+    <div>
+        <p class=\\"govuk-heading-s\\">0 results</p>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document search GET /case/123/project-documentation/search-results page should render with results 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-s govuk-!-margin-bottom-5\\"> Search results</h1>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <form method=\\"post\\" action=\\"/applications-service/case/123/project-documentation/search-results\\"
+            novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                <div class=\\"govuk-form-group\\">
+                    <input class=\\"govuk-input pins-dashboard-form--input\\" id=\\"searchDocuments\\"
+                    name=\\"query\\" type=\\"text\\" value=\\"word\\" inputmode=\\"search\\">
+                </div>
+                <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+            </form>
+        </div>
+    </div>
+    <div>
+        <p class=\\"govuk-heading-s\\">200 results</p>
+        <table class=\\"govuk-table pins-table--bordered stretch-last-column\\">
+            <thead class=\\"govuk-table__head\\">
+                <tr class=\\"govuk-table__row\\">
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">Document reference</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\">File name</th>
+                    <th scope=\\"col\\" class=\\"govuk-table__header\\"></th>
+                </tr>
+            </thead>
+            <tbody class=\\"govuk-table__body\\">
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>1 Ut enim ad</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/0/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>2 Minim veniam quis nostrud</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/1/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>3 Nostrud exercitation ullamco laboris</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/2/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>4 Elit sed</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/3/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>5 Minim veniam quis nostrud</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/4/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>6 Magna aliqua Ut</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/5/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>7 Enim ad minim veniam</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/6/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>8 Dolor sit</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/7/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>9 Lorem ipsum</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/8/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>10 Do eiusmod</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/9/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>11 Aliqua Ut enim</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/10/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>12 Ullamco laboris nisi ut</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/11/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>13 Do eiusmod</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/12/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>14 Quis nostrud exercitation ullamco</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/13/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>15 Do eiusmod</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/14/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>16 Lorem ipsum</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/15/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>17 Ad minim veniam quis</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/16/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>18 Dolore magna aliqua</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/17/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>19 Eiusmod tempor incididunt</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/18/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>20 Eiusmod tempor incididunt</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/19/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>21 Labore et dolore</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/20/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>22 Enim ad minim veniam</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/21/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>23 Nisi ut aliquip ex</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/22/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>24 Incididunt ut labore</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/23/properties\\"> View</a>
+                    </td>
+                </tr>
+                <tr class=\\"govuk-table__row\\">
+                    <td class=\\"govuk-table__cell\\"></td>
+                    <td class=\\"govuk-table__cell\\"><strong>25 Ullamco laboris nisi ut</strong>
+                    </td>
+                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/11/document/24/properties\\"> View</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class=\\"govuk-pagination\\" role=\\"navigation\\" aria-label=\\"results\\">
+            <ul class=\\"govuk-pagination__list\\">
+                <li class=\\"govuk-pagination__item govuk-pagination__item--current\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/applications-service/case/123/project-documentation/search-results?q=word&amp;page=1\\"
+                    aria-label=\\"Page 1\\" aria-current=\\"page\\"> 1</a>
+                </li>
+                <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/applications-service/case/123/project-documentation/search-results?q=word&amp;page=2\\"
+                    aria-label=\\"Page 2\\"> 2</a>
+                </li>
+                <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/applications-service/case/123/project-documentation/search-results?q=word&amp;page=3\\"
+                    aria-label=\\"Page 3\\"> 3</a>
+                </li>
+                <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/applications-service/case/123/project-documentation/search-results?q=word&amp;page=4\\"
+                    aria-label=\\"Page 4\\"> 4</a>
+                </li>
+                <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/applications-service/case/123/project-documentation/search-results?q=word&amp;page=5\\"
+                    aria-label=\\"Page 5\\"> 5</a>
+                </li>
+                <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/applications-service/case/123/project-documentation/search-results?q=word&amp;page=6\\"
+                    aria-label=\\"Page 6\\"> 6</a>
+                </li>
+                <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/applications-service/case/123/project-documentation/search-results?q=word&amp;page=7\\"
+                    aria-label=\\"Page 7\\"> 7</a>
+                </li>
+                <li class=\\"govuk-pagination__item\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/applications-service/case/123/project-documentation/search-results?q=word&amp;page=8\\"
+                    aria-label=\\"Page 8\\"> 8</a>
+                </li>
+            </ul>
+            <div class=\\"govuk-pagination__next\\"><a class=\\"govuk-link govuk-pagination__link\\" href=\\"/applications-service/case/123/project-documentation/search-results?q=word&amp;page=2\\"
+                rel=\\"next\\"><span class=\\"govuk-pagination__link-title\\">Next</span><svg class=\\"govuk-pagination__icon govuk-pagination__icon--next\\" xmlns=\\"http://www.w3.org/2000/svg\\" height=\\"13\\" width=\\"15\\" aria-hidden=\\"true\\" focusable=\\"false\\" viewBox=\\"0 0 15 13\\"><path d=\\"m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z\\"></path></svg></a>
+            </div>
+        </nav>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document search GET /case/123/project-documentation/search-results page should render with suggestion if no results 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-s govuk-!-margin-bottom-5\\"> Search results</h1>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <form method=\\"post\\" action=\\"/applications-service/case/123/project-documentation/search-results\\"
+            novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                <div class=\\"govuk-form-group\\">
+                    <input class=\\"govuk-input pins-dashboard-form--input\\" id=\\"searchDocuments\\"
+                    name=\\"query\\" type=\\"text\\" value=\\"word\\" inputmode=\\"search\\">
+                </div>
+                <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+            </form>
+        </div>
+    </div>
+    <div>
+        <p class=\\"govuk-heading-s\\">0 results</p>
+        <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
+        <p class=\\"govuk-heading-s\\">There are no matching results</p>
+        <p class=\\"govuk-body\\">Improve your search by:</p>
+        <ul class=\\"govuk-list govuk-list--bullet\\">
+            <li>double-checking your spelling</li>
+            <li>make sure you have the document reference number right</li>
+            <li>entering at least 3 characters</li>
+        </ul>
+    </div>
+</main>"
+`;
+
 exports[`applications documentation Document upload new version page should render 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row pins-file-upload\\" data-next-page-url=\\"/applications-service/case/123/project-documentation/21/document/11/properties\\"
@@ -21618,8 +21921,19 @@ exports[`applications documentation GET /case/123/project-documentation should r
     <div class=\\"govuk-grid-row display--flex\\">
         <div class=\\"govuk-grid-column-full\\">
             <h2 class=\\"govuk-heading-m\\">Project documentation</h2>
-            <p class=\\"govuk-body-s colour--secondary\\">All documents relating to the project</p><a class=\\"govuk-link govuk-heading-s\\"
-            href=\\"/applications-service/case/123/project-documentation/1/project-management/\\"> Project management</a>
+            <p class=\\"govuk-body-s colour--secondary\\">All documents relating to the project</p>
+            <div class=\\"govuk-grid-row govuk-!-margin-bottom-3 govuk-!-margin-top-6\\">
+                <div class=\\"govuk-grid-column-two-thirds\\">
+                    <form method=\\"post\\" action=\\"/applications-service/case/123/project-documentation/search-results\\"
+                    novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\">
+                        <div class=\\"govuk-form-group\\">
+                            <input class=\\"govuk-input pins-dashboard-form--input\\" id=\\"searchDocuments\\"
+                            name=\\"query\\" type=\\"text\\" inputmode=\\"search\\">
+                        </div>
+                        <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
+                    </form>
+                </div>
+            </div><a class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\"> Project management</a>
             <a             class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/2/legal-advice/\\">Legal advice</a><a class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/3/transboundary/\\"> Transboundary</a>
                 <a                 class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/4/land-rights/\\">Land rights</a>
         </div>
