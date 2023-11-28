@@ -1,4 +1,8 @@
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
+
+/**
+ * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: {include: {Document: true }} }}>} S51AdviceWithS51AdviceDocumentWithDocument
+ */
 
 /**
  *
@@ -168,12 +172,15 @@ export const getPublishedAdvicesByIds = (s51AdviceIds) => {
 };
 
 /**
- * Filter S51 advice table to retrieve documents by 'ready-to-publish' status, ignoring deleted advice
+ * Filter S51 advice table to retrieve documents by 'ready-to-publish' status, ignoring deleted advice,
+ * and not including any deleted attachments
  *
  * @param {{skipValue: number, pageSize: number, caseId: number, documentVersion?: number}} params
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51Advice[]>}
+ * @returns {S51AdviceWithS51AdviceDocumentWithDocument[]}
  */
 export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
+	// in order to ensure only non-deleted attachments are included, have to use a select instead of an include, to be able to add a where clause
+	// this means have to also explicitly specify all the top level fields returned, hence the long list in select.  Oh Prisma, where is 'select *' ?
 	return databaseConnector.s51Advice.findMany({
 		skip: skipValue,
 		take: pageSize,
@@ -187,8 +194,33 @@ export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
 			publishedStatus: 'ready_to_publish',
 			isDeleted: false
 		},
-		include: {
-			S51AdviceDocument: true
+		select: {
+			id: true,
+			caseId: true,
+			title: true,
+			firstName: true,
+			lastName: true,
+			enquirer: true,
+			enquiryMethod: true,
+			enquiryDate: true,
+			enquiryDetails: true,
+			adviser: true,
+			adviceDate: true,
+			adviceDetails: true,
+			referenceNumber: true,
+			redactedStatus: true,
+			publishedStatus: true,
+			publishedStatusPrev: true,
+			datePublished: true,
+			isDeleted: true,
+			createdAt: true,
+			updatedAt: true,
+			S51AdviceDocument: {
+				select: { Document: true },
+				where: {
+					Document: { isDeleted: false }
+				}
+			}
 		}
 	});
 };
