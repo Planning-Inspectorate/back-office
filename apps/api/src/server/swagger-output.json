@@ -1435,26 +1435,6 @@
 							"$ref": "#/definitions/PaginatedDocumentDetails"
 						}
 					},
-					"400": {
-						"description": "Search criteria too short",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"errors": {
-									"type": "object",
-									"properties": {
-										"criteria": {
-											"type": "string",
-											"example": "Search criteria must have at least 3 characters"
-										}
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
 					"404": {
 						"description": "Error: Not Found",
 						"schema": {
