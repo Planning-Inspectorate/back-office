@@ -35,33 +35,33 @@
       {% endif %}
     {% endblock %}
 </aside>
-  {% endblock %}
+{% endblock %}
 
-  {% block content %}
-	  {% block errorSummary %}
-    {% if errors %}
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          {{
-					govukErrorSummary({
-						titleText: "There is a problem",
-						errorList: errors | mapToErrorSummary
-					})
-				}}
-        </div>
+{% block content %}
+  {% block errorSummary %}
+  {% if errors %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{
+        govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errors | mapToErrorSummary
+        })
+      }}
       </div>
-    {% endif %}
-		  {% endblock %}
-    {% block pageHeading %}
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-          <h1 class="govuk-heading-xl">
-            {% if pageCaption %}
-              <span class="govuk-caption-xl">{{ pageCaption }}</span>
-            {% endif %}{{ pageHeading or pageTitle }}
-          </h1>
-        </div>
-      </div>
+    </div>
+  {% endif %}
     {% endblock %}
-    {% block pageContent %}{% endblock %}
+  {% block pageHeading %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">
+          {% if pageCaption %}
+            <span class="govuk-caption-xl">{{ pageCaption }}</span>
+          {% endif %}{{ pageHeading or pageTitle }}
+        </h1>
+      </div>
+    </div>
   {% endblock %}
+  {% block pageContent %}{% endblock %}
+{% endblock %}
