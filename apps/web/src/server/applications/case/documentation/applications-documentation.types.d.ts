@@ -31,18 +31,3 @@ export interface CaseDocumentationUploadProps {
 	currentFolder: DocumentationCategory;
 	caseId: string;
 }
-
-export type DocumentsSearchResultsBody = {
-	query: string;
-	pageNumber: number;
-	pageSize: number;
-};
-
-export type DocumentsSearchResultsProps = {
-	searchDocumentItems: DocumentationFile[];
-	query?: string;
-	itemCount: number;
-	pagination?: Pagination;
-	errors?: ValidationErrors;
-	searchDocumentsUrl?: string;
-};

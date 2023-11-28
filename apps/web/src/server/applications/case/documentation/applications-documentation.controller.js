@@ -18,7 +18,8 @@ import {
 	removeCaseDocumentationPublishingQueue,
 	updateCaseDocumentationFiles,
 	unpublishCaseDocumentationFiles,
-	getCaseManyDocumentationFilesInfo
+	getCaseManyDocumentationFilesInfo,
+	searchDocuments
 } from './applications-documentation.service.js';
 import {
 	destroySessionFolderPage,
@@ -28,7 +29,6 @@ import {
 import { paginationParams } from '../../../lib/pagination-params.js';
 
 //document search
-import * as applicationsDocumentationService from './applications-documentation.service.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -42,10 +42,6 @@ import { getPaginationLinks } from '../../common/components/pagination/paginatio
 /** @typedef {import('./applications-documentation.types').CaseDocumentationProps} CaseDocumentationProps */
 /** @typedef {import('./applications-documentation.types').PaginationButtons} PaginationButtons */
 /** @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles */
-
-//Search document
-/** @typedef {import('./applications-documentation.types').DocumentsSearchResultsBody} DocumentsSearchResultsBody */
-/** @typedef {import('./applications-documentation.types').DocumentsSearchResultsProps} DocumentsSearchResultsProps */
 
 /**
  * View the documentation for a single case - the top level folders
@@ -501,16 +497,15 @@ const getPaginationButtonData = (currentPageNumber, pageCount) => {
  *
  *  @type {import('@pins/express').RenderHandler<{}, {}, {query: string}, {q: string, page: string}>}
  */
-export async function searchDocuments({ body, query: requestQuery }, response) {
+export async function viewApplicationsCaseDocumentationSearchPage(
+	{ body, query: requestQuery },
+	response
+) {
 	const { caseId } = response.locals;
 	const query = body.query ?? requestQuery.q;
 	const pageNumber = Number.parseInt(requestQuery.page || '1', 10);
 
-	const { errors, searchResult } = await applicationsDocumentationService.searchDocuments(
-		caseId,
-		query,
-		pageNumber
-	);
+	const { errors, searchResult } = await searchDocuments(caseId, query, pageNumber);
 
 	if (errors) {
 		return response.render('applications/case-documentation/search/document-search-results', {
