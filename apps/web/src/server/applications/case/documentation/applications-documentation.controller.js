@@ -499,80 +499,36 @@ const getPaginationButtonData = (currentPageNumber, pageCount) => {
 /**
  * Search for documents in a case. paginated.
  *
- *  @type {import('@pins/express').RenderHandler<{}, {}, {query: string}, {q: string, number: string}>}
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {query: string}, {q: string, page: string}>}
  */
-export async function searchDocuments(
-	{ errors: validationErrors, body, query: requestQuery },
-	response
-) {
+export async function searchDocuments({ body, query: requestQuery }, response) {
 	const { caseId } = response.locals;
 	const query = body.query ?? requestQuery.q;
-	const pageSize = 2;
-	const pageNumber = Number.parseInt(requestQuery.number || '1', 10);
+	const pageNumber = Number.parseInt(requestQuery.page || '1', 10);
 
-	let searchResult = null;
-	let apiErrors = null;
+	const { errors, searchResult } = await applicationsDocumentationService.searchDocuments(
+		caseId,
+		query,
+		pageNumber
+	);
 
-	if (!validationErrors) {
-		const { errors, results } = await applicationsDocumentationService.searchDocuments(caseId, {
-			query,
-			pageSize,
-			pageNumber
-		});
-
-		searchResult = results;
-		apiErrors = errors;
-	}
-
-	if (validationErrors || apiErrors) {
+	if (errors) {
 		return response.render('applications/case-documentation/search/document-search-results', {
-			errors: validationErrors || apiErrors,
+			errors,
 			query
 		});
 	}
 
-	const pageCount = Math.ceil((searchResult?.itemCount || 0) / pageSize);
-
-	// const pagination = {
-	// 	previous:
-	// 		pageNumber > 1
-	// 			? {
-	// 					href: url('document-search-results', {
-	// 						caseId: caseId,
-	// 						step: `${pageNumber - 1}`,
-	// 						query
-	// 					})
-	// 			  }
-	// 			: {},
-	// 	next:
-	// 		pageNumber < pageCount
-	// 			? {
-	// 					href: url('document-search-results', {
-	// 						caseId: caseId,
-	// 						step: `${pageNumber + 1}`,
-	// 						query
-	// 					})
-	// 			  }
-	// 			: {},
-	// 	items: Array.from({ length: pageCount }).map((value, key) => ({
-	// 		number: key + 1,
-	// 		current: key + 1 === pageNumber,
-	// 		href: url('document-search-results', { caseId: caseId, step: `${key + 1}`, query })
-	// 	}))
-	// };
-
-	const k = getPaginationLinks(
+	const pagination = getPaginationLinks(
 		pageNumber,
-		pageCount,
-		requestQuery,
-		url('document-search-results', {
-			caseId: caseId
-		})
+		searchResult?.pageCount || 0,
+		{ q: query },
+		url('documents-search', { caseId })
 	);
 
 	return response.render('applications/case-documentation/search/document-search-results', {
 		searchResult,
 		query,
-		pagination: k
+		pagination
 	});
 }

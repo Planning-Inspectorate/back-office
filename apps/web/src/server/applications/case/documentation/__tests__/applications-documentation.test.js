@@ -521,4 +521,54 @@ describe('applications documentation', () => {
 			});
 		});
 	});
+
+	describe('Document search', () => {
+		beforeEach(async () => {
+			nocks('case-team');
+			await request.get('/applications-service/case-team');
+		});
+
+		describe('GET /case/123/project-documentation/search-results', () => {
+			it('page should render with errors if api failed', async () => {
+				const response = await request.get(`${baseUrl}/project-documentation/search-results`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Your search could not be carried out, try again.');
+				expect(element.innerHTML).toContain('Search results');
+			});
+
+			it('page should render with suggestion if no results', async () => {
+				nock('http://test/')
+					.get('/applications/123/documents?page=1&pageSize=25&criteria=word')
+					.reply(200, { searchResult: {} });
+
+				const response = await request.get(
+					`${baseUrl}/project-documentation/search-results?q=word`
+				);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There are no matching results');
+				expect(element.innerHTML).toContain('Search results');
+			});
+
+			it('page should render with results', async () => {
+				const results = fixturePaginatedDocumentationFiles(1, 25);
+				nock('http://test/')
+					.get('/applications/123/documents?page=1&pageSize=25&criteria=word')
+					.reply(200, results);
+
+				const response = await request.get(
+					`${baseUrl}/project-documentation/search-results?q=word`
+				);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain(results.items[0].fileName);
+				expect(element.innerHTML).toContain(`${results.itemCount} results`);
+				expect(element.innerHTML).toContain('Search results');
+			});
+		});
+	});
 });

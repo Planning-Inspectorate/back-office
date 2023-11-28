@@ -12,15 +12,6 @@
 	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
 {% endblock %}
 
-{% set searchParameters = {
-	query: query,
-	errors: errors,
-	csrfToken: csrfToken,
-	label: "Search cases"
-} %}
-
-{% block errorSummary %}{% endblock %}
-
 {% block beforeContent %}
 	<aside>
 		{{ govukBackLink({
@@ -40,7 +31,7 @@
 
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds">
-			{{ applicationDocumentSearch({caseId: caseId, errors: errors}) }}
+			{{ applicationDocumentSearch({caseId: caseId, query: query}) }}
 		</div>
 	</div>
 
@@ -69,7 +60,7 @@
 					{
 						html: searchItem.documentRef
 					}, {
-						html: searchItem.fileName
+						html: '<strong>' + searchItem.fileName + '</strong>'
 					}, {
 						html: documentLink
 					}
@@ -80,7 +71,7 @@
 
 		{% if searchResult.itemCount > 0 %}
 			{{ govukTable({
-				classes: 'pins-table--fixed pins-table--bordered',
+				classes: 'pins-table--bordered stretch-last-column',
 				head: [
 					{ text: "Document reference" },
 					{ text: "File name" },
@@ -92,15 +83,15 @@
 			{% if pagination.items.length > 1 %}
 				{{ govukPagination(pagination) }}
 			{% endif %}
-
-		{% elif searchResult.itemCount === 0 and query.length > 0 %}
+		{% elif errors.msg == null %}
 			<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 			<p class="govuk-heading-s"> There are no matching results</p>
 
 			<p class="govuk-body">Improve your search by:</p>
 			<ul class="govuk-list govuk-list--bullet">
 				<li>double-checking your spelling</li>
-				<li>make sure you have the case reference number right</li>
+				<li>make sure you have the document reference number right</li>
+				<li>entering at least 3 characters</li>
 			</ul>
 		{% endif %}
 	</div>
