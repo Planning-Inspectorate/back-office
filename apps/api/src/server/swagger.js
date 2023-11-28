@@ -196,43 +196,41 @@ export const spec = {
 			examinationRefNo: 'EXM-456',
 			transcript: 'TR010060-000110'
 		},
-		PaginatedDocumentDetails: [
-			{
-				page: 1,
-				pageDefaultSize: 50,
-				pageCount: 1,
-				itemCount: 1,
-				items: [
-					{
-						documentId: '123',
-						version: 1,
-						sourceSystem: 'ABC',
-						documentGuid: '456',
-						fileName: 'document.pdf',
-						originalFilename: 'original_document.pdf',
-						datePublished: 1_646_822_400,
-						privateBlobPath: '/documents/123.pdf',
-						privateBlobContainer: 'my-blob-storage',
-						author: 'John Smith',
-						dateCreated: 1_646_822_400,
-						publishedStatus: 'published',
-						redactedStatus: 'not_redacted',
-						size: 1024,
-						mime: 'application/pdf',
-						status: 'active',
-						description: 'This is a sample document.',
-						representative: 'Jane Doe',
-						stage: 'draft',
-						filter1: 'some filter value',
-						filter2: 'some filter value',
-						documentType: 'contract',
-						caseRef: 'ABC-123',
-						examinationRefNo: 'EXM-456',
-						transcript: 'TR010060-000110'
-					}
-				]
-			}
-		]
+		PaginatedDocumentDetails: {
+			page: 1,
+			pageDefaultSize: 50,
+			pageCount: 1,
+			itemCount: 1,
+			items: [
+				{
+					documentId: '123',
+					version: 1,
+					sourceSystem: 'ABC',
+					documentGuid: '456',
+					fileName: 'document.pdf',
+					originalFilename: 'original_document.pdf',
+					datePublished: 1_646_822_400,
+					privateBlobPath: '/documents/123.pdf',
+					privateBlobContainer: 'my-blob-storage',
+					author: 'John Smith',
+					dateCreated: 1_646_822_400,
+					publishedStatus: 'published',
+					redactedStatus: 'not_redacted',
+					size: 1024,
+					mime: 'application/pdf',
+					status: 'active',
+					description: 'This is a sample document.',
+					representative: 'Jane Doe',
+					stage: 'draft',
+					filter1: 'some filter value',
+					filter2: 'some filter value',
+					documentType: 'contract',
+					caseRef: 'ABC-123',
+					examinationRefNo: 'EXM-456',
+					transcript: 'TR010060-000110'
+				}
+			]
+		}
 	},
 	'@definitions': {
 		ApplicationSummary: {
