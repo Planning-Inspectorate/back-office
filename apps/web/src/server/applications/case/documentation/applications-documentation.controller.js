@@ -27,8 +27,6 @@ import {
 	setSessionFolderPage
 } from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
-
-//document search
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
