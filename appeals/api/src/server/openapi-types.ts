@@ -135,6 +135,11 @@ export interface DecisionInfo {
 	documentDate?: string;
 }
 
+export interface InvalidDecisionInfo {
+	/** @example "Invalid Decision Reason" */
+	invalidDecisionReason?: string;
+}
+
 export interface AddDocumentsRequest {
 	/** @example "host" */
 	blobStorageHost?: string;
