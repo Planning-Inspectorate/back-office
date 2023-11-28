@@ -540,6 +540,11 @@ interface SetAppealDecisionRequest {
 	outcome: string;
 }
 
+interface SetInvalidAppealDecisionRequest {
+	outcome: string;
+	invalidDecisionReason: string;
+}
+
 interface UsersToAssign {
 	caseOfficer?: string | null;
 	inspector?: string | null;
@@ -637,5 +642,6 @@ export {
 	UpdateTimetableRequest,
 	UsersToAssign,
 	ValidationOutcomeResponse,
-	SetAppealDecisionRequest
+	SetAppealDecisionRequest,
+	SetInvalidAppealDecisionRequest
 };

@@ -107,7 +107,7 @@ export const ERROR_INVALID_APPELLANT_CASE_DATA =
 export const ERROR_INVALID_LPAQ_DATA = 'The integration payload LPA_QUESTIONNAIRE is invalid.';
 export const ERROR_INVALID_DOCUMENT_DATA = 'The integration payload DOCUMENT is invalid.';
 export const ERROR_INVALID_APPEAL_STATE = 'The action is invalid on the current appeal state.';
-export const ERROR_CASE_OUTCOME_MUST_BE_ONE_OF = `The case outcome must be one of ${CASE_OUTCOME_ALLOWED}, ${CASE_OUTCOME_DISMISSED}, ${CASE_OUTCOME_SPLIT_DECISION}, ${CASE_OUTCOME_INVALID}`;
+export const ERROR_CASE_OUTCOME_MUST_BE_ONE_OF = `The case outcome must be one of ${CASE_OUTCOME_ALLOWED}, ${CASE_OUTCOME_DISMISSED}, ${CASE_OUTCOME_SPLIT_DECISION}`;
 
 export const LENGTH_1 = 1;
 export const LENGTH_8 = 8;
