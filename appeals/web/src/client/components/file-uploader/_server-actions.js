@@ -46,7 +46,10 @@ const serverActions = (uploadForm) => {
 			},
 			body: JSON.stringify(payload)
 		})
-			.then((response) => response.json())
+			.then((response) => {
+				const responseJson = response.json();
+				return responseJson;
+			})
 			.then((uploadsInfos) => {
 				for (const documentUploadInfo of uploadsInfos.documents) {
 					if (documentUploadInfo.failedReason) {

@@ -2,6 +2,7 @@ import {
 	AUDIT_TRAIL_DOCUMENT_DELETED,
 	AUDIT_TRAIL_DOCUMENT_UPLOADED,
 	ERROR_FAILED_TO_SAVE_DATA,
+	ERROR_FAILED_TO_ADD_DOCUMENTS,
 	ERROR_NOT_FOUND
 } from '#endpoints/constants.js';
 import logger from '#utils/logger.js';
@@ -60,45 +61,54 @@ const getDocumentAndVersions = async (req, res) => {
  * @returns {Promise<Response>}
  */
 const addDocuments = async (req, res) => {
-	const { appeal } = req;
-	const documentInfo = await service.addDocumentsToAppeal(req.body, appeal);
+	try {
+		const { appeal } = req;
+		const documentInfo = await service.addDocumentsToAppeal(req.body, appeal);
 
-	/**
-	 * @type {any}[]}
-	 */
-	const auditTrails = [];
+		/**
+		 * @type {any}[]}
+		 */
+		const auditTrails = [];
 
-	await Promise.all(
-		documentInfo.documents.map(
-			async (document) =>
-				document &&
-				(await auditTrails.push({
-					guid: document.GUID,
-					version: 1,
-					audit: await createAuditTrail({
-						appealId: appeal.id,
-						azureAdUserId: req.get('azureAdUserId'),
-						details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_UPLOADED, [
-							document.documentName,
-							1
-						])
-					})
-				}))
-		)
-	);
+		await Promise.all(
+			documentInfo.documents.map(
+				async (document) =>
+					document &&
+					(await auditTrails.push({
+						guid: document.GUID,
+						version: 1,
+						audit: await createAuditTrail({
+							appealId: appeal.id,
+							azureAdUserId: req.get('azureAdUserId'),
+							details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_UPLOADED, [
+								document.documentName,
+								1
+							])
+						})
+					}))
+			)
+		);
 
-	await Promise.all(
-		auditTrails.map(
-			(/** @type {{ guid: string; version: Number; audit: AuditTrail; }} */ auditTrail) =>
-				auditTrail &&
-				auditTrail.guid &&
-				auditTrail.version &&
-				auditTrail.audit &&
-				service.addDocumentAudit(auditTrail.guid, Number(1), auditTrail.audit, 'Create')
-		)
-	);
+		await Promise.all(
+			auditTrails.map(
+				(/** @type {{ guid: string; version: Number; audit: AuditTrail; }} */ auditTrail) =>
+					auditTrail &&
+					auditTrail.guid &&
+					auditTrail.version &&
+					auditTrail.audit &&
+					service.addDocumentAudit(auditTrail.guid, Number(1), auditTrail.audit, 'Create')
+			)
+		);
 
-	return res.send(getStorageInfo(documentInfo.documents));
+		return res.send(getStorageInfo(documentInfo.documents));
+	} catch (error) {
+		// @ts-ignore
+		if (error.code === 'P2002') {
+			return res.status(409).send({ errors: ERROR_FAILED_TO_ADD_DOCUMENTS });
+		}
+
+		return res.status(500).send({ errors: ERROR_FAILED_TO_ADD_DOCUMENTS });
+	}
 };
 
 /**

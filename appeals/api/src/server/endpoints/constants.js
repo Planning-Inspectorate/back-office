@@ -55,6 +55,7 @@ export const ERROR_APPEAL_ALLOCATION_SPECIALISMS = 'invalid allocation specialis
 export const ERROR_CANNOT_BE_EMPTY_STRING = 'cannot be an empty string';
 export const ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF =
 	'document redaction statuses must be one of {replacement0}';
+export const ERROR_FAILED_TO_ADD_DOCUMENTS = 'failed to add documents';
 export const ERROR_FAILED_TO_GET_DATA = 'failed to get data';
 export const ERROR_FAILED_TO_SAVE_DATA = 'failed to save data';
 export const ERROR_FAILED_TO_SEND_NOTIFICATION_EMAIL = 'failed to send notification email';
