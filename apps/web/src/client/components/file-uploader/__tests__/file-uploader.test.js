@@ -9,7 +9,7 @@ import { fireEvent, waitFor } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import initFileUploaderModule from '../file-uploader.module.js';
 
-const DOM = `<div class="govuk-grid-row pins-file-upload" data-next-page-url="/applications-service/case/437/project-documentation/13/project-management/" data-case-id="437" data-folder-id="13" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
+const DOM = `<div class="govuk-grid-row pins-file-upload" data-next-page-url="/applications-service/case/437/project-documentation/13/project-management/" data-case-id="437" data-folder-id="13" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,.prj,application/x-anjuta-project,.dbf,application/dbf,.shp,application/vnd.shp,.shx,application/vnd.shx">
 <div class="top-errors-hook"></div>
 <h2 class="govuk-heading-m govuk-grid-column-full">Upload files in Project management folder</h2>
 <form class="govuk-grid-column-two-thirds">
@@ -33,14 +33,18 @@ const DOM = `<div class="govuk-grid-row pins-file-upload" data-next-page-url="/a
 		 MOV,
 		 PNG,
 		 TIF,
-		 or TIFF
+     TIFF,
+     PRJ,
+     DBF,
+     SHP
+     or SHX
 		 .
 		 </span>
 		 <span>The total of your uploaded files must be smaller than 1 GB.</span>
 		 <div class="middle-errors-hook"></div>
 	  </div>
 	  <div class="display--flex">
-		 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff," type="file" name="files" value="Choose file" aria-controls="file-list-1" multiple="">
+		 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,.prj,application/x-anjuta-project,.dbf,application/dbf,.shp,application/vnd.shp,.shx,application/vnd.shx" type="file" name="files" value="Choose file" aria-controls="file-list-1" multiple="">
 		 <button type="button" class="pins-file-upload--button govuk-button">Choose file</button>
 		 <span role="status" aria-live="assertive" class="govuk-body pins-file-upload--counter">No file chosen</span>
 	  </div>
