@@ -366,7 +366,7 @@ export const updateManyS51Advices = async ({ body }, response) => {
 };
 
 /**
- * Gets paginated array of S51 advices
+ * Gets paginated array of 'Ready to Publish' S51 advices
  *
  * @type {import('express').RequestHandler<{ folderId: number, id: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
  */
@@ -386,7 +386,7 @@ export const getReadyToPublishAdvices = async ({ params: { id }, body }, respons
 
 	// @ts-ignore
 	const items = paginatedAdviceToPublish.map((advice) =>
-		mapS51Advice(caseId, advice, advice.S51AdviceDocument)
+		mapS51Advice(caseId, advice, advice.S51AdviceDocument, true)
 	);
 
 	response.send({
