@@ -74,12 +74,12 @@ export async function postDocumentsUpload({ apiClient, params, body, session }, 
 
 			return response.send({ ...uploadInfo, documents: documentsWithRowId, accessToken });
 		}
-	} catch (/** @type {Object<any, any>} */error) {
+	} catch (/** @type {Object<any, any>} */ error) {
 		logger.error(error);
 		return response.send({
 			error: {
 				code: error.response?.statusCode || 500,
-				message: error.response?.body?.errors?.body || 'Something went wrong'
+				body: error.response?.body?.errors?.body || null
 			}
 		});
 	}

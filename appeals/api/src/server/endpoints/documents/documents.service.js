@@ -88,8 +88,10 @@ export const addDocumentsToAppeal = async (upload, appeal) => {
 const addDocumentAndVersion = async (caseId, reference, documents) => {
 	const { results } = await PromisePool.withConcurrency(5)
 		.for(documents)
-		.handleError((error) => {
-			logger.error(`Error while upserting documents to database: ${error}`);
+		.handleError((error, document) => {
+			logger.error(`Error while upserting document name "${document.name}" to database: ${error}`);
+			// @ts-ignore
+			error.meta.fileName = document.name;
 			throw error;
 		})
 		.process(async (d) => {
