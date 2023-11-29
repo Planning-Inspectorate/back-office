@@ -6851,7 +6851,7 @@
 				},
 				"dateAdded": {
 					"type": "number",
-					"description": "Date document was added",
+					"description": "Date document was added in Unix timestamp format",
 					"example": 1694179427
 				},
 				"status": {
@@ -7113,7 +7113,7 @@
 				},
 				"enquiryDate": {
 					"type": "number",
-					"description": "Date of enquiry",
+					"description": "Date of enquiry in Unix timestamp format",
 					"example": 1646822400
 				},
 				"enquiryDetails": {
@@ -7128,7 +7128,7 @@
 				},
 				"adviceDate": {
 					"type": "number",
-					"description": "Date advice given",
+					"description": "Date advice given in Unix timestamp format",
 					"example": 1646822400
 				},
 				"adviceDetails": {
@@ -7136,26 +7136,26 @@
 					"description": "Details of the advive given",
 					"example": "details of the advice provided"
 				},
-				"redactedStatus": {
-					"type": "string",
-					"enum": ["not_redacted", "redacted"],
-					"description": "Redacted status",
-					"example": "not_redacted"
-				},
 				"publishedStatus": {
 					"type": "string",
 					"enum": ["not_checked", "checked", "ready_to_publish", "published", "not_published"],
 					"description": "Published status",
 					"example": "published"
 				},
+				"redactedStatus": {
+					"type": "string",
+					"enum": ["not_redacted", "redacted"],
+					"description": "Redacted status",
+					"example": "not_redacted"
+				},
 				"dateCreated": {
 					"type": "number",
-					"description": "Date advice record was created",
+					"description": "Date advice record was created in Unix timestamp format",
 					"example": 1646822400
 				},
 				"dateUpdated": {
 					"type": "number",
-					"description": "Date advice record was last updated",
+					"description": "Date advice record was last updated in Unix timestamp format",
 					"example": 1646822400
 				},
 				"attachments": {
@@ -7163,6 +7163,11 @@
 					"items": {
 						"$ref": "#/definitions/S51AdviceDocumentDetails"
 					}
+				},
+				"datePublished": {
+					"type": "number",
+					"description": "Date advice record was published in Unix timestamp format",
+					"example": 1646822400
 				},
 				"totalAttachments": {
 					"type": "number",
