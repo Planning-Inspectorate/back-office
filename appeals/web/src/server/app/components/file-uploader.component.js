@@ -15,17 +15,18 @@ import logger from '#lib/logger.js';
  * @returns {Promise<AddDocumentsResponse|undefined>}
  */
 export const createNewDocument = async (apiClient, caseId, payload) => {
-	// try {
-	// 	return await apiClient.post(`appeals/${caseId}/documents`, { json: payload }).json();
-	// } catch (error) {
-	// 	logger.error(
-	// 		error,
-	// 		error instanceof Error
-	// 			? error.message
-	// 			: 'An error occurred while attempting to patch the documents API endpoint'
-	// 	);
-	// }
-	return await apiClient.post(`appeals/${caseId}/documents`, { json: payload }).json();
+	try {
+		return await apiClient.post(`appeals/${caseId}/documents`, { json: payload }).json();
+	} catch (error) {
+		logger.error(
+			error,
+			error instanceof Error
+				? error.message
+				: 'An error occurred while attempting to patch the documents API endpoint'
+		);
+		throw error;
+	}
+	//return await apiClient.post(`appeals/${caseId}/documents`, { json: payload }).json();
 };
 
 /**
@@ -73,10 +74,14 @@ export async function postDocumentsUpload({ apiClient, params, body, session }, 
 
 			return response.send({ ...uploadInfo, documents: documentsWithRowId, accessToken });
 		}
-	} catch (error) {
+	} catch (/** @type {Object<any, any>} */error) {
 		logger.error(error);
-
-		return response.send({ error });
+		return response.send({
+			error: {
+				code: error.response?.statusCode || 500,
+				message: error.response?.body?.errors?.body || 'Something went wrong'
+			}
+		});
 	}
 }
 
