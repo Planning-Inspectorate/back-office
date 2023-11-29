@@ -376,6 +376,11 @@ export const getReadyToPublishAdvices = async ({ params: { id }, body }, respons
 	const skipValue = getSkipValue(pageNumber, pageSize);
 	const caseId = Number(id);
 
+	//get the case Reference name - needed for the formatted advice ReferenceNumbers
+	const caseDetails = await getCaseDetails(+id, {});
+	// @ts-ignore
+	const caseRef = caseDetails.reference;
+
 	const paginatedAdviceToPublish = await s51AdviceRepository.getReadyToPublishAdvices({
 		skipValue,
 		pageSize,
@@ -386,7 +391,7 @@ export const getReadyToPublishAdvices = async ({ params: { id }, body }, respons
 
 	// @ts-ignore
 	const items = paginatedAdviceToPublish.map((advice) =>
-		mapS51Advice(caseId, advice, advice.S51AdviceDocument, true)
+		mapS51Advice(caseRef, advice, advice.S51AdviceDocument, true)
 	);
 
 	response.send({

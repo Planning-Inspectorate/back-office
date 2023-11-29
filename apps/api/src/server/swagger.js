@@ -1820,7 +1820,7 @@ export const spec = {
 				},
 				dateAdded: {
 					type: 'number',
-					description: 'Date document was added',
+					description: 'Date document was added in Unix timestamp format',
 					example: 1694179427
 				},
 				status: {
@@ -2032,7 +2032,11 @@ export const spec = {
 					description: 'Enquiry method',
 					example: 'email'
 				},
-				enquiryDate: { type: 'number', description: 'Date of enquiry', example: 1_646_822_400 },
+				enquiryDate: {
+					type: 'number',
+					description: 'Date of enquiry in Unix timestamp format',
+					example: 1_646_822_400
+				},
 				enquiryDetails: {
 					type: 'string',
 					description: 'Details of the enquiry',
@@ -2043,17 +2047,15 @@ export const spec = {
 					description: 'Name of who gave the advice',
 					example: 'John Caseworker-Smith'
 				},
-				adviceDate: { type: 'number', description: 'Date advice given', example: 1_646_822_400 },
+				adviceDate: {
+					type: 'number',
+					description: 'Date advice given in Unix timestamp format',
+					example: 1_646_822_400
+				},
 				adviceDetails: {
 					type: 'string',
 					description: 'Details of the advive given',
 					example: 'details of the advice provided'
-				},
-				redactedStatus: {
-					type: 'string',
-					enum: ['not_redacted', 'redacted'],
-					description: 'Redacted status',
-					example: 'not_redacted'
 				},
 				publishedStatus: {
 					type: 'string',
@@ -2061,19 +2063,30 @@ export const spec = {
 					description: 'Published status',
 					example: 'published'
 				},
+				redactedStatus: {
+					type: 'string',
+					enum: ['not_redacted', 'redacted'],
+					description: 'Redacted status',
+					example: 'not_redacted'
+				},
 				dateCreated: {
 					type: 'number',
-					description: 'Date advice record was created',
+					description: 'Date advice record was created in Unix timestamp format',
 					example: 1_646_822_400
 				},
 				dateUpdated: {
 					type: 'number',
-					description: 'Date advice record was last updated',
+					description: 'Date advice record was last updated in Unix timestamp format',
 					example: 1_646_822_400
 				},
 				attachments: {
 					type: 'array',
 					items: { $ref: '#/definitions/S51AdviceDocumentDetails' }
+				},
+				datePublished: {
+					type: 'number',
+					description: 'Date advice record was published in Unix timestamp format',
+					example: 1_646_822_400
 				},
 				totalAttachments: {
 					type: 'number',

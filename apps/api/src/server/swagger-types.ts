@@ -1909,7 +1909,7 @@ export interface S51AdviceDocumentDetails {
 	 */
 	documentSize?: number;
 	/**
-	 * Date document was added
+	 * Date document was added in Unix timestamp format
 	 * @example 1694179427
 	 */
 	dateAdded?: number;
@@ -2153,7 +2153,7 @@ export interface S51AdviceDetailsWithDocumentDetails {
 	 */
 	enquiryMethod?: 'phone' | 'email' | 'meeting' | 'post';
 	/**
-	 * Date of enquiry
+	 * Date of enquiry in Unix timestamp format
 	 * @example 1646822400
 	 */
 	enquiryDate?: number;
@@ -2168,7 +2168,7 @@ export interface S51AdviceDetailsWithDocumentDetails {
 	 */
 	adviser?: string;
 	/**
-	 * Date advice given
+	 * Date advice given in Unix timestamp format
 	 * @example 1646822400
 	 */
 	adviceDate?: number;
@@ -2178,26 +2178,31 @@ export interface S51AdviceDetailsWithDocumentDetails {
 	 */
 	adviceDetails?: string;
 	/**
-	 * Redacted status
-	 * @example "not_redacted"
-	 */
-	redactedStatus?: 'not_redacted' | 'redacted';
-	/**
 	 * Published status
 	 * @example "published"
 	 */
 	publishedStatus?: 'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
 	/**
-	 * Date advice record was created
+	 * Redacted status
+	 * @example "not_redacted"
+	 */
+	redactedStatus?: 'not_redacted' | 'redacted';
+	/**
+	 * Date advice record was created in Unix timestamp format
 	 * @example 1646822400
 	 */
 	dateCreated?: number;
 	/**
-	 * Date advice record was last updated
+	 * Date advice record was last updated in Unix timestamp format
 	 * @example 1646822400
 	 */
 	dateUpdated?: number;
 	attachments?: S51AdviceDocumentDetails[];
+	/**
+	 * Date advice record was published in Unix timestamp format
+	 * @example 1646822400
+	 */
+	datePublished?: number;
 	/**
 	 * Total S51 Documents attached to this advice
 	 * @example 1
