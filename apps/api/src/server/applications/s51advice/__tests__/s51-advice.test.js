@@ -84,7 +84,9 @@ const s51AdvicesOnCase1 = [
 		redactedStatus: 'not_redacted',
 		isDeleted: false,
 		createdAt: '2023-01-01T00:00:00.000Z',
-		updatedAt: '2023-01-01T00:00:00.000Z'
+		updatedAt: '2023-01-01T00:00:00.000Z',
+		attachments: [],
+		totalAttachments: 0
 	}
 ];
 
@@ -262,7 +264,9 @@ describe('Test S51 advice API', () => {
 					redactedStatus: 'not_redacted',
 					dateCreated: 1672531200,
 					dateUpdated: 1672531200,
-					datePublished: null
+					attachments: [],
+					datePublished: null,
+					totalAttachments: 0
 				}
 			]
 		});
