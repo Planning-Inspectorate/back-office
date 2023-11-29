@@ -1,6 +1,7 @@
 import { capitalize } from 'lodash-es';
 import { dayMonthYearToApiDateString, dateToDisplayDate, dateToDisplayTime } from '#lib/dates.js';
 import { kilobyte, megabyte, gigabyte } from '#appeals/appeal.constants.js';
+import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 import usersService from '#appeals/appeal-users/users-service.js';
 import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
@@ -29,6 +30,7 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
  * @typedef {Object} MappedDocumentForListBuilder
  * @property {string} title
  * @property {string} href
+ * @property {string} addDocumentUrl
  * @property {string} addVersionUrl
  */
 
@@ -53,7 +55,8 @@ export const mapFolder = (
 		return {
 			title: document.name,
 			href: mapDocumentDownloadUrl(caseId, document.id),
-			addVersionUrl: mapDocumentUploadUrl(caseId, folder, document)
+			addVersionUrl: mapDocumentUploadUrl(caseId, folder, document),
+			addDocumentUrl: mapDocumentUploadUrl(caseId, folder)
 		};
 	});
 
@@ -67,8 +70,12 @@ export const mapFolder = (
 /**
  * @param {string|number} appealId
  * @param {string} documentId
+ * @param {number} [documentVersion]
  */
-export const mapDocumentDownloadUrl = (appealId, documentId) => {
+export const mapDocumentDownloadUrl = (appealId, documentId, documentVersion) => {
+	if (documentVersion) {
+		return `/documents/${appealId}/download/${documentId}/${documentVersion}/preview/`;
+	}
 	return `/documents/${appealId}/download/${documentId}/preview/`;
 };
 
@@ -322,7 +329,7 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
  * @param {RedactionStatus[]} redactionStatuses
  * @param {DocumentDetails} document
  * @param {FolderInfo & {id: string, caseId: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
- * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
+ * @param {import('@pins/express/types/express.js').Request} request
  * @returns {Promise<PageContent>}
  */
 export async function manageDocumentPage(
@@ -330,8 +337,24 @@ export async function manageDocumentPage(
 	redactionStatuses,
 	document,
 	folder,
-	session
+	request
 ) {
+	const uploadUrl = request.originalUrl.replace('manage-documents', 'add-documents');
+	const changeDetailsUrl = request.originalUrl.replace(
+		'manage-documents',
+		'change-document-details'
+	);
+	const session = request.session;
+
+	let notificationBannerComponents;
+	if (document.caseId) {
+		notificationBannerComponents = buildNotificationBanners(
+			session,
+			'manageDocuments',
+			document.caseId
+		);
+	}
+
 	/** @type {PageContent} */
 	const pageContent = {
 		title: 'Manage documents',
@@ -339,6 +362,7 @@ export async function manageDocumentPage(
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Manage documents',
 		heading: document?.name || '',
+		notificationBannerComponents: notificationBannerComponents,
 		pageComponentGroups: [
 			{
 				wrapperHtml: {
@@ -377,7 +401,7 @@ export async function manageDocumentPage(
 										items: [
 											{
 												text: 'Change',
-												href: '#'
+												href: changeDetailsUrl
 											}
 										]
 									}
@@ -394,7 +418,7 @@ export async function manageDocumentPage(
 										items: [
 											{
 												text: 'Change',
-												href: '#'
+												href: changeDetailsUrl
 											}
 										]
 									}
@@ -414,7 +438,7 @@ export async function manageDocumentPage(
 						type: 'button',
 						parameters: {
 							id: 'upload-updated-document',
-							href: '#',
+							href: uploadUrl,
 							classes: 'govuk-!-margin-right-2',
 							text: 'Upload an updated document'
 						}
@@ -474,7 +498,8 @@ export async function manageDocumentPage(
 														document?.caseId && document?.guid
 															? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
 																	document.caseId,
-																	document.guid
+																	document.guid,
+																	documentVersion.version
 															  )}">${document.name || ''}</a>${
 																	typeof document.latestVersionId === 'number' &&
 																	typeof documentVersion.version === 'number' &&
@@ -632,7 +657,7 @@ const mapRedactionStatusNameToId = (redactionStatuses, redactionStatusName) => {
  * @param {number | null | undefined} redactionStatusId
  * @returns {string}
  */
-const mapRedactionStatusIdToName = (redactionStatuses, redactionStatusId) => {
+export const mapRedactionStatusIdToName = (redactionStatuses, redactionStatusId) => {
 	if (!redactionStatusId) {
 		return '';
 	}
@@ -708,8 +733,8 @@ export const mapDocumentsForDisplay = (
 							href: mappedFolder.manageDocumentsUrl
 						},
 						{
-							text: 'Change',
-							href: document.addVersionUrl
+							text: 'Add',
+							href: document.addDocumentUrl
 						}
 				  ],
 			valueType: 'link'
@@ -748,3 +773,124 @@ export const mapDocumentsForDisplay = (
 		valueType: 'link'
 	};
 };
+
+/**
+ * @param {string} backLinkUrl
+ * @param {FolderInfo & {id: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
+ * @param {Object<string, any>} bodyItems
+ * @returns {PageContent}
+ */
+export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
+	const latestDocuments = folder.documents.filter(
+		(document) => document.latestDocumentVersion?.published === true
+	);
+
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Change document details',
+		backLinkText: 'Back',
+		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
+		preHeading: 'Change document details',
+		heading: `${folderPathToFolderNameText(folder.path)} documents`,
+		pageComponentGroups: latestDocuments.map((document, index) => ({
+			wrapperHtml: {
+				opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
+				closing:
+					index < latestDocuments.length - 1 ? '<hr class="govuk-!-margin-top-7"></div>' : '</div>'
+			},
+			pageComponents: [
+				{
+					type: 'input',
+					parameters: {
+						type: 'hidden',
+						name: `items[${index}][documentId]`,
+						value: document.id
+					}
+				},
+				{
+					type: 'date-input',
+					parameters: {
+						id: `items[${index}]receivedDate`,
+						namePrefix: `items[${index}][receivedDate]`,
+						fieldset: {
+							legend: {
+								text: 'Date received'
+							}
+						},
+						items: [
+							{
+								classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+								id: `items[${index}].receivedDate.day`,
+								name: '[day]',
+								label: 'Day',
+								value:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.receivedDate.day || ''
+							},
+							{
+								classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+								id: `items[${index}].receivedDate.month`,
+								name: '[month]',
+								label: 'Month',
+								value:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.receivedDate.month || ''
+							},
+							{
+								classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
+								id: `items[${index}].receivedDate.year`,
+								name: '[year]',
+								label: 'Year',
+								value:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.receivedDate.year || ''
+							}
+						]
+					}
+				},
+				{
+					type: 'radios',
+					parameters: {
+						name: `items[${index}][redactionStatus]`,
+						fieldset: {
+							legend: {
+								text: 'Redaction'
+							}
+						},
+						items: [
+							{
+								text: 'Redacted',
+								value: 'redacted',
+								checked:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.redactionStatus === 'redacted'
+							},
+							{
+								text: 'Unredacted',
+								value: 'unredacted',
+								checked:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.redactionStatus === 'unredacted'
+							},
+							{
+								text: 'No redaction required',
+								value: 'no redaction required',
+								checked:
+									bodyItems?.find(
+										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+									)?.redactionStatus === 'no redaction required'
+							}
+						]
+					}
+				}
+			]
+		}))
+	};
+
+	return pageContent;
+}

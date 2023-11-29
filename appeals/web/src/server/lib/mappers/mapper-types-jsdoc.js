@@ -294,6 +294,7 @@
  * @property {string} [heading]
  * @property {string} [submitButtonText]
  * @property {string} [skipButtonUrl]
+ * @property {*} [notificationBannerComponents]
  * @property {PageComponent[]} [pageComponents]
  * @property {PageComponentGroup[]} [pageComponentGroups]
  */

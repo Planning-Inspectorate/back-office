@@ -88,11 +88,13 @@ describe('/appeals/:appealId/documents', () => {
 				{
 					id: '987e66e0-1db4-404b-8213-8082919159e9',
 					receivedDate: '2023-09-22',
+					latestVersion: 1,
 					redactionStatus: 1
 				},
 				{
 					id: '8b107895-b8c9-467f-aad0-c09daafeaaad',
 					receivedDate: '2023-09-23',
+					latestVersion: 1,
 					redactionStatus: 2
 				}
 			]
@@ -117,11 +119,13 @@ describe('/appeals/:appealId/documents', () => {
 				documents: [
 					{
 						id: requestBody.documents[0].id,
+						latestVersion: requestBody.documents[0].latestVersion,
 						receivedDate: joinDateAndTime(requestBody.documents[0].receivedDate),
 						redactionStatus: requestBody.documents[0].redactionStatus
 					},
 					{
 						id: requestBody.documents[1].id,
+						latestVersion: requestBody.documents[1].latestVersion,
 						receivedDate: joinDateAndTime(requestBody.documents[1].receivedDate),
 						redactionStatus: requestBody.documents[1].redactionStatus
 					}

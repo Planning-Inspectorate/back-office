@@ -7,7 +7,13 @@
 	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
 {% endblock %}
 
-{%- set pageHeading = 'Upload files' -%}
+{%- block pageHeading -%}
+	{%- if pageHeadingText -%}
+		<h1 class="govuk-caption-l govuk-!-margin-bottom-3">{{pageHeadingText}}</h1>
+	{%- else -%}
+		<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Upload files</h1>
+	{%- endif -%}
+{%- endblock -%}
 
 {%- set backLinkUrl -%}
 	{{ backButtonUrl }}
@@ -27,7 +33,7 @@
 		blobStorageContainer: blobStorageContainer,
 		formTitle: serviceName,
 		nextPageUrl: nextPageUrl if nextPageUrl else (['/appeals-service/appeal-details/', caseId] | join),
-		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ],
+		allowedTypes: allowedTypes if allowedTypes else (['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ]),
 		disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
 		multiple: multiple
 	}) }}

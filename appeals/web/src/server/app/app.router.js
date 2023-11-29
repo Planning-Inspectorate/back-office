@@ -7,7 +7,10 @@ import asyncRoute from '../lib/async-route.js';
 import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
 import { handleSignout } from './auth/auth.controller.js';
 import { assertIsAuthenticated } from './auth/auth.guards.js';
-import getDocumentDownload from './components/file-downloader.component.js';
+import {
+	getDocumentDownload,
+	getDocumentDownloadByVersion
+} from './components/file-downloader.component.js';
 import {
 	postDocumentsUpload,
 	postUploadDocumentVersion
@@ -74,6 +77,10 @@ router
 router
 	.route('/documents/:caseId/download/:guid/:preview?')
 	.get(addApiClientToRequest, asyncRoute(getDocumentDownload));
+
+router
+	.route('/documents/:caseId/download/:guid/:version/:preview?')
+	.get(addApiClientToRequest, asyncRoute(getDocumentDownloadByVersion));
 
 router.use('/appeals-service', addApiClientToRequest, appealsRouter);
 
