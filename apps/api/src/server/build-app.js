@@ -36,6 +36,10 @@ const buildApp = (
 
 	app.use('/migration', migrationRoutes);
 
+	app.get('/health', (req, res) => {
+		res.status(200).send('OK');
+	});
+
 	app.all('*', (req, res, next) => {
 		next(new BackOfficeAppError(`Method is not allowed`, 405));
 	});
