@@ -3,7 +3,7 @@ import { Router as createRouter } from 'express';
 import { installAuthMock } from '../../../testing/app/mocks/auth.js';
 import applicationsRouter from '../applications/applications.router.js';
 import asyncRoute from '../lib/async-route.js';
-import { handleHeathCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
+import { handleHealthCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
 import { handleSignout } from './auth/auth.controller.js';
 import { assertGroupAccess, assertIsAuthenticated } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
@@ -24,7 +24,7 @@ if (config.authDisabled) {
 // Unauthenticated routes
 router.use(authRouter);
 router.route('/unauthenticated').get(viewUnauthenticatedError);
-router.route('/health-check').get(handleHeathCheck);
+router.route('/health').get(handleHealthCheck);
 
 // Authenticated routes (all other routes)
 
