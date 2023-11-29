@@ -637,6 +637,17 @@ export const searchDocuments = async ({ params, query }, response) => {
 	const { id: caseId } = params;
 	const { page, pageSize, criteria } = query;
 
+	if (criteria.length < 3) {
+		response.send({
+			page: 1,
+			pageDefaultSize: pageSize,
+			pageCount: 0,
+			itemCount: 0,
+			items: []
+		});
+		return;
+	}
+
 	const paginatedDocuments = await getDocumentsInCase(caseId, criteria, page, pageSize);
 	response.send(paginatedDocuments);
 };

@@ -37,6 +37,11 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
+	.route('/search-results')
+	.get(asyncRoute(controller.viewApplicationsCaseDocumentationSearchPage))
+	.post(asyncRoute(controller.viewApplicationsCaseDocumentationSearchPage));
+
+applicationsDocumentationRouter
 	.route('/:folderId/:folderName')
 	.get(
 		assertFolderIsNotReps,

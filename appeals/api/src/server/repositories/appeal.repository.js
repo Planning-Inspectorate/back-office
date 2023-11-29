@@ -7,6 +7,7 @@ import { DATABASE_ORDER_BY_DESC } from '#endpoints/constants.js';
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateAppealRequest} UpdateAppealRequest */
 /** @typedef {import('@pins/appeals.api').Appeals.SetAppealDecisionRequest} SetAppealDecisionRequest */
+/** @typedef {import('@pins/appeals.api').Appeals.SetInvalidAppealDecisionRequest} SetInvalidAppealDecisionRequest */
 /** @typedef {import('@pins/appeals.api').Schema.InspectorDecision} InspectorDecision */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Schema.User} User */
@@ -299,10 +300,33 @@ const setAppealDecision = (id, { documentDate, documentGuid, version, outcome })
 	]);
 };
 
+/**
+ * @param {number} id
+ * @param {SetInvalidAppealDecisionRequest} data
+ * @returns {PrismaPromise<[InspectorDecision, DocumentVersion]>}
+ */
+const setInvalidAppealDecision = (id, { invalidDecisionReason, outcome }) => {
+	// @ts-ignore
+	return databaseConnector.$transaction([
+		databaseConnector.inspectorDecision.create({
+			data: {
+				appeal: {
+					connect: {
+						id
+					}
+				},
+				outcome,
+				invalidDecisionReason
+			}
+		})
+	]);
+};
+
 export default {
 	getAppealById,
 	getAllAppeals,
 	getUserAppeals,
 	updateAppealById,
-	setAppealDecision
+	setAppealDecision,
+	setInvalidAppealDecision
 };

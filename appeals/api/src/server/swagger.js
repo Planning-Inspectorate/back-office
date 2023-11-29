@@ -54,6 +54,9 @@ export const spec = {
 			documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
 			documentDate: '2023-08-17'
 		},
+		InvalidDecisionInfo: {
+			invalidDecisionReason: 'Invalid Decision Reason'
+		},
 		AddDocumentsRequest: {
 			...addDocumentsRequest
 		},

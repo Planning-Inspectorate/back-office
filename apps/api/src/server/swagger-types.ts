@@ -217,7 +217,7 @@ export interface DocumentDetails {
 	transcript?: string;
 }
 
-export type PaginatedDocumentDetails = {
+export interface PaginatedDocumentDetails {
 	/** @example 1 */
 	page?: number;
 	/** @example 50 */
@@ -278,7 +278,7 @@ export type PaginatedDocumentDetails = {
 		/** @example "TR010060-000110" */
 		transcript?: string;
 	}[];
-}[];
+}
 
 export interface ApplicationSummary {
 	/**

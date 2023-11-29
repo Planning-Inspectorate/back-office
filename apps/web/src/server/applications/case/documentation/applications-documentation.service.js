@@ -243,3 +243,23 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
 		return { errors: { msg: 'Your documents could not be published, please try again' } };
 	}
 };
+
+/**
+ * Returns a paginated list of documents on a case, matching passed search criteria
+ *
+ * @param {number} caseId
+ * @param {string} query
+ * @param {number} pageNumber
+ * @returns {Promise<{searchResult?: PaginatedDocumentationFiles, errors?: {msg: string }}>}
+ */
+export const searchDocuments = async (caseId, query, pageNumber) => {
+	try {
+		const searchResult = await get(
+			`applications/${caseId}/documents?page=${pageNumber}&pageSize=25&criteria=${query}`
+		);
+		return { searchResult };
+	} catch (/** @type {*} */ error) {
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
+		return { errors: { msg: 'Your search could not be carried out, try again.' } };
+	}
+};

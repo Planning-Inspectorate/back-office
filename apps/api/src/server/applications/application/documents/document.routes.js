@@ -28,8 +28,7 @@ import {
 	validateDocumentsToUpdateProvided,
 	validateDocumentsToUploadProvided,
 	validateDocumentToUploadProvided,
-	validateMarkDocumentAsPublished,
-	validateParameterCriteria
+	validateMarkDocumentAsPublished
 } from './document.validators.js';
 
 const router = createRouter();
@@ -594,17 +593,12 @@ router.get(
 			description: 'An paginated data set of matching documents and their properties',
             schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
         }
-		#swagger.responses[400] = {
-            description: 'Search criteria too short',
-            schema: { errors: { criteria: "Search criteria must have at least 3 characters" } }
-        }
 		#swagger.responses[404] = {
             description: 'Error: Not Found',
 			schema: { errors: { id: "Must be an existing application" } }
         }
 	 */
 	validateApplicationId,
-	validateParameterCriteria,
 	validatePaginationParameters(),
 	asyncHandler(searchDocuments)
 );

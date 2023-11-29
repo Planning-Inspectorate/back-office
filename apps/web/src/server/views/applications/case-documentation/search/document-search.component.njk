@@ -1,0 +1,21 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro applicationDocumentSearch(params) %}
+
+	<form method="post" action="{{'documents-search'|url({caseId: params.caseId})}}" novalidate class="pins-dashboard-box--form pins-dashboard-form">
+
+		{{ govukInput({
+			inputmode: "search",
+			classes: 'pins-dashboard-form--input',
+			id: "searchDocuments",
+			name: "query",
+			value: params.query
+		}) }}
+
+		{{ govukButton({
+			classes: 'pins-dashboard-form--btn',
+			text: "Search"
+		}) }}
+	</form>
+{% endmacro %}

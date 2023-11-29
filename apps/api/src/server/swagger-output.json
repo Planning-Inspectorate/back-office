@@ -1435,26 +1435,6 @@
 							"$ref": "#/definitions/PaginatedDocumentDetails"
 						}
 					},
-					"400": {
-						"description": "Search criteria too short",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"errors": {
-									"type": "object",
-									"properties": {
-										"criteria": {
-											"type": "string",
-											"example": "Search criteria must have at least 3 characters"
-										}
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
 					"404": {
 						"description": "Error: Not Found",
 						"schema": {
@@ -4598,131 +4578,128 @@
 			}
 		},
 		"PaginatedDocumentDetails": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"page": {
-						"type": "number",
-						"example": 1
-					},
-					"pageDefaultSize": {
-						"type": "number",
-						"example": 50
-					},
-					"pageCount": {
-						"type": "number",
-						"example": 1
-					},
-					"itemCount": {
-						"type": "number",
-						"example": 1
-					},
+			"type": "object",
+			"properties": {
+				"page": {
+					"type": "number",
+					"example": 1
+				},
+				"pageDefaultSize": {
+					"type": "number",
+					"example": 50
+				},
+				"pageCount": {
+					"type": "number",
+					"example": 1
+				},
+				"itemCount": {
+					"type": "number",
+					"example": 1
+				},
+				"items": {
+					"type": "array",
 					"items": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"documentId": {
-									"type": "string",
-									"example": "123"
-								},
-								"version": {
-									"type": "number",
-									"example": 1
-								},
-								"sourceSystem": {
-									"type": "string",
-									"example": "ABC"
-								},
-								"documentGuid": {
-									"type": "string",
-									"example": "456"
-								},
-								"fileName": {
-									"type": "string",
-									"example": "document.pdf"
-								},
-								"originalFilename": {
-									"type": "string",
-									"example": "original_document.pdf"
-								},
-								"datePublished": {
-									"type": "number",
-									"example": 1646822400
-								},
-								"privateBlobPath": {
-									"type": "string",
-									"example": "/documents/123.pdf"
-								},
-								"privateBlobContainer": {
-									"type": "string",
-									"example": "my-blob-storage"
-								},
-								"author": {
-									"type": "string",
-									"example": "John Smith"
-								},
-								"dateCreated": {
-									"type": "number",
-									"example": 1646822400
-								},
-								"publishedStatus": {
-									"type": "string",
-									"example": "published"
-								},
-								"redactedStatus": {
-									"type": "string",
-									"example": "not_redacted"
-								},
-								"size": {
-									"type": "number",
-									"example": 1024
-								},
-								"mime": {
-									"type": "string",
-									"example": "application/pdf"
-								},
-								"status": {
-									"type": "string",
-									"example": "active"
-								},
-								"description": {
-									"type": "string",
-									"example": "This is a sample document."
-								},
-								"representative": {
-									"type": "string",
-									"example": "Jane Doe"
-								},
-								"stage": {
-									"type": "string",
-									"example": "draft"
-								},
-								"filter1": {
-									"type": "string",
-									"example": "some filter value"
-								},
-								"filter2": {
-									"type": "string",
-									"example": "some filter value"
-								},
-								"documentType": {
-									"type": "string",
-									"example": "contract"
-								},
-								"caseRef": {
-									"type": "string",
-									"example": "ABC-123"
-								},
-								"examinationRefNo": {
-									"type": "string",
-									"example": "EXM-456"
-								},
-								"transcript": {
-									"type": "string",
-									"example": "TR010060-000110"
-								}
+						"type": "object",
+						"properties": {
+							"documentId": {
+								"type": "string",
+								"example": "123"
+							},
+							"version": {
+								"type": "number",
+								"example": 1
+							},
+							"sourceSystem": {
+								"type": "string",
+								"example": "ABC"
+							},
+							"documentGuid": {
+								"type": "string",
+								"example": "456"
+							},
+							"fileName": {
+								"type": "string",
+								"example": "document.pdf"
+							},
+							"originalFilename": {
+								"type": "string",
+								"example": "original_document.pdf"
+							},
+							"datePublished": {
+								"type": "number",
+								"example": 1646822400
+							},
+							"privateBlobPath": {
+								"type": "string",
+								"example": "/documents/123.pdf"
+							},
+							"privateBlobContainer": {
+								"type": "string",
+								"example": "my-blob-storage"
+							},
+							"author": {
+								"type": "string",
+								"example": "John Smith"
+							},
+							"dateCreated": {
+								"type": "number",
+								"example": 1646822400
+							},
+							"publishedStatus": {
+								"type": "string",
+								"example": "published"
+							},
+							"redactedStatus": {
+								"type": "string",
+								"example": "not_redacted"
+							},
+							"size": {
+								"type": "number",
+								"example": 1024
+							},
+							"mime": {
+								"type": "string",
+								"example": "application/pdf"
+							},
+							"status": {
+								"type": "string",
+								"example": "active"
+							},
+							"description": {
+								"type": "string",
+								"example": "This is a sample document."
+							},
+							"representative": {
+								"type": "string",
+								"example": "Jane Doe"
+							},
+							"stage": {
+								"type": "string",
+								"example": "draft"
+							},
+							"filter1": {
+								"type": "string",
+								"example": "some filter value"
+							},
+							"filter2": {
+								"type": "string",
+								"example": "some filter value"
+							},
+							"documentType": {
+								"type": "string",
+								"example": "contract"
+							},
+							"caseRef": {
+								"type": "string",
+								"example": "ABC-123"
+							},
+							"examinationRefNo": {
+								"type": "string",
+								"example": "EXM-456"
+							},
+							"transcript": {
+								"type": "string",
+								"example": "TR010060-000110"
 							}
 						}
 					}

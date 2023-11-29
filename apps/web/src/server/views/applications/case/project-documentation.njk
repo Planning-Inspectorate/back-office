@@ -1,15 +1,18 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../../applications/case-documentation/search/document-search.component.njk" import applicationDocumentSearch %}
 
 {% block sectionMenu %}{% endblock %}
 
+{% set searchParameters = {query: null, errors: null, csrfToken: csrfToken, label: 'Search documents', searchDocumentsUrl: 'project-documentation/document-search-results'} %}
+
 {% block beforeContent %}
-<aside>
-	{{ govukBackLink({
+	<aside>
+		{{ govukBackLink({
 		text: "Back to project overview",
 		href: 'case-view'|url({caseId: caseId})
 	}) }}
-</aside>
+	</aside>
 {% endblock %}
 
 {% block sectionContent %}
@@ -17,6 +20,12 @@
 	<h2 class="govuk-heading-m">Project documentation</h2>
 
 	<p class="govuk-body-s colour--secondary">All documents relating to the project</p>
+
+	<div class="govuk-grid-row govuk-!-margin-bottom-3 govuk-!-margin-top-6">
+		<div class="govuk-grid-column-two-thirds">
+			{{ applicationDocumentSearch({caseId: caseId}) }}
+		</div>
+	</div>
 
 	{% for documentationCategory in documentationCategories %}
 		<a class="govuk-link govuk-heading-s" href="{{ 'document-category'|url({caseId: caseId, documentationCategory: documentationCategory}) }}">

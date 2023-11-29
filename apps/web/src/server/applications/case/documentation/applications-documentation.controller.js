@@ -18,7 +18,8 @@ import {
 	removeCaseDocumentationPublishingQueue,
 	updateCaseDocumentationFiles,
 	unpublishCaseDocumentationFiles,
-	getCaseManyDocumentationFilesInfo
+	getCaseManyDocumentationFilesInfo,
+	searchDocuments
 } from './applications-documentation.service.js';
 import {
 	destroySessionFolderPage,
@@ -26,6 +27,7 @@ import {
 	setSessionFolderPage
 } from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
+import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -487,3 +489,33 @@ const getPaginationButtonData = (currentPageNumber, pageCount) => {
 		}))
 	};
 };
+
+/**
+ * Search for documents in a case.
+ *
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {query: string}, {q: string, page: string}>}
+ */
+export async function viewApplicationsCaseDocumentationSearchPage(
+	{ body, query: requestQuery },
+	response
+) {
+	const { caseId } = response.locals;
+	const query = body.query ?? requestQuery.q;
+	const pageNumber = Number.parseInt(requestQuery.page || '1', 10);
+
+	const { errors, searchResult } = await searchDocuments(caseId, query, pageNumber);
+
+	const pagination = getPaginationLinks(
+		pageNumber,
+		searchResult?.pageCount || 0,
+		{ q: query },
+		url('documents-search', { caseId })
+	);
+
+	return response.render('applications/case-documentation/search/document-search-results', {
+		searchResult,
+		query,
+		pagination,
+		errors
+	});
+}

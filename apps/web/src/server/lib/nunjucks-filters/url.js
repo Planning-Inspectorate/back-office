@@ -90,6 +90,8 @@ export const url = (key, filterArguments = {}) => {
 			}`;
 		case 'documents-queue':
 			return `${domainUrl}/case/${caseId}/project-documentation/publishing-queue`;
+		case 'documents-search':
+			return `${domainUrl}/case/${caseId}/project-documentation/search-results`;
 		case 'project-updates':
 			return `${domainUrl}/case/${caseId}/project-updates`;
 		case 'project-updates-create':
