@@ -82,9 +82,22 @@ const clientActions = (uploadForm) => {
 		if (selectedFile.name.length > 255) {
 			return { message: 'NAME_SINGLE_FILE' };
 		}
-		if (selectedFile.type === '' || !allowedMimeTypes.includes(selectedFile.type)) {
+
+		const type =
+			selectedFile.type ||
+			(() => {
+				const extensionMatch = selectedFile.name.match(/.+(\..+?)$/);
+				if (!extensionMatch) {
+					return null;
+				}
+
+				return extensionMatch[1];
+			})();
+
+		if (!(type && allowedMimeTypes.includes(type))) {
 			return { message: 'TYPE_SINGLE_FILE' };
 		}
+
 		return null;
 	};
 
