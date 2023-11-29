@@ -36,6 +36,7 @@ import logger from '#utils/logger.js';
 /**
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
  * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
+ * @typedef {import('@pins/applications.api').Api.S51AdviceDocumentDetails} S51AdviceDocumentDetails
  */
 
 /**
@@ -78,7 +79,7 @@ export const getS51Advice = async (_request, response) => {
 	const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
 
 	/**
-	 * @type {import("@pins/applications").S51AdviceDetails[] | { documentName: any; documentType: string; documentSize: string; dateAdded: number; status: string; documentGuid: string, version: number }[]}
+	 * @type {import("@pins/applications").S51AdviceDetails[] | S51AdviceDocumentDetails[]}
 	 */
 	const attachmentsWithVersion = [];
 	if (attachments?.length > 0) {
