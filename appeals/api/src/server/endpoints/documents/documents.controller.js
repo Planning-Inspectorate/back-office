@@ -3,6 +3,7 @@ import {
 	AUDIT_TRAIL_DOCUMENT_UPLOADED,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_FAILED_TO_ADD_DOCUMENTS,
+	ERROR_DOCUMENT_NAME_ALREADY_EXISTS,
 	ERROR_NOT_FOUND
 } from '#endpoints/constants.js';
 import logger from '#utils/logger.js';
@@ -101,13 +102,12 @@ const addDocuments = async (req, res) => {
 		);
 
 		return res.send(getStorageInfo(documentInfo.documents));
-	} catch (error) {
-		// @ts-ignore
+	} catch (/** @type {Object<any, any>} */error) {
 		if (error.code === 'P2002') {
-			return res.status(409).send({ errors: ERROR_FAILED_TO_ADD_DOCUMENTS });
+			return res.status(409).send({ errors: { body: ERROR_DOCUMENT_NAME_ALREADY_EXISTS } });
 		}
 
-		return res.status(500).send({ errors: ERROR_FAILED_TO_ADD_DOCUMENTS });
+		return res.status(500).send({ errors: { body: ERROR_FAILED_TO_ADD_DOCUMENTS } });
 	}
 };
 

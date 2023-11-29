@@ -47,11 +47,19 @@ const serverActions = (uploadForm) => {
 			body: JSON.stringify(payload)
 		})
 			.then((response) => {
-				const responseJson = response.json();
-				return responseJson;
+				return response.json();
 			})
-			.then((uploadsInfos) => {
-				for (const documentUploadInfo of uploadsInfos.documents) {
+			.then((responseJson) => {
+				if ('error' in responseJson) {
+					if (responseJson.error.code === 409) {
+						throw new Error('DUPLICATE_NAME_SINGLE_FILE');
+					}
+					else {
+						throw new Error(responseJson.error?.message);
+					}
+				}
+
+				for (const documentUploadInfo of responseJson.documents) {
 					if (documentUploadInfo.failedReason) {
 						failedUploads.push({
 							message: documentUploadInfo.failedReason,
@@ -61,7 +69,7 @@ const serverActions = (uploadForm) => {
 					}
 				}
 
-				return uploadsInfos;
+				return responseJson;
 			});
 	};
 
