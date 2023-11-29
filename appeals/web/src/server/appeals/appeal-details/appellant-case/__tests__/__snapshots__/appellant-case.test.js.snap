@@ -339,11 +339,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
 
 exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should render a document upload page with a file upload component 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l">Upload files</h1>
-        </div>
-    </div>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Upload files</h1>
     <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/2864"
     data-case-id="1" data-folder-id="2864" data-document-type="newSupportingDocuments"
     data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
@@ -380,12 +376,8 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
 
 exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId should render a document upload page with a file upload component 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l">Upload files</h1>
-        </div>
-    </div>
-    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/2864"
+    <h1 class="govuk-caption-l govuk-!-margin-bottom-3">Upload an updated document</h1>
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1/1"
     data-case-id="1" data-folder-id="2864" data-document-type="newSupportingDocuments"
     data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
     data-blob-storage-container="document-service-uploads" data-document-id="1"
@@ -1051,6 +1043,9 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"></div>
+    </div>
+    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf.pdf</h1>
         </div>
@@ -1067,15 +1062,16 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
-            </dl><a href="#" role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
+            </dl><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/1/1"
+            role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
             data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
             <a             href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
             data-module="govuk-button" id="remove-document">Remove this document</a>
@@ -1102,7 +1098,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                         <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">1</td>
-                                <td class="govuk-table__cell"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf.pdf</a>
+                                <td class="govuk-table__cell"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/preview/">test-pdf.pdf</a>
                                     <br><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-top-3">CURRENT VERSION</strong>
                                 </td>
                                 <td class="govuk-table__cell">

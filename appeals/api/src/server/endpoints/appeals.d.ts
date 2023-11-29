@@ -585,6 +585,7 @@ type UpdateDocumentsRequest = {
 	id: string;
 	receivedDate: string;
 	redactionStatus: number;
+	latestVersion: number;
 }[];
 
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'listEntry'>[];
@@ -637,6 +638,7 @@ export {
 	UpdateAppellantCaseValidationOutcomeParams,
 	UpdateAppellantRequest,
 	UpdateDocumentsRequest,
+	UpdateDocumentRequest,
 	UpdateLPAQuestionaireValidationOutcomeParams,
 	UpdateLPAQuestionnaireRequest,
 	UpdateTimetableRequest,

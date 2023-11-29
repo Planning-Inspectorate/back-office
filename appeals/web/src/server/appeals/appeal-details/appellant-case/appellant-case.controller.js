@@ -12,7 +12,9 @@ import {
 	renderDocumentDetails,
 	renderManageFolder,
 	renderManageDocument,
-	postDocumentDetails
+	postDocumentDetails,
+	renderChangeDocumentDetails,
+	postChangeDocumentDetails
 } from '../../appeal-documents/appeal-documents.controller.js';
 
 /**
@@ -264,5 +266,51 @@ export const getManageDocument = async (request, response) => {
 		request,
 		response,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/{{folderId}}`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getAddDocumentsVersion = async (request, response) => {
+	renderDocumentUpload(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-document-details/${request.params.folderId}/${request.params.documentId}`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getAddDocumentVersionDetails = async (request, response) => {
+	renderDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/${request.params.folderId}/${request.params.documentId}`
+	);
+};
+
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const postDocumentVersionDetails = async (request, response) => {
+	postDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/${request.params.folderId}/${request.params.documentId}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`
+	);
+};
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getChangeDocumentVersionDetails = async (request, response) => {
+	renderChangeDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`
+	);
+};
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const postChangeDocumentVersionDetails = async (request, response) => {
+	postChangeDocumentDetails(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`
 	);
 };

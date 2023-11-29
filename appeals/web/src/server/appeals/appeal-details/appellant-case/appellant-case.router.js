@@ -37,8 +37,12 @@ router
 	);
 
 router
-	.route('/add-documents/:folderId/:documentId?')
+	.route('/add-documents/:folderId')
 	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getAddDocuments));
+
+router
+	.route('/add-documents/:folderId/:documentId')
+	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getAddDocumentsVersion));
 
 router
 	.route('/add-document-details/:folderId')
@@ -48,9 +52,24 @@ router
 		documentsValidators.validateDocumentDetailsBodyFormat,
 		documentsValidators.validateDocumentDetailsReceivedDatesFields,
 		documentsValidators.validateDocumentDetailsReceivedDateValid,
+		documentsValidators.validateDocumentDetailsReceivedDateIsNotFutureDate,
 		documentsValidators.validateDocumentDetailsRedactionStatuses,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		controller.postAddDocumentDetails
+	);
+
+router
+	.route('/add-document-details/:folderId/:documentId')
+	.get(validateCaseFolderId, controller.getAddDocumentVersionDetails)
+	.post(
+		validateCaseFolderId,
+		documentsValidators.validateDocumentDetailsBodyFormat,
+		documentsValidators.validateDocumentDetailsReceivedDatesFields,
+		documentsValidators.validateDocumentDetailsReceivedDateValid,
+		documentsValidators.validateDocumentDetailsReceivedDateIsNotFutureDate,
+		documentsValidators.validateDocumentDetailsRedactionStatuses,
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		controller.postDocumentVersionDetails
 	);
 
 router.route('/manage-documents/:folderId/').get(validateCaseFolderId, controller.getManageFolder);
@@ -58,5 +77,19 @@ router.route('/manage-documents/:folderId/').get(validateCaseFolderId, controlle
 router
 	.route('/manage-documents/:folderId/:documentId')
 	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument);
+
+router
+	.route('/change-document-details/:folderId/:documentId')
+	.get(validateCaseFolderId, controller.getChangeDocumentVersionDetails)
+	.post(
+		validateCaseFolderId,
+		documentsValidators.validateDocumentDetailsBodyFormat,
+		documentsValidators.validateDocumentDetailsReceivedDatesFields,
+		documentsValidators.validateDocumentDetailsReceivedDateValid,
+		documentsValidators.validateDocumentDetailsReceivedDateIsNotFutureDate,
+		documentsValidators.validateDocumentDetailsRedactionStatuses,
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		controller.postChangeDocumentVersionDetails
+	);
 
 export default router;

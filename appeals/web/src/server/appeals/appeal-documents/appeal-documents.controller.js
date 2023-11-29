@@ -3,13 +3,16 @@ import logger from '#lib/logger.js';
 import {
 	getDocumentRedactionStatuses,
 	updateDocuments,
-	getFileVersionsInfo
+	getFileVersionsInfo,
+	getFileInfo
 } from './appeal.documents.service.js';
 import {
 	mapDocumentDetailsFormDataToAPIRequest,
 	addDocumentDetailsPage,
 	manageFolderPage,
-	manageDocumentPage
+	manageDocumentPage,
+	mapRedactionStatusIdToName,
+	changeDocumentDetailsPage
 } from './appeal-documents.mapper.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
@@ -23,6 +26,14 @@ import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 export const renderDocumentUpload = async (request, response, backButtonUrl, nextPageUrl) => {
 	const { appealId, documentId } = request.params;
 	const { currentFolder, errors } = request;
+	let documentName;
+	let pageHeadingText;
+
+	if (request.params.documentId) {
+		const fileInfo = await getFileInfo(request.apiClient, appealId, request.params.documentId);
+		documentName = fileInfo?.latestDocumentVersion.fileName;
+		pageHeadingText = 'Upload an updated document';
+	}
 
 	if (!currentFolder) {
 		return response.status(404).render('app/404');
@@ -43,6 +54,8 @@ export const renderDocumentUpload = async (request, response, backButtonUrl, nex
 		blobStorageContainer: config.blobStorageDefaultContainer,
 		multiple: !documentId,
 		documentStage: documentStage,
+		serviceName: documentName,
+		pageHeadingText: pageHeadingText,
 		documentType: documentType,
 		nextPageUrl:
 			nextPageUrl?.replace('{{folderId}}', currentFolder.id) ||
@@ -140,7 +153,7 @@ export const renderManageDocument = async (request, response, backButtonUrl) => 
 		redactionStatuses,
 		document,
 		currentFolder,
-		request.session
+		request
 	);
 
 	return response.render('appeals/documents/manage-document.njk', {
@@ -178,6 +191,100 @@ export const postDocumentDetails = async (request, response, backButtonUrl, next
 				addNotificationBannerToSession(
 					request.session,
 					'documentAdded',
+					Number.parseInt(appealId, 10)
+				);
+				return response.redirect(nextPageUrl || `/appeals-service/appeal-details/${appealId}/`);
+			}
+		}
+
+		return response.render('app/500.njk');
+	} catch (error) {
+		logger.error(
+			error,
+			error instanceof Error ? error.message : 'Something went wrong when adding document details'
+		);
+
+		return response.render('app/500.njk');
+	}
+};
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {string} backButtonUrl
+ */
+export const renderChangeDocumentDetails = async (request, response, backButtonUrl) => {
+	const { currentFolder, body, errors } = request;
+	const { appealId, documentId } = request.params;
+	let items = body?.items;
+
+	if (!items) {
+		const [redactionStatuses, currentFile] = await Promise.all([
+			getDocumentRedactionStatuses(request.apiClient),
+			getFileInfo(request.apiClient, appealId, documentId)
+		]);
+
+		if (redactionStatuses && currentFile) {
+			const receivedDate = new Date(currentFile?.latestDocumentVersion?.dateReceived);
+			const redactionStatus = mapRedactionStatusIdToName(
+				redactionStatuses,
+				currentFile?.latestDocumentVersion?.redactionStatusId
+			).toLowerCase();
+			items ??= [
+				{
+					documentId: documentId,
+					receivedDate: {
+						day: receivedDate.getDate().toString(),
+						month: (receivedDate.getMonth() + 1).toString(),
+						year: receivedDate.getFullYear().toString()
+					},
+					redactionStatus: redactionStatus
+				}
+			];
+		}
+	}
+	if (!currentFolder) {
+		return response.status(404).render('app/404.njk');
+	}
+
+	const mappedPageContent = changeDocumentDetailsPage(backButtonUrl, currentFolder, items);
+
+	return response.render('appeals/documents/add-document-details.njk', {
+		pageContent: mappedPageContent,
+		errors
+	});
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {string} backButtonUrl
+ * @param {string} [nextPageUrl]
+ */
+export const postChangeDocumentDetails = async (request, response, backButtonUrl, nextPageUrl) => {
+	try {
+		const {
+			body,
+			apiClient,
+			params: { appealId },
+			errors
+		} = request;
+
+		if (errors) {
+			return renderChangeDocumentDetails(request, response, backButtonUrl);
+		}
+
+		const redactionStatuses = await getDocumentRedactionStatuses(apiClient);
+
+		if (redactionStatuses) {
+			const apiRequest = mapDocumentDetailsFormDataToAPIRequest(body, redactionStatuses);
+			const updateDocumentsResult = await updateDocuments(apiClient, appealId, apiRequest);
+
+			if (updateDocumentsResult) {
+				addNotificationBannerToSession(
+					request.session,
+					'documentDetailsUpdated',
 					Number.parseInt(appealId, 10)
 				);
 				return response.redirect(nextPageUrl || `/appeals-service/appeal-details/${appealId}/`);

@@ -33,11 +33,14 @@ router
 	);
 
 router.route('/:lpaQuestionnaireId/confirmation').get(controller.getConfirmation);
+router.use('/:lpaQuestionnaireId/change-lpa-questionnaire', changePageRouter);
 
 router
-	.route('/:lpaQuestionnaireId/add-documents/:folderId/:documentId?')
+	.route('/:lpaQuestionnaireId/add-documents/:folderId')
 	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getAddDocuments));
-router.use('/:lpaQuestionnaireId/change-lpa-questionnaire', changePageRouter);
+router
+	.route('/:lpaQuestionnaireId/add-documents/:folderId/:documentId')
+	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getAddDocumentsVersion));
 
 router
 	.route('/:lpaQuestionnaireId/add-document-details/:folderId')
@@ -53,11 +56,38 @@ router
 	);
 
 router
+	.route('/:lpaQuestionnaireId/add-document-details/:folderId/:documentId')
+	.get(validateCaseFolderId, controller.getAddDocumentVersionDetails)
+	.post(
+		validateCaseFolderId,
+		documentsValidators.validateDocumentDetailsBodyFormat,
+		documentsValidators.validateDocumentDetailsReceivedDatesFields,
+		documentsValidators.validateDocumentDetailsReceivedDateValid,
+		documentsValidators.validateDocumentDetailsRedactionStatuses,
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		controller.postDocumentVersionDetails
+	);
+
+router
 	.route('/:lpaQuestionnaireId/manage-documents/:folderId/')
 	.get(validateCaseFolderId, controller.getManageFolder);
 
 router
 	.route('/:lpaQuestionnaireId/manage-documents/:folderId/:documentId')
 	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument);
+
+router
+	.route('/:lpaQuestionnaireId/change-document-details/:folderId/:documentId')
+	.get(validateCaseFolderId, controller.getChangeDocumentVersionDetails)
+	.post(
+		validateCaseFolderId,
+		documentsValidators.validateDocumentDetailsBodyFormat,
+		documentsValidators.validateDocumentDetailsReceivedDatesFields,
+		documentsValidators.validateDocumentDetailsReceivedDateValid,
+		documentsValidators.validateDocumentDetailsReceivedDateIsNotFutureDate,
+		documentsValidators.validateDocumentDetailsRedactionStatuses,
+		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
+		controller.postChangeDocumentVersionDetails
+	);
 
 export default router;

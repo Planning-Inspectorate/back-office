@@ -1,5 +1,5 @@
 /**
- * @typedef {'appealDetails'|'appellantCase'|'lpaQuestionnaire'} ServicePageName
+ * @typedef {'appealDetails'|'appellantCase'|'lpaQuestionnaire'|'manageDocuments'} ServicePageName
  */
 
 export const paginationDefaultSettings = {

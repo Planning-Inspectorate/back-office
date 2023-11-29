@@ -88,7 +88,9 @@ export const updateDocuments = (data) =>
 					},
 					published: true
 				},
-				where: { documentGuid_version: { documentGuid: document.id, version: 1 } }
+				where: {
+					documentGuid_version: { documentGuid: document.id, version: document.latestVersion }
+				}
 			})
 		)
 	);

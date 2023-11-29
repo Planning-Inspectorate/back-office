@@ -47,9 +47,14 @@ export const notificationBannerDefinitions = {
 		text: 'Inspector has been removed'
 	},
 	documentAdded: {
-		pages: ['appellantCase', 'lpaQuestionnaire'],
+		pages: ['appellantCase', 'lpaQuestionnaire', 'manageDocuments'],
 		type: 'success',
 		text: 'Document added'
+	},
+	documentDetailsUpdated: {
+		pages: ['appellantCase', 'lpaQuestionnaire', 'manageDocuments'],
+		type: 'success',
+		text: 'Document details updated'
 	},
 	appellantCaseNotValid: {
 		pages: ['appellantCase'],

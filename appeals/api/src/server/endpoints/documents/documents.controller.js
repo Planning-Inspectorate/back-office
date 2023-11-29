@@ -185,9 +185,13 @@ const getStorageInfo = (docs) => {
  */
 const updateDocuments = async (req, res) => {
 	const { body } = req;
-
 	try {
-		await documentRepository.updateDocuments(body.documents);
+		const documents = body.documents;
+		for (const document of documents) {
+			const latestDocument = await documentRepository.getDocumentById(document.id);
+			document.latestVersion = latestDocument?.latestDocumentVersion?.version;
+		}
+		await documentRepository.updateDocuments(documents);
 	} catch (error) {
 		if (error) {
 			logger.error(error);
