@@ -102,9 +102,16 @@ const addDocuments = async (req, res) => {
 		);
 
 		return res.send(getStorageInfo(documentInfo.documents));
-	} catch (/** @type {Object<any, any>} */error) {
+	} catch (/** @type {Object<any, any>} */ error) {
 		if (error.code === 'P2002') {
-			return res.status(409).send({ errors: { body: ERROR_DOCUMENT_NAME_ALREADY_EXISTS } });
+			return res.status(409).send({
+				errors: {
+					body: {
+						message: ERROR_DOCUMENT_NAME_ALREADY_EXISTS,
+						fileName: error.meta.fileName
+					}
+				}
+			});
 		}
 
 		return res.status(500).send({ errors: { body: ERROR_FAILED_TO_ADD_DOCUMENTS } });

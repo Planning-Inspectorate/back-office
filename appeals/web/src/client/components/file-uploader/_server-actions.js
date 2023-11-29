@@ -52,9 +52,17 @@ const serverActions = (uploadForm) => {
 			.then((responseJson) => {
 				if ('error' in responseJson) {
 					if (responseJson.error.code === 409) {
-						throw new Error('DUPLICATE_NAME_SINGLE_FILE');
-					}
-					else {
+						const duplicateNameError = new Error('DUPLICATE_NAME_SINGLE_FILE');
+
+						// @ts-ignore
+						duplicateNameError.details = [
+							{
+								message: responseJson.error.body.fileName
+							}
+						];
+
+						throw duplicateNameError;
+					} else {
 						throw new Error(responseJson.error?.message);
 					}
 				}
