@@ -2631,7 +2631,7 @@ export interface ProjectTeamMember {
 	role?: string;
 }
 
-export type ProjectTeamMembers = ProjectTeamMembers[];
+export type ProjectTeamMembers = ProjectTeamMember[];
 
 export interface GeneralError {
 	errors?: {

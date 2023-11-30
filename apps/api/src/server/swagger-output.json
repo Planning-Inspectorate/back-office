@@ -7882,7 +7882,7 @@
 		"ProjectTeamMembers": {
 			"type": "array",
 			"items": {
-				"$ref": "#/definitions/ProjectTeamMembers"
+				"$ref": "#/definitions/ProjectTeamMember"
 			}
 		},
 		"GeneralError": {
