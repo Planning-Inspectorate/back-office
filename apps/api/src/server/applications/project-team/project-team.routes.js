@@ -47,7 +47,7 @@ router.get(
             in: 'path',
 			description: 'Azure reference for the user',
 			required: true,
-			type: 'integer'
+			type: 'string'
         }
         #swagger.responses[200] = {
             description: 'Project team member',
@@ -78,7 +78,7 @@ router.post(
 			}
 			#swagger.responses[200] = {
 				description: 'Project team member',
-				schema: { {} }
+				schema: { $ref: '#/definitions/ProjectTeamMember' }
 			}
 		*/
 	validateApplicationId,

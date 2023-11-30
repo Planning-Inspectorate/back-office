@@ -4036,7 +4036,7 @@
 						"name": "userId",
 						"in": "path",
 						"required": true,
-						"type": "integer",
+						"type": "string",
 						"description": "Azure reference for the user"
 					}
 				],
@@ -4111,7 +4111,14 @@
 						}
 					}
 				],
-				"responses": {}
+				"responses": {
+					"200": {
+						"description": "Project team member",
+						"schema": {
+							"$ref": "#/definitions/ProjectTeamMember"
+						}
+					}
+				}
 			}
 		}
 	},
