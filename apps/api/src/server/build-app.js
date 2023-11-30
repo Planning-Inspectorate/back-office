@@ -7,6 +7,7 @@ import { applicationsRoutes } from './applications/applications.routes.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './middleware/error-handler.js';
 import versionRoutes from './middleware/version-routes.js';
 import BackOfficeAppError from './utils/app-error.js';
+import { databaseConnector } from './utils/database-connector.js';
 import { migrationRoutes } from './migration/migration.routes.js';
 
 // The purpose of this is to allow the jest environment to create an instance of the app without loading Swagger
@@ -36,7 +37,14 @@ const buildApp = (
 
 	app.use('/migration', migrationRoutes);
 
-	app.get('/health', (req, res) => {
+	app.get('/health', async (req, res) => {
+		try {
+			await databaseConnector.$queryRaw`SELECT 1;`;
+		} catch {
+			res.status(500).send('Database connection failed during health check');
+			return;
+		}
+
 		res.status(200).send('OK');
 	});
 

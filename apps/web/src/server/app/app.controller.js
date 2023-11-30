@@ -62,7 +62,7 @@ export function viewHomepage(request, response, next) {
 }
 
 /** @type {import('express').RequestHandler} */
-export function handleHeathCheck(_, response) {
+export function handleHealthCheck(_, response) {
 	response.send('OK');
 }
 
