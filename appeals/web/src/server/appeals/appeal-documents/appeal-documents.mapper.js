@@ -575,13 +575,11 @@ const mapDocumentVersionToAuditActivityHtml = async (
 
 	if (matchingAuditItem.auditTrail?.loggedAt && matchingAuditItem.auditTrail?.user) {
 		const loggedAt = new Date(matchingAuditItem.auditTrail.loggedAt);
+		const userName = await mapAuditTrailUserToName(matchingAuditItem.auditTrail?.user, session);
 
 		return `<p class="govuk-body"><strong>${matchingAuditItem.action}</strong>: ${dateToDisplayTime(
 			loggedAt
-		)}, ${dateToDisplayDate(loggedAt)},<br/>by ${await mapAuditTrailUserToName(
-			matchingAuditItem.auditTrail?.user,
-			session
-		)}</p>`;
+		)}, ${dateToDisplayDate(loggedAt)}${userName.length > 0 ? `,<br/>by ${userName}` : ''}</p>`;
 	}
 
 	return '';
