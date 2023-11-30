@@ -2700,7 +2700,7 @@ export const spec = {
 		},
 		ProjectTeamMembers: {
 			type: 'array',
-			items: { $ref: '#/definitions/ProjectTeamMembers' }
+			items: { $ref: '#/definitions/ProjectTeamMember' }
 		},
 		GeneralError: {
 			type: 'object',
