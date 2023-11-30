@@ -1,6 +1,8 @@
-import { addBusinessDays, isPast, isValid, endOfDay, subDays } from 'date-fns';
+import { isPast, isValid, endOfDay, subDays } from 'date-fns';
 import { getRelevantRepsCloseDateOrNull } from './is-relevant-reps-period-closed.js';
 import { dateToDisplayDate, isDatePastToday } from '../../../../lib/dates.js';
+import dateUtils from '../../../../lib/add-business-days-to-date.js';
+import pino from '../../../../lib/logger.js';
 
 /**
  * @param {string|null} publishedDate
@@ -33,10 +35,18 @@ const getState = (publishedDate, closingDate) => {
 
 /**
  * @param {Date} closingDate
- * @returns {Date|null}
+ * @returns {Promise<Date|null>}
  */
-const getReviewDate = (closingDate) =>
-	isValid(closingDate) ? addBusinessDays(closingDate, 10) : null;
+const getReviewDate = async (closingDate) => {
+	try {
+		return isValid(closingDate)
+			? await dateUtils.addBusinessDaysToDate(closingDate, 10, 'england-and-wales')
+			: null;
+	} catch (error) {
+		pino.error(error);
+		return null;
+	}
+};
 
 /**
  * @typedef keyDates
@@ -51,14 +61,14 @@ const getReviewDate = (closingDate) =>
  * @param {string|null} publishedDate
  * @param {string|null} repsPeriodCloseDate
  * @param {string|null} repsPeriodCloseDateExtension
- * @returns {keyDates}
+ * @returns {Promise<keyDates>}
  */
-const getKeyDates = (publishedDate, repsPeriodCloseDate, repsPeriodCloseDateExtension) => {
+const getKeyDates = async (publishedDate, repsPeriodCloseDate, repsPeriodCloseDateExtension) => {
 	const closingDate = getRelevantRepsCloseDateOrNull(
 		repsPeriodCloseDate,
 		repsPeriodCloseDateExtension
 	);
-	const reviewDate = getReviewDate(closingDate);
+	const reviewDate = await getReviewDate(closingDate);
 
 	return {
 		state: getState(publishedDate, closingDate),

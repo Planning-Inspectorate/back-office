@@ -1,11 +1,19 @@
+import { jest } from '@jest/globals';
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { representationsFixture } from '../__fixtures__/representations.fixture.js';
+import dateUtils from '../../../../lib/add-business-days-to-date.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
+
+const mockReviewDate = '2023-01-20';
+
+jest
+	.spyOn(dateUtils, 'addBusinessDaysToDate')
+	.mockImplementation(() => Promise.resolve(new Date(mockReviewDate)));
 
 const mockCaseReference = {
 	title: 'mock title',
