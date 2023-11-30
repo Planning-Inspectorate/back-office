@@ -102,7 +102,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong>1 January 2023</strong>
                 </p>
                 <p class=\\"govuk-body govuk-!-margin-bottom-6\\">Closed date</p>
-                <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong> 13 January 2023</strong>
+                <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong> 20 January 2023</strong>
                 </p>
                 <p class=\\"govuk-body govuk-!-margin-bottom-6\\">Target date for review and completion</p><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
                 role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
@@ -293,7 +293,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong>1 January 2023</strong>
                 </p>
                 <p class=\\"govuk-body govuk-!-margin-bottom-6\\">Closed date</p>
-                <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong> 13 January 2023</strong>
+                <p class=\\"govuk-body govuk-!-margin-bottom-1\\"><strong> 20 January 2023</strong>
                 </p>
                 <p class=\\"govuk-body govuk-!-margin-bottom-6\\">Target date for review and completion</p><a href=\\"/applications-service/case/1/relevant-representations/contact-details?repType=represented\\"
                 role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
