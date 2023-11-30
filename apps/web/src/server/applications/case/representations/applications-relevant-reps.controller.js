@@ -81,6 +81,6 @@ export async function relevantRepsApplications({ params, query }, res) {
 		},
 		filters: getFilterViewModel(filters, representations.filters),
 		showUnpublishedRepUpdatesBanner: hasUnpublishedRepUpdates(publishableReps),
-		keyDates: getKeyDates(publishedDate, repsPeriodCloseDate, repsPeriodCloseDateExtension)
+		keyDates: await getKeyDates(publishedDate, repsPeriodCloseDate, repsPeriodCloseDateExtension)
 	});
 }

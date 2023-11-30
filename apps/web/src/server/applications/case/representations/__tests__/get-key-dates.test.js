@@ -2,6 +2,8 @@ import { jest } from '@jest/globals';
 
 import { getKeyDates } from '../utils/get-key-dates.js';
 
+import dateUtils from '../../../../lib/add-business-days-to-date.js';
+
 const mockDateYesterday = '2023-01-09';
 const mockDateYesterdayUnix = '1673222400'; // '2023-01-09'
 
@@ -10,6 +12,12 @@ const mockDateTodayUnix = '1673308800'; // '2023-01-10'
 
 const mockDateTomorrow = '2023-01-11';
 const mockDateTomorrowUnix = '1673395200'; // '2023-01-11'
+
+const mockReviewDate = '2023-01-20';
+
+jest
+	.spyOn(dateUtils, 'addBusinessDaysToDate')
+	.mockImplementation(() => Promise.resolve(new Date(mockReviewDate)));
 
 describe('applications/case/representations/utils/get-key-dates', () => {
 	describe('#getKeyDates', () => {
@@ -27,8 +35,8 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 				const mockRepsPeriodCloseDate = null;
 				const mockRepsPeriodCloseDateExtension = null;
 
-				beforeEach(() => {
-					keyDates = getKeyDates(
+				beforeEach(async () => {
+					keyDates = await getKeyDates(
 						mockPublishedDate,
 						mockRepsPeriodCloseDate,
 						mockRepsPeriodCloseDateExtension
@@ -50,8 +58,8 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 				const mockRepsPeriodCloseDate = mockDateTodayUnix;
 				const mockRepsPeriodCloseDateExtension = null;
 
-				beforeEach(() => {
-					keyDates = getKeyDates(
+				beforeEach(async () => {
+					keyDates = await getKeyDates(
 						mockPublishedDate,
 						mockRepsPeriodCloseDate,
 						mockRepsPeriodCloseDateExtension
@@ -61,7 +69,7 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 					expect(keyDates).toEqual({
 						closingDate: '10 January 2023',
 						publishedDate: '',
-						reviewDate: '24 January 2023',
+						reviewDate: '20 January 2023',
 						state: 'open'
 					});
 				});
@@ -73,8 +81,8 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 				const mockRepsPeriodCloseDate = mockDateTomorrowUnix;
 				const mockRepsPeriodCloseDateExtension = null;
 
-				beforeEach(() => {
-					keyDates = getKeyDates(
+				beforeEach(async () => {
+					keyDates = await getKeyDates(
 						mockPublishedDate,
 						mockRepsPeriodCloseDate,
 						mockRepsPeriodCloseDateExtension
@@ -84,7 +92,7 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 					expect(keyDates).toEqual({
 						closingDate: '11 January 2023',
 						publishedDate: '',
-						reviewDate: '25 January 2023',
+						reviewDate: '20 January 2023',
 						state: 'open'
 					});
 				});
@@ -96,8 +104,8 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 				const mockRepsPeriodCloseDate = mockDateYesterdayUnix;
 				const mockRepsPeriodCloseDateExtension = null;
 
-				beforeEach(() => {
-					keyDates = getKeyDates(
+				beforeEach(async () => {
+					keyDates = await getKeyDates(
 						mockPublishedDate,
 						mockRepsPeriodCloseDate,
 						mockRepsPeriodCloseDateExtension
@@ -107,7 +115,7 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 					expect(keyDates).toEqual({
 						closingDate: '9 January 2023',
 						publishedDate: '',
-						reviewDate: '23 January 2023',
+						reviewDate: '20 January 2023',
 						state: 'closed'
 					});
 				});
@@ -120,8 +128,8 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 					const mockRepsPeriodCloseDate = null;
 					const mockRepsPeriodCloseDateExtension = null;
 
-					beforeEach(() => {
-						keyDates = getKeyDates(
+					beforeEach(async () => {
+						keyDates = await getKeyDates(
 							mockPublishedDate,
 							mockRepsPeriodCloseDate,
 							mockRepsPeriodCloseDateExtension
@@ -143,8 +151,8 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 					const mockRepsPeriodCloseDate = null;
 					const mockRepsPeriodCloseDateExtension = null;
 
-					beforeEach(() => {
-						keyDates = getKeyDates(
+					beforeEach(async () => {
+						keyDates = await getKeyDates(
 							mockPublishedDate,
 							mockRepsPeriodCloseDate,
 							mockRepsPeriodCloseDateExtension
@@ -166,8 +174,8 @@ describe('applications/case/representations/utils/get-key-dates', () => {
 					const mockRepsPeriodCloseDate = null;
 					const mockRepsPeriodCloseDateExtension = null;
 
-					beforeEach(() => {
-						keyDates = getKeyDates(
+					beforeEach(async () => {
+						keyDates = await getKeyDates(
 							mockPublishedDate,
 							mockRepsPeriodCloseDate,
 							mockRepsPeriodCloseDateExtension
