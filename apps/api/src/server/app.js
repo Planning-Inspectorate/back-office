@@ -11,8 +11,10 @@ if (config.APPLICATIONINSIGHTS_CONNECTION_STRING) {
 		appInsights
 			.setup(config.APPLICATIONINSIGHTS_CONNECTION_STRING)
 			.setAutoDependencyCorrelation(true)
+			.setAutoCollectDependencies(true)
 			.setAutoCollectConsole(true)
 			.setSendLiveMetrics(true)
+			.setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
 			.start();
 	} catch (err) {
 		logger.warn({ err }, 'Application insights failed to start: ');
