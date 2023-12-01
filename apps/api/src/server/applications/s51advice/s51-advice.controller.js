@@ -472,11 +472,9 @@ export const publishQueueItems = async ({ params: { id }, body }, response) => {
 		f.S51AdviceDocument = docs;
 	}
 
-	await eventClient.sendEvents(
-		NSIP_S51_ADVICE,
-		fulfilled.map(buildNsipS51AdvicePayload),
-		EventType.Publish
-	);
+	const eventPayloads = await Promise.all(fulfilled.map(buildNsipS51AdvicePayload));
+
+	await eventClient.sendEvents(NSIP_S51_ADVICE, eventPayloads, EventType.Publish);
 
 	if (errors.length > 0) {
 		response.status(206).send({
@@ -538,7 +536,7 @@ export const unpublishS51Advice = async ({ body, params }, response) => {
 
 	await eventClient.sendEvents(
 		NSIP_S51_ADVICE,
-		[buildNsipS51AdvicePayload(advice)],
+		[await buildNsipS51AdvicePayload(advice)],
 		EventType.Unpublish
 	);
 
