@@ -4016,6 +4016,26 @@
 						"schema": {
 							"$ref": "#/definitions/ProjectTeamMembers"
 						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					}
 				}
 			}
@@ -4046,6 +4066,26 @@
 						"schema": {
 							"$ref": "#/definitions/ProjectTeamMember"
 						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
 					}
 				}
 			},
@@ -4073,8 +4113,7 @@
 						"description": "New role",
 						"required": true,
 						"schema": {
-							"type": "object",
-							"properties": {}
+							"$ref": "#/definitions/UserRolePayload"
 						}
 					}
 				],
@@ -4083,6 +4122,26 @@
 						"description": "Project team member",
 						"schema": {
 							"$ref": "#/definitions/ProjectTeamMember"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
 						}
 					}
 				}
@@ -4106,8 +4165,7 @@
 						"description": "Id of the user being removed",
 						"required": true,
 						"schema": {
-							"type": "object",
-							"properties": {}
+							"$ref": "#/definitions/UserGuidPayload"
 						}
 					}
 				],
@@ -4116,6 +4174,26 @@
 						"description": "Project team member",
 						"schema": {
 							"$ref": "#/definitions/ProjectTeamMember"
+						}
+					},
+					"404": {
+						"description": "Error: Not Found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "Must be an existing application"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
 						}
 					}
 				}
@@ -7883,6 +7961,26 @@
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/ProjectTeamMember"
+			}
+		},
+		"UserGuidPayload": {
+			"type": "object",
+			"properties": {
+				"userId": {
+					"type": "string",
+					"description": "Azure AD User Id",
+					"example": "1234-abcd-6789"
+				}
+			}
+		},
+		"UserRolePayload": {
+			"type": "object",
+			"properties": {
+				"role": {
+					"type": "string",
+					"description": "Project user role",
+					"example": "case_manager"
+				}
 			}
 		},
 		"GeneralError": {
