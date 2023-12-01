@@ -159,4 +159,7 @@ export class DocumentPropertiesPage extends Page {
 	validateDocumentErrorMessage(){
 		cy.get('#transcript-error').contains('Please enter a valid document reference number.');
 	}
+	verifyDocumentPropertiesHeading(){
+		cy.get('.govuk-caption-xl').contains('Document properties');
+	}
 }
