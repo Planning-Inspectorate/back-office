@@ -18,11 +18,15 @@ exports[`excerpt.component should not truncate words when not strict 1`] = `
   </div>
 </details>
 
-                </noscript>
-                <p class=\\"govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" >
-                    <a href=\\"#\\" class=\\"govuk-link govuk-link--no-visited-state excerpt-link\\">Show content</a>
-                </p>
-            </div>
+				</noscript>
+
+				
+				<div class='display--js-enabled-only display--none'>
+					<p class=\\"govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" >
+						<a href=\\"#\\" class=\\"govuk-link govuk-link--no-visited-state excerpt-link\\">Show content</a>
+					</p>
+				</div>
+			</div>
 
             <div class=\\"excerpt-full display--none\\">
                 Quite short content, all will show
@@ -54,11 +58,15 @@ exports[`excerpt.component should render excerpt, truncated 1`] = `
   </div>
 </details>
 
-                </noscript>
-                <p class=\\"govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" >
-                    <a href=\\"#\\" class=\\"govuk-link govuk-link--no-visited-state excerpt-link\\">Show content</a>
-                </p>
-            </div>
+				</noscript>
+
+				
+				<div class='display--js-enabled-only display--none'>
+					<p class=\\"govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4\\" >
+						<a href=\\"#\\" class=\\"govuk-link govuk-link--no-visited-state excerpt-link\\">Show content</a>
+					</p>
+				</div>
+			</div>
 
             <div class=\\"excerpt-full display--none\\">
                 Quite short, first 7 only
