@@ -7,6 +7,7 @@ import { databaseConnector } from '#utils/database-connector.js';
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersions} DocumentVersions */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateDocumentsRequest} UpdateDocumentsRequest */
+/** @typedef {import('@pins/appeals.api').Appeals.UpdateDocumentsAvCheckRequest} UpdateDocumentsAvCheckRequest */
 
 /**
  * @param {string} guid
@@ -86,10 +87,29 @@ export const updateDocuments = (data) =>
 							id: document.redactionStatus
 						}
 					},
-					published: true
+					published: document.published,
+					draft: false
 				},
 				where: {
 					documentGuid_version: { documentGuid: document.id, version: document.latestVersion }
+				}
+			})
+		)
+	);
+
+/**
+ * @param {UpdateDocumentsAvCheckRequest} data
+ * @returns
+ */
+export const updateDocumentAvStatus = (data) =>
+	Promise.all(
+		data.map((document) =>
+			databaseConnector.documentVersion.update({
+				data: {
+					virusCheckStatus: document.virusCheckStatus
+				},
+				where: {
+					documentGuid_version: { documentGuid: document.id, version: document.version }
 				}
 			})
 		)

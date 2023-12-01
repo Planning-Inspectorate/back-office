@@ -8,6 +8,7 @@
  */
 const formatFolder = (folder) => ({
 	caseId: folder.caseId,
+	// @ts-ignore
 	documents:
 		folder.documents?.map((/** @type {Document} */ document) => ({
 			id: document.guid,
@@ -17,7 +18,8 @@ const formatFolder = (folder) => ({
 				dateReceived: document?.latestDocumentVersion?.dateReceived,
 				redactionStatus: document?.latestDocumentVersion?.redactionStatusId,
 				size: document?.latestDocumentVersion?.size,
-				mime: document?.latestDocumentVersion?.mime
+				mime: document?.latestDocumentVersion?.mime,
+				draft: document?.latestDocumentVersion?.draft
 			}
 		})) || null,
 	id: folder.id,
