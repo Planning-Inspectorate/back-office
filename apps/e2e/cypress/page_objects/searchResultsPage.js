@@ -4,7 +4,12 @@ import { Page } from './basePage';
 export class SearchResultsPage extends Page {
 	elements = {
 		searchResults: () => cy.get(this.selectors.smallHeader),
-		searchApplicationsError: () => cy.get('#searchApplications-error')
+		searchApplicationsError: () => cy.get('#searchApplications-error'),
+		searchResultsCount: () => cy.get('#main-content > div:nth-child(3) > p'),
+		searchResultsTableCount: () => cy.get('#main-content > div:nth-child(3) > table'),
+		invalidSearchCount: () => cy.get('#main-content > div:nth-child(3) > p:nth-child(1)'),
+		verifyViewLink: () => cy.get('tbody tr:nth-child(1) td:nth-child(3) a:nth-child(1)')
+
 	};
 
 	// U S E R  A C T I O N S
@@ -34,5 +39,17 @@ export class SearchResultsPage extends Page {
 			.eq(1)
 			.find(this.selectors.body)
 			.should('contain.text', caseName);
+	}
+	verifyDocumentSearchResults(documentName){
+		cy.get('#searchDocuments').type(documentName);
+	}
+	verifyDocumentsCount(){
+      	this.elements.searchResultsTableCount().should('have.length.greaterThan',0);
+	}
+	verifyInvalidSearchResultsCount(){
+		this.elements.invalidSearchCount().contains('0 results');
+	}
+	clickDocumentViewLink(){
+		this.elements.verifyViewLink().click();
 	}
 }

@@ -63,4 +63,13 @@ export class FileUploadPage extends Page {
 	verifyDocumentSelectError(){
 		cy.get('.govuk-list > li:nth-child(1) > a:nth-child(1)').contains('Select documents to make changes to statuses');
 	}
+
+	backToProjectDocumentationPage(){
+		cy.get('li:nth-child(1) a:nth-child(1)').click();
+
+	}
+	verifyFileIsUploaded() {
+		cy.wait(5000);
+		cy.reload();
+	}
 }

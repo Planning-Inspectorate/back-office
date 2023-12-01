@@ -1,0 +1,20 @@
+PROJCS["NAD83 / Austin", \
+  GEOGCS["NAD83", \
+    DATUM["North_American_Datum_1983", \
+      SPHEROID["GRS 1980", 6378137.0, 298.257222101], \
+      TOWGS84[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]], \
+    PRIMEM["Greenwich", 0.0], \
+    UNIT["degree", 0.017453292519943295], \
+    AXIS["Lon", EAST], \
+    AXIS["Lat", NORTH]], \
+  PROJECTION["Lambert_Conformal_Conic_2SP"], \
+  PARAMETER["central_meridian", -100.333333333333], \
+  PARAMETER["latitude_of_origin", 29.6666666666667], \
+  PARAMETER["standard_parallel_1", 31.883333333333297], \
+  PARAMETER["false_easting", 2296583.333333], \
+  PARAMETER["false_northing", 9842500.0], \
+  PARAMETER["standard_parallel_2", 30.1166666666667], \
+  UNIT["m", 1.0], \
+  AXIS["x", EAST], \
+  AXIS["y", NORTH], \
+  AUTHORITY["EPSG","100002"]]
