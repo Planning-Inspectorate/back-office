@@ -1,6 +1,7 @@
 import { pick } from 'lodash-es';
 import { formatS51AdviceReferenceCode } from '#utils/mapping/map-s51-advice-details.js';
 import formatDate from '#utils/date-formatter.js';
+import { getById as getCaseById } from '../../repositories/case.repository.js';
 
 /**
  * @typedef {'phone' | 'email' | 'meeting' | 'post'} Method
@@ -32,10 +33,11 @@ import formatDate from '#utils/date-formatter.js';
 
 /**
  * @param {import('@prisma/client').S51Advice} s51Advice
- * @returns {NsipS51AdvicePayload}
+ * @returns {Promise<NsipS51AdvicePayload>}
  * */
-export const buildNsipS51AdvicePayload = (s51Advice) => {
-	const caseReference = 'CHANGE-ME';
+export const buildNsipS51AdvicePayload = async (s51Advice) => {
+	const c = await getCaseById(s51Advice.caseId, {});
+	const caseReference = c?.reference ?? '';
 
 	return {
 		...pick(s51Advice, ['caseId', 'title', 'enquiryDetails', 'adviceDetails']),
