@@ -4,6 +4,12 @@
  * Fallbacks to using govukDetails in the template if there is no JS enabled.
  */
 function initExcerpt() {
+	// show the link container (hidden without JS to prioritize the noscript element)
+	const excerptElements = document.querySelectorAll('.display--js-enabled-only');
+	excerptElements.forEach((excerptElement) => {
+		excerptElement.classList.remove('display--none');
+	});
+
 	/**
 	 * Toggle the excerpt or full content display.
 	 *

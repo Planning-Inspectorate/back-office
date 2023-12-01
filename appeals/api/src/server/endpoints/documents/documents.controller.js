@@ -232,8 +232,8 @@ const updateDocumentsAvCheckStatus = async (req, res) => {
 			if (!latestDocument) {
 				return res.status(404).send({ errors: { body: ERROR_NOT_FOUND } });
 			}
-			const versionList = latestDocument.documentVersions?.map((v) => v.version) || [1];
-			if (versionList.indexOf(document.version) < 0) {
+			const versionList = latestDocument.documentVersion?.map((v) => v.version);
+			if (!versionList || versionList.indexOf(document.version) < 0) {
 				return res.status(404).send({ errors: { body: ERROR_NOT_FOUND } });
 			}
 		}

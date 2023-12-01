@@ -75,7 +75,7 @@ export const removeProjectTeamMember = async ({ params, body }, response) => {
 	try {
 		await projectTeamRepository.remove(userId, Number(id));
 
-		response.send({});
+		response.send(projectTeamMember);
 	} catch {
 		throw new BackOfficeAppError(`Error while removing user ${userId} for the case ${id}`, 500);
 	}
