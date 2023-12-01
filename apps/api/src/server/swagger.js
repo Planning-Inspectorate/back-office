@@ -2702,6 +2702,18 @@ export const spec = {
 			type: 'array',
 			items: { $ref: '#/definitions/ProjectTeamMember' }
 		},
+		UserGuidPayload: {
+			type: 'object',
+			properties: {
+				userId: { type: 'string', description: 'Azure AD User Id', example: '1234-abcd-6789' }
+			}
+		},
+		UserRolePayload: {
+			type: 'object',
+			properties: {
+				role: { type: 'string', description: 'Project user role', example: 'case_manager' }
+			}
+		},
 		GeneralError: {
 			type: 'object',
 			properties: {
