@@ -24,7 +24,7 @@ export const getDocumentById = (guid) => {
 
 /**
  * @param {string} guid
- * @returns {PrismaPromise<DocumentVersions|null>}
+ * @returns {PrismaPromise<Document|null>}
  */
 export const getDocumentWithAllVersionsById = (guid) => {
 	return databaseConnector.document.findUnique({

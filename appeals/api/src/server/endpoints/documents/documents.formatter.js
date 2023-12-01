@@ -17,6 +17,7 @@ const formatFolder = (folder) => ({
 				published: document?.latestDocumentVersion?.published,
 				dateReceived: document?.latestDocumentVersion?.dateReceived,
 				redactionStatus: document?.latestDocumentVersion?.redactionStatusId,
+				virusCheckStatus: document?.latestDocumentVersion?.virusCheckStatus,
 				size: document?.latestDocumentVersion?.size,
 				mime: document?.latestDocumentVersion?.mime,
 				draft: document?.latestDocumentVersion?.draft
