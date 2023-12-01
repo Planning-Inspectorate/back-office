@@ -1573,6 +1573,28 @@ export interface UpdateDocumentsResponse {
 	}[];
 }
 
+export interface UpdateDocumentsAvCheckRequest {
+	documents?: {
+		/** @example "987e66e0-1db4-404b-8213-8082919159e9" */
+		id?: string;
+		/** @example 1 */
+		version?: number;
+		/** @example "checked" */
+		virusCheckStatus?: string;
+	}[];
+}
+
+export interface UpdateDocumentsAvCheckResponse {
+	documents?: {
+		/** @example "987e66e0-1db4-404b-8213-8082919159e9" */
+		id?: string;
+		/** @example 1 */
+		version?: number;
+		/** @example "checked" */
+		virusCheckStatus?: string;
+	}[];
+}
+
 export type GetAuditTrailsResponse = {
 	/** @example "f7ea429b-65d8-4c44-8fc2-7f1a34069855" */
 	azureAdUserId?: string;

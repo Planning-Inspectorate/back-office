@@ -28,9 +28,15 @@ export const getDocumentDownload = async ({ apiClient, params, session }, respon
 		return response.status(404);
 	}
 
-	const { blobStorageContainer, blobStoragePath } = fileInfo.latestDocumentVersion;
+	const { blobStorageContainer, blobStoragePath, virusCheckStatus } =
+		fileInfo.latestDocumentVersion;
 	if (!blobStorageContainer || !blobStoragePath) {
 		throw new Error('Blob storage container or Blob storage path not found');
+	}
+
+	const validScanResult = 'checked';
+	if (virusCheckStatus !== validScanResult) {
+		throw new Error('Document cannot be downloaded, incorrect AV scan result');
 	}
 
 	let blobStorageClient = undefined;

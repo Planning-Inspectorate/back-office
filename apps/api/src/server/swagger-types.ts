@@ -2631,7 +2631,23 @@ export interface ProjectTeamMember {
 	role?: string;
 }
 
-export type ProjectTeamMembers = ProjectTeamMembers[];
+export type ProjectTeamMembers = ProjectTeamMember[];
+
+export interface UserGuidPayload {
+	/**
+	 * Azure AD User Id
+	 * @example "1234-abcd-6789"
+	 */
+	userId?: string;
+}
+
+export interface UserRolePayload {
+	/**
+	 * Project user role
+	 * @example "case_manager"
+	 */
+	role?: string;
+}
 
 export interface GeneralError {
 	errors?: {

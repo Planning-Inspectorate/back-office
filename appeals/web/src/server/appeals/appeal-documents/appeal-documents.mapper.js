@@ -135,8 +135,8 @@ const mapDocumentFileTypeAndSize = (document) => {
  * @returns {PageContent}
  */
 export function addDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
-	const unpublishedDocuments = folder.documents.filter(
-		(document) => document.latestDocumentVersion?.published === false
+	const incompleteDocuments = folder.documents.filter(
+		(document) => document.latestDocumentVersion?.draft === true
 	);
 
 	/** @type {PageContent} */
@@ -146,11 +146,11 @@ export function addDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Add document details',
 		heading: `${folderPathToFolderNameText(folder.path)} documents`,
-		pageComponentGroups: unpublishedDocuments.map((document, index) => ({
+		pageComponentGroups: incompleteDocuments.map((document, index) => ({
 			wrapperHtml: {
 				opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
 				closing:
-					index < unpublishedDocuments.length - 1
+					index < incompleteDocuments.length - 1
 						? '<hr class="govuk-!-margin-top-7"></div>'
 						: '</div>'
 			},
@@ -780,7 +780,7 @@ export const mapDocumentsForDisplay = (
  */
 export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
 	const latestDocuments = folder.documents.filter(
-		(document) => document.latestDocumentVersion?.published === true
+		(document) => document.latestDocumentVersion?.draft === false
 	);
 
 	/** @type {PageContent} */

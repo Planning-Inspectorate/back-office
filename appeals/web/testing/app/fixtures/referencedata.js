@@ -946,7 +946,7 @@ export const documentFolderInfo = {
 			id: '15d19184-155b-4b6c-bba6-2bd2a61ca9a3',
 			name: 'test-pdf.pdf',
 			latestDocumentVersion: {
-				published: true,
+				draft: false,
 				dateReceived: '2023-02-01T01:00:00.000Z',
 				redactionStatus: 1,
 				size: 129363,
@@ -957,7 +957,7 @@ export const documentFolderInfo = {
 			id: '47d8f073-c837-4f07-9161-c1a5626eba56',
 			name: 'sample-20s.mp4',
 			latestDocumentVersion: {
-				published: true,
+				draft: false,
 				dateReceived: '2024-03-02T01:00:00.000Z',
 				redactionStatus: 2,
 				size: 11815175,
@@ -968,7 +968,7 @@ export const documentFolderInfo = {
 			id: '97260151-4334-407f-a76a-0b5666cbcfa6',
 			name: 'ph0.jpeg',
 			latestDocumentVersion: {
-				published: false,
+				draft: true,
 				dateReceived: '2025-04-03T01:00:00.000Z',
 				redactionStatus: 3,
 				size: 58861,
@@ -979,7 +979,7 @@ export const documentFolderInfo = {
 			id: '97260151-4334-407f-a76a-0b5666cbcfa7',
 			name: 'ph1.jpeg',
 			latestDocumentVersion: {
-				published: false,
+				draft: true,
 				dateReceived: '2025-04-03T01:00:00.000Z',
 				redactionStatus: 2,
 				size: 58987,
