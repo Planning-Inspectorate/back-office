@@ -539,7 +539,7 @@ export const unpublishS51Advice = async ({ body, params }, response) => {
 	await eventClient.sendEvents(
 		NSIP_S51_ADVICE,
 		[buildNsipS51AdvicePayload(advice)],
-		EventType.Publish
+		EventType.Unpublish
 	);
 
 	response.send(updateResponseInTable);
