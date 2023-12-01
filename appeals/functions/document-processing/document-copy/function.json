@@ -4,8 +4,8 @@
 			"name": "registerSubscription",
 			"type": "serviceBusTrigger",
 			"direction": "in",
-			"topicName": "appeal-document-copy",
-			"subscriptionName": "appeal-document-copy-subscription",
+			"topicName": "appeal-document-to-move",
+			"subscriptionName": "appeal-document-to-move-subscription",
 			"connection": "ServiceBusConnection"
 		}
 	]
