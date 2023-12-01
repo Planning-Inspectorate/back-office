@@ -49,6 +49,12 @@ export const getByCaseIdPath = (caseId, path) => {
 			caseId,
 			path: { startsWith: path }
 		},
-		include: { documents: true }
+		include: {
+			documents: {
+				include: {
+					latestDocumentVersion: true
+				}
+			}
+		}
 	});
 };

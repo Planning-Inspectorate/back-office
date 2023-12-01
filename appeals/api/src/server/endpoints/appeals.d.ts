@@ -391,6 +391,7 @@ interface DocumentInfo {
 	createdAt?: string;
 	folderId?: number;
 	caseId?: number;
+	virusCheckStatus?: any;
 	latestDocumentVersion?: LatestDocumentVersionInfo;
 }
 
