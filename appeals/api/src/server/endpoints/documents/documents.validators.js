@@ -2,10 +2,13 @@ import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
 import validateIdParameter from '#common/validators/id-parameter.js';
 import validateUuidParameter from '#common/validators/uuid-parameter.js';
+import validateStringParameter from '#common/validators/string-parameter.js';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import {
 	ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF,
+	ERROR_DOCUMENT_AV_RESULT_STATUSES_MUST_BE_ONE_OF,
 	ERROR_MUST_BE_STRING,
+	ERROR_MUST_BE_UUID,
 	ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE,
 	ERROR_MUST_BE_VALID_FILEINFO
 } from '#endpoints/constants.js';
@@ -14,6 +17,7 @@ import stringTokenReplacement from '#utils/string-token-replacement.js';
 import { getDocumentRedactionStatusIds } from './documents.service.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateDocumentsRequest} UpdateDocumentsRequest */
+/** @typedef {import('@pins/appeals.api').Appeals.UpdateDocumentsAvCheckRequest} UpdateDocumentsAvCheckRequest */
 
 /**
  * @param {UpdateDocumentsRequest} documents
@@ -29,6 +33,27 @@ const validateDocumentRedactionStatusIds = async (documents) => {
 		throw new Error(
 			stringTokenReplacement(ERROR_DOCUMENT_REDACTION_STATUSES_MUST_BE_ONE_OF, [
 				redactionStatusIds.join(', ')
+			])
+		);
+	}
+
+	return true;
+};
+
+/**
+ * @param {UpdateDocumentsAvCheckRequest} documents
+ * @returns {Promise<boolean>}
+ */
+const validateAvCheckResult = async (documents) => {
+	const validAvResults = ['checked', 'failed_virus_check'];
+	const hasValidStatusIds = documents.every(({ virusCheckStatus }) =>
+		validAvResults.includes(virusCheckStatus)
+	);
+
+	if (!hasValidStatusIds) {
+		throw new Error(
+			stringTokenReplacement(ERROR_DOCUMENT_AV_RESULT_STATUSES_MUST_BE_ONE_OF, [
+				validAvResults.join(', ')
 			])
 		);
 	}
@@ -71,10 +96,20 @@ const patchDocumentsValidator = composeMiddleware(
 	validationErrorHandler
 );
 
+const patchDocumentsAvCheckValidator = composeMiddleware(
+	validateUuidParameter({ parameterName: 'documents.*.id', parameterType: body }).withMessage(
+		ERROR_MUST_BE_UUID
+	),
+	validateStringParameter('documents.*.virusCheckStatus', 18),
+	body('documents').custom(validateAvCheckResult),
+	validationErrorHandler
+);
+
 export {
 	getDocumentIdValidator,
 	getDocumentsValidator,
 	getDocumentValidator,
 	getFolderIdValidator,
-	patchDocumentsValidator
+	patchDocumentsValidator,
+	patchDocumentsAvCheckValidator
 };

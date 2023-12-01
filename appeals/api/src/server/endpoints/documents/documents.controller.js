@@ -219,6 +219,35 @@ const updateDocuments = async (req, res) => {
 	res.send(body);
 };
 
+/**
+ * @param {Request} req
+ * @param {Response} res
+ */
+const updateDocumentsAvCheckStatus = async (req, res) => {
+	const { body } = req;
+	try {
+		const documents = body.documents;
+		for (const document of documents) {
+			const latestDocument = await documentRepository.getDocumentWithAllVersionsById(document.id);
+			if (!latestDocument) {
+				return res.status(404).send({ errors: { body: ERROR_NOT_FOUND } });
+			}
+			const versionList = latestDocument.documentVersions?.map((v) => v.version) || [1];
+			if (versionList.indexOf(document.version) < 0) {
+				return res.status(404).send({ errors: { body: ERROR_NOT_FOUND } });
+			}
+		}
+		await documentRepository.updateDocumentAvStatus(documents);
+	} catch (error) {
+		if (error) {
+			logger.error(error);
+			return res.status(500).send({ errors: { body: ERROR_FAILED_TO_SAVE_DATA } });
+		}
+	}
+
+	res.send(body);
+};
+
 export {
 	addDocuments,
 	addDocumentVersion,
@@ -226,5 +255,6 @@ export {
 	getDocumentAndVersions,
 	getFolder,
 	updateDocuments,
+	updateDocumentsAvCheckStatus,
 	deleteDocumentVersion
 };

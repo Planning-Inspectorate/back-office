@@ -363,7 +363,7 @@ describe('/appeals/:appealId/documents', () => {
 							id: 1
 						}
 					},
-					published: true
+					draft: false
 				},
 				where: {
 					documentGuid_version: {
@@ -525,6 +525,102 @@ describe('appeals documents', () => {
 			databaseConnector.folder.findMany.mockReturnValue([folder]);
 			const folders = await service.getFoldersForAppeal(householdAppeal, 'appellantCase');
 			expect(folders).toEqual([folder]);
+		});
+	});
+
+	describe('documents AV scanning', () => {
+		test('validate AV scan result: no UUID provided', async () => {
+			databaseConnector.document.findUnique.mockReturnValue(null);
+			const requestBody = {
+				documents: [
+					{
+						id: 'incorrect-id',
+						version: 0,
+						virusCheckStatus: 'checked'
+					}
+				]
+			};
+
+			const response = await request
+				.patch(`/appeals/documents/avcheck`)
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(400);
+		});
+		test('validate AV scan result: no status provided', async () => {
+			const requestBody = {
+				documents: [
+					{
+						id: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882',
+						version: 1,
+						virusCheckStatus: ''
+					}
+				]
+			};
+
+			const response = await request
+				.patch(`/appeals/documents/avcheck`)
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(400);
+		});
+		test('validate AV scan result: incorrect status provided', async () => {
+			const requestBody = {
+				documents: [
+					{
+						id: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882',
+						version: 1,
+						virusCheckStatus: 'something-wrong'
+					}
+				]
+			};
+
+			const response = await request
+				.patch(`/appeals/documents/avcheck`)
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(400);
+		});
+		test('validate AV scan result: document not found', async () => {
+			databaseConnector.document.findUnique.mockReturnValue(null);
+			const requestBody = {
+				documents: [
+					{
+						id: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882',
+						version: 1,
+						virusCheckStatus: 'checked'
+					}
+				]
+			};
+
+			const response = await request
+				.patch(`/appeals/documents/avcheck`)
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(404);
+		});
+		test('validate AV scan result: version not found', async () => {
+			databaseConnector.document.findUnique.mockReturnValue(documentCreated);
+			const requestBody = {
+				documents: [
+					{
+						id: documentCreated.guid,
+						version: 3,
+						virusCheckStatus: 'checked'
+					}
+				]
+			};
+
+			const response = await request
+				.patch(`/appeals/documents/avcheck`)
+				.send(requestBody)
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(404);
 		});
 	});
 });
