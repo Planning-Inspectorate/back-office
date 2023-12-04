@@ -185,11 +185,6 @@ router.patch(
 		#swagger.tags = ['Documents']
 		#swagger.path = '/appeals/documents/avcheck'
 		#swagger.description = Updates multiple documents, following an AV check
-		#swagger.parameters['azureAdUserId'] = {
-			in: 'header',
-			required: true,
-			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
-		}
 		#swagger.requestBody = {
 			in: 'body',
 			description: 'Documents to update for AV report',
