@@ -93,8 +93,9 @@ export const getDocumentDownloadByVersion = async ({ apiClient, params, session 
 	}
 
 	const fileToDownloadInfo = filesInfo.documentVersion.find((fileInfo) => {
-		fileInfo.version?.toString() === version;
+		return fileInfo.version?.toString() === version;
 	});
+
 	if (!fileToDownloadInfo) {
 		return response.status(404);
 	}
