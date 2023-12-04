@@ -430,6 +430,7 @@ model DocumentVersion {
   lastModified           DateTime?
   documentType           String?
   published              Boolean                  @default(false)
+  draft                  Boolean                  @default(true)
   sourceSystem           String                   @default("back-office-appeals")
   origin                 String?
   originalFilename       String?
@@ -443,29 +444,23 @@ model DocumentVersion {
   horizonDataID          String?
   fileMD5                String?
   path                   String?
-  virusCheckStatus       String?
+  virusCheckStatus       String?                  @default("not_checked")
   size                   Int?
   stage                  String?
-  filter1                String?
   blobStorageContainer   String?
   blobStoragePath        String?
   dateCreated            DateTime?                @default(now())
   datePublished          DateTime?
+  dateReceived           DateTime?
   isDeleted              Boolean                  @default(false)
-  examinationRefNo       String?
-  filter2                String?
-  publishedStatus        String?                  @default("awaiting_upload")
-  publishedStatusPrev    String?
   redactionStatusId      Int?
   redacted               Boolean                  @default(false)
   documentURI            String?
-  dateReceived           DateTime?
   parentDocument         Document?                @relation("VersionHistory", fields: [documentGuid], references: [guid])
   latestVersionDocument  Document?                @relation("LatestVersion")
   redactionStatus        DocumentRedactionStatus? @relation(fields: [redactionStatusId], references: [id])
 
   @@id([documentGuid, version])
-  @@index([filter1], map: "filter1")
   @@index([documentGuid], map: "documentGuid")
 }
 

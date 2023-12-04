@@ -352,6 +352,7 @@ interface FolderInfo {
 
 interface LatestDocumentVersionInfo {
 	published: boolean | null | undefined;
+	draft: boolean;
 	dateReceived: Date | null | undefined;
 	redactionStatusId: number | null | undefined;
 	documentGuid?: string | null | undefined;
@@ -374,16 +375,11 @@ interface LatestDocumentVersionInfo {
 	virusCheckStatus?: any;
 	size?: number | null | undefined;
 	stage?: string | null | undefined;
-	filter1?: any;
 	blobStorageContainer?: string | null | undefined;
 	blobStoragePath?: string | null | undefined;
 	dateCreated?: string | null | undefined;
 	datePublished?: any;
 	isDeleted?: boolean | null | undefined;
-	examinationRefNo?: any;
-	filter2?: any;
-	publishedStatus?: string | null | undefined;
-	publishedStatusPrev?: any;
 	redactionStatus?: number | null | undefined;
 	redacted?: boolean | null | undefined;
 	documentURI?: string | null | undefined;
@@ -395,6 +391,7 @@ interface DocumentInfo {
 	createdAt?: string;
 	folderId?: number;
 	caseId?: number;
+	virusCheckStatus?: any;
 	latestDocumentVersion?: LatestDocumentVersionInfo;
 }
 
@@ -586,6 +583,14 @@ type UpdateDocumentsRequest = {
 	receivedDate: string;
 	redactionStatus: number;
 	latestVersion: number;
+	published: boolean;
+	draft: boolean;
+}[];
+
+type UpdateDocumentsAvCheckRequest = {
+	id: string;
+	virusCheckStatus: string;
+	version: number;
 }[];
 
 type ListedBuildingDetailsResponse = Pick<ListedBuildingDetails, 'listEntry'>[];
@@ -638,7 +643,7 @@ export {
 	UpdateAppellantCaseValidationOutcomeParams,
 	UpdateAppellantRequest,
 	UpdateDocumentsRequest,
-	UpdateDocumentRequest,
+	UpdateDocumentsAvCheckRequest,
 	UpdateLPAQuestionaireValidationOutcomeParams,
 	UpdateLPAQuestionnaireRequest,
 	UpdateTimetableRequest,

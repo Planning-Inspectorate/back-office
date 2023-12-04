@@ -8,7 +8,8 @@ import {
 	getDocumentIdValidator,
 	getDocumentValidator,
 	getDocumentsValidator,
-	patchDocumentsValidator
+	patchDocumentsValidator,
+	patchDocumentsAvCheckValidator
 } from './documents.validators.js';
 import * as controller from './documents.controller.js';
 
@@ -176,6 +177,34 @@ router.patch(
 	patchDocumentsValidator,
 	checkAppealExistsAndAddToRequest,
 	asyncHandler(controller.updateDocuments)
+);
+
+router.patch(
+	'/documents/avcheck',
+	/*
+		#swagger.tags = ['Documents']
+		#swagger.path = '/appeals/documents/avcheck'
+		#swagger.description = Updates multiple documents, following an AV check
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'Documents to update for AV report',
+			schema: { $ref: '#/definitions/UpdateDocumentsAvCheckRequest' },
+			required: true
+		}
+		#swagger.responses[200] = {
+			description: 'Documents to update',
+			schema: { $ref: '#/definitions/UpdateDocumentsAvCheckResponse' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	patchDocumentsAvCheckValidator,
+	asyncHandler(controller.updateDocumentsAvCheckStatus)
 );
 
 router.delete(

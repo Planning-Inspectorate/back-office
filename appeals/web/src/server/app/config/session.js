@@ -3,7 +3,7 @@ import session from 'express-session';
 // import RedisStore from 'connect-redis';
 // import { createClient } from 'redis';
 // import { parseRedisConnectionString } from '@pins/platform';
-// import logger from '../../lib/logger.js';
+//import logger from '#lib/logger.js';
 
 // /**
 //  * @param {string} redisConnectionString
@@ -59,7 +59,6 @@ import session from 'express-session';
 // 	return new session.MemoryStore();
 // }
 
-// TODO: for now we want to use memory store, until Redis setup is fixed
 const store = new session.MemoryStore(); // configureStore(config.session.redis);
 
 export default session({

@@ -662,6 +662,24 @@ export const spec = {
 				}
 			]
 		},
+		UpdateDocumentsAvCheckRequest: {
+			documents: [
+				{
+					id: '987e66e0-1db4-404b-8213-8082919159e9',
+					version: 1,
+					virusCheckStatus: 'checked'
+				}
+			]
+		},
+		UpdateDocumentsAvCheckResponse: {
+			documents: [
+				{
+					id: '987e66e0-1db4-404b-8213-8082919159e9',
+					version: 1,
+					virusCheckStatus: 'checked'
+				}
+			]
+		},
 		GetAuditTrailsResponse: [
 			{
 				azureAdUserId: 'f7ea429b-65d8-4c44-8fc2-7f1a34069855',

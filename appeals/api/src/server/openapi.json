@@ -1479,6 +1479,63 @@
 				}
 			}
 		},
+		"/appeals/documents/avcheck": {
+			"patch": {
+				"tags": ["Documents"],
+				"description": "Updates multiple documents, following an AV check",
+				"parameters": [
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Documents to update",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateDocumentsAvCheckResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/UpdateDocumentsAvCheckResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Documents to update for AV report",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateDocumentsAvCheckRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateDocumentsAvCheckRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/documents/{documentId}/{version}": {
 			"delete": {
 				"tags": ["Documents"],
@@ -5937,6 +5994,62 @@
 				},
 				"xml": {
 					"name": "UpdateDocumentsResponse"
+				}
+			},
+			"UpdateDocumentsAvCheckRequest": {
+				"type": "object",
+				"properties": {
+					"documents": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string",
+									"example": "987e66e0-1db4-404b-8213-8082919159e9"
+								},
+								"version": {
+									"type": "number",
+									"example": 1
+								},
+								"virusCheckStatus": {
+									"type": "string",
+									"example": "checked"
+								}
+							}
+						}
+					}
+				},
+				"xml": {
+					"name": "UpdateDocumentsAvCheckRequest"
+				}
+			},
+			"UpdateDocumentsAvCheckResponse": {
+				"type": "object",
+				"properties": {
+					"documents": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string",
+									"example": "987e66e0-1db4-404b-8213-8082919159e9"
+								},
+								"version": {
+									"type": "number",
+									"example": 1
+								},
+								"virusCheckStatus": {
+									"type": "string",
+									"example": "checked"
+								}
+							}
+						}
+					}
+				},
+				"xml": {
+					"name": "UpdateDocumentsAvCheckResponse"
 				}
 			},
 			"GetAuditTrailsResponse": {

@@ -26,6 +26,10 @@ router.get(
             description: 'List of project team members',
             schema: { $ref: '#/definitions/ProjectTeamMembers' }
         }
+		#swagger.responses[404] = {
+			description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+		}
     */
 	validateApplicationId,
 	asyncHandler(getProjectTeamMembers)
@@ -47,12 +51,16 @@ router.get(
             in: 'path',
 			description: 'Azure reference for the user',
 			required: true,
-			type: 'integer'
+			type: 'string'
         }
         #swagger.responses[200] = {
             description: 'Project team member',
             schema: { $ref: '#/definitions/ProjectTeamMember' }
         }
+		#swagger.responses[404] = {
+			description: 'Error: Not Found',
+			schema: { errors: { id: "Must be an existing application" } }
+		}
     */
 	validateApplicationId,
 	asyncHandler(getProjectTeamMemberById)
@@ -74,11 +82,15 @@ router.post(
 				in: 'body',
 				description: 'Id of the user being removed',
 				required: true,
-				type: 'string'
+				schema: { $ref: '#/definitions/UserGuidPayload' },
 			}
 			#swagger.responses[200] = {
 				description: 'Project team member',
-				schema: { {} }
+				schema: { $ref: '#/definitions/ProjectTeamMember' }
+			}
+			#swagger.responses[404] = {
+				description: 'Error: Not Found',
+				schema: { errors: { id: "Must be an existing application" } }
 			}
 		*/
 	validateApplicationId,
@@ -107,11 +119,15 @@ router.patch(
 				in: 'body',
 				description: 'New role',
 				required: true,
-				type: 'string'
+				schema: { $ref: '#/definitions/UserRolePayload' },
 			}
 			#swagger.responses[200] = {
 				description: 'Project team member',
 				schema: { $ref: '#/definitions/ProjectTeamMember' }
+			}
+			#swagger.responses[404] = {
+				description: 'Error: Not Found',
+				schema: { errors: { id: "Must be an existing application" } }
 			}
 		*/
 	validateApplicationId,
