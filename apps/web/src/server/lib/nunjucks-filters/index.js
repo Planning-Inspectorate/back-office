@@ -34,3 +34,4 @@ export { keyDatesProperty } from './key-dates-property.js';
 export { setAttribute } from './set-attribute.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 export { actionsParameterForDocumentStatus } from './actions-parameter-for-document-status.js';
+export { formatNameOrg } from './format-name-org.js';
