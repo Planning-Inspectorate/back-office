@@ -718,8 +718,52 @@ export const getPublishableRepresentationsById = async (caseId, representationId
 			user: true,
 			attachments: true,
 			case: true,
-			represented: true,
-			representative: true,
+			represented: {
+				select: {
+					id: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			},
+			representative: {
+				select: {
+					id: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			},
 			representationActions: true
 		}
 	});
