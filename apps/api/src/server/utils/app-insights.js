@@ -9,11 +9,8 @@ if (config.APPLICATIONINSIGHTS_CONNECTION_STRING) {
 	try {
 		await appInsights
 			.setup(config.APPLICATIONINSIGHTS_CONNECTION_STRING)
-			.setAutoDependencyCorrelation(true)
-			.setAutoCollectDependencies(true)
-			.setAutoCollectConsole(true)
+			.setAutoCollectConsole(true, true)
 			.setSendLiveMetrics(true)
-			.setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
 			.start();
 
 		appInsightsClient = appInsights.defaultClient;
