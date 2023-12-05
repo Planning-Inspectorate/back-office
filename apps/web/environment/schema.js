@@ -19,6 +19,7 @@ export default baseSchema
 	.append({
 		appHostname: joi.string(),
 		apiUrl: joi.string().uri(),
+		appInsightsConnectionString: joi.string().optional(),
 		authDisabled: joi.boolean().optional(),
 		authDisabledGroupIds: joi.array().optional(),
 		authRedirectPath: joi.string(),
