@@ -13,7 +13,7 @@ exports[`applications create: check your answers Case created should render the 
         </div>
     </div>
     <div>
-        <br><a class=\\"govuk-link\\" href=\\"/applications-service/case-team\\">Go back to main Applications homepage</a>
+        <br><a class=\\"govuk-link\\" href=\\"/applications-service/\\">Go back to main Applications homepage</a>
     </div>
 </main>"
 `;
