@@ -1,7 +1,6 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 import {
-	AUDIT_TRAIL_PROGRESSED_TO_STATUS,
 	AUDIT_TRAIL_SITE_VISIT_ARRANGED,
 	AUDIT_TRAIL_SITE_VISIT_TYPE_SELECTED,
 	DEFAULT_DATE_FORMAT_AUDIT_TRAIL,
@@ -12,8 +11,7 @@ import {
 	ERROR_NOT_FOUND,
 	ERROR_SITE_VISIT_REQUIRED_FIELDS,
 	ERROR_START_TIME_MUST_BE_EARLIER_THAN_END_TIME,
-	SITE_VISIT_TYPE_UNACCOMPANIED,
-	STATE_TARGET_ISSUE_DETERMINATION
+	SITE_VISIT_TYPE_UNACCOMPANIED
 } from '../../constants.js';
 
 import { householdAppeal as householdAppealData } from '#tests/appeals/mocks.js';
@@ -66,7 +64,7 @@ describe('site visit routes', () => {
 			});
 
 			test('creates a site visit with updating the status and time fields with leading zeros', async () => {
-				householdAppeal.appealStatus[0].status = 'arrange_site_visit';
+				householdAppeal.appealStatus[0].status = 'issue_determination';
 
 				const { siteVisit } = householdAppeal;
 
@@ -90,6 +88,7 @@ describe('site visit routes', () => {
 					})
 					.set('azureAdUserId', azureAdUserId);
 
+				expect(databaseConnector.siteVisit.create).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
 					data: {
 						appealId: householdAppeal.id,
@@ -99,25 +98,7 @@ describe('site visit routes', () => {
 						siteVisitTypeId: siteVisit.siteVisitType.id
 					}
 				});
-				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
-					data: {
-						appealId: householdAppeal.id,
-						createdAt: expect.any(Date),
-						status: STATE_TARGET_ISSUE_DETERMINATION,
-						valid: true
-					}
-				});
-				expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(2);
-				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
-					data: {
-						appealId: householdAppeal.id,
-						details: stringTokenReplacement(AUDIT_TRAIL_PROGRESSED_TO_STATUS, [
-							STATE_TARGET_ISSUE_DETERMINATION
-						]),
-						loggedAt: expect.any(Date),
-						userId: householdAppeal.caseOfficer.id
-					}
-				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
 					data: {
 						appealId: householdAppeal.id,
@@ -138,7 +119,7 @@ describe('site visit routes', () => {
 			});
 
 			test('creates a site visit with updating the status and time fields without leading zeros', async () => {
-				householdAppeal.appealStatus[0].status = 'arrange_site_visit';
+				householdAppeal.appealStatus[0].status = 'issue_determination';
 
 				const { siteVisit } = householdAppeal;
 
@@ -157,6 +138,7 @@ describe('site visit routes', () => {
 					})
 					.set('azureAdUserId', azureAdUserId);
 
+				expect(databaseConnector.siteVisit.create).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.siteVisit.create).toHaveBeenCalledWith({
 					data: {
 						appealId: householdAppeal.id,
@@ -166,25 +148,7 @@ describe('site visit routes', () => {
 						siteVisitTypeId: siteVisit.siteVisitType.id
 					}
 				});
-				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
-					data: {
-						appealId: householdAppeal.id,
-						createdAt: expect.any(Date),
-						status: STATE_TARGET_ISSUE_DETERMINATION,
-						valid: true
-					}
-				});
-				expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(2);
-				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
-					data: {
-						appealId: householdAppeal.id,
-						details: stringTokenReplacement(AUDIT_TRAIL_PROGRESSED_TO_STATUS, [
-							STATE_TARGET_ISSUE_DETERMINATION
-						]),
-						loggedAt: expect.any(Date),
-						userId: householdAppeal.caseOfficer.id
-					}
-				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
 					data: {
 						appealId: householdAppeal.id,
@@ -660,7 +624,7 @@ describe('site visit routes', () => {
 			});
 
 			test('updates a site visit with updating the status and time fields with leading zeros', async () => {
-				householdAppeal.appealStatus[0].status = 'arrange_site_visit';
+				householdAppeal.appealStatus[0].status = 'issue_determination';
 
 				const { siteVisit } = householdAppeal;
 
@@ -679,6 +643,7 @@ describe('site visit routes', () => {
 					})
 					.set('azureAdUserId', azureAdUserId);
 
+				expect(databaseConnector.siteVisit.update).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.siteVisit.update).toHaveBeenCalledWith({
 					where: { id: siteVisit.id },
 					data: {
@@ -688,25 +653,7 @@ describe('site visit routes', () => {
 						siteVisitTypeId: siteVisit.siteVisitType.id
 					}
 				});
-				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
-					data: {
-						appealId: householdAppeal.id,
-						createdAt: expect.any(Date),
-						status: STATE_TARGET_ISSUE_DETERMINATION,
-						valid: true
-					}
-				});
-				expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(2);
-				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
-					data: {
-						appealId: householdAppeal.id,
-						details: stringTokenReplacement(AUDIT_TRAIL_PROGRESSED_TO_STATUS, [
-							STATE_TARGET_ISSUE_DETERMINATION
-						]),
-						loggedAt: expect.any(Date),
-						userId: householdAppeal.caseOfficer.id
-					}
-				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
 					data: {
 						appealId: householdAppeal.id,
@@ -725,7 +672,7 @@ describe('site visit routes', () => {
 			});
 
 			test('updates a site visit with updating the status and time fields without leading zeros', async () => {
-				householdAppeal.appealStatus[0].status = 'arrange_site_visit';
+				householdAppeal.appealStatus[0].status = 'issue_determination';
 
 				const { siteVisit } = householdAppeal;
 
@@ -753,25 +700,25 @@ describe('site visit routes', () => {
 						siteVisitTypeId: siteVisit.siteVisitType.id
 					}
 				});
-				expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
-					data: {
-						appealId: householdAppeal.id,
-						createdAt: expect.any(Date),
-						status: STATE_TARGET_ISSUE_DETERMINATION,
-						valid: true
-					}
-				});
-				expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(2);
-				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
-					data: {
-						appealId: householdAppeal.id,
-						details: stringTokenReplacement(AUDIT_TRAIL_PROGRESSED_TO_STATUS, [
-							STATE_TARGET_ISSUE_DETERMINATION
-						]),
-						loggedAt: expect.any(Date),
-						userId: householdAppeal.caseOfficer.id
-					}
-				});
+				// expect(databaseConnector.appealStatus.create).toHaveBeenCalledWith({
+				// 	data: {
+				// 		appealId: householdAppeal.id,
+				// 		createdAt: expect.any(Date),
+				// 		status:  expect.any(String),
+				// 		valid: true
+				// 	}
+				// });
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(1);
+				// expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
+				// 	data: {
+				// 		appealId: householdAppeal.id,
+				// 		details: stringTokenReplacement(AUDIT_TRAIL_PROGRESSED_TO_STATUS, [
+				// 			STATE_TARGET_ISSUE_DETERMINATION
+				// 		]),
+				// 		loggedAt: expect.any(Date),
+				// 		userId: householdAppeal.caseOfficer.id
+				// 	}
+				// });
 				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
 					data: {
 						appealId: householdAppeal.id,

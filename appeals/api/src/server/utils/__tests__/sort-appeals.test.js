@@ -27,7 +27,7 @@ describe('Sort appeals', () => {
 				createdAt: '2023-01-01T00:00:55.000Z',
 				appealId: 3,
 				appealReference: 'APP/Q9999/D/21/33813',
-				appealStatus: 'arrange_site_visit',
+				appealStatus: 'ready_to_start',
 				appealType: 'Householder'
 			},
 			{
@@ -41,7 +41,7 @@ describe('Sort appeals', () => {
 				createdAt: '2023-01-02T00:00:55.000Z',
 				appealId: 6,
 				appealReference: 'APP/Q9999/D/21/33813',
-				appealStatus: 'arrange_site_visit',
+				appealStatus: 'ready_to_start',
 				appealType: 'Householder'
 			},
 			{
