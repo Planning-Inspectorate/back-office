@@ -1,9 +1,14 @@
+import { ServiceUser } from '@pins/applications.api/src/database/schema';
+
 export type Representation = {
 	id: number;
 	reference: string;
 	status: string;
-	represented: Contact;
-	representative: Contact;
+	representedId: number;
+	represented: ServiceUser;
+	representativeId: number;
+	representative: ServiceUser;
+	representedType: string;
 	redacted: boolean;
 	received: string;
 	originalRepresentation: string;
