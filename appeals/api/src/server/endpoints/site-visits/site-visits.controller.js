@@ -3,14 +3,12 @@ import {
 	AUDIT_TRAIL_SITE_VISIT_ARRANGED,
 	AUDIT_TRAIL_SITE_VISIT_TYPE_SELECTED,
 	DEFAULT_DATE_FORMAT_AUDIT_TRAIL,
-	ERROR_FAILED_TO_SAVE_DATA,
-	STATE_TARGET_ISSUE_DETERMINATION
+	ERROR_FAILED_TO_SAVE_DATA
 } from '#endpoints/constants.js';
 import siteVisitRepository from '#repositories/site-visit.repository.js';
 import logger from '#utils/logger.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 import { format, parseISO } from 'date-fns';
-import transitionState from '../../state/transition-state.js';
 import { formatSiteVisit } from './site-visits.formatter.js';
 
 /** @typedef {import('express').Request} Request */
@@ -35,7 +33,6 @@ const getSiteVisitById = (req, res) => {
  */
 const createSiteVisit = async (req, res) => {
 	const {
-		appeal: { appealStatus, appealType },
 		body,
 		body: { visitDate, visitEndTime, visitStartTime },
 		params,
@@ -54,14 +51,6 @@ const createSiteVisit = async (req, res) => {
 		});
 
 		if (visitDate) {
-			await transitionState(
-				appealId,
-				appealType,
-				azureAdUserId,
-				appealStatus,
-				STATE_TARGET_ISSUE_DETERMINATION
-			);
-
 			await createAuditTrail({
 				appealId,
 				azureAdUserId,
@@ -85,7 +74,6 @@ const createSiteVisit = async (req, res) => {
  */
 const updateSiteVisit = async (req, res) => {
 	const {
-		appeal: { appealStatus, appealType },
 		body,
 		body: { visitDate, visitEndTime, visitStartTime },
 		params,
@@ -102,16 +90,6 @@ const updateSiteVisit = async (req, res) => {
 			...(visitStartTime && { visitStartTime }),
 			...(visitType && { siteVisitTypeId: visitType?.id })
 		});
-
-		if (visitType && visitDate) {
-			await transitionState(
-				appealId,
-				appealType,
-				azureAdUserId,
-				appealStatus,
-				STATE_TARGET_ISSUE_DETERMINATION
-			);
-		}
 
 		if (visitType) {
 			createAuditTrail({

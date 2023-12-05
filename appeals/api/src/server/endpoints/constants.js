@@ -123,7 +123,6 @@ export const ODW_SYSTEM_ID = 'back-office-appeals';
 
 export const SITE_VISIT_TYPE_UNACCOMPANIED = 'Unaccompanied';
 
-export const STATE_TARGET_ARRANGE_SITE_VISIT = 'arrange_site_visit';
 export const STATE_TARGET_COMPLETE = 'complete';
 export const STATE_TARGET_FINAL_COMMENT_REVIEW = 'final_comment_review';
 export const STATE_TARGET_INVALID = 'invalid';
@@ -131,6 +130,11 @@ export const STATE_TARGET_ISSUE_DETERMINATION = 'issue_determination';
 export const STATE_TARGET_LPA_QUESTIONNAIRE_DUE = 'lpa_questionnaire_due';
 export const STATE_TARGET_READY_TO_START = 'ready_to_start';
 export const STATE_TARGET_STATEMENT_REVIEW = 'statement_review';
+export const STATE_TARGET_ASSIGN_CASE_OFFICER = 'assign_case_officer';
+export const STATE_TARGET_WITHDRAWN = 'withdrawn';
+export const STATE_TARGET_CLOSED = 'closed';
+export const STATE_TARGET_AWAITING_TRANSFER = 'awaiting_transfer';
+export const STATE_TARGET_TRANSFERRED = 'transferred';
 
 export const STATE_TYPE_FINAL = 'final';
 

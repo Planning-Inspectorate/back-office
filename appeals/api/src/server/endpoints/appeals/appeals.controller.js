@@ -14,10 +14,13 @@ import {
 	DEFAULT_PAGE_SIZE,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_CANNOT_BE_EMPTY_STRING,
-	CONFIG_APPEAL_STAGES
+	CONFIG_APPEAL_STAGES,
+	AUDIT_TRAIL_SYSTEM_UUID,
+	STATE_TARGET_READY_TO_START
 } from '../constants.js';
 import { formatAppeal, formatAppeals, formatMyAppeals } from './appeals.formatter.js';
 import { assignUser, assignedUserType } from './appeals.service.js';
+import transitionState from '#state/transition-state.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
@@ -114,8 +117,10 @@ const updateAppealById = async (req, res) => {
 			await assignUser(appealId, { caseOfficer, inspector });
 
 			let details = '';
+			let isCaseOfficerAssignment = false;
 
 			if (caseOfficer) {
+				isCaseOfficerAssignment = true;
 				details = stringTokenReplacement(AUDIT_TRAIL_ASSIGNED_CASE_OFFICER, [caseOfficer]);
 			} else if (inspector) {
 				details = stringTokenReplacement(AUDIT_TRAIL_ASSIGNED_INSPECTOR, [inspector]);
@@ -129,11 +134,22 @@ const updateAppealById = async (req, res) => {
 				]);
 			}
 
+			const azureUserId = req.get('azureAdUserId');
 			await createAuditTrail({
 				appealId: appeal.id,
 				details,
 				azureAdUserId: req.get('azureAdUserId')
 			});
+
+			if (isCaseOfficerAssignment) {
+				await transitionState(
+					appeal.id,
+					appeal.appealType,
+					azureUserId || AUDIT_TRAIL_SYSTEM_UUID,
+					appeal.appealStatus,
+					STATE_TARGET_READY_TO_START
+				);
+			}
 		} else {
 			await appealRepository.updateAppealById(appealId, {
 				startedAt

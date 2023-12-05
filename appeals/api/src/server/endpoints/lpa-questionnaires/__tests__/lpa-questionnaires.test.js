@@ -23,8 +23,8 @@ import {
 	LENGTH_10,
 	LENGTH_300,
 	LENGTH_8,
-	STATE_TARGET_ARRANGE_SITE_VISIT,
-	STATE_TARGET_STATEMENT_REVIEW
+	STATE_TARGET_STATEMENT_REVIEW,
+	STATE_TARGET_ISSUE_DETERMINATION
 } from '../../constants.js';
 import {
 	lpaQuestionnaireIncompleteReasons,
@@ -217,7 +217,7 @@ describe('lpa questionnaires routes', () => {
 					data: {
 						appealId: householdAppeal.id,
 						createdAt: expect.any(Date),
-						status: STATE_TARGET_ARRANGE_SITE_VISIT,
+						status: STATE_TARGET_ISSUE_DETERMINATION,
 						valid: true
 					}
 				});
@@ -225,7 +225,7 @@ describe('lpa questionnaires routes', () => {
 					data: {
 						appealId: householdAppeal.id,
 						details: stringTokenReplacement(AUDIT_TRAIL_PROGRESSED_TO_STATUS, [
-							STATE_TARGET_ARRANGE_SITE_VISIT
+							STATE_TARGET_ISSUE_DETERMINATION
 						]),
 						loggedAt: expect.any(Date),
 						userId: householdAppeal.caseOfficer.id
