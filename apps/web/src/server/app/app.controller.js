@@ -46,7 +46,7 @@ export function viewHomepage(request, response, next) {
 		) {
 			return response.redirect('/applications-service');
 		} else {
-			const error = new Error('User logged in successfully but the user group is valid.');
+			const error = new Error('User logged in successfully but the user group is not valid.');
 
 			pino.error(error);
 			return next(error);

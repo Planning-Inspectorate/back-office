@@ -16,7 +16,7 @@ describe('auth', () => {
 
 	describe('authentication', () => {
 		it('should sign in an unauthenticated user via azure SSO', async () => {
-			const response = await request.get('/applications-service/case-team').redirects(1);
+			const response = await request.get('/applications-service').redirects(1);
 			const client = getConfidentialClientApplication();
 
 			// Assert azure msal client was instantiated correctly
@@ -51,7 +51,7 @@ describe('auth', () => {
 			expect(tokenOptions.scopes).toEqual(['user.read']);
 			expect(tokenOptions.code).toEqual('msal_code');
 
-			expect(redirect.get('Location')).toEqual('/applications-service/case-team');
+			expect(redirect.get('Location')).toEqual('/applications-service');
 		});
 
 		it('should redirect to an error page when the redirect from MSAL is incomplete', async () => {
@@ -199,15 +199,16 @@ describe('auth', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		describe('/applications-service/case-team', () => {
+		describe('/applications-service/', () => {
 			beforeEach(() => {
-				nock('http://test/').get('/applications/case-team').reply(200, []);
+				nock('http://test/').get('/applications').reply(200, []);
 			});
 
 			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['applications_case_admin_officer', 'applications_inspector']);
+				// @ts-ignore
+				await signinWithGroups(['not_allowed_group_id']);
 
-				const response = await request.get('/applications-service/case-team').redirects(1);
+				const response = await request.get('/applications-service/').redirects(1);
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toEqual(
@@ -215,10 +216,28 @@ describe('auth', () => {
 				);
 			});
 
-			it('should permit access to the domain if the user has permission', async () => {
+			it('should permit access to the domain if the user has case-team permission', async () => {
 				await signinWithGroups(['applications_case_team']);
 
-				const response = await request.get('/applications-service/case-team');
+				const response = await request.get('/applications-service');
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
+			});
+
+			it('should permit access to the domain if the user has inspector permission', async () => {
+				await signinWithGroups(['applications_inspector']);
+
+				const response = await request.get('/applications-service');
+				const element = parseHtml(response.text);
+
+				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
+			});
+
+			it('should permit access to the domain if the user has admin officer permission', async () => {
+				await signinWithGroups(['applications_case_admin_officer']);
+
+				const response = await request.get('/applications-service');
 				const element = parseHtml(response.text);
 
 				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
@@ -226,41 +245,6 @@ describe('auth', () => {
 
 			it('should redirect to the case officer page from the root path', async () => {
 				await signinWithGroups(['applications_case_team']);
-
-				const response = await request.get('/').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
-			});
-		});
-
-		describe('/applications-service/inspector', () => {
-			beforeEach(() => {
-				nock('http://test/').get('/applications/inspector').reply(200, []);
-			});
-
-			it('should deny access to the domain if the user does not have permission', async () => {
-				await signinWithGroups(['applications_case_admin_officer', 'applications_case_team']);
-
-				const response = await request.get('/applications-service/inspector').redirects(1);
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toEqual(
-					'Sorry, there is a problem with your login'
-				);
-			});
-
-			it('should permit access to the domain if the user has permission', async () => {
-				await signinWithGroups(['applications_inspector']);
-
-				const response = await request.get('/applications-service/inspector');
-				const element = parseHtml(response.text);
-
-				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
-			});
-
-			it('should redirect to the inspector page from the root path', async () => {
-				await signinWithGroups(['applications_inspector']);
 
 				const response = await request.get('/').redirects(1);
 				const element = parseHtml(response.text);
