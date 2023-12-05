@@ -7,6 +7,7 @@ export default joi
 		APPLICATIONINSIGHTS_CONNECTION_STRING: joi.string().optional(),
 		SWAGGER_JSON_DIR: joi.string(),
 		DATABASE_URL: joi.string(),
+		DATABASE_NAME: joi.string(),
 		blobStorageUrl: joi.string().when('NODE_ENV', { not: 'production', then: joi.optional() }),
 		blobStorageContainer: joi
 			.string()
