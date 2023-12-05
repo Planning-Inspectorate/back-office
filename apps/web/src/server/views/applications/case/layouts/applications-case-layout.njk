@@ -7,9 +7,7 @@
 {% from "../../components/status-tag.component.njk" import statusTag %}
 
 
-{% set pageCaption = userTypeMap %}
 {% set pageTitle = case.title %}
-{% set userIsNotInspector = domainType !== 'inspector' %}
 {% set isPageWithRepublishBanner = selectedPageType === 'overview' or selectedPageType === 'project-information' or selectedPageType === 'key-dates' %}
 {% set hasUnpublishedChanges = case.publishedDate and case.publishedDate < case.modifiedDate %}
 
@@ -50,7 +48,7 @@
 	<div class="govuk-grid-row display--flex">
 		{% block sectionMenu %}
 			<div class="pins-list-menu-container">
-				{{ casePageNavigation({ case: case, domainType: domainType, selectedPageType: selectedPageType }) }}
+				{{ casePageNavigation({ case: case, selectedPageType: selectedPageType }) }}
 			</div>
 		{% endblock %}
 		<div class="govuk-grid-column-full">

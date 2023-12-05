@@ -3,7 +3,6 @@ import * as locals from '@pins/applications.web/src/server/applications/case/app
 import applicationsDocumentationRouter from '@pins/applications.web/src/server/applications/case/documentation/applications-documentation.router.js';
 import applicationsDocumentationMetadataRouter from '@pins/applications.web/src/server/applications/case/documentation-metadata/documentation-metadata.router.js';
 import applicationsEditRouter from '@pins/applications.web/src/server/applications/case/edit/applications-edit.router.js';
-import { assertDomainTypeIsNotInspector } from '@pins/applications.web/src/server/applications/create-new-case/applications-create.guards.js';
 import asyncRoute from '@pins/applications.web/src/server/lib/async-route.js';
 import { Router as createRouter } from 'express';
 import applicationsTimetableRouter from './examination-timetable/applications-timetable.router.js';
@@ -30,22 +29,13 @@ applicationsCaseRouter.use('/:caseId/project-team', applicationsProjectTeamRoute
 
 applicationsCaseRouter
 	.route('/:caseId/preview-and-publish')
-	.get(
-		[assertDomainTypeIsNotInspector, locals.registerCase],
-		asyncRoute(controller.viewApplicationsCasePublishPage)
-	)
-	.post(
-		[assertDomainTypeIsNotInspector, locals.registerCase],
-		asyncRoute(controller.updateApplicationsCasePublishPage)
-	);
+	.get([locals.registerCase], asyncRoute(controller.viewApplicationsCasePublishPage))
+	.post([locals.registerCase], asyncRoute(controller.updateApplicationsCasePublishPage));
 
 applicationsCaseRouter
 	.route('/:caseId/unpublish')
 	.get(locals.registerCase, asyncRoute(controller.viewApplicationsCaseUnpublishPage))
-	.post(
-		[assertDomainTypeIsNotInspector, locals.registerCase],
-		asyncRoute(controller.unpublishApplicationsCase)
-	);
+	.post([locals.registerCase], asyncRoute(controller.unpublishApplicationsCase));
 
 applicationsCaseRouter.use('/:caseId', applicationsCaseSummaryRouter);
 

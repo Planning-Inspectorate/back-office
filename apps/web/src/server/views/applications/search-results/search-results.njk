@@ -75,8 +75,8 @@
 
 
 {% macro casePageLink(searchItem) %}
-	{% set viewCaseLink = 'case-view'|url({domainType: domainType, caseId: searchItem.id}) %}
-	{% set checkYourAnswersLink = 'case-create'|url({domainType: domainType, caseId: searchItem.id, step: 'check-your-answers'}) %}
+	{% set viewCaseLink = 'case-view'|url({caseId: searchItem.id}) %}
+	{% set checkYourAnswersLink = 'case-create'|url({caseId: searchItem.id, step: 'check-your-answers'}) %}
 	{% set rowHref = viewCaseLink if searchItem.reference else checkYourAnswersLink %}
 	{% set rowTitle = [searchItem.reference, " - "]|join if searchItem.reference else "" %}
 

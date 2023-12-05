@@ -1,4 +1,3 @@
-/** @typedef {import('./applications.types').DomainType} DomainType */
 /** @typedef {import('nunjucks').Environment} Environment */
 
 /**

@@ -7,8 +7,6 @@
 {% from "./components/case-details-table.component.njk" import caseDetailsTable %}
 {% from "./components/case-applicant-table.component.njk" import caseApplicantTable %}
 
-{% set userIsNotInspector = domainType !== 'inspector' %}
-
 {% block sectionContent %}
 
 	<h2 class="govuk-heading-m">Project information</h2>
@@ -21,13 +19,13 @@
 			{
 				heading: { text: 'Project details' },
 				content: {
-				html: caseDetailsTable(case, domainType)
+				html: caseDetailsTable(case)
 			}
 			},
 			{
 				heading: { text: 'Applicant information' },
 				content: {
-				html: caseApplicantTable(case, domainType)
+				html: caseApplicantTable(case)
 			}
 			}
 		]

@@ -39,32 +39,17 @@ describe('applications edit', () => {
 		const baseUrl = '/applications-service/case/3/edit/name';
 
 		describe('GET /edit/name', () => {
-			describe('When role is:', () => {
-				describe('Inspector', () => {
-					it('should NOT render the form', async () => {
-						await request.get('/applications-service/inspector');
+			beforeEach(async () => {
+				await request.get('/applications-service/case-team');
+				nocks();
+			});
 
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
+			it('should render form', async () => {
+				const response = await request.get(baseUrl);
+				const element = parseHtml(response.text);
 
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).not.toContain('Save changes');
-					});
-				});
-				describe('Case team', () => {
-					beforeEach(async () => {
-						await request.get('/applications-service/case-team');
-						nocks();
-					});
-
-					it('should render form', async () => {
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Save changes');
-					});
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Save changes');
 			});
 
 			describe('When status is', () => {

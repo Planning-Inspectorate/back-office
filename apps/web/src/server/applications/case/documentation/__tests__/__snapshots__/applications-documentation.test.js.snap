@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with custom pagination if there is data in the session 1`] = `
+exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET should render the page with custom pagination if there is data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
@@ -817,7 +817,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 </main>"
 `;
 
-exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with default pagination if there is no data in the session 1`] = `
+exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET should render the page with default pagination if there is no data in the session 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
@@ -2032,7 +2032,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 </main>"
 `;
 
-exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with no panel and no table if there are no documents 1`] = `
+exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET should render the page with no panel and no table if there are no documents 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
@@ -2102,7 +2102,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 </main>"
 `;
 
-exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Case admin officer should render the page with the right number of files 1`] = `
+exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET should render the page with the right number of files 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
@@ -2921,75 +2921,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </nav>
             </form>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET Inspector should render the page with no list and no upload button 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
-    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h4 class=\\"govuk-heading-m\\"> CASE/04 </h4>
-            <h1 class=\\"govuk-heading-xl\\">Title CASE/04</h1>
-            <div class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-grid-column-full govuk-body\\">Transport EN, Highways EN
-                    <br>
-                    <br><strong class=\\"govuk-tag govuk-tag--green\\">Pre-Application</strong>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
-                    </li>
-                </ol>
-            </div>
-            <div class=\\"pins-dashboard-list--hide-controls\\">
-                <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
-                    <div class=\\"govuk-accordion__section\\">
-                        <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
-                        </div>
-                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
-                            <table class=\\"govuk-table\\">
-                                <tbody class=\\"govuk-table__body\\">
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/31/sub-folder-a/\\"> Sub folder a</a>
-                                        </td>
-                                    </tr>
-                                    <tr class=\\"govuk-table__row\\">
-                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-m\\" href=\\"/applications-service/case/123/project-documentation/32/sub-folder-b/\\"> Sub folder b</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=\\"govuk-width-container\\">
-                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
-                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
-                        <p class=\\"govuk-body\\">This folder contains 200 document(s).</p>
-                    </div>
-                </div>
-                <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"></div>
-                    <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/publishing-queue\\"> View publishing queue</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </main>"
@@ -6687,20 +6618,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 </main>"
 `;
 
-exports[`applications documentation Document properties delete page If the user is inspector page should not render 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`applications documentation Document properties delete page If the user is not inspector GET /case/123/project-documentation/21/100/delete page should render 1`] = `
+exports[`applications documentation Document properties delete page GET /case/123/project-documentation/21/100/delete page should render 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <form action='' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
@@ -6729,7 +6647,7 @@ exports[`applications documentation Document properties delete page If the user 
 </main>"
 `;
 
-exports[`applications documentation Document properties delete page If the user is not inspector GET /case/123/project-documentation/21/100/delete should display warning if status is "ready_to_publish" 1`] = `
+exports[`applications documentation Document properties delete page GET /case/123/project-documentation/21/100/delete should display warning if status is "ready_to_publish" 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
         <strong         class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> This document
@@ -6762,7 +6680,7 @@ exports[`applications documentation Document properties delete page If the user 
 </main>"
 `;
 
-exports[`applications documentation Document properties delete page If the user is not inspector POST /case/123/project-documentation/21/100/delete should go to success page if status is not "ready-to-publish" 1`] = `
+exports[`applications documentation Document properties delete page POST /case/123/project-documentation/21/100/delete should go to success page if status is not "ready-to-publish" 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
@@ -6777,20 +6695,7 @@ exports[`applications documentation Document properties delete page If the user 
 </main>"
 `;
 
-exports[`applications documentation Document properties page If the user is inspector page should not render 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`applications documentation Document properties page If the user is not inspector page should render 1`] = `
+exports[`applications documentation Document properties page page should render 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
@@ -6950,7 +6855,7 @@ exports[`applications documentation Document properties page If the user is not 
 </main>"
 `;
 
-exports[`applications documentation Document properties page If the user is not inspector should not show publishedDate edit link if document is not published 1`] = `
+exports[`applications documentation Document properties page should not show publishedDate edit link if document is not published 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
@@ -7107,7 +7012,7 @@ exports[`applications documentation Document properties page If the user is not 
 </main>"
 `;
 
-exports[`applications documentation Document properties page If the user is not inspector should not show publishedStatus edit link if document is published 1`] = `
+exports[`applications documentation Document properties page should not show publishedStatus edit link if document is published 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
@@ -7267,7 +7172,7 @@ exports[`applications documentation Document properties page If the user is not 
 </main>"
 `;
 
-exports[`applications documentation Document properties page If the user is not inspector should show publishing queue link if document is ready to publish 1`] = `
+exports[`applications documentation Document properties page should show publishing queue link if document is ready to publish 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
@@ -7424,20 +7329,7 @@ exports[`applications documentation Document properties page If the user is not 
 </main>"
 `;
 
-exports[`applications documentation Document publishing queue If the user is inspector page should not render 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`applications documentation Document publishing queue If the user is not inspector GET /case/123/project-documentation/publishing-queue\` page should render 1`] = `
+exports[`applications documentation Document publishing queue GET /case/123/project-documentation/publishing-queue\` page should render 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
@@ -11339,7 +11231,7 @@ exports[`applications documentation Document publishing queue If the user is not
 </main>"
 `;
 
-exports[`applications documentation Document publishing queue If the user is not inspector GET /case/123/project-documentation/publishing-queue\` page should render with correct pagination 1`] = `
+exports[`applications documentation Document publishing queue GET /case/123/project-documentation/publishing-queue\` page should render with correct pagination 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
@@ -13707,7 +13599,7 @@ exports[`applications documentation Document publishing queue If the user is not
 </main>"
 `;
 
-exports[`applications documentation Document publishing queue If the user is not inspector POST /case/123/project-documentation/publishing-queue\` should redirect to success page if there is no error 1`] = `
+exports[`applications documentation Document publishing queue POST /case/123/project-documentation/publishing-queue\` should redirect to success page if there is no error 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
@@ -13729,7 +13621,7 @@ exports[`applications documentation Document publishing queue If the user is not
 </main>"
 `;
 
-exports[`applications documentation Document publishing queue If the user is not inspector POST /case/123/project-documentation/publishing-queue\` should return backend errors if request is not ok 1`] = `
+exports[`applications documentation Document publishing queue POST /case/123/project-documentation/publishing-queue\` should return backend errors if request is not ok 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -17646,7 +17538,7 @@ exports[`applications documentation Document publishing queue If the user is not
 </main>"
 `;
 
-exports[`applications documentation Document publishing queue If the user is not inspector POST /case/123/project-documentation/publishing-queue\` should return frontend validation errors if no file is selected 1`] = `
+exports[`applications documentation Document publishing queue POST /case/123/project-documentation/publishing-queue\` should return frontend validation errors if no file is selected 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">

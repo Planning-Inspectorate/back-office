@@ -338,20 +338,7 @@ exports[`Edit applications documentation metadata Edit document type GET /case/1
 </main>"
 `;
 
-exports[`Edit applications documentation metadata Edit name GET /case/123/project-documentation/18/document/456/edit/name If user is inspector should not render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`Edit applications documentation metadata Edit name GET /case/123/project-documentation/18/document/456/edit/name If user is not inspector should render the page with values 1`] = `
+exports[`Edit applications documentation metadata Edit name GET /case/123/project-documentation/18/document/456/edit/name should render the page with values 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">

@@ -281,7 +281,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 </main>"
 `;
 
-exports[`applications create Name and description GET /create-new-case When role is: Case admin officer should render form 1`] = `
+exports[`applications create Name and description GET /create-new-case should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -304,45 +304,6 @@ exports[`applications create Name and description GET /create-new-case When role
             </div>
         </div>
     </form>
-</main>"
-`;
-
-exports[`applications create Name and description GET /create-new-case When role is: Case team should render form 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter name and description</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"title\\" name=\\"title\\" type=\\"text\\" aria-describedby=\\"title-hint\\">
-        </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
-            <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
-                MW</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"description\\"
-            name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
-            </div>
-        </div>
-    </form>
-</main>"
-`;
-
-exports[`applications create Name and description GET /create-new-case When role is: Inspector should NOT render the form 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
 </main>"
 `;
 

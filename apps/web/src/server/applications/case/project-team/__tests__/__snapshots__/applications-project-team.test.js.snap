@@ -292,20 +292,7 @@ exports[`Project team Choose role page POST /case/123/project-team/1/choose-role
 </main>"
 `;
 
-exports[`Project team List page GET /case/123/project-team/ If user is inspector should not render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`Project team List page GET /case/123/project-team/ If user is not inspector should render the page with users 1`] = `
+exports[`Project team List page GET /case/123/project-team/ should render the page with users 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
@@ -371,7 +358,7 @@ exports[`Project team List page GET /case/123/project-team/ If user is not inspe
 </main>"
 `;
 
-exports[`Project team List page GET /case/123/project-team/ If user is not inspector should render the page without users 1`] = `
+exports[`Project team List page GET /case/123/project-team/ should render the page without users 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">

@@ -37,35 +37,17 @@ const nocks = () => {
 
 describe('Examination timetable page', () => {
 	describe('GET /case/123/examination-timetable', () => {
-		describe('When domainType is inspector', () => {
-			beforeEach(async () => {
-				nock('http://test/').get('/applications/inspector').reply(200, {});
-
-				await request.get('/applications-service/inspector');
-			});
-
-			it('should not show the page', async () => {
-				const response = await request.get(`/applications-service/case/123/examination-timetable`);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('there is a problem with your login');
-			});
+		beforeEach(async () => {
+			await request.get('/applications-service/case-team');
+			nocks();
 		});
 
-		describe('When domainType is not inspector', () => {
-			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
-				nocks();
-			});
+		it('should show the page', async () => {
+			const response = await request.get(`/applications-service/case/123/examination-timetable`);
+			const element = parseHtml(response.text);
 
-			it('should show the page', async () => {
-				const response = await request.get(`/applications-service/case/123/examination-timetable`);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Examination timetable');
-			});
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Examination timetable');
 		});
 	});
 });
