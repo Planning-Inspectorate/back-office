@@ -30,7 +30,7 @@ describe('Representation file upload', () => {
 	describe('POST /applications-service/case/1/relevant-representations/api/upload', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page and have the lookup fields', async () => {

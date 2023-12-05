@@ -17,12 +17,12 @@ const application = applicationFactoryForTests({
 });
 
 describe('Get applications', () => {
-	test('gets all applications for case admin officer', async () => {
+	test('gets all applications', async () => {
 		// GIVEN
 		databaseConnector.case.findMany.mockResolvedValue([application]);
 
 		// WHEN
-		const response = await request.get('/applications/case-admin-officer');
+		const response = await request.get('/applications');
 
 		// THEN
 		expect(response.status).toEqual(200);

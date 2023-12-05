@@ -12,7 +12,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, {});
+	nock('http://test/').get('/applications').reply(200, {});
 	nock('http://test/')
 		.get('/applications/123/documents/456/properties')
 		.reply(200, fixturePublishedDocumentationFile);
@@ -38,7 +38,7 @@ describe('Edit applications documentation metadata', () => {
 	beforeEach(async () => {
 		nocks();
 
-		await request.get('/applications-service/case-team');
+		await request.get('/applications-service/');
 	});
 
 	const baseUrl = '/applications-service/case/123/project-documentation/18/document/456/edit';

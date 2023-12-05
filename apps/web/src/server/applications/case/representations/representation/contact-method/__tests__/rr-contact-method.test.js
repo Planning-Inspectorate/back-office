@@ -27,7 +27,7 @@ describe('Representation contact method page', () => {
 	describe('GET /applications-service/case/1/relevant-representations/contact-method', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {

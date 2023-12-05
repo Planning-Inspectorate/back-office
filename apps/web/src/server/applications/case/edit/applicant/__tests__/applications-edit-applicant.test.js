@@ -8,7 +8,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, {});
+	nock('http://test/').get('/applications').reply(200, {});
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
 		.times(2)
@@ -28,7 +28,7 @@ describe('applications create applicant', () => {
 	});
 
 	beforeEach(async () => {
-		await request.get('/applications-service/case-team');
+		await request.get('/applications-service/');
 	});
 
 	describe('GET edit/applicant-organisation-name', () => {

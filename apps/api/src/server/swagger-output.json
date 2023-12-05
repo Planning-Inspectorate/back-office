@@ -16,6 +16,21 @@
 	"schemes": [],
 	"securityDefinitions": {},
 	"paths": {
+		"/applications/": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all applications",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "List of applications assigned",
+						"schema": {
+							"$ref": "#/definitions/ApplicationSummaryMany"
+						}
+					}
+				}
+			}
+		},
 		"/applications": {
 			"post": {
 				"tags": ["Applications"],
@@ -51,17 +66,19 @@
 						}
 					}
 				}
-			},
+			}
+		},
+		"/applications/reference/{reference}": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Returns the application by its string reference",
 				"parameters": [
 					{
 						"name": "reference",
-						"in": "query",
-						"description": "Application reference",
-						"required": false,
-						"type": "string"
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "Application reference"
 					}
 				],
 				"responses": {
@@ -2745,21 +2762,6 @@
 				}
 			}
 		},
-		"/applications/case-team": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all applications associated with case team",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of applications assigned to case team",
-						"schema": {
-							"$ref": "#/definitions/ApplicationSummaryMany"
-						}
-					}
-				}
-			}
-		},
 		"/applications/case-stage": {
 			"get": {
 				"tags": ["Applications"],
@@ -2770,36 +2772,6 @@
 						"description": "List of stages for a case",
 						"schema": {
 							"$ref": "#/definitions/CaseStages"
-						}
-					}
-				}
-			}
-		},
-		"/applications/case-admin-officer": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all applications associated with case team admin",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of applications assigned to case team",
-						"schema": {
-							"$ref": "#/definitions/ApplicationSummaryMany"
-						}
-					}
-				}
-			}
-		},
-		"/applications/inspector": {
-			"get": {
-				"tags": ["Applications"],
-				"description": "Gets all applications associated with case team admin",
-				"parameters": [],
-				"responses": {
-					"200": {
-						"description": "List of applications assigned to case team",
-						"schema": {
-							"$ref": "#/definitions/ApplicationSummaryMany"
 						}
 					}
 				}

@@ -40,7 +40,7 @@ describe('applications search', () => {
 	});
 
 	beforeEach(async () => {
-		await request.get('/applications-service/case-team');
+		await request.get('/applications-service/');
 	});
 
 	describe('POST /applications-service/search-results', () => {

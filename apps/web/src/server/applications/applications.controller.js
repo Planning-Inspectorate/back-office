@@ -16,7 +16,7 @@ import * as applicationsService from './applications.service.js';
  * @type {import('@pins/express').RenderHandler<ViewDashboardRenderProps, {}, {}, {}, {}>}
  */
 export async function viewDashboard(_, res) {
-	const allCases = (await applicationsService.findOpenCasesByDomainType('case-team')) || [];
+	const allCases = (await applicationsService.findOpenCases()) || [];
 	const readyCases = [];
 
 	let draftCases = [];

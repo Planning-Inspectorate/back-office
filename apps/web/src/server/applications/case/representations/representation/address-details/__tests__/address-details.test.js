@@ -30,7 +30,7 @@ describe('Representation address details page', () => {
 	describe('GET /applications-service/case/1/relevant-representations/address-details', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page and have the lookup fields', async () => {
@@ -65,7 +65,7 @@ describe('Representation address details page', () => {
 	describe('POST /applications-service/case/1/relevant-representations/address-details', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 		describe('Field validation:', () => {
 			it('should show the lookup page validation errors', async () => {

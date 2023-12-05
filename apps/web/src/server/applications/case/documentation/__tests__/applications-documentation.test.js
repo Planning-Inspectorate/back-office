@@ -20,7 +20,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get(`/applications/case-team`).reply(200, {});
+	nock('http://test/').get(`/applications`).reply(200, {});
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get('/applications/123/folders')
@@ -75,7 +75,7 @@ describe('applications documentation', () => {
 	describe('GET /case/123/project-documentation', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -221,7 +221,7 @@ describe('applications documentation', () => {
 	describe('GET /case/123/project-documentation/21/sub-folder-level2/upload', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -238,7 +238,7 @@ describe('applications documentation', () => {
 	describe('Document properties page', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('page should render', async () => {
@@ -289,7 +289,7 @@ describe('applications documentation', () => {
 	describe('Document upload new version', () => {
 		beforeAll(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('page should render', async () => {
@@ -306,7 +306,7 @@ describe('applications documentation', () => {
 	describe('Document properties delete page', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		describe('GET /case/123/project-documentation/21/100/delete', () => {
@@ -347,7 +347,7 @@ describe('applications documentation', () => {
 	describe('Document publishing queue', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		describe('GET /case/123/project-documentation/publishing-queue`', () => {
@@ -441,7 +441,7 @@ describe('applications documentation', () => {
 	describe('Document search', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		describe('GET /case/123/project-documentation/search-results', () => {

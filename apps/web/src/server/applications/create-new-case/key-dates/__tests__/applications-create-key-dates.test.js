@@ -21,7 +21,7 @@ describe('Applications create key dates', () => {
 	afterEach(teardown);
 
 	beforeEach(async () => {
-		await request.get('/applications-service/case-team');
+		await request.get('/applications-service/');
 		nocks();
 	});
 

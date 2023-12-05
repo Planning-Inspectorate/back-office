@@ -5,13 +5,10 @@ import { applicationRoutes } from './application/application.routes.js';
 import { documentRoutes } from './application/documents/document.routes.js';
 import { fileFoldersRoutes } from './application/file-folders/folders.routes.js';
 import { projectUpdateRoutes } from './application/project-updates/project-updates.routes.js';
-import { caseAdminOfficerRoutes } from './case-admin-officer/case-admin-officer.routes.js';
-import { caseTeamRoutes } from './case-team/case-team.routes.js';
 import { updateDocumentStatus, processHTMLForYouTube } from './documents/documents.controller.js';
 import { validateDocumentGUID, validateMachineAction } from './documents/documents.validators.js';
 import { examinationTimetableItemRoutes } from './examination-timetable-items/examination-timetable-items.routes.js';
 import { examinationTimetableTypeRoutes } from './examination-timetable-type/examination-timetable-type.routes.js';
-import { inspectorRoutes } from './inspector/inspector.routes.js';
 import { regionRoutes } from './region/region.routes.js';
 import { caseSearchRoutes } from './search/case-search.routes.js';
 import { sectorRoutes } from './sector/sector.routes.js';
@@ -25,13 +22,7 @@ import { projectTeamRoutes } from './project-team/project-team.routes.js';
 
 const router = createRouter();
 
-router.use('/case-team', caseTeamRoutes);
-
 router.use('/case-stage', caseStageRoutes);
-
-router.use('/case-admin-officer', caseAdminOfficerRoutes);
-
-router.use('/inspector', inspectorRoutes);
 
 router.use('/search', caseSearchRoutes);
 
