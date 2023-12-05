@@ -19,9 +19,7 @@
 	<form method="post" novalidate="novalidate">
 		{%- for component in pageContent.pageComponents -%}
 			{%- if component.type !== 'time-input' -%}
-				{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
 				{%- include "../components/page-component.njk" -%}
-				{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
 			{%- endif -%}
 		{%- endfor -%}
 		<h2>Select a time</h2>
@@ -29,9 +27,7 @@
 		<p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
 		{%- for component in pageContent.pageComponents -%}
 			{%- if component.type === 'time-input' -%}
-				{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
 				{%- include "../components/page-component.njk" -%}
-				{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
 			{%- endif -%}
 		{%- endfor -%}
 		{{ govukButton({

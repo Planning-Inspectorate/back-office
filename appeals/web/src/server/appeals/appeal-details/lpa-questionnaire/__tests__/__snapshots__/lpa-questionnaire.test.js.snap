@@ -453,7 +453,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/add-document-details/
             </div>
             <form method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <h2 class="govuk-heading-m">ph0.jpeg</h2>
+                    <h2 class="govuk-heading-m">ph0-documentFolderInfo.jpeg</h2>
                     <div class="govuk-form-group">
                         <input class="govuk-input" id="" name="items[0][documentId]" type="hidden"
                         value="97260151-4334-407f-a76a-0b5666cbcfa6">
@@ -514,7 +514,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/add-document-details/
                     <hr class="govuk-!-margin-top-7">
                 </div>
                 <div class="govuk-form-group">
-                    <h2 class="govuk-heading-m">ph1.jpeg</h2>
+                    <h2 class="govuk-heading-m">ph1-documentFolderInfo.jpeg</h2>
                     <div class="govuk-form-group">
                         <input class="govuk-input" id="" name="items[1][documentId]" type="hidden"
                         value="97260151-4334-407f-a76a-0b5666cbcfa7">
@@ -687,11 +687,13 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
         <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell">
-                    <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf.pdf</a>
+                    <div class="govuk-!-margin-bottom-4"><span class="govuk-body">test-pdf-documentFolderInfo.pdf</span>
                     </div>
                     <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
                         <dd>PDF, 129 KB</dd>
                     </dl>
+                    <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                    </div>
                 </td>
                 <td class="govuk-table__cell">1 February 2023</td>
                 <td class="govuk-table__cell">Redacted</td>
@@ -701,11 +703,13 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
             </tr>
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell">
-                    <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/47d8f073-c837-4f07-9161-c1a5626eba56/preview/">sample-20s.mp4</a>
+                    <div class="govuk-!-margin-bottom-4"><span class="govuk-body">sample-20s-documentFolderInfo.mp4</span>
                     </div>
                     <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
                         <dd>MP4, 11.8 MB</dd>
                     </dl>
+                    <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                    </div>
                 </td>
                 <td class="govuk-table__cell">2 March 2024</td>
                 <td class="govuk-table__cell">Unredacted</td>
@@ -715,11 +719,13 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
             </tr>
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell">
-                    <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/97260151-4334-407f-a76a-0b5666cbcfa6/preview/">ph0.jpeg</a>
+                    <div class="govuk-!-margin-bottom-4"><span class="govuk-body">ph0-documentFolderInfo.jpeg</span>
                     </div>
                     <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
                         <dd>JPEG, 59 KB</dd>
                     </dl>
+                    <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--red single-line">virus detected</strong>
+                    </div>
                 </td>
                 <td class="govuk-table__cell">3 April 2025</td>
                 <td class="govuk-table__cell">No redaction required</td>
@@ -729,7 +735,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
             </tr>
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell">
-                    <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/97260151-4334-407f-a76a-0b5666cbcfa7/preview/">ph1.jpeg</a>
+                    <div class="govuk-!-margin-bottom-4"><a class="govuk-link" href="/documents/103/download/97260151-4334-407f-a76a-0b5666cbcfa7/preview/">ph1-documentFolderInfo.jpeg</a>
                     </div>
                     <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
                         <dd>JPEG, 59 KB</dd>
@@ -774,21 +780,23 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
 </main>"
 `;
 
-exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid 1`] = `
+exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf.pdf</h1>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
-                    <dd class="govuk-summary-list__value"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf.pdf</a>
+                    <dd class="govuk-summary-list__value">
+                        <div class="govuk-!-margin-bottom-2"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf-documentFileVersionsInfo.pdf</a>
+                        </div>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Version</dt>
@@ -832,8 +840,9 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
                         <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">1</td>
-                                <td class="govuk-table__cell"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/preview/">test-pdf.pdf</a>
-                                    <br><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-top-3">CURRENT VERSION</strong>
+                                <td class="govuk-table__cell">
+                                    <div class="govuk-!-margin-bottom-2"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/preview/">test-pdf-documentFileVersionsInfo.pdf</a>
+                                    </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
                                 </td>
                                 <td class="govuk-table__cell">
                                     <p class="govuk-body"><strong>Create</strong>: 13:14, 31 October 2023,
@@ -848,6 +857,261 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
                 </div>
                 </details>
         </div>
+    </div>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "failed_virus_check" 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"></div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value">
+                        <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                        </div>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--red single-line">virus detected</strong>
+                        </div>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">1</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                    <dd class="govuk-summary-list__value">1 February 2023</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                    <dd class="govuk-summary-list__value">Redacted</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+            </dl><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/1/1"
+            role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
+            data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
+            <a             href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button" id="remove-document">Remove this document</a>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h2>Document history</h2>
+            <p class="govuk-body">See version history, a change log or remove old documents</p>
+            <details             class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+                </summary>
+                <div class="govuk-details__text">
+                    <table class="govuk-table govuk-!-font-size-16">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell">
+                                    <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                                    </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--red single-line">virus detected</strong>
+                </div>
+                </td>
+                <td class="govuk-table__cell">
+                    <p class="govuk-body"><strong>Create</strong>: 13:14, 31 October 2023,
+                        <br>by John Smith</p>
+                </td>
+                <td class="govuk-table__cell">Redacted</td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="#">Remove</a>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+        </div>
+        </details>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"></div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value">
+                        <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                        </div>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        </div>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">1</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                    <dd class="govuk-summary-list__value">1 February 2023</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                    <dd class="govuk-summary-list__value">Redacted</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+            </dl><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/1/1"
+            role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
+            data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
+            <a             href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button" id="remove-document">Remove this document</a>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h2>Document history</h2>
+            <p class="govuk-body">See version history, a change log or remove old documents</p>
+            <details             class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+                </summary>
+                <div class="govuk-details__text">
+                    <table class="govuk-table govuk-!-font-size-16">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell">
+                                    <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                                    </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                </div>
+                </td>
+                <td class="govuk-table__cell">
+                    <p class="govuk-body"><strong>Create</strong>: 13:14, 31 October 2023,
+                        <br>by John Smith</p>
+                </td>
+                <td class="govuk-table__cell">Redacted</td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="#">Remove</a>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+        </div>
+        </details>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"></div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value">
+                        <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                        </div>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        </div>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">1</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                    <dd class="govuk-summary-list__value">1 February 2023</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                    <dd class="govuk-summary-list__value">Redacted</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+            </dl><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/1/1"
+            role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
+            data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
+            <a             href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button" id="remove-document">Remove this document</a>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h2>Document history</h2>
+            <p class="govuk-body">See version history, a change log or remove old documents</p>
+            <details             class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+                </summary>
+                <div class="govuk-details__text">
+                    <table class="govuk-table govuk-!-font-size-16">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell">
+                                    <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                                    </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                </div>
+                </td>
+                <td class="govuk-table__cell">
+                    <p class="govuk-body"><strong>Create</strong>: 13:14, 31 October 2023,
+                        <br>by John Smith</p>
+                </td>
+                <td class="govuk-table__cell">Redacted</td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="#">Remove</a>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+        </div>
+        </details>
+    </div>
     </div>
 </main>"
 `;
