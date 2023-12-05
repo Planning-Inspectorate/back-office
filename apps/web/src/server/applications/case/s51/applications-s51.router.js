@@ -8,11 +8,8 @@ import {
 	validateS51AdviceActions,
 	validateS51AdviceToPublish
 } from './applications-s51.validators.js';
-import { assertDomainTypeIsNotInspector } from '../../create-new-case/applications-create.guards.js';
 
 const applicationsS51Router = createRouter({ mergeParams: true });
-
-applicationsS51Router.use(assertDomainTypeIsNotInspector);
 
 applicationsS51Router
 	.route('/')
@@ -47,7 +44,7 @@ applicationsS51Router
 applicationsS51Router
 	.route('/unpublish/:adviceId')
 	.get(locals.registerFolderId, asyncRoute(controller.viewUnpublishAdvice))
-	.post(locals.registerFolderId, asyncRoute(controller.postUnpublishAdvice))
+	.post(locals.registerFolderId, asyncRoute(controller.postUnpublishAdvice));
 
 applicationsS51Router
 	.route('/:adviceId/attachments/:attachmentId/delete')

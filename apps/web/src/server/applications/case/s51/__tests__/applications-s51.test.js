@@ -15,7 +15,6 @@ const request = supertest(app);
 
 const nocks = () => {
 	nock('http://test/').get('/applications/case-team').reply(200, []);
-	nock('http://test/').get('/applications/inspector').reply(200, []);
 
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/').get('/applications/123/folders/21').times(2).reply(200, fixtureS51Folder);
@@ -52,28 +51,14 @@ describe('S51 Advice', () => {
 
 	describe('S51 folder page', () => {
 		describe('GET /case/123/project-documentation/21/s51-advice/', () => {
-			describe('If user is inspector', () => {
-				it('should not render the page', async () => {
-					await request.get('/applications-service/inspector');
+			it('should render the page', async () => {
+				await request.get('/applications-service/case-team');
 
-					const response = await request.get(`${baseUrl}`);
-					const element = parseHtml(response.text);
+				const response = await request.get(`${baseUrl}`);
+				const element = parseHtml(response.text);
 
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('problem with your login');
-				});
-			});
-
-			describe('If user is not inspector', () => {
-				it('should render the page', async () => {
-					await request.get('/applications-service/case-team');
-
-					const response = await request.get(`${baseUrl}`);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('S51 advice folder');
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('S51 advice folder');
 			});
 		});
 	});
@@ -81,28 +66,14 @@ describe('S51 Advice', () => {
 	describe('S51 creation journey', () => {
 		describe('Title', () => {
 			describe('GET /case/123/project-documentation/21/s51-advice/create/title', () => {
-				describe('If user is inspector', () => {
-					it('should not render the page', async () => {
-						await request.get('/applications-service/inspector');
+				it('should render the page', async () => {
+					await request.get('/applications-service/case-team');
 
-						const response = await request.get(`${baseUrl}/create/title`);
-						const element = parseHtml(response.text);
+					const response = await request.get(`${baseUrl}/create/title`);
+					const element = parseHtml(response.text);
 
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('problem with your login');
-					});
-				});
-
-				describe('If user is not inspector', () => {
-					it('should render the page', async () => {
-						await request.get('/applications-service/case-team');
-
-						const response = await request.get(`${baseUrl}/create/title`);
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Enter the S51 advice title');
-					});
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Enter the S51 advice title');
 				});
 			});
 

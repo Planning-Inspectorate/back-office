@@ -31,8 +31,6 @@
 
 {% block pageContent %}
 
-	{% set userIsInspector = domainType === 'inspector' %}
-
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{% block sectionContent %}
@@ -43,9 +41,8 @@
 
 				{{ folderHeader(currentFolder, subFolders, caseId, isS51folder) }}
 
-				{{ folderStatus(currentFolder, items, caseId, userIsInspector, isS51folder) }}
+				{{ folderStatus(currentFolder, items, caseId, isS51folder) }}
 
-				{% if not userIsInspector %}
 					{% if items.itemCount %}
 						<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 						{% if isS51folder %}
@@ -69,7 +66,6 @@
 								{{ govukPagination(pagination.buttons) }}
 							{% endif %}
 						</form>
-					{% endif %}
 				{% endif %}
 			{% endblock %}
 		</div>

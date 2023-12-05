@@ -51,40 +51,14 @@ describe('applications create', () => {
 		describe('GET /create-new-case', () => {
 			const baseUrl = '/applications-service/create-new-case';
 
-			describe('When role is:', () => {
-				describe('Inspector', () => {
-					it('should NOT render the form', async () => {
-						await request.get('/applications-service/inspector');
+			it('should render form', async () => {
+				await request.get('/applications-service/case-team');
 
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
+				const response = await request.get(baseUrl);
+				const element = parseHtml(response.text);
 
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).not.toContain('Save and continue');
-					});
-				});
-				describe('Case team', () => {
-					it('should render form', async () => {
-						await request.get('/applications-service/case-team');
-
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Save and continue');
-					});
-				});
-				describe('Case admin officer', () => {
-					it('should render form', async () => {
-						await request.get('/applications-service/case-admin-officer');
-
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Save and continue');
-					});
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Save and continue');
 			});
 		});
 

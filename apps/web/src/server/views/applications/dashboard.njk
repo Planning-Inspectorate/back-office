@@ -6,22 +6,19 @@
 {% from "./search-results/application-search.component.njk" import applicationSearch %}
 {% from "./components/status-tag.component.njk" import statusTag %}
 
-{% set pageCaption = domainType | userTypeMap %}
 {% set pageTitle = 'Applications' %}
 
 {% set searchParameters = {query: "", searchApplicationsError: searchApplicationsError, csrfToken: csrfToken, label: "Enter keyword, case reference or case title"} %}
-{% set userIsInspector = domainType === 'inspector' %}
 {% block pageContent %}
 
 
 	<div class="govuk-grid-row">
-		<div class="{{ 'govuk-grid-column-full' if userIsInspector else 'govuk-grid-column-one-half' }}">
+		<div class="govuk-grid-column-one-half">
 			<div class="pins-dashboard-box">
 				<h2 class="govuk-heading-l pins-dashboard-box--title">Search cases</h2>
 				{{ applicationSearch(searchParameters) }}
 			</div>
 		</div>
-		{% if not userIsInspector %}
 			<div class="govuk-grid-column-one-half">
 				<div class="pins-dashboard-box">
 					<h2 class="govuk-heading-l pins-dashboard-box--title">Create new case</h2>
@@ -29,7 +26,6 @@
 					   href="{{ 'base-url'|url }}/create-new-case">Create new case here</a>
 				</div>
 			</div>
-		{% endif %}
 	</div>
 	{% if draftCases.length > 0 %}
 		<div class="pins-dashboard-list--drafts">
@@ -110,8 +106,8 @@
 	{% endmacro %}
 
 {% macro casePageLink(case) %}
-	{% set viewCaseLink = 'case-view'|url({domainType: domainType, caseId: case.id}) %}
-	{% set checkYourAnswersLink = 'case-create'|url({domainType: domainType, caseId: case.id, step: 'check-your-answers'}) %}
+	{% set viewCaseLink = 'case-view'|url({caseId: case.id}) %}
+	{% set checkYourAnswersLink = 'case-create'|url({caseId: case.id, step: 'check-your-answers'}) %}
 	{% set rowHref = checkYourAnswersLink if case.status == 'Draft' else viewCaseLink %}
 	{% set rowTitle = case.title if case.status == 'Draft' else [case.reference, " - ", case.title]|join %}
 

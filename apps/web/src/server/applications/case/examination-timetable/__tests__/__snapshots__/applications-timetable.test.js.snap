@@ -1395,20 +1395,7 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
 </main>"
 `;
 
-exports[`Examination timetable page GET /case/123/examination-timetable When domainType is inspector should not show the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with your login</h1>
-            <p class=\\"govuk-body\\">You are not permitted to access this URL.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`Examination timetable page GET /case/123/examination-timetable When domainType is not inspector should show the page 1`] = `
+exports[`Examination timetable page GET /case/123/examination-timetable should show the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
     <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">

@@ -26,7 +26,6 @@ export { hasOneOf } from './object.js';
 export { selectItems } from './select-items.js';
 export { url } from './url.js';
 export { fileSize } from './file-size.js';
-export { userTypeMap } from './user-type-map.js';
 export { MIME } from './mime-type.js';
 export { fileType } from './mime-type.js';
 export { statusName } from './status-name.js';

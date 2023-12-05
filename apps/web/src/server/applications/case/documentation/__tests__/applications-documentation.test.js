@@ -19,8 +19,8 @@ import { createTestEnvironment } from '../../../../../../testing/index.js';
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
-const nocks = (/** @type {string} */ domainType) => {
-	nock('http://test/').get(`/applications/${domainType}`).reply(200, {});
+const nocks = () => {
+	nock('http://test/').get(`/applications/case-team`).reply(200, {});
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get('/applications/123/folders')
@@ -74,7 +74,7 @@ describe('applications documentation', () => {
 
 	describe('GET /case/123/project-documentation', () => {
 		beforeEach(async () => {
-			nocks('case-team');
+			nocks();
 			await request.get('/applications-service/case-team');
 		});
 
@@ -89,106 +89,76 @@ describe('applications documentation', () => {
 
 	describe('/case/123/project-documentation/21/sub-folder-level2', () => {
 		describe('GET', () => {
-			describe('Inspector', () => {
-				beforeEach(async () => {
-					nocks('inspector');
-					await request.get('/applications-service/inspector');
-				});
-
-				it('should render the page with no list and no upload button', async () => {
-					nock('http://test/')
-						.post('/applications/123/folders/21/documents')
-						.reply(200, fixturePaginatedDocumentationFiles(1, 50));
-
-					const response = await request.get(
-						`${baseUrl}/project-documentation/21/sub-folder-level2`
-					);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).not.toContain('Upload files');
-					expect(element.innerHTML).not.toContain('Apply changes ');
-				});
+			beforeEach(async () => {
+				nocks();
+				await request.get('/applications-service/case-admin-officer');
 			});
 
-			describe('Case admin officer', () => {
-				beforeEach(async () => {
-					nocks('case-admin-officer');
-					await request.get('/applications-service/case-admin-officer');
-				});
+			it('should render the page with no panel and no table if there are no documents', async () => {
+				const fixturePaginatedDocumentationFilesEmpty = {
+					...fixturePaginatedDocumentationFiles,
+					items: [],
+					itemCount: 0
+				};
 
-				it('should render the page with no panel and no table if there are no documents', async () => {
-					const fixturePaginatedDocumentationFilesEmpty = {
-						...fixturePaginatedDocumentationFiles,
-						items: [],
-						itemCount: 0
-					};
+				nock('http://test/')
+					.post('/applications/123/folders/21/documents')
+					.reply(200, fixturePaginatedDocumentationFilesEmpty);
 
-					nock('http://test/')
-						.post('/applications/123/folders/21/documents')
-						.reply(200, fixturePaginatedDocumentationFilesEmpty);
+				const response = await request.get(`${baseUrl}/project-documentation/21/no-documents`);
+				const element = parseHtml(response.text);
 
-					const response = await request.get(`${baseUrl}/project-documentation/21/no-documents`);
-					const element = parseHtml(response.text);
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('This folder contains 0 document(s).');
+				expect(element.innerHTML).not.toContain('Select documents to make changes to statuses');
+			});
 
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('This folder contains 0 document(s).');
-					expect(element.innerHTML).not.toContain('Select documents to make changes to statuses');
-				});
+			it('should render the page with default pagination if there is no data in the session', async () => {
+				nock('http://test/')
+					.post('/applications/123/folders/21/documents')
+					.reply(200, fixturePaginatedDocumentationFiles(1, 50));
 
-				it('should render the page with default pagination if there is no data in the session', async () => {
-					nock('http://test/')
-						.post('/applications/123/folders/21/documents')
-						.reply(200, fixturePaginatedDocumentationFiles(1, 50));
+				const response = await request.get(`${baseUrl}/project-documentation/21/sub-folder-level2`);
+				const element = parseHtml(response.text);
 
-					const response = await request.get(
-						`${baseUrl}/project-documentation/21/sub-folder-level2`
-					);
-					const element = parseHtml(response.text);
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('This folder contains 200 document');
+				expect(element.innerHTML).toContain('Showing 1 - 50 document');
+			});
 
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('This folder contains 200 document');
-					expect(element.innerHTML).toContain('Showing 1 - 50 document');
-				});
+			it('should render the page with the right number of files', async () => {
+				nock('http://test/')
+					.post('/applications/123/folders/21/documents')
+					.reply(200, fixturePaginatedDocumentationFiles(2, 30));
 
-				it('should render the page with the right number of files', async () => {
-					nock('http://test/')
-						.post('/applications/123/folders/21/documents')
-						.reply(200, fixturePaginatedDocumentationFiles(2, 30));
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/sub-folder-level2?number=2&size=30`
+				);
+				const element = parseHtml(response.text);
 
-					const response = await request.get(
-						`${baseUrl}/project-documentation/21/sub-folder-level2?number=2&size=30`
-					);
-					const element = parseHtml(response.text);
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Showing 31 - 60 document');
+			});
 
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Showing 31 - 60 document');
-				});
+			it('should render the page with custom pagination if there is data in the session', async () => {
+				nock('http://test/')
+					.post('/applications/123/folders/21/documents')
+					.times(2)
+					.reply(200, fixturePaginatedDocumentationFiles(1, 30));
 
-				it('should render the page with custom pagination if there is data in the session', async () => {
-					nock('http://test/')
-						.post('/applications/123/folders/21/documents')
-						.times(2)
-						.reply(200, fixturePaginatedDocumentationFiles(1, 30));
+				await request.get(`${baseUrl}/project-documentation/21/sub-folder-level2?number=1&size=30`);
 
-					await request.get(
-						`${baseUrl}/project-documentation/21/sub-folder-level2?number=1&size=30`
-					);
+				const response = await request.get(`${baseUrl}/project-documentation/21/sub-folder-level2`);
 
-					const response = await request.get(
-						`${baseUrl}/project-documentation/21/sub-folder-level2`
-					);
+				const element = parseHtml(response.text);
 
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Showing 1 - 30 document');
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Showing 1 - 30 document');
 			});
 		});
 		describe('POST', () => {
 			beforeEach(async () => {
-				nocks('case-admin-officer');
+				nocks();
 				nock('http://test/')
 					.post('/applications/123/folders/21/documents')
 					.reply(200, fixturePaginatedDocumentationFiles(1, 50));
@@ -250,7 +220,7 @@ describe('applications documentation', () => {
 
 	describe('GET /case/123/project-documentation/21/sub-folder-level2/upload', () => {
 		beforeEach(async () => {
-			nocks('case-team');
+			nocks();
 			await request.get('/applications-service/case-team');
 		});
 
@@ -266,77 +236,59 @@ describe('applications documentation', () => {
 	});
 
 	describe('Document properties page', () => {
-		describe('If the user is inspector', () => {
-			beforeAll(async () => {
-				nock('http://test/').get(`/applications/inspector`).reply(200, {});
-				nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
-
-				await request.get('/applications-service/inspector');
-			});
-			it('page should not render', async () => {
-				const response = await request.get(`${baseUrl}/123/document/100/properties`);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('there is a problem with your login');
-			});
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
 		});
 
-		describe('If the user is not inspector', () => {
-			beforeEach(async () => {
-				nocks('case-team');
-				await request.get('/applications-service/case-team');
-			});
+		it('page should render', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/100/properties`
+			);
 
-			it('page should render', async () => {
-				const response = await request.get(
-					`${baseUrl}/project-documentation/21/document/100/properties`
-				);
+			const element = parseHtml(response.text);
 
-				const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Document properties');
+			expect(element.innerHTML).toContain('/edit/published-date');
+		});
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Document properties');
-				expect(element.innerHTML).toContain('/edit/published-date');
-			});
+		it('should not show publishedDate edit link if document is not published', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/90/properties`
+			);
+			const element = parseHtml(response.text);
 
-			it('should not show publishedDate edit link if document is not published', async () => {
-				const response = await request.get(
-					`${baseUrl}/project-documentation/21/document/90/properties`
-				);
-				const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).not.toContain('/edit/published-date');
+		});
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).not.toContain('/edit/published-date');
-			});
+		it('should not show publishedStatus edit link if document is published', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/100/properties`
+			);
+			const element = parseHtml(response.text);
 
-			it('should not show publishedStatus edit link if document is published', async () => {
-				const response = await request.get(
-					`${baseUrl}/project-documentation/21/document/100/properties`
-				);
-				const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).not.toContain('/edit/published-status');
+			expect(element.innerHTML).not.toContain('/project-documentation/publishing-queue');
+		});
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).not.toContain('/edit/published-status');
-				expect(element.innerHTML).not.toContain('/project-documentation/publishing-queue');
-			});
+		it('should show publishing queue link if document is ready to publish', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/90/properties`
+			);
+			const element = parseHtml(response.text);
 
-			it('should show publishing queue link if document is ready to publish', async () => {
-				const response = await request.get(
-					`${baseUrl}/project-documentation/21/document/90/properties`
-				);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('/edit/published-status');
-				expect(element.innerHTML).toContain('/project-documentation/publishing-queue');
-			});
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('/edit/published-status');
+			expect(element.innerHTML).toContain('/project-documentation/publishing-queue');
 		});
 	});
 
 	describe('Document upload new version', () => {
 		beforeAll(async () => {
-			nocks('case-team');
+			nocks();
 			await request.get('/applications-service/case-team');
 		});
 
@@ -352,179 +304,143 @@ describe('applications documentation', () => {
 	});
 
 	describe('Document properties delete page', () => {
-		describe('If the user is inspector', () => {
-			beforeAll(async () => {
-				nock('http://test/').get(`/applications/inspector`).reply(200, {});
-				nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
 
-				await request.get('/applications-service/inspector');
-			});
-			it('page should not render', async () => {
-				const response = await request.get(`${baseUrl}/123/document/100/delete`);
+		describe('GET /case/123/project-documentation/21/100/delete', () => {
+			it('page should render', async () => {
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/100/delete`
+				);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('there is a problem with your login');
+				expect(element.innerHTML).toContain('Delete selected document');
+			});
+
+			it('should display warning if status is "ready_to_publish"', async () => {
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/90/delete`
+				);
+
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('is in the publishing queue ready to be published');
 			});
 		});
+		describe('POST /case/123/project-documentation/21/100/delete', () => {
+			it('should go to success page if status is not "ready-to-publish"', async () => {
+				const response = await request.post(
+					`${baseUrl}/project-documentation/21/document/100/delete`
+				);
+				const element = parseHtml(response.text);
 
-		describe('If the user is not inspector', () => {
-			beforeEach(async () => {
-				nocks('case-team');
-				await request.get('/applications-service/case-team');
-			});
-
-			describe('GET /case/123/project-documentation/21/100/delete', () => {
-				it('page should render', async () => {
-					const response = await request.get(
-						`${baseUrl}/project-documentation/21/document/100/delete`
-					);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Delete selected document');
-				});
-
-				it('should display warning if status is "ready_to_publish"', async () => {
-					const response = await request.get(
-						`${baseUrl}/project-documentation/21/document/90/delete`
-					);
-
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('is in the publishing queue ready to be published');
-				});
-			});
-			describe('POST /case/123/project-documentation/21/100/delete', () => {
-				it('should go to success page if status is not "ready-to-publish"', async () => {
-					const response = await request.post(
-						`${baseUrl}/project-documentation/21/document/100/delete`
-					);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Document successfully deleted');
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Document successfully deleted');
 			});
 		});
 	});
 
 	describe('Document publishing queue', () => {
-		describe('If the user is inspector', () => {
-			beforeAll(async () => {
-				nock('http://test/').get(`/applications/inspector`).reply(200, {});
-				nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/case-team');
+		});
 
-				await request.get('/applications-service/inspector');
-			});
-			it('page should not render', async () => {
+		describe('GET /case/123/project-documentation/publishing-queue`', () => {
+			it('page should render', async () => {
+				nock('http://test/')
+					.post('/applications/123/documents/ready-to-publish')
+					.reply(200, fixturePaginatedDocumentationFiles(1, 125));
+
 				const response = await request.get(`${baseUrl}/project-documentation/publishing-queue`);
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('there is a problem with your login');
+				expect(element.innerHTML).toContain('Select documents for publishing');
+				expect(element.innerHTML).toContain('File name: 125 ');
+				expect(element.innerHTML).not.toContain('File name: 126 ');
+			});
+
+			it('page should render with correct pagination', async () => {
+				nock('http://test/')
+					.post('/applications/123/documents/ready-to-publish')
+					.reply(200, fixturePaginatedDocumentationFiles(2, 125));
+
+				const response = await request.get(
+					`${baseUrl}/project-documentation/publishing-queue?number=2`
+				);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Select documents for publishing');
+				expect(element.innerHTML).not.toContain('File name: 125 ');
+				expect(element.innerHTML).toContain('File name: 126 ');
 			});
 		});
 
-		describe('If the user is not inspector', () => {
-			beforeEach(async () => {
-				nocks('case-team');
-				await request.get('/applications-service/case-team');
+		describe('POST /case/123/project-documentation/publishing-queue`', () => {
+			beforeEach(() => {
+				nock('http://test/')
+					.post('/applications/123/documents/ready-to-publish')
+					.reply(200, fixturePaginatedDocumentationFiles(1, 125));
 			});
 
-			describe('GET /case/123/project-documentation/publishing-queue`', () => {
-				it('page should render', async () => {
-					nock('http://test/')
-						.post('/applications/123/documents/ready-to-publish')
-						.reply(200, fixturePaginatedDocumentationFiles(1, 125));
+			it('should return frontend validation errors if no file is selected', async () => {
+				const response = await request
+					.post(`${baseUrl}/project-documentation/publishing-queue`)
+					.send({
+						selectedFilesIds: []
+					});
+				const element = parseHtml(response.text);
 
-					const response = await request.get(`${baseUrl}/project-documentation/publishing-queue`);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Select documents for publishing');
-					expect(element.innerHTML).toContain('File name: 125 ');
-					expect(element.innerHTML).not.toContain('File name: 126 ');
-				});
-
-				it('page should render with correct pagination', async () => {
-					nock('http://test/')
-						.post('/applications/123/documents/ready-to-publish')
-						.reply(200, fixturePaginatedDocumentationFiles(2, 125));
-
-					const response = await request.get(
-						`${baseUrl}/project-documentation/publishing-queue?number=2`
-					);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Select documents for publishing');
-					expect(element.innerHTML).not.toContain('File name: 125 ');
-					expect(element.innerHTML).toContain('File name: 126 ');
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('You must select documents to publish');
 			});
 
-			describe('POST /case/123/project-documentation/publishing-queue`', () => {
-				beforeEach(() => {
-					nock('http://test/')
-						.post('/applications/123/documents/ready-to-publish')
-						.reply(200, fixturePaginatedDocumentationFiles(1, 125));
-				});
+			it('should return backend errors if request is not ok', async () => {
+				nock('http://test/').patch('/applications/123/documents/publish').reply(500, {});
 
-				it('should return frontend validation errors if no file is selected', async () => {
-					const response = await request
-						.post(`${baseUrl}/project-documentation/publishing-queue`)
-						.send({
-							selectedFilesIds: []
-						});
-					const element = parseHtml(response.text);
+				const response = await request
+					.post(`${baseUrl}/project-documentation/publishing-queue`)
+					.send({
+						selectedFilesIds: ['not a valid request']
+					});
+				const element = parseHtml(response.text);
 
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('You must select documents to publish');
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain(
+					'Your documents could not be published, please try again'
+				);
+			});
 
-				it('should return backend errors if request is not ok', async () => {
-					nock('http://test/').patch('/applications/123/documents/publish').reply(500, {});
+			it('should redirect to success page if there is no error', async () => {
+				nock('http://test/')
+					.patch('/applications/123/documents/publish')
+					.reply(200, [{ guid: 'abc' }, { guid: 'def' }]);
 
-					const response = await request
-						.post(`${baseUrl}/project-documentation/publishing-queue`)
-						.send({
-							selectedFilesIds: ['not a valid request']
-						});
-					const element = parseHtml(response.text);
+				// needs this to set the session variable "backlink"
+				await request.get(`${baseUrl}/project-documentation/21/folder-name`);
 
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain(
-						'Your documents could not be published, please try again'
-					);
-				});
+				const response = await request
+					.post(`${baseUrl}/project-documentation/publishing-queue`)
+					.send({
+						selectedFilesIds: ['guid-abc', 'guid-def']
+					});
+				const element = parseHtml(response.text);
 
-				it('should redirect to success page if there is no error', async () => {
-					nock('http://test/')
-						.patch('/applications/123/documents/publish')
-						.reply(200, [{ guid: 'abc' }, { guid: 'def' }]);
-
-					// needs this to set the session variable "backlink"
-					await request.get(`${baseUrl}/project-documentation/21/folder-name`);
-
-					const response = await request
-						.post(`${baseUrl}/project-documentation/publishing-queue`)
-						.send({
-							selectedFilesIds: ['guid-abc', 'guid-def']
-						});
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('2 documents published to the NI website');
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('2 documents published to the NI website');
 			});
 		});
 	});
 
 	describe('Document search', () => {
 		beforeEach(async () => {
-			nocks('case-team');
+			nocks();
 			await request.get('/applications-service/case-team');
 		});
 

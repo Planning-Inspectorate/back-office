@@ -93,14 +93,5 @@ describe('applications', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should NOT render the `create new case` button', async () => {
-			nock('http://test/').get('/applications/inspector').reply(200, fixtureCases);
-
-			const response = await request.get(baseUrl);
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).not.toContain('Create new case');
-		});
 	});
 });

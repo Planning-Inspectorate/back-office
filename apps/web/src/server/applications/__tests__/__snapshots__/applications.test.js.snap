@@ -4,7 +4,7 @@ exports[`applications GET /case-admin-officer should render a placeholder when t
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\">Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
@@ -40,7 +40,7 @@ exports[`applications GET /case-admin-officer should render the open application
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case admin officer</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\">Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
@@ -227,7 +227,7 @@ exports[`applications GET /case-team should render a placeholder when there are 
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case team</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\">Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
@@ -263,7 +263,7 @@ exports[`applications GET /case-team should render the open applications belongi
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Case team</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\">Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
@@ -450,11 +450,11 @@ exports[`applications GET /inspector should render a placeholder when there are 
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\">Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
+        <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
                 <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
@@ -466,6 +466,12 @@ exports[`applications GET /inspector should render a placeholder when there are 
                     </div>
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
             </div>
         </div>
     </div>
@@ -480,11 +486,11 @@ exports[`applications GET /inspector should render the open applications belongi
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <h1 class=\\"govuk-heading-xl\\"><span class=\\"govuk-caption-xl\\">Inspector</span>Applications</h1>
+            <h1 class=\\"govuk-heading-xl\\">Applications</h1>
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
+        <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
                 <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
                 <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
@@ -496,6 +502,12 @@ exports[`applications GET /inspector should render the open applications belongi
                     </div>
                     <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                 </form>
+            </div>
+        </div>
+        <div class=\\"govuk-grid-column-one-half\\">
+            <div class=\\"pins-dashboard-box\\">
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create new case here</a>
             </div>
         </div>
     </div>
