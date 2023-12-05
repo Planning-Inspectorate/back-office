@@ -1,11 +1,10 @@
-import appInsights from 'applicationinsights';
 import fs from 'node:fs';
 import path from 'node:path';
 import swaggerUi from 'swagger-ui-express';
-import logger from '#utils/logger.js';
 import { buildApp } from './build-app.js';
 import config from './config/config.js';
 
+<<<<<<< HEAD
 if (config.APPLICATIONINSIGHTS_CONNECTION_STRING) {
 	try {
 		appInsights
@@ -22,6 +21,8 @@ if (config.APPLICATIONINSIGHTS_CONNECTION_STRING) {
 	);
 }
 
+=======
+>>>>>>> 3b1ddca7a (chore(api/applications): move setup of App Insights to separate module)
 const app = buildApp((expressApp) => {
 	const swaggerAuto = JSON.parse(fs.readFileSync(path.resolve(config.SWAGGER_JSON_DIR)));
 
