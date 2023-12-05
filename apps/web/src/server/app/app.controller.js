@@ -36,22 +36,20 @@ export function viewHomepage(request, response, next) {
 	// The user belongs to a single group in the applications service only
 
 	if (applicationGroupIds.length === 1) {
-		switch (applicationGroupIds[0]) {
-			case config.referenceData.applications.caseAdminOfficerGroupId:
-				return response.redirect('/applications-service/case-admin-officer');
+		const { caseAdminOfficerGroupId, caseTeamGroupId, inspectorGroupId } =
+			config.referenceData.applications;
 
-			case config.referenceData.applications.caseTeamGroupId:
-				return response.redirect('/applications-service/case-team');
+		if (
+			applicationGroupIds[0] === caseAdminOfficerGroupId ||
+			applicationGroupIds[0] === caseTeamGroupId ||
+			applicationGroupIds[0] === inspectorGroupId
+		) {
+			return response.redirect('/applications-service');
+		} else {
+			const error = new Error('User logged in successfully but the user group is valid.');
 
-			case config.referenceData.applications.inspectorGroupId:
-				return response.redirect('/applications-service/inspector');
-
-			default: {
-				const error = new Error('User logged in successfully but the user group is valid.');
-
-				pino.error(error);
-				return next(error);
-			}
+			pino.error(error);
+			return next(error);
 		}
 	}
 

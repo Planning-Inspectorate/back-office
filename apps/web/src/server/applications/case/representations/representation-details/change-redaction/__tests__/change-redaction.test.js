@@ -35,7 +35,7 @@ describe('Representation change redacted page', () => {
 	describe('GET /applications-service/case/1/relevant-representations/1/representation-details/change-representation', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -49,7 +49,7 @@ describe('Representation change redacted page', () => {
 	describe("POST /applications-service/case/1/relevant-representations/1/representation-details/change-representation'", () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		describe('Error - select an option', () => {

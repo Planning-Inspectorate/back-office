@@ -14,7 +14,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, []);
+	nock('http://test/').get('/applications').reply(200, []);
 
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/').get('/applications/123/folders/21').times(2).reply(200, fixtureS51Folder);
@@ -52,7 +52,7 @@ describe('S51 Advice', () => {
 	describe('S51 folder page', () => {
 		describe('GET /case/123/project-documentation/21/s51-advice/', () => {
 			it('should render the page', async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 
 				const response = await request.get(`${baseUrl}`);
 				const element = parseHtml(response.text);
@@ -67,7 +67,7 @@ describe('S51 Advice', () => {
 		describe('Title', () => {
 			describe('GET /case/123/project-documentation/21/s51-advice/create/title', () => {
 				it('should render the page', async () => {
-					await request.get('/applications-service/case-team');
+					await request.get('/applications-service/');
 
 					const response = await request.get(`${baseUrl}/create/title`);
 					const element = parseHtml(response.text);
@@ -79,7 +79,7 @@ describe('S51 Advice', () => {
 
 			describe('POST /case/123/project-documentation/21/s51-advice/create/title', () => {
 				beforeEach(async () => {
-					await request.get('/applications-service/case-team');
+					await request.get('/applications-service/');
 				});
 
 				it('Should return error if title is not provided', async () => {
@@ -129,7 +129,7 @@ describe('S51 Advice', () => {
 
 		describe('Enquirer', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 			});
 
 			describe('GET /case/123/project-documentation/21/s51-advice/create/enquirer', () => {
@@ -192,7 +192,7 @@ describe('S51 Advice', () => {
 
 		describe('Method', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 			});
 
 			describe('GET /case/123/project-documentation/21/s51-advice/create/method', () => {
@@ -229,7 +229,7 @@ describe('S51 Advice', () => {
 
 		describe('Enquiry details', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 			});
 
 			describe('GET /case/123/project-documentation/21/s51-advice/create/enquiry-details', () => {
@@ -298,7 +298,7 @@ describe('S51 Advice', () => {
 
 		describe('Person', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 			});
 
 			describe('GET /case/123/project-documentation/21/s51-advice/create/person', () => {
@@ -335,7 +335,7 @@ describe('S51 Advice', () => {
 
 		describe('Advice details', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 			});
 
 			describe('GET /case/123/project-documentation/21/s51-advice/create/advice-details', () => {
@@ -404,7 +404,7 @@ describe('S51 Advice', () => {
 
 		describe('Check your answers', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 			});
 
 			describe('GET /case/123/project-documentation/21/s51-advice/create/check-your-answers', () => {
@@ -455,7 +455,7 @@ describe('S51 Advice', () => {
 
 	describe('S51 Properties', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		describe('GET /case/123/project-documentation/21/s51-advice/1/properties', () => {
@@ -479,7 +479,7 @@ describe('S51 Advice', () => {
 
 	describe('S51 delete', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		describe('GET /case/123/project-documentation/21/s51-advice/1/delete', () => {
@@ -495,7 +495,7 @@ describe('S51 Advice', () => {
 
 	describe('S51 Attachment delete', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		describe('GET /case/123/project-documentation/21/s51-advice/1/attachments/:documentGuid/delete', () => {
@@ -554,7 +554,7 @@ describe('S51 Advice', () => {
 
 	describe('S51 publishing queue', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		describe('GET /case/123/project-documentation/21/s51-advice/s51-queue', () => {

@@ -11,7 +11,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, []);
+	nock('http://test/').get('/applications').reply(200, []);
 
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/').get('/applications/123/key-dates').times(2).reply(200, fixtureKeyDates);
@@ -34,7 +34,7 @@ describe('S51 Advice', () => {
 	describe('Key dates page', () => {
 		describe('GET /case/123/key-dates/', () => {
 			it('should render the page', async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 
 				const response = await request.get(`${baseUrl}`);
 				const element = parseHtml(response.text);
@@ -49,7 +49,7 @@ describe('S51 Advice', () => {
 				it('should render the page with the correct fields', async () => {
 					for (let i = 0; i < Object.keys(fixtureKeyDates).length - 1; i++) {
 						nocks();
-						await request.get('/applications-service/case-team');
+						await request.get('/applications-service/');
 
 						const sectionName = Object.keys(fixtureKeyDates)[i];
 						const firstFieldName = Object.keys(Object.values(fixtureKeyDates)[i])[0];
@@ -69,7 +69,7 @@ describe('S51 Advice', () => {
 				it('should show a validation error when updating a date in the wrong format', async () => {
 					for (let i = 0; i < Object.keys(fixtureKeyDates).length - 1; i++) {
 						nocks();
-						await request.get('/applications-service/case-team');
+						await request.get('/applications-service/');
 
 						const sectionName = Object.keys(fixtureKeyDates)[i];
 						const firstFieldName = Object.keys(Object.values(fixtureKeyDates)[i])[0];
@@ -87,7 +87,7 @@ describe('S51 Advice', () => {
 				it('should show a api error if updating didnt work', async () => {
 					for (let i = 0; i < Object.keys(fixtureKeyDates).length - 1; i++) {
 						nocks();
-						await request.get('/applications-service/case-team');
+						await request.get('/applications-service/');
 
 						const sectionName = Object.keys(fixtureKeyDates)[i];
 						const firstFieldName = Object.keys(Object.values(fixtureKeyDates)[i])[0];
@@ -108,7 +108,7 @@ describe('S51 Advice', () => {
 				it('should redirect to index page if updated did work', async () => {
 					for (let i = 0; i < Object.keys(fixtureKeyDates).length - 1; i++) {
 						nocks();
-						await request.get('/applications-service/case-team');
+						await request.get('/applications-service/');
 
 						const sectionName = Object.keys(fixtureKeyDates)[i];
 						const firstFieldName = Object.keys(Object.values(fixtureKeyDates)[i])[0];

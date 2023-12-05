@@ -10,7 +10,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, []);
+	nock('http://test/').get('/applications').reply(200, []);
 
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 };
@@ -40,7 +40,7 @@ describe('Project team', () => {
 				nock('http://test/').get('/applications/123/project-team').reply(200, []);
 				installMockADToken(fixtureProjectTeamMembers);
 
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 
 				const response = await request.get(`${baseUrl}`);
 				const element = parseHtml(response.text);
@@ -56,7 +56,7 @@ describe('Project team', () => {
 					.reply(200, [fixtureProjectTeamMembers[0]]);
 				installMockADToken(fixtureProjectTeamMembers);
 
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 
 				const response = await request.get(`${baseUrl}`);
 				const element = parseHtml(response.text);
@@ -70,7 +70,7 @@ describe('Project team', () => {
 
 	describe('Search page', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -143,7 +143,7 @@ describe('Project team', () => {
 
 	describe('Choose role page', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -223,7 +223,7 @@ describe('Project team', () => {
 
 	describe('Remove member', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 
 			const mockedTeamMemberWithRole = { ...fixtureProjectTeamMembers[0], role: 'inspector' };

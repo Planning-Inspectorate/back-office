@@ -14,7 +14,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, {});
+	nock('http://test/').get('/applications').reply(200, {});
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
 		.get(/\/applications\/3(.*)/g)
@@ -40,7 +40,7 @@ describe('applications edit', () => {
 
 		describe('GET /edit/name', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 				nocks();
 			});
 
@@ -54,7 +54,7 @@ describe('applications edit', () => {
 
 			describe('When status is', () => {
 				beforeEach(async () => {
-					await request.get('/applications-service/case-team');
+					await request.get('/applications-service/');
 					nocks();
 				});
 
@@ -85,7 +85,7 @@ describe('applications edit', () => {
 			const baseUrl = '/applications-service/case/3/edit/description';
 
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 				nocks();
 			});
 
@@ -103,7 +103,7 @@ describe('applications edit', () => {
 		const baseUrl = `/applications-service/case/3/edit/project-location`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -122,7 +122,7 @@ describe('applications edit', () => {
 		const baseUrl = `/applications-service/case/3/edit/grid-references`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -142,7 +142,7 @@ describe('applications edit', () => {
 		const baseUrl = (/** @type {string} */ id) => `/applications-service/case/${id}/edit/regions`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
 		});
@@ -164,7 +164,7 @@ describe('applications edit', () => {
 			`/applications-service/case/${id}/edit/zoom-level`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});
@@ -185,7 +185,7 @@ describe('applications edit', () => {
 			`/applications-service/case/${id}/edit/team-email`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});

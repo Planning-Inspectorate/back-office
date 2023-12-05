@@ -35,7 +35,7 @@ describe('Representation redact page', () => {
 	describe('GET /applications-service/case/1/relevant-representations/1/representations-details/redact-representation', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -49,7 +49,7 @@ describe('Representation redact page', () => {
 	describe('POST /applications-service/case/1/relevant-representations/1/representations-details/redact-representation', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should patch the representation and redirect to the next page', async () => {
