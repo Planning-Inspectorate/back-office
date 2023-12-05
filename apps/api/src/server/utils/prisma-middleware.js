@@ -1,3 +1,4 @@
+import config from '../config/config.js';
 import { appInsightsClient } from './app-insights.js';
 
 /**
@@ -27,7 +28,7 @@ export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 	if (appInsightsClient) {
 		// TODO: change `target` to real value (find out what it should be)
 		appInsightsClient.trackDependency({
-			target: 'http://dbname',
+			target: config.DATABASE_NAME,
 			name: 'Prisma query',
 			data: JSON.stringify(parameters),
 			duration: Date.now() - timeStart,
