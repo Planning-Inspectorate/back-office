@@ -6,7 +6,7 @@
 	"required": [
 		"caseRef",
 		"representationId",
-		"represented",
+		"representedId",
 		"originalRepresentation",
 		"dateReceived"
 	],
