@@ -1,5 +1,21 @@
+import appInsights from 'applicationinsights';
 import config from '../config/config.js';
-import { appInsightsClient } from './app-insights.js';
+import logger from '#utils/logger.js';
+
+/** @type {*} */
+let appInsightsClient;
+
+if (config.APPLICATIONINSIGHTS_CONNECTION_STRING) {
+	try {
+		appInsights.setup(config.APPLICATIONINSIGHTS_CONNECTION_STRING);
+		appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'DB';
+		appInsights.start();
+
+		appInsightsClient = appInsights.defaultClient;
+	} catch (err) {
+		logger.warn({ err }, 'Application insights failed to start for database call: ');
+	}
+}
 
 /**
  * A middleware function that modifies Prisma Client parameters for Document model.
