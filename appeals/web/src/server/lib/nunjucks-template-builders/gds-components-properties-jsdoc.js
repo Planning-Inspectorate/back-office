@@ -10,6 +10,7 @@
  * @type {Object<string, any>}
  * @property {string} html Html to use
  * @property {PageComponent[]} [pageComponents] Optional array of PageComponents to render and assign to this 'html' property
+ * @property {PageComponentGroup[]} [pageComponentGroups] Optional array of PageComponentGroups to render and assign to this 'html' property
  *
  * @typedef SharedLegendProperties
  * @type {Object<string, any>}

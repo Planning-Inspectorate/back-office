@@ -33,6 +33,7 @@
 {%- from "./status-tag.njk" import statusTag -%}
 {%- from "../../app/components/time-input.njk" import govukTimeInput -%}
 
+{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
 {%- if component.type === 'accordion' -%}
 {{ govukAccordion(component.parameters) }}
 {%- elif component.type === 'back-link' -%}
@@ -65,6 +66,8 @@
 {{ govukHeader(component.parameters) }}
 {%- elif component.type === 'hint' -%}
 {{ govukHint(component.parameters) }}
+{%- elif component.type === 'html' -%}
+{{ component.parameters.html | safe }}
 {%- elif component.type === 'input' -%}
 {{ govukInput(component.parameters) }}
 {%- elif component.type === 'inset-text' -%}
@@ -102,3 +105,4 @@
 {%- elif component.type === 'warning-text' -%}
 {{ govukWarningText(component.parameters) }}
 {%- endif -%}
+{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}

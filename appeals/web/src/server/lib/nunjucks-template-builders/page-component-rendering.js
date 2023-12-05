@@ -41,6 +41,21 @@ export const preRenderPageComponents = (pageComponents, recursions = 0, maximumR
 								maximumRecursions
 							);
 							itemProperty.html = renderPageComponentsToHtml(itemProperty.pageComponents);
+						} else if ('html' in itemProperty && 'pageComponentGroups' in itemProperty) {
+							for (const pageComponentGroup of itemProperty.pageComponentGroups) {
+								preRenderPageComponents(
+									pageComponentGroup.pageComponents,
+									recursions + 1,
+									maximumRecursions
+								);
+								itemProperty.html += `${
+									pageComponentGroup.wrapperHtml ? pageComponentGroup.wrapperHtml.opening : ''
+								}`;
+								itemProperty.html += renderPageComponentsToHtml(pageComponentGroup.pageComponents);
+								itemProperty.html += `${
+									pageComponentGroup.wrapperHtml ? pageComponentGroup.wrapperHtml.closing : ''
+								}`;
+							}
 						}
 					}
 				}

@@ -1,6 +1,12 @@
 import logger from '#lib/logger.js';
 import { buildHtmSpan } from '#lib/nunjucks-template-builders/tag-builders.js';
 import { appealShortReference } from './nunjucks-filters/appeals.js';
+import { mapDocumentInfoVirusCheckStatus } from '#appeals/appeal-documents/appeal-documents.mapper.js';
+
+/**
+ * @typedef {import('#appeals/appeals.types.js').DocumentInfo} DocumentInfo
+ * @typedef {import('#appeals/appeals.types.js').FolderInfo} FolderInfo
+ */
 
 /**
  *
@@ -97,30 +103,67 @@ export const formatListOfListedBuildingNumbers = (
 /**
  *
  * @param {number} appealId
- * @param {any[] | any} listOfDocuments
- * @returns {string}
+ * @param {FolderInfo} listOfDocuments
+ * @returns {HtmlProperty & ClassesProperty}
  */
 export const formatDocumentValues = (appealId, listOfDocuments) => {
-	let formattedDocumentList = ``;
+	/** @type {HtmlProperty} */
+	const htmlProperty = {
+		html: '',
+		pageComponentGroups: [
+			{
+				wrapperHtml: {
+					opening: '',
+					closing: ''
+				},
+				pageComponents: []
+			}
+		]
+	};
+
 	if (
 		listOfDocuments !== null &&
 		typeof listOfDocuments === 'object' &&
-		!Array.isArray(listOfDocuments) &&
 		'documents' in listOfDocuments
 	) {
-		listOfDocuments = listOfDocuments.documents;
-		if (Array.isArray(listOfDocuments)) {
-			for (let i = 0; i < listOfDocuments.length; i++) {
-				const document = listOfDocuments[i];
-				formattedDocumentList += `<li><a href='/documents/${appealId}/download/${document.id}/preview' target="'_blank'" class="govuk-link">${document.name}</a></li>`;
+		for (let i = 0; i < listOfDocuments.documents.length; i++) {
+			const document = listOfDocuments.documents[i];
+			const virusCheckStatus = mapDocumentInfoVirusCheckStatus(document);
+
+			if (virusCheckStatus.checkedAndSafe) {
+				htmlProperty.pageComponentGroups[0].pageComponents.push({
+					type: 'html',
+					wrapperHtml: {
+						opening: `<li>`,
+						closing: '</li>'
+					},
+					parameters: {
+						html: `<a href='/documents/${appealId}/download/${document.id}/preview' target="'_blank'" class="govuk-link">${document.name}</a>`
+					}
+				});
+			} else {
+				htmlProperty.pageComponentGroups[0].pageComponents.push({
+					type: 'status-tag',
+					wrapperHtml: {
+						opening: `<li><span class="govuk-body">${document.name}</span> `,
+						closing: '</li>'
+					},
+					parameters: {
+						status: virusCheckStatus.statusText || ''
+					}
+				});
 			}
-			return `<ul class="govuk-list">${formattedDocumentList}</ul>`;
 		}
-		return `<a href='/documents/${appealId}/download/${listOfDocuments.id}/preview' target="'_blank'" class="govuk-link">${listOfDocuments.name}</a>`;
+
+		if (htmlProperty.pageComponentGroups[0].pageComponents.length > 0) {
+			htmlProperty.pageComponentGroups[0].wrapperHtml.opening = '<ul class="govuk-list">';
+			htmlProperty.pageComponentGroups[0].wrapperHtml.closing = '</ul>';
+		}
 	} else {
 		logger.error('Document not in correct format');
-		return '';
 	}
+
+	return htmlProperty;
 };
 
 /**

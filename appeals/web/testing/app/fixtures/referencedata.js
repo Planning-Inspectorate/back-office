@@ -837,7 +837,7 @@ export const allocationDetailsData = {
 
 export const documentFileInfo = {
 	guid: 'd51f408c-7c6f-4f49-bcc0-abbb5bea3be6',
-	name: 'ph0.jpeg',
+	name: 'ph0-documentFileInfo.jpeg',
 	folderId: 1269,
 	createdAt: '2023-10-11T13:57:41.592Z',
 	isDeleted: false,
@@ -854,8 +854,8 @@ export const documentFileInfo = {
 		published: false,
 		sourceSystem: 'back-office',
 		origin: null,
-		originalFilename: 'ph0.jpeg',
-		fileName: 'ph0.jpeg',
+		originalFilename: 'ph0-documentFileInfo.jpeg',
+		fileName: 'ph0-documentFileInfo.jpeg',
 		representative: null,
 		description: null,
 		owner: null,
@@ -865,7 +865,7 @@ export const documentFileInfo = {
 		horizonDataID: null,
 		fileMD5: null,
 		path: null,
-		virusCheckStatus: null,
+		virusCheckStatus: 'checked',
 		size: 58861,
 		stage: 'lpa_questionnaire',
 		filter1: null,
@@ -889,7 +889,7 @@ export const documentFileInfo = {
 
 export const documentFileInfoPublished = {
 	guid: 'd51f408c-7c6f-4f49-bcc0-abbb5bea3be7',
-	name: 'test-document.pdf',
+	name: 'test-document-documentFileInfoPublished.pdf',
 	folderId: 1269,
 	createdAt: '2023-10-11T13:57:41.592Z',
 	isDeleted: false,
@@ -906,8 +906,8 @@ export const documentFileInfoPublished = {
 		published: true,
 		sourceSystem: 'back-office',
 		origin: null,
-		originalFilename: 'test-document.pdf',
-		fileName: 'test-document.pdf',
+		originalFilename: 'test-document-documentFileInfoPublished.pdf',
+		fileName: 'test-document-documentFileInfoPublished.pdf',
 		representative: null,
 		description: null,
 		owner: null,
@@ -917,7 +917,7 @@ export const documentFileInfoPublished = {
 		horizonDataID: null,
 		fileMD5: null,
 		path: null,
-		virusCheckStatus: null,
+		virusCheckStatus: 'checked',
 		size: 58861,
 		stage: 'lpa_questionnaire',
 		filter1: null,
@@ -944,7 +944,7 @@ export const documentFolderInfo = {
 	documents: [
 		{
 			id: '15d19184-155b-4b6c-bba6-2bd2a61ca9a3',
-			name: 'test-pdf.pdf',
+			name: 'test-pdf-documentFolderInfo.pdf',
 			latestDocumentVersion: {
 				draft: false,
 				dateReceived: '2023-02-01T01:00:00.000Z',
@@ -955,35 +955,38 @@ export const documentFolderInfo = {
 		},
 		{
 			id: '47d8f073-c837-4f07-9161-c1a5626eba56',
-			name: 'sample-20s.mp4',
+			name: 'sample-20s-documentFolderInfo.mp4',
 			latestDocumentVersion: {
 				draft: false,
 				dateReceived: '2024-03-02T01:00:00.000Z',
 				redactionStatus: 2,
 				size: 11815175,
-				mime: 'video/mp4'
+				mime: 'video/mp4',
+				virusCheckStatus: 'not_checked'
 			}
 		},
 		{
 			id: '97260151-4334-407f-a76a-0b5666cbcfa6',
-			name: 'ph0.jpeg',
+			name: 'ph0-documentFolderInfo.jpeg',
 			latestDocumentVersion: {
 				draft: true,
 				dateReceived: '2025-04-03T01:00:00.000Z',
 				redactionStatus: 3,
 				size: 58861,
-				mime: 'image/jpeg'
+				mime: 'image/jpeg',
+				virusCheckStatus: 'failed_virus_check'
 			}
 		},
 		{
 			id: '97260151-4334-407f-a76a-0b5666cbcfa7',
-			name: 'ph1.jpeg',
+			name: 'ph1-documentFolderInfo.jpeg',
 			latestDocumentVersion: {
 				draft: true,
 				dateReceived: '2025-04-03T01:00:00.000Z',
 				redactionStatus: 2,
 				size: 58987,
-				mime: 'image/jpeg'
+				mime: 'image/jpeg',
+				virusCheckStatus: 'checked'
 			}
 		}
 	],
@@ -1008,7 +1011,7 @@ export const documentRedactionStatuses = [
 
 export const documentFileVersionsInfo = {
 	guid: '15d19184-155b-4b6c-bba6-2bd2a61ca9a3',
-	name: 'test-pdf.pdf',
+	name: 'test-pdf-documentFileVersionsInfo.pdf',
 	folderId: 2864,
 	createdAt: '2023-10-31T13:14:14.474Z',
 	isDeleted: false,
@@ -1023,8 +1026,8 @@ export const documentFileVersionsInfo = {
 			published: true,
 			sourceSystem: 'back-office-appeals',
 			origin: null,
-			originalFilename: 'test-pdf.pdf',
-			fileName: 'test-pdf.pdf',
+			originalFilename: 'test-pdf-documentFileVersionsInfo.pdf',
+			fileName: 'test-pdf-documentFileVersionsInfo.pdf',
 			representative: null,
 			description: null,
 			owner: null,
@@ -1074,6 +1077,36 @@ export const documentFileVersionsInfo = {
 					sapId: null
 				}
 			}
+		}
+	]
+};
+
+export const documentFileVersionsInfoNotChecked = {
+	...documentFileVersionsInfo,
+	documentVersion: [
+		{
+			...documentFileVersionsInfo.documentVersion[0],
+			virusCheckStatus: 'not_checked'
+		}
+	]
+};
+
+export const documentFileVersionsInfoVirusFound = {
+	...documentFileVersionsInfo,
+	documentVersion: [
+		{
+			...documentFileVersionsInfo.documentVersion[0],
+			virusCheckStatus: 'failed_virus_check'
+		}
+	]
+};
+
+export const documentFileVersionsInfoChecked = {
+	...documentFileVersionsInfo,
+	documentVersion: [
+		{
+			...documentFileVersionsInfo.documentVersion[0],
+			virusCheckStatus: 'checked'
 		}
 	]
 };

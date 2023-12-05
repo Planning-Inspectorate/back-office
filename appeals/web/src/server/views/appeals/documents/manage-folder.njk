@@ -15,8 +15,6 @@
 
 {%- block pageContent -%}
 	{%- for component in pageContent.pageComponents -%}
-		{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
 		{%- include "../components/page-component.njk" -%}
-		{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
 	{%- endfor -%}
 {%- endblock -%}

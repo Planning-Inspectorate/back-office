@@ -23,8 +23,6 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
  * @typedef {import('./appellant-case.types.js').AppellantCaseSessionValidationOutcome} AppellantCaseSessionValidationOutcome
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
- * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedFolderForListBuilder} MappedFolderForListBuilder
- * @typedef {import('../../appeal-documents/appeal-documents.mapper.js').MappedDocumentForListBuilder} MappedDocumentForListBuilder
  * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
  */
 

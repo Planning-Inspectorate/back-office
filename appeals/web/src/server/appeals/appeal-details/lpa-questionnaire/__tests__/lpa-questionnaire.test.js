@@ -8,6 +8,9 @@ import {
 	documentFolderInfo,
 	documentFileInfo,
 	documentFileVersionsInfo,
+	documentFileVersionsInfoNotChecked,
+	documentFileVersionsInfoVirusFound,
+	documentFileVersionsInfoChecked,
 	documentRedactionStatuses,
 	activeDirectoryUsersData
 } from '#testing/app/fixtures/referencedata.js';
@@ -1026,12 +1029,13 @@ describe('LPA Questionnaire review', () => {
 				.reply(200, documentRedactionStatuses);
 			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
 			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
-			nock('http://test/')
-				.get('/appeals/1/documents/1/versions')
-				.reply(200, documentFileVersionsInfo);
 		});
 
 		it('should render a 404 error page if the folderId is not valid', async () => {
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfo);
+
 			const response = await request.get(`${baseUrl}/manage-documents/99/1`);
 			const element = parseHtml(response.text);
 
@@ -1039,13 +1043,54 @@ describe('LPA Questionnaire review', () => {
 		});
 
 		it('should render a 404 error page if the documentId is not valid', async () => {
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfo);
+
 			const response = await request.get(`${baseUrl}/manage-documents/1/99`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should render the manage individual document page with the expected content if the folderId and documentId are both valid', async () => {
+		it('should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null', async () => {
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfo);
+
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked"', async () => {
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfoNotChecked);
+
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "failed_virus_check"', async () => {
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfoVirusFound);
+
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked"', async () => {
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfoChecked);
+
 			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
 			const element = parseHtml(response.text);
 
