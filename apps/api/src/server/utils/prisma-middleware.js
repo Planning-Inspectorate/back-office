@@ -1,3 +1,5 @@
+import { appInsightsClient } from './app-insights.js';
+
 /**
  * A middleware function that modifies Prisma Client parameters for Document model.
  * When deleting a Document, it updates the `isDeleted` property instead of actually deleting the record.
@@ -12,5 +14,28 @@ export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 		parameters.args.data = { isDeleted: true };
 	}
 
-	return next(parameters);
+	let result;
+	let successful = true;
+	const timeStart = Date.now();
+
+	try {
+		result = await next(parameters);
+	} catch (err) {
+		successful = false;
+	}
+
+	if (appInsightsClient) {
+		// TODO: change `target` to real value (find out what it should be)
+		appInsightsClient.trackDependency({
+			target: 'http://dbname',
+			name: 'Prisma query',
+			data: JSON.stringify(parameters),
+			duration: Date.now() - timeStart,
+			resultCode: 0,
+			success: successful,
+			dependencyTypeName: 'SQL'
+		});
+	}
+
+	return result;
 }
