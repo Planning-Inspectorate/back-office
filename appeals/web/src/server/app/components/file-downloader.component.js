@@ -12,6 +12,8 @@ import {
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('express').Response} Response */
 
+const validScanResult = 'checked';
+
 /**
  * Download one document or redirects to its url if preview is active
  *
@@ -34,7 +36,6 @@ export const getDocumentDownload = async ({ apiClient, params, session }, respon
 		throw new Error('Blob storage container or Blob storage path not found');
 	}
 
-	const validScanResult = 'checked';
 	if (virusCheckStatus !== validScanResult) {
 		throw new Error('Document cannot be downloaded, incorrect AV scan result');
 	}
@@ -93,15 +94,21 @@ export const getDocumentDownloadByVersion = async ({ apiClient, params, session 
 	}
 
 	const fileToDownloadInfo = filesInfo.documentVersion.find((fileInfo) => {
-		fileInfo.version?.toString() === version;
+		return fileInfo.version?.toString() === version;
 	});
+
 	if (!fileToDownloadInfo) {
 		return response.status(404);
 	}
-	const { blobStorageContainer, blobStoragePath } = fileToDownloadInfo;
+
+	const { blobStorageContainer, blobStoragePath, virusCheckStatus } = fileToDownloadInfo;
 
 	if (!blobStorageContainer || !blobStoragePath) {
 		throw new Error('Blob storage container or Blob storage path not found');
+	}
+
+	if (virusCheckStatus !== validScanResult) {
+		throw new Error('Document cannot be downloaded, incorrect AV scan result');
 	}
 
 	let blobStorageClient = undefined;
