@@ -13,7 +13,7 @@ ENV SWAGGER_JSON_DIR=./src/server/swagger-output.json
 ENV DATABASE_URL=$DATABASE_URL
 
 WORKDIR /src/app/apps/api
-RUN npx prisma generate
+RUN npm run prisma-generate
 
 EXPOSE 3000
 
