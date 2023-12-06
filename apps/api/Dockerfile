@@ -1,5 +1,6 @@
-FROM node:18-alpine
-RUN apk add --no-cache libc6-compat openssl openssl-dev
+FROM node:18-slim
+RUN apt-get update
+RUN apt-get install -y openssl
 
 WORKDIR /src/app
 COPY package*.json ./
