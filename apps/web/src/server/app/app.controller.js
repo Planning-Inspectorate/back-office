@@ -31,12 +31,9 @@ export function viewHomepage(request, response, next) {
 	if (applicationGroupIds.length > 0) {
 		const { caseAdminOfficerGroupId, caseTeamGroupId, inspectorGroupId } =
 			config.referenceData.applications;
+		const allowedGroupIds = [caseAdminOfficerGroupId, caseTeamGroupId, inspectorGroupId];
 
-		if (
-			applicationGroupIds[0] === caseAdminOfficerGroupId ||
-			applicationGroupIds[0] === caseTeamGroupId ||
-			applicationGroupIds[0] === inspectorGroupId
-		) {
+		if (allowedGroupIds.some((id) => applicationGroupIds.includes(id))) {
 			return response.redirect('/applications-service');
 		} else {
 			const error = new Error('User logged in successfully but the user group is not valid.');
