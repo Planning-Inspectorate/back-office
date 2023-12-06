@@ -9,12 +9,12 @@
 #}
 {% macro excerpt(content, maxLength = 200, linkText = 'more', strictTruncate = false) %}
 	{% if content | length > maxLength %}
-		<div class="excerpt">
-			<div class="excerpt-summary">
-				{{ content | truncate(maxLength, strictTruncate) | sanitize | safe }}
+        <div class="excerpt">
+            <div class="excerpt-summary">
+                {{ content | truncate(maxLength, strictTruncate) | sanitize | safe }}
 
-				<noscript>
-					{{ govukDetails({
+                <noscript>
+                    {{ govukDetails({
                         summaryText: 'Show ' + linkText,
                         html: content,
                         classes: 'govuk-!-margin-bottom-1 govuk-!-margin-top-4'
@@ -33,14 +33,15 @@
 				</div>
 			</div>
 
-			<div class="excerpt-full display--none">
-				{{ content | safe }}
+            <div class="excerpt-full display--none">
+                {{ content | safe }}
 
-				<p class="govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4" >
-					<a href="#" class="govuk-link govuk-link--no-visited-state excerpt-link">Hide {{ linkText }}</a>
-				</p>
-				<div></div>
-			{% else %}
-				{{ content | safe }}
-			{% endif %}
-		{% endmacro %}
+                <p class="govuk-body govuk-!-margin-bottom-1 govuk-!-margin-top-4" >
+                    <a href="#" class="govuk-link govuk-link--no-visited-state excerpt-link">Hide {{ linkText }}</a>
+                </p>
+            <div>
+        </div>
+    {% else %}
+        {{ content | safe }}
+    {% endif %}
+{% endmacro %}
