@@ -83,7 +83,9 @@ const mapDocumentFileTypeAndSize = (document) => {
 
 /**
  * @typedef {Object} DocumentVirusCheckStatus
- * @property {boolean} checkedAndSafe
+ * @property {boolean} checked
+ * @property {boolean} safe
+ * @property {string} manageFolderPageActionText
  * @property {string} [statusText]
  */
 
@@ -94,15 +96,21 @@ const mapDocumentFileTypeAndSize = (document) => {
 function mapVirusCheckStatus(virusCheckStatus) {
 	/** @type {DocumentVirusCheckStatus} */
 	const result = {
-		checkedAndSafe: false
+		checked: false,
+		safe: false,
+		manageFolderPageActionText: 'Edit'
 	};
 
 	switch (virusCheckStatus) {
 		case 'checked':
-			result.checkedAndSafe = true;
+			result.checked = true;
+			result.safe = true;
+			result.manageFolderPageActionText = 'View and edit';
 			break;
 		case 'failed_virus_check':
+			result.checked = true;
 			result.statusText = 'virus_detected';
+			result.manageFolderPageActionText = 'Edit or remove';
 			break;
 		case 'not_checked':
 		default:
@@ -124,7 +132,7 @@ export function mapDocumentInfoVirusCheckStatus(document) {
 }
 
 /**
- * @param {DocumentVersionDetails} document
+ * @param {DocumentVersionDetails|undefined} document
  * @returns {DocumentVirusCheckStatus}
  */
 export function mapDocumentVersionDetailsVirusCheckStatus(document) {
@@ -273,7 +281,7 @@ function mapFolderDocumentInformationHtmlProperty(folder, document) {
 		};
 		const virusCheckStatus = mapDocumentInfoVirusCheckStatus(document);
 
-		if (virusCheckStatus.checkedAndSafe) {
+		if (virusCheckStatus.checked && virusCheckStatus.safe) {
 			htmlProperty.pageComponents.push({
 				type: 'html',
 				wrapperHtml: linkWrapperHtml,
@@ -303,7 +311,7 @@ function mapFolderDocumentInformationHtmlProperty(folder, document) {
 			}
 		});
 
-		if (!virusCheckStatus.checkedAndSafe) {
+		if (!virusCheckStatus.safe) {
 			htmlProperty.pageComponents.push({
 				type: 'status-tag',
 				wrapperHtml: {
@@ -315,6 +323,30 @@ function mapFolderDocumentInformationHtmlProperty(folder, document) {
 				}
 			});
 		}
+	}
+
+	return htmlProperty;
+}
+
+/**
+ * @param {DocumentFolder} folder
+ * @param {DocumentInfo} document
+ * @param {string} viewAndEditUrl
+ * @returns {HtmlProperty & ClassesProperty}
+ */
+function mapFolderDocumentActionsHtmlProperty(folder, document, viewAndEditUrl) {
+	/** @type {HtmlProperty} */
+	const htmlProperty = {
+		html: ''
+	};
+
+	if (document?.id) {
+		const virusCheckStatus = mapDocumentInfoVirusCheckStatus(document);
+		htmlProperty.html = `<a href="${viewAndEditUrl
+			.replace('{{folderId}}', folder.id.toString())
+			.replace('{{documentId}}', document.id)}" class="govuk-link">${
+			virusCheckStatus.manageFolderPageActionText
+		}</a>`;
 	}
 
 	return htmlProperty;
@@ -365,11 +397,7 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 									document?.latestDocumentVersion?.redactionStatus
 								) || ''
 						},
-						{
-							html: `<a href="${viewAndEditUrl
-								.replace('{{folderId}}', folder.id.toString())
-								.replace('{{documentId}}', document.id)}" class="govuk-link">View and edit</a>`
-						}
+						mapFolderDocumentActionsHtmlProperty(folder, document, viewAndEditUrl)
 					])
 				}
 			}
@@ -405,7 +433,7 @@ function mapVersionDocumentInformationHtmlProperty(document, documentVersion) {
 	};
 	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(documentVersion);
 
-	if (virusCheckStatus.checkedAndSafe) {
+	if (virusCheckStatus.checked && virusCheckStatus.safe) {
 		htmlProperty.pageComponents.push({
 			type: 'html',
 			wrapperHtml: linkWrapperHtml,
@@ -429,7 +457,7 @@ function mapVersionDocumentInformationHtmlProperty(document, documentVersion) {
 		});
 	}
 
-	if (!virusCheckStatus.checkedAndSafe) {
+	if (!virusCheckStatus.safe) {
 		htmlProperty.pageComponents.push({
 			type: 'status-tag',
 			wrapperHtml: {
@@ -462,7 +490,7 @@ function mapDocumentNameHtmlProperty(document, documentVersion) {
 		closing: '</div>'
 	};
 
-	if (virusCheckStatus.checkedAndSafe) {
+	if (virusCheckStatus.checked && virusCheckStatus.safe) {
 		htmlProperty.pageComponents.push({
 			type: 'html',
 			wrapperHtml: linkWrapperHtml,
@@ -500,7 +528,7 @@ function mapDocumentNameHtmlProperty(document, documentVersion) {
 		});
 	}
 
-	if (!virusCheckStatus.checkedAndSafe) {
+	if (!virusCheckStatus.safe) {
 		htmlProperty.pageComponents.push({
 			type: 'status-tag',
 			wrapperHtml: {
@@ -548,6 +576,7 @@ export async function manageDocumentPage(
 	}
 
 	const latestVersion = getDocumentLatestVersion(document);
+	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(latestVersion);
 
 	/** @type {PageContent} */
 	const pageContent = {
@@ -619,26 +648,28 @@ export async function manageDocumentPage(
 					opening: '',
 					closing: '</div></div>'
 				},
-				pageComponents: [
-					{
-						type: 'button',
-						parameters: {
-							id: 'upload-updated-document',
-							href: uploadUrl,
-							classes: 'govuk-!-margin-right-2',
-							text: 'Upload an updated document'
-						}
-					},
-					{
-						type: 'button',
-						parameters: {
-							id: 'remove-document',
-							href: '#',
-							classes: 'govuk-button--secondary',
-							text: 'Remove this document'
-						}
-					}
-				]
+				pageComponents: virusCheckStatus.checked
+					? [
+							{
+								type: 'button',
+								parameters: {
+									id: 'upload-updated-document',
+									href: uploadUrl,
+									classes: 'govuk-!-margin-right-2',
+									text: 'Upload an updated document'
+								}
+							},
+							{
+								type: 'button',
+								parameters: {
+									id: 'remove-document',
+									href: '#',
+									classes: 'govuk-button--secondary',
+									text: 'Remove this document'
+								}
+							}
+					  ]
+					: []
 			},
 			{
 				wrapperHtml: {
@@ -675,28 +706,34 @@ export async function manageDocumentPage(
 											}
 										],
 										rows: await Promise.all(
-											(document.documentVersion || []).map(async (documentVersion) => [
-												{
-													text: documentVersion.version?.toString() || ''
-												},
-												mapDocumentNameHtmlProperty(document, documentVersion),
-												{
-													html: await mapDocumentVersionToAuditActivityHtml(
-														documentVersion,
-														document.versionAudit || [],
-														session
-													)
-												},
-												{
-													text: mapRedactionStatusIdToName(
-														redactionStatuses,
-														documentVersion.redactionStatusId
-													)
-												},
-												{
-													html: '<a class="govuk-link" href="#">Remove</a>'
-												}
-											])
+											(document.documentVersion || []).map(async (documentVersion) => {
+												const versionVirusCheckStatus =
+													mapDocumentVersionDetailsVirusCheckStatus(documentVersion);
+												return [
+													{
+														text: documentVersion.version?.toString() || ''
+													},
+													mapDocumentNameHtmlProperty(document, documentVersion),
+													{
+														html: await mapDocumentVersionToAuditActivityHtml(
+															documentVersion,
+															document.versionAudit || [],
+															session
+														)
+													},
+													{
+														text: mapRedactionStatusIdToName(
+															redactionStatuses,
+															documentVersion.redactionStatusId
+														)
+													},
+													{
+														html: versionVirusCheckStatus.checked
+															? '<a class="govuk-link" href="#">Remove</a>'
+															: ''
+													}
+												];
+											})
 										)
 									}
 								}

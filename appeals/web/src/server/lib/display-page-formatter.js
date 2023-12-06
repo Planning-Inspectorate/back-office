@@ -130,7 +130,7 @@ export const formatDocumentValues = (appealId, listOfDocuments) => {
 			const document = listOfDocuments.documents[i];
 			const virusCheckStatus = mapDocumentInfoVirusCheckStatus(document);
 
-			if (virusCheckStatus.checkedAndSafe) {
+			if (virusCheckStatus.safe) {
 				htmlProperty.pageComponentGroups[0].pageComponents.push({
 					type: 'html',
 					wrapperHtml: {
