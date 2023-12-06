@@ -23,6 +23,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	// The web application hostname (e.g. back-office-dev.planninginspectorate.gov.uk)
 	appHostname: string;
 	apiUrl: string;
+	appInsightsConnectionString?: string;
 	authDisabled: boolean;
 	authDisabledGroupIds: string[];
 	// redirect path for MSAL auth, defaults to /auth/redirect

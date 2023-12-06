@@ -2,10 +2,10 @@ import { add } from 'date-fns';
 import {
 	STATE_TARGET_FINAL_COMMENT_REVIEW,
 	STATE_TARGET_STATEMENT_REVIEW,
-	STATE_TARGET_ARRANGE_SITE_VISIT,
 	STATE_TARGET_ISSUE_DETERMINATION,
 	STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
-	STATE_TARGET_READY_TO_START
+	STATE_TARGET_READY_TO_START,
+	STATE_TARGET_ASSIGN_CASE_OFFICER
 } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
@@ -13,7 +13,7 @@ import {
 const approxStageCompletion = {
 	STATE_TARGET_READY_TO_START: 5,
 	STATE_TARGET_LPA_QUESTIONNAIRE_DUE: 10,
-	STATE_TARGET_ARRANGE_SITE_VISIT: 15,
+	STATE_TARGET_ASSIGN_CASE_OFFICER: 15,
 	STATE_TARGET_ISSUE_DETERMINATION: 30,
 	STATE_TARGET_STATEMENT_REVIEW: 55,
 	STATE_TARGET_FINAL_COMMENT_REVIEW: 60
@@ -30,7 +30,7 @@ export const sortAppeals = (appeals) => {
 				return {
 					appealId: appeal.appealId,
 					dueDate: add(new Date(appeal.createdAt), {
-						days: approxStageCompletion.STATE_TARGET_ARRANGE_SITE_VISIT
+						days: approxStageCompletion.STATE_TARGET_READY_TO_START
 					})
 				};
 			case STATE_TARGET_LPA_QUESTIONNAIRE_DUE:
@@ -46,11 +46,11 @@ export const sortAppeals = (appeals) => {
 						days: approxStageCompletion.STATE_TARGET_LPA_QUESTIONNAIRE_DUE
 					})
 				};
-			case STATE_TARGET_ARRANGE_SITE_VISIT:
+			case STATE_TARGET_ASSIGN_CASE_OFFICER:
 				return {
 					appealId: appeal.appealId,
 					dueDate: add(new Date(appeal.createdAt), {
-						days: approxStageCompletion.STATE_TARGET_ARRANGE_SITE_VISIT
+						days: approxStageCompletion.STATE_TARGET_ASSIGN_CASE_OFFICER
 					})
 				};
 			case STATE_TARGET_ISSUE_DETERMINATION: {

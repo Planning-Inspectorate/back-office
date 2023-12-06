@@ -313,12 +313,10 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				key: {
 					text: 'Conservation area map and guidance'
 				},
-				value: {
-					html: displayPageFormatter.formatDocumentValues(
-						data.appealId,
-						data.documents.conservationAreaMap
-					)
-				},
+				value: displayPageFormatter.formatDocumentValues(
+					data.appealId,
+					data.documents.conservationAreaMap
+				),
 				actions: {
 					items: [
 						...((data.documents.conservationAreaMap.documents || []).length
@@ -401,12 +399,10 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				key: {
 					text: 'Who was notified'
 				},
-				value: {
-					html: displayPageFormatter.formatDocumentValues(
-						data.appealId,
-						data.documents.notifyingParties
-					)
-				},
+				value: displayPageFormatter.formatDocumentValues(
+					data.appealId,
+					data.documents.notifyingParties
+				),
 				actions: {
 					items: [
 						...((data.documents.notifyingParties.documents || []).length
@@ -507,12 +503,10 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					key: {
 						text: 'Site Notice'
 					},
-					value: {
-						html: displayPageFormatter.formatDocumentValues(
-							data.appealId,
-							data.documents.siteNotices
-						)
-					},
+					value: displayPageFormatter.formatDocumentValues(
+						data.appealId,
+						data.documents.siteNotices
+					),
 					actions: {
 						items: [
 							...((data.documents.siteNotices.documents || []).length
@@ -556,12 +550,10 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					key: {
 						text: 'Letter/email to interested parties'
 					},
-					value: {
-						html: displayPageFormatter.formatDocumentValues(
-							data.appealId,
-							data.documents.lettersToNeighbours
-						)
-					},
+					value: displayPageFormatter.formatDocumentValues(
+						data.appealId,
+						data.documents.lettersToNeighbours
+					),
 					actions: {
 						items: [
 							...((data.documents.lettersToNeighbours.documents || []).length
@@ -604,12 +596,10 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					key: {
 						text: 'Advertisement'
 					},
-					value: {
-						html: displayPageFormatter.formatDocumentValues(
-							data.appealId,
-							data.documents.pressAdvert
-						)
-					},
+					value: displayPageFormatter.formatDocumentValues(
+						data.appealId,
+						data.documents.pressAdvert
+					),
 					actions: {
 						items: [
 							{
@@ -682,12 +672,10 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					key: {
 						text: 'Representations from other parties documents'
 					},
-					value: {
-						html: displayPageFormatter.formatDocumentValues(
-							data.appealId,
-							data.documents.representations
-						)
-					},
+					value: displayPageFormatter.formatDocumentValues(
+						data.appealId,
+						data.documents.representations
+					),
 					actions: {
 						items: [
 							...((data.documents.representations.documents || []).length
@@ -725,12 +713,10 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				key: {
 					text: "Planning officer's report"
 				},
-				value: {
-					html: displayPageFormatter.formatDocumentValues(
-						data.appealId,
-						data.documents.officersReport
-					)
-				},
+				value: displayPageFormatter.formatDocumentValues(
+					data.appealId,
+					data.documents.officersReport
+				),
 				actions: {
 					items: [
 						...((data.documents.officersReport.documents || []).length

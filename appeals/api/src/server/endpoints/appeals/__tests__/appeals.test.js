@@ -799,6 +799,8 @@ describe('appeals routes', () => {
 						id: householdAppeal.id
 					}
 				});
+				expect(databaseConnector.auditTrail.create).toHaveBeenCalledTimes(1);
+				expect(databaseConnector.appeal.update).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
 					data: {
 						appealId: householdAppeal.id,

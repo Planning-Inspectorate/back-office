@@ -21,9 +21,7 @@
 {%- block pageContent -%}
 	<form method="POST" novalidate="novalidate">
 		{%- for component in pageContent.pageComponents -%}
-			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
 			{%- include "../appeals/components/page-component.njk" -%}
-			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
 		{%- endfor -%}
 		{{ govukButton({
 			text: pageContent.submitButtonText if pageContent.submitButtonText else "Continue",

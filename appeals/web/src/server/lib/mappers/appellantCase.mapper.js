@@ -554,12 +554,10 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				key: {
 					text: 'Application form'
 				},
-				value: {
-					html: displayPageFormatter.formatDocumentValues(
-						appellantCaseData.appealId,
-						appellantCaseData.documents.applicationForm
-					)
-				},
+				value: displayPageFormatter.formatDocumentValues(
+					appellantCaseData.appealId,
+					appellantCaseData.documents.applicationForm
+				),
 				actions: {
 					items: [
 						...((appellantCaseData.documents.applicationForm.documents || []).length
@@ -595,12 +593,10 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				key: {
 					text: 'Decision letter'
 				},
-				value: {
-					html: displayPageFormatter.formatDocumentValues(
-						appellantCaseData.appealId,
-						appellantCaseData.documents.decisionLetter
-					)
-				},
+				value: displayPageFormatter.formatDocumentValues(
+					appellantCaseData.appealId,
+					appellantCaseData.documents.decisionLetter
+				),
 				actions: {
 					items: [
 						...((appellantCaseData.documents.decisionLetter.documents || []).length
@@ -636,12 +632,10 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				key: {
 					text: 'Appeal statement'
 				},
-				value: {
-					html: displayPageFormatter.formatDocumentValues(
-						appellantCaseData.appealId,
-						appellantCaseData.documents.appealStatement
-					)
-				},
+				value: displayPageFormatter.formatDocumentValues(
+					appellantCaseData.appealId,
+					appellantCaseData.documents.appealStatement
+				),
 				actions: {
 					items: [
 						...((appellantCaseData.documents.appealStatement.documents || []).length
@@ -728,12 +722,10 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				key: {
 					text: 'New supporting documents'
 				},
-				value: {
-					html: displayPageFormatter.formatDocumentValues(
-						appellantCaseData.appealId,
-						appellantCaseData.documents.newSupportingDocuments
-					)
-				},
+				value: displayPageFormatter.formatDocumentValues(
+					appellantCaseData.appealId,
+					appellantCaseData.documents.newSupportingDocuments
+				),
 				actions: {
 					items: [
 						...((appellantCaseData.documents.newSupportingDocuments.documents || []).length

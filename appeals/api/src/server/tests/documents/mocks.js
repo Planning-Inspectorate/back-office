@@ -104,7 +104,8 @@ export const savedFolder = {
 			caseId: householdAppeal.id,
 			folderId,
 			guid,
-			name: originalFileName
+			name: originalFileName,
+			isDeleted: false
 		}
 	]
 };

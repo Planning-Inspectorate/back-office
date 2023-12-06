@@ -19,9 +19,7 @@
 {%- block pageContent -%}
 	{%- for component in pageContent.pageComponents -%}
 		{%- if component.type === 'summary-list' or component.type === 'inset-text' -%}
-			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
 			{%- include "../appeals/components/page-component.njk" -%}
-			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
 		{%- endif -%}
 	{%- endfor -%}
 	<form method="post" novalidate="novalidate">

@@ -1,20 +1,6 @@
 import { Address } from '@pins/appeals';
 import { NotValidReasonOption, NotValidReasonResponse } from '../appeal-details.types';
-
-// TODO: BOAT-245
-
-interface DocumentInfo {
-	id: string;
-	name: string;
-	folderId: number;
-	caseId: number;
-}
-
-interface FolderInfo {
-	folderId: number;
-	path: string;
-	documents: DocumentInfo[];
-}
+import { DocumentInfo, FolderInfo } from '../../appeals.types';
 
 export type AppellantCaseValidationOutcome = 'valid' | 'invalid' | 'incomplete';
 

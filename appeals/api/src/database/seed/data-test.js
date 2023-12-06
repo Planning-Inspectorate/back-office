@@ -175,7 +175,6 @@ const newAppeals = [
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS }),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		siteAddressList: addressListForTrainers
@@ -197,7 +196,11 @@ const newAppeals = [
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA })
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA }),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() }
+	})
 ];
 
 const appealsLpaQuestionnaireDue = [
@@ -299,7 +302,7 @@ const appealsFinalCommentReview = [
 const appealsArrangeSiteVisit = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'arrange_site_visit' },
+		statuses: { status: 'ready_to_start' },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 3, 1, 10),
@@ -307,7 +310,7 @@ const appealsArrangeSiteVisit = [
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'arrange_site_visit' },
+		statuses: { status: 'ready_to_start' },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 4, 1, 11),
@@ -315,7 +318,7 @@ const appealsArrangeSiteVisit = [
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'arrange_site_visit' },
+		statuses: { status: 'ready_to_start' },
 		completeValidationDecision: true,
 		lpaQuestionnaire: true,
 		startedAt: new Date(2022, 4, 1, 11),

@@ -30,7 +30,6 @@
 {%- block pageContent -%}
 	{%- for component in pageContent.pageComponents -%}
 		{%- if component.type !== 'notification-banner' -%}
-			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.opening | safe }}{%- endif -%}
 			{%- if component.type === 'radios' or component.type === 'checkboxes' -%}
 				<div class="govuk-grid-row">
 					<div class="govuk-grid-column-full">
@@ -43,7 +42,6 @@
 			{%- else -%}
 				{%- include "../appeals/components/page-component.njk" -%}
 			{%- endif -%}
-			{%- if component.wrapperHtml -%}{{ component.wrapperHtml.closing | safe }}{%- endif -%}
 		{%- endif -%}
 	{%- endfor -%}
 {%- endblock -%}

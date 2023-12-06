@@ -7,11 +7,8 @@ import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 
 /**
- * @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} Appeal
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
- * @typedef {import('@pins/appeals.api').Appeals.LatestDocumentVersionInfo} LatestDocumentVersionInfo
- * @typedef {import('@pins/appeals.api').Appeals.SingleFolderResponse} SingleFolderResponse
  * @typedef {import('#lib/nunjucks-template-builders/tag-builders.js').HtmlLink} HtmlLink
  * @typedef {import('@pins/appeals.api').Schema.DocumentRedactionStatus} RedactionStatus
  * @typedef {import('@pins/appeals.api').Api.DocumentDetails} DocumentDetails
@@ -20,52 +17,8 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
  */
 
 /**
- * @typedef {Object} MappedFolderForListBuilder
- * @property {string} addDocumentUrl
- * @property {string} manageDocumentsUrl
- * @property {MappedDocumentForListBuilder[]} documents
+ * @typedef {FolderInfo & {id: string, caseId: string}} DocumentFolder
  */
-
-/**
- * @typedef {Object} MappedDocumentForListBuilder
- * @property {string} title
- * @property {string} href
- * @property {string} addDocumentUrl
- * @property {string} addVersionUrl
- */
-
-/**
- *
- * @param {Number} caseId
- * @param {FolderInfo} folder
- * @param {function} mapDocumentUploadUrl
- * @param {function} mapDocumentManageUrl
- * @param {boolean?} [singleDocument]
- * @returns {MappedFolderForListBuilder}
- */
-export const mapFolder = (
-	caseId,
-	folder,
-	mapDocumentUploadUrl,
-	mapDocumentManageUrl,
-	singleDocument = true
-) => {
-	const { documents } = folder;
-	const documentMap = (documents || []).map((document) => {
-		return {
-			title: document.name,
-			href: mapDocumentDownloadUrl(caseId, document.id),
-			addVersionUrl: mapDocumentUploadUrl(caseId, folder, document),
-			addDocumentUrl: mapDocumentUploadUrl(caseId, folder)
-		};
-	});
-
-	return {
-		addDocumentUrl: mapDocumentUploadUrl(caseId, folder),
-		manageDocumentsUrl: mapDocumentManageUrl(caseId, folder),
-		documents: singleDocument ? (documentMap.length ? [documentMap[0]] : []) : documentMap
-	};
-};
 
 /**
  * @param {string|number} appealId
@@ -127,6 +80,64 @@ const mapDocumentFileTypeAndSize = (document) => {
 		document.latestDocumentVersion?.size
 	)}`;
 };
+
+/**
+ * @typedef {Object} DocumentVirusCheckStatus
+ * @property {boolean} checked
+ * @property {boolean} safe
+ * @property {string} manageFolderPageActionText
+ * @property {string} [statusText]
+ */
+
+/**
+ * @param {string} virusCheckStatus
+ * @returns {DocumentVirusCheckStatus}
+ */
+function mapVirusCheckStatus(virusCheckStatus) {
+	/** @type {DocumentVirusCheckStatus} */
+	const result = {
+		checked: false,
+		safe: false,
+		manageFolderPageActionText: 'Edit'
+	};
+
+	switch (virusCheckStatus) {
+		case 'checked':
+			result.checked = true;
+			result.safe = true;
+			result.manageFolderPageActionText = 'View and edit';
+			break;
+		case 'failed_virus_check':
+			result.checked = true;
+			result.statusText = 'virus_detected';
+			result.manageFolderPageActionText = 'Edit or remove';
+			break;
+		case 'not_checked':
+		default:
+			result.statusText = 'virus_scanning';
+			break;
+	}
+
+	return result;
+}
+
+/**
+ * @param {DocumentInfo} document
+ * @returns {DocumentVirusCheckStatus}
+ */
+export function mapDocumentInfoVirusCheckStatus(document) {
+	return mapVirusCheckStatus(
+		document?.virusCheckStatus || document?.latestDocumentVersion?.virusCheckStatus
+	);
+}
+
+/**
+ * @param {DocumentVersionDetails|undefined} document
+ * @returns {DocumentVirusCheckStatus}
+ */
+export function mapDocumentVersionDetailsVirusCheckStatus(document) {
+	return mapVirusCheckStatus(document?.virusCheckStatus);
+}
 
 /**
  * @param {string} backLinkUrl
@@ -252,9 +263,99 @@ export function addDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
 }
 
 /**
+ * @param {DocumentFolder} folder
+ * @param {DocumentInfo} document
+ * @returns {HtmlProperty & ClassesProperty}
+ */
+function mapFolderDocumentInformationHtmlProperty(folder, document) {
+	/** @type {HtmlProperty} */
+	const htmlProperty = {
+		html: '',
+		pageComponents: []
+	};
+
+	if (document?.id) {
+		const linkWrapperHtml = {
+			opening: '<div class="govuk-!-margin-bottom-4">',
+			closing: '</div>'
+		};
+		const virusCheckStatus = mapDocumentInfoVirusCheckStatus(document);
+
+		if (virusCheckStatus.checked && virusCheckStatus.safe) {
+			htmlProperty.pageComponents.push({
+				type: 'html',
+				wrapperHtml: linkWrapperHtml,
+				parameters: {
+					html: `<a class="govuk-link" href="${mapDocumentDownloadUrl(
+						folder.caseId,
+						document.id
+					)}">${document.name || ''}</a>`.trim()
+				}
+			});
+		} else {
+			htmlProperty.pageComponents.push({
+				type: 'html',
+				wrapperHtml: linkWrapperHtml,
+				parameters: {
+					html: `<span class="govuk-body">${document.name || ''}</span>`.trim()
+				}
+			});
+		}
+
+		htmlProperty.pageComponents.push({
+			type: 'html',
+			parameters: {
+				html: `<dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt><dd>${mapDocumentFileTypeAndSize(
+					document
+				)}</dd></dl>`.trim()
+			}
+		});
+
+		if (!virusCheckStatus.safe) {
+			htmlProperty.pageComponents.push({
+				type: 'status-tag',
+				wrapperHtml: {
+					opening: '<div class="govuk-!-margin-bottom-4">',
+					closing: '</div>'
+				},
+				parameters: {
+					status: virusCheckStatus.statusText || ''
+				}
+			});
+		}
+	}
+
+	return htmlProperty;
+}
+
+/**
+ * @param {DocumentFolder} folder
+ * @param {DocumentInfo} document
+ * @param {string} viewAndEditUrl
+ * @returns {HtmlProperty & ClassesProperty}
+ */
+function mapFolderDocumentActionsHtmlProperty(folder, document, viewAndEditUrl) {
+	/** @type {HtmlProperty} */
+	const htmlProperty = {
+		html: ''
+	};
+
+	if (document?.id) {
+		const virusCheckStatus = mapDocumentInfoVirusCheckStatus(document);
+		htmlProperty.html = `<a href="${viewAndEditUrl
+			.replace('{{folderId}}', folder.id.toString())
+			.replace('{{documentId}}', document.id)}" class="govuk-link">${
+			virusCheckStatus.manageFolderPageActionText
+		}</a>`;
+	}
+
+	return htmlProperty;
+}
+
+/**
  * @param {string} backLinkUrl
  * @param {string} viewAndEditUrl
- * @param {FolderInfo & {id: string, caseId: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
+ * @param {DocumentFolder} folder - API type needs to be updated (should be Folder, but there are worse problems with that type)
  * @param {RedactionStatus[]} redactionStatuses
  * @returns {PageContent}
  */
@@ -285,21 +386,7 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 						}
 					],
 					rows: (folder?.documents || []).map((document) => [
-						{
-							html: `${
-								document && document?.id
-									? `<div class="govuk-!-margin-bottom-4">
-										<a class="govuk-link" href="${mapDocumentDownloadUrl(folder.caseId, document.id)}">${
-											document.name || ''
-									  }</a>
-									</div>`
-									: ''
-							}
-								<dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt><dd>${mapDocumentFileTypeAndSize(
-									document
-								)}</dd></dl>
-							`.trim()
-						},
+						mapFolderDocumentInformationHtmlProperty(folder, document),
 						{
 							text: dateToDisplayDate(document?.latestDocumentVersion?.dateReceived)
 						},
@@ -310,18 +397,151 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 									document?.latestDocumentVersion?.redactionStatus
 								) || ''
 						},
-						{
-							html: `<a href="${viewAndEditUrl
-								.replace('{{folderId}}', folder.id.toString())
-								.replace('{{documentId}}', document.id)}" class="govuk-link">View and edit</a>`
-						}
+						mapFolderDocumentActionsHtmlProperty(folder, document, viewAndEditUrl)
 					])
 				}
 			}
 		]
 	};
 
+	if (pageContent.pageComponents) {
+		preRenderPageComponents(pageContent.pageComponents);
+	}
+
 	return pageContent;
+}
+
+/**
+ * @param {DocumentDetails} document
+ * @param {DocumentVersionDetails|undefined} documentVersion
+ * @returns {HtmlProperty & ClassesProperty}
+ */
+function mapVersionDocumentInformationHtmlProperty(document, documentVersion) {
+	/** @type {HtmlProperty} */
+	const htmlProperty = {
+		html: '',
+		pageComponents: []
+	};
+
+	if (!documentVersion) {
+		return htmlProperty;
+	}
+
+	const linkWrapperHtml = {
+		opening: '<div class="govuk-!-margin-bottom-2">',
+		closing: '</div>'
+	};
+	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(documentVersion);
+
+	if (virusCheckStatus.checked && virusCheckStatus.safe) {
+		htmlProperty.pageComponents.push({
+			type: 'html',
+			wrapperHtml: linkWrapperHtml,
+			parameters: {
+				html:
+					document && documentVersion && document?.caseId && document?.guid
+						? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
+								document?.caseId,
+								document.guid
+						  )}">${document.name || ''}</a>`
+						: ''
+			}
+		});
+	} else {
+		htmlProperty.pageComponents.push({
+			type: 'html',
+			wrapperHtml: linkWrapperHtml,
+			parameters: {
+				html: `<span class="govuk-body">${document.name || ''}</span>`.trim()
+			}
+		});
+	}
+
+	if (!virusCheckStatus.safe) {
+		htmlProperty.pageComponents.push({
+			type: 'status-tag',
+			wrapperHtml: {
+				opening: '<div class="govuk-!-margin-bottom-1">',
+				closing: '</div>'
+			},
+			parameters: {
+				status: virusCheckStatus.statusText || ''
+			}
+		});
+	}
+
+	return htmlProperty;
+}
+
+/**
+ * @param {DocumentDetails} document
+ * @param {DocumentVersionDetails} documentVersion
+ * @returns {HtmlProperty & ClassesProperty}
+ */
+function mapDocumentNameHtmlProperty(document, documentVersion) {
+	/** @type {HtmlProperty} */
+	const htmlProperty = {
+		html: '',
+		pageComponents: []
+	};
+	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(documentVersion);
+	const linkWrapperHtml = {
+		opening: '<div class="govuk-!-margin-bottom-2">',
+		closing: '</div>'
+	};
+
+	if (virusCheckStatus.checked && virusCheckStatus.safe) {
+		htmlProperty.pageComponents.push({
+			type: 'html',
+			wrapperHtml: linkWrapperHtml,
+			parameters: {
+				html:
+					document && documentVersion && document?.caseId && document?.guid
+						? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
+								document.caseId,
+								document.guid,
+								documentVersion.version
+						  )}">${document.name || ''}</a>`
+						: ''
+			}
+		});
+	} else {
+		htmlProperty.pageComponents.push({
+			type: 'html',
+			wrapperHtml: linkWrapperHtml,
+			parameters: {
+				html: `<span class="govuk-body">${document.name || ''}</span>`.trim()
+			}
+		});
+	}
+
+	if (
+		typeof document.latestVersionId === 'number' &&
+		typeof documentVersion.version === 'number' &&
+		documentVersion.version === document.latestVersionId
+	) {
+		htmlProperty.pageComponents.push({
+			type: 'html',
+			parameters: {
+				html: `<strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>`
+			}
+		});
+	}
+
+	if (!virusCheckStatus.safe) {
+		htmlProperty.pageComponents.push({
+			type: 'status-tag',
+			wrapperHtml: {
+				opening: '<div class="govuk-!-margin-bottom-2">',
+				closing: '</div>'
+			},
+			parameters: {
+				status: virusCheckStatus.statusText || ''
+			}
+		});
+	}
+
+	return htmlProperty;
 }
 
 /**
@@ -355,6 +575,9 @@ export async function manageDocumentPage(
 		);
 	}
 
+	const latestVersion = getDocumentLatestVersion(document);
+	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(latestVersion);
+
 	/** @type {PageContent} */
 	const pageContent = {
 		title: 'Manage documents',
@@ -376,15 +599,7 @@ export async function manageDocumentPage(
 							rows: [
 								{
 									key: { text: 'File' },
-									value: {
-										html:
-											document && document?.caseId && document?.guid
-												? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
-														document.caseId,
-														document.guid
-												  )}">${document.name || ''}</a>`
-												: ''
-									}
+									value: mapVersionDocumentInformationHtmlProperty(document, latestVersion)
 								},
 								{
 									key: { text: 'Version' },
@@ -395,7 +610,7 @@ export async function manageDocumentPage(
 								{
 									key: { text: 'Date received' },
 									value: {
-										text: dateToDisplayDate(getDocumentLatestVersion(document)?.dateReceived)
+										text: dateToDisplayDate(latestVersion?.dateReceived)
 									},
 									actions: {
 										items: [
@@ -433,26 +648,28 @@ export async function manageDocumentPage(
 					opening: '',
 					closing: '</div></div>'
 				},
-				pageComponents: [
-					{
-						type: 'button',
-						parameters: {
-							id: 'upload-updated-document',
-							href: uploadUrl,
-							classes: 'govuk-!-margin-right-2',
-							text: 'Upload an updated document'
-						}
-					},
-					{
-						type: 'button',
-						parameters: {
-							id: 'remove-document',
-							href: '#',
-							classes: 'govuk-button--secondary',
-							text: 'Remove this document'
-						}
-					}
-				]
+				pageComponents: virusCheckStatus.checked
+					? [
+							{
+								type: 'button',
+								parameters: {
+									id: 'upload-updated-document',
+									href: uploadUrl,
+									classes: 'govuk-!-margin-right-2',
+									text: 'Upload an updated document'
+								}
+							},
+							{
+								type: 'button',
+								parameters: {
+									id: 'remove-document',
+									href: '#',
+									classes: 'govuk-button--secondary',
+									text: 'Remove this document'
+								}
+							}
+					  ]
+					: []
 			},
 			{
 				wrapperHtml: {
@@ -489,43 +706,34 @@ export async function manageDocumentPage(
 											}
 										],
 										rows: await Promise.all(
-											(document.documentVersion || []).map(async (documentVersion) => [
-												{
-													text: documentVersion.version?.toString() || ''
-												},
-												{
-													html:
-														document?.caseId && document?.guid
-															? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
-																	document.caseId,
-																	document.guid,
-																	documentVersion.version
-															  )}">${document.name || ''}</a>${
-																	typeof document.latestVersionId === 'number' &&
-																	typeof documentVersion.version === 'number' &&
-																	documentVersion.version === document.latestVersionId
-																		? `<br/><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-top-3">CURRENT VERSION</strong>`
-																		: ''
-															  }`
+											(document.documentVersion || []).map(async (documentVersion) => {
+												const versionVirusCheckStatus =
+													mapDocumentVersionDetailsVirusCheckStatus(documentVersion);
+												return [
+													{
+														text: documentVersion.version?.toString() || ''
+													},
+													mapDocumentNameHtmlProperty(document, documentVersion),
+													{
+														html: await mapDocumentVersionToAuditActivityHtml(
+															documentVersion,
+															document.versionAudit || [],
+															session
+														)
+													},
+													{
+														text: mapRedactionStatusIdToName(
+															redactionStatuses,
+															documentVersion.redactionStatusId
+														)
+													},
+													{
+														html: versionVirusCheckStatus.checked
+															? '<a class="govuk-link" href="#">Remove</a>'
 															: ''
-												},
-												{
-													html: await mapDocumentVersionToAuditActivityHtml(
-														documentVersion,
-														document.versionAudit || [],
-														session
-													)
-												},
-												{
-													text: mapRedactionStatusIdToName(
-														redactionStatuses,
-														documentVersion.redactionStatusId
-													)
-												},
-												{
-													html: '<a class="govuk-link" href="#">Remove</a>'
-												}
-											])
+													}
+												];
+											})
 										)
 									}
 								}
@@ -694,94 +902,13 @@ const folderPathToFolderNameText = (folderPath) => {
  */
 
 /**
- *
- * @param {Number} caseId
- * @param {FolderInfo} folder
- * @param {function} mapDocumentUploadUrl
- * @param {function} mapDocumentManageUrl
- * @param {boolean?} [readOnly]
- * @param {boolean?} [singleDocument]
- * @returns {MappedDocumentRow}
- */
-export const mapDocumentsForDisplay = (
-	caseId,
-	folder,
-	mapDocumentUploadUrl,
-	mapDocumentManageUrl,
-	readOnly = false,
-	singleDocument = true
-) => {
-	const mappedFolder = mapFolder(
-		caseId,
-		folder,
-		mapDocumentUploadUrl,
-		mapDocumentManageUrl,
-		singleDocument
-	);
-	const { documents } = mappedFolder;
-	if (singleDocument && documents?.length) {
-		const document = documents[0];
-		return {
-			value: { ...document, target: '_docpreview' },
-			actions: readOnly
-				? []
-				: [
-						{
-							text: 'Manage',
-							href: mappedFolder.manageDocumentsUrl
-						},
-						{
-							text: 'Add',
-							href: document.addDocumentUrl
-						}
-				  ],
-			valueType: 'link'
-		};
-	} else if (!documents?.length) {
-		return {
-			value: 'none',
-			actions: readOnly
-				? []
-				: [
-						{
-							text: 'Add',
-							href: mappedFolder.addDocumentUrl
-						}
-				  ],
-			valueType: 'text'
-		};
-	}
-
-	return {
-		value: documents.map((/** @type {MappedDocumentForListBuilder} */ document) => {
-			return { ...document, target: '_docpreview' };
-		}),
-		actions: readOnly
-			? []
-			: [
-					{
-						text: 'Manage',
-						href: mappedFolder.manageDocumentsUrl
-					},
-					{
-						text: 'Add',
-						href: mappedFolder.addDocumentUrl
-					}
-			  ],
-		valueType: 'link'
-	};
-};
-
-/**
  * @param {string} backLinkUrl
  * @param {FolderInfo & {id: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
  * @param {Object<string, any>} bodyItems
  * @returns {PageContent}
  */
 export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
-	const latestDocuments = folder.documents.filter(
-		(document) => document.latestDocumentVersion?.draft === false
-	);
+	const latestDocuments = folder.documents;
 
 	/** @type {PageContent} */
 	const pageContent = {
