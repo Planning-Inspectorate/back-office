@@ -388,4 +388,8 @@ jest.unstable_mockModule('got', () => ({
 	}
 }));
 
+jest.unstable_mockModule('./src/server/utils/prisma-instrumentation.js', () => ({
+	initialisePrismaInstrumentation: jest.fn()
+}));
+
 process.env.APPLICATIONINSIGHTS_CONNECTION_STRING = 'test-string';
