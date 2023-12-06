@@ -13,7 +13,7 @@ const { app } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').times(2).reply(200, {});
+	nock('http://test/').get('/applications').times(2).reply(200, {});
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get('/applications/examination-timetable-type')
@@ -37,35 +37,17 @@ const nocks = () => {
 
 describe('Examination timetable page', () => {
 	describe('GET /case/123/examination-timetable', () => {
-		describe('When domainType is inspector', () => {
-			beforeEach(async () => {
-				nock('http://test/').get('/applications/inspector').reply(200, {});
-
-				await request.get('/applications-service/inspector');
-			});
-
-			it('should not show the page', async () => {
-				const response = await request.get(`/applications-service/case/123/examination-timetable`);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('there is a problem with your login');
-			});
+		beforeEach(async () => {
+			await request.get('/applications-service/');
+			nocks();
 		});
 
-		describe('When domainType is not inspector', () => {
-			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
-				nocks();
-			});
+		it('should show the page', async () => {
+			const response = await request.get(`/applications-service/case/123/examination-timetable`);
+			const element = parseHtml(response.text);
 
-			it('should show the page', async () => {
-				const response = await request.get(`/applications-service/case/123/examination-timetable`);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Examination timetable');
-			});
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Examination timetable');
 		});
 	});
 });
@@ -73,7 +55,7 @@ describe('Examination timetable page', () => {
 describe('Select examination timetable type page', () => {
 	describe('GET /case/123/examination-timetable/item/new', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -92,7 +74,7 @@ describe('Select examination timetable type page', () => {
 describe('Create examination timetable page', () => {
 	describe('POST /case/123/examination-timetable/item/new', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -114,7 +96,7 @@ describe('Create examination timetable page', () => {
 
 	describe('POST /case/123/examination-timetable/item/validate', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -276,7 +258,7 @@ describe('Create examination timetable page', () => {
 describe('Edit examination timetable', () => {
 	describe('GET /case/123/examination-timetable/item/1/edit', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -295,7 +277,7 @@ describe('Edit examination timetable', () => {
 
 describe('POST /case/123/examination-timetable/item/check-your-answers', () => {
 	beforeEach(async () => {
-		await request.get('/applications-service/case-team');
+		await request.get('/applications-service/');
 		nocks();
 	});
 
@@ -347,7 +329,7 @@ describe('POST /case/123/examination-timetable/item/check-your-answers', () => {
 
 describe('POST /case/123/examination-timetable/item/save', () => {
 	beforeEach(async () => {
-		await request.get('/applications-service/case-team');
+		await request.get('/applications-service/');
 		nocks();
 	});
 
@@ -370,7 +352,7 @@ describe('POST /case/123/examination-timetable/item/save', () => {
 describe('Publish examination timetable preview page', () => {
 	describe('GET /case/123/examination-timetable/preview', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -389,7 +371,7 @@ describe('Publish examination timetable preview page', () => {
 describe('Unpublish examination timetable preview page', () => {
 	describe('GET /case/123/examination-timetable/unpublish-preview', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -407,7 +389,7 @@ describe('Unpublish examination timetable preview page', () => {
 
 describe('Delete examination timetable', () => {
 	beforeEach(async () => {
-		await request.get('/applications-service/case-team');
+		await request.get('/applications-service/');
 		nocks();
 	});
 	describe('GET /case/123/examination-timetable/item/delete/1', () => {
@@ -461,7 +443,7 @@ describe('Delete examination timetable', () => {
 describe('Publish examination timetable success page', () => {
 	describe('POST /case/123/examination-timetable/preview', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -487,7 +469,7 @@ describe('Publish examination timetable success page', () => {
 describe('Unpublish examination timetable success page', () => {
 	describe('POST /case/123/examination-timetable/unpublish-preview', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 

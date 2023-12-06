@@ -14,7 +14,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, {});
+	nock('http://test/').get('/applications').reply(200, {});
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
 		.get(/\/applications\/3(.*)/g)
@@ -39,37 +39,22 @@ describe('applications edit', () => {
 		const baseUrl = '/applications-service/case/3/edit/name';
 
 		describe('GET /edit/name', () => {
-			describe('When role is:', () => {
-				describe('Inspector', () => {
-					it('should NOT render the form', async () => {
-						await request.get('/applications-service/inspector');
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+				nocks();
+			});
 
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
+			it('should render form', async () => {
+				const response = await request.get(baseUrl);
+				const element = parseHtml(response.text);
 
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).not.toContain('Save changes');
-					});
-				});
-				describe('Case team', () => {
-					beforeEach(async () => {
-						await request.get('/applications-service/case-team');
-						nocks();
-					});
-
-					it('should render form', async () => {
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Save changes');
-					});
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Save changes');
 			});
 
 			describe('When status is', () => {
 				beforeEach(async () => {
-					await request.get('/applications-service/case-team');
+					await request.get('/applications-service/');
 					nocks();
 				});
 
@@ -100,7 +85,7 @@ describe('applications edit', () => {
 			const baseUrl = '/applications-service/case/3/edit/description';
 
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 				nocks();
 			});
 
@@ -118,7 +103,7 @@ describe('applications edit', () => {
 		const baseUrl = `/applications-service/case/3/edit/project-location`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -137,7 +122,7 @@ describe('applications edit', () => {
 		const baseUrl = `/applications-service/case/3/edit/grid-references`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -157,7 +142,7 @@ describe('applications edit', () => {
 		const baseUrl = (/** @type {string} */ id) => `/applications-service/case/${id}/edit/regions`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
 		});
@@ -179,7 +164,7 @@ describe('applications edit', () => {
 			`/applications-service/case/${id}/edit/zoom-level`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});
@@ -200,7 +185,7 @@ describe('applications edit', () => {
 			`/applications-service/case/${id}/edit/team-email`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});

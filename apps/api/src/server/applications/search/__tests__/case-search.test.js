@@ -73,7 +73,6 @@ describe('Case search', () => {
 		// WHEN
 		const response = await request.post('/applications/search').send({
 			query: searchString,
-			role: 'case-team',
 			pageNumber: 1,
 			pageSize: 1
 		});
@@ -109,7 +108,6 @@ describe('Case search', () => {
 		// WHEN
 		const response = await request.post('/applications/search').send({
 			query: searchString,
-			role: 'case-team',
 			pageSize: 20
 		});
 
@@ -144,7 +142,6 @@ describe('Case search', () => {
 		// THEN
 		const response = await request.post('/applications/search').send({
 			query: searchString,
-			role: 'case-team',
 			pageNumber: 2
 		});
 
@@ -179,7 +176,6 @@ describe('Case search', () => {
 		// WHEN
 		const response = await request.post('/applications/search').send({
 			query: 'BCDEF',
-			role: 'case-team',
 			pageNumber: 1,
 			pageSize: 1
 		});
@@ -199,33 +195,12 @@ describe('Case search', () => {
 		);
 	});
 
-	test('should not be able to submit a search if the role is not valid', async () => {
-		// GIVEN
-
-		// WHEN
-		const resp = await request.post('/applications/search').send({
-			query: searchString,
-			role: 'validation-officer',
-			pageNumber: 1,
-			pageSize: 1
-		});
-
-		// THEN
-		expect(resp.status).toEqual(403);
-		expect(resp.body).toEqual({
-			errors: {
-				role: 'Role is not valid'
-			}
-		});
-	});
-
 	test('should not be able to submit a search if query does not have a value', async () => {
 		// GIVEN
 
 		// WHEN
 		const resp = await request.post('/applications/search').send({
 			query: '',
-			role: 'case-admin-officer',
 			pageNumber: 1,
 			pageSize: 5
 		});
@@ -247,7 +222,6 @@ describe('Case search', () => {
 			// WHEN
 			const resp = await request.post('/applications/search').send({
 				query: searchString,
-				role: 'case-admin-officer',
 				pageNumber: parameter,
 				pageSize: parameter
 			});

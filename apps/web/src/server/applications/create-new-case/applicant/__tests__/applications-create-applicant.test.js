@@ -9,7 +9,7 @@ const request = supertest(app);
 const successPatchPostResponse = { id: 1, applicantId: 1 };
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, []);
+	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').post('/applications').reply(200, successPatchPostResponse);
 	nock('http://test/').patch('/applications/123').reply(200, successPatchPostResponse);
 	nock('http://test/')
@@ -27,7 +27,7 @@ describe('applications create applicant', () => {
 	});
 
 	beforeEach(async () => {
-		await request.get('/applications-service/case-team');
+		await request.get('/applications-service/');
 	});
 
 	describe('GET /applicant-information-types', () => {
@@ -136,7 +136,7 @@ describe('applications create applicant', () => {
 
 		describe('POST /application-website', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 			});
 
 			describe('Web-side validation:', () => {
@@ -186,7 +186,7 @@ describe('applications create applicant', () => {
 
 		describe('POST /application-email', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 			});
 
 			describe('Web-side validation:', () => {
@@ -236,7 +236,7 @@ describe('applications create applicant', () => {
 
 		describe('POST /application-telephone-number', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 			});
 
 			describe('Web-side validation:', () => {

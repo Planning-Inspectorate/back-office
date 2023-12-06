@@ -72,7 +72,7 @@ describe('project-updates', () => {
 	describe('GET /applications-service/:caseId/project-updates', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the project updates table', async () => {
@@ -94,7 +94,7 @@ describe('project-updates', () => {
 	describe('GET /applications-service/:caseId/project-updates/create', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -115,7 +115,7 @@ describe('project-updates', () => {
 	describe('POST /applications-service/:caseId/project-updates/create', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		const tests = [
@@ -148,7 +148,7 @@ describe('project-updates', () => {
 	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/type', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -172,7 +172,7 @@ describe('project-updates', () => {
 				.patch(`/applications/${mockCaseReference.id}/project-updates/${mockProjectUpdate.id}`)
 				.reply(200)
 				.persist();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		const tests = [
@@ -195,7 +195,7 @@ describe('project-updates', () => {
 	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/status', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -220,7 +220,7 @@ describe('project-updates', () => {
 				.patch(`/applications/${mockCaseReference.id}/project-updates/${mockProjectUpdate.id}`)
 				.reply(200)
 				.persist();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		const tests = [
@@ -243,7 +243,7 @@ describe('project-updates', () => {
 	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/check-answers', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -268,7 +268,7 @@ describe('project-updates', () => {
 				.patch(`/applications/${mockCaseReference.id}/project-updates/${mockProjectUpdate.id}`)
 				.reply(200)
 				.persist();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		const tests = [
@@ -309,7 +309,7 @@ describe('project-updates', () => {
 	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/review', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -330,7 +330,7 @@ describe('project-updates', () => {
 	describe('GET /applications-service/:caseId/project-updates/:projectUpdateId/delete', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -354,7 +354,7 @@ describe('project-updates', () => {
 				.delete(`/applications/${mockCaseReference.id}/project-updates/${mockProjectUpdate.id}`)
 				.reply(204)
 				.persist();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {

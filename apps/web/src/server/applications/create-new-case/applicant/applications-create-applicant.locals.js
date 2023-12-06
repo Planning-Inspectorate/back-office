@@ -30,8 +30,6 @@ export const registerApplicantId = async (req, response, next) => {
 		const caseDraft = await getCase(caseId, ['applicant']);
 		const applicantId = caseDraft.applicant?.id;
 
-		console.info('caseDraft', caseDraft);
-
 		if (!applicantId) {
 			return next({ statusCode: 400, message: 'Applicant id is not defined' });
 		}

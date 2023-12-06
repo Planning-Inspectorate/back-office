@@ -6,7 +6,6 @@
 	{% set applicantFirstEmail = case.applicant.email %}
 	{% set applicantFirstPhoneNumber = case.applicant.phoneNumber %}
 	{% set applicantFirstWebsite = case.applicant.website %}
-	{% set userIsInspector = domainType === 'inspector' %}
 	{% set applicantFirstWebsiteValue = '' %}
 	{% if applicantFirstWebsite %}
 		{% set applicantFirstWebsiteValue = '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
@@ -51,11 +50,9 @@
       }
     ]
   }) }}
-	{% if not userIsInspector %}
 		<div class="govuk-!-margin-bottom-8">
 			<a class="govuk-link" href="{{ 'case-view'|url({caseId: caseId, step: 'project-information' }) }}">Update project information</a>
 		</div>
-	{% endif %}
 	<h2 class="govuk-heading-m">Project team</h2>
 	{% if displayableMembers.length > 0 or notDisplayableMembersExist%}
 
@@ -97,7 +94,7 @@
 		{{ govukButton({
       text: 'Preview and publish project',
       href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}) }) }}
-		{% if case.publishedDate and not userIsInspector %}
+		{% if case.publishedDate %}
 			<a
         href="../{{ caseId }}/unpublish"
         class="govuk-link colour--red govuk-body-m govuk-!-display-inline-block govuk-!-padding-1 govuk-!-margin-left-2">

@@ -61,7 +61,7 @@ describe('applications representations', () => {
 	describe('GET /applications-service/:caseId/relevant-representations', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page', async () => {
@@ -90,7 +90,7 @@ describe('applications representations', () => {
 	describe('GET /applications-service/:id/relevant-representations with a search term', () => {
 		beforeEach(async () => {
 			nocks();
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 		});
 
 		it('should render the page with search term', async () => {

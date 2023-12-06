@@ -10,7 +10,7 @@ import config from './config.js';
 async function getCaseID(caseReference) {
 	try {
 		const result = await got
-			.get(`https://${config.apiHost}/applications?reference=${caseReference}`)
+			.get(`https://${config.apiHost}/applications/reference/${caseReference}`)
 			.json();
 
 		return result.id;

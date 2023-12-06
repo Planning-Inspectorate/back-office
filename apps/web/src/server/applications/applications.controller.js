@@ -2,7 +2,6 @@ import { sortBy } from 'lodash-es';
 import * as applicationsService from './applications.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {import('./applications.router').DomainParams} DomainParams */
 /** @typedef {import('./applications.types').Case} Case */
 
 /**
@@ -14,12 +13,10 @@ import * as applicationsService from './applications.service.js';
 /**
  * View the domain-specific dashboard for the open applications.
  *
- * @type {import('@pins/express').RenderHandler<ViewDashboardRenderProps,
- * {}, {}, {}, DomainParams>}
+ * @type {import('@pins/express').RenderHandler<ViewDashboardRenderProps, {}, {}, {}, {}>}
  */
-export async function viewDashboard({ params }, res) {
-	const { domainType } = params;
-	const allCases = (await applicationsService.findOpenCasesByDomainType(domainType)) || [];
+export async function viewDashboard(_, res) {
+	const allCases = (await applicationsService.findOpenCases()) || [];
 	const readyCases = [];
 
 	let draftCases = [];

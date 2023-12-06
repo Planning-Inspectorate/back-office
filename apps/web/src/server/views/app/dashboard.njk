@@ -4,41 +4,29 @@
 {% set pageTitle = 'Back office services' %}
 
 {% block main %}
-  <div class="pins-masthead govuk-!-padding-top-9 govuk-!-padding-bottom-4">
-    <div class="govuk-width-container {{ containerClasses }}">
-      <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
-    </div>
-  </div>
-  <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main" {% if mainLang %} lang="{{ mainLang }}" {% endif %}>
-    <div class="govuk-width-container {{ containerClasses }}">
-      <div class="govuk-grid-row">
+	<div class="pins-masthead govuk-!-padding-top-9 govuk-!-padding-bottom-4">
+		<div class="govuk-width-container {{ containerclasses }}">
+			<h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+		</div>
+	</div>
+	<main class="govuk-main-wrapper {{ mainclasses }}" id="main-content" role="main" {% if mainlang %} lang="{{ mainlang }}" {% endif %}>
+		<div class="govuk-width-container {{ containerclasses }}">
+			<div class="govuk-grid-row">
         {% if applicationGroupIds.length > 0 %}
-          <div class="govuk-grid-column-one-half">
-            <h2 class="govuk-heading-m">Applications</h2>
-            <ul class="govuk-list">
-              {% if applicationGroupIds | includes(referenceData.applications.caseTeamGroupId) %}
-                <li>
-                  <a href="/applications-service/case-team" class="govuk-link">Case team</a>
-                </li>
-              {% endif %}
-              {% if applicationGroupIds | includes(referenceData.applications.caseAdminOfficerGroupId) %}
-                <li>
-                  <a href="/applications-service/case-admin-officer" class="govuk-link">Case admin officer</a>
-                </li>
-              {% endif %}
-              {% if applicationGroupIds | includes(referenceData.applications.inspectorGroupId) %}
-                <li>
-                  <a href="/applications-service/inspector" class="govuk-link">Inspector</a>
-                </li>
-              {% endif %}
-            </ul>
-          </div>
-        {% else %}
-          <div class="govuk-grid-column-two-thirds">
-            <p class="govuk-body">No groups found.</p>
-          </div>
-        {% endif %}
-      </div>
-    </div>
-  </main>
+					<div class="govuk-grid-column-one-half">
+						<h2 class="govuk-heading-m">Applications</h2>
+						<ul class="govuk-list">
+							<li>
+								<a href="/applications-service" class="govuk-link">Applications service</a>
+							</li>
+						</ul>
+					</div>
+				{% else %}
+					<div class="govuk-grid-column-two-thirds">
+						<p class="govuk-body">No groups found.</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</main>
 {% endblock %}

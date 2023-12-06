@@ -15,8 +15,6 @@ export async function searchApplications(req, response) {
 
 	const query = bodyQuery ?? req.query.q;
 
-	const role = response.locals.domainType;
-
 	if (errors || !query) {
 		return response.render('applications/search-results/search-results', {
 			errors: errors || {},
@@ -30,7 +28,6 @@ export async function searchApplications(req, response) {
 	const pageNumber = Number.parseInt(params?.pageNumber, 10) || 1;
 
 	const searchResponse = await applicationsService.searchApplications({
-		role,
 		query,
 		pageSize,
 		pageNumber

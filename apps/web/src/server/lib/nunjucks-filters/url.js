@@ -1,11 +1,9 @@
 import slugify from 'slugify';
 
-/** @typedef {import('../../applications/applications.types').DomainType} DomainType */
 /** @typedef {import('../../applications/applications.types').DocumentationCategory} DocumentationCategory */
 
 /**
  * @typedef {object} urlFilterArguments
- * @property {DomainType=} domainType
  * @property {number=} caseId
  * @property {number=} folderId
  * @property {number=} representationId
@@ -53,7 +51,6 @@ export const url = (key, filterArguments = {}) => {
 	const domainUrl = '/applications-service';
 	const { query } = filterArguments;
 
-	const domainType = getArgument('domainType', filterArguments);
 	const caseId = getArgument('caseId', filterArguments);
 	const folderId = getArgument('folderId', filterArguments);
 	const documentGuid = getArgument('documentGuid', filterArguments);
@@ -77,7 +74,7 @@ export const url = (key, filterArguments = {}) => {
 		case 'case-view':
 			return `${domainUrl}/case/${caseId}/${step}`;
 		case 'dashboard':
-			return `${domainUrl}/${domainType}`;
+			return `${domainUrl}/`;
 		case 'document':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/${step}`;
 		case 'document-edit':

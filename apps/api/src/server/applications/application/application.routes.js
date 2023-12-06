@@ -17,8 +17,23 @@ import {
 	validateGetApplicationQuery
 } from './application.validators.js';
 import { representaionsRouter } from './representations/representations.routes.js';
+import { getAllApplications } from '../all-applications/get-all-applications.controller.js';
 
 const router = createRouter();
+
+router.get(
+	'/',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/'
+        #swagger.description = 'Gets all applications'
+        #swagger.responses[200] = {
+            description: 'List of applications',
+            schema: { $ref: '#/definitions/ApplicationSummaryMany' }
+        }
+    */
+	asyncHandler(getAllApplications)
+);
 
 router.post(
 	'/',
@@ -42,13 +57,13 @@ router.post(
 );
 
 router.get(
-	'/',
+	'/reference/:reference',
 	/*
         #swagger.tags = ['Applications']
-        #swagger.path = '/applications'
+        #swagger.path = '/applications/reference/{reference}'
         #swagger.description = 'Returns the application by its string reference'
         #swagger.parameters['reference'] = {
-            in: 'query',
+            in: 'path',
             description: 'Application reference',
             required: false,
             type: 'string'

@@ -25,19 +25,18 @@
 
 {% block pageHeading %}{% endblock %}
 
-
 {% block beforeContent %}
-<aside>
-	{% set breadcrumbBackLink = 'dashboard'|url({domainType: domainType}) if layout.backLink == 'dashboard' else 'case-create'|url({caseId:caseId, step: layout.backLink}) %}
-	{% set computedBackLink = backPath if backPath else breadcrumbBackLink %}
-	{{ govukBackLink({
+	<aside>
+		{% set breadcrumbBackLink = 'dashboard'|url if layout.backLink == 'dashboard' else 'case-create'|url({caseId:caseId, step: layout.backLink}) %}
+		{% set computedBackLink = backPath if backPath else
+			breadcrumbBackLink %}
+		{{ govukBackLink({
 		classes: 'govuk-!-margin-top-3',
 		text: "Back",
 		href: computedBackLink
 	}) }}
-</aside>
+	</aside>
 {% endblock %}
-
 
 {% block pageContent %}
 	<h1 class="govuk-heading-l">
@@ -58,7 +57,8 @@
 				{% block stepButton %}
 					{% if formStage == 'searchPostcode'%}
 					{% else %}
-						{% set stepButtonText = 'Save changes' if layout.isEdit else 'Save and continue' %}
+						{% set stepButtonText = 'Save changes' if layout.isEdit else
+							'Save and continue' %}
 						{{ govukButton({ text: stepButtonText }) }}
 					{% endif %}
 				{% endblock %}
@@ -70,43 +70,43 @@
 {% macro renderComponent(componentName, layout) %}
 	{% if componentName == 'title' %}
 		{{ title(values, errors) }}
-		{% elif componentName == 'description' %}
+	{% elif componentName == 'description' %}
 		{{ description(values, errors) }}
-		{% elif componentName == 'grid-references' %}
+	{% elif componentName == 'grid-references' %}
 		{{ gridReferences(values, errors) }}
-		{% elif componentName == 'project-location' %}
+	{% elif componentName == 'project-location' %}
 		{{ projectLocation(values, errors, layout.isEdit) }}
-		{% elif componentName == 'sector' %}
+	{% elif componentName == 'sector' %}
 		{{ sector(values, errors, sectors) }}
-		{% elif componentName == 'sub-sector' %}
+	{% elif componentName == 'sub-sector' %}
 		{{ subSector(values, errors, subSectors) }}
-		{% elif componentName == 'regions' %}
+	{% elif componentName == 'regions' %}
 		{{ regions(allRegions, errors) }}
-    {% elif componentName == 'stage' %}
-    {{ stage(values, errors, stages) }}
-		{% elif componentName == 'zoom-level' %}
+	{% elif componentName == 'stage' %}
+		{{ stage(values, errors, stages) }}
+	{% elif componentName == 'zoom-level' %}
 		{{ zoomLevel(values, errors, zoomLevels) }}
-		{% elif componentName == 'team-email' %}
+	{% elif componentName == 'team-email' %}
 		{{ teamEmail(values, errors) }}
-		{% elif componentName == 'organisation-name' %}
+	{% elif componentName == 'organisation-name' %}
 		{{ organisationName(values, errors) }}
-		{% elif componentName == 'info-types' %}
+	{% elif componentName == 'info-types' %}
 		{{ infoTypes(applicantInfoTypes) }}
-		{% elif componentName == 'full-name' %}
+	{% elif componentName == 'full-name' %}
 		{{ fullName(values, errors) }}
-		{% elif componentName == 'applicant-email' %}
+	{% elif componentName == 'applicant-email' %}
 		{{ applicantEmail(values, errors) }}
-		{% elif componentName == 'telephone-number' %}
+	{% elif componentName == 'telephone-number' %}
 		{{ telephoneNumber(values, errors) }}
-		{% elif componentName == 'website' %}
+	{% elif componentName == 'website' %}
 		{{ website(values, errors) }}
-		{% elif componentName == 'address' %}
+	{% elif componentName == 'address' %}
 		{{ address(formStage, postcode, errors, addressList) }}
-		{% elif componentName == 'address-view' %}
+	{% elif componentName == 'address-view' %}
 		{{ addressView(postcode, applicantAddress, caseId) }}
-		{% elif componentName == 'date-internal' %}
+	{% elif componentName == 'date-internal' %}
 		{{ dateInternal(values, errors) }}
-		{% elif componentName == 'date-published' %}
+	{% elif componentName == 'date-published' %}
 		{{ datePublished(values, errors) }}
 	{% endif %}
 {% endmacro %}

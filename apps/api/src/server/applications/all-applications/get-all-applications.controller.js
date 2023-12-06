@@ -27,7 +27,7 @@ const getListOfStatuses = () => {
 /**
  * @type {import('express').RequestHandler}
  */
-export const getApplications = async (request, response) => {
+export const getAllApplications = async (request, response) => {
 	const applications = await caseRepository.getByStatus(getListOfStatuses());
 
 	// sort ascending order of subsector abbreviation, BC, EN, ... WA, WS, WW

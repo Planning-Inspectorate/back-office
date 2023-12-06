@@ -137,8 +137,8 @@ data-module=\\"govuk-header\\">
             <div class=\\"pins-column--central\\">
                 <p>Planning Inspectorate</p>
             </div>
-            <div class=\\"pins-column--right\\"><span class=\\"font-weight--700\\"></span><a href=\\"/\\" class=\\"govuk-link\\">Go to Dashboard</a>
-                <a                 href=\\"/auth/signout\\" class=\\"govuk-link\\">Sign out</a>
+            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"/auth/signout\\"
+                class=\\"govuk-link\\">Sign out</a>
             </div>
         </div>
     </div>
@@ -269,28 +269,10 @@ data-module=\\"govuk-header\\">
             <div class=\\"pins-column--central\\">
                 <p>Planning Inspectorate</p>
             </div>
-            <div class=\\"pins-column--right\\"><span class=\\"font-weight--700\\"></span><a href=\\"/\\" class=\\"govuk-link\\">Go to Dashboard</a>
-                <a                 href=\\"/auth/signout\\" class=\\"govuk-link\\">Sign out</a>
+            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"/auth/signout\\"
+                class=\\"govuk-link\\">Sign out</a>
             </div>
         </div>
     </div>
 </header>"
-`;
-
-exports[`auth authorization should display the services page when a user belongs to more than one group 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-width-container govuk-width-container\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <h2 class=\\"govuk-heading-m\\">Applications</h2>
-                <ul class=\\"govuk-list\\">
-                    <li><a href=\\"/applications-service/case-team\\" class=\\"govuk-link\\">Case team</a>
-                    </li>
-                    <li><a href=\\"/applications-service/case-admin-officer\\" class=\\"govuk-link\\">Case admin officer</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</main>"
 `;

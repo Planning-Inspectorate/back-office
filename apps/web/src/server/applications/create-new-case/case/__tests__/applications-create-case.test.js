@@ -15,7 +15,7 @@ const request = supertest(app);
 const successResponse = { id: 1, applicantId: 1 };
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, {});
+	nock('http://test/').get('/applications').reply(200, {});
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
 		.get(/\/applications\/1(.*)/g)
@@ -51,40 +51,14 @@ describe('applications create', () => {
 		describe('GET /create-new-case', () => {
 			const baseUrl = '/applications-service/create-new-case';
 
-			describe('When role is:', () => {
-				describe('Inspector', () => {
-					it('should NOT render the form', async () => {
-						await request.get('/applications-service/inspector');
+			it('should render form', async () => {
+				await request.get('/applications-service/');
 
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
+				const response = await request.get(baseUrl);
+				const element = parseHtml(response.text);
 
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).not.toContain('Save and continue');
-					});
-				});
-				describe('Case team', () => {
-					it('should render form', async () => {
-						await request.get('/applications-service/case-team');
-
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Save and continue');
-					});
-				});
-				describe('Case admin officer', () => {
-					it('should render form', async () => {
-						await request.get('/applications-service/case-admin-officer');
-
-						const response = await request.get(baseUrl);
-						const element = parseHtml(response.text);
-
-						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Save and continue');
-					});
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Save and continue');
 			});
 		});
 
@@ -92,7 +66,7 @@ describe('applications create', () => {
 			const baseUrl = '/applications-service/create-new-case/1';
 
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 				nocks();
 			});
 
@@ -117,7 +91,7 @@ describe('applications create', () => {
 			const baseUrl = '/applications-service/create-new-case';
 
 			beforeEach(async () => {
-				await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 				nocks();
 			});
 
@@ -199,7 +173,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/sector`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -249,7 +223,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/sub-sector`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -329,7 +303,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/geographical-information`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -446,7 +420,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/regions`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 			nock('http://test/').get('/applications/region').reply(200, fixtureRegions);
 		});
@@ -533,7 +507,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/zoom-level`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});
@@ -592,7 +566,7 @@ describe('applications create', () => {
 			`/applications-service/create-new-case/${id}/team-email`;
 
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 			nock('http://test/').get('/applications/zoom-level').reply(200, fixtureZoomLevels);
 		});

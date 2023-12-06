@@ -1,6 +1,6 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "./case-edit-link.component.njk" import caseEditLink %}
-{% macro caseApplicantTable(case, domainType, isPublishPage) %}
+{% macro caseApplicantTable(case, isPublishPage) %}
     {% set applicantFirstOrganisationName = case.applicant.organisationName %}
     {% set applicantFirstEmail = case.applicant.email %}
     {% set applicantFirstPhoneNumber = case.applicant.phoneNumber %}
@@ -18,7 +18,7 @@
         {% if not rowData.isProjectInfoOnly or (rowData.isProjectInfoOnly and not isPublishPage) %}
             {% set cols = [{text: rowData.title}, {html: rowData.value}] %}
             {% set linkCol =  {
-				html: caseEditLink({editStepUrl:rowData.url, caseId: case.id, domainType: domainType}),
+				html: caseEditLink({editStepUrl:rowData.url, caseId: case.id}),
 				classes: 'text-align--right pins-table__cell--s'
 			} %}
             {% if not isPublishPage %}

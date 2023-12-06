@@ -2,7 +2,7 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 import { getApplicationsByCriteria } from './case-search.controller.js';
-import { validateRole, validateSearchCriteria } from './case-search.validators.js';
+import { validateSearchCriteria } from './case-search.validators.js';
 
 const router = createRouter();
 
@@ -23,7 +23,6 @@ router.post(
             schema: { $ref: '#/definitions/ApplicationsSearchResponse' }
         }
     */
-	validateRole,
 	validateSearchCriteria,
 	trimUnexpectedRequestParameters,
 	asyncHandler(getApplicationsByCriteria)

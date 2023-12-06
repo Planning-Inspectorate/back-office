@@ -10,8 +10,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, []);
-	nock('http://test/').get('/applications/inspector').reply(200, []);
+	nock('http://test/').get('/applications').reply(200, []);
 
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 };
@@ -37,55 +36,41 @@ describe('Project team', () => {
 
 	describe('List page', () => {
 		describe('GET /case/123/project-team/', () => {
-			describe('If user is inspector', () => {
-				it('should not render the page', async () => {
-					await request.get('/applications-service/inspector');
+			it('should render the page without users', async () => {
+				nock('http://test/').get('/applications/123/project-team').reply(200, []);
+				installMockADToken(fixtureProjectTeamMembers);
 
-					const response = await request.get(`${baseUrl}`);
-					const element = parseHtml(response.text);
+				await request.get('/applications-service/');
 
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('problem with your login');
-				});
+				const response = await request.get(`${baseUrl}`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain('Actions');
+				expect(element.innerHTML).toContain('Project team');
 			});
 
-			describe('If user is not inspector', () => {
-				it('should render the page without users', async () => {
-					nock('http://test/').get('/applications/123/project-team').reply(200, []);
-					installMockADToken(fixtureProjectTeamMembers);
+			it('should render the page with users', async () => {
+				nock('http://test/')
+					.get('/applications/123/project-team')
+					.reply(200, [fixtureProjectTeamMembers[0]]);
+				installMockADToken(fixtureProjectTeamMembers);
 
-					await request.get('/applications-service/case-team');
+				await request.get('/applications-service/');
 
-					const response = await request.get(`${baseUrl}`);
-					const element = parseHtml(response.text);
+				const response = await request.get(`${baseUrl}`);
+				const element = parseHtml(response.text);
 
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).not.toContain('Actions');
-					expect(element.innerHTML).toContain('Project team');
-				});
-
-				it('should render the page with users', async () => {
-					nock('http://test/')
-						.get('/applications/123/project-team')
-						.reply(200, [fixtureProjectTeamMembers[0]]);
-					installMockADToken(fixtureProjectTeamMembers);
-
-					await request.get('/applications-service/case-team');
-
-					const response = await request.get(`${baseUrl}`);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
-					expect(element.innerHTML).toContain('Project team');
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
+				expect(element.innerHTML).toContain('Project team');
 			});
 		});
 	});
 
 	describe('Search page', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -158,7 +143,7 @@ describe('Project team', () => {
 
 	describe('Choose role page', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -238,7 +223,7 @@ describe('Project team', () => {
 
 	describe('Remove member', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/case-team');
+			await request.get('/applications-service/');
 			nocks();
 
 			const mockedTeamMemberWithRole = { ...fixtureProjectTeamMembers[0], role: 'inspector' };

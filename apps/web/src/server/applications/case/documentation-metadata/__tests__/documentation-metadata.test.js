@@ -12,7 +12,7 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications/case-team').reply(200, {});
+	nock('http://test/').get('/applications').reply(200, {});
 	nock('http://test/')
 		.get('/applications/123/documents/456/properties')
 		.reply(200, fixturePublishedDocumentationFile);
@@ -38,7 +38,7 @@ describe('Edit applications documentation metadata', () => {
 	beforeEach(async () => {
 		nocks();
 
-		await request.get('/applications-service/case-team');
+		await request.get('/applications-service/');
 	});
 
 	const baseUrl = '/applications-service/case/123/project-documentation/18/document/456/edit';
@@ -49,29 +49,13 @@ describe('Edit applications documentation metadata', () => {
 
 	describe('Edit name', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/name', () => {
-			describe('If user is inspector', () => {
-				it('should not render the page', async () => {
-					nock('http://test/').get('/applications/inspector').reply(200, {});
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/name`);
+				const element = parseHtml(response.text);
 
-					await request.get('/applications-service/inspector');
-
-					const response = await request.get(`${baseUrl}/name`);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('problem with your login');
-				});
-			});
-
-			describe('If user is not inspector', () => {
-				it('should render the page with values', async () => {
-					const response = await request.get(`${baseUrl}/name`);
-					const element = parseHtml(response.text);
-
-					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Enter file name');
-					expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.fileName);
-				});
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Enter file name');
+				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.fileName);
 			});
 		});
 

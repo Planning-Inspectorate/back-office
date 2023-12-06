@@ -1,9 +1,8 @@
-import { Application, DomainType } from '../../applications.types';
+import { Application } from '../../applications.types';
 import { ValidationErrors } from '@pins/express';
 
 export type ApplicationsSearchResultsBody = {
 	query: string;
-	role: DomainType;
 	pageNumber: number;
 	pageSize: number;
 };

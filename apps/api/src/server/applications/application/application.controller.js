@@ -85,12 +85,12 @@ export const getApplicationDetails = async ({ params, query }, response) => {
 /**
  * @type {import("express").RequestHandler}
  * */
-export const queryApplications = async ({ query }, response) => {
-	if (!query.reference) {
+export const queryApplications = async ({ params }, response) => {
+	if (!params.reference) {
 		throw new BackOfficeAppError('no `reference` query string was given', 400);
 	}
 
-	const application = await getCaseByRef(String(query.reference));
+	const application = await getCaseByRef(String(params.reference));
 	if (!application) {
 		response.end(404);
 		return;
