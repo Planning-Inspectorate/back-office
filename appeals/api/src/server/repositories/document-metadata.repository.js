@@ -1,16 +1,33 @@
 import { databaseConnector } from '#utils/database-connector.js';
+import documentRedactionStatusRepository from '#repositories/document-redaction-status.repository.js';
 import { findPreviousVersion } from '#utils/find-previous-version.js';
 import { mapBlobPath } from '#endpoints/documents/documents.mapper.js';
 import { randomUUID } from 'node:crypto';
 
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
+/** @typedef {import('@pins/appeals.api').Schema.DocumentRedactionStatus} RedactionStatus */
+
+/**
+ * @returns {Promise<RedactionStatus | undefined>}
+ */
+const getDefaultRedactionStatus = async () => {
+	const redactionStatuses =
+		await documentRedactionStatusRepository.getAllDocumentRedactionStatuses();
+	const defaultRedactionStatus = 'Unredacted';
+	const unredactedStatus = redactionStatuses.find(
+		(redactionStatus) => redactionStatus.name === defaultRedactionStatus
+	);
+	return unredactedStatus;
+};
+
 /**
  * @param {any} metadata
  * @param {any} context
  * @returns {Promise<DocumentVersion | null>}
  */
 export const addDocument = async (metadata, context) => {
+	const unredactedStatus = await getDefaultRedactionStatus();
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		const document = await tx.document.create({
 			data: {
@@ -30,7 +47,23 @@ export const addDocument = async (metadata, context) => {
 		}/${metadata.blobStoragePath}`;
 
 		const documentVersion = await tx.documentVersion.upsert({
-			create: { ...metadata, version: newVersionId, parentDocument: { connect: { guid } } },
+			create: {
+				...metadata,
+				version: newVersionId,
+				parentDocument: {
+					connect: {
+						guid
+					}
+				},
+				dateReceived: new Date().toISOString(),
+				redactionStatus: {
+					connect: {
+						id: unredactedStatus?.id
+					}
+				},
+				published: false,
+				draft: true
+			},
 			where: { documentGuid_version: { documentGuid: guid, version: newVersionId } },
 			update: {}
 		});
@@ -56,6 +89,7 @@ export const addDocument = async (metadata, context) => {
  * @returns {Promise<DocumentVersion | null>}
  */
 export const addDocumentVersion = async ({ context, documentGuid, ...metadata }) => {
+	const unredactedStatus = await getDefaultRedactionStatus();
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		const document = await tx.document.findFirst({
 			include: { case: true },
@@ -73,14 +107,25 @@ export const addDocumentVersion = async ({ context, documentGuid, ...metadata })
 
 		metadata.fileName = name;
 		metadata.blobStoragePath = mapBlobPath(documentGuid, reference, name, newVersionId);
-
 		metadata.documentURI = `${context.blobStorageHost}/${metadata.blobStorageContainer}/${metadata.blobStoragePath}`;
 
 		await tx.documentVersion.upsert({
 			create: {
 				...metadata,
 				version: newVersionId,
-				parentDocument: { connect: { guid: documentGuid } }
+				parentDocument: {
+					connect: {
+						guid: documentGuid
+					}
+				},
+				dateReceived: new Date().toISOString(),
+				redactionStatus: {
+					connect: {
+						id: unredactedStatus?.id
+					}
+				},
+				published: false,
+				draft: true
 			},
 			where: { documentGuid_version: { documentGuid, version: newVersionId } },
 			update: {}

@@ -871,9 +871,7 @@ const folderPathToFolderNameText = (folderPath) => {
  * @returns {PageContent}
  */
 export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
-	const latestDocuments = folder.documents.filter(
-		(document) => document.latestDocumentVersion?.draft === false
-	);
+	const latestDocuments = folder.documents;
 
 	/** @type {PageContent} */
 	const pageContent = {

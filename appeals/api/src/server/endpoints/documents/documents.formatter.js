@@ -10,19 +10,23 @@ const formatFolder = (folder) => ({
 	caseId: folder.caseId,
 	// @ts-ignore
 	documents:
-		folder.documents?.map((/** @type {Document} */ document) => ({
-			id: document.guid,
-			name: document.name,
-			latestDocumentVersion: {
-				published: document?.latestDocumentVersion?.published,
-				dateReceived: document?.latestDocumentVersion?.dateReceived,
-				redactionStatus: document?.latestDocumentVersion?.redactionStatusId,
-				virusCheckStatus: document?.latestDocumentVersion?.virusCheckStatus,
-				size: document?.latestDocumentVersion?.size,
-				mime: document?.latestDocumentVersion?.mime,
-				draft: document?.latestDocumentVersion?.draft
-			}
-		})) || null,
+		folder.documents
+			?.filter((document) => {
+				return document.isDeleted === false;
+			})
+			.map((/** @type {Document} */ document) => ({
+				id: document.guid,
+				name: document.name,
+				latestDocumentVersion: {
+					published: document?.latestDocumentVersion?.published,
+					dateReceived: document?.latestDocumentVersion?.dateReceived,
+					redactionStatus: document?.latestDocumentVersion?.redactionStatusId,
+					virusCheckStatus: document?.latestDocumentVersion?.virusCheckStatus,
+					size: document?.latestDocumentVersion?.size,
+					mime: document?.latestDocumentVersion?.mime,
+					draft: document?.latestDocumentVersion?.draft
+				}
+			})) || null,
 	id: folder.id,
 	path: folder.path
 });
