@@ -190,13 +190,12 @@ describe('auth', () => {
 	});
 
 	describe('authorization', () => {
-		it('should display the services page when a user belongs to more than one group', async () => {
+		it('should go the dashboard page when a user belongs to more than one group', async () => {
 			await signinWithGroups(['applications_case_admin_officer', 'applications_case_team']);
 
 			const response = await request.get('/');
-			const element = parseHtml(response.text);
 
-			expect(element.innerHTML).toMatchSnapshot();
+			expect(response?.headers?.location).toEqual('/applications-service');
 		});
 
 		describe('/applications-service/', () => {
