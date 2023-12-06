@@ -27,6 +27,7 @@ export function loadConfig() {
 	const {
 		API_HOST,
 		APP_HOSTNAME,
+		APPLICATIONINSIGHTS_CONNECTION_STRING,
 		APPEALS_CASE_OFFICER_GROUP_ID,
 		APPEALS_INSPECTOR_GROUP_ID,
 		APPEALS_LEGAL_TEAM_GROUP_ID,
@@ -56,6 +57,7 @@ export function loadConfig() {
 	const config = {
 		...baseConfig,
 		appHostname: APP_HOSTNAME,
+		appInsightsConnectionString: APPLICATIONINSIGHTS_CONNECTION_STRING,
 		apiUrl: API_HOST,
 		authDisabled: AUTH_DISABLED,
 		authDisabledGroupIds: AUTH_DISABLED_GROUP_IDS.split(','),
