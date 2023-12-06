@@ -107,6 +107,12 @@ export const formatListOfListedBuildingNumbers = (
  * @returns {HtmlProperty & ClassesProperty}
  */
 export const formatDocumentValues = (appealId, listOfDocuments) => {
+	logger.info(
+		`formatting document values for appealId ${appealId}, listOfDocuments:\n${JSON.stringify(
+			listOfDocuments
+		)}`
+	);
+
 	/** @type {HtmlProperty} */
 	const htmlProperty = {
 		html: '',

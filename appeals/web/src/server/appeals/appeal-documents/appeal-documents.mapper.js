@@ -5,6 +5,7 @@ import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapp
 import usersService from '#appeals/appeal-users/users-service.js';
 import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
+import logger from '#lib/logger.js';
 
 /**
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
@@ -117,6 +118,8 @@ function mapVirusCheckStatus(virusCheckStatus) {
 			result.statusText = 'virus_scanning';
 			break;
 	}
+
+	logger.info(`mapped virus check status:\n${JSON.stringify(result)}`);
 
 	return result;
 }
@@ -268,6 +271,11 @@ export function addDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
  * @returns {HtmlProperty & ClassesProperty}
  */
 function mapFolderDocumentInformationHtmlProperty(folder, document) {
+	logger.info(
+		`mapping folder document information HtmlProperty for folder:\n${JSON.stringify(folder)}`
+	);
+	logger.info(`and document:\n${JSON.stringify(document)}`);
+
 	/** @type {HtmlProperty} */
 	const htmlProperty = {
 		html: '',
@@ -360,6 +368,8 @@ function mapFolderDocumentActionsHtmlProperty(folder, document, viewAndEditUrl) 
  * @returns {PageContent}
  */
 export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionStatuses) {
+	logger.info(`mapping manageFolderPage for folder:\n${JSON.stringify(folder)}`);
+
 	/** @type {PageContent} */
 	const pageContent = {
 		title: 'Manage documents',
@@ -417,6 +427,11 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
  * @returns {HtmlProperty & ClassesProperty}
  */
 function mapVersionDocumentInformationHtmlProperty(document, documentVersion) {
+	logger.info(
+		`mapping version document information HtmlProperty for document:\n${JSON.stringify(document)}`
+	);
+	logger.info(`and documentVersion:\n${JSON.stringify(documentVersion)}`);
+
 	/** @type {HtmlProperty} */
 	const htmlProperty = {
 		html: '',
@@ -559,6 +574,8 @@ export async function manageDocumentPage(
 	folder,
 	request
 ) {
+	logger.info(`mapping manageDocumentPage for document:\n${JSON.stringify(document)}`);
+
 	const uploadUrl = request.originalUrl.replace('manage-documents', 'add-documents');
 	const changeDetailsUrl = request.originalUrl.replace(
 		'manage-documents',
