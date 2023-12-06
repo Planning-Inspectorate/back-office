@@ -276,19 +276,3 @@ data-module=\\"govuk-header\\">
     </div>
 </header>"
 `;
-
-exports[`auth authorization should display the services page when a user belongs to more than one group 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-width-container \\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <h2 class=\\"govuk-heading-m\\">Applications</h2>
-                <ul class=\\"govuk-list\\">
-                    <li><a href=\\"/applications-service\\" class=\\"govuk-link\\">Applications service</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</main>"
-`;

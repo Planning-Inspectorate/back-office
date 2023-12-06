@@ -26,16 +26,9 @@ export function viewHomepage(request, response, next) {
 		userGroups
 	);
 
-	// User is authenticated, but does not belong to any of the groups required to
-	// visit the application
+	// The user belongs to an allowed group in the applications service
 
-	if (applicationGroupIds.length === 0) {
-		return response.render('app/403');
-	}
-
-	// The user belongs to a single group in the applications service only
-
-	if (applicationGroupIds.length === 1) {
+	if (applicationGroupIds.length > 0) {
 		const { caseAdminOfficerGroupId, caseTeamGroupId, inspectorGroupId } =
 			config.referenceData.applications;
 
@@ -53,10 +46,9 @@ export function viewHomepage(request, response, next) {
 		}
 	}
 
-	response.render('app/dashboard', {
-		referenceData: config.referenceData,
-		applicationGroupIds
-	});
+	// the user does not belong to any group (i.e. is unauthenticated)
+	// show 403 page
+	return response.render('app/403');
 }
 
 /** @type {import('express').RequestHandler} */
