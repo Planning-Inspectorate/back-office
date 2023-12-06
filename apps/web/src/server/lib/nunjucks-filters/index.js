@@ -32,6 +32,7 @@ export { fileType } from './mime-type.js';
 export { statusName } from './status-name.js';
 export { keyDatesProperty } from './key-dates-property.js';
 export { setAttribute } from './set-attribute.js';
+export { sanitize } from './sanitize.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 export { actionsParameterForDocumentStatus } from './actions-parameter-for-document-status.js';
 export { formatNameOrg } from './format-name-org.js';
