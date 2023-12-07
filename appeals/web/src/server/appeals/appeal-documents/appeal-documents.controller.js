@@ -4,7 +4,8 @@ import {
 	getDocumentRedactionStatuses,
 	updateDocuments,
 	getFileVersionsInfo,
-	getFileInfo
+	getFileInfo,
+	deleteDocument
 } from './appeal.documents.service.js';
 import {
 	mapDocumentDetailsFormDataToAPIRequest,
@@ -12,8 +13,10 @@ import {
 	manageFolderPage,
 	manageDocumentPage,
 	mapRedactionStatusIdToName,
-	changeDocumentDetailsPage
+	changeDocumentDetailsPage,
+	deleteDocumentPage
 } from './appeal-documents.mapper.js';
+
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
@@ -123,12 +126,20 @@ export const renderManageFolder = async (request, response, backButtonUrl, viewA
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  * @param {string} backButtonUrl
+ * @param {string} uploadUpdatedDocumentUrl
+ * @param {string} removeDocumentUrl
  */
-export const renderManageDocument = async (request, response, backButtonUrl) => {
+export const renderManageDocument = async (
+	request,
+	response,
+	backButtonUrl,
+	uploadUpdatedDocumentUrl,
+	removeDocumentUrl
+) => {
 	const {
 		currentFolder,
 		errors,
-		params: { appealId, documentId }
+		params: { appealId, documentId, versionId }
 	} = request;
 
 	if (!currentFolder) {
@@ -149,9 +160,13 @@ export const renderManageDocument = async (request, response, backButtonUrl) => 
 	}
 
 	const mappedPageContent = await manageDocumentPage(
+		appealId,
 		backButtonUrl,
+		uploadUpdatedDocumentUrl,
+		removeDocumentUrl,
 		redactionStatuses,
 		document,
+		versionId,
 		currentFolder,
 		request
 	);
@@ -300,4 +315,104 @@ export const postChangeDocumentDetails = async (request, response, backButtonUrl
 
 		return response.render('app/500.njk');
 	}
+};
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {string} backButtonUrl
+ */
+export const renderDeleteDocument = async (request, response, backButtonUrl) => {
+	const {
+		currentFolder,
+		errors,
+		params: { appealId, documentId, versionId }
+	} = request;
+
+	if (!currentFolder) {
+		return response.status(404).render('app/404.njk');
+	}
+
+	const [document, redactionStatuses] = await Promise.all([
+		getFileVersionsInfo(request.apiClient, appealId, documentId),
+		getDocumentRedactionStatuses(request.apiClient)
+	]);
+
+	if (!document) {
+		return response.status(404).render('app/404.njk');
+	}
+
+	if (!redactionStatuses) {
+		return response.render('app/500.njk');
+	}
+
+	const mappedPageContent = await deleteDocumentPage(
+		backButtonUrl,
+		redactionStatuses,
+		document,
+		currentFolder,
+		versionId
+	);
+
+	return response.render('appeals/documents/delete-document.njk', {
+		pageContent: mappedPageContent,
+		errors
+	});
+};
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {string} returnUrl
+ * @param {string} uploadNewDocumentVersionUrl
+ */
+export const postDocumentDelete = async (
+	request,
+	response,
+	returnUrl,
+	uploadNewDocumentVersionUrl
+) => {
+	const {
+		apiClient,
+		currentFolder,
+		body,
+		errors,
+		params: { appealId, documentId, versionId }
+	} = request;
+
+	if (errors) {
+		return renderDeleteDocument(request, response, returnUrl);
+	}
+
+	if (!currentFolder) {
+		return response.status(404).render('app/404.njk');
+	}
+
+	if (!body['delete-file-answer'] || !appealId || !documentId || !versionId) {
+		return response.render('app/500.njk');
+	}
+
+	const returnUrlProcessed = returnUrl?.replace('{{folderId}}', currentFolder.id);
+	const uploadNewDocumentVersionUrlProcessed = uploadNewDocumentVersionUrl
+		?.replace('{{folderId}}', currentFolder.id)
+		.replace('{{documentId}}', documentId);
+
+	if (body['delete-file-answer'] === 'no') {
+		return response.redirect(returnUrlProcessed);
+	} else if (body['delete-file-answer'] === 'yes') {
+		await deleteDocument(apiClient, appealId, documentId, versionId);
+		addNotificationBannerToSession(
+			request.session,
+			'documentDeleted',
+			Number.parseInt(appealId, 10)
+		);
+		return response.redirect(returnUrlProcessed);
+	} else if (body['delete-file-answer'] === 'yes-and-upload-new-document') {
+		await deleteDocument(apiClient, appealId, documentId, versionId);
+		return response.redirect(uploadNewDocumentVersionUrlProcessed);
+	}
+
+	return response.render('app/500.njk');
 };

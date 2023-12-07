@@ -109,3 +109,25 @@ export const updateDocuments = async (apiClient, appealId, documentDetails) => {
 		);
 	}
 };
+
+/**
+ * @param {import('got').Got} apiClient
+ * @param {string} appealId
+ * @param {string} documentId
+ * @param {string} versionId
+ * @returns {Promise<Document|undefined>}
+ */
+export const deleteDocument = async (apiClient, appealId, documentId, versionId) => {
+	try {
+		return await apiClient
+			.delete(`appeals/${appealId}/documents/${documentId}/${versionId}`)
+			.json();
+	} catch (error) {
+		logger.error(
+			error,
+			error instanceof Error
+				? error.message
+				: `An error occurred while attempting to delete the document`
+		);
+	}
+};

@@ -73,8 +73,9 @@ router
 	.get(validateCaseFolderId, controller.getManageFolder);
 
 router
-	.route('/:lpaQuestionnaireId/manage-documents/:folderId/:documentId')
-	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument);
+	.route('/:lpaQuestionnaireId/manage-documents/:folderId/:documentId/:versionId')
+	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument)
+	.post(validateCaseFolderId, validateCaseDocumentId, controller.postAddDocumentDetails);
 
 router
 	.route('/:lpaQuestionnaireId/change-document-details/:folderId/:documentId')
@@ -88,6 +89,16 @@ router
 		documentsValidators.validateDocumentDetailsRedactionStatuses,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		controller.postChangeDocumentVersionDetails
+	);
+
+router
+	.route('/:lpaQuestionnaireId/manage-documents/:folderId/:documentId/:versionId/delete')
+	.get(validateCaseFolderId, validateCaseDocumentId, controller.getDeleteDocument)
+	.post(
+		validateCaseFolderId,
+		validateCaseDocumentId,
+		documentsValidators.validateDocumentDeleteAnswer,
+		controller.postDeleteDocument
 	);
 
 export default router;

@@ -56,6 +56,11 @@ export const notificationBannerDefinitions = {
 		type: 'success',
 		text: 'Document details updated'
 	},
+	documentDeleted: {
+		pages: ['appellantCase', 'lpaQuestionnaire'],
+		type: 'success',
+		text: 'Document removed'
+	},
 	appellantCaseNotValid: {
 		pages: ['appellantCase'],
 		persist: true

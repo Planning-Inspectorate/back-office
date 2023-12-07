@@ -75,7 +75,7 @@ router
 router.route('/manage-documents/:folderId/').get(validateCaseFolderId, controller.getManageFolder);
 
 router
-	.route('/manage-documents/:folderId/:documentId')
+	.route('/manage-documents/:folderId/:documentId/:versionId')
 	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument);
 
 router
@@ -90,6 +90,16 @@ router
 		documentsValidators.validateDocumentDetailsRedactionStatuses,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		controller.postChangeDocumentVersionDetails
+	);
+
+router
+	.route('/manage-documents/:folderId/:documentId/:versionId/delete')
+	.get(validateCaseFolderId, validateCaseDocumentId, controller.getDeleteDocument)
+	.post(
+		validateCaseFolderId,
+		validateCaseDocumentId,
+		documentsValidators.validateDocumentDeleteAnswer,
+		controller.postDeleteDocument
 	);
 
 export default router;
