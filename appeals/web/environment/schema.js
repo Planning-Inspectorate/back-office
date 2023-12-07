@@ -18,6 +18,7 @@ export const baseSchema = joi
 export default baseSchema
 	.append({
 		appHostname: joi.string(),
+		appInsightsConnectionString: joi.string().optional(),
 		apiUrl: joi.string().uri(),
 		authDisabled: joi.boolean().optional(),
 		authDisabledGroupIds: joi.array().optional(),
