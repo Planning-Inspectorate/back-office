@@ -439,12 +439,16 @@ function mapVersionDocumentInformationHtmlProperty(document, documentVersion) {
 			wrapperHtml: linkWrapperHtml,
 			parameters: {
 				html:
-					document && documentVersion && document?.caseId && document?.guid
+					document &&
+					documentVersion &&
+					!documentVersion.isDeleted &&
+					document?.caseId &&
+					document?.guid
 						? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
 								document?.caseId,
 								document.guid
 						  )}">${document.name || ''}</a>`
-						: ''
+						: document.name || ''
 			}
 		});
 	} else {
@@ -496,13 +500,17 @@ function mapDocumentNameHtmlProperty(document, documentVersion) {
 			wrapperHtml: linkWrapperHtml,
 			parameters: {
 				html:
-					document && documentVersion && document?.caseId && document?.guid
+					document &&
+					documentVersion &&
+					!documentVersion.isDeleted &&
+					document?.caseId &&
+					document?.guid
 						? `<a class="govuk-link" href="${mapDocumentDownloadUrl(
 								document.caseId,
 								document.guid,
 								documentVersion.version
 						  )}">${document.name || ''}</a>`
-						: ''
+						: document.name || ''
 			}
 		});
 	} else {
@@ -545,21 +553,28 @@ function mapDocumentNameHtmlProperty(document, documentVersion) {
 }
 
 /**
+ * @param {string|number} appealId
  * @param {string} backLinkUrl
+ * @param {string} uploadUpdatedDocumentUrl
+ * @param {string} removeDocumentUrl
  * @param {RedactionStatus[]} redactionStatuses
  * @param {DocumentDetails} document
+ * @param {string} versionId
  * @param {FolderInfo & {id: string, caseId: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
  * @param {import('@pins/express/types/express.js').Request} request
  * @returns {Promise<PageContent>}
  */
 export async function manageDocumentPage(
+	appealId,
 	backLinkUrl,
+	uploadUpdatedDocumentUrl,
+	removeDocumentUrl,
 	redactionStatuses,
 	document,
+	versionId,
 	folder,
 	request
 ) {
-	const uploadUrl = request.originalUrl.replace('manage-documents', 'add-documents');
 	const changeDetailsUrl = request.originalUrl.replace(
 		'manage-documents',
 		'change-document-details'
@@ -577,6 +592,22 @@ export async function manageDocumentPage(
 
 	const latestVersion = getDocumentLatestVersion(document);
 	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(latestVersion);
+
+	let versionIdProcessed;
+	if (versionId === 'latest') {
+		versionIdProcessed = document?.latestVersionId?.toString() || '';
+	} else {
+		versionIdProcessed = versionId;
+	}
+
+	const removeDocumentUrlProcessed = removeDocumentUrl
+		?.replace('{{folderId}}', folder.id)
+		.replace('{{documentId}}', document.guid || '')
+		.replace('{{versionId}}', versionIdProcessed);
+
+	const uploadNewVersionUrl = uploadUpdatedDocumentUrl
+		.replace('{{folderId}}', folder.id)
+		.replace('{{documentId}}', document.guid || '');
 
 	/** @type {PageContent} */
 	const pageContent = {
@@ -604,7 +635,7 @@ export async function manageDocumentPage(
 								{
 									key: { text: 'Version' },
 									value: {
-										text: document?.latestVersionId?.toString() || ''
+										text: versionIdProcessed
 									}
 								},
 								{
@@ -654,7 +685,7 @@ export async function manageDocumentPage(
 								type: 'button',
 								parameters: {
 									id: 'upload-updated-document',
-									href: uploadUrl,
+									href: uploadNewVersionUrl,
 									classes: 'govuk-!-margin-right-2',
 									text: 'Upload an updated document'
 								}
@@ -663,7 +694,7 @@ export async function manageDocumentPage(
 								type: 'button',
 								parameters: {
 									id: 'remove-document',
-									href: '#',
+									href: removeDocumentUrlProcessed,
 									classes: 'govuk-button--secondary',
 									text: 'Remove this document'
 								}
@@ -728,9 +759,16 @@ export async function manageDocumentPage(
 														)
 													},
 													{
-														html: versionVirusCheckStatus.checked
-															? '<a class="govuk-link" href="#">Remove</a>'
-															: ''
+														html:
+															documentVersion.isDeleted || !versionVirusCheckStatus.checked
+																? ''
+																: `<a class="govuk-link" href="${removeDocumentUrl
+																		?.replace('{{folderId}}', folder.id)
+																		.replace('{{documentId}}', document.guid || '')
+																		.replace(
+																			'{{versionId}}',
+																			documentVersion.version?.toString() || ''
+																		)}">Remove</a>`
 													}
 												];
 											})
@@ -741,6 +779,131 @@ export async function manageDocumentPage(
 						}
 					}
 				]
+			}
+		]
+	};
+
+	pageContent.pageComponentGroups?.forEach((group) =>
+		preRenderPageComponents(group.pageComponents)
+	);
+
+	return pageContent;
+}
+
+/**
+ * @param {string} backLinkUrl
+ * @param {RedactionStatus[]} redactionStatuses
+ * @param {DocumentDetails} document
+ * @param {FolderInfo & {id: string, caseId: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
+ * @param {string} versionId
+ * @returns {Promise<PageContent>}
+ */
+export async function deleteDocumentPage(
+	backLinkUrl,
+	redactionStatuses,
+	document,
+	folder,
+	versionId
+) {
+	const totalDocumentVersions =
+		document.documentVersion?.filter((documentVersion) => !documentVersion.isDeleted).length || 1;
+
+	const radioEntries = [
+		{
+			text: 'Yes',
+			value: 'yes'
+		}
+	];
+
+	if (totalDocumentVersions === 1) {
+		radioEntries.push({
+			text: 'Yes, and upload new document',
+			value: 'yes-and-upload-new-document'
+		});
+	}
+
+	radioEntries.push({
+		text: 'No',
+		value: 'no'
+	});
+
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Remove document',
+		backLinkText: 'Back',
+		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
+		preHeading: 'Manage documents',
+		heading: 'Are you sure you want to remove this document?',
+		pageComponentGroups: [
+			{
+				wrapperHtml: {
+					opening: '<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">',
+					closing: ''
+				},
+				pageComponents: [
+					{
+						type: 'summary-list',
+						parameters: {
+							rows: [
+								{
+									key: { text: 'File' },
+									value: {
+										html: document && document?.name ? document.name : ''
+									}
+								},
+								{
+									key: { text: 'Version' },
+									value: {
+										text: versionId || ''
+									}
+								}
+							]
+						}
+					},
+					{
+						type: 'html',
+						parameters: {
+							html:
+								totalDocumentVersions === 1
+									? `<div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+										<strong class="govuk-warning-text__text">
+											<span class="govuk-warning-text__assistive">Warning</span> Removing the only version will delete the document from the case
+										</strong>
+									</div>`
+									: ''
+						}
+					}
+				]
+			},
+			{
+				wrapperHtml: {
+					opening: '<form method="POST">',
+					closing: '</form>'
+				},
+				pageComponents: [
+					{
+						type: 'radios',
+						parameters: {
+							name: 'delete-file-answer',
+							items: radioEntries
+						}
+					},
+					{
+						type: 'button',
+						parameters: {
+							id: 'remove-document-button',
+							type: 'submit',
+							text: 'Continue'
+						}
+					}
+				]
+			},
+			{
+				wrapperHtml: {
+					opening: '',
+					closing: '</div></div>'
+				},
+				pageComponents: []
 			}
 		]
 	};
@@ -767,30 +930,41 @@ const getDocumentLatestVersion = (document) => {
  * @param {DocumentVersionDetails} documentVersion
  * @param {DocumentVersionAuditEntry[]} documentVersionAuditItems
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
+ * @returns {Promise<string>}
  */
 const mapDocumentVersionToAuditActivityHtml = async (
 	documentVersion,
 	documentVersionAuditItems,
 	session
 ) => {
-	const matchingAuditItem = (documentVersionAuditItems || []).find(
+	const matchingAuditItems = (documentVersionAuditItems || []).filter(
 		(auditItem) => auditItem.version === documentVersion.version
 	);
 
-	if (!matchingAuditItem) {
+	if (!matchingAuditItems || !matchingAuditItems.length) {
 		return '';
 	}
 
-	if (matchingAuditItem.auditTrail?.loggedAt && matchingAuditItem.auditTrail?.user) {
-		const loggedAt = new Date(matchingAuditItem.auditTrail.loggedAt);
-		const userName = await mapAuditTrailUserToName(matchingAuditItem.auditTrail?.user, session);
+	let auditActivityHtml = '';
 
-		return `<p class="govuk-body"><strong>${matchingAuditItem.action}</strong>: ${dateToDisplayTime(
-			loggedAt
-		)}, ${dateToDisplayDate(loggedAt)}${userName.length > 0 ? `,<br/>by ${userName}` : ''}</p>`;
-	}
+	const composeAuditActivityHtmlAsynced = async () => {
+		for (const matchingAuditItem of matchingAuditItems) {
+			if (matchingAuditItem.auditTrail?.loggedAt && matchingAuditItem.auditTrail?.user) {
+				const loggedAt = new Date(matchingAuditItem.auditTrail.loggedAt);
+				const userName = await mapAuditTrailUserToName(matchingAuditItem.auditTrail?.user, session);
 
-	return '';
+				auditActivityHtml += `<p class="govuk-body"><strong>${
+					matchingAuditItem.action
+				}</strong>: ${dateToDisplayTime(loggedAt)}, ${dateToDisplayDate(loggedAt)}${
+					userName.length > 0 ? `,<br/>by ${userName}` : ''
+				}</p>`;
+			}
+		}
+	};
+
+	await composeAuditActivityHtmlAsynced();
+
+	return auditActivityHtml;
 };
 
 /**

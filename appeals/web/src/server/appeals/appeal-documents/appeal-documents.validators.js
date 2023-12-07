@@ -107,3 +107,7 @@ export const validateDocumentDetailsRedactionStatuses = createValidator(
 		})
 		.withMessage('Please provide a redaction status for every document listed')
 );
+
+export const validateDocumentDeleteAnswer = createValidator(
+	body('delete-file-answer').trim().notEmpty().withMessage('Answer must be provided')
+);

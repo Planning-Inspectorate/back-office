@@ -13,8 +13,10 @@ import {
 	postDocumentDetails,
 	renderManageFolder,
 	renderManageDocument,
+	renderDeleteDocument,
 	renderChangeDocumentDetails,
-	postChangeDocumentDetails
+	postChangeDocumentDetails,
+	postDocumentDelete
 } from '../../appeal-documents/appeal-documents.controller.js';
 
 /**
@@ -306,7 +308,7 @@ export const getManageFolder = async (request, response) => {
 		request,
 		response,
 		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/`,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/{{folderId}}/{{documentId}}`
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/{{folderId}}/{{documentId}}/latest`
 	);
 };
 
@@ -315,7 +317,9 @@ export const getManageDocument = async (request, response) => {
 	renderManageDocument(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/{{folderId}}`
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/{{folderId}}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/add-documents/{{folderId}}/{{documentId}}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/{{folderId}}/{{documentId}}/{{versionId}}/delete`
 	);
 };
 
@@ -353,7 +357,7 @@ export const postDocumentVersionDetails = async (request, response) => {
 		request,
 		response,
 		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/add-documents/${request.params.folderId}/${request.params.documentId}`,
-		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/${request.params.folderId}/${request.params.documentId}`
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}`
 	);
 };
 
@@ -364,5 +368,22 @@ export const postChangeDocumentVersionDetails = async (request, response) => {
 		response,
 		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/${request.params.folderId}/${request.params.documentId}`,
 		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/${request.params.folderId}/${request.params.documentId}`
+	);
+};
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getDeleteDocument = async (request, response) => {
+	renderDeleteDocument(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/manage-documents/{{folderId}}`
+	);
+};
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const postDeleteDocument = async (request, response) => {
+	postDocumentDelete(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/lpa-questionnaire/${request.params.lpaQuestionnaireId}/add-documents/{{folderId}}`
 	);
 };

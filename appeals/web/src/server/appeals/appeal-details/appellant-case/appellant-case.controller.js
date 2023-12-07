@@ -8,13 +8,15 @@ import {
 } from './appellant-case.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import {
-	renderDocumentUpload,
-	renderDocumentDetails,
-	renderManageFolder,
-	renderManageDocument,
+	postChangeDocumentDetails,
+	postDocumentDelete,
 	postDocumentDetails,
 	renderChangeDocumentDetails,
-	postChangeDocumentDetails
+	renderDeleteDocument,
+	renderDocumentDetails,
+	renderDocumentUpload,
+	renderManageDocument,
+	renderManageFolder
 } from '../../appeal-documents/appeal-documents.controller.js';
 
 /**
@@ -256,7 +258,7 @@ export const getManageFolder = async (request, response) => {
 		request,
 		response,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/{{folderId}}/{{documentId}}`
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/{{folderId}}/{{documentId}}/latest`
 	);
 };
 
@@ -265,7 +267,9 @@ export const getManageDocument = async (request, response) => {
 	renderManageDocument(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/{{folderId}}`
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/{{folderId}}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}/{{documentId}}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/{{folderId}}/{{documentId}}/{{versionId}}/delete`
 	);
 };
 
@@ -274,7 +278,7 @@ export const getAddDocumentsVersion = async (request, response) => {
 	renderDocumentUpload(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}/latest`,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-document-details/${request.params.folderId}/${request.params.documentId}`
 	);
 };
@@ -294,7 +298,7 @@ export const postDocumentVersionDetails = async (request, response) => {
 		request,
 		response,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/${request.params.folderId}/${request.params.documentId}`,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case`
 	);
 };
 /** @type {import('@pins/express').RequestHandler<Response>} */
@@ -312,5 +316,22 @@ export const postChangeDocumentVersionDetails = async (request, response) => {
 		response,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`
+	);
+};
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const getDeleteDocument = async (request, response) => {
+	renderDeleteDocument(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/{{folderId}}`
+	);
+};
+/** @type {import('@pins/express').RequestHandler<Response>} */
+export const postDeleteDocument = async (request, response) => {
+	postDocumentDelete(
+		request,
+		response,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case`,
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`
 	);
 };

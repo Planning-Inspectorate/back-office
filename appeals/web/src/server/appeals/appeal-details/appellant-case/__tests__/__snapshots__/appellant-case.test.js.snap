@@ -955,7 +955,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">1 February 2023</td>
                 <td class="govuk-table__cell">Redacted</td>
-                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/latest"
                     class="govuk-link">Edit</a>
                 </td>
             </tr>
@@ -971,7 +971,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">2 March 2024</td>
                 <td class="govuk-table__cell">Unredacted</td>
-                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/47d8f073-c837-4f07-9161-c1a5626eba56"
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/47d8f073-c837-4f07-9161-c1a5626eba56/latest"
                     class="govuk-link">Edit</a>
                 </td>
             </tr>
@@ -987,7 +987,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">3 April 2025</td>
                 <td class="govuk-table__cell">No redaction required</td>
-                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa6"
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa6/latest"
                     class="govuk-link">Edit or remove</a>
                 </td>
             </tr>
@@ -1001,7 +1001,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">3 April 2025</td>
                 <td class="govuk-table__cell">Unredacted</td>
-                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa7"
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa7/latest"
                     class="govuk-link">View and edit</a>
                 </td>
             </tr>
@@ -1010,7 +1010,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render a 404 error page if the documentId is not valid 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render a 404 error page if the documentId is not valid 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -1024,7 +1024,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render a 404 error page if the folderId is not valid 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render a 404 error page if the folderId is not valid 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -1038,7 +1038,96 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the delete document page with multiple document versons 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">1</dd>
+                </div>
+            </dl>
+            <form method="POST">
+                <div class="govuk-form-group">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer" name="delete-file-answer"
+                            type="radio" value="yes">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer">Yes</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer-2" name="delete-file-answer"
+                            type="radio" value="no">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">No</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button"
+                id="remove-document-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the delete document page with single document verson 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">1</dd>
+                </div>
+            </dl>
+            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Removing the
+                    only version will delete the document from the case</strong>
+            </div>
+            <form method="POST">
+                <div class="govuk-form-group">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer" name="delete-file-answer"
+                            type="radio" value="yes">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer">Yes</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer-2" name="delete-file-answer"
+                            type="radio" value="yes-and-upload-new-document">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">Yes, and upload new document</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer-3" name="delete-file-answer"
+                            type="radio" value="no">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-3">No</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button"
+                id="remove-document-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
@@ -1062,18 +1151,19 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
                     </dd>
                 </div>
-            </dl><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/1/1"
+            </dl><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
             data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
-            <a             href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            <a             href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
             data-module="govuk-button" id="remove-document">Remove this document</a>
         </div>
     </div>
@@ -1107,7 +1197,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                                         <br>by John Smith</p>
                                 </td>
                                 <td class="govuk-table__cell">Redacted</td>
-                                <td class="govuk-table__cell"><a class="govuk-link" href="#">Remove</a>
+                                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete">Remove</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -1119,7 +1209,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "failed_virus_check" 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "failed_virus_check" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
@@ -1145,18 +1235,19 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
                     </dd>
                 </div>
-            </dl><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/1/1"
+            </dl><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
             data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
-            <a             href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            <a             href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
             data-module="govuk-button" id="remove-document">Remove this document</a>
         </div>
     </div>
@@ -1192,7 +1283,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                         <br>by John Smith</p>
                 </td>
                 <td class="govuk-table__cell">Redacted</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="#">Remove</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete">Remove</a>
                 </td>
                 </tr>
                 </tbody>
@@ -1204,7 +1295,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
@@ -1230,12 +1321,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
                     </dd>
                 </div>
             </dl>
@@ -1284,7 +1375,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
@@ -1310,12 +1401,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
                     </dd>
                 </div>
             </dl>
