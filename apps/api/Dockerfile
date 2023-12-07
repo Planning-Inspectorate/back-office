@@ -1,6 +1,4 @@
 FROM node:18-alpine
-RUN apk add --no-cache libc6-compat openssl openssl-dev
-
 WORKDIR /src/app
 COPY package*.json ./
 
@@ -15,7 +13,7 @@ ENV SWAGGER_JSON_DIR=./src/server/swagger-output.json
 ENV DATABASE_URL=$DATABASE_URL
 
 WORKDIR /src/app/apps/api
-RUN npm run prisma-generate
+RUN npx prisma generate
 
 EXPOSE 3000
 
