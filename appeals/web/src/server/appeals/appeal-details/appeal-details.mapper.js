@@ -104,8 +104,12 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 						mappedData.appeal.startedAt.display.summaryListItem,
 						mappedData.appeal.lpaQuestionnaireDueDate.display.summaryListItem,
 						mappedData.appeal.siteVisitDate.display.summaryListItem,
-						mappedData.appeal.issueDeterminationDate?.display.summaryListItem,
-						mappedData.appeal.completeDate?.display.summaryListItem
+						...(appealDetails.appealType === 'Full planning'
+							? [
+									mappedData.appeal.issueDeterminationDate?.display.summaryListItem,
+									mappedData.appeal.completeDate?.display.summaryListItem
+							  ]
+							: [])
 					].filter(isDefined)
 				}
 		  }
