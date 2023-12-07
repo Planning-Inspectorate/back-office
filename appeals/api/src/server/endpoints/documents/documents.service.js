@@ -136,7 +136,7 @@ const addDocumentAndVersion = async (caseId, reference, documents) => {
  * @returns {Promise<AddDocumentsResponse>}}
  */
 export const addVersionToDocument = async (upload, appeal, document) => {
-	if (!document) {
+	if (!document || document.isDeleted) {
 		throw new Error('Document not found');
 	}
 
