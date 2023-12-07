@@ -92,8 +92,10 @@ export const addDocumentVersion = async ({ context, documentGuid, ...metadata })
 	const unredactedStatus = await getDefaultRedactionStatus();
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		const document = await tx.document.findFirst({
-			include: { case: true },
-			where: { guid: documentGuid }
+			include: {
+				case: true,
+				documentVersion: true
+			}
 		});
 
 		if (document == null) {
@@ -101,9 +103,9 @@ export const addDocumentVersion = async ({ context, documentGuid, ...metadata })
 		}
 
 		const { reference } = document.case;
-		const { name, latestVersionId } = document;
+		const { name, documentVersion } = document;
 
-		const newVersionId = (latestVersionId || 0) + 1;
+		const newVersionId = documentVersion ? documentVersion.length + 1 : 1;
 
 		metadata.fileName = name;
 		metadata.blobStoragePath = mapBlobPath(documentGuid, reference, name, newVersionId);
