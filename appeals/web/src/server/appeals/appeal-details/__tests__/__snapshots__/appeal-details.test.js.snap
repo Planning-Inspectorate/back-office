@@ -171,7 +171,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -386,7 +386,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/manage-visit"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/manage-visit"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -603,7 +603,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/manage-visit"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/manage-visit"> Change</a>
                             </dd>
                         </div>
                     </dl>
