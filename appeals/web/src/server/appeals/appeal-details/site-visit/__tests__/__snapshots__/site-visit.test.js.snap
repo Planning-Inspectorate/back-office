@@ -4010,7 +4010,7 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Change</a>
                             </dd>
                         </div>
                     </dl>

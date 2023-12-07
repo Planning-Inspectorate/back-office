@@ -935,7 +935,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				actions: {
 					items: [
 						{
-							text: appealDetails.siteVisit?.visitDate ? 'Manage' : 'Schedule',
+							text: appealDetails.siteVisit?.visitDate ? 'Change' : 'Arrange',
 							href: `${currentRoute}/site-visit/${
 								appealDetails.siteVisit?.visitDate ? 'manage' : 'schedule'
 							}-visit`

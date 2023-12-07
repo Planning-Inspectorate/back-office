@@ -825,7 +825,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1285,7 +1285,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1606,7 +1606,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1927,7 +1927,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                                     <li>9:38am - 10:44am</li>
                                 </ul>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Change</a>
                             </dd>
                         </div>
                     </dl>
