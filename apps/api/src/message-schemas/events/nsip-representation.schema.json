@@ -6,7 +6,7 @@
 	"required": [
 		"caseRef",
 		"representationId",
-		"represented",
+		"representedId",
 		"originalRepresentation",
 		"dateReceived"
 	],
@@ -55,13 +55,13 @@
 			"type": "string",
 			"enum": ["PERSON", "ORGANISATION", "AGENT"]
 		},
-		"represented": {
-			"$ref": "interested-party.schema.json",
-			"description": "Person or organisation being represented"
+		"representedId": {
+			"type": "string",
+			"description": "ServiceUser Id of the person or organisation being represented"
 		},
-		"representative": {
-			"$ref": "interested-party.schema.json",
-			"description": "Person or organisation submitting representation in the case of Agent representationFrom"
+		"representativeId": {
+			"type": "string",
+			"description": "ServiceUser Id of the person or organisation submitting representation in the case of Agent representationFrom"
 		},
 		"registerFor": {
 			"type": "string",
@@ -83,40 +83,10 @@
 			"format": "date-time",
 			"examples": ["2023-03-26T00:00:00.000"]
 		},
-		"attachments": {
+		"attachmentIds": {
 			"type": "array",
 			"items": {
-				"$ref": "#/$defs/attachment"
-			}
-		}
-	},
-	"$defs": {
-		"attachment": {
-			"type": "object",
-			"required": ["documentId", "filename", "size", "documentURI"],
-			"properties": {
-				"documentId": {
-					"type": "string",
-					"examples": ["ID23343453"],
-					"description": "The unique identifier for the file"
-				},
-				"filename": {
-					"type": "string",
-					"examples": ["filename.pdf"],
-					"description": "Current stored filename of the file"
-				},
-				"size": {
-					"type": "number",
-					"examples": [23452]
-				},
-				"mime": {
-					"type": "string",
-					"examples": ["application/pdf"]
-				},
-				"documentURI": {
-					"type": "string",
-					"examples": ["blob:https://published/en010120/filename.pdf"]
-				}
+				"type": "string"
 			}
 		}
 	}
