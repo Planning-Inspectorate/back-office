@@ -21,13 +21,6 @@ export const formatDocumentActionLink = (appealId, listOfDocuments, documentUplo
 		typeof listOfDocuments === 'object' &&
 		'documents' in listOfDocuments
 	) {
-		if (Array.isArray(listOfDocuments.documents) && listOfDocuments.documents.length > 0) {
-			const document = listOfDocuments.documents[0];
-			return documentUploadUrlTemplate
-				.replace('{{appealId}}', document.caseId)
-				.replace('{{folderId}}', document.folderId)
-				.replace('{{documentId}}', document.id);
-		}
 		return documentUploadUrlTemplate
 			.replace('{{appealId}}', String(appealId))
 			.replace('{{folderId}}', listOfDocuments.folderId)
