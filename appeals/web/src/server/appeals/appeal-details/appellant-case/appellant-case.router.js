@@ -75,7 +75,7 @@ router
 router.route('/manage-documents/:folderId/').get(validateCaseFolderId, controller.getManageFolder);
 
 router
-	.route('/manage-documents/:folderId/:documentId/:versionId')
+	.route('/manage-documents/:folderId/:documentId')
 	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument);
 
 router

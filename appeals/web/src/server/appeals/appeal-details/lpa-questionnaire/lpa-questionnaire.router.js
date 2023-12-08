@@ -73,7 +73,7 @@ router
 	.get(validateCaseFolderId, controller.getManageFolder);
 
 router
-	.route('/:lpaQuestionnaireId/manage-documents/:folderId/:documentId/:versionId')
+	.route('/:lpaQuestionnaireId/manage-documents/:folderId/:documentId')
 	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument)
 	.post(validateCaseFolderId, validateCaseDocumentId, controller.postAddDocumentDetails);
 

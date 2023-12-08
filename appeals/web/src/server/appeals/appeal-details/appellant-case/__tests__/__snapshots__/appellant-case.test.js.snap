@@ -955,7 +955,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">1 February 2023</td>
                 <td class="govuk-table__cell">Redacted</td>
-                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/latest"
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
                     class="govuk-link">Edit</a>
                 </td>
             </tr>
@@ -971,7 +971,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">2 March 2024</td>
                 <td class="govuk-table__cell">Unredacted</td>
-                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/47d8f073-c837-4f07-9161-c1a5626eba56/latest"
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/47d8f073-c837-4f07-9161-c1a5626eba56"
                     class="govuk-link">Edit</a>
                 </td>
             </tr>
@@ -987,7 +987,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">3 April 2025</td>
                 <td class="govuk-table__cell">No redaction required</td>
-                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa6/latest"
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa6"
                     class="govuk-link">Edit or remove</a>
                 </td>
             </tr>
@@ -1001,7 +1001,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">3 April 2025</td>
                 <td class="govuk-table__cell">Unredacted</td>
-                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa7/latest"
+                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa7"
                     class="govuk-link">View and edit</a>
                 </td>
             </tr>
@@ -1010,7 +1010,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render a 404 error page if the documentId is not valid 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render a 404 error page if the documentId is not valid 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -1024,7 +1024,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render a 404 error page if the folderId is not valid 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render a 404 error page if the folderId is not valid 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -1038,7 +1038,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the delete document page with multiple document versons 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the delete document page with multiple document versons 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
@@ -1078,7 +1078,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the delete document page with single document verson 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the delete document page with single document verson 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
@@ -1127,7 +1127,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
@@ -1151,12 +1151,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
             </dl><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
@@ -1209,7 +1209,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "failed_virus_check" 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "failed_virus_check" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
@@ -1235,12 +1235,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
             </dl><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
@@ -1295,7 +1295,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
@@ -1321,12 +1321,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
             </dl>
@@ -1375,7 +1375,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
@@ -1401,12 +1401,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
             </dl>
