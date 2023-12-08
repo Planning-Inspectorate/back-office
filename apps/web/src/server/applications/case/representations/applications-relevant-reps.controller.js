@@ -40,11 +40,12 @@ export async function relevantRepsApplications({ params, query }, res) {
 	} = query;
 
 	const caseReference = await getCase(caseId);
-	const { keyDates, publishedDate } = caseReference;
+	const { keyDates } = caseReference;
 	const { preExamination } = keyDates;
 	const {
 		dateOfRelevantRepresentationClose: repsPeriodCloseDate,
-		extensionToDateRelevantRepresentationsClose: repsPeriodCloseDateExtension
+		extensionToDateRelevantRepresentationsClose: repsPeriodCloseDateExtension,
+		dateRRepAppearOnWebsite: publishedDate
 	} = preExamination;
 	const queryString = buildQueryString({
 		searchTerm,
