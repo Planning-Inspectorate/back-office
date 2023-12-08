@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "registerSubscription",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "appeal-document-to-move",
+			"subscriptionName": "appeal-document-to-move-subscription",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}
