@@ -5,7 +5,7 @@
 
 	{% set csrfToken = params.csrfToken %}
 
-	<form method="post" action="search-results" novalidate class="pins-dashboard-box--form pins-dashboard-form" role="search" aria-label="Applications">
+	<form method="post" action="{{'search-results'|url}}" novalidate class="pins-dashboard-box--form pins-dashboard-form" role="search" aria-label="Applications">
 		{% include 'app/includes/csrf.njk' %}
 		{{ govukInput({
 			label: {

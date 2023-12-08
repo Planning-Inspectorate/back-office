@@ -100,7 +100,7 @@ export const url = (key, filterArguments = {}) => {
 		case 'project-team-member':
 			return `${domainUrl}/case/${caseId}/project-team/${userId}/${step}`;
 		case 'search-results':
-			return `${domainUrl}/search-results/${step}?q=${query}`;
+			return `${domainUrl}/search-results/${step}${query ? `?q=${query}` : ''}`;
 		case 's51-create':
 			return `${domainUrl}/case/${caseId}/project-documentation/${documentationCategory}/create/${step}`;
 		case 's51-item':
