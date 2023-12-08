@@ -24,8 +24,8 @@ exports[`applications GET / should render the open applications belonging to the
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
                 <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Search cases</h2>
-                <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
-                role=\\"search\\" aria-label=\\"Applications\\">
+                <form method=\\"post\\" action=\\"/applications-service/search-results/\\" novalidate
+                class=\\"pins-dashboard-box--form pins-dashboard-form\\" role=\\"search\\" aria-label=\\"Applications\\">
                     <div class=\\"govuk-form-group\\">
                         <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Enter keyword, case reference or case title</label>
                         <input class=\\"govuk-input pins-dashboard-form--input\\"

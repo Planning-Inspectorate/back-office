@@ -195,7 +195,7 @@ describe('auth', () => {
 
 			const response = await request.get('/');
 
-			expect(response?.headers?.location).toEqual('/applications-service');
+			expect(response?.headers?.location).toEqual('/applications-service/');
 		});
 
 		describe('/applications-service/', () => {

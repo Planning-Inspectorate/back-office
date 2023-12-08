@@ -9,8 +9,8 @@ exports[`applications search POST /applications-service/search-results should re
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
-            <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
-            role=\\"search\\" aria-label=\\"Applications\\">
+            <form method=\\"post\\" action=\\"/applications-service/search-results/\\" novalidate
+            class=\\"pins-dashboard-box--form pins-dashboard-form\\" role=\\"search\\" aria-label=\\"Applications\\">
                 <div class=\\"govuk-form-group\\">
                     <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Search cases</label>
                     <input class=\\"govuk-input pins-dashboard-form--input\\"
@@ -42,8 +42,8 @@ exports[`applications search POST /applications-service/search-results should re
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
-            <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
-            role=\\"search\\" aria-label=\\"Applications\\">
+            <form method=\\"post\\" action=\\"/applications-service/search-results/\\" novalidate
+            class=\\"pins-dashboard-box--form pins-dashboard-form\\" role=\\"search\\" aria-label=\\"Applications\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                     <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Search cases</label>
                     <p id=\\"searchApplications-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a search term</p>
@@ -69,8 +69,8 @@ exports[`applications search POST /applications-service/search-results should re
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-one-half\\">
-            <form method=\\"post\\" action=\\"search-results\\" novalidate class=\\"pins-dashboard-box--form pins-dashboard-form\\"
-            role=\\"search\\" aria-label=\\"Applications\\">
+            <form method=\\"post\\" action=\\"/applications-service/search-results/\\" novalidate
+            class=\\"pins-dashboard-box--form pins-dashboard-form\\" role=\\"search\\" aria-label=\\"Applications\\">
                 <div class=\\"govuk-form-group\\">
                     <label class=\\"govuk-label pins-dashboard-form--label\\" for=\\"searchApplications\\">Search cases</label>
                     <input class=\\"govuk-input pins-dashboard-form--input\\"
