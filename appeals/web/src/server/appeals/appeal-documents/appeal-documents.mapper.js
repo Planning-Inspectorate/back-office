@@ -559,7 +559,6 @@ function mapDocumentNameHtmlProperty(document, documentVersion) {
  * @param {string} removeDocumentUrl
  * @param {RedactionStatus[]} redactionStatuses
  * @param {DocumentDetails} document
- * @param {string} versionId
  * @param {FolderInfo & {id: string, caseId: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
  * @param {import('@pins/express/types/express.js').Request} request
  * @returns {Promise<PageContent>}
@@ -571,7 +570,6 @@ export async function manageDocumentPage(
 	removeDocumentUrl,
 	redactionStatuses,
 	document,
-	versionId,
 	folder,
 	request
 ) {
@@ -593,17 +591,12 @@ export async function manageDocumentPage(
 	const latestVersion = getDocumentLatestVersion(document);
 	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(latestVersion);
 
-	let versionIdProcessed;
-	if (versionId === 'latest') {
-		versionIdProcessed = document?.latestVersionId?.toString() || '';
-	} else {
-		versionIdProcessed = versionId;
-	}
+	const versionId = document?.latestVersionId?.toString() || '';
 
 	const removeDocumentUrlProcessed = removeDocumentUrl
 		?.replace('{{folderId}}', folder.id)
 		.replace('{{documentId}}', document.guid || '')
-		.replace('{{versionId}}', versionIdProcessed);
+		.replace('{{versionId}}', versionId);
 
 	const uploadNewVersionUrl = uploadUpdatedDocumentUrl
 		.replace('{{folderId}}', folder.id)
@@ -635,7 +628,7 @@ export async function manageDocumentPage(
 								{
 									key: { text: 'Version' },
 									value: {
-										text: versionIdProcessed
+										text: versionId
 									}
 								},
 								{

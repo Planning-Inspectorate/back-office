@@ -1036,7 +1036,7 @@ describe('LPA Questionnaire review', () => {
 				.get('/appeals/1/documents/1/versions')
 				.reply(200, documentFileVersionsInfo);
 
-			const response = await request.get(`${baseUrl}/manage-documents/99/1/1`);
+			const response = await request.get(`${baseUrl}/manage-documents/99/1`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -1047,7 +1047,7 @@ describe('LPA Questionnaire review', () => {
 				.get('/appeals/1/documents/1/versions')
 				.reply(200, documentFileVersionsInfo);
 
-			const response = await request.get(`${baseUrl}/manage-documents/1/99/1`);
+			const response = await request.get(`${baseUrl}/manage-documents/1/99`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -1058,7 +1058,7 @@ describe('LPA Questionnaire review', () => {
 				.get('/appeals/1/documents/1/versions')
 				.reply(200, documentFileVersionsInfo);
 
-			const response = await request.get(`${baseUrl}/manage-documents/1/1/1`);
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -1069,7 +1069,7 @@ describe('LPA Questionnaire review', () => {
 				.get('/appeals/1/documents/1/versions')
 				.reply(200, documentFileVersionsInfoNotChecked);
 
-			const response = await request.get(`${baseUrl}/manage-documents/1/1/1`);
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -1080,7 +1080,7 @@ describe('LPA Questionnaire review', () => {
 				.get('/appeals/1/documents/1/versions')
 				.reply(200, documentFileVersionsInfoVirusFound);
 
-			const response = await request.get(`${baseUrl}/manage-documents/1/1/1`);
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -1091,9 +1091,34 @@ describe('LPA Questionnaire review', () => {
 				.get('/appeals/1/documents/1/versions')
 				.reply(200, documentFileVersionsInfoChecked);
 
-			const response = await request.get(`${baseUrl}/manage-documents/1/1/1`);
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
 			const element = parseHtml(response.text);
 
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the delete document page with single document verson', async () => {
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfoChecked);
+
+			const response = await request.get(`${baseUrl}/manage-documents/1/1/1/delete`);
+
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the delete document page with multiple document versons', async () => {
+			const multipleVersionsDocument = { ...documentFileVersionsInfoChecked };
+			multipleVersionsDocument.documentVersion.push(multipleVersionsDocument.documentVersion[0]);
+
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfoChecked);
+
+			const response = await request.get(`${baseUrl}/manage-documents/1/1/1/delete`);
+
+			const element = parseHtml(response.text);
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});

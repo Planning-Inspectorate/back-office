@@ -139,7 +139,7 @@ export const renderManageDocument = async (
 	const {
 		currentFolder,
 		errors,
-		params: { appealId, documentId, versionId }
+		params: { appealId, documentId }
 	} = request;
 
 	if (!currentFolder) {
@@ -166,7 +166,6 @@ export const renderManageDocument = async (
 		removeDocumentUrl,
 		redactionStatuses,
 		document,
-		versionId,
 		currentFolder,
 		request
 	);

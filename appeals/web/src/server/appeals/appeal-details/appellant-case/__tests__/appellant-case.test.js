@@ -1522,7 +1522,7 @@ describe('appellant-case', () => {
 		});
 	});
 
-	describe('GET /appellant-case/manage-documents/:folderId/:documentId/:versionId', () => {
+	describe('GET /appellant-case/manage-documents/:folderId/:documentId', () => {
 		beforeEach(() => {
 			// @ts-ignore
 			usersService.getUsersByRole = jest.fn().mockResolvedValue(activeDirectoryUsersData);
@@ -1544,7 +1544,7 @@ describe('appellant-case', () => {
 				.reply(200, documentFileVersionsInfo);
 
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}/manage-documents/99/1/1`
+				`${baseUrl}/1${appellantCasePagePath}/manage-documents/99/1`
 			);
 			const element = parseHtml(response.text);
 
@@ -1557,7 +1557,7 @@ describe('appellant-case', () => {
 				.reply(200, documentFileVersionsInfo);
 
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/99/1`
+				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/99`
 			);
 			const element = parseHtml(response.text);
 
@@ -1570,7 +1570,7 @@ describe('appellant-case', () => {
 				.reply(200, documentFileVersionsInfo);
 
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1/1`
+				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1`
 			);
 			const element = parseHtml(response.text);
 
@@ -1583,7 +1583,7 @@ describe('appellant-case', () => {
 				.reply(200, documentFileVersionsInfoNotChecked);
 
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1/1`
+				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1`
 			);
 			const element = parseHtml(response.text);
 
@@ -1596,7 +1596,7 @@ describe('appellant-case', () => {
 				.reply(200, documentFileVersionsInfoVirusFound);
 
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1/1`
+				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1`
 			);
 			const element = parseHtml(response.text);
 
@@ -1609,7 +1609,7 @@ describe('appellant-case', () => {
 				.reply(200, documentFileVersionsInfoChecked);
 
 			const response = await request.get(
-				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1/1`
+				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1`
 			);
 			const element = parseHtml(response.text);
 
