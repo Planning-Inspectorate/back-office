@@ -30,5 +30,5 @@
 		{%- case 'virus_detected' -%}
 			{%- set statusTagColor = 'red' -%}
 	{%- endswitch -%}
-	<strong class="govuk-tag govuk-tag--{{ statusTagColor }} single-line{{ ' ' + classes if classes }}">{{ statusLabel | replace("_", " ") }}</strong>
+	<strong class="govuk-tag govuk-tag--{{ statusTagColor }} single-line{{ ' ' + classes if classes }}">{{ statusLabel | appealStatusToStatusTag }}</strong>
 {%- endmacro -%}
