@@ -187,7 +187,8 @@ export const addDocuments = async ({ params, body }, response) => {
 	// Obtain URLs for documents from blob storage
 	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
 		filteredToUpload,
-		caseId
+		caseId,
+		true
 	);
 
 	if (dbResponse === null) {

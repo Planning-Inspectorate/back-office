@@ -1,4 +1,9 @@
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE, SYSTEM_USER_NAME } from '../../constants.js';
+import {
+	DEFAULT_PAGE_NUMBER,
+	DEFAULT_PAGE_SIZE,
+	DOCUMENT_TYPES,
+	SYSTEM_USER_NAME
+} from '../../constants.js';
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import * as caseRepository from '#repositories/case.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
@@ -99,9 +104,10 @@ const getCaseStageMapping = async (folderId) => {
  *
  * @param {number} caseId
  * @param {DocumentToSaveExtended[]} documents
+ * @param {boolean} isS51
  * @returns {Promise<{successful: DocumentWithDocumentName[], failed: string[]}>}
  */
-const attemptInsertDocuments = async (caseId, documents) => {
+const attemptInsertDocuments = async (caseId, documents, isS51) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
 
 	/**
@@ -126,7 +132,8 @@ const attemptInsertDocuments = async (caseId, documents) => {
 					caseId,
 					folderId: documentToDB.folderId,
 					reference: documentToDB.documentReference,
-					fromFrontOffice: documentToDB.fromFrontOffice
+					fromFrontOffice: documentToDB.fromFrontOffice,
+					documentType: isS51 ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document
 				});
 			} catch (err) {
 				logger.error(err);
@@ -233,9 +240,10 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 /**
  * @param {DocumentToSaveExtended[]} documentsToUpload
  * @param {number} caseId
+ * @param {boolean} [isS51]
  * @returns {Promise<{response: DocumentAndBlobInfoManyResponse | null, failedDocuments: string[]}>}}
  */
-export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
+export const obtainURLsForDocuments = async (documentsToUpload, caseId, isS51) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId}...`);
 	const caseForDocuments = await caseRepository.getById(Number(caseId), {});
@@ -256,7 +264,11 @@ export const obtainURLsForDocuments = async (documentsToUpload, caseId) => {
 
 	// Step 4: Add documents to the database if all are new
 	logger.info(`Attempting to insert documents to database...`);
-	const { successful, failed } = await attemptInsertDocuments(caseId, documentsToSendToDatabase);
+	const { successful, failed } = await attemptInsertDocuments(
+		caseId,
+		documentsToSendToDatabase,
+		isS51 ?? false
+	);
 	if (successful.length === 0) {
 		logger.info(`Return early because all files failed to upload.`);
 		return { response: null, failedDocuments: failed };
