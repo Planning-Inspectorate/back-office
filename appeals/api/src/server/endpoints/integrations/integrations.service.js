@@ -68,6 +68,21 @@ export const produceDocumentUpdate = async (
 	}
 };
 
+export const produceBlobMoveRequest = async (
+	/** @type {any[]} */ documents, // TODO: data and document types schema (PINS data model)
+	/** @type {string} */ updateType
+) => {
+	if (documents.length > 0) {
+		const topic = producers.boBlobMove;
+		const res = await eventClient.sendEvents(topic, documents, updateType);
+		if (res) {
+			return true;
+		}
+
+		return false;
+	}
+};
+
 export const produceServiceUsersUpdate = async (
 	/** @type {any[]} */ users, // TODO: data and document types schema (PINS data model)
 	/** @type {string} */ updateType,
