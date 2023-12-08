@@ -127,6 +127,7 @@ interface SingleLPAQuestionnaireResponse {
 		siteNotices: FolderInfo | {};
 		supplementaryPlanningDocuments: FolderInfo | {};
 		treePreservationOrder: FolderInfo | {};
+		additionalDocuments: FolderInfo | {};
 	};
 	doesAffectAListedBuilding?: boolean | null;
 	doesAffectAScheduledMonument?: boolean | null;
@@ -279,6 +280,7 @@ interface SingleAppellantCaseResponse {
 		decisionLetter: FolderInfo | {};
 		designAndAccessStatement?: FolderInfo | {};
 		newSupportingDocuments: FolderInfo | {};
+		additionalDocuments: FolderInfo | {};
 	};
 	hasAdvertisedAppeal: boolean | null;
 	hasDesignAndAccessStatement?: boolean | null;
