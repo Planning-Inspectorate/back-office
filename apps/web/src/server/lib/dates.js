@@ -45,6 +45,11 @@ export const isDateInstance = (date) => {
 export function dateToDisplayDate(date, { condensed = false } = {}) {
 	if (typeof date === 'undefined' || date === null || date === '0000-00-00') return '';
 
+	//if date is a 10 digit number assume it's a timestamp and make it parsable by new Date()
+	if (typeof date === 'number' && date.toString().length === 10) {
+		date = date * 1000;
+	}
+
 	return formatInTimeZone(new Date(date), timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
 		locale: enGB
 	});
