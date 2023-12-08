@@ -54,9 +54,9 @@ export const postAppealSubmission = async (req, res) => {
 	await produceAppealUpdate(appealTopic, EventType.Create);
 
 	if (dbSavedResult.appeal.appellantId) {
-		// @ts-ignore
 		const appellantTopic = mapServiceUser(
 			dbSavedResult,
+			// @ts-ignore
 			dbSavedResult.appeal.appellant,
 			'appellant'
 		);
