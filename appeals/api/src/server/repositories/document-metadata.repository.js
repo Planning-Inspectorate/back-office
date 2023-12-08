@@ -98,7 +98,7 @@ export const addDocumentVersion = async ({ context, documentGuid, ...metadata })
 			}
 		});
 
-		if (document == null) {
+		if (document == null || document.isDeleted) {
 			throw new Error('Document not found');
 		}
 
