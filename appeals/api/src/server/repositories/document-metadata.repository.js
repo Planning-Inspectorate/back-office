@@ -11,7 +11,7 @@ import { randomUUID } from 'node:crypto';
 /**
  * @returns {Promise<RedactionStatus | undefined>}
  */
-const getDefaultRedactionStatus = async () => {
+export const getDefaultRedactionStatus = async () => {
 	const redactionStatuses =
 		await documentRedactionStatusRepository.getAllDocumentRedactionStatuses();
 	const defaultRedactionStatus = 'Unredacted';

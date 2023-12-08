@@ -1,25 +1,26 @@
 // @ts-nocheck
 // TODO: schemas (PINS data model)
 
+import config from '#config/config.js';
 import { randomUUID } from 'node:crypto';
+import validateUuidParameter from '#common/validators/uuid-parameter.js';
 
 export const mapDocumentIn = (doc) => {
-	const { filename, ...props } = doc;
-	const { documentURI, blobStorageContainer, blobStoragePath, ...metadata } = props;
-	const { container, path } = mapDocumentUrl(documentURI);
+	const { filename, ...metadata } = doc;
+	const { originalFilename, originalGuid } = mapDocumentUrl(metadata.documentURI, filename);
 
-	if (blobStorageContainer !== container) {
-		metadata.blobStorageContainer = container;
+	let documentGuid = originalGuid;
+	if (!validateUuidParameter(documentGuid)) {
+		documentGuid = randomUUID();
 	}
 
-	if (blobStoragePath !== path) {
-		metadata.blobStoragePath = path;
-	}
+	metadata.blobStorageContainer = config.BO_BLOB_CONTAINER;
+	metadata.blobStoragePath = `${originalGuid}/v1/${originalFilename}`;
 
 	return {
 		...metadata,
-		documentGuid: doc.documentGuid ? doc.documentGuid : randomUUID(),
-		fileName: filename || doc.fileName,
+		documentGuid: originalGuid,
+		fileName: originalFilename,
 		dateCreated: (doc.dateCreated ? new Date(doc.dateCreated) : new Date()).toISOString(),
 		lastModified: (doc.lastModified ? new Date(doc.lastModified) : new Date()).toISOString()
 	};
@@ -29,16 +30,24 @@ export const mapDocumentOut = (doc) => {
 	return doc;
 };
 
-const mapDocumentUrl = (documentURI) => {
+const mapDocumentUrl = (documentURI, fileName) => {
 	const url = new URL(documentURI);
 	if (!url) {
-		return null;
+		throw new Error('Invalid document URI');
 	}
 
 	const path = url.pathname.split('/').slice(1);
+	if (path.length !== 4) {
+		return null;
+	}
+	const originalGuid = path[2];
+	let originalFilename = path[3];
+	if (fileName !== originalFilename) {
+		originalFilename = fileName;
+	}
+
 	return {
-		blobStorageUrl: url.origin,
-		container: path[0],
-		path: path.slice(1).join('/')
+		originalGuid,
+		originalFilename
 	};
 };
