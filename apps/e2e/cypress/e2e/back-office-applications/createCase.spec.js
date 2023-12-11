@@ -12,15 +12,17 @@ const projectInfo = projectInformation();
 const { applications: applicationsUsers } = users;
 
 describe('Create A Case', () => {
-	context('As Inspector', () => {
+
+	 // Commented below tests due to removal of permissions
+	/*context('As Inspector', () => {
 		beforeEach(() => {
 			cy.login(applicationsUsers.inspector);
 		});
 
 		it('Should not be able to create a case - button is not available', () => {
 			cy.visit('/');
-			applicationsHomePage.verifyInspectorIsSignedIn();
-			applicationsHomePage.verifyCreateCaseIsNotAvailable();
+		applicationsHomePage.verifyInspectorIsSignedIn();
+		applicationsHomePage.verifyCreateCaseIsNotAvailable();
 		});
 
 		it('Should not be able to create a case - cannot navigate to URL', () => {
@@ -30,13 +32,14 @@ describe('Create A Case', () => {
 			});
 			cy.contains('You are not permitted to access this URL.').should('exist');
 		});
-	});
+	});*/
 
 	context('As a Case Team Admin User', () => {
 		it('Should successfully create a case as an admin', () => {
 			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
-			createCasePage.verifyCaseAdminIsSignedIn();
+			// Removed the display user from landing page
+			//createCasePage.verifyCaseAdminIsSignedIn();
 			const projectInfo = projectInformation();
 			createCasePage.createCase(projectInfo);
 		});
@@ -96,7 +99,7 @@ describe('Create A Case', () => {
 			createCasePage.sections.caseCreated.validateCaseCreated();
 		});
 	});
-	
+
 	// Case team email, is not in use. Once after resetting the password, going to uncomment the code
 
 	/*context('As a Case Team User', () => {

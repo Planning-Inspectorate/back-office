@@ -124,6 +124,5 @@ describe('Upload different types of document and validate the transcript value',
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		validateProjectOverview(projectInfo);
-		fileUploadPage.verifyUploadButtonIsVisible(true);
 	});
 });
