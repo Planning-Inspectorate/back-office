@@ -18,6 +18,7 @@ import {
 	convertFromBooleanToYesNoWithOptionalDetails
 } from '#lib/boolean-formatter.js';
 import { addConditionalHtml } from '#lib/nunjucks-filters/add-conditional-html.js';
+import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 import {
 	mapReasonOptionsToCheckboxItemParameters,
 	mapReasonsToReasonsListHtml,
@@ -1056,6 +1057,30 @@ describe('Libraries', () => {
 						}
 					}
 				});
+			});
+		});
+	});
+
+	describe('accessibility', () => {
+		describe('numberToAccessibleDigitLabel', () => {
+			it('should return a string with each digit separated by a space, if the input is a number', () => {
+				const result = numberToAccessibleDigitLabel(12345);
+
+				expect(result).toEqual('1 2 3 4 5');
+			});
+
+			it('should return a string with each digit separated by a space, if the input is a number formatted as a string', () => {
+				const result = numberToAccessibleDigitLabel('12345');
+
+				expect(result).toEqual('1 2 3 4 5');
+			});
+
+			it('should return the input formatted as a string if any non-numeric characters are present in the input', () => {
+				const result1 = numberToAccessibleDigitLabel('1.2345');
+				const result2 = numberToAccessibleDigitLabel('1a2345');
+
+				expect(result1).toEqual('1.2345');
+				expect(result2).toEqual('1a2345');
 			});
 		});
 	});
