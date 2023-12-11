@@ -73,6 +73,7 @@ export const buildNsipDocumentPayload = (version) => {
 		publishedStatus: version.publishedStatus,
 		datePublished: version.datePublished?.toISOString(),
 		documentType: version.documentType,
+		internalDocumentType: document.documentType,
 		// @ts-ignore
 		securityClassification: version.securityClassification,
 		// @ts-ignore
