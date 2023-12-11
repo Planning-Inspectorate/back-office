@@ -100,5 +100,12 @@ export const sortAppeals = (appeals) => {
 
 	// @ts-ignore
 	appealDates.sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
-	return appealDates.map((a) => appeals.find((_) => _.appealId === a?.appealId));
+
+	return appealDates.map((appealDate) => {
+		const matchingAppeal = appeals.find((appeal) => appeal.appealId === appealDate?.appealId);
+		return {
+			...matchingAppeal,
+			dueDate: appealDate?.dueDate
+		};
+	});
 };

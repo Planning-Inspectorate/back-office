@@ -24,7 +24,7 @@ export const appealsNationalList = {
 				postCode: 'BS48 1PN'
 			},
 			appealStatus: 'received_appeal',
-			appealType: 'household',
+			appealType: 'Householder',
 			createdAt: '2023-04-17T09:49:22.021Z',
 			localPlanningDepartment: 'Wiltshire Council'
 		},
@@ -37,7 +37,7 @@ export const appealsNationalList = {
 				postCode: 'BS7 8LQ'
 			},
 			appealStatus: 'received_appeal',
-			appealType: 'household',
+			appealType: 'Householder',
 			createdAt: '2023-04-17T09:49:22.057Z',
 			localPlanningDepartment: 'Dorset Council'
 		}
@@ -72,7 +72,7 @@ export const appealData = {
 		appealTimetableId: 1053,
 		lpaQuestionnaireDueDate: '2023-10-11T01:00:00.000Z'
 	},
-	appealType: 'householder',
+	appealType: 'Householder',
 	appellantCaseId: 0,
 	appellantName: 'Eva Sharma',
 	caseOfficer: null,
@@ -1109,6 +1109,65 @@ export const documentFileVersionsInfoChecked = {
 			virusCheckStatus: 'checked'
 		}
 	]
+};
+
+export const assignedAppealsSummary = {
+	itemCount: 4,
+	items: [
+		{
+			appealId: 132,
+			appealReference: 'TEST/268470',
+			appealSite: {
+				addressLine1: '92 Huntsmoor Road',
+				town: 'Tadley',
+				postCode: 'RG26 4BX'
+			},
+			appealStatus: 'ready_to_start',
+			appealType: 'Householder',
+			createdAt: '2023-12-01T13:58:57.438Z',
+			localPlanningDepartment: 'Waveney District Council',
+			lpaQuestionnaireId: null,
+			dueDate: '2023-12-06T13:58:57.438Z'
+		},
+		{
+			appealId: 147,
+			appealReference: 'TEST/652896',
+			appealSite: {
+				addressLine1: '92 Huntsmoor Road',
+				county: 'Tadley',
+				postCode: 'RG26 4BX'
+			},
+			appealStatus: 'lpa_questionnaire_due',
+			appealType: 'Householder',
+			createdAt: '2023-12-01T13:58:57.841Z',
+			localPlanningDepartment: 'Waveney District Council',
+			lpaQuestionnaireId: 59,
+			appealTimetable: {
+				appealTimetableId: 60,
+				lpaQuestionnaireDueDate: '2023-12-08T13:58:56.114Z'
+			},
+			dueDate: '2023-12-08T13:58:56.114Z'
+		},
+		{
+			appealId: 154,
+			appealReference: 'TEST/50165',
+			appealSite: {
+				addressLine1: '21 The Pavement',
+				county: 'Wandsworth',
+				postCode: 'SW4 0HY'
+			},
+			appealStatus: 'statement_review',
+			appealType: 'Full planning',
+			createdAt: '2023-12-01T13:58:58.021Z',
+			localPlanningDepartment: 'Waveney District Council',
+			lpaQuestionnaireId: null,
+			dueDate: '2024-01-25T13:58:58.021Z'
+		},
+		{}
+	],
+	page: 1,
+	pageCount: 1,
+	pageSize: 30
 };
 
 export const baseSession = {

@@ -4,6 +4,7 @@ import { databaseConnector } from '#utils/database-connector.js';
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
 import { mapBlobPath } from '#endpoints/documents/documents.mapper.js';
 import { getDefaultRedactionStatus } from './document-metadata.repository.js';
+import { STATE_TARGET_ASSIGN_CASE_OFFICER } from '#endpoints/constants.js';
 
 import config from '#config/config.js';
 
@@ -27,7 +28,12 @@ export const createAppeal = async (data, documents) => {
 			where: { id: appeal.id },
 			data: {
 				reference,
-				appealStatus: { create: {} }
+				appealStatus: {
+					create: {
+						status: STATE_TARGET_ASSIGN_CASE_OFFICER,
+						createdAt: new Date().toISOString()
+					}
+				}
 			}
 		});
 
@@ -105,6 +111,7 @@ export const createOrUpdateLpaQuestionnaire = async (
 	data,
 	documents
 ) => {
+	const unredactedStatus = await getDefaultRedactionStatus();
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		let appeal = await tx.appeal.findUnique({
 			where: { reference: caseReference }
@@ -133,6 +140,8 @@ export const createOrUpdateLpaQuestionnaire = async (
 			});
 		}
 
+		let documentVersions = [];
+
 		if (appeal && documents) {
 			const caseFolders = await tx.folder.findMany({ where: { caseId: appeal.id } });
 			await tx.document.createMany({
@@ -152,9 +161,23 @@ export const createOrUpdateLpaQuestionnaire = async (
 
 			await tx.documentVersion.createMany({
 				data: documents.map((document) => {
+					const blobStoragePath = mapBlobPath(
+						document.documentGuid,
+						appeal.reference,
+						document.fileName
+					);
+					const documentURI = `${config.BO_BLOB_STORAGE_ACCOUNT.replace(/\/$/, '')}/${
+						config.BO_BLOB_CONTAINER
+					}/${blobStoragePath}`;
+
 					return {
 						version: 1,
-						...document
+						...document,
+						documentURI,
+						blobStoragePath,
+						dateReceived: new Date().toISOString(),
+						draft: false,
+						redactionStatusId: unredactedStatus?.id
 					};
 				})
 			});
@@ -165,6 +188,14 @@ export const createOrUpdateLpaQuestionnaire = async (
 					where: { guid: doc.documentGuid }
 				});
 			}
+
+			documentVersions = await tx.documentVersion.findMany({
+				where: {
+					documentGuid: {
+						in: documents.map((d) => d.documentGuid)
+					}
+				}
+			});
 		}
 
 		if (appeal) {
@@ -174,7 +205,10 @@ export const createOrUpdateLpaQuestionnaire = async (
 			});
 		}
 
-		return appeal;
+		return {
+			appeal,
+			documentVersions
+		};
 	});
 
 	return transaction;

@@ -1,3 +1,4 @@
+import { LPAQuestionnaire } from '#utils/db-client';
 import { Schema } from 'index';
 
 declare global {
@@ -59,6 +60,7 @@ interface RepositoryGetAllResultItem {
 	createdAt: Date;
 	id: number;
 	lpa: LPA;
+	lpaQuestionnaire?: LPAQuestionnaire | null;
 	reference: string;
 	appealTimetable?: Schema.AppealTimetable | null;
 }
@@ -327,6 +329,7 @@ interface AppealListResponse {
 	appealType?: string;
 	createdAt: Date;
 	localPlanningDepartment: string;
+	lpaQuestionnaireId?: number | null;
 	appealTimetable?: AppealTimetable;
 }
 

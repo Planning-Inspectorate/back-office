@@ -39,7 +39,7 @@ exports[`national-list GET / should render national list - 10 pages - all page i
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
-                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Householder</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -48,7 +48,7 @@ exports[`national-list GET / should render national list - 10 pages - all page i
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class="govuk-table__cell">Dorset Council</td>
-                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Householder</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -133,7 +133,7 @@ exports[`national-list GET / should render national list - 15 pages - pagination
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
-                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Householder</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -142,7 +142,7 @@ exports[`national-list GET / should render national list - 15 pages - pagination
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class="govuk-table__cell">Dorset Council</td>
-                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Householder</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -207,7 +207,7 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
-                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Householder</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -216,7 +216,7 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class="govuk-table__cell">Dorset Council</td>
-                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Householder</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -295,7 +295,7 @@ exports[`national-list GET / should render national list - search term 1`] = `
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
-                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Householder</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>
@@ -304,7 +304,7 @@ exports[`national-list GET / should render national list - search term 1`] = `
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class="govuk-table__cell">Dorset Council</td>
-                <td class="govuk-table__cell">household</td>
+                <td class="govuk-table__cell">Householder</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">received appeal</strong>
                 </td>
             </tr>

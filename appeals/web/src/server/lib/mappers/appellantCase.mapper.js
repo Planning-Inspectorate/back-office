@@ -39,6 +39,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Appellant name',
 							href: `${currentRoute}/change-appeal-details/appellant-name`
 						}
 					]
@@ -79,6 +80,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Applicant name',
 							href: `${currentRoute}/change-appeal-details/applicant-name`
 						}
 					]
@@ -119,6 +121,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Application reference',
 							href: `${currentRoute}/change-appeal-details/application-reference`
 						}
 					]
@@ -156,6 +159,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Site address',
 							href: `${currentRoute}/change-appeal-details/site-address`
 						}
 					]
@@ -185,6 +189,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Local planning authority',
 							href: `${currentRoute}/change-appeal-details/local-planning-authority`
 						}
 					]
@@ -222,6 +227,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Site fully owned',
 							href: `${currentRoute}/change-appeal-details/site-fully-owned`
 						}
 					]
@@ -270,6 +276,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Site partially owned',
 							href: `${currentRoute}/change-appeal-details/site-partially-owned`
 						}
 					]
@@ -318,6 +325,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'All owners known',
 							href: `${currentRoute}/change-appeal-details/all-owners-known`
 						}
 					]
@@ -369,6 +377,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Attempted to identify owners',
 							href: `${currentRoute}/change-appeal-details/attempted-to-identify-owners`
 						}
 					]
@@ -417,6 +426,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Advertised appeal',
 							href: `${currentRoute}/change-appeal-details/advertised-appeal`
 						}
 					]
@@ -465,6 +475,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Visibility',
 							href: `${currentRoute}/change-appeal-details/visibility`
 						}
 					]
@@ -513,6 +524,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Site health and safety issues',
 							href: `${currentRoute}/change-appeal-details/site-health-and-safety-issues`
 						}
 					]
@@ -564,6 +576,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 							? [
 									{
 										text: 'Manage',
+										visuallyHiddenText: 'Application form',
 										href: mapDocumentManageUrl(
 											appellantCaseData.appealId,
 											appellantCaseData.documents.applicationForm
@@ -573,6 +586,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 							: []),
 						{
 							text: 'Add',
+							visuallyHiddenText: 'Application form',
 							href: displayPageFormatter.formatDocumentActionLink(
 								appellantCaseData.appealId,
 								appellantCaseData.documents.applicationForm,
@@ -603,6 +617,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 							? [
 									{
 										text: 'Manage',
+										visuallyHiddenText: 'Decision letter',
 										href: mapDocumentManageUrl(
 											appellantCaseData.appealId,
 											appellantCaseData.documents.decisionLetter
@@ -612,6 +627,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 							: []),
 						{
 							text: 'Add',
+							visuallyHiddenText: 'Decision letter',
 							href: displayPageFormatter.formatDocumentActionLink(
 								appellantCaseData.appealId,
 								appellantCaseData.documents.decisionLetter,
@@ -642,6 +658,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 							? [
 									{
 										text: 'Manage',
+										visuallyHiddenText: 'Appeal statement',
 										href: mapDocumentManageUrl(
 											appellantCaseData.appealId,
 											appellantCaseData.documents.appealStatement
@@ -651,6 +668,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 							: []),
 						{
 							text: 'Add',
+							visuallyHiddenText: 'Appeal statement',
 							href: displayPageFormatter.formatDocumentActionLink(
 								appellantCaseData.appealId,
 								appellantCaseData.documents.appealStatement,
@@ -681,6 +699,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Add new supporting documents',
 							href: `${currentRoute}/change-appeal-details/add-new-supporting-documents`
 						}
 					]
@@ -732,6 +751,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 							? [
 									{
 										text: 'Manage',
+										visuallyHiddenText: 'New supporting documents',
 										href: mapDocumentManageUrl(
 											appellantCaseData.appealId,
 											appellantCaseData.documents.newSupportingDocuments
@@ -741,6 +761,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 							: []),
 						{
 							text: 'Add',
+							visuallyHiddenText: 'New supporting documents',
 							href: displayPageFormatter.formatDocumentActionLink(
 								appellantCaseData.appealId,
 								appellantCaseData.documents.newSupportingDocuments,
@@ -768,6 +789,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Appellant case review outcome',
 							href: `/appeals-service/appeal-details/${appellantCaseData.appealId}/lpa-questionnaire`
 						}
 					]
