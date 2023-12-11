@@ -104,7 +104,8 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 				},
 				appealTimetable: true,
 				appealType: true,
-				lpa: true
+				lpa: true,
+				lpaQuestionnaire: true
 			},
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize
@@ -278,6 +279,7 @@ const setAppealDecision = (id, { documentDate, documentGuid, version, outcome })
 					}
 				},
 				outcome,
+				// @ts-ignore
 				decisionLetter: {
 					connect: {
 						guid: documentGuid

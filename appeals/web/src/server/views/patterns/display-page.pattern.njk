@@ -22,7 +22,7 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{%- if pageContent.preHeading -%}<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ pageContent.preHeading }}</span>{%- endif -%}
-			{%- if pageContent.heading -%}<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">{{ pageContent.heading }}</h1>{%- endif -%}
+			{%- if pageContent.heading -%}<h1 class="{{ pageContent.headingClasses if pageContent.headingClasses else "govuk-heading-xl govuk-!-margin-bottom-3" }}">{{ pageContent.heading }}</h1>{%- endif -%}
 		</div>
 	</div>
 {%- endblock -%}

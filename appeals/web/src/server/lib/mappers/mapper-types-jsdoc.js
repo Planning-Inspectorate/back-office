@@ -297,6 +297,7 @@
  * @property {string} [backLinkText]
  * @property {string} [preHeading]
  * @property {string} [heading]
+ * @property {string} [headingClasses]
  * @property {string} [submitButtonText]
  * @property {string} [skipButtonUrl]
  * @property {*} [notificationBannerComponents]

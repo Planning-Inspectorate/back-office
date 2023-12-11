@@ -39,6 +39,7 @@ const formatMyAppeals = (appeal) => ({
 	appealType: appeal.appealType?.type,
 	createdAt: appeal.createdAt,
 	localPlanningDepartment: appeal.lpa.name,
+	lpaQuestionnaireId: appeal.lpaQuestionnaire?.id || null,
 	appealTimetable: appeal.appealTimetable
 		? {
 				appealTimetableId: appeal.appealTimetable.id,
@@ -89,6 +90,7 @@ const formatAppeal = (appeal, folders) => {
 			decision: {
 				folderId: folders[0].id,
 				outcome: appeal.inspectorDecision?.outcome,
+				// @ts-ignore
 				documentId: appeal.inspectorDecision?.decisionLetterGuid
 			},
 			healthAndSafety: {
