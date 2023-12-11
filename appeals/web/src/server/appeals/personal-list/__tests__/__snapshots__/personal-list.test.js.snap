@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`personal-list GET / should render the personal list with the expected content 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-6">Cases assigned to you</h1>
+        </div>
+    </div>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Lead or child</th>
+                <th scope="col" class="govuk-table__header">Action required</th>
+                <th scope="col" class="govuk-table__header">Due by</th>
+                <th scope="col" class="govuk-table__header">Case status</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/132">268470</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/132/appellant-case">View appellant case</a>
+                </td>
+                <td class="govuk-table__cell">6 December 2023</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/147">652896</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/147/lpa-questionnaire/59">View LPA Questionnaire</a>
+                </td>
+                <td class="govuk-table__cell">8 December 2023</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">lpa questionnaire due</strong>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/154">50165</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/154">View appeal</a>
+                </td>
+                <td class="govuk-table__cell">25 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--orange single-line">statement review</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>"
+`;
