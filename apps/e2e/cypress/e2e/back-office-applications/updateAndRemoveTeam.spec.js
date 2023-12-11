@@ -36,6 +36,7 @@ describe('Update and remove team related scenarios ', () => {
 		email=Cypress.env('INSPECTOR_EMAIL');
 		projectTeamPage.addTeamMeber(email);
 		projectTeamPage.verifyCaseManagerRoleAdded();
+		
 	});
 
 	it('Update the inspector team member role from CaseManager to Operations Manager', () => {
