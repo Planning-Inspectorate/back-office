@@ -60,6 +60,7 @@ const mockRepresentationCount = jest.fn().mockResolvedValue({});
 const mockRepresentationGroupBy = jest.fn().mockResolvedValue({});
 const mockRepresentationFindMany = jest.fn().mockResolvedValue({});
 const mockRepresentationFindFirst = jest.fn().mockResolvedValue({});
+const mockRepresentationFindUnique = jest.fn().mockResolvedValue({});
 const mockRepresentationCreate = jest.fn().mockResolvedValue({});
 const mockRepresentationUpdate = jest.fn().mockResolvedValue({});
 const mockRepresentationUpdateMany = jest.fn().mockResolvedValue({});
@@ -285,6 +286,7 @@ class MockPrismaClient {
 			groupBy: mockRepresentationGroupBy,
 			findMany: mockRepresentationFindMany,
 			findFirst: mockRepresentationFindFirst,
+			findUnique: mockRepresentationFindUnique,
 			create: mockRepresentationCreate,
 			update: mockRepresentationUpdate,
 			updateMany: mockRepresentationUpdateMany
