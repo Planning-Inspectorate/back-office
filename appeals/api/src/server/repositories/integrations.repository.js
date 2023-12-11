@@ -105,6 +105,7 @@ export const createOrUpdateLpaQuestionnaire = async (
 	data,
 	documents
 ) => {
+	const unredactedStatus = await getDefaultRedactionStatus();
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		let appeal = await tx.appeal.findUnique({
 			where: { reference: caseReference }
@@ -154,9 +155,23 @@ export const createOrUpdateLpaQuestionnaire = async (
 
 			await tx.documentVersion.createMany({
 				data: documents.map((document) => {
+					const blobStoragePath = mapBlobPath(
+						document.documentGuid,
+						appeal.reference,
+						document.fileName
+					);
+					const documentURI = `${config.BO_BLOB_STORAGE_ACCOUNT.replace(/\/$/, '')}/${
+						config.BO_BLOB_CONTAINER
+					}/${blobStoragePath}`;
+
 					return {
 						version: 1,
-						...document
+						...document,
+						documentURI,
+						blobStoragePath,
+						dateReceived: new Date().toISOString(),
+						draft: false,
+						redactionStatusId: unredactedStatus?.id
 					};
 				})
 			});
