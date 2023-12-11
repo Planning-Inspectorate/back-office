@@ -1,7 +1,7 @@
 /**
  *
  * @param {Representation} representation
- * @returns {{representationType: *, attachments: *, representationId: *, originalRepresentation: *, representationFrom: *, examinationLibraryRef: string, referenceId: *, caseRef: *, dateReceived: *, caseId: *, represented: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), representative: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), registerFor: *, status: *}|{caseRef: *, representationType: *, attachments: *, representationId: *, redacted, redactedRepresentation, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}|{redactedBy, redactedNotes, caseRef: *, representationType: *, attachments: *, representationId: *, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}}
+ * @returns {{representationType: *, attachments: *, representationId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, caseRef: *, dateReceived: *, caseId: *, representedType: *, represented: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), representative: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), status: *}|{caseRef: *, representationType: *, attachments: *, representationId: *, redacted, redactedRepresentation, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}|{redactedBy, redactedNotes, caseRef: *, representationType: *, attachments: *, representationId: *, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}}
  */
 export const buildNsipRepresentationPayload = (representation) => {
 	let nsipRepresentation = {
@@ -17,13 +17,12 @@ export const buildNsipRepresentationPayload = (representation) => {
 		attachments: representation.attachments?.map(buildAttachment)
 	};
 
-	const representative = representation.contacts.find((contact) => contact.type === 'AGENT');
-	const represented = representation.contacts.find((contact) => contact.type !== 'AGENT');
+	const { representative, represented } = representation;
+
 	nsipRepresentation = {
 		...nsipRepresentation,
-		representationFrom: (representative || represented)?.type,
 		representative: buildNsipInterestedPartyPayload(representative),
-		registerFor: represented?.type,
+		representedType: representative ? 'AGENT' : representation.representedType,
 		represented: buildNsipInterestedPartyPayload(represented)
 	};
 

@@ -17,6 +17,6 @@ export const mapAddressOut = (appeal) => {
 		siteAddressLine2: appeal.address.addressLine2 || '',
 		siteAddressCounty: appeal.address.addressCounty || '',
 		siteAddressPostcode: appeal.address.postcode,
-		siteAddressTown: appeal.address.addressTown
+		siteAddressTown: appeal.address.addressTown || ''
 	};
 };

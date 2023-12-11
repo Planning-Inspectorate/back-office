@@ -26,7 +26,8 @@ export const getRelevantRepFolder = async (caseId) => {
  * @param {object} body
  * @returns {Promise<any>}
  */
-export const patchRepresentation = async (caseId, representationId, body) =>
-	patch(`applications/${caseId}/representations/${representationId}`, {
+export const patchRepresentation = async (caseId, representationId, body) => {
+	return patch(`applications/${caseId}/representations/${representationId}`, {
 		json: body
 	});
+};

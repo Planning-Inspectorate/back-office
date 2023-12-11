@@ -2,6 +2,10 @@
 // TODO: data and document types schema (PINS data model)
 import { databaseConnector } from '#utils/database-connector.js';
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
+import { mapBlobPath } from '#endpoints/documents/documents.mapper.js';
+import { getDefaultRedactionStatus } from './document-metadata.repository.js';
+
+import config from '#config/config.js';
 
 export const loadAppeal = async (id) => {
 	const appeal = await databaseConnector.appeal.findUnique({
@@ -13,18 +17,21 @@ export const loadAppeal = async (id) => {
 };
 
 export const createAppeal = async (data, documents) => {
+	const unredactedStatus = await getDefaultRedactionStatus();
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		let appeal = await tx.appeal.create({ data });
 		await tx.folder.createMany({ data: mapDefaultCaseFolders(appeal.id) });
 
-		const ref = createAppealReference(appeal.id);
+		const reference = createAppealReference(appeal.id).toString();
 		appeal = await tx.appeal.update({
 			where: { id: appeal.id },
 			data: {
-				reference: ref.toString(),
+				reference,
 				appealStatus: { create: {} }
 			}
 		});
+
+		let documentVersions = [];
 
 		if (documents) {
 			const caseFolders = await tx.folder.findMany({ where: { caseId: appeal.id } });
@@ -45,9 +52,19 @@ export const createAppeal = async (data, documents) => {
 
 			await tx.documentVersion.createMany({
 				data: documents.map((document) => {
+					const blobStoragePath = mapBlobPath(document.documentGuid, reference, document.fileName);
+					const documentURI = `${config.BO_BLOB_STORAGE_ACCOUNT.replace(/\/$/, '')}/${
+						config.BO_BLOB_CONTAINER
+					}/${blobStoragePath}`;
+
 					return {
 						version: 1,
-						...document
+						...document,
+						documentURI,
+						blobStoragePath,
+						dateReceived: new Date().toISOString(),
+						draft: false,
+						redactionStatusId: unredactedStatus?.id
 					};
 				})
 			});
@@ -58,6 +75,14 @@ export const createAppeal = async (data, documents) => {
 					where: { guid: doc.documentGuid }
 				});
 			}
+
+			documentVersions = await tx.documentVersion.findMany({
+				where: {
+					documentGuid: {
+						in: documents.map((d) => d.documentGuid)
+					}
+				}
+			});
 		}
 
 		appeal = await tx.appeal.findUnique({
@@ -65,7 +90,10 @@ export const createAppeal = async (data, documents) => {
 			include: getFindUniqueAppealQueryIncludes()
 		});
 
-		return appeal;
+		return {
+			appeal,
+			documentVersions
+		};
 	});
 
 	return transaction;
@@ -77,6 +105,7 @@ export const createOrUpdateLpaQuestionnaire = async (
 	data,
 	documents
 ) => {
+	const unredactedStatus = await getDefaultRedactionStatus();
 	const transaction = await databaseConnector.$transaction(async (tx) => {
 		let appeal = await tx.appeal.findUnique({
 			where: { reference: caseReference }
@@ -105,6 +134,8 @@ export const createOrUpdateLpaQuestionnaire = async (
 			});
 		}
 
+		let documentVersions = [];
+
 		if (appeal && documents) {
 			const caseFolders = await tx.folder.findMany({ where: { caseId: appeal.id } });
 			await tx.document.createMany({
@@ -124,9 +155,23 @@ export const createOrUpdateLpaQuestionnaire = async (
 
 			await tx.documentVersion.createMany({
 				data: documents.map((document) => {
+					const blobStoragePath = mapBlobPath(
+						document.documentGuid,
+						appeal.reference,
+						document.fileName
+					);
+					const documentURI = `${config.BO_BLOB_STORAGE_ACCOUNT.replace(/\/$/, '')}/${
+						config.BO_BLOB_CONTAINER
+					}/${blobStoragePath}`;
+
 					return {
 						version: 1,
-						...document
+						...document,
+						documentURI,
+						blobStoragePath,
+						dateReceived: new Date().toISOString(),
+						draft: false,
+						redactionStatusId: unredactedStatus?.id
 					};
 				})
 			});
@@ -137,6 +182,14 @@ export const createOrUpdateLpaQuestionnaire = async (
 					where: { guid: doc.documentGuid }
 				});
 			}
+
+			documentVersions = await tx.documentVersion.findMany({
+				where: {
+					documentGuid: {
+						in: documents.map((d) => d.documentGuid)
+					}
+				}
+			});
 		}
 
 		if (appeal) {
@@ -146,7 +199,10 @@ export const createOrUpdateLpaQuestionnaire = async (
 			});
 		}
 
-		return appeal;
+		return {
+			appeal,
+			documentVersions
+		};
 	});
 
 	return transaction;
@@ -162,6 +218,8 @@ const createAppealReference = (/** @type {number} */ id) => {
 };
 
 const getFolderIdFromDocumentType = (caseFolders, documentType, stage) => {
+	const catchAllFolder = 'additionalDocuments';
+
 	const caseFolder = caseFolders.find(
 		(caseFolder) => caseFolder.path === `${stage}/${documentType}`
 	);
@@ -169,9 +227,7 @@ const getFolderIdFromDocumentType = (caseFolders, documentType, stage) => {
 		return caseFolder.id;
 	}
 
-	// TODO: Fall back to a 'dropbox' folder?
-
-	return null;
+	return caseFolders.find((caseFolder) => caseFolder.path === `${stage}/${catchAllFolder}`);
 };
 
 const getFindUniqueAppealQueryIncludes = () => {

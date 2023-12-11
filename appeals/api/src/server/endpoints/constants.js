@@ -164,6 +164,9 @@ export const CONFIG_APPEAL_TIMETABLE = {
 
 export const CONFIG_APPEAL_FOLDER_PATHS = [
 	// path in the format of {stage}/{documentType}
+	// if documentType not passed with individual doc metadata, will inherit from folder
+	// ------------------------------------------------
+	// Appellant case folders
 	'appellant_case/applicationForm',
 	'appellant_case/decisionLetter',
 	'appellant_case/designAndAccessStatement',
@@ -173,6 +176,10 @@ export const CONFIG_APPEAL_FOLDER_PATHS = [
 	'appellant_case/newPlansOrDrawings',
 	'appellant_case/newSupportingDocuments',
 	'appellant_case/appealStatement',
+	// Dropbox / Late evidence
+	'appellant_case/additionalDocuments',
+
+	// ------------------------------------------------
 	// LPA questionnaire folders
 	'lpa_questionnaire/communityInfrastructureLevy',
 	'lpa_questionnaire/conservationAreaMap',
@@ -193,6 +200,11 @@ export const CONFIG_APPEAL_FOLDER_PATHS = [
 	'lpa_questionnaire/siteNotices',
 	'lpa_questionnaire/supplementaryPlanningDocuments',
 	'lpa_questionnaire/treePreservationOrder',
+	// Dropbox / Late evidence
+	'lpa_questionnaire/additionalDocuments',
+
+	// ------------------------------------------------
+	// Decision letter
 	'appeal_decision/decisionLetter'
 ];
 

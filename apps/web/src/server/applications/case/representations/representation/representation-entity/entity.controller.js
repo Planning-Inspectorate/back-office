@@ -1,4 +1,4 @@
-import { deleteRepresentationContact, patchRepresentation } from '../representation.service.js';
+import { patchRepresentation } from '../representation.service.js';
 import { getFormattedErrorSummary, getRepresentationPageUrl } from '../representation.utilities.js';
 import { getRepresentationEntityViewModel } from './entity.view-model.js';
 
@@ -41,11 +41,9 @@ export const postRepresentationEntity = async (req, res) => {
 		nextPagePath = 'contact-details';
 		repType = 'representative';
 	} else {
-		if (locals.representation?.representative?.id)
-			await deleteRepresentationContact(caseId, repId, locals.representation.representative.id);
+		await patchRepresentation(caseId, repId, repType, payload);
 		nextPagePath = 'add-representation';
 		repType = 'represented';
-		await patchRepresentation(caseId, repId, repType, payload);
 	}
 
 	return res.redirect(getRepresentationPageUrl(nextPagePath, repId, repType));

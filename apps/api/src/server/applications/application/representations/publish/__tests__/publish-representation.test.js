@@ -34,22 +34,20 @@ const representations = [
 			publishedAt: null,
 			title: 'Office Use Test Application 1'
 		},
-		contacts: [
-			{
-				id: 10105,
-				representationId: 6409,
-				firstName: '',
-				lastName: '',
-				jobTitle: null,
-				under18: false,
-				type: 'ORGANISATION',
-				organisationName: 'Environment Agency',
-				email: 'test@example.com',
-				phoneNumber: '01234 567890',
-				contactMethod: null,
-				addressId: 10105
-			}
-		],
+		representedType: 'ORGANISATION',
+		represented: {
+			id: 10105,
+			representationId: 6409,
+			firstName: '',
+			lastName: '',
+			jobTitle: null,
+			under18: false,
+			organisationName: 'Environment Agency',
+			email: 'test@example.com',
+			phoneNumber: '01234 567890',
+			contactMethod: null,
+			addressId: 10105
+		},
 		representationActions: [
 			{
 				id: 1346,
@@ -90,36 +88,33 @@ const representations = [
 			publishedAt: null,
 			title: 'Office Use Test Application 1'
 		},
-		contacts: [
-			{
-				id: 10381,
-				representationId: 6579,
-				firstName: 'Mrs',
-				lastName: 'Sue',
-				jobTitle: null,
-				under18: false,
-				type: 'PERSON',
-				organisationName: null,
-				email: 'test@example.com',
-				phoneNumber: '01234 567890',
-				contactMethod: null,
-				addressId: 10381
-			},
-			{
-				id: 10382,
-				representationId: 6579,
-				firstName: 'James',
-				lastName: 'Bond',
-				jobTitle: null,
-				under18: false,
-				type: 'AGENT',
-				organisationName: '',
-				email: 'test-agent@example.com',
-				phoneNumber: '01234 567890',
-				contactMethod: null,
-				addressId: 10382
-			}
-		],
+		representedType: undefined, // this is not captured if rep has representative/agent
+		represented: {
+			id: 10381,
+			representationId: 6579,
+			firstName: 'Mrs',
+			lastName: 'Sue',
+			jobTitle: null,
+			under18: false,
+			organisationName: null,
+			email: 'test@example.com',
+			phoneNumber: '01234 567890',
+			contactMethod: null,
+			addressId: 10381
+		},
+		representative: {
+			id: 10382,
+			representationId: 6579,
+			firstName: 'James',
+			lastName: 'Bond',
+			jobTitle: null,
+			under18: false,
+			organisationName: '',
+			email: 'test-agent@example.com',
+			phoneNumber: '01234 567890',
+			contactMethod: null,
+			addressId: 10382
+		},
 		representationActions: []
 	}
 ];
@@ -141,11 +136,10 @@ const expectedEventPayload = [
 		redactedNotes: 'some notes here',
 		redactedRepresentation: 'some rep text',
 		referenceId: 'BC0110001-55',
-		registerFor: 'ORGANISATION',
-		representationFrom: 'ORGANISATION',
 		representationId: 6409,
 		representationType: null,
 		representative: {},
+		representedType: 'ORGANISATION',
 		represented: {
 			contactMethod: null,
 			emailAddress: 'test@example.com',
@@ -166,8 +160,6 @@ const expectedEventPayload = [
 		examinationLibraryRef: '',
 		originalRepresentation: 'some words',
 		referenceId: 'BC0110001-1533',
-		registerFor: 'PERSON',
-		representationFrom: 'AGENT',
 		representationId: 6579,
 		representationType: null,
 		representative: {
@@ -180,6 +172,7 @@ const expectedEventPayload = [
 			telephone: '01234 567890',
 			under18: false
 		},
+		representedType: 'AGENT',
 		represented: {
 			contactMethod: null,
 			emailAddress: 'test@example.com',

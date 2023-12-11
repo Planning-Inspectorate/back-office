@@ -53,7 +53,8 @@ export const baseExpectedLPAQuestionnaireResponse = (appeal) => ({
 		screeningDirection: {},
 		siteNotices: {},
 		supplementaryPlanningDocuments: {},
-		treePreservationOrder: {}
+		treePreservationOrder: {},
+		additionalDocuments: {}
 	},
 	doesAffectAListedBuilding: appeal.lpaQuestionnaire?.doesAffectAListedBuilding,
 	doesAffectAScheduledMonument: appeal.lpaQuestionnaire?.doesAffectAScheduledMonument,
@@ -167,7 +168,8 @@ export const baseExpectedAppellantCaseResponse = (appeal) => ({
 		newSupportingDocuments: {},
 		planningObligation: {},
 		plansDrawingsSupportingDocuments: {},
-		separateOwnershipCertificate: {}
+		separateOwnershipCertificate: {},
+		additionalDocuments: {}
 	},
 	hasAdvertisedAppeal: appeal.appellantCase?.hasAdvertisedAppeal,
 	...(isFPA(appeal.appealType) && {

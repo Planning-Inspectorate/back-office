@@ -100,6 +100,8 @@ export const mapDocument = (doc) => {
 };
 
 export const mapServiceUser = (appeal, user, userType) => {
-	const caseReference = appeal.reference;
-	return mappers.mapServiceUserOut(user, userType, caseReference);
+	if (appeal && user) {
+		const caseReference = appeal.reference;
+		return mappers.mapServiceUserOut(user, userType, caseReference);
+	}
 };

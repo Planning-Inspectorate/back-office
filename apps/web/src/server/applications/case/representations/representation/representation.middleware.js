@@ -1,7 +1,7 @@
 import { getRepresentationPageURLs } from './utils/get-representation-page-urls.js';
 import { getCase, getRepresentation } from './representation.service.js';
-import { formatContactDetails } from './representation.utilities.js';
 import { getPageLinks } from './utils/get-page-links.js';
+import { formatContactDetails } from './representation.utilities.js';
 
 /**
  * @typedef {import('../relevant-representation.types.js').Representation} Representation
@@ -16,17 +16,6 @@ import { getPageLinks } from './utils/get-page-links.js';
  */
 const getCaseViewModel = ({ title }) => ({
 	projectName: title
-});
-
-/**
- *
- * @param {Representation} representation
- * @returns {{represented: Contact, representative: Contact}}
- */
-
-export const getContactDetailsByContactType = ({ contacts }) => ({
-	represented: formatContactDetails(contacts.find((element) => element.type !== 'AGENT')),
-	representative: formatContactDetails(contacts.find((element) => element.type === 'AGENT'))
 });
 
 /**
@@ -63,14 +52,16 @@ export const addRepresentationToLocals = async (req, res, next) => {
 
 		if (repId) {
 			const representationData = await getRepresentation(caseId, String(repId));
-			const { represented, representative } = getContactDetailsByContactType(representationData);
-			delete representationData.contacts;
+
+			// These were originally initialised as empty objects when undefined, consequentially because of how pick works
+			representationData.represented = formatContactDetails(representationData.represented || {});
+			representationData.representative = formatContactDetails(
+				representationData.representative || {}
+			);
 
 			res.locals.representation = {
 				...res.locals.representation,
-				...representationData,
-				represented,
-				representative
+				...representationData
 			};
 		}
 

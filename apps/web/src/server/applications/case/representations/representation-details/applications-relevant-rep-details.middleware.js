@@ -4,13 +4,14 @@
  * @param {import("express").NextFunction} next
  */
 export const addRepresentationValuesToBody = async (req, res, next) => {
-	const { originalRepresentation, received, type, represented, representative } =
+	const { originalRepresentation, received, type, represented, representative, representedType } =
 		res.locals.representation;
 
 	req.body = {
 		originalRepresentation,
 		received,
 		type,
+		representedType,
 		represented,
 		representative
 	};

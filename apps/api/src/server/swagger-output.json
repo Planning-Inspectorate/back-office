@@ -684,10 +684,13 @@
 									"type": "object",
 									"properties": {}
 								},
-								"contacts": {
-									"type": "array",
-									"example": [],
-									"items": {}
+								"represented": {
+									"type": "object",
+									"properties": {}
+								},
+								"representative": {
+									"type": "object",
+									"properties": {}
 								},
 								"attachments": {
 									"type": "array",

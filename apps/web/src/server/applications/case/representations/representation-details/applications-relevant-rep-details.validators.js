@@ -4,8 +4,7 @@ import { body } from 'express-validator';
 const validateOnBehalfOf = () => {
 	return [
 		body('onBehalfOf').custom((_, { req: { body } }) => {
-			if (!body.represented.type && !body.representative.type)
-				throw new Error('Enter on behalf of');
+			if (!body.representedType && !body.representative?.id) throw new Error('Enter on behalf of');
 
 			return true;
 		})

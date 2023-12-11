@@ -20,7 +20,6 @@ export async function deleteAllRecords(databaseConnector) {
 	const deletes51Advice = databaseConnector.s51Advice.deleteMany();
 	const deletes51AdviceDocument = databaseConnector.s51AdviceDocument.deleteMany();
 	const deleteFolders = databaseConnector.folder.deleteMany();
-	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
 	const deleteRepresentationAttachment = databaseConnector.representationAttachment.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 	const deleteRepresentationAction = databaseConnector.representationAction.deleteMany();
@@ -37,7 +36,6 @@ export async function deleteAllRecords(databaseConnector) {
 	// start deleting ...
 	await deleteRepresentationAttachment;
 	await deleteRepresentationAction;
-	await deleteRepresentationContact;
 	await deleteRepresentation;
 
 	// delete S51 advice documents, S51 Advice, document Activity logs, document versions, documents, and THEN the folders.

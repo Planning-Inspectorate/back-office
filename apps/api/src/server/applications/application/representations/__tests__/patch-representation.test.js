@@ -1,4 +1,5 @@
 import { request } from '../../../../app-test.js';
+import { jest } from '@jest/globals';
 
 const { databaseConnector } = await import('../../../../utils/database-connector.js');
 
@@ -25,9 +26,8 @@ const existingRepresentations = [
 describe('Patch Application Representation', () => {
 	beforeAll(() => {
 		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[0]);
-		databaseConnector.representationContact.findFirst.mockResolvedValue({ id: 1 });
-		databaseConnector.representationContact.update.mockResolvedValue();
 	});
+	afterEach(() => jest.clearAllMocks());
 
 	it('Patch representation', async () => {
 		const response = await request
@@ -47,7 +47,7 @@ describe('Patch Application Representation', () => {
 		});
 	});
 
-	it('Patch representation contact - with represented', async () => {
+	it('Patch representation - with represented', async () => {
 		const response = await request
 			.patch('/applications/1/representations/1')
 			.send({
@@ -58,8 +58,8 @@ describe('Patch Application Representation', () => {
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json');
 
-		expect(databaseConnector.representationContact.update).toHaveBeenCalledWith({
-			data: { firstName: 'new name' },
+		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+			data: { represented: { update: { firstName: 'new name' } } },
 			where: { id: 1 }
 		});
 		expect(response.status).toEqual(200);
@@ -69,7 +69,12 @@ describe('Patch Application Representation', () => {
 		});
 	});
 
-	it('Patch representation contact - with represented - address', async () => {
+	it('Patch representation - with represented - address', async () => {
+		databaseConnector.representation.findFirst.mockResolvedValue({
+			...existingRepresentations[0],
+			representedId: 1
+		});
+
 		const response = await request
 			.patch('/applications/1/representations/1')
 			.send({
@@ -82,11 +87,16 @@ describe('Patch Application Representation', () => {
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json');
 
-		expect(databaseConnector.representationContact.update).toHaveBeenCalledWith({
+		expect(databaseConnector.serviceUser.update).toHaveBeenCalledWith({
 			data: {
 				address: {
-					update: {
-						addressLine1: 'updated address line 1'
+					upsert: {
+						create: {
+							addressLine1: 'updated address line 1'
+						},
+						update: {
+							addressLine1: 'updated address line 1'
+						}
 					}
 				}
 			},
@@ -99,7 +109,7 @@ describe('Patch Application Representation', () => {
 		});
 	});
 
-	it('Patch representation contact - with representative', async () => {
+	it('Patch representation - with representative', async () => {
 		const response = await request
 			.patch('/applications/1/representations/1')
 			.send({
@@ -110,8 +120,12 @@ describe('Patch Application Representation', () => {
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json');
 
-		expect(databaseConnector.representationContact.update).toHaveBeenCalledWith({
-			data: { firstName: 'new name' },
+		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+			data: {
+				representative: {
+					upsert: { create: { firstName: 'new name' }, update: { firstName: 'new name' } }
+				}
+			},
 			where: { id: 1 }
 		});
 		expect(response.status).toEqual(200);
@@ -121,7 +135,12 @@ describe('Patch Application Representation', () => {
 		});
 	});
 
-	it('Patch representation contact - with representative - address', async () => {
+	it('Patch representation - with representative - address', async () => {
+		databaseConnector.representation.findFirst.mockResolvedValue({
+			...existingRepresentations[0],
+			representativeId: 1
+		});
+
 		const response = await request
 			.patch('/applications/1/representations/1')
 			.send({
@@ -134,11 +153,16 @@ describe('Patch Application Representation', () => {
 			.set('Content-Type', 'application/json')
 			.set('Accept', 'application/json');
 
-		expect(databaseConnector.representationContact.update).toHaveBeenCalledWith({
+		expect(databaseConnector.serviceUser.update).toHaveBeenCalledWith({
 			data: {
 				address: {
-					update: {
-						addressLine1: 'updated address line 1'
+					upsert: {
+						create: {
+							addressLine1: 'updated address line 1'
+						},
+						update: {
+							addressLine1: 'updated address line 1'
+						}
 					}
 				}
 			},

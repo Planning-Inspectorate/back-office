@@ -13,7 +13,8 @@ import {
 	importDocument,
 	produceAppealUpdate,
 	produceServiceUsersUpdate,
-	produceDocumentUpdate
+	produceDocumentUpdate,
+	produceBlobMoveRequest
 } from './integrations.service.js';
 
 import { addDocumentAudit } from '#endpoints/documents/documents.service.js';
@@ -44,31 +45,48 @@ export const postAppealSubmission = async (req, res) => {
 	const dbSavedResult = await importAppellantCase(appeal, documents);
 
 	await createAuditTrail({
-		appealId: dbSavedResult.id,
+		appealId: dbSavedResult.appeal.id,
 		details: AUDIT_TRAIL_APPELLANT_IMPORT_MSG,
 		azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID
 	});
 
-	const appealTopic = mapAppeal(dbSavedResult);
+	const appealTopic = mapAppeal(dbSavedResult.appeal);
 	await produceAppealUpdate(appealTopic, EventType.Create);
 
-	if (dbSavedResult.appellantId) {
-		// @ts-ignore
-		const appellantTopic = mapServiceUser(dbSavedResult, dbSavedResult.appellant, 'appellant');
+	if (dbSavedResult.appeal.appellantId) {
+		const appellantTopic = mapServiceUser(
+			dbSavedResult,
+			// @ts-ignore
+			dbSavedResult.appeal.appellant,
+			'appellant'
+		);
 		if (appellantTopic) {
 			await produceServiceUsersUpdate([appellantTopic], EventType.Create, 'appellant');
 		}
 	}
-	if (dbSavedResult.agentId) {
+
+	if (dbSavedResult.appeal.agentId) {
 		// @ts-ignore
-		const agentTopic = mapServiceUser(dbSavedResult, dbSavedResult.agent, 'agent');
-		await produceServiceUsersUpdate([agentTopic], EventType.Create, 'agent');
+		const agentTopic = mapServiceUser(dbSavedResult, dbSavedResult.appeal.agent, 'agent');
+		if (agentTopic) {
+			await produceServiceUsersUpdate([agentTopic], EventType.Create, 'agent');
+		}
 	}
 
-	const documentsTopic = documents.map((d) => mapDocument(d));
+	const documentsToMove = documents.map((d) => {
+		return {
+			originalURI: d.documentURI,
+			importedURI: dbSavedResult.documentVersions.find((dv) => dv.documentGuid === d.documentGuid)
+				.documentURI
+		};
+	});
+
+	await produceBlobMoveRequest(documentsToMove, EventType.Create);
+
+	const documentsTopic = dbSavedResult.documentVersions.map((d) => mapDocument(d));
 	for (const documentTopic of documentsTopic) {
 		const auditTrail = await createAuditTrail({
-			appealId: dbSavedResult.id,
+			appealId: dbSavedResult.appeal.id,
 			azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID,
 			details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_IMPORTED, [documentTopic.documentGuid])
 		});
@@ -76,6 +94,7 @@ export const postAppealSubmission = async (req, res) => {
 			await addDocumentAudit(documentTopic.documentGuid, 1, auditTrail, 'Create');
 		}
 	}
+
 	await produceDocumentUpdate(documentsTopic, EventType.Create);
 
 	return res.send(appealTopic);
@@ -95,25 +114,35 @@ export const postLpaqSubmission = async (req, res) => {
 		questionnaire,
 		documents
 	);
-	if (!dbSavedResult) {
+	if (!dbSavedResult?.appeal) {
 		throw new BackOfficeAppError(
 			`Failure importing LPA questionnaire. Appeal with case reference '${caseReference}' does not exist.`
 		);
 	}
 
 	await createAuditTrail({
-		appealId: dbSavedResult.id,
+		appealId: dbSavedResult.appeal.id,
 		details: AUDIT_TRAIL_LPAQ_IMPORT_MSG,
 		azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID
 	});
 
-	const appealTopic = mapAppeal(dbSavedResult);
+	const appealTopic = mapAppeal(dbSavedResult.appeal);
 	await produceAppealUpdate(appealTopic, EventType.Update);
 
-	const documentsTopic = documents.map((d) => mapDocument(d));
+	const documentsToMove = documents.map((d) => {
+		return {
+			originalURI: d.documentURI,
+			importedURI: dbSavedResult.documentVersions.find((dv) => dv.documentGuid === d.documentGuid)
+				.documentURI
+		};
+	});
+
+	await produceBlobMoveRequest(documentsToMove, EventType.Create);
+
+	const documentsTopic = dbSavedResult.documentVersions.map((d) => mapDocument(d));
 	for (const documentTopic of documentsTopic) {
 		const auditTrail = await createAuditTrail({
-			appealId: dbSavedResult.id,
+			appealId: dbSavedResult.appeal.id,
 			azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID,
 			details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_IMPORTED, [documentTopic.documentGuid])
 		});
@@ -121,6 +150,7 @@ export const postLpaqSubmission = async (req, res) => {
 			await addDocumentAudit(documentTopic.documentGuid, 1, auditTrail, 'Create');
 		}
 	}
+
 	await produceDocumentUpdate(documentsTopic, EventType.Create);
 
 	return res.send(appealTopic);

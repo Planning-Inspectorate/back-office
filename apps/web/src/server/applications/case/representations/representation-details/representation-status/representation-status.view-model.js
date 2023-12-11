@@ -1,6 +1,6 @@
-import { getContactDetailsByContactType } from '../../representation/representation.middleware.js';
 import { repStatusMap } from '../utils/representation-status-map.js';
 import { getRepresentationDetailsPageUrl } from './representation-status.utils.js';
+import { formatContactDetails } from '../../representation/representation.utilities.js';
 
 /**
  * @typedef {import('../../relevant-representation.types.js').Representation} Representation
@@ -63,8 +63,8 @@ export const getRepresentationStatusViewModel = (
 	isStatusEdit
 ) => {
 	const oldStatus = representationDetails.status;
-	const { represented } = getContactDetailsByContactType(representationDetails);
 	const status = isStatusEdit ? isStatusEdit : oldStatus;
+	const represented = formatContactDetails(representationDetails.represented);
 
 	return {
 		caseId,

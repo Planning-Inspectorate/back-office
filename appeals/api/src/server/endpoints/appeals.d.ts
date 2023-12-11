@@ -1,3 +1,4 @@
+import { LPAQuestionnaire } from '#utils/db-client';
 import { Schema } from 'index';
 
 declare global {
@@ -59,6 +60,7 @@ interface RepositoryGetAllResultItem {
 	createdAt: Date;
 	id: number;
 	lpa: LPA;
+	lpaQuestionnaire?: LPAQuestionnaire | null;
 	reference: string;
 	appealTimetable?: Schema.AppealTimetable | null;
 }
@@ -127,6 +129,7 @@ interface SingleLPAQuestionnaireResponse {
 		siteNotices: FolderInfo | {};
 		supplementaryPlanningDocuments: FolderInfo | {};
 		treePreservationOrder: FolderInfo | {};
+		additionalDocuments: FolderInfo | {};
 	};
 	doesAffectAListedBuilding?: boolean | null;
 	doesAffectAScheduledMonument?: boolean | null;
@@ -279,6 +282,7 @@ interface SingleAppellantCaseResponse {
 		decisionLetter: FolderInfo | {};
 		designAndAccessStatement?: FolderInfo | {};
 		newSupportingDocuments: FolderInfo | {};
+		additionalDocuments: FolderInfo | {};
 	};
 	hasAdvertisedAppeal: boolean | null;
 	hasDesignAndAccessStatement?: boolean | null;
@@ -325,6 +329,7 @@ interface AppealListResponse {
 	appealType?: string;
 	createdAt: Date;
 	localPlanningDepartment: string;
+	lpaQuestionnaireId?: number | null;
 	appealTimetable?: AppealTimetable;
 }
 
