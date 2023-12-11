@@ -39,6 +39,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Listed building',
 							href: `${currentRoute}/change-lpa-questionnaire/is-listed-building`
 						}
 					]
@@ -86,6 +87,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						items: [
 							{
 								text: 'Change',
+								visuallyHiddenText: 'Listed building details',
 								href: `${currentRoute}/change-lpa-questionnaire/listed-building-details`
 							}
 						]
@@ -110,6 +112,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Affects a listed building',
 							href: `${currentRoute}/change-lpa-questionnaire/does-affect-a-listed-building`
 						}
 					]
@@ -159,6 +162,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						items: [
 							{
 								text: 'Change',
+								visuallyHiddenText: 'Affects listed building details',
 								href: `${currentRoute}/change-lpa-questionnaire/affects-listed-building-details`
 							}
 						]
@@ -183,6 +187,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Affects a scheduled monument',
 							href: `${currentRoute}/change-lpa-questionnaire/affects-scheduled-monument`
 						}
 					]
@@ -229,6 +234,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Correct appeal type',
 							href: `${currentRoute}/change-lpa-questionnaire/is-correct-appeal-type`
 						}
 					]
@@ -274,6 +280,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Conservation area',
 							href: `${currentRoute}/change-lpa-questionnaire/in-or-relates-to-ca`
 						}
 					]
@@ -323,6 +330,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							? [
 									{
 										text: 'Manage',
+										visuallyHiddenText: 'Conservation area map and guidance',
 										href: mapDocumentManageUrl(
 											data.appealId,
 											data.lpaQuestionnaireId,
@@ -333,6 +341,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							: []),
 						{
 							text: 'Add',
+							visuallyHiddenText: 'Conservation area map and guidance',
 							href: displayPageFormatter.formatDocumentActionLink(
 								data.appealId,
 								data.documents.conservationAreaMap,
@@ -360,6 +369,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Green belt',
 							href: `${currentRoute}/change-lpa-questionnaire/site-within-green-belt`
 						}
 					]
@@ -409,6 +419,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							? [
 									{
 										text: 'Manage',
+										visuallyHiddenText: 'Who was notified',
 										href: mapDocumentManageUrl(
 											data.appealId,
 											data.lpaQuestionnaireId,
@@ -419,6 +430,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							: []),
 						{
 							text: 'Add',
+							visuallyHiddenText: 'Who was notified',
 							href: displayPageFormatter.formatDocumentActionLink(
 								data.appealId,
 								data.documents.notifyingParties,
@@ -448,6 +460,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Notification methods',
 							href: `${currentRoute}/change-lpa-questionnaire/notification-methods`
 						}
 					]
@@ -501,7 +514,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 			display: {
 				summaryListItem: {
 					key: {
-						text: 'Site Notice'
+						text: 'Site notice'
 					},
 					value: displayPageFormatter.formatDocumentValues(
 						data.appealId,
@@ -513,6 +526,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								? [
 										{
 											text: 'Manage',
+											visuallyHiddenText: 'Site notice',
 											href: mapDocumentManageUrl(
 												data.appealId,
 												data.lpaQuestionnaireId,
@@ -523,6 +537,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								: []),
 							{
 								text: 'Add',
+								visuallyHiddenText: 'Site notice',
 								href: displayPageFormatter.formatDocumentActionLink(
 									data.appealId,
 									data.documents.siteNotices,
@@ -560,6 +575,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								? [
 										{
 											text: 'Manage',
+											visuallyHiddenText: 'Letter or email to interested parties',
 											href: mapDocumentManageUrl(
 												data.appealId,
 												data.lpaQuestionnaireId,
@@ -570,6 +586,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								: []),
 							{
 								text: 'Add',
+								visuallyHiddenText: 'Letter or email to interested parties',
 								href: displayPageFormatter.formatDocumentActionLink(
 									data.appealId,
 									data.documents.lettersToNeighbours,
@@ -604,6 +621,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 						items: [
 							{
 								text: data.documents.pressAdvert?.documents?.length > 0 ? 'Change' : 'Add',
+								visuallyHiddenText: 'Advertisement',
 								href: displayPageFormatter.formatDocumentActionLink(
 									data.appealId,
 									data.documents.pressAdvert,
@@ -632,6 +650,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Representations from other parties',
 							href: `${currentRoute}/change-lpa-questionnaire/has-representations-from-other-parties`
 						}
 					]
@@ -682,6 +701,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								? [
 										{
 											text: 'Manage',
+											visuallyHiddenText: 'Representations from other parties documents',
 											href: mapDocumentManageUrl(
 												data.appealId,
 												data.lpaQuestionnaireId,
@@ -692,6 +712,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 								: []),
 							{
 								text: 'Add',
+								visuallyHiddenText: 'Representations from other parties documents',
 								href: displayPageFormatter.formatDocumentActionLink(
 									data.appealId,
 									data.documents.representations,
@@ -723,6 +744,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							? [
 									{
 										text: 'Manage',
+										visuallyHiddenText: "Planning officer's report",
 										href: mapDocumentManageUrl(
 											data.appealId,
 											data.lpaQuestionnaireId,
@@ -733,6 +755,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							: []),
 						{
 							text: 'Add',
+							visuallyHiddenText: "Planning officer's report",
 							href: displayPageFormatter.formatDocumentActionLink(
 								data.appealId,
 								data.documents.officersReport,
@@ -760,6 +783,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Site access required',
 							href: `${currentRoute}/change-lpa-questionnaire/does-site-require-inspector-access`
 						}
 					]
@@ -806,6 +830,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Affects neighbouring sites',
 							href: `${currentRoute}/change-lpa-questionnaire/is-affecting-neighbouring-sites`
 						}
 					]
@@ -853,6 +878,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 							items: [
 								{
 									text: 'Change',
+									visuallyHiddenText: `Neighbour address ${i + 1}`,
 									href: `${currentRoute}/change-lpa-questionnaire/neighbouring-site-address-${i}`
 								}
 							]
@@ -885,6 +911,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Potential safety risks',
 							href: `${currentRoute}/change-lpa-questionnaire/health-and-safety`
 						}
 					]
@@ -937,6 +964,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Appeals near the site',
 							href: `${currentRoute}/change-lpa-questionnaire/other-appeals`
 						}
 					]
@@ -979,6 +1007,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'Extra conditions',
 							href: `${currentRoute}/change-lpa-questionnaire/extra-conditions`
 						}
 					]
@@ -1030,6 +1059,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					items: [
 						{
 							text: 'Change',
+							visuallyHiddenText: 'LPA Questionnaire review outcome',
 							href: `/appeals-service/appeal-details/${data.appealId}/lpa-questionnaire/${data.lpaQuestionnaireId}`
 						}
 					]

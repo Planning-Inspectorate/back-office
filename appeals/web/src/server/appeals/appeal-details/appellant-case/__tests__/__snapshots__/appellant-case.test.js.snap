@@ -59,17 +59,17 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">Fiona Burgess</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/appellant-name"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/appellant-name"> Change<span class="govuk-visually-hidden"> Appellant name</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/applicant-name"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/applicant-name"> Change<span class="govuk-visually-hidden"> Applicant name</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application reference</dt>
                     <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/application-reference"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/application-reference"> Change<span class="govuk-visually-hidden"> Application reference</span></a>
                     </dd>
                 </div>
             </dl>
@@ -83,42 +83,42 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
                     <dd class="govuk-summary-list__value">96 The Avenue, Maidstone, Kent, MD21 5XY</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-address"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-address"> Change<span class="govuk-visually-hidden"> Site address</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site fully owned</dt>
                     <dd class="govuk-summary-list__value">Yes</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-fully-owned"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-fully-owned"> Change<span class="govuk-visually-hidden"> Site fully owned</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site partially owned</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-partially-owned"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-partially-owned"> Change<span class="govuk-visually-hidden"> Site partially owned</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> All owners known</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/all-owners-known"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/all-owners-known"> Change<span class="govuk-visually-hidden"> All owners known</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Attempted to identify owners</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/attempted-to-identify-owners"> Change</a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/attempted-to-identify-owners"> Change<span class="govuk-visually-hidden"> Attempted to identify owners</span></a>
                         </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Advertised appeal</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/advertised-appeal"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/advertised-appeal"> Change<span class="govuk-visually-hidden"> Advertised appeal</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visibility</dt>
                     <dd class="govuk-summary-list__value">Yes</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/visibility"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/visibility"> Change<span class="govuk-visually-hidden"> Visibility</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site health and safety issues</dt>
                     <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change</a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Site health and safety issues</span></a>
                         </dd>
                 </div>
             </dl>
@@ -132,27 +132,27 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/1"> Add</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/1"> Add<span class="govuk-visually-hidden"> Application form</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision letter</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/2"> Add</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/2"> Add<span class="govuk-visually-hidden"> Decision letter</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal statement</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9"> Add</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Add new supporting documents</dt>
                     <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change</a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Add new supporting documents</span></a>
                         </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8"> Add</a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
                         </dd>
                 </div>
             </dl>
@@ -1568,17 +1568,17 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">Fiona Burgess</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/appellant-name"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/appellant-name"> Change<span class="govuk-visually-hidden"> Appellant name</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/applicant-name"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/applicant-name"> Change<span class="govuk-visually-hidden"> Applicant name</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application reference</dt>
                     <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/application-reference"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/application-reference"> Change<span class="govuk-visually-hidden"> Application reference</span></a>
                     </dd>
                 </div>
             </dl>
@@ -1592,42 +1592,42 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
                     <dd class="govuk-summary-list__value">96 The Avenue, Maidstone, Kent, MD21 5XY</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-address"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-address"> Change<span class="govuk-visually-hidden"> Site address</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site fully owned</dt>
                     <dd class="govuk-summary-list__value">Yes</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-fully-owned"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-fully-owned"> Change<span class="govuk-visually-hidden"> Site fully owned</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site partially owned</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-partially-owned"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-partially-owned"> Change<span class="govuk-visually-hidden"> Site partially owned</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> All owners known</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/all-owners-known"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/all-owners-known"> Change<span class="govuk-visually-hidden"> All owners known</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Attempted to identify owners</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/attempted-to-identify-owners"> Change</a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/attempted-to-identify-owners"> Change<span class="govuk-visually-hidden"> Attempted to identify owners</span></a>
                         </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Advertised appeal</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/advertised-appeal"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/advertised-appeal"> Change<span class="govuk-visually-hidden"> Advertised appeal</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visibility</dt>
                     <dd class="govuk-summary-list__value">Yes</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/visibility"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/visibility"> Change<span class="govuk-visually-hidden"> Visibility</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site health and safety issues</dt>
                     <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change</a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Site health and safety issues</span></a>
                         </dd>
                 </div>
             </dl>
@@ -1641,27 +1641,27 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/1"> Add</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/1"> Add<span class="govuk-visually-hidden"> Application form</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision letter</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/2"> Add</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/2"> Add<span class="govuk-visually-hidden"> Decision letter</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal statement</dt>
                     <dd class="govuk-summary-list__value"></dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9"> Add</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Add new supporting documents</dt>
                     <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change</a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Add new supporting documents</span></a>
                         </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8"> Add</a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
                         </dd>
                 </div>
             </dl>
