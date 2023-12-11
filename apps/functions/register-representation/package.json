@@ -1,0 +1,22 @@
+{
+	"name": "@pins/functions-register-representation",
+	"version": "1.0.0",
+	"description": "Azure function to consume front office representation from service bus",
+	"scripts": {
+		"start": "func start",
+		"test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest"
+	},
+	"dependencies": {
+		"@pins/event-client": "^0.0.0",
+		"@pins/platform": "^0.0.0",
+		"dotenv": "*",
+		"got": "*",
+		"joi": "*",
+		"lodash-es": "^4.17.21"
+	},
+	"devDependencies": {
+		"cross-env": "*",
+		"jest": "*"
+	},
+	"type": "module"
+}

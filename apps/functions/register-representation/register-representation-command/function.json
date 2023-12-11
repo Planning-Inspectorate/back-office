@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "registerRepresentation",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "register-representation",
+			"subscriptionName": "register-representation-subscription",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}
