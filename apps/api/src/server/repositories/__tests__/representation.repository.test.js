@@ -459,12 +459,12 @@ describe('Representation repository', () => {
 		};
 
 		it('finds a representation by id', async () => {
-			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+			databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
 
 			const representation = await representationRepository.getById(1);
 
 			expect(representation).toEqual(existingRepresentations[0]);
-			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
+			expect(databaseConnector.representation.findUnique).toHaveBeenCalledWith({
 				select: expectedSelect,
 				where: {
 					id: 1
@@ -473,12 +473,12 @@ describe('Representation repository', () => {
 		});
 
 		it('finds a representation by id and caseId', async () => {
-			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+			databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
 
 			const representation = await representationRepository.getById(1, 2);
 
 			expect(representation).toEqual(existingRepresentations[0]);
-			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
+			expect(databaseConnector.representation.findUnique).toHaveBeenCalledWith({
 				select: expectedSelect,
 				where: {
 					case: {

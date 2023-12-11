@@ -35,6 +35,7 @@ describe('Patch Application Representation Status', () => {
 	beforeAll(() => {
 		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[0]);
 		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+		databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
 		databaseConnector.representation.update.mockResolvedValue();
 		databaseConnector.representationAction.create.mockResolvedValue();
 		jest.useFakeTimers().setSystemTime(mockDate);

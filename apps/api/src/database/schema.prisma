@@ -257,6 +257,7 @@ model Document {
   isDeleted                Boolean                   @default(false)
   latestVersionId          Int?
   caseId                   Int
+  documentType             String
   folder                   Folder                    @relation(fields: [folderId], references: [id])
   documentVersion          DocumentVersion[]         @relation("VersionHistory")
   representationAttachment RepresentationAttachment? @relation("AttachmentDocument")

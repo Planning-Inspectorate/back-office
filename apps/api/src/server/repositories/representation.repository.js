@@ -58,46 +58,22 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 	};
 };
 
-const serviceUserInclude = {
-	id: true,
-	firstName: true,
-	lastName: true,
-	organisationName: true,
-	jobTitle: true,
-	under18: true,
-	contactMethod: true,
-	email: true,
-	phoneNumber: true,
-	address: {
-		select: {
-			addressLine1: true,
-			addressLine2: true,
-			town: true,
-			county: true,
-			postcode: true,
-			country: true
-		}
-	}
-};
-
 /**
  *
  * @param {number} id
- * @param {number?} caseId
- * @returns {Promise<any>}
+ * @param {number} [caseId]
+ * @returns {Promise<Representation | null>}
  */
 export const getById = async (id, caseId) => {
-	let caseFilter = {};
+	const caseFilter = caseId
+		? {
+				case: {
+					id: caseId
+				}
+		  }
+		: {};
 
-	if (caseId) {
-		caseFilter = {
-			case: {
-				id: caseId
-			}
-		};
-	}
-
-	const representations = await databaseConnector.representation.findMany({
+	return await databaseConnector.representation.findUnique({
 		select: {
 			id: true,
 			reference: true,
@@ -107,30 +83,70 @@ export const getById = async (id, caseId) => {
 			originalRepresentation: true,
 			redactedRepresentation: true,
 			type: true,
-			representedType: true,
 			user: {
 				select: {
 					azureReference: true
 				}
 			},
+			representedType: true,
 			represented: {
-				select: serviceUserInclude
+				select: {
+					id: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
 			},
 			representative: {
-				select: serviceUserInclude
+				select: {
+					id: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
 			},
 			representationActions: {
 				select: {
-					type: true,
 					actionBy: true,
-					redactStatus: true,
-					previousRedactStatus: true,
-					status: true,
-					previousStatus: true,
-					invalidReason: true,
-					referredTo: true,
 					actionDate: true,
-					notes: true
+					invalidReason: true,
+					notes: true,
+					previousRedactStatus: true,
+					previousStatus: true,
+					redactStatus: true,
+					referredTo: true,
+					status: true,
+					type: true
 				},
 				orderBy: {
 					actionDate: 'desc'
@@ -138,8 +154,6 @@ export const getById = async (id, caseId) => {
 			},
 			attachments: {
 				select: {
-					id: true,
-					documentGuid: true,
 					Document: {
 						select: {
 							latestDocumentVersion: {
@@ -148,7 +162,9 @@ export const getById = async (id, caseId) => {
 								}
 							}
 						}
-					}
+					},
+					documentGuid: true,
+					id: true
 				}
 			}
 		},
@@ -157,8 +173,6 @@ export const getById = async (id, caseId) => {
 			...caseFilter
 		}
 	});
-
-	return representations[0];
 };
 
 /**
