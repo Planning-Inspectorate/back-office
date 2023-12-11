@@ -35,6 +35,10 @@ parameters:
     displayName: Deploy Function - Deadline Submissions
     type: boolean
     default: true
+  - name: deployRegisterRepresentationFunction
+    displayName: Deploy Function - Register Representation
+    type: boolean
+    default: true
   - name: deployFunctionNotifySubscribers
     displayName: Deploy Function - Notify Subscribers
     type: boolean
@@ -139,6 +143,16 @@ extends:
               - template: ../steps/function_app_deploy.yml
                 parameters:
                   appName: pins-func-deadline-subs-deadline-subs-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Register Representation
+            artifact:
+              name: function-register-representation
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployRegisterRepresentationFunction }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-bo-apps-register-representation-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - ODW Integration
             artifact:

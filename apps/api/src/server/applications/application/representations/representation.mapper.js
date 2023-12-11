@@ -29,7 +29,8 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 			originalRepresentation: representation.originalRepresentation || '',
 			redacted: representation.redacted || false,
 			received: representation.received,
-			representedType: representation.representedType
+			representedType: representation.representedType,
+			type: representation.type
 		};
 	}
 
