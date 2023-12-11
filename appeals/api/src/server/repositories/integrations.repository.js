@@ -133,6 +133,8 @@ export const createOrUpdateLpaQuestionnaire = async (
 			});
 		}
 
+		let documentVersions = [];
+
 		if (appeal && documents) {
 			const caseFolders = await tx.folder.findMany({ where: { caseId: appeal.id } });
 			await tx.document.createMany({
@@ -165,6 +167,14 @@ export const createOrUpdateLpaQuestionnaire = async (
 					where: { guid: doc.documentGuid }
 				});
 			}
+
+			documentVersions = await tx.documentVersion.findMany({
+				where: {
+					documentGuid: {
+						in: documents.map((d) => d.documentGuid)
+					}
+				}
+			});
 		}
 
 		if (appeal) {
@@ -174,7 +184,10 @@ export const createOrUpdateLpaQuestionnaire = async (
 			});
 		}
 
-		return appeal;
+		return {
+			appeal,
+			documentVersions
+		};
 	});
 
 	return transaction;
