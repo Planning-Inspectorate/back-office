@@ -62,7 +62,7 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
  *
  * @param {number} id
  * @param {number} [caseId]
- * @returns {Promise<any>}
+ * @returns {Promise<Representation | null>}
  */
 export const getById = async (id, caseId) => {
 	const caseFilter = caseId
@@ -74,6 +74,100 @@ export const getById = async (id, caseId) => {
 		: {};
 
 	return await databaseConnector.representation.findUnique({
+		select: {
+			id: true,
+			reference: true,
+			status: true,
+			redacted: true,
+			received: true,
+			originalRepresentation: true,
+			redactedRepresentation: true,
+			type: true,
+			user: {
+				select: {
+					azureReference: true
+				}
+			},
+			representedType: true,
+			represented: {
+				select: {
+					id: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			},
+			representative: {
+				select: {
+					id: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			},
+			representationActions: {
+				select: {
+					actionBy: true,
+					actionDate: true,
+					invalidReason: true,
+					notes: true,
+					previousRedactStatus: true,
+					previousStatus: true,
+					redactStatus: true,
+					referredTo: true,
+					status: true,
+					type: true
+				},
+				orderBy: {
+					actionDate: 'desc'
+				}
+			},
+			attachments: {
+				select: {
+					Document: {
+						select: {
+							latestDocumentVersion: {
+								select: {
+									fileName: true
+								}
+							}
+						}
+					},
+					documentGuid: true,
+					id: true
+				}
+			}
+		},
 		where: {
 			id,
 			...caseFilter

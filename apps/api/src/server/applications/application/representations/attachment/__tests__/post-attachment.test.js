@@ -25,6 +25,7 @@ const existingRepresentations = [
 describe('Post Application Representation Attachment', () => {
 	beforeAll(() => {
 		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+		databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
 	});
 
 	it('Post Representation Attachment', async () => {
