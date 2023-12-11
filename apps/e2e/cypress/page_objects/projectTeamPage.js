@@ -9,7 +9,7 @@ export class ProjectTeamPage extends Page {
 		invalidSearchResults: () => cy.get('p[class="govuk-body font-weight--700"]'),
 		searchResultsWithOutinput: () => cy.get('#query-error'),
 		actionAdded: () => cy.get('td.govuk-table__cell:nth-child(3)'),
-		actionSelect: () => cy.get('a.govuk-link:nth-child(1)'),
+		actionSelect: () => cy.get("td[class='govuk-table__cell'] a[class='govuk-link']"),
 		selectRole: () => cy.get('#role'),
 		saveAndReturn: () => cy.get('button.govuk-button:nth-child(2)'),
 		caseManager: () => cy.get('td.govuk-table__cell:nth-child(1) > strong:nth-child(1)'),
