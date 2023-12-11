@@ -38,7 +38,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default1-heading-1">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
-                            <dd class="govuk-summary-list__value">householder</dd>
+                            <dd class="govuk-summary-list__value">Householder</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appeal-type"> Change</a>
                             </dd>
                         </div>
@@ -258,7 +258,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default3-heading-1">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
-                            <dd class="govuk-summary-list__value">householder</dd>
+                            <dd class="govuk-summary-list__value">Householder</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/appeal-type"> Change</a>
                             </dd>
                         </div>
@@ -473,7 +473,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default2-heading-1">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
-                            <dd class="govuk-summary-list__value">householder</dd>
+                            <dd class="govuk-summary-list__value">Householder</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appeal-type"> Change</a>
                             </dd>
                         </div>
@@ -690,7 +690,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 aria-labelledby="accordion-default1-heading-1">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
-                            <dd class="govuk-summary-list__value">householder</dd>
+                            <dd class="govuk-summary-list__value">Householder</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appeal-type"> Change</a>
                             </dd>
                         </div>

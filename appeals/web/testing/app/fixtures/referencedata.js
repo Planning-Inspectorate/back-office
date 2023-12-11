@@ -24,7 +24,7 @@ export const appealsNationalList = {
 				postCode: 'BS48 1PN'
 			},
 			appealStatus: 'received_appeal',
-			appealType: 'household',
+			appealType: 'Householder',
 			createdAt: '2023-04-17T09:49:22.021Z',
 			localPlanningDepartment: 'Wiltshire Council'
 		},
@@ -37,7 +37,7 @@ export const appealsNationalList = {
 				postCode: 'BS7 8LQ'
 			},
 			appealStatus: 'received_appeal',
-			appealType: 'household',
+			appealType: 'Householder',
 			createdAt: '2023-04-17T09:49:22.057Z',
 			localPlanningDepartment: 'Dorset Council'
 		}
@@ -72,7 +72,7 @@ export const appealData = {
 		appealTimetableId: 1053,
 		lpaQuestionnaireDueDate: '2023-10-11T01:00:00.000Z'
 	},
-	appealType: 'householder',
+	appealType: 'Householder',
 	appellantCaseId: 0,
 	appellantName: 'Eva Sharma',
 	caseOfficer: null,
