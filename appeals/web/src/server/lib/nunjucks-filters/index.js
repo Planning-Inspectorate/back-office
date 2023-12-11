@@ -35,3 +35,4 @@ export { appealStatusToStatusTag } from './status-tag.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 export { actionsParameterForDocumentStatus } from './actions-parameter-for-document-status.js';
 export { addConditionalHtml } from './add-conditional-html.js';
+export { numberToAccessibleDigitLabel } from '../accessibility.js';

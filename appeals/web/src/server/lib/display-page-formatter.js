@@ -2,6 +2,7 @@ import logger from '#lib/logger.js';
 import { buildHtmSpan } from '#lib/nunjucks-template-builders/tag-builders.js';
 import { appealShortReference } from './nunjucks-filters/appeals.js';
 import { mapDocumentInfoVirusCheckStatus } from '#appeals/appeal-documents/appeal-documents.mapper.js';
+import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 
 /**
  * @typedef {import('#appeals/appeals.types.js').DocumentInfo} DocumentInfo
@@ -64,7 +65,11 @@ export const formatListOfAppeals = (listOfAppeals) => {
 		let formattedLinks = ``;
 		for (let i = 0; i < listOfAppeals.length; i++) {
 			const shortAppealReference = appealShortReference(listOfAppeals[i].appealReference);
-			formattedLinks += `<li><a href='/appeals-service/appeal-details/${listOfAppeals[i].appealId}' class="govuk-link">${shortAppealReference}</a></li>`;
+			formattedLinks += `<li><a href='/appeals-service/appeal-details/${
+				listOfAppeals[i].appealId
+			}' class="govuk-link" aria-label="Appeal ${numberToAccessibleDigitLabel(
+				shortAppealReference || ''
+			)}">${shortAppealReference}</a></li>`;
 		}
 		return `<ul class="govuk-list"">${formattedLinks}</ul>`;
 	}
@@ -83,7 +88,11 @@ export const formatListOfListedBuildingNumbers = (
 		for (let i = 0; i < listOfListedBuildingNumbers.length; i++) {
 			const listedBuildingNumber = listOfListedBuildingNumbers[i];
 			if ('listEntry' in listedBuildingNumber) {
-				formattedLinks += `<li><a href='https://historicengland.org.uk/listing/the-list/list-entry/${listedBuildingNumber.listEntry}' class="govuk-link">${listedBuildingNumber.listEntry}</a></li>`;
+				formattedLinks += `<li><a href='https://historicengland.org.uk/listing/the-list/list-entry/${
+					listedBuildingNumber.listEntry
+				}' class="govuk-link" aria-label="Listed building number ${numberToAccessibleDigitLabel(
+					listedBuildingNumber.listEntry || ''
+				)}">${listedBuildingNumber.listEntry}</a></li>`;
 			} else {
 				formattedLinks += `<li><a href='https://historicengland.org.uk' class='govuk-link'>ListEntryNumber not yet in BD</a></li>`;
 			}
