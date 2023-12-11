@@ -38,8 +38,6 @@ describe('Create A Case', () => {
 		it('Should successfully create a case as an admin', () => {
 			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
-			// Removed the display user from landing page
-			//createCasePage.verifyCaseAdminIsSignedIn();
 			const projectInfo = projectInformation();
 			createCasePage.createCase(projectInfo);
 		});

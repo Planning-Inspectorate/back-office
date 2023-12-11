@@ -38,8 +38,6 @@ describe('Update Project Information', () => {
 			validateProjectOverview(projectInfo);
 			searchResultsPage.clickLinkByText('Project information');
 			validateProjectInformation(projectInfo);
-			// Commented below line because of removal of user permissions
-			//casePage.validateUserIsUnableToEdit();
 		});
 	});
 
