@@ -41,6 +41,8 @@ export const mapQuestionnaireIn = (appeal) => {
 		isSensitiveArea: appeal.isSensitiveArea || false,
 		isSiteVisible: appeal.isSiteVisible || false,
 		isTheSiteWithinAnAONB: appeal.isTheSiteWithinAnAONB || false,
+		meetsOrExceedsThresholdOrCriteriaInColumn2:
+			appeal.meetsOrExceedsThresholdOrCriteriaInColumn2 || false,
 		sensitiveAreaDetails: appeal.sensitiveAreaDetails,
 		siteWithinGreenBelt: appeal.siteWithinGreenBelt || false,
 		statutoryConsulteesDetails: appeal.statutoryConsulteesDetails,
@@ -89,6 +91,8 @@ export const mapQuestionnaireOut = (appeal) => {
 		isSensitiveArea: appeal?.isSensitiveArea || false,
 		isSiteVisible: appeal?.isSiteVisible || false,
 		isTheSiteWithinAnAONB: appeal?.isTheSiteWithinAnAONB || false,
+		meetsOrExceedsThresholdOrCriteriaInColumn2:
+			appeal?.meetsOrExceedsThresholdOrCriteriaInColumn2 || false,
 		sensitiveAreaDetails: appeal?.sensitiveAreaDetails,
 		siteWithinGreenBelt: appeal?.siteWithinGreenBelt || false,
 		statutoryConsulteesDetails: appeal?.statutoryConsulteesDetails,
