@@ -57,7 +57,7 @@
 							{% endfor %}
 						</tbody>
 					</table>
-					<form action='' method='post'>
+					<form action='./unpublish' method='post'>
 						{% for documentationFile in documentationFiles %}
 							<input name="documentGuids[]" type="hidden" value="{{documentationFile.documentGuid}}">
 						{% endfor %}
