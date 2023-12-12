@@ -19,7 +19,7 @@ import {
  * @type {import("express").RequestHandler<{id: number, repId: number}, ?, ?, any>}
  */
 export const getRepresentation = async ({ params }, response) => {
-	const representation = await getCaseRepresentation(params.id, params.repId);
+	const representation = await getCaseRepresentation(params.repId);
 
 	if (!representation && params.repId) {
 		return response
