@@ -1,6 +1,5 @@
 import { pick } from 'lodash-es';
 import { formatS51AdviceReferenceCode } from '#utils/mapping/map-s51-advice-details.js';
-import formatDate from '#utils/date-formatter.js';
 import { getById as getCaseById } from '../../repositories/case.repository.js';
 
 /**
@@ -41,8 +40,8 @@ export const buildNsipS51AdvicePayload = async (s51Advice) => {
 
 	return {
 		...pick(s51Advice, ['caseId', 'title', 'enquiryDetails', 'adviceDetails']),
-		enquiryDate: formatDate(s51Advice.enquiryDate),
-		adviceDate: formatDate(s51Advice.adviceDate),
+		enquiryDate: s51Advice.enquiryDate.toISOString(),
+		adviceDate: s51Advice.adviceDate.toISOString(),
 		caseReference,
 		adviceId: s51Advice.id,
 		adviceReference: formatS51AdviceReferenceCode(caseReference, s51Advice.referenceNumber),
