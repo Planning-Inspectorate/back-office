@@ -41,7 +41,8 @@
 					"type": "string"
 				},
 				"originalCaseDecisionDate": {
-					"type": "string"
+					"type": ["string", "null"],
+					"format": "date-time"
 				},
 				"costsAppliedForIndicator": {
 					"type": "boolean"
