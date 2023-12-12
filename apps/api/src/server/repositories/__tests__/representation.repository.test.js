@@ -471,23 +471,6 @@ describe('Representation repository', () => {
 				}
 			});
 		});
-
-		it('finds a representation by id and caseId', async () => {
-			databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
-
-			const representation = await representationRepository.getById(1, 2);
-
-			expect(representation).toEqual(existingRepresentations[0]);
-			expect(databaseConnector.representation.findUnique).toHaveBeenCalledWith({
-				select: expectedSelect,
-				where: {
-					case: {
-						id: 2
-					},
-					id: 1
-				}
-			});
-		});
 	});
 
 	describe('getFirstById', () => {

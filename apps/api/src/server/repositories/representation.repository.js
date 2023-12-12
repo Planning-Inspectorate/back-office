@@ -61,19 +61,10 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 /**
  *
  * @param {number} id
- * @param {number} [caseId]
  * @returns {Promise<Representation | null>}
  */
-export const getById = async (id, caseId) => {
-	const caseFilter = caseId
-		? {
-				case: {
-					id: caseId
-				}
-		  }
-		: {};
-
-	return await databaseConnector.representation.findUnique({
+export const getById = async (id) =>
+	databaseConnector.representation.findUnique({
 		select: {
 			id: true,
 			reference: true,
@@ -169,11 +160,9 @@ export const getById = async (id, caseId) => {
 			}
 		},
 		where: {
-			id,
-			...caseFilter
+			id
 		}
 	});
-};
 
 /**
  *
