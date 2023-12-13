@@ -28,7 +28,7 @@ export const importAppellantCase = async (
 	if (existingDocs?.length > 0) {
 		const docIDs = existingDocs.map((d) => d.guid);
 		for (const document of documents) {
-			if (docIDs.indexOf(document.documentGuid) === 0) {
+			if (docIDs.indexOf(document.documentGuid) >= 0) {
 				document.documentGuid = randomUUID();
 			}
 		}
