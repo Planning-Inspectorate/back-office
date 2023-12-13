@@ -1,3 +1,4 @@
+import AppInsights from 'applicationinsights';
 import path from 'node:path';
 import pino from 'pino';
 import pinoHttp from 'pino-http';
@@ -30,11 +31,23 @@ export const pinoLogger = pino({
 });
 
 const decorator = {
-	// @ts-ignore
+	/**
+	 * @param {*} target
+	 * @param {string} prop
+	 * */
 	get(target, prop) {
-		if (['info', 'warn', 'error'].includes(prop)) {
-			// @ts-ignore
-			return (...args) => target[prop]({ foo: 'bar' }, ...args);
+		if (['info', 'warn', 'error', 'debug'].includes(prop)) {
+			const context = AppInsights.getCorrelationContext();
+			const operationId = context?.operation.id;
+
+			/** @type {(m: string) => void} */
+			return (...args) => {
+				if (args.length === 1 && typeof args[0] === 'string') {
+					target[prop]({ operationId, msg: args[0] });
+				} else {
+					target[prop]({ operationId }, ...args);
+				}
+			};
 		}
 	}
 };
