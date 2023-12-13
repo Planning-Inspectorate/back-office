@@ -474,6 +474,35 @@ export const getCurrentlyPublished = async (documentGuids) => {
 };
 
 /**
+ * @param {string[]} documentGuids
+ * @param {string} username
+ * @returns {Promise<{ successful: string[], failed: string[] }>}
+ * */
+export const publishDocuments = async (documentGuids, username) => {
+	const { publishable: publishableDocumentVersionIds, invalid } =
+		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentGuids);
+
+	const activityLogs = publishableDocumentVersionIds.map((document) =>
+		documentActivityLogRepository.create({
+			documentGuid: document.documentGuid,
+			version: document.version,
+			user: username,
+			status: 'published'
+		})
+	);
+
+	await Promise.all(activityLogs);
+
+	const publishedDocuments = await publishDocumentVersions(publishableDocumentVersionIds);
+	logger.info(`Published ${publishedDocuments.length} documents`);
+
+	return {
+		successful: publishedDocuments.map((d) => d.documentGuid),
+		failed: invalid
+	};
+};
+
+/**
  * publishes an array of documents, publishing the latest version.
  * If there are any published older versions, these are auto unpublished too
  *
