@@ -5,6 +5,7 @@ export default joi
 		NODE_ENV: joi.string().valid('development', 'production', 'test'),
 		PORT: joi.number(),
 		SWAGGER_JSON_DIR: joi.string(),
+		APPLICATIONINSIGHTS_CONNECTION_STRING: joi.string().optional(),
 		DATABASE_URL: joi.string(),
 		BO_BLOB_STORAGE_ACCOUNT: joi.string(),
 		BO_BLOB_CONTAINER: joi.string(),

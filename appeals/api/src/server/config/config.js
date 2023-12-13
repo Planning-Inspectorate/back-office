@@ -8,6 +8,7 @@ const { value, error } = schema.validate({
 	NODE_ENV: environment.NODE_ENV,
 	PORT: environment.PORT,
 	SWAGGER_JSON_DIR: environment.SWAGGER_JSON_DIR || './src/server/openapi.json',
+	APPLICATIONINSIGHTS_CONNECTION_STRING: environment.APPLICATIONINSIGHTS_CONNECTION_STRING,
 	DATABASE_URL: environment.DATABASE_URL,
 	BO_BLOB_STORAGE_ACCOUNT: environment.BO_BLOB_STORAGE_ACCOUNT,
 	BO_BLOB_CONTAINER: environment.BO_BLOB_CONTAINER,
