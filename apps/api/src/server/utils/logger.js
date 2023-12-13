@@ -3,7 +3,7 @@ import pino from 'pino';
 import pinoHttp from 'pino-http';
 import config from '../config/config.js';
 
-const logger = pino({
+export const pinoLogger = pino({
 	timestamp: pino.stdTimeFunctions.isoTime,
 	level: 'trace',
 	transport: {
@@ -29,6 +29,18 @@ const logger = pino({
 	}
 });
 
-export const httpLogger = pinoHttp({ logger });
+const decorator = {
+	// @ts-ignore
+	get(target, prop) {
+		if (['info', 'warn', 'error'].includes(prop)) {
+			// @ts-ignore
+			return (...args) => target[prop]({ foo: 'bar' }, ...args);
+		}
+	}
+};
+
+const logger = new Proxy(pinoLogger, decorator);
+
+export const httpLogger = pinoHttp({ logger: pinoLogger });
 
 export default logger;
