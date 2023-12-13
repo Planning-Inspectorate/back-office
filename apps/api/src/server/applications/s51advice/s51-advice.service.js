@@ -7,6 +7,7 @@ import { getStorageLocation } from '#utils/document-storage.js';
 import { getCaseDetails } from '../application/application.service.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
+import { publishDocuments } from '../application/documents/document.service.js';
 import {
 	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
 	verifyAllS51DocumentsAreVirusChecked,
@@ -18,6 +19,7 @@ import {
  * @typedef {import('@pins/applications').FolderDetails} FolderDetails
  * @typedef {import('@pins/applications').S51AdviceDetails} S51AdviceDetails
  * @typedef {import('@pins/applications.api').Schema.S51Advice} S51Advice
+ * @typedef {import('@pins/applications.api').Schema.S51AdviceDocument} S51AdviceDocument
  * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
  * @typedef {{ page: number, pageDefaultSize: number, pageCount: number, itemCount: number, items: S51AdviceDetails[]}} S51AdvicePaginatedDetails
  */
@@ -148,11 +150,19 @@ export const publishS51 = async (id) => {
 		throw new Error(`advice with id ${id} is already published`);
 	}
 
-	return await s51AdviceRepository.update(id, {
+	const publishedAdvice = await s51AdviceRepository.update(id, {
 		publishedStatus: 'published',
 		publishedStatusPrev: advice.publishedStatus,
 		datePublished: new Date()
 	});
+
+	const docsToPublish = advice.S51AdviceDocument.map(
+		(/** @type {S51AdviceDocument} */ advice) => advice.documentGuid
+	);
+
+	publishDocuments(docsToPublish, 'System');
+
+	return publishedAdvice;
 };
 
 /**

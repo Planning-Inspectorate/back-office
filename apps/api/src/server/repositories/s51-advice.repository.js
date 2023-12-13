@@ -2,6 +2,7 @@ import { databaseConnector } from '#utils/database-connector.js';
 
 /**
  * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: {include: {Document: {include: {latestDocumentVersion: true}}}} }}>} S51AdviceWithS51AdviceDocumentsWithLatestVersion
+ * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: true}}>} S51AdviceWithS51AdviceDocuments
  */
 
 /**
@@ -16,11 +17,12 @@ export const create = (s51advice) => {
 /**
  *
  * @param {number} id
- * @returns {Promise<import('@pins/applications.api').Schema.S51Advice | null>}
+ * @returns {Promise<S51AdviceWithS51AdviceDocuments | null>}
  */
 export const get = (id) => {
 	return databaseConnector.s51Advice.findUnique({
-		where: { id }
+		where: { id },
+		include: { S51AdviceDocument: true }
 	});
 };
 
