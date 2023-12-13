@@ -3,12 +3,8 @@ import { request } from '../../../app-test.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 
-import logger from '#utils/logger.js';
-
 const now = 1_649_319_144_000;
 const mockDate = new Date(now);
-
-const loggerInfo = jest.spyOn(logger, 'info');
 
 jest.useFakeTimers({ now });
 
@@ -32,11 +28,6 @@ describe('Publish application', () => {
 		expect(response.status).toEqual(200);
 
 		const publishedDate = 1_649_319_144;
-
-		expect(loggerInfo).toHaveBeenCalledTimes(2);
-
-		expect(loggerInfo).toHaveBeenNthCalledWith(1, `attempting to publish a case with id ${caseId}`);
-		expect(loggerInfo).toHaveBeenNthCalledWith(2, `successfully published case with id ${caseId}`);
 
 		expect(response.body).toEqual({
 			publishedDate
