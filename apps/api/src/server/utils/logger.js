@@ -14,16 +14,16 @@ const decorator = {
 	 * */
 	get(target, prop) {
 		if (['info', 'warn', 'error', 'debug'].includes(prop)) {
-			const client = appInsights.defaultClient;
-			const oidKey = client?.context.keys.operationId;
-			const operationId = client?.context.tags[oidKey] || null;
+			const context = appInsights.getCorrelationContext();
+			const operationId = context?.operation.id ?? null;
+			const traceId = context?.operation.traceparent?.traceId ?? null;
 
 			/** @type {(m: string) => void} */
 			return (...args) => {
 				if (args.length === 1 && typeof args[0] === 'string') {
-					target[prop]({ operationId, msg: args[0] });
+					target[prop]({ operationId, traceId, msg: args[0] });
 				} else {
-					target[prop]({ operationId }, ...args);
+					target[prop]({ operationId, traceId }, ...args);
 				}
 			};
 		}
