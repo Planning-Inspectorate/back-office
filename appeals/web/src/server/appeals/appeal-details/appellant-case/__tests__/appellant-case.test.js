@@ -16,6 +16,7 @@ import {
 	documentFileVersionsInfoChecked,
 	activeDirectoryUsersData
 } from '#testing/app/fixtures/referencedata.js';
+import { cloneDeep } from 'lodash-es';
 import { textInputCharacterLimits } from '../../../appeal.constants.js';
 import usersService from '#appeals/appeal-users/users-service.js';
 
@@ -1630,12 +1631,12 @@ describe('appellant-case', () => {
 		});
 
 		it('should render the delete document page with multiple document versons', async () => {
-			const multipleVersionsDocument = { ...documentFileVersionsInfoChecked };
+			const multipleVersionsDocument = cloneDeep(documentFileVersionsInfoChecked);
 			multipleVersionsDocument.documentVersion.push(multipleVersionsDocument.documentVersion[0]);
 
 			nock('http://test/')
 				.get('/appeals/1/documents/1/versions')
-				.reply(200, documentFileVersionsInfoChecked);
+				.reply(200, multipleVersionsDocument);
 
 			const response = await request.get(
 				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1/1/delete`
