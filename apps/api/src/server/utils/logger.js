@@ -1,4 +1,4 @@
-import AppInsights from 'applicationinsights';
+import appInsights from 'applicationinsights';
 import pino from 'pino';
 import pinoHttp from 'pino-http';
 
@@ -14,8 +14,9 @@ const decorator = {
 	 * */
 	get(target, prop) {
 		if (['info', 'warn', 'error', 'debug'].includes(prop)) {
-			const context = AppInsights.getCorrelationContext();
-			const operationId = context?.operation.id ?? null;
+			const client = appInsights.defaultClient;
+			const oidKey = client?.context.keys.operationId;
+			const operationId = client?.context.tags[oidKey] || null;
 
 			/** @type {(m: string) => void} */
 			return (...args) => {
