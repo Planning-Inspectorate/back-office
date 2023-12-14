@@ -15,7 +15,7 @@ const decorator = {
 	get(target, prop) {
 		if (['info', 'warn', 'error', 'debug'].includes(prop)) {
 			const context = AppInsights.getCorrelationContext();
-			const operationId = context?.operation.id;
+			const operationId = context?.operation.id ?? null;
 
 			/** @type {(m: string) => void} */
 			return (...args) => {
