@@ -79,6 +79,7 @@ const deleteUnwantedFixtures = () => {
 		'sample-error-file.html',
 		'NI_Template_2.html',
 		'NI_Video_Template_2.html',
+		'Test-e-mail.msg.msg',
 		'Sample.mp3',
 		'dmap.dbf',
 		'smap.shp',

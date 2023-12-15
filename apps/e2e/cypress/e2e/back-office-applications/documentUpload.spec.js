@@ -116,6 +116,19 @@ describe('Upload different types of document and validate the transcript value',
 		documentPropertiesPage.validateDocumentErrorMessage();
 	});
 
+	it('Case Team Admin user should be able to upload a .msg file to a case', () => {
+		cy.login(applicationsUsers.caseAdmin);
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		validateProjectOverview(projectInfo);
+		searchResultsPage.clickLinkByText('Update project information');
+		searchResultsPage.clickLinkByText('Project documentation');
+		searchResultsPage.clickLinkByText('Project management');
+		fileUpload('Test-e-mail.msg.msg');
+	});
+
 
 	it('Inspector user should not be able to upload a document to a case', () => {
 		cy.login(applicationsUsers.inspector);
