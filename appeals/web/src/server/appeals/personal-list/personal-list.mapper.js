@@ -3,6 +3,7 @@ import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { dateToDisplayDate } from '#lib/dates.js';
+import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 
 /** @typedef {import('@pins/appeals').AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').AppealList} AppealList */
@@ -57,45 +58,50 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 					rows: (appealsAssignedToCurrentUser?.items || [])
 						.filter((appeal) => appeal !== null)
 						.filter(appealListItemIsAppealSummary)
-						.map((appeal) => [
-							{
-								html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
-									appeal.appealId
-								}">${appealShortReference(appeal.appealReference)}</a></strong>`
-							},
-							{
-								html: '',
-								pageComponents: [
-									{
-										type: 'status-tag',
-										parameters: {
-											status: ''
+						.map((appeal) => {
+							const shortReference = appealShortReference(appeal.appealReference);
+							return [
+								{
+									html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
+										appeal.appealId
+									}" aria-label="Appeal ${numberToAccessibleDigitLabel(
+										shortReference || ''
+									)}">${shortReference}</a></strong>`
+								},
+								{
+									html: '',
+									pageComponents: [
+										{
+											type: 'status-tag',
+											parameters: {
+												status: ''
+											}
 										}
-									}
-								]
-							},
-							{
-								html: mapAppealStatusToActionRequiredHtml(
-									appeal.appealId,
-									appeal.appealStatus,
-									appeal.lpaQuestionnaireId
-								)
-							},
-							{
-								text: dateToDisplayDate(appeal.dueDate) || ''
-							},
-							{
-								html: '',
-								pageComponents: [
-									{
-										type: 'status-tag',
-										parameters: {
-											status: appeal.appealStatus || 'ERROR'
+									]
+								},
+								{
+									html: mapAppealStatusToActionRequiredHtml(
+										appeal.appealId,
+										appeal.appealStatus,
+										appeal.lpaQuestionnaireId
+									)
+								},
+								{
+									text: dateToDisplayDate(appeal.dueDate) || ''
+								},
+								{
+									html: '',
+									pageComponents: [
+										{
+											type: 'status-tag',
+											parameters: {
+												status: appeal.appealStatus || 'ERROR'
+											}
 										}
-									}
-								]
-							}
-						])
+									]
+								}
+							];
+						})
 				}
 			}
 		]

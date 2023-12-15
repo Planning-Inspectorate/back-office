@@ -61,19 +61,10 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 /**
  *
  * @param {number} id
- * @param {number} [caseId]
  * @returns {Promise<Representation | null>}
  */
-export const getById = async (id, caseId) => {
-	const caseFilter = caseId
-		? {
-				case: {
-					id: caseId
-				}
-		  }
-		: {};
-
-	return await databaseConnector.representation.findUnique({
+export const getById = async (id) =>
+	databaseConnector.representation.findUnique({
 		select: {
 			id: true,
 			reference: true,
@@ -169,11 +160,9 @@ export const getById = async (id, caseId) => {
 			}
 		},
 		where: {
-			id,
-			...caseFilter
+			id
 		}
 	});
-};
 
 /**
  *
@@ -718,8 +707,52 @@ export const getPublishableRepresentationsById = async (caseId, representationId
 			user: true,
 			attachments: true,
 			case: true,
-			represented: true,
-			representative: true,
+			represented: {
+				select: {
+					id: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			},
+			representative: {
+				select: {
+					id: true,
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					jobTitle: true,
+					under18: true,
+					email: true,
+					contactMethod: true,
+					phoneNumber: true,
+					address: {
+						select: {
+							addressLine1: true,
+							addressLine2: true,
+							town: true,
+							county: true,
+							postcode: true,
+							country: true
+						}
+					}
+				}
+			},
 			representationActions: true
 		}
 	});

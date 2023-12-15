@@ -152,6 +152,7 @@ describe('Publish documents', () => {
 			Document: {
 				guid: 'document_to_publish_guid'
 			},
+			documentGuid: 'document_to_publish_guid',
 			version: 1,
 			originalFilename: 'original_filename.pdf',
 			fileName: 'filename.pdf',
@@ -194,7 +195,33 @@ describe('Publish documents', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
 	});
 
-	test('throws error if document missing properties required publishing', async () => {
+	test('throws error if document missing properties required for publishing', async () => {
+		// GIVEN
+		databaseConnector.document.findMany.mockResolvedValueOnce([]);
+		databaseConnector.documentVersion.update.mockResolvedValue({
+			Document: {
+				guid: 'document_to_publish_guid',
+				reference: 'document-reference',
+				case: {
+					id: 1,
+					reference: 'case-reference'
+				}
+			}
+		});
+
+		// WHEN
+		const response = await request.patch('/applications/1/documents/publish').send({
+			documents: [{ guid: 'bad_document_to_publish_guid' }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: [{ guid: 'bad_document_to_publish_guid' }]
+		});
+	});
+
+	test('returns partial success if some documents missing properties required for publishing', async () => {
 		// GIVEN
 		databaseConnector.document.findMany.mockResolvedValueOnce([
 			{
@@ -203,6 +230,7 @@ describe('Publish documents', () => {
 			}
 		]);
 		databaseConnector.documentVersion.update.mockResolvedValue({
+			documentGuid: 'document_to_publish_guid',
 			Document: {
 				guid: 'document_to_publish_guid',
 				reference: 'document-reference',
@@ -219,8 +247,9 @@ describe('Publish documents', () => {
 		});
 
 		// THEN
-		expect(response.status).toEqual(500);
+		expect(response.status).toEqual(207);
 		expect(response.body).toEqual({
+			successful: [{ guid: 'document_to_publish_guid', publishedStatus: 'publishing' }],
 			errors: [{ guid: 'bad_document_to_publish_guid' }]
 		});
 	});

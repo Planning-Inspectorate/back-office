@@ -1,34 +1,37 @@
-import path from 'node:path';
+import appInsights from 'applicationinsights';
 import pino from 'pino';
 import pinoHttp from 'pino-http';
-import config from '../config/config.js';
 
-const logger = pino({
+export const pinoLogger = pino({
 	timestamp: pino.stdTimeFunctions.isoTime,
-	level: 'trace',
-	transport: {
-		targets: [
-			{
-				target: 'pino/file',
-				level: config.log.levelFile,
-				options: {
-					destination: path.join(config.cwd, './server.log')
-				}
-			},
-			{
-				target: 'pino-pretty',
-				level: config.log.levelStdOut,
-				options: {
-					destination: 1,
-					ignore: 'pid,hostname',
-					colorize: true,
-					translateTime: 'HH:MM:ss.l'
-				}
-			}
-		]
-	}
+	level: 'trace'
 });
 
-export const httpLogger = pinoHttp({ logger });
+const decorator = {
+	/**
+	 * @param {*} target
+	 * @param {string} prop
+	 * */
+	get(target, prop) {
+		if (['info', 'warn', 'error', 'debug'].includes(prop)) {
+			const context = appInsights.getCorrelationContext();
+			const operationId = context?.operation.id ?? null;
+			const traceId = context?.operation.traceparent?.traceId ?? null;
+
+			/** @type {(m: string) => void} */
+			return (...args) => {
+				if (args.length === 1 && typeof args[0] === 'string') {
+					target[prop]({ operationId, traceId, msg: args[0] });
+				} else {
+					target[prop]({ operationId, traceId }, ...args);
+				}
+			};
+		}
+	}
+};
+
+const logger = new Proxy(pinoLogger, decorator);
+
+export const httpLogger = pinoHttp({ logger: pinoLogger });
 
 export default logger;

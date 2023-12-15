@@ -9,6 +9,7 @@ const MIMEs = {
 	xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 	jpg: 'image/jpeg',
 	jpeg: 'image/jpeg',
+	msg: 'application/vnd.ms-outlook',
 	mpeg: 'video/mpeg',
 	mp3: 'audio/mpeg',
 	mp4: 'video/mp4',

@@ -23,4 +23,5 @@ export interface CreateUpdateRepresentation {
 	representedType?: string;
 	represented?: Contact;
 	representative?: Contact;
+	type?: string;
 }

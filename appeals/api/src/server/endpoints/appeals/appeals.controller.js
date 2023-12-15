@@ -3,6 +3,7 @@ import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
 import appealRepository from '#repositories/appeal.repository.js';
 import { getPageCount } from '#utils/database-pagination.js';
 import { sortAppeals } from '#utils/appeal-sorter.js';
+import { broadcastAppealState } from '#endpoints/integrations/integrations.service.js';
 import logger from '#utils/logger.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 import {
@@ -155,6 +156,8 @@ const updateAppealById = async (req, res) => {
 				startedAt
 			});
 		}
+
+		await broadcastAppealState(appeal.id);
 	} catch (error) {
 		if (error) {
 			logger.error(error);

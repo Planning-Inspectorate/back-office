@@ -2,7 +2,6 @@ import { pick } from 'lodash-es';
 import * as caseRepository from '#repositories/case.repository.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
-import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
@@ -23,7 +22,7 @@ import {
 	markDocumentVersionAsUnpublished,
 	obtainURLForDocumentVersion,
 	obtainURLsForDocuments,
-	publishDocumentVersions,
+	publishDocuments as _publishDocuments,
 	separateNonPublishedDocuments,
 	separatePublishableDocuments,
 	upsertDocumentVersionAndReturnDetails,
@@ -32,8 +31,7 @@ import {
 import {
 	fetchDocumentByGuidAndCaseId,
 	getRedactionStatus,
-	validateDocumentVersionMetadataBody,
-	verifyAllDocumentsHaveRequiredPropertiesForPublishing
+	validateDocumentVersionMetadataBody
 } from './document.validators.js';
 
 /**
@@ -567,32 +565,29 @@ export const publishDocuments = async ({ body }, response) => {
 
 	const documentIds = documents.map((/** @type {{ guid: string; }} */ document) => document.guid);
 
-	const { publishable: publishableDocumentVersionIds, invalid } =
-		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentIds);
+	const { successful, failed } = await _publishDocuments(documentIds, username);
 
-	if (invalid.length > 0) {
-		response.status(500).send({ errors: [{ guid: 'bad_document_to_publish_guid' }] });
+	if (successful.length === 0) {
+		response.status(400).send({ errors: failed.map((/** @type {string} */ guid) => ({ guid })) });
 		return;
 	}
 
-	const activityLogs = publishableDocumentVersionIds.map((document) =>
-		documentActivityLogRepository.create({
-			documentGuid: document.documentGuid,
-			version: document.version,
-			user: username,
-			status: 'published'
-		})
-	);
+	if (failed.length > 0) {
+		response.status(207).send({
+			successful: successful.map((/** @type {string} */ guid) => ({
+				guid,
+				publishedStatus: 'publishing'
+			})),
+			errors: failed.map((/** @type {string} */ guid) => ({ guid }))
+		});
 
-	await Promise.all(activityLogs);
+		return;
+	}
 
-	const publishedDocuments = await publishDocumentVersions(publishableDocumentVersionIds);
-
-	logger.info(`Published ${publishedDocuments.length} documents`);
 	response.send(
-		publishedDocuments.map(({ Document, publishedStatus }) => ({
-			guid: Document?.guid,
-			publishedStatus
+		successful.map((/** @type {string} */ guid) => ({
+			guid,
+			publishedStatus: 'publishing'
 		}))
 	);
 };

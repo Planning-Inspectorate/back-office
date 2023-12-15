@@ -11,8 +11,8 @@ const representations = [
 		caseId: 151,
 		status: 'VALID',
 		unpublishedUpdates: false,
-		originalRepresentation: 'some rep text secret stuff',
-		redactedRepresentation: 'some rep text',
+		originalRepresentation: 'the original rep',
+		redactedRepresentation: 'the redacted rep',
 		redacted: true,
 		userId: null,
 		received: '2023-08-11T10:52:56.516Z',
@@ -38,15 +38,23 @@ const representations = [
 		represented: {
 			id: 10105,
 			representationId: 6409,
-			firstName: '',
-			lastName: '',
-			jobTitle: null,
+			firstName: 'Joe',
+			lastName: 'Bloggs',
+			jobTitle: 'Head of Communications',
 			under18: false,
 			organisationName: 'Environment Agency',
 			email: 'test@example.com',
 			phoneNumber: '01234 567890',
 			contactMethod: null,
-			addressId: 10105
+			address: {
+				id: 17058,
+				addressLine1: '1 The Street',
+				addressLine2: 'Somewhere',
+				postcode: 'A1 9BB',
+				county: 'The County',
+				town: 'The Town',
+				country: 'England'
+			}
 		},
 		representationActions: [
 			{
@@ -61,7 +69,7 @@ const representations = [
 				referredTo: null,
 				actionBy: 'Bloggs, Joe',
 				actionDate: '2023-07-04T12:10:02.410Z',
-				notes: 'some notes here'
+				notes: 'some redaction notes'
 			}
 		]
 	},
@@ -71,7 +79,7 @@ const representations = [
 		caseId: 151,
 		status: 'PUBLISHED',
 		unpublishedUpdates: true,
-		originalRepresentation: 'some words',
+		originalRepresentation: 'the original rep',
 		redactedRepresentation: null,
 		redacted: false,
 		userId: null,
@@ -97,10 +105,18 @@ const representations = [
 			jobTitle: null,
 			under18: false,
 			organisationName: null,
-			email: 'test@example.com',
+			email: 'sue@example.com',
 			phoneNumber: '01234 567890',
 			contactMethod: null,
-			addressId: 10381
+			address: {
+				id: 17059,
+				addressLine1: '123 Some Street',
+				addressLine2: 'Somewhere Else',
+				postcode: 'B1 9BB',
+				county: 'A County',
+				town: 'Some Town',
+				country: 'England'
+			}
 		},
 		representative: {
 			id: 10382,
@@ -109,81 +125,115 @@ const representations = [
 			lastName: 'Bond',
 			jobTitle: null,
 			under18: false,
-			organisationName: '',
+			organisationName: null,
 			email: 'test-agent@example.com',
 			phoneNumber: '01234 567890',
 			contactMethod: null,
-			addressId: 10382
+			address: {
+				id: 17060,
+				addressLine1: '1 Long Road',
+				addressLine2: 'Smallville',
+				postcode: 'P7 9LN',
+				county: 'A County',
+				town: 'Some Town',
+				country: 'England'
+			}
 		},
 		representationActions: []
 	}
 ];
 
-const expectedEventPayload = [
+const expectedNsipRepresentationPayload = [
 	{
-		attachments: [
-			{
-				documentId: '8e706443-3404-4b89-9fda-280ab7fd6b68'
-			}
-		],
+		attachmentIds: ['8e706443-3404-4b89-9fda-280ab7fd6b68'],
 		caseRef: 'BC0110001',
 		caseId: 151,
 		dateReceived: '2023-08-11T10:52:56.516Z',
 		examinationLibraryRef: '',
-		originalRepresentation: 'some rep text secret stuff',
+		originalRepresentation: 'the original rep',
+		redactedRepresentation: 'the redacted rep',
 		redacted: true,
 		redactedBy: 'Bloggs, Joe',
-		redactedNotes: 'some notes here',
-		redactedRepresentation: 'some rep text',
+		redactedNotes: 'some redaction notes',
 		referenceId: 'BC0110001-55',
 		representationId: 6409,
 		representationType: null,
-		representative: {},
-		representedType: 'ORGANISATION',
-		represented: {
-			contactMethod: null,
-			emailAddress: 'test@example.com',
-			firstName: '',
-			id: 6409,
-			lastName: '',
-			organisationName: 'Environment Agency',
-			telephone: '01234 567890',
-			under18: false
-		},
-		status: 'VALID'
+		representativeId: undefined,
+		representedId: 10105,
+		status: 'VALID',
+		registerFor: 'ORGANISATION',
+		representationFrom: 'ORGANISATION'
 	},
 	{
-		attachments: [],
+		attachmentIds: [],
 		caseRef: 'BC0110001',
 		caseId: 151,
 		dateReceived: '2023-08-11T10:52:56.516Z',
 		examinationLibraryRef: '',
-		originalRepresentation: 'some words',
+		redacted: false,
+		originalRepresentation: 'the original rep',
 		referenceId: 'BC0110001-1533',
 		representationId: 6579,
 		representationType: null,
-		representative: {
-			contactMethod: null,
-			emailAddress: 'test-agent@example.com',
-			firstName: 'James',
-			id: 6579,
-			lastName: 'Bond',
-			organisationName: '',
-			telephone: '01234 567890',
-			under18: false
-		},
-		representedType: 'AGENT',
-		represented: {
-			contactMethod: null,
-			emailAddress: 'test@example.com',
-			firstName: 'Mrs',
-			id: 6579,
-			lastName: 'Sue',
-			organisationName: null,
-			telephone: '01234 567890',
-			under18: false
-		},
-		status: 'PUBLISHED'
+		representativeId: 10382,
+		representedId: 10381,
+		status: 'PUBLISHED',
+		registerFor: undefined,
+		representationFrom: 'AGENT'
+	}
+];
+
+const expectedServiceUserPayload = [
+	{
+		id: '10105',
+		firstName: 'Joe',
+		lastName: 'Bloggs',
+		addressLine1: '1 The Street',
+		addressLine2: 'Somewhere',
+		addressTown: 'The Town',
+		addressCounty: 'The County',
+		postcode: 'A1 9BB',
+		addressCountry: 'England',
+		organisation: 'Environment Agency',
+		role: 'Head of Communications',
+		telephoneNumber: '01234 567890',
+		emailAddress: 'test@example.com',
+		serviceUserType: 'RepresentationContact',
+		sourceSuid: '10105'
+	},
+	{
+		id: '10381',
+		firstName: 'Mrs',
+		lastName: 'Sue',
+		addressLine1: '123 Some Street',
+		addressLine2: 'Somewhere Else',
+		addressTown: 'Some Town',
+		addressCounty: 'A County',
+		postcode: 'B1 9BB',
+		addressCountry: 'England',
+		organisation: null,
+		role: null,
+		telephoneNumber: '01234 567890',
+		emailAddress: 'sue@example.com',
+		serviceUserType: 'RepresentationContact',
+		sourceSuid: '10381'
+	},
+	{
+		id: '10382',
+		firstName: 'James',
+		lastName: 'Bond',
+		addressLine1: '1 Long Road',
+		addressLine2: 'Smallville',
+		addressTown: 'Some Town',
+		addressCounty: 'A County',
+		postcode: 'P7 9LN',
+		addressCountry: 'England',
+		organisation: null,
+		role: null,
+		telephoneNumber: '01234 567890',
+		emailAddress: 'test-agent@example.com',
+		serviceUserType: 'RepresentationContact',
+		sourceSuid: '10382'
 	}
 ];
 
@@ -205,8 +255,16 @@ describe('Publish Representations', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-representation',
-			expectedEventPayload,
+			expectedNsipRepresentationPayload,
 			'Publish'
+		);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'service-user',
+			expectedServiceUserPayload,
+			'Publish',
+			{
+				entityType: 'RepresentationContact'
+			}
 		);
 		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
 			where: {
