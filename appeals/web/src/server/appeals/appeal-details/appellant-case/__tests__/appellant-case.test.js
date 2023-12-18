@@ -14,11 +14,15 @@ import {
 	documentFileVersionsInfoNotChecked,
 	documentFileVersionsInfoVirusFound,
 	documentFileVersionsInfoChecked,
-	activeDirectoryUsersData
+	activeDirectoryUsersData,
+	notCheckedDocumentFolderInfoDocuments,
+	appealData,
+	scanFailedDocumentFolderInfoDocuments
 } from '#testing/app/fixtures/referencedata.js';
 import { cloneDeep } from 'lodash-es';
 import { textInputCharacterLimits } from '../../../appeal.constants.js';
 import usersService from '#appeals/appeal-users/users-service.js';
+import { cloneDeep } from 'lodash-es';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -58,10 +62,48 @@ describe('appellant-case', () => {
 			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, appellantCaseData);
 		});
 
+		afterEach(() => {
+			nock.cleanAll();
+		});
+
 		it('should render the appellant case page', async () => {
 			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}`);
 			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
 
+	describe('GET /appellant-case with unchecked documents', () => {
+		beforeEach(() => {
+			nock.cleanAll();
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData).persist();
+		});
+
+		it('should render a notification banner when a file is unscanned', async () => {
+			//Create a document with virus scan still in progress
+			let updatedAppellantCaseData = cloneDeep(appellantCaseData);
+			// @ts-ignore
+			updatedAppellantCaseData.documents.applicationForm.documents.push(
+				notCheckedDocumentFolderInfoDocuments
+			);
+			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, updatedAppellantCaseData);
+
+			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}`);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render an error when a file has a virus', async () => {
+			//Create a document with virus scan still in progress
+			let updatedAppellantCaseData = cloneDeep(appellantCaseData);
+			// @ts-ignore
+			updatedAppellantCaseData.documents.applicationForm.documents.push(
+				scanFailedDocumentFolderInfoDocuments
+			);
+			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, updatedAppellantCaseData);
+
+			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}`);
+			const element = parseHtml(response.text);
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
@@ -1647,3 +1689,5 @@ describe('appellant-case', () => {
 		});
 	});
 });
+
+nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData).persist();

@@ -13,6 +13,7 @@ import { isDefined } from '#lib/ts-utilities.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
  * @typedef {import('#appeals/appeal-details/appeal-details.types.js').SingleLPAQuestionnaireResponse} LPAQuestionnaire
@@ -88,6 +89,33 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 		});
 	}
 
+	if (getDocumentsForVirusStatus(lpaqDetails, 'not_checked').length > 0) {
+		addNotificationBannerToSession(session, 'notCheckedDocument', appealDetails?.appealId);
+	}
+
+	/** @type {PageComponent[]} */
+	let virusDetectedMessage = [];
+	if (getDocumentsForVirusStatus(lpaqDetails, 'failed_virus_check').length > 0) {
+		let folderIds = getDocumentsForVirusStatus(lpaqDetails, 'failed_virus_check');
+		/**
+		 * @type {{ text: string; href: string; }[]}
+		 */
+		let errorList = [];
+		folderIds.forEach((item) =>
+			errorList.push({
+				text: 'The selected file contains a virus. Upload a different version.',
+				href: `manage-documents/${item.folderId}/${item.id}`
+			})
+		);
+		virusDetectedMessage.push({
+			type: 'error-summary',
+			parameters: {
+				titleText: 'There is a problem',
+				errorList: errorList
+			}
+		});
+	}
+
 	const notificationBanners = mapNotificationBannerComponentParameters(
 		session,
 		lpaqDetails,
@@ -102,6 +130,7 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'LPA questionnaire',
+		customErrorMessageComponents: virusDetectedMessage,
 		pageComponents: [
 			...notificationBanners,
 			caseSummary,
@@ -544,4 +573,23 @@ export function mapWebValidationOutcomeToApiValidationOutcome(
 			lpaQuestionnaireDueDate: dayMonthYearToApiDateString(updatedDueDate)
 		})
 	};
+}
+
+/**
+ *
+ * @param {LPAQuestionnaire} lpaQuestionnaire
+ * @param {"not_checked"|"checked"|"failed_virus_check"} virusStatus
+ * @returns {import('#lib/mappers/lpaQuestionnaire.mapper.js').DocumentInfo[]}
+ */
+function getDocumentsForVirusStatus(lpaQuestionnaire, virusStatus) {
+	let unscannedFiles = [];
+	for (let document of Object.values(lpaQuestionnaire.documents)) {
+		const documentsOfStatus = document.documents.filter(
+			(/** @type {{ virusCheckStatus: string; }} */ item) => item.virusCheckStatus === virusStatus
+		);
+		for (const document of documentsOfStatus) {
+			unscannedFiles.push(document);
+		}
+	}
+	return unscannedFiles;
 }

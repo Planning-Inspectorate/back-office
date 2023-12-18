@@ -112,7 +112,8 @@ export const renderManageFolder = async (request, response, backButtonUrl, viewA
 		backButtonUrl,
 		viewAndEditUrl,
 		currentFolder,
-		redactionStatuses
+		redactionStatuses,
+		request
 	);
 
 	return response.render('appeals/documents/manage-folder.njk', {
