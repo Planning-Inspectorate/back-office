@@ -22,7 +22,6 @@ import {
 import { cloneDeep } from 'lodash-es';
 import { textInputCharacterLimits } from '../../../appeal.constants.js';
 import usersService from '#appeals/appeal-users/users-service.js';
-import { cloneDeep } from 'lodash-es';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
