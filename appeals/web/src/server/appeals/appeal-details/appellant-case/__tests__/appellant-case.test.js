@@ -82,8 +82,8 @@ describe('appellant-case', () => {
 		it('should render a notification banner when a file is unscanned', async () => {
 			//Create a document with virus scan still in progress
 			let updatedAppellantCaseData = cloneDeep(appellantCaseData);
-			// @ts-ignore
 			updatedAppellantCaseData.documents.applicationForm.documents.push(
+				// @ts-ignore
 				notCheckedDocumentFolderInfoDocuments
 			);
 			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, updatedAppellantCaseData);
@@ -96,8 +96,8 @@ describe('appellant-case', () => {
 		it('should render an error when a file has a virus', async () => {
 			//Create a document with virus scan still in progress
 			let updatedAppellantCaseData = cloneDeep(appellantCaseData);
-			// @ts-ignore
 			updatedAppellantCaseData.documents.applicationForm.documents.push(
+				// @ts-ignore
 				scanFailedDocumentFolderInfoDocuments
 			);
 			nock('http://test/').get('/appeals/1/appellant-cases/0').reply(200, updatedAppellantCaseData);
