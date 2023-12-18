@@ -1,11 +1,23 @@
 {%- extends "app/layouts/app.layout.njk" -%}
 {%- from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner -%}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {%- set backLinkUrl = pageContent.backLinkUrl -%}
 {%- set backLinkText = pageContent.backLinkText -%}
 {%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
 {%- block pageHeading -%}
+	{%- if pageContent.customErrorMessageComponents -%}
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-two-thirds">
+				{%- for component in pageContent.customErrorMessageComponents -%}
+					{%- if component.type === 'error-summary' -%}
+						{{ govukErrorSummary(component.parameters) }}
+					{%- endif -%}
+				{%- endfor -%}
+			</div>
+		</div>
+	{%- endif -%}
 	{%- if pageContent.notificationBannerComponents -%}
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-two-thirds">

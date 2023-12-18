@@ -994,6 +994,22 @@ export const documentFolderInfo = {
 	path: 'appellant_case/newSupportingDocuments'
 };
 
+export const notCheckedDocumentFolderInfoDocuments = {
+	id: '9635631c-507c-4af2-98a1-da007e8bb56a',
+	name: 'applicationForm.docx',
+	folderId: 1,
+	caseId: 1,
+	virusCheckStatus: 'not_checked'
+};
+
+export const scanFailedDocumentFolderInfoDocuments = {
+	id: '9635631c-507c-4af2-98a1-da007e8bb56a',
+	name: 'applicationForm.docx',
+	folderId: 1,
+	caseId: 1,
+	virusCheckStatus: 'failed_virus_check'
+};
+
 export const documentRedactionStatuses = [
 	{
 		id: 1,

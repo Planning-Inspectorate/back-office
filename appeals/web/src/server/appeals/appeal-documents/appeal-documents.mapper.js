@@ -5,6 +5,7 @@ import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapp
 import usersService from '#appeals/appeal-users/users-service.js';
 import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
@@ -357,9 +358,49 @@ function mapFolderDocumentActionsHtmlProperty(folder, document, viewAndEditUrl) 
  * @param {string} viewAndEditUrl
  * @param {DocumentFolder} folder - API type needs to be updated (should be Folder, but there are worse problems with that type)
  * @param {RedactionStatus[]} redactionStatuses
+ * @param {import('@pins/express/types/express.js').Request} request
  * @returns {PageContent}
  */
-export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionStatuses) {
+export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionStatuses, request) {
+	if (getDocumentsForVirusStatus(folder, 'not_checked').length > 0) {
+		addNotificationBannerToSession(
+			request.session,
+			'notCheckedDocument',
+			parseInt(folder.caseId.toString(), 10)
+		);
+	}
+
+	let notificationBannerComponents;
+	if (folder.caseId) {
+		notificationBannerComponents = buildNotificationBanners(
+			request.session,
+			'manageFolder',
+			parseInt(folder.caseId.toString(), 10)
+		);
+	}
+	/** @type {PageComponent[]} */
+	let virusDetectedMessage = [];
+	if (getDocumentsForVirusStatus(folder, 'failed_virus_check').length > 0) {
+		let folderIds = getDocumentsForVirusStatus(folder, 'failed_virus_check');
+		/**
+		 * @type {{ text: string; href: string; }[]}
+		 */
+		let errorList = [];
+		folderIds.forEach((item) =>
+			errorList.push({
+				text: 'The selected file contains a virus. Upload a different version.',
+				href: `manage-documents/${item.folderId}/${item.id}`
+			})
+		);
+		virusDetectedMessage.push({
+			type: 'error-summary',
+			parameters: {
+				titleText: 'There is a problem',
+				errorList: errorList
+			}
+		});
+	}
+
 	/** @type {PageContent} */
 	const pageContent = {
 		title: 'Manage documents',
@@ -367,6 +408,8 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Manage documents',
 		heading: `${folderPathToFolderNameText(folder.path)} documents`,
+		notificationBannerComponents: notificationBannerComponents,
+		customErrorMessageComponents: virusDetectedMessage,
 		pageComponents: [
 			{
 				type: 'table',
@@ -579,6 +622,17 @@ export async function manageDocumentPage(
 	);
 	const session = request.session;
 
+	const latestVersion = getDocumentLatestVersion(document);
+	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(latestVersion);
+
+	if (!virusCheckStatus.checked) {
+		addNotificationBannerToSession(
+			session,
+			'notCheckedDocument',
+			parseInt(appealId.toString(), 10)
+		);
+	}
+
 	let notificationBannerComponents;
 	if (document.caseId) {
 		notificationBannerComponents = buildNotificationBanners(
@@ -588,8 +642,28 @@ export async function manageDocumentPage(
 		);
 	}
 
-	const latestVersion = getDocumentLatestVersion(document);
-	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(latestVersion);
+	/** @type {PageComponent[]} */
+	let virusDetectedMessage = [];
+	if (getDocumentsForVirusStatus(folder, 'failed_virus_check').length > 0) {
+		let folderIds = getDocumentsForVirusStatus(folder, 'failed_virus_check');
+		/**
+		 * @type {{ text: string; href: string; }[]}
+		 */
+		let errorList = [];
+		folderIds.forEach((item) =>
+			errorList.push({
+				text: 'The selected file contains a virus. Upload a different version.',
+				href: `manage-documents/${item.folderId}/${item.id}`
+			})
+		);
+		virusDetectedMessage.push({
+			type: 'error-summary',
+			parameters: {
+				titleText: 'There is a problem',
+				errorList: errorList
+			}
+		});
+	}
 
 	const versionId = document?.latestVersionId?.toString() || '';
 
@@ -610,6 +684,7 @@ export async function manageDocumentPage(
 		preHeading: 'Manage documents',
 		heading: document?.name || '',
 		notificationBannerComponents: notificationBannerComponents,
+		customErrorMessageComponents: virusDetectedMessage,
 		pageComponentGroups: [
 			{
 				wrapperHtml: {
@@ -1185,4 +1260,20 @@ export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
 	};
 
 	return pageContent;
+}
+
+/**
+ *
+ * @param {DocumentFolder} folder
+ * @param {"not_checked"|"checked"|"failed_virus_check"} virusStatus
+ * @returns {DocumentInfo[]}
+ */
+function getDocumentsForVirusStatus(folder, virusStatus) {
+	let unscannedFiles = [];
+	for (let document of Object.values(folder.documents)) {
+		if (document?.latestDocumentVersion?.virusCheckStatus === virusStatus) {
+			unscannedFiles.push(document);
+		}
+	}
+	return unscannedFiles;
 }

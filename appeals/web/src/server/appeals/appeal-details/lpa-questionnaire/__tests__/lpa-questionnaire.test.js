@@ -12,11 +12,14 @@ import {
 	documentFileVersionsInfoVirusFound,
 	documentFileVersionsInfoChecked,
 	documentRedactionStatuses,
-	activeDirectoryUsersData
+	activeDirectoryUsersData,
+	appealData,
+	notCheckedDocumentFolderInfoDocuments
 } from '#testing/app/fixtures/referencedata.js';
 import { createTestEnvironment } from '#testing/index.js';
 import { textInputCharacterLimits } from '../../../appeal.constants.js';
 import usersService from '#appeals/appeal-users/users-service.js';
+import { cloneDeep } from 'lodash-es';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -43,6 +46,43 @@ describe('LPA Questionnaire review', () => {
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
 
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET / with unchecked documents', () => {
+		beforeEach(() => {
+			nock.cleanAll();
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData).persist();
+		});
+
+		it('should render a notification banner when a file is unscanned', async () => {
+			//Create a document with virus scan still in progress
+			let updatedLPAQuestionnaireData = cloneDeep(lpaQuestionnaireData);
+			updatedLPAQuestionnaireData.documents.conservationAreaMap.documents.push(
+				notCheckedDocumentFolderInfoDocuments
+			);
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/2')
+				.reply(200, updatedLPAQuestionnaireData);
+
+			const response = await request.get(`${baseUrl}`);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render an error when a file has a virus', async () => {
+			//Create a document with virus scan still in progress
+			let updatedLPAQuestionnaireData = cloneDeep(lpaQuestionnaireData);
+			updatedLPAQuestionnaireData.documents.conservationAreaMap.documents.push(
+				notCheckedDocumentFolderInfoDocuments
+			);
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/2')
+				.reply(200, updatedLPAQuestionnaireData);
+
+			const response = await request.get(`${baseUrl}`);
+			const element = parseHtml(response.text);
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
