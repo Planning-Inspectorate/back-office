@@ -840,6 +840,8 @@ export async function manageDocumentPage(
 													}
 												];
 											})
+										).then((result) =>
+											result.sort((a, b) => parseInt(a[0].text, 10) - parseInt(b[0].text, 10))
 										)
 									}
 								}
