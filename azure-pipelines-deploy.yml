@@ -126,7 +126,7 @@ extends:
                   repository: back-office/back-office-web
           - name: Deploy Function - Document Check
             artifact:
-              name: function-document-check
+              name: function-apps-document-check
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployDocumentCheckFunction }}, 'true')
             steps:
@@ -136,7 +136,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Deadline Submissions
             artifact:
-              name: function-deadline-submissions
+              name: function-apps-deadline-submissions
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployDeadlineSubmissionsFunction }}, 'true')
             steps:
@@ -146,7 +146,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Register Representation
             artifact:
-              name: function-register-representation
+              name: function-apps-register-representation
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployRegisterRepresentationFunction }}, 'true')
             steps:
@@ -156,7 +156,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - ODW Integration
             artifact:
-              name: function-odw-integration
+              name: function-apps-odw-integration
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployODWIntegrationFunctions }}, 'true')
             steps:
@@ -166,7 +166,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Document Publish
             artifact:
-              name: function-document-publish
+              name: function-apps-document-publish
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployDocumentPublishFunction }}, 'true')
             steps:
@@ -176,7 +176,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Malware Detected
             artifact:
-              name: function-malware-detected
+              name: function-apps-malware-detected
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployMalwareDetectedFunction }}, 'true')
             steps:
@@ -186,7 +186,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Handle Subscriptions
             artifact:
-              name: function-handle-subscriptions
+              name: function-apps-handle-subscriptions
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployFunctionHandleSubscriptions }}, 'true')
             steps:
@@ -196,7 +196,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Applications Migration
             artifact:
-              name: function-applications-migration
+              name: function-apps-applications-migration
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployFunctionApplicationsMigration }}, 'true')
             steps:
@@ -206,7 +206,7 @@ extends:
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Notify Subscribers
             artifact:
-              name: function-notify-subscribers
+              name: function-apps-notify-subscribers
               sourcePipeline: Back Office Build
             condition: eq(${{ parameters.deployFunctionNotifySubscribers }}, 'true')
             steps:

@@ -1,0 +1,40 @@
+parameters:
+- name: root
+  type: string
+- name: workspaceName
+  type: string
+- name: folderName
+  type: string
+- name: nodeVersion
+  type: number
+  default: 18
+
+steps:
+  - script: |
+      source ~/.bashrc
+      nvm use ${{ parameters.nodeVersion }}
+      npm ci --only=prod --workspace=@pins/${{ parameters.workspaceName }}
+    displayName: Run npm ci
+  # merge node_modules into the one in the function folder
+  # from node_modules/@pins/*
+  #      node_modules/*
+  #      <root>/functions/node_modules/*
+  # except the function itself which will be in symlinked in node_modules/@pins!
+  # to <root>/functions/<function>/node_modules/*
+  - script: |
+      source ~/.bashrc
+      shopt -s extglob
+      mkdir -p $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/@pins
+      cp -r -n -L $(Build.Repository.LocalPath)/node_modules/@pins/!(${{ parameters.workspaceName }}) $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/@pins
+      cp -r -n -L $(Build.Repository.LocalPath)/node_modules/!(@pins) $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/
+      cp -r -n -L $(Build.Repository.LocalPath)/${{parameters.root}}/functions/node_modules/* $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/
+    displayName: Merge node_modules
+  - task: ArchiveFiles@2
+    displayName: Archive files
+    inputs:
+      rootFolderOrFile: $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}
+      includeRootFolder: false
+      archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
+  - publish: $(System.DefaultWorkingDirectory)/functions.zip
+    artifact: function-${{parameters.root}}-${{parameters.folderName}}
+    displayName: Publish Artifact
