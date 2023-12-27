@@ -1,6 +1,6 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import { dateIsValid, dateIsInTheFuture } from '../dates.js';
+import { dateIsValid, dateIsInTheFuture, dateIsTodayOrInThePast } from '../dates.js';
 import { capitalize } from 'lodash-es';
 
 export const createDateInputFieldsValidator = (
@@ -182,6 +182,39 @@ export const createDateInputDateInFutureValidator = (
 					`${
 						(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''
 					}must be a date in the future`
+				)
+			)
+	);
+
+export const createDateInputDateInPastOrTodayValidator = (
+	fieldNamePrefix = 'date',
+	messageFieldNamePrefix = 'date',
+	dayFieldName = '-day',
+	monthFieldName = '-month',
+	yearFieldName = '-year'
+) =>
+	createValidator(
+		body()
+			.custom((bodyFields) => {
+				const day = bodyFields[`${fieldNamePrefix}${dayFieldName}`];
+				const month = bodyFields[`${fieldNamePrefix}${monthFieldName}`];
+				const year = bodyFields[`${fieldNamePrefix}${yearFieldName}`];
+
+				if (!day || !month || !year) {
+					return false;
+				}
+
+				const dayNumber = Number.parseInt(day, 10);
+				const monthNumber = Number.parseInt(month, 10);
+				const yearNumber = Number.parseInt(year, 10);
+
+				return dateIsTodayOrInThePast(yearNumber, monthNumber, dayNumber);
+			})
+			.withMessage(
+				capitalize(
+					`${
+						(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''
+					}must be today or in the past`
 				)
 			)
 	);

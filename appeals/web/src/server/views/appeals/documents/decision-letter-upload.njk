@@ -1,0 +1,59 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% from 'app/components/file-uploader.component.njk' import fileUploader %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block pageTitle %}
+	{{ pageHeadingText }}
+{% endblock %}
+
+{%- block pageHeading -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ caseInfoText }}</span>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ pageHeadingText }}</h1>
+		</div>
+	</div>
+{%- endblock -%}
+
+{%- set backLinkUrl -%}
+	{{ backButtonUrl }}
+{%- endset -%}
+
+{% block pageContent %}
+
+
+
+{{ govukWarningText({
+  text: "You can be fined up to £5,000 if you do not register.",
+  iconFallbackText: "Warning"
+}) }}
+
+	<ul class="govuk-list govuk-list--bullet">
+      <li>have used the correct appeal reference</li>
+      <li>have added the decision and visit dates</li>
+      <li>have added the correct site address</li>
+      <li>have added the decision to the top and bottom of the letter</li>
+      <li>signed the letter</li>
+    </ul>
+
+	{{ fileUploader({
+		text: 'Continue',
+		formId: 1,
+		caseId: appealId,
+		folderId: folderId,
+		documentId: documentId,
+		documentType: documentType,
+		documentStage: documentStage,
+		blobStorageHost: blobStorageHost,
+		useBlobEmulator: useBlobEmulator,
+		blobStorageContainer: blobStorageContainer,
+		formTitle: serviceName,
+		nextPageUrl: nextPageUrl if nextPageUrl else (['/appeals-service/appeal-details/', caseId] | join),
+		allowedTypes: allowedTypes if allowedTypes else (['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ]),
+		disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
+		multiple: multiple
+	}) }}
+
+{% endblock %}
