@@ -201,6 +201,7 @@ interface SingleAppealDetailsResponse {
 		outcome?: string;
 		documentId?: string;
 		folderId: number;
+		letterDate: Date | null;
 	};
 	documentationSummary: DocumentationSummary;
 	healthAndSafety: {

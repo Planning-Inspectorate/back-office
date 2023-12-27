@@ -36,6 +36,19 @@ export const dateIsInTheFuture = (year, month, day) => {
 };
 
 /**
+ * @param {number} year
+ * @param {number} month
+ * @param {number} day
+ * @returns {boolean}
+ */
+export const dateIsTodayOrInThePast = (year, month, day) => {
+	const date = new Date(year, month - 1, day);
+	const now = new Date();
+
+	return dateIsValid(year, month, day) && date <= now;
+};
+
+/**
  * @param {Date} date
  * @returns {boolean}
  */

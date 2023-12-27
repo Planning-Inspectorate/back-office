@@ -12,6 +12,7 @@ import {
 } from './assign-user/assign-user.router.js';
 import * as controller from './appeal-details.controller.js';
 import changePageRouter from '../change-page/change-page.router.js';
+import issueDecisionRouter from '../issue-decision/issue-decision.router.js';
 
 const router = createRouter();
 
@@ -26,4 +27,5 @@ router.use('/:appealId/assign-user', assignUserRouter);
 router.use('/:appealId/unassign-user', unassignUserRouter);
 router.use('/:appealId/assign-new-user', assignNewUserRouter);
 router.use('/:appealId/change-appeal-details', changePageRouter);
+router.use('/:appealId/issue-decision', issueDecisionRouter);
 export default router;
