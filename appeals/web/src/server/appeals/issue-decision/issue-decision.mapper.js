@@ -4,7 +4,7 @@ import { getFileInfo } from '#appeals/appeal-documents/appeal.documents.service.
  * @typedef {import('../appeal-details/appeal-details.types.js').WebAppeal} Appeal
  */
 /**
- * @typedef {import('./issue-decision.types.d.ts').DecisionOutcome} DecisionOutcome
+ * @typedef {import('./issue-decision.types.d.ts').InspectorDecisionRequest} InspectorDecisionRequest
  */
 
 /**
@@ -275,7 +275,7 @@ export function decisionConfirmationPage(appealData) {
 }
 
 /**
- * Checks if the given outcome is a valid DecisionOutcome and returns the corresponding mapped value.
+ * Checks if the given outcome is a valid InspectorDecisionRequest and returns the corresponding mapped value.
  * @param {string | undefined} outcome The outcome to check.
  * @returns {string} The mapped decision string, or a default value if the outcome is invalid or undefined.
  */

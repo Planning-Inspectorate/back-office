@@ -77,7 +77,10 @@ export const appealData = {
 	appellantName: 'Eva Sharma',
 	caseOfficer: null,
 	decision: {
-		folderId: 123
+		folderId: 123,
+		outcome: 'dismissed',
+		documentId: 'e1e90a49-fab3-44b8-a21a-bb73af089f6b',
+		letterDate: '2023-12-25T00:00:00.000Z'
 	},
 	healthAndSafety: {
 		appellantCase: {
@@ -779,6 +782,12 @@ export const siteVisitData = {
 	visitEndTime: '10:44',
 	visitStartTime: '09:38',
 	visitType: 'Accompanied'
+};
+
+export const inspectorDecisionData = {
+	outcome: 'dismissed',
+	documentId: 'e1e90a49-fab3-44b8-a21a-bb73af089f6b',
+	letterDate: '2023-12-25T00:00:00.000Z'
 };
 
 export const activeDirectoryUsersData = [

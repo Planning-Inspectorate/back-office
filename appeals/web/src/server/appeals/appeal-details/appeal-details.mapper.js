@@ -194,6 +194,17 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		components.map((component) => removeActions(component));
 	}
 
+	if (appealDetails.appealStatus === 'issue_determination') {
+		if (!session.notificationBanners) {
+			session.notificationBanners = {};
+		}
+		session.notificationBanners.readyForDecision = {
+			appealId: appealDetails.appealId,
+			titleText: 'Important',
+			html: `<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Make a decision</a>.</p>`
+		};
+	}
+
 	const notificationBanners = buildNotificationBanners(
 		session,
 		'appealDetails',

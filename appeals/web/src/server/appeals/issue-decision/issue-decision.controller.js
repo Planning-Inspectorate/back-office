@@ -283,13 +283,6 @@ export const renderCheckDecision = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
-	request.session.inspectorDecision = {
-		outcome: 'dismissed',
-		documentId: 'e1e90a49-fab3-44b8-a21a-bb73af089f6b',
-		letterDate: '2023-12-25T00:00:00.000Z'
-	};
-
 	let mappedPageContent = await checkAndConfirmPage(
 		request,
 		appealData,

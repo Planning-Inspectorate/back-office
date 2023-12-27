@@ -1,5 +1,5 @@
 /**
- * @typedef {import('./issue-decision.types.d.ts').DecisionOutcome} DecisionOutcome
+ * @typedef {import('./issue-decision.types.d.ts').InspectorDecisionRequest} InspectorDecisionRequest
  */
 
 /**
@@ -19,7 +19,7 @@ export function getAppealDetailsFromId(apiClient, appealId) {
  * @param {string|null} outcome
  * @param {string|null} documentGuid
  * @param {string|null} documentDate
- * @returns {Promise<DecisionOutcome>}
+ * @returns {Promise<InspectorDecisionRequest>}
  */
 export async function postInspectorDecision(
 	apiClient,
