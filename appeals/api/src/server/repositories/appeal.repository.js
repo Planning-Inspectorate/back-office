@@ -285,11 +285,7 @@ const setAppealDecision = (id, { documentDate, documentGuid, version, outcome })
 				},
 				outcome,
 				// @ts-ignore
-				decisionLetter: {
-					connect: {
-						guid: documentGuid
-					}
-				}
+				decisionLetter: documentGuid
 			}
 		}),
 		databaseConnector.documentVersion.update({
