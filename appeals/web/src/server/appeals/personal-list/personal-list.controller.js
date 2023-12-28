@@ -1,6 +1,8 @@
-import logger from '#lib/logger.js';
 import { personalListPage } from './personal-list.mapper.js';
+import { paginationDefaultSettings } from '../appeal.constants.js';
 import { getAppealsAssignedToCurrentUser } from './personal-list.service.js';
+
+/** @typedef {import('@pins/appeals').Pagination} Pagination */
 
 /**
  *
@@ -8,13 +10,117 @@ import { getAppealsAssignedToCurrentUser } from './personal-list.service.js';
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
 export const viewPersonalList = async (request, response) => {
-	const assignedAppealsSummary = await getAppealsAssignedToCurrentUser(request.apiClient).catch(
-		(error) => logger.error(error)
+	const { originalUrl, query } = request;
+	const urlWithoutQuery = originalUrl.split('?')[0];
+
+	// defaults
+	const pageNumber = query?.pageNumber
+		? Number.parseInt(String(query.pageNumber), 10)
+		: paginationDefaultSettings.firstPageNumber;
+	const pageSize = query?.pageSize
+		? Number.parseInt(String(query.pageSize), 10)
+		: paginationDefaultSettings.pageSize;
+
+	const assignedAppealsSummary = await getAppealsAssignedToCurrentUser(
+		request.apiClient,
+		pageNumber,
+		pageSize
 	);
+
+	const { page: currentPage, pageCount: totalPages } = assignedAppealsSummary;
+
+	const previousPage = currentPage - 1;
+	const nextPage = currentPage + 1;
+
+	// basic pagination object
+	/** @type {Pagination} */
+	const pagination = {
+		previous: {},
+		next: {},
+		items: []
+	};
+
+	if (totalPages > 1) {
+		if (currentPage > 1) {
+			pagination.previous = {
+				href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageNumber - 1}`
+			};
+		}
+
+		if (currentPage < totalPages) {
+			pagination.next = {
+				href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageNumber + 1}`
+			};
+		}
+
+		// first index
+		pagination.items.push({
+			number: 1,
+			href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${paginationDefaultSettings.firstPageNumber}`,
+			current: currentPage === 1
+		});
+
+		// if pages total is less or eq to 10 then display all of them in one row
+		// otherwise implement ellipsis logic
+		if (totalPages <= 10) {
+			for (let pageIndex = 2; pageIndex <= totalPages; pageIndex += 1) {
+				pagination.items.push({
+					number: pageIndex,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${pageIndex}`,
+					current: currentPage === pageIndex
+				});
+			}
+		} else {
+			// do not show this ellipsis if you're in the beginning of the pagination
+			pagination.items.push({
+				ellipsis: currentPage > 3
+			});
+
+			// logic for neighbouring indexes (previous, current and next ones)
+			if (previousPage > 1) {
+				pagination.items.push({
+					number: previousPage,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${previousPage}`,
+					current: false
+				});
+			}
+
+			if (currentPage > 1) {
+				pagination.items.push({
+					number: currentPage,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${currentPage}`,
+					current: true
+				});
+			}
+
+			if (nextPage > 1 && nextPage < totalPages) {
+				pagination.items.push({
+					number: nextPage,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${nextPage}`,
+					current: false
+				});
+			}
+
+			// do not show this ellipsis if you're in the end of the pagination
+			pagination.items.push({
+				ellipsis: currentPage < totalPages - 2
+			});
+
+			// last index
+			if (currentPage < totalPages) {
+				pagination.items.push({
+					number: totalPages,
+					href: `${urlWithoutQuery}?pageSize=${pageSize}&pageNumber=${totalPages}`,
+					current: currentPage === totalPages
+				});
+			}
+		}
+	}
 
 	const mappedPageContent = personalListPage(assignedAppealsSummary, request.session);
 
 	return response.render('patterns/display-page.pattern.njk', {
-		pageContent: mappedPageContent
+		pageContent: mappedPageContent,
+		pagination
 	});
 };

@@ -24,4 +24,26 @@ describe('personal-list', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
+
+	it('should render national list - 10 pages - all page indexes in one row', async () => {
+		nock('http://test/')
+			.get('/appeals/my-appeals?pageNumber=1&pageSize=30')
+			.reply(200, { ...assignedAppealsSummary, pageCount: 10 });
+
+		const response = await request.get(baseUrl);
+		const element = parseHtml(response.text);
+
+		expect(element.innerHTML).toMatchSnapshot();
+	});
+
+	it('should render national list - 15 pages - pagination with ellipsis logic', async () => {
+		nock('http://test/')
+			.get('/appeals/my-appeals?pageNumber=1&pageSize=30')
+			.reply(200, { ...assignedAppealsSummary, pageCount: 15 });
+
+		const response = await request.get(baseUrl);
+		const element = parseHtml(response.text);
+
+		expect(element.innerHTML).toMatchSnapshot();
+	});
 });
