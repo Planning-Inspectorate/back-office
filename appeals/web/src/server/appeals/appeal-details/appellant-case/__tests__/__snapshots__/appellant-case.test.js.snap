@@ -57,12 +57,12 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
                     <dd class="govuk-summary-list__value">Fiona Burgess</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/appellant-name"> Change<span class="govuk-visually-hidden"> Appellant name</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Applicant name</dt>
                     <dd class="govuk-summary-list__value"></dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/applicant-name"> Change<span class="govuk-visually-hidden"> Applicant name</span></a>
                     </dd>
@@ -257,12 +257,12 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
                     <dd class="govuk-summary-list__value">Fiona Burgess</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/appellant-name"> Change<span class="govuk-visually-hidden"> Appellant name</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Applicant name</dt>
                     <dd class="govuk-summary-list__value"></dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/applicant-name"> Change<span class="govuk-visually-hidden"> Applicant name</span></a>
                     </dd>
@@ -470,12 +470,12 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
                     <dd class="govuk-summary-list__value">Fiona Burgess</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/appellant-name"> Change<span class="govuk-visually-hidden"> Appellant name</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Applicant name</dt>
                     <dd class="govuk-summary-list__value"></dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/applicant-name"> Change<span class="govuk-visually-hidden"> Applicant name</span></a>
                     </dd>
@@ -2078,12 +2078,12 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
                     <dd class="govuk-summary-list__value">Fiona Burgess</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/appellant-name"> Change<span class="govuk-visually-hidden"> Appellant name</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Applicant name</dt>
                     <dd class="govuk-summary-list__value"></dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/applicant-name"> Change<span class="govuk-visually-hidden"> Applicant name</span></a>
                     </dd>
