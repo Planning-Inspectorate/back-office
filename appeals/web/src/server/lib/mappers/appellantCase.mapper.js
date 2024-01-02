@@ -30,7 +30,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Name'
+					text: 'Appellant name'
 				},
 				value: {
 					text: appellantCaseData.appellant.name || ''
@@ -68,7 +68,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Name'
+					text: 'Applicant name'
 				},
 				value: {
 					text: nameToString({
