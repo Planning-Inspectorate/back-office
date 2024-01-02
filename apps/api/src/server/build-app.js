@@ -22,6 +22,7 @@ const buildApp = (
 		addSwaggerUi(app);
 	}
 
+	app.use('/migration', bodyParser.json({ limit: '30mb' }));
 	app.use(bodyParser.json());
 
 	app.use(compression());
