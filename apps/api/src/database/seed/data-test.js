@@ -2,7 +2,7 @@
  * Test data used for development and testing
  */
 
-import { createFolders } from '../../server/repositories/folder.repository.js';
+import { createFolders } from '#repositories/folder.repository.js';
 import { addressesList, caseStatusNames, representations } from './data-samples.js';
 import { regions, subSectors, zoomLevels } from './data-static.js';
 // import { calculateTimetable, isFPA } from '../../server/appeals/appeals/appeals.service.js';
@@ -50,27 +50,34 @@ function createRepresentation(caseReference, index, isValidStatus = false) {
 		'VALID'
 	];
 
+	const repTypes = [
+		'Local authorities',
+		'Members of the public/businesses',
+		'Non-statutory organisations',
+		'Statutory consultees',
+		'Parish councils'
+	];
+
 	const status = isValidStatus ? 'VALID' : pickRandom(statuses);
 	const unpublishedUpdates = status === 'PUBLISHED' ? Math.floor(Math.random() * 8) === 0 : false;
 
-	return {
+	represented.create.address = { create: pickRandom(addressesList) };
+
+	const representation = {
 		reference: `${caseReference}-${index}`,
 		...rep,
-		status: status,
-		unpublishedUpdates: unpublishedUpdates,
-		represented: {
-			create: {
-				...represented,
-				address: { create: pickRandom(addressesList) }
-			}
-		},
-		representative: {
-			create: {
-				...representative,
-				address: { create: pickRandom(addressesList) }
-			}
-		}
+		status,
+		type: pickRandom(repTypes),
+		unpublishedUpdates,
+		represented
 	};
+
+	if (representative) {
+		representative.create.address = { create: pickRandom(addressesList) };
+		representation.representative = representative;
+	}
+
+	return representation;
 }
 
 /**

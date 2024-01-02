@@ -99,6 +99,7 @@ export const representations = [
 			'Yes, we have a good represttation here.. We Will Send more data - See attached files.',
 		redacted: true,
 		received: new Date(),
+		representedType: 'FAMILY_GROUP',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -114,7 +115,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'FAMILY_GROUP',
 				organisationName: 'Árni G',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -145,6 +145,7 @@ export const representations = [
 			"This will increase the level of noise Not to mention pollution And also drainage issues And less I forget,  <span class='redacted'></span>  heritage",
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -160,7 +161,6 @@ export const representations = [
 				firstName: 'Tom',
 				lastName: 'Tom',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -175,6 +175,7 @@ export const representations = [
 			"There are already 3 incinerators within one mile. Big increase in NO2 emissions which is a big cause of Ozone depletion and has a number of recognised ill effects on human health, The rubbish will need to travel hundreds of miles, increase HGV emissions Wheelabrator are in breach of their planning consent SW/10/444 Over one million tons of rubbish per year will have to use the already congested A249 alone and gridock at the B2002 junction 47692 HGV movements a week This will discourage recycling Many Wheelabrator incinerators in the United States have been closed down on environmental grounds. K3 and WKN are very near houses The water discharge will not be to the Swale but to Milton Creek The planning inspectorate use email as it is more environmentaly friendly ------------------------------------------------- I have studied the consultation report, section 4.1 The obvious first comment is why didn't Wheelabrator apply for a 75Mw incinerator in the first place. My conclusion is that as they and DS Smith have done in the past is to mislead gullible councillors, apply for a smaller incinerator and once planning consent has been agreed suddenly find they want to increase the input of rubbish to be incinerated by over 100,000 tons . They simply cannot be trusted. If at the planning stage of K3 they didn't realise the facility could take in an extra 100000 tons of waste a year they are not a fit and proper organisation to be operating incinerators. Where is all the rubbishing going to come from ? It wont be from Kent and it wont be from other South East areas Surrey County Council is currently producing a new Waste Local Plan and the Draft Submission Plan will be published in mid-January 2019 for a Regulation 19 consultation. Surrey County Council note that they and other authorities in the south east are planning on the basis of net self-sufficiency and not on the basis that Surrey’s requirements will be met by facilities in Kent 6.2.1 Several of the their American incinerators have been closed down on environmental grounds. Their plans for another incinerator to join the 4 already at Ridham and on the DS Smith site simply do not add up. There is no need for it as there are already more incinerator in the UK than are needed. Incineration discourages recycling. 5.2.4 why was the plan for WKN only identified much later then the application for K3 ?It is obvious the plan was to mislead, I cannot believe planning permission for a one million ton incinerator would have been given for reasons which I shall expand on later Wheelabrator wilfully mislead local people in the leaflet dated March 2017. Page 10 paragraph 6.1 states “there will be no change to the types and quantum of fuel throughput. 6.3.1 I dispute the Kemsley Mill is a “ substantial industrial complex” 6.3. This contradicts 5.1 of the March 2017 booklet to residents available at the various exhibitions that have been held. Never art any time have DS Smith and Wheelabrator mentioned burning an extra 105000 tons of rubbish a year, it was always an internal reconfiguration. I feel Wheelabrator and DS Smith have deliberately lied over their true intentions from day b1 8 My view is that Wheelabrator and DS Smith have deliberately set out to confuse those affected by their plans. Mentioning various sections of the planning acts will be lost on most people who do not have the time and patience to investigate further. 8.1.12 I fundamentally disagree. K3 and WKN are completely separate issues and should be treated as such 9 I can see no reason to object to an internal reconfiguration to improve the output of K3 which is what Wheelabrator and DS Smith said would happen with no increase in rubbish burnt. In my view deliberate misrepresentation. They knew from the start this would not be possible without an increase of rubbish to the facility. I dispute the interpretation of feedback. I specifically raised the issue of air pollution which doesn't get a mention 9.7.1 none of the issues have been resolved and I do not know of anyone who is in favour. Wishful thinking on the part of WTI and DS Smith 11.8 I wholeheartedly agreed with the objections of Minister on sea parish council, 100.000 extra diesel powered HGVs using the already polluting and congested A249 mostly during peak hours is environmentally unacceptable, especially given Swale Borough Council have declared a climate emergency. At present there is no intention to transport heavy material via the river for construction. A Rail and Water Transportation Strategy is provided for both K3(Document 4.8)and WKN(Document 4.9) as part of the application which deals with the longer term potential for transporting waste to K3 and/or WKN via rail or barge, but at present the necessary contracts do not exist which would allow that to be possible. The intention is for that position to be reviewed regularly in the future. site via alternative means, of waste contracts available . This is of course nonsense. None of the SouthEast waste authorities will use these facilities, there is no infrastructure on the rail network or handle waste by rail and the idea of sending if by sea is laughable. All the rubbish will have to come by road from hundreds of miles away Waste should be dealt with where it is produced. Sittingbourne cannot become the waste repository of England 15.1.2 I was invited to visit the KJ3 site and it is impressive. The issues which have not been addressed though is the pollution and traffic chaos which 100,000 plus HGVs will cause and air pollution. I do accept technology on incineration has improved but nevertheless incineration is not the answer. 15.3 very disappointing how few feedback forms were received. 15.5.2 I would hardly call the K3 and WKN facilities small, they're truly massive. Another example of trying to mislead people is truly unbelievable, Just ask anyone who uses the A249. 15.8.1 Unless there is a massive canal building programme, waste will not arrive by barge. 15.8.2 The Rail and Water Transportation Strategies make provision for that situation to be reviewed every five years. Given the expected life of K3 and WKN reviews should take place at least yearly, but it just wont happen, As I have pointed out before the infrastructure just isn't available 15.9.2 Many WTI sites in the United States have been closed down on environmental grounds At best this is highly optimistic. 15.11.2 There will be serious visual impact both to the Milton Creek country park and the Saxon Shore Way LDP 15.14.2 The community fund may be well meant, Id call it a bribe….. 15.19.2 I suggest the extremely low response is due to the fact that working people do not have time to either visit or respond fully. The simple question should be “Do you want another 2 massive incinerators in Sittingbourne, Yes or No ? “ 17.6 No one can disagree with the concerns of Bobbing Parish Council. It exactly sums up why the increase in waste burnt at K3 and the development of WKN should not be allowed I would like to summarise our objections as follows Although incinerator technology has advanced there are still far to many questions concerning air pollution and the effect on local peoples health WTI cannot call incineration clean or renewable energy because it isn't. It is still burning fossil fuels by another name There are already more than enough incinerators in the UK Incineration actively discourages recycling, for example once plastic ( obtained by fossil fuel ) has been incinerated it cannot be recycled. And extra 200,000 HGV movements along the A249 each year is environmental vandalism and completely unaccepted able. There is no infrastructure on the rail network and the idea of bring in wast by barge is in fantasy land. SouthEast waste authorities will not use the facilities, the waste will have to travel a considerable distance by HGV Pre treatment relies on people putting waste into the correct bin no one knows what will be going up the stacks and being sprayed onto the local area There are far more environmentally friendly ways of deal with waste, The most obvious solution is to produce less of it and what cannot be recycled should be dealt with where it is produced and not transported hundreds of miles in diesel powered HGVs Furans and Dioxins are highly damaging to health and are carcinogenic. I accept WTI will do their best to avoid this escaping but accidents do happen, as as already been pointed out many WTI plants have been closed on environmental grounds A part from the major gases mentioned, a huge variety of other gases are emitted during the incineration of trash. On this large list, the most present volatiles are: sulphur dioxide, hydrochloric acid, fine particles and heavy metals Waste incineration systems produce a wide variety of pollutants which are detrimental to human health. Such systems are expensive and do not eliminate or adequately control the toxic emissions from chemically complex MSW. Even new incinerators release toxic metals, dioxins, and acid gases. Far from eliminating the need for a landfill, waste incinerator systems produce toxic ash and other residues. The waste-to-energy program to maximize energy recovery is technologically incompatible with reducing dioxins emissions. Dioxins are the most lethal Persistent Organic Pollutants (POPs) which have irreparable environmental health consequences. The affected populace includes those living near the incinerator as well as those living in the broader region. People are exposed to toxics compounds in several ways: By breathing the air which affects both workers in the plant and people who live nearby; By eating locally produced foods or water that have been contaminated by air pollutants from the incinerator; and Dioxin is a highly toxic compound which may cause cancer and neurological damage, and disrupt reproductive systems, thyroid systems, respiratory systems etc. Toxics are created at various stages of such thermal technologies, and not only at the end of the stack. These can be created during the process, in the stack pipes, as residues in ash, scrubber water and filters, and in fact even in air plumes which leave the stack. There are no safe ways of avoiding their production or destroying them, and at best they can be trapped at extreme cost in sophisticated filters or in the ash. The ultimate release is unavoidable, and if trapped in ash or filters, these become hazardous wastes themselves. The pollutants which are created, even if trapped, reside in filters and ash, which need special landfills for disposal. In case energy recovery is attempted, it requires heat exchangers which operate at temperatures which maximize dioxin production. If the gases are quenched, it goes against energy recovery. Such projects disperse incinerator ash throughout the environment which subsequently enter our food chain. No one can give a categoric assurance that incinerators are safe in that they do not pollute the air and the local area, until this guarantee can be given incineration is not the answer. There are already 4 incinerators with one mile at Ridham. That is more than enough and I hope the plans for an increase in rubbish burnt at K3 and the proposed WKN are rejected",
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -190,7 +191,6 @@ export const representations = [
 				firstName: 'Michael',
 				lastName: 'Vick',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -205,6 +205,7 @@ export const representations = [
 			'I am completing this form for the organisation I work for, either on a paid or voluntary basis, to give its views.',
 		redacted: true,
 		received: new Date(),
+		representedType: 'ORGANISATION',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -220,7 +221,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'ORGANISATION',
 				organisationName: 'Test Organisation for John',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -233,6 +233,7 @@ export const representations = [
 		redactedRepresentation: 'This is a Rel rep on behalf',
 		redacted: true,
 		received: new Date(),
+		representedType: 'FAMILY_GROUP',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -248,7 +249,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'FAMILY_GROUP',
 				organisationName: 'Test Organisation for John Wick 2',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -261,6 +261,7 @@ export const representations = [
 		redactedRepresentation: 'This is my Rel Rep completed by self',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -276,7 +277,6 @@ export const representations = [
 				firstName: 'Vijaya',
 				lastName: 'Krishna',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -289,6 +289,7 @@ export const representations = [
 		redactedRepresentation: 'This is my second rel rep as an organisation',
 		redacted: true,
 		received: new Date(),
+		representedType: 'ORGANISATION',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -304,7 +305,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'ORGANISATION',
 				organisationName: 'Test Organisation',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -318,12 +318,12 @@ export const representations = [
 		redactedRepresentation: null,
 		redacted: false,
 		received: new Date(),
+		representedType: 'ORGANISATION',
 		represented: {
 			create: {
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'ORGANISATION',
 				organisationName: 'Environment Agency',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -338,6 +338,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'ORGANISATION',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -353,7 +354,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -364,7 +364,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'ORGANISATION',
 				organisationName: 'Vijaya Krishna Vasantha',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -379,6 +378,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -394,7 +394,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -405,7 +404,6 @@ export const representations = [
 				firstName: 'Bart',
 				lastName: 'Simms',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -420,6 +418,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -435,7 +434,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -446,7 +444,6 @@ export const representations = [
 				firstName: 'Paul',
 				lastName: 'test',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -461,6 +458,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -476,7 +474,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -487,7 +484,6 @@ export const representations = [
 				firstName: 'Mrs',
 				lastName: 'Test',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -502,6 +498,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'ORGANISATION',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -517,7 +514,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -528,7 +524,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'ORGANISATION',
 				organisationName: 'Association Fields Allotment Association',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -543,6 +538,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'FAMILY_GROUP',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -558,7 +554,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'FAMILY_GROUP',
 				organisationName: 'Local Highways ',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -573,6 +568,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -588,7 +584,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -599,7 +594,6 @@ export const representations = [
 				firstName: 'Peter',
 				lastName: 'Testerer',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -614,6 +608,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'ORGANISATION',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -629,7 +624,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -640,7 +634,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'ORGANISATION',
 				organisationName: 'Test2  Planning Alliance (Community Planning Alliance)',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -655,6 +648,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -670,7 +664,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -681,7 +674,6 @@ export const representations = [
 				firstName: 'Mrs',
 				lastName: 'F',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -696,6 +688,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -711,7 +704,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -722,7 +714,6 @@ export const representations = [
 				firstName: 'Road',
 				lastName: 'Test',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -736,12 +727,12 @@ export const representations = [
 		redactedRepresentation: null,
 		redacted: false,
 		received: new Date(),
+		representedType: 'PERSON',
 		representative: {
 			create: {
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -752,7 +743,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Test',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -767,6 +757,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'ORGANISATION',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -782,7 +773,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -793,7 +783,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'ORGANISATION',
 				organisationName: 'Test Association (Church Fields Allotment Association)',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -808,6 +797,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'FAMILY_GROUP',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -823,7 +813,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'FAMILY_GROUP',
 				organisationName: 'National Highways (National Highways)',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -838,6 +827,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -853,7 +843,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -864,7 +853,6 @@ export const representations = [
 				firstName: 'Peter',
 				lastName: 'Test',
 				under18: true,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -879,6 +867,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'ORGANISATION',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -894,7 +883,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'ORGANISATION',
 				organisationName: 'Test Planning Alliance (Community Planning Alliance)',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -908,12 +896,12 @@ export const representations = [
 		redactedRepresentation: null,
 		redacted: false,
 		received: new Date(),
+		representedType: 'PERSON',
 		representative: {
 			create: {
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -924,7 +912,6 @@ export const representations = [
 				firstName: 'Mrs',
 				lastName: 'Sue',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -939,6 +926,7 @@ export const representations = [
 			'I wish to object to this planning application by Scottish Power Renewables for the following reasons:- • The irreparable damage to the countryside, the coastline, the local environment and to wildlife habitats is totally unacceptable at a time when we are being warned repeatedly about the impact on us all of the industrialisation and loss of such natural landscapes. • The impact on the local community is out of proportion to the benefits and is not an acceptable price to pay. • The traffic and noise pollution generated will damage people’s health and this in an area that is promoted by government bodies for health and recreation. • Years of investment in the tourism industry by the taxpayer and private individuals is at risk of being wasted as people stop coming to the area. This will damage the health, wealth and well-being of local people. • The assertion that this application will deliver ‘green energy’ is false as the associated destruction of the countryside and people’s way of life is not a sustainable or justifiable way to provide power to the UK. • There are alternative ways to deliver this energy that do not leave a legacy of damage to our countryside and way of life.',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -954,7 +942,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -965,7 +952,6 @@ export const representations = [
 				firstName: 'Pearl',
 				lastName: 'Test',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -980,6 +966,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -995,7 +982,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -1006,7 +992,6 @@ export const representations = [
 				firstName: 'Arthur',
 				lastName: 'Test',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -1021,6 +1006,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'FAMILY_GROUP',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -1036,7 +1022,6 @@ export const representations = [
 				firstName: '',
 				lastName: '',
 				under18: false,
-				type: 'FAMILY_GROUP',
 				organisationName: 'Nina Test',
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
@@ -1051,6 +1036,7 @@ export const representations = [
 			'The proposals size, loss of food producing land, battery storage size and technology, joined up thinking between DCO applications',
 		redacted: true,
 		received: new Date(),
+		representedType: 'PERSON',
 		user: {
 			connectOrCreate: {
 				create: {
@@ -1066,7 +1052,6 @@ export const representations = [
 				firstName: 'James',
 				lastName: 'Bond',
 				under18: false,
-				type: 'AGENT',
 				organisationName: '',
 				email: 'test-agent@example.com',
 				phoneNumber: '01234 567890'
@@ -1077,7 +1062,6 @@ export const representations = [
 				firstName: 'Jimbo',
 				lastName: 'Test',
 				under18: false,
-				type: 'PERSON',
 				organisationName: null,
 				email: 'test@example.com',
 				phoneNumber: '01234 567890'
