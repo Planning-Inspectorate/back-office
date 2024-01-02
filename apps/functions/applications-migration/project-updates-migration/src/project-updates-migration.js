@@ -1,6 +1,9 @@
+import { chunk as chunkArray } from 'lodash-es';
 import { QueryTypes, Sequelize } from 'sequelize';
 import { loadConfig } from './config.js';
 import { makePostRequest } from './back-office-api-client.js';
+
+const MAX_BODY_ITEMS_LENGTH = 100;
 
 const config = loadConfig();
 const { username, password, database, host, port, dialect } = config.wordpressDatabase;
@@ -30,7 +33,10 @@ export const migrateProjectUpdates = async (log, caseReferences) => {
 			if (updates.length > 0) {
 				log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
 
-				await makePostRequest(log, '/migration/nsip-project-update', updates);
+				const chunkedUpdates = chunkArray(updates, MAX_BODY_ITEMS_LENGTH);
+				for (const chunk of chunkedUpdates) {
+					await makePostRequest(log, '/migration/nsip-project-update', chunk);
+				}
 
 				log.info('Successfully migrated project updates');
 			} else {
@@ -42,7 +48,10 @@ export const migrateProjectUpdates = async (log, caseReferences) => {
 			if (subscriptions.length > 0) {
 				log.info(`Migrating ${subscriptions.length} project updates for case ${caseReference}`);
 
-				await makePostRequest(log, '/migration/nsip-subscription', subscriptions);
+				const chunkedSubscriptions = chunkArray(subscriptions, MAX_BODY_ITEMS_LENGTH);
+				for (const chunk of chunkedSubscriptions) {
+					await makePostRequest(log, '/migration/nsip-subscription', chunk);
+				}
 
 				log.info('Successfully migrated subscriptions');
 			} else {
