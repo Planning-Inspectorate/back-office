@@ -3,18 +3,20 @@
  */
 
 /**
- * @typedef {{ abbreviation: string, name: string, displayNameEn: string, displayNameCy: string, sectorId: number}} SubSector
- * @typedef {{ abbreviation: string, name: string, displayNameEn: string, displayNameCy: string, subSector?: SubSector[]}} Sector
-
- * @typedef {import('../schema').Region} Region
- * @typedef {import('../schema').ZoomLevel} ZoomLevel
- * @typedef {import('../schema').ExaminationTimetableType} ExaminationTimetableType
+ *
+ * @typedef {import('@prisma/client').Prisma.SectorCreateInput} SectorCreateInput
+ * @typedef {import('@prisma/client').Prisma.RegionCreateInput} RegionCreateInput
+ * @typedef {import('@prisma/client').Prisma.ZoomLevelCreateInput} ZoomLevelCreateInput
+ * @typedef {import('@prisma/client').Prisma.ExaminationTimetableTypeCreateInput} ExaminationTimetableTypeCreateInput
+ *
+ * @typedef {{ abbreviation: string, name: string, displayNameEn: string, displayNameCy: string}} SubSectorPartial
+ * @typedef {{ sectorName: string, subSector: SubSectorPartial}} SubSectorPartialWithSectorName
  */
 
 /**
  * An object representing a sector.
  *
- * @type {Sector[]}
+ * @type {SectorCreateInput[]}
  */
 export const sectors = [
 	{
@@ -58,9 +60,18 @@ export const sectors = [
 /**
  * Array of objects containing sub-sector details, grouped by sector.
  *
- * @type {SubSector[]}
+ * @type {SubSectorPartialWithSectorName[]}
  */
 export const subSectors = [
+	{
+		subSector: {
+			name: 'office_use',
+			abbreviation: 'BC01',
+			displayNameEn: 'Office Use',
+			displayNameCy: 'Office Use'
+		},
+		sectorName: 'business_and_commercial'
+	},
 	{
 		subSector: {
 			name: 'office_use',
@@ -291,7 +302,7 @@ export const subSectors = [
 /**
  * An object representing a region.
  *
- * @type {Region[]}
+ * @type {RegionCreateInput[]}
  */
 export const regions = [
 	{
@@ -349,7 +360,7 @@ export const regions = [
 /**
  * An array of zoom levels.
  *
- * @type {ZoomLevel[]}
+ * @type {ZoomLevelCreateInput[]}
  */
 export const zoomLevels = [
 	{
@@ -411,7 +422,7 @@ export const zoomLevels = [
 /**
  * An array of examination timetable types.
  *
- * @type {ExaminationTimetableType[]}
+ * @type {ExaminationTimetableTypeCreateInput[]}
  */
 export const examinationTimetableTypes = [
 	{
