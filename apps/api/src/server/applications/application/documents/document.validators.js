@@ -201,18 +201,45 @@ export const validateDocumentIds = composeMiddleware(
  * Verifies if the given array of document GUIDs have the correct meta set, so that they are ready to publish
  *
  * @param {string[]} documentIds
- * @typedef {{ publishable: {documentGuid: string, version: number}[], invalid: string[] }} VerifiedReturn
+ * @typedef {{ publishable: {documentGuid: string, version: number}[], invalid: {guid: string, msg: string}[] }} VerifiedReturn
  * @returns {Promise<VerifiedReturn>}
  */
 export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (documentIds) => {
-	const publishableDocuments = await DocumentRepository.getPublishableDocuments(documentIds);
+	// files with all mandatory metadata (it includes MSG files)
+	const completeDocuments = await DocumentRepository.getPublishableDocuments(documentIds);
+	const completeDocumentsIds = new Set(completeDocuments.map((pDoc) => pDoc.guid));
 
-	const publishableIds = new Set(publishableDocuments.map((pDoc) => pDoc.guid));
+	// files with all mandatory metadata and NOT msg
+	const publishableDocuments = completeDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook'
+	);
+	const publishableDocumentsIds = new Set(publishableDocuments.map((pDoc) => pDoc.guid));
+
+	// complete MSG files
+	const msgDocuments = documentIds.filter(
+		(id) => completeDocumentsIds.has(id) && !publishableDocumentsIds.has(id)
+	);
+
+	// incomplete files
+	const incompleteDocuments = documentIds.filter((id) => !completeDocumentsIds.has(id));
+
+	// Final array of invalid files
+	const invalid = [
+		...msgDocuments.map((id) => ({
+			guid: id,
+			msg: "The file type .msg cannot be set to 'Ready for publish'"
+		})),
+		...incompleteDocuments.map((id) => ({
+			guid: id,
+			msg: 'You must fill in all mandatory document properties to publish a document'
+		}))
+	];
+
 	return {
 		publishable: publishableDocuments.map(({ guid, latestVersionId }) => ({
 			documentGuid: guid,
 			version: latestVersionId
 		})),
-		invalid: documentIds.filter((id) => !publishableIds.has(id))
+		invalid
 	};
 };

@@ -109,7 +109,7 @@ export const getByReferenceRelatedToCaseId = (reference, caseId) => {
  * From a given list of document ids, retrieve the ones which are publishable
  *
  * @param {string[]} documentIds
- * @returns {Promise<{guid: string, latestVersionId: number}[]>}
+ * @returns {Promise<{guid: string, latestVersionId: number, latestDocumentVersion: {mime: string}}[]>}
  */
 export const getPublishableDocuments = (documentIds) => {
 	// @ts-ignore - if there is a latestDocumentVersion, there will be a latestVerionid
@@ -146,6 +146,9 @@ export const getPublishableDocuments = (documentIds) => {
 						{
 							description: null
 						}
+						// {
+						// 	mime: 'application/vnd.ms-outlook'
+						// }
 					]
 				}
 			},
@@ -153,7 +156,12 @@ export const getPublishableDocuments = (documentIds) => {
 		},
 		select: {
 			guid: true,
-			latestVersionId: true
+			latestVersionId: true,
+			latestDocumentVersion: {
+				select: {
+					mime: true
+				}
+			}
 		}
 	});
 };

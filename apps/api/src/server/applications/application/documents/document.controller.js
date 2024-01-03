@@ -568,7 +568,9 @@ export const publishDocuments = async ({ body }, response) => {
 	const { successful, failed } = await _publishDocuments(documentIds, username);
 
 	if (successful.length === 0) {
-		response.status(400).send({ errors: failed.map((/** @type {string} */ guid) => ({ guid })) });
+		response
+			.status(400)
+			.send({ errors: failed.map((/** @type {{guid: string}} */ doc) => ({ guid: doc.guid })) });
 		return;
 	}
 
@@ -578,7 +580,7 @@ export const publishDocuments = async ({ body }, response) => {
 				guid,
 				publishedStatus: 'publishing'
 			})),
-			errors: failed.map((/** @type {string} */ guid) => ({ guid }))
+			errors: failed.map((/** @type {{guid: string}} */ failedDoc) => ({ guid: failedDoc.guid }))
 		});
 
 		return;
