@@ -7,6 +7,7 @@ import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 
 /** @typedef {import('@pins/appeals').AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').AppealList} AppealList */
+/** @typedef {import('@pins/appeals').Pagination} Pagination */
 
 /**
  * @param {AppealSummary} appealListItem
@@ -56,7 +57,7 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 						}
 					],
 					rows: (appealsAssignedToCurrentUser?.items || [])
-						.filter((appeal) => appeal !== null)
+						.filter((appeal) => appeal !== null && 'appealId' in appeal)
 						.filter(appealListItemIsAppealSummary)
 						.map((appeal) => {
 							const shortReference = appealShortReference(appeal.appealReference);

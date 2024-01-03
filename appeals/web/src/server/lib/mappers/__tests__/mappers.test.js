@@ -11,6 +11,7 @@ import {
 	buildNotificationBanners,
 	notificationBannerDefinitions
 } from '../notification-banners.mapper.js';
+import { mapPagination } from '../pagination.mapper.js';
 
 /** @typedef {import('../../../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 
@@ -247,6 +248,36 @@ describe('notification banners mapper', () => {
 			appellantCaseNotValid: {
 				appealId: 1
 			}
+		});
+	});
+});
+
+describe('pagination mapper', () => {
+	describe('mapPagination', () => {
+		it('should return an empty Pagination object if pageCount is less than 2', () => {
+			const result = mapPagination(1, 1, 10, 'test-base-url', 'test-additional-query-string');
+
+			expect(result.previous).toEqual({});
+			expect(result.next).toEqual({});
+			expect(result.items).toEqual([]);
+		});
+		it('should return a Pagination object with the expected properties if pageCount is 2 or greater', () => {
+			const testBaseUrl = 'test-base-url';
+			const testAdditionalQueryString = '&test-additional-query-string';
+
+			const result = mapPagination(3, 5, 10, testBaseUrl, testAdditionalQueryString);
+
+			expect(result.previous?.href).toEqual(
+				`${testBaseUrl}?pageSize=10&pageNumber=2${testAdditionalQueryString}`
+			);
+			expect(result.next?.href).toEqual(
+				`${testBaseUrl}?pageSize=10&pageNumber=4${testAdditionalQueryString}`
+			);
+			expect(result.items?.length).toBe(5);
+			expect(result.items?.[4]?.number).toEqual(5);
+			expect(result.items?.[4]?.href).toEqual(
+				`${testBaseUrl}?pageSize=10&pageNumber=5${testAdditionalQueryString}`
+			);
 		});
 	});
 });
