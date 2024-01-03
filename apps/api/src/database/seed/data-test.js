@@ -5,7 +5,6 @@
 import { createFolders } from '#repositories/folder.repository.js';
 import { addressesList, caseStatusNames, representations } from './data-samples.js';
 import { regions, subSectors, zoomLevels } from './data-static.js';
-// import { calculateTimetable, isFPA } from '../../server/appeals/appeals/appeals.service.js';
 import { oneDatePerMonth, pseudoRandomInt } from './util.js';
 
 // Application reference should be in the format (subSector)(5 digit sequential_number with leading 1) eg EN0110001
@@ -61,6 +60,7 @@ function createRepresentation(caseReference, index, isValidStatus = false) {
 	const status = isValidStatus ? 'VALID' : pickRandom(statuses);
 	const unpublishedUpdates = status === 'PUBLISHED' ? Math.floor(Math.random() * 8) === 0 : false;
 
+	// @ts-ignore
 	represented.create.address = { create: pickRandom(addressesList) };
 
 	const representation = {
@@ -73,7 +73,9 @@ function createRepresentation(caseReference, index, isValidStatus = false) {
 	};
 
 	if (representative) {
+		// @ts-ignore
 		representative.create.address = { create: pickRandom(addressesList) };
+		// @ts-ignore
 		representation.representative = representative;
 	}
 
@@ -141,7 +143,7 @@ const createApplication = async (databaseConnector, subSector, index) => {
 
 	let representations = [];
 
-	if (caseStatus !== 'draft') {
+	if (reference) {
 		if (subSector.name === 'office_use' && index === 1) {
 			for (let loopIndex = 0; loopIndex < 5000; loopIndex += 1) {
 				representations.push(createRepresentation(reference, loopIndex, true));

@@ -1,4 +1,4 @@
-import { databaseConnector } from '../server/utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 
 /**
  * Truncates a table in the DB, removing all data.
