@@ -16,8 +16,8 @@ export const buildNsipRepresentationPayload = (representation) => {
 		redacted,
 		originalRepresentation: representation.originalRepresentation,
 		representationType: representation.type,
-		representedId: representation.represented?.id,
-		representativeId: representation.representative?.id,
+		representedId: representation.represented?.id.toString(),
+		representativeId: representation.representative?.id.toString(),
 		representationFrom: representation.representative?.id
 			? 'AGENT'
 			: representation.representedType,
