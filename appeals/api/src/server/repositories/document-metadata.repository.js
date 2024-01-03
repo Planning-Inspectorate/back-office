@@ -95,7 +95,8 @@ export const addDocumentVersion = async ({ context, documentGuid, ...metadata })
 			include: {
 				case: true,
 				documentVersion: true
-			}
+			},
+			where: { guid: documentGuid }
 		});
 
 		if (document == null || document.isDeleted) {
