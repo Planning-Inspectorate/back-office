@@ -41,6 +41,7 @@ export const fixtureDocumentationTopLevelFolders = [
 		parentFolderId: null,
 		caseId: 123
 	},
+	{ id: 11, displayNameEn: 'Correspondence', displayOrder: 150, parentFolderId: null, caseId: 123 },
 	{ id: 2, displayNameEn: 'Legal advice', displayOrder: 200, parentFolderId: null, caseId: 123 },
 	{ id: 3, displayNameEn: 'Transboundary', displayOrder: 300, parentFolderId: null, caseId: 123 },
 	{ id: 4, displayNameEn: 'Land rights', displayOrder: 400, parentFolderId: null, caseId: 123 }
