@@ -476,7 +476,7 @@ export const getCurrentlyPublished = async (documentGuids) => {
 /**
  * @param {string[]} documentGuids
  * @param {string} username
- * @returns {Promise<{ successful: string[], failed: string[] }>}
+ * @returns {Promise<{ successful: string[], failed: {guid: string, msg: string}[] }>}
  * */
 export const publishDocuments = async (documentGuids, username) => {
 	const { publishable: publishableDocumentVersionIds, invalid } =
@@ -703,12 +703,10 @@ export const separatePublishableDocuments = async (guids) => {
 		guids
 	);
 
+	console.log(707079, 'dservice', invalid);
 	return {
 		publishableIds: publishable.map((p) => p.documentGuid),
-		errors: invalid.map((id) => ({
-			guid: id,
-			msg: 'You must fill in all mandatory document properties to publish a document'
-		}))
+		errors: invalid
 	};
 };
 

@@ -6,6 +6,7 @@
 /** @typedef {{fileRowId: string, document: DocumentUploadInfo, blobStorageHost: string, privateBlobContainer: string, accessToken: AccessToken}} UploadFileInfo */
 
 import { BlobStorageClient } from '@pins/blob-storage-client';
+import { MIMEs } from '../../../server/lib/nunjucks-filters/mime-type.js';
 import sanitizeHtml from 'sanitize-html';
 
 /**
@@ -24,14 +25,22 @@ const serverActions = (uploadForm) => {
 	 */
 	const getUploadInfoFromInternalDB = async (fileList) => {
 		const { folderId, caseId, adviceId } = uploadForm.dataset;
-		const payload = [...fileList].map((file) => ({
-			documentName: file.name,
-			documentSize: file.size,
-			documentType: file.type,
-			caseId,
-			folderId,
-			fileRowId: file.fileRowId
-		}));
+		const payload = [...fileList].map((file) => {
+			let documentType = file.type;
+			const extension = file.name.split('.').pop();
+
+			if (documentType === '' && extension) {
+				documentType = MIMEs[extension];
+			}
+			return {
+				documentName: file.name,
+				documentSize: file.size,
+				documentType,
+				caseId,
+				folderId,
+				fileRowId: file.fileRowId
+			};
+		});
 
 		const documentUploadUrl = adviceId
 			? `/documents/${caseId}/s51-advice/${adviceId}/upload/`
