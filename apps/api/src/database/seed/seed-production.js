@@ -1,4 +1,4 @@
-import { databaseConnector } from '../../server/utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 import { seedStaticData } from './data-static.js';
 
 /**
