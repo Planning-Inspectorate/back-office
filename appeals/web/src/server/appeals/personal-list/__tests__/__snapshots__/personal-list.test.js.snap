@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`personal-list GET / should render the personal list with the expected content 1`] = `
+exports[`personal-list GET / should render the first page of the personal list with the expected content and pagination 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -19,39 +19,154 @@ exports[`personal-list GET / should render the personal list with the expected c
         </thead>
         <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/132" aria-label="Appeal 2 6 8 4 7 0">268470</a></strong>
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/189" aria-label="Appeal 4 5 8 6 7 3">458673</a></strong>
                 </td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
                 </td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/132/appellant-case">View appellant case</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/189/lpa-questionnaire/82">View LPA Questionnaire</a>
                 </td>
-                <td class="govuk-table__cell">6 December 2023</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
-                </td>
-            </tr>
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/147" aria-label="Appeal 6 5 2 8 9 6">652896</a></strong>
-                </td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
-                </td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/147/lpa-questionnaire/59">View LPA Questionnaire</a>
-                </td>
-                <td class="govuk-table__cell">8 December 2023</td>
+                <td class="govuk-table__cell">8 April 2022</td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">lpa questionnaire due</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/154" aria-label="Appeal 5 0 1 6 5">50165</a></strong>
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/161" aria-label="Appeal 6 8 5 0 2 0">685020</a></strong>
                 </td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
                 </td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/154">View appeal</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/161/appellant-case">View appellant case</a>
                 </td>
-                <td class="govuk-table__cell">25 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--orange single-line">statement review</strong>
+                <td class="govuk-table__cell">7 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/162" aria-label="Appeal 4 2 4 9 4 2">424942</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/162/appellant-case">View appellant case</a>
+                </td>
+                <td class="govuk-table__cell">7 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/163" aria-label="Appeal 7 6 9 2 0 7">769207</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/163/appellant-case">View appellant case</a>
+                </td>
+                <td class="govuk-table__cell">7 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/164" aria-label="Appeal 8 3 8 9 6">83896</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/164/appellant-case">View appellant case</a>
+                </td>
+                <td class="govuk-table__cell">7 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
                 </td>
             </tr>
         </tbody>
     </table>
+    <nav class="govuk-pagination" role="navigation" aria-label="results">
+        <ul class="govuk-pagination__list">
+            <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="/appeals-service/personal-list?pageSize=5&amp;pageNumber=1"
+                aria-label="Page 1" aria-current="page"> 1</a>
+            </li>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/personal-list?pageSize=5&amp;pageNumber=2"
+                aria-label="Page 2"> 2</a>
+            </li>
+        </ul>
+        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="/appeals-service/personal-list?pageSize=5&amp;pageNumber=2"
+            rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+        </div>
+    </nav>
+</main>"
+`;
+
+exports[`personal-list GET / should render the second page of the personal list with the expected content and pagination 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-6">Cases assigned to you</h1>
+        </div>
+    </div>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Lead or child</th>
+                <th scope="col" class="govuk-table__header">Action required</th>
+                <th scope="col" class="govuk-table__header">Due by</th>
+                <th scope="col" class="govuk-table__header">Case status</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/165" aria-label="Appeal 3 3 3 6 0 0">333600</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/165/appellant-case">View appellant case</a>
+                </td>
+                <td class="govuk-table__cell">7 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/166" aria-label="Appeal 2 1 6 9 1 1">216911</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/166/appellant-case">View appellant case</a>
+                </td>
+                <td class="govuk-table__cell">7 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/167" aria-label="Appeal 6 0 0 7 1 5">600715</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/167/appellant-case">View appellant case</a>
+                </td>
+                <td class="govuk-table__cell">7 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/168" aria-label="Appeal 7 0 0 9 1 0">700910</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/168/appellant-case">View appellant case</a>
+                </td>
+                <td class="govuk-table__cell">7 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav class="govuk-pagination" role="navigation" aria-label="results">
+        <div class="govuk-pagination__prev"><a class="govuk-link govuk-pagination__link" href="/appeals-service/personal-list?pageSize=5&amp;pageNumber=1"
+            rel="prev"><svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path></svg><span class="govuk-pagination__link-title">Previous</span></a>
+        </div>
+        <ul class="govuk-pagination__list">
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/personal-list?pageSize=5&amp;pageNumber=1"
+                aria-label="Page 1"> 1</a>
+            </li>
+            <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="/appeals-service/personal-list?pageSize=5&amp;pageNumber=2"
+                aria-label="Page 2" aria-current="page"> 2</a>
+            </li>
+        </ul>
+    </nav>
 </main>"
 `;

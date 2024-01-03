@@ -9,13 +9,13 @@
 {%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
 {%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
 {%- from "../appeals/components/status-tag.njk" import statusTag -%}
+{%- from "govuk/components/pagination/macro.njk" import govukPagination -%}
 
 {%- set backLinkUrl = pageContent.backLinkUrl -%}
 {%- set backLinkText = pageContent.backLinkText -%}
 {%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
 {%- block pageHeading -%}
-
 	{%- for component in pageContent.customErrorMessageComponents -%}
 		{%- if component.type === 'error-summary' -%}
 			{{ govukErrorSummary(component.parameters) }}
@@ -51,4 +51,11 @@
 			{%- endif -%}
 		{%- endif -%}
 	{%- endfor -%}
+	{% if pagination.items|length %}
+		{{
+			govukPagination(
+				pagination
+			)
+		}}
+	{% endif %}
 {%- endblock -%}

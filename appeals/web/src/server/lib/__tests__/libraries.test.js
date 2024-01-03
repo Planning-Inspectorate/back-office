@@ -32,6 +32,8 @@ import {
 import { appellantCaseInvalidReasons, baseSession } from '#testing/app/fixtures/referencedata.js';
 import { stringContainsDigitsOnly } from '#lib/string-utilities.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
+import { paginationDefaultSettings } from '#appeals/appeal.constants.js';
+import { getPaginationParametersFromQuery } from '#lib/pagination-utilities.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -1081,6 +1083,27 @@ describe('Libraries', () => {
 
 				expect(result1).toEqual('1.2345');
 				expect(result2).toEqual('1a2345');
+			});
+		});
+	});
+
+	describe('pagination utilities', () => {
+		describe('getPaginationParametersFromQuery', () => {
+			it('should return a PaginationParameters object with default pageNumber and pageSize values, if the supplied query object is an empty object', () => {
+				const result = getPaginationParametersFromQuery({});
+
+				expect(result.pageNumber).toEqual(paginationDefaultSettings.firstPageNumber);
+				expect(result.pageSize).toEqual(paginationDefaultSettings.pageSize);
+			});
+
+			it('should return a PaginationParameters object with pageNumber and pageSize values from the supplied query object, if the query object is valid', () => {
+				const result = getPaginationParametersFromQuery({
+					pageNumber: '3',
+					pageSize: '16'
+				});
+
+				expect(result.pageNumber).toEqual(3);
+				expect(result.pageSize).toEqual(16);
 			});
 		});
 	});
