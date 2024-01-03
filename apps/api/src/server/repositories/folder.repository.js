@@ -13,10 +13,12 @@ const CASE_STAGE_EXAMINATION = 'Examination';
 const CASE_STAGE_RECOMMENDATION = 'Recommendation';
 const CASE_STAGE_DECISION = 'Decision';
 const CASE_STAGE_POST_DECISION = 'Post-decision';
+const CORRESPONDENCE = 'Correspondence';
 
 // Define top level case stage mappings so we can change in one single place if needed
 const folderCaseStageMappings = {
 	PROJECT_MANAGEMENT: null,
+	CORRESPONDENCE: CORRESPONDENCE,
 	LEGAL_ADVICE: null,
 	TRANSBOUNDARY: CASE_STAGE_PRE_APPLICATION,
 	LAND_RIGHTS: null,
@@ -189,6 +191,40 @@ export const deleteById = (id) => {
 	});
 };
 
+/** Map months folders for internal/external correspondence */
+const createCorrespondenceFolders = () => {
+	const correspondenceTypes = ['Internal', 'External'];
+	const allMonths = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	];
+
+	const monthsFolders = allMonths.map((month, index) => ({
+		displayNameEn: month,
+		displayOrder: 100 * (index + 1),
+		stage: folderCaseStageMappings.CORRESPONDENCE
+	}));
+
+	return correspondenceTypes.map((type, index) => ({
+		displayNameEn: type,
+		displayOrder: 100 * (index + 1),
+		stage: folderCaseStageMappings.CORRESPONDENCE,
+		childFolders: {
+			create: monthsFolders
+		}
+	}));
+};
+
 /**
  * adds the caseId to a folder ready for db creation, and recursively adds to all child folders
  *
@@ -304,6 +340,31 @@ const defaultCaseFolders = [
 					displayNameEn: 'Fees',
 					displayOrder: 300,
 					stage: folderCaseStageMappings.PROJECT_MANAGEMENT
+				}
+			]
+		}
+	},
+	{
+		displayNameEn: 'Correspondence',
+		displayOrder: 150,
+		stage: folderCaseStageMappings.CORRESPONDENCE,
+		childFolders: {
+			create: [
+				{
+					displayNameEn: '2023',
+					displayOrder: 100,
+					stage: folderCaseStageMappings.CORRESPONDENCE,
+					childFolders: {
+						create: createCorrespondenceFolders()
+					}
+				},
+				{
+					displayNameEn: '2024',
+					displayOrder: 200,
+					stage: folderCaseStageMappings.CORRESPONDENCE,
+					childFolders: {
+						create: createCorrespondenceFolders()
+					}
 				}
 			]
 		}
