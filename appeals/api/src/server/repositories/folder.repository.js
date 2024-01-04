@@ -17,6 +17,9 @@ export const getById = (id) => {
 			documents: {
 				include: {
 					latestDocumentVersion: true
+				},
+				orderBy: {
+					createdAt: 'desc'
 				}
 			}
 		}

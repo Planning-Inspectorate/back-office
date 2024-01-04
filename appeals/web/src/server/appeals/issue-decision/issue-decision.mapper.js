@@ -1,10 +1,11 @@
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { getFileInfo } from '#appeals/appeal-documents/appeal.documents.service.js';
+import { mapDocumentDownloadUrl } from '#appeals/appeal-documents/appeal-documents.mapper.js';
 /**
  * @typedef {import('../appeal-details/appeal-details.types.js').WebAppeal} Appeal
  */
 /**
- * @typedef {import('./issue-decision.types.d.ts').InspectorDecisionRequest} InspectorDecisionRequest
+ * @typedef {import('./issue-decision.types.js').InspectorDecisionRequest} InspectorDecisionRequest
  */
 
 /**
@@ -136,7 +137,8 @@ export async function checkAndConfirmPage(request, appealData, session) {
 		  })} ${letterDate.getFullYear()}`
 		: '';
 
-	var documentName, documentURI;
+	let documentName;
+	let documentId = '';
 	if (session.documentId) {
 		const fileInfo = await getFileInfo(
 			request.apiClient,
@@ -144,7 +146,7 @@ export async function checkAndConfirmPage(request, appealData, session) {
 			session.documentId
 		);
 		documentName = fileInfo?.latestDocumentVersion.fileName;
-		documentURI = fileInfo?.latestDocumentVersion.documentURI;
+		documentId = session.documentId;
 	}
 
 	/** @type {PageComponent} */
@@ -173,7 +175,10 @@ export async function checkAndConfirmPage(request, appealData, session) {
 						text: 'Decision letter'
 					},
 					value: {
-						html: `<a href="${documentURI}" class="govuk-link">${documentName}</a>`
+						html: `<a href="${mapDocumentDownloadUrl(
+							appealData.appealId,
+							documentId
+						)}" class="govuk-link">${documentName}</a>`
 					},
 					actions: {
 						items: [
@@ -280,13 +285,13 @@ export function decisionConfirmationPage(appealData) {
  * @returns {string} The mapped decision string, or a default value if the outcome is invalid or undefined.
  */
 export function mapDecisionOutcome(outcome) {
-	switch (outcome) {
+	switch (outcome?.toLowerCase()) {
 		case 'allowed':
 			return 'Allowed';
 		case 'dismissed':
 			return 'Dismissed';
 		case 'split':
-			return 'Split-decision';
+			return 'Split decision';
 		default:
 			return '';
 	}

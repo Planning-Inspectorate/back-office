@@ -6,9 +6,10 @@ import {
 	checkAndConfirmPage,
 	dateDecisionLetterPage,
 	issueDecisionPage,
-	decisionConfirmationPage
+	decisionConfirmationPage,
+	mapDecisionOutcome
 } from './issue-decision.mapper.js';
-import { getFileInfo } from '#appeals/appeal-documents/appeal.documents.service.js';
+import { getFolder } from '#appeals/appeal-documents/appeal.documents.service.js';
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
@@ -25,7 +26,7 @@ export const getIssueDecision = async (request, response) => {
 export const postIssueDecision = async (request, response) => {
 	try {
 		const { appealId } = request.params;
-		const { appealDecision } = request.body;
+		const { decision } = request.body;
 		const { errors } = request;
 
 		if (errors) {
@@ -34,7 +35,7 @@ export const postIssueDecision = async (request, response) => {
 
 		/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
 		request.session.inspectorDecision = {
-			outcome: appealDecision
+			outcome: decision
 		};
 
 		return response.redirect(
@@ -103,7 +104,7 @@ export const postDecisionLetterUpload = async (request, response) => {
 const renderDecisionLetterUpload = async (request, response) => {
 	let documentName;
 
-	const { appealId, documentId } = request.params;
+	const { appealId } = request.params;
 	const { errors } = request;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 	const currentFolder = {
@@ -111,12 +112,7 @@ const renderDecisionLetterUpload = async (request, response) => {
 		path: 'appeal_decision/decisionLetter'
 	};
 
-	if (request.params.documentId) {
-		const fileInfo = await getFileInfo(request.apiClient, appealId, request.params.documentId);
-		documentName = fileInfo?.latestDocumentVersion.fileName;
-	}
-
-	if (!currentFolder) {
+	if (!currentFolder || !currentFolder.id) {
 		return response.status(404).render('app/404');
 	}
 
@@ -129,12 +125,11 @@ const renderDecisionLetterUpload = async (request, response) => {
 		backButtonUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision`,
 		appealId,
 		folderId: currentFolder.id,
-		documentId,
 		useBlobEmulator: config.useBlobEmulator,
 		blobStorageHost:
 			config.useBlobEmulator === true ? config.blobEmulatorSasUrl : config.blobStorageUrl,
 		blobStorageContainer: config.blobStorageDefaultContainer,
-		multiple: !documentId,
+		multiple: false,
 		documentStage: documentStage,
 		serviceName: documentName,
 		pageTitle: `Appeal ${shortAppealReference}`,
@@ -143,12 +138,6 @@ const renderDecisionLetterUpload = async (request, response) => {
 		documentType: documentType,
 		nextPageUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision-letter-date`,
 		errors
-	};
-
-	/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
-	request.session.inspectorDecision = {
-		...request.session.inspectorDecision,
-		documentId
 	};
 
 	return response.render('appeals/documents/decision-letter-upload.njk', mappedPageContent);
@@ -208,6 +197,28 @@ const renderDateDecisionLetter = async (request, response) => {
 
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
+	const currentFolder = {
+		id: appealData.decision?.folderId,
+		path: 'appeal_decision/decisionLetter'
+	};
+
+	if (!currentFolder || !currentFolder.id) {
+		return response.status(404).render('app/404');
+	}
+
+	const folder = await getFolder(request.apiClient, appealId, currentFolder.id.toString());
+	const documentId = folder?.documents?.length && folder.documents[0].id;
+
+	if (documentId) {
+		//const fileInfo = await getFileInfo(request.apiClient, appealId, documentId);
+		//documentName = fileInfo?.latestDocumentVersion.fileName;
+
+		/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
+		request.session.inspectorDecision = {
+			...request.session.inspectorDecision,
+			documentId
+		};
+	}
 
 	// @ts-ignore
 	let {
@@ -260,7 +271,7 @@ export const postCheckDecision = async (request, response) => {
 		await postInspectorDecision(
 			request.apiClient,
 			appealId,
-			decisionOutcome,
+			mapDecisionOutcome(decisionOutcome).toLowerCase(),
 			documentId,
 			formattedDate
 		);
