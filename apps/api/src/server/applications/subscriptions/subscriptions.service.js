@@ -1,6 +1,7 @@
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
 import * as subscriptionRepository from '#repositories/subscription.respository.js';
+import * as serviceUserRepository from '#repositories/service-user.repository.js';
 import {
 	buildSubscriptionPayloads,
 	subscriptionTypeChanges,
@@ -15,11 +16,11 @@ import { EventType } from '@pins/event-client';
  * @returns {Promise<{id: number, created: boolean}>}
  */
 export async function createOrUpdateSubscription(request) {
-	const subscription = prepareInput(request);
+	const subscription = await prepareInput(request);
 
 	const existing = await subscriptionRepository.findUnique(
-		subscription.caseReference,
-		subscription.emailAddress
+		request.caseReference,
+		request.emailAddress
 	);
 
 	if (existing === null) {
@@ -49,13 +50,18 @@ export async function createOrUpdateSubscription(request) {
 
 /**
  * @param {any} request
- * @returns {import('@prisma/client').Prisma.SubscriptionCreateInput}
+ * @returns {Promise<import('@prisma/client').Prisma.SubscriptionCreateInput>}
  */
-export function prepareInput(request) {
+export async function prepareInput(request) {
+	const emailAddress = request.emailAddress;
+	const existingServiceUser = await serviceUserRepository.findByEmail(request.emailAddress);
+
 	/** @type {import('@prisma/client').Prisma.SubscriptionCreateInput} */
 	const subscription = {
 		caseReference: request.caseReference,
-		emailAddress: request.emailAddress
+		serviceUser: existingServiceUser
+			? { connect: { id: existingServiceUser.id } }
+			: { create: { email: emailAddress } }
 	};
 
 	typesToSubscription(request.subscriptionTypes, subscription);
