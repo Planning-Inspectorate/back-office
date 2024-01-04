@@ -48,7 +48,9 @@ describe('subscriptions', () => {
 				subscription: {
 					id: 123,
 					caseReference: '1234',
-					emailAddress: 'hello.world@example.com',
+					serviceUser: {
+						email: 'hello.world@example.com'
+					},
 					subscribedToAllUpdates: true
 				},
 				want: {
@@ -64,9 +66,9 @@ describe('subscriptions', () => {
 		];
 
 		it.each(tests)('$name', async ({ body, subscription, want }) => {
-			databaseConnector.subscription.findUnique.mockReset();
+			databaseConnector.subscription.findFirst.mockReset();
 			if (subscription !== undefined) {
-				databaseConnector.subscription.findUnique.mockResolvedValueOnce(subscription);
+				databaseConnector.subscription.findFirst.mockResolvedValueOnce(subscription);
 			}
 			const response = await request.post(`/applications/subscriptions`).send(body);
 
@@ -350,14 +352,15 @@ describe('subscriptions', () => {
 
 		it.each(tests)('$name', async ({ body, createdId, want }) => {
 			// setup
-			databaseConnector.subscription.findUnique.mockReset();
+			databaseConnector.subscription.findFirst.mockReset();
 			databaseConnector.subscription.create.mockReset();
-			databaseConnector.subscription.findUnique.mockResolvedValueOnce(null);
+			databaseConnector.subscription.findFirst.mockResolvedValueOnce(null);
 
 			if (createdId) {
 				databaseConnector.subscription.create.mockImplementationOnce((sub) => {
 					return {
 						...sub.data,
+						...(body.emailAddress ? { serviceUser: { email: body.emailAddress } } : {}),
 						id: createdId
 					};
 				});
@@ -499,12 +502,15 @@ describe('subscriptions', () => {
 
 		it.each(tests)('$name', async ({ body, existing, want }) => {
 			// setup
-			databaseConnector.subscription.findUnique.mockReset();
+			databaseConnector.subscription.findFirst.mockReset();
 			databaseConnector.subscription.update.mockReset();
-			databaseConnector.subscription.findUnique.mockResolvedValueOnce(existing);
+			databaseConnector.serviceUser.findFirst.mockReset();
+			databaseConnector.subscription.findFirst.mockResolvedValueOnce(existing);
+			databaseConnector.serviceUser.findFirst.mockResolvedValueOnce({ id: 123 });
 
-			const updated = prepareInput(body);
+			const updated = await prepareInput(body);
 			updated.id = existing.id;
+			updated.serviceUser = { email: body.emailAddress };
 			databaseConnector.subscription.update.mockResolvedValueOnce(updated);
 
 			// action
@@ -588,7 +594,10 @@ describe('subscriptions', () => {
 					id: 1,
 					endDate: new Date('2023-06-15T09:27:00.000Z'),
 					caseReference: '123',
-					emailAddress: 'user@example.com',
+					serviceUser: {
+						id: 123,
+						email: 'user@example.com'
+					},
 					subscribedToAllUpdates: true
 				},
 				want: {
@@ -606,6 +615,7 @@ describe('subscriptions', () => {
 		it.each(tests)('$name', async ({ body, updated, existing, want }) => {
 			databaseConnector.subscription.findUnique.mockReset();
 			databaseConnector.subscription.update.mockReset();
+			databaseConnector.serviceUser.findFirst.mockReset();
 			// setup
 			if (updated !== undefined) {
 				databaseConnector.subscription.update.mockResolvedValueOnce(updated);
@@ -660,13 +670,17 @@ describe('subscriptions', () => {
 				},
 				want: {
 					caseReference: 'abc',
-					emailAddress: 'hello@example.com',
 					subscribedToAllUpdates: false,
 					subscribedToApplicationDecided: false,
 					subscribedToApplicationSubmitted: false,
 					subscribedToRegistrationOpen: false,
 					startDate: null,
-					endDate: null
+					endDate: null,
+					serviceUser: {
+						connect: {
+							id: 123
+						}
+					}
 				}
 			},
 			{
@@ -678,13 +692,17 @@ describe('subscriptions', () => {
 				},
 				want: {
 					caseReference: 'abc',
-					emailAddress: 'hello@example.com',
 					subscribedToAllUpdates: true,
 					subscribedToApplicationDecided: false,
 					subscribedToApplicationSubmitted: false,
 					subscribedToRegistrationOpen: false,
 					startDate: null,
-					endDate: null
+					endDate: null,
+					serviceUser: {
+						connect: {
+							id: 123
+						}
+					}
 				}
 			},
 			{
@@ -696,13 +714,17 @@ describe('subscriptions', () => {
 				},
 				want: {
 					caseReference: 'abc',
-					emailAddress: 'hello@example.com',
 					subscribedToAllUpdates: false,
 					subscribedToApplicationDecided: true,
 					subscribedToApplicationSubmitted: false,
 					subscribedToRegistrationOpen: true,
 					startDate: null,
-					endDate: null
+					endDate: null,
+					serviceUser: {
+						connect: {
+							id: 123
+						}
+					}
 				}
 			},
 			{
@@ -716,18 +738,23 @@ describe('subscriptions', () => {
 				},
 				want: {
 					caseReference: 'abc',
-					emailAddress: 'hello@example.com',
 					subscribedToAllUpdates: false,
 					subscribedToApplicationDecided: true,
 					subscribedToApplicationSubmitted: false,
 					subscribedToRegistrationOpen: true,
 					startDate: new Date('2023-07-03T07:44:00Z'),
-					endDate: new Date('2023-07-15T07:44:00Z')
+					endDate: new Date('2023-07-15T07:44:00Z'),
+					serviceUser: {
+						connect: {
+							id: 123
+						}
+					}
 				}
 			}
 		];
-		it.each(tests)('$name', ({ request, want }) => {
-			expect(prepareInput(request)).toEqual(want);
+		it.each(tests)('$name', async ({ request, want }) => {
+			databaseConnector.serviceUser.findFirst.mockResolvedValueOnce({ id: 123 });
+			expect(await prepareInput(request)).toEqual(want);
 		});
 	});
 });

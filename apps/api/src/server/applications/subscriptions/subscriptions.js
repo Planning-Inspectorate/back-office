@@ -47,7 +47,7 @@ export function buildSubscriptionBasePayload(subscription) {
 	/** @type {NSIPSubscription} */
 	const payload = {
 		caseReference: subscription.caseReference,
-		emailAddress: subscription.serviceUser.email,
+		emailAddress: subscription.serviceUser?.email ?? '',
 		subscriptionType: '' // overwritten later with a real value
 	};
 	if (subscription.id) {
