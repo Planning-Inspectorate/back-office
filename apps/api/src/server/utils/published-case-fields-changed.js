@@ -1,6 +1,6 @@
 import * as caseRepository from '../repositories/case.repository.js';
 import BackOfficeAppError from './app-error.js';
-import { omit } from 'lodash-es';
+import { pick } from 'lodash-es';
 
 /** @typedef {import('@pins/applications.api').Schema.Case} Case */
 
@@ -59,10 +59,41 @@ export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
  * @returns {CaseStatus: Pick<CaseStatus, string> | PartialObject<CaseStatus>, ApplicationDetails: Pick<ApplicationDetails, Exclude<keyof ApplicationDetails, [string[]][number]>> | Omit<ApplicationDetails, keyof ApplicationDetails> | PartialObject<ApplicationDetails>}
  * */
 function mapPublishedCaseFields(caseFields) {
-	const { ApplicationDetails, CaseStatus, ...publishedCaseFields } = caseFields || {};
+	const { applicant, ApplicationDetails, CaseStatus, gridReference } = caseFields || {};
+	const { title, description } = caseFields || {};
+	const { easting, northing } = gridReference || {};
+	const { caseEmail, locationDescription } = ApplicationDetails || {};
+	const publishedApplicantFields = pick(applicant || {}, [
+		'organisationName',
+		'firstName',
+		'lastName',
+		'address',
+		'website',
+		'phoneNumber',
+		'email'
+	]);
+
+	const caseStatus = CaseStatus?.map(({ status }) => status)
+		.sort()
+		.join(',');
+
+	const regions = ApplicationDetails?.regions
+		.map(({ regionId }) => regionId)
+		.sort()
+		.join(',');
+
+	const zoomLevel = ApplicationDetails?.zoomLevel?.name;
+
 	return {
-		...omit(publishedCaseFields, ['modifiedAt']),
-		ApplicationDetails: omit(ApplicationDetails, ['modifiedAt']),
-		CaseStatus: CaseStatus?.map((caseStatus) => caseStatus.status).join(', ')
+		title,
+		description,
+		caseStatus,
+		regions,
+		zoomLevel,
+		gridReference: { easting, northing },
+		caseEmail,
+		locationDescription,
+		applicant: publishedApplicantFields
+		// ToDo: remember the key dates data
 	};
 }
