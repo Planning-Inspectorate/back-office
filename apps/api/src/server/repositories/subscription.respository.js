@@ -11,6 +11,8 @@ import { Subscription } from '@pins/applications/lib/application/subscription.js
  * @property {Date} [endAfter] - filter option
  */
 
+const include = { serviceUser: true };
+
 /**
  * List subscriptions
  *
@@ -42,7 +44,8 @@ export async function list({ page, pageSize, caseReference, type, endAfter }) {
 		databaseConnector.subscription.findMany({
 			where,
 			skip: getSkipValue(page, pageSize),
-			take: pageSize
+			take: pageSize,
+			include
 		})
 	]);
 
@@ -86,7 +89,8 @@ export function get(id) {
 	return databaseConnector.subscription.findUnique({
 		where: {
 			id
-		}
+		},
+		include
 	});
 }
 
@@ -94,15 +98,15 @@ export function get(id) {
  * Find an existing subscription entry
  *
  * @param {string} caseReference
- * @param {string} emailAddress
+ * @param {string} email
  * @returns {Promise<import('@prisma/client').Subscription|null>}
  */
-export function findUnique(caseReference, emailAddress) {
-	return databaseConnector.subscription.findUnique({
+export function findUnique(caseReference, email) {
+	return databaseConnector.subscription.findFirst({
 		where: {
-			emailAddress_caseReference: {
-				caseReference,
-				emailAddress
+			caseReference,
+			serviceUser: {
+				email
 			}
 		}
 	});
@@ -116,7 +120,8 @@ export function findUnique(caseReference, emailAddress) {
  */
 export function create(payload) {
 	return databaseConnector.subscription.create({
-		data: payload
+		data: payload,
+		include
 	});
 }
 
@@ -132,6 +137,7 @@ export function update(id, payload) {
 		where: {
 			id
 		},
-		data: payload
+		data: payload,
+		include
 	});
 }
