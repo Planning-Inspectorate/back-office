@@ -1,6 +1,6 @@
 import * as caseRepository from '../repositories/case.repository.js';
 import BackOfficeAppError from './app-error.js';
-import { omit, pick } from 'lodash-es';
+import { omit } from 'lodash-es';
 
 /** @typedef {import('@pins/applications.api').Schema.Case} Case */
 
@@ -11,7 +11,7 @@ import { omit, pick } from 'lodash-es';
  * @param {Case} updated
  * @returns {boolean}
  * */
-const publishedCaseFieldsHaveChanged = (original, updated) => {
+export const publishedCaseFieldsHaveChanged = (original, updated) => {
 	const originalPublishedCaseFields = mapPublishedCaseFields(original);
 	const updatedPublishedCaseFields = mapPublishedCaseFields(updated);
 
@@ -22,9 +22,9 @@ const publishedCaseFieldsHaveChanged = (original, updated) => {
  * If `hasUnpublishedChanges = false` and publishable changes have been made,
  * set `hasUnpublishedChanges = true`, otherwise just return `updated`
  *
- * @param {import('@pins/applications.api').Schema.Case} original
- * @param {import('@pins/applications.api').Schema.Case} updated
- * @returns {Promise<import('@pins/applications.api').Schema.Case>}
+ * @param {PartialObject<import('@pins/applications.api').Schema.Case>} original
+ * @param {PartialObject<import('@pins/applications.api').Schema.Case>} updated
+ * @returns {Promise<PartialObject<Case>>}
  * @throws {BackOfficeAppError}
  * */
 export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
@@ -63,6 +63,6 @@ function mapPublishedCaseFields(caseFields) {
 	return {
 		...omit(publishedCaseFields, ['modifiedAt']),
 		ApplicationDetails: omit(ApplicationDetails, ['modifiedAt']),
-		CaseStatus: pick(CaseStatus, ['status'])
+		CaseStatus: CaseStatus?.map((caseStatus) => caseStatus.status).join(', ')
 	};
 }
