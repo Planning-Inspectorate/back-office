@@ -1,5 +1,5 @@
 /**
- * @typedef {import('./issue-decision.types.d.ts').InspectorDecisionRequest} InspectorDecisionRequest
+ * @typedef {import('./issue-decision.types.js').InspectorDecisionRequest} InspectorDecisionRequest
  */
 
 /**

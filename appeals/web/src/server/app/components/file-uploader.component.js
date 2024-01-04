@@ -16,7 +16,8 @@ import logger from '#lib/logger.js';
  */
 export const createNewDocument = async (apiClient, caseId, payload) => {
 	try {
-		return await apiClient.post(`appeals/${caseId}/documents`, { json: payload }).json();
+		const result = await apiClient.post(`appeals/${caseId}/documents`, { json: payload }).json();
+		return result;
 	} catch (error) {
 		logger.error(
 			error,
@@ -26,7 +27,6 @@ export const createNewDocument = async (apiClient, caseId, payload) => {
 		);
 		throw error;
 	}
-	//return await apiClient.post(`appeals/${caseId}/documents`, { json: payload }).json();
 };
 
 /**
@@ -37,7 +37,10 @@ export const createNewDocument = async (apiClient, caseId, payload) => {
  * @returns {Promise<AddDocumentsResponse>}
  */
 export const createNewDocumentVersion = async (apiClient, caseId, documentId, payload) => {
-	return apiClient.post(`appeals/${caseId}/documents/${documentId}`, { json: payload }).json();
+	const result = apiClient
+		.post(`appeals/${caseId}/documents/${documentId}`, { json: payload })
+		.json();
+	return result;
 };
 
 /**
