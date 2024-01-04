@@ -5,7 +5,8 @@ import {
 	STATE_TARGET_ISSUE_DETERMINATION,
 	STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
 	STATE_TARGET_READY_TO_START,
-	STATE_TARGET_ASSIGN_CASE_OFFICER
+	STATE_TARGET_ASSIGN_CASE_OFFICER,
+	STATE_TARGET_COMPLETE
 } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
@@ -93,6 +94,11 @@ export const sortAppeals = (appeals) => {
 					dueDate: add(new Date(appeal.createdAt), {
 						days: approxStageCompletion.STATE_TARGET_FINAL_COMMENT_REVIEW
 					})
+				};
+			}
+			case STATE_TARGET_COMPLETE: {
+				return {
+					appealId: appeal.appealId
 				};
 			}
 		}
