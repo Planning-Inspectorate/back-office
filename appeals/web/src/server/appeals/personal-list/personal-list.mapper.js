@@ -5,24 +5,8 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
 import { dateToDisplayDate } from '#lib/dates.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 
-/** @typedef {import('@pins/appeals').AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').AppealList} AppealList */
 /** @typedef {import('@pins/appeals').Pagination} Pagination */
-
-/**
- * @param {AppealSummary} appealListItem
- * @returns {appealListItem is AppealSummary}
- */
-export function appealListItemIsAppealSummary(appealListItem) {
-	const appealListItemKeys = Object.keys(appealListItem);
-
-	return (
-		appealListItemKeys.includes('appealId') &&
-		appealListItemKeys.includes('appealReference') &&
-		appealListItemKeys.includes('appealStatus') &&
-		appealListItemKeys.includes('dueDate')
-	);
-}
 
 /**
  * @param {AppealList|void} appealsAssignedToCurrentUser
@@ -56,53 +40,50 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 							text: 'Case status'
 						}
 					],
-					rows: (appealsAssignedToCurrentUser?.items || [])
-						.filter((appeal) => appeal !== null && 'appealId' in appeal)
-						.filter(appealListItemIsAppealSummary)
-						.map((appeal) => {
-							const shortReference = appealShortReference(appeal.appealReference);
-							return [
-								{
-									html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
-										appeal.appealId
-									}" aria-label="Appeal ${numberToAccessibleDigitLabel(
-										shortReference || ''
-									)}">${shortReference}</a></strong>`
-								},
-								{
-									html: '',
-									pageComponents: [
-										{
-											type: 'status-tag',
-											parameters: {
-												status: ''
-											}
+					rows: (appealsAssignedToCurrentUser?.items || []).map((appeal) => {
+						const shortReference = appealShortReference(appeal.appealReference);
+						return [
+							{
+								html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
+									appeal.appealId
+								}" aria-label="Appeal ${numberToAccessibleDigitLabel(
+									shortReference || ''
+								)}">${shortReference}</a></strong>`
+							},
+							{
+								html: '',
+								pageComponents: [
+									{
+										type: 'status-tag',
+										parameters: {
+											status: ''
 										}
-									]
-								},
-								{
-									html: mapAppealStatusToActionRequiredHtml(
-										appeal.appealId,
-										appeal.appealStatus,
-										appeal.lpaQuestionnaireId
-									)
-								},
-								{
-									text: dateToDisplayDate(appeal.dueDate) || ''
-								},
-								{
-									html: '',
-									pageComponents: [
-										{
-											type: 'status-tag',
-											parameters: {
-												status: appeal.appealStatus || 'ERROR'
-											}
+									}
+								]
+							},
+							{
+								html: mapAppealStatusToActionRequiredHtml(
+									appeal.appealId,
+									appeal.appealStatus,
+									appeal.lpaQuestionnaireId
+								)
+							},
+							{
+								text: dateToDisplayDate(appeal.dueDate) || ''
+							},
+							{
+								html: '',
+								pageComponents: [
+									{
+										type: 'status-tag',
+										parameters: {
+											status: appeal.appealStatus || 'ERROR'
 										}
-									]
-								}
-							];
-						})
+									}
+								]
+							}
+						];
+					})
 				}
 			}
 		]
