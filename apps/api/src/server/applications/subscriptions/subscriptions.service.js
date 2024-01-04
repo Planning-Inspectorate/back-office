@@ -57,30 +57,20 @@ export async function prepareInput(request) {
 	const existingServiceUser = await serviceUserRepository.findByEmail(request.emailAddress);
 
 	/** @type {import('@prisma/client').Prisma.SubscriptionCreateInput} */
-	const subscription = {
+	let subscription = {
 		caseReference: request.caseReference,
 		serviceUser: existingServiceUser
 			? { connect: { id: existingServiceUser.id } }
-			: { create: { email: emailAddress } }
+			: { create: { email: emailAddress } },
+		startDate: request.startDate ? new Date(request.startDate) : null, // ensure updates remove previous values
+		endDate: request.endDate ? new Date(request.endDate) : null // ensure updates remove previous values
 	};
-
-	typesToSubscription(request.subscriptionTypes, subscription);
-
-	if (request.startDate) {
-		subscription.startDate = new Date(request.startDate);
-	} else {
-		subscription.startDate = null; // ensure updates remove previous values
-	}
-
-	if (request.endDate) {
-		subscription.endDate = new Date(request.endDate);
-	} else {
-		subscription.endDate = null; // ensure updates remove previous values
-	}
 
 	if (request.language) {
 		subscription.language = request.language;
 	}
+
+	subscription = typesToSubscription(request.subscriptionTypes, subscription);
 
 	return subscription;
 }
