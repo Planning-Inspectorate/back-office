@@ -40,14 +40,14 @@ export function buildSubscriptionPayloads(subscription) {
 /**
  * Base payload for a subscription event, without a subscription type.
  *
- * @param {import('@prisma/client').Subscription} subscription
+ * @param {import('@pins/applications.api').Schema.Subscription} subscription
  * @returns {NSIPSubscription}
  */
 export function buildSubscriptionBasePayload(subscription) {
 	/** @type {NSIPSubscription} */
 	const payload = {
 		caseReference: subscription.caseReference,
-		emailAddress: subscription.emailAddress,
+		emailAddress: subscription.serviceUser.email,
 		subscriptionType: '' // overwritten later with a real value
 	};
 	if (subscription.id) {
