@@ -7,8 +7,11 @@ describe('Function: mapPublishedCaseFields', () => {
 
 	beforeEach(() => {
 		original = {
-			ApplicantDetails: {
-				caseEmail: 'test@pins-test.gov'
+			title: null,
+			locationDescription: null,
+			ApplicationDetails: {
+				caseEmail: null,
+				regions: [{ regionId: 10 }, { regionId: 20 }]
 			},
 			CaseStatus: [
 				{
@@ -47,17 +50,27 @@ describe('Function: mapPublishedCaseFields', () => {
 
 	describe('Should return true', () => {
 		it('when the title is different', async () => {
-			updated.title = 'Changed Title';
-			expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
-		});
-
-		it('when the case email is different', async () => {
-			updated.ApplicantDetails.caseEmail = 'changed@pins-test.gov';
+			updated.title = 'New Title';
 			expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 		});
 
 		it('when the case status is different', async () => {
-			updated.CaseStatus[0].status = 'Changed';
+			updated.CaseStatus[0].status = 'New Status';
+			expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
+		});
+
+		it('when the case email is different', async () => {
+			updated.ApplicationDetails.caseEmail = 'email@pins-test.gov';
+			expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
+		});
+
+		it('when the project location is different', async () => {
+			updated.ApplicationDetails.locationDescription = 'Project Location';
+			expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
+		});
+
+		it('when the regions are different', async () => {
+			updated.ApplicationDetails.regions.push({ regionId: 30 });
 			expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 		});
 	});
