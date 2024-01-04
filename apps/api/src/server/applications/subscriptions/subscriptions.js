@@ -73,22 +73,23 @@ export function buildSubscriptionBasePayload(subscription) {
  * @returns {SubscriptionType[]}
  */
 export function subscriptionToTypes(subscription) {
+	if (subscription.subscribedToAllUpdates) {
+		return [Subscription.Type.allUpdates];
+	}
+
 	/** @type {SubscriptionType[]} */
 	const types = [];
 
-	if (subscription.subscribedToAllUpdates) {
-		types.push(Subscription.Type.allUpdates);
-	} else {
-		if (subscription.subscribedToApplicationDecided) {
-			types.push(Subscription.Type.applicationDecided);
-		}
-		if (subscription.subscribedToApplicationSubmitted) {
-			types.push(Subscription.Type.applicationSubmitted);
-		}
-		if (subscription.subscribedToRegistrationOpen) {
-			types.push(Subscription.Type.registrationOpen);
-		}
+	if (subscription.subscribedToApplicationDecided) {
+		types.push(Subscription.Type.applicationDecided);
 	}
+	if (subscription.subscribedToApplicationSubmitted) {
+		types.push(Subscription.Type.applicationSubmitted);
+	}
+	if (subscription.subscribedToRegistrationOpen) {
+		types.push(Subscription.Type.registrationOpen);
+	}
+
 	return types;
 }
 
@@ -96,31 +97,37 @@ export function subscriptionToTypes(subscription) {
  *
  * @param {SubscriptionType[]} types
  * @param {import('@prisma/client').Prisma.SubscriptionCreateInput} subscription
+ * @returns {import('@prisma/client').Prisma.SubscriptionCreateInput}
  */
 export function typesToSubscription(types, subscription) {
-	// ensure all fields are reset to false (not just left as they are) for updates
-	subscription.subscribedToAllUpdates = false;
-	subscription.subscribedToApplicationDecided = false;
-	subscription.subscribedToApplicationSubmitted = false;
-	subscription.subscribedToRegistrationOpen = false;
+	const _subscription = {
+		...subscription,
+		// ensure all fields are reset to false (not just left as they are) for updates
+		subscribedToApplicationDecided: false,
+		subscribedToApplicationSubmitted: false,
+		subscribedToRegistrationOpen: false,
+		subscribedToAllUpdates: types.includes(Subscription.Type.allUpdates)
+	};
 
-	if (types.includes(Subscription.Type.allUpdates)) {
-		subscription.subscribedToAllUpdates = true;
-	} else {
-		for (const type of types) {
-			switch (type) {
-				case Subscription.Type.applicationSubmitted:
-					subscription.subscribedToApplicationSubmitted = true;
-					break;
-				case Subscription.Type.applicationDecided:
-					subscription.subscribedToApplicationDecided = true;
-					break;
-				case Subscription.Type.registrationOpen:
-					subscription.subscribedToRegistrationOpen = true;
-					break;
-			}
+	if (_subscription.subscribedToAllUpdates) {
+		return _subscription;
+	}
+
+	for (const type of types) {
+		switch (type) {
+			case Subscription.Type.applicationSubmitted:
+				_subscription.subscribedToApplicationSubmitted = true;
+				break;
+			case Subscription.Type.applicationDecided:
+				_subscription.subscribedToApplicationDecided = true;
+				break;
+			case Subscription.Type.registrationOpen:
+				_subscription.subscribedToRegistrationOpen = true;
+				break;
 		}
 	}
+
+	return _subscription;
 }
 
 /**
