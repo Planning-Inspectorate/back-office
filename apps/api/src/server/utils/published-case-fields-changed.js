@@ -1,24 +1,21 @@
 import * as caseRepository from '../repositories/case.repository.js';
 import BackOfficeAppError from './app-error.js';
-import { buildNsipProjectPayload } from '#infrastructure/payload-builders/nsip-project.js';
+import { omit, pick } from 'lodash-es';
 
 /** @typedef {import('@pins/applications.api').Schema.Case} Case */
 
 /**
- * Checks whether the given column name is included when the case is published
- *
- * TODO: This is no longer reliable because 'applicant' data is also published.
- * This would mean relying on every caller of this function to include the 'applicant' in the query
+ * Checks whether the published case fields have changed
  *
  * @param {Case} original
  * @param {Case} updated
  * @returns {boolean}
  * */
 const publishedCaseFieldsHaveChanged = (original, updated) => {
-	const originalEvent = buildNsipProjectPayload(original);
-	const updatedEvent = buildNsipProjectPayload(updated);
+	const originalPublishedCaseFields = mapPublishedCaseFields(original);
+	const updatedPublishedCaseFields = mapPublishedCaseFields(updated);
 
-	return JSON.stringify(originalEvent) !== JSON.stringify(updatedEvent);
+	return JSON.stringify(originalPublishedCaseFields) !== JSON.stringify(updatedPublishedCaseFields);
 };
 
 /**
@@ -54,3 +51,18 @@ export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
 
 	return result;
 };
+
+/**
+ * Filters out the published case fields for comparison
+ *
+ * @param {import('@pins/applications.api').Schema.Case} caseFields
+ * @returns {CaseStatus: Pick<CaseStatus, string> | PartialObject<CaseStatus>, ApplicationDetails: Pick<ApplicationDetails, Exclude<keyof ApplicationDetails, [string[]][number]>> | Omit<ApplicationDetails, keyof ApplicationDetails> | PartialObject<ApplicationDetails>}
+ * */
+function mapPublishedCaseFields(caseFields) {
+	const { ApplicationDetails, CaseStatus, ...publishedCaseFields } = caseFields || {};
+	return {
+		...omit(publishedCaseFields, ['modifiedAt']),
+		ApplicationDetails: omit(ApplicationDetails, ['modifiedAt']),
+		CaseStatus: pick(CaseStatus, ['status'])
+	};
+}
