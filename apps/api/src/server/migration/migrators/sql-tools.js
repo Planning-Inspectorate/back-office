@@ -32,7 +32,7 @@ export const buildUpsertForEntity = (tableName, entity, keyColumn) => {
 		.join(', ');
 
 	// For some reason, using SET_IDENTITY_INSERT in transactions altogether doesn't work - so we need to use them in a single statement and wrap that in a transaction
-	const statement = `SET IDENTITY_INSERT ${tableName} ON;
+	const statement = `SET IDENTITY_INSERT [${tableName}] ON;
 
         MERGE INTO [${tableName}] AS Target
         USING (VALUES (${parameterNames})) AS Source (${columns})
@@ -43,7 +43,7 @@ export const buildUpsertForEntity = (tableName, entity, keyColumn) => {
             INSERT (${columns})
             VALUES (${parameterNames});
 
-		SET IDENTITY_INSERT ${tableName} OFF
+		SET IDENTITY_INSERT [${tableName}] OFF
 		;
     `;
 
