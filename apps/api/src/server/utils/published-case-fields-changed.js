@@ -59,19 +59,10 @@ export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
  * @returns {CaseStatus: Pick<CaseStatus, string> | PartialObject<CaseStatus>, ApplicationDetails: Pick<ApplicationDetails, Exclude<keyof ApplicationDetails, [string[]][number]>> | Omit<ApplicationDetails, keyof ApplicationDetails> | PartialObject<ApplicationDetails>}
  * */
 function mapPublishedCaseFields(caseFields) {
-	const { applicant, ApplicationDetails, CaseStatus, gridReference } = caseFields || {};
-	const { title, description } = caseFields || {};
+	const { applicant, ApplicationDetails, CaseStatus, gridReference, title, description } =
+		caseFields || {};
 	const { easting, northing } = gridReference || {};
 	const { caseEmail, locationDescription } = ApplicationDetails || {};
-	const publishedApplicantFields = pick(applicant || {}, [
-		'organisationName',
-		'firstName',
-		'lastName',
-		'address',
-		'website',
-		'phoneNumber',
-		'email'
-	]);
 
 	const caseStatus = CaseStatus?.map(({ status }) => status)
 		.sort()
@@ -84,16 +75,49 @@ function mapPublishedCaseFields(caseFields) {
 
 	const zoomLevel = ApplicationDetails?.zoomLevel?.name;
 
+	const projectInformation = {
+		title, // Project name
+		caseStatus, // Case stage
+		description, // Project description
+		caseEmail, // Project email address
+		locationDescription, // Project location
+		gridReference: { easting, northing }, // Grid references
+		regions, // Regions
+		zoomLevel // Map zoom level
+	};
+
+	const applicantInformation = pick(applicant || {}, [
+		'organisationName', // Organisation name
+		'website', // Website
+		'email' // Email address
+	]);
+
+	const keyDates = pick(ApplicationDetails || {}, [
+		'submissionAtPublished', // Anticipated submission date published
+		'dateOfDCOSubmission', // Application submitted (Section 55)
+		'deadlineForAcceptanceDecision', // Deadline for Acceptance decision
+		'dateOfDCOAcceptance', // Date of Acceptance (Section 55)
+		'dateOfNonAcceptance', // Date of Non-Acceptance
+		'dateOfRepresentationPeriodOpen', // Date Relevant Representations open
+		'dateOfRelevantRepresentationClose', // Date Relevant Representations close
+		'dateRRepAppearOnWebsite', // Date Relevant Representations to appear on website
+		'preliminaryMeetingStartDate', // Preliminary Meeting start date
+		'confirmedStartOfExamination', // Examination start date
+		'deadlineForCloseOfExamination', // Deadline for close of Examination
+		'dateTimeExaminationEnds', // Examination closing date
+		'stage4ExtensionToExamCloseDate', // Extension to close of Examination
+		'deadlineForSubmissionOfRecommendation', // Deadline for submission of Recommendation
+		'dateOfRecommendations', // Date of Recommendation submitted to SoS
+		'stage5ExtensionToRecommendationDeadline', // Extension to Recommendation deadline
+		'deadlineForDecision', // Deadline for Decision
+		'confirmedDateOfDecision', // Date of Decision
+		'stage5ExtensionToDecisionDeadline', // Extension to Decision deadline
+		'dateProjectWithdrawn' // Date project withdrawn
+	]);
+
 	return {
-		title,
-		description,
-		caseStatus,
-		regions,
-		zoomLevel,
-		gridReference: { easting, northing },
-		caseEmail,
-		locationDescription,
-		applicant: publishedApplicantFields
-		// ToDo: remember the key dates data
+		projectInformation,
+		applicantInformation,
+		keyDates
 	};
 }
