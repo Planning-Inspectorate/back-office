@@ -156,7 +156,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 			id: 'accordion-default' + appealDetails.appealId,
 			items: [
 				{
-					heading: { text: 'Case Overview' },
+					heading: { text: 'Case overview' },
 					content: { html: '', pageComponents: [caseOverview] }
 				},
 				{
