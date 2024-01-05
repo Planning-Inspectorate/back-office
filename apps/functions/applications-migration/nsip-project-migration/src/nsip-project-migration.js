@@ -1,6 +1,6 @@
 import { SynapseDB } from '../../common/synapse-db.js';
 import { QueryTypes } from 'sequelize';
-import { makePostRequest } from 'project-updates-migration/src/back-office-api-client.js';
+import { makePostRequest } from './back-office-api-client.js';
 
 /**
 /**
@@ -9,7 +9,7 @@ import { makePostRequest } from 'project-updates-migration/src/back-office-api-c
  * @param {import('@azure/functions').Logger} log
  * @param {string[]} caseReferences
  */
-export const migrateProjectUpdates = async (log, caseReferences) => {
+export const migrationNsipProjects = async (log, caseReferences) => {
 	log.info(`Migrating ${caseReferences.length} Cases`);
 
 	for (const caseReference of caseReferences) {
