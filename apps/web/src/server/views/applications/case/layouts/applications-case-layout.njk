@@ -52,7 +52,7 @@
 		{% endblock %}
 		<div class="govuk-grid-column-full">
 
-	{% if isPageWithRepublishBanner and case.hasUnpublishedChanges %}
+	{% if isPageWithRepublishBanner and case.hasUnpublishedChanges and case.publishedDate %}
         {% set unpublishedBannerHtml %}
           <h4 class="govuk-notification-banner__heading">Unpublished changes have been made.</h4>
           <p class="govuk-body">
