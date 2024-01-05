@@ -2,7 +2,7 @@ import { jest } from '@jest/globals';
 import { publishedCaseFieldsHaveChanged } from '../published-case-fields-changed';
 import { cloneDeep } from 'lodash-es';
 
-describe('Function: mapPublishedCaseFields', () => {
+describe('Map published case fields', () => {
 	let original, updated;
 
 	beforeEach(() => {
@@ -31,16 +31,16 @@ describe('Function: mapPublishedCaseFields', () => {
 	});
 
 	describe('Should return false', () => {
-		it('when nothing has changed', () => {
+		test('when nothing has changed', () => {
 			expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(false);
 		});
 
-		it('when only the modifiedAt field has changed', () => {
+		test('when only the modifiedAt field has changed', () => {
 			updated.modifiedAt = Date.now();
 			expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(false);
 		});
 
-		it('when only the modifiedAt, createdAt and id fields in the CaseStatus have changed', () => {
+		test('when only the modifiedAt, createdAt and id fields in the CaseStatus have changed', () => {
 			updated.CaseStatus.modifiedAt = Date.now();
 			updated.CaseStatus.createdAt = Date.now();
 			updated.CaseStatus.id++;
@@ -50,47 +50,47 @@ describe('Function: mapPublishedCaseFields', () => {
 
 	describe('Should return true', () => {
 		describe('when checking project information', () => {
-			it('and the Project name has changed', () => {
+			test('and the Project name has changed', () => {
 				updated.title = 'Project name';
 				expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 			});
 
-			it('and the Case Stage has changed', () => {
+			test('and the Case Stage has changed', () => {
 				updated.CaseStatus[0].status = 'Case Stage';
 				expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 			});
 
-			it('and the Project description has changed', () => {
+			test('and the Project description has changed', () => {
 				updated.description = 'Project description';
 				expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 			});
 
-			it('and the Project email address has changed', () => {
+			test('and the Project email address has changed', () => {
 				updated.ApplicationDetails.caseEmail = 'email@pins-test.gov';
 				expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 			});
 
-			it('and the Project location has changed', () => {
+			test('and the Project location has changed', () => {
 				updated.ApplicationDetails.locationDescription = 'Project Location';
 				expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 			});
 
-			it('and the Grid references for northing has changed', () => {
+			test('and the Grid references for northing has changed', () => {
 				updated.gridReference.northing = 123456;
 				expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 			});
 
-			it('and the Grid references for easting has changed', () => {
+			test('and the Grid references for easting has changed', () => {
 				updated.gridReference.easting = 123456;
 				expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 			});
 
-			it('and the Regions have changed', () => {
+			test('and the Regions have changed', () => {
 				updated.ApplicationDetails.regions.push({ regionId: 30 });
 				expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 			});
 
-			it('and the Map zoom level has changed', () => {
+			test('and the Map zoom level has changed', () => {
 				updated.ApplicationDetails.zoomLevel.name = 'X';
 				expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 			});
@@ -102,7 +102,7 @@ describe('Function: mapPublishedCaseFields', () => {
 				{ field: 'website', description: 'Website' },
 				{ field: 'email', description: 'Email address' }
 			].map(({ field, description }) =>
-				it(`and the ${description} has changed`, () => {
+				test(`and the ${description} has changed`, () => {
 					updated.applicant[field] = 'X';
 					expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 				})
@@ -156,7 +156,7 @@ describe('Function: mapPublishedCaseFields', () => {
 				},
 				{ field: 'dateProjectWithdrawn', description: 'Date project withdrawn' }
 			].map(({ field, description }) =>
-				it(`and the ${description} has changed`, () => {
+				test(`and the ${description} has changed`, () => {
 					updated.ApplicationDetails[field] = Date.now();
 					expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
 				})
