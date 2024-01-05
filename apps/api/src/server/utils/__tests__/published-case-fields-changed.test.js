@@ -101,7 +101,7 @@ describe('Map published case fields', () => {
 				{ field: 'organisationName', description: 'Organisation name' },
 				{ field: 'website', description: 'Website' },
 				{ field: 'email', description: 'Email address' }
-			].map(({ field, description }) =>
+			].forEach(({ field, description }) =>
 				test(`and the ${description} has changed`, () => {
 					updated.applicant[field] = 'X';
 					expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
@@ -113,7 +113,10 @@ describe('Map published case fields', () => {
 			[
 				{ field: 'submissionAtPublished', description: 'Anticipated submission date published' },
 				{ field: 'dateOfDCOSubmission', description: 'Application submitted (Section 55)' },
-				{ field: 'deadlineForAcceptanceDecision', description: 'Deadline for Acceptance decision' },
+				{
+					field: 'deadlineForAcceptanceDecision',
+					description: 'Deadline for Acceptance decision'
+				},
 				{ field: 'dateOfDCOAcceptance', description: 'Date of Acceptance (Section 55)' },
 				{ field: 'dateOfNonAcceptance', description: 'Date of Non-Acceptance' },
 				{
@@ -155,7 +158,7 @@ describe('Map published case fields', () => {
 					description: 'Extension to Decision deadline'
 				},
 				{ field: 'dateProjectWithdrawn', description: 'Date project withdrawn' }
-			].map(({ field, description }) =>
+			].forEach(({ field, description }) =>
 				test(`and the ${description} has changed`, () => {
 					updated.ApplicationDetails[field] = Date.now();
 					expect(publishedCaseFieldsHaveChanged(original, updated)).toBe(true);
