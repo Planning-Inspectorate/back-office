@@ -136,6 +136,8 @@ export const extractDuplicates = async (adviceId, fileNames) => {
 };
 
 /**
+ * Publish S51 advice and any associated documents
+ *
  * @param {number} id
  * @returns {Promise<S51Advice>}
  * @throws {Error}
@@ -156,17 +158,20 @@ export const publishS51 = async (id) => {
 		datePublished: new Date()
 	});
 
-	const docsToPublish = advice.S51AdviceDocument.map(
-		(/** @type {S51AdviceDocument} */ advice) => advice.documentGuid
-	);
+	// if there are associated S51 Advice documents, publish them too
+	if (advice.S51AdviceDocument.length > 0) {
+		const docsToPublish = advice.S51AdviceDocument.map(
+			(/** @type {S51AdviceDocument} */ advice) => advice.documentGuid
+		);
 
-	publishDocuments(docsToPublish, 'System');
+		await publishDocuments(docsToPublish, 'System');
+	}
 
 	return publishedAdvice;
 };
 
 /**
- * Publish a set of S51 items given their IDs
+ * Publish a set of S51 items given their IDs, and any associated documents
  *
  * @param {number[]} ids
  * @returns {Promise<{ fulfilled: S51Advice[], errors: string[] }>}
