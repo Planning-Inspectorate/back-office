@@ -21,11 +21,21 @@
 			{{ govukErrorSummary(component.parameters) }}
 		{%- endif -%}
 	{%- endfor -%}
+	{%- set notificationBanners = [] -%}
 	{%- for component in pageContent.pageComponents -%}
 		{%- if component.type === 'notification-banner' -%}
-			{{ govukNotificationBanner(component.parameters) }}
+			{%- set _ = notificationBanners.push(component) -%}
 		{%- endif -%}
 	{%- endfor -%}
+	{%- if notificationBanners | length -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			{%- for component in notificationBanners -%}
+				{{ govukNotificationBanner(component.parameters) }}
+			{%- endfor -%}
+		</div>
+	</div>
+	{%- endif -%}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{%- if pageContent.preHeading -%}<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ pageContent.preHeading }}</span>{%- endif -%}
