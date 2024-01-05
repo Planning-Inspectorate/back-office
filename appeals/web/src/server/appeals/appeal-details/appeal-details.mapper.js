@@ -160,11 +160,11 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 					content: { html: '', pageComponents: [caseOverview] }
 				},
 				{
-					heading: { text: 'Site Details' },
+					heading: { text: 'Site details' },
 					content: { html: '', pageComponents: [siteDetails] }
 				},
 				{
-					heading: { text: 'Case Timetable' },
+					heading: { text: 'Case timetable' },
 					content: { html: '', pageComponents: [caseTimetable] }
 				},
 				{
@@ -172,7 +172,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 					content: { html: '', pageComponents: [caseDocumentation] }
 				},
 				{
-					heading: { text: 'Case Team' },
+					heading: { text: 'Case team' },
 					content: { html: '', pageComponents: [caseTeam] }
 				}
 			]
