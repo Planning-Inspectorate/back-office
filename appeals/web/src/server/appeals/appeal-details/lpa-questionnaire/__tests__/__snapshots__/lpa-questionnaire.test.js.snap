@@ -2,42 +2,46 @@
 
 exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 4</li>
+                                <li>test reason 5</li>
+                                <li>test reason 6</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 4</li>
-                        <li>test reason 5</li>
-                        <li>test reason 6</li>
-                    </ul>
-                </div>
-            </details>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -297,51 +301,55 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
 
 exports[`LPA Questionnaire review GET / with unchecked documents should render a notification banner when a file is unscanned 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
-        </div>
-    </div>
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 4</li>
-                        <li>test reason 5</li>
-                        <li>test reason 6</li>
-                    </ul>
+            </div>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
                 </div>
-            </details>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 4</li>
+                                <li>test reason 5</li>
+                                <li>test reason 6</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -603,51 +611,55 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
 
 exports[`LPA Questionnaire review GET / with unchecked documents should render an error when a file has a virus 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
-        </div>
-    </div>
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 4</li>
-                        <li>test reason 5</li>
-                        <li>test reason 6</li>
-                    </ul>
+            </div>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
                 </div>
-            </details>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 4</li>
+                                <li>test reason 5</li>
+                                <li>test reason 6</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -2132,42 +2144,46 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
             </div>
         </div>
     </div>
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 4</li>
+                                <li>test reason 5</li>
+                                <li>test reason 6</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 4</li>
-                        <li>test reason 5</li>
-                        <li>test reason 6</li>
-                    </ul>
-                </div>
-            </details>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">

@@ -3846,13 +3846,17 @@ exports[`site-visit POST /site-visit/set-visit-type should re-render the select 
 
 exports[`site-visit POST /site-visit/set-visit-type should render the case details page displaying the success notification banner with the expected content if the site visit type was updated 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-notification-banner govuk-notification-banner--success"
-    role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Success</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <p class="govuk-notification-banner__heading">Site visit type has been selected</p>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner govuk-notification-banner--success"
+            role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Success</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Site visit type has been selected</p>
+                </div>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
