@@ -7,8 +7,8 @@ import { pick } from 'lodash-es';
 /**
  * Checks whether the published case fields have changed
  *
- * @param {Case} original
- * @param {Case} updated
+ * @param {PartialObject<Case>} original
+ * @param {PartialObject<Case>} updated
  * @returns {boolean}
  * */
 export const publishedCaseFieldsHaveChanged = (original, updated) => {
@@ -55,7 +55,7 @@ export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
 /**
  * Filters out the published case fields for comparison
  *
- * @param {import('@pins/applications.api').Schema.Case} caseFields
+ * @param {PartialObject<Case>} caseFields
  * @returns {CaseStatus: Pick<CaseStatus, string> | PartialObject<CaseStatus>, ApplicationDetails: Pick<ApplicationDetails, Exclude<keyof ApplicationDetails, [string[]][number]>> | Omit<ApplicationDetails, keyof ApplicationDetails> | PartialObject<ApplicationDetails>}
  * */
 function mapPublishedCaseFields(caseFields) {
@@ -69,7 +69,7 @@ function mapPublishedCaseFields(caseFields) {
 		.join(',');
 
 	const regions = ApplicationDetails?.regions
-		.map(({ regionId }) => regionId)
+		?.map(({ regionId }) => regionId)
 		.sort()
 		.join(',');
 
