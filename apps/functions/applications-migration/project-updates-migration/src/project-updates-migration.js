@@ -1,7 +1,7 @@
 import { chunk as chunkArray } from 'lodash-es';
 import { QueryTypes, Sequelize } from 'sequelize';
-import { loadConfig } from './config.js';
-import { makePostRequest } from './back-office-api-client.js';
+import { loadConfig } from '../../common/config.js';
+import { makePostRequest } from '../../common/back-office-api-client.js';
 
 const MAX_BODY_ITEMS_LENGTH = 100;
 
