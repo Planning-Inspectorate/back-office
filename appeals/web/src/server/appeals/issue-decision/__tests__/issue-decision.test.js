@@ -76,9 +76,9 @@ describe('mapDecisionOutcome', () => {
 		expect(result).toBe('Dismissed');
 	});
 
-	it('should map "split decision" to "Split-decision"', () => {
-		const result = mapDecisionOutcome('split decision');
-		expect(result).toBe('Split-decision');
+	it('should map "split" to "Split decision"', () => {
+		const result = mapDecisionOutcome('split');
+		expect(result).toBe('Split decision');
 	});
 
 	it('should return an empty string for undefined outcome', () => {
