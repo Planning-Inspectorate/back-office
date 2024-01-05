@@ -16,7 +16,7 @@ model Case {
   reference             String?
   modifiedAt            DateTime              @default(now())
   createdAt             DateTime              @default(now())
-  description           String?
+  description           String?               @db.VarChar(2000)
   title                 String?
   hasUnpublishedChanges Boolean               @default(false)
   applicantId           Int?
