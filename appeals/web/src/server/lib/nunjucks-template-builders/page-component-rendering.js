@@ -2,7 +2,7 @@ import nunjucks from 'nunjucks';
 import { isObjectLiteral } from '#lib/object-utilities.js';
 
 /**
- * Recursively renders any PageComponents found in HtmlPropertys of the supplied pageComponents
+ * Recursively renders any PageComponents and PageComponentGroups found in HtmlPropertys of the supplied pageComponents
  * The rendered HTML string is assigned to the matching 'html' property
  * @param {PageComponent[]} pageComponents list of PageComponents to render
  * @param {number} [recursions] current recursion depth
@@ -43,18 +43,31 @@ export const preRenderPageComponents = (pageComponents, recursions = 0, maximumR
 							itemProperty.html = renderPageComponentsToHtml(itemProperty.pageComponents);
 						} else if ('html' in itemProperty && 'pageComponentGroups' in itemProperty) {
 							for (const pageComponentGroup of itemProperty.pageComponentGroups) {
-								preRenderPageComponents(
-									pageComponentGroup.pageComponents,
-									recursions + 1,
-									maximumRecursions
-								);
-								itemProperty.html += `${
-									pageComponentGroup.wrapperHtml ? pageComponentGroup.wrapperHtml.opening : ''
-								}`;
-								itemProperty.html += renderPageComponentsToHtml(pageComponentGroup.pageComponents);
-								itemProperty.html += `${
-									pageComponentGroup.wrapperHtml ? pageComponentGroup.wrapperHtml.closing : ''
-								}`;
+								if ('pageComponents' in pageComponentGroup) {
+									renderPageComponentGroup(
+										pageComponentGroup,
+										itemProperty,
+										recursions,
+										maximumRecursions
+									);
+								} else if ('pageComponentGroups' in pageComponentGroup) {
+									itemProperty.html += `${
+										pageComponentGroup.wrapperHtml ? pageComponentGroup.wrapperHtml.opening : ''
+									}`;
+
+									for (const nestedComponentGroup of pageComponentGroup.pageComponentGroups) {
+										renderPageComponentGroup(
+											nestedComponentGroup,
+											itemProperty,
+											recursions,
+											maximumRecursions
+										);
+									}
+
+									itemProperty.html += `${
+										pageComponentGroup.wrapperHtml ? pageComponentGroup.wrapperHtml.closing : ''
+									}`;
+								}
 							}
 						}
 					}
@@ -72,6 +85,23 @@ export const preRenderPageComponents = (pageComponents, recursions = 0, maximumR
 		}
 	}
 };
+
+/**
+ * @param {PageComponentGroup} pageComponentGroup
+ * @param {HtmlProperty} itemProperty
+ * @param {number} recursions
+ * @param {number} maximumRecursions
+ */
+function renderPageComponentGroup(pageComponentGroup, itemProperty, recursions, maximumRecursions) {
+	preRenderPageComponents(pageComponentGroup.pageComponents, recursions + 1, maximumRecursions);
+	itemProperty.html += `${
+		pageComponentGroup.wrapperHtml ? pageComponentGroup.wrapperHtml.opening : ''
+	}`;
+	itemProperty.html += renderPageComponentsToHtml(pageComponentGroup.pageComponents);
+	itemProperty.html += `${
+		pageComponentGroup.wrapperHtml ? pageComponentGroup.wrapperHtml.closing : ''
+	}`;
+}
 
 /**
  * Renders each PageComponent in the supplied PageComponents to an HTML string and returns the concatenated result

@@ -14,3 +14,27 @@
     width: auto;
   }
 }
+
+.pins-summary-list--fullwidth-value {
+	.govuk-summary-list__key,
+	.govuk-summary-list__actions {
+    display: none;
+  }
+
+	.govuk-summary-list__value {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		.govuk-list {
+			display: block;
+			width: 100%;
+
+			li {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+			}
+		}
+	}
+}

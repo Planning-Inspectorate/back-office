@@ -322,6 +322,7 @@ export interface SingleLPAQuestionnaireResponse {
 		supplementaryPlanningDocuments: FolderInfo | {};
 		treePreservationOrder: FolderInfo | {};
 		notifyingParties: FolderInfo | {};
+		additionalDocuments: FolderInfo | {};
 	};
 	doesAffectAListedBuilding?: boolean | null;
 	doesAffectAScheduledMonument?: boolean | null;

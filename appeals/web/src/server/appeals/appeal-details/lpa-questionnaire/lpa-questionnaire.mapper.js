@@ -1,7 +1,11 @@
 import config from '#environment/config.js';
 import { inputInstructionIsRadiosInputInstruction } from '#lib/mappers/global-mapper-formatter.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
-import { initialiseAndMapLPAQData } from '#lib/mappers/lpaQuestionnaire.mapper.js';
+import {
+	initialiseAndMapLPAQData,
+	mapDocumentManageUrl,
+	buildDocumentUploadUrlTemplate
+} from '#lib/mappers/lpaQuestionnaire.mapper.js';
 import { dayMonthYearToApiDateString, webDateToDisplayDate } from '../../../lib/dates.js';
 import {
 	mapReasonOptionsToCheckboxItemParameters,
@@ -14,6 +18,7 @@ import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
+import * as displayPageFormatter from '#lib/display-page-formatter.js';
 
 /**
  * @typedef {import('#appeals/appeal-details/appeal-details.types.js').SingleLPAQuestionnaireResponse} LPAQuestionnaire
@@ -73,6 +78,57 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 		default:
 			break;
 	}
+
+	/**
+	 * @type {PageComponent}
+	 */
+	const additionalDocumentsSummary = {
+		type: 'summary-list',
+		parameters: {
+			classes: 'pins-summary-list--fullwidth-value',
+			card: {
+				title: {
+					text: 'Additional documents'
+				},
+				actions: {
+					items:
+						(lpaqDetails.documents.additionalDocuments.documents || []).length > 0
+							? [
+									{
+										text: 'Manage',
+										visuallyHiddenText: 'additional documents',
+										href: mapDocumentManageUrl(
+											lpaqDetails.appealId,
+											lpaqDetails.lpaQuestionnaireId,
+											lpaqDetails.documents.additionalDocuments
+										)
+									},
+									{
+										text: 'Add',
+										visuallyHiddenText: 'additional documents',
+										href: displayPageFormatter.formatDocumentActionLink(
+											lpaqDetails.appealId,
+											lpaqDetails.documents.additionalDocuments,
+											buildDocumentUploadUrlTemplate(lpaqDetails.lpaQuestionnaireId)
+										)
+									}
+							  ]
+							: [
+									{
+										text: 'Add',
+										visuallyHiddenText: 'additional documents',
+										href: displayPageFormatter.formatDocumentActionLink(
+											lpaqDetails.appealId,
+											lpaqDetails.documents.additionalDocuments,
+											buildDocumentUploadUrlTemplate(lpaqDetails.lpaQuestionnaireId)
+										)
+									}
+							  ]
+				}
+			},
+			rows: mappedLpaqDetails.lpaq.additionalDocuments.display.summaryListItems
+		}
+	};
 
 	const reviewOutcomeRadiosInputInstruction =
 		mappedLpaqDetails.lpaq.reviewOutcome.input?.instructions.find(
@@ -135,6 +191,7 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 			...notificationBanners,
 			caseSummary,
 			...appealTypeSpecificPageComponents,
+			additionalDocumentsSummary,
 			...reviewOutcomeComponents
 		]
 	};

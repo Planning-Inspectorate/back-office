@@ -29,6 +29,8 @@
 			{%- set statusTagColor = 'yellow' -%}
 		{%- case 'virus_detected' -%}
 			{%- set statusTagColor = 'red' -%}
+		{%- case 'late_entry' -%}
+			{%- set statusTagColor = 'pink' -%}
 	{%- endswitch -%}
 	<strong class="govuk-tag govuk-tag--{{ statusTagColor }} single-line{{ ' ' + classes if classes }}">{{ statusLabel | appealStatusToStatusTag }}</strong>
 {%- endmacro -%}

@@ -322,7 +322,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					data.appealId,
-					data.documents.conservationAreaMap
+					data.documents.conservationAreaMap.documents
 				),
 				actions: {
 					items: [
@@ -411,7 +411,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					data.appealId,
-					data.documents.notifyingParties
+					data.documents.notifyingParties.documents
 				),
 				actions: {
 					items: [
@@ -518,7 +518,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					value: displayPageFormatter.formatDocumentValues(
 						data.appealId,
-						data.documents.siteNotices
+						data.documents.siteNotices.documents
 					),
 					actions: {
 						items: [
@@ -567,7 +567,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					value: displayPageFormatter.formatDocumentValues(
 						data.appealId,
-						data.documents.lettersToNeighbours
+						data.documents.lettersToNeighbours.documents
 					),
 					actions: {
 						items: [
@@ -615,7 +615,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					value: displayPageFormatter.formatDocumentValues(
 						data.appealId,
-						data.documents.pressAdvert
+						data.documents.pressAdvert.documents
 					),
 					actions: {
 						items: [
@@ -693,7 +693,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					value: displayPageFormatter.formatDocumentValues(
 						data.appealId,
-						data.documents.representations
+						data.documents.representations.documents
 					),
 					actions: {
 						items: [
@@ -736,7 +736,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					data.appealId,
-					data.documents.officersReport
+					data.documents.officersReport.documents
 				),
 				actions: {
 					items: [
@@ -1044,6 +1044,46 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 			]
 		}
 	};
+
+	/** @type {Instructions} */
+	mappedData.lpaq.additionalDocuments = {
+		id: 'additional-documents',
+		display: {
+			...((data.documents.additionalDocuments.documents || []).length > 0
+				? {
+						summaryListItems: (data.documents.additionalDocuments.documents || []).map(
+							(/** @type {DocumentInfo} */ document) => ({
+								key: {
+									text: 'Additional documents',
+									classes: 'govuk-visually-hidden'
+								},
+								value: displayPageFormatter.formatDocumentValues(
+									data.appealId,
+									[document],
+									true // TODO - make this dependent on lpaq validation status
+								),
+								actions: {
+									items: []
+								}
+							})
+						)
+				  }
+				: {
+						summaryListItems: [
+							{
+								key: {
+									text: 'Additional documents',
+									classes: 'govuk-visually-hidden'
+								},
+								value: {
+									text: 'None'
+								}
+							}
+						]
+				  })
+		}
+	};
+
 	/** @type {Instructions} */
 	mappedData.lpaq.reviewOutcome = {
 		id: 'review-outcome',
@@ -1097,7 +1137,7 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
  * @param {string|number} lpaQuestionnaireId
  * @returns {string}
  */
-const buildDocumentUploadUrlTemplate = (lpaQuestionnaireId) => {
+export const buildDocumentUploadUrlTemplate = (lpaQuestionnaireId) => {
 	return `/appeals-service/appeal-details/{{appealId}}/lpa-questionnaire/${lpaQuestionnaireId}/add-documents/{{folderId}}/{{documentId}}`;
 };
 
@@ -1108,6 +1148,6 @@ const buildDocumentUploadUrlTemplate = (lpaQuestionnaireId) => {
  * @param {FolderInfo} folder
  * @returns {string}
  */
-const mapDocumentManageUrl = (caseId, lpaQuestionnaireId, folder) => {
+export const mapDocumentManageUrl = (caseId, lpaQuestionnaireId, folder) => {
 	return `/appeals-service/appeal-details/${caseId}/lpa-questionnaire/${lpaQuestionnaireId}/manage-documents/${folder.folderId}/`;
 };

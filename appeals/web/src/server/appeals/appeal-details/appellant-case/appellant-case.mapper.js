@@ -8,12 +8,16 @@ import {
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
-import { initialiseAndMapData } from '#lib/mappers/appellantCase.mapper.js';
+import {
+	initialiseAndMapData,
+	documentUploadUrlTemplate,
+	mapDocumentManageUrl
+} from '#lib/mappers/appellantCase.mapper.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
-
+import * as displayPageFormatter from '#lib/display-page-formatter.js';
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
  * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
@@ -124,6 +128,56 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		}
 	};
 
+	/**
+	 * @type {PageComponent}
+	 */
+	const additionalDocumentsSummary = {
+		type: 'summary-list',
+		parameters: {
+			classes: 'pins-summary-list--fullwidth-value',
+			card: {
+				title: {
+					text: 'Additional documents'
+				},
+				actions: {
+					items:
+						(appellantCaseData.documents.additionalDocuments.documents || []).length > 0
+							? [
+									{
+										text: 'Manage',
+										visuallyHiddenText: 'additional documents',
+										href: mapDocumentManageUrl(
+											appellantCaseData.appealId,
+											appellantCaseData.documents.additionalDocuments
+										)
+									},
+									{
+										text: 'Add',
+										visuallyHiddenText: 'additional documents',
+										href: displayPageFormatter.formatDocumentActionLink(
+											appellantCaseData.appealId,
+											appellantCaseData.documents.additionalDocuments,
+											documentUploadUrlTemplate
+										)
+									}
+							  ]
+							: [
+									{
+										text: 'Add',
+										visuallyHiddenText: 'additional documents',
+										href: displayPageFormatter.formatDocumentActionLink(
+											appellantCaseData.appealId,
+											appellantCaseData.documents.additionalDocuments,
+											documentUploadUrlTemplate
+										)
+									}
+							  ]
+				}
+			},
+			rows: mappedAppellantCaseData.additionalDocuments.display.summaryListItems
+		}
+	};
+
 	const reviewOutcomeRadiosInputInstruction =
 		mappedAppellantCaseData.reviewOutcome.input?.instructions.find(
 			inputInstructionIsRadiosInputInstruction
@@ -198,6 +252,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 			appellantSummary,
 			appealSiteSummary,
 			appealSummary,
+			additionalDocumentsSummary,
 			...reviewOutcomeComponents
 		]
 	};

@@ -556,6 +556,18 @@ export const lpaQuestionnaireData = {
 					caseId: 1
 				}
 			]
+		},
+		additionalDocuments: {
+			folderId: 21,
+			path: 'lpa_questionnaire/additionalDocuments',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56u',
+					name: 'additionalDocument.docx',
+					folderId: 21,
+					caseId: 1
+				}
+			]
 		}
 	},
 	doesAffectAListedBuilding: true,

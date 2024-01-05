@@ -22,9 +22,9 @@ export type DocumentVirusCheckStatus = 'not_checked' | 'checked' | 'failed_virus
 export interface DocumentInfo {
 	id: string;
 	name: string;
-	folderId: number;
-	caseId: number;
-	virusCheckStatus: DocumentVirusCheckStatus;
+	folderId?: number;
+	caseId?: number;
+	virusCheckStatus?: DocumentVirusCheckStatus;
 }
 
 export interface FolderInfo {
