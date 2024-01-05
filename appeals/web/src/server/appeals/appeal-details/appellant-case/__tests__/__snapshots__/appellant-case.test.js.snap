@@ -2,40 +2,44 @@
 
 exports[`appellant-case GET /appellant-case should render the appellant case page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>Appellant name is not the same on the application form and appeal form</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>Appellant name is not the same on the application form and appeal form</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
-                </div>
-            </details>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -193,49 +197,53 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
 
 exports[`appellant-case GET /appellant-case with unchecked documents should render a notification banner when a file is unscanned 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
-        </div>
-    </div>
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>Appellant name is not the same on the application form and appeal form</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
+            </div>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
                 </div>
-            </details>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>Appellant name is not the same on the application form and appeal form</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -415,40 +423,44 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
             </div>
         </div>
     </div>
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>Appellant name is not the same on the application form and appeal form</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>Appellant name is not the same on the application form and appeal form</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
-                </div>
-            </details>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -2023,40 +2035,44 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
             </div>
         </div>
     </div>
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>Appellant name is not the same on the application form and appeal form</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>Appellant name is not the same on the application form and appeal form</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
-                </div>
-            </details>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
