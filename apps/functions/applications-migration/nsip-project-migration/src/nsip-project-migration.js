@@ -1,6 +1,6 @@
 import { SynapseDB } from '../../common/synapse-db.js';
 import { QueryTypes } from 'sequelize';
-import { makePostRequest } from './back-office-api-client.js';
+import { makePostRequest } from '../../common/back-office-api-client.js';
 
 /**
 /**

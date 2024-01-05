@@ -6,6 +6,15 @@ const schema = joi
 		NODE_ENV: joi.string().valid('development', 'production', 'test'),
 		synapseDatabase: {
 			host: joi.string()
+		},
+		apiHost: joi.string(),
+		wordpressDatabase: {
+			username: joi.string(),
+			password: joi.string(),
+			database: joi.string(),
+			host: joi.string(),
+			port: joi.string(),
+			dialect: joi.string()
 		}
 	})
 	.options({ presence: 'required' }); // all required by default;
@@ -16,9 +25,21 @@ const schema = joi
  */
 
 /**
+ * @typedef {Object} WordpressDatabaseConfig
+ * @property {string} username
+ * @property {string} password
+ * @property {string} database
+ * @property {string} host
+ * @property {string} port
+ * @property {string} dialect
+ */
+
+/**
  * @typedef {Object} Config
  * @property {string} NODE_ENV
  * @property {SynapseDatabaseConfig} synapseDatabase
+ * @property {string} apiHost
+ * @property {WordpressDatabaseConfig} wordpressDatabase
  */
 
 /** @type {Config|undefined} */
@@ -38,6 +59,15 @@ export function loadConfig() {
 		NODE_ENV: environment.NODE_ENV,
 		synapseDatabase: {
 			host: environment.SYNAPSE_SQL_HOST
+		},
+		apiHost: environment.API_HOST,
+		wordpressDatabase: {
+			username: environment.NI_DB_MYSQL_USERNAME,
+			password: environment.NI_DB_MYSQL_PASSWORD,
+			database: environment.NI_DB_MYSQL_DATABASE,
+			host: environment.NI_DB_MYSQL_HOST,
+			port: environment.NI_DB_MYSQL_PORT,
+			dialect: environment.NI_DB_MYSQL_DIALECT
 		}
 	});
 
