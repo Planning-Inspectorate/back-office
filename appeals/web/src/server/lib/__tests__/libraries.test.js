@@ -1029,7 +1029,8 @@ describe('Libraries', () => {
 					...baseSession,
 					notificationBanners: {
 						siteVisitTypeSelected: {
-							appealId: 1
+							appealId: 1,
+							html: ''
 						}
 					}
 				});
@@ -1055,7 +1056,8 @@ describe('Libraries', () => {
 							appealId: 1
 						},
 						siteVisitTypeSelected: {
-							appealId: 1
+							appealId: 1,
+							html: ''
 						}
 					}
 				});

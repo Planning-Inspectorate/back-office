@@ -5,6 +5,7 @@ import { isDefined } from '#lib/ts-utilities.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 export const backLink = {
 	text: 'Back to National list',
@@ -195,14 +196,8 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 	}
 
 	if (appealDetails.appealStatus === 'issue_determination') {
-		if (!session.notificationBanners) {
-			session.notificationBanners = {};
-		}
-		session.notificationBanners.readyForDecision = {
-			appealId: appealDetails.appealId,
-			titleText: 'Important',
-			html: `<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Make a decision</a>.</p>`
-		};
+		const bannerHtml = `<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Make a decision</a>.</p>`;
+		addNotificationBannerToSession(session, 'readyForDecision', appealDetails.appealId, bannerHtml);
 	}
 
 	const notificationBanners = buildNotificationBanners(
