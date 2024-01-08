@@ -250,6 +250,33 @@ describe('notification banners mapper', () => {
 			}
 		});
 	});
+
+	it('should return a notification banner page component object with the correct appealId in the URL for readyForDecision notification', () => {
+		expect(
+			buildNotificationBanners(
+				{
+					...baseSession,
+					notificationBanners: {
+						readyForDecision: {
+							appealId: 1,
+							html: '<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Make a decision</a>.</p>'
+						}
+					}
+				},
+				'appealDetails',
+				1
+			)
+		).toEqual([
+			{
+				type: 'notification-banner',
+				parameters: {
+					titleHeadingLevel: 3,
+					html: '<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Make a decision</a>.</p>',
+					titleText: 'Important'
+				}
+			}
+		]);
+	});
 });
 
 describe('pagination mapper', () => {

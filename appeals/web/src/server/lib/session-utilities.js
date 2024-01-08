@@ -5,8 +5,14 @@ import { notificationBannerDefinitions } from './mappers/notification-banners.ma
  * @param {import('../app/auth/auth-session.service').SessionWithAuth & Object<string, any>} session
  * @param {keyof import('./mappers/notification-banners.mapper.js').notificationBannerDefinitions} bannerDefinitionKey
  * @param {number} appealId
+ * @param {string?} html
  */
-export const addNotificationBannerToSession = (session, bannerDefinitionKey, appealId) => {
+export const addNotificationBannerToSession = (
+	session,
+	bannerDefinitionKey,
+	appealId,
+	html = ''
+) => {
 	if (!(bannerDefinitionKey in notificationBannerDefinitions)) {
 		return false;
 	}
@@ -16,7 +22,8 @@ export const addNotificationBannerToSession = (session, bannerDefinitionKey, app
 	}
 
 	session.notificationBanners[bannerDefinitionKey] = {
-		appealId
+		appealId,
+		html
 	};
 
 	return true;
