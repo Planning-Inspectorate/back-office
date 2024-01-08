@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 import { hideErrors, showErrors } from './_errors.js';
 import serverActions from './_server-actions.js';
 import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from './_html.js';
@@ -114,7 +115,8 @@ const clientActions = (uploadForm) => {
 		const wrongFiles = [];
 
 		for (const selectedFile of newFiles) {
-			const fileRowId = `file_row_${selectedFile.lastModified}_${selectedFile.size}`;
+			const filenameHash = crypto.createHash('sha256').update(selectedFile.name);
+			const fileRowId = `file_row_${selectedFile.lastModified}_${selectedFile.size}_${filenameHash}`;
 			const fileCannotBeAdded = checkSelectedFile(selectedFile);
 			const fileRow = uploadForm.querySelector(`#${fileRowId}`);
 
