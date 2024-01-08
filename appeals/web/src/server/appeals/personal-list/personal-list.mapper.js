@@ -122,6 +122,8 @@ function mapAppealStatusToActionRequiredHtml(appealId, appealStatus, lpaQuestion
 				return '';
 			}
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">View LPA Questionnaire</a>`;
+		case 'issue_determination':
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/issue-decision/decision">Issue a decision</a>`;
 		default:
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}">View appeal</a>`;
 	}

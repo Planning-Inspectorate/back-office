@@ -147,10 +147,10 @@ exports[`personal-list GET / should render the second page of the personal list 
                 </td>
                 <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
                 </td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/168/appellant-case">View appellant case</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/168/issue-decision/decision">Issue a decision</a>
                 </td>
                 <td class="govuk-table__cell">7 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--pink single-line">issue decision</strong>
                 </td>
             </tr>
         </tbody>

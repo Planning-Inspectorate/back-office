@@ -400,13 +400,13 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					text: 'Decision'
 				},
 				value: {
-					text: appealDetails.decision || 'Not issued yet'
+					text: appealDetails.decision?.outcome || 'Not issued yet'
 				},
 				actions: {
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/decision`
+							href: `${currentRoute}/issue-decision/decision`
 						}
 					]
 				}
