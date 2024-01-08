@@ -748,8 +748,8 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                             <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
-                            <dd class="govuk-summary-list__value">[object Object]</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/decision"> Change</a>
+                            <dd class="govuk-summary-list__value">dismissed</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-decision/decision"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1212,8 +1212,8 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                             <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
-                            <dd class="govuk-summary-list__value">[object Object]</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/decision"> Change</a>
+                            <dd class="govuk-summary-list__value">dismissed</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-decision/decision"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1537,8 +1537,8 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                             <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
-                            <dd class="govuk-summary-list__value">[object Object]</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/decision"> Change</a>
+                            <dd class="govuk-summary-list__value">dismissed</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-decision/decision"> Change</a>
                             </dd>
                         </div>
                     </dl>
@@ -1862,8 +1862,8 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                             <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
-                            <dd class="govuk-summary-list__value">[object Object]</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/decision"> Change</a>
+                            <dd class="govuk-summary-list__value">dismissed</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-decision/decision"> Change</a>
                             </dd>
                         </div>
                     </dl>

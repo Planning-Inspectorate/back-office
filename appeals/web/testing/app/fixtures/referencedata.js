@@ -1284,7 +1284,7 @@ export const assignedAppealsPage2 = {
 				county: 'Wandsworth',
 				postCode: 'SW4 0HY'
 			},
-			appealStatus: 'ready_to_start',
+			appealStatus: 'issue_determination',
 			appealType: 'Householder',
 			createdAt: '2024-01-02T11:43:21.298Z',
 			localPlanningDepartment: 'Wiltshire Council',
