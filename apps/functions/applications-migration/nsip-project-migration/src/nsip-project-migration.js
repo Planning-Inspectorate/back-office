@@ -52,7 +52,9 @@ const getNsipProjects = async (log, caseReference) => {
 	projects.forEach((project) => {
 		// @ts-ignore
 		projects.regions = [project.region];
+		console.info('before removing nulls ' + JSON.stringify(projects));
 		removeNullValues(project);
+		console.info('after removing nulls ' + JSON.stringify(projects));
 	});
 
 	return projects;
