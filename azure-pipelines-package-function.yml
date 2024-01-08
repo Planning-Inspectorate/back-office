@@ -27,7 +27,7 @@ steps:
       mkdir -p $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/@pins
       cp -r -n -L $(Build.Repository.LocalPath)/node_modules/@pins/!(${{ parameters.workspaceName }}) $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/@pins
       cp -r -n -L $(Build.Repository.LocalPath)/node_modules/!(@pins) $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/
-      cp -r -n -L $(Build.Repository.LocalPath)/${{parameters.root}}/functions/node_modules/* $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/
+      [ -d $(Build.Repository.LocalPath)/${{parameters.root}}/functions/node_modules ] && cp -r -n -L $(Build.Repository.LocalPath)/${{parameters.root}}/functions/node_modules/* $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/
     displayName: Merge node_modules
   - task: ArchiveFiles@2
     displayName: Archive files
