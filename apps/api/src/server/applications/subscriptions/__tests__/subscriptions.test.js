@@ -49,6 +49,7 @@ describe('subscriptions', () => {
 					id: 123,
 					caseReference: '1234',
 					serviceUser: {
+						id: 123,
 						email: 'hello.world@example.com'
 					},
 					subscribedToAllUpdates: true
@@ -360,7 +361,7 @@ describe('subscriptions', () => {
 				databaseConnector.subscription.create.mockImplementationOnce((sub) => {
 					return {
 						...sub.data,
-						...(body.emailAddress ? { serviceUser: { email: body.emailAddress } } : {}),
+						...(body.emailAddress ? { serviceUser: { id: 123, email: body.emailAddress } } : {}),
 						id: createdId
 					};
 				});
@@ -384,11 +385,7 @@ describe('subscriptions', () => {
 				});
 				// this is OK because we always run some checks
 				// eslint-disable-next-line jest/no-conditional-expect
-				expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
-					'nsip-subscription',
-					msgs,
-					'Create'
-				);
+				expect(eventClient.sendEvents).toHaveBeenCalledWith('nsip-subscription', msgs, 'Create');
 			}
 		});
 	});
@@ -510,7 +507,7 @@ describe('subscriptions', () => {
 
 			const updated = await prepareInput(body);
 			updated.id = existing.id;
-			updated.serviceUser = { email: body.emailAddress };
+			updated.serviceUser = { id: 123, email: body.emailAddress };
 			databaseConnector.subscription.update.mockResolvedValueOnce(updated);
 
 			// action
