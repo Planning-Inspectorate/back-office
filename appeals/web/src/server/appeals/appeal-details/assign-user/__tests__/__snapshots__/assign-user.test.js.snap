@@ -690,7 +690,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case Overview</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case overview</span></h2>
                 </div>
                 <div id="accordion-default1-content-1" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-1">
@@ -757,7 +757,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site Details</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site details</span></h2>
                 </div>
                 <div id="accordion-default1-content-2" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-2">
@@ -809,7 +809,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case Timetable</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case timetable</span></h2>
                 </div>
                 <div id="accordion-default1-content-3" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-3">
@@ -870,7 +870,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case Team</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case team</span></h2>
                 </div>
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
@@ -1154,7 +1154,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case Overview</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case overview</span></h2>
                 </div>
                 <div id="accordion-default1-content-1" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-1">
@@ -1221,7 +1221,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site Details</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site details</span></h2>
                 </div>
                 <div id="accordion-default1-content-2" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-2">
@@ -1273,7 +1273,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case Timetable</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case timetable</span></h2>
                 </div>
                 <div id="accordion-default1-content-3" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-3">
@@ -1334,7 +1334,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case Team</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case team</span></h2>
                 </div>
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
@@ -1479,7 +1479,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case Overview</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case overview</span></h2>
                 </div>
                 <div id="accordion-default1-content-1" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-1">
@@ -1546,7 +1546,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site Details</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site details</span></h2>
                 </div>
                 <div id="accordion-default1-content-2" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-2">
@@ -1598,7 +1598,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case Timetable</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case timetable</span></h2>
                 </div>
                 <div id="accordion-default1-content-3" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-3">
@@ -1659,7 +1659,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case Team</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case team</span></h2>
                 </div>
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
@@ -1804,7 +1804,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case Overview</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case overview</span></h2>
                 </div>
                 <div id="accordion-default1-content-1" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-1">
@@ -1871,7 +1871,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site Details</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site details</span></h2>
                 </div>
                 <div id="accordion-default1-content-2" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-2">
@@ -1923,7 +1923,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case Timetable</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case timetable</span></h2>
                 </div>
                 <div id="accordion-default1-content-3" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-3">
@@ -1984,7 +1984,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case Team</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case team</span></h2>
                 </div>
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
