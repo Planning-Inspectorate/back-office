@@ -116,7 +116,7 @@ export function findUnique(caseReference, email) {
  * Create a new subscription entry
  *
  * @param {import('@prisma/client').Prisma.SubscriptionUncheckedCreateInput} payload
- * @returns {Promise<import('@prisma/client').Subscription>}
+ * @returns {Promise<import('@pins/applications.api').Schema.Subscription>}
  */
 export function create(payload) {
 	return databaseConnector.subscription.create({
@@ -130,7 +130,7 @@ export function create(payload) {
  *
  * @param {number} id
  * @param {import('@prisma/client').Prisma.SubscriptionUncheckedUpdateInput} payload
- * @returns {Promise<import('@prisma/client').Subscription>}
+ * @returns {Promise<import('@pins/applications.api').Schema.Subscription>}
  */
 export function update(id, payload) {
 	return databaseConnector.subscription.update({
