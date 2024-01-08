@@ -3875,7 +3875,7 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case Overview</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case overview</span></h2>
                 </div>
                 <div id="accordion-default1-content-1" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-1">
@@ -3942,7 +3942,7 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site Details</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site details</span></h2>
                 </div>
                 <div id="accordion-default1-content-2" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-2">
@@ -3994,7 +3994,7 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case Timetable</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case timetable</span></h2>
                 </div>
                 <div id="accordion-default1-content-3" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-3">
@@ -4055,7 +4055,7 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case Team</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case team</span></h2>
                 </div>
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
