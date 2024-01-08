@@ -51,7 +51,7 @@ const getNsipProjects = async (log, caseReference) => {
 
 	projects.forEach((project) => {
 		// @ts-ignore
-		projects.regions = [project.region];
+		project.regions = [project.region];
 		removeNullValues(project);
 	});
 
