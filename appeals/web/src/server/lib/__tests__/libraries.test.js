@@ -1063,6 +1063,29 @@ describe('Libraries', () => {
 				});
 			});
 		});
+
+		it('should return true and correctly handle the html parameter when adding a banner to the session', () => {
+			const testSession = { ...baseSession };
+			const customHtml = '<p>Custom banner content</p>';
+
+			const result = addNotificationBannerToSession(
+				testSession,
+				'siteVisitTypeSelected',
+				1,
+				customHtml
+			);
+
+			expect(result).toBe(true);
+			expect(testSession).toEqual({
+				...baseSession,
+				notificationBanners: {
+					siteVisitTypeSelected: {
+						appealId: 1,
+						html: customHtml
+					}
+				}
+			});
+		});
 	});
 
 	describe('accessibility', () => {

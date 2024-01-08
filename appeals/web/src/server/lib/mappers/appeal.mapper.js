@@ -401,14 +401,6 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				},
 				value: {
 					text: appealDetails.decision?.outcome || 'Not issued yet'
-				},
-				actions: {
-					items: [
-						{
-							text: 'Change',
-							href: `${currentRoute}/issue-decision/decision`
-						}
-					]
 				}
 			}
 		},
