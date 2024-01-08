@@ -455,7 +455,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Local planning authority'
+					text: 'Local planning authority (LPA)'
 				},
 				value: {
 					text: appealDetails.localPlanningDepartment
@@ -495,7 +495,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: "Inspector access (LPA's answer)"
+					text: 'Inspection access (LPA answer)'
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
@@ -515,7 +515,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: "Inspector access (LPA's answer)",
+			displayName: 'Inspection access (LPA answer)',
 			instructions: [
 				{
 					type: 'radios',
@@ -552,7 +552,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: "Inspector access (Appellant's answer)"
+					text: 'Inspection access (appellant answer)'
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
@@ -572,7 +572,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: "Inspector access (Appellant's answer)",
+			displayName: 'Inspection access (appellant answer)',
 			instructions: [
 				{
 					type: 'radios',
@@ -687,7 +687,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: "Potential safety risks (LPA's answer)"
+					text: 'Potential safety risks (LPA answer)'
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
@@ -707,7 +707,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: "Potential safety risks (LPA's answer)",
+			displayName: 'Potential safety risks (LPA answer)',
 			instructions: [
 				{
 					type: 'radios',
@@ -744,7 +744,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: "Potential safety risks (Appellant's answer)"
+					text: 'Potential safety risks (appellant answer)'
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
@@ -764,7 +764,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: "Potential safety risks (Appellant's answer)",
+			displayName: 'Potential safety risks (appellant answer)',
 			instructions: [
 				{
 					type: 'radios',
@@ -842,7 +842,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'LPA Questionnaire'
+					text: 'LPA questionnaire due'
 				},
 				value: {
 					html:

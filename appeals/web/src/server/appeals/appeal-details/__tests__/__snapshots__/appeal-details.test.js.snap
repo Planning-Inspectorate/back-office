@@ -257,7 +257,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
             <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
         </dl>
@@ -334,12 +334,12 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 <div id="accordion-default1-content-2" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-2">
                     <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (LPA&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (LPA answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/lpa-inspector-access/"> Change</a>
                                 </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (Appellant&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (appellant answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant-case-inspector-access"> Change</a>
                                 </dd>
@@ -359,12 +359,12 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/neighbouring-site-address-1"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/lpa-health-and-safety"> Change</a>
                                 </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (appellant answer)</dt>
                             <dd                             class="govuk-summary-list__value"><span>Yes</span>
                                 <br><span>Dogs on site</span>
                                 </dd>
@@ -389,7 +389,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
                             <dd class="govuk-summary-list__value">23 May 2023</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/lpa-questionnaire"> Change</a>
                             </dd>
@@ -475,7 +475,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
             <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
         </dl>
@@ -547,12 +547,12 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 <div id="accordion-default3-content-2" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default3-heading-2">
                     <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (LPA&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (LPA answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/lpa-inspector-access/"> Change</a>
                                 </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (Appellant&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (appellant answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/appellant-case-inspector-access"> Change</a>
                                 </dd>
@@ -572,12 +572,12 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/neighbouring-site-address-1"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/lpa-health-and-safety"> Change</a>
                                 </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (appellant answer)</dt>
                             <dd                             class="govuk-summary-list__value"><span>Yes</span>
                                 <br><span>Dogs on site</span>
                                 </dd>
@@ -602,7 +602,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
                             <dd class="govuk-summary-list__value">23 May 2023</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/appeal-timetables/lpa-questionnaire"> Change</a>
                             </dd>
@@ -688,7 +688,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
             <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
         </dl>
@@ -762,12 +762,12 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 <div id="accordion-default2-content-2" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default2-heading-2">
                     <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (LPA&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (LPA answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/lpa-inspector-access/"> Change</a>
                                 </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (Appellant&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (appellant answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appellant-case-inspector-access"> Change</a>
                                 </dd>
@@ -787,12 +787,12 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/neighbouring-site-address-1"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/lpa-health-and-safety"> Change</a>
                                 </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (appellant answer)</dt>
                             <dd                             class="govuk-summary-list__value"><span>Yes</span>
                                 <br><span>Dogs on site</span>
                                 </dd>
@@ -817,7 +817,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
                             <dd class="govuk-summary-list__value">23 May 2023</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA Questionnaire</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA questionnaire due</dt>
                             <dd class="govuk-summary-list__value">11 October 2023</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/appeal-timetables/lpa-questionnaire"> Change</a>
                             </dd>
@@ -903,7 +903,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
             <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
         </dl>
@@ -980,12 +980,12 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 <div id="accordion-default1-content-2" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-2">
                     <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (LPA&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (LPA answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/lpa-inspector-access/"> Change</a>
                                 </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector access (Appellant&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (appellant answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appellant-case-inspector-access"> Change</a>
                                 </dd>
@@ -1005,12 +1005,12 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/neighbouring-site-address-1"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA answer)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/lpa-health-and-safety"> Change</a>
                                 </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (Appellant&#39;s answer)</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (appellant answer)</dt>
                             <dd                             class="govuk-summary-list__value"><span>Yes</span>
                                 <br><span>Dogs on site</span>
                                 </dd>
