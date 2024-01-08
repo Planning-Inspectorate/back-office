@@ -1,9 +1,10 @@
 import { eventClient } from '#infrastructure/event-client.js';
-import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
+import { NSIP_SUBSCRIPTION, SERVICE_USER } from '#infrastructure/topics.js';
 import * as subscriptionRepository from '#repositories/subscription.respository.js';
 import * as serviceUserRepository from '#repositories/service-user.repository.js';
 import {
 	buildSubscriptionPayloads,
+	buildServiceUserPayload,
 	subscriptionTypeChanges,
 	typesToSubscription
 } from './subscriptions.js';
@@ -32,12 +33,15 @@ export async function createOrUpdateSubscription(request) {
 			buildSubscriptionPayloads(res),
 			EventType.Create
 		);
+		await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Create);
 
 		return { id: res.id, created: true };
 	}
 
 	// update existing
 	const res = await subscriptionRepository.update(existing.id, subscription);
+
+	await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Update);
 
 	const eventsByType = subscriptionTypeChanges(existing, res);
 

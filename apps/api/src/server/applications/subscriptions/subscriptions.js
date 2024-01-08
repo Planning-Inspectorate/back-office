@@ -3,6 +3,7 @@ import { EventType } from '@pins/event-client';
 
 /**
  * @typedef {import('../../../message-schemas/events/nsip-subscription.d.js').NSIPSubscription} NSIPSubscription
+ * @typedef {import('../../../message-schemas/events/service-user.d.js').ServiceUser} ServiceUser
  * @typedef {import('@pins/applications').SubscriptionType} SubscriptionType
  */
 
@@ -169,6 +170,30 @@ export function subscriptionTypeChanges(existingSub, newSub) {
 
 	return byType;
 }
+
+/**
+ * @param {import('@pins/applications.api').Schema.Subscription} subscription
+ * @return {ServiceUser}
+ * */
+export const buildServiceUserPayload = (subscription) => ({
+	id: subscription.serviceUser.id.toString(),
+	firstName: subscription.serviceUser.firstName,
+	lastName: subscription.serviceUser.lastName,
+	addressLine1: subscription.serviceUser.address?.addressLine1,
+	addressLine2: subscription.serviceUser.address?.addressLine2,
+	addressTown: subscription.serviceUser.address?.town,
+	addressCounty: subscription.serviceUser.address?.county,
+	postcode: subscription.serviceUser.address?.postcode,
+	addressCountry: subscription.serviceUser.address?.country,
+	organisation: subscription.serviceUser.organisationName,
+	role: subscription.serviceUser.jobTitle,
+	telephoneNumber: subscription.serviceUser.phoneNumber,
+	emailAddress: subscription.serviceUser.email,
+	serviceUserType: 'Subscriber',
+	caseReference: subscription.caseReference,
+	sourceSuid: subscription.serviceUser.id.toString(),
+	sourceSystem: 'BO'
+});
 
 /**
  * Base payload for a subscription event, without a subscription type.
