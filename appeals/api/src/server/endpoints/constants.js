@@ -135,7 +135,6 @@ export const STATE_TARGET_WITHDRAWN = 'withdrawn';
 export const STATE_TARGET_CLOSED = 'closed';
 export const STATE_TARGET_AWAITING_TRANSFER = 'awaiting_transfer';
 export const STATE_TARGET_TRANSFERRED = 'transferred';
-
 export const STATE_TYPE_FINAL = 'final';
 
 export const USER_TYPE_CASE_OFFICER = 'caseOfficer';
