@@ -41,7 +41,7 @@ export function buildSubscriptionPayloads(subscription) {
 /**
  * Base payload for a subscription event, without a subscription type.
  *
- * @param {import('@pins/applications.api').Schema.Subscription} subscription
+ * @param {import('@pins/applications.api').Schema.SubscriptionWithServiceUser} subscription
  * @returns {NSIPSubscription}
  * @throws {Error}
  */
@@ -177,7 +177,7 @@ export function subscriptionTypeChanges(existingSub, newSub) {
 }
 
 /**
- * @param {import('@pins/applications.api').Schema.Subscription} subscription
+ * @param {import('@pins/applications.api').Schema.SubscriptionWithServiceUser} subscription
  * @return {ServiceUser}
  * */
 export const buildServiceUserPayload = (subscription) => ({
