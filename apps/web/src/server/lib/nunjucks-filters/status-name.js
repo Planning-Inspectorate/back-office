@@ -6,8 +6,7 @@
  */
 export const statusName = (key) => {
 	switch (key) {
-		case 'awaiting_upload':
-			return 'Awaiting virus check'; // user will never see the awaiting_upload status
+		case 'awaiting_upload': // user will never see the awaiting_upload status
 		case 'awaiting_virus_check':
 			return 'Awaiting virus check';
 		case 'failed_virus_check':
