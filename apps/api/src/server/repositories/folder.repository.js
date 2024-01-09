@@ -6,13 +6,14 @@ import { databaseConnector } from '#utils/database-connector.js';
 /** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
 
 // Define all the case stages that can be mapped to folders
-const CASE_STAGE_PRE_APPLICATION = 'Pre-application';
-const CASE_STAGE_ACCEPTANCE = 'Acceptance';
-const CASE_STAGE_PRE_EXAMINATION = 'Pre-examination';
-const CASE_STAGE_EXAMINATION = 'Examination';
-const CASE_STAGE_RECOMMENDATION = 'Recommendation';
-const CASE_STAGE_DECISION = 'Decision';
-const CASE_STAGE_POST_DECISION = 'Post-decision';
+const DOCUMENT_CASE_STAGE_PRE_APPLICATION = 'Pre-application';
+const DOCUMENT_CASE_STAGE_ACCEPTANCE = 'Acceptance';
+const DOCUMENT_CASE_STAGE_DEVELOPERS_APPLICATION = "Developer's Application";
+const DOCUMENT_CASE_STAGE_PRE_EXAMINATION = 'Pre-examination';
+const DOCUMENT_CASE_STAGE_EXAMINATION = 'Examination';
+const DOCUMENT_CASE_STAGE_RECOMMENDATION = 'Recommendation';
+const DOCUMENT_CASE_STAGE_DECISION = 'Decision';
+const DOCUMENT_CASE_STAGE_POST_DECISION = 'Post-decision';
 const CORRESPONDENCE = 'Correspondence';
 
 // Define top level case stage mappings so we can change in one single place if needed
@@ -20,17 +21,18 @@ const folderCaseStageMappings = {
 	PROJECT_MANAGEMENT: null,
 	CORRESPONDENCE: CORRESPONDENCE,
 	LEGAL_ADVICE: null,
-	TRANSBOUNDARY: CASE_STAGE_PRE_APPLICATION,
+	TRANSBOUNDARY: DOCUMENT_CASE_STAGE_PRE_APPLICATION,
 	LAND_RIGHTS: null,
 	S51_ADVICE: null,
-	PRE_APPLICATION: CASE_STAGE_PRE_APPLICATION,
-	ACCEPTANCE: CASE_STAGE_ACCEPTANCE,
-	PRE_EXAMINATION: CASE_STAGE_PRE_EXAMINATION,
-	RELEVANT_REPRESENTATIONS: CASE_STAGE_PRE_EXAMINATION,
-	EXAMINATION: CASE_STAGE_EXAMINATION,
-	RECOMMENDATION: CASE_STAGE_RECOMMENDATION,
-	DECISION: CASE_STAGE_DECISION,
-	POST_DECISION: CASE_STAGE_POST_DECISION
+	PRE_APPLICATION: DOCUMENT_CASE_STAGE_PRE_APPLICATION,
+	ACCEPTANCE: DOCUMENT_CASE_STAGE_ACCEPTANCE,
+	DEVELOPERS_APPLICATION: DOCUMENT_CASE_STAGE_DEVELOPERS_APPLICATION,
+	PRE_EXAMINATION: DOCUMENT_CASE_STAGE_PRE_EXAMINATION,
+	RELEVANT_REPRESENTATIONS: DOCUMENT_CASE_STAGE_PRE_EXAMINATION,
+	EXAMINATION: DOCUMENT_CASE_STAGE_EXAMINATION,
+	RECOMMENDATION: DOCUMENT_CASE_STAGE_RECOMMENDATION,
+	DECISION: DOCUMENT_CASE_STAGE_DECISION,
+	POST_DECISION: DOCUMENT_CASE_STAGE_POST_DECISION
 };
 
 /**
@@ -571,42 +573,42 @@ const defaultCaseFolders = [
 							{
 								displayNameEn: 'Application form',
 								displayOrder: 100,
-								stage: folderCaseStageMappings.ACCEPTANCE
+								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Compulsory acquisition information',
 								displayOrder: 200,
-								stage: folderCaseStageMappings.ACCEPTANCE
+								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'DCO documents',
 								displayOrder: 300,
-								stage: folderCaseStageMappings.ACCEPTANCE
+								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Environmental statement',
 								displayOrder: 400,
-								stage: folderCaseStageMappings.ACCEPTANCE
+								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Other documents',
 								displayOrder: 500,
-								stage: folderCaseStageMappings.ACCEPTANCE
+								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Plans',
 								displayOrder: 600,
-								stage: folderCaseStageMappings.ACCEPTANCE
+								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Reports',
 								displayOrder: 700,
-								stage: folderCaseStageMappings.ACCEPTANCE
+								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Additional Reg 6 information',
 								displayOrder: 800,
-								stage: folderCaseStageMappings.ACCEPTANCE
+								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
 							}
 						]
 					}
