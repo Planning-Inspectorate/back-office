@@ -2221,6 +2221,145 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/appeal-types": {
+			"get": {
+				"tags": ["Appeal Type Change Request"],
+				"description": "Gets the list of appeal types",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of appeal types",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppealTypes"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/AppealTypes"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/appeal-change-request": {
+			"post": {
+				"tags": ["Appeal Type Change Request"],
+				"description": "Records a request to change the appeal type",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal type change request",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealTypeChangeRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealTypeChangeRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/appeal-transfer-request": {
+			"post": {
+				"tags": ["Appeal Type Change Request"],
+				"description": "Records a request to transfer the appeal to another system",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal type transfer request",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealTypeTransferRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealTypeTransferRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals": {
 			"get": {
 				"tags": ["Appeals"],
@@ -3318,6 +3457,65 @@
 				},
 				"xml": {
 					"name": "DocumentVersionAuditEntry"
+				}
+			},
+			"AppealTypeChangeRequest": {
+				"type": "object",
+				"properties": {
+					"newAppealTypeId": {
+						"type": "number",
+						"example": 32
+					},
+					"newAppealTypeFinalDate": {
+						"type": "string",
+						"example": "2024-02-02"
+					}
+				},
+				"xml": {
+					"name": "AppealTypeChangeRequest"
+				}
+			},
+			"AppealTypeTransferRequest": {
+				"type": "object",
+				"properties": {
+					"newAppealTypeId": {
+						"type": "number",
+						"example": 32
+					}
+				},
+				"xml": {
+					"name": "AppealTypeTransferRequest"
+				}
+			},
+			"AppealTypes": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string",
+							"example": "Appeal type name"
+						},
+						"code": {
+							"type": "string",
+							"example": "A"
+						},
+						"enabled": {
+							"type": "boolean",
+							"example": false
+						},
+						"shorthand": {
+							"type": "string",
+							"example": "HAS"
+						},
+						"id": {
+							"type": "number",
+							"example": 1
+						}
+					}
+				},
+				"xml": {
+					"name": "AppealTypes"
 				}
 			},
 			"AllAppeals": {

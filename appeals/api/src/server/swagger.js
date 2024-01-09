@@ -54,6 +54,7 @@ export const spec = {
 			documentGuid: 'c957e9d0-1a02-4650-acdc-f9fdd689c210',
 			documentDate: '2023-08-17'
 		},
+
 		InvalidDecisionInfo: {
 			invalidDecisionReason: 'Invalid Decision Reason'
 		},
@@ -81,6 +82,22 @@ export const spec = {
 		DocumentVersionAuditEntry: {
 			...documentVersionAuditEntry
 		},
+		AppealTypeChangeRequest: {
+			newAppealTypeId: 32,
+			newAppealTypeFinalDate: '2024-02-02'
+		},
+		AppealTypeTransferRequest: {
+			newAppealTypeId: 32
+		},
+		AppealTypes: [
+			{
+				type: 'Appeal type name',
+				code: 'A',
+				enabled: false,
+				shorthand: 'HAS',
+				id: 1
+			}
+		],
 		AllAppeals: {
 			itemCount: 57,
 			items: [

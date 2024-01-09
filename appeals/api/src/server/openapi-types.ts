@@ -410,6 +410,31 @@ export interface DocumentVersionAuditEntry {
 	};
 }
 
+export interface AppealTypeChangeRequest {
+	/** @example 32 */
+	newAppealTypeId?: number;
+	/** @example "2024-02-02" */
+	newAppealTypeFinalDate?: string;
+}
+
+export interface AppealTypeTransferRequest {
+	/** @example 32 */
+	newAppealTypeId?: number;
+}
+
+export type AppealTypes = {
+	/** @example "Appeal type name" */
+	type?: string;
+	/** @example "A" */
+	code?: string;
+	/** @example false */
+	enabled?: boolean;
+	/** @example "HAS" */
+	shorthand?: string;
+	/** @example 1 */
+	id?: number;
+}[];
+
 export interface AllAppeals {
 	/** @example 57 */
 	itemCount?: number;

@@ -26,6 +26,7 @@ import { documentRedactionStatusesRoutes } from './document-redaction-statuses/d
 import { auditTrailsRoutes } from './audit-trails/audit-trails.routes.js';
 import { appealsDecisionRoutes } from './appeal-decision/appeal-decision.routes.js';
 import { invalidAppealDecisionRoutes } from './invalid-appeal-decision/invalid-appeal-decision.routes.js';
+import { changeAppealTypeRoutes } from './change-appeal-type/change-appeal-type.routes.js';
 import checkAzureAdUserIdHeaderExists from '#middleware/check-azure-ad-user-id-header-exists.js';
 
 const router = createRouter();
@@ -58,6 +59,7 @@ router.use(procedureTypesRoutes);
 router.use(scheduleTypesRoutes);
 router.use(siteVisitRoutes);
 router.use(siteVisitTypesRoutes);
+router.use(changeAppealTypeRoutes);
 router.use(appealsRoutes);
 
 export { router as appealsRoutes };

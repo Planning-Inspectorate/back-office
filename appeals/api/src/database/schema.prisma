@@ -9,8 +9,7 @@ datasource db {
 }
 
 /// Appeal model
-/// Contains information of an Appeal that has been submitted to the Back Office
-/// TODO: Migrate this model to integrated into the Case model same as with Applications
+/// Contains information of an Appeal managed in the Back Office
 model Appeal {
   id                           Int                   @id @default(autoincrement())
   reference                    String                @unique
@@ -23,6 +22,8 @@ model Appeal {
   appellantId                  Int?
   agentId                      Int?
   appealTypeId                 Int?
+  resubmitTypeId               Int?
+  transferredCaseId            String?
   linkedAppealId               Int?
   otherAppealId                Int?
   dueDate                      DateTime?
@@ -61,6 +62,8 @@ model AppealType {
   id        Int      @id @default(autoincrement())
   type      String   @unique
   shorthand String   @unique
+  code      String?
+  enabled   Boolean?
   Appeal    Appeal[]
 }
 
@@ -72,6 +75,7 @@ model AppealTimetable {
   issueDeterminationDate  DateTime?
   lpaQuestionnaireDueDate DateTime?
   statementReviewDate     DateTime?
+  resubmitAppealTypeDate  DateTime?
   appeal                  Appeal    @relation(fields: [appealId], references: [id])
 }
 
@@ -135,11 +139,11 @@ model Agent {
 /// LPA model
 /// Contains information about the Local Planning Authority in the appeal site
 model LPA {
-  id        Int               @id @default(autoincrement())
-  name      String
-  lpaCode   String            @unique
-  appeals   Appeal[]
-  customers ServiceCustomer[] @relation("lpa")
+  id       Int               @id @default(autoincrement())
+  name     String
+  lpaCode  String            @unique
+  appeals  Appeal[]
+  officers ServiceCustomer[] @relation("lpa")
 }
 
 /// AppellantCase model

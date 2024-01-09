@@ -5,6 +5,7 @@ declare global {
 	namespace Express {
 		interface Request {
 			appeal: RepositoryGetByIdResultItem;
+			appealTypes: Schema.AppealType[];
 			document: Schema.Document;
 			notifyClient: NotifyClient;
 			visitType: SiteVisitType;
