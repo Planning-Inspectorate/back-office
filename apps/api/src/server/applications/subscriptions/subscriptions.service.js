@@ -41,8 +41,6 @@ export async function createOrUpdateSubscription(request) {
 	// update existing
 	const res = await subscriptionRepository.update(existing.id, subscription);
 
-	await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Update);
-
 	const eventsByType = subscriptionTypeChanges(existing, res);
 
 	for (const [type, payloads] of Object.entries(eventsByType)) {
