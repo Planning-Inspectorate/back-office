@@ -493,11 +493,17 @@ export const publishDocuments = async (documentGuids, username) => {
 
 	await Promise.all(activityLogs);
 
-	const publishedDocuments = await publishDocumentVersions(publishableDocumentVersionIds);
-	logger.info(`Published ${publishedDocuments.length} documents`);
+	// only publish docs if there are any that are verified as publishable
+	/** @type {string[]} */
+	let successfulPublishedDocGuids = [];
+	if (publishableDocumentVersionIds.length > 0) {
+		const publishedDocuments = await publishDocumentVersions(publishableDocumentVersionIds);
+		logger.info(`Published ${publishedDocuments.length} documents`);
+		successfulPublishedDocGuids = publishedDocuments.map((d) => d.documentGuid);
+	}
 
 	return {
-		successful: publishedDocuments.map((d) => d.documentGuid),
+		successful: successfulPublishedDocGuids,
 		failed: invalid
 	};
 };
