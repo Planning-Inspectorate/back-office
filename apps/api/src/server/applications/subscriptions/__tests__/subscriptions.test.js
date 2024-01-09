@@ -88,7 +88,6 @@ describe('subscriptions', () => {
 			return {
 				id: 123,
 				caseReference: '1234',
-				emailAddress: 'hello.world@example.com',
 				subscribedToAllUpdates: true,
 				caseId: 1,
 				startDate: null,
@@ -96,7 +95,8 @@ describe('subscriptions', () => {
 				language: null,
 				subscribedToApplicationDecided: false,
 				subscribedToApplicationSubmitted: false,
-				subscribedToRegistrationOpen: false
+				subscribedToRegistrationOpen: false,
+				serviceUser: { id: 123, email: 'hello.world@example.com' }
 			};
 		};
 		const tests = [
