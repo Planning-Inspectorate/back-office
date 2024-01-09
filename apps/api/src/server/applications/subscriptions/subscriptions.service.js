@@ -17,7 +17,7 @@ import { EventType } from '@pins/event-client';
  * @returns {Promise<{id: number, created: boolean}>}
  */
 export async function createOrUpdateSubscription(request) {
-	const subscription = await prepareInput(request);
+	const { subscription, isExistingUser } = await prepareInput(request);
 
 	const existing = await subscriptionRepository.findUnique(
 		request.caseReference,
@@ -33,7 +33,10 @@ export async function createOrUpdateSubscription(request) {
 			buildSubscriptionPayloads(res),
 			EventType.Create
 		);
-		await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Create);
+
+		if (!isExistingUser) {
+			await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Create);
+		}
 
 		return { id: res.id, created: true };
 	}
@@ -52,7 +55,7 @@ export async function createOrUpdateSubscription(request) {
 
 /**
  * @param {any} request
- * @returns {Promise<import('@prisma/client').Prisma.SubscriptionCreateInput>}
+ * @returns {Promise<{isExistingUser: boolean, subscription: import('@prisma/client').Prisma.SubscriptionCreateInput}>}
  */
 export async function prepareInput(request) {
 	const emailAddress = request.emailAddress;
@@ -74,5 +77,5 @@ export async function prepareInput(request) {
 
 	subscription = typesToSubscription(request.subscriptionTypes, subscription);
 
-	return subscription;
+	return { isExistingUser: Boolean(existingServiceUser), subscription };
 }

@@ -505,7 +505,7 @@ describe('subscriptions', () => {
 			databaseConnector.subscription.findFirst.mockResolvedValueOnce(existing);
 			databaseConnector.serviceUser.findFirst.mockResolvedValueOnce({ id: 123 });
 
-			const updated = await prepareInput(body);
+			const { subscription: updated } = await prepareInput(body);
 			updated.id = existing.id;
 			updated.serviceUser = { id: 123, email: body.emailAddress };
 			databaseConnector.subscription.update.mockResolvedValueOnce(updated);
@@ -751,7 +751,9 @@ describe('subscriptions', () => {
 		];
 		it.each(tests)('$name', async ({ request, want }) => {
 			databaseConnector.serviceUser.findFirst.mockResolvedValueOnce({ id: 123 });
-			expect(await prepareInput(request)).toEqual(want);
+
+			const { subscription } = await prepareInput(request);
+			expect(subscription).toEqual(want);
 		});
 	});
 });
