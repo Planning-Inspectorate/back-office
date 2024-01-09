@@ -107,4 +107,26 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
+
+	it('should render a back button with correct text and URL', async () => {
+		const appealId = 'someAppealId';
+
+		nock('http://test/')
+			.get(`/appeals/${appealId}`)
+			.reply(200, {
+				...appealData,
+				appealId
+			});
+
+		const response = await request.get(`${baseUrl}/${appealId}`);
+		const element = parseHtml(response.text, { rootElement: 'body' });
+
+		const backButton = element?.querySelector('.govuk-back-link');
+
+		expect(backButton).not.toBeNull();
+		expect(backButton?.textContent).toEqual('Back');
+		expect(backButton?.getAttribute('href')).toEqual('/appeals-service/personal-list');
+
+		expect(element.innerHTML).toMatchSnapshot();
+	});
 });
