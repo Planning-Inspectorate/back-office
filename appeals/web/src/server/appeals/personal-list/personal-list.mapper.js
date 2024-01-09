@@ -116,15 +116,15 @@ function mapAppealStatusToActionRequiredHtml(appealId, appealStatus, lpaQuestion
 	switch (appealStatus) {
 		case 'ready_to_start':
 		case 'review_appellant_case':
-			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">View appellant case</a>`;
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">Review appellant case</a>`;
 		case 'lpa_questionnaire_due':
 			if (!lpaQuestionnaireId) {
-				return '';
+				return 'Awaiting LPA Questionnaire';
 			}
-			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">View LPA Questionnaire</a>`;
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Review LPA Questionnaire</a>`;
 		case 'issue_determination':
-			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/issue-decision/decision">Issue a decision</a>`;
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/issue-decision/decision">Submit decision</a>`;
 		default:
-			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}">View appeal</a>`;
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}">View appellant case</a>`;
 	}
 }
