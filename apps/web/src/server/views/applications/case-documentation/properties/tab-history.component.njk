@@ -5,8 +5,10 @@
 	{% set documentVersionsRows = [] %}
 	{% for documentVersion in documentVersions %}
 
+		{% set isNotDisabled = documentVersion.publishedStatus !== 'awaiting_upload' and documentVersion.publishedStatus !== 'awaiting_virus_check' and documentVersion.publishedStatus !== 'failed_virus_check' %}
+
 		{% set name %}
-		{% set isPreviewActive = (documentVersion.mime === 'application/pdf' or documentVersion.mime === 'image/jpeg' or documentVersion.mime === 'image/png') %}
+		{% set isPreviewActive = isNotDisabled and (documentVersion.mime === 'application/pdf' or documentVersion.mime === 'image/jpeg' or documentVersion.mime === 'image/png') %}
 
 		{% if isPreviewActive %}
 			<a class="font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version, isPreviewActive: isPreviewActive}) }}" class="govuk-link">{{ documentVersion.fileName }}</a>
@@ -50,9 +52,11 @@
 		{% set redacted = 'Redacted' if documentVersion.redactedStatus else 'Unredacted'%}
 
 		{% set download %}
-		<a href='{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}'>
+		{% if isNotDisabled %}
+			<a href='{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}'>
 				Download
 			</a>
+		{% endif %}
 		{% endset %}
 
 		{% set row = [

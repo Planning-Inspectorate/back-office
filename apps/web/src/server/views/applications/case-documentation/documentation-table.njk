@@ -1,11 +1,7 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-
 {% macro folderDocumentsTable(items, pagination, caseId, folderId) %}
-
-
-
 
 	<div class="pins-files-list__info govuk-body">
 		<h3 class="govuk-heading-s">Select documents to make changes to statuses</h3>
@@ -60,10 +56,12 @@
 				</td>
 			</tr>
 			{% for item in items.items %}
-        {% set isNotDisabled = (item.publishedStatus !== 'awaiting_upload') and (item.publishedStatus !== 'awaiting_virus_check') and (item.publishedStatus !== 'failed_virus_check') %}
+				{# Files in a disabled status can be edited but not published #}
+				{% set isNotDisabled = (item.publishedStatus !== 'awaiting_upload') and (item.publishedStatus !== 'awaiting_virus_check') and (item.publishedStatus !== 'failed_virus_check') %}
 
 				<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }} {{ "govuk-table__row--failed" if item.error else "" }}">
 					<td class="govuk-table__cell">
+						{# None of the checkbox actions (publish or change status) are available for disabled files #}
 						{% if isNotDisabled %}
 							{{ govukCheckboxes({
 													name: "selectedFilesIds[]",
@@ -79,7 +77,7 @@
 					</td>
 					<td class="govuk-table__cell">
 						{% if item.error %}
-              <span class='govuk-body-s govuk-!-font-weight-bold colour--red'>{{item.error}}</span>{% endif %}
+							<span class='govuk-body-s govuk-!-font-weight-bold colour--red'>{{item.error}}</span>{% endif %}
 						{% set isPreviewActive = isNotDisabled and(item.mime === 'application/pdf' or item.mime === 'image/jpeg' or item.mime === 'image/png') %}
 						{{ createOptionalLink(
 												{
@@ -101,7 +99,7 @@
 					<td class="govuk-table__cell">{{ item.dateCreated|datestamp({format: 'dd/MM/yyyy'}) }}</td>
 					<td class="govuk-table__cell">{{ 'Redacted' if  item.redactedStatus === 'redacted' else 'Unredacted' }}</td>
 					<td class="govuk-table__cell">
-						{% set avWaiting = item.publishedStatus === 'awaiting_virus_check'%}
+						{% set avWaiting = item.publishedStatus === 'awaiting_virus_check' or item.publishedStatus === 'awaiting_upload'%}
 						{% set avFailed = item.publishedStatus === 'failed_virus_check' %}
 						{% if isNotDisabled %}
 							{{ item.publishedStatus|statusName }}
@@ -118,16 +116,15 @@
 								{% endif %}
 							</td>
 							<td class="govuk-table__cell">
-								{% if isNotDisabled %}
-									{{ createOptionalLink(
+								{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
 													href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: item.documentGuid, step: 'properties'}),
 													text:'View/Edit properties'
 												},
-												isNotDisabled
+												true
 											) }}
-
+								{% if isNotDisabled %}
 									{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
