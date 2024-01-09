@@ -101,7 +101,7 @@
 		&--disabled {
 	  		background: rgba(colors.govuk-colour('light-grey'), 0.5);
 	  		* {
-				pointer-events: none;
+				// pointer-events: none;
 	  		}
 		}
 
