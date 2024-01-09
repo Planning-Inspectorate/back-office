@@ -1,4 +1,3 @@
-import * as crypto from 'crypto';
 import { hideErrors, showErrors } from './_errors.js';
 import serverActions from './_server-actions.js';
 import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from './_html.js';
@@ -44,10 +43,10 @@ const clientActions = (uploadForm) => {
 	 *
 	 * @param {*} selectEvent
 	 */
-	const onFileSelect = (selectEvent) => {
+	const onFileSelect = async (selectEvent) => {
 		const { target } = selectEvent;
 
-		updateFilesRows(target);
+		await updateFilesRows(target);
 		updateButtonText();
 	};
 
@@ -103,11 +102,25 @@ const clientActions = (uploadForm) => {
 	};
 
 	/**
+	 * Creates a hexadecimal string as a hash of some text
+	 *
+	 * @param {String} text
+	 * @returns {Promise<String>}
+	 */
+	const createHash = async (text) => {
+		const encodedText = new TextEncoder().encode(text); // encode as (utf-8) Uint8Array
+		const hashBuffer = await crypto.subtle.digest('SHA-256', encodedText); // hash the encoded text
+		const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+		// convert bytes to hex string
+		return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+	};
+
+	/**
 	 *	Add rows in the files list
 	 *
 	 * @param {*} target
 	 */
-	const updateFilesRows = (target) => {
+	const updateFilesRows = async (target) => {
 		const { files: newFiles } = target;
 
 		hideErrors(uploadForm);
@@ -115,7 +128,7 @@ const clientActions = (uploadForm) => {
 		const wrongFiles = [];
 
 		for (const selectedFile of newFiles) {
-			const filenameHash = crypto.createHash('sha256').update(selectedFile.name);
+			const filenameHash = await createHash(selectedFile.name);
 			const fileRowId = `file_row_${selectedFile.lastModified}_${selectedFile.size}_${filenameHash}`;
 			const fileCannotBeAdded = checkSelectedFile(selectedFile);
 			const fileRow = uploadForm.querySelector(`#${fileRowId}`);
