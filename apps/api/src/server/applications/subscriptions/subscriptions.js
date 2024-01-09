@@ -43,12 +43,17 @@ export function buildSubscriptionPayloads(subscription) {
  *
  * @param {import('@pins/applications.api').Schema.Subscription} subscription
  * @returns {NSIPSubscription}
+ * @throws {Error}
  */
 export function buildSubscriptionBasePayload(subscription) {
+	if (!subscription.serviceUser?.email) {
+		throw new Error('cannot build subscription payload: email is undefined');
+	}
+
 	/** @type {NSIPSubscription} */
 	const payload = {
 		caseReference: subscription.caseReference,
-		emailAddress: subscription.serviceUser?.email ?? '',
+		emailAddress: subscription.serviceUser.email,
 		subscriptionType: '' // overwritten later with a real value
 	};
 	if (subscription.id) {
