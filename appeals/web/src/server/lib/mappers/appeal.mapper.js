@@ -262,12 +262,12 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Other appeals'
+					text: 'Related appeals'
 				},
 				value: {
 					html:
 						displayPageFormatter.formatListOfAppeals(appealDetails.otherAppeals) ||
-						'<span>No other appeals</span>'
+						'<span>No related appeals</span>'
 				},
 				actions: {
 					items: [
@@ -280,7 +280,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: 'Other appeals',
+			displayName: 'Related appeals',
 			instructions: [
 				{
 					type: 'input',
@@ -304,7 +304,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Allocation details'
+					text: 'Allocation level'
 				},
 				value: {
 					html: appealDetails.allocationDetails
@@ -316,7 +316,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 							'</li><li>'
 						)}</li></ul>
 					`
-						: 'No allocation details for this appeal'
+						: 'No allocation level for this appeal'
 				},
 				actions: {
 					items: [
@@ -330,7 +330,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		},
 		input: {
 			// TODO: Multipage change?
-			displayName: 'Allocation details',
+			displayName: 'Allocation level',
 			instructions: [
 				{
 					type: 'checkboxes',
