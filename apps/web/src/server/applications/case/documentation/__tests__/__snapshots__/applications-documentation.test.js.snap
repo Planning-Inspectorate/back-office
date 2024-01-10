@@ -6845,10 +6845,10 @@ exports[`applications documentation Document properties page page should render 
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/agent\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case stage</dt>
-                            <dd class=\\"govuk-summary-list__value\\">withdrawn</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
-                            </dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Documentation case stage</dt>
+                            <dd                             class=\\"govuk-summary-list__value\\">withdrawn</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                                </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Webfilter</dt>
                             <dd class=\\"govuk-summary-list__value\\">Ut</dd>
@@ -7007,10 +7007,10 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/agent\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case stage</dt>
-                            <dd class=\\"govuk-summary-list__value\\">pre-examination</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
-                            </dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Documentation case stage</dt>
+                            <dd                             class=\\"govuk-summary-list__value\\">pre-examination</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                                </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Webfilter</dt>
                             <dd class=\\"govuk-summary-list__value\\">Consectetur</dd>
@@ -7162,10 +7162,10 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/agent\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case stage</dt>
-                            <dd class=\\"govuk-summary-list__value\\">withdrawn</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
-                            </dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Documentation case stage</dt>
+                            <dd                             class=\\"govuk-summary-list__value\\">withdrawn</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                                </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Webfilter</dt>
                             <dd class=\\"govuk-summary-list__value\\">Ut</dd>
@@ -7324,10 +7324,10 @@ exports[`applications documentation Document properties page should show publish
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/agent\\"> Change<span class=\\"govuk-visually-hidden\\"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case stage</dt>
-                            <dd class=\\"govuk-summary-list__value\\">pre-examination</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
-                            </dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Documentation case stage</dt>
+                            <dd                             class=\\"govuk-summary-list__value\\">pre-examination</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                                </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Webfilter</dt>
                             <dd class=\\"govuk-summary-list__value\\">Consectetur</dd>
