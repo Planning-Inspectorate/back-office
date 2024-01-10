@@ -20,7 +20,7 @@
 	{% endif %}
 
 	{% set publishedDate = (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'})) if documentationFile.publishedStatus === 'published' else null %}
-	{% set statusCanBeChanged = documentationFile.publishedStatus != 'published' and documentationFile.publishedStatus != 'awaiting_upload' and documentationFile.publishedStatus != 'awaiting_virus_check' and documentationFile.publishedStatus != 'failed_virus_check'  %}
+	{% set statusCanBeChanged = not documentationFile.publishedStatus in ['published', 'awaiting_upload', 'awaiting_virus_check', 'failed_virus_check'] %}
 
 	{% set properties = [
 						{label: 'File name', value: documentationFile.fileName, link: 'name'},
