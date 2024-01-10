@@ -1249,7 +1249,7 @@ exports[`Delete examination timetable POST /case/123/examination-timetable/item/
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
             <div class=\\"govuk-panel govuk-panel--confirmation\\">
-                <h1 class=\\"govuk-panel__title\\"> Timetable item successfully deleted</h1>
+                <h1 class=\\"govuk-panel__title\\"> Timetable successfully deleted</h1>
                 <div class=\\"govuk-panel__body\\">Title CASE/04
                     <br>The case reference number
                     <br><strong>CASE/04</strong>
@@ -1257,7 +1257,7 @@ exports[`Delete examination timetable POST /case/123/examination-timetable/item/
             </div>
             <div class=\\"govuk-body\\">
                 <p class=\\"govuk-body\\">Return to folder:</p><a href=\\"/applications-service/case/123/examination-timetable/\\"
-                class=\\"govuk-link\\"> Go back to examination table</a>
+                class=\\"govuk-link\\"> Go back to examination timetable</a>
             </div>
         </div>
     </div>
@@ -1882,7 +1882,7 @@ exports[`Publish examination timetable success page POST /case/123/examination-t
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
             <div class=\\"govuk-panel govuk-panel--confirmation\\">
-                <h1 class=\\"govuk-panel__title\\"> Timetable item successfully published</h1>
+                <h1 class=\\"govuk-panel__title\\"> Timetable successfully published</h1>
                 <div class=\\"govuk-panel__body\\">Title CASE/04
                     <br>The case reference number
                     <br><strong>CASE/04</strong>
@@ -1890,7 +1890,7 @@ exports[`Publish examination timetable success page POST /case/123/examination-t
             </div>
             <div class=\\"govuk-body\\">
                 <p class=\\"govuk-body\\">The examination timetable will show on the NI website within the hour</p>
-                <a                 href=\\"/applications-service/case/123/examination-timetable/\\" class=\\"govuk-link\\">Go back to examination table</a>
+                <a                 href=\\"/applications-service/case/123/examination-timetable/\\" class=\\"govuk-link\\">Go back to examination timetable</a>
             </div>
         </div>
     </div>
@@ -2027,7 +2027,7 @@ exports[`Unpublish examination timetable success page POST /case/123/examination
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
             <div class=\\"govuk-panel govuk-panel--confirmation\\">
-                <h1 class=\\"govuk-panel__title\\"> Timetable item successfully unpublished</h1>
+                <h1 class=\\"govuk-panel__title\\"> Timetable successfully unpublished</h1>
                 <div class=\\"govuk-panel__body\\">Title CASE/04
                     <br>The case reference number
                     <br><strong>CASE/04</strong>
@@ -2036,7 +2036,7 @@ exports[`Unpublish examination timetable success page POST /case/123/examination
             <div class=\\"govuk-body\\">
                 <p class=\\"govuk-body\\">The examination timetable will be unpublished from the NI website within
                     the hour</p><a href=\\"/applications-service/case/123/examination-timetable/\\"
-                class=\\"govuk-link\\"> Go back to examination table</a>
+                class=\\"govuk-link\\"> Go back to examination timetable</a>
             </div>
         </div>
     </div>
