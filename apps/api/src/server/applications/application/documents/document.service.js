@@ -37,8 +37,6 @@ import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './documen
  * @typedef {import('@pins/applications.api').Api.PaginatedDocumentDetails} PaginatedDocumentDetails
  */
 
-const DOCUMENT_CASE_STAGE_S51_ADVICE = '0';
-
 /**
  * Remove extension from document name
  *
@@ -147,11 +145,6 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 
 			// Get the cases stage to be applied to the document based on the folder
 			let stage = await getCaseStageMapping(documentToDB.folderId);
-
-			// special case for S51 Advice Documents
-			if (isS51) {
-				stage = DOCUMENT_CASE_STAGE_S51_ADVICE;
-			}
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
 

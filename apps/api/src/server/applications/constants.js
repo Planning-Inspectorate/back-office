@@ -19,6 +19,7 @@ const DOCUMENT_CASE_STAGE_RECOMMENDATION = 'Recommendation';
 const DOCUMENT_CASE_STAGE_DECISION = 'Decision';
 const DOCUMENT_CASE_STAGE_POST_DECISION = 'Post-decision';
 const DOCUMENT_CASE_STAGE_CORRESPONDENCE = 'Correspondence';
+const DOCUMENT_CASE_STAGE_S51_ADVICE = '0'; // special value required by Front Office
 
 // Define top level document case stage mappings, so we can change in one single place if needed
 export const folderDocumentCaseStageMappings = {
@@ -27,7 +28,7 @@ export const folderDocumentCaseStageMappings = {
 	LEGAL_ADVICE: null,
 	TRANSBOUNDARY: DOCUMENT_CASE_STAGE_PRE_APPLICATION,
 	LAND_RIGHTS: null,
-	S51_ADVICE: null,
+	S51_ADVICE: DOCUMENT_CASE_STAGE_S51_ADVICE,
 	PRE_APPLICATION: DOCUMENT_CASE_STAGE_PRE_APPLICATION,
 	ACCEPTANCE: DOCUMENT_CASE_STAGE_ACCEPTANCE,
 	DEVELOPERS_APPLICATION: DOCUMENT_CASE_STAGE_DEVELOPERS_APPLICATION,
