@@ -259,7 +259,7 @@ describe('notification banners mapper', () => {
 					notificationBanners: {
 						readyForDecision: {
 							appealId: 1,
-							html: '<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Make a decision</a>.</p>'
+							html: '<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Issue a decision</a>.</p>'
 						}
 					}
 				},
@@ -271,7 +271,7 @@ describe('notification banners mapper', () => {
 				type: 'notification-banner',
 				parameters: {
 					titleHeadingLevel: 3,
-					html: '<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Make a decision</a>.</p>',
+					html: '<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Issue a decision</a>.</p>',
 					titleText: 'Important'
 				}
 			}

@@ -11,7 +11,7 @@ exports[`appeal-details GET /:appealId should render a Issue a decision action b
                 </div>
                 <div class="govuk-notification-banner__content">
                     <p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p>
-                    <p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Make a decision</a>.</p>
+                    <p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Issue a decision</a>.</p>
                 </div>
             </div>
         </div>

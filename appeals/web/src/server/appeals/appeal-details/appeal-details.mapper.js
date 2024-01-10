@@ -196,7 +196,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 	}
 
 	if (appealDetails.appealStatus === 'issue_determination') {
-		const bannerHtml = `<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Make a decision</a>.</p>`;
+		const bannerHtml = `<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Issue a decision</a>.</p>`;
 		addNotificationBannerToSession(session, 'readyForDecision', appealDetails.appealId, bannerHtml);
 	}
 
