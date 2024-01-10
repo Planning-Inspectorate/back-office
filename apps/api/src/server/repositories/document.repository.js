@@ -167,6 +167,48 @@ export const getPublishableDocuments = (documentIds) => {
 };
 
 /**
+ * From a given list of document ids, retrieve the ones which are publishable.
+ * similar to the fn getPublishableDocuments but without checking for required fields.
+ * This is used for S51 Advice documents
+ *
+ * @param {string[]} documentIds
+ * @returns {Promise<{guid: string, latestVersionId: number, latestDocumentVersion: {mime: string}}[]>}
+ */
+export const getPublishableDocumentsWithoutRequiredPropertiesCheck = (documentIds) => {
+	// @ts-ignore - if there is a latestDocumentVersion, there will be a latestVerionid
+	return databaseConnector.document.findMany({
+		where: {
+			guid: {
+				in: documentIds
+			},
+			latestDocumentVersion: {
+				NOT: {
+					OR: [
+						// TODO: Move name from Document.name to DocumentVersion.fileName
+						{
+							fileName: ''
+						},
+						{
+							fileName: null
+						}
+					]
+				}
+			},
+			isDeleted: false
+		},
+		select: {
+			guid: true,
+			latestVersionId: true,
+			latestDocumentVersion: {
+				select: {
+					mime: true
+				}
+			}
+		}
+	});
+};
+
+/**
  *
  * @param {string} documentId
  * @param {import('@pins/applications.api').Schema.DocumentUpdateInput} documentDetails

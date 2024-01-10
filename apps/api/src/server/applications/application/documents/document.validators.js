@@ -198,18 +198,30 @@ export const validateDocumentIds = composeMiddleware(
 );
 
 /**
- * Verifies if the given array of document GUIDs have the correct meta set, so that they are ready to publish
+ * Verifies if the given array of document GUIDs have the correct meta set, so that they are ready to publish.
+ * For S51 Advice documents, skipRequiredPropertyChecks is true to skip the mandatory field checks
  *
  * @param {string[]} documentIds
+ * @param {boolean} skipRequiredPropertyChecks	// true for S51 advice doc publishing
  * @typedef {{ publishable: {documentGuid: string, version: number}[], invalid: {guid: string, msg: string}[] }} VerifiedReturn
  * @returns {Promise<VerifiedReturn>}
  */
-export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (documentIds) => {
-	// files with all mandatory metadata (it includes MSG files)
-	const completeDocuments = await DocumentRepository.getPublishableDocuments(documentIds);
+export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
+	documentIds,
+	skipRequiredPropertyChecks
+) => {
+	// get publishable files (ie with all mandatory metadata, or S51 advice files), (this can include MSG files)
+	let completeDocuments;
+	if (skipRequiredPropertyChecks) {
+		completeDocuments =
+			await DocumentRepository.getPublishableDocumentsWithoutRequiredPropertiesCheck(documentIds);
+	} else {
+		completeDocuments = await DocumentRepository.getPublishableDocuments(documentIds);
+	}
+
 	const completeDocumentsIds = new Set(completeDocuments.map((pDoc) => pDoc.guid));
 
-	// files with all mandatory metadata and NOT msg
+	// remove email documents - never published
 	const publishableDocuments = completeDocuments.filter(
 		(doc) => doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook'
 	);

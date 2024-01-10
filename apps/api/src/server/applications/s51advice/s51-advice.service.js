@@ -164,7 +164,7 @@ export const publishS51 = async (id) => {
 			(/** @type {S51AdviceDocument} */ advice) => advice.documentGuid
 		);
 
-		await publishDocuments(docsToPublish, 'System');
+		await publishDocuments(docsToPublish, 'System', true);
 	}
 
 	return publishedAdvice;

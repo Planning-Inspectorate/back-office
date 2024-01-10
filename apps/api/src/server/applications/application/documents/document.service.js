@@ -37,6 +37,8 @@ import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './documen
  * @typedef {import('@pins/applications.api').Api.PaginatedDocumentDetails} PaginatedDocumentDetails
  */
 
+const DOCUMENT_CASE_STAGE_S51_ADVICE = '0';
+
 /**
  * Remove extension from document name
  *
@@ -144,7 +146,12 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 			logger.info(`Inserted document with guid: ${document.guid}`);
 
 			// Get the cases stage to be applied to the document based on the folder
-			const stage = await getCaseStageMapping(documentToDB.folderId);
+			let stage = await getCaseStageMapping(documentToDB.folderId);
+
+			// special case for S51 Advice Documents
+			if (isS51) {
+				stage = DOCUMENT_CASE_STAGE_S51_ADVICE;
+			}
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
 
@@ -474,13 +481,25 @@ export const getCurrentlyPublished = async (documentGuids) => {
 };
 
 /**
+ * Checks an array of doc guids is valid for publishing and publishes those documents,
+ * returning arrays of successful and failed.
+ * Fn also used for S51 Advice documents (skipRequiredPropertyChecks = true )
+ *
  * @param {string[]} documentGuids
  * @param {string} username
+ * @param {boolean} skipRequiredPropertyChecks	// set to true for S51 Advice attachments
  * @returns {Promise<{ successful: string[], failed: {guid: string, msg: string}[] }>}
  * */
-export const publishDocuments = async (documentGuids, username) => {
+export const publishDocuments = async (
+	documentGuids,
+	username,
+	skipRequiredPropertyChecks = false
+) => {
 	const { publishable: publishableDocumentVersionIds, invalid } =
-		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentGuids);
+		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
+			documentGuids,
+			skipRequiredPropertyChecks
+		);
 
 	const activityLogs = publishableDocumentVersionIds.map((document) =>
 		documentActivityLogRepository.create({
@@ -496,6 +515,7 @@ export const publishDocuments = async (documentGuids, username) => {
 	// only publish docs if there are any that are verified as publishable
 	/** @type {string[]} */
 	let successfulPublishedDocGuids = [];
+
 	if (publishableDocumentVersionIds.length > 0) {
 		const publishedDocuments = await publishDocumentVersions(publishableDocumentVersionIds);
 		logger.info(`Published ${publishedDocuments.length} documents`);
@@ -706,7 +726,8 @@ export const extractDuplicates = async (documents) => {
  * */
 export const separatePublishableDocuments = async (guids) => {
 	const { publishable, invalid } = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
-		guids
+		guids,
+		false
 	);
 
 	console.log(707079, 'dservice', invalid);
