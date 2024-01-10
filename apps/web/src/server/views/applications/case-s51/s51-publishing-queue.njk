@@ -37,8 +37,13 @@
 
 				<p class='govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6'>
                     The queue contains {{ s51Advices.itemCount }} item(s).
-										Showing {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) + 1 }}
-										- {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) +  s51Advices.items.length }}
+
+                    {% if s51Advices.items.length == 0 %}
+                      Showing 0
+                    {% else %}
+                      Showing {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) + 1 }}
+                      - {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) +  s51Advices.items.length }}
+                    {% endif %}
 										item(s).
                 </p>
 
