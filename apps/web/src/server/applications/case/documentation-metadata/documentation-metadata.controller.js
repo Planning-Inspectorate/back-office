@@ -132,8 +132,10 @@ export async function viewDocumentationMetaData({ params }, response) {
 	const noPublish = ['awaiting_upload', 'awaiting_virus_check', 'failed_virus_check'].includes(
 		response.locals.documentMetaData.publishedStatus
 	);
-	if (noPublish) {
-		layout.items = layout.items?.filter((item) => item.value !== 'ready_to_publish');
+	if (noPublish && params.metaDataName === 'published-status') {
+		// deny status update if document hasn't passed virus check yet
+		layout.items = [];
+		return response.status(403).redirect('/app/403');
 	}
 
 	response.render(`applications/case-documentation/documentation-edit.njk`, { layout, noPublish });

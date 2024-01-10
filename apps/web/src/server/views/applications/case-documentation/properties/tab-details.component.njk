@@ -20,6 +20,7 @@
 	{% endif %}
 
 	{% set publishedDate = (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'})) if documentationFile.publishedStatus === 'published' else null %}
+	{% set statusCanBeChanged = documentationFile.publishedStatus != 'published' and documentationFile.publishedStatus != 'awaiting_upload' and documentationFile.publishedStatus != 'awaiting_virus_check' and documentationFile.publishedStatus != 'failed_virus_check'  %}
 
 	{% set properties = [
 						{label: 'File name', value: documentationFile.fileName, link: 'name'},
@@ -33,7 +34,7 @@
 						{label: 'Date received', value: (documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'})), link: 'receipt-date'},
 						{label: 'Published date', value: publishedDate, link: 'published-date' if publishedDate else null},
 						{label: 'Redaction', value: ('Redacted' if documentationFile.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
-						{label: 'Status', value: documentationFile.publishedStatus|statusName, link: 'published-status' if documentationFile.publishedStatus != 'published' else null }
+						{label: 'Status', value: documentationFile.publishedStatus|statusName, link: 'published-status' if statusCanBeChanged else null }
 	] %}
 
 	{% set propertiesRow = [] %}
