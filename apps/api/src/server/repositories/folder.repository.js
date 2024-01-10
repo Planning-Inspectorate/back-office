@@ -1,39 +1,10 @@
 import { databaseConnector } from '#utils/database-connector.js';
+import { folderDocumentCaseStageMappings } from '../applications/constants.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/applications').FolderTemplate} FolderTemplate */
 /** @typedef {import('@pins/applications').ChildFolderTemplate} ChildFolderTemplate */
 /** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
-
-// Define all the case stages that can be mapped to folders
-const DOCUMENT_CASE_STAGE_PRE_APPLICATION = 'Pre-application';
-const DOCUMENT_CASE_STAGE_ACCEPTANCE = 'Acceptance';
-const DOCUMENT_CASE_STAGE_DEVELOPERS_APPLICATION = "Developer's Application";
-const DOCUMENT_CASE_STAGE_PRE_EXAMINATION = 'Pre-examination';
-const DOCUMENT_CASE_STAGE_EXAMINATION = 'Examination';
-const DOCUMENT_CASE_STAGE_RECOMMENDATION = 'Recommendation';
-const DOCUMENT_CASE_STAGE_DECISION = 'Decision';
-const DOCUMENT_CASE_STAGE_POST_DECISION = 'Post-decision';
-const CORRESPONDENCE = 'Correspondence';
-
-// Define top level case stage mappings so we can change in one single place if needed
-const folderCaseStageMappings = {
-	PROJECT_MANAGEMENT: null,
-	CORRESPONDENCE: CORRESPONDENCE,
-	LEGAL_ADVICE: null,
-	TRANSBOUNDARY: DOCUMENT_CASE_STAGE_PRE_APPLICATION,
-	LAND_RIGHTS: null,
-	S51_ADVICE: null,
-	PRE_APPLICATION: DOCUMENT_CASE_STAGE_PRE_APPLICATION,
-	ACCEPTANCE: DOCUMENT_CASE_STAGE_ACCEPTANCE,
-	DEVELOPERS_APPLICATION: DOCUMENT_CASE_STAGE_DEVELOPERS_APPLICATION,
-	PRE_EXAMINATION: DOCUMENT_CASE_STAGE_PRE_EXAMINATION,
-	RELEVANT_REPRESENTATIONS: DOCUMENT_CASE_STAGE_PRE_EXAMINATION,
-	EXAMINATION: DOCUMENT_CASE_STAGE_EXAMINATION,
-	RECOMMENDATION: DOCUMENT_CASE_STAGE_RECOMMENDATION,
-	DECISION: DOCUMENT_CASE_STAGE_DECISION,
-	POST_DECISION: DOCUMENT_CASE_STAGE_POST_DECISION
-};
 
 /**
  * Returns array of folders in a folder or case (if parentFolderId is null)
@@ -214,13 +185,13 @@ const createCorrespondenceFolders = () => {
 	const monthsFolders = allMonths.map((month, index) => ({
 		displayNameEn: month,
 		displayOrder: 100 * (index + 1),
-		stage: folderCaseStageMappings.CORRESPONDENCE
+		stage: folderDocumentCaseStageMappings.CORRESPONDENCE
 	}));
 
 	return correspondenceTypes.map((type, index) => ({
 		displayNameEn: type,
 		displayOrder: 100 * (index + 1),
-		stage: folderCaseStageMappings.CORRESPONDENCE,
+		stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
 		childFolders: {
 			create: monthsFolders
 		}
@@ -311,24 +282,24 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Project management',
 		displayOrder: 100,
-		stage: folderCaseStageMappings.PROJECT_MANAGEMENT,
+		stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'Logistics',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.PROJECT_MANAGEMENT,
+					stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT,
 					childFolders: {
 						create: [
 							{
 								displayNameEn: 'Travel',
 								displayOrder: 100,
-								stage: folderCaseStageMappings.PROJECT_MANAGEMENT
+								stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
 							},
 							{
 								displayNameEn: 'Welsh',
 								displayOrder: 200,
-								stage: folderCaseStageMappings.PROJECT_MANAGEMENT
+								stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
 							}
 						]
 					}
@@ -336,12 +307,12 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Mail merge spreadsheet',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.PROJECT_MANAGEMENT
+					stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
 				},
 				{
 					displayNameEn: 'Fees',
 					displayOrder: 300,
-					stage: folderCaseStageMappings.PROJECT_MANAGEMENT
+					stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
 				}
 			]
 		}
@@ -349,13 +320,13 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Correspondence',
 		displayOrder: 150,
-		stage: folderCaseStageMappings.CORRESPONDENCE,
+		stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: '2023',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.CORRESPONDENCE,
+					stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
 					childFolders: {
 						create: createCorrespondenceFolders()
 					}
@@ -363,7 +334,7 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: '2024',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.CORRESPONDENCE,
+					stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
 					childFolders: {
 						create: createCorrespondenceFolders()
 					}
@@ -374,23 +345,23 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Legal advice',
 		displayOrder: 200,
-		stage: folderCaseStageMappings.LEGAL_ADVICE
+		stage: folderDocumentCaseStageMappings.LEGAL_ADVICE
 	},
 	{
 		displayNameEn: 'Transboundary',
 		displayOrder: 300,
-		stage: folderCaseStageMappings.TRANSBOUNDARY,
+		stage: folderDocumentCaseStageMappings.TRANSBOUNDARY,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'First screening',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.TRANSBOUNDARY
+					stage: folderDocumentCaseStageMappings.TRANSBOUNDARY
 				},
 				{
 					displayNameEn: 'Second screening',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.TRANSBOUNDARY
+					stage: folderDocumentCaseStageMappings.TRANSBOUNDARY
 				}
 			]
 		}
@@ -398,29 +369,29 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Land rights',
 		displayOrder: 400,
-		stage: folderCaseStageMappings.LAND_RIGHTS,
+		stage: folderDocumentCaseStageMappings.LAND_RIGHTS,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'S52',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.LAND_RIGHTS,
+					stage: folderDocumentCaseStageMappings.LAND_RIGHTS,
 					childFolders: {
 						create: [
 							{
 								displayNameEn: 'Applicant request',
 								displayOrder: 100,
-								stage: folderCaseStageMappings.LAND_RIGHTS
+								stage: folderDocumentCaseStageMappings.LAND_RIGHTS
 							},
 							{
 								displayNameEn: 'Recommendation and authorisation',
 								displayOrder: 200,
-								stage: folderCaseStageMappings.LAND_RIGHTS
+								stage: folderDocumentCaseStageMappings.LAND_RIGHTS
 							},
 							{
 								displayNameEn: 'Correspondence',
 								displayOrder: 300,
-								stage: folderCaseStageMappings.LAND_RIGHTS
+								stage: folderDocumentCaseStageMappings.LAND_RIGHTS
 							}
 						]
 					}
@@ -428,23 +399,23 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'S53',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.LAND_RIGHTS,
+					stage: folderDocumentCaseStageMappings.LAND_RIGHTS,
 					childFolders: {
 						create: [
 							{
 								displayNameEn: 'Applicant request',
 								displayOrder: 100,
-								stage: folderCaseStageMappings.LAND_RIGHTS
+								stage: folderDocumentCaseStageMappings.LAND_RIGHTS
 							},
 							{
 								displayNameEn: 'Recommendation and authorisation',
 								displayOrder: 200,
-								stage: folderCaseStageMappings.LAND_RIGHTS
+								stage: folderDocumentCaseStageMappings.LAND_RIGHTS
 							},
 							{
 								displayNameEn: 'Correspondence',
 								displayOrder: 300,
-								stage: folderCaseStageMappings.LAND_RIGHTS
+								stage: folderDocumentCaseStageMappings.LAND_RIGHTS
 							}
 						]
 					}
@@ -455,45 +426,45 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'S51 advice',
 		displayOrder: 500,
-		stage: folderCaseStageMappings.S51_ADVICE
+		stage: folderDocumentCaseStageMappings.S51_ADVICE
 	},
 	{
 		displayNameEn: 'Pre-application',
 		displayOrder: 600,
-		stage: folderCaseStageMappings.PRE_APPLICATION,
+		stage: folderDocumentCaseStageMappings.PRE_APPLICATION,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'Events / meetings',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.PRE_APPLICATION
+					stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 				},
 				{
 					displayNameEn: 'Correspondence',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.PRE_APPLICATION
+					stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 				},
 				{
 					displayNameEn: 'EIA',
 					displayOrder: 300,
-					stage: folderCaseStageMappings.PRE_APPLICATION,
+					stage: folderDocumentCaseStageMappings.PRE_APPLICATION,
 					childFolders: {
 						create: [
 							{
 								displayNameEn: 'Screening',
 								displayOrder: 100,
-								stage: folderCaseStageMappings.PRE_APPLICATION
+								stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 							},
 							{
 								displayNameEn: 'Scoping',
 								displayOrder: 200,
-								stage: folderCaseStageMappings.PRE_APPLICATION,
+								stage: folderDocumentCaseStageMappings.PRE_APPLICATION,
 								childFolders: {
 									create: [
 										{
 											displayNameEn: 'Responses',
 											displayOrder: 100,
-											stage: folderCaseStageMappings.PRE_APPLICATION
+											stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 										}
 									]
 								}
@@ -504,38 +475,38 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Habitat regulations',
 					displayOrder: 400,
-					stage: folderCaseStageMappings.PRE_APPLICATION
+					stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 				},
 				{
 					displayNameEn: 'Evidence plans',
 					displayOrder: 500,
-					stage: folderCaseStageMappings.PRE_APPLICATION
+					stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 				},
 				{
 					displayNameEn: 'Draft documents',
 					displayOrder: 600,
-					stage: folderCaseStageMappings.PRE_APPLICATION
+					stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 				},
 				{
 					displayNameEn: "Developer's consultation",
 					displayOrder: 700,
-					stage: folderCaseStageMappings.PRE_APPLICATION,
+					stage: folderDocumentCaseStageMappings.PRE_APPLICATION,
 					childFolders: {
 						create: [
 							{
 								displayNameEn: 'Statutory',
 								displayOrder: 100,
-								stage: folderCaseStageMappings.PRE_APPLICATION
+								stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 							},
 							{
 								displayNameEn: 'Non-statutory',
 								displayOrder: 200,
-								stage: folderCaseStageMappings.PRE_APPLICATION
+								stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 							},
 							{
 								displayNameEn: 'Consultation feedback',
 								displayOrder: 300,
-								stage: folderCaseStageMappings.PRE_APPLICATION
+								stage: folderDocumentCaseStageMappings.PRE_APPLICATION
 							}
 						]
 					}
@@ -546,69 +517,69 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Acceptance',
 		displayOrder: 700,
-		stage: folderCaseStageMappings.ACCEPTANCE,
+		stage: folderDocumentCaseStageMappings.ACCEPTANCE,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'Events / meetings',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.ACCEPTANCE
+					stage: folderDocumentCaseStageMappings.ACCEPTANCE
 				},
 				{
 					displayNameEn: 'Correspondence',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.ACCEPTANCE
+					stage: folderDocumentCaseStageMappings.ACCEPTANCE
 				},
 				{
 					displayNameEn: 'EST',
 					displayOrder: 300,
-					stage: folderCaseStageMappings.ACCEPTANCE
+					stage: folderDocumentCaseStageMappings.ACCEPTANCE
 				},
 				{
 					displayNameEn: 'Application documents',
 					displayOrder: 400,
-					stage: folderCaseStageMappings.ACCEPTANCE,
+					stage: folderDocumentCaseStageMappings.ACCEPTANCE,
 					childFolders: {
 						create: [
 							{
 								displayNameEn: 'Application form',
 								displayOrder: 100,
-								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
+								stage: folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Compulsory acquisition information',
 								displayOrder: 200,
-								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
+								stage: folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'DCO documents',
 								displayOrder: 300,
-								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
+								stage: folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Environmental statement',
 								displayOrder: 400,
-								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
+								stage: folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Other documents',
 								displayOrder: 500,
-								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
+								stage: folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Plans',
 								displayOrder: 600,
-								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
+								stage: folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Reports',
 								displayOrder: 700,
-								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
+								stage: folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION
 							},
 							{
 								displayNameEn: 'Additional Reg 6 information',
 								displayOrder: 800,
-								stage: folderCaseStageMappings.DEVELOPERS_APPLICATION
+								stage: folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION
 							}
 						]
 					}
@@ -616,17 +587,17 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Adequacy of consultation',
 					displayOrder: 500,
-					stage: folderCaseStageMappings.ACCEPTANCE
+					stage: folderDocumentCaseStageMappings.ACCEPTANCE
 				},
 				{
 					displayNameEn: 'Reg 5 and Reg 6',
 					displayOrder: 600,
-					stage: folderCaseStageMappings.ACCEPTANCE
+					stage: folderDocumentCaseStageMappings.ACCEPTANCE
 				},
 				{
 					displayNameEn: 'Drafting and decision',
 					displayOrder: 700,
-					stage: folderCaseStageMappings.ACCEPTANCE
+					stage: folderDocumentCaseStageMappings.ACCEPTANCE
 				}
 			]
 		}
@@ -634,29 +605,29 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Pre-examination',
 		displayOrder: 800,
-		stage: folderCaseStageMappings.PRE_EXAMINATION,
+		stage: folderDocumentCaseStageMappings.PRE_EXAMINATION,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'Events / meetings',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.PRE_EXAMINATION
+					stage: folderDocumentCaseStageMappings.PRE_EXAMINATION
 				},
 				{
 					displayNameEn: 'Correspondence',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.PRE_EXAMINATION
+					stage: folderDocumentCaseStageMappings.PRE_EXAMINATION
 				},
 				{
 					displayNameEn: 'Additional submissions',
 					displayOrder: 300,
-					stage: folderCaseStageMappings.PRE_EXAMINATION,
+					stage: folderDocumentCaseStageMappings.PRE_EXAMINATION,
 					childFolders: {
 						create: [
 							{
 								displayNameEn: 'Post submission changes',
 								displayOrder: 100,
-								stage: folderCaseStageMappings.PRE_EXAMINATION
+								stage: folderDocumentCaseStageMappings.PRE_EXAMINATION
 							}
 						]
 					}
@@ -664,17 +635,17 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Procedural decisions',
 					displayOrder: 400,
-					stage: folderCaseStageMappings.PRE_EXAMINATION
+					stage: folderDocumentCaseStageMappings.PRE_EXAMINATION
 				},
 				{
 					displayNameEn: 'EIA',
 					displayOrder: 500,
-					stage: folderCaseStageMappings.PRE_EXAMINATION
+					stage: folderDocumentCaseStageMappings.PRE_EXAMINATION
 				},
 				{
 					displayNameEn: 'Habitat regulations',
 					displayOrder: 600,
-					stage: folderCaseStageMappings.PRE_EXAMINATION
+					stage: folderDocumentCaseStageMappings.PRE_EXAMINATION
 				}
 			]
 		}
@@ -682,28 +653,28 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Relevant representations',
 		displayOrder: 900,
-		stage: folderCaseStageMappings.RELEVANT_REPRESENTATIONS
+		stage: folderDocumentCaseStageMappings.RELEVANT_REPRESENTATIONS
 	},
 	{
 		displayNameEn: 'Examination',
 		displayOrder: 1000,
-		stage: folderCaseStageMappings.EXAMINATION,
+		stage: folderDocumentCaseStageMappings.EXAMINATION,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'Correspondence',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.EXAMINATION
+					stage: folderDocumentCaseStageMappings.EXAMINATION
 				},
 				{
 					displayNameEn: 'Additional submissions',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.EXAMINATION
+					stage: folderDocumentCaseStageMappings.EXAMINATION
 				},
 				{
 					displayNameEn: 'Examination timetable',
 					displayOrder: 300,
-					stage: folderCaseStageMappings.EXAMINATION,
+					stage: folderDocumentCaseStageMappings.EXAMINATION,
 					childFolders: {
 						// for examination timetable we storing date in yyyyMMdd(20231230) format for display order.
 						// To display other in the end we need to put other in highest possible order.
@@ -711,7 +682,7 @@ const defaultCaseFolders = [
 							{
 								displayNameEn: 'Other',
 								displayOrder: 30000000,
-								stage: folderCaseStageMappings.EXAMINATION
+								stage: folderDocumentCaseStageMappings.EXAMINATION
 							}
 						]
 					}
@@ -719,17 +690,17 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Procedural decisions',
 					displayOrder: 400,
-					stage: folderCaseStageMappings.EXAMINATION
+					stage: folderDocumentCaseStageMappings.EXAMINATION
 				},
 				{
 					displayNameEn: 'EIA',
 					displayOrder: 500,
-					stage: folderCaseStageMappings.EXAMINATION
+					stage: folderDocumentCaseStageMappings.EXAMINATION
 				},
 				{
 					displayNameEn: 'Habitat regulations',
 					displayOrder: 600,
-					stage: folderCaseStageMappings.EXAMINATION
+					stage: folderDocumentCaseStageMappings.EXAMINATION
 				}
 			]
 		}
@@ -737,34 +708,34 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Recommendation',
 		displayOrder: 1100,
-		stage: folderCaseStageMappings.RECOMMENDATION,
+		stage: folderDocumentCaseStageMappings.RECOMMENDATION,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'Events / meetings',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.RECOMMENDATION
+					stage: folderDocumentCaseStageMappings.RECOMMENDATION
 				},
 				{
 					displayNameEn: 'Correspondence',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.RECOMMENDATION
+					stage: folderDocumentCaseStageMappings.RECOMMENDATION
 				},
 				{
 					displayNameEn: 'Recommendation report',
 					displayOrder: 300,
-					stage: folderCaseStageMappings.RECOMMENDATION,
+					stage: folderDocumentCaseStageMappings.RECOMMENDATION,
 					childFolders: {
 						create: [
 							{
 								displayNameEn: 'Drafts',
 								displayOrder: 100,
-								stage: folderCaseStageMappings.RECOMMENDATION
+								stage: folderDocumentCaseStageMappings.RECOMMENDATION
 							},
 							{
 								displayNameEn: 'Final submitted report',
 								displayOrder: 200,
-								stage: folderCaseStageMappings.RECOMMENDATION
+								stage: folderDocumentCaseStageMappings.RECOMMENDATION
 							}
 						]
 					}
@@ -775,18 +746,18 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Decision',
 		displayOrder: 1200,
-		stage: folderCaseStageMappings.DECISION,
+		stage: folderDocumentCaseStageMappings.DECISION,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'SoS consultation',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.DECISION
+					stage: folderDocumentCaseStageMappings.DECISION
 				},
 				{
 					displayNameEn: 'SoS decision',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.DECISION
+					stage: folderDocumentCaseStageMappings.DECISION
 				}
 			]
 		}
@@ -794,33 +765,33 @@ const defaultCaseFolders = [
 	{
 		displayNameEn: 'Post-decision',
 		displayOrder: 1300,
-		stage: folderCaseStageMappings.POST_DECISION,
+		stage: folderDocumentCaseStageMappings.POST_DECISION,
 		childFolders: {
 			create: [
 				{
 					displayNameEn: 'Judicial review',
 					displayOrder: 100,
-					stage: folderCaseStageMappings.POST_DECISION
+					stage: folderDocumentCaseStageMappings.POST_DECISION
 				},
 				{
 					displayNameEn: 'Costs',
 					displayOrder: 200,
-					stage: folderCaseStageMappings.POST_DECISION
+					stage: folderDocumentCaseStageMappings.POST_DECISION
 				},
 				{
 					displayNameEn: 'Non-material change',
 					displayOrder: 300,
-					stage: folderCaseStageMappings.POST_DECISION
+					stage: folderDocumentCaseStageMappings.POST_DECISION
 				},
 				{
 					displayNameEn: 'Material change',
 					displayOrder: 400,
-					stage: folderCaseStageMappings.POST_DECISION
+					stage: folderDocumentCaseStageMappings.POST_DECISION
 				},
 				{
 					displayNameEn: 'Redetermination',
 					displayOrder: 500,
-					stage: folderCaseStageMappings.POST_DECISION
+					stage: folderDocumentCaseStageMappings.POST_DECISION
 				}
 			]
 		}
