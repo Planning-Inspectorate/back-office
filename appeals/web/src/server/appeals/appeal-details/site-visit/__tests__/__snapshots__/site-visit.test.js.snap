@@ -57,7 +57,7 @@ exports[`site-visit GET /site-visit/manage-visit should render the manage visit 
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -84,9 +84,9 @@ exports[`site-visit GET /site-visit/manage-visit should render the manage visit 
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -163,7 +163,7 @@ exports[`site-visit GET /site-visit/schedule-visit should render the schedule vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -190,9 +190,9 @@ exports[`site-visit GET /site-visit/schedule-visit should render the schedule vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -253,7 +253,7 @@ exports[`site-visit GET /site-visit/visit-scheduled/:confirmationPageTypeToRende
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-panel govuk-panel--confirmation">
-                    <h1 class="govuk-panel__title"> Site visit booked</h1>
+                    <h1 class="govuk-panel__title"> Site visit scheduled</h1>
                     <div class="govuk-panel__body">Appeal ID
                         <br><strong>351062</strong>
                     </div>
@@ -263,8 +263,8 @@ exports[`site-visit GET /site-visit/visit-scheduled/:confirmationPageTypeToRende
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2"><span class="govuk-body">Your accompanied site visit at 21 The Pavement, Wandsworth, SW4 0HY is booked for 9 October 2023, between 09:38 and 10:44.</span>
                 <h2                 class="govuk-heading-m">What happens next</h2>
-                    <p class="govuk-body">We updated the case timetable. We&#39;ve sent an email to the LPA and
-                        appellant to confirm the site visit.</p>
+                    <p class="govuk-body">The case timetable has been updated. We&#39;ve sent an email to the LPA
+                        and appellant to confirm the site visit.</p>
                     <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
                     </p>
             </div>
@@ -422,7 +422,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -449,9 +449,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -543,7 +543,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -570,9 +570,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -666,7 +666,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -693,9 +693,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -789,7 +789,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -816,9 +816,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -912,7 +912,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -939,9 +939,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -1035,7 +1035,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -1062,9 +1062,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -1158,7 +1158,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -1185,9 +1185,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -1279,7 +1279,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -1306,9 +1306,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -1400,7 +1400,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -1427,9 +1427,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -1521,7 +1521,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -1548,9 +1548,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -1644,7 +1644,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -1671,9 +1671,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -1765,7 +1765,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -1792,9 +1792,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -1886,7 +1886,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -1913,9 +1913,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -2023,7 +2023,7 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -2050,9 +2050,9 @@ exports[`site-visit POST /site-visit/manage-visit should re-render the manage vi
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -2144,7 +2144,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -2171,9 +2171,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -2265,7 +2265,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -2292,9 +2292,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -2388,7 +2388,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -2415,9 +2415,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -2511,7 +2511,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -2538,9 +2538,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -2634,7 +2634,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -2661,9 +2661,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -2757,7 +2757,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -2784,9 +2784,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -2880,7 +2880,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -2907,9 +2907,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -3001,7 +3001,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -3028,9 +3028,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -3122,7 +3122,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -3149,9 +3149,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -3243,7 +3243,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -3270,9 +3270,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -3366,7 +3366,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -3393,9 +3393,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -3487,7 +3487,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -3514,9 +3514,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -3608,7 +3608,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -3635,9 +3635,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
@@ -3745,7 +3745,7 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
         </div>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" role="group" aria-describedby="visit-date-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select a date</legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Select date</legend>
                 <div id="visit-date-hint" class="govuk-hint">For example, 27 3 2023</div>
                 <div class="govuk-date-input" id="visit-date">
                     <div class="govuk-date-input__item">
@@ -3772,9 +3772,9 @@ exports[`site-visit POST /site-visit/schedule-visit should re-render the schedul
                 </div>
             </fieldset>
         </div>
-        <h2>Select a time</h2>
-        <p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-        <p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+        <h2>Select time</h2>
+        <p class="govuk-hint">Optional for unaccompanied visits</p>
+        <p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
         <fieldset class="govuk-fieldset govuk-!-margin-bottom-4">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Start time</legend>
             <input class="govuk-input govuk-input--width-2" id="visit-start-time-hour"
