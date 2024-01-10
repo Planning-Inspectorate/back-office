@@ -23,7 +23,7 @@
 				"parameters": [],
 				"responses": {
 					"200": {
-						"description": "List of applications assigned",
+						"description": "List of applications",
 						"schema": {
 							"$ref": "#/definitions/ApplicationSummaryMany"
 						}
@@ -529,6 +529,10 @@
 									"type": "string",
 									"example": "This is the representation text"
 								},
+								"representedType": {
+									"type": "string",
+									"example": "PERSON"
+								},
 								"represented": {
 									"type": "object",
 									"properties": {
@@ -584,10 +588,6 @@
 													"example": ""
 												}
 											}
-										},
-										"type": {
-											"type": "string",
-											"example": "PERSON"
 										},
 										"under18": {
 											"type": "boolean",
@@ -753,6 +753,10 @@
 									"type": "string",
 									"example": "This is the representation text"
 								},
+								"representedType": {
+									"type": "string",
+									"example": "PERSON"
+								},
 								"represented": {
 									"type": "object",
 									"properties": {
@@ -808,10 +812,6 @@
 													"example": ""
 												}
 											}
-										},
-										"type": {
-											"type": "string",
-											"example": "PERSON"
 										},
 										"under18": {
 											"type": "boolean",
@@ -1042,50 +1042,6 @@
 								"status": {
 									"type": "string",
 									"example": "DRAFT"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/applications/{id}/representations/{repId}/contacts/{contactId}": {
-			"delete": {
-				"tags": ["Applications"],
-				"description": "Delete a representation contact for an application",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "Application ID"
-					},
-					{
-						"name": "repId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "contactId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Representation",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"contactId": {
-									"type": "number",
-									"example": 1
 								}
 							},
 							"xml": {
