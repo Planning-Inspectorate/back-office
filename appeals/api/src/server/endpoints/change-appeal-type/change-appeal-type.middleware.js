@@ -6,6 +6,7 @@ import {
 	STATE_TARGET_INVALID,
 	STATE_TARGET_CLOSED,
 	STATE_TARGET_COMPLETE,
+	STATE_TARGET_AWAITING_TRANSFER,
 	STATE_TARGET_TRANSFERRED,
 	STATE_TARGET_WITHDRAWN
 } from '#endpoints/constants.js';
@@ -53,6 +54,7 @@ export const validateAppealStatus = async (req, res, next) => {
 			STATE_TARGET_CLOSED,
 			STATE_TARGET_COMPLETE,
 			STATE_TARGET_INVALID,
+			STATE_TARGET_AWAITING_TRANSFER,
 			STATE_TARGET_TRANSFERRED,
 			STATE_TARGET_WITHDRAWN
 		].indexOf(req.appeal.appealStatus[0].status) === -1;

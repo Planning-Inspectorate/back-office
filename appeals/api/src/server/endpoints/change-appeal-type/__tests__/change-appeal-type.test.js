@@ -13,7 +13,7 @@ const appealsWithValidStatus = [
 		...householdAppeal,
 		appealStatus: [
 			{
-				status: 'awaiting_transfer',
+				status: 'lpa_questionnaire_due',
 				valid: true
 			}
 		]
