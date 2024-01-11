@@ -15,7 +15,6 @@ export interface NSIPDocument {
 	fileMD5: string | null;
 	dateCreated: string | null;
 	lastModified?: string;
-	documentStatus: 'submitted' | 'internal' | 'draft';
 	redactedStatus: 'not_redacted' | 'redacted' | null;
 	publishedStatus:
 		| 'not_checked'
