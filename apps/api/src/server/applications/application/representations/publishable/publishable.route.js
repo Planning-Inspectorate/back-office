@@ -1,5 +1,5 @@
 import { validateApplicationId } from '../../application.validators.js';
-import { asyncHandler } from '@pins/express/middleware/async-handler.js';
+import { asyncHandler } from '@pins/express';
 import { Router as createRouter } from 'express';
 import { getPublishableRepresentations } from './publishable.controller.js';
 

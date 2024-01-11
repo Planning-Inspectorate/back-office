@@ -3,7 +3,7 @@ import * as locals from '@pins/applications.web/src/server/applications/case/app
 import applicationsDocumentationRouter from '@pins/applications.web/src/server/applications/case/documentation/applications-documentation.router.js';
 import applicationsDocumentationMetadataRouter from '@pins/applications.web/src/server/applications/case/documentation-metadata/documentation-metadata.router.js';
 import applicationsEditRouter from '@pins/applications.web/src/server/applications/case/edit/applications-edit.router.js';
-import asyncRoute from '@pins/applications.web/src/server/lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { Router as createRouter } from 'express';
 import applicationsTimetableRouter from './examination-timetable/applications-timetable.router.js';
 import relevantRepsRouter from './representations/applications-relevant-reps.router.js';
@@ -29,23 +29,23 @@ applicationsCaseRouter.use('/:caseId/project-team', applicationsProjectTeamRoute
 
 applicationsCaseRouter
 	.route('/:caseId/preview-and-publish')
-	.get([locals.registerCase], asyncRoute(controller.viewApplicationsCasePublishPage))
-	.post([locals.registerCase], asyncRoute(controller.updateApplicationsCasePublishPage));
+	.get([locals.registerCase], asyncHandler(controller.viewApplicationsCasePublishPage))
+	.post([locals.registerCase], asyncHandler(controller.updateApplicationsCasePublishPage));
 
 applicationsCaseRouter
 	.route('/:caseId/unpublish')
-	.get(locals.registerCase, asyncRoute(controller.viewApplicationsCaseUnpublishPage))
-	.post([locals.registerCase], asyncRoute(controller.unpublishApplicationsCase));
+	.get(locals.registerCase, asyncHandler(controller.viewApplicationsCaseUnpublishPage))
+	.post([locals.registerCase], asyncHandler(controller.unpublishApplicationsCase));
 
 applicationsCaseRouter.use('/:caseId', applicationsCaseSummaryRouter);
 
 applicationsCaseSummaryRouter.use(locals.registerCase);
 applicationsCaseSummaryRouter
 	.route('/project-information')
-	.get(asyncRoute(controller.viewApplicationsCaseInformation));
+	.get(asyncHandler(controller.viewApplicationsCaseInformation));
 
 applicationsCaseSummaryRouter
 	.route('/:overview?')
-	.get(asyncRoute(controller.viewApplicationsCaseOverview));
+	.get(asyncHandler(controller.viewApplicationsCaseOverview));
 
 export default applicationsCaseRouter;

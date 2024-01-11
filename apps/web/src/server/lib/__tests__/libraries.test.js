@@ -1,5 +1,4 @@
 import { addressToString } from '../address-formatter.js';
-import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 import { dateIsValid, isDateInstance } from '../dates.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
@@ -18,28 +17,6 @@ describe('Libraries', () => {
 			const adressFormatted = addressToString(address);
 
 			expect(typeof adressFormatted).toBe('string');
-		});
-	});
-
-	describe('async-route helper', () => {
-		it('should throw error if route throws error', async () => {
-			const error = new Error('some error');
-
-			const route = async () => {
-				throw error;
-			};
-
-			await expect(asyncRoute(route)).rejects.toThrow(error);
-		});
-
-		it('should throw error if route returns rejected promise', async () => {
-			const error = new Error('some error');
-
-			const route = async () => {
-				await Promise.reject(error);
-			};
-
-			await expect(asyncRoute(route)).rejects.toThrow(error);
 		});
 	});
 

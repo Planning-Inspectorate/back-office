@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '@pins/express/middleware/async-handler.js';
+import { asyncHandler } from '@pins/express';
 import { getRegions } from './region.controller.js';
 
 const router = createRouter();

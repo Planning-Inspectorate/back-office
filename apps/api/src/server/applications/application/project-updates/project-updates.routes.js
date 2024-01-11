@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { validateApplicationId } from '../application.validators.js';
 import { validatePaginationParameters } from '#middleware/pagination-validation.js';
-import { asyncHandler } from '@pins/express/middleware/async-handler.js';
+import { asyncHandler } from '@pins/express';
 import * as controller from './project-updates.controller.js';
 import { validateSortBy } from '#middleware/validate-sort-by.js';
 import {

@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { addRepresentationToLocals } from '../representation.middleware.js';
 import {
 	getRepresentationComment,
@@ -12,11 +12,11 @@ const relevantRepresentationCommentRouter = createRouter({ mergeParams: true });
 
 relevantRepresentationCommentRouter
 	.route(repRoutes.addRepresentation)
-	.get(addRepresentationToLocals, asyncRoute(getRepresentationComment))
+	.get(addRepresentationToLocals, asyncHandler(getRepresentationComment))
 	.post(
 		addRepresentationToLocals,
 		representationCommentValidation,
-		asyncRoute(postRepresentationComment)
+		asyncHandler(postRepresentationComment)
 	);
 
 export default relevantRepresentationCommentRouter;

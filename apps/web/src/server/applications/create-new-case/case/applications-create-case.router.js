@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { registerCaseWithQuery } from '../../applications.locals.js';
 import * as controller from './applications-create-case.controller.js';
 import * as validators from './applications-create-case.validators.js';
@@ -10,43 +10,43 @@ applicationsCreateCaseRouter
 	.route('/')
 	.get(
 		registerCaseWithQuery(['title', 'description'], true),
-		asyncRoute(controller.viewApplicationsCreateCaseName)
+		asyncHandler(controller.viewApplicationsCreateCaseName)
 	)
 	.post(
 		[
 			validators.validateApplicationsCreateCaseName,
 			validators.validateApplicationsCreateCaseDescription
 		],
-		asyncRoute(controller.updateApplicationsCreateCaseName)
+		asyncHandler(controller.updateApplicationsCreateCaseName)
 	);
 
 applicationsCreateCaseRouter
 	.route('/sector')
 	.get(
 		registerCaseWithQuery(['sector'], true),
-		asyncRoute(controller.viewApplicationsCreateCaseSector)
+		asyncHandler(controller.viewApplicationsCreateCaseSector)
 	)
 	.post(
 		validators.validateApplicationsCreateCaseSector,
-		asyncRoute(controller.updateApplicationsCreateCaseSector)
+		asyncHandler(controller.updateApplicationsCreateCaseSector)
 	);
 
 applicationsCreateCaseRouter
 	.route('/sub-sector')
 	.get(
 		registerCaseWithQuery(['subSector', 'sector'], true),
-		asyncRoute(controller.viewApplicationsCreateCaseSubSector)
+		asyncHandler(controller.viewApplicationsCreateCaseSubSector)
 	)
 	.post(
 		validators.validateApplicationsCreateCaseSubSector,
-		asyncRoute(controller.updateApplicationsCreateCaseSubSector)
+		asyncHandler(controller.updateApplicationsCreateCaseSubSector)
 	);
 
 applicationsCreateCaseRouter
 	.route('/geographical-information')
 	.get(
 		registerCaseWithQuery(['geographicalInformation'], true),
-		asyncRoute(controller.viewApplicationsCreateCaseGeographicalInformation)
+		asyncHandler(controller.viewApplicationsCreateCaseGeographicalInformation)
 	)
 	.post(
 		[
@@ -54,37 +54,37 @@ applicationsCreateCaseRouter
 			validators.validateApplicationsCreateCaseEasting,
 			validators.validateApplicationsCreateCaseNorthing
 		],
-		asyncRoute(controller.updateApplicationsCreateCaseGeographicalInformation)
+		asyncHandler(controller.updateApplicationsCreateCaseGeographicalInformation)
 	);
 
 applicationsCreateCaseRouter
 	.route('/regions')
 	.get(
 		registerCaseWithQuery(['geographicalInformation'], true),
-		asyncRoute(controller.viewApplicationsCreateCaseRegions)
+		asyncHandler(controller.viewApplicationsCreateCaseRegions)
 	)
 	.post(
 		validators.validateApplicationsCreateCaseRegions,
-		asyncRoute(controller.updateApplicationsCreateCaseRegions)
+		asyncHandler(controller.updateApplicationsCreateCaseRegions)
 	);
 
 applicationsCreateCaseRouter
 	.route('/zoom-level')
 	.get(
 		registerCaseWithQuery(['geographicalInformation'], true),
-		asyncRoute(controller.viewApplicationsCreateCaseZoomLevel)
+		asyncHandler(controller.viewApplicationsCreateCaseZoomLevel)
 	)
-	.post(asyncRoute(controller.updateApplicationsCreateCaseZoomLevel));
+	.post(asyncHandler(controller.updateApplicationsCreateCaseZoomLevel));
 
 applicationsCreateCaseRouter
 	.route('/team-email')
 	.get(
 		registerCaseWithQuery(['caseEmail'], true),
-		asyncRoute(controller.viewApplicationsCreateCaseTeamEmail)
+		asyncHandler(controller.viewApplicationsCreateCaseTeamEmail)
 	)
 	.post(
 		validators.validateApplicationsTeamEmail,
-		asyncRoute(controller.updateApplicationsCreateCaseTeamEmail)
+		asyncHandler(controller.updateApplicationsCreateCaseTeamEmail)
 	);
 
 export default applicationsCreateCaseRouter;
