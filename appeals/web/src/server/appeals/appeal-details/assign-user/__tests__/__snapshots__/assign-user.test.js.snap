@@ -722,7 +722,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                                 ">725284</a></li><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 1 2 3 4 5 6
                                 ">123456</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/change-appeal-details/linked-appeals
                                 "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                                "> Other appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
+                                "> Related appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
                                     <li><a href='/appeals-service/appeal-details/3' class="govuk-link" aria-label="Appeal 7 6 5 4 1 3">765413</a>
                                     </li>
                                     <li><a href='/appeals-service/appeal-details/4' class="govuk-link" aria-label="Appeal 5 2 3 4 6 7">523467</a>
@@ -732,7 +732,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/other-appeals"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation level</dt>
                             <dd class="govuk-summary-list__value">Level: A
                                 <br>Band: 3
                                 <br>Specialisms:
@@ -1184,7 +1184,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                                 ">725284</a></li><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 1 2 3 4 5 6
                                 ">123456</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/change-appeal-details/linked-appeals
                                 "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                                "> Other appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
+                                "> Related appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
                                     <li><a href='/appeals-service/appeal-details/3' class="govuk-link" aria-label="Appeal 7 6 5 4 1 3">765413</a>
                                     </li>
                                     <li><a href='/appeals-service/appeal-details/4' class="govuk-link" aria-label="Appeal 5 2 3 4 6 7">523467</a>
@@ -1194,7 +1194,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/other-appeals"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation level</dt>
                             <dd class="govuk-summary-list__value">Level: A
                                 <br>Band: 3
                                 <br>Specialisms:
@@ -1507,7 +1507,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                                 ">725284</a></li><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 1 2 3 4 5 6
                                 ">123456</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/change-appeal-details/linked-appeals
                                 "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                                "> Other appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
+                                "> Related appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
                                     <li><a href='/appeals-service/appeal-details/3' class="govuk-link" aria-label="Appeal 7 6 5 4 1 3">765413</a>
                                     </li>
                                     <li><a href='/appeals-service/appeal-details/4' class="govuk-link" aria-label="Appeal 5 2 3 4 6 7">523467</a>
@@ -1517,7 +1517,7 @@ exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a pa
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/other-appeals"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation level</dt>
                             <dd class="govuk-summary-list__value">Level: A
                                 <br>Band: 3
                                 <br>Specialisms:
@@ -1830,7 +1830,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                                 ">725284</a></li><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 1 2 3 4 5 6
                                 ">123456</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/change-appeal-details/linked-appeals
                                 "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                                "> Other appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
+                                "> Related appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
                                     <li><a href='/appeals-service/appeal-details/3' class="govuk-link" aria-label="Appeal 7 6 5 4 1 3">765413</a>
                                     </li>
                                     <li><a href='/appeals-service/appeal-details/4' class="govuk-link" aria-label="Appeal 5 2 3 4 6 7">523467</a>
@@ -1840,7 +1840,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/other-appeals"> Change</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation details</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation level</dt>
                             <dd class="govuk-summary-list__value">Level: A
                                 <br>Band: 3
                                 <br>Specialisms:

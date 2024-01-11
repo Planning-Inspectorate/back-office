@@ -1,9 +1,9 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { Sequelize } from 'sequelize';
 import * as tedious from 'tedious';
-import { loadConfig } from './config.js';
+import { loadSynapseConfig } from './config.js';
 
-const config = loadConfig();
+const config = loadSynapseConfig();
 
 const credential = new DefaultAzureCredential();
 

@@ -22,9 +22,9 @@
 				{%- include "../components/page-component.njk" -%}
 			{%- endif -%}
 		{%- endfor -%}
-		<h2>Select a time</h2>
-		<p class="govuk-hint">Time is optional for unaccompanied site visits</p>
-		<p class="govuk-hint">Enter a time, for example 9:00 or 16:30</p>
+		<h2>Select time</h2>
+		<p class="govuk-hint">Optional for unaccompanied visits</p>
+		<p class="govuk-hint">Use the 24-hour clock. For example 16:30</p>
 		{%- for component in pageContent.pageComponents -%}
 			{%- if component.type === 'time-input' -%}
 				{%- include "../components/page-component.njk" -%}

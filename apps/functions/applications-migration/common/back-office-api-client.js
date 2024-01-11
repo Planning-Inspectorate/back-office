@@ -1,7 +1,7 @@
 import got from 'got';
-import { loadConfig } from './config.js';
+import { loadApiConfig } from './config.js';
 
-const config = loadConfig();
+const config = loadApiConfig();
 
 /**
  * Handle an HTTP trigger/request to run the migration
