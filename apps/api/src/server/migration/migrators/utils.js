@@ -35,6 +35,30 @@ const getCaseIdFromRef = async (reference) => {
 };
 
 /**
+ * @param {string }email
+ * @returns {Promise<number>} serviceUserId
+ */
+export const getOrCreateServiceUserId = async ({ emailAddress: email }) => {
+	const existingServiceUser = await databaseConnector.serviceUser.findFirst({
+		where: { email },
+		select: { id: true }
+	});
+
+	if (existingServiceUser) return existingServiceUser.id;
+
+	const newServiceUser = await databaseConnector.serviceUser.create({
+		data: {
+			email
+		},
+		select: {
+			id: true
+		}
+	});
+
+	return newServiceUser.id;
+};
+
+/**
  * @param {NSIPProjectMinimalCaseData} projectUpdate
  *
  * @returns {Promise<number>} caseId
