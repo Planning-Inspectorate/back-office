@@ -3,7 +3,8 @@ import { asyncHandler } from '../../middleware/async-handler.js';
 import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
 import {
 	loadAllAppealTypesAndAddToRequest,
-	validateAppealType
+	validateAppealType,
+	validateAppealStatus
 } from './change-appeal-type.middleware.js';
 import {
 	getAppealTypes,
@@ -60,6 +61,7 @@ router.post(
 	 */
 	loadAllAppealTypesAndAddToRequest,
 	checkAppealExistsAndAddToRequest,
+	validateAppealStatus,
 	validateAppealType,
 	postAppealTypeChangeValidator,
 	asyncHandler(requestChangeOfAppealType)
@@ -86,6 +88,7 @@ router.post(
 	 */
 	loadAllAppealTypesAndAddToRequest,
 	checkAppealExistsAndAddToRequest,
+	validateAppealStatus,
 	validateAppealType,
 	postAppealTypeTransferValidator,
 	asyncHandler(requestTransferOfAppeal)
