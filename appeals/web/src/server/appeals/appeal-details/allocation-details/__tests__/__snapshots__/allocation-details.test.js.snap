@@ -51,7 +51,7 @@ exports[`Allocation Details should render "Select allocation specialism" Page 1`
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Allocation specialism</h1>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Select allocation specialism(s)</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -125,7 +125,7 @@ exports[`Allocation Details should render "Select allocation specialism" with er
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Allocation specialism</h1>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Select allocation specialism(s)</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -184,7 +184,7 @@ exports[`Allocation Details should render "Select the allocation level" Page 1`]
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Select the allocation level</h1>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Select allocation level</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -232,7 +232,7 @@ exports[`Allocation Details should render "Select the allocation level" with err
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Select the allocation level</h1>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Select allocation level</h1>
         </div>
     </div>
     <div class="govuk-grid-row">

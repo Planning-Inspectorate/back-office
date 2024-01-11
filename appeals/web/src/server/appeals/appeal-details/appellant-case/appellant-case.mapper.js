@@ -68,7 +68,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		parameters: {
 			card: {
 				title: {
-					text: '1. The appellant'
+					text: '1. Appellant'
 				}
 			},
 			rows: [
@@ -87,7 +87,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		parameters: {
 			card: {
 				title: {
-					text: '2. The appeal site'
+					text: '2. Appeal site'
 				}
 			},
 			rows: [
@@ -111,7 +111,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		parameters: {
 			card: {
 				title: {
-					text: '3. The appeal'
+					text: '3. Appeal status'
 				}
 			},
 			rows: [

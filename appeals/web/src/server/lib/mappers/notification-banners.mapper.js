@@ -24,7 +24,7 @@ export const notificationBannerDefinitions = {
 	allocationDetailsUpdated: {
 		pages: ['appealDetails'],
 		type: 'success',
-		text: 'Allocation details updated'
+		text: 'Allocation details added'
 	},
 	caseOfficerAdded: {
 		pages: ['appealDetails'],

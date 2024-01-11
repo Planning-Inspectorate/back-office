@@ -515,7 +515,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Site health and safety issues'
+					text: 'Potential safety risks'
 				},
 				value: {
 					text: convertFromBooleanToYesNo(appellantCaseData.healthAndSafety.hasIssues) || ''
@@ -524,7 +524,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
-							visuallyHiddenText: 'Site health and safety issues',
+							visuallyHiddenText: 'Potential safety risks',
 							href: `${currentRoute}/change-appeal-details/site-health-and-safety-issues`
 						}
 					]
@@ -532,7 +532,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 			}
 		},
 		input: {
-			displayName: 'Site health and safety issues',
+			displayName: 'Potential safety risks',
 			instructions: [
 				{
 					type: 'radios',
@@ -687,7 +687,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Add new supporting documents'
+					text: 'Supporting documents'
 				},
 				value: {
 					text:
@@ -699,7 +699,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					items: [
 						{
 							text: 'Change',
-							visuallyHiddenText: 'Add new supporting documents',
+							visuallyHiddenText: 'Supporting documents',
 							href: `${currentRoute}/change-appeal-details/add-new-supporting-documents`
 						}
 					]
@@ -707,7 +707,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 			}
 		},
 		input: {
-			displayName: 'Add new supporting documents',
+			displayName: 'Supporting documents',
 			instructions: [
 				{
 					type: 'radios',
