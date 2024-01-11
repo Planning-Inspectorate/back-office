@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { getCaseRepDownload } from './rep-download.controller.js';
 import { validateApplicationId } from '../../application.validators.js';
-import { asyncHandler } from '#middleware/async-handler.js';
+import { asyncHandler } from '@pins/express/middleware/async-handler.js';
 
 const router = createRouter({ mergeParams: true });
 router.get(

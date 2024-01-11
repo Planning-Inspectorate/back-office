@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '#middleware/async-handler.js';
+import { asyncHandler } from '@pins/express/middleware/async-handler.js';
 import { validateApplicationId } from '../application/application.validators.js';
 import { getKeyDates, updateKeyDates } from './key-dates.controller.js';
 import { validateUpdateKeyDates } from './key-dates.validators.js';
