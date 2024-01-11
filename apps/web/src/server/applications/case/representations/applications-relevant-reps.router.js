@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import * as controller from './applications-relevant-reps.controller.js';
 import { publishUpdatedRepresentationsRouter } from './publish-updated-representations/publish-updated-representations.router.js';
 import { publishRepresentationsErrorRouter } from './publish-representations-error/publish-representations-error.router.js';
@@ -19,7 +19,7 @@ import { getRepDownloadController } from './download/download.controller.js';
 
 const relevantRepsRouter = createRouter({ mergeParams: true });
 
-relevantRepsRouter.route('/').get(asyncRoute(controller.relevantRepsApplications));
+relevantRepsRouter.route('/').get(asyncHandler(controller.relevantRepsApplications));
 relevantRepsRouter.use('/', relevantRepContactDetailsRouter);
 relevantRepsRouter.use('/', relevantRepAddressDetailsRouter);
 relevantRepsRouter.use('/', relevantRepresentationTypeRouter);

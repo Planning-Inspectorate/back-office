@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { addRepresentationToLocals } from '../representation.middleware.js';
 import { getRepresentationType, postRepresentationType } from './representation-type.controller.js';
 import { representationTypeValidation } from './representation-type.validators.js';
@@ -9,11 +9,11 @@ const relevantRepresentationTypeRouter = createRouter({ mergeParams: true });
 
 relevantRepresentationTypeRouter
 	.route(repRoutes.representationType)
-	.get(addRepresentationToLocals, asyncRoute(getRepresentationType))
+	.get(addRepresentationToLocals, asyncHandler(getRepresentationType))
 	.post(
 		addRepresentationToLocals,
 		representationTypeValidation,
-		asyncRoute(postRepresentationType)
+		asyncHandler(postRepresentationType)
 	);
 
 export default relevantRepresentationTypeRouter;

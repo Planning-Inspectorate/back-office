@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '@pins/express/middleware/async-handler.js';
+import { asyncHandler } from '@pins/express';
 import * as controller from './notification-logs.controller.js';
 import { validateProjectUpdateId } from '../project-updates.validators.js';
 import { validateApplicationId } from '../../application.validators.js';

@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { registerCaseWithQuery } from '../../../applications.locals.js';
 import * as validators from '../../../create-new-case/case/applications-create-case.validators.js';
 import * as controller from './applications-edit-case.controller.js';
@@ -8,84 +8,84 @@ const applicationsEditCaseRouter = createRouter();
 
 applicationsEditCaseRouter
 	.route('/name')
-	.get(registerCaseWithQuery(['title']), asyncRoute(controller.viewApplicationsEditCaseName))
+	.get(registerCaseWithQuery(['title']), asyncHandler(controller.viewApplicationsEditCaseName))
 	.post(
 		[validators.validateApplicationsCreateCaseName],
-		asyncRoute(controller.updateApplicationsEditCaseNameAndDescription)
+		asyncHandler(controller.updateApplicationsEditCaseNameAndDescription)
 	);
 
 applicationsEditCaseRouter
 	.route('/description')
 	.get(
 		registerCaseWithQuery(['description']),
-		asyncRoute(controller.viewApplicationsEditCaseDescription)
+		asyncHandler(controller.viewApplicationsEditCaseDescription)
 	)
 	.post(
 		[validators.validateApplicationsCreateCaseDescription],
-		asyncRoute(controller.updateApplicationsEditCaseNameAndDescription)
+		asyncHandler(controller.updateApplicationsEditCaseNameAndDescription)
 	);
 
 applicationsEditCaseRouter
 	.route('/team-email')
 	.get(
 		registerCaseWithQuery(['caseEmail']),
-		asyncRoute(controller.viewApplicationsEditCaseTeamEmail)
+		asyncHandler(controller.viewApplicationsEditCaseTeamEmail)
 	)
 	.post(
 		validators.validateApplicationsTeamEmail,
-		asyncRoute(controller.updateApplicationsEditCaseTeamEmail)
+		asyncHandler(controller.updateApplicationsEditCaseTeamEmail)
 	);
 
 applicationsEditCaseRouter
 	.route('/project-location')
 	.get(
 		registerCaseWithQuery(['geographicalInformation']),
-		asyncRoute(controller.viewApplicationsCreateCaseLocation)
+		asyncHandler(controller.viewApplicationsCreateCaseLocation)
 	)
 	.post(
 		validators.validateApplicationsCreateCaseLocation,
-		asyncRoute(controller.updateApplicationsEditCaseGeographicalInformation)
+		asyncHandler(controller.updateApplicationsEditCaseGeographicalInformation)
 	);
 
 applicationsEditCaseRouter
 	.route('/grid-references')
 	.get(
 		registerCaseWithQuery(['geographicalInformation']),
-		asyncRoute(controller.viewApplicationsCreateCaseGridReferences)
+		asyncHandler(controller.viewApplicationsCreateCaseGridReferences)
 	)
 	.post(
 		[
 			validators.validateApplicationsCreateCaseEasting,
 			validators.validateApplicationsCreateCaseNorthing
 		],
-		asyncRoute(controller.updateApplicationsEditCaseGeographicalInformation)
+		asyncHandler(controller.updateApplicationsEditCaseGeographicalInformation)
 	);
 
 applicationsEditCaseRouter
 	.route('/regions')
 	.get(
 		registerCaseWithQuery(['geographicalInformation']),
-		asyncRoute(controller.viewApplicationsEditCaseRegions)
+		asyncHandler(controller.viewApplicationsEditCaseRegions)
 	)
 	.post(
 		validators.validateApplicationsCreateCaseRegions,
-		asyncRoute(controller.updateApplicationsEditCaseRegions)
+		asyncHandler(controller.updateApplicationsEditCaseRegions)
 	);
 
 applicationsEditCaseRouter
 	.route('/zoom-level')
 	.get(
 		registerCaseWithQuery(['geographicalInformation']),
-		asyncRoute(controller.viewApplicationsEditCaseZoomLevel)
+		asyncHandler(controller.viewApplicationsEditCaseZoomLevel)
 	)
-	.post(asyncRoute(controller.updateApplicationsEditCaseZoomLevel));
+	.post(asyncHandler(controller.updateApplicationsEditCaseZoomLevel));
 
 applicationsEditCaseRouter
 	.route('/stage')
-	.get(registerCaseWithQuery(['status']), asyncRoute(controller.viewApplicationsEditCaseStage))
+	.get(registerCaseWithQuery(['status']), asyncHandler(controller.viewApplicationsEditCaseStage))
 	.post(
 		validators.validateApplicationsCreateCaseStage,
-		asyncRoute(controller.updateApplicationsEditCaseStage)
+		asyncHandler(controller.updateApplicationsEditCaseStage)
 	);
 
 export default applicationsEditCaseRouter;

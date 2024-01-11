@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '@pins/express/middleware/async-handler.js';
+import { asyncHandler } from '@pins/express';
 import { getZoomLevels } from './zoom-level.controller.js';
 
 const router = createRouter();

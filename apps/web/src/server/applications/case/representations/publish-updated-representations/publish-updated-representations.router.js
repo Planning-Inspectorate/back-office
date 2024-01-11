@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { publishUpdatedRepresentationsRoute } from './publish-updated-representations.config.js';
 import {
 	getPublishUpdatedRepresentationsController,
@@ -11,10 +11,10 @@ const publishUpdatedRepresentationsRouter = createRouter({ mergeParams: true });
 
 publishUpdatedRepresentationsRouter
 	.route(`/${publishUpdatedRepresentationsRoute}`)
-	.get(asyncRoute(getPublishUpdatedRepresentationsController))
+	.get(asyncHandler(getPublishUpdatedRepresentationsController))
 	.post(
 		publishUpdatedRepresentationsValidation,
-		asyncRoute(postPublishUpdatedRepresentationsController)
+		asyncHandler(postPublishUpdatedRepresentationsController)
 	);
 
 export { publishUpdatedRepresentationsRouter };

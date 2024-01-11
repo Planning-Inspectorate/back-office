@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import * as controller from './documentation-metadata.controller.js';
 import * as locals from './documentation-metadata.locals.js';
 import * as validators from './documentation-metadata.validators.js';
@@ -13,7 +13,7 @@ applicationsDocumentationMetadataRouter.use([
 
 applicationsDocumentationMetadataRouter
 	.route('/:metaDataName')
-	.get(asyncRoute(controller.viewDocumentationMetaData))
-	.post(validators.validatorsDispatcher, asyncRoute(controller.updateDocumentationMetaData));
+	.get(asyncHandler(controller.viewDocumentationMetaData))
+	.post(validators.validatorsDispatcher, asyncHandler(controller.updateDocumentationMetaData));
 
 export default applicationsDocumentationMetadataRouter;

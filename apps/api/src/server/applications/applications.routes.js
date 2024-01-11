@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '@pins/express/middleware/async-handler.js';
+import { asyncHandler } from '@pins/express';
 import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 import { applicationRoutes } from './application/application.routes.js';
 import { documentRoutes } from './application/documents/document.routes.js';

@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { registerCaseWithQuery } from '../../applications.locals.js';
 import * as controller from './applications-create-applicant.controller.js';
 import * as guards from './applications-create-applicant.guards.js';
@@ -13,36 +13,36 @@ applicationsCreateApplicantRouter.use(locals.registerApplicantId);
 applicationsCreateApplicantRouter
 	.route('/applicant-information-types')
 	.get(controller.viewApplicationsCreateApplicantTypes)
-	.post(asyncRoute(controller.updateApplicationsCreateApplicantTypes));
+	.post(asyncHandler(controller.updateApplicationsCreateApplicantTypes));
 
 applicationsCreateApplicantRouter
 	.route('/applicant-organisation-name')
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
-		asyncRoute(controller.viewApplicationsCreateApplicantOrganisationName)
+		asyncHandler(controller.viewApplicationsCreateApplicantOrganisationName)
 	)
-	.post(asyncRoute(controller.updateApplicationsCreateApplicantOrganisationName));
+	.post(asyncHandler(controller.updateApplicationsCreateApplicantOrganisationName));
 
 applicationsCreateApplicantRouter
 	.route('/applicant-full-name')
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
-		asyncRoute(controller.viewApplicationsCreateApplicantFullName)
+		asyncHandler(controller.viewApplicationsCreateApplicantFullName)
 	)
-	.post(asyncRoute(controller.updateApplicationsCreateApplicantFullName));
+	.post(asyncHandler(controller.updateApplicationsCreateApplicantFullName));
 
 applicationsCreateApplicantRouter
 	.route('/applicant-address')
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
-		asyncRoute(controller.viewApplicationsCreateApplicantAddress)
+		asyncHandler(controller.viewApplicationsCreateApplicantAddress)
 	)
 	.post(
 		validators.validateApplicationsCreateApplicantPostCode,
-		asyncRoute(controller.updateApplicationsCreateApplicantAddress)
+		asyncHandler(controller.updateApplicationsCreateApplicantAddress)
 	);
 
 applicationsCreateApplicantRouter
@@ -50,11 +50,11 @@ applicationsCreateApplicantRouter
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
-		asyncRoute(controller.viewApplicationsCreateApplicantWebsite)
+		asyncHandler(controller.viewApplicationsCreateApplicantWebsite)
 	)
 	.post(
 		validators.validateApplicationsCreateApplicantWebsite,
-		asyncRoute(controller.updateApplicationsCreateApplicantWebsite)
+		asyncHandler(controller.updateApplicationsCreateApplicantWebsite)
 	);
 
 applicationsCreateApplicantRouter
@@ -62,11 +62,11 @@ applicationsCreateApplicantRouter
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
-		asyncRoute(controller.viewApplicationsCreateApplicantEmail)
+		asyncHandler(controller.viewApplicationsCreateApplicantEmail)
 	)
 	.post(
 		validators.validateApplicationsCreateApplicantEmail,
-		asyncRoute(controller.updateApplicationsCreateApplicantEmail)
+		asyncHandler(controller.updateApplicationsCreateApplicantEmail)
 	);
 
 applicationsCreateApplicantRouter
@@ -74,11 +74,11 @@ applicationsCreateApplicantRouter
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
-		asyncRoute(controller.viewApplicationsCreateApplicantTelephoneNumber)
+		asyncHandler(controller.viewApplicationsCreateApplicantTelephoneNumber)
 	)
 	.post(
 		validators.validateApplicationsCreateApplicantTelephoneNumber,
-		asyncRoute(controller.updateApplicationsCreateApplicantTelephoneNumber)
+		asyncHandler(controller.updateApplicationsCreateApplicantTelephoneNumber)
 	);
 
 export default applicationsCreateApplicantRouter;

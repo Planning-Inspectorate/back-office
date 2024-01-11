@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { addRepresentationToLocals } from '../representation.middleware.js';
 import { getContactMethod, postContactMethod } from './contact-method.controller.js';
 import { contactMethodValidation } from './contact-method.validators.js';
@@ -9,7 +9,7 @@ const relevantRepContactMethod = createRouter({ mergeParams: true });
 
 relevantRepContactMethod
 	.route(repRoutes.contactMethod)
-	.get(addRepresentationToLocals, asyncRoute(getContactMethod))
-	.post(addRepresentationToLocals, contactMethodValidation, asyncRoute(postContactMethod));
+	.get(addRepresentationToLocals, asyncHandler(getContactMethod))
+	.post(addRepresentationToLocals, contactMethodValidation, asyncHandler(postContactMethod));
 
 export default relevantRepContactMethod;

@@ -2,7 +2,9 @@ import config from '@pins/applications.web/environment/config.js';
 import { Router as createRouter } from 'express';
 import { installAuthMock } from '../../../testing/app/mocks/auth.js';
 import applicationsRouter from '../applications/applications.router.js';
-import asyncRoute from '../lib/async-route.js';
+
+import { asyncHandler } from '@pins/express';
+
 import { handleHealthCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
 import { handleSignout } from './auth/auth.controller.js';
 import { assertGroupAccess, assertIsAuthenticated } from './auth/auth.guards.js';
@@ -46,13 +48,13 @@ const groupIds = [
 router.use(assertGroupAccess(...groupIds));
 
 router.route('/').get(viewHomepage);
-router.route('/auth/signout').get(asyncRoute(handleSignout));
+router.route('/auth/signout').get(asyncHandler(handleSignout));
 router.route('/documents/:caseId/upload').post(postDocumentsUpload);
 router.route('/documents/:caseId/s51-advice/:adviceId/upload').post(postDocumentsUpload);
 router.route('/documents/:caseId/upload/:documentId/add-version').post(postUploadDocumentVersion);
 router
 	.route('/documents/:caseId/download/:guid/version/:version/:preview?')
-	.get(asyncRoute(getDocumentsDownload));
+	.get(asyncHandler(getDocumentsDownload));
 router.route('/documents/process-html').post(postProcessHTMLFile);
 router.use('/applications-service', applicationsRouter);
 

@@ -1,3 +1,4 @@
+import './middleware/async-handler';
 import './middleware/locals';
 import './middleware/multer';
 import './middleware/session';
@@ -8,6 +9,7 @@ import './validators/date-input';
 import './utils/formdata';
 
 declare module '@pins/express' {
+	export * from './middleware/async-handler';
 	export * from './middleware/locals';
 	export * from './middleware/multer';
 	export * from './middleware/session';

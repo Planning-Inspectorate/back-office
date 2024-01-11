@@ -1,7 +1,7 @@
 /**
  * @template T
- * @param {import('express').RequestHandler<T>| function(): Promise<void>} requestHandler
- * @returns {import('express').RequestHandler<T>}
+ * @param {*} requestHandler
+ * @returns {import('express').RequestHandler<*>}
  */
 export const asyncHandler = (requestHandler) => {
 	return (request, response, next) => {
