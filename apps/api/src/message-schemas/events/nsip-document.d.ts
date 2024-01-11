@@ -54,4 +54,6 @@ export interface NSIPDocument {
 		| null;
 	filter1: string | null;
 	filter2: string | null;
+	horizonFolderId: string | null;
+	transcriptId: string | null;
 }
