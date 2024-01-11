@@ -57,7 +57,7 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
     </dl>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">1. The appellant</h2>
+            <h2 class="govuk-summary-card__title">1. Appellant</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -81,7 +81,7 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
     </div>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">2. The appeal site</h2>
+            <h2 class="govuk-summary-card__title">2. Appeal site</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -120,17 +120,17 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/visibility"> Change<span class="govuk-visually-hidden"> Visibility</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site health and safety issues</dt>
-                    <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Site health and safety issues</span></a>
-                        </dd>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Potential safety risks</span></a>
+                    </dd>
                 </div>
             </dl>
         </div>
     </div>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">3. The appeal</h2>
+            <h2 class="govuk-summary-card__title">3. Appeal status</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -149,10 +149,10 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Add new supporting documents</dt>
-                    <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Add new supporting documents</span></a>
-                        </dd>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Supporting documents</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Supporting documents</span></a>
+                    </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
@@ -261,7 +261,7 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
     </dl>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">1. The appellant</h2>
+            <h2 class="govuk-summary-card__title">1. Appellant</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -285,7 +285,7 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
     </div>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">2. The appeal site</h2>
+            <h2 class="govuk-summary-card__title">2. Appeal site</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -324,17 +324,17 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/visibility"> Change<span class="govuk-visually-hidden"> Visibility</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site health and safety issues</dt>
-                    <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Site health and safety issues</span></a>
-                        </dd>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Potential safety risks</span></a>
+                    </dd>
                 </div>
             </dl>
         </div>
     </div>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">3. The appeal</h2>
+            <h2 class="govuk-summary-card__title">3. Appeal status</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -364,10 +364,10 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Add new supporting documents</dt>
-                    <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Add new supporting documents</span></a>
-                        </dd>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Supporting documents</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Supporting documents</span></a>
+                    </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
@@ -478,7 +478,7 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
     </dl>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">1. The appellant</h2>
+            <h2 class="govuk-summary-card__title">1. Appellant</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -502,7 +502,7 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
     </div>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">2. The appeal site</h2>
+            <h2 class="govuk-summary-card__title">2. Appeal site</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -541,17 +541,17 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/visibility"> Change<span class="govuk-visually-hidden"> Visibility</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site health and safety issues</dt>
-                    <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Site health and safety issues</span></a>
-                        </dd>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Potential safety risks</span></a>
+                    </dd>
                 </div>
             </dl>
         </div>
     </div>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">3. The appeal</h2>
+            <h2 class="govuk-summary-card__title">3. Appeal status</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -581,10 +581,10 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Add new supporting documents</dt>
-                    <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Add new supporting documents</span></a>
-                        </dd>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Supporting documents</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Supporting documents</span></a>
+                    </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
@@ -2090,7 +2090,7 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
     </dl>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">1. The appellant</h2>
+            <h2 class="govuk-summary-card__title">1. Appellant</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -2114,7 +2114,7 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
     </div>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">2. The appeal site</h2>
+            <h2 class="govuk-summary-card__title">2. Appeal site</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -2153,17 +2153,17 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/visibility"> Change<span class="govuk-visually-hidden"> Visibility</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site health and safety issues</dt>
-                    <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Site health and safety issues</span></a>
-                        </dd>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Potential safety risks</span></a>
+                    </dd>
                 </div>
             </dl>
         </div>
     </div>
     <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">3. The appeal</h2>
+            <h2 class="govuk-summary-card__title">3. Appeal status</h2>
         </div>
         <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
@@ -2182,10 +2182,10 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Add new supporting documents</dt>
-                    <dd                     class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Add new supporting documents</span></a>
-                        </dd>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Supporting documents</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Supporting documents</span></a>
+                    </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>

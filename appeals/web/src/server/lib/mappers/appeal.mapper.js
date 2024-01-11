@@ -104,25 +104,16 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 							{
 								value: '3',
 								text: 'Written Representation',
-								hint: {
-									text: 'For appeals where the issues are clear from written statements and a site visit. This is the quickest and most common way to make an appeal.'
-								},
 								checked: appealDetails.procedureType === 'Written'
 							},
 							{
 								value: '1',
 								text: 'Hearing',
-								hint: {
-									text: 'For appeals with more complex issues. The Inspector leads a discussion to answer questions they have about the appeal.'
-								},
 								checked: appealDetails.procedureType === 'Hearing'
 							},
 							{
 								value: '2',
 								text: 'Inquiry',
-								hint: {
-									text: 'For appeals with very complex issues. Appeal evidence is tested by legal representatives, who question witnesses under oath.'
-								},
 								checked: appealDetails.procedureType === 'Inquiry'
 							}
 						]

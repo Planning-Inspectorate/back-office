@@ -21,11 +21,11 @@ export function allocationDetailsLevelPage(
 
 	/** @type {PageContent} */
 	const pageContent = {
-		title: `Select the allocation level - ${shortAppealReference}`,
+		title: `Select allocation level - ${shortAppealReference}`,
 		backLinkText: 'Back to case details',
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
-		heading: 'Select the allocation level',
+		heading: 'Select allocation level',
 		pageComponents: [
 			{
 				type: 'radios',
@@ -66,11 +66,11 @@ export function allocationDetailsSpecialismPage(
 
 	/** @type {PageContent} */
 	const pageContent = {
-		title: `Allocation specialism - ${shortAppealReference}`,
+		title: `Select allocation specialism(s) - ${shortAppealReference}`,
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}/allocation-details/allocation-level`,
 		backLinkText: 'Back',
 		preHeading: `Appeal ${shortAppealReference}`,
-		heading: 'Allocation specialism',
+		heading: 'Select allocation specialism(s)',
 		pageComponents: [
 			{
 				type: 'table',
