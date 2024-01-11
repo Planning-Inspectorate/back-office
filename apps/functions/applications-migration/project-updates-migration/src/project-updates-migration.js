@@ -1,11 +1,11 @@
 import { chunk as chunkArray } from 'lodash-es';
 import { QueryTypes, Sequelize } from 'sequelize';
-import { loadConfig } from '../../common/config.js';
+import { loadWordpressConfig } from '../../common/config.js';
 import { makePostRequest } from '../../common/back-office-api-client.js';
 
 const MAX_BODY_ITEMS_LENGTH = 100;
 
-const config = loadConfig();
+const config = loadWordpressConfig();
 const { username, password, database, host, port, dialect } = config.wordpressDatabase;
 
 const sequelize = new Sequelize(database, username, password, {

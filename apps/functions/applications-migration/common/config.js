@@ -1,23 +1,6 @@
 import { loadEnvironment } from '@pins/platform';
 import joi from 'joi';
-
-const schema = joi
-	.object({
-		NODE_ENV: joi.string().valid('development', 'production', 'test'),
-		synapseDatabase: {
-			host: joi.string()
-		},
-		apiHost: joi.string(),
-		wordpressDatabase: {
-			username: joi.string(),
-			password: joi.string(),
-			database: joi.string(),
-			host: joi.string(),
-			port: joi.string(),
-			dialect: joi.string()
-		}
-	})
-	.options({ presence: 'required' }); // all required by default;
+import { memoize } from 'lodash-es';
 
 /**
  * @typedef {Object} SynapseDatabaseConfig
@@ -35,32 +18,76 @@ const schema = joi
  */
 
 /**
- * @typedef {Object} Config
- * @property {string} NODE_ENV
- * @property {SynapseDatabaseConfig} synapseDatabase
+ * @typedef {Object} ApiConfig
  * @property {string} apiHost
- * @property {WordpressDatabaseConfig} wordpressDatabase
  */
 
-/** @type {Config|undefined} */
-let loadedConfig;
+const environment = loadEnvironment(process.env.NODE_ENV);
+
+const validate = (schema, config) => {
+	const objectSchema = joi.object(schema).options({ presence: 'required' });
+
+	const { value, error } = objectSchema.validate(config);
+	if (error) {
+		throw error;
+	}
+	return value;
+};
 
 /**
- * @returns {Config}
+ * @returns {ApiConfig}
  */
-export function loadConfig() {
-	if (loadedConfig) {
-		// only load config once
-		return loadedConfig;
-	}
-	const environment = loadEnvironment(process.env.NODE_ENV);
+const loadApiConfig = memoize(() => {
+	const schema = {
+		apiHost: joi.string()
+	};
 
-	const { value, error } = schema.validate({
-		NODE_ENV: environment.NODE_ENV,
+	const config = {
+		apiHost: environment.API_HOST
+	};
+
+	validate(schema, config);
+
+	return config;
+});
+
+/**
+ * @returns {SynapseDatabaseConfig}
+ */
+const loadSynapseConfig = memoize(() => {
+	const schema = {
+		synapseDatabase: {
+			host: joi.string()
+		}
+	};
+
+	const config = {
 		synapseDatabase: {
 			host: environment.SYNAPSE_SQL_HOST
-		},
-		apiHost: environment.API_HOST,
+		}
+	};
+
+	validate(schema, config);
+
+	return config;
+});
+
+/**
+ * @returns {WordpressDatabaseConfig}
+ */
+const loadWordpressConfig = memoize(() => {
+	const schema = {
+		wordpressDatabase: {
+			username: joi.string(),
+			password: joi.string(),
+			database: joi.string(),
+			host: joi.string(),
+			port: joi.string(),
+			dialect: joi.string()
+		}
+	};
+
+	const config = {
 		wordpressDatabase: {
 			username: environment.NI_DB_MYSQL_USERNAME,
 			password: environment.NI_DB_MYSQL_PASSWORD,
@@ -69,11 +96,11 @@ export function loadConfig() {
 			port: environment.NI_DB_MYSQL_PORT,
 			dialect: environment.NI_DB_MYSQL_DIALECT
 		}
-	});
+	};
 
-	if (error) {
-		throw error;
-	}
-	loadedConfig = value;
-	return value;
-}
+	validate(schema, config);
+
+	return config;
+});
+
+export { loadApiConfig, loadSynapseConfig, loadWordpressConfig };
