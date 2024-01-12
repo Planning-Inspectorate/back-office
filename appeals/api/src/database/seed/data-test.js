@@ -19,7 +19,7 @@ import {
 import isFPA from '#utils/is-fpa.js';
 import { calculateTimetable } from '#utils/business-days.js';
 import {
-	APPEAL_TYPE_SHORTHAND_FPA,
+	//APPEAL_TYPE_SHORTHAND_FPA,
 	APPEAL_TYPE_SHORTHAND_HAS,
 	STATE_TARGET_COMPLETE,
 	STATE_TARGET_ISSUE_DETERMINATION,
@@ -65,26 +65,26 @@ const pickRandom = (list) => Math.floor(Math.random() * list.length);
  * @param {Date} createdAt
  * @returns {{status: string, createdAt: Date, subStateMachineName: string, compoundStateName: string}[]}
  */
-const buildCompoundState = (
-	lpaQuestionnaireAndInspectorPickupState,
-	statementsAndFinalCommentsState,
-	createdAt = new Date()
-) => {
-	return [
-		{
-			status: lpaQuestionnaireAndInspectorPickupState,
-			createdAt,
-			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
-			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
-		},
-		{
-			status: statementsAndFinalCommentsState,
-			createdAt,
-			subStateMachineName: 'statementsAndFinalComments',
-			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
-		}
-	];
-};
+// const buildCompoundState = (
+// 	lpaQuestionnaireAndInspectorPickupState,
+// 	statementsAndFinalCommentsState,
+// 	createdAt = new Date()
+// ) => {
+// 	return [
+// 		{
+// 			status: lpaQuestionnaireAndInspectorPickupState,
+// 			createdAt,
+// 			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
+// 			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
+// 		},
+// 		{
+// 			status: statementsAndFinalCommentsState,
+// 			createdAt,
+// 			subStateMachineName: 'statementsAndFinalComments',
+// 			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
+// 		}
+// 	];
+// };
 
 /**
  *
@@ -224,6 +224,7 @@ const newAppeals = [
 		siteAddressList: addressListForTrainers,
 		assignCaseOfficer: false
 	}),
+	/*
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
@@ -236,6 +237,7 @@ const newAppeals = [
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
+	*/
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
@@ -378,7 +380,8 @@ const appealsLpaQuestionnaireDue = [
 		startedAt: new Date(),
 		siteAddressList: addressListForTrainers,
 		assignCaseOfficer: true
-	}),
+	})
+	/*
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: buildCompoundState(
@@ -487,9 +490,12 @@ const appealsLpaQuestionnaireDue = [
 		startedAt: new Date(),
 		assignCaseOfficer: true
 	})
+	*/
 ];
 
+/*
 const appealsStatementReview = [
+
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
 		statuses: { status: 'statement_review', valid: true },
@@ -584,6 +590,7 @@ const appealsFinalCommentReview = [
 		assignCaseOfficer: true
 	})
 ];
+*/
 
 const appealsArrangeSiteVisit = [
 	appealFactory({
@@ -727,8 +734,8 @@ const appealsComplete = [
 const appealsData = [
 	...newAppeals,
 	...appealsLpaQuestionnaireDue,
-	...appealsStatementReview,
-	...appealsFinalCommentReview,
+	//...appealsStatementReview,
+	//...appealsFinalCommentReview,
 	...appealsArrangeSiteVisit,
 	...appealsIssueDetermination,
 	...appealsComplete
