@@ -54,6 +54,13 @@ export const createS51Advice = async (_request, response) => {
 	const payload = { ...body, referenceNumber: newReferenceNumber };
 	const s51Advice = await s51AdviceRepository.create(payload);
 
+	// broadcast S51 advice create event
+	await eventClient.sendEvents(
+		NSIP_S51_ADVICE,
+		[await buildNsipS51AdvicePayload(s51Advice)],
+		EventType.Create
+	);
+
 	response.send(s51Advice);
 };
 
@@ -146,7 +153,7 @@ export const getDocuments = async ({ params }, response) => {
  */
 export const addDocuments = async ({ params, body }, response) => {
 	const adviceId = Number(params.adviceId);
-	const s51Advice = s51AdviceRepository.get(adviceId);
+	const s51Advice = await s51AdviceRepository.get(adviceId);
 
 	if (!s51Advice) {
 		throw new BackOfficeAppError(`S51 advice with id: ${adviceId} not found.`, 404);
@@ -213,6 +220,13 @@ export const addDocuments = async ({ params, body }, response) => {
 		pick(doc, ['documentName', 'documentReference', 'blobStoreUrl', 'GUID'])
 	);
 
+	// broadcast S51 advice update event
+	await eventClient.sendEvents(
+		NSIP_S51_ADVICE,
+		[await buildNsipS51AdvicePayload(s51Advice)],
+		EventType.Update
+	);
+
 	response.status([...failedDocuments, ...duplicates].length > 0 ? 206 : 200).send({
 		blobStorageHost,
 		privateBlobContainer,
@@ -250,9 +264,16 @@ export const updateS51Advice = async ({ body, params }, response) => {
 		payload.publishedStatusPrev = advice.publishedStatus;
 	}
 
-	const updateResponseInTable = await s51AdviceRepository.update(adviceId, payload);
+	const updatedS51Advice = await s51AdviceRepository.update(adviceId, payload);
 
-	response.send(updateResponseInTable);
+	// broadcast S51 advice update event
+	await eventClient.sendEvents(
+		NSIP_S51_ADVICE,
+		[await buildNsipS51AdvicePayload(updatedS51Advice)],
+		EventType.Update
+	);
+
+	response.send(updatedS51Advice);
 };
 
 /**
@@ -364,6 +385,13 @@ export const updateManyS51Advices = async ({ body }, response) => {
 		);
 
 		formattedResponseList.push(formattedResponse);
+
+		// broadcast S51 advice update event for each advice
+		await eventClient.sendEvents(
+			NSIP_S51_ADVICE,
+			[await buildNsipS51AdvicePayload(updateResponseInTable)],
+			EventType.Update
+		);
 	}
 
 	response.send(formattedResponseList);
@@ -424,6 +452,13 @@ export const removePublishItemFromQueue = async ({ body }, response) => {
 	const updatedS51Advice = await s51AdviceRepository.update(adviceId, {
 		publishedStatus: s51Advice.publishedStatusPrev
 	});
+
+	// broadcast S51 advice update event
+	await eventClient.sendEvents(
+		NSIP_S51_ADVICE,
+		[await buildNsipS51AdvicePayload(updatedS51Advice)],
+		EventType.Update
+	);
 
 	response.send(updatedS51Advice);
 };
@@ -506,6 +541,15 @@ export const deleteS51Advice = async ({ params: { adviceId } }, response) => {
 		const docGuids = attachments.map(({ documentGuid }) => documentGuid);
 		for (const guid of docGuids) {
 			await documentRepository.deleteDocument(guid);
+		}
+
+		// broadcast S51 advice delete event
+		if (s51Advice) {
+			await eventClient.sendEvents(
+				NSIP_S51_ADVICE,
+				[await buildNsipS51AdvicePayload(s51Advice)],
+				EventType.Delete
+			);
 		}
 	} catch (error) {
 		throw new BackOfficeAppError(`Unknown error: ${error}`, 400);

@@ -1,5 +1,6 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
+import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -10,10 +11,10 @@ const validS51AdviceBody = {
 	firstName: 'John',
 	lastName: 'Keats',
 	enquiryMethod: 'email',
-	enquiryDate: '2023-02-27T10:00:00Z',
+	enquiryDate: new Date('2023-01-01T10:00'),
 	enquiryDetails: 'enquiryDetails',
 	adviser: 'adviser',
-	adviceDate: '2023-02-27T10:00:00Z',
+	adviceDate: new Date('2023-01-01T10:00'),
 	adviceDetails: 'adviceDetails'
 };
 
@@ -43,6 +44,14 @@ const s51AdviceDocuments = [
 		}
 	}
 ];
+
+const application1 = applicationFactoryForTests({
+	id: 1,
+	reference: 'BC0110001',
+	title: 'BC010001 - NI Case 1 Name',
+	description: 'BC010001 - NI Case 1 Name Description',
+	caseStatus: 'pre-application'
+});
 
 describe('Test S51 advice update status and redacted status', () => {
 	afterEach(() => {
@@ -130,7 +139,7 @@ describe('Test S51 advice update status and redacted status', () => {
 
 	test('updates s51 advice status to ready_to_publish, with enquirer organisation but no person', async () => {
 		// GIVEN
-		const validS51AdviceBodyNoPerson = { validS51AdviceBody, firstName: '', lastName: '' };
+		const validS51AdviceBodyNoPerson = { ...validS51AdviceBody, firstName: '', lastName: '' };
 		const validS51AdviceUpdateResponse = {
 			...validS51AdviceBodyNoPerson,
 			id: 1,
@@ -139,7 +148,7 @@ describe('Test S51 advice update status and redacted status', () => {
 			publishedStatusPrev: 'not_checked'
 		};
 
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBodyNoPerson);
 		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdateResponse);
@@ -169,7 +178,7 @@ describe('Test S51 advice update status and redacted status', () => {
 
 	test('updates s51 advice status only to ready_to_publish, with enquirer person but no organisation', async () => {
 		// GIVEN
-		const validS51AdviceBodyNoOrg = { validS51AdviceBody, enquirer: '' };
+		const validS51AdviceBodyNoOrg = { ...validS51AdviceBody, enquirer: '' };
 		const validS51AdviceUpdateResponse = {
 			...validS51AdviceBodyNoOrg,
 			id: 1,
@@ -178,7 +187,7 @@ describe('Test S51 advice update status and redacted status', () => {
 			publishedStatusPrev: 'not_checked'
 		};
 
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBodyNoOrg);
 		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdateResponse);
@@ -225,13 +234,14 @@ describe('Test S51 advice update status and redacted status', () => {
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
-			errors: 'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
+			errors:
+				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
 		});
 	});
 
 	test('throws 400 error updating s51 advice when attachment is not scanned', async () => {
 		// GIVEN
-		const validS51AdviceBodyNoPerson = { validS51AdviceBody, firstName: '', lastName: '' };
+		const validS51AdviceBodyNoPerson = { ...validS51AdviceBody, firstName: '', lastName: '' };
 		const validS51AdviceUpdateResponse = {
 			...validS51AdviceBodyNoPerson,
 			id: 1,
@@ -255,13 +265,14 @@ describe('Test S51 advice update status and redacted status', () => {
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
-			errors: 'There are attachments which have failed the virus check. Return to the S51 advice properties screen to delete files.'
+			errors:
+				'There are attachments which have failed the virus check. Return to the S51 advice properties screen to delete files.'
 		});
 	});
 
 	test('throws 400 error updating s51 advice when advice is already published', async () => {
 		// GIVEN
-		const validS51AdviceBodyNoPerson = { validS51AdviceBody, firstName: '', lastName: '' };
+		const validS51AdviceBodyNoPerson = { ...validS51AdviceBody, firstName: '', lastName: '' };
 		const validS51AdviceUpdateResponse = {
 			...validS51AdviceBodyNoPerson,
 			id: 1,
@@ -291,7 +302,7 @@ describe('Test S51 advice update status and redacted status', () => {
 
 	test('throws 400 error updating s51 advice when attachment is published', async () => {
 		// GIVEN
-		const validS51AdviceBodyNoPerson = { validS51AdviceBody, firstName: '', lastName: '' };
+		const validS51AdviceBodyNoPerson = { ...validS51AdviceBody, firstName: '', lastName: '' };
 		const validS51AdviceUpdateResponse = {
 			...validS51AdviceBodyNoPerson,
 			id: 1,
@@ -304,7 +315,9 @@ describe('Test S51 advice update status and redacted status', () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceUpdateResponse);
 		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
 		databaseConnector.s51Advice.update.mockResolvedValue();
-		databaseConnector.s51AdviceDocument.findMany.mockResolvedValueOnce([]).mockResolvedValueOnce(s51AdviceDocuments);
+		databaseConnector.s51AdviceDocument.findMany
+			.mockResolvedValueOnce([])
+			.mockResolvedValueOnce(s51AdviceDocuments);
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -343,7 +356,8 @@ describe('Test S51 advice update status and redacted status', () => {
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
-			errors: 'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
+			errors:
+				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
 		});
 	});
 
