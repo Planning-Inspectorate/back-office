@@ -1,16 +1,26 @@
-import { buildAppealCompundStatus } from '../build-appeal-compound-status.js';
 import { mapCaseStatusString } from './map-case-status-string.js';
 
 /**
  *
- * @param {import('@pins/applications.api').Schema.CaseStatus[] | null} caseStatus
+ * @param {import('@pins/applications.api').Schema.CaseStatus[] | null} caseStatuses
  * @returns {string | object}
  */
-export const mapCaseStatus = (caseStatus) => {
-	const builtStatuses = buildAppealCompundStatus(caseStatus);
-
-	if (typeof builtStatuses === 'string') {
-		return mapCaseStatusString(builtStatuses);
+export const mapCaseStatus = (caseStatuses) => {
+	if (
+		typeof caseStatuses === 'undefined' ||
+		caseStatuses === null ||
+		!Array.isArray(caseStatuses)
+	) {
+		throw new TypeError('No Case Statuses Provided');
 	}
-	return builtStatuses;
+
+	const validStatus = caseStatuses.find(
+		(caseStatus) => typeof caseStatus.status === 'string' && caseStatus.valid
+	);
+
+	if (!validStatus) {
+		throw new TypeError('No `Case status` with valid status provided');
+	}
+
+	return mapCaseStatusString(validStatus.status);
 };

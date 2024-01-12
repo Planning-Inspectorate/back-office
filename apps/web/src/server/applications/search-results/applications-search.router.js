@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import * as validators from './application-search.validators.js';
 import * as controller from './applications-search.controller.js';
 
@@ -7,8 +7,8 @@ const searchRouter = createRouter();
 
 searchRouter
 	.route('/:pageNumber?')
-	.post(validators.validateSearchApplicationsTerm, asyncRoute(controller.searchApplications));
+	.post(validators.validateSearchApplicationsTerm, asyncHandler(controller.searchApplications));
 
-searchRouter.route('/:pageNumber?').get(asyncRoute(controller.searchApplications));
+searchRouter.route('/:pageNumber?').get(asyncHandler(controller.searchApplications));
 
 export default searchRouter;

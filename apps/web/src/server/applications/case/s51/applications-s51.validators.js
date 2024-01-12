@@ -149,9 +149,7 @@ export const validateS51AdviceToChange = createValidator(
 );
 
 export const validateS51AdviceToPublish = createValidator(
-	body('selectedFilesIds')
-		.isArray({ min: 1 })
-		.withMessage('Select advice to publish')
+	body('selectedFilesIds').isArray({ min: 1 }).withMessage('Select advice to publish')
 );
 
 export const validateS51AdviceActions = createValidator(

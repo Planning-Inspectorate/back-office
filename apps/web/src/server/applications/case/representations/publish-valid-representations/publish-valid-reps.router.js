@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import {
 	getPublishValidRepsController,
 	postPublishValidRepsController
@@ -10,7 +10,7 @@ const publishValidRepresentationsRouter = createRouter({ mergeParams: true });
 
 publishValidRepresentationsRouter
 	.route(`/${publishAllValidRepsUrl}`)
-	.get(asyncRoute(getPublishValidRepsController))
-	.post(asyncRoute(postPublishValidRepsController));
+	.get(asyncHandler(getPublishValidRepsController))
+	.post(asyncHandler(postPublishValidRepsController));
 
 export default publishValidRepresentationsRouter;

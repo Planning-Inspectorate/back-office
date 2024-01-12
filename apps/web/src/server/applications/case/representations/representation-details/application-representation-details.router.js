@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 
 import {
 	getRepresentationDetailsController,
@@ -35,39 +35,39 @@ const representationDetailsRouter = createRouter({ mergeParams: true });
 
 representationDetailsRouter
 	.route('/')
-	.get(addRepresentationToLocals, asyncRoute(getRepresentationDetailsController))
+	.get(addRepresentationToLocals, asyncHandler(getRepresentationDetailsController))
 	.post(
 		addRepresentationToLocals,
 		addRepresentationValuesToBody,
 		representationDetailsValidation,
-		asyncRoute(postRepresentationDetailsController)
+		asyncHandler(postRepresentationDetailsController)
 	);
 
 representationDetailsRouter
 	.route('/redact-representation')
-	.get(asyncRoute(getRedactRepresentationController))
-	.post(asyncRoute(postRedactRepresentationController));
+	.get(asyncHandler(getRedactRepresentationController))
+	.post(asyncHandler(postRedactRepresentationController));
 
 representationDetailsRouter
 	.route('/change-redaction')
-	.get(asyncRoute(getRepresentationDetailsChangeRedactionController))
+	.get(asyncHandler(getRepresentationDetailsChangeRedactionController))
 	.post(
 		representationChangeRedactionValidation,
-		asyncRoute(postRepresentationDetailsChangeRedactionController)
+		asyncHandler(postRepresentationDetailsChangeRedactionController)
 	);
 
 representationDetailsRouter
 	.route('/task-log')
-	.get(asyncRoute(getRepresentationDetailsTaskLogController));
+	.get(asyncHandler(getRepresentationDetailsTaskLogController));
 
 representationDetailsRouter
 	.route('/change-status')
-	.get(asyncRoute(getRepresentationStatusController))
-	.post(representationStatusValidation, asyncRoute(postRepresentationStatus));
+	.get(asyncHandler(getRepresentationStatusController))
+	.post(representationStatusValidation, asyncHandler(postRepresentationStatus));
 
 representationDetailsRouter
 	.route('/status-result')
-	.get(asyncRoute(getRepresentationStatusNotesController))
-	.post(representationStatusNotesValidation, asyncRoute(postRepresentationStatusNotesController));
+	.get(asyncHandler(getRepresentationStatusNotesController))
+	.post(representationStatusNotesValidation, asyncHandler(postRepresentationStatusNotesController));
 
 export default representationDetailsRouter;
