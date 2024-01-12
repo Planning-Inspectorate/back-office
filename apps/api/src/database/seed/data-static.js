@@ -394,24 +394,6 @@ export const zoomLevels = [
 		displayNameCy: 'District'
 	},
 	{
-		name: 'city',
-		displayOrder: 400,
-		displayNameEn: 'City',
-		displayNameCy: 'City'
-	},
-	{
-		name: 'town',
-		displayOrder: 300,
-		displayNameEn: 'Town',
-		displayNameCy: 'Town'
-	},
-	{
-		name: 'junction',
-		displayOrder: 200,
-		displayNameEn: 'Junction',
-		displayNameCy: 'Junction'
-	},
-	{
 		name: 'none',
 		displayOrder: 0,
 		displayNameEn: 'None',
