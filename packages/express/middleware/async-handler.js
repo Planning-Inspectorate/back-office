@@ -1,14 +1,7 @@
 /**
- * @typedef {function(): Promise<void>} AsyncRequestHandler
- * @param {import('express').Request} req
- * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
- */
-
-/**
  * @template T
- * @param {import('express').RequestHandler<T>|AsyncRequestHandler} requestHandler
- * @returns {import('express').RequestHandler<T>}
+ * @param {*} requestHandler
+ * @returns {import('express').RequestHandler<*>}
  */
 export const asyncHandler = (requestHandler) => {
 	return (request, response, next) => {
