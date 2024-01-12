@@ -11,7 +11,7 @@ import { buildUpsertForEntity } from './sql-tools.js';
 import { MigratedEntityIdCeiling } from '../migrator.consts.js';
 
 /**
- * @typedef {import('../../../message-schemas/events/nsip-subscription.d.ts').NSIPSubscription} NSIPSubscription
+ * @typedef {import('pins-data-model').Schemas.NsipSubscription} NSIPSubscription
  * @typedef {NSIPSubscription & import('./utils.js').NSIPProjectMinimalCaseData} NSIPSubscriptionMigrateModel
  */
 

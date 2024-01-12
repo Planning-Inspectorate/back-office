@@ -33,7 +33,7 @@ const mapContactDetails = (entity) => {
 /**
  *
  * @param {import('@azure/functions').Context} context
- * @param {import('@pins/api/src/message-schemas/commands/register-representation').RegisterRepresentation} msg
+ * @param {import('pins-data-model').Schemas.RegisterRepresentation} msg
  */
 export default async function (context, msg) {
 	context.log('Handle register-representation event');
@@ -49,7 +49,7 @@ export default async function (context, msg) {
 		originalRepresentation: msg.originalRepresentation,
 		represented: mapContactDetails(msg.represented),
 		representative: mapContactDetails(msg.representative),
-		representedType: isEmpty(msg.representative) ? msg.represented?.type : 'AGENT',
+    representedType: isEmpty(msg.representative) ? msg.representationFrom : 'AGENT',
 		received: msg.dateReceived || new Date()
 	};
 
