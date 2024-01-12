@@ -44,6 +44,20 @@ export interface RequestHandler<
 	): void;
 }
 
+export interface AsyncRequestHandler<
+	Params = ParamsDictionary,
+	ResBody = unknown,
+	ReqBody = unknown,
+	ReqQuery = ParsedQs,
+	ResLocals extends Record<string, any> = Record<string, any>
+> {
+	(
+		req: ExpressRequest<Params, ResBody, ReqBody, ReqQuery, Locals>,
+		res: Response<ResBody, ResLocals>,
+		next: NextFunction
+	): Promise<void>;
+}
+
 export interface RenderHandler<
 	RenderOptions extends Record<string, any>,
 	ReqLocals extends Record<string, any> = undefined,
