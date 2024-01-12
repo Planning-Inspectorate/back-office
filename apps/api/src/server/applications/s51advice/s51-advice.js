@@ -3,36 +3,15 @@ import { formatS51AdviceReferenceCode } from '#utils/mapping/map-s51-advice-deta
 import { getById as getCaseById } from '../../repositories/case.repository.js';
 
 /**
+ * @typedef {import('../../../message-schemas/events/nsip-s51-advice.js').NSIPS51AdviceSchema} NSIPS51AdviceSchema
  * @typedef {'phone' | 'email' | 'meeting' | 'post'} Method
  * @typedef {'checked' | 'unchecked' | 'readytopublish' | 'published' | 'donotpublish'} Status
  * @typedef {'unredacted' | 'redacted'} RedactionStatus
  * */
 
 /**
- * NSIP S51 Advice
- *
- * @typedef {Object} NsipS51AdvicePayload
- * @property {number} adviceId
- * @property {string} adviceReference
- * @property {number} caseId
- * @property {string} caseReference
- * @property {string} title
- * @property {string} from
- * @property {string} agent
- * @property {Method} method
- * @property {string} enquiryDate
- * @property {string} enquiryDetails
- * @property {string} adviceGivenBy
- * @property {string} adviceDate
- * @property {string} adviceDetails
- * @property {Status} status
- * @property {RedactionStatus} redactionStatus
- * @property {string[]} attachmentIds
- * */
-
-/**
  * @param {import('@prisma/client').S51Advice} s51Advice
- * @returns {Promise<NsipS51AdvicePayload>}
+ * @returns {Promise<NSIPS51AdviceSchema>}
  * */
 export const buildNsipS51AdvicePayload = async (s51Advice) => {
 	const c = await getCaseById(s51Advice.caseId, {});
@@ -52,6 +31,8 @@ export const buildNsipS51AdvicePayload = async (s51Advice) => {
 		status: /** @type {Status} */ (s51Advice.publishedStatus),
 		redactionStatus: /** @type {RedactionStatus} */ (s51Advice.redactedStatus),
 		// @ts-ignore
-		attachmentIds: s51Advice.S51AdviceDocument.map((doc) => doc.documentGuid)
+		attachmentIds: s51Advice.S51AdviceDocument
+			? s51Advice.S51AdviceDocument.map((doc) => doc.documentGuid)
+			: []
 	};
 };
