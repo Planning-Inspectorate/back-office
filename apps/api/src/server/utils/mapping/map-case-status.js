@@ -1,4 +1,3 @@
-import { buildAppealCompundStatus } from '../build-appeal-compound-status.js';
 import { mapCaseStatusString } from './map-case-status-string.js';
 
 /**
@@ -7,10 +6,15 @@ import { mapCaseStatusString } from './map-case-status-string.js';
  * @returns {string | object}
  */
 export const mapCaseStatus = (caseStatus) => {
-	const builtStatuses = buildAppealCompundStatus(caseStatus);
-
-	if (typeof builtStatuses === 'string') {
-		return mapCaseStatusString(builtStatuses);
+	if (typeof caseStatus === 'undefined' || caseStatus === null || !Array.isArray(caseStatus)) {
+		throw new TypeError('No Case Status Provided');
 	}
-	return builtStatuses;
+
+	const builtStatus = caseStatus[0].status;
+
+	if (typeof builtStatus !== 'string') {
+		throw new TypeError('No Valid Status Provided');
+	}
+
+	return mapCaseStatusString(builtStatus);
 };
