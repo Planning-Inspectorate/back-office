@@ -7,6 +7,15 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
             <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
             data-module="govuk-notification-banner">
                 <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
+                </div>
+            </div>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
                     <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
                 </div>
                 <div class="govuk-notification-banner__content">
@@ -157,6 +166,47 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/manage-documents/10/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/10"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            </li>
+                        </ul>
                         </dd>
                 </div>
             </dl>
@@ -341,7 +391,7 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span class="govuk-body">applicationForm.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">applicationForm.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -372,6 +422,47 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/manage-documents/10/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/10"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            </li>
+                        </ul>
                         </dd>
                 </div>
             </dl>
@@ -425,6 +516,15 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
+                </div>
+            </div>
             <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
             data-module="govuk-notification-banner">
                 <div class="govuk-notification-banner__header">
@@ -558,7 +658,7 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span class="govuk-body">applicationForm.docx</span><strong class="govuk-tag govuk-tag--red single-line">virus detected</strong>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">applicationForm.docx</div><strong class="govuk-tag govuk-tag--red single-line">virus detected</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -589,6 +689,47 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/manage-documents/10/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/10"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            </li>
+                        </ul>
                         </dd>
                 </div>
             </dl>
@@ -627,7 +768,574 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ should render the add document details page with one item per unpublished document 1`] = `
+exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ should render the add document details page with one item per unpublished document, and with a late entry status tag and associated details component, if the folder is additional documents, and the appellant case has a validation outcome of valid 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Additional documents</h1>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> What is late entry?</span>
+                        </summary>
+                        <div class="govuk-details__text">Additional documents are marked as late entries when the appellant case
+                            or LPA questionnaire to which they are being added has already been reviewed
+                            as valid or complete.</div>
+                    </details>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph0-documentFolderInfo.jpeg</h2>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="items[0][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa6">
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[0]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-2" name="items[0][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="govuk-!-margin-top-7">
+                </div>
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph1-documentFolderInfo.jpeg</h2>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="items[1][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa7">
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[1]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ should render the add document details page with one item per unpublished document, and without a late entry status tag and associated details component, if the folder is additional documents, and the appellant case has a validation outcome of incomplete 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Additional documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph0-documentFolderInfo.jpeg</h2>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="items[0][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa6">
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[0]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-2" name="items[0][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="govuk-!-margin-top-7">
+                </div>
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph1-documentFolderInfo.jpeg</h2>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="items[1][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa7">
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[1]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ should render the add document details page with one item per unpublished document, and without a late entry status tag and associated details component, if the folder is additional documents, and the appellant case has a validation outcome of invalid 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Additional documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph0-documentFolderInfo.jpeg</h2>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="items[0][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa6">
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[0]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-2" name="items[0][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="govuk-!-margin-top-7">
+                </div>
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph1-documentFolderInfo.jpeg</h2>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="items[1][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa7">
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[1]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ should render the add document details page with one item per unpublished document, and without a late entry status tag and associated details component, if the folder is additional documents, and the appellant case has no validation outcome 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Additional documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph0-documentFolderInfo.jpeg</h2>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="items[0][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa6">
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[0]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-2" name="items[0][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="govuk-!-margin-top-7">
+                </div>
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">ph1-documentFolderInfo.jpeg</h2>
+                    <div class="govuk-form-group">
+                        <input class="govuk-input" id="" name="items[1][documentId]" type="hidden"
+                        value="97260151-4334-407f-a76a-0b5666cbcfa7">
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" role="group">
+                            <legend class="govuk-fieldset__legend">Date received</legend>
+                            <div class="govuk-date-input" id="items[1]receivedDate">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
+                                        id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
+                                        type="text" inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
+                                        <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
+                                        id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
+                                        inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
+                                    type="radio" value="redacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]">Redacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
+                                    type="radio" value="unredacted">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    type="radio" value="no redaction required">
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ should render the add document details page with one item per unpublished document, and without a late entry status tag and associated details component, if the folder is not additional documents 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -765,9 +1473,9 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should render a document upload page with a file upload component 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Upload files</h1>
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should render a document upload page with a file upload component, and no late entry tag and associated details component, and no additional documents warning text and confirmation checkbox, if the folder is not additional documents 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Upload documents</h1>
     <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/2864"
     data-case-id="1" data-folder-id="2864" data-document-type="newSupportingDocuments"
     data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
@@ -802,11 +1510,427 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId should render a document upload page with a file upload component 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-caption-l govuk-!-margin-bottom-3">Upload an updated document</h1>
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the appellant case has a validation outcome of incomplete 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Add additional documents</h1>
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/2865"
+    data-case-id="1" data-folder-id="2865" data-document-type="additionalDocuments"
+    data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
+    data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
+        <div class="top-errors-hook"></div>
+        <form class="govuk-grid-column-two-thirds">
+            <div class="pins-file-upload--container">
+                <div class="govuk-body colour--secondary pins-file-upload--instructions">
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <div                     class="middle-errors-hook"></div>
+            </div>
+            <div class="display--flex">
+                <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
+                type="file" name="files" value="Choose file" aria-controls="file-list-1"
+                multiple>
+                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+            </div>
+            <div id="file-list-1">
+                <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
+                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                aria-live="polite"></ul>
+            </div>
+    </div>
+    <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
+    <div     class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong         class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Additional documents
+            should only be used when no other document folder is suitable. Please check
+            the box below to confirm the document cannot be placed anywhere else before
+            proceeding.</strong>
+            </div>
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="additionalDocumentsConfirmation"
+                        name="additionalDocumentsConfirmation" type="checkbox" value="confirm">
+                        <label class="govuk-label govuk-checkboxes__label" for="additionalDocumentsConfirmation">This document doesn&#39;t belong anywhere else</label>
+                    </div>
+                </div>
+            </div>
+            <div class="display--flex">
+                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                id="submit-button-1">Save and continue</button>
+                <div class="progress-hook"></div>
+            </div>
+            </form>
+            </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the appellant case has a validation outcome of invalid 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Add additional documents</h1>
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/2865"
+    data-case-id="1" data-folder-id="2865" data-document-type="additionalDocuments"
+    data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
+    data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
+        <div class="top-errors-hook"></div>
+        <form class="govuk-grid-column-two-thirds">
+            <div class="pins-file-upload--container">
+                <div class="govuk-body colour--secondary pins-file-upload--instructions">
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <div                     class="middle-errors-hook"></div>
+            </div>
+            <div class="display--flex">
+                <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
+                type="file" name="files" value="Choose file" aria-controls="file-list-1"
+                multiple>
+                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+            </div>
+            <div id="file-list-1">
+                <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
+                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                aria-live="polite"></ul>
+            </div>
+    </div>
+    <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
+    <div     class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong         class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Additional documents
+            should only be used when no other document folder is suitable. Please check
+            the box below to confirm the document cannot be placed anywhere else before
+            proceeding.</strong>
+            </div>
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="additionalDocumentsConfirmation"
+                        name="additionalDocumentsConfirmation" type="checkbox" value="confirm">
+                        <label class="govuk-label govuk-checkboxes__label" for="additionalDocumentsConfirmation">This document doesn&#39;t belong anywhere else</label>
+                    </div>
+                </div>
+            </div>
+            <div class="display--flex">
+                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                id="submit-button-1">Save and continue</button>
+                <div class="progress-hook"></div>
+            </div>
+            </form>
+            </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the appellant case has no validation outcome 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Add additional documents</h1>
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/2865"
+    data-case-id="1" data-folder-id="2865" data-document-type="additionalDocuments"
+    data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
+    data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
+        <div class="top-errors-hook"></div>
+        <form class="govuk-grid-column-two-thirds">
+            <div class="pins-file-upload--container">
+                <div class="govuk-body colour--secondary pins-file-upload--instructions">
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <div                     class="middle-errors-hook"></div>
+            </div>
+            <div class="display--flex">
+                <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
+                type="file" name="files" value="Choose file" aria-controls="file-list-1"
+                multiple>
+                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+            </div>
+            <div id="file-list-1">
+                <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
+                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                aria-live="polite"></ul>
+            </div>
+    </div>
+    <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
+    <div     class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong         class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Additional documents
+            should only be used when no other document folder is suitable. Please check
+            the box below to confirm the document cannot be placed anywhere else before
+            proceeding.</strong>
+            </div>
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="additionalDocumentsConfirmation"
+                        name="additionalDocumentsConfirmation" type="checkbox" value="confirm">
+                        <label class="govuk-label govuk-checkboxes__label" for="additionalDocumentsConfirmation">This document doesn&#39;t belong anywhere else</label>
+                    </div>
+                </div>
+            </div>
+            <div class="display--flex">
+                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                id="submit-button-1">Save and continue</button>
+                <div class="progress-hook"></div>
+            </div>
+            </form>
+            </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should render document upload page with late entry status tag and associated details component, and without additional documents warning text and confirmation checkbox, if the folder is additional documents, and the appellant case validation outcome is valid 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Add additional documents</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> What is late entry?</span>
+                </summary>
+                <div class="govuk-details__text">Additional documents are marked as late entries when the appellant case
+                    or LPA questionnaire to which they are being added has already been reviewed
+                    as valid or complete.</div>
+            </details>
+        </div>
+    </div>
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/2865"
+    data-case-id="1" data-folder-id="2865" data-document-type="additionalDocuments"
+    data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
+    data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
+        <div class="top-errors-hook"></div>
+        <form class="govuk-grid-column-two-thirds">
+            <div class="pins-file-upload--container">
+                <div class="govuk-body colour--secondary pins-file-upload--instructions">
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <div                     class="middle-errors-hook"></div>
+            </div>
+            <div class="display--flex">
+                <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
+                type="file" name="files" value="Choose file" aria-controls="file-list-1"
+                multiple>
+                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+            </div>
+            <div id="file-list-1">
+                <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
+                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                aria-live="polite"></ul>
+            </div>
+    </div>
+    <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
+    <div     class="display--flex">
+        <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+        id="submit-button-1">Save and continue</button>
+        <div class="progress-hook"></div>
+        </div>
+        </form>
+        </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId should render a document upload page with a file upload component, and no late entry tag and associated details component, and no additional documents warning text and confirmation checkbox, if the folder is not additional documents 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Upload an updated document</h1>
     <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1/1"
     data-case-id="1" data-folder-id="2864" data-document-type="newSupportingDocuments"
+    data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
+    data-blob-storage-container="document-service-uploads" data-document-id="1"
+    data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
+        <div class="top-errors-hook"></div>
+        <form class="govuk-grid-column-two-thirds">
+            <div class="pins-file-upload--container">
+                <div class="govuk-body colour--secondary pins-file-upload--instructions">
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <div                     class="middle-errors-hook"></div>
+            </div>
+            <div class="display--flex">
+                <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
+                type="file" name="files" value="Choose file" aria-controls="file-list-1">
+                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+            </div>
+            <div id="file-list-1">
+                <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
+                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                aria-live="polite"></ul>
+            </div>
+    </div>
+    <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
+    <div     class="display--flex">
+        <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+        id="submit-button-1">Save and continue</button>
+        <div class="progress-hook"></div>
+        </div>
+        </form>
+        </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the appellant case has a validation outcome of incomplete 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Update additional document</h1>
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1/1"
+    data-case-id="1" data-folder-id="2865" data-document-type="additionalDocuments"
+    data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
+    data-blob-storage-container="document-service-uploads" data-document-id="1"
+    data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
+        <div class="top-errors-hook"></div>
+        <form class="govuk-grid-column-two-thirds">
+            <div class="pins-file-upload--container">
+                <div class="govuk-body colour--secondary pins-file-upload--instructions">
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <div                     class="middle-errors-hook"></div>
+            </div>
+            <div class="display--flex">
+                <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
+                type="file" name="files" value="Choose file" aria-controls="file-list-1">
+                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+            </div>
+            <div id="file-list-1">
+                <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
+                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                aria-live="polite"></ul>
+            </div>
+    </div>
+    <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
+    <div     class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong         class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Additional documents
+            should only be used when no other document folder is suitable. Please check
+            the box below to confirm the document cannot be placed anywhere else before
+            proceeding.</strong>
+            </div>
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="additionalDocumentsConfirmation"
+                        name="additionalDocumentsConfirmation" type="checkbox" value="confirm">
+                        <label class="govuk-label govuk-checkboxes__label" for="additionalDocumentsConfirmation">This document doesn&#39;t belong anywhere else</label>
+                    </div>
+                </div>
+            </div>
+            <div class="display--flex">
+                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                id="submit-button-1">Save and continue</button>
+                <div class="progress-hook"></div>
+            </div>
+            </form>
+            </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the appellant case has a validation outcome of invalid 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Update additional document</h1>
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1/1"
+    data-case-id="1" data-folder-id="2865" data-document-type="additionalDocuments"
+    data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
+    data-blob-storage-container="document-service-uploads" data-document-id="1"
+    data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
+        <div class="top-errors-hook"></div>
+        <form class="govuk-grid-column-two-thirds">
+            <div class="pins-file-upload--container">
+                <div class="govuk-body colour--secondary pins-file-upload--instructions">
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <div                     class="middle-errors-hook"></div>
+            </div>
+            <div class="display--flex">
+                <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
+                type="file" name="files" value="Choose file" aria-controls="file-list-1">
+                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+            </div>
+            <div id="file-list-1">
+                <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
+                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                aria-live="polite"></ul>
+            </div>
+    </div>
+    <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
+    <div     class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong         class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Additional documents
+            should only be used when no other document folder is suitable. Please check
+            the box below to confirm the document cannot be placed anywhere else before
+            proceeding.</strong>
+            </div>
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="additionalDocumentsConfirmation"
+                        name="additionalDocumentsConfirmation" type="checkbox" value="confirm">
+                        <label class="govuk-label govuk-checkboxes__label" for="additionalDocumentsConfirmation">This document doesn&#39;t belong anywhere else</label>
+                    </div>
+                </div>
+            </div>
+            <div class="display--flex">
+                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                id="submit-button-1">Save and continue</button>
+                <div class="progress-hook"></div>
+            </div>
+            </form>
+            </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the appellant case has no validation outcome 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Update additional document</h1>
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1/1"
+    data-case-id="1" data-folder-id="2865" data-document-type="additionalDocuments"
+    data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
+    data-blob-storage-container="document-service-uploads" data-document-id="1"
+    data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
+        <div class="top-errors-hook"></div>
+        <form class="govuk-grid-column-two-thirds">
+            <div class="pins-file-upload--container">
+                <div class="govuk-body colour--secondary pins-file-upload--instructions">
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <div                     class="middle-errors-hook"></div>
+            </div>
+            <div class="display--flex">
+                <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
+                type="file" name="files" value="Choose file" aria-controls="file-list-1">
+                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+            </div>
+            <div id="file-list-1">
+                <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
+                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                aria-live="polite"></ul>
+            </div>
+    </div>
+    <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
+    <div     class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong         class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Additional documents
+            should only be used when no other document folder is suitable. Please check
+            the box below to confirm the document cannot be placed anywhere else before
+            proceeding.</strong>
+            </div>
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="additionalDocumentsConfirmation"
+                        name="additionalDocumentsConfirmation" type="checkbox" value="confirm">
+                        <label class="govuk-label govuk-checkboxes__label" for="additionalDocumentsConfirmation">This document doesn&#39;t belong anywhere else</label>
+                    </div>
+                </div>
+            </div>
+            <div class="display--flex">
+                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                id="submit-button-1">Save and continue</button>
+                <div class="progress-hook"></div>
+            </div>
+            </form>
+            </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId should render document upload page with late entry status tag and associated details component, and without additional documents warning text and confirmation checkbox, if the folder is additional documents, and the appellant case validation outcome is valid 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Update additional document</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> What is late entry?</span>
+                </summary>
+                <div class="govuk-details__text">Additional documents are marked as late entries when the appellant case
+                    or LPA questionnaire to which they are being added has already been reviewed
+                    as valid or complete.</div>
+            </details>
+        </div>
+    </div>
+    <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1/1"
+    data-case-id="1" data-folder-id="2865" data-document-type="additionalDocuments"
     data-document-stage="appellant_case" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
     data-blob-storage-container="document-service-uploads" data-document-id="1"
     data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
@@ -1362,7 +2486,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should render the manage documents listing page with one document item for each document present in the folder, if the folderId is valid 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should render the manage documents listing page with one document item for each document present in the folder, with late entry status tags in the date received column for documents marked as late entry, if the folderId is valid 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -1433,7 +2557,11 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                     <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
                     </div>
                 </td>
-                <td class="govuk-table__cell">2 March 2024</td>
+                <td class="govuk-table__cell">
+                    <div>2 March 2024</div>
+                    <div class="govuk-!-margin-top-3"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                    </div>
+                </td>
                 <td class="govuk-table__cell">Unredacted</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/47d8f073-c837-4f07-9161-c1a5626eba56"
                     class="govuk-link">Edit</a>
@@ -1463,7 +2591,11 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                         <dd>JPEG, 59 KB</dd>
                     </dl>
                 </td>
-                <td class="govuk-table__cell">3 April 2025</td>
+                <td class="govuk-table__cell">
+                    <div>3 April 2025</div>
+                    <div class="govuk-!-margin-top-3"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                    </div>
+                </td>
                 <td class="govuk-table__cell">Unredacted</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa7"
                     class="govuk-link">View and edit</a>
@@ -1502,91 +2634,115 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the delete document page with multiple document versons 1`] = `
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with late entry tag in the date received row if the latest version of the document is marked as late entry, and a document history item for each version, with late entry tag in the history item document name column for versions marked as late entry 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
-                    <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
-                </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
-                    <dd class="govuk-summary-list__value">1</dd>
-                </div>
-            </dl>
-            <form method="POST">
-                <div class="govuk-form-group">
-                    <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="delete-file-answer" name="delete-file-answer"
-                            type="radio" value="yes">
-                            <label class="govuk-label govuk-radios__label" for="delete-file-answer">Yes</label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="delete-file-answer-2" name="delete-file-answer"
-                            type="radio" value="no">
-                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">No</label>
-                        </div>
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <button type="submit" class="govuk-button" data-module="govuk-button"
-                id="remove-document-button">Continue</button>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the delete document page with single document verson 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
-                    <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
-                </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
-                    <dd class="govuk-summary-list__value">1</dd>
-                </div>
-            </dl>
-            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Removing the
-                    only version will delete the document from the case</strong>
             </div>
-            <form method="POST">
-                <div class="govuk-form-group">
-                    <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="delete-file-answer" name="delete-file-answer"
-                            type="radio" value="yes">
-                            <label class="govuk-label govuk-radios__label" for="delete-file-answer">Yes</label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="delete-file-answer-2" name="delete-file-answer"
-                            type="radio" value="yes-and-upload-new-document">
-                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">Yes, and upload new document</label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="delete-file-answer-3" name="delete-file-answer"
-                            type="radio" value="no">
-                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-3">No</label>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="govuk-button" data-module="govuk-button"
-                id="remove-document-button">Continue</button>
-            </form>
         </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"></div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value">
+                        <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                        </div>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        </div>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">2</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                    <dd class="govuk-summary-list__value">
+                        <div class="govuk-!-margin-bottom-2">1 February 2023</div>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                        </div>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                    <dd class="govuk-summary-list__value">Redacted</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h2>Document history</h2>
+            <p class="govuk-body">See version history, a change log or remove old documents</p>
+            <details             class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+                </summary>
+                <div class="govuk-details__text">
+                    <table class="govuk-table govuk-!-font-size-16">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">2</td>
+                                <td class="govuk-table__cell">
+                                    <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                                    </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                </div>
+                <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                </div>
+                </td>
+                <td class="govuk-table__cell"></td>
+                <td class="govuk-table__cell">Redacted</td>
+                <td class="govuk-table__cell"></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">1</td>
+                    <td class="govuk-table__cell">
+                        <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                        </div>
+                        <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        </div>
+                    </td>
+                    <td class="govuk-table__cell">
+                        <p class="govuk-body"><strong>Create</strong>: 13:14, 31 October 2023,
+                            <br>by John Smith</p>
+                    </td>
+                    <td class="govuk-table__cell">Redacted</td>
+                    <td class="govuk-table__cell"></td>
+                </tr>
+                </tbody>
+                </table>
+        </div>
+        </details>
+    </div>
     </div>
 </main>"
 `;
@@ -1979,6 +3135,190 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 </main>"
 `;
 
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page without late entry tag in the date received row if the latest version of the document is not marked as late entry 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"></div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value">
+                        <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                        </div>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        </div>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">1</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                    <dd class="govuk-summary-list__value">1 February 2023</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                    <dd class="govuk-summary-list__value">Redacted</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h2>Document history</h2>
+            <p class="govuk-body">See version history, a change log or remove old documents</p>
+            <details             class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+                </summary>
+                <div class="govuk-details__text">
+                    <table class="govuk-table govuk-!-font-size-16">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell">
+                                    <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
+                                    </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                </div>
+                </td>
+                <td class="govuk-table__cell">
+                    <p class="govuk-body"><strong>Create</strong>: 13:14, 31 October 2023,
+                        <br>by John Smith</p>
+                </td>
+                <td class="govuk-table__cell">Redacted</td>
+                <td class="govuk-table__cell"></td>
+                </tr>
+                </tbody>
+                </table>
+        </div>
+        </details>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId/delete should render the delete document page with multiple document versons 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">1</dd>
+                </div>
+            </dl>
+            <form method="POST">
+                <div class="govuk-form-group">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer" name="delete-file-answer"
+                            type="radio" value="yes">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer">Yes</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer-2" name="delete-file-answer"
+                            type="radio" value="no">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">No</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button"
+                id="remove-document-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId/delete should render the delete document page with single document verson 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
+                    <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
+                    <dd class="govuk-summary-list__value">1</dd>
+                </div>
+            </dl>
+            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Removing the
+                    only version will delete the document from the case</strong>
+            </div>
+            <form method="POST">
+                <div class="govuk-form-group">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer" name="delete-file-answer"
+                            type="radio" value="yes">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer">Yes</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer-2" name="delete-file-answer"
+                            type="radio" value="yes-and-upload-new-document">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">Yes, and upload new document</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="delete-file-answer-3" name="delete-file-answer"
+                            type="radio" value="no">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-3">No</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button"
+                id="remove-document-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`appellant-case GET /appellant-case/valid/confirmation should render the 500 error page if required data is not present in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -2037,6 +3377,15 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
+                </div>
+            </div>
             <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
             data-module="govuk-notification-banner">
                 <div class="govuk-notification-banner__header">
@@ -2190,6 +3539,47 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
                     <dd                     class="govuk-summary-list__value"></dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/manage-documents/10/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/10"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            </li>
+                        </ul>
                         </dd>
                 </div>
             </dl>

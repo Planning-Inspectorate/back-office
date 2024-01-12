@@ -105,10 +105,11 @@ export const formatListOfListedBuildingNumbers = (
 /**
  *
  * @param {number} appealId
- * @param {FolderInfo} listOfDocuments
+ * @param {DocumentInfo[]} listOfDocuments
+ * @param {boolean} [addLateEntryStatusTag]
  * @returns {HtmlProperty & ClassesProperty}
  */
-export const formatDocumentValues = (appealId, listOfDocuments) => {
+export const formatDocumentValues = (appealId, listOfDocuments, addLateEntryStatusTag = false) => {
 	/** @type {HtmlProperty} */
 	const htmlProperty = {
 		html: '',
@@ -118,46 +119,68 @@ export const formatDocumentValues = (appealId, listOfDocuments) => {
 					opening: '',
 					closing: ''
 				},
-				pageComponents: []
+				pageComponentGroups: []
 			}
 		]
 	};
 
-	if (
-		listOfDocuments !== null &&
-		typeof listOfDocuments === 'object' &&
-		'documents' in listOfDocuments
-	) {
-		for (let i = 0; i < listOfDocuments.documents.length; i++) {
-			const document = listOfDocuments.documents[i];
+	if (listOfDocuments !== null) {
+		for (let i = 0; i < listOfDocuments.length; i++) {
+			const document = listOfDocuments[i];
 			const virusCheckStatus = mapDocumentInfoVirusCheckStatus(document);
 
+			/** @type {PageComponent[]} */
+			const documentPageComponents = [];
+
 			if (virusCheckStatus.safe) {
-				htmlProperty.pageComponentGroups[0].pageComponents.push({
+				documentPageComponents.push({
 					type: 'html',
-					wrapperHtml: {
-						opening: `<li>`,
-						closing: '</li>'
-					},
 					parameters: {
 						html: `<a href='/documents/${appealId}/download/${document.id}/preview' target="'_blank'" class="govuk-link">${document.name}</a>`
 					}
 				});
 			} else {
-				htmlProperty.pageComponentGroups[0].pageComponents.push({
+				documentPageComponents.push({
+					type: 'html',
+					wrapperHtml: {
+						opening: '<span>',
+						closing: ''
+					},
+					parameters: {
+						html: `<div class="govuk-body govuk-!-margin-bottom-2">${document.name}</div>`
+					}
+				});
+				documentPageComponents.push({
 					type: 'status-tag',
 					wrapperHtml: {
-						opening: `<li><span class="govuk-body">${document.name}</span> `,
-						closing: '</li>'
+						opening: '',
+						closing: '</span>'
 					},
 					parameters: {
 						status: virusCheckStatus.statusText || ''
 					}
 				});
 			}
+
+			if (addLateEntryStatusTag) {
+				documentPageComponents.push({
+					type: 'status-tag',
+					parameters: {
+						status: 'late_entry'
+					}
+				});
+			}
+
+			htmlProperty.pageComponentGroups[0].pageComponentGroups.push({
+				wrapperHtml: {
+					opening: '<li>',
+					closing: '</li>'
+				},
+				pageComponents: documentPageComponents
+			});
 		}
 
-		if (htmlProperty.pageComponentGroups[0].pageComponents.length > 0) {
+		if (htmlProperty.pageComponentGroups[0].pageComponentGroups.length > 0) {
 			htmlProperty.pageComponentGroups[0].wrapperHtml.opening = '<ul class="govuk-list">';
 			htmlProperty.pageComponentGroups[0].wrapperHtml.closing = '</ul>';
 		}

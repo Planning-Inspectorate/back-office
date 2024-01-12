@@ -3,14 +3,18 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { jest } from '@jest/globals';
 import {
-	lpaQuestionnaireData,
+	lpaQuestionnaireDataNotValidated,
+	lpaQuestionnaireDataIncompleteOutcome,
+	lpaQuestionnaireDataCompleteOutcome,
 	lpaQuestionnaireIncompleteReasons,
 	documentFolderInfo,
+	additionalDocumentsFolderInfo,
 	documentFileInfo,
 	documentFileVersionsInfo,
 	documentFileVersionsInfoNotChecked,
 	documentFileVersionsInfoVirusFound,
 	documentFileVersionsInfoChecked,
+	documentFileMultipleVersionsInfoWithLatestAsLateEntry,
 	documentRedactionStatuses,
 	activeDirectoryUsersData,
 	appealData,
@@ -40,8 +44,10 @@ describe('LPA Questionnaire review', () => {
 	afterEach(teardown);
 
 	describe('GET /', () => {
-		it('should render LPA Questionnaire review', async () => {
-			nock('http://test/').get('/appeals/1/lpa-questionnaires/2').reply(200, lpaQuestionnaireData);
+		it('should render the LPA Questionnaire page with the expected content', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/2')
+				.reply(200, lpaQuestionnaireDataIncompleteOutcome);
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
@@ -58,7 +64,7 @@ describe('LPA Questionnaire review', () => {
 
 		it('should render a notification banner when a file is unscanned', async () => {
 			//Create a document with virus scan still in progress
-			let updatedLPAQuestionnaireData = cloneDeep(lpaQuestionnaireData);
+			let updatedLPAQuestionnaireData = cloneDeep(lpaQuestionnaireDataIncompleteOutcome);
 			updatedLPAQuestionnaireData.documents.conservationAreaMap.documents.push(
 				notCheckedDocumentFolderInfoDocuments
 			);
@@ -73,7 +79,7 @@ describe('LPA Questionnaire review', () => {
 
 		it('should render an error when a file has a virus', async () => {
 			//Create a document with virus scan still in progress
-			let updatedLPAQuestionnaireData = cloneDeep(lpaQuestionnaireData);
+			let updatedLPAQuestionnaireData = cloneDeep(lpaQuestionnaireDataIncompleteOutcome);
 			updatedLPAQuestionnaireData.documents.conservationAreaMap.documents.push(
 				notCheckedDocumentFolderInfoDocuments
 			);
@@ -89,7 +95,9 @@ describe('LPA Questionnaire review', () => {
 
 	describe('POST /', () => {
 		it('should render LPA Questionnaire review with error (no answer provided)', async () => {
-			nock('http://test/').get('/appeals/1/lpa-questionnaires/2').reply(200, lpaQuestionnaireData);
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/2')
+				.reply(200, lpaQuestionnaireDataIncompleteOutcome);
 
 			const response = await request.post(baseUrl).send({
 				'review-outcome': ''
@@ -103,7 +111,7 @@ describe('LPA Questionnaire review', () => {
 		it('should redirect to the complete page if no errors are present and posted outcome is "complete"', async () => {
 			nock('http://test/')
 				.get('/appeals/1/lpa-questionnaires/2')
-				.reply(200, lpaQuestionnaireData)
+				.reply(200, lpaQuestionnaireDataIncompleteOutcome)
 				.patch('/appeals/1/lpa-questionnaires/2')
 				.reply(200, { validationOutcome: 'complete' });
 
@@ -114,6 +122,7 @@ describe('LPA Questionnaire review', () => {
 			expect(response.statusCode).toBe(302);
 		});
 	});
+
 	describe('GET /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete', () => {
 		beforeEach(() => {
 			nock('http://test/')
@@ -134,7 +143,9 @@ describe('LPA Questionnaire review', () => {
 
 		it('should render the incomplete reason page if required data is present in the session', async () => {
 			// post to LPA questionnaire page controller is necessary to set required data in the session
-			nock('http://test/').get('/appeals/1/lpa-questionnaires/2').reply(200, lpaQuestionnaireData);
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/2')
+				.reply(200, lpaQuestionnaireDataIncompleteOutcome);
 
 			const lpaQuestionnairePostResponse = await request.post(baseUrl).send({
 				'review-outcome': 'incomplete'
@@ -160,7 +171,9 @@ describe('LPA Questionnaire review', () => {
 				.get('/appeals/lpa-questionnaire-incomplete-reasons')
 				.reply(200, lpaQuestionnaireIncompleteReasons);
 
-			nock('http://test/').get('/appeals/1/lpa-questionnaires/2').reply(200, lpaQuestionnaireData);
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/2')
+				.reply(200, lpaQuestionnaireDataIncompleteOutcome);
 
 			// post to LPA questionnaire page controller is necessary to set required data in the session
 			lpaQPostResponse = await request.post(baseUrl).send({
@@ -710,35 +723,219 @@ describe('LPA Questionnaire review', () => {
 		});
 	});
 
-	describe('GET /lpa-questionnaire/2/add-documents/:folderId/', () => {
-		it('should render a document upload page with a single file upload component', async () => {
-			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+	describe('GET /lpa-questionnaire/1/add-documents/:folderId/', () => {
+		beforeEach(() => {
+			nock.cleanAll();
+			nock('http://test/').get('/appeals/1').reply(200, appealData);
 			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+		});
+		afterEach(() => {
+			nock.cleanAll();
+		});
 
-			const response = await request.get(`${baseUrl}/add-documents/1`);
+		it('should render document upload page with a file upload component, and no late entry status tag and associated details component, and no additional documents warning text and confirmation checkbox, if the folder is not additional documents', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataNotValidated);
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+
+			const response = await request.get(
+				`/appeals-service/appeal-details/1/lpa-questionnaire/1/add-documents/1`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the lpa questionnaire has no validation outcome', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataNotValidated);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, additionalDocumentsFolderInfo);
+
+			const response = await request.get(
+				`/appeals-service/appeal-details/1/lpa-questionnaire/1/add-documents/1`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the lpa questionnaire has a validation outcome of incomplete', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataIncompleteOutcome);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, additionalDocumentsFolderInfo);
+
+			const response = await request.get(
+				`/appeals-service/appeal-details/1/lpa-questionnaire/1/add-documents/1`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render document upload page with late entry status tag and associated details component, and without additional documents warning text and confirmation checkbox, if the folder is additional documents, and the lpa questionnaire validation outcome is complete', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataCompleteOutcome);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, additionalDocumentsFolderInfo);
+
+			const response = await request.get(
+				`/appeals-service/appeal-details/1/lpa-questionnaire/1/add-documents/1`
+			);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
 
-	describe('GET /lpa-questionnaire/2/add-documents/:folderId/:documentId', () => {
-		it('should render a document upload page with a single file upload component', async () => {
-			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+	describe('GET /lpa-questionnaire/1/add-documents/:folderId/:documentId', () => {
+		beforeEach(() => {
+			nock.cleanAll();
+			nock('http://test/').get('/appeals/1').reply(200, appealData);
 			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+		});
+		afterEach(() => {
+			nock.cleanAll();
+		});
 
-			const response = await request.get(`${baseUrl}/add-documents/1/1`);
+		it('should render a document upload page with a file upload component, and no late entry tag and associated details component, and no additional documents warning text and confirmation checkbox, if the folder is not additional documents', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataNotValidated);
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+
+			const response = await request.get(
+				'/appeals-service/appeal-details/1/lpa-questionnaire/1/add-documents/1/1'
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the lpa questionnaire has no validation outcome', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataNotValidated);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, additionalDocumentsFolderInfo);
+
+			const response = await request.get(
+				'/appeals-service/appeal-details/1/lpa-questionnaire/1/add-documents/1/1'
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render document upload page with additional documents warning text and confirmation checkbox, and without late entry status tag and associated details component, if the folder is additional documents, and the lpa questionnaire has a validation outcome of incomplete', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataIncompleteOutcome);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, additionalDocumentsFolderInfo);
+
+			const response = await request.get(
+				'/appeals-service/appeal-details/1/lpa-questionnaire/1/add-documents/1/1'
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render document upload page with late entry status tag and associated details component, and without additional documents warning text and confirmation checkbox, if the folder is additional documents, and the lpa questionnaire validation outcome is complete', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataCompleteOutcome);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, additionalDocumentsFolderInfo);
+
+			const response = await request.get(
+				'/appeals-service/appeal-details/1/lpa-questionnaire/1/add-documents/1/1'
+			);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
 
-	describe('GET /lpa-questionnaire/2/add-document-details/:folderId/', () => {
-		it('should render the add document details page with one item per unpublished document', async () => {
+	describe('GET /lpa-questionnaire/1/add-document-details/:folderId/', () => {
+		beforeEach(() => {
+			nock.cleanAll();
+			nock('http://test/').get('/appeals/1').reply(200, appealData);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+		});
+		afterEach(() => {
+			nock.cleanAll();
+		});
+
+		it('should render the add document details page with one item per unpublished document, and without a late entry status tag and associated details component, if the folder is not additional documents', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataNotValidated);
 			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
 
-			const response = await request.get(`${baseUrl}/add-document-details/1`);
+			const response = await request.get(
+				'/appeals-service/appeal-details/1/lpa-questionnaire/1/add-document-details/1'
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the add document details page with one item per unpublished document, and without a late entry status tag and associated details component, if the folder is additional documents, and the lpa questionnaire has no validation outcome', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataNotValidated);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, additionalDocumentsFolderInfo);
+
+			const response = await request.get(
+				'/appeals-service/appeal-details/1/lpa-questionnaire/1/add-document-details/1'
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the add document details page with one item per unpublished document, and without a late entry status tag and associated details component, if the folder is additional documents, and the lpa questionnaire has a validation outcome of incomplete', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataIncompleteOutcome);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, additionalDocumentsFolderInfo);
+
+			const response = await request.get(
+				'/appeals-service/appeal-details/1/lpa-questionnaire/1/add-document-details/1'
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the add document details page with one item per unpublished document, and with a late entry status tag and associated details component, if the folder is additional documents, and the lpa questionnaire has a validation outcome of complete', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/1')
+				.reply(200, lpaQuestionnaireDataCompleteOutcome);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/1')
+				.reply(200, additionalDocumentsFolderInfo);
+
+			const response = await request.get(
+				'/appeals-service/appeal-details/1/lpa-questionnaire/1/add-document-details/1'
+			);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -1028,16 +1225,19 @@ describe('LPA Questionnaire review', () => {
 		});
 	});
 
-	describe('GET /lpa-questionnaire/2/manage-documents/:folderId/', () => {
+	describe('GET /lpa-questionnaire/1/manage-documents/:folderId/', () => {
 		beforeEach(() => {
+			nock.cleanAll();
 			// @ts-ignore
 			usersService.getUserByRoleAndId = jest.fn().mockResolvedValue(activeDirectoryUsersData[0]);
-
 			nock('http://test/')
 				.get('/appeals/document-redaction-statuses')
 				.reply(200, documentRedactionStatuses);
 			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
 			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+		});
+		afterEach(() => {
+			nock.cleanAll();
 		});
 
 		it('should render a 404 error page if the folderId is not valid', async () => {
@@ -1047,7 +1247,7 @@ describe('LPA Questionnaire review', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should render the manage documents listing page with one document item for each document present in the folder, if the folderId is valid', async () => {
+		it('should render the manage documents listing page with one document item for each document present in the folder, with late entry status tags in the date received column for documents marked as late entry, if the folderId is valid', async () => {
 			const response = await request.get(`${baseUrl}/manage-documents/1/`);
 			const element = parseHtml(response.text);
 
@@ -1055,7 +1255,7 @@ describe('LPA Questionnaire review', () => {
 		});
 	});
 
-	describe('GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId', () => {
+	describe('GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId', () => {
 		beforeEach(() => {
 			// @ts-ignore
 			usersService.getUsersByRole = jest.fn().mockResolvedValue(activeDirectoryUsersData);
@@ -1137,6 +1337,45 @@ describe('LPA Questionnaire review', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render the manage individual document page without late entry tag in the date received row if the latest version of the document is not marked as late entry', async () => {
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileVersionsInfo);
+
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the manage individual document page with late entry tag in the date received row if the latest version of the document is marked as late entry, and a document history item for each version, with late entry tag in the history item document name column for versions marked as late entry', async () => {
+			nock('http://test/')
+				.get('/appeals/1/documents/1/versions')
+				.reply(200, documentFileMultipleVersionsInfoWithLatestAsLateEntry);
+
+			const response = await request.get(`${baseUrl}/manage-documents/1/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId/:versionId/delete', () => {
+		beforeEach(() => {
+			// @ts-ignore
+			usersService.getUsersByRole = jest.fn().mockResolvedValue(activeDirectoryUsersData);
+			// @ts-ignore
+			usersService.getUserByRoleAndId = jest.fn().mockResolvedValue(activeDirectoryUsersData[0]);
+			// @ts-ignore
+			usersService.getUserById = jest.fn().mockResolvedValue(activeDirectoryUsersData[0]);
+
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+		});
+
 		it('should render the delete document page with single document verson', async () => {
 			nock('http://test/')
 				.get('/appeals/1/documents/1/versions')
@@ -1154,7 +1393,7 @@ describe('LPA Questionnaire review', () => {
 
 			nock('http://test/')
 				.get('/appeals/1/documents/1/versions')
-				.reply(200, documentFileVersionsInfoChecked);
+				.reply(200, multipleVersionsDocument);
 
 			const response = await request.get(`${baseUrl}/manage-documents/1/1/1/delete`);
 

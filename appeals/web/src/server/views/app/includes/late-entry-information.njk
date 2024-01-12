@@ -1,0 +1,16 @@
+{%- from "govuk/components/details/macro.njk" import govukDetails -%}
+{%- from "../../appeals/components/status-tag.njk" import statusTag -%}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5">
+		{{ statusTag('late_entry') }}
+	</div>
+</div>
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+	{{ govukDetails({
+		summaryText: 'What is late entry?',
+		text: 'Additional documents are marked as late entries when the appellant case or LPA questionnaire to which they are being added has already been reviewed as valid or complete.'
+	}) }}
+	</div>
+</div>

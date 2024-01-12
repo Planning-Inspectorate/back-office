@@ -1,5 +1,7 @@
-{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{%- from "govuk/components/warning-text/macro.njk" import govukWarningText -%}
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 
 {%- macro extensionsHtml(params) -%}
 <span>{{"Your file must be "}}
@@ -9,8 +11,8 @@
 	{% endif %}
 {% endfor %}</span>
 {% endmacro %}
-{% macro fileUploader(params) %}
 
+{%- macro fileUploader(params) -%}
 	<div class="govuk-grid-row pins-file-upload" data-next-page-url="{{ params.nextPageUrl }}"
 		 data-case-id="{{ params.caseId }}" data-folder-id="{{ params.folderId }}"
 		 data-document-type="{{ params.documentType }}" data-document-stage="{{ params.documentStage }}"
@@ -19,7 +21,6 @@
 		 {% if params.useBlobEmulator %} data-use-blob-emulator="{{ params.useBlobEmulator }}"{% endif %}
 		 data-allowed-types="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}">
 		<div class="top-errors-hook"></div>
-
 		{% if params.formTitle %}
 			<h1 class="govuk-heading-m govuk-grid-column-full">{{ params.formTitle }}</h1>
 		{% endif %}
@@ -56,18 +57,29 @@
 						aria-describedby="file-list-title-{{ params.formId }}" aria-live="polite"></ul>
 				</div>
 			</div>
-
 			{% if params.disclaimerText %}
 				{{ govukInsetText({
 					text: params.disclaimerText
 				}) }}
 			{% endif %}
-
+			{%- if params.displayCorrectFolderConfirmationContent -%}
+				{{ govukWarningText({
+					text: 'Additional documents should only be used when no other document folder is suitable. Please check the box below to confirm the document cannot be placed anywhere else before proceeding.'
+				}) }}
+				{{ govukCheckboxes({
+					name: 'additionalDocumentsConfirmation',
+					items: [
+						{
+							value: 'confirm',
+							text: "This document doesn't belong anywhere else"
+						}
+					]
+				}) }}
+			{%- endif -%}
 			<div class="display--flex">
 				{{ govukButton({ text: params.text, classes: 'pins-file-upload--submit', attributes: { id: ["submit-button-", params.formId] | join } }) }}
 				<div class="progress-hook"></div>
 			</div>
 		</form>
 	</div>
-
-{% endmacro %}
+{%- endmacro -%}

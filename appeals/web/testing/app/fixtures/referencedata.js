@@ -172,7 +172,7 @@ export const appealData = {
 	}
 };
 
-export const appellantCaseData = {
+export const appellantCaseDataNotValidated = {
 	appealId: 1,
 	appealReference: 'TEST/919276',
 	appealSite: {
@@ -238,6 +238,36 @@ export const appellantCaseData = {
 			folderId: 9,
 			path: 'appellant_case/appealStatement',
 			documents: []
+		},
+		additionalDocuments: {
+			folderId: 10,
+			path: 'appellant_case/additionalDocuments',
+			documents: [
+				{
+					id: '00c43c8c-829a-4aa8-883a-fd6fc1f52c3d',
+					name: 'ph1.jpeg',
+					folderId: 3420,
+					caseId: 111,
+					isLateEntry: true,
+					virusCheckStatus: 'checked'
+				},
+				{
+					id: 'a78446aa-167a-4bef-89b7-18bcb0da11c1',
+					name: 'ph0.jpeg',
+					folderId: 3420,
+					caseId: 111,
+					isLateEntry: false,
+					virusCheckStatus: 'checked'
+				},
+				{
+					id: 'a78446aa-167a-4bef-89b7-18bcb0da11c2',
+					name: 'test-doc.jpeg',
+					folderId: 3420,
+					caseId: 111,
+					isLateEntry: false,
+					virusCheckStatus: 'not_checked'
+				}
+			]
 		}
 	},
 	hasAdvertisedAppeal: null,
@@ -256,6 +286,48 @@ export const appellantCaseData = {
 		isPartiallyOwned: null,
 		knowsOtherLandowners: null
 	},
+	validation: null,
+	visibility: {
+		details: null,
+		isVisible: true
+	}
+};
+
+export const appellantCaseDataInvalidOutcome = {
+	...appellantCaseDataNotValidated,
+	validation: {
+		outcome: 'Invalid',
+		invalidReasons: [
+			{
+				name: {
+					id: 1,
+					name: 'Appellant name is not the same on the application form and appeal form',
+					hasText: false
+				},
+				text: []
+			},
+			{
+				name: {
+					id: 2,
+					name: 'Attachments and/or appendices have not been included to the full statement of case',
+					hasText: true
+				},
+				text: ['test reason 1']
+			},
+			{
+				name: {
+					id: 10,
+					name: 'Other',
+					hasText: true
+				},
+				text: ['test reason 2', 'test reason 3']
+			}
+		]
+	}
+};
+
+export const appellantCaseDataIncompleteOutcome = {
+	...appellantCaseDataNotValidated,
 	validation: {
 		outcome: 'Incomplete',
 		incompleteReasons: [
@@ -284,14 +356,17 @@ export const appellantCaseData = {
 				text: ['test reason 2', 'test reason 3']
 			}
 		]
-	},
-	visibility: {
-		details: null,
-		isVisible: true
 	}
 };
 
-export const lpaQuestionnaireData = {
+export const appellantCaseDataValidOutcome = {
+	...appellantCaseDataNotValidated,
+	validation: {
+		outcome: 'Valid'
+	}
+};
+
+export const lpaQuestionnaireDataNotValidated = {
 	affectsListedBuildingDetails: [
 		{
 			listEntry: '123456'
@@ -556,6 +631,36 @@ export const lpaQuestionnaireData = {
 					caseId: 1
 				}
 			]
+		},
+		additionalDocuments: {
+			folderId: 21,
+			path: 'lpa_questionnaire/additionalDocuments',
+			documents: [
+				{
+					id: '00c43c8c-829a-4aa8-883a-fd6fc1f52c3d',
+					name: 'ph1.jpeg',
+					folderId: 3420,
+					caseId: 111,
+					isLateEntry: true,
+					virusCheckStatus: 'checked'
+				},
+				{
+					id: 'a78446aa-167a-4bef-89b7-18bcb0da11c1',
+					name: 'ph0.jpeg',
+					folderId: 3420,
+					caseId: 111,
+					isLateEntry: false,
+					virusCheckStatus: 'checked'
+				},
+				{
+					id: 'a78446aa-167a-4bef-89b7-18bcb0da11c2',
+					name: 'test-doc.jpeg',
+					folderId: 3420,
+					caseId: 111,
+					isLateEntry: false,
+					virusCheckStatus: 'not_checked'
+				}
+			]
 		}
 	},
 	doesAffectAListedBuilding: true,
@@ -647,6 +752,11 @@ export const lpaQuestionnaireData = {
 	sensitiveAreaDetails: 'The area is prone to flooding',
 	siteWithinGreenBelt: true,
 	statutoryConsulteesDetails: 'Some other people need to be consulted',
+	validation: null
+};
+
+export const lpaQuestionnaireDataIncompleteOutcome = {
+	...lpaQuestionnaireDataNotValidated,
 	validation: {
 		outcome: 'Incomplete',
 		incompleteReasons: [
@@ -675,6 +785,13 @@ export const lpaQuestionnaireData = {
 				text: ['test reason 4', 'test reason 5', 'test reason 6']
 			}
 		]
+	}
+};
+
+export const lpaQuestionnaireDataCompleteOutcome = {
+	...lpaQuestionnaireDataNotValidated,
+	validation: {
+		outcome: 'Complete'
 	}
 };
 
@@ -884,6 +1001,7 @@ export const documentFileInfo = {
 		dateCreated: '2023-10-11T13:57:41.592Z',
 		datePublished: null,
 		isDeleted: false,
+		isLateEntry: false,
 		examinationRefNo: null,
 		filter2: null,
 		publishedStatus: 'awaiting_upload',
@@ -936,6 +1054,7 @@ export const documentFileInfoPublished = {
 		dateCreated: '2023-10-11T13:57:41.592Z',
 		datePublished: null,
 		isDeleted: false,
+		isLateEntry: false,
 		examinationRefNo: null,
 		filter2: null,
 		publishedStatus: 'published',
@@ -945,6 +1064,14 @@ export const documentFileInfoPublished = {
 		documentURI:
 			'https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-655112/d51f408c-7c6f-4f49-bcc0-abbb5bea3be7/v1/test-document.pdf',
 		dateReceived: '2023-10-11T13:57:41.592Z'
+	}
+};
+
+export const documentFileInfoLateEntry = {
+	...documentFileInfo,
+	folderId: 2865,
+	latestDocumentVersion: {
+		isLateEntry: true
 	}
 };
 
@@ -959,7 +1086,8 @@ export const documentFolderInfo = {
 				dateReceived: '2023-02-01T01:00:00.000Z',
 				redactionStatus: 1,
 				size: 129363,
-				mime: 'application/pdf'
+				mime: 'application/pdf',
+				isLateEntry: false
 			}
 		},
 		{
@@ -971,7 +1099,8 @@ export const documentFolderInfo = {
 				redactionStatus: 2,
 				size: 11815175,
 				mime: 'video/mp4',
-				virusCheckStatus: 'not_checked'
+				virusCheckStatus: 'not_checked',
+				isLateEntry: true
 			}
 		},
 		{
@@ -983,7 +1112,8 @@ export const documentFolderInfo = {
 				redactionStatus: 3,
 				size: 58861,
 				mime: 'image/jpeg',
-				virusCheckStatus: 'failed_virus_check'
+				virusCheckStatus: 'failed_virus_check',
+				isLateEntry: false
 			}
 		},
 		{
@@ -995,12 +1125,19 @@ export const documentFolderInfo = {
 				redactionStatus: 2,
 				size: 58987,
 				mime: 'image/jpeg',
-				virusCheckStatus: 'checked'
+				virusCheckStatus: 'checked',
+				isLateEntry: true
 			}
 		}
 	],
 	id: 2864,
 	path: 'appellant_case/newSupportingDocuments'
+};
+
+export const additionalDocumentsFolderInfo = {
+	...documentFolderInfo,
+	id: 2865,
+	path: 'appellant_case/additionalDocuments'
 };
 
 export const notCheckedDocumentFolderInfoDocuments = {
@@ -1072,6 +1209,7 @@ export const documentFileVersionsInfo = {
 			dateCreated: '2023-10-31T13:14:14.474Z',
 			datePublished: null,
 			isDeleted: false,
+			isLateEntry: false,
 			examinationRefNo: null,
 			filter2: null,
 			publishedStatus: 'awaiting_upload',
@@ -1132,6 +1270,23 @@ export const documentFileVersionsInfoChecked = {
 		{
 			...documentFileVersionsInfo.documentVersion[0],
 			virusCheckStatus: 'checked'
+		}
+	]
+};
+
+export const documentFileMultipleVersionsInfoWithLatestAsLateEntry = {
+	...documentFileVersionsInfo,
+	latestVersionId: 2,
+	documentVersion: [
+		{
+			...documentFileVersionsInfo.documentVersion[0],
+			version: 2,
+			isLateEntry: true
+		},
+		{
+			...documentFileVersionsInfo.documentVersion[0],
+			version: 1,
+			isLateEntry: false
 		}
 	]
 };

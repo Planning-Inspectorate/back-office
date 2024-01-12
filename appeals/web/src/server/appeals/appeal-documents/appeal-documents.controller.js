@@ -14,37 +14,54 @@ import {
 	manageDocumentPage,
 	mapRedactionStatusIdToName,
 	changeDocumentDetailsPage,
-	deleteDocumentPage
+	deleteDocumentPage,
+	mapAddDocumentsPageHeading
 } from './appeal-documents.mapper.js';
-
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  *
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {import('../appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @param {string} backButtonUrl
  * @param {string} [nextPageUrl]
+ * @param {boolean} [isLateEntry]
  */
-export const renderDocumentUpload = async (request, response, backButtonUrl, nextPageUrl) => {
+export const renderDocumentUpload = async (
+	request,
+	response,
+	appealDetails,
+	backButtonUrl,
+	nextPageUrl,
+	isLateEntry = false
+) => {
 	const { appealId, documentId } = request.params;
 	const { currentFolder, errors } = request;
-	let documentName;
-	let pageHeadingText;
 
-	if (!currentFolder) {
+	if (!appealDetails || !currentFolder) {
+		console.log('!appealDetails || !currentFolder');
 		return response.status(404).render('app/404');
 	}
+
+	let documentName;
 
 	if (documentId) {
 		const fileInfo = await getFileInfo(request.apiClient, appealId, documentId);
 		documentName = fileInfo?.latestDocumentVersion.fileName;
-		pageHeadingText = 'Upload an updated document';
 	}
 
 	const pathComponents = currentFolder.path.split('/');
 	const documentStage = pathComponents[0];
 	const documentType = pathComponents[1];
+
+	const isAdditionalDocument = currentFolder.path.split('/')[1] === 'additionalDocuments';
+	const pageHeadingText = mapAddDocumentsPageHeading(
+		currentFolder,
+		isAdditionalDocument,
+		documentId
+	);
 
 	return response.render('appeals/documents/document-upload.njk', {
 		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
@@ -57,12 +74,15 @@ export const renderDocumentUpload = async (request, response, backButtonUrl, nex
 		blobStorageContainer: config.blobStorageDefaultContainer,
 		multiple: !documentId,
 		documentStage: documentStage,
-		serviceName: documentName,
+		serviceName: documentName || pageHeadingText,
+		appealShortReference: appealShortReference(appealDetails.appealReference),
 		pageHeadingText: pageHeadingText,
 		documentType: documentType,
 		nextPageUrl:
 			nextPageUrl?.replace('{{folderId}}', currentFolder.id) ||
 			backButtonUrl?.replace('{{folderId}}', currentFolder.id),
+		displayLateEntryContent: isAdditionalDocument && isLateEntry,
+		displayCorrectFolderConfirmationContent: isAdditionalDocument && !isLateEntry,
 		errors
 	});
 };
@@ -72,8 +92,14 @@ export const renderDocumentUpload = async (request, response, backButtonUrl, nex
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  * @param {string} backButtonUrl
+ * @param {boolean} [isLateEntry]
  */
-export const renderDocumentDetails = async (request, response, backButtonUrl) => {
+export const renderDocumentDetails = async (
+	request,
+	response,
+	backButtonUrl,
+	isLateEntry = false
+) => {
 	const { currentFolder, body, errors } = request;
 
 	if (!currentFolder) {
@@ -81,9 +107,11 @@ export const renderDocumentDetails = async (request, response, backButtonUrl) =>
 	}
 
 	const mappedPageContent = addDocumentDetailsPage(backButtonUrl, currentFolder, body?.items);
+	const isAdditionalDocument = currentFolder.path.split('/')[1] === 'additionalDocuments';
 
 	return response.render('appeals/documents/add-document-details.njk', {
 		pageContent: mappedPageContent,
+		displayLateEntryContent: isAdditionalDocument && isLateEntry,
 		errors
 	});
 };

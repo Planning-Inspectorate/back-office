@@ -252,6 +252,8 @@ export interface DocumentVersionDetails {
 	datePublished?: any;
 	/** @example false */
 	isDeleted?: boolean;
+	/** @example false */
+	isLateEntry?: boolean;
 	examinationRefNo?: any;
 	filter2?: any;
 	/** @example "awaiting_upload" */
@@ -322,6 +324,8 @@ export interface DocumentDetails {
 		datePublished?: any;
 		/** @example false */
 		isDeleted?: boolean;
+		/** @example false */
+		isLateEntry?: boolean;
 		examinationRefNo?: any;
 		filter2?: any;
 		/** @example "awaiting_upload" */

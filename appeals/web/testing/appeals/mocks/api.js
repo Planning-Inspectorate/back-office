@@ -2,7 +2,7 @@ import nock from 'nock';
 import {
 	appealData,
 	appealsNationalList,
-	appellantCaseData
+	appellantCaseDataIncompleteOutcome
 } from '../../app/fixtures/referencedata.js';
 
 /**
@@ -20,7 +20,7 @@ export function installMockAppealsService() {
 	// appellant case
 	nock('http://test/')
 		.get(`/appeals/${appealData.appealId}/appellant-cases/${appealData.appellantCaseId}`)
-		.reply(200, appellantCaseData)
+		.reply(200, appellantCaseDataIncompleteOutcome)
 		.persist();
 
 	return {

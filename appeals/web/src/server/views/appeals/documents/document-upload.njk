@@ -8,11 +8,14 @@
 {% endblock %}
 
 {%- block pageHeading -%}
+	<span class="govuk-caption-xl">Appeal {{ appealShortReference }}</span>
+	<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
 	{%- if pageHeadingText -%}
-		<h1 class="govuk-caption-l govuk-!-margin-bottom-3">{{pageHeadingText}}</h1>
+		{{pageHeadingText}}
 	{%- else -%}
-		<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Upload files</h1>
+		Upload files
 	{%- endif -%}
+	</h1>
 {%- endblock -%}
 
 {%- set backLinkUrl -%}
@@ -20,6 +23,9 @@
 {%- endset -%}
 
 {% block pageContent %}
+	{%- if displayLateEntryContent -%}
+		{%- include "../../app/includes/late-entry-information.njk" -%}
+	{%- endif -%}
 	{{ fileUploader({
 		text: 'Save and continue',
 		formId: 1,
@@ -31,11 +37,10 @@
 		blobStorageHost: blobStorageHost,
 		useBlobEmulator: useBlobEmulator,
 		blobStorageContainer: blobStorageContainer,
-		formTitle: serviceName,
 		nextPageUrl: nextPageUrl if nextPageUrl else (['/appeals-service/appeal-details/', caseId] | join),
 		allowedTypes: allowedTypes if allowedTypes else (['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff' ]),
 		disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
-		multiple: multiple
+		multiple: multiple,
+		displayCorrectFolderConfirmationContent: displayCorrectFolderConfirmationContent
 	}) }}
-
 {% endblock %}

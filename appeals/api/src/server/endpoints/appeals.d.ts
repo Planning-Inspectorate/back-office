@@ -387,6 +387,7 @@ interface LatestDocumentVersionInfo {
 	dateCreated?: string | null | undefined;
 	datePublished?: any;
 	isDeleted?: boolean | null | undefined;
+	isLateEntry?: boolean | null | undefined;
 	redactionStatus?: number | null | undefined;
 	redacted?: boolean | null | undefined;
 	documentURI?: string | null | undefined;
@@ -400,6 +401,7 @@ interface DocumentInfo {
 	caseId?: number;
 	virusCheckStatus?: any;
 	latestDocumentVersion?: LatestDocumentVersionInfo;
+	isLateEntry?: boolean;
 }
 
 interface SingleSiteVisitDetailsResponse {
