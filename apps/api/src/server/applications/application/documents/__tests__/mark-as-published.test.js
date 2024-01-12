@@ -16,7 +16,9 @@ describe('Mark-as-published', () => {
 			size: 23452,
 			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
 			privateBlobContainer: 'document-uploads',
-			privateBlobPath: 'published/en010120-filename.pdf'
+			privateBlobPath: 'published/en010120-filename.pdf',
+			publishedBlobContainer: 'document-uploads',
+			publishedBlobPath: 'published/en010120-filename.pdf'
 		};
 
 		const application1 = applicationFactoryForTests({
@@ -70,6 +72,7 @@ describe('Mark-as-published', () => {
 			originalFilename: 'original_filename.pdf',
 			size: 23452,
 			documentURI: 'https://127.0.0.1:10000/document-uploads/published/en010120-filename.pdf',
+			publishedDocumentURI: 'https://127.0.0.1:10000/document-uploads/published/en010120-filename.pdf',
 			dateCreated: '2023-03-26T00:00:00.000Z'
 		};
 

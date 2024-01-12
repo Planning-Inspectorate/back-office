@@ -14,7 +14,15 @@ const documentVersion1 = {
 	caseId: 1,
 	documentGuid: 'D1234',
 	publishedStatus: 'awaiting_virus_check',
-	Document: document1
+  Document: document1,
+  fileName: 'test-filename',
+  originalFilename: 'test-original-filename',
+  size: 1,
+  privateBlobContainer: 'test-container',
+  privateBlobPath: 'test-path',
+  publishedBlobContainer: 'test-container',
+  publishedBlobPath: 'test-path',
+  dateCreated: new Date()
 };
 
 const documentToUpdate1 = {
