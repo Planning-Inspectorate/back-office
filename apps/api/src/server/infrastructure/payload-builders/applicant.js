@@ -5,23 +5,23 @@ import { sourceSystem } from './constants.js';
  * @param {string} caseReference
  * @param {'Applicant' | 'Appellant' | 'Agent' | 'RepresentationContact' | 'Subscriber'} caseRole
  *
- * @returns {import('../../../message-schemas/events/service-user.d.ts').ServiceUser} ServiceUser
+ * @returns {import('pins-data-model').Schemas.ServiceUser} ServiceUser
  */
 export const buildServiceUserPayload = (entity, caseReference, caseRole) => ({
 	id: entity.id.toString(),
-	organisation: entity.organisationName,
-	firstName: entity.firstName,
-	lastName: entity.lastName,
-	emailAddress: entity.email,
-	webAddress: entity.website,
-	telephoneNumber: entity.phoneNumber,
+	organisation: entity.organisationName ?? undefined,
+	firstName: entity.firstName ?? undefined,
+	lastName: entity.lastName ?? undefined,
+	emailAddress: entity.email ?? undefined,
+	webAddress: entity.website ?? undefined,
+	telephoneNumber: entity.phoneNumber ?? undefined,
 	...(entity.address && {
-		addressLine1: entity.address.addressLine1,
-		addressLine2: entity.address.addressLine2,
-		addressTown: entity.address.town,
-		addressCounty: entity.address.county,
-		postcode: entity.address.postcode,
-		addressCountry: entity.address.country
+		addressLine1: entity.address.addressLine1 ?? undefined,
+		addressLine2: entity.address.addressLine2 ?? undefined,
+		addressTown: entity.address.town ?? undefined,
+		addressCounty: entity.address.county ?? undefined,
+		postcode: entity.address.postcode ?? undefined,
+		addressCountry: entity.address.country ?? undefined
 	}),
 	sourceSuid: entity.id.toString(),
 	caseReference: caseReference,

@@ -5,19 +5,19 @@ import { sourceSystem } from './constants.js';
 /**
  * @param {import('@pins/applications.api').Schema.Case} projectEntity
  *
- * @returns {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject} NSIPProject
+ * @returns {import('pins-data-model').Schemas.NSIPProject} NSIPProject
  */
 export const buildNsipProjectPayload = (projectEntity) => {
 	const application = mapApplicationDetails(projectEntity);
 
 	const sectorAndType = mapSectorAndType(projectEntity);
 
-	// 3. Return the result
+  // @ts-ignore
 	return {
 		caseId: projectEntity.id,
-		caseReference: projectEntity.reference,
-		projectName: projectEntity.title,
-		projectDescription: projectEntity.description,
+		caseReference: projectEntity.reference ?? undefined,
+		projectName: projectEntity.title ?? undefined,
+		projectDescription: projectEntity.description ?? undefined,
 		publishStatus: projectEntity.CasePublishedState?.[0]?.isPublished ? 'published' : 'unpublished',
 		sourceSystem,
 		...application,
@@ -37,7 +37,7 @@ const keyDateNames = allKeyDateNames.filter(
 
 /**
  * @param {import('@pins/applications.api').Schema.Case} projectEntity
- * @returns {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject | undefined}
+ * @returns {import('pins-data-model').Schemas.NSIPProject | undefined}
  */
 const mapApplicationDetails = (projectEntity) => {
 	const appDetails = projectEntity?.ApplicationDetails;

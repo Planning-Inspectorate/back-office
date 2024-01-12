@@ -34,7 +34,7 @@ export function mapProjectUpdate(projectUpdate) {
 }
 
 /**
- * @typedef {import('../../../../message-schemas/events/nsip-project-update.d.ts').NSIPProjectUpdate} NSIPProjectUpdate
+ * @typedef {import('pins-data-model').Schemas.NSIPProjectUpdate} NSIPProjectUpdate
  */
 
 /**

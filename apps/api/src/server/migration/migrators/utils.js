@@ -35,7 +35,7 @@ const getCaseIdFromRef = async (reference) => {
 };
 
 /**
- * @param {string }email
+ * @param {{ emailAddress: string }} email
  * @returns {Promise<number>} serviceUserId
  */
 export const getOrCreateServiceUserId = async ({ emailAddress: email }) => {
