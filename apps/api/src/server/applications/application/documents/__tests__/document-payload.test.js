@@ -31,6 +31,9 @@ describe('validateNsipDocument', () => {
 			privateBlobContainer: 'document-uploads',
 			privateBlobPath:
 				'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
+			publishedBlobContainer: 'document-uploads',
+			publishedBlobPath:
+				'EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
 			virusCheckStatus: 'scanned',
 			size: 23452,
 			stage: 'examination',
@@ -59,6 +62,8 @@ describe('validateNsipDocument', () => {
 			size: 23452,
 			mime: 'application/pdf',
 			documentURI:
+				'https://127.0.0.1:10000/document-uploads/EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
+			publishedDocumentURI:
 				'https://127.0.0.1:10000/document-uploads/EN010011/2.Post-Submission/Application-Documents/Application-Form/Letter.PDF',
 			virusCheckStatus: 'scanned',
 			fileMD5: 'b1946ac92492d2347c6235b4d2611184',

@@ -160,6 +160,8 @@ describe('Publish documents', () => {
 			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
 			privateBlobContainer: 'document-uploads',
 			privateBlobPath: 'en010120/filename.pdf',
+      publishedBlobContainer: 'test-container',
+      publishedBlobPath: 'test-path',
 			publishedStatus: 'publishing'
 		};
 
@@ -174,9 +176,7 @@ describe('Publish documents', () => {
 
 		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
 		databaseConnector.documentVersion.update.mockResolvedValue(updatedPublishedDocument);
-		databaseConnector.documentVersion.findMany.mockResolvedValue([
-			{ documentGuid: 'document_to_publish_guid', version: 1 }
-		]);
+		databaseConnector.documentVersion.findMany.mockResolvedValue([updatedPublishedDocument]);
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({
@@ -231,6 +231,14 @@ describe('Publish documents', () => {
 		]);
 		databaseConnector.documentVersion.update.mockResolvedValue({
 			documentGuid: 'document_to_publish_guid',
+      fileName: 'test-file-name',
+      originalFilename: 'test-original-filename',
+      size: 1,
+      privateBlobContainer: 'test-container',
+      privateBlobPath: 'test-path',
+      publishedBlobContainer: 'test-container',
+      publishedBlobPath: 'test-path',
+      dateCreated: new Date(),
 			Document: {
 				guid: 'document_to_publish_guid',
 				reference: 'document-reference',
