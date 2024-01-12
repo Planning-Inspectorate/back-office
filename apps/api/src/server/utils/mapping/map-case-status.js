@@ -2,19 +2,23 @@ import { mapCaseStatusString } from './map-case-status-string.js';
 
 /**
  *
- * @param {import('@pins/applications.api').Schema.CaseStatus[] | null} caseStatus
+ * @param {import('@pins/applications.api').Schema.CaseStatus[] | null} caseStatuses
  * @returns {string | object}
  */
-export const mapCaseStatus = (caseStatus) => {
-	if (typeof caseStatus === 'undefined' || caseStatus === null || !Array.isArray(caseStatus)) {
-		throw new TypeError('No Case Status Provided');
+export const mapCaseStatus = (caseStatuses) => {
+	if (
+		typeof caseStatuses === 'undefined' ||
+		caseStatuses === null ||
+		!Array.isArray(caseStatuses)
+	) {
+		throw new TypeError('No Case Statuses Provided');
 	}
 
-	const builtStatus = caseStatus[0].status;
+	const validStatus = caseStatuses.find((caseStatus) => typeof caseStatus.status === 'string');
 
-	if (typeof builtStatus !== 'string') {
-		throw new TypeError('No Valid Status Provided');
+	if (!validStatus) {
+		throw new TypeError('No `Case status` with valid status provided');
 	}
 
-	return mapCaseStatusString(builtStatus);
+	return mapCaseStatusString(validStatus.status);
 };
