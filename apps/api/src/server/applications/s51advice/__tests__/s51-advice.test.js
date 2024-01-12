@@ -1,7 +1,10 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
-
+import { EventType } from '@pins/event-client';
+import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
+import { buildNsipS51AdvicePayload } from '../s51-advice.js';
+const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 const validS51AdviceBody = {
@@ -38,17 +41,18 @@ const s51AdviceToBeReturned = {
 	enquirer: 'enquirer orgname',
 	referenceNumber: 1,
 	enquiryMethod: 'email',
-	enquiryDate: new Date('2023-02-27T10:00'),
+	enquiryDate: new Date('2023-01-21T10:00'),
 	enquiryDetails: 'enquiryDetails',
 	adviser: 'adviser',
-	adviceDate: new Date('2023-02-27T10:00'),
+	adviceDate: new Date('2023-01-21T10:00'),
 	adviceDetails: 'adviceDetails',
 	redactedStatus: 'unredacted',
 	publishedStatus: 'not_checked',
+	publishedStatusPrev: 'not_checked',
 	datePublished: null,
 	isDeleted: false,
-	createdAt: '2023-01-01T00:00:00.000Z',
-	updatedAt: '2023-01-01T00:00:00.000Z'
+	createdAt: new Date('2023-01-21T10:00'),
+	updatedAt: new Date('2023-01-21T10:00')
 };
 
 const inValidS51AdviceBody = {
@@ -88,10 +92,12 @@ const s51AdvicesOnCase1 = [
 		adviceDate: new Date('2023-01-01T10:00'),
 		adviceDetails: 'good advice',
 		publishedStatus: 'not_checked',
+		publishedStatusPrev: 'not_checked',
 		redactedStatus: 'not_redacted',
+		datePublished: null,
 		isDeleted: false,
-		createdAt: '2023-01-01T00:00:00.000Z',
-		updatedAt: '2023-01-01T00:00:00.000Z',
+		createdAt: new Date('2023-01-21T10:00'),
+		updatedAt: new Date('2023-01-21T10:00'),
 		attachments: [],
 		totalAttachments: 0
 	}
@@ -162,12 +168,20 @@ describe('Test S51 advice API', () => {
 		expect(databaseConnector.s51Advice.create).toHaveBeenCalledWith({
 			data: s51AdviceToBeSaved
 		});
+
+		// EXPECT event broadcast
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_S51_ADVICE,
+			[await buildNsipS51AdvicePayload(s51AdviceToBeReturned)],
+			EventType.Create
+		);
 	});
 
 	test('post throws 400 error when passed invalid data and does not call create', async () => {
 		const resp = await request.post('/applications/s51-advice').send(inValidS51AdviceBody);
 		expect(resp.status).toEqual(400);
 		expect(databaseConnector.s51Advice.create).toHaveBeenCalledTimes(0);
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 
 	test('get by id throws 404 when there is no case found', async () => {
@@ -202,7 +216,7 @@ describe('Test S51 advice API', () => {
 		const resp = await request.get('/applications/100000000/s51-advice/132').send({});
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual({
-			adviceDate: 1677492000,
+			adviceDate: 1674295200,
 			adviceDetails: 'adviceDetails',
 			adviser: 'adviser',
 			attachments: [
@@ -217,9 +231,9 @@ describe('Test S51 advice API', () => {
 				}
 			],
 			totalAttachments: 1,
-			dateCreated: 1672531200,
-			dateUpdated: 1672531200,
-			enquiryDate: 1677492000,
+			dateCreated: 1674295200,
+			dateUpdated: 1674295200,
+			enquiryDate: 1674295200,
 			enquiryDetails: 'enquiryDetails',
 			enquiryMethod: 'email',
 			firstName: 'William',
@@ -272,8 +286,8 @@ describe('Test S51 advice API', () => {
 					adviceDetails: 'good advice',
 					publishedStatus: 'not_checked',
 					redactedStatus: 'not_redacted',
-					dateCreated: 1672531200,
-					dateUpdated: 1672531200,
+					dateCreated: 1674295200,
+					dateUpdated: 1674295200,
 					attachments: [],
 					datePublished: null,
 					totalAttachments: 0
@@ -373,6 +387,13 @@ describe('Test S51 advice API', () => {
 
 		expect(response.status).toEqual(200);
 		expect(response.body.isDeleted).toEqual(true);
+
+		// EXPECT event broadcast
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_S51_ADVICE,
+			[await buildNsipS51AdvicePayload(validDeletedResponse)],
+			EventType.Delete
+		);
 	});
 
 	test('DELETE S51 Advice throws error 404 if case id is invalid', async () => {
@@ -383,6 +404,7 @@ describe('Test S51 advice API', () => {
 		expect(response.body).toEqual({
 			errors: { id: 'Must be an existing application' }
 		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 
 	test('DELETE S51 Advice throws error 400 if advice id is invalid', async () => {
@@ -394,6 +416,7 @@ describe('Test S51 advice API', () => {
 		expect(response.body).toEqual({
 			errors: { adviceId: 'Must be an existing S51 advice item' }
 		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 
 	test('DELETE S51 Advice throws error 400 if advice is published', async () => {
@@ -407,5 +430,6 @@ describe('Test S51 advice API', () => {
 		expect(response.body).toEqual({
 			errors: { adviceId: 'You must first unpublish S51 advice before deleting it.' }
 		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 });

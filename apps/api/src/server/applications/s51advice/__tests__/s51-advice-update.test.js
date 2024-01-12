@@ -1,7 +1,10 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
-
+import { EventType } from '@pins/event-client';
+import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
+import { buildNsipS51AdvicePayload } from '../s51-advice.js';
+const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 const validS51AdviceBody = {
@@ -16,6 +19,29 @@ const validS51AdviceBody = {
 	adviser: 'adviser',
 	adviceDate: new Date('2023-01-01T10:00'),
 	adviceDetails: 'adviceDetails'
+};
+
+const validS51AdviceReturned = {
+	id: 1,
+	caseId: 1,
+	title: 'Advice 1',
+	enquirer: 'New Power Company',
+	firstName: 'John',
+	lastName: 'Keats',
+	referenceNumber: 1,
+	enquiryMethod: 'email',
+	enquiryDate: new Date('2023-01-01T10:00'),
+	enquiryDetails: 'enquiryDetails',
+	adviser: 'adviser',
+	adviceDate: new Date('2023-01-01T10:00'),
+	adviceDetails: 'adviceDetails',
+	redactedStatus: 'unredacted',
+	publishedStatus: 'not_checked',
+	publishedStatusPrev: 'not_checked',
+	datePublished: null,
+	isDeleted: false,
+	createdAt: new Date('2023-01-21T10:00'),
+	updatedAt: new Date('2023-01-21T10:00')
 };
 
 const s51AdviceDocuments = [
@@ -60,9 +86,8 @@ describe('Test S51 advice update status and redacted status', () => {
 
 	test('updates s51 advice status to not_checked AND redacted status to redacted', async () => {
 		// GIVEN
-		const validS51AdviceWithId = {
-			...validS51AdviceBody,
-			id: 1,
+		const validS51AdviceUpdated = {
+			...validS51AdviceReturned,
 			redactedStatus: 'redacted',
 			publishedStatus: 'not_checked',
 			publishedStatusPrev: ''
@@ -70,7 +95,7 @@ describe('Test S51 advice update status and redacted status', () => {
 
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBody);
 		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([]).mockResolvedValueOnce([1]);
-		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceWithId);
+		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdated);
 		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue([]);
 
 		// WHEN
@@ -96,13 +121,19 @@ describe('Test S51 advice update status and redacted status', () => {
 				redactedStatus: 'redacted'
 			}
 		});
+
+		// EXPECT event broadcast
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_S51_ADVICE,
+			[await buildNsipS51AdvicePayload(validS51AdviceUpdated)],
+			EventType.Update
+		);
 	});
 
 	test('updates s51 advice status only to ready_to_publish, redaction status unchanged', async () => {
 		// GIVEN
-		const validS51AdviceWithId = {
-			...validS51AdviceBody,
-			id: 1,
+		const validS51AdviceUpdated = {
+			...validS51AdviceReturned,
 			redactedStatus: 'redacted',
 			publishedStatus: 'ready_to_publish',
 			publishedStatusPrev: 'not_checked'
@@ -111,7 +142,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBody);
 		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
-		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceWithId);
+		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdated);
 		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue([]);
 
 		// WHEN
@@ -135,15 +166,28 @@ describe('Test S51 advice update status and redacted status', () => {
 				publishedStatus: 'ready_to_publish'
 			}
 		});
+
+		// EXPECT event broadcast
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_S51_ADVICE,
+			[await buildNsipS51AdvicePayload(validS51AdviceUpdated)],
+			EventType.Update
+		);
 	});
 
 	test('updates s51 advice status to ready_to_publish, with enquirer organisation but no person', async () => {
 		// GIVEN
-		const validS51AdviceBodyNoPerson = { ...validS51AdviceBody, firstName: '', lastName: '' };
+		const validS51AdviceBodyNoPerson = {
+			...validS51AdviceReturned,
+			firstName: '',
+			lastName: '',
+			publishedStatus: 'not_checked',
+			publishedStatusPrev: null,
+			redactedStatus: 'unredacted'
+		};
 		const validS51AdviceUpdateResponse = {
 			...validS51AdviceBodyNoPerson,
-			id: 1,
-			redactedStatus: 'redacted',
+			redactedStatus: 'unredacted',
 			publishedStatus: 'ready_to_publish',
 			publishedStatusPrev: 'not_checked'
 		};
@@ -164,25 +208,37 @@ describe('Test S51 advice update status and redacted status', () => {
 		expect(response.body).toEqual([
 			{
 				id: '1',
-				redactedStatus: 'redacted',
+				redactedStatus: 'unredacted',
 				status: 'ready_to_publish'
 			}
 		]);
 		expect(databaseConnector.s51Advice.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
-				publishedStatus: 'ready_to_publish'
+				publishedStatus: 'ready_to_publish',
+				redactedStatus: undefined,
+				publishedStatusPrev: 'not_checked'
 			}
 		});
+
+		// EXPECT event broadcast
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_S51_ADVICE,
+			[await buildNsipS51AdvicePayload(validS51AdviceUpdateResponse)],
+			EventType.Update
+		);
 	});
 
 	test('updates s51 advice status only to ready_to_publish, with enquirer person but no organisation', async () => {
 		// GIVEN
-		const validS51AdviceBodyNoOrg = { ...validS51AdviceBody, enquirer: '' };
+		const validS51AdviceBodyNoOrg = {
+			...validS51AdviceReturned,
+			enquirer: '',
+			redactedStatus: null
+		};
 		const validS51AdviceUpdateResponse = {
 			...validS51AdviceBodyNoOrg,
-			id: 1,
-			redactedStatus: 'redacted',
+			redactedStatus: null,
 			publishedStatus: 'ready_to_publish',
 			publishedStatusPrev: 'not_checked'
 		};
@@ -204,16 +260,25 @@ describe('Test S51 advice update status and redacted status', () => {
 		expect(response.body).toEqual([
 			{
 				id: '1',
-				redactedStatus: 'redacted',
+				redactedStatus: '',
 				status: 'ready_to_publish'
 			}
 		]);
 		expect(databaseConnector.s51Advice.update).toHaveBeenCalledWith({
 			where: { id: 1 },
 			data: {
-				publishedStatus: 'ready_to_publish'
+				publishedStatus: 'ready_to_publish',
+				redactedStatus: undefined,
+				publishedStatusPrev: 'not_checked'
 			}
 		});
+
+		// EXPECT event broadcast
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_S51_ADVICE,
+			[await buildNsipS51AdvicePayload(validS51AdviceUpdateResponse)],
+			EventType.Update
+		);
 	});
 
 	test('throws 400 error updating s51 advice missing required data: title', async () => {
@@ -237,6 +302,7 @@ describe('Test S51 advice update status and redacted status', () => {
 			errors:
 				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
 		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 
 	test('throws 400 error updating s51 advice when attachment is not scanned', async () => {
@@ -268,6 +334,7 @@ describe('Test S51 advice update status and redacted status', () => {
 			errors:
 				'There are attachments which have failed the virus check. Return to the S51 advice properties screen to delete files.'
 		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 
 	test('throws 400 error updating s51 advice when advice is already published', async () => {
@@ -298,6 +365,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		expect(response.body).toEqual({
 			errors: 'You must first unpublish S51 advice before changing the status.'
 		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 
 	test('throws 400 error updating s51 advice when attachment is published', async () => {
@@ -330,6 +398,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		expect(response.body).toEqual({
 			errors: 'You must first unpublish documents before changing the status.'
 		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 
 	test('throws 400 error updating s51 advice missing required data: enquirer AND firstName + lastName', async () => {
@@ -359,6 +428,7 @@ describe('Test S51 advice update status and redacted status', () => {
 			errors:
 				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
 		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 
 	test('throws 400 error updating s51 advice with invalid advice id', async () => {
@@ -379,6 +449,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		expect(response.body).toEqual({
 			errors: { items: 'Unknown S51 Advice id 999' }
 		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
 
 	test('returns 404 error updating s51 advice if case does not exist', async () => {
