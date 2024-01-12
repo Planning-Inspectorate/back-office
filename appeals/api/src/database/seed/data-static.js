@@ -24,7 +24,7 @@
  *
  */
 export const appealTypes = [
-	{ shorthand: 'HAS', type: 'Householder appeal', code: 'D', enabled: true },
+	{ shorthand: 'HAS', type: 'Householder', code: 'D', enabled: true },
 	{ shorthand: 'FPA', type: 'Planning appeal', code: 'A', enabled: false },
 	{ shorthand: 'X1', type: 'Enforcement notice appeal', code: 'C', enabled: false },
 	{
