@@ -133,6 +133,16 @@ const clientActions = (uploadForm) => {
 	};
 
 	const onSubmitValidation = async () => {
+		/** @type {HTMLInputElement|null} */
+		const additionalDocumentsConfirmation = document.querySelector(
+			'#additionalDocumentsConfirmation'
+		);
+
+		if (additionalDocumentsConfirmation && !additionalDocumentsConfirmation?.checked) {
+			// eslint-disable-next-line no-throw-literal
+			throw { message: 'ADDITIONAL_DOCUMENTS_CONFIRMATION_REQUIRED' };
+		}
+
 		const filesToUpload = globalDataTransfer.files;
 
 		return new Promise((resolve, reject) => {

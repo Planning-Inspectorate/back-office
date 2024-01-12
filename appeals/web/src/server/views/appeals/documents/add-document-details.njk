@@ -10,12 +10,15 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{%- if pageContent.preHeading -%}<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ pageContent.preHeading }}</span>{%- endif -%}
-			{%- if pageContent.heading -%}<h1 class="govuk-heading-l govuk-!-margin-bottom-9">{{ pageContent.heading }}</h1>{%- endif -%}
+			{%- if pageContent.heading -%}<h1 class="govuk-heading-l {{ "govuk-!-margin-bottom-3" if displayLateEntryContent else "govuk-!-margin-bottom-9" }}">{{ pageContent.heading }}</h1>{%- endif -%}
 		</div>
 	</div>
 {%- endblock -%}
 
 {%- block pageContent -%}
+	{%- if displayLateEntryContent -%}
+		{%- include "../../app/includes/late-entry-information.njk" -%}
+	{%- endif -%}
 	<form method="post" novalidate="novalidate">
 		{%- for componentGroup in pageContent.pageComponentGroups -%}
 			{%- if componentGroup.wrapperHtml -%}{{ componentGroup.wrapperHtml.opening | safe }}{%- endif -%}

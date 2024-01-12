@@ -24,7 +24,8 @@ const formatFolder = (folder) => ({
 					virusCheckStatus: document?.latestDocumentVersion?.virusCheckStatus,
 					size: document?.latestDocumentVersion?.size,
 					mime: document?.latestDocumentVersion?.mime,
-					draft: document?.latestDocumentVersion?.draft
+					draft: document?.latestDocumentVersion?.draft,
+					isLateEntry: document?.latestDocumentVersion?.isLateEntry
 				}
 			})) || null,
 	id: folder.id,

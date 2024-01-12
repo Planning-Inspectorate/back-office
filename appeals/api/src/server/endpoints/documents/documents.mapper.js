@@ -130,6 +130,7 @@ const mapFoldersLayoutForAppealFolder = (folders, path) => {
 							name: d.name,
 							folderId: d.folderId,
 							caseId: folder.caseId,
+							isLateEntry: d.latestDocumentVersion?.isLateEntry,
 							virusCheckStatus: d.latestDocumentVersion?.virusCheckStatus
 						};
 					}) || []

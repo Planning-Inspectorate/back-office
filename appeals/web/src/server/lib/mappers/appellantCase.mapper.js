@@ -568,7 +568,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					appellantCaseData.appealId,
-					appellantCaseData.documents.applicationForm
+					appellantCaseData.documents.applicationForm.documents
 				),
 				actions: {
 					items: [
@@ -609,7 +609,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					appellantCaseData.appealId,
-					appellantCaseData.documents.decisionLetter
+					appellantCaseData.documents.decisionLetter.documents
 				),
 				actions: {
 					items: [
@@ -650,7 +650,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					appellantCaseData.appealId,
-					appellantCaseData.documents.appealStatement
+					appellantCaseData.documents.appealStatement.documents
 				),
 				actions: {
 					items: [
@@ -743,7 +743,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					appellantCaseData.appealId,
-					appellantCaseData.documents.newSupportingDocuments
+					appellantCaseData.documents.newSupportingDocuments.documents
 				),
 				actions: {
 					items: [
@@ -771,6 +771,45 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					]
 				}
 			}
+		}
+	};
+
+	/** @type {Instructions} */
+	mappedData.additionalDocuments = {
+		id: 'additional-documents',
+		display: {
+			...((appellantCaseData.documents.additionalDocuments.documents || []).length > 0
+				? {
+						summaryListItems: (appellantCaseData.documents.additionalDocuments.documents || []).map(
+							(document) => ({
+								key: {
+									text: 'Additional documents',
+									classes: 'govuk-visually-hidden'
+								},
+								value: displayPageFormatter.formatDocumentValues(
+									appellantCaseData.appealId,
+									[document],
+									document.isLateEntry
+								),
+								actions: {
+									items: []
+								}
+							})
+						)
+				  }
+				: {
+						summaryListItems: [
+							{
+								key: {
+									text: 'Additional documents',
+									classes: 'govuk-visually-hidden'
+								},
+								value: {
+									text: 'None'
+								}
+							}
+						]
+				  })
 		}
 	};
 
@@ -833,7 +872,7 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 	return mappedData;
 }
 
-const documentUploadUrlTemplate =
+export const documentUploadUrlTemplate =
 	'/appeals-service/appeal-details/{{appealId}}/appellant-case/add-documents/{{folderId}}/{{documentId}}';
 
 /**
@@ -842,6 +881,6 @@ const documentUploadUrlTemplate =
  * @param {FolderInfo} folder
  * @returns {string}
  */
-const mapDocumentManageUrl = (caseId, folder) => {
+export const mapDocumentManageUrl = (caseId, folder) => {
 	return `/appeals-service/appeal-details/${caseId}/appellant-case/manage-documents/${folder.folderId}/`;
 };

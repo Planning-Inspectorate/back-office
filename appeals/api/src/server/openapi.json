@@ -3147,6 +3147,10 @@
 						"type": "boolean",
 						"example": false
 					},
+					"isLateEntry": {
+						"type": "boolean",
+						"example": false
+					},
 					"examinationRefNo": {},
 					"filter2": {},
 					"publishedStatus": {
@@ -3271,6 +3275,10 @@
 								},
 								"datePublished": {},
 								"isDeleted": {
+									"type": "boolean",
+									"example": false
+								},
+								"isLateEntry": {
 									"type": "boolean",
 									"example": false
 								},

@@ -10,7 +10,7 @@ import {
 } from '#repositories/document-metadata.repository.js';
 import { formatFolder } from './documents.formatter.js';
 import documentRedactionStatusRepository from '#repositories/document-redaction-status.repository.js';
-import { ERROR_NOT_FOUND } from '#endpoints/constants.js';
+import { ERROR_NOT_FOUND, STATUSES, CONFIG_APPEAL_STAGES } from '#endpoints/constants.js';
 
 /** @typedef {import('../appeals.js').RepositoryGetByIdResultItem} RepositoryResult */
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
@@ -66,6 +66,7 @@ export const addDocumentsToAppeal = async (upload, appeal) => {
 	const documentsCreated = await addDocumentAndVersion(
 		appeal.id,
 		appeal.reference,
+		appeal.appealStatus[0].status,
 		documentsToSendToDatabase
 	);
 
@@ -82,10 +83,11 @@ export const addDocumentsToAppeal = async (upload, appeal) => {
 /**
  * @param {number} caseId
  * @param {string} reference
+ * @param {string} appealStatus
  * @param {DocumentMetadata[]} documents
  * @returns {Promise<(DocumentVersion | null)[]>}
  */
-const addDocumentAndVersion = async (caseId, reference, documents) => {
+const addDocumentAndVersion = async (caseId, reference, appealStatus, documents) => {
 	const { results } = await PromisePool.withConcurrency(5)
 		.for(documents)
 		.handleError((error, document) => {
@@ -103,7 +105,8 @@ const addDocumentAndVersion = async (caseId, reference, documents) => {
 					stage: d.stage,
 					size: d.documentSize,
 					version: 1,
-					blobStorageContainer: d.blobStorageContainer
+					blobStorageContainer: d.blobStorageContainer,
+					isLateEntry: isLateEntry(d.stage, appealStatus)
 				},
 				{
 					caseId,
@@ -160,7 +163,8 @@ export const addVersionToDocument = async (upload, appeal, document) => {
 		stage: documentToSendToDatabase.stage,
 		documentType: documentToSendToDatabase.documentType,
 		version: 1,
-		blobStorageContainer: documentToSendToDatabase.blobStorageContainer
+		blobStorageContainer: documentToSendToDatabase.blobStorageContainer,
+		isLateEntry: isLateEntry(documentToSendToDatabase.stage, appeal.appealStatus[0].status)
 	});
 
 	if (!documentVersionCreated) {
@@ -211,4 +215,28 @@ export const deleteDocument = async (document, version) => {
  */
 export const addDocumentAudit = async (guid, version, auditTrail, action) => {
 	await addDocumentVersionAudit(guid, version, action, auditTrail.id);
+};
+
+/**
+ * @param { string } stage
+ * @param { string } status
+ * @return { boolean }
+ */
+const isLateEntry = (stage, status) => {
+	switch (stage) {
+		case CONFIG_APPEAL_STAGES.appellantCase:
+			return (
+				status !== STATUSES.STATE_TARGET_ASSIGN_CASE_OFFICER &&
+				status !== STATUSES.STATE_TARGET_READY_TO_START
+			);
+
+		case CONFIG_APPEAL_STAGES.lpaQuestionnaire:
+			return (
+				status !== STATUSES.STATE_TARGET_ASSIGN_CASE_OFFICER &&
+				status !== STATUSES.STATE_TARGET_READY_TO_START &&
+				status !== STATUSES.STATE_TARGET_LPA_QUESTIONNAIRE_DUE
+			);
+	}
+
+	return false;
 };

@@ -457,6 +457,7 @@ model DocumentVersion {
   datePublished          DateTime?
   dateReceived           DateTime?
   isDeleted              Boolean                  @default(false)
+  isLateEntry            Boolean?
   redactionStatusId      Int?
   redacted               Boolean                  @default(false)
   documentURI            String?
