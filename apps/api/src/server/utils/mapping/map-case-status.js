@@ -14,7 +14,9 @@ export const mapCaseStatus = (caseStatuses) => {
 		throw new TypeError('No Case Statuses Provided');
 	}
 
-	const validStatus = caseStatuses.find((caseStatus) => typeof caseStatus.status === 'string');
+	const validStatus = caseStatuses.find(
+		(caseStatus) => typeof caseStatus.status === 'string' && caseStatus.valid
+	);
 
 	if (!validStatus) {
 		throw new TypeError('No `Case status` with valid status provided');
