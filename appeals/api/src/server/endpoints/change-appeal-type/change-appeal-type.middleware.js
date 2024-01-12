@@ -1,4 +1,15 @@
-import { ERROR_NOT_FOUND } from '#endpoints/constants.js';
+import {
+	ERROR_NOT_FOUND,
+	ERROR_INVALID_APPEAL_STATE,
+	STATE_TARGET_ASSIGN_CASE_OFFICER,
+	STATE_TARGET_READY_TO_START,
+	STATE_TARGET_INVALID,
+	STATE_TARGET_CLOSED,
+	STATE_TARGET_COMPLETE,
+	STATE_TARGET_AWAITING_TRANSFER,
+	STATE_TARGET_TRANSFERRED,
+	STATE_TARGET_WITHDRAWN
+} from '#endpoints/constants.js';
 import { databaseConnector } from '#utils/database-connector.js';
 
 /** @typedef {import('express').Request} Request */
@@ -27,6 +38,29 @@ export const validateAppealType = async (req, res, next) => {
 		req.appealTypes.findIndex((appealType) => appealType.id === Number(newAppealTypeId)) > -1;
 	if (!match) {
 		return res.status(400).send({ errors: { newAppealTypeId: ERROR_NOT_FOUND } });
+	}
+	next();
+};
+
+/**
+ * @type {import("express").RequestHandler}
+ * @returns {Promise<object|void>}
+ */
+export const validateAppealStatus = async (req, res, next) => {
+	const isValidStatus =
+		[
+			STATE_TARGET_ASSIGN_CASE_OFFICER,
+			STATE_TARGET_READY_TO_START,
+			STATE_TARGET_CLOSED,
+			STATE_TARGET_COMPLETE,
+			STATE_TARGET_INVALID,
+			STATE_TARGET_AWAITING_TRANSFER,
+			STATE_TARGET_TRANSFERRED,
+			STATE_TARGET_WITHDRAWN
+		].indexOf(req.appeal.appealStatus[0].status) === -1;
+
+	if (!isValidStatus) {
+		return res.status(400).send({ errors: { appealStatus: ERROR_INVALID_APPEAL_STATE } });
 	}
 	next();
 };
