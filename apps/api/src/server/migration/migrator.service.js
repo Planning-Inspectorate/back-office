@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
-import addAjvFormats from 'ajv-formats';
-import { loadAllSchemas } from 'pins-data-model';
+import addFormats from 'ajv-formats';
+import { readdirSync, readFileSync } from 'node:fs';
 import { migrateNsipProjects } from './migrators/nsip-project-migrator.js';
 import { migrateNsipProjectUpdates } from './migrators/nsip-project-update-migrator.js';
 import { migrateNsipSubscriptions } from './migrators/nsip-subscription-migrator.js';
@@ -39,11 +39,15 @@ export const getMigratorForModel = async (modelType) => {
 
 // the mappings are lazily initialised to improve test performance
 const initializeMapping = async () => {
-	const { schemas } = await loadAllSchemas();
+	const schemas = readdirSync('./src/message-schemas/events')
+		.filter((file) => file.endsWith('.schema.json'))
+		.map((file) => {
+			return JSON.parse(readFileSync(`./src/message-schemas/events/${file}`).toString());
+		});
 
 	const ajv = new Ajv({ schemas, allErrors: true });
 
-	addAjvFormats(ajv);
+	addFormats(ajv);
 
 	migrationMap.set('nsip-project', {
 		validator: ajv.getSchema('nsip-project.schema.json'),

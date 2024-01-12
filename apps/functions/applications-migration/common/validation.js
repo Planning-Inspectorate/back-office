@@ -1,20 +1,22 @@
 import Ajv from 'ajv';
-import addAjvFormats from 'ajv-formats';
-import { loadAllSchemas } from 'pins-data-model';
+import addFormats from 'ajv-formats';
+import { readdirSync, readFileSync } from 'node:fs';
 
 /**
  * @param {string} model
  * @returns {Promise<import('ajv').ValidateFunction>}
  */
 export async function loadSchemaValidator(model) {
-	const { schemas } = await loadAllSchemas();
+	const schemas = readdirSync('./src/message-schemas/events')
+		.filter((file) => file.endsWith('.schema.json'))
+		.map((file) => {
+			return JSON.parse(readFileSync(`./src/message-schemas/events/${file}`).toString());
+		});
 
-	const ajv = new Ajv({
-		schemas,
-		// check all rules (don't stop at the first)
-		allErrors: true
-	});
-	addAjvFormats(ajv);
+	const ajv = new Ajv({ schemas, allErrors: true });
+
+	addFormats(ajv);
+
 	ajv.addVocabulary(['example']);
 
 	const validator = ajv.getSchema(`${model}.schema.json`);

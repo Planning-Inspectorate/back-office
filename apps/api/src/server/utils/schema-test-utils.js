@@ -1,12 +1,16 @@
 import Ajv from 'ajv';
-import addAjvFormats from 'ajv-formats';
-import { loadAllSchemas } from 'pins-data-model';
+import addFormats from 'ajv-formats';
+import { readdirSync, readFileSync } from 'node:fs';
 
-const { schemas } = await loadAllSchemas();
+const schemas = readdirSync('./src/message-schemas/events')
+	.filter((file) => file.endsWith('.schema.json'))
+	.map((file) => {
+		return JSON.parse(readFileSync(`./src/message-schemas/events/${file}`).toString());
+	});
 
 const ajv = new Ajv({ schemas, allErrors: true });
 
-addAjvFormats(ajv);
+addFormats(ajv);
 
 export const validateNsipProjectSchema = ajv.getSchema('nsip-project.schema.json');
 export const validateNsipDocumentSchema = ajv.getSchema('nsip-document.schema.json');
