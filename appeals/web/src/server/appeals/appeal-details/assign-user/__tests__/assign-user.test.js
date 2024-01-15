@@ -235,66 +235,9 @@ describe('assign-user', () => {
 	});
 
 	describe(`GET /unassign-user/case-officer/1/confirm`, () => {
-		it('should render the confirm unassign case officer page', async () => {
+		it('should render a 404 error page, as it should not be possible to unassign a case officer (only assign or change the case officer)', async () => {
 			const response = await request.get(`${baseUrl}/1/unassign-user/case-officer/1/confirm`);
 			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-		});
-	});
-
-	describe(`POST /unassign-user/case-officer/1/confirm`, () => {
-		it('should re-render the confirm unassign case officer page with the expected error message if a confirmation option is not selected', async () => {
-			const response = await request
-				.post(`${baseUrl}/1/unassign-user/case-officer/1/confirm`)
-				.send({
-					confirm: ''
-				});
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should re-render the confirm unassign case officer page with the expected error message if the selected confirmation value is anything other than "yes" or "no"', async () => {
-			const response = await request
-				.post(`${baseUrl}/1/unassign-user/case-officer/1/confirm`)
-				.send({
-					confirm: '1'
-				});
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-		});
-
-		it('should redirect to the assign case officer page if the selected confirmation value is "no"', async () => {
-			const response = await request
-				.post(`${baseUrl}/1/unassign-user/case-officer/1/confirm`)
-				.send({
-					confirm: 'no'
-				});
-
-			expect(response.statusCode).toBe(302);
-			expect(response.text).toEqual(
-				'Found. Redirecting to /appeals-service/appeal-details/1/assign-user/case-officer'
-			);
-		});
-
-		it('should send a patch request to the appeals/:appealId API endpoint and redirect to the assign new case officer page if the selected confirmation value is "yes", and the appeal details page should then display the expected notification banner', async () => {
-			nock('http://test/').patch('/appeals/1').reply(200, { caseOfficer: '' });
-
-			const response = await request
-				.post(`${baseUrl}/1/unassign-user/case-officer/1/confirm`)
-				.send({
-					confirm: 'yes'
-				});
-
-			expect(response.statusCode).toBe(302);
-			expect(response.text).toEqual(
-				'Found. Redirecting to /appeals-service/appeal-details/1/assign-new-user/case-officer'
-			);
-
-			const appealDetailsGetResponse = await request.get(`${baseUrl}/1/`);
-			const element = parseHtml(appealDetailsGetResponse.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
