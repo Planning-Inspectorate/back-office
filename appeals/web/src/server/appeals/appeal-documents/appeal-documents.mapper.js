@@ -141,6 +141,24 @@ export function mapDocumentVersionDetailsVirusCheckStatus(document) {
 }
 
 /**
+ * @param {FolderInfo} currentFolder
+ * @param {boolean} isAdditionalDocument
+ * @param {string} [documentId]
+ * @returns {string}
+ */
+export function mapAddDocumentsPageHeading(currentFolder, isAdditionalDocument, documentId) {
+	const isExistingDocument = !!documentId;
+
+	if (isAdditionalDocument) {
+		return isExistingDocument ? 'Update additional document' : 'Add additional documents';
+	} else if (isExistingDocument) {
+		return 'Upload an updated document';
+	}
+
+	return 'Upload documents';
+}
+
+/**
  * @param {string} backLinkUrl
  * @param {FolderInfo & {id: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
  * @param {Object<string, any>} bodyItems
@@ -430,9 +448,43 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 					],
 					rows: (folder?.documents || []).map((document) => [
 						mapFolderDocumentInformationHtmlProperty(folder, document),
-						{
-							text: dateToDisplayDate(document?.latestDocumentVersion?.dateReceived)
-						},
+						document?.latestDocumentVersion?.isLateEntry
+							? {
+									html: '',
+									pageComponentGroups: [
+										{
+											wrapperHtml: {
+												opening: '<div>',
+												closing: '</div>'
+											},
+											pageComponents: [
+												{
+													type: 'html',
+													parameters: {
+														html: dateToDisplayDate(document?.latestDocumentVersion?.dateReceived)
+													}
+												}
+											]
+										},
+										{
+											wrapperHtml: {
+												opening: '<div class="govuk-!-margin-top-3">',
+												closing: '</div>'
+											},
+											pageComponents: [
+												{
+													type: 'status-tag',
+													parameters: {
+														status: 'late_entry'
+													}
+												}
+											]
+										}
+									]
+							  }
+							: {
+									text: dateToDisplayDate(document?.latestDocumentVersion?.dateReceived)
+							  },
 						{
 							text:
 								mapRedactionStatusIdToName(
@@ -592,6 +644,19 @@ function mapDocumentNameHtmlProperty(document, documentVersion) {
 		});
 	}
 
+	if (documentVersion.isLateEntry) {
+		htmlProperty.pageComponents.push({
+			type: 'status-tag',
+			wrapperHtml: {
+				opening: '<div class="govuk-!-margin-bottom-2">',
+				closing: '</div>'
+			},
+			parameters: {
+				status: 'late_entry'
+			}
+		});
+	}
+
 	return htmlProperty;
 }
 
@@ -708,9 +773,51 @@ export async function manageDocumentPage(
 								},
 								{
 									key: { text: 'Date received' },
-									value: {
-										text: dateToDisplayDate(latestVersion?.dateReceived)
-									},
+									value: latestVersion?.isLateEntry
+										? {
+												html: '',
+												pageComponents: [
+													{
+														type: 'html',
+														parameters: {
+															html: '',
+															pageComponentGroups: [
+																{
+																	wrapperHtml: {
+																		opening: '<div class="govuk-!-margin-bottom-2">',
+																		closing: '</div>'
+																	},
+																	pageComponents: [
+																		{
+																			type: 'html',
+																			parameters: {
+																				html: dateToDisplayDate(latestVersion?.dateReceived)
+																			}
+																		}
+																	]
+																},
+																{
+																	wrapperHtml: {
+																		opening: '<div class="govuk-!-margin-bottom-1">',
+																		closing: '</div>'
+																	},
+																	pageComponents: [
+																		{
+																			type: 'status-tag',
+																			parameters: {
+																				status: 'late_entry'
+																			}
+																		}
+																	]
+																}
+															]
+														}
+													}
+												]
+										  }
+										: {
+												text: dateToDisplayDate(latestVersion?.dateReceived)
+										  },
 									actions: {
 										items: [
 											{

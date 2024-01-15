@@ -14,6 +14,7 @@
  * Display Instructions
  * @type {object}
  * @property {SummaryListRowProperties} [summaryListItem] To create a row in a summary list
+ * @property {SummaryListRowProperties[]} [summaryListItems] To create an array of rows in a summary list
  * @property {StatusTagProperties} [statusTag] To create a Status Tag
  * @property {TableCellProperties[]} [tableItem] To create a table row
  */

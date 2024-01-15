@@ -59,6 +59,7 @@ export interface SingleAppellantCaseResponse {
 		decisionLetter: FolderInfo;
 		designAndAccessStatement?: FolderInfo;
 		newSupportingDocuments: FolderInfo;
+		additionalDocuments: FolderInfo;
 	};
 	hasAdvertisedAppeal: boolean | null;
 	hasDesignAndAccessStatement?: boolean | null;

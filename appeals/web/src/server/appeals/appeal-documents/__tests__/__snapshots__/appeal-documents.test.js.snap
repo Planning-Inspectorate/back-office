@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`documents upload should render upload form if appeal ID and folder ID are found 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Upload files</h1>
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Upload documents</h1>
     <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1"
     data-case-id="1" data-folder-id="1" data-document-type="docs" data-document-stage="appellantCase"
     data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1" data-blob-storage-container="document-service-uploads"
@@ -38,8 +38,8 @@ exports[`documents upload should render upload form if appeal ID and folder ID a
 `;
 
 exports[`documents upload should render upload form if appeal ID, folder ID and document ID are found 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-caption-l govuk-!-margin-bottom-3">Upload an updated document</h1>
+"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Upload an updated document</h1>
     <div class="govuk-grid-row pins-file-upload" data-next-page-url="/appeals-service/appeal-details/1/appellant-case/add-document-details/1/0e4ce48f-2d67-4659-9082-e80a15182386"
     data-case-id="1" data-folder-id="1" data-document-type="docs" data-document-stage="appellantCase"
     data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1" data-blob-storage-container="document-service-uploads"

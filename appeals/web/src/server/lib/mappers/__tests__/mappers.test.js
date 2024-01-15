@@ -1,7 +1,7 @@
 import {
 	appealData,
 	baseSession,
-	lpaQuestionnaireData
+	lpaQuestionnaireDataIncompleteOutcome
 } from '#testing/app/fixtures/referencedata.js';
 import { createAccountInfo } from '#testing/app/app.js';
 import { initialiseAndMapAppealData } from '../appeal.mapper.js';
@@ -96,7 +96,10 @@ describe('lpaQuestionnaire-mapper', () => {
 	let validMappedData;
 	beforeAll(async () => {
 		currentRoute = 'testroute/';
-		validMappedData = await initialiseAndMapLPAQData(lpaQuestionnaireData, currentRoute);
+		validMappedData = await initialiseAndMapLPAQData(
+			lpaQuestionnaireDataIncompleteOutcome,
+			currentRoute
+		);
 	});
 	describe('Test 1: Basic functionality', () => {
 		it('should return a valid MappedLPAQInstructions object for valid inputs', async () => {
@@ -113,7 +116,7 @@ describe('lpaQuestionnaire-mapper', () => {
 			);
 
 			expect(neighbouringSitesSummaryListsKeys.length).toEqual(
-				lpaQuestionnaireData.neighbouringSiteContacts.length
+				lpaQuestionnaireDataIncompleteOutcome.neighbouringSiteContacts.length
 			);
 		});
 	});

@@ -4,7 +4,8 @@ import * as appellantCaseService from './appellant-case.service.js';
 import {
 	appellantCasePage,
 	mapWebReviewOutcomeToApiReviewOutcome,
-	checkAndConfirmPage
+	checkAndConfirmPage,
+	getValidationOutcomeFromAppellantCase
 } from './appellant-case.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import {
@@ -225,20 +226,49 @@ export const postCheckAndConfirm = async (request, response) => {
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const getAddDocuments = async (request, response) => {
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (!appealDetails) {
+		return response.status(404).render('app/404');
+	}
+
+	const appellantCaseDetails = await getAppellantCaseDetails(request, response, appealDetails);
+	if (!appellantCaseDetails) {
+		return response.status(404).render('app/404');
+	}
+
 	renderDocumentUpload(
 		request,
 		response,
+		appealDetails,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/`,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-document-details/{{folderId}}`
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-document-details/{{folderId}}`,
+		getValidationOutcomeFromAppellantCase(appellantCaseDetails) === 'valid'
 	);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const getAddDocumentDetails = async (request, response) => {
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (!appealDetails) {
+		return response.status(404).render('app/404');
+	}
+
+	const appellantCaseDetails = await getAppellantCaseDetails(request, response, appealDetails);
+	if (!appellantCaseDetails) {
+		return response.status(404).render('app/404');
+	}
+
 	renderDocumentDetails(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`,
+		getValidationOutcomeFromAppellantCase(appellantCaseDetails) === 'valid'
 	);
 };
 
@@ -275,20 +305,49 @@ export const getManageDocument = async (request, response) => {
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const getAddDocumentsVersion = async (request, response) => {
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (!appealDetails) {
+		return response.status(404).render('app/404');
+	}
+
+	const appellantCaseDetails = await getAppellantCaseDetails(request, response, appealDetails);
+	if (!appellantCaseDetails) {
+		return response.status(404).render('app/404');
+	}
+
 	renderDocumentUpload(
 		request,
 		response,
+		appealDetails,
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/manage-documents/${request.params.folderId}/${request.params.documentId}`,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-document-details/${request.params.folderId}/${request.params.documentId}`
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-document-details/${request.params.folderId}/${request.params.documentId}`,
+		getValidationOutcomeFromAppellantCase(appellantCaseDetails) === 'valid'
 	);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const getAddDocumentVersionDetails = async (request, response) => {
+	const appealDetails = await appealDetailsService
+		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+		.catch((error) => logger.error(error));
+
+	if (!appealDetails) {
+		return response.status(404).render('app/404');
+	}
+
+	const appellantCaseDetails = await getAppellantCaseDetails(request, response, appealDetails);
+	if (!appellantCaseDetails) {
+		return response.status(404).render('app/404');
+	}
+
 	renderDocumentDetails(
 		request,
 		response,
-		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/${request.params.folderId}/${request.params.documentId}`
+		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/${request.params.folderId}/${request.params.documentId}`,
+		getValidationOutcomeFromAppellantCase(appellantCaseDetails) === 'valid'
 	);
 };
 
@@ -335,3 +394,23 @@ export const postDeleteDocument = async (request, response) => {
 		`/appeals-service/appeal-details/${request.params.appealId}/appellant-case/add-documents/{{folderId}}`
 	);
 };
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ * @param {import('../appeal-details.types.js').WebAppeal} appealDetails
+ * @returns {Promise<void|import('./appellant-case.types.js').SingleAppellantCaseResponse>}
+ */
+async function getAppellantCaseDetails(request, response, appealDetails) {
+	if (appealDetails.appellantCaseId === null || appealDetails.appellantCaseId === undefined) {
+		return;
+	}
+
+	return await appellantCaseService
+		.getAppellantCaseFromAppealId(
+			request.apiClient,
+			appealDetails?.appealId,
+			appealDetails?.appellantCaseId
+		)
+		.catch((error) => logger.error(error));
+}

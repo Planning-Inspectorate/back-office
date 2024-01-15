@@ -174,6 +174,7 @@ export const documentVersionDetails = {
 	dateCreated: '2023-08-17T15:22:20.827Z',
 	datePublished: null,
 	isDeleted: false,
+	isLateEntry: false,
 	examinationRefNo: null,
 	filter2: null,
 	publishedStatus: 'awaiting_upload',
