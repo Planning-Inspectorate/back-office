@@ -4,9 +4,11 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { dateToDisplayDate } from '#lib/dates.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
+import * as authSession from '../../app/auth/auth-session.service.js';
 
 /** @typedef {import('@pins/appeals').AppealList} AppealList */
 /** @typedef {import('@pins/appeals').Pagination} Pagination */
+/** @typedef {import('../../app/auth/auth.service').AccountInfo} AccountInfo */
 
 /**
  * @param {AppealList|void} appealsAssignedToCurrentUser
@@ -14,6 +16,10 @@ import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
  * @returns {PageContent}
  */
 export function personalListPage(appealsAssignedToCurrentUser, session) {
+	const account = /** @type {AccountInfo} */ (authSession.getAccount(session));
+	const userGroups = account?.idTokenClaims?.groups ?? [];
+	const isInspector = userGroups.includes(config.referenceData.appeals.inspectorGroupId);
+
 	/** @type {PageContent} */
 	const pageContent = {
 		title: 'Personal list',
@@ -67,7 +73,8 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 									appeal.appealStatus,
 									appeal.lpaQuestionnaireId,
 									appeal.documentationSummary?.appellantCase?.status,
-									appeal.documentationSummary?.lpaQuestionnaire?.status
+									appeal.documentationSummary?.lpaQuestionnaire?.status,
+									isInspector
 								)
 							},
 							{
@@ -114,19 +121,24 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
  * @param {number|null|undefined} lpaQuestionnaireId
  * @param {string} appellantCaseStatus
  * @param {string} lpaQuestionnaireStatus
+ * @param {boolean} [isInspector]
  * @returns {string}
  */
-function mapAppealStatusToActionRequiredHtml(
+export function mapAppealStatusToActionRequiredHtml(
 	appealId,
 	appealStatus,
 	lpaQuestionnaireId,
 	appellantCaseStatus,
-	lpaQuestionnaireStatus
+	lpaQuestionnaireStatus,
+	isInspector = false
 ) {
 	switch (appealStatus) {
 		case 'ready_to_start':
 		case 'review_appellant_case':
 			if (appellantCaseStatus == 'Incomplete') {
+				if (isInspector) {
+					return 'Awaiting appellant update';
+				}
 				return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">Awaiting appellant update</a>`;
 			}
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">Review appellant case</a>`;
@@ -135,9 +147,12 @@ function mapAppealStatusToActionRequiredHtml(
 				return 'Awaiting LPA Questionnaire';
 			}
 			if (lpaQuestionnaireStatus == 'Incomplete') {
+				if (isInspector) {
+					return 'Awaiting LPA update';
+				}
 				return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Awaiting LPA update</a>`;
 			}
-			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">LPA Questionnaire Overdue</a>`;
+			return 'LPA Questionnaire Overdue';
 		case 'issue_determination':
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/issue-decision/decision">Submit decision</a>`;
 		default:

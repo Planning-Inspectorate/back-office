@@ -73,8 +73,8 @@ const formatMyAppeals = (appeal) => ({
 				})
 		  }
 		: undefined,
-	appellantCaseStatus: appeal?.appellantCase?.appellantCaseValidationOutcome?.name,
-	lpaQuestionnaireStatus: appeal.lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name,
+	appellantCaseStatus: appeal?.appellantCase?.appellantCaseValidationOutcome?.name || null,
+	lpaQuestionnaireStatus: appeal.lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name || null,
 	dueDate: mapAppealToDueDate(
 		appeal,
 		appeal?.appellantCase?.appellantCaseValidationOutcome?.name,
@@ -189,6 +189,7 @@ const formatAppeal = (appeal, folders) => {
  * @returns { Date | null | undefined }
  */
 export const mapAppealToDueDate = (appeal, appellantCaseStatus, appellantCaseDueDate) => {
+	console.log('mapAppealToDueDate', JSON.stringify(appeal), ']');
 	switch (appeal.appealStatus[0].status) {
 		case STATE_TARGET_READY_TO_START:
 			if (appellantCaseStatus == 'Incomplete' && appellantCaseDueDate) {
