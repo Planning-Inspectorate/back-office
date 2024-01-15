@@ -4,14 +4,10 @@ import config from './config.js';
 const { serviceBus } = config;
 
 /**
- * @typedef {import('../../../api/src/message-schemas/events/nsip-exam-timetable-submission.schema.d.ts').NSIPExamTimetableSubmissionStatus} NSIPExamTimetableSubmissionStatus
- * */
-
-/**
  *
  * @param {import('@azure/functions').Context} context
  * @param {string} guid
- * @param {NSIPExamTimetableSubmissionStatus} eventStatus
+ * @param {string} eventStatus
  * @param {EventType} eventType
  * */
 const handlePublishResult = async (context, guid, eventStatus, eventType) => {

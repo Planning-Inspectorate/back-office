@@ -1,5 +1,5 @@
 /**
- * @typedef {import('@pins/applications.api/src/message-schemas/events/nsip-project-update.js').NSIPProjectUpdate} NSIPProjectUpdate
+ * @typedef {import('pins-data-model').Schemas.NSIPProjectUpdate} NSIPProjectUpdate
  */
 
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';

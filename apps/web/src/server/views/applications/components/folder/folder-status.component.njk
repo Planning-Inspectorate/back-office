@@ -40,7 +40,7 @@
 	<div class="govuk-width-container">
 		<div class="govuk-grid-row govuk-!-margin-top-0">
 			<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
-				<h3 class="govuk-heading-m">Documents</h3>
+				<h3 class="govuk-heading-m">{% if isS51folder %}S51 advice{% else %}Documents{% endif %}</h3>
 				<p class="govuk-body">
 					{{ contentNumberText }}
 				</p>

@@ -1,7 +1,12 @@
 /**
- * @template T
- * @param {*} requestHandler
- * @returns {import('express').RequestHandler<*>}
+ * @template A
+ * @template B
+ * @template C
+ * @template D
+ * @template {Record<string, any>} E
+ *
+ * @param {import('express').RequestHandler<A, B, C, D, E>|import('../types/express.js').AsyncRequestHandler<A, B, C, D, E>} requestHandler
+ * @returns {import('express').RequestHandler<A, B, C, D, E>}
  */
 export const asyncHandler = (requestHandler) => {
 	return (request, response, next) => {

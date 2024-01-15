@@ -2,8 +2,8 @@ import { Subscription } from '@pins/applications/lib/application/subscription.js
 import { EventType } from '@pins/event-client';
 
 /**
- * @typedef {import('../../../message-schemas/events/nsip-subscription').NSIPSubscription} NSIPSubscription
- * @typedef {import('../../../message-schemas/events/service-user').ServiceUser} ServiceUser
+ * @typedef {import('pins-data-model').Schemas.NsipSubscription} NSIPSubscription
+ * @typedef {import('pins-data-model').Schemas.ServiceUser} ServiceUser
  * @typedef {import('@pins/applications').SubscriptionType} SubscriptionType
  */
 
@@ -182,18 +182,18 @@ export function subscriptionTypeChanges(existingSub, newSub) {
  * */
 export const buildServiceUserPayload = (subscription) => ({
 	id: subscription.serviceUser.id.toString(),
-	firstName: subscription.serviceUser.firstName,
-	lastName: subscription.serviceUser.lastName,
-	addressLine1: subscription.serviceUser.address?.addressLine1,
-	addressLine2: subscription.serviceUser.address?.addressLine2,
-	addressTown: subscription.serviceUser.address?.town,
-	addressCounty: subscription.serviceUser.address?.county,
-	postcode: subscription.serviceUser.address?.postcode,
-	addressCountry: subscription.serviceUser.address?.country,
-	organisation: subscription.serviceUser.organisationName,
-	role: subscription.serviceUser.jobTitle,
-	telephoneNumber: subscription.serviceUser.phoneNumber,
-	emailAddress: subscription.serviceUser.email,
+	firstName: subscription.serviceUser.firstName ?? undefined,
+	lastName: subscription.serviceUser.lastName ?? undefined,
+	addressLine1: subscription.serviceUser.address?.addressLine1 ?? undefined,
+	addressLine2: subscription.serviceUser.address?.addressLine2 ?? undefined,
+	addressTown: subscription.serviceUser.address?.town ?? undefined,
+	addressCounty: subscription.serviceUser.address?.county ?? undefined,
+	postcode: subscription.serviceUser.address?.postcode ?? undefined,
+	addressCountry: subscription.serviceUser.address?.country ?? undefined,
+	organisation: subscription.serviceUser.organisationName ?? undefined,
+	role: subscription.serviceUser.jobTitle ?? undefined,
+	telephoneNumber: subscription.serviceUser.phoneNumber ?? undefined,
+	emailAddress: subscription.serviceUser.email ?? undefined,
 	serviceUserType: 'Subscriber',
 	caseReference: subscription.caseReference,
 	sourceSuid: subscription.serviceUser.id.toString(),

@@ -8,8 +8,8 @@ import logger from '#utils/logger.js';
 import { EventType } from '@pins/event-client';
 
 /**
- * @typedef {import('../../../message-schemas/events/nsip-exam-timetable.js').NSIPExamTimetableItem} NSIPExamTimetableItem
- * @typedef {import('../../../message-schemas/events/nsip-exam-timetable.js').NSIPExamTimetable} NSIPExamTimetable
+ * @typedef {import('pins-data-model').Schemas.Event} NSIPExamTimetableItem
+ * @typedef {import('pins-data-model').Schemas.ExaminationTimetable} NSIPExamTimetable
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
  * @typedef {import('@prisma/client').Prisma.ExaminationTimetableItemGetPayload<{include: {ExaminationTimetableType: true} }>} ExaminationTimetableItemWithType
  */
