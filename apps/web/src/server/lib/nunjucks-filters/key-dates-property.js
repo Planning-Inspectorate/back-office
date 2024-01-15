@@ -56,7 +56,7 @@ const propertyToName = {
 		'Notification date for PM and any events directly following the PM',
 	notificationDateForPMAndEventsDirectlyFollowingPM_label:
 		'28 days before PM. Rule 6 - 21 days + 7 days to allow for post.',
-	notificationDateForEventsDeveloper: 'Notification date for events - Developer',
+	notificationDateForEventsDeveloper: 'Notification date for events - Applicant',
 	notificationDateForEventsDeveloper_label: '21 days before the event - Rule 13.',
 
 	examination: 'Examination',
