@@ -166,7 +166,7 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                                         <td                                         class=\\"govuk-table__cell\\">13 May 2023</td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Notification date for events - Developer</th>
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Notification date for events - Applicant</th>
                                         <td class=\\"govuk-table__cell\\">18 Jul 2023</td>
                                     </tr>
                                 </tbody>
@@ -846,7 +846,7 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
             </div>
             <div class=\\"govuk-form-group govuk-grid-column-full \\">
                 <fieldset class=\\"govuk-fieldset\\">
-                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Notification date for events - Developer</legend>
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Notification date for events - Applicant</legend>
                     <div id=\\"-hint\\" class=\\"govuk-hint\\">21 days before the event - Rule 13.</div>
                     <div class=\\"govuk-grid-column-one-third\\">
                         <div class=\\"govuk-grid-row pins-date-form-group\\">
@@ -1821,7 +1821,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
             </div>
             <div class=\\"govuk-form-group govuk-grid-column-full \\">
                 <fieldset class=\\"govuk-fieldset\\">
-                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Notification date for events - Developer</legend>
+                    <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Notification date for events - Applicant</legend>
                     <div id=\\"-hint\\" class=\\"govuk-hint\\">21 days before the event - Rule 13.</div>
                     <div class=\\"govuk-grid-column-one-third\\">
                         <div class=\\"govuk-grid-row pins-date-form-group\\">
