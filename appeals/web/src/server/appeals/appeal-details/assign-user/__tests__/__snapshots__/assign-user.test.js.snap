@@ -72,15 +72,16 @@ exports[`assign-user GET /assign-user/case-officer should render the assign case
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for a case officer</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find a case officer</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -94,28 +95,24 @@ exports[`assign-user GET /assign-user/case-officer/1/confirm should render the c
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Assign this case officer</h1>
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Assign Smith, John to this case?</h1>
                 </div>
             </div>
             <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
+                            value="yes">
+                            <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
+                            value="no">
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -130,15 +127,16 @@ exports[`assign-user GET /assign-user/inspector should render the assign inspect
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for an inspector</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find an inspector</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -152,28 +150,24 @@ exports[`assign-user GET /assign-user/inspector/1/confirm should render the conf
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Assign this inspector</h1>
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Assign Smith, John to this case?</h1>
                 </div>
             </div>
             <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
+                            value="yes">
+                            <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
+                            value="no">
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -182,36 +176,15 @@ exports[`assign-user GET /assign-user/inspector/1/confirm should render the conf
 </main>"
 `;
 
-exports[`assign-user GET /unassign-user/case-officer/1/confirm should render the confirm unassign case officer page 1`] = `
+exports[`assign-user GET /unassign-user/case-officer/1/confirm should render a 404 error page, as it should not be possible to unassign a case officer (only assign or change the case officer) 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Remove this case officer</h1>
-                </div>
-            </div>
-            <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <button class="govuk-button" data-module="govuk-button">Continue</button>
-            </form>
+            <h1 class="govuk-heading-xl">Page not found</h1>
+            <p class="govuk-body">If you typed the web address, check it is correct.</p>
+            <p class="govuk-body">If you pasted the web address, check you copied the entire address.</p>
+            <p             class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists</p>
         </div>
     </div>
 </main>"
@@ -222,28 +195,24 @@ exports[`assign-user GET /unassign-user/inspector/1/confirm should render the co
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Remove this inspector</h1>
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Remove Smith, John from this case?</h1>
                 </div>
             </div>
             <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
+                            value="yes">
+                            <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
+                            value="no">
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -434,27 +403,28 @@ exports[`assign-user POST /assign-user/case-officer should re-render the assign 
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for a case officer</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find a case officer</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text" value="john">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text" value="john">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
                     <h2 class="govuk-heading-m">Search results</h2>
-                    <p class="govuk-body">Displaying results for <strong>john</strong>
+                    <p class="govuk-body">Matches for <strong>john</strong>
                     </p>
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Smith, John</dt>
                             <dd class="govuk-summary-list__value">John.Smith@planninginspectorate.gov.uk</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/case-officer/1/confirm"> Assign</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/case-officer/1/confirm"> Choose</a>
                             </dd>
                         </div>
                     </dl>
@@ -482,15 +452,16 @@ exports[`assign-user POST /assign-user/case-officer should re-render the assign 
             </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for a case officer</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find a case officer</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -516,15 +487,16 @@ exports[`assign-user POST /assign-user/case-officer should re-render the assign 
             </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for a case officer</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find a case officer</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text" value="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text" value="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -550,15 +522,16 @@ exports[`assign-user POST /assign-user/case-officer should re-render the assign 
             </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for a case officer</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find a case officer</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text" value="a">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text" value="a">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -583,28 +556,24 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should re-render t
                 </div>
             </div>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Assign this case officer</h1>
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Assign Smith, John to this case?</h1>
                 </div>
             </div>
             <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
+                            value="yes">
+                            <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
+                            value="no">
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -629,28 +598,24 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should re-render t
                 </div>
             </div>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Assign this case officer</h1>
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Assign Smith, John to this case?</h1>
                 </div>
             </div>
             <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
+                            value="yes">
+                            <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
+                            value="no">
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -896,27 +861,28 @@ exports[`assign-user POST /assign-user/inspector should re-render the assign ins
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for an inspector</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find an inspector</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text" value="john">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text" value="john">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-!-margin-bottom-5">
                     <h2 class="govuk-heading-m">Search results</h2>
-                    <p class="govuk-body">Displaying results for <strong>john</strong>
+                    <p class="govuk-body">Matches for <strong>john</strong>
                     </p>
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Smith, John</dt>
                             <dd class="govuk-summary-list__value">John.Smith@planninginspectorate.gov.uk</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/inspector/1/confirm"> Assign</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/inspector/1/confirm"> Choose</a>
                             </dd>
                         </div>
                     </dl>
@@ -944,15 +910,16 @@ exports[`assign-user POST /assign-user/inspector should re-render the assign ins
             </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for an inspector</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find an inspector</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -978,15 +945,16 @@ exports[`assign-user POST /assign-user/inspector should re-render the assign ins
             </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for an inspector</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find an inspector</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text" value="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text" value="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -1012,15 +980,16 @@ exports[`assign-user POST /assign-user/inspector should re-render the assign ins
             </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Search for an inspector</h1>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-10">Find an inspector</h1>
                 </div>
             </div>
             <form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Search by name or email address</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text" value="a">
+                    for="searchTerm">Search by name or email. A first name or surname may be enough to find
+                        the correct person.</label>
+                    <input class="govuk-input" id="searchTerm" name="searchTerm"
+                    type="text" value="a">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -1045,28 +1014,24 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should re-render the 
                 </div>
             </div>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Assign this inspector</h1>
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Assign Smith, John to this case?</h1>
                 </div>
             </div>
             <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
+                            value="yes">
+                            <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
+                            value="no">
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -1091,28 +1056,24 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should re-render the 
                 </div>
             </div>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Assign this inspector</h1>
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Assign Smith, John to this case?</h1>
                 </div>
             </div>
             <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
+                            value="yes">
+                            <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
+                            value="no">
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -1352,329 +1313,6 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
 </main>"
 `;
 
-exports[`assign-user POST /unassign-user/case-officer/1/confirm should re-render the confirm unassign case officer page with the expected error message if a confirmation option is not selected 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#confirm">Confirmation must be provided</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Remove this case officer</h1>
-                </div>
-            </div>
-            <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <button class="govuk-button" data-module="govuk-button">Continue</button>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`assign-user POST /unassign-user/case-officer/1/confirm should re-render the confirm unassign case officer page with the expected error message if the selected confirmation value is anything other than "yes" or "no" 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#confirm">Something went wrong</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Remove this case officer</h1>
-                </div>
-            </div>
-            <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <button class="govuk-button" data-module="govuk-button">Continue</button>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`assign-user POST /unassign-user/case-officer/1/confirm should send a patch request to the appeals/:appealId API endpoint and redirect to the assign new case officer page if the selected confirmation value is "yes", and the appeal details page should then display the expected notification banner 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-notification-banner govuk-notification-banner--success"
-            role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-                <div class="govuk-notification-banner__header">
-                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Success</h3>
-                </div>
-                <div class="govuk-notification-banner__content">
-                    <p class="govuk-notification-banner__heading">Case officer has been removed</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
-        </div>
-    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
-    <dl     class="govuk-summary-list govuk-summary-list--no-border">
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
-            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
-        </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
-            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
-        </div>
-        </dl>
-        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
-            <div class="govuk-accordion__section">
-                <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-1"> Case overview</span></h2>
-                </div>
-                <div id="accordion-default1-content-1" class="govuk-accordion__section-content"
-                aria-labelledby="accordion-default1-heading-1">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
-                            <dd class="govuk-summary-list__value">Householder</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appeal-type"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
-                            <dd class="govuk-summary-list__value">Written</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/case-procedure"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
-                            <dd class="govuk-summary-list__value">Eva Sharma</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant-name"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                            <dd class="govuk-summary-list__value">Ryan Marshall</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/agent-name"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
-                            <dd class="govuk-summary-list__value">
-                                <ul class="govuk-list"
-                                "><li><a href='/appeals-service/appeal-details/1' class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
-                                ">725284</a></li><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 1 2 3 4 5 6
-                                ">123456</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/change-appeal-details/linked-appeals
-                                "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                                "> Related appeals</dt><dd class="govuk-summary-list__value "><ul class="govuk-list "">
-                                    <li><a href='/appeals-service/appeal-details/3' class="govuk-link" aria-label="Appeal 7 6 5 4 1 3">765413</a>
-                                    </li>
-                                    <li><a href='/appeals-service/appeal-details/4' class="govuk-link" aria-label="Appeal 5 2 3 4 6 7">523467</a>
-                                    </li>
-                                </ul>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/other-appeals"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation level</dt>
-                            <dd class="govuk-summary-list__value">Level: A
-                                <br>Band: 3
-                                <br>Specialisms:
-                                <ul class="govuk-!-margin-0">
-                                    <li>Historic heritage</li>
-                                    <li>Architecture design</li>
-                                </ul>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/allocation-details/allocation-level"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
-                        </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
-                            <dd class="govuk-summary-list__value">dismissed</dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-accordion__section">
-                <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-2"> Site details</span></h2>
-                </div>
-                <div id="accordion-default1-content-2" class="govuk-accordion__section-content"
-                aria-labelledby="accordion-default1-heading-2">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (LPA answer)</dt>
-                            <dd                             class="govuk-summary-list__value"></dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/lpa-inspector-access/"> Change</a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspection access (appellant answer)</dt>
-                            <dd                             class="govuk-summary-list__value"></dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant-case-inspector-access"> Change</a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Could a neighbouring site be affected?</dt>
-                            <dd                             class="govuk-summary-list__value">Yes</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/neighbouring-site-is-affected"> Change</a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
-                            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/neighbouring-site-address-0"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
-                            <dd class="govuk-summary-list__value">FOR TRAINERS ONLY, 96 The Avenue, Kent, MD21 5XY</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/neighbouring-site-address-1"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (LPA answer)</dt>
-                            <dd                             class="govuk-summary-list__value"></dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/lpa-health-and-safety"> Change</a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks (appellant answer)</dt>
-                            <dd                             class="govuk-summary-list__value"><span>Yes</span>
-                                <br><span>Dogs on site</span>
-                                </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant-case-health-and-safety"> Change</a>
-                                </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
-                            <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change</a>
-                            </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-accordion__section">
-                <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-3"> Case timetable</span></h2>
-                </div>
-                <div id="accordion-default1-content-3" class="govuk-accordion__section-content"
-                aria-labelledby="accordion-default1-heading-3">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
-                            <dd class="govuk-summary-list__value">23 May 2023</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA questionnaire due</dt>
-                            <dd class="govuk-summary-list__value">11 October 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appeal-timetables/lpa-questionnaire"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site visit</dt>
-                            <dd class="govuk-summary-list__value">
-                                <ul class="govuk-list govuk-!-margin-top-0 govuk-!-padding-left-0">
-                                    <li>9 October 2023</li>
-                                    <li>9:38am - 10:44am</li>
-                                </ul>
-                            </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/manage-visit"> Change</a>
-                            </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class="govuk-accordion__section">
-                <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-4"> Case documentation</span></h2>
-                </div>
-                <div id="accordion-default1-content-4" class="govuk-accordion__section-content"
-                aria-labelledby="accordion-default1-heading-4">
-                    <table class="govuk-table">
-                        <thead class="govuk-table__head">
-                            <tr class="govuk-table__row">
-                                <th scope="col" class="govuk-table__header">Documentation</th>
-                                <th scope="col" class="govuk-table__header">Status</th>
-                                <th scope="col" class="govuk-table__header">Due date</th>
-                                <th scope="col" class="govuk-table__header">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="govuk-table__body">
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Appellant case</th>
-                                <td class="govuk-table__cell">Received</td>
-                                <td class="govuk-table__cell">2 October 2024</td>
-                                <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case" class="govuk-link">Review</a>
-                                </td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">LPA questionnaire</th>
-                                <td class="govuk-table__cell">Not received</td>
-                                <td class="govuk-table__cell">11 October 2024</td>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="govuk-accordion__section">
-                <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case team</span></h2>
-                </div>
-                <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
-                aria-labelledby="accordion-default1-heading-5">
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case officer</dt>
-                            <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/case-officer"> Assign</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Inspector</dt>
-                            <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/inspector"> Assign</a>
-                            </dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-        </div>
-</main>"
-`;
-
 exports[`assign-user POST /unassign-user/inspector/1/confirm should re-render the confirm unassign inspector page with the expected error message if a confirmation option is not selected 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -1691,28 +1329,24 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should re-render th
                 </div>
             </div>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Remove this inspector</h1>
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Remove Smith, John from this case?</h1>
                 </div>
             </div>
             <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
+                            value="yes">
+                            <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
+                            value="no">
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
@@ -1737,28 +1371,24 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should re-render th
                 </div>
             </div>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
-                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-8">Remove this inspector</h1>
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Remove Smith, John from this case?</h1>
                 </div>
             </div>
             <form name="confirmAssignOrUnassignUser" method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">John.Smith@planninginspectorate.gov.uk</legend>
-                        <div class="govuk-radios"
-                        data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
-                                value="yes">
-                                <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
-                                value="no">
-                                <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
-                            </div>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm" name="confirm" type="radio"
+                            value="yes">
+                            <label class="govuk-label govuk-radios__label" for="confirm">Yes</label>
                         </div>
-                    </fieldset>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="confirm-2" name="confirm" type="radio"
+                            value="no">
+                            <label class="govuk-label govuk-radios__label" for="confirm-2">No</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </form>
