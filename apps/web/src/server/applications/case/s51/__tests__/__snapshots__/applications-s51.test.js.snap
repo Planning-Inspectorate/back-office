@@ -94,7 +94,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">S51 advice properties</span> Minim veniam quis nostrud</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
-                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong> BC0110001-Advice-00001</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Advice reference:</strong> BC0110001-Advice-00001</li>
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/upload\\"> Upload files</a>
             </div>
@@ -529,7 +529,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
             <h1 class=\\"govuk-heading-xl govuk-!-margin-top-4\\"><span class=\\"govuk-caption-xl\\">S51 advice properties</span> Minim veniam quis nostrud</h1>
             <ul class=\\"govuk-list\\">
                 <li class=\\"govuk-!-margin-top-4\\"><strong>Case reference:</strong> CASE/04</li>
-                <li class=\\"govuk-!-margin-top-4\\"><strong>Document reference number:</strong> BC0110001-Advice-00001</li>
+                <li class=\\"govuk-!-margin-top-4\\"><strong>Advice reference:</strong> BC0110001-Advice-00001</li>
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/upload\\"> Upload files</a>
             </div>
@@ -1553,7 +1553,7 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
-                        <h3 class=\\"govuk-heading-m\\">Documents</h3>
+                        <h3 class=\\"govuk-heading-m\\">S51 advice</h3>
                         <p class=\\"govuk-body\\">This folder contains item(s) of S51 advice.</p>
                     </div>
                 </div>
