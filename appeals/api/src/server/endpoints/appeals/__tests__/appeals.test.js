@@ -26,6 +26,7 @@ import {
 } from '#tests/appeals/mocks.js';
 import formatAddress from '#utils/format-address.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
+import { mapAppealToDueDate } from '../appeals.formatter.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -67,7 +68,10 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.lpa.name
+							localPlanningDepartment: householdAppeal.lpa.name,
+							appellantCaseStatus: '',
+							lpaQuestionnaireStatus: '',
+							dueDate: null
 						},
 						{
 							appealId: fullPlanningAppeal.id,
@@ -82,7 +86,10 @@ describe('appeals routes', () => {
 							appealStatus: fullPlanningAppeal.appealStatus[0].status,
 							appealType: fullPlanningAppeal.appealType.type,
 							createdAt: fullPlanningAppeal.createdAt.toISOString(),
-							localPlanningDepartment: fullPlanningAppeal.lpa.name
+							localPlanningDepartment: fullPlanningAppeal.lpa.name,
+							appellantCaseStatus: '',
+							lpaQuestionnaireStatus: '',
+							dueDate: null
 						}
 					],
 					page: 1,
@@ -124,7 +131,10 @@ describe('appeals routes', () => {
 							appealStatus: fullPlanningAppeal.appealStatus[0].status,
 							appealType: fullPlanningAppeal.appealType.type,
 							createdAt: fullPlanningAppeal.createdAt.toISOString(),
-							localPlanningDepartment: fullPlanningAppeal.lpa.name
+							localPlanningDepartment: fullPlanningAppeal.lpa.name,
+							appellantCaseStatus: '',
+							lpaQuestionnaireStatus: '',
+							dueDate: null
 						}
 					],
 					page: 2,
@@ -185,7 +195,10 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.lpa.name
+							localPlanningDepartment: householdAppeal.lpa.name,
+							appellantCaseStatus: '',
+							lpaQuestionnaireStatus: '',
+							dueDate: null
 						}
 					],
 					page: 1,
@@ -246,7 +259,10 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.lpa.name
+							localPlanningDepartment: householdAppeal.lpa.name,
+							appellantCaseStatus: '',
+							lpaQuestionnaireStatus: '',
+							dueDate: null
 						}
 					],
 					page: 1,
@@ -307,7 +323,10 @@ describe('appeals routes', () => {
 							appealStatus: householdAppeal.appealStatus[0].status,
 							appealType: householdAppeal.appealType.type,
 							createdAt: householdAppeal.createdAt.toISOString(),
-							localPlanningDepartment: householdAppeal.lpa.name
+							localPlanningDepartment: householdAppeal.lpa.name,
+							appellantCaseStatus: '',
+							lpaQuestionnaireStatus: '',
+							dueDate: null
 						}
 					],
 					page: 1,
@@ -999,5 +1018,194 @@ describe('appeals routes', () => {
 				expect(response.body).toEqual({});
 			});
 		});
+	});
+});
+
+describe('mapAppealToDueDate Tests', () => {
+	let mockAppeal = {
+		appealType: null,
+		id: 1,
+		lpa: null,
+		reference: 'APP/Q9999/D/21/33813',
+		dueDate: null,
+		createdAt: new Date('2023-01-01T00:00:00.000Z'),
+		appealStatus: [
+			{
+				id: 2648,
+				status: 'ready_to_start',
+				createdAt: new Date('2024-01-09T16:14:31.387Z'),
+				valid: true,
+				appealId: 496,
+				subStateMachineName: null,
+				compoundStateName: null
+			}
+		],
+		appealTimetable: null
+	};
+
+	beforeEach(() => {
+		mockAppeal = {
+			appealType: null,
+			id: 1,
+			lpa: null,
+			reference: 'APP/Q9999/D/21/33813',
+			dueDate: null,
+			createdAt: new Date('2023-01-01T00:00:00.000Z'),
+			appealStatus: [
+				{
+					id: 2648,
+					status: 'ready_to_start',
+					createdAt: new Date('2024-01-09T16:14:31.387Z'),
+					valid: true,
+					appealId: 496,
+					subStateMachineName: null,
+					compoundStateName: null
+				}
+			],
+			appealTimetable: null
+		};
+	});
+
+	test('maps STATE_TARGET_READY_TO_START status', () => {
+		mockAppeal.appealStatus[0].status = 'ready_to_start';
+		const dueDate = mapAppealToDueDate(mockAppeal, 'Incomplete', new Date('2023-02-01'));
+		expect(dueDate).toEqual(new Date('2023-02-01'));
+	});
+
+	test('maps STATE_TARGET_READY_TO_START status with Incomplete status', () => {
+		mockAppeal.appealStatus[0].status = 'ready_to_start';
+		const createdAtPlusFiveDate = new Date('2023-01-06T00:00:00.000Z');
+		const dueDate = mapAppealToDueDate(mockAppeal, '', null);
+		expect(dueDate).toEqual(createdAtPlusFiveDate);
+	});
+
+	test('maps STATE_TARGET_LPA_QUESTIONNAIRE_DUE', () => {
+		mockAppeal.appealStatus[0].status = 'lpa_questionnaire_due';
+
+		const createdAtPlusTenDate = new Date('2023-01-11T00:00:00.000Z');
+		const dueDate = mapAppealToDueDate(mockAppeal, '', null);
+		expect(dueDate).toEqual(createdAtPlusTenDate);
+	});
+
+	test('maps STATE_TARGET_LPA_QUESTIONNAIRE_DUE status with appealTimetable lpaQuestionnaireDueDate', () => {
+		let mockAppealWithTimetable = {
+			...mockAppeal,
+			appealTimetable: {
+				id: 1262,
+				appealId: 523,
+				lpaQuestionnaireDueDate: new Date('2023-03-01T00:00:00.000Z'),
+				finalCommentReviewDate: null,
+				issueDeterminationDate: null,
+				statementReviewDate: null,
+				resubmitAppealTypeDate: null
+			}
+		};
+		mockAppealWithTimetable.appealStatus[0].status = 'lpa_questionnaire_due';
+
+		const dueDate = mapAppealToDueDate(mockAppealWithTimetable, '', null);
+		expect(dueDate).toEqual(new Date('2023-03-01T00:00:00.000Z'));
+	});
+
+	test('maps STATE_TARGET_ASSIGN_CASE_OFFICER', () => {
+		mockAppeal.appealStatus[0].status = 'assign_case_officer';
+
+		const createdAtPlusFifteenDate = new Date('2023-01-16T00:00:00.000Z');
+		const dueDate = mapAppealToDueDate(mockAppeal, '', null);
+		expect(dueDate).toEqual(createdAtPlusFifteenDate);
+	});
+
+	test('maps STATE_TARGET_ISSUE_DETERMINATION', () => {
+		mockAppeal.appealStatus[0].status = 'issue_determination';
+
+		const createdAtPlusThirtyDate = new Date('2023-01-31T00:00:00.000Z');
+		const dueDate = mapAppealToDueDate(mockAppeal, '', null);
+		expect(dueDate).toEqual(createdAtPlusThirtyDate);
+	});
+
+	test('maps STATE_TARGET_ISSUE_DETERMINATION status with appealTimetable issueDeterminationDate', () => {
+		let mockAppealWithTimetable = {
+			...mockAppeal,
+			appealTimetable: {
+				id: 1262,
+				appealId: 523,
+				lpaQuestionnaireDueDate: null,
+				finalCommentReviewDate: null,
+				issueDeterminationDate: new Date('2023-03-01T00:00:00.000Z'),
+				statementReviewDate: null,
+				resubmitAppealTypeDate: null
+			}
+		};
+		mockAppealWithTimetable.appealStatus[0].status = 'issue_determination';
+
+		const dueDate = mapAppealToDueDate(mockAppealWithTimetable, '', null);
+		expect(dueDate).toEqual(new Date('2023-03-01T00:00:00.000Z'));
+	});
+
+	test('maps STATE_TARGET_STATEMENT_REVIEW', () => {
+		mockAppeal.appealStatus[0].status = 'statement_review';
+
+		const createdAtPlusFiftyFiveDate = new Date('2023-02-25T00:00:00.000Z');
+		const dueDate = mapAppealToDueDate(mockAppeal, '', null);
+		expect(dueDate).toEqual(createdAtPlusFiftyFiveDate);
+	});
+
+	test('maps STATE_TARGET_STATEMENT_REVIEW status with appealTimetable statementReviewDate', () => {
+		let mockAppealWithTimetable = {
+			...mockAppeal,
+			appealTimetable: {
+				id: 1262,
+				appealId: 523,
+				lpaQuestionnaireDueDate: null,
+				finalCommentReviewDate: null,
+				issueDeterminationDate: null,
+				statementReviewDate: new Date('2023-03-01T00:00:00.000Z'),
+				resubmitAppealTypeDate: null
+			}
+		};
+		mockAppealWithTimetable.appealStatus[0].status = 'statement_review';
+
+		const dueDate = mapAppealToDueDate(mockAppealWithTimetable, '', null);
+		expect(dueDate).toEqual(new Date('2023-03-01T00:00:00.000Z'));
+	});
+
+	test('maps STATE_TARGET_FINAL_COMMENT_REVIEW', () => {
+		mockAppeal.appealStatus[0].status = 'final_comment_review';
+
+		const createdAtPlusSixtyDate = new Date('2023-03-02T00:00:00.000Z');
+		const dueDate = mapAppealToDueDate(mockAppeal, '', null);
+		expect(dueDate).toEqual(createdAtPlusSixtyDate);
+	});
+
+	test('maps STATE_TARGET_FINAL_COMMENT_REVIEW status with appealTimetable finalCommentReviewDate', () => {
+		let mockAppealWithTimetable = {
+			...mockAppeal,
+			appealTimetable: {
+				id: 1262,
+				appealId: 523,
+				lpaQuestionnaireDueDate: null,
+				finalCommentReviewDate: new Date('2023-03-01T00:00:00.000Z'),
+				issueDeterminationDate: null,
+				statementReviewDate: null,
+				resubmitAppealTypeDate: null
+			}
+		};
+		mockAppealWithTimetable.appealStatus[0].status = 'final_comment_review';
+
+		const dueDate = mapAppealToDueDate(mockAppealWithTimetable, '', null);
+		expect(dueDate).toEqual(new Date('2023-03-01T00:00:00.000Z'));
+	});
+
+	test('handles STATE_TARGET_COMPLETE', () => {
+		mockAppeal.appealStatus[0].status = 'complete';
+
+		const dueDate = mapAppealToDueDate(mockAppeal, '', null);
+		expect(dueDate).toBeNull();
+	});
+
+	test('handles unexpected status (default case)', () => {
+		mockAppeal.appealStatus[0].status = 'unexpected_status';
+
+		const dueDate = mapAppealToDueDate(mockAppeal, '', null);
+		expect(dueDate).toBeUndefined();
 	});
 });
