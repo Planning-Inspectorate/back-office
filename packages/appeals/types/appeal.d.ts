@@ -35,6 +35,8 @@ export interface AppealSummary {
 	appealStatus: string;
 	dueDate: string;
 	lpaQuestionnaireId?: number | null;
+	dueDate: Date | null;
+	documentationSummary: DocumentationSummary;
 }
 
 export interface AppealList {

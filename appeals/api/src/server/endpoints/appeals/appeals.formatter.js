@@ -5,6 +5,25 @@ import {
 	formatAppellantCaseDocumentationStatus,
 	formatLpaQuestionnaireDocumentationStatus
 } from '#utils/format-documentation-status.js';
+import { add } from 'date-fns';
+import {
+	STATE_TARGET_FINAL_COMMENT_REVIEW,
+	STATE_TARGET_STATEMENT_REVIEW,
+	STATE_TARGET_ISSUE_DETERMINATION,
+	STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
+	STATE_TARGET_READY_TO_START,
+	STATE_TARGET_ASSIGN_CASE_OFFICER,
+	STATE_TARGET_COMPLETE
+} from '#endpoints/constants.js';
+
+const approxStageCompletion = {
+	STATE_TARGET_READY_TO_START: 5,
+	STATE_TARGET_LPA_QUESTIONNAIRE_DUE: 10,
+	STATE_TARGET_ASSIGN_CASE_OFFICER: 15,
+	STATE_TARGET_ISSUE_DETERMINATION: 30,
+	STATE_TARGET_STATEMENT_REVIEW: 55,
+	STATE_TARGET_FINAL_COMMENT_REVIEW: 60
+};
 
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
@@ -12,7 +31,7 @@ import {
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} SingleAppealDetailsResponse */
-
+/** @typedef {import('#db-client').AppealStatus} AppealStatus */
 /**
  * @param {RepositoryGetAllResultItem} appeal
  * @returns {AppealListResponse}}
@@ -24,7 +43,10 @@ const formatAppeals = (appeal) => ({
 	appealStatus: appeal.appealStatus[0].status,
 	appealType: appeal.appealType?.type,
 	createdAt: appeal.createdAt,
-	localPlanningDepartment: appeal.lpa.name
+	localPlanningDepartment: appeal.lpa.name,
+	appellantCaseStatus: '',
+	lpaQuestionnaireStatus: '',
+	dueDate: null
 });
 
 /**
@@ -50,7 +72,14 @@ const formatMyAppeals = (appeal) => ({
 					issueDeterminationDate: appeal.appealTimetable.issueDeterminationDate || null
 				})
 		  }
-		: undefined
+		: undefined,
+	appellantCaseStatus: appeal?.appellantCase?.appellantCaseValidationOutcome?.name,
+	lpaQuestionnaireStatus: appeal.lpaQuestionnaire?.lpaQuestionnaireValidationOutcome?.name,
+	dueDate: mapAppealToDueDate(
+		appeal,
+		appeal?.appellantCase?.appellantCaseValidationOutcome?.name,
+		appeal.dueDate
+	)
 });
 
 /**
@@ -149,6 +178,66 @@ const formatAppeal = (appeal, folders) => {
 				}
 			}
 		};
+	}
+};
+
+/**
+ * Map each appeal to include a due date.
+ * @param {RepositoryGetAllResultItem} appeal
+ * @param {string} appellantCaseStatus
+ * @param {Date | null} appellantCaseDueDate
+ * @returns { Date | null | undefined }
+ */
+export const mapAppealToDueDate = (appeal, appellantCaseStatus, appellantCaseDueDate) => {
+	switch (appeal.appealStatus[0].status) {
+		case STATE_TARGET_READY_TO_START:
+			if (appellantCaseStatus == 'Incomplete' && appellantCaseDueDate) {
+				return new Date(appellantCaseDueDate);
+			}
+			return add(new Date(appeal.createdAt), {
+				days: approxStageCompletion.STATE_TARGET_READY_TO_START
+			});
+		case STATE_TARGET_LPA_QUESTIONNAIRE_DUE:
+			if (appeal.appealTimetable?.lpaQuestionnaireDueDate) {
+				return new Date(appeal.appealTimetable?.lpaQuestionnaireDueDate);
+			}
+			return add(new Date(appeal.createdAt), {
+				days: approxStageCompletion.STATE_TARGET_LPA_QUESTIONNAIRE_DUE
+			});
+		case STATE_TARGET_ASSIGN_CASE_OFFICER:
+			return add(new Date(appeal.createdAt), {
+				days: approxStageCompletion.STATE_TARGET_ASSIGN_CASE_OFFICER
+			});
+		case STATE_TARGET_ISSUE_DETERMINATION: {
+			if (appeal.appealTimetable?.issueDeterminationDate) {
+				return new Date(appeal.appealTimetable?.issueDeterminationDate);
+			}
+			return add(new Date(appeal.createdAt), {
+				days: approxStageCompletion.STATE_TARGET_ISSUE_DETERMINATION
+			});
+		}
+		case STATE_TARGET_STATEMENT_REVIEW: {
+			if (appeal.appealTimetable?.statementReviewDate) {
+				return new Date(appeal.appealTimetable?.statementReviewDate);
+			}
+			return add(new Date(appeal.createdAt), {
+				days: approxStageCompletion.STATE_TARGET_STATEMENT_REVIEW
+			});
+		}
+		case STATE_TARGET_FINAL_COMMENT_REVIEW: {
+			if (appeal.appealTimetable?.finalCommentReviewDate) {
+				return new Date(appeal.appealTimetable?.finalCommentReviewDate);
+			}
+			return add(new Date(appeal.createdAt), {
+				days: approxStageCompletion.STATE_TARGET_FINAL_COMMENT_REVIEW
+			});
+		}
+		case STATE_TARGET_COMPLETE: {
+			return null;
+		}
+		default: {
+			return undefined;
+		}
 	}
 };
 

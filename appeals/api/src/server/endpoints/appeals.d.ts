@@ -61,9 +61,11 @@ interface RepositoryGetAllResultItem {
 	createdAt: Date;
 	id: number;
 	lpa: LPA;
-	lpaQuestionnaire?: LPAQuestionnaire | null;
+	lpaQuestionnaire?: Schema.LPAQuestionnaire | null;
 	reference: string;
 	appealTimetable?: Schema.AppealTimetable | null;
+	dueDate: Date | null;
+	appellantCase?: Schema.AppellantCase | null;
 }
 
 interface RepositoryGetByIdResultItem {
@@ -333,6 +335,9 @@ interface AppealListResponse {
 	localPlanningDepartment: string;
 	lpaQuestionnaireId?: number | null;
 	appealTimetable?: AppealTimetable;
+	appellantCaseStatus: string;
+	lpaQuestionnaireStatus: string;
+	dueDate: Date | undefined | null;
 }
 
 type BankHolidayFeedDivisions =
