@@ -65,7 +65,9 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 								html: mapAppealStatusToActionRequiredHtml(
 									appeal.appealId,
 									appeal.appealStatus,
-									appeal.lpaQuestionnaireId
+									appeal.lpaQuestionnaireId,
+									appeal.documentationSummary?.appellantCase?.status,
+									appeal.documentationSummary?.lpaQuestionnaire?.status
 								)
 							},
 							{
@@ -110,18 +112,32 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
  * @param {number} appealId
  * @param {string} appealStatus
  * @param {number|null|undefined} lpaQuestionnaireId
+ * @param {string} appellantCaseStatus
+ * @param {string} lpaQuestionnaireStatus
  * @returns {string}
  */
-function mapAppealStatusToActionRequiredHtml(appealId, appealStatus, lpaQuestionnaireId) {
+function mapAppealStatusToActionRequiredHtml(
+	appealId,
+	appealStatus,
+	lpaQuestionnaireId,
+	appellantCaseStatus,
+	lpaQuestionnaireStatus
+) {
 	switch (appealStatus) {
 		case 'ready_to_start':
 		case 'review_appellant_case':
+			if (appellantCaseStatus == 'Incomplete') {
+				return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">Awaiting appellant update</a>`;
+			}
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">Review appellant case</a>`;
 		case 'lpa_questionnaire_due':
 			if (!lpaQuestionnaireId) {
 				return 'Awaiting LPA Questionnaire';
 			}
-			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Review LPA Questionnaire</a>`;
+			if (lpaQuestionnaireStatus == 'Incomplete') {
+				return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Awaiting LPA update</a>`;
+			}
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">LPA Questionnaire Overdue</a>`;
 		case 'issue_determination':
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/issue-decision/decision">Submit decision</a>`;
 		default:
