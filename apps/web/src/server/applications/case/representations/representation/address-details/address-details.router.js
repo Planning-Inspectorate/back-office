@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import {
 	getAddressDetailsController,
 	postAddressDetailsController
@@ -12,11 +12,11 @@ const relevantRepAddressDetailsRouter = createRouter({ mergeParams: true });
 
 relevantRepAddressDetailsRouter
 	.route(repRoutes.addressDetails)
-	.get(addRepresentationToLocals, asyncRoute(getAddressDetailsController))
+	.get(addRepresentationToLocals, asyncHandler(getAddressDetailsController))
 	.post(
 		addRepresentationToLocals,
 		addressDetailsValidation,
-		asyncRoute(postAddressDetailsController)
+		asyncHandler(postAddressDetailsController)
 	);
 
 export default relevantRepAddressDetailsRouter;

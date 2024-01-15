@@ -5,6 +5,7 @@ import { isDefined } from '#lib/ts-utilities.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 export const backLink = {
 	text: 'Back to National list',
@@ -156,15 +157,15 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 			id: 'accordion-default' + appealDetails.appealId,
 			items: [
 				{
-					heading: { text: 'Case Overview' },
+					heading: { text: 'Case overview' },
 					content: { html: '', pageComponents: [caseOverview] }
 				},
 				{
-					heading: { text: 'Site Details' },
+					heading: { text: 'Site details' },
 					content: { html: '', pageComponents: [siteDetails] }
 				},
 				{
-					heading: { text: 'Case Timetable' },
+					heading: { text: 'Case timetable' },
 					content: { html: '', pageComponents: [caseTimetable] }
 				},
 				{
@@ -172,7 +173,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 					content: { html: '', pageComponents: [caseDocumentation] }
 				},
 				{
-					heading: { text: 'Case Team' },
+					heading: { text: 'Case team' },
 					content: { html: '', pageComponents: [caseTeam] }
 				}
 			]
@@ -192,6 +193,11 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
 	) {
 		components.map((component) => removeActions(component));
+	}
+
+	if (appealDetails.appealStatus === 'issue_determination') {
+		const bannerHtml = `<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Issue a decision</a>.</p>`;
+		addNotificationBannerToSession(session, 'readyForDecision', appealDetails.appealId, bannerHtml);
 	}
 
 	const notificationBanners = buildNotificationBanners(

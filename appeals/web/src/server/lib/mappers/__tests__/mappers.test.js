@@ -11,6 +11,7 @@ import {
 	buildNotificationBanners,
 	notificationBannerDefinitions
 } from '../notification-banners.mapper.js';
+import { mapPagination } from '../pagination.mapper.js';
 
 /** @typedef {import('../../../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 
@@ -247,6 +248,63 @@ describe('notification banners mapper', () => {
 			appellantCaseNotValid: {
 				appealId: 1
 			}
+		});
+	});
+
+	it('should return a notification banner page component object with the correct appealId in the URL for readyForDecision notification', () => {
+		expect(
+			buildNotificationBanners(
+				{
+					...baseSession,
+					notificationBanners: {
+						readyForDecision: {
+							appealId: 1,
+							html: '<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Issue a decision</a>.</p>'
+						}
+					}
+				},
+				'appealDetails',
+				1
+			)
+		).toEqual([
+			{
+				type: 'notification-banner',
+				parameters: {
+					titleHeadingLevel: 3,
+					html: '<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/1/issue-decision/decision">Issue a decision</a>.</p>',
+					titleText: 'Important'
+				}
+			}
+		]);
+	});
+});
+
+describe('pagination mapper', () => {
+	describe('mapPagination', () => {
+		it('should return an empty Pagination object if pageCount is less than 2', () => {
+			const result = mapPagination(1, 1, 10, 'test-base-url', 'test-additional-query-string');
+
+			expect(result.previous).toEqual({});
+			expect(result.next).toEqual({});
+			expect(result.items).toEqual([]);
+		});
+		it('should return a Pagination object with the expected properties if pageCount is 2 or greater', () => {
+			const testBaseUrl = 'test-base-url';
+			const testAdditionalQueryString = '&test-additional-query-string';
+
+			const result = mapPagination(3, 5, 10, testBaseUrl, testAdditionalQueryString);
+
+			expect(result.previous?.href).toEqual(
+				`${testBaseUrl}?pageSize=10&pageNumber=2${testAdditionalQueryString}`
+			);
+			expect(result.next?.href).toEqual(
+				`${testBaseUrl}?pageSize=10&pageNumber=4${testAdditionalQueryString}`
+			);
+			expect(result.items?.length).toBe(5);
+			expect(result.items?.[4]?.number).toEqual(5);
+			expect(result.items?.[4]?.href).toEqual(
+				`${testBaseUrl}?pageSize=10&pageNumber=5${testAdditionalQueryString}`
+			);
 		});
 	});
 });

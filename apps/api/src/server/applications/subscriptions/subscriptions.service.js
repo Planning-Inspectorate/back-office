@@ -1,8 +1,10 @@
 import { eventClient } from '#infrastructure/event-client.js';
-import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
+import { NSIP_SUBSCRIPTION, SERVICE_USER } from '#infrastructure/topics.js';
 import * as subscriptionRepository from '#repositories/subscription.respository.js';
+import * as serviceUserRepository from '#repositories/service-user.repository.js';
 import {
 	buildSubscriptionPayloads,
+	buildServiceUserPayload,
 	subscriptionTypeChanges,
 	typesToSubscription
 } from './subscriptions.js';
@@ -15,11 +17,11 @@ import { EventType } from '@pins/event-client';
  * @returns {Promise<{id: number, created: boolean}>}
  */
 export async function createOrUpdateSubscription(request) {
-	const subscription = prepareInput(request);
+	const { subscription, isExistingUser } = await prepareInput(request);
 
 	const existing = await subscriptionRepository.findUnique(
-		subscription.caseReference,
-		subscription.emailAddress
+		request.caseReference,
+		request.emailAddress
 	);
 
 	if (existing === null) {
@@ -31,6 +33,10 @@ export async function createOrUpdateSubscription(request) {
 			buildSubscriptionPayloads(res),
 			EventType.Create
 		);
+
+		if (!isExistingUser) {
+			await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Create);
+		}
 
 		return { id: res.id, created: true };
 	}
@@ -49,32 +55,27 @@ export async function createOrUpdateSubscription(request) {
 
 /**
  * @param {any} request
- * @returns {import('@prisma/client').Prisma.SubscriptionCreateInput}
+ * @returns {Promise<{isExistingUser: boolean, subscription: import('@prisma/client').Prisma.SubscriptionCreateInput}>}
  */
-export function prepareInput(request) {
+export async function prepareInput(request) {
+	const emailAddress = request.emailAddress;
+	const existingServiceUser = await serviceUserRepository.findByEmail(request.emailAddress);
+
 	/** @type {import('@prisma/client').Prisma.SubscriptionCreateInput} */
-	const subscription = {
+	let subscription = {
 		caseReference: request.caseReference,
-		emailAddress: request.emailAddress
+		serviceUser: existingServiceUser
+			? { connect: { id: existingServiceUser.id } }
+			: { create: { email: emailAddress } },
+		startDate: request.startDate ? new Date(request.startDate) : null, // ensure updates remove previous values
+		endDate: request.endDate ? new Date(request.endDate) : null // ensure updates remove previous values
 	};
-
-	typesToSubscription(request.subscriptionTypes, subscription);
-
-	if (request.startDate) {
-		subscription.startDate = new Date(request.startDate);
-	} else {
-		subscription.startDate = null; // ensure updates remove previous values
-	}
-
-	if (request.endDate) {
-		subscription.endDate = new Date(request.endDate);
-	} else {
-		subscription.endDate = null; // ensure updates remove previous values
-	}
 
 	if (request.language) {
 		subscription.language = request.language;
 	}
 
-	return subscription;
+	subscription = typesToSubscription(request.subscriptionTypes, subscription);
+
+	return { isExistingUser: Boolean(existingServiceUser), subscription };
 }

@@ -1,6 +1,6 @@
 import { registerCase } from '@pins/applications.web/src/server/applications/case/applications-case.locals.js';
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
 import * as controller from './applications-project-team.controller.js';
 import {
@@ -15,25 +15,25 @@ applicationsProjectTeamRouter.use(registerCaseId);
 
 applicationsProjectTeamRouter
 	.route('/')
-	.get(registerCase, asyncRoute(controller.viewProjectTeamListPage));
+	.get(registerCase, asyncHandler(controller.viewProjectTeamListPage));
 
 applicationsProjectTeamRouter
 	.route('/:userId/choose-role')
-	.get(asyncRoute(controller.viewProjectTeamChooseRolePage))
-	.post(validateApplicationsProjectTeamRole, asyncRoute(controller.updateProjectTeamChooseRole));
+	.get(asyncHandler(controller.viewProjectTeamChooseRolePage))
+	.post(validateApplicationsProjectTeamRole, asyncHandler(controller.updateProjectTeamChooseRole));
 
 applicationsProjectTeamRouter
 	.route('/:userId/remove')
-	.get(asyncRoute(controller.viewProjectTeamRemovePage))
-	.post(validateApplicationsProjectTeamRole, asyncRoute(controller.updateProjectTeamRemove));
+	.get(asyncHandler(controller.viewProjectTeamRemovePage))
+	.post(validateApplicationsProjectTeamRole, asyncHandler(controller.updateProjectTeamRemove));
 
 applicationsProjectTeamRouter
 	.route('/search')
-	.get(asyncRoute(controller.viewProjectTeamSearchPage))
+	.get(asyncHandler(controller.viewProjectTeamSearchPage))
 	.post(
 		validateApplicationsProjectTeamNotEmptySearch,
 		validateApplicationsProjectTeamMinLengthSearch,
-		asyncRoute(controller.viewProjectTeamSearchPage)
+		asyncHandler(controller.viewProjectTeamSearchPage)
 	);
 
 export default applicationsProjectTeamRouter;

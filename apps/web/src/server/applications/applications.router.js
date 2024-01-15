@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import * as controller from './applications.controller.js';
 import * as filters from './applications.filters.js';
 import * as locals from './applications.locals.js';
@@ -25,7 +25,7 @@ router.use((request, _, next) => {
 	next();
 });
 
-router.route('/').get(asyncRoute(controller.viewDashboard));
+router.route('/').get(asyncHandler(controller.viewDashboard));
 
 router.use('/search-results', applicationsSearchRouter);
 

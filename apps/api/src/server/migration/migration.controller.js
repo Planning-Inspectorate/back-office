@@ -4,7 +4,7 @@ import { getMigratorForModel } from './migrator.service.js';
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
  */
 export const postMigrateModel = async ({ body, params: { modelType } }, response) => {
-	const migrationMap = getMigratorForModel(modelType);
+	const migrationMap = await getMigratorForModel(modelType);
 
 	if (!migrationMap) {
 		throw Error(`Unsupported model type ${modelType}`);

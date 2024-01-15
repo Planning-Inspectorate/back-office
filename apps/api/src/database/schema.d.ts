@@ -53,6 +53,10 @@ export interface ServiceUser extends schema.ServiceUser {
 	address?: schema.Address;
 }
 
+export type SubscriptionWithServiceUser = schema.Prisma.SubscriptionGetPayload<{
+	include: { serviceUser: { include: { address: true } } };
+}>;
+
 export type CaseStatusNameType =
 	| 'Pre-application'
 	| 'Acceptance'

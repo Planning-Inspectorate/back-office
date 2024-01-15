@@ -5,23 +5,8 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
 import { dateToDisplayDate } from '#lib/dates.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 
-/** @typedef {import('@pins/appeals').AppealSummary} AppealSummary */
 /** @typedef {import('@pins/appeals').AppealList} AppealList */
-
-/**
- * @param {AppealSummary} appealListItem
- * @returns {appealListItem is AppealSummary}
- */
-export function appealListItemIsAppealSummary(appealListItem) {
-	const appealListItemKeys = Object.keys(appealListItem);
-
-	return (
-		appealListItemKeys.includes('appealId') &&
-		appealListItemKeys.includes('appealReference') &&
-		appealListItemKeys.includes('appealStatus') &&
-		appealListItemKeys.includes('dueDate')
-	);
-}
+/** @typedef {import('@pins/appeals').Pagination} Pagination */
 
 /**
  * @param {AppealList|void} appealsAssignedToCurrentUser
@@ -55,53 +40,50 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 							text: 'Case status'
 						}
 					],
-					rows: (appealsAssignedToCurrentUser?.items || [])
-						.filter((appeal) => appeal !== null)
-						.filter(appealListItemIsAppealSummary)
-						.map((appeal) => {
-							const shortReference = appealShortReference(appeal.appealReference);
-							return [
-								{
-									html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
-										appeal.appealId
-									}" aria-label="Appeal ${numberToAccessibleDigitLabel(
-										shortReference || ''
-									)}">${shortReference}</a></strong>`
-								},
-								{
-									html: '',
-									pageComponents: [
-										{
-											type: 'status-tag',
-											parameters: {
-												status: ''
-											}
+					rows: (appealsAssignedToCurrentUser?.items || []).map((appeal) => {
+						const shortReference = appealShortReference(appeal.appealReference);
+						return [
+							{
+								html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
+									appeal.appealId
+								}" aria-label="Appeal ${numberToAccessibleDigitLabel(
+									shortReference || ''
+								)}">${shortReference}</a></strong>`
+							},
+							{
+								html: '',
+								pageComponents: [
+									{
+										type: 'status-tag',
+										parameters: {
+											status: ''
 										}
-									]
-								},
-								{
-									html: mapAppealStatusToActionRequiredHtml(
-										appeal.appealId,
-										appeal.appealStatus,
-										appeal.lpaQuestionnaireId
-									)
-								},
-								{
-									text: dateToDisplayDate(appeal.dueDate) || ''
-								},
-								{
-									html: '',
-									pageComponents: [
-										{
-											type: 'status-tag',
-											parameters: {
-												status: appeal.appealStatus || 'ERROR'
-											}
+									}
+								]
+							},
+							{
+								html: mapAppealStatusToActionRequiredHtml(
+									appeal.appealId,
+									appeal.appealStatus,
+									appeal.lpaQuestionnaireId
+								)
+							},
+							{
+								text: dateToDisplayDate(appeal.dueDate) || ''
+							},
+							{
+								html: '',
+								pageComponents: [
+									{
+										type: 'status-tag',
+										parameters: {
+											status: appeal.appealStatus || 'ERROR'
 										}
-									]
-								}
-							];
-						})
+									}
+								]
+							}
+						];
+					})
 				}
 			}
 		]
@@ -134,13 +116,15 @@ function mapAppealStatusToActionRequiredHtml(appealId, appealStatus, lpaQuestion
 	switch (appealStatus) {
 		case 'ready_to_start':
 		case 'review_appellant_case':
-			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">View appellant case</a>`;
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">Review appellant case</a>`;
 		case 'lpa_questionnaire_due':
 			if (!lpaQuestionnaireId) {
-				return '';
+				return 'Awaiting LPA Questionnaire';
 			}
-			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">View LPA Questionnaire</a>`;
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Review LPA Questionnaire</a>`;
+		case 'issue_determination':
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/issue-decision/decision">Submit decision</a>`;
 		default:
-			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}">View appeal</a>`;
+			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}">View appellant case</a>`;
 	}
 }

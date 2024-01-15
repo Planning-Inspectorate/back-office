@@ -303,6 +303,7 @@
  * @property {*} [notificationBannerComponents]
  * @property {PageComponent[]} [pageComponents]
  * @property {PageComponentGroup[]} [pageComponentGroups]
+ * @property {*} [customErrorMessageComponents]
  */
 
 /**

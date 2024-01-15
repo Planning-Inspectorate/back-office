@@ -1,5 +1,6 @@
 {%- extends "app/layouts/app.layout.njk" -%}
 {%- from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner -%}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {%- from "govuk/components/radios/macro.njk" import govukRadios -%}
 {%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
@@ -8,17 +9,33 @@
 {%- from "govuk/components/summary-list/macro.njk" import govukSummaryList -%}
 {%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
 {%- from "../appeals/components/status-tag.njk" import statusTag -%}
+{%- from "govuk/components/pagination/macro.njk" import govukPagination -%}
 
 {%- set backLinkUrl = pageContent.backLinkUrl -%}
 {%- set backLinkText = pageContent.backLinkText -%}
 {%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
 {%- block pageHeading -%}
-	{%- for component in pageContent.pageComponents -%}
-		{%- if component.type === 'notification-banner' -%}
-			{{ govukNotificationBanner(component.parameters) }}
+	{%- for component in pageContent.customErrorMessageComponents -%}
+		{%- if component.type === 'error-summary' -%}
+			{{ govukErrorSummary(component.parameters) }}
 		{%- endif -%}
 	{%- endfor -%}
+	{%- set notificationBanners = [] -%}
+	{%- for component in pageContent.pageComponents -%}
+		{%- if component.type === 'notification-banner' -%}
+			{%- set _ = notificationBanners.push(component) -%}
+		{%- endif -%}
+	{%- endfor -%}
+	{%- if notificationBanners | length -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			{%- for component in notificationBanners -%}
+				{{ govukNotificationBanner(component.parameters) }}
+			{%- endfor -%}
+		</div>
+	</div>
+	{%- endif -%}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{%- if pageContent.preHeading -%}<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ pageContent.preHeading }}</span>{%- endif -%}
@@ -44,4 +61,11 @@
 			{%- endif -%}
 		{%- endif -%}
 	{%- endfor -%}
+	{% if pagination.items|length %}
+		{{
+			govukPagination(
+				pagination
+			)
+		}}
+	{% endif %}
 {%- endblock -%}

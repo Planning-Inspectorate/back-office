@@ -222,7 +222,7 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                             <table                             class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
-                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for submission</th>
+                                        <th scope=\\"row\\" class=\\"govuk-table__header\\">Deadline for submission of Recommendation</th>
                                         <td class=\\"govuk-table__cell\\">14 Jun 2023</td>
                                     </tr>
                                     <tr class=\\"govuk-table__row\\">
@@ -1039,7 +1039,7 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
         <div class=\\"govuk-form-group govuk-grid-column-full \\">
             <fieldset class=\\"govuk-fieldset\\">
-                <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Deadline for submission</legend>
+                <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Deadline for submission of Recommendation</legend>
                 <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for submission of Recommendation report to the Secretary of State
                     (SoS).</div>
                 <div class=\\"govuk-grid-column-one-third\\">
@@ -2044,7 +2044,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create govuk-grid-row govuk-!-margin-top-8\\">
         <div class=\\"govuk-form-group govuk-grid-column-full \\">
             <fieldset class=\\"govuk-fieldset\\">
-                <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Deadline for submission</legend>
+                <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Deadline for submission of Recommendation</legend>
                 <div id=\\"-hint\\" class=\\"govuk-hint\\">Deadline for submission of Recommendation report to the Secretary of State
                     (SoS).</div>
                 <div class=\\"govuk-grid-column-one-third\\">

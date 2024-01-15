@@ -72,6 +72,7 @@
     "pino": "^8.1.0",
     "pino-http": "^8.1.0",
     "pino-pretty": "^8.1.0",
+    "pins-data-model": "github:Planning-Inspectorate/data-model#draft-02",
     "rhea": "3.0.1",
     "sanitize-html": "^2.11.0",
     "swagger-ui-express": "^4.4.0",

@@ -1,44 +1,19 @@
 import config from '#config/config.js';
+
 /**
- * NSIP Document
- *
- * @typedef {Object} NsipDocumentPayload
- * @property {string} documentId - The unique identifier for the file. This will be different to documentReference
- * @property {string | undefined} caseRef
- * @property {number} caseId The unique identifier within the Back Office. This is not the same as the case reference
- * @property {string | null | undefined} documentReference - Reference used throughout ODT <CaseRef>-<SequenceNo>
- * @property {number | null} version
- * @property {string | null} examinationRefNo
- * @property {string | null} filename - Current stored filename of the file
- * @property {string | null} originalFilename - Original filename of file
- * @property {number | null} size
- * @property {string | null} mime
- * @property {string | undefined} documentURI
- * @property {string | undefined} publishedDocumentURI
- * @property {"not_scanned" | "scanned" | "affected | null"} virusCheckStatus
- * @property {string | null} fileMD5
- * @property {string | null} dateCreated - Date format: date-time
- * @property {string | undefined} lastModified - Date format: date-time
- * @property {"submitted" | "internal" | "draft"} documentStatus
- * @property {"not_redacted" | "redacted | null"} redactedStatus
- * @property {"not_checked" | "checked" | "ready_to_publish" | "do_not_publish" | "publishing" | "published" | "archived | null"} publishedStatus
- * @property {string | undefined} datePublished - Date format: date-time
- * @property {string | null} documentType
- * @property {"public" | "official" | "secret" | "top-secret | null"} securityClassification
- * @property {"appeals" | "back_office" | "horizon" | "ni_file" | "sharepoint | null"} sourceSystem
- * @property {"pins" | "citizen" | "lpa" | "ogd | null"} origin
- * @property {string | null} owner
- * @property {string | null} author - Name of person who authored document
- * @property {string | null} representative - The on behalf of or agent submitter of document
- * @property {string | null} description
- * @property {"draft" | "pre-application" | "acceptance" | "pre-examination" | "examination" | "recommendation" | "decision" | "post_decision" | "withdrawn" | "developers_application | null"} stage
- * @property {string | null} filter1 - Filter field to provide additional filtering
- * @property {string | null} filter2 - Filter field to provide additional filtering
- */
+ * @typedef {import('../../../../message-schemas/events/nsip-document').NSIPDocument} NSIPDocument
+ * @typedef {import('../../../../message-schemas/events/nsip-document').VirusCheckStatus} VirusCheckStatus
+ * @typedef {import('../../../../message-schemas/events/nsip-document').RedactedStatus} RedactedStatus
+ * @typedef {import('../../../../message-schemas/events/nsip-document').PublishedStatus} PublishedStatus
+ * @typedef {import('../../../../message-schemas/events/nsip-document').SecurityClassification} SecurityClassification
+ * @typedef {import('../../../../message-schemas/events/nsip-document').SourceSystem} SourceSystem
+ * @typedef {import('../../../../message-schemas/events/nsip-document').Origin} Origin
+ * @typedef {import('../../../../message-schemas/events/nsip-document').Stage} Stage
+ * */
 
 /**
  * @param {import('@pins/applications.api').Schema.DocumentVersionWithDocument} version
- * @returns {NsipDocumentPayload}
+ * @returns {NSIPDocument}
  */
 export const buildNsipDocumentPayload = (version) => {
 	const { Document: document } = version;
@@ -60,34 +35,26 @@ export const buildNsipDocumentPayload = (version) => {
 		mime: version.mime,
 		documentURI: buildBlobUri(version.privateBlobContainer, version.privateBlobPath),
 		publishedDocumentURI: buildBlobUri(version.publishedBlobContainer, version.publishedBlobPath),
-		// @ts-ignore
-		virusCheckStatus: version.virusCheckStatus,
+		virusCheckStatus: /** @type {VirusCheckStatus} */ (version.virusCheckStatus),
 		fileMD5: version.fileMD5,
-		// @ts-ignore
-		dateCreated: version.dateCreated?.toISOString(), // TODO: Should this come from the version?
+		dateCreated: version.dateCreated?.toISOString() ?? null, // TODO: Should this come from the version?
 		lastModified: version.lastModified?.toISOString(),
-		//documentStatus: // TODO: Not really sure what this is
-		// @ts-ignore
-		redactedStatus: version.redactedStatus,
-		// @ts-ignore
-		publishedStatus: version.publishedStatus,
+		redactedStatus: /** @type {RedactedStatus} */ (version.redactedStatus),
+		publishedStatus: /** @type {PublishedStatus} */ (version.publishedStatus),
 		datePublished: version.datePublished?.toISOString(),
 		documentType: version.documentType,
-		internalDocumentType: document.documentType,
-		// @ts-ignore
-		securityClassification: version.securityClassification,
-		// @ts-ignore
-		sourceSystem: version.sourceSystem,
-		// @ts-ignore
-		origin: version.origin,
+		securityClassification: /** @type {SecurityClassification} */ (version.securityClassification),
+		sourceSystem: /** @type {SourceSystem} */ (version.sourceSystem),
+		origin: /** @type {Origin} */ (version.origin),
 		owner: version.owner,
 		author: version.author,
 		representative: version.representative,
 		description: version.description,
-		// @ts-ignore
-		stage: version.stage,
+		stage: /** @type {Stage} */ (version.stage),
 		filter1: version.filter1,
-		filter2: version.filter2
+		filter2: version.filter2,
+		horizonFolderId: version.horizonDataID,
+		transcriptId: version.transcriptGuid
 	};
 };
 

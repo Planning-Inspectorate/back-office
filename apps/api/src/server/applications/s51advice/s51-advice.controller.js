@@ -138,6 +138,8 @@ export const getDocuments = async ({ params }, response) => {
 };
 
 /**
+ * Add an S51 Advice document to an S51 Advice
+ *
  * @type {import('express').RequestHandler}
  * @throws {Error}
  * @returns {Promise<void>}
@@ -443,6 +445,7 @@ export const verifyS51TitleIsUnique = async ({ params }, response) => {
 };
 
 /**
+ * Publishes an array of S51 Advice selected from the Ready to Publish queue, and any attached documents
  *
  * @type {import('express').RequestHandler<{ id: string }, ?, {selectAll?: boolean, ids: string[]}>}
  * */

@@ -13,6 +13,7 @@ const mockCaseCount = jest.fn().mockResolvedValue({});
 const mockApplicationDetailsFindUnique = jest.fn().mockResolvedValue({});
 
 const mockServiceUserFindUnique = jest.fn().mockResolvedValue({});
+const mockServiceUserFindFirst = jest.fn().mockResolvedValue({});
 const mockServiceUserCreate = jest.fn().mockResolvedValue({});
 const mockServiceUserUpdate = jest.fn().mockResolvedValue({});
 
@@ -261,6 +262,7 @@ class MockPrismaClient {
 	get serviceUser() {
 		return {
 			findUnique: mockServiceUserFindUnique,
+			findFirst: mockServiceUserFindFirst,
 			create: mockServiceUserCreate,
 			update: mockServiceUserUpdate
 		};
@@ -319,6 +321,7 @@ class MockPrismaClient {
 		update: jest.fn(),
 		count: jest.fn().mockResolvedValue(0),
 		findUnique: jest.fn(),
+		findFirst: jest.fn(),
 		findMany: jest.fn().mockResolvedValue([])
 	};
 

@@ -120,12 +120,12 @@ export async function updateSubscription(request, response) {
 			response.status(404).send({ errors: { notFound: 'subscription not found' } });
 			return;
 		}
-		if (existing && existing.startDate) {
-			if (existing.startDate > endDate) {
-				response.status(400).send({ errors: { endDate: 'endDate must be after startDate' } });
-				return;
-			}
+
+		if (existing.startDate && existing.startDate > endDate) {
+			response.status(400).send({ errors: { endDate: 'endDate must be after startDate' } });
+			return;
 		}
+
 		const res = await subscriptionRepository.update(id, subscription);
 
 		// since we only allow updating end date (currently), we only need to send update events

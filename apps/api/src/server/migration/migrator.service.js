@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
-import { readdirSync, readFileSync } from 'node:fs';
+import addAjvFormats from 'ajv-formats';
+import { loadAllSchemas } from 'pins-data-model';
 import { migrateNsipProjects } from './migrators/nsip-project-migrator.js';
 import { migrateNsipProjectUpdates } from './migrators/nsip-project-update-migrator.js';
 import { migrateNsipSubscriptions } from './migrators/nsip-subscription-migrator.js';
@@ -23,11 +23,11 @@ const migrationMap = new Map();
  *
  * @param {string} modelType
  *
- * @returns {MigrationMap | null}
+ * @returns {Promise<MigrationMap | null>}
  */
-export const getMigratorForModel = (modelType) => {
+export const getMigratorForModel = async (modelType) => {
 	if (migrationMap.size === 0) {
-		initializeMapping();
+		await initializeMapping();
 	}
 
 	if (!migrationMap.has(modelType)) {
@@ -38,16 +38,12 @@ export const getMigratorForModel = (modelType) => {
 };
 
 // the mappings are lazily initialised to improve test performance
-const initializeMapping = () => {
-	const schemas = readdirSync('./src/message-schemas/events')
-		.filter((file) => file.endsWith('.schema.json'))
-		.map((file) => {
-			return JSON.parse(readFileSync(`./src/message-schemas/events/${file}`).toString());
-		});
+const initializeMapping = async () => {
+	const { schemas } = await loadAllSchemas();
 
-	const ajv = new Ajv({ schemas });
+	const ajv = new Ajv({ schemas, allErrors: true });
 
-	addFormats(ajv);
+	addAjvFormats(ajv);
 
 	migrationMap.set('nsip-project', {
 		validator: ajv.getSchema('nsip-project.schema.json'),

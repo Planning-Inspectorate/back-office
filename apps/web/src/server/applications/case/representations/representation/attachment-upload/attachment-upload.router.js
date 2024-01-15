@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { repRoutes } from '../utils/get-representation-page-urls.js';
 import { addRepresentationToLocals } from '../representation.middleware.js';
 import { getRepresentationAttachmentUpload } from './attachment-upload.controller.js';
@@ -8,6 +8,6 @@ const relevantRepresentationAttachmentUploadRouter = createRouter({ mergeParams:
 
 relevantRepresentationAttachmentUploadRouter
 	.route(repRoutes.attachmentUpload)
-	.get(addRepresentationToLocals, asyncRoute(getRepresentationAttachmentUpload));
+	.get(addRepresentationToLocals, asyncHandler(getRepresentationAttachmentUpload));
 
 export default relevantRepresentationAttachmentUploadRouter;

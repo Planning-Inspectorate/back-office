@@ -9,7 +9,6 @@
 
 {% set pageTitle = case.title %}
 {% set isPageWithRepublishBanner = selectedPageType === 'overview' or selectedPageType === 'project-information' or selectedPageType === 'key-dates' %}
-{% set hasUnpublishedChanges = case.publishedDate and case.publishedDate < case.modifiedDate %}
 
 {% block beforeContent %}
 <aside>
@@ -53,7 +52,7 @@
 		{% endblock %}
 		<div class="govuk-grid-column-full">
 
-	{% if userIsNotInspector and isPageWithRepublishBanner and  hasUnpublishedChanges %}
+	{% if isPageWithRepublishBanner and case.hasUnpublishedChanges and case.publishedDate %}
         {% set unpublishedBannerHtml %}
           <h4 class="govuk-notification-banner__heading">Unpublished changes have been made.</h4>
           <p class="govuk-body">

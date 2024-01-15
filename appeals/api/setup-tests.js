@@ -123,6 +123,7 @@ const mockDocumentRedactionStatusFindMany = jest.fn().mockResolvedValue({});
 const mockAuditTrailFindMany = jest.fn().mockResolvedValue({});
 const mockAuditTrailCreate = jest.fn().mockResolvedValue({});
 const mockDocumentVersionAuditCreate = jest.fn().mockResolvedValue({});
+const mockAppealTypes = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
@@ -137,6 +138,12 @@ class MockPrismaClient {
 			update: mockAppealUpdate,
 			findMany: mockAppealFindMany,
 			count: mockAppealCount
+		};
+	}
+
+	get appealType() {
+		return {
+			findMany: mockAppealTypes
 		};
 	}
 

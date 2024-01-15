@@ -144,7 +144,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 			logger.info(`Inserted document with guid: ${document.guid}`);
 
 			// Get the cases stage to be applied to the document based on the folder
-			const stage = await getCaseStageMapping(documentToDB.folderId);
+			let stage = await getCaseStageMapping(documentToDB.folderId);
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
 
@@ -474,13 +474,25 @@ export const getCurrentlyPublished = async (documentGuids) => {
 };
 
 /**
+ * Checks an array of doc guids is valid for publishing and publishes those documents,
+ * returning arrays of successful and failed.
+ * Fn also used for S51 Advice documents (skipRequiredPropertyChecks = true )
+ *
  * @param {string[]} documentGuids
  * @param {string} username
- * @returns {Promise<{ successful: string[], failed: string[] }>}
+ * @param {boolean} skipRequiredPropertyChecks	// set to true for S51 Advice attachments
+ * @returns {Promise<{ successful: string[], failed: {guid: string, msg: string}[] }>}
  * */
-export const publishDocuments = async (documentGuids, username) => {
+export const publishDocuments = async (
+	documentGuids,
+	username,
+	skipRequiredPropertyChecks = false
+) => {
 	const { publishable: publishableDocumentVersionIds, invalid } =
-		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(documentGuids);
+		await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
+			documentGuids,
+			skipRequiredPropertyChecks
+		);
 
 	const activityLogs = publishableDocumentVersionIds.map((document) =>
 		documentActivityLogRepository.create({
@@ -493,11 +505,18 @@ export const publishDocuments = async (documentGuids, username) => {
 
 	await Promise.all(activityLogs);
 
-	const publishedDocuments = await publishDocumentVersions(publishableDocumentVersionIds);
-	logger.info(`Published ${publishedDocuments.length} documents`);
+	// only publish docs if there are any that are verified as publishable
+	/** @type {string[]} */
+	let successfulPublishedDocGuids = [];
+
+	if (publishableDocumentVersionIds.length > 0) {
+		const publishedDocuments = await publishDocumentVersions(publishableDocumentVersionIds);
+		logger.info(`Published ${publishedDocuments.length} documents`);
+		successfulPublishedDocGuids = publishedDocuments.map((d) => d.documentGuid);
+	}
 
 	return {
-		successful: publishedDocuments.map((d) => d.documentGuid),
+		successful: successfulPublishedDocGuids,
 		failed: invalid
 	};
 };
@@ -700,15 +719,14 @@ export const extractDuplicates = async (documents) => {
  * */
 export const separatePublishableDocuments = async (guids) => {
 	const { publishable, invalid } = await verifyAllDocumentsHaveRequiredPropertiesForPublishing(
-		guids
+		guids,
+		false
 	);
 
+	console.log(707079, 'dservice', invalid);
 	return {
 		publishableIds: publishable.map((p) => p.documentGuid),
-		errors: invalid.map((id) => ({
-			guid: id,
-			msg: 'You must fill in all mandatory document properties to publish a document'
-		}))
+		errors: invalid
 	};
 };
 

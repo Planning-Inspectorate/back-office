@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '#middleware/async-handler.js';
+import { asyncHandler } from '@pins/express';
 import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
-import { validateApplicationId } from '../../application/application.validators.js';
+import { validateApplicationId } from '../application.validators.js';
 import { validatePaginationParameters } from '#middleware/pagination-validation.js';
 import { validateFolderId, validateFolderIds } from '../../documents/documents.validators.js';
 import {

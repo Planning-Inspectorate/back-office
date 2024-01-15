@@ -1,7 +1,7 @@
 import { getSkipValue } from '#utils/database-pagination.js';
 import { databaseConnector } from '#utils/database-connector.js';
 import { hasValueOrIsNull } from '#endpoints/appeals/appeals.service.js';
-import { DATABASE_ORDER_BY_DESC } from '#endpoints/constants.js';
+import { DATABASE_ORDER_BY_DESC, STATE_TARGET_COMPLETE } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -86,7 +86,12 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 		OR: [
 			{ inspector: { azureAdUserId: { equals: userId } } },
 			{ caseOfficer: { azureAdUserId: { equals: userId } } }
-		]
+		],
+		AND: {
+			appealStatus: {
+				some: { valid: true, status: { not: STATE_TARGET_COMPLETE } }
+			}
+		}
 	};
 
 	return databaseConnector.$transaction([
@@ -267,7 +272,7 @@ const updateAppealById = (id, { dueDate, startedAt, caseOfficer, inspector }) =>
  * @param {SetAppealDecisionRequest} data
  * @returns {PrismaPromise<[InspectorDecision, DocumentVersion]>}
  */
-const setAppealDecision = (id, { documentDate, documentGuid, version, outcome }) => {
+const setAppealDecision = (id, { documentDate, documentGuid, version = 1, outcome }) => {
 	const decisionDate = new Date(documentDate).toISOString();
 	// @ts-ignore
 	return databaseConnector.$transaction([
@@ -279,12 +284,7 @@ const setAppealDecision = (id, { documentDate, documentGuid, version, outcome })
 					}
 				},
 				outcome,
-				// @ts-ignore
-				decisionLetter: {
-					connect: {
-						guid: documentGuid
-					}
-				}
+				decisionLetterGuid: documentGuid
 			}
 		}),
 		databaseConnector.documentVersion.update({
@@ -296,7 +296,8 @@ const setAppealDecision = (id, { documentDate, documentGuid, version, outcome })
 			},
 			data: {
 				dateReceived: decisionDate,
-				published: true
+				published: true,
+				draft: false
 			}
 		})
 	]);

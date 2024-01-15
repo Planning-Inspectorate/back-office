@@ -2,7 +2,8 @@ import { Subscription } from '@pins/applications/lib/application/subscription.js
 import { EventType } from '@pins/event-client';
 
 /**
- * @typedef {import('../../../message-schemas/events/nsip-subscription.d.js').NSIPSubscription} NSIPSubscription
+ * @typedef {import('../../../message-schemas/events/nsip-subscription').NSIPSubscription} NSIPSubscription
+ * @typedef {import('../../../message-schemas/events/service-user').ServiceUser} ServiceUser
  * @typedef {import('@pins/applications').SubscriptionType} SubscriptionType
  */
 
@@ -40,14 +41,19 @@ export function buildSubscriptionPayloads(subscription) {
 /**
  * Base payload for a subscription event, without a subscription type.
  *
- * @param {import('@prisma/client').Subscription} subscription
+ * @param {import('@pins/applications.api').Schema.SubscriptionWithServiceUser} subscription
  * @returns {NSIPSubscription}
+ * @throws {Error}
  */
 export function buildSubscriptionBasePayload(subscription) {
+	if (!subscription.serviceUser?.email) {
+		throw new Error('cannot build subscription payload: email is undefined');
+	}
+
 	/** @type {NSIPSubscription} */
 	const payload = {
 		caseReference: subscription.caseReference,
-		emailAddress: subscription.emailAddress,
+		emailAddress: subscription.serviceUser.email,
 		subscriptionType: '' // overwritten later with a real value
 	};
 	if (subscription.id) {
@@ -73,22 +79,23 @@ export function buildSubscriptionBasePayload(subscription) {
  * @returns {SubscriptionType[]}
  */
 export function subscriptionToTypes(subscription) {
+	if (subscription.subscribedToAllUpdates) {
+		return [Subscription.Type.allUpdates];
+	}
+
 	/** @type {SubscriptionType[]} */
 	const types = [];
 
-	if (subscription.subscribedToAllUpdates) {
-		types.push(Subscription.Type.allUpdates);
-	} else {
-		if (subscription.subscribedToApplicationDecided) {
-			types.push(Subscription.Type.applicationDecided);
-		}
-		if (subscription.subscribedToApplicationSubmitted) {
-			types.push(Subscription.Type.applicationSubmitted);
-		}
-		if (subscription.subscribedToRegistrationOpen) {
-			types.push(Subscription.Type.registrationOpen);
-		}
+	if (subscription.subscribedToApplicationDecided) {
+		types.push(Subscription.Type.applicationDecided);
 	}
+	if (subscription.subscribedToApplicationSubmitted) {
+		types.push(Subscription.Type.applicationSubmitted);
+	}
+	if (subscription.subscribedToRegistrationOpen) {
+		types.push(Subscription.Type.registrationOpen);
+	}
+
 	return types;
 }
 
@@ -96,31 +103,37 @@ export function subscriptionToTypes(subscription) {
  *
  * @param {SubscriptionType[]} types
  * @param {import('@prisma/client').Prisma.SubscriptionCreateInput} subscription
+ * @returns {import('@prisma/client').Prisma.SubscriptionCreateInput}
  */
 export function typesToSubscription(types, subscription) {
-	// ensure all fields are reset to false (not just left as they are) for updates
-	subscription.subscribedToAllUpdates = false;
-	subscription.subscribedToApplicationDecided = false;
-	subscription.subscribedToApplicationSubmitted = false;
-	subscription.subscribedToRegistrationOpen = false;
+	const _subscription = {
+		...subscription,
+		// ensure all fields are reset to false (not just left as they are) for updates
+		subscribedToApplicationDecided: false,
+		subscribedToApplicationSubmitted: false,
+		subscribedToRegistrationOpen: false,
+		subscribedToAllUpdates: types.includes(Subscription.Type.allUpdates)
+	};
 
-	if (types.includes(Subscription.Type.allUpdates)) {
-		subscription.subscribedToAllUpdates = true;
-	} else {
-		for (const type of types) {
-			switch (type) {
-				case Subscription.Type.applicationSubmitted:
-					subscription.subscribedToApplicationSubmitted = true;
-					break;
-				case Subscription.Type.applicationDecided:
-					subscription.subscribedToApplicationDecided = true;
-					break;
-				case Subscription.Type.registrationOpen:
-					subscription.subscribedToRegistrationOpen = true;
-					break;
-			}
+	if (_subscription.subscribedToAllUpdates) {
+		return _subscription;
+	}
+
+	for (const type of types) {
+		switch (type) {
+			case Subscription.Type.applicationSubmitted:
+				_subscription.subscribedToApplicationSubmitted = true;
+				break;
+			case Subscription.Type.applicationDecided:
+				_subscription.subscribedToApplicationDecided = true;
+				break;
+			case Subscription.Type.registrationOpen:
+				_subscription.subscribedToRegistrationOpen = true;
+				break;
 		}
 	}
+
+	return _subscription;
 }
 
 /**
@@ -162,6 +175,30 @@ export function subscriptionTypeChanges(existingSub, newSub) {
 
 	return byType;
 }
+
+/**
+ * @param {import('@pins/applications.api').Schema.SubscriptionWithServiceUser} subscription
+ * @return {ServiceUser}
+ * */
+export const buildServiceUserPayload = (subscription) => ({
+	id: subscription.serviceUser.id.toString(),
+	firstName: subscription.serviceUser.firstName,
+	lastName: subscription.serviceUser.lastName,
+	addressLine1: subscription.serviceUser.address?.addressLine1,
+	addressLine2: subscription.serviceUser.address?.addressLine2,
+	addressTown: subscription.serviceUser.address?.town,
+	addressCounty: subscription.serviceUser.address?.county,
+	postcode: subscription.serviceUser.address?.postcode,
+	addressCountry: subscription.serviceUser.address?.country,
+	organisation: subscription.serviceUser.organisationName,
+	role: subscription.serviceUser.jobTitle,
+	telephoneNumber: subscription.serviceUser.phoneNumber,
+	emailAddress: subscription.serviceUser.email,
+	serviceUserType: 'Subscriber',
+	caseReference: subscription.caseReference,
+	sourceSuid: subscription.serviceUser.id.toString(),
+	sourceSystem: 'BO'
+});
 
 /**
  * Base payload for a subscription event, without a subscription type.

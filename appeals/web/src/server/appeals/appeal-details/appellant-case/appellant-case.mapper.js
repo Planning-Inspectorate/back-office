@@ -12,6 +12,7 @@ import { initialiseAndMapData } from '#lib/mappers/appellantCase.mapper.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
+import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
@@ -67,7 +68,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		parameters: {
 			card: {
 				title: {
-					text: '1. The appellant'
+					text: '1. Appellant'
 				}
 			},
 			rows: [
@@ -86,7 +87,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		parameters: {
 			card: {
 				title: {
-					text: '2. The appeal site'
+					text: '2. Appeal site'
 				}
 			},
 			rows: [
@@ -110,7 +111,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		parameters: {
 			card: {
 				title: {
-					text: '3. The appeal'
+					text: '3. Appeal status'
 				}
 			},
 			rows: [
@@ -135,6 +136,33 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		reviewOutcomeComponents.push({
 			type: 'radios',
 			parameters: reviewOutcomeRadiosInputInstruction.properties
+		});
+	}
+
+	if (getDocumentsForVirusStatus(appellantCaseData, 'not_checked').length > 0) {
+		addNotificationBannerToSession(session, 'notCheckedDocument', appealDetails?.appealId);
+	}
+	/** @type {PageComponent[]} */
+	let virusDetectedMessage = [];
+
+	if (getDocumentsForVirusStatus(appellantCaseData, 'failed_virus_check').length > 0) {
+		let folderIds = getDocumentsForVirusStatus(appellantCaseData, 'failed_virus_check');
+		/**
+		 * @type {{ text: string; href: string; }[]}
+		 */
+		let errorList = [];
+		folderIds.forEach((item) =>
+			errorList.push({
+				text: 'The selected file contains a virus. Upload a different version.',
+				href: `manage-documents/${item.folderId}/${item.id}`
+			})
+		);
+		virusDetectedMessage.push({
+			type: 'error-summary',
+			parameters: {
+				titleText: 'There is a problem',
+				errorList: errorList
+			}
 		});
 	}
 
@@ -163,6 +191,7 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'Appellant case',
+		customErrorMessageComponents: virusDetectedMessage,
 		pageComponents: [
 			...notificationBanners,
 			appellantCaseSummary,
@@ -519,4 +548,23 @@ export function mapWebReviewOutcomeToApiReviewOutcome(
 			appealDueDate: dayMonthYearToApiDateString(updatedDueDate)
 		})
 	};
+}
+
+/**
+ *
+ * @param {AppellantCaseResponse} appellantCaseData
+ * @param {"not_checked"|"checked"|"failed_virus_check"} virusStatus
+ * @returns {DocumentInfo[]}
+ */
+function getDocumentsForVirusStatus(appellantCaseData, virusStatus) {
+	let unscannedFiles = [];
+	for (let document of Object.values(appellantCaseData.documents)) {
+		const documentsOfStatus = document.documents.filter(
+			(item) => item.virusCheckStatus === virusStatus
+		);
+		for (const document of documentsOfStatus) {
+			unscannedFiles.push(document);
+		}
+	}
+	return unscannedFiles;
 }

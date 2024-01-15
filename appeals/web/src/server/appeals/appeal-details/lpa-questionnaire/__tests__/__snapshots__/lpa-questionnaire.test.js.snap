@@ -2,42 +2,46 @@
 
 exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 4</li>
+                                <li>test reason 5</li>
+                                <li>test reason 6</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 4</li>
-                        <li>test reason 5</li>
-                        <li>test reason 6</li>
-                    </ul>
-                </div>
-            </details>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -49,7 +53,7 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
             <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
     </dl>
@@ -89,6 +93,626 @@ exports[`LPA Questionnaire review GET / should render LPA Questionnaire review 1
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
                             <li><span class="govuk-body">conservationAreaMap.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <ul class="govuk-summary-list__actions-list">
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/1/"> Manage<span class="govuk-visually-hidden"> Conservation area map and guidance</span></a>
+                                </li>
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/1"> Add<span class="govuk-visually-hidden"> Conservation area map and guidance</span></a>
+                                </li>
+                            </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Green belt</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/site-within-green-belt"> Change<span class="govuk-visually-hidden"> Green belt</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">2. Notifying relevant parties of the application</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who was notified</dt>
+                    <dd class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">notifyingParties.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <ul class="govuk-summary-list__actions-list">
+                            <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2/"> Manage<span class="govuk-visually-hidden"> Who was notified</span></a>
+                            </li>
+                            <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/2"> Add<span class="govuk-visually-hidden"> Who was notified</span></a>
+                            </li>
+                        </ul>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Notification methods</dt>
+                    <dd class="govuk-summary-list__value">
+                        <ul>
+                            <li>A site notice</li>
+                            <li>Letter/email to interested parties</li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/notification-methods"> Change<span class="govuk-visually-hidden"> Notification methods</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site notice</dt>
+                    <dd class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">siteNotices.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <ul class="govuk-summary-list__actions-list">
+                            <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/3/"> Manage<span class="govuk-visually-hidden"> Site notice</span></a>
+                            </li>
+                            <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/3"> Add<span class="govuk-visually-hidden"> Site notice</span></a>
+                            </li>
+                        </ul>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Letter/email to interested parties</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">lettersToNeighbours.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <ul class="govuk-summary-list__actions-list">
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/4/"> Manage<span class="govuk-visually-hidden"> Letter or email to interested parties</span></a>
+                                </li>
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/4"> Add<span class="govuk-visually-hidden"> Letter or email to interested parties</span></a>
+                                </li>
+                            </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">3. Consultation responses and representations</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Representations from other parties</dt>
+                    <dd                     class="govuk-summary-list__value">Yes</dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/has-representations-from-other-parties"> Change<span class="govuk-visually-hidden"> Representations from other parties</span></a>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Representations from other parties documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">representations.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <ul class="govuk-summary-list__actions-list">
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/6/"> Manage<span class="govuk-visually-hidden"> Representations from other parties documents</span></a>
+                                </li>
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/6"> Add<span class="govuk-visually-hidden"> Representations from other parties documents</span></a>
+                                </li>
+                            </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">4. Planning officer’s report and supplementary documents</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning officer&#39;s report</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">officersReport.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <ul class="govuk-summary-list__actions-list">
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/7/"> Manage<span class="govuk-visually-hidden"> Planning officer&#39;s report</span></a>
+                                </li>
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/7"> Add<span class="govuk-visually-hidden"> Planning officer&#39;s report</span></a>
+                                </li>
+                            </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">5. Site access</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site access required</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/does-site-require-inspector-access"> Change<span class="govuk-visually-hidden"> Site access required</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects neighbouring sites</dt>
+                    <dd                     class="govuk-summary-list__value">Yes</dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/is-affecting-neighbouring-sites"> Change<span class="govuk-visually-hidden"> Affects neighbouring sites</span></a>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                    <dd class="govuk-summary-list__value">19 Beauchamp Road, Bristol, BS7 8LQ</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/neighbouring-site-address-0"> Change<span class="govuk-visually-hidden"> Neighbour address 1</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                    <dd class="govuk-summary-list__value">96 The Avenue, Maidstone, Kent, MD21 5XY</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/neighbouring-site-address-1"> Change<span class="govuk-visually-hidden"> Neighbour address 2</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
+                    <dd class="govuk-summary-list__value"><span>Yes</span>
+                        <br><span>There is no mobile signal at the property</span>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/health-and-safety"> Change<span class="govuk-visually-hidden"> Potential safety risks</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">6. Appeal process</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
+                    <dd class="govuk-summary-list__value">
+                        <ul class="govuk-list"
+                        "><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
+                        ">725284</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals
+                        "> Change<span class="govuk-visually-hidden
+                        "> Appeals near the site</span></a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
+                        "> Extra conditions</dt><dd class="govuk-summary-list__value
+                        "><span>Yes</span><br><span>Some extra conditions</span></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions
+                        "> Change<span class="govuk-visually-hidden
+                        "> Extra conditions</span></a></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
+                        " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
+                        "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
+                        " id="review-outcome " name="review-outcome " type="radio " value="complete
+                        "><label class="govuk-label govuk-radios__label " for="review-outcome
+                        "> Complete</label></div><div class="govuk-radios__item "><input class="govuk-radios__input " id="review-outcome-2
+                        " name="review-outcome " type="radio " value="incomplete "><label class="govuk-label
+                        govuk-radios__label " for="review-outcome-2
+                        "> Incomplete</label></div></div></div><button class="govuk-button " data-module="govuk-button
+                        "> Continue</button></form></div></div></main>"
+`;
+
+exports[`LPA Questionnaire review GET / with unchecked documents should render a notification banner when a file is unscanned 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
+                </div>
+            </div>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 4</li>
+                                <li>test reason 5</li>
+                                <li>test reason 6</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA questionnaire</h1>
+        </div>
+    </div>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+        </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
+            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        </div>
+    </dl>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Correct appeal type</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/is-correct-appeal-type"> Change<span class="govuk-visually-hidden"> Correct appeal type</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building</dt>
+                    <dd                     class="govuk-summary-list__value">Yes</dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/does-affect-a-listed-building"> Change<span class="govuk-visually-hidden"> Affects a listed building</span></a>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affected listed building details</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='https://historicengland.org.uk/listing/the-list/list-entry/123456'
+                                class="govuk-link" aria-label="Listed building number 1 2 3 4 5 6">123456</a>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/affects-listed-building-details"> Change<span class="govuk-visually-hidden"> Affects listed building details</span></a>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/in-or-relates-to-ca"> Change<span class="govuk-visually-hidden"> Conservation area</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">conservationAreaMap.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                            <li><span class="govuk-body">applicationForm.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <ul class="govuk-summary-list__actions-list">
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/1/"> Manage<span class="govuk-visually-hidden"> Conservation area map and guidance</span></a>
+                                </li>
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/1"> Add<span class="govuk-visually-hidden"> Conservation area map and guidance</span></a>
+                                </li>
+                            </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Green belt</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/site-within-green-belt"> Change<span class="govuk-visually-hidden"> Green belt</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">2. Notifying relevant parties of the application</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who was notified</dt>
+                    <dd class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">notifyingParties.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <ul class="govuk-summary-list__actions-list">
+                            <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2/"> Manage<span class="govuk-visually-hidden"> Who was notified</span></a>
+                            </li>
+                            <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/2"> Add<span class="govuk-visually-hidden"> Who was notified</span></a>
+                            </li>
+                        </ul>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Notification methods</dt>
+                    <dd class="govuk-summary-list__value">
+                        <ul>
+                            <li>A site notice</li>
+                            <li>Letter/email to interested parties</li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/notification-methods"> Change<span class="govuk-visually-hidden"> Notification methods</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site notice</dt>
+                    <dd class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">siteNotices.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <ul class="govuk-summary-list__actions-list">
+                            <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/3/"> Manage<span class="govuk-visually-hidden"> Site notice</span></a>
+                            </li>
+                            <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/3"> Add<span class="govuk-visually-hidden"> Site notice</span></a>
+                            </li>
+                        </ul>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Letter/email to interested parties</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">lettersToNeighbours.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <ul class="govuk-summary-list__actions-list">
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/4/"> Manage<span class="govuk-visually-hidden"> Letter or email to interested parties</span></a>
+                                </li>
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/4"> Add<span class="govuk-visually-hidden"> Letter or email to interested parties</span></a>
+                                </li>
+                            </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">3. Consultation responses and representations</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Representations from other parties</dt>
+                    <dd                     class="govuk-summary-list__value">Yes</dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/has-representations-from-other-parties"> Change<span class="govuk-visually-hidden"> Representations from other parties</span></a>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Representations from other parties documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">representations.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <ul class="govuk-summary-list__actions-list">
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/6/"> Manage<span class="govuk-visually-hidden"> Representations from other parties documents</span></a>
+                                </li>
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/6"> Add<span class="govuk-visually-hidden"> Representations from other parties documents</span></a>
+                                </li>
+                            </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">4. Planning officer’s report and supplementary documents</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning officer&#39;s report</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">officersReport.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <ul class="govuk-summary-list__actions-list">
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/7/"> Manage<span class="govuk-visually-hidden"> Planning officer&#39;s report</span></a>
+                                </li>
+                                <li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/7"> Add<span class="govuk-visually-hidden"> Planning officer&#39;s report</span></a>
+                                </li>
+                            </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">5. Site access</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site access required</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/does-site-require-inspector-access"> Change<span class="govuk-visually-hidden"> Site access required</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects neighbouring sites</dt>
+                    <dd                     class="govuk-summary-list__value">Yes</dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/is-affecting-neighbouring-sites"> Change<span class="govuk-visually-hidden"> Affects neighbouring sites</span></a>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 1</dt>
+                    <dd class="govuk-summary-list__value">19 Beauchamp Road, Bristol, BS7 8LQ</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/neighbouring-site-address-0"> Change<span class="govuk-visually-hidden"> Neighbour address 1</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Neighbour address 2</dt>
+                    <dd class="govuk-summary-list__value">96 The Avenue, Maidstone, Kent, MD21 5XY</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/neighbouring-site-address-1"> Change<span class="govuk-visually-hidden"> Neighbour address 2</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
+                    <dd class="govuk-summary-list__value"><span>Yes</span>
+                        <br><span>There is no mobile signal at the property</span>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/health-and-safety"> Change<span class="govuk-visually-hidden"> Potential safety risks</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">6. Appeal process</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
+                    <dd class="govuk-summary-list__value">
+                        <ul class="govuk-list"
+                        "><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
+                        ">725284</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals
+                        "> Change<span class="govuk-visually-hidden
+                        "> Appeals near the site</span></a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
+                        "> Extra conditions</dt><dd class="govuk-summary-list__value
+                        "><span>Yes</span><br><span>Some extra conditions</span></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions
+                        "> Change<span class="govuk-visually-hidden
+                        "> Extra conditions</span></a></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
+                        " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
+                        "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
+                        " id="review-outcome " name="review-outcome " type="radio " value="complete
+                        "><label class="govuk-label govuk-radios__label " for="review-outcome
+                        "> Complete</label></div><div class="govuk-radios__item "><input class="govuk-radios__input " id="review-outcome-2
+                        " name="review-outcome " type="radio " value="incomplete "><label class="govuk-label
+                        govuk-radios__label " for="review-outcome-2
+                        "> Incomplete</label></div></div></div><button class="govuk-button " data-module="govuk-button
+                        "> Continue</button></form></div></div></main>"
+`;
+
+exports[`LPA Questionnaire review GET / with unchecked documents should render an error when a file has a virus 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
+                </div>
+            </div>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 4</li>
+                                <li>test reason 5</li>
+                                <li>test reason 6</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">LPA questionnaire</h1>
+        </div>
+    </div>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+        </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
+            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        </div>
+    </dl>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Correct appeal type</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/is-correct-appeal-type"> Change<span class="govuk-visually-hidden"> Correct appeal type</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affects a listed building</dt>
+                    <dd                     class="govuk-summary-list__value">Yes</dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/does-affect-a-listed-building"> Change<span class="govuk-visually-hidden"> Affects a listed building</span></a>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Affected listed building details</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='https://historicengland.org.uk/listing/the-list/list-entry/123456'
+                                class="govuk-link" aria-label="Listed building number 1 2 3 4 5 6">123456</a>
+                            </li>
+                        </ul>
+                        </dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/affects-listed-building-details"> Change<span class="govuk-visually-hidden"> Affects listed building details</span></a>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/in-or-relates-to-ca"> Change<span class="govuk-visually-hidden"> Conservation area</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span class="govuk-body">conservationAreaMap.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                            </li>
+                            <li><span class="govuk-body">applicationForm.docx</span><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
                             </li>
                         </ul>
                         </dd>
@@ -889,6 +1513,34 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/ should render the manage documents listing page with one document item for each document present in the folder, if the folderId is valid 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">New supporting documents</h1>
         </div>
@@ -1090,6 +1742,21 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
     </div>
     <div class="govuk-grid-row">
@@ -1171,6 +1838,21 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
 
 exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "failed_virus_check" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
     </div>
@@ -1258,6 +1940,21 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
     </div>
     <div class="govuk-grid-row">
@@ -1337,6 +2034,21 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:fol
 
 exports[`LPA Questionnaire review GET /lpa-questionnaire/2/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"></div>
     </div>
@@ -1432,42 +2144,46 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
             </div>
         </div>
     </div>
-    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
-    data-module="govuk-notification-banner">
-        <div class="govuk-notification-banner__header">
-            <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
-        </div>
-        <div class="govuk-notification-banner__content">
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 1</li>
-                    </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> LPA Questionnaire is incomplete</h3>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 2</li>
-                        <li>test reason 3</li>
-                    </ul>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Policies are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other documents or information are missing</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 4</li>
+                                <li>test reason 5</li>
+                                <li>test reason 6</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
-            </details>
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
-                </summary>
-                <div class="govuk-details__text">
-                    <ul class="govuk-!-margin-top-0">
-                        <li>test reason 4</li>
-                        <li>test reason 5</li>
-                        <li>test reason 6</li>
-                    </ul>
-                </div>
-            </details>
+            </div>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -1479,7 +2195,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
             <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
     </dl>

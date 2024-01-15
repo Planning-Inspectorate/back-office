@@ -1,5 +1,5 @@
 /** @type {Record<string, string>} */
-const MIMEs = {
+export const MIMEs = {
 	pdf: 'application/pdf',
 	doc: 'application/msword',
 	docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',

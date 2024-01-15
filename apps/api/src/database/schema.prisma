@@ -16,7 +16,7 @@ model Case {
   reference             String?
   modifiedAt            DateTime              @default(now())
   createdAt             DateTime              @default(now())
-  description           String?
+  description           String?               @db.VarChar(2000)
   title                 String?
   hasUnpublishedChanges Boolean               @default(false)
   applicantId           Int?
@@ -53,6 +53,7 @@ model ServiceUser {
   Case             Case[]
   Represented      Representation[] @relation("Represented")
   Representative   Representation[] @relation("Representative")
+  Subscriptions    Subscription[]
 }
 
 /// GridReference model
@@ -402,8 +403,11 @@ model ExaminationTimetableItem {
 // when a project update is published, all subscribers are emailed
 // subscribers originate from the front-office - see nsip-subscription schema
 model Subscription {
-  id            Int    @id @default(autoincrement())
-  emailAddress  String
+  id Int @id @default(autoincrement())
+
+  serviceUserId Int
+  serviceUser   ServiceUser @relation(fields: [serviceUserId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+
   // the associated case reference - which will be passed in the subscriber message
   // it's saved here in case subscriptions are added to the back-office before their associated case, they can be linked to a case later on
   // TODO: This is impossible right? I'm not sure we should be de-normalising this if we can help it because it means we need to maintain the integrity manually
@@ -422,8 +426,8 @@ model Subscription {
   caseId Int?
   case   Case? @relation(fields: [caseId], references: [id])
 
-  // we don't want to allow multiple records with the same email+caseRef combination
-  @@unique([emailAddress, caseReference])
+  // we don't want to allow multiple records with the same user+caseRef combination
+  @@unique([serviceUserId, caseReference])
 }
 
 model ExaminationTimetable {

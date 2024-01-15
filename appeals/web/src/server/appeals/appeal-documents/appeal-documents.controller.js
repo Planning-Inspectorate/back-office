@@ -32,14 +32,14 @@ export const renderDocumentUpload = async (request, response, backButtonUrl, nex
 	let documentName;
 	let pageHeadingText;
 
-	if (request.params.documentId) {
-		const fileInfo = await getFileInfo(request.apiClient, appealId, request.params.documentId);
-		documentName = fileInfo?.latestDocumentVersion.fileName;
-		pageHeadingText = 'Upload an updated document';
-	}
-
 	if (!currentFolder) {
 		return response.status(404).render('app/404');
+	}
+
+	if (documentId) {
+		const fileInfo = await getFileInfo(request.apiClient, appealId, documentId);
+		documentName = fileInfo?.latestDocumentVersion.fileName;
+		pageHeadingText = 'Upload an updated document';
 	}
 
 	const pathComponents = currentFolder.path.split('/');
@@ -112,7 +112,8 @@ export const renderManageFolder = async (request, response, backButtonUrl, viewA
 		backButtonUrl,
 		viewAndEditUrl,
 		currentFolder,
-		redactionStatuses
+		redactionStatuses,
+		request
 	);
 
 	return response.render('appeals/documents/manage-folder.njk', {

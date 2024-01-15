@@ -35,6 +35,30 @@ const getCaseIdFromRef = async (reference) => {
 };
 
 /**
+ * @param {string }email
+ * @returns {Promise<number>} serviceUserId
+ */
+export const getOrCreateServiceUserId = async ({ emailAddress: email }) => {
+	const existingServiceUser = await databaseConnector.serviceUser.findFirst({
+		where: { email },
+		select: { id: true }
+	});
+
+	if (existingServiceUser) return existingServiceUser.id;
+
+	const newServiceUser = await databaseConnector.serviceUser.create({
+		data: {
+			email
+		},
+		select: {
+			id: true
+		}
+	});
+
+	return newServiceUser.id;
+};
+
+/**
  * @param {NSIPProjectMinimalCaseData} projectUpdate
  *
  * @returns {Promise<number>} caseId
@@ -84,7 +108,7 @@ export const getOrCreateMinimalCaseId = async ({
  *
  * @returns {Promise<number>} subSectorId
  */
-const getSubSectorIdFromReference = async (reference) => {
+export const getSubSectorIdFromReference = async (reference) => {
 	const abbreviation = reference?.slice(0, 4);
 
 	if (!abbreviation) {
@@ -102,6 +126,76 @@ const getSubSectorIdFromReference = async (reference) => {
 	}
 
 	return subSector.id;
+};
+
+/**
+ * @typedef {Object} Mapping
+ * @property {number} id
+ * @property {string} name
+ */
+
+/**
+ @type {Mapping[]}
+ */
+let mapZoomLevels = [];
+
+/**
+ *
+ * @param {string} displayName
+ *
+ * @returns {Promise<number | undefined>} zoomLevelId
+ */
+export const getMapZoomLevelIdFromDisplayName = async (displayName) => {
+	if (!displayName) {
+		throw Error(`Missing required parameter mapZoomLevel`);
+	}
+
+	if (!mapZoomLevels.length) {
+		mapZoomLevels = await databaseConnector.zoomLevel.findMany({
+			select: {
+				id: true,
+				name: true
+			}
+		});
+	}
+
+	return mapZoomLevels.find(({ name }) => name === displayName)?.id;
+};
+
+/**
+ @type {Mapping[]}
+ */
+let regions = [];
+
+/**
+ *
+ * @param {("east_midlands" | "eastern" | "london" | "north_east" | "north_west" | "south_east" | "south_west" | "wales" | "west_midlands" | "yorkshire_and_the_humber")[]} regionNames
+ *
+ * @returns {Promise<number[]>} regionIds
+ */
+export const getRegionIdsFromNames = async (regionNames) => {
+	if (!regionNames) {
+		throw Error(`Missing required parameter regionNames`);
+	}
+
+	if (!regions.length) {
+		regions = await databaseConnector.region.findMany({
+			select: {
+				id: true,
+				name: true
+			}
+		});
+	}
+
+	return regionNames.map((name) => {
+		const region = regions.find((r) => r.name === name);
+
+		if (!region) {
+			throw Error(`Could not find region ${name}`);
+		}
+
+		return region.id;
+	});
 };
 
 // 100 events would allow each event to have a body size of 10kb which is more than enough

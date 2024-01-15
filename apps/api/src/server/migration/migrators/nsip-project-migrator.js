@@ -1,6 +1,15 @@
 import { mapValues, pick } from 'lodash-es';
 import { allKeyDateNames } from '../../applications/key-dates/key-dates.utils.js';
 import { databaseConnector } from '#utils/database-connector.js';
+import { buildUpsertForEntity } from './sql-tools.js';
+import {
+	getMapZoomLevelIdFromDisplayName,
+	getRegionIdsFromNames,
+	getSubSectorIdFromReference
+} from './utils.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import { EventType } from '@pins/event-client';
+import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
 
 const keyDateNames = allKeyDateNames.filter(
 	(name) =>
@@ -16,156 +25,178 @@ export const migrateNsipProjects = async (models) => {
 	console.info(`Migrating ${models.length} models`);
 
 	for (const model of models) {
-		const entity = await mapModelToEntity(model);
+		await migrateCase(model);
+		await migrateApplicationDetails(model);
+		await migrateRegions(model);
+		await migrateCaseStatus(model);
+		await migrateCasePublishedState(model);
+		await migrateGridReference(model);
+		// TODO: Case Involvement
+		// TODO: Decision
+		// TODO: SecretaryOfState
 
-		// @ts-ignore
-		await databaseConnector.case.create({ data: entity });
+		const nsipProject = await caseRepository.getById(model.caseId, {
+			subSector: true,
+			sector: true,
+			applicationDetails: true,
+			zoomLevel: true,
+			regions: true,
+			caseStatus: true,
+			casePublishedState: true,
+			applicant: true,
+			gridReference: true
+		});
+
+		if (!nsipProject) {
+			throw Error(`Case not created for ID ${model.caseId}`);
+		}
+
+		const eventType = model.publishStatus === 'published' ? EventType.Publish : EventType.Update;
+
+		await broadcastNsipProjectEvent(nsipProject, eventType);
 	}
 };
 
 /**
  *
- * @param {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject} m
- *
- * TODO: Service Customers can't be created because of how dependencies work right now
- * TODO: Case Team
- * TODO: Interested Parties
- *
- * Issue: Our currently model assumes that things like applicants and representations are only associated with a single case
- * The PINS Data Model assumes that they already exist, and that their IDs are associated with a case.
- *
- * Let's propose to change this so that they are stand-alone for MVP.
- *
- * @returns {Promise<import('@prisma/client').Case>} subSectorId
+ * @param {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject} m} m
  */
-const mapModelToEntity = async (m) => {
-	if (!m.projectType) {
-		throw Error(`Cant't migrate case ${m.caseReference} without a projectType`);
-	}
-
-	const subSectorId = await getSubSectorId(m.projectType);
-
-	if (!m.mapZoomLevel) {
-		throw Error(`Cant't migrate case ${m.caseReference} without a mapZoomLevel`);
-	}
-
-	const zoomLevelId = await getZoomLevelId(m.mapZoomLevel);
-
-	if (!m.regions?.length) {
-		throw Error(`Cant't migrate case ${m.caseReference} without at least one Region specified`);
-	}
-
-	const regionIds = await getRegionIds(m.regions);
-
-	const caseEntity = {
-		reference: m.caseReference,
-		title: m.projectName,
-		description: m.projectDescription,
-		ApplicationDetails: {
-			create: {
-				subSector: {
-					connect: { id: subSectorId }
-				},
-				zoomLevel: {
-					connect: { id: zoomLevelId }
-				},
-				regions: { create: regionIds.map((id) => ({ region: { connect: { id } } })) },
-				locationDescription: m.projectLocation,
-				caseEmail: m.projectEmailAddress,
-				// These two dates have different public-facing names
-				submissionAtInternal: m.anticipatedDateOfSubmission
-					? new Date(m.anticipatedDateOfSubmission)
-					: null,
-				submissionAtPublished: m.anticipatedSubmissionDateNonSpecific,
-				...mapValues(pick(m, keyDateNames), (/** @type {string | null} */ dateString) =>
-					dateString ? new Date(dateString) : null
-				)
-			}
-		},
-		CaseStatus: {
-			create: { status: m.stage }
-		},
-		...(m.publishStatus === 'published' && {
-			CasePublishedState: {
-				create: { isPublished: true, createdAt: new Date() }
-			}
-		}),
-		// applicant: TODO
-		// case team: TODO
-		// interested
-		gridReference: {
-			create: {
-				...pick(m, ['easting', 'northing'])
-			}
-		}
+const migrateCase = ({ caseId, caseReference, projectName, projectDescription }) => {
+	const entity = {
+		id: caseId,
+		reference: caseReference,
+		title: projectName,
+		description: projectDescription
 	};
 
+	const { statement, parameters } = buildUpsertForEntity('Case', entity, 'id');
+
+	return databaseConnector.$transaction([
+		databaseConnector.$executeRawUnsafe(statement, ...parameters)
+	]);
+};
+
+/**
+ *
+ * @param {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject} model} model
+ */
+const migrateApplicationDetails = async (model) => {
+	if (!model.mapZoomLevel) {
+		throw Error(`Cant't migrate case ${model.caseId} without a mapZoomLevel`);
+	}
+	// Retrieve zoomLevelId from mapZoomLevel
 	// @ts-ignore
-	return caseEntity;
+	const zoomLevelId = await getMapZoomLevelIdFromDisplayName(model.mapZoomLevel);
+
+	if (!model.caseReference) {
+		throw Error(`Cant't migrate case ${model.caseId} without a caseReference`);
+	}
+	// Retrieve subSectorId from caseReference
+	// @ts-ignore
+	const subSectorId = await getSubSectorIdFromReference(model.caseReference);
+
+	const entity = {
+		id: model.caseId,
+		caseId: model.caseId,
+		subSectorId,
+		zoomLevelId,
+		locationDescription: model.projectLocation,
+		caseEmail: model.projectEmailAddress,
+		// These two dates have different public-facing names
+		submissionAtInternal: model.anticipatedDateOfSubmission
+			? new Date(model.anticipatedDateOfSubmission)
+			: null,
+		submissionAtPublished: model.anticipatedSubmissionDateNonSpecific,
+		...mapValues(pick(model, keyDateNames), (/** @type {string | null} */ dateString) =>
+			dateString ? new Date(dateString) : null
+		)
+	};
+
+	const { statement, parameters } = buildUpsertForEntity('ApplicationDetails', entity, 'id');
+
+	return databaseConnector.$transaction([
+		databaseConnector.$executeRawUnsafe(statement, ...parameters)
+	]);
 };
 
 /**
+ * Limitation: This won't remove records which existed in a previous run but no longer exist.
  *
- * @param {string} projectType
- *
- * @returns {Promise<number>} subSectorId
+ * @param {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject} m} m
  */
-const getSubSectorId = async (projectType) => {
-	const abbreviation = projectType.split('-')[0]?.trim();
-
-	if (!abbreviation) {
-		throw Error(`Unable to determine sub sector for project type ${projectType}`);
+const migrateRegions = async ({ caseId, regions }) => {
+	if (!regions) {
+		throw Error(`Cant't migrate case ${caseId} without a regions`);
 	}
 
-	const subSector = await databaseConnector.subSector.findUnique({
-		where: {
-			abbreviation
+	const regionIds = await getRegionIdsFromNames(regions);
+
+	for (const regionId of regionIds) {
+		await databaseConnector.regionsOnApplicationDetails.upsert({
+			where: {
+				applicationDetailsId_regionId: {
+					applicationDetailsId: caseId,
+					regionId
+				}
+			},
+			update: {},
+			create: {
+				applicationDetailsId: caseId,
+				regionId
+			}
+		});
+	}
+};
+
+/**
+ * @param {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject} m} m
+ */
+const migrateCaseStatus = ({ caseId, stage }) => {
+	// We can't really predict the ID here, but it's fine to have multiples - it will just appear as if the case transitioned from the same stage and the end result is the same
+	return databaseConnector.caseStatus.create({
+		data: {
+			caseId,
+			// @ts-ignore
+			status: stage
 		}
 	});
-
-	if (!subSector) {
-		throw Error(`No subsector found for abbreviation ${abbreviation}`);
-	}
-
-	return subSector.id;
 };
 
 /**
+ * Limitation: This won't remove records which existed in a previous run but no longer exist.
  *
- * @param {string} name
- *
- * @returns {Promise<number>} subSectorId
+ * We're losing history here, but we're fine to just have a single record for newly migrated cases. The date is technically incorrect but that's a fair trade-off.
+ * @param {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject} m} m
  */
-const getZoomLevelId = async (name) => {
-	const zoomLevel = await databaseConnector.zoomLevel.findUnique({
+const migrateCasePublishedState = ({ caseId, publishStatus }) => {
+	// We can't really predict the ID here, but it's fine to have multiples - it will just appear as if the case was published multiple times
+	if (publishStatus === 'published') {
+		return databaseConnector.casePublishedState.create({
+			data: {
+				caseId,
+				isPublished: true,
+				createdAt: new Date()
+			}
+		});
+	}
+};
+
+/**
+ * @param {import('../../../message-schemas/events/nsip-project.d.ts').NSIPProject} m} m
+ */
+const migrateGridReference = ({ caseId, easting, northing }) => {
+	return databaseConnector.gridReference.upsert({
 		where: {
-			name
+			caseId
+		},
+		update: {
+			easting,
+			northing
+		},
+		create: {
+			caseId,
+			easting,
+			northing
 		}
-	});
-
-	if (!zoomLevel) {
-		throw Error(`No zoomLevel found for name ${name}`);
-	}
-
-	return zoomLevel.id;
-};
-
-/**
- *
- * @param {string[]} regionNames
- *
- * @returns {Promise<number[]>} regionIds
- */
-const getRegionIds = async (regionNames) => {
-	const regions = await databaseConnector.region.findMany();
-
-	return regionNames.map((name) => {
-		const region = regions.find((r) => r.name === name);
-
-		if (!region) {
-			throw Error(`Could not find region ${name}`);
-		}
-
-		return region.id;
 	});
 };

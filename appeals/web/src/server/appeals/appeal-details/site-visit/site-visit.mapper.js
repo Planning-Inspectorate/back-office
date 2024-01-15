@@ -167,7 +167,7 @@ export async function scheduleOrManageSiteVisitPage(
 			namePrefix: 'visit-date',
 			fieldset: {
 				legend: {
-					text: 'Select a date',
+					text: 'Select date',
 					classes: 'govuk-fieldset__legend--m'
 				}
 			},
@@ -304,12 +304,12 @@ export function scheduleOrManageSiteVisitConfirmationPage(pageType, siteVisit, a
 
 	switch (pageType) {
 		case 'new':
-			title = 'Site visit booked';
+			title = 'Site visit scheduled';
 			preHeading = `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${timeText}.`;
 			bodyTitleText = bodyTitleTextForChangedPageTypes;
 			bodyRows = [
 				{
-					text: `We updated the case timetable.${
+					text: `The case timetable has been updated.${
 						formattedSiteVisitType !== 'unaccompanied'
 							? ` We've sent an email to the LPA and appellant to confirm the site visit.`
 							: ''

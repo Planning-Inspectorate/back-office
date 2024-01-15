@@ -1,6 +1,6 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { eventClient } from '#infrastructure/event-client.js';
-import { getOrCreateMinimalCaseId } from './utils.js';
+import { getOrCreateMinimalCaseId, getOrCreateServiceUserId } from './utils.js';
 import {
 	buildSubscriptionPayloads,
 	typesToSubscription
@@ -65,7 +65,8 @@ export const migrateNsipSubscriptions = async (subscriptions) => {
  */
 const buildEventPayloads = async (subscriberIds) => {
 	const updatedSubscriptions = await databaseConnector.subscription.findMany({
-		where: { id: { in: subscriberIds } }
+		where: { id: { in: subscriberIds } },
+		include: { serviceUser: true }
 	});
 
 	return updatedSubscriptions.map(buildSubscriptionPayloads).flat();
@@ -129,6 +130,7 @@ const mapSubscriptionsToSubscribers = (subscriptions) => {
  */
 const mapModelToEntity = async (m) => {
 	const caseId = await getOrCreateMinimalCaseId(m);
+	const serviceUserId = await getOrCreateServiceUserId(m);
 
 	if (!caseId) {
 		throw Error(
@@ -142,10 +144,10 @@ const mapModelToEntity = async (m) => {
 
 	const entity = {
 		id: m.subscriptionId,
-		emailAddress: m.emailAddress,
 		caseReference: m.caseReference,
 		startDate: m.startDate ? new Date(m.startDate) : null,
-		caseId
+		caseId,
+		serviceUserId
 	};
 
 	typesToSubscription(m.subscriptionTypes, entity);

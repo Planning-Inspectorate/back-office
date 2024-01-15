@@ -24,7 +24,7 @@ export const notificationBannerDefinitions = {
 	allocationDetailsUpdated: {
 		pages: ['appealDetails'],
 		type: 'success',
-		text: 'Allocation details updated'
+		text: 'Allocation details added'
 	},
 	caseOfficerAdded: {
 		pages: ['appealDetails'],
@@ -65,9 +65,16 @@ export const notificationBannerDefinitions = {
 		pages: ['appellantCase'],
 		persist: true
 	},
+	readyForDecision: {
+		pages: ['appealDetails']
+	},
 	lpaQuestionnaireNotValid: {
 		pages: ['lpaQuestionnaire'],
 		persist: true
+	},
+	notCheckedDocument: {
+		pages: ['lpaQuestionnaire', 'manageDocuments', 'appellantCase', 'manageFolder'],
+		html: '<p class="govuk-notification-banner__heading">Virus scan in progress</p></br><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>'
 	}
 };
 

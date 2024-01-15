@@ -186,25 +186,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/function-document-check
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/document-check/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/document-check/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/document-check/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/document-check
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-document-check
-            displayName: Publish Functions Artifact
+              root: 'apps'
+              workspaceName: 'function-document-check'
+              folderName: 'document-check'
       - name: Build Function - ODW Integration
         condition: >-
           and(
@@ -226,25 +212,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/function-odw-integration
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/odw-integration/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/odw-integration
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-odw-integration
-            displayName: Publish Functions Artifact
+              root: 'apps'
+              workspaceName: 'function-odw-integration'
+              folderName: 'odw-integration'
       - name: Build Function - Handle Subscriptions
         condition: >-
             and(
@@ -266,25 +238,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-handle-subscriptions
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/handle-subscriptions
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-handle-subscriptions
-            displayName: Publish Functions Artifact
+              root: 'apps'
+              workspaceName: 'functions-handle-subscriptions'
+              folderName: 'handle-subscriptions'
       - name: Build Function - Notify Subscribers
         condition: >-
           and(
@@ -306,25 +264,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/applications) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/applications.functions-notify-subscribers
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/notify-subscribers/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/notify-subscribers/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/notify-subscribers/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/notify-subscribers
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-notify-subscribers
-            displayName: Publish Functions Artifact
+              root: 'apps'
+              workspaceName: 'applications.functions-notify-subscribers'
+              folderName: 'notify-subscribers'
       - name: Build Function - Applications Migration
         condition: >-
           and(
@@ -346,25 +290,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) npm install $(npm pack $(Build.Repository.LocalPath)/packages/applications) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-applications-migration
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/applications-migration/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/applications-migration/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/applications-migration/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/applications-migration
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-applications-migration
-            displayName: Publish Functions Artifact
+              root: 'apps'
+              workspaceName: 'functions-applications-migration'
+              folderName: 'applications-migration'
       - name: Build Function - Deadline Submissions
         condition: >-
           and(
@@ -386,25 +316,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) --only=prod --workspace=@pins/functions-deadline-submissions
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/deadline-submissions/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/deadline-submissions
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-deadline-submissions
-            displayName: Publish Functions Artifact
+              root: 'apps'
+              workspaceName: 'functions-deadline-submissions'
+              folderName: 'deadline-submissions'
       - name: Build Function - Register Representation
         condition: >-
           and(
@@ -426,25 +342,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-register-representation
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/register-representation/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/register-representation/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/register-representation/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/register-representation
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-register-representation
-            displayName: Publish Functions Artifact
+              root: 'apps'
+              workspaceName: 'functions-register-representation'
+              folderName: 'register-representation'
       - name: Build Document Publish Functions
         condition: >-
           and(
@@ -466,25 +368,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/blob-storage-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) $(npm pack $(Build.Repository.LocalPath)/packages/event-client) --only=prod --workspace=@pins/function-document-publish
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/document-publish/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/document-publish
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-document-publish
-            displayName: Publish Functions Artifact
+              root: 'apps'
+              workspaceName: 'function-document-publish'
+              folderName: 'document-publish'
       - name: Build Malware Detected Functions
         condition: >-
           and(
@@ -506,25 +394,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/platform) $(npm pack $(Build.Repository.LocalPath)/packages/event-client) --only=prod --workspace=@pins/function-malware-detected
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/apps/functions/malware-detected/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/apps/functions/malware-detected/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/apps/functions/malware-detected/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/apps/functions/malware-detected
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-malware-detected
-            displayName: Publish Functions Artifact
+              root: 'apps'
+              workspaceName: 'function-malware-detected'
+              folderName: 'malware-detected'
       - name: Build Web
         condition: >-
           and(
@@ -627,25 +501,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-bo-appeals-casedata-import
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/appeals/functions/casedata-import/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/appeals/functions/casedata-import/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/appeals/functions/casedata-import/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/appeals/functions/casedata-import
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-appeals-casedata-import
-            displayName: Publish Functions Artifact
+              root: 'appeals'
+              workspaceName: 'functions-bo-appeals-casedata-import'
+              folderName: 'casedata-import'
       - name: Build Function - Appeal User Import
         condition: >-
           and(
@@ -667,25 +527,11 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-bo-appeals-user-import
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/appeals/functions/user-import/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/appeals/functions/user-import/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/appeals/functions/user-import/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/appeals/functions/user-import
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-appeals-user-import
-            displayName: Publish Functions Artifact
+              root: 'appeals'
+              workspaceName: 'functions-bo-appeals-user-import'
+              folderName: 'user-import'
       - name: Build Function - Appeal Document Processing
         condition: >-
           and(
@@ -707,22 +553,9 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: ../steps/node_script.yml
+          - template: azure-pipelines-package-function.yml@self
             parameters:
-              nodeVersion: 18
-              script: npm install $(npm pack $(Build.Repository.LocalPath)/packages/event-client) $(npm pack $(Build.Repository.LocalPath)/packages/platform) --only=prod --workspace=@pins/functions-bo-appeals-document-processing
-              workingDirectory: $(Build.Repository.LocalPath)
-          - script: |
-              source ~/.bashrc
-              mkdir -p $(Build.Repository.LocalPath)/appeals/functions/document-processing/node_modules/@pins
-              mv -n $(Build.Repository.LocalPath)/node_modules/* $(Build.Repository.LocalPath)/appeals/functions/document-processing/node_modules/
-              cp -r $(Build.Repository.LocalPath)/packages/* $(Build.Repository.LocalPath)/appeals/functions/document-processing/node_modules/@pins
-          - task: ArchiveFiles@2
-            displayName: Archive files
-            inputs:
-              rootFolderOrFile: $(Build.Repository.LocalPath)/appeals/functions/document-processing
-              includeRootFolder: false
-              archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
-          - publish: $(System.DefaultWorkingDirectory)/functions.zip
-            artifact: function-appeals-document-processing
-            displayName: Publish Functions Artifact
+              root: 'appeals'
+              workspaceName: 'functions-bo-appeals-document-processing
+              workingDirectory: $(Build.Repository.LocalPath)'
+              folderName: 'document-processing'

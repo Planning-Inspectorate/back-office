@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { registerCaseWithQuery } from '../../applications.locals.js';
 import * as locals from '../applicant/applications-create-applicant.locals.js';
 import * as controller from './applications-create-key-dates.controller.js';
@@ -13,11 +13,11 @@ applicationsCreateKeyDatesRouter
 	.route('/key-dates')
 	.get(
 		registerCaseWithQuery(['keyDates'], true),
-		asyncRoute(controller.viewApplicationsCreateKeyDates)
+		asyncHandler(controller.viewApplicationsCreateKeyDates)
 	)
 	.post(
 		validators.validateApplicationsCreateKeyDates,
-		asyncRoute(controller.updateApplicationsCreateKeyDates)
+		asyncHandler(controller.updateApplicationsCreateKeyDates)
 	);
 
 export default applicationsCreateKeyDatesRouter;

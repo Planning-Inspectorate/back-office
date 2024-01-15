@@ -1,33 +1,30 @@
 import * as caseRepository from '../repositories/case.repository.js';
 import BackOfficeAppError from './app-error.js';
-import { buildNsipProjectPayload } from '#infrastructure/payload-builders/nsip-project.js';
+import { pick } from 'lodash-es';
 
 /** @typedef {import('@pins/applications.api').Schema.Case} Case */
 
 /**
- * Checks whether the given column name is included when the case is published
+ * Checks whether the published case fields have changed
  *
- * TODO: This is no longer reliable because 'applicant' data is also published.
- * This would mean relying on every caller of this function to include the 'applicant' in the query
- *
- * @param {Case} original
- * @param {Case} updated
+ * @param {PartialObject<Case>} original
+ * @param {PartialObject<Case>} updated
  * @returns {boolean}
  * */
-const publishedCaseFieldsHaveChanged = (original, updated) => {
-	const originalEvent = buildNsipProjectPayload(original);
-	const updatedEvent = buildNsipProjectPayload(updated);
+export const publishedCaseFieldsHaveChanged = (original, updated) => {
+	const originalPublishedCaseFields = mapPublishedCaseFields(original);
+	const updatedPublishedCaseFields = mapPublishedCaseFields(updated);
 
-	return JSON.stringify(originalEvent) !== JSON.stringify(updatedEvent);
+	return JSON.stringify(originalPublishedCaseFields) !== JSON.stringify(updatedPublishedCaseFields);
 };
 
 /**
  * If `hasUnpublishedChanges = false` and publishable changes have been made,
  * set `hasUnpublishedChanges = true`, otherwise just return `updated`
  *
- * @param {import('@pins/applications.api').Schema.Case} original
- * @param {import('@pins/applications.api').Schema.Case} updated
- * @returns {Promise<import('@pins/applications.api').Schema.Case>}
+ * @param {PartialObject<import('@pins/applications.api').Schema.Case>} original
+ * @param {PartialObject<import('@pins/applications.api').Schema.Case>} updated
+ * @returns {Promise<PartialObject<Case>>}
  * @throws {BackOfficeAppError}
  * */
 export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
@@ -54,3 +51,73 @@ export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
 
 	return result;
 };
+
+/**
+ * Filters out the published case fields for comparison
+ *
+ * @param {PartialObject<Case>} caseFields
+ * @returns {CaseStatus: Pick<CaseStatus, string> | PartialObject<CaseStatus>, ApplicationDetails: Pick<ApplicationDetails, Exclude<keyof ApplicationDetails, [string[]][number]>> | Omit<ApplicationDetails, keyof ApplicationDetails> | PartialObject<ApplicationDetails>}
+ * */
+function mapPublishedCaseFields(caseFields) {
+	const { applicant, ApplicationDetails, CaseStatus, gridReference, title, description } =
+		caseFields || {};
+	const { easting, northing } = gridReference || {};
+	const { caseEmail, locationDescription } = ApplicationDetails || {};
+
+	const caseStatus = CaseStatus?.map(({ status }) => status)
+		.sort()
+		.join(',');
+
+	const regions = ApplicationDetails?.regions
+		?.map(({ regionId }) => regionId)
+		.sort()
+		.join(',');
+
+	const zoomLevel = ApplicationDetails?.zoomLevel?.name;
+
+	const projectInformation = {
+		title, // Project name
+		caseStatus, // Case stage
+		description, // Project description
+		caseEmail, // Project email address
+		locationDescription, // Project location
+		gridReference: { easting, northing }, // Grid references
+		regions, // Regions
+		zoomLevel // Map zoom level
+	};
+
+	const applicantInformation = pick(applicant || {}, [
+		'organisationName', // Organisation name
+		'website', // Website
+		'email' // Email address
+	]);
+
+	const keyDates = pick(ApplicationDetails || {}, [
+		'submissionAtPublished', // Anticipated submission date published
+		'dateOfDCOSubmission', // Application submitted (Section 55)
+		'deadlineForAcceptanceDecision', // Deadline for Acceptance decision
+		'dateOfDCOAcceptance', // Date of Acceptance (Section 55)
+		'dateOfNonAcceptance', // Date of Non-Acceptance
+		'dateOfRepresentationPeriodOpen', // Date Relevant Representations open
+		'dateOfRelevantRepresentationClose', // Date Relevant Representations close
+		'dateRRepAppearOnWebsite', // Date Relevant Representations to appear on website
+		'preliminaryMeetingStartDate', // Preliminary Meeting start date
+		'confirmedStartOfExamination', // Examination start date
+		'deadlineForCloseOfExamination', // Deadline for close of Examination
+		'dateTimeExaminationEnds', // Examination closing date
+		'stage4ExtensionToExamCloseDate', // Extension to close of Examination
+		'deadlineForSubmissionOfRecommendation', // Deadline for submission of Recommendation
+		'dateOfRecommendations', // Date of Recommendation submitted to SoS
+		'stage5ExtensionToRecommendationDeadline', // Extension to Recommendation deadline
+		'deadlineForDecision', // Deadline for Decision
+		'confirmedDateOfDecision', // Date of Decision
+		'stage5ExtensionToDecisionDeadline', // Extension to Decision deadline
+		'dateProjectWithdrawn' // Date project withdrawn
+	]);
+
+	return {
+		projectInformation,
+		applicantInformation,
+		keyDates
+	};
+}

@@ -77,7 +77,10 @@ export const appealData = {
 	appellantName: 'Eva Sharma',
 	caseOfficer: null,
 	decision: {
-		folderId: 123
+		folderId: 123,
+		outcome: 'dismissed',
+		documentId: 'e1e90a49-fab3-44b8-a21a-bb73af089f6b',
+		letterDate: '2023-12-25T00:00:00.000Z'
 	},
 	healthAndSafety: {
 		appellantCase: {
@@ -781,6 +784,12 @@ export const siteVisitData = {
 	visitType: 'Accompanied'
 };
 
+export const inspectorDecisionData = {
+	outcome: 'dismissed',
+	documentId: 'e1e90a49-fab3-44b8-a21a-bb73af089f6b',
+	letterDate: '2023-12-25T00:00:00.000Z'
+};
+
 export const activeDirectoryUsersData = [
 	{
 		'@odata.type': '#microsoft.graph.user',
@@ -994,6 +1003,22 @@ export const documentFolderInfo = {
 	path: 'appellant_case/newSupportingDocuments'
 };
 
+export const notCheckedDocumentFolderInfoDocuments = {
+	id: '9635631c-507c-4af2-98a1-da007e8bb56a',
+	name: 'applicationForm.docx',
+	folderId: 1,
+	caseId: 1,
+	virusCheckStatus: 'not_checked'
+};
+
+export const scanFailedDocumentFolderInfoDocuments = {
+	id: '9635631c-507c-4af2-98a1-da007e8bb56a',
+	name: 'applicationForm.docx',
+	folderId: 1,
+	caseId: 1,
+	virusCheckStatus: 'failed_virus_check'
+};
+
 export const documentRedactionStatuses = [
 	{
 		id: 1,
@@ -1111,12 +1136,77 @@ export const documentFileVersionsInfoChecked = {
 	]
 };
 
-export const assignedAppealsSummary = {
-	itemCount: 4,
+export const assignedAppealsPage1 = {
+	itemCount: 9,
 	items: [
 		{
-			appealId: 132,
-			appealReference: 'TEST/268470',
+			appealId: 189,
+			appealReference: 'TEST/458673',
+			appealSite: {
+				addressLine1: '72 Clapham High St',
+				county: 'Wandsworth',
+				postCode: 'SW4 7UL'
+			},
+			appealStatus: 'lpa_questionnaire_due',
+			appealType: 'Householder',
+			createdAt: '2024-01-02T11:43:21.830Z',
+			localPlanningDepartment: 'Maidstone Borough Council',
+			lpaQuestionnaireId: 82,
+			appealTimetable: {
+				appealTimetableId: 83,
+				lpaQuestionnaireDueDate: '2022-04-08T09:00:00.000Z'
+			},
+			dueDate: '2022-04-08T09:00:00.000Z'
+		},
+		{
+			appealId: 161,
+			appealReference: 'TEST/685020',
+			appealSite: {
+				addressLine1: '44 Rivervale',
+				town: 'Bridport',
+				postCode: 'DT6 5RN'
+			},
+			appealStatus: 'ready_to_start',
+			appealType: 'Householder',
+			createdAt: '2024-01-02T11:43:21.081Z',
+			localPlanningDepartment: 'Wiltshire Council',
+			lpaQuestionnaireId: null,
+			dueDate: '2024-01-07T11:43:21.081Z'
+		},
+		{
+			appealId: 162,
+			appealReference: 'TEST/424942',
+			appealSite: {
+				addressLine1: '44 Rivervale',
+				town: 'Bridport',
+				postCode: 'DT6 5RN'
+			},
+			appealStatus: 'ready_to_start',
+			appealType: 'Householder',
+			createdAt: '2024-01-02T11:43:21.142Z',
+			localPlanningDepartment: 'Dorset Council',
+			lpaQuestionnaireId: null,
+			dueDate: '2024-01-07T11:43:21.142Z'
+		},
+		{
+			appealId: 163,
+			appealReference: 'TEST/769207',
+			appealSite: {
+				addressLine1: 'Copthalls',
+				addressLine2: 'Clevedon Road',
+				town: 'West Hill',
+				postCode: 'BS48 1PN'
+			},
+			appealStatus: 'ready_to_start',
+			appealType: 'Householder',
+			createdAt: '2024-01-02T11:43:21.169Z',
+			localPlanningDepartment: 'Wiltshire Council',
+			lpaQuestionnaireId: null,
+			dueDate: '2024-01-07T11:43:21.169Z'
+		},
+		{
+			appealId: 164,
+			appealReference: 'TEST/83896',
 			appealSite: {
 				addressLine1: '92 Huntsmoor Road',
 				town: 'Tadley',
@@ -1124,50 +1214,87 @@ export const assignedAppealsSummary = {
 			},
 			appealStatus: 'ready_to_start',
 			appealType: 'Householder',
-			createdAt: '2023-12-01T13:58:57.438Z',
-			localPlanningDepartment: 'Waveney District Council',
+			createdAt: '2024-01-02T11:43:21.199Z',
+			localPlanningDepartment: 'Dorset Council',
 			lpaQuestionnaireId: null,
-			dueDate: '2023-12-06T13:58:57.438Z'
-		},
+			dueDate: '2024-01-07T11:43:21.199Z'
+		}
+	],
+	page: 1,
+	pageCount: 2,
+	pageSize: 5
+};
+
+export const assignedAppealsPage2 = {
+	itemCount: 9,
+	items: [
 		{
-			appealId: 147,
-			appealReference: 'TEST/652896',
-			appealSite: {
-				addressLine1: '92 Huntsmoor Road',
-				county: 'Tadley',
-				postCode: 'RG26 4BX'
-			},
-			appealStatus: 'lpa_questionnaire_due',
-			appealType: 'Householder',
-			createdAt: '2023-12-01T13:58:57.841Z',
-			localPlanningDepartment: 'Waveney District Council',
-			lpaQuestionnaireId: 59,
-			appealTimetable: {
-				appealTimetableId: 60,
-				lpaQuestionnaireDueDate: '2023-12-08T13:58:56.114Z'
-			},
-			dueDate: '2023-12-08T13:58:56.114Z'
-		},
-		{
-			appealId: 154,
-			appealReference: 'TEST/50165',
+			appealId: 165,
+			appealReference: 'TEST/333600',
 			appealSite: {
 				addressLine1: '21 The Pavement',
 				county: 'Wandsworth',
 				postCode: 'SW4 0HY'
 			},
-			appealStatus: 'statement_review',
-			appealType: 'Full planning',
-			createdAt: '2023-12-01T13:58:58.021Z',
+			appealStatus: 'ready_to_start',
+			appealType: 'Householder',
+			createdAt: '2024-01-02T11:43:21.226Z',
+			localPlanningDepartment: 'Bristol City Council',
+			lpaQuestionnaireId: null,
+			dueDate: '2024-01-07T11:43:21.226Z'
+		},
+		{
+			appealId: 166,
+			appealReference: 'TEST/216911',
+			appealSite: {
+				addressLine1: 'FOR TRAINERS ONLY',
+				addressLine2: '92 Huntsmoor Road',
+				town: 'Tadley',
+				postCode: 'RG26 4BX'
+			},
+			appealStatus: 'ready_to_start',
+			appealType: 'Householder',
+			createdAt: '2024-01-02T11:43:21.255Z',
 			localPlanningDepartment: 'Waveney District Council',
 			lpaQuestionnaireId: null,
-			dueDate: '2024-01-25T13:58:58.021Z'
+			dueDate: '2024-01-07T11:43:21.255Z'
 		},
-		{}
+		{
+			appealId: 167,
+			appealReference: 'TEST/600715',
+			appealSite: {
+				addressLine1: 'FOR TRAINERS ONLY',
+				addressLine2: '55 Butcher Street',
+				town: 'Thurnscoe',
+				postCode: 'S63 0RB'
+			},
+			appealStatus: 'ready_to_start',
+			appealType: 'Householder',
+			createdAt: '2024-01-02T11:43:21.279Z',
+			localPlanningDepartment: 'Dorset Council',
+			lpaQuestionnaireId: null,
+			dueDate: '2024-01-07T11:43:21.279Z'
+		},
+		{
+			appealId: 168,
+			appealReference: 'TEST/700910',
+			appealSite: {
+				addressLine1: 'FOR TRAINERS ONLY',
+				addressLine2: '21 The Pavement',
+				county: 'Wandsworth',
+				postCode: 'SW4 0HY'
+			},
+			appealStatus: 'issue_determination',
+			appealType: 'Householder',
+			createdAt: '2024-01-02T11:43:21.298Z',
+			localPlanningDepartment: 'Wiltshire Council',
+			lpaQuestionnaireId: null,
+			dueDate: '2024-01-07T11:43:21.298Z'
+		}
 	],
-	page: 1,
-	pageCount: 1,
-	pageSize: 30
+	page: 2,
+	pageCount: 2,
+	pageSize: 5
 };
 
 export const baseSession = {

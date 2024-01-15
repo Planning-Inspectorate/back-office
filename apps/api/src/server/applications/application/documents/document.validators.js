@@ -198,21 +198,60 @@ export const validateDocumentIds = composeMiddleware(
 );
 
 /**
- * Verifies if the given array of document GUIDs have the correct meta set, so that they are ready to publish
+ * Verifies if the given array of document GUIDs have the correct meta set, so that they are ready to publish.
+ * For S51 Advice documents, skipRequiredPropertyChecks is true to skip the mandatory field checks
  *
  * @param {string[]} documentIds
- * @typedef {{ publishable: {documentGuid: string, version: number}[], invalid: string[] }} VerifiedReturn
+ * @param {boolean} skipRequiredPropertyChecks	// true for S51 advice doc publishing
+ * @typedef {{ publishable: {documentGuid: string, version: number}[], invalid: {guid: string, msg: string}[] }} VerifiedReturn
  * @returns {Promise<VerifiedReturn>}
  */
-export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (documentIds) => {
-	const publishableDocuments = await DocumentRepository.getPublishableDocuments(documentIds);
+export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
+	documentIds,
+	skipRequiredPropertyChecks
+) => {
+	// get publishable files (ie with all mandatory metadata, or S51 advice files), (this can include MSG files)
+	let completeDocuments;
+	if (skipRequiredPropertyChecks) {
+		completeDocuments =
+			await DocumentRepository.getPublishableDocumentsWithoutRequiredPropertiesCheck(documentIds);
+	} else {
+		completeDocuments = await DocumentRepository.getPublishableDocuments(documentIds);
+	}
 
-	const publishableIds = new Set(publishableDocuments.map((pDoc) => pDoc.guid));
+	const completeDocumentsIds = new Set(completeDocuments.map((pDoc) => pDoc.guid));
+
+	// remove email documents - never published
+	const publishableDocuments = completeDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook'
+	);
+	const publishableDocumentsIds = new Set(publishableDocuments.map((pDoc) => pDoc.guid));
+
+	// complete MSG files
+	const msgDocuments = documentIds.filter(
+		(id) => completeDocumentsIds.has(id) && !publishableDocumentsIds.has(id)
+	);
+
+	// incomplete files
+	const incompleteDocuments = documentIds.filter((id) => !completeDocumentsIds.has(id));
+
+	// Final array of invalid files
+	const invalid = [
+		...msgDocuments.map((id) => ({
+			guid: id,
+			msg: "The file type .msg cannot be set to 'Ready for publish'"
+		})),
+		...incompleteDocuments.map((id) => ({
+			guid: id,
+			msg: 'You must fill in all mandatory document properties to publish a document'
+		}))
+	];
+
 	return {
 		publishable: publishableDocuments.map(({ guid, latestVersionId }) => ({
 			documentGuid: guid,
 			version: latestVersionId
 		})),
-		invalid: documentIds.filter((id) => !publishableIds.has(id))
+		invalid
 	};
 };

@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
-import { asyncHandler } from '../../middleware/async-handler.js';
-import { trimUnexpectedRequestParameters } from '../../middleware/trim-unexpected-request-parameters.js';
+import { asyncHandler } from '@pins/express';
+import { trimUnexpectedRequestParameters } from '#middleware/trim-unexpected-request-parameters.js';
 import { getSectors } from './sector.controller.js';
 import { validateGetSubSectors } from './sectors.validators.js';
 

@@ -104,25 +104,16 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 							{
 								value: '3',
 								text: 'Written Representation',
-								hint: {
-									text: 'For appeals where the issues are clear from written statements and a site visit. This is the quickest and most common way to make an appeal.'
-								},
 								checked: appealDetails.procedureType === 'Written'
 							},
 							{
 								value: '1',
 								text: 'Hearing',
-								hint: {
-									text: 'For appeals with more complex issues. The Inspector leads a discussion to answer questions they have about the appeal.'
-								},
 								checked: appealDetails.procedureType === 'Hearing'
 							},
 							{
 								value: '2',
 								text: 'Inquiry',
-								hint: {
-									text: 'For appeals with very complex issues. Appeal evidence is tested by legal representatives, who question witnesses under oath.'
-								},
 								checked: appealDetails.procedureType === 'Inquiry'
 							}
 						]
@@ -262,12 +253,12 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Other appeals'
+					text: 'Related appeals'
 				},
 				value: {
 					html:
 						displayPageFormatter.formatListOfAppeals(appealDetails.otherAppeals) ||
-						'<span>No other appeals</span>'
+						'<span>No related appeals</span>'
 				},
 				actions: {
 					items: [
@@ -280,7 +271,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: 'Other appeals',
+			displayName: 'Related appeals',
 			instructions: [
 				{
 					type: 'input',
@@ -304,7 +295,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Allocation details'
+					text: 'Allocation level'
 				},
 				value: {
 					html: appealDetails.allocationDetails
@@ -316,7 +307,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 							'</li><li>'
 						)}</li></ul>
 					`
-						: 'No allocation details for this appeal'
+						: 'No allocation level for this appeal'
 				},
 				actions: {
 					items: [
@@ -330,7 +321,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		},
 		input: {
 			// TODO: Multipage change?
-			displayName: 'Allocation details',
+			displayName: 'Allocation level',
 			instructions: [
 				{
 					type: 'checkboxes',
@@ -400,15 +391,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					text: 'Decision'
 				},
 				value: {
-					text: appealDetails.decision || 'Not issued yet'
-				},
-				actions: {
-					items: [
-						{
-							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/decision`
-						}
-					]
+					text: appealDetails.decision?.outcome || 'Not issued yet'
 				}
 			}
 		},
@@ -463,7 +446,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Local planning authority'
+					text: 'Local planning authority (LPA)'
 				},
 				value: {
 					text: appealDetails.localPlanningDepartment
@@ -503,7 +486,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: "Inspector access (LPA's answer)"
+					text: 'Inspection access (LPA answer)'
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
@@ -523,7 +506,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: "Inspector access (LPA's answer)",
+			displayName: 'Inspection access (LPA answer)',
 			instructions: [
 				{
 					type: 'radios',
@@ -560,7 +543,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: "Inspector access (Appellant's answer)"
+					text: 'Inspection access (appellant answer)'
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
@@ -580,7 +563,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: "Inspector access (Appellant's answer)",
+			displayName: 'Inspection access (appellant answer)',
 			instructions: [
 				{
 					type: 'radios',
@@ -695,7 +678,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: "Potential safety risks (LPA's answer)"
+					text: 'Potential safety risks (LPA answer)'
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
@@ -715,7 +698,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: "Potential safety risks (LPA's answer)",
+			displayName: 'Potential safety risks (LPA answer)',
 			instructions: [
 				{
 					type: 'radios',
@@ -752,7 +735,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: "Potential safety risks (Appellant's answer)"
+					text: 'Potential safety risks (appellant answer)'
 				},
 				value: {
 					html: displayPageFormatter.formatAnswerAndDetails(
@@ -772,7 +755,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		},
 		input: {
-			displayName: "Potential safety risks (Appellant's answer)",
+			displayName: 'Potential safety risks (appellant answer)',
 			instructions: [
 				{
 					type: 'radios',
@@ -850,7 +833,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'LPA Questionnaire'
+					text: 'LPA questionnaire due'
 				},
 				value: {
 					html:

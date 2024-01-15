@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../../lib/async-route.js';
+import { asyncHandler } from '@pins/express';
 import { registerCaseWithQuery } from '../../applications.locals.js';
 import * as controller from './applications-create-check-your-answers.controller.js';
 
@@ -9,15 +9,15 @@ applicationsCreateCheckYourAnswersRouter
 	.route('/check-your-answers')
 	.get(
 		registerCaseWithQuery(null, true),
-		asyncRoute(controller.viewApplicationsCreateCheckYourAnswers)
+		asyncHandler(controller.viewApplicationsCreateCheckYourAnswers)
 	)
-	.post(asyncRoute(controller.confirmCreateCase));
+	.post(asyncHandler(controller.confirmCreateCase));
 
 applicationsCreateCheckYourAnswersRouter
 	.route('/case-created')
 	.get(
 		registerCaseWithQuery(['reference']),
-		asyncRoute(controller.viewApplicationsCreateConfirmation)
+		asyncHandler(controller.viewApplicationsCreateConfirmation)
 	);
 
 export default applicationsCreateCheckYourAnswersRouter;

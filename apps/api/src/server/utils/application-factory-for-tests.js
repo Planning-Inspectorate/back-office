@@ -125,7 +125,8 @@ export const applicationFactoryForTests = ({
 		CaseStatus: [
 			{
 				id: 1,
-				status: caseStatus
+				status: caseStatus,
+				valid: true
 			}
 		],
 		...(dates?.publishedAt && {

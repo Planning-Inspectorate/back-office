@@ -5,6 +5,7 @@ declare global {
 	namespace Express {
 		interface Request {
 			appeal: RepositoryGetByIdResultItem;
+			appealTypes: Schema.AppealType[];
 			document: Schema.Document;
 			notifyClient: NotifyClient;
 			visitType: SiteVisitType;
@@ -201,6 +202,7 @@ interface SingleAppealDetailsResponse {
 		outcome?: string;
 		documentId?: string;
 		folderId: number;
+		letterDate: string | null;
 	};
 	documentationSummary: DocumentationSummary;
 	healthAndSafety: {

@@ -93,5 +93,18 @@ describe('appeal-details', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should render a Issue a decision action button when the appealStatus is ready for final review', async () => {
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, { ...appealData, appealStatus: 'issue_determination' });
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 	});
 });
