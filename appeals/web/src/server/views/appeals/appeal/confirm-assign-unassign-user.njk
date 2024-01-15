@@ -1,6 +1,7 @@
 {%- extends "app/layouts/app-two-column.layout.njk" -%}
 
 {%- from "govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "govuk/components/inset-text/macro.njk" import govukInsetText -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
 
 {%- set pageTitle = "Are you sure? - GOV.UK" -%}
@@ -12,8 +13,8 @@
 {%- block pageHeading -%}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
-			<span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal {{ appeal.shortReference }}</span>
-			<h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{ 'Remove' if isUnassign else 'Assign' }} this {{ 'inspector' if isInspector else 'case officer' }}</h1>
+			<span class="govuk-caption-l govuk-!-margin-bottom-1">Appeal {{ appeal.shortReference }}</span>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-3">{{ 'Remove' if isUnassign else 'Assign' }} {{ user.name }} {{ 'from' if isUnassign else 'to' }} this case?</h1>
 		</div>
 	</div>
 {%- endblock -%}
@@ -23,13 +24,6 @@
 		{{ govukRadios({
 			name: "confirm",
 			id: "confirm",
-			fieldset: {
-				legend: {
-					text: user.email,
-					isPageHeading: false,
-					classes: "govuk-fieldset__legend--m"
-				}
-			},
 			items: [
 				{
 					value: "yes",
@@ -42,6 +36,11 @@
 			]
 			})
 		}}
+		{%- if existingUser and not isInspector -%}
+			{{ govukInsetText({
+				html: '<p>Only one case officer can be assigned. <strong>' + existingUser.email + '</strong> will be replaced as the case officer.</p>'
+			}) }}
+		{%- endif -%}
 		{{ govukButton({
 			text: "Continue"
 		}) }}
