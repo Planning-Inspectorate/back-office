@@ -45,15 +45,6 @@ assignUserRouter
 const unassignUserRouter = createRouter({ mergeParams: true });
 
 unassignUserRouter
-	.route('/case-officer/:assigneeId/confirm')
-	.get(controller.getUnassignCaseOfficerCheckAndConfirm)
-	.post(
-		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
-		validators.validatePostConfirmation,
-		controller.postUnassignCaseOfficerCheckAndConfirm
-	);
-
-unassignUserRouter
 	.route('/inspector/:assigneeId/confirm')
 	.get(controller.getUnassignInspectorCheckAndConfirm)
 	.post(
