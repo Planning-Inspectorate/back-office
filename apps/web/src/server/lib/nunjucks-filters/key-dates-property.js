@@ -7,8 +7,7 @@ const propertyToName = {
 	dateProjectAppearsOnWebsite: 'Project published on website',
 	dateProjectAppearsOnWebsite_label: 'Applicant notifies the Planning Inspectorate of a project.',
 	submissionAtPublished: 'Anticipated submission date published',
-	submissionAtPublished_label:
-		'Date the Planning Inspectorate expects the application to be submitted e.g. Q4 2023.',
+	submissionAtPublished_label: `Date the Planning Inspectorate expects the application to be submitted. For example, ‘between April and June 2024' or 'in September 2025’`,
 	submissionAtInternal: 'Anticipated submission date internal',
 	submissionAtInternal_label:
 		'Date the Planning Inspectorate expects the application to be submitted.',

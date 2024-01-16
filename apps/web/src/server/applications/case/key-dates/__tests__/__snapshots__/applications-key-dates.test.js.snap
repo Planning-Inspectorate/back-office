@@ -514,9 +514,9 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
             <div class=\\"govuk-form-group\\">
                 <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtPublished\\">Anticipated submission date published</label>
                 <div id=\\"submissionAtPublished-hint\\"
-                class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted
-                    e.g. Q4 2023.</div>
-                <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"submissionAtPublished\\"
+                class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.
+                    For example, ‘between April and June 2024&#39; or &#39;in September 2025’</div>
+                <input                 class=\\"govuk-input govuk-!-width-one-third\\" id=\\"submissionAtPublished\\"
                 name=\\"submissionAtPublished\\" type=\\"text\\" value=\\"Q4 2023\\" aria-describedby=\\"submissionAtPublished-hint\\">
             </div>
         </div>
@@ -1459,9 +1459,9 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
             <div class=\\"govuk-form-group\\">
                 <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtPublished\\">Anticipated submission date published</label>
                 <div id=\\"submissionAtPublished-hint\\"
-                class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted
-                    e.g. Q4 2023.</div>
-                <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"submissionAtPublished\\"
+                class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.
+                    For example, ‘between April and June 2024&#39; or &#39;in September 2025’</div>
+                <input                 class=\\"govuk-input govuk-!-width-one-third\\" id=\\"submissionAtPublished\\"
                 name=\\"submissionAtPublished\\" type=\\"text\\" value=\\"Q4 2023\\" aria-describedby=\\"submissionAtPublished-hint\\">
             </div>
         </div>
