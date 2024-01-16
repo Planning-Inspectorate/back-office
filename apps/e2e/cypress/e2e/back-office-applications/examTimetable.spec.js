@@ -33,7 +33,7 @@ const itemOptions = [
 const texts = {
 	examTimetableLinkText: 'Examination timetable',
 	createTimetableButtonText: 'Create new timetable item',
-	successMessageText: 'Timetable item successfully created'
+	successMessageText: 'Timetable successfully created'
 };
 
 describe('Examination Timetable Errors', () => {
@@ -161,7 +161,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
-		examTimetablePage.clickLinkByText('Go back to examination table');
+		examTimetablePage.clickLinkByText('Go back to examination timetable');
 		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
 		examTimetablePage.checkAnswer('Item type', itemType);
 		examTimetablePage.checkAnswer('Item name', options.itemName);
@@ -194,7 +194,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
-		examTimetablePage.clickLinkByText('Go back to examination table');
+		examTimetablePage.clickLinkByText('Go back to examination timetable');
 		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
 		examTimetablePage.checkAnswer('Item type', itemType);
 		examTimetablePage.checkAnswer('Item name', options.itemName);
@@ -226,7 +226,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
 		examTimetablePage.validateSuccessPanelBody(caseRef);
-		examTimetablePage.clickLinkByText('Go back to examination table');
+		examTimetablePage.clickLinkByText('Go back to examination timetable');
 		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
 		examTimetablePage.checkAnswer('Item type', itemType);
 		examTimetablePage.checkAnswer('Item name', options.itemName);
