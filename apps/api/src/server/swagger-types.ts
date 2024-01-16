@@ -442,7 +442,7 @@ export interface ApplicationsSearchResponse {
 	 * @example 1
 	 */
 	itemCount?: number;
-	items?: any[];
+	items?: ApplicationSearchSummary[];
 }
 
 export type ApplicationProjectUpdate = ApplicationProjectUpdateCreateRequest & {

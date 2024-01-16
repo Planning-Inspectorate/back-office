@@ -366,7 +366,7 @@ export const spec = {
 				itemCount: { type: 'number', description: 'Total items', example: 1 },
 				items: {
 					type: 'array',
-					items: { $ref: '#ApplicationSearchSummary' }
+					items: { $ref: '#/definitions/ApplicationSearchSummary' }
 				}
 			}
 		},
