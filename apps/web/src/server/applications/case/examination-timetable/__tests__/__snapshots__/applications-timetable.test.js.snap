@@ -96,7 +96,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <div id=\\"description-hint\\"
                     class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -265,7 +265,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <div id=\\"description-hint\\"
                     class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -452,7 +452,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <div id=\\"description-hint\\"
                     class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -548,7 +548,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <div id=\\"description-hint\\"
                     class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -692,7 +692,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <div id=\\"description-hint\\"
                     class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -828,7 +828,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <div id=\\"description-hint\\"
                     class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -989,7 +989,7 @@ exports[`Create examination timetable page should display errors if start date a
                     <div id=\\"description-hint\\"
                     class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -1148,7 +1148,7 @@ exports[`Create examination timetable page should display errors if start time a
                     <div id=\\"description-hint\\"
                     class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -1402,7 +1402,7 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                     <div id=\\"description-hint\\"
                     class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\">test*ponintone*pointtwo</textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\">test*ponintone*pointtwo</textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
