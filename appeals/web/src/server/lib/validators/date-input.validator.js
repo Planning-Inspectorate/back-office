@@ -153,6 +153,60 @@ export const createDateInputDateValidityValidator = (
 			)
 	);
 
+/**
+ * @param {import('got').Got} apiClient
+ * @param {string} value
+ * @returns {Promise<boolean>}
+ */
+const dateIsABusinessDay = async (apiClient, value) => {
+	try {
+		const result = await apiClient
+			.post(`appeals/validate-business-date`, {
+				json: { inputDate: value }
+			})
+			.json();
+		return result;
+	} catch {
+		return false;
+	}
+};
+
+export const createDateInputDateBusinessDayValidator = async (
+	fieldNamePrefix = 'date',
+	messageFieldNamePrefix = 'date',
+	dayFieldName = '-day',
+	monthFieldName = '-month',
+	yearFieldName = '-year'
+) =>
+	await createValidator(
+		body()
+			.custom(async (bodyFields, { req }) => {
+				const day = bodyFields[`${fieldNamePrefix}${dayFieldName}`];
+				const month = bodyFields[`${fieldNamePrefix}${monthFieldName}`];
+				const year = bodyFields[`${fieldNamePrefix}${yearFieldName}`];
+
+				if (!day || !month || !year) {
+					return false;
+				}
+
+				const dayNumber = Number.parseInt(day, 10);
+				const monthNumber = Number.parseInt(month, 10);
+				const yearNumber = Number.parseInt(year, 10);
+
+				const dateToValidate = new Date(yearNumber, monthNumber - 1, dayNumber)
+					.toISOString()
+					.split('T')[0];
+
+				const result = await dateIsABusinessDay(req.apiClient, dateToValidate);
+				return result;
+			})
+			.withMessage(
+				capitalize(
+					`${(messageFieldNamePrefix && messageFieldNamePrefix + ' ') || ''}must be a business day`
+				)
+			)
+	);
+
 export const createDateInputDateInFutureValidator = (
 	fieldNamePrefix = 'date',
 	messageFieldNamePrefix = 'date',
