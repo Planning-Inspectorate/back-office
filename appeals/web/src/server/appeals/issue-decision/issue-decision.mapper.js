@@ -1,6 +1,7 @@
 import { appealShortReference } from '#lib/appeals-formatter.js';
-import { getFileInfo } from '#appeals/appeal-documents/appeal.documents.service.js';
-import { mapDocumentDownloadUrl } from '#appeals/appeal-documents/appeal-documents.mapper.js';
+import * as displayPageFormatter from '#lib/display-page-formatter.js';
+import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
+
 /**
  * @typedef {import('../appeal-details/appeal-details.types.js').WebAppeal} Appeal
  */
@@ -124,11 +125,10 @@ export async function dateDecisionLetterPage(
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {Appeal} appealData
  * @param  {import('./issue-decision.types').InspectorDecisionRequest} session
- * @returns {Promise<PageContent>}
+ * @param {import('@pins/appeals.api').Schema.Folder|undefined} decisionLetterFolder
+ * @returns {PageContent}
  */
-export async function checkAndConfirmPage(request, appealData, session) {
-	const title = 'Check your answers';
-
+export function checkAndConfirmPage(request, appealData, session, decisionLetterFolder) {
 	const decisionOutcome = mapDecisionOutcome(session?.outcome);
 	const letterDate = session && session.letterDate ? new Date(session.letterDate) : null;
 	const decisionDateText = letterDate
@@ -136,18 +136,6 @@ export async function checkAndConfirmPage(request, appealData, session) {
 				month: 'long'
 		  })} ${letterDate.getFullYear()}`
 		: '';
-
-	let documentName;
-	let documentId = '';
-	if (session.documentId) {
-		const fileInfo = await getFileInfo(
-			request.apiClient,
-			appealData.appealId.toString(),
-			session.documentId
-		);
-		documentName = fileInfo?.latestDocumentVersion.fileName;
-		documentId = session.documentId;
-	}
 
 	/** @type {PageComponent} */
 	const summaryListComponent = {
@@ -174,12 +162,7 @@ export async function checkAndConfirmPage(request, appealData, session) {
 					key: {
 						text: 'Decision letter'
 					},
-					value: {
-						html: `<a href="${mapDocumentDownloadUrl(
-							appealData.appealId,
-							documentId
-						)}" class="govuk-link">${documentName}</a>`
-					},
+					value: displayPageFormatter.formatFolderValues(appealData.appealId, decisionLetterFolder),
 					actions: {
 						items: [
 							{
@@ -232,7 +215,8 @@ export async function checkAndConfirmPage(request, appealData, session) {
 		}
 	};
 
-	return {
+	const title = 'Check your answers';
+	const pageContent = {
 		title,
 		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision-letter-date`,
 		backLinkText: 'Back',
@@ -241,6 +225,12 @@ export async function checkAndConfirmPage(request, appealData, session) {
 		submitButtonText: 'Submit this decision',
 		pageComponents: [summaryListComponent, insetHtmlComponent, insetConfirmComponent]
 	};
+
+	if (pageContent.pageComponents) {
+		preRenderPageComponents(pageContent.pageComponents);
+	}
+
+	return pageContent;
 }
 
 /**
