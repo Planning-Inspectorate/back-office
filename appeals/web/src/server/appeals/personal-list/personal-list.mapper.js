@@ -72,8 +72,9 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 									appeal.appealId,
 									appeal.appealStatus,
 									appeal.lpaQuestionnaireId,
-									appeal.documentationSummary?.appellantCase?.status,
-									appeal.documentationSummary?.lpaQuestionnaire?.status,
+									appeal.appellantCaseStatus,
+									appeal.lpaQuestionnaireStatus,
+									appeal.dueDate,
 									isInspector
 								)
 							},
@@ -121,6 +122,7 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
  * @param {number|null|undefined} lpaQuestionnaireId
  * @param {string} appellantCaseStatus
  * @param {string} lpaQuestionnaireStatus
+ * @param {string} dueDate
  * @param {boolean} [isInspector]
  * @returns {string}
  */
@@ -130,8 +132,12 @@ export function mapAppealStatusToActionRequiredHtml(
 	lpaQuestionnaireId,
 	appellantCaseStatus,
 	lpaQuestionnaireStatus,
+	dueDate,
 	isInspector = false
 ) {
+	const currentDate = new Date();
+	const appealDueDate = new Date(dueDate);
+
 	switch (appealStatus) {
 		case 'ready_to_start':
 		case 'review_appellant_case':
@@ -143,8 +149,8 @@ export function mapAppealStatusToActionRequiredHtml(
 			}
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">Review appellant case</a>`;
 		case 'lpa_questionnaire_due':
-			if (!lpaQuestionnaireId) {
-				return 'Awaiting LPA Questionnaire';
+			if (currentDate > appealDueDate) {
+				return 'LPA Questionnaire Overdue';
 			}
 			if (lpaQuestionnaireStatus == 'Incomplete') {
 				if (isInspector) {
@@ -152,7 +158,13 @@ export function mapAppealStatusToActionRequiredHtml(
 				}
 				return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Awaiting LPA update</a>`;
 			}
-			return 'LPA Questionnaire Overdue';
+			if (lpaQuestionnaireId) {
+				if (isInspector) {
+					return 'Review LPA Questionnaire';
+				}
+				return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Review LPA Questionnaire</a>`;
+			}
+			return 'Awaiting LPA Questionnaire';
 		case 'issue_determination':
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/issue-decision/decision">Submit decision</a>`;
 		default:

@@ -110,12 +110,16 @@ export const spec = {
 					appealSite: {
 						addressLine1: '19 Beauchamp Road',
 						town: 'Bristol',
+						county: 'Bristol',
 						postCode: 'BS7 8LQ'
 					},
 					appealStatus: 'awaiting_lpa_questionnaire',
 					appealType: 'household',
 					createdAt: '2023-02-16T11:43:27.096Z',
-					localPlanningDepartment: 'Wiltshire Council'
+					localPlanningDepartment: 'Wiltshire Council',
+					appellantCaseStatus: 'Incomplete',
+					lpaQuestionnaireStatus: 'Incomplete',
+					dueDate: '2023-06-18T00:00:00.000Z'
 				}
 			],
 			page: 1,
