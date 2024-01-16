@@ -572,7 +572,7 @@ describe('LPA Questionnaire review', () => {
 				'due-date-year': '3000'
 			});
 
-			expect(response.statusCode).toBe(200);
+			expect(response.statusCode).toBe(302);
 		});
 	});
 
