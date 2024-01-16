@@ -30,7 +30,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-date-form-group\\">
                                 <div class=\\"govuk-form-group\\">
@@ -159,7 +159,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"startDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-date-form-group\\">
                                 <div class=\\"govuk-form-group\\">
@@ -204,7 +204,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"endDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <p id=\\"endDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                             end date</p>
                         <div class=\\"govuk-grid-column-one-half\\">
@@ -332,7 +332,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"startDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <p id=\\"startDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                             start date</p>
                         <div class=\\"govuk-grid-column-one-half\\">
@@ -391,7 +391,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"endDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <p id=\\"endDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                             end date</p>
                         <div class=\\"govuk-grid-column-one-half\\">
@@ -513,7 +513,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                             date</p>
                         <div class=\\"govuk-grid-column-one-half\\">
@@ -611,7 +611,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                             date</p>
                         <div class=\\"govuk-grid-column-one-half\\">
@@ -753,7 +753,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                             date</p>
                         <div class=\\"govuk-grid-column-one-half\\">
@@ -889,7 +889,7 @@ exports[`Create examination timetable page should display errors if start date a
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"startDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <p id=\\"startDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The item end date must
                             be after the item start date</p>
                         <div class=\\"govuk-grid-column-one-half\\">
@@ -942,7 +942,7 @@ exports[`Create examination timetable page should display errors if start date a
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"endDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-date-form-group\\">
                                 <div class=\\"govuk-form-group\\">
@@ -1050,7 +1050,7 @@ exports[`Create examination timetable page should display errors if start time a
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"startDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-date-form-group\\">
                                 <div class=\\"govuk-form-group\\">
@@ -1101,7 +1101,7 @@ exports[`Create examination timetable page should display errors if start time a
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"endDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-date-form-group\\">
                                 <div class=\\"govuk-form-group\\">
@@ -1310,7 +1310,7 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"startDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-date-form-group\\">
                                 <div class=\\"govuk-form-group\\">
@@ -1355,7 +1355,7 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div id=\\"endDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-date-form-group\\">
                                 <div class=\\"govuk-form-group\\">

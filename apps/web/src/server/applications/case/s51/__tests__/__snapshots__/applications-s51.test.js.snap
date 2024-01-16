@@ -964,7 +964,7 @@ exports[`S51 Advice S51 creation journey Advice details GET /case/123/project-do
         <div class=\\"govuk-form-group govuk-grid-column-full \\">
             <fieldset class=\\"govuk-fieldset\\">
                 <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date advice given</legend>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                <div id=\\"adviceDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                 <div class=\\"govuk-grid-column-one-third\\">
                     <div class=\\"govuk-grid-row pins-date-form-group\\">
                         <div class=\\"govuk-form-group\\">
@@ -1355,7 +1355,7 @@ exports[`S51 Advice S51 creation journey Enquiry details GET /case/123/project-d
         <div class=\\"govuk-form-group govuk-grid-column-full \\">
             <fieldset class=\\"govuk-fieldset\\">
                 <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Enquiry date</legend>
-                <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                <div id=\\"enquiryDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
                 <div class=\\"govuk-grid-column-one-third\\">
                     <div class=\\"govuk-grid-row pins-date-form-group\\">
                         <div class=\\"govuk-form-group\\">
