@@ -94,6 +94,7 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 		}
 	};
 
+	// @ts-ignore
 	return databaseConnector.$transaction([
 		databaseConnector.appeal.count({
 			where
@@ -110,7 +111,30 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 				appealTimetable: true,
 				appealType: true,
 				lpa: true,
-				lpaQuestionnaire: true
+				lpaQuestionnaire: {
+					include: {
+						lpaQuestionnaireValidationOutcome: true
+					}
+				},
+				appellantCase: {
+					include: {
+						appellantCaseIncompleteReasonsOnAppellantCases: {
+							include: {
+								appellantCaseIncompleteReason: true,
+								appellantCaseIncompleteReasonText: true
+							}
+						},
+						appellantCaseInvalidReasonsOnAppellantCases: {
+							include: {
+								appellantCaseInvalidReason: true,
+								appellantCaseInvalidReasonText: true
+							}
+						},
+						appellantCaseValidationOutcome: true,
+						knowledgeOfOtherLandowners: true,
+						planningObligationStatus: true
+					}
+				}
 			},
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize

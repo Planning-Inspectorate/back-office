@@ -72,6 +72,7 @@ const getMyAppeals = async (req, res) => {
 			pageSize,
 			status
 		);
+
 		const formattedAppeals = sortAppeals(appeals.map((appeal) => formatMyAppeals(appeal)));
 
 		return res.send({
