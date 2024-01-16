@@ -7,10 +7,6 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
-export const backLink = {
-	text: 'Back to National list',
-	link: '/appeals-service/appeals-list'
-};
 export const pageHeading = 'Case details';
 
 /**
@@ -26,8 +22,6 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 	/** @type {PageContent} */
 	const pageContent = {
 		title: `Case details - ${shortAppealReference}`,
-		backLinkText: 'Back to National list',
-		backLinkUrl: '/appeals-service/appeals-list',
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'Case details',
 		pageComponents: []

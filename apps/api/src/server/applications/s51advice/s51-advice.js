@@ -1,9 +1,9 @@
 import { pick } from 'lodash-es';
 import { formatS51AdviceReferenceCode } from '#utils/mapping/map-s51-advice-details.js';
-import { getById as getCaseById } from '../../repositories/case.repository.js';
+import { getById as getCaseById } from '#repositories/case.repository.js';
 
 /**
- * @typedef {import('../../../message-schemas/events/nsip-s51-advice.js').NSIPS51AdviceSchema} NSIPS51AdviceSchema
+ * @typedef {import('pins-data-model').Schemas.S51Advice} NSIPS51AdviceSchema
  * @typedef {'phone' | 'email' | 'meeting' | 'post'} Method
  * @typedef {'checked' | 'unchecked' | 'readytopublish' | 'published' | 'donotpublish'} Status
  * @typedef {'unredacted' | 'redacted'} RedactionStatus
@@ -32,7 +32,8 @@ export const buildNsipS51AdvicePayload = async (s51Advice) => {
 		redactionStatus: /** @type {RedactionStatus} */ (s51Advice.redactedStatus),
 		// @ts-ignore
 		attachmentIds: s51Advice.S51AdviceDocument
-			? s51Advice.S51AdviceDocument.map((doc) => doc.documentGuid)
+			? // @ts-ignore
+			  s51Advice.S51AdviceDocument.map((doc) => doc.documentGuid)
 			: []
 	};
 };

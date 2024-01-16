@@ -1,9 +1,9 @@
-import { NSIPSubscription, SubscriptionType } from '../events/nsip-subscription';
+import { Schemas } from 'pins-data-model';
 
 /**
  * register-nsip-subscription schema for use in code
  */
 export interface RegisterNSIPSubscription {
-	nsipSubscription: NSIPSubscription;
-	subscriptionTypes: SubscriptionType[];
+	nsipSubscription: Schemas.NsipSubscription;
+	subscriptionTypes: Pick<Schemas.NsipSubscription, 'subscriptionType'>[];
 }

@@ -1,3 +1,8 @@
+export interface ValidateDate {
+	/** @example "2023-08-17" */
+	inputDate?: string;
+}
+
 export interface AppellantCaseData {
 	appeal?: {
 		/** @example "Q9999" */

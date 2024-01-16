@@ -2,7 +2,6 @@ import { surnameFirstToFullName } from '#lib/person-name-formatter.js';
 import usersService from '../../appeal-users/users-service.js';
 import config from '#environment/config.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
-import { capitalize } from 'lodash-es';
 
 /** @typedef {import('../../../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 
@@ -27,7 +26,9 @@ export async function assignUserPage(
 ) {
 	const userTypeRoute = isInspector ? 'inspector' : 'case-officer';
 	const userTypeText = isInspector ? 'inspector' : 'case officer';
-	const userTypeArticle = isInspector ? 'an' : 'a';
+	const userTypeArticle = isInspector
+		? `${assignedUserId ? 'a new' : 'an'}`
+		: `a${assignedUserId ? ' new' : ''}`;
 	const shortAppealReference = appealShortReference(appealDetails.appealReference);
 
 	/** @type {PageComponentGroup} */
@@ -44,7 +45,7 @@ export async function assignUserPage(
 					id: 'searchTerm',
 					name: 'searchTerm',
 					label: {
-						text: 'Search by name or email address',
+						text: 'Search by name or email. A first name or surname may be enough to find the correct person.',
 						classes: 'govuk-caption-m govuk-!-margin-bottom-3 colour--secondary'
 					},
 					value: searchTerm || ''
@@ -62,9 +63,7 @@ export async function assignUserPage(
 	/** @type {PageComponentGroup} */
 	const searchResultsComponentGroup = {
 		wrapperHtml: {
-			opening: `<div class="govuk-grid-row"><div class="govuk-grid-column-full govuk-!-margin-bottom-5"><h2 class="govuk-heading-m">Search results</h2><p class="govuk-body">${
-				searchResults.length > 0 ? 'Displaying' : 'No'
-			} results for <strong>${searchTerm}</strong></p>`,
+			opening: `<div class="govuk-grid-row"><div class="govuk-grid-column-full govuk-!-margin-bottom-5"><h2 class="govuk-heading-m">Search results</h2><p class="govuk-body">Matches for <strong>${searchTerm}</strong></p>`,
 			closing: '</div></div>'
 		},
 		pageComponents: [
@@ -81,7 +80,7 @@ export async function assignUserPage(
 						actions: {
 							items: [
 								{
-									text: 'Assign',
+									text: 'Choose',
 									href: `/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/${userTypeRoute}/${result.id}/confirm`
 								}
 							]
@@ -107,7 +106,7 @@ export async function assignUserPage(
 		backLinkText: 'Back',
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
-		heading: `Search for ${userTypeArticle} ${userTypeText}`,
+		heading: `Find ${userTypeArticle} ${userTypeText}`,
 		pageComponentGroups: [
 			searchInputComponentGroup,
 			...(searchPerformed ? [searchResultsComponentGroup] : []),
@@ -152,9 +151,7 @@ async function buildCurrentAssigneeComponentGroup(
 	/** @type {PageComponentGroup} */
 	const currentAssigneeComponentGroup = {
 		wrapperHtml: {
-			opening: `<h2 class="govuk-heading-s">${capitalize(
-				userTypeText
-			)} that is currently assigned</h2>`,
+			opening: `<h2 class="govuk-heading-s">Current ${userTypeText}</h2>`,
 			closing: ''
 		},
 		pageComponents: [
@@ -170,14 +167,14 @@ async function buildCurrentAssigneeComponentGroup(
 								text: user.email
 							},
 							actions: {
-								items: [
-									{
-										text: 'Remove',
-										href: `/appeals-service/appeal-details/${appealId}/unassign-user/${
-											isInspector ? 'inspector' : 'case-officer'
-										}/${assignedUserId}/confirm`
-									}
-								]
+								...(isInspector && {
+									items: [
+										{
+											text: 'Remove',
+											href: `/appeals-service/appeal-details/${appealId}/unassign-user/inspector/${assignedUserId}/confirm`
+										}
+									]
+								})
 							}
 						}
 					]

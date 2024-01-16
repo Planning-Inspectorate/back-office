@@ -68,18 +68,27 @@ const renderAssignOrUnassignUserCheckAndConfirm = async (
 			params: { assigneeId }
 		} = request;
 
+		const groupId = isInspector
+			? config.referenceData.appeals.inspectorGroupId
+			: config.referenceData.appeals.caseOfficerGroupId;
+
 		const [appealDetails, user] = await Promise.all([
 			appealDetailsService.getAppealDetailsFromId(request.apiClient, request.params.appealId),
-			usersService.getUserByRoleAndId(
-				isInspector
-					? config.referenceData.appeals.inspectorGroupId
-					: config.referenceData.appeals.caseOfficerGroupId,
-				request.session,
-				assigneeId
-			)
+			usersService.getUserByRoleAndId(groupId, request.session, assigneeId)
 		]);
 
 		if (appealDetails && assigneeId) {
+			let existingUser = null;
+			const existingUserId = isInspector ? appealDetails.inspector : appealDetails.caseOfficer;
+
+			if (existingUserId) {
+				existingUser = await usersService.getUserByRoleAndId(
+					groupId,
+					request.session,
+					existingUserId
+				);
+			}
+
 			return response.render('appeals/appeal/confirm-assign-unassign-user.njk', {
 				appeal: {
 					id: appealDetails?.appealId,
@@ -87,6 +96,7 @@ const renderAssignOrUnassignUserCheckAndConfirm = async (
 					shortReference: appealShortReference(appealDetails?.appealReference)
 				},
 				user,
+				existingUser,
 				isInspector,
 				errors,
 				isUnassign
