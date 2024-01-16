@@ -174,7 +174,6 @@ export const postDateDecisionLetter = async (request, response) => {
 		/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
 		request.session.inspectorDecision = {
 			...request.session.inspectorDecision,
-			...request.session.documentId,
 			letterDate
 		};
 
@@ -210,9 +209,6 @@ const renderDateDecisionLetter = async (request, response) => {
 	const documentId = folder?.documents?.length && folder.documents[0].id;
 
 	if (documentId) {
-		//const fileInfo = await getFileInfo(request.apiClient, appealId, documentId);
-		//documentName = fileInfo?.latestDocumentVersion.fileName;
-
 		/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
 		request.session.inspectorDecision = {
 			...request.session.inspectorDecision,
@@ -294,10 +290,25 @@ export const renderCheckDecision = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	let mappedPageContent = await checkAndConfirmPage(
+	if (!appealData) {
+		return response.render('app/404.njk');
+	}
+
+	if (!appealData.decision) {
+		return response.render('app/500.njk');
+	}
+
+	const decisionLetterFolder = await getFolder(
+		request.apiClient,
+		appealId,
+		appealData.decision.folderId.toString() || ''
+	);
+
+	let mappedPageContent = checkAndConfirmPage(
 		request,
 		appealData,
-		request.session.inspectorDecision
+		request.session.inspectorDecision,
+		decisionLetterFolder
 	);
 	return response.render('appeals/appeal/issue-decision.njk', {
 		pageContent: mappedPageContent,

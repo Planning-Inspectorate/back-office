@@ -5,6 +5,8 @@ import { mapDocumentInfoVirusCheckStatus } from '#appeals/appeal-documents/appea
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 
 /**
+ * @typedef {import('@pins/appeals.api').Schema.Folder} Folder
+ * @typedef {import('@pins/appeals.api').Schema.Document} Document
  * @typedef {import('#appeals/appeals.types.js').DocumentInfo} DocumentInfo
  * @typedef {import('#appeals/appeals.types.js').FolderInfo} FolderInfo
  */
@@ -189,6 +191,32 @@ export const formatDocumentValues = (appealId, listOfDocuments, addLateEntryStat
 	}
 
 	return htmlProperty;
+};
+
+/**
+ * @param {number} appealId
+ * @param {Folder|undefined} folder
+ * @returns {HtmlProperty & ClassesProperty}
+ */
+export const formatFolderValues = (appealId, folder) => {
+	const mappedDocumentInfo =
+		folder?.documents?.map((document) => {
+			const documentInfo = {
+				id: document.id,
+				name: document.name,
+				// @ts-ignore - id property not present on import('@pins/appeals.api').Schema.Folder but present in data returned from document-folders endpoint...
+				folderId: folder.id,
+				caseId: appealId,
+				virusCheckStatus: document.latestDocumentVersion.virusCheckStatus,
+				isLateEntry: document.latestDocumentVersion.isLateEntry
+			};
+
+			return documentInfo;
+		}) || [];
+
+	const result = formatDocumentValues(appealId, mappedDocumentInfo);
+
+	return result;
 };
 
 /**
