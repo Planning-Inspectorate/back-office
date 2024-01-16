@@ -26,11 +26,13 @@ const propertyToName = {
 	acceptance: 'Acceptance',
 	dateOfDCOSubmission: 'Application submitted (Section 55)',
 	dateOfDCOSubmission_label: 'Date the application is submitted.',
+	dateOfDCOSubmission_advisory: 'Recording this date may require you to change the case stage.',
 	deadlineForAcceptanceDecision: 'Deadline for Acceptance decision',
 	deadlineForAcceptanceDecision_label:
 		'Deadline for Acceptance decision by the Planning Inspectorate.',
 	dateOfDCOAcceptance: 'Date of Acceptance  (Section 55)',
 	dateOfDCOAcceptance_label: 'Date of decision to accept.',
+	dateOfDCOAcceptance_advisory: 'Recording this date may require you to change the case stage.',
 	dateOfNonAcceptance: 'Date of Non-Acceptance',
 	dateOfNonAcceptance_label: 'Date of decision not to accept.',
 
@@ -63,12 +65,15 @@ const propertyToName = {
 	dateSection58NoticeReceived_label: 'Date s58 notice is received.',
 	confirmedStartOfExamination: 'Examination start date',
 	confirmedStartOfExamination_label: 'Start of examination.',
+	confirmedStartOfExamination_advisory:
+		'Recording this date may require you to change the case stage.',
 	rule8LetterPublishDate: 'Rule 8 letter publication date',
 	rule8LetterPublishDate_label: 'Date when Rule 8 letter is published.',
 	deadlineForCloseOfExamination: 'Deadline for close of Examination',
 	deadlineForCloseOfExamination_label: 'Deadline for the close of the examination.',
 	dateTimeExaminationEnds: 'Examination closing date',
 	dateTimeExaminationEnds_label: 'Date that the examination closes.',
+	dateTimeExaminationEnds_advisory: 'Recording this date may require you to change the case stage.',
 	stage4ExtensionToExamCloseDate: 'Extension to close of Examination',
 	stage4ExtensionToExamCloseDate_label: 'Date examination will close, if it has been extended.',
 
@@ -78,6 +83,7 @@ const propertyToName = {
 		'Deadline for submission of Recommendation report to the Secretary of State (SoS).',
 	dateOfRecommendations: 'Date of Recommendation submitted to SoS',
 	dateOfRecommendations_label: 'Date Recommendation report submitted to SoS.',
+	dateOfRecommendations_advisory: 'Recording this date may require you to change the case stage.',
 	stage5ExtensionToRecommendationDeadline: 'Extension to Recommendation deadline',
 	stage5ExtensionToRecommendationDeadline_label:
 		'Date for submission of Recommendation report, if this stage is extended.',
@@ -87,6 +93,7 @@ const propertyToName = {
 	deadlineForDecision_label: 'Date of the deadline for a decision by the SoS.',
 	confirmedDateOfDecision: 'Date of Decision',
 	confirmedDateOfDecision_label: 'Date the decision is made by SoS.',
+	confirmedDateOfDecision_advisory: 'Recording this date may require you to change the case stage.',
 	stage5ExtensionToDecisionDeadline: 'Extension to Decision deadline',
 	stage5ExtensionToDecisionDeadline_label:
 		'Date of the deadline for a decision by the SoS, if extended.',
@@ -107,5 +114,8 @@ const propertyToName = {
  * @returns {string}
  */
 export const keyDatesProperty = (property) => {
-	return propertyToName[property] ? propertyToName[property] : property;
+	if (property.endsWith('_advisory')) {
+		return propertyToName[property] ? propertyToName[property] : '';
+	}
+	return propertyToName[property] ? propertyToName[property] : 'property';
 };

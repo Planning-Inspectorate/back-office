@@ -13,6 +13,7 @@ export {
 	lowerCase,
 	split
 } from 'lodash-es';
+export { bold } from './bold.js';
 export { booleanAnswer } from './boolean-answer.js';
 export { default as pluralize } from 'pluralize';
 export { collapse } from './collapse.js';
