@@ -43,6 +43,9 @@ export const spec = {
 	// by default: empty object (Swagger 2.0)
 	securityDefinitions: {},
 	definitions: {
+		ValidateDate: {
+			inputDate: '2023-08-17'
+		},
 		AppellantCaseData: {
 			...validAppellantCase
 		},

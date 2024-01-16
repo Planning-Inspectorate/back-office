@@ -424,6 +424,31 @@
 				}
 			}
 		},
+		"/appeals/validate-business-date": {
+			"post": {
+				"tags": ["Utilities"],
+				"description": "Validates a date to ensure is a business day",
+				"parameters": [],
+				"responses": {},
+				"requestBody": {
+					"in": "body",
+					"description": "Date to validate",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ValidateDate"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/ValidateDate"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/inspector-decision-invalid": {
 			"post": {
 				"tags": ["Inspector Decision"],
@@ -2602,6 +2627,18 @@
 	},
 	"components": {
 		"schemas": {
+			"ValidateDate": {
+				"type": "object",
+				"properties": {
+					"inputDate": {
+						"type": "string",
+						"example": "2023-08-17"
+					}
+				},
+				"xml": {
+					"name": "ValidateDate"
+				}
+			},
 			"AppellantCaseData": {
 				"type": "object",
 				"properties": {

@@ -27,10 +27,12 @@ import { auditTrailsRoutes } from './audit-trails/audit-trails.routes.js';
 import { appealsDecisionRoutes } from './appeal-decision/appeal-decision.routes.js';
 import { invalidAppealDecisionRoutes } from './invalid-appeal-decision/invalid-appeal-decision.routes.js';
 import { changeAppealTypeRoutes } from './change-appeal-type/change-appeal-type.routes.js';
+import { businessDaysRoutes } from './business-days/business-days.routes.js';
 import checkAzureAdUserIdHeaderExists from '#middleware/check-azure-ad-user-id-header-exists.js';
 
 const router = createRouter();
 router.use(integrationsRoutes);
+router.use(businessDaysRoutes);
 
 router.use('/', checkAzureAdUserIdHeaderExists);
 router.use('/', initNotifyClientAndAddToRequest);
