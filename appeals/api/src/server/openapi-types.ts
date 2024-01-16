@@ -468,6 +468,12 @@ export interface AllAppeals {
 		createdAt?: string;
 		/** @example "Wiltshire Council" */
 		localPlanningDepartment?: string;
+		/** @example "Incomplete" */
+		appellantCaseStatus?: string;
+		/** @example "Incomplete" */
+		lpaQuestionnaireStatus?: string;
+		/** @example "2023-02-16T00:00:00.000Z" */
+		dueDate?: string;
 	}[];
 	/** @example 1 */
 	page?: number;
@@ -574,6 +580,8 @@ export interface SingleAppealResponse {
 				postCode?: string;
 				/** @example "Woodton" */
 				town?: string;
+				/** @example "Woodton" */
+				county?: string;
 			};
 			/** @example "Fiona" */
 			firstName?: string;
