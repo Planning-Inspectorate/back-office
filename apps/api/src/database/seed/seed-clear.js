@@ -51,6 +51,7 @@ export async function deleteAllRecords(databaseConnector) {
 	// truncate / delete tables
 	await truncateTable('RegionsOnApplicationDetails');
 	await truncateTable('ExaminationTimetableItem');
+	await truncateTable('Subscription');
 	await deleteExaminationTimetable;
 
 	await deleteLowestFolders(databaseConnector);
