@@ -15,8 +15,8 @@ const scopes = ['user.read'];
  * @param {string} code
  * @returns {Promise<AuthenticationResult | null>}
  */
-export const acquireTokenByCode = async (code) => {
-	return transformAuthenticationResult(
+export const acquireTokenByCode = async (code) =>
+	transformAuthenticationResult(
 		await msalClient.acquireTokenByCode({
 			authority: config.msal.authority,
 			code,
@@ -24,7 +24,6 @@ export const acquireTokenByCode = async (code) => {
 			scopes
 		})
 	);
-};
 
 /**
  * Acquire a new {@link AuthenticationResult} using an account. Note that
@@ -35,14 +34,13 @@ export const acquireTokenByCode = async (code) => {
  * @param {string[]} customScopes
  * @returns {Promise<AuthenticationResult | null>}
  */
-export const acquireTokenSilent = async (account, customScopes = scopes) => {
-	return transformAuthenticationResult(
+export const acquireTokenSilent = async (account, customScopes = scopes) =>
+	transformAuthenticationResult(
 		await msalClient.acquireTokenSilent({
 			account,
 			scopes: customScopes
 		})
 	);
-};
 
 /**
  * Clear the token cache of all accounts/access tokens. This will force the
@@ -63,27 +61,27 @@ export const clearCacheForAccount = async (account) => {
  * @param {{ nonce: string }} options
  * @returns {Promise<string>}
  */
-export const getAuthCodeUrl = (options) => {
-	return msalClient.getAuthCodeUrl({
+export const getAuthCodeUrl = (options) =>
+	msalClient.getAuthCodeUrl({
 		...options,
 		authority: config.msal.authority,
 		redirectUri: config.msal.redirectUri,
 		scopes
 	});
-};
 
 /**
  * @param {OriginalAuthenticationResult | null} authenticationResult
  * @returns {AuthenticationResult | null}
  */
 function transformAuthenticationResult(authenticationResult) {
-	if (authenticationResult?.account) {
-		// camelize incoming keys to align casing with that of the codebase
-		// (otherwise, snake-cased properties are in play that mess with eslint)
-		return {
-			...authenticationResult,
-			account: /** @type {AccountInfo} */ (humps.camelizeKeys(authenticationResult.account))
-		};
+	if (!authenticationResult?.account) {
+		return null;
 	}
-	return null;
+
+	// camelize incoming keys to align casing with that of the codebase
+	// (otherwise, snake-cased properties are in play that mess with eslint)
+	return {
+		...authenticationResult,
+		account: /** @type {AccountInfo} */ (humps.camelizeKeys(authenticationResult.account))
+	};
 }

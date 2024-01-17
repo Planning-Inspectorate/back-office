@@ -45,18 +45,17 @@ function createRedisStore(redisConnectionString) {
  * @returns {import('express-session').Store}
  */
 function configureStore(redisConnectionString) {
-	if (redisConnectionString && typeof redisConnectionString === 'string') {
-		logger.info('Configuring Redis for session storage');
-		return createRedisStore(redisConnectionString);
+	if (!redisConnectionString) {
+		if (config.isProduction) {
+			throw new Error('REDIS_CONNECTION_STRING is required in production.');
+		}
+
+		logger.info('Configuring memory story for session storage');
+		return new session.MemoryStore();
 	}
-	// default to memory store if redis is not configured
-	// config.session.redis is required by config schema when NODE_ENV is production
-	// check here to be sure
-	if (config.isProduction) {
-		throw new Error('REDIS_CONNECTION_STRING is required in production');
-	}
-	logger.info('Configuring memory store for session storage');
-	return new session.MemoryStore();
+
+	logger.info('Configuring Redis for session storage');
+	return createRedisStore(redisConnectionString);
 }
 
 // TODO: for now we want to use memory store, until Redis setup is fixed
