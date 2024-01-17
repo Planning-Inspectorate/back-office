@@ -32,10 +32,10 @@ export class ConfidentialClientApplication extends msal.ConfidentialClientApplic
 		)
 	);
 
-	acquireTokenSilent = jest.fn(() =>
+	acquireTokenSilent = jest.fn((presetUser) =>
 		Promise.resolve(
 			/** @type {import('@azure/msal-node').AuthenticationResult} */ ({
-				account: this.account
+				account: { ...this.account, idTokenClaims: presetUser.account.idTokenClaims }
 			})
 		)
 	);

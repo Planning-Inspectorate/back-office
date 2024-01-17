@@ -563,3 +563,28 @@ describe('Edit applications documentation metadata', () => {
 		});
 	});
 });
+
+const {
+	app: appUnauth,
+	installMockApi: installMockApiUnauth,
+	teardown: teardownUnauth
+} = createTestEnvironment({ authenticated: true, groups: ['not_valid_group'] });
+
+const requestUnauth = supertest(appUnauth);
+
+describe('Project documentation metadata pages when user belongs to wrong group', () => {
+	beforeEach(installMockApiUnauth);
+	afterEach(teardownUnauth);
+
+	describe('GET /applications-service/case/123/project-documentation/18/document/456/edit', () => {
+		it('should not render the page due to an authentication error', async () => {
+			const response = await requestUnauth.get(
+				'/applications-service/case/123/project-documentation/18/document/456/edit'
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('You are not permitted to access this URL');
+		});
+	});
+});
