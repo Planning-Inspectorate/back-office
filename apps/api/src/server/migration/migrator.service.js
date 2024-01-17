@@ -4,6 +4,7 @@ import { loadAllSchemas } from 'pins-data-model';
 import { migrateNsipProjects } from './migrators/nsip-project-migrator.js';
 import { migrateNsipProjectUpdates } from './migrators/nsip-project-update-migrator.js';
 import { migrateNsipSubscriptions } from './migrators/nsip-subscription-migrator.js';
+import { migrateServiceUsers } from './migrators/service-user-migrator.js';
 
 /**
  * @callback Migrator
@@ -58,5 +59,10 @@ const initializeMapping = async () => {
 	migrationMap.set('nsip-subscription', {
 		validator: ajv.getSchema('nsip-subscription.schema.json'),
 		migrator: migrateNsipSubscriptions
+	});
+
+	migrationMap.set('service-user', {
+		validator: ajv.getSchema('service-user.schema.json'),
+		migrator: migrateServiceUsers
 	});
 };

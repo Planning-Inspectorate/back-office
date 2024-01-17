@@ -1,30 +1,32 @@
 import { SynapseDB } from '../../common/synapse-db.js';
-import { loadSchemaValidator, summariseErrors } from '../../common/validation.js';
+import { makePostRequest } from "../../common/back-office-api-client.js";
+
+const serviceUserQuery = `
+	SELECT *
+	FROM [odw_curated_db].[dbo].[nsip_service_user]
+	WHERE caseReference = ?
+`;
 
 /**
  * Handle an HTTP trigger/request to run the migration
  *
  * @param {import('@azure/functions').Logger} log
+ * @param {string[]} caseReferences
  */
-export const migrateServiceUsers = async (log) => {
-	log.info('loading service-user validator');
-	const validator = await loadSchemaValidator('service-user');
+export const migrateServiceUsers = async (log, caseReferences) => {
+	for (const caseReference of caseReferences) {
+		log.info(`reading Service Users with caseReference ${caseReference}`);
 
-	log.info('reading 100 Service Users');
-	const serviceUsers = await SynapseDB.query(
-		'SELECT TOP (100) * FROM [odw_curated_db].[dbo].[service_user]'
-	);
+		const serviceUsers = await SynapseDB.query(serviceUserQuery, {
+			replacements: [caseReference]
+		});
 
-	log.info(serviceUsers);
-	let validCount = 0;
-	for (let i = 0; i < serviceUsers.length; i++) {
-		const serviceUser = serviceUsers[i];
-		const isValid = validator(serviceUser);
-		if (isValid) {
-			validCount++;
-			continue;
+		log.info(
+			`found ${serviceUsers.length} Service Users: ${JSON.stringify(serviceUsers.map((u) => u.id))}`
+		);
+
+		if (serviceUsers.length > 0) {
+			await makePostRequest(log, '/migration/service-user', serviceUsers);
 		}
-		log.info(`invalid message (index ${i}): ${summariseErrors(validator.errors)}`);
 	}
-	log.info(`${serviceUsers.length} messages, ${validCount} valid`);
 };
