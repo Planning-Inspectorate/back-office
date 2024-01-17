@@ -1,3 +1,4 @@
+import { makePostRequest } from '../../common/back-office-api-client.js';
 import { SynapseDB } from '../../common/synapse-db.js';
 import { QueryTypes } from 'sequelize';
 
@@ -20,7 +21,7 @@ export const migrateExamTimetables = async (log, caseReferences) => {
 			if (examTimetable) {
 				log.info(`Migrating Exam Timetable Items for case ${caseReference}`);
 
-				// TODO: Make request to API
+				await makePostRequest(log, '/migration/nsip-exam-timetable', [examTimetable]);
 
 				log.info(`Successfully migrated Exam Timetable for case ${caseReference}`);
 			} else {
@@ -36,8 +37,11 @@ export const migrateExamTimetables = async (log, caseReferences) => {
 /**
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ *
+ * @returns {Promise<import('pins-data-model').Schemas.ExaminationTimetable | null>} timetable
  */
 const getExamTimetable = async (log, caseReference) => {
+	/** @type {ExamTimetableItemRow[]}} */
 	const timetableItems = await SynapseDB.query(
 		'SELECT * FROM [odw_curated_db].[dbo].[examination_timetable] WHERE caseReference = ?;',
 		{
@@ -46,9 +50,61 @@ const getExamTimetable = async (log, caseReference) => {
 		}
 	);
 
+	if (!timetableItems.length) {
+		return null;
+	}
+
 	log.info(`Retrieved Timetable Items ${JSON.stringify(timetableItems)}`);
 
-	// TODO: Flatten into ExaminationTimetable entity
+	return mapTimetableFromItems(caseReference, timetableItems);
+};
 
-	return {};
+/**
+ * @typedef {Object} ExamTimetableItemRow
+ * @property {number} eventID
+ * @property {'Accompanied Site Inspection' | 'Compulsory Acquisition Hearing' | 'Deadline' | 'Deadline For Close Of Examination' | 'Issued By' | 'Issue Specific Hearing' | 'Open Floor Hearing' | 'Other Meeting' | 'Preliminary Meeting' | 'Procedural Deadline (Pre-Examination)' | 'Procedural Decision' | 'Publication Of'} eventType
+ * @property {string} eventTitle
+ * @property {string} eventDeadlineStartDate
+ * @property {string} eventDate
+ * @property {string} eventLineItemDescription
+ */
+
+/**
+ *
+ * @param {string} caseReference
+ * @param {ExamTimetableItemRow[]} timetableItems
+ * @returns {import('pins-data-model').Schemas.ExaminationTimetable} timetable
+ */
+const mapTimetableFromItems = (caseReference, timetableItems) => {
+	/** @type {import('pins-data-model').Schemas.ExaminationTimetable} */
+	const timetable = {
+		caseReference,
+		events: []
+	};
+
+	return timetableItems.reduce(
+		(
+			timetable,
+			{
+				eventID,
+				eventType,
+				eventTitle,
+				eventDate,
+				eventDeadlineStartDate,
+				eventLineItemDescription
+			}
+		) => {
+			timetable.events.push({
+				eventId: eventID,
+				type: eventType,
+				eventTitle,
+				description: eventLineItemDescription,
+				date: eventDate,
+				eventDeadlineStartDate
+			});
+
+			return timetable;
+		},
+		timetable
+	);
 };
