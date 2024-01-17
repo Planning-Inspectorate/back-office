@@ -2876,7 +2876,7 @@ export const spec = {
 							type: 'number',
 							example: 1_646_822_600
 						},
-						notificationDateForEventsDeveloper: {
+						notificationDateForEventsApplicant: {
 							type: 'number',
 							description: 'Unix timestamp date',
 							example: 1_646_822_600

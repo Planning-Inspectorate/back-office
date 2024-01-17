@@ -40,7 +40,7 @@ const fixtureKeyDates = {
 		rule6LetterPublishDate: randomDateOrNull(),
 		preliminaryMeetingStartDate: randomDateOrNull(),
 		notificationDateForPMAndEventsDirectlyFollowingPM: randomDateOrNull(),
-		notificationDateForEventsDeveloper: randomDateOrNull()
+		notificationDateForEventsApplicant: randomDateOrNull()
 	},
 	examination: {
 		dateSection58NoticeReceived: randomDateOrNull(),
