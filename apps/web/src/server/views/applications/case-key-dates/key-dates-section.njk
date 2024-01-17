@@ -53,13 +53,16 @@
 				}) }}
 				</div>
 			{% else %}
-
+				{% set datesHint = (key+'_label')|keyDatesProperty %}
+				{% set datesAdvisory = (key+'_advisory')|keyDatesProperty|bold %}
 				{{ dateInput({
 					layout: {
 						fieldName: key,
 						label: key|keyDatesProperty,
 						classes: 'govuk-grid-column-one-third',
-						hint: (key+'_label')|keyDatesProperty
+						hint: {
+							html: (datesHint + ' ' + datesAdvisory) | trim
+						}
 					},
 					errors: errors,
 					values: sectionValues

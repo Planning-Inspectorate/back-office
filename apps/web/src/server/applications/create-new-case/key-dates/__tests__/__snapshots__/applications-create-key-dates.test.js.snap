@@ -7,10 +7,10 @@ exports[`Applications create key dates GET /key-dates should render the page 1`]
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.preApplication.submissionAtPublished\\">Anticipated submission date published (optional)</label>
             <div id=\\"keyDates.preApplication.submissionAtPublished-hint\\"
-            class=\\"govuk-hint\\">for example, Q4 2023</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"keyDates.preApplication.submissionAtPublished\\" name=\\"keyDates.preApplication.submissionAtPublished\\"
-            type=\\"text\\" aria-describedby=\\"keyDates.preApplication.submissionAtPublished-hint\\">
+            class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.
+                For example, ‘between April and June 2024&#39; or &#39;in September 2025’.</div>
+            <input             class=\\"govuk-input govuk-!-width-one-third\\" id=\\"keyDates.preApplication.submissionAtPublished\\"
+            name=\\"keyDates.preApplication.submissionAtPublished\\" type=\\"text\\" aria-describedby=\\"keyDates.preApplication.submissionAtPublished-hint\\">
         </div>
         <div class=\\"govuk-form-group \\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtInternal\\">Anticipated submission date internal (optional)</label>
@@ -67,10 +67,10 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.preApplication.submissionAtPublished\\">Anticipated submission date published (optional)</label>
             <div id=\\"keyDates.preApplication.submissionAtPublished-hint\\"
-            class=\\"govuk-hint\\">for example, Q4 2023</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"keyDates.preApplication.submissionAtPublished\\" name=\\"keyDates.preApplication.submissionAtPublished\\"
-            type=\\"text\\" aria-describedby=\\"keyDates.preApplication.submissionAtPublished-hint\\">
+            class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.
+                For example, ‘between April and June 2024&#39; or &#39;in September 2025’.</div>
+            <input             class=\\"govuk-input govuk-!-width-one-third\\" id=\\"keyDates.preApplication.submissionAtPublished\\"
+            name=\\"keyDates.preApplication.submissionAtPublished\\" type=\\"text\\" aria-describedby=\\"keyDates.preApplication.submissionAtPublished-hint\\">
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtInternal\\">Anticipated submission date internal (optional)</label>
@@ -141,10 +141,10 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.preApplication.submissionAtPublished\\">Anticipated submission date published (optional)</label>
             <div id=\\"keyDates.preApplication.submissionAtPublished-hint\\"
-            class=\\"govuk-hint\\">for example, Q4 2023</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"keyDates.preApplication.submissionAtPublished\\" name=\\"keyDates.preApplication.submissionAtPublished\\"
-            type=\\"text\\" aria-describedby=\\"keyDates.preApplication.submissionAtPublished-hint\\">
+            class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.
+                For example, ‘between April and June 2024&#39; or &#39;in September 2025’.</div>
+            <input             class=\\"govuk-input govuk-!-width-one-third\\" id=\\"keyDates.preApplication.submissionAtPublished\\"
+            name=\\"keyDates.preApplication.submissionAtPublished\\" type=\\"text\\" aria-describedby=\\"keyDates.preApplication.submissionAtPublished-hint\\">
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtInternal\\">Anticipated submission date internal (optional)</label>

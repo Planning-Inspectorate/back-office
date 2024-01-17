@@ -7,8 +7,7 @@ const propertyToName = {
 	dateProjectAppearsOnWebsite: 'Project published on website',
 	dateProjectAppearsOnWebsite_label: 'Applicant notifies the Planning Inspectorate of a project.',
 	submissionAtPublished: 'Anticipated submission date published',
-	submissionAtPublished_label:
-		'Date the Planning Inspectorate expects the application to be submitted e.g. Q4 2023.',
+	submissionAtPublished_label: `Date the Planning Inspectorate expects the application to be submitted. For example, ‘between April and June 2024' or 'in September 2025’`,
 	submissionAtInternal: 'Anticipated submission date internal',
 	submissionAtInternal_label:
 		'Date the Planning Inspectorate expects the application to be submitted.',
@@ -27,11 +26,13 @@ const propertyToName = {
 	acceptance: 'Acceptance',
 	dateOfDCOSubmission: 'Application submitted (Section 55)',
 	dateOfDCOSubmission_label: 'Date the application is submitted.',
+	dateOfDCOSubmission_advisory: 'Recording this date may require you to change the case stage.',
 	deadlineForAcceptanceDecision: 'Deadline for Acceptance decision',
 	deadlineForAcceptanceDecision_label:
 		'Deadline for Acceptance decision by the Planning Inspectorate.',
 	dateOfDCOAcceptance: 'Date of Acceptance  (Section 55)',
 	dateOfDCOAcceptance_label: 'Date of decision to accept.',
+	dateOfDCOAcceptance_advisory: 'Recording this date may require you to change the case stage.',
 	dateOfNonAcceptance: 'Date of Non-Acceptance',
 	dateOfNonAcceptance_label: 'Date of decision not to accept.',
 
@@ -56,7 +57,7 @@ const propertyToName = {
 		'Notification date for PM and any events directly following the PM',
 	notificationDateForPMAndEventsDirectlyFollowingPM_label:
 		'28 days before PM. Rule 6 - 21 days + 7 days to allow for post.',
-	notificationDateForEventsDeveloper: 'Notification date for events - Developer',
+	notificationDateForEventsDeveloper: 'Notification date for events - Applicant',
 	notificationDateForEventsDeveloper_label: '21 days before the event - Rule 13.',
 
 	examination: 'Examination',
@@ -64,12 +65,15 @@ const propertyToName = {
 	dateSection58NoticeReceived_label: 'Date s58 notice is received.',
 	confirmedStartOfExamination: 'Examination start date',
 	confirmedStartOfExamination_label: 'Start of examination.',
+	confirmedStartOfExamination_advisory:
+		'Recording this date may require you to change the case stage.',
 	rule8LetterPublishDate: 'Rule 8 letter publication date',
 	rule8LetterPublishDate_label: 'Date when Rule 8 letter is published.',
 	deadlineForCloseOfExamination: 'Deadline for close of Examination',
 	deadlineForCloseOfExamination_label: 'Deadline for the close of the examination.',
 	dateTimeExaminationEnds: 'Examination closing date',
 	dateTimeExaminationEnds_label: 'Date that the examination closes.',
+	dateTimeExaminationEnds_advisory: 'Recording this date may require you to change the case stage.',
 	stage4ExtensionToExamCloseDate: 'Extension to close of Examination',
 	stage4ExtensionToExamCloseDate_label: 'Date examination will close, if it has been extended.',
 
@@ -79,6 +83,7 @@ const propertyToName = {
 		'Deadline for submission of Recommendation report to the Secretary of State (SoS).',
 	dateOfRecommendations: 'Date of Recommendation submitted to SoS',
 	dateOfRecommendations_label: 'Date Recommendation report submitted to SoS.',
+	dateOfRecommendations_advisory: 'Recording this date may require you to change the case stage.',
 	stage5ExtensionToRecommendationDeadline: 'Extension to Recommendation deadline',
 	stage5ExtensionToRecommendationDeadline_label:
 		'Date for submission of Recommendation report, if this stage is extended.',
@@ -88,6 +93,7 @@ const propertyToName = {
 	deadlineForDecision_label: 'Date of the deadline for a decision by the SoS.',
 	confirmedDateOfDecision: 'Date of Decision',
 	confirmedDateOfDecision_label: 'Date the decision is made by SoS.',
+	confirmedDateOfDecision_advisory: 'Recording this date may require you to change the case stage.',
 	stage5ExtensionToDecisionDeadline: 'Extension to Decision deadline',
 	stage5ExtensionToDecisionDeadline_label:
 		'Date of the deadline for a decision by the SoS, if extended.',
@@ -108,5 +114,8 @@ const propertyToName = {
  * @returns {string}
  */
 export const keyDatesProperty = (property) => {
-	return propertyToName[property] ? propertyToName[property] : property;
+	if (property.endsWith('_advisory')) {
+		return propertyToName[property] ? propertyToName[property] : '';
+	}
+	return propertyToName[property] ? propertyToName[property] : 'property';
 };
