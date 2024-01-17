@@ -126,6 +126,20 @@ export async function unPublish(id) {
 }
 
 /**
+ * called after an update, to send an broadcast an update event to the service bus
+ *
+ * @param { Number } id	// exam timetable parent id
+ * @returns {Promise<void>}
+ */
+export async function sendUpdateEvent(id) {
+	const examTimetablePayload = await buildExamTimetableItemsPayload(id);
+
+	if (examTimetablePayload) {
+		await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, [examTimetablePayload], EventType.Update);
+	}
+}
+
+/**
  *
  * @param {import('@pins/applications.api').Schema.ExaminationTimetableItem} examinationTimetableItem
  * @param {Number} parentFolderId
