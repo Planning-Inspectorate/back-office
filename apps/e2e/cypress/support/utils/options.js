@@ -59,9 +59,6 @@ export const ZOOM_LEVELS = [
 	'County',
 	'Borough',
 	'District',
-	'City',
-	'Town',
-	'Junction',
 	'None'
 ];
 
