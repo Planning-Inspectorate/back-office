@@ -1,5 +1,5 @@
 {
-    "name": "@pins/function-background-jobs",
+    "name": "@pins/functions-applications-background-jobs",
     "version": "0.0.0",
     "private": true,
     "engines": {

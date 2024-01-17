@@ -1,5 +1,5 @@
 {
-  "name": "@pins/functions-command-handlers",
+  "name": "@pins/functions-applications-command-handlers",
   "version": "1.0.0",
   "description": "Azure Function App for Command Handlers.",
   "scripts": {
