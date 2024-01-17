@@ -32,7 +32,17 @@ const examinationTimetableItem = {
 const examinationTimetableData = {
 	id: 1,
 	caseId: 1,
-	published: true
+	published: true,
+	case: {
+		id: 1,
+		reference: 'REF-ID-1',
+		modifiedAt: '2024-01-16T16:44:24.930Z',
+		createdAt: '2024-01-16T16:44:26.710Z',
+		description: 'case description',
+		title: 'Office Use Test Application 1',
+		hasUnpublishedChanges: false,
+		applicantId: 1
+	}
 };
 
 const examinationTimetableItemDeadline = {
@@ -74,6 +84,7 @@ const examinationTimetableItemDeadlineUpdateBody = {
 const examinationTimetableItemDeadlineUpdateResponse = {
 	id: 1,
 	caseId: 1,
+	examinationTimetableId: 1,
 	examinationTypeId: 3,
 	name: 'Examination Timetable Item updated',
 	description:
@@ -542,6 +553,17 @@ describe('Test examination timetable items API', () => {
 				displayOrder: 300
 			}
 		];
+		const expectedFullTimetable = {
+			...examinationTimetableData,
+			ExaminationTimetableItem: [
+				{
+					...examinationTimetableItemDeadlineUpdateResponse,
+					date: new Date('2023-03-28T10:00:00Z'),
+					startDate: new Date('2023-03-27T10:00:00Z')
+				}
+			]
+		};
+
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
 		databaseConnector.folder.findUnique.mockResolvedValue(ExaminationFolder);
 		databaseConnector.folder.findMany.mockResolvedValue(deadlineSubFolders);
@@ -552,13 +574,38 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.examinationTimetableItem.update.mockResolvedValue(
 			examinationTimetableItemDeadlineUpdateResponse
 		);
+		databaseConnector.examinationTimetableItem.findMany.mockResolvedValueOnce(null);
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(expectedFullTimetable);
+
 		const resp = await request
 			.patch('/applications/examination-timetable-items/1')
 			.send(examinationTimetableItemDeadlineUpdateBody);
+
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual(examinationTimetableItemDeadlineUpdateResponse);
 		expect(databaseConnector.folder.deleteMany).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.examinationTimetableItem.update).toHaveBeenCalledTimes(1);
+
+		const expectedUpdateExaminationTimetablePayload = {
+			caseReference: 'REF-ID-1',
+			events: [
+				{
+					type: 'Deadline',
+					date: '2023-03-28T10:00:00.000',
+					description: 'deadline category updated',
+					eventTitle: 'Examination Timetable Item updated',
+					eventDeadlineStartDate: '2023-03-27T10:00:00.000',
+					eventId: 1,
+					eventLineItems: [{ description: 'pointone updated' }, { description: 'pointtwo updated' }]
+				}
+			]
+		};
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			NSIP_EXAM_TIMETABLE,
+			[expectedUpdateExaminationTimetablePayload],
+			EventType.Update
+		);
 	});
 
 	test('update examination timetable item throws 400 error on invalid exam type', async () => {
