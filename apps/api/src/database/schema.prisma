@@ -126,7 +126,7 @@ model ApplicationDetails {
   rule6LetterPublishDate                            DateTime?
   preliminaryMeetingStartDate                       DateTime?
   notificationDateForPMAndEventsDirectlyFollowingPM DateTime?
-  notificationDateForEventsDeveloper                DateTime?
+  notificationDateForEventsApplicant                DateTime?
   dateSection58NoticeReceived                       DateTime?
   confirmedStartOfExamination                       DateTime?
   rule8LetterPublishDate                            DateTime?
