@@ -52,7 +52,7 @@ const copyFile = async (source, destination) => {
 
 		return result === 'success';
 	} catch (err) {
-    throw new Error(`copyFile failed for source ${source} and destination ${destination}: ${err}`);
+		throw new Error(`copyFile failed for source ${source} and destination ${destination}: ${err}`);
 	}
 };
 

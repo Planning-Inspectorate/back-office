@@ -49,7 +49,7 @@ export default async function (context, msg) {
 		originalRepresentation: msg.originalRepresentation,
 		represented: mapContactDetails(msg.represented),
 		representative: mapContactDetails(msg.representative),
-    representedType: isEmpty(msg.representative) ? msg.representationFrom : 'AGENT',
+		representedType: isEmpty(msg.representative) ? msg.representationFrom : 'AGENT',
 		received: msg.dateReceived || new Date()
 	};
 
