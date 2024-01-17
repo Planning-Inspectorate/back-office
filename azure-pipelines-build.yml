@@ -7,40 +7,16 @@ parameters:
     displayName: Build Web
     type: boolean
     default: true
-  - name: buildDocumentCheckFunction
-    displayName: Build Document Check Function
-    type: boolean
-    default: true
-  - name: buildMalwareDetectedFunction
-    displayName: Build Malware Detected Function
-    type: boolean
-    default: true
-  - name: buildODWIntegrationFunctions
-    displayName: Build ODW Integration Functions
-    type: boolean
-    default: true
-  - name: buildDocumentPublishFunctions
-    displayName: Build Document Publish Functions
-    type: boolean
-    default: true
-  - name: buildFunctionHandleSubscriptions
-    displayName: Build Function - Handle Subscriptions
-    type: boolean
-    default: true
-  - name: buildDeadlineSubmissionsFunction
-    displayName: Build Function - Deadline Submissions
-    type: boolean
-    default: true
-  - name: buildRegisterRepresentationFunction
-    displayName: Build Function - Register Representation
-    type: boolean
-    default: true
-  - name: buildFunctionNotifySubscribers
-    displayName: Build Function - Notify Subscribers
-    type: boolean
-    default: true
   - name: buildFunctionApplicationsMigration
     displayName: Build Function - Applications Migration
+    type: boolean
+    default: true
+  - name: buildFunctionApplicationsBackgroundJobs
+    displayName: Build Function - Applications Background Jobs
+    type: boolean
+    default: true
+  - name: buildFunctionApplicationsCommandHandlers
+    displayName: Build Function - Applications Command Handlers
     type: boolean
     default: true
   - name: buildFunctionAppealsCasedataImport
@@ -115,22 +91,12 @@ extends:
                   path: appeals/api
                 - name: appeals-web
                   path: appeals/web
-                - name: function-document-check
-                  path: apps/functions/document-check
-                - name: function-malware-detected
-                  path: apps/functions/malware-detected
-                - name: function-odw-integration
-                  path: apps/functions/odw-integration
-                - name: function-document-publish
-                  path: apps/functions/document-publish
-                - name: function-handle-subscriptions
-                  path: apps/functions/handle-subscriptions
-                - name: function-deadline-submissions
-                  path: apps/functions/deadline-submissions
-                - name: function-notify-subscribers
-                  path: apps/functions/notify-subscribers
                 - name: function-applications-migration
                   path: apps/functions/applications-migration
+                - name: function-applications-background-jobs
+                  path: apps/functions/applications-background-jobs
+                - name: function-applications-command-handlers
+                  path: apps/functions/applications-command-handlers
                 - name: function-appeals-casedata-import
                   path: appeals/functions/casedata-import
                 - name: function-appeals-user-import
@@ -165,110 +131,7 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/apps/api/Dockerfile
               repository: back-office/back-office-api
-      - name: Build Document Check Function
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildDocumentCheckFunction }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-document-check'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              workspaceName: 'function-document-check'
-              folderName: 'document-check'
-      - name: Build Function - ODW Integration
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildODWIntegrationFunctions }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-odw-integration'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              workspaceName: 'function-odw-integration'
-              folderName: 'odw-integration'
-      - name: Build Function - Handle Subscriptions
-        condition: >-
-            and(
-              succeeded(),
-              or(
-                and(
-                  eq(variables['Build.Reason'], 'Manual'),
-                  eq(${{ parameters.buildFunctionHandleSubscriptions }}, 'true')
-                ),
-                and(
-                  ne(variables['Build.Reason'], 'Manual'),
-                  or(
-                    eq(variables['Build.SourceBranchName'], 'main'),
-                    eq(dependencies.run_linting_and_tests.outputs['check_files.function-handle-subscriptions'], 'true')
-                  )
-                )
-              )
-            )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              workspaceName: 'functions-handle-subscriptions'
-              folderName: 'handle-subscriptions'
-      - name: Build Function - Notify Subscribers
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildFunctionNotifySubscribers }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-notify-subscribers'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              workspaceName: 'applications.functions-notify-subscribers'
-              folderName: 'notify-subscribers'
+
       - name: Build Function - Applications Migration
         condition: >-
           and(
@@ -295,20 +158,20 @@ extends:
               root: 'apps'
               workspaceName: 'functions-applications-migration'
               folderName: 'applications-migration'
-      - name: Build Function - Deadline Submissions
+      - name: Build Function - Applications Background Jobs
         condition: >-
           and(
             succeeded(),
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildDeadlineSubmissionsFunction }}, 'true')
+                eq(${{ parameters.buildFunctionApplicationsBackgroundJobs }}, 'true')
               ),
               and(
                 ne(variables['Build.Reason'], 'Manual'),
                 or(
                   eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-deadline-submissions'], 'true')
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-applications-background-jobs'], 'true')
                 )
               )
             )
@@ -319,22 +182,22 @@ extends:
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'apps'
-              workspaceName: 'functions-deadline-submissions'
-              folderName: 'deadline-submissions'
-      - name: Build Function - Register Representation
+              workspaceName: 'functions-applications-background-jobs'
+              folderName: 'applications-background-jobs'
+      - name: Build Function - Applications Command Handlers
         condition: >-
           and(
             succeeded(),
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildRegisterRepresentationFunction }}, 'true')
+                eq(${{ parameters.buildFunctionApplicationsCommandHandlers }}, 'true')
               ),
               and(
                 ne(variables['Build.Reason'], 'Manual'),
                 or(
                   eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-register-representation'], 'true')
+                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-applications-command-handlers'], 'true')
                 )
               )
             )
@@ -345,60 +208,8 @@ extends:
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'apps'
-              workspaceName: 'functions-register-representation'
-              folderName: 'register-representation'
-      - name: Build Document Publish Functions
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildDocumentPublishFunctions }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-document-publish'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              workspaceName: 'function-document-publish'
-              folderName: 'document-publish'
-      - name: Build Malware Detected Functions
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildMalwareDetectedFunction }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-malware-detected'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              workspaceName: 'function-malware-detected'
-              folderName: 'malware-detected'
+              workspaceName: 'functions-applications-command-handlers'
+              folderName: 'applications-command-handlers'
       - name: Build Web
         condition: >-
           and(
