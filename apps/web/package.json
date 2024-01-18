@@ -19,7 +19,7 @@
     "rollup": "node ./scripts/rollup/bundle-js.js",
     "sass": "node ./scripts/rollup/compile-css.js",
     "start": "node ./src/server/server.js",
-    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=8192\" npx jest",
     "test:cov": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --coverage",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0",
     "watch:rollup": "chokidar \"src/client/**/*.js\" --silent -c \"npm run rollup\"",
