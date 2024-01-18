@@ -35,7 +35,7 @@ export function setReviewOutcomeForLpaQuestionnaire(
 /**
  *
  * @param {import('got').Got} apiClient
- * @returns {Promise<import('../appeal-details.types.js').NotValidReasonOption[]>}
+ * @returns {Promise<import('@pins/appeals.api').Appeals.NotValidReasonOption[]>}
  */
 export async function getLPAQuestionnaireIncompleteReasonOptions(apiClient) {
 	return apiClient.get(`appeals/lpa-questionnaire-incomplete-reasons`).json();

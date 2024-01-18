@@ -7,8 +7,8 @@ import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 /**
  * @typedef {import('@pins/appeals.api').Schema.Folder} Folder
  * @typedef {import('@pins/appeals.api').Schema.Document} Document
- * @typedef {import('#appeals/appeals.types.js').DocumentInfo} DocumentInfo
- * @typedef {import('#appeals/appeals.types.js').FolderInfo} FolderInfo
+ * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
+ * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  */
 
 /**
