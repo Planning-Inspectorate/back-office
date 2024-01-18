@@ -4,7 +4,8 @@ import {
 	SingleAppealDetailsResponse,
 	AppealTimetable,
 	DocumentationSummaryEntry,
-	DocumentationSummary
+	DocumentationSummary,
+	FolderInfo
 } from '@pins/appeals.api/src/server/endpoints/appeals';
 import { SiteVisit } from '@pins/appeals.api/src/database/schema';
 
@@ -370,17 +371,6 @@ export interface SingleLPAQuestionnaireResponse {
 	siteWithinGreenBelt?: boolean | null;
 	statutoryConsulteesDetails?: string;
 	validation: LPAQuestionnaireValidationOutcomeResponse | null;
-}
-
-export interface NotValidReasonOption {
-	id: number;
-	name: string;
-	hasText: boolean;
-}
-
-export interface NotValidReasonResponse {
-	name: NotValidReasonOption;
-	text?: string[];
 }
 
 export type BodyValidationOutcome = Object<string, string | string[]>;

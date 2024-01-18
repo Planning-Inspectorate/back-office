@@ -399,7 +399,7 @@ export const postDeleteDocument = async (request, response) => {
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  * @param {import('../appeal-details.types.js').WebAppeal} appealDetails
- * @returns {Promise<void|import('./appellant-case.types.js').SingleAppellantCaseResponse>}
+ * @returns {Promise<void|import('@pins/appeals.api').Appeals.SingleAppellantCaseResponse>}
  */
 async function getAppellantCaseDetails(request, response, appealDetails) {
 	if (appealDetails.appellantCaseId === null || appealDetails.appellantCaseId === undefined) {

@@ -3,13 +3,14 @@ import { appealSiteToAddressString } from '#lib/address-formatter.js';
 import * as displayPageFormatter from '#lib/display-page-formatter.js';
 import { nameToString } from '#lib/person-name-formatter.js';
 import { mapAddressInput } from './global-mapper-formatter.js';
+import { isFolderInfo } from '#lib/ts-utilities.js';
 
 /**
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  */
 
 /**
- * @param {import('#appeals/appeal-details/appellant-case/appellant-case.types.js').SingleAppellantCaseResponse} appellantCaseData
+ * @param {import('@pins/appeals.api').Appeals.SingleAppellantCaseResponse} appellantCaseData
  * @param {string} currentRoute
  * @returns {MappedInstructions}
  */
@@ -568,18 +569,26 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					appellantCaseData.appealId,
-					appellantCaseData.documents.applicationForm.documents
+					isFolderInfo(appellantCaseData.documents.applicationForm)
+						? appellantCaseData.documents.applicationForm.documents
+						: []
 				),
 				actions: {
 					items: [
-						...((appellantCaseData.documents.applicationForm.documents || []).length
+						...((
+							(isFolderInfo(appellantCaseData.documents.applicationForm) &&
+								appellantCaseData.documents.applicationForm.documents) ||
+							[]
+						).length
 							? [
 									{
 										text: 'Manage',
 										visuallyHiddenText: 'Application form',
 										href: mapDocumentManageUrl(
 											appellantCaseData.appealId,
-											appellantCaseData.documents.applicationForm
+											isFolderInfo(appellantCaseData.documents.applicationForm)
+												? appellantCaseData.documents.applicationForm.folderId
+												: undefined
 										)
 									}
 							  ]
@@ -609,18 +618,25 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					appellantCaseData.appealId,
-					appellantCaseData.documents.decisionLetter.documents
+					isFolderInfo(appellantCaseData.documents.decisionLetter)
+						? appellantCaseData.documents.decisionLetter.documents
+						: []
 				),
 				actions: {
 					items: [
-						...((appellantCaseData.documents.decisionLetter.documents || []).length
+						...((isFolderInfo(appellantCaseData.documents.decisionLetter)
+							? appellantCaseData.documents.decisionLetter.documents
+							: []
+						).length
 							? [
 									{
 										text: 'Manage',
 										visuallyHiddenText: 'Decision letter',
 										href: mapDocumentManageUrl(
 											appellantCaseData.appealId,
-											appellantCaseData.documents.decisionLetter
+											isFolderInfo(appellantCaseData.documents.decisionLetter)
+												? appellantCaseData.documents.decisionLetter.folderId
+												: undefined
 										)
 									}
 							  ]
@@ -650,18 +666,25 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					appellantCaseData.appealId,
-					appellantCaseData.documents.appealStatement.documents
+					isFolderInfo(appellantCaseData.documents.appealStatement)
+						? appellantCaseData.documents.appealStatement.documents
+						: []
 				),
 				actions: {
 					items: [
-						...((appellantCaseData.documents.appealStatement.documents || []).length
+						...((isFolderInfo(appellantCaseData.documents.appealStatement)
+							? appellantCaseData.documents.appealStatement.documents
+							: []
+						).length
 							? [
 									{
 										text: 'Manage',
 										visuallyHiddenText: 'Appeal statement',
 										href: mapDocumentManageUrl(
 											appellantCaseData.appealId,
-											appellantCaseData.documents.appealStatement
+											isFolderInfo(appellantCaseData.documents.appealStatement)
+												? appellantCaseData.documents.appealStatement.folderId
+												: undefined
 										)
 									}
 							  ]
@@ -692,7 +715,10 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				value: {
 					text:
 						convertFromBooleanToYesNo(
-							appellantCaseData.documents.newSupportingDocuments.documents?.length > 0
+							(isFolderInfo(appellantCaseData.documents.newSupportingDocuments)
+								? appellantCaseData.documents.newSupportingDocuments.documents
+								: []
+							)?.length > 0
 						) || ''
 				},
 				actions: {
@@ -717,12 +743,17 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 							{
 								text: 'Yes',
 								value: 'yes',
-								checked: appellantCaseData.documents.newSupportingDocuments.documents?.length > 0
+								checked:
+									isFolderInfo(appellantCaseData.documents.newSupportingDocuments) &&
+									appellantCaseData.documents.newSupportingDocuments.documents?.length > 0
 							},
 							{
 								text: 'No',
 								value: 'no',
-								checked: !(appellantCaseData.documents.newSupportingDocuments.documents?.length > 0)
+								checked: !(
+									isFolderInfo(appellantCaseData.documents.newSupportingDocuments) &&
+									appellantCaseData.documents.newSupportingDocuments.documents?.length > 0
+								)
 							}
 						]
 					}
@@ -743,18 +774,25 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					appellantCaseData.appealId,
-					appellantCaseData.documents.newSupportingDocuments.documents
+					isFolderInfo(appellantCaseData.documents.newSupportingDocuments)
+						? appellantCaseData.documents.newSupportingDocuments.documents
+						: []
 				),
 				actions: {
 					items: [
-						...((appellantCaseData.documents.newSupportingDocuments.documents || []).length
+						...((isFolderInfo(appellantCaseData.documents.newSupportingDocuments)
+							? appellantCaseData.documents.newSupportingDocuments.documents
+							: []
+						).length
 							? [
 									{
 										text: 'Manage',
 										visuallyHiddenText: 'New supporting documents',
 										href: mapDocumentManageUrl(
 											appellantCaseData.appealId,
-											appellantCaseData.documents.newSupportingDocuments
+											isFolderInfo(appellantCaseData.documents.newSupportingDocuments)
+												? appellantCaseData.documents.newSupportingDocuments.folderId
+												: undefined
 										)
 									}
 							  ]
@@ -778,24 +816,28 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 	mappedData.additionalDocuments = {
 		id: 'additional-documents',
 		display: {
-			...((appellantCaseData.documents.additionalDocuments.documents || []).length > 0
+			...((isFolderInfo(appellantCaseData.documents.additionalDocuments)
+				? appellantCaseData.documents.additionalDocuments.documents
+				: []
+			).length > 0
 				? {
-						summaryListItems: (appellantCaseData.documents.additionalDocuments.documents || []).map(
-							(document) => ({
-								key: {
-									text: 'Additional documents',
-									classes: 'govuk-visually-hidden'
-								},
-								value: displayPageFormatter.formatDocumentValues(
-									appellantCaseData.appealId,
-									[document],
-									document.isLateEntry
-								),
-								actions: {
-									items: []
-								}
-							})
-						)
+						summaryListItems: (isFolderInfo(appellantCaseData.documents.additionalDocuments)
+							? appellantCaseData.documents.additionalDocuments.documents
+							: []
+						).map((document) => ({
+							key: {
+								text: 'Additional documents',
+								classes: 'govuk-visually-hidden'
+							},
+							value: displayPageFormatter.formatDocumentValues(
+								appellantCaseData.appealId,
+								[document],
+								document.isLateEntry
+							),
+							actions: {
+								items: []
+							}
+						}))
 				  }
 				: {
 						summaryListItems: [
@@ -878,9 +920,12 @@ export const documentUploadUrlTemplate =
 /**
  *
  * @param {Number} caseId
- * @param {FolderInfo} folder
+ * @param {number|undefined} folderId
  * @returns {string}
  */
-export const mapDocumentManageUrl = (caseId, folder) => {
-	return `/appeals-service/appeal-details/${caseId}/appellant-case/manage-documents/${folder.folderId}/`;
+export const mapDocumentManageUrl = (caseId, folderId) => {
+	if (folderId === undefined) {
+		return '';
+	}
+	return `/appeals-service/appeal-details/${caseId}/appellant-case/manage-documents/${folderId}/`;
 };

@@ -1,6 +1,6 @@
 import logger from '#lib/logger.js';
 
-/** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
+/** @typedef {import('@pins/appeals.api').Appeals.SingleFolderResponse} SingleFolderResponse */
 /** @typedef {import('@pins/appeals.api').Schema.Document} Document */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentRedactionStatus} DocumentRedactionStatus */
 
@@ -8,7 +8,7 @@ import logger from '#lib/logger.js';
  * @param {import('got').Got} apiClient
  * @param {string} appealId
  * @param {string} folderId
- * @returns {Promise<Folder|undefined>}
+ * @returns {Promise<SingleFolderResponse|undefined>}
  */
 export const getFolder = async (apiClient, appealId, folderId) => {
 	try {
