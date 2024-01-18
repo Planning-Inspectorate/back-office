@@ -1,11 +1,9 @@
 import { SynapseDB } from '../../common/synapse-db.js';
 import { makePostRequest } from '../../common/back-office-api-client.js';
+import { removeNullValues } from "../../common/utils.js";
 
-const serviceUserQuery = `
-	SELECT *
-	FROM [odw_curated_db].[dbo].[nsip_service_user]
-	WHERE caseReference = ?
-`;
+const serviceUserQuery =
+	'SELECT * FROM [odw_curated_db].[dbo].[nsip_service_user] WHERE caseReference = ?';
 
 /**
  * Handle an HTTP trigger/request to run the migration
@@ -20,6 +18,8 @@ export const migrateServiceUsers = async (log, caseReferences) => {
 		const [serviceUsers, count] = await SynapseDB.query(serviceUserQuery, {
 			replacements: [caseReference]
 		});
+
+		removeNullValues(serviceUsers);
 
 		log.info(`found ${count} Service Users: ${JSON.stringify(serviceUsers.map((u) => u.id))}`);
 

@@ -1,6 +1,7 @@
 import { SynapseDB } from '../../common/synapse-db.js';
 import { QueryTypes } from 'sequelize';
 import { makePostRequest } from '../../common/back-office-api-client.js';
+import { removeNullValues } from "../../common/utils.js";
 
 /**
 /**
@@ -56,15 +57,4 @@ const getNsipProjects = async (log, caseReference) => {
 	});
 
 	return projects;
-};
-
-/**
- * @param {any} obj
- */
-const removeNullValues = (obj) => {
-	Object.keys(obj).forEach((key) => {
-		if (obj[key] === null) {
-			delete obj[key];
-		}
-	});
 };
