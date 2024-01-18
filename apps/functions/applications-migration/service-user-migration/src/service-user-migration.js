@@ -1,5 +1,5 @@
 import { SynapseDB } from '../../common/synapse-db.js';
-import { makePostRequest } from "../../common/back-office-api-client.js";
+import { makePostRequest } from '../../common/back-office-api-client.js';
 
 const serviceUserQuery = `
 	SELECT *
@@ -17,13 +17,11 @@ export const migrateServiceUsers = async (log, caseReferences) => {
 	for (const caseReference of caseReferences) {
 		log.info(`reading Service Users with caseReference ${caseReference}`);
 
-		const serviceUsers = await SynapseDB.query(serviceUserQuery, {
+		const [serviceUsers, count] = await SynapseDB.query(serviceUserQuery, {
 			replacements: [caseReference]
 		});
 
-		log.info(
-			`found ${serviceUsers.length} Service Users: ${JSON.stringify(serviceUsers.map((u) => u.id))}`
-		);
+		log.info(`found ${count} Service Users: ${JSON.stringify(serviceUsers.map((u) => u.id))}`);
 
 		if (serviceUsers.length > 0) {
 			await makePostRequest(log, '/migration/service-user', serviceUsers);
