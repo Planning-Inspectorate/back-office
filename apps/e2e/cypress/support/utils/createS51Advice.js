@@ -15,7 +15,9 @@ export const s51AdviceDetails = () => {
 	const methodOfEnquiry = faker.helpers.arrayElement(methods);
 
 	const year = new Date().getFullYear();
-	const month = new Date().getMonth().toString().padStart(2, '0');
+	var todaydate = new Date();
+    var mon = todaydate.getMonth()+1;
+    var month=mon.toString().padStart(2,'0');
 	const day = new Date().getDay().toString().padStart(2, '0');
 
 	const dateFullFormatted = `${day} ${getShortMonthName(month)} ${year}`;
