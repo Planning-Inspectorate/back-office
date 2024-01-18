@@ -50,7 +50,7 @@ function configureStore(redisConnectionString) {
 			throw new Error('REDIS_CONNECTION_STRING is required in production.');
 		}
 
-		logger.info('Configuring memory story for session storage');
+		logger.info('Configuring memory store for session storage');
 		return new session.MemoryStore();
 	}
 
