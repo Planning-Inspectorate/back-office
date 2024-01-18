@@ -118,7 +118,7 @@ extends:
             steps:
               - template: ../steps/function_app_deploy.yml
                 parameters:
-                  appName: pins-func-back-office-applications-background-job-functions-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appName: pins-func-back-office-apps-background-jobs-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
           - name: Deploy Function - Applications Command Handlers
             artifact:
@@ -128,7 +128,7 @@ extends:
             steps:
               - template: ../steps/function_app_deploy.yml
                 parameters:
-                  appName: pins-func-back-office-applications-command-handler-functions-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appName: pins-func-back-office-apps-command-handlers-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   resourceGroup: $(resourceGroup)
 
     globalVariables:
