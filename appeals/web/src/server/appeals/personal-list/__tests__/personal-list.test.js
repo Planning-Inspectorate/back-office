@@ -48,6 +48,7 @@ describe('mapAppealStatusToActionRequiredHtml', () => {
 			lpaQuestionnaireId,
 			'Complete',
 			'',
+			'',
 			false
 		);
 		expect(result).toEqual(
@@ -61,6 +62,7 @@ describe('mapAppealStatusToActionRequiredHtml', () => {
 			'review_appellant_case',
 			lpaQuestionnaireId,
 			'Incomplete',
+			'',
 			'',
 			false
 		);
@@ -76,6 +78,7 @@ describe('mapAppealStatusToActionRequiredHtml', () => {
 			lpaQuestionnaireId,
 			'Incomplete',
 			'',
+			'',
 			true
 		);
 		expect(result).toEqual('Awaiting appellant update');
@@ -86,6 +89,7 @@ describe('mapAppealStatusToActionRequiredHtml', () => {
 			appealId,
 			'lpa_questionnaire_due',
 			null,
+			'',
 			'',
 			'',
 			false
@@ -100,6 +104,7 @@ describe('mapAppealStatusToActionRequiredHtml', () => {
 			lpaQuestionnaireId,
 			'',
 			'Incomplete',
+			'',
 			false
 		);
 		expect(result).toEqual(
@@ -114,18 +119,48 @@ describe('mapAppealStatusToActionRequiredHtml', () => {
 			lpaQuestionnaireId,
 			'',
 			'Incomplete',
+			'',
 			true
 		);
 		expect(result).toEqual('Awaiting LPA update');
+	});
+
+	it('should return "Review LPA Questionnaire" for lpa_questionnaire_due status with LPA Questionnaire', () => {
+		const result = mapAppealStatusToActionRequiredHtml(
+			appealId,
+			'lpa_questionnaire_due',
+			lpaQuestionnaireId,
+			'',
+			'',
+			'',
+			false
+		);
+		expect(result).toEqual(
+			`<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Review LPA Questionnaire</a>`
+		);
+	});
+
+	it('should return "Review LPA Questionnaire" for lpa_questionnaire_due status with LPA Questionnaire and isInspector true', () => {
+		const result = mapAppealStatusToActionRequiredHtml(
+			appealId,
+			'lpa_questionnaire_due',
+			lpaQuestionnaireId,
+			'',
+			'',
+			'',
+			true
+		);
+		expect(result).toEqual('Review LPA Questionnaire');
 	});
 
 	it('should return "LPA Questionnaire Overdue" for lpa_questionnaire_due status with LPA Questionnaire overdue', () => {
 		const result = mapAppealStatusToActionRequiredHtml(
 			appealId,
 			'lpa_questionnaire_due',
-			lpaQuestionnaireId,
+			null,
 			'',
-			'Complete',
+			'',
+			'2024-01-01',
 			false
 		);
 		expect(result).toEqual('LPA Questionnaire Overdue');
@@ -136,6 +171,7 @@ describe('mapAppealStatusToActionRequiredHtml', () => {
 			appealId,
 			'issue_determination',
 			null,
+			'',
 			'',
 			'',
 			false
@@ -150,6 +186,7 @@ describe('mapAppealStatusToActionRequiredHtml', () => {
 			appealId,
 			'some_other_status',
 			null,
+			'',
 			'',
 			'',
 			false

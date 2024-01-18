@@ -1,21 +1,23 @@
 {
-  "name": "@pins/functions-handle-subscriptions",
+  "name": "@pins/functions-applications-command-handlers",
   "version": "1.0.0",
-  "description": "Azure Function to handle subscription messages",
+  "description": "Azure Function App for Command Handlers.",
   "scripts": {
     "start": "func start",
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
-  "type": "module",
   "dependencies": {
     "@pins/event-client": "^0.0.0",
     "@pins/platform": "^0.0.0",
+    "@pins/blob-storage-client": "*",
     "dotenv": "*",
     "got": "*",
-    "joi": "*"
+    "joi": "*",
+		"lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "cross-env": "*",
     "jest": "*"
-  }
+  },
+  "type": "module"
 }

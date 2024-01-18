@@ -20,7 +20,7 @@ let sessionId = 1;
 /**
  * @param {object} [options]
  * @param {boolean} [options.authenticated]
- * @param {Array<ApplicationsGroupId>} [options.groups]
+ * @param {Array<string>} [options.groups]
  * @returns {TestApplication}
  */
 export const createTestEnvironment = ({

@@ -538,7 +538,7 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Application documents',
 					displayOrder: 400,
-					stage: folderDocumentCaseStageMappings.ACCEPTANCE,
+					stage: folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION,
 					childFolders: {
 						create: [
 							{

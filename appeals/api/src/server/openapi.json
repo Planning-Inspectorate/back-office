@@ -3594,6 +3594,10 @@
 											"type": "string",
 											"example": "Bristol"
 										},
+										"county": {
+											"type": "string",
+											"example": "Bristol"
+										},
 										"postCode": {
 											"type": "string",
 											"example": "BS7 8LQ"
@@ -3615,6 +3619,18 @@
 								"localPlanningDepartment": {
 									"type": "string",
 									"example": "Wiltshire Council"
+								},
+								"appellantCaseStatus": {
+									"type": "string",
+									"example": "Incomplete"
+								},
+								"lpaQuestionnaireStatus": {
+									"type": "string",
+									"example": "Incomplete"
+								},
+								"dueDate": {
+									"type": "string",
+									"example": "2023-02-16T00:00:00.000Z"
 								}
 							}
 						}

@@ -561,9 +561,15 @@ interface UsersToAssign {
 	inspector?: string | null;
 }
 
-interface IncompleteInvalidReasonsResponse {
+interface NotValidReasonOption {
+	id: number;
 	name: string;
-	text: string[];
+	hasText: boolean;
+}
+
+interface IncompleteInvalidReasonsResponse {
+	name: NotValidReasonOption;
+	text?: string[];
 }
 
 interface SingleFolderResponse {
@@ -631,6 +637,7 @@ export {
 	LatestDocumentVersionInfo,
 	DocumentInfo,
 	FolderInfo,
+	NotValidReasonOption,
 	IncompleteInvalidReasons,
 	IncompleteInvalidReasonsResponse,
 	LinkedAppeal,

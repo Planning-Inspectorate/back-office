@@ -2,6 +2,7 @@ import { convertFromBooleanToYesNo } from '../boolean-formatter.js';
 import { addressToString } from '#lib/address-formatter.js';
 import * as displayPageFormatter from '#lib/display-page-formatter.js';
 import { conditionalFormatter, mapAddressInput } from './global-mapper-formatter.js';
+import { isFolderInfo } from '#lib/ts-utilities.js';
 
 /**
  * @typedef StatusTag
@@ -322,11 +323,16 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					data.appealId,
-					data.documents.conservationAreaMap.documents
+					isFolderInfo(data.documents.conservationAreaMap)
+						? data.documents.conservationAreaMap.documents
+						: []
 				),
 				actions: {
 					items: [
-						...((data.documents.conservationAreaMap.documents || []).length
+						...((isFolderInfo(data.documents.conservationAreaMap)
+							? data.documents.conservationAreaMap.documents
+							: []
+						).length
 							? [
 									{
 										text: 'Manage',
@@ -334,7 +340,9 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 										href: mapDocumentManageUrl(
 											data.appealId,
 											data.lpaQuestionnaireId,
-											data.documents.conservationAreaMap
+											isFolderInfo(data.documents.conservationAreaMap)
+												? data.documents.conservationAreaMap.folderId
+												: undefined
 										)
 									}
 							  ]
@@ -411,11 +419,16 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					data.appealId,
-					data.documents.notifyingParties.documents
+					isFolderInfo(data.documents.notifyingParties)
+						? data.documents.notifyingParties.documents
+						: []
 				),
 				actions: {
 					items: [
-						...((data.documents.notifyingParties.documents || []).length
+						...((isFolderInfo(data.documents.notifyingParties)
+							? data.documents.notifyingParties.documents
+							: []
+						).length
 							? [
 									{
 										text: 'Manage',
@@ -423,7 +436,9 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 										href: mapDocumentManageUrl(
 											data.appealId,
 											data.lpaQuestionnaireId,
-											data.documents.notifyingParties
+											isFolderInfo(data.documents.notifyingParties)
+												? data.documents.notifyingParties.folderId
+												: undefined
 										)
 									}
 							  ]
@@ -518,11 +533,14 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					value: displayPageFormatter.formatDocumentValues(
 						data.appealId,
-						data.documents.siteNotices.documents
+						isFolderInfo(data.documents.siteNotices) ? data.documents.siteNotices.documents : []
 					),
 					actions: {
 						items: [
-							...((data.documents.siteNotices.documents || []).length
+							...((isFolderInfo(data.documents.siteNotices)
+								? data.documents.siteNotices.documents
+								: []
+							).length
 								? [
 										{
 											text: 'Manage',
@@ -530,7 +548,9 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 											href: mapDocumentManageUrl(
 												data.appealId,
 												data.lpaQuestionnaireId,
-												data.documents.siteNotices
+												isFolderInfo(data.documents.siteNotices)
+													? data.documents.siteNotices.folderId
+													: undefined
 											)
 										}
 								  ]
@@ -567,11 +587,16 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					value: displayPageFormatter.formatDocumentValues(
 						data.appealId,
-						data.documents.lettersToNeighbours.documents
+						isFolderInfo(data.documents.lettersToNeighbours)
+							? data.documents.lettersToNeighbours.documents
+							: []
 					),
 					actions: {
 						items: [
-							...((data.documents.lettersToNeighbours.documents || []).length
+							...((isFolderInfo(data.documents.lettersToNeighbours)
+								? data.documents.lettersToNeighbours.documents
+								: []
+							).length
 								? [
 										{
 											text: 'Manage',
@@ -579,7 +604,9 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 											href: mapDocumentManageUrl(
 												data.appealId,
 												data.lpaQuestionnaireId,
-												data.documents.lettersToNeighbours
+												isFolderInfo(data.documents.lettersToNeighbours)
+													? data.documents.lettersToNeighbours.folderId
+													: undefined
 											)
 										}
 								  ]
@@ -615,12 +642,18 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					value: displayPageFormatter.formatDocumentValues(
 						data.appealId,
-						data.documents.pressAdvert.documents
+						isFolderInfo(data.documents.pressAdvert) ? data.documents.pressAdvert.documents : []
 					),
 					actions: {
 						items: [
 							{
-								text: data.documents.pressAdvert?.documents?.length > 0 ? 'Change' : 'Add',
+								text:
+									(isFolderInfo(data.documents.lettersToNeighbours)
+										? data.documents.lettersToNeighbours.documents
+										: []
+									).length > 0
+										? 'Change'
+										: 'Add',
 								visuallyHiddenText: 'Advertisement',
 								href: displayPageFormatter.formatDocumentActionLink(
 									data.appealId,
@@ -693,11 +726,16 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 					},
 					value: displayPageFormatter.formatDocumentValues(
 						data.appealId,
-						data.documents.representations.documents
+						isFolderInfo(data.documents.representations)
+							? data.documents.representations.documents
+							: []
 					),
 					actions: {
 						items: [
-							...((data.documents.representations.documents || []).length
+							...((isFolderInfo(data.documents.representations)
+								? data.documents.representations.documents
+								: []
+							).length
 								? [
 										{
 											text: 'Manage',
@@ -705,7 +743,9 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 											href: mapDocumentManageUrl(
 												data.appealId,
 												data.lpaQuestionnaireId,
-												data.documents.representations
+												isFolderInfo(data.documents.representations)
+													? data.documents.representations.folderId
+													: undefined
 											)
 										}
 								  ]
@@ -736,11 +776,14 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 				},
 				value: displayPageFormatter.formatDocumentValues(
 					data.appealId,
-					data.documents.officersReport.documents
+					isFolderInfo(data.documents.officersReport) ? data.documents.officersReport.documents : []
 				),
 				actions: {
 					items: [
-						...((data.documents.officersReport.documents || []).length
+						...((isFolderInfo(data.documents.officersReport)
+							? data.documents.officersReport.documents
+							: []
+						).length
 							? [
 									{
 										text: 'Manage',
@@ -748,7 +791,9 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 										href: mapDocumentManageUrl(
 											data.appealId,
 											data.lpaQuestionnaireId,
-											data.documents.officersReport
+											isFolderInfo(data.documents.officersReport)
+												? data.documents.officersReport.folderId
+												: undefined
 										)
 									}
 							  ]
@@ -1049,24 +1094,28 @@ export async function initialiseAndMapLPAQData(data, currentRoute) {
 	mappedData.lpaq.additionalDocuments = {
 		id: 'additional-documents',
 		display: {
-			...((data.documents.additionalDocuments.documents || []).length > 0
+			...((isFolderInfo(data.documents.additionalDocuments)
+				? data.documents.additionalDocuments.documents
+				: []
+			).length > 0
 				? {
-						summaryListItems: (data.documents.additionalDocuments.documents || []).map(
-							(/** @type {DocumentInfo} */ document) => ({
-								key: {
-									text: 'Additional documents',
-									classes: 'govuk-visually-hidden'
-								},
-								value: displayPageFormatter.formatDocumentValues(
-									data.appealId,
-									[document],
-									document.isLateEntry
-								),
-								actions: {
-									items: []
-								}
-							})
-						)
+						summaryListItems: (isFolderInfo(data.documents.additionalDocuments)
+							? data.documents.additionalDocuments.documents
+							: []
+						).map((/** @type {DocumentInfo} */ document) => ({
+							key: {
+								text: 'Additional documents',
+								classes: 'govuk-visually-hidden'
+							},
+							value: displayPageFormatter.formatDocumentValues(
+								data.appealId,
+								[document],
+								document.isLateEntry
+							),
+							actions: {
+								items: []
+							}
+						}))
 				  }
 				: {
 						summaryListItems: [
@@ -1145,9 +1194,12 @@ export const buildDocumentUploadUrlTemplate = (lpaQuestionnaireId) => {
  *
  * @param {Number} caseId
  * @param {string|number} lpaQuestionnaireId
- * @param {FolderInfo} folder
+ * @param {number|undefined} folderId
  * @returns {string}
  */
-export const mapDocumentManageUrl = (caseId, lpaQuestionnaireId, folder) => {
-	return `/appeals-service/appeal-details/${caseId}/lpa-questionnaire/${lpaQuestionnaireId}/manage-documents/${folder.folderId}/`;
+export const mapDocumentManageUrl = (caseId, lpaQuestionnaireId, folderId) => {
+	if (folderId === undefined) {
+		return '';
+	}
+	return `/appeals-service/appeal-details/${caseId}/lpa-questionnaire/${lpaQuestionnaireId}/manage-documents/${folderId}/`;
 };
