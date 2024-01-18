@@ -1,6 +1,6 @@
 /**
- * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
- * @typedef {import('./appellant-case.types.js').SingleAppellantCaseResponse} AppellantCaseResponse
+ * @typedef {import('@pins/appeals.api').Appeals.NotValidReasonOption} NotValidReasonOption
+ * @typedef {import('@pins/appeals.api').Appeals.SingleAppellantCaseResponse} SingleAppellantCaseResponse
  * @typedef {import('./appellant-case.types.js').AppellantCaseValidationOutcome} AppellantCaseValidationOutcome
  */
 
@@ -18,7 +18,7 @@ export function getAppellantCaseFromAppealId(apiClient, appealId, appellantCaseI
  * @param {number} appealId
  * @param {number} appellantCaseId
  * @param {import('./appellant-case.types.js').AppellantCaseValidationOutcomeRequest} reviewOutcome
- * @returns {Promise<AppellantCaseResponse>}
+ * @returns {Promise<SingleAppellantCaseResponse>}
  */
 export async function setReviewOutcomeForAppellantCase(
 	apiClient,

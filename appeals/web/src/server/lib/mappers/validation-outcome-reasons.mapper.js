@@ -2,8 +2,8 @@ import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-build
 
 /**
  * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
- * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
- * @typedef {import('../../appeals/appeal-details/appeal-details.types.js').NotValidReasonResponse} NotValidReasonResponse
+ * @typedef {import('@pins/appeals.api').Appeals.NotValidReasonOption} NotValidReasonOption
+ * @typedef {import('@pins/appeals.api').Appeals.IncompleteInvalidReasonsResponse} IncompleteInvalidReasonResponse
  * @typedef {import('../../appeals/appeal-details/lpa-questionnaire/lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} LPAQuestionnaireSessionValidationOutcome
  * @typedef {import('../../appeals/appeal-details/appellant-case/appellant-case.types.js').AppellantCaseSessionValidationOutcome} AppellantCaseSessionValidationOutcome
  */
@@ -12,7 +12,7 @@ import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-build
  *
  * @param {NotValidReasonOption[]} reasonOptions
  * @param {number[]|undefined} checkedOptions
- * @param {NotValidReasonResponse[]} existingReasons
+ * @param {IncompleteInvalidReasonResponse[]} existingReasons
  * @param {BodyValidationOutcome} bodyValidationOutcome
  * @param {string} bodyValidationBaseKey
  * @param {AppellantCaseSessionValidationOutcome|LPAQuestionnaireSessionValidationOutcome|undefined} sessionValidationOutcome
@@ -65,7 +65,7 @@ export function mapReasonOptionsToCheckboxItemParameters(
 /**
  *
  * @param {NotValidReasonOption} reasonOption
- * @param {NotValidReasonResponse[]} existingReasons
+ * @param {IncompleteInvalidReasonResponse[]} existingReasons
  * @returns {string[]|undefined}
  */
 function getAddAnotherTextItemsFromExistingOutcome(reasonOption, existingReasons) {

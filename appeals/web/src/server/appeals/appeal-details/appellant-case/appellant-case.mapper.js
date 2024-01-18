@@ -18,13 +18,14 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 import * as displayPageFormatter from '#lib/display-page-formatter.js';
+import { isFolderInfo } from '#lib/ts-utilities.js';
 
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
- * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
- * @typedef {import('../appeal-details.types.js').NotValidReasonResponse} NotValidReasonResponse
+ * @typedef {import('@pins/appeals.api').Appeals.NotValidReasonOption} NotValidReasonOption
+ * @typedef {import('@pins/appeals.api').Appeals.IncompleteInvalidReasonsResponse} IncompleteInvalidReasonsResponse
  * @typedef {import('../appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
- * @typedef {import('./appellant-case.types.js').SingleAppellantCaseResponse} AppellantCaseResponse
+ * @typedef {import('@pins/appeals.api').Appeals.SingleAppellantCaseResponse} SingleAppellantCaseResponse
  * @typedef {import('./appellant-case.types.js').AppellantCaseValidationOutcome} AppellantCaseValidationOutcome
  * @typedef {import('./appellant-case.types.js').AppellantCaseSessionValidationOutcome} AppellantCaseSessionValidationOutcome
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
@@ -34,7 +35,7 @@ import * as displayPageFormatter from '#lib/display-page-formatter.js';
 
 /**
  *
- * @param {AppellantCaseResponse} appellantCaseData
+ * @param {SingleAppellantCaseResponse} appellantCaseData
  * @param {Appeal} appealDetails
  * @param {string} currentRoute
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
@@ -142,14 +143,15 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 				},
 				actions: {
 					items:
-						(appellantCaseData.documents.additionalDocuments.documents || []).length > 0
+						isFolderInfo(appellantCaseData.documents.additionalDocuments) &&
+						appellantCaseData.documents.additionalDocuments.documents.length > 0
 							? [
 									{
 										text: 'Manage',
 										visuallyHiddenText: 'additional documents',
 										href: mapDocumentManageUrl(
 											appellantCaseData.appealId,
-											appellantCaseData.documents.additionalDocuments
+											appellantCaseData.documents.additionalDocuments.folderId
 										)
 									},
 									{
@@ -280,7 +282,7 @@ export function stringIsAppellantCaseValidationOutcome(outcomeString) {
 }
 
 /**
- * @param {AppellantCaseResponse} appellantCaseData
+ * @param {SingleAppellantCaseResponse} appellantCaseData
  * @returns {AppellantCaseValidationOutcome|undefined}
  */
 export function getValidationOutcomeFromAppellantCase(appellantCaseData) {
@@ -443,7 +445,7 @@ export function checkAndConfirmPage(
  *
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @param {AppellantCaseValidationOutcome|undefined} validationOutcome
- * @param {NotValidReasonResponse[]} notValidReasons
+ * @param {IncompleteInvalidReasonsResponse[]} notValidReasons
  * @param {number} appealId
  * @returns {PageComponent[]}
  */
@@ -517,7 +519,7 @@ export function mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(
 	sessionValidationOutcome,
 	existingValidationOutcome
 ) {
-	/** @type {NotValidReasonResponse[]} */
+	/** @type {IncompleteInvalidReasonsResponse[]} */
 	let existingReasons = [];
 	/** @type {number[]|undefined} */
 	let existingReasonIds;
@@ -613,18 +615,20 @@ export function mapWebReviewOutcomeToApiReviewOutcome(
 
 /**
  *
- * @param {AppellantCaseResponse} appellantCaseData
+ * @param {SingleAppellantCaseResponse} appellantCaseData
  * @param {"not_checked"|"checked"|"failed_virus_check"} virusStatus
  * @returns {DocumentInfo[]}
  */
 function getDocumentsForVirusStatus(appellantCaseData, virusStatus) {
-	let unscannedFiles = [];
-	for (let document of Object.values(appellantCaseData.documents)) {
-		const documentsOfStatus = document.documents.filter(
-			(item) => item.virusCheckStatus === virusStatus
-		);
-		for (const document of documentsOfStatus) {
-			unscannedFiles.push(document);
+	const unscannedFiles = [];
+	for (const folder of Object.values(appellantCaseData.documents)) {
+		if ('documents' in folder) {
+			const documentsOfStatus = folder.documents.filter(
+				(item) => item.virusCheckStatus === virusStatus
+			);
+			for (const document of documentsOfStatus) {
+				unscannedFiles.push(document);
+			}
 		}
 	}
 	return unscannedFiles;
