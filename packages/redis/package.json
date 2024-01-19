@@ -1,0 +1,22 @@
+{
+  "name": "@pins/redis",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0 <19.0.0"
+  },
+  "scripts": {
+    "lint:js": "npx eslint .",
+    "lint:js:fix": "npx eslint . --fix",
+    "test": "echo \"No tests yet...\"",
+    "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
+  },
+  "dependencies": {
+    "connect-redis": "^7.1.0",
+    "redis": "^4.6.10",
+    "@pins/platform": "^0.0.0",
+    "@azure/msal-node": "^1.14.6"
+  }
+}
