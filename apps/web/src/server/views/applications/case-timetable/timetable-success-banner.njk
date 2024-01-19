@@ -20,15 +20,15 @@
 			}) }}
 
 			<div class="govuk-body">
-				<p class="govuk-body">
-					{% if action === 'published' %}
+				{% if action === 'published' %}
+					<p class="govuk-body">
 						The examination timetable will show on the NI website within the hour
-					{% elseif action === 'unpublished' %}
+					</p>
+				{% elseif action === 'unpublished' %}
+					<p class="govuk-body">
 						The examination timetable will be unpublished from the NI website within the hour
-					{% else %}
-						Return to folder:
-					{% endif %}
-				</p>
+					z</p>
+				{% endif %}
 				<a href="{{'timetable'|url({caseId: caseId})}}" class="govuk-link">
 					Go back to examination timetable
 				</a>
