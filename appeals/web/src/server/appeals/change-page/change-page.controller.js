@@ -1,7 +1,7 @@
 import { getAppealDetailsFromId } from '#appeals/appeal-details/appeal-details.service.js';
 import { getLpaQuestionnaireFromId } from '#appeals/appeal-details/lpa-questionnaire/lpa-questionnaire.service.js';
 import logger from '#lib/logger.js';
-import { appealChangePage, lpaQuestionnaireChangePage } from './change-page.mapper.js';
+import { lpaQuestionnaireChangePage } from './change-page.mapper.js';
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
@@ -18,14 +18,6 @@ const renderChangePage = async (request, response) => {
 		let mappedPageContent;
 
 		switch (origin) {
-			case 'change-appeal-details':
-				mappedPageContent = await appealChangePage(
-					request.params.question,
-					appealData,
-					currentUrl,
-					request.session
-				);
-				break;
 			case 'change-lpa-questionnaire':
 				lpaqData = await getLpaQuestionnaireFromId(
 					request.apiClient,

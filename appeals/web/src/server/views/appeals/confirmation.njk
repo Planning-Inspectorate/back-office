@@ -42,6 +42,10 @@
 							{%- endif -%}
 						{%- endfor -%}
 					{%- endif -%}
+		
+					{%- for component in pageComponents -%}
+						{%- include "./components/page-component.njk" -%}
+					{%- endfor -%}
 				</div>
 			</div>
 		</div>

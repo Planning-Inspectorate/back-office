@@ -321,4 +321,5 @@
  * @property {number} [body.title.headingLevel]
  * @property {string} [body.title.classes]
  * @property {PageBodyRow[]} [body.rows]
+ * @property {PageComponent[]} [pageComponents]
  */
