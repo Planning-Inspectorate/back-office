@@ -35,6 +35,7 @@ export const postAppealType = async (request, response) => {
 
 		/** @type {import('./change-appeal-type.types.js').ChangeAppealTypeRequest} */
 		request.session.changeAppealType = {
+			appealId: appealId,
 			...request.session.changeAppealType,
 			appealTypeId: parseInt(appealType, 10)
 		};
@@ -62,6 +63,13 @@ const renderAppealType = async (request, response) => {
 	const appealTypes = await getAppealTypesFromId(request.apiClient, appealId);
 	if (!appealTypes) {
 		throw new Error('error retrieving Appeal Types');
+	}
+
+	if (
+		request.session?.changeAppealType?.appealId &&
+		request.session?.changeAppealType?.appealId !== appealId
+	) {
+		request.session.changeAppealType = {};
 	}
 
 	let mappedPageContent = await appealTypePage(
