@@ -5,7 +5,6 @@ import https from 'node:https';
 import path from 'node:path';
 import { app } from './app/app.express.js';
 import pino from './lib/logger.js';
-import { initialiseRedis } from './lib/redis.js';
 
 if (config.appInsightsConnectionString) {
 	try {
@@ -21,12 +20,6 @@ if (config.appInsightsConnectionString) {
 	pino.warn(
 		'Skipped initialising Application Insights because `APPLICATIONINSIGHTS_CONNECTION_STRING` is undefined. If running locally, this is expected.'
 	);
-}
-
-if (config.session.redis) {
-	initialiseRedis(config.session.redis);
-} else {
-	pino.warn('Skipped initialising Redis because no connection string was provided.');
 }
 
 // Trust X-Forwarded-* headers so that when we are behind a reverse proxy,
