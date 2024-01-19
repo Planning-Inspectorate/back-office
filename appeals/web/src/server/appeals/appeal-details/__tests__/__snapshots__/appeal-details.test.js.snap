@@ -20,7 +20,7 @@ exports[`appeal-details GET /:appealId should render a Issue a decision action b
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
         </div>
-    </div><strong class="govuk-tag govuk-tag--pink single-line govuk-!-margin-bottom-4">issue decision</strong>
+    </div><strong class="govuk-tag govuk-tag--pink single-line govuk-!-margin-bottom-4">Issue decision</strong>
     <dl     class="govuk-summary-list govuk-summary-list--no-border">
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
@@ -252,7 +252,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
         </div>
-    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
+    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Received appeal</strong>
     <dl     class="govuk-summary-list govuk-summary-list--no-border">
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
@@ -470,7 +470,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
         </div>
-    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
+    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Received appeal</strong>
     <dl     class="govuk-summary-list govuk-summary-list--no-border">
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
@@ -683,7 +683,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
         </div>
-    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
+    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Received appeal</strong>
     <dl     class="govuk-summary-list govuk-summary-list--no-border">
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
@@ -898,7 +898,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
         </div>
-    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
+    </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Received appeal</strong>
     <dl     class="govuk-summary-list govuk-summary-list--no-border">
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
@@ -1233,7 +1233,7 @@ exports[`appeal-details should not render a back button 1`] = `
                     <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
                         <h1                         class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
                     </div>
-                </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">received appeal</strong>
+                </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Received appeal</strong>
                 <dl                 class="govuk-summary-list govuk-summary-list--no-border">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
                         <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>

@@ -73,7 +73,7 @@ export const viewNationalList = async (request, response) => {
 		appealsData.pageCount,
 		appealsData.pageSize,
 		urlWithoutQuery,
-		searchParam
+		query
 	);
 
 	response.render('appeals/all-appeals/dashboard.njk', {

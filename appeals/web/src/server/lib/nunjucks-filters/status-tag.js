@@ -1,3 +1,5 @@
+import { capitalizeFirstLetter } from '#lib/string-utilities.js';
+
 /**
  * Maps appealStatus values to status-tag text labels
  *
@@ -5,5 +7,11 @@
  * @returns {string}
  */
 export function appealStatusToStatusTag(appealStatus) {
-	return appealStatus.replace('issue_determination', 'issue_decision').replaceAll('_', ' ');
+	return capitalizeFirstLetter(
+		appealStatus
+			.replace('issue_determination', 'issue_decision')
+			.replace('lpa_', 'LPA_')
+			.replace('lpaq_', 'LPAQ_')
+			.replaceAll('_', ' ')
+	);
 }

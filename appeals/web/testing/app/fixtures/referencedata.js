@@ -1375,6 +1375,7 @@ export const assignedAppealsPage1 = {
 			dueDate: '2024-01-07T11:43:21.199Z'
 		}
 	],
+	statuses: ['lpa_questionnaire_due', 'ready_to_start', 'issue_determination'],
 	page: 1,
 	pageCount: 2,
 	pageSize: 5
@@ -1447,9 +1448,35 @@ export const assignedAppealsPage2 = {
 			dueDate: '2024-01-07T11:43:21.298Z'
 		}
 	],
+	statuses: ['lpa_questionnaire_due', 'ready_to_start', 'issue_determination'],
 	page: 2,
 	pageCount: 2,
 	pageSize: 5
+};
+
+export const assignedAppealsPage3 = {
+	itemCount: 9,
+	items: [
+		{
+			appealId: 165,
+			appealReference: 'TEST/333600',
+			appealSite: {
+				addressLine1: '21 The Pavement',
+				county: 'Wandsworth',
+				postCode: 'SW4 0HY'
+			},
+			appealStatus: 'ready_to_start',
+			appealType: 'Householder',
+			createdAt: '2024-01-02T11:43:21.226Z',
+			localPlanningDepartment: 'Bristol City Council',
+			lpaQuestionnaireId: null,
+			dueDate: '2024-01-07T11:43:21.226Z'
+		}
+	],
+	statuses: ['lpa_questionnaire_due', 'ready_to_start', 'issue_determination'],
+	page: 2,
+	pageCount: 2,
+	pageSize: 1
 };
 
 export const baseSession = {

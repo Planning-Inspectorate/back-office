@@ -1,7 +1,11 @@
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { assignedAppealsPage1, assignedAppealsPage2 } from '#testing/app/fixtures/referencedata.js';
+import {
+	assignedAppealsPage1,
+	assignedAppealsPage2,
+	assignedAppealsPage3
+} from '#testing/app/fixtures/referencedata.js';
 import { createTestEnvironment } from '#testing/index.js';
 import { mapAppealStatusToActionRequiredHtml } from '../personal-list.mapper.js';
 
@@ -30,6 +34,19 @@ describe('personal-list', () => {
 				.reply(200, assignedAppealsPage2);
 
 			const response = await request.get(`${baseUrl}${'?pageNumber=2&pageSize=5'}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the second page of the personal list with applied filter, the expected content and pagination', async () => {
+			nock('http://test/')
+				.get('/appeals/my-appeals?pageNumber=2&pageSize=1&status=lpa_questionnaire_due')
+				.reply(200, assignedAppealsPage3);
+
+			const response = await request.get(
+				`${baseUrl}${'?pageNumber=2&pageSize=1&appealStatusFilter=lpa_questionnaire_due'}`
+			);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
