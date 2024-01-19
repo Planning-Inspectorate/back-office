@@ -29,9 +29,8 @@ export const migrateServiceUsers = async (serviceUsers) => {
 			databaseConnector.$executeRawUnsafe(serviceUserStatement, ...serviceUserParameters)
 		]);
 
-		const transactions = [];
-		transactions.push(
-			databaseConnector.serviceUser.update({
+		await databaseConnector.$transaction(async (tx) => {
+			await tx.serviceUser.update({
 				where: {
 					id: serviceUserEntity.id
 				},
@@ -43,22 +42,19 @@ export const migrateServiceUsers = async (serviceUsers) => {
 						}
 					}
 				}
-			})
-		);
+			});
 
-		if (serviceUser.serviceUserType === 'Applicant') {
-			transactions.push(
-				databaseConnector.case.updateMany({
+			if (serviceUser.serviceUserType === 'Applicant') {
+				await tx.case.updateMany({
 					where: {
 						reference: serviceUser.caseReference
 					},
 					data: {
 						applicantId: serviceUserEntity.id
 					}
-				})
-			);
-		}
-		await databaseConnector.$transaction(transactions);
+				});
+			}
+		});
 	}
 };
 
