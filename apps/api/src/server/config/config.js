@@ -34,7 +34,8 @@ const { value, error } = schema.validate({
 			? false
 			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 	},
-	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true'
+	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true',
+	azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED && environment.KEY_VAULT_ENABLED === 'true'
 });
 
 if (error) {

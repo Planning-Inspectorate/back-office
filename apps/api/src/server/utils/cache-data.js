@@ -4,9 +4,10 @@ export const nodeCache = new NodeCache();
 
 export const setCache = (
 	/** @type {NodeCache.Key} */ key,
-	/** @type {Record<string,any>[]} */ value
+	/** @type {Record<string,any>[]} */ value,
+	/** @type {number} */ ttl = 3600
 ) => {
-	nodeCache.set(key, value, 3_600_000);
+	nodeCache.set(key, value, ttl);
 };
 
 export const getCache = (/** @type {NodeCache.Key} */ key) => {

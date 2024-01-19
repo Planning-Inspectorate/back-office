@@ -28,6 +28,7 @@ export default joi
 		}),
 		cwd: joi.string(),
 		featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
-		serviceBusEnabled: joi.boolean().optional()
+		serviceBusEnabled: joi.boolean().optional(),
+		azureKeyVaultEnabled: joi.boolean().optional()
 	})
 	.options({ presence: 'required' }); // required by default
