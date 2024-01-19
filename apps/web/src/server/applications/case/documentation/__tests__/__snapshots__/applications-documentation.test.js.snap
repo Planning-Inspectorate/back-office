@@ -6706,7 +6706,7 @@ exports[`applications documentation Document properties delete page GET /case/12
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <form action='' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
-            <h1 class=\\"govuk-heading-l\\">Delete selected document</h1>
+            <h1 class=\\"govuk-heading-l\\">Delete document</h1>
             <input type=\\"hidden\\" value=\\"\\" name=\\"status\\">
             <table class=\\"govuk-table\\">
                 <thead class=\\"govuk-table__head\\">
@@ -6725,6 +6725,10 @@ exports[`applications documentation Document properties delete page GET /case/12
             <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation > </span>
                 <span                 class=\\"font-weight--700\\">Project management ></span><span class=\\"font-weight--700\\"> Sub folder level 2 </span>
             </p>
+            <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
+                <strong                 class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> This will delete
+                    all versions of this document.</strong>
+            </div>
             <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
         </form>
     </div>
@@ -6739,7 +6743,7 @@ exports[`applications documentation Document properties delete page GET /case/12
     </div>
     <div class=\\"govuk-grid-row\\">
         <form action='' method='post' class=\\"govuk-grid-column-full govuk-!-margin-top-0\\">
-            <h1 class=\\"govuk-heading-l\\">Delete selected document</h1>
+            <h1 class=\\"govuk-heading-l\\">Delete document</h1>
             <input type=\\"hidden\\" value=\\"\\" name=\\"status\\">
             <table class=\\"govuk-table\\">
                 <thead class=\\"govuk-table__head\\">
@@ -6758,6 +6762,10 @@ exports[`applications documentation Document properties delete page GET /case/12
             <p class=\\"govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7\\">You are deleting the document from:<span class=\\"font-weight--700\\"> Project documentation > </span>
                 <span                 class=\\"font-weight--700\\">Project management ></span><span class=\\"font-weight--700\\"> Sub folder level 2 </span>
             </p>
+            <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
+                <strong                 class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> This will delete
+                    all versions of this document.</strong>
+            </div>
             <button class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\">Delete</button>
         </form>
     </div>
@@ -6770,6 +6778,10 @@ exports[`applications documentation Document properties delete page POST /case/1
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
             <div class=\\"govuk-panel govuk-panel--confirmation\\">
                 <h1 class=\\"govuk-panel__title\\"> Document successfully deleted</h1>
+                <div class=\\"govuk-panel__body\\">
+                    <p class=\\"govuk-!-font-size-19\\">Case: Title CASE/04
+                        <br>Reference: CASE/04</p>
+                </div>
             </div>
             <div class=\\"govuk-body\\">Return to folder:<a href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\"
                 class=\\"govuk-link\\"><span> Project documentation  > </span><span> Project management  > </span><span  class=\\"font-weight--700\\" > Sub folder level 2 </span></a>

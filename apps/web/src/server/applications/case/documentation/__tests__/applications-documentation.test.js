@@ -317,7 +317,7 @@ describe('applications documentation', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Delete selected document');
+				expect(element.innerHTML).toContain('Delete document');
 			});
 
 			it('should display warning if status is "ready_to_publish"', async () => {
