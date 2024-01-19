@@ -39,7 +39,7 @@ exports[`appeal-details GET /:appealId should render a Issue a decision action b
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
                             <dd class="govuk-summary-list__value">Householder</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appeal-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-type/appeal-type"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
@@ -266,7 +266,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
                             <dd class="govuk-summary-list__value">Householder</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appeal-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-type/appeal-type"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
@@ -479,7 +479,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
                             <dd class="govuk-summary-list__value">Householder</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-details/appeal-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/change-appeal-type/appeal-type"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
@@ -692,7 +692,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
                             <dd class="govuk-summary-list__value">Householder</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appeal-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-type/appeal-type"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
@@ -907,7 +907,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
                             <dd class="govuk-summary-list__value">Householder</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appeal-type"> Change</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-type/appeal-type"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
@@ -1237,7 +1237,7 @@ exports[`appeal-details should not render a back button 1`] = `
                                 <dl class="govuk-summary-list">
                                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
                                         <dd class="govuk-summary-list__value">Householder</dd>
-                                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-details/appeal-type"> Change</a>
+                                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/change-appeal-type/appeal-type"> Change</a>
                                         </dd>
                                     </div>
                                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>

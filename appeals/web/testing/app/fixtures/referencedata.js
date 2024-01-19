@@ -884,6 +884,23 @@ export const siteVisitData = {
 	visitType: 'Accompanied'
 };
 
+export const appealTypesData = [
+	{
+		id: 75,
+		type: 'Planning appeal',
+		shorthand: 'FPA',
+		code: 'A',
+		enabled: false
+	},
+	{
+		id: 76,
+		type: 'Enforcement notice appeal',
+		shorthand: 'X1',
+		code: 'C',
+		enabled: false
+	}
+];
+
 export const inspectorDecisionData = {
 	outcome: 'dismissed',
 	documentId: 'e1e90a49-fab3-44b8-a21a-bb73af089f6b',

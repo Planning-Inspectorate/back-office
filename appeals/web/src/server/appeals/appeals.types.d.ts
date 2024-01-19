@@ -9,6 +9,12 @@ export interface CheckboxItemParameter {
 	checked?: boolean;
 }
 
+export interface SelectItemParameter {
+	value: string;
+	text: string;
+	checked?: boolean;
+}
+
 export interface DayMonthYear {
 	day: number;
 	month: number;

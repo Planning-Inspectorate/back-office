@@ -44,7 +44,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/appeal-type`
+							href: `${currentRoute}/change-appeal-type/appeal-type`
 						}
 					]
 				}
