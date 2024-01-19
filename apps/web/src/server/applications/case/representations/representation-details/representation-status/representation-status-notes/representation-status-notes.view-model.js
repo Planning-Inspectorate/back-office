@@ -60,11 +60,6 @@ const getPageContentByStatus = (newStatus) => {
 			value: 'Resubmitted',
 			text: 'Resubmitted',
 			checked: false
-		},
-		{
-			value: 'Test',
-			text: 'TEST',
-			checked: false
 		}
 	];
 
