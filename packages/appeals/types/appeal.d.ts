@@ -44,6 +44,7 @@ export interface AppealSummary {
 export interface AppealList {
 	itemCount: number;
 	items: AppealSummary[];
+	statuses: string[];
 	page: number;
 	pageCount: number;
 	pageSize: number;

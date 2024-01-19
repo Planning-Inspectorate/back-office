@@ -94,7 +94,8 @@ describe('appeals routes', () => {
 					],
 					page: 1,
 					pageCount: 1,
-					pageSize: 30
+					pageSize: 30,
+					statuses: ['ready_to_start']
 				});
 			});
 
@@ -139,7 +140,8 @@ describe('appeals routes', () => {
 					],
 					page: 2,
 					pageCount: 1,
-					pageSize: 1
+					pageSize: 1,
+					statuses: ['ready_to_start']
 				});
 			});
 
@@ -203,7 +205,8 @@ describe('appeals routes', () => {
 					],
 					page: 1,
 					pageCount: 1,
-					pageSize: 30
+					pageSize: 30,
+					statuses: ['ready_to_start']
 				});
 			});
 
@@ -267,7 +270,8 @@ describe('appeals routes', () => {
 					],
 					page: 1,
 					pageCount: 1,
-					pageSize: 30
+					pageSize: 30,
+					statuses: ['ready_to_start']
 				});
 			});
 
@@ -331,7 +335,8 @@ describe('appeals routes', () => {
 					],
 					page: 1,
 					pageCount: 1,
-					pageSize: 30
+					pageSize: 30,
+					statuses: ['ready_to_start']
 				});
 			});
 

@@ -20,7 +20,7 @@ import { DATABASE_ORDER_BY_DESC, STATE_TARGET_COMPLETE } from '#endpoints/consta
  * @param {number} pageNumber
  * @param {number} pageSize
  * @param {string} searchTerm
- * @returns {Promise<[number, RepositoryGetAllResultItem[]]>}
+ * @returns {Promise<[number, RepositoryGetAllResultItem[], any[]]>}
  */
 const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
 	const where = {
@@ -65,7 +65,8 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
 			},
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize
-		})
+		}),
+		getAppealsStatusesInNationalList(where)
 	]);
 };
 
@@ -74,7 +75,7 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
  * @param {number} pageNumber
  * @param {number} pageSize
  * @param {string} status
- * @returns {Promise<[number, RepositoryGetAllResultItem[]]>}
+ * @returns {Promise<[number, RepositoryGetAllResultItem[], any[]]>}
  */
 const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 	const where = {
@@ -99,6 +100,7 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 		databaseConnector.appeal.count({
 			where
 		}),
+
 		databaseConnector.appeal.findMany({
 			where,
 			include: {
@@ -110,12 +112,6 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 				},
 				appealTimetable: true,
 				appealType: true,
-				lpa: true,
-				lpaQuestionnaire: {
-					include: {
-						lpaQuestionnaireValidationOutcome: true
-					}
-				},
 				appellantCase: {
 					include: {
 						appellantCaseIncompleteReasonsOnAppellantCases: {
@@ -134,12 +130,71 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 						knowledgeOfOtherLandowners: true,
 						planningObligationStatus: true
 					}
+				},
+				lpa: true,
+				lpaQuestionnaire: {
+					include: {
+						lpaQuestionnaireValidationOutcome: true
+					}
 				}
 			},
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize
-		})
+		}),
+		getAppealsStatusesInPersonalList(userId)
 	]);
+};
+
+/**
+ * @param {string|undefined} userId
+ */
+const getAppealsStatusesInPersonalList = (userId) => {
+	const where = {
+		AND: {
+			appealStatus: {
+				some: { valid: true, status: { not: STATE_TARGET_COMPLETE } }
+			}
+		},
+		...(userId !== 'undefined' && {
+			OR: [
+				{ inspector: { azureAdUserId: { equals: userId } } },
+				{ caseOfficer: { azureAdUserId: { equals: userId } } }
+			]
+		})
+	};
+
+	return databaseConnector.appeal.findMany({
+		where,
+		select: {
+			appealStatus: {
+				select: {
+					status: true
+				},
+				where: {
+					valid: true
+				}
+			}
+		}
+	});
+};
+
+/**
+ * @param {object} where
+ */
+const getAppealsStatusesInNationalList = (where) => {
+	return databaseConnector.appeal.findMany({
+		where,
+		select: {
+			appealStatus: {
+				select: {
+					status: true
+				},
+				where: {
+					valid: true
+				}
+			}
+		}
+	});
 };
 
 /**

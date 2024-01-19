@@ -7,6 +7,28 @@ exports[`personal-list GET / should render the first page of the personal list w
             <h1 class="govuk-heading-l govuk-!-margin-bottom-6">Cases assigned to you</h1>
         </div>
     </div>
+    <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+        </summary>
+        <div class="govuk-details__text">
+            <form method="GET">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="filters-select">Show cases with status</label>
+                    <select class="govuk-select" id="filters-select"
+                    name="appealStatusFilter">
+                        <option value="all">All</option>
+                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                        <option value="ready_to_start">Ready to start</option>
+                        <option value="issue_determination">Issue decision</option>
+                    </select>
+                </div>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                    id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/personal-list">Clear filter</a>
+                </div>
+            </form>
+        </div>
+    </details>
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -25,7 +47,7 @@ exports[`personal-list GET / should render the first page of the personal list w
                 </td>
                 <td class="govuk-table__cell">LPA Questionnaire Overdue</td>
                 <td class="govuk-table__cell">8 April 2022</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">lpa questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -36,7 +58,7 @@ exports[`personal-list GET / should render the first page of the personal list w
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/161/appellant-case">Review appellant case</a>
                 </td>
                 <td class="govuk-table__cell">7 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">Ready to start</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -47,7 +69,7 @@ exports[`personal-list GET / should render the first page of the personal list w
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/162/appellant-case">Review appellant case</a>
                 </td>
                 <td class="govuk-table__cell">7 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">Ready to start</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -58,7 +80,7 @@ exports[`personal-list GET / should render the first page of the personal list w
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/163/appellant-case">Review appellant case</a>
                 </td>
                 <td class="govuk-table__cell">7 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">Ready to start</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -69,7 +91,7 @@ exports[`personal-list GET / should render the first page of the personal list w
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/164/appellant-case">Review appellant case</a>
                 </td>
                 <td class="govuk-table__cell">7 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">Ready to start</strong>
                 </td>
             </tr>
         </tbody>
@@ -90,13 +112,35 @@ exports[`personal-list GET / should render the first page of the personal list w
 </main>"
 `;
 
-exports[`personal-list GET / should render the second page of the personal list with the expected content and pagination 1`] = `
+exports[`personal-list GET / should render the second page of the personal list with applied filter, the expected content and pagination 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l govuk-!-margin-bottom-6">Cases assigned to you</h1>
         </div>
     </div>
+    <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+        </summary>
+        <div class="govuk-details__text">
+            <form method="GET">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="filters-select">Show cases with status</label>
+                    <select class="govuk-select" id="filters-select"
+                    name="appealStatusFilter">
+                        <option value="all">All</option>
+                        <option value="lpa_questionnaire_due" selected>LPA questionnaire due</option>
+                        <option value="ready_to_start">Ready to start</option>
+                        <option value="issue_determination">Issue decision</option>
+                    </select>
+                </div>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                    id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/personal-list">Clear filter</a>
+                </div>
+            </form>
+        </div>
+    </details>
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -116,7 +160,76 @@ exports[`personal-list GET / should render the second page of the personal list 
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/165/appellant-case">Review appellant case</a>
                 </td>
                 <td class="govuk-table__cell">7 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">Ready to start</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav class="govuk-pagination" role="navigation" aria-label="results">
+        <div class="govuk-pagination__prev"><a class="govuk-link govuk-pagination__link" href="/appeals-service/personal-list?pageSize=1&amp;pageNumber=1&amp;appealStatusFilter=lpa_questionnaire_due"
+            rel="prev"><svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path></svg><span class="govuk-pagination__link-title">Previous</span></a>
+        </div>
+        <ul class="govuk-pagination__list">
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/appeals-service/personal-list?pageSize=1&amp;pageNumber=1&amp;appealStatusFilter=lpa_questionnaire_due"
+                aria-label="Page 1"> 1</a>
+            </li>
+            <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="/appeals-service/personal-list?pageSize=1&amp;pageNumber=2&amp;appealStatusFilter=lpa_questionnaire_due"
+                aria-label="Page 2" aria-current="page"> 2</a>
+            </li>
+        </ul>
+    </nav>
+</main>"
+`;
+
+exports[`personal-list GET / should render the second page of the personal list with the expected content and pagination 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-6">Cases assigned to you</h1>
+        </div>
+    </div>
+    <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+        </summary>
+        <div class="govuk-details__text">
+            <form method="GET">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="filters-select">Show cases with status</label>
+                    <select class="govuk-select" id="filters-select"
+                    name="appealStatusFilter">
+                        <option value="all">All</option>
+                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                        <option value="ready_to_start">Ready to start</option>
+                        <option value="issue_determination">Issue decision</option>
+                    </select>
+                </div>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                    id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/personal-list">Clear filter</a>
+                </div>
+            </form>
+        </div>
+    </details>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Lead or child</th>
+                <th scope="col" class="govuk-table__header">Action required</th>
+                <th scope="col" class="govuk-table__header">Due by</th>
+                <th scope="col" class="govuk-table__header">Case status</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><strong><a class="govuk-link" href="/appeals-service/appeal-details/165" aria-label="Appeal 3 3 3 6 0 0">333600</a></strong>
+                </td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
+                </td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/165/appellant-case">Review appellant case</a>
+                </td>
+                <td class="govuk-table__cell">7 January 2024</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">Ready to start</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -127,7 +240,7 @@ exports[`personal-list GET / should render the second page of the personal list 
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/166/appellant-case">Review appellant case</a>
                 </td>
                 <td class="govuk-table__cell">7 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">Ready to start</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -138,7 +251,7 @@ exports[`personal-list GET / should render the second page of the personal list 
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/167/appellant-case">Review appellant case</a>
                 </td>
                 <td class="govuk-table__cell">7 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">ready to start</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--turquoise single-line">Ready to start</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -149,7 +262,7 @@ exports[`personal-list GET / should render the second page of the personal list 
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/168/issue-decision/decision">Submit decision</a>
                 </td>
                 <td class="govuk-table__cell">7 January 2024</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--pink single-line">issue decision</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--pink single-line">Issue decision</strong>
                 </td>
             </tr>
         </tbody>

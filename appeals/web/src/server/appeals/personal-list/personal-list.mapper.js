@@ -5,6 +5,8 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
 import { dateToDisplayDate } from '#lib/dates.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 import * as authSession from '../../app/auth/auth-session.service.js';
+import { appealStatusToStatusTag } from '#lib/nunjucks-filters/status-tag.js';
+import { capitalizeFirstLetter } from '#lib/string-utilities.js';
 
 /** @typedef {import('@pins/appeals').AppealList} AppealList */
 /** @typedef {import('@pins/appeals').Pagination} Pagination */
@@ -12,13 +14,29 @@ import * as authSession from '../../app/auth/auth-session.service.js';
 
 /**
  * @param {AppealList|void} appealsAssignedToCurrentUser
+ * @param {string} urlWithoutQuery
+ * @param {string|undefined} appealStatusFilter
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @returns {PageContent}
  */
-export function personalListPage(appealsAssignedToCurrentUser, session) {
+
+export function personalListPage(
+	appealsAssignedToCurrentUser,
+	urlWithoutQuery,
+	appealStatusFilter,
+	session
+) {
 	const account = /** @type {AccountInfo} */ (authSession.getAccount(session));
 	const userGroups = account?.idTokenClaims?.groups ?? [];
 	const isInspector = userGroups.includes(config.referenceData.appeals.inspectorGroupId);
+
+	const filterItemsArray = ['all', ...(appealsAssignedToCurrentUser?.statuses || [])].map(
+		(appealStatus) => ({
+			text: capitalizeFirstLetter(appealStatusToStatusTag(appealStatus)),
+			value: appealStatus,
+			selected: appealStatusFilter === appealStatus
+		})
+	);
 
 	/** @type {PageContent} */
 	const pageContent = {
@@ -26,6 +44,54 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 		heading: 'Cases assigned to you',
 		headingClasses: 'govuk-heading-l govuk-!-margin-bottom-6',
 		pageComponents: [
+			{
+				type: 'details',
+				parameters: {
+					summaryText: 'Filters',
+					html: '',
+					pageComponents: [
+						{
+							type: 'html',
+							parameters: {
+								html: `<form method="GET">`
+							}
+						},
+						{
+							type: 'select',
+							parameters: {
+								label: {
+									text: 'Show cases with status'
+								},
+								id: 'filters-select',
+								name: 'appealStatusFilter',
+								value: 'all',
+								items: filterItemsArray
+							}
+						},
+						{
+							type: 'html',
+							parameters: {
+								html: '<div class="govuk-button-group">'
+							}
+						},
+						{
+							type: 'button',
+							parameters: {
+								id: 'filters-submit',
+								type: 'submit',
+								classes: 'govuk-button--secondary',
+								text: 'Apply'
+							}
+						},
+						{
+							type: 'html',
+							parameters: {
+								html: `<a class="govuk-link" href="${urlWithoutQuery}">Clear filter</a></div></form>`
+							}
+						}
+					]
+				}
+			},
 			{
 				type: 'table',
 				parameters: {

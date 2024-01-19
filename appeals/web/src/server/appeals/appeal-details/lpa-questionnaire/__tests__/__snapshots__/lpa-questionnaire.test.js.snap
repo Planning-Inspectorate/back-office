@@ -101,7 +101,7 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">conservationAreaMap.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">conservationAreaMap.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -131,7 +131,7 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who was notified</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">notifyingParties.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">notifyingParties.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -157,7 +157,7 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site notice</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">siteNotices.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">siteNotices.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -173,7 +173,7 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Letter/email to interested parties</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">lettersToNeighbours.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">lettersToNeighbours.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -203,7 +203,7 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Representations from other parties documents</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">representations.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">representations.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -228,7 +228,7 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning officer&#39;s report</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">officersReport.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">officersReport.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -306,7 +306,7 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                         "><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview' target=" '_blank' " class="govuk-link ">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink
-                        single-line ">late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
+                        single-line ">Late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
                         "><dt class="govuk-summary-list__key govuk-visually-hidden
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview' target=" '_blank' " class="govuk-link
@@ -314,7 +314,7 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><span><div class="govuk-body govuk-!-margin-bottom-2
                         ">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line
-                        ">virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
+                        ">Virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
                         " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
                         "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
                         " id="review-outcome " name="review-outcome " type="radio " value="complete
@@ -427,9 +427,9 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">conservationAreaMap.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">conservationAreaMap.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">applicationForm.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">applicationForm.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -459,7 +459,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who was notified</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">notifyingParties.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">notifyingParties.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -485,7 +485,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site notice</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">siteNotices.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">siteNotices.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -501,7 +501,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Letter/email to interested parties</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">lettersToNeighbours.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">lettersToNeighbours.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -531,7 +531,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Representations from other parties documents</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">representations.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">representations.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -556,7 +556,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning officer&#39;s report</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">officersReport.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">officersReport.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -634,7 +634,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                         "><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview' target=" '_blank' " class="govuk-link ">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink
-                        single-line ">late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
+                        single-line ">Late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
                         "><dt class="govuk-summary-list__key govuk-visually-hidden
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview' target=" '_blank' " class="govuk-link
@@ -642,7 +642,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><span><div class="govuk-body govuk-!-margin-bottom-2
                         ">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line
-                        ">virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
+                        ">Virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
                         " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
                         "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
                         " id="review-outcome " name="review-outcome " type="radio " value="complete
@@ -755,9 +755,9 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">conservationAreaMap.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">conservationAreaMap.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">applicationForm.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">applicationForm.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -787,7 +787,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who was notified</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">notifyingParties.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">notifyingParties.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -813,7 +813,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site notice</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">siteNotices.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">siteNotices.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -829,7 +829,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Letter/email to interested parties</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">lettersToNeighbours.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">lettersToNeighbours.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -859,7 +859,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Representations from other parties documents</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">representations.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">representations.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -884,7 +884,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning officer&#39;s report</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">officersReport.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">officersReport.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -962,7 +962,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                         "><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview' target=" '_blank' " class="govuk-link ">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink
-                        single-line ">late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
+                        single-line ">Late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
                         "><dt class="govuk-summary-list__key govuk-visually-hidden
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview' target=" '_blank' " class="govuk-link
@@ -970,7 +970,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><span><div class="govuk-body govuk-!-margin-bottom-2
                         ">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line
-                        ">virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
+                        ">Virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
                         " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
                         "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
                         " id="review-outcome " name="review-outcome " type="radio " value="complete
@@ -1357,7 +1357,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                 </div>
             </div>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                <div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5"><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
                 </div>
             </div>
             <div class="govuk-grid-row">
@@ -2059,7 +2059,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
 "<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Add additional documents</h1>
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+        <div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5"><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -2252,7 +2252,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
 "<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-xl">Appeal 351062</span>
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">Update additional document</h1>
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+        <div class="govuk-grid-column-full govuk-!-margin-top-3 govuk-!-margin-bottom-5"><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -2366,7 +2366,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
                         <dd>PDF, 129 KB</dd>
                     </dl>
-                    <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                    <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                     </div>
                 </td>
                 <td class="govuk-table__cell">1 February 2023</td>
@@ -2382,12 +2382,12 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
                         <dd>MP4, 11.8 MB</dd>
                     </dl>
-                    <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                    <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                     </div>
                 </td>
                 <td class="govuk-table__cell">
                     <div>2 March 2024</div>
-                    <div class="govuk-!-margin-top-3"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                    <div class="govuk-!-margin-top-3"><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
                     </div>
                 </td>
                 <td class="govuk-table__cell">Unredacted</td>
@@ -2402,7 +2402,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dl class="govuk-body govuk-!-font-size-16 pins-inline-definition-list"><dt>File type and size:&nbsp;</dt>
                         <dd>JPEG, 59 KB</dd>
                     </dl>
-                    <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--red single-line">virus detected</strong>
+                    <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--red single-line">Virus detected</strong>
                     </div>
                 </td>
                 <td class="govuk-table__cell">3 April 2025</td>
@@ -2421,7 +2421,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 </td>
                 <td class="govuk-table__cell">
                     <div>3 April 2025</div>
-                    <div class="govuk-!-margin-top-3"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                    <div class="govuk-!-margin-top-3"><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
                     </div>
                 </td>
                 <td class="govuk-table__cell">Unredacted</td>
@@ -2494,7 +2494,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
-                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                         </div>
                     </dd>
                 </div>
@@ -2504,7 +2504,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2">1 February 2023</div>
-                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
                         </div>
                     </dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
@@ -2542,9 +2542,9 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                                 <td class="govuk-table__cell">
                                     <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                                     </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
-                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                 </div>
-                <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--pink single-line">late entry</strong>
+                <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
                 </div>
                 </td>
                 <td class="govuk-table__cell"></td>
@@ -2556,7 +2556,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <td class="govuk-table__cell">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
-                        <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                         </div>
                     </td>
                     <td class="govuk-table__cell">
@@ -2704,7 +2704,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
-                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--red single-line">virus detected</strong>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--red single-line">Virus detected</strong>
                         </div>
                     </dd>
                 </div>
@@ -2753,7 +2753,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                                 <td class="govuk-table__cell">
                                     <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                                     </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
-                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--red single-line">virus detected</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--red single-line">Virus detected</strong>
                 </div>
                 </td>
                 <td class="govuk-table__cell">
@@ -2805,7 +2805,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
-                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                         </div>
                     </dd>
                 </div>
@@ -2849,7 +2849,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                                 <td class="govuk-table__cell">
                                     <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                                     </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
-                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                 </div>
                 </td>
                 <td class="govuk-table__cell">
@@ -2900,7 +2900,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
-                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                         </div>
                     </dd>
                 </div>
@@ -2944,7 +2944,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                                 <td class="govuk-table__cell">
                                     <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                                     </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
-                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                 </div>
                 </td>
                 <td class="govuk-table__cell">
@@ -2995,7 +2995,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
-                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                        <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                         </div>
                     </dd>
                 </div>
@@ -3039,7 +3039,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                                 <td class="govuk-table__cell">
                                     <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                                     </div><strong class="govuk-tag govuk-tag--blue single-line govuk-!-margin-bottom-2">CURRENT VERSION</strong>
-                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong>
+                                    <div                                     class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong>
                 </div>
                 </td>
                 <td class="govuk-table__cell">
@@ -3263,7 +3263,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Conservation area map and guidance</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">conservationAreaMap.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">conservationAreaMap.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -3293,7 +3293,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who was notified</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">notifyingParties.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">notifyingParties.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -3319,7 +3319,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site notice</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">siteNotices.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">siteNotices.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                     </dd>
@@ -3335,7 +3335,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Letter/email to interested parties</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">lettersToNeighbours.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">lettersToNeighbours.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -3365,7 +3365,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Representations from other parties documents</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">representations.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">representations.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -3390,7 +3390,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning officer&#39;s report</dt>
                     <dd                     class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">officersReport.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">virus scanning</strong></span>
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">officersReport.docx</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
                             </li>
                         </ul>
                         </dd>
@@ -3468,7 +3468,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                         "><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview' target=" '_blank' " class="govuk-link ">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink
-                        single-line ">late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
+                        single-line ">Late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
                         "><dt class="govuk-summary-list__key govuk-visually-hidden
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview' target=" '_blank' " class="govuk-link
@@ -3476,7 +3476,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                         "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
                         "><li><span><div class="govuk-body govuk-!-margin-bottom-2
                         ">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line
-                        ">virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
+                        ">Virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
                         " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
                         "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
                         " id="review-outcome " name="review-outcome " type="radio " value="complete

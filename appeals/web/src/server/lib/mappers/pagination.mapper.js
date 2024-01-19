@@ -8,16 +8,22 @@ import { paginationDefaultSettings } from '#appeals/appeal.constants.js';
  * @param {number} pageCount
  * @param {number} itemsPerPage
  * @param {string} baseUrl
- * @param {string} [additionalQueryString]
+ * @param {object} query
  * @returns {Pagination}
  */
-export function mapPagination(
-	currentPage,
-	pageCount,
-	itemsPerPage,
-	baseUrl,
-	additionalQueryString
-) {
+export function mapPagination(currentPage, pageCount, itemsPerPage, baseUrl, query) {
+	// filter out pagination related query params
+	const paginationlessQueryParams = Object.entries(query).filter(
+		([prop]) => prop !== 'pageNumber' && prop !== 'pageSize'
+	);
+
+	// re-construct query params without pagination
+	const additionalQueryString = paginationlessQueryParams.reduce(
+		(prevValue, [prop, value]) =>
+			`${prevValue}&${encodeURIComponent(prop)}=${encodeURIComponent(value)}`,
+		''
+	);
+
 	/** @type {Pagination} */
 	const pagination = {
 		previous: {},
