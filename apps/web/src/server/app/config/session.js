@@ -1,51 +1,13 @@
 import config from '@pins/applications.web/environment/config.js';
 import session from 'express-session';
-import RedisStore from 'connect-redis';
-import { createClient } from 'redis';
-import { parseRedisConnectionString } from '@pins/platform';
 import logger from '../../lib/logger.js';
+import redisClient from '../../lib/redis.js';
 
 /**
- * @param {string} redisConnectionString
  * @returns {import('express-session').Store}
  */
-function createRedisStore(redisConnectionString) {
-	if (!redisConnectionString) {
-		throw new Error('expected redis connection string');
-	}
-	const details = parseRedisConnectionString(redisConnectionString);
-
-	const client = createClient({
-		socket: {
-			host: details.host,
-			port: details.port,
-			tls: details.ssl
-		},
-		password: details.password
-	});
-
-	/** @param {Error|any} err */
-	const onError = (err) =>
-		logger.error(`Could not establish a connection with redis server: ${err}`);
-	client.on('connect', () => logger.info('Initiating connection to redis server...'));
-	client.on('ready', () => logger.info('Connected to redis server successfully...'));
-	client.on('end', () => logger.info('Disconnected from redis server...'));
-	client.on('error', onError);
-	client.on('reconnecting', () => logger.info('Reconnecting to redis server...'));
-
-	// kick off the connection - no await here, in the background
-	client.connect().catch(onError);
-
-	// dev note: this may 'error' in vscode, but tscheck is all OK
-	return new RedisStore({ client });
-}
-
-/**
- * @param {string} [redisConnectionString]
- * @returns {import('express-session').Store}
- */
-function configureStore(redisConnectionString) {
-	if (!redisConnectionString) {
+function configureStore() {
+	if (!redisClient) {
 		if (config.isProduction) {
 			throw new Error('REDIS_CONNECTION_STRING is required in production.');
 		}
@@ -55,11 +17,10 @@ function configureStore(redisConnectionString) {
 	}
 
 	logger.info('Configuring Redis for session storage');
-	return createRedisStore(redisConnectionString);
+  return redisClient.store;
 }
 
-// TODO: for now we want to use memory store, until Redis setup is fixed
-const store = configureStore(config.session.redis);
+const store = configureStore();
 
 export default session({
 	secret: config.session?.secret,

@@ -33,6 +33,7 @@
     "@pins/applications": "^0.0.0",
     "@pins/blob-storage-client": "^0.0.0",
     "@pins/platform": "^0.0.0",
+    "@pins/redis": "^0.0.0",
     "@planning-inspectorate/address-lookup": "^1.0.6",
     "@toast-ui/editor": "^3.2.2",
     "accessible-autocomplete": "2.0.4",

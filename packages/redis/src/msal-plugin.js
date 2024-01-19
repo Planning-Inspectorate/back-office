@@ -1,7 +1,7 @@
 /**
  * @param {ReturnType<import('redis').createClient>} client
  * @param {import('./types').Logger} logger
- * @returns {import('./types').MSALCachePlugin}
+ * @returns {import('@azure/msal-node').ICachePlugin}
  * */
 export const createMsalPlugin = (client, logger) => ({
 	async beforeCacheAccess(cacheContext) {
@@ -24,8 +24,8 @@ export const createMsalPlugin = (client, logger) => ({
 			return;
 		}
 
-    if (cacheContext.cacheHasChanged) {
-      await client.set('msal', cacheContext.tokenCache.serialize());
-    }
-  }
+		if (cacheContext.cacheHasChanged) {
+			await client.set('msal', cacheContext.tokenCache.serialize());
+		}
+	}
 });

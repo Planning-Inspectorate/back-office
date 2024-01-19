@@ -1,21 +1,16 @@
-import { init, get, set } from 'node-cache-redis';
-import { parseRedisConnectionString } from '@pins/platform';
+import { RedisClient } from '@pins/redis';
+import config from '@pins/applications.web/environment/config.js';
 import logger from './logger.js';
 
 /**
- * @param {string} connString
+ * @returns {RedisClient | null}
  * */
-export function initialiseRedis(connString) {
-	logger.info('Initialising Redis...');
+function initClient() {
+  if (!config.session.redis) {
+    return null;
+  }
 
-	const details = parseRedisConnectionString(connString);
-
-	init({
-		name: 'auth-cache',
-		redisOptions: {
-			url: `redis://:${details.password}@${details.host}:${details.port}/0`
-		}
-	});
+  return new RedisClient(config.session.redis, logger);
 }
 
-export { get, set };
+export default initClient();
