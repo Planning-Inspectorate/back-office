@@ -1,7 +1,7 @@
 import { appealShortReference } from '#lib/appeals-formatter.js';
 /**
  * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
- * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
+ * @typedef {import('@pins/appeals.api').Appeals.NotValidReasonOption} NotValidReasonOption
  * @typedef {import('./change-appeal-type.types.js').AppealType} AppealType
  * @typedef {import('../../appeals.types.js').SelectItemParameter} SelectItemParameter
  * @typedef {import('./change-appeal-type.types.js').ChangeAppealTypeRequest} ChangeAppealTypeRequest
