@@ -283,9 +283,11 @@ describe('notification banners mapper', () => {
 });
 
 describe('pagination mapper', () => {
+	const testAdditionalQuery = { 'test-additional-query-string': true };
+
 	describe('mapPagination', () => {
 		it('should return an empty Pagination object if pageCount is less than 2', () => {
-			const result = mapPagination(1, 1, 10, 'test-base-url', 'test-additional-query-string');
+			const result = mapPagination(1, 1, 10, 'test-base-url', testAdditionalQuery);
 
 			expect(result.previous).toEqual({});
 			expect(result.next).toEqual({});
@@ -293,9 +295,10 @@ describe('pagination mapper', () => {
 		});
 		it('should return a Pagination object with the expected properties if pageCount is 2 or greater', () => {
 			const testBaseUrl = 'test-base-url';
-			const testAdditionalQueryString = '&test-additional-query-string';
 
-			const result = mapPagination(3, 5, 10, testBaseUrl, testAdditionalQueryString);
+			const result = mapPagination(3, 5, 10, testBaseUrl, testAdditionalQuery);
+
+			const testAdditionalQueryString = '&test-additional-query-string=true';
 
 			expect(result.previous?.href).toEqual(
 				`${testBaseUrl}?pageSize=10&pageNumber=2${testAdditionalQueryString}`

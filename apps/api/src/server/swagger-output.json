@@ -8076,7 +8076,7 @@
 							"type": "number",
 							"example": 1646822600
 						},
-						"notificationDateForEventsDeveloper": {
+						"notificationDateForEventsApplicant": {
 							"type": "number",
 							"description": "Unix timestamp date",
 							"example": 1646822600

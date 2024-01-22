@@ -27,3 +27,19 @@ export function appealShortReference(reference) {
 	}
 	return referenceParts[referenceParts.length - 1];
 }
+
+/**
+ *
+ * @param {boolean} isParent
+ * @param {boolean} isChild
+ * @returns  {string}
+ */
+export const linkedAppealStatus = (isParent, isChild) => {
+	if (isParent) {
+		return 'Lead';
+	}
+	if (isChild) {
+		return 'Child';
+	}
+	return '';
+};

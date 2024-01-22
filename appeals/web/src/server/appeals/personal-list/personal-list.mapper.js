@@ -1,10 +1,12 @@
 import config from '#environment/config.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
+import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { dateToDisplayDate } from '#lib/dates.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 import * as authSession from '../../app/auth/auth-session.service.js';
+import { appealStatusToStatusTag } from '#lib/nunjucks-filters/status-tag.js';
+import { capitalizeFirstLetter } from '#lib/string-utilities.js';
 
 /** @typedef {import('@pins/appeals').AppealList} AppealList */
 /** @typedef {import('@pins/appeals').Pagination} Pagination */
@@ -12,13 +14,29 @@ import * as authSession from '../../app/auth/auth-session.service.js';
 
 /**
  * @param {AppealList|void} appealsAssignedToCurrentUser
+ * @param {string} urlWithoutQuery
+ * @param {string|undefined} appealStatusFilter
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @returns {PageContent}
  */
-export function personalListPage(appealsAssignedToCurrentUser, session) {
+
+export function personalListPage(
+	appealsAssignedToCurrentUser,
+	urlWithoutQuery,
+	appealStatusFilter,
+	session
+) {
 	const account = /** @type {AccountInfo} */ (authSession.getAccount(session));
 	const userGroups = account?.idTokenClaims?.groups ?? [];
 	const isInspector = userGroups.includes(config.referenceData.appeals.inspectorGroupId);
+
+	const filterItemsArray = ['all', ...(appealsAssignedToCurrentUser?.statuses || [])].map(
+		(appealStatus) => ({
+			text: capitalizeFirstLetter(appealStatusToStatusTag(appealStatus)),
+			value: appealStatus,
+			selected: appealStatusFilter === appealStatus
+		})
+	);
 
 	/** @type {PageContent} */
 	const pageContent = {
@@ -26,6 +44,54 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 		heading: 'Cases assigned to you',
 		headingClasses: 'govuk-heading-l govuk-!-margin-bottom-6',
 		pageComponents: [
+			{
+				type: 'details',
+				parameters: {
+					summaryText: 'Filters',
+					html: '',
+					pageComponents: [
+						{
+							type: 'html',
+							parameters: {
+								html: `<form method="GET">`
+							}
+						},
+						{
+							type: 'select',
+							parameters: {
+								label: {
+									text: 'Show cases with status'
+								},
+								id: 'filters-select',
+								name: 'appealStatusFilter',
+								value: 'all',
+								items: filterItemsArray
+							}
+						},
+						{
+							type: 'html',
+							parameters: {
+								html: '<div class="govuk-button-group">'
+							}
+						},
+						{
+							type: 'button',
+							parameters: {
+								id: 'filters-submit',
+								type: 'submit',
+								classes: 'govuk-button--secondary',
+								text: 'Apply'
+							}
+						},
+						{
+							type: 'html',
+							parameters: {
+								html: `<a class="govuk-link" href="${urlWithoutQuery}">Clear filter</a></div></form>`
+							}
+						}
+					]
+				}
+			},
 			{
 				type: 'table',
 				parameters: {
@@ -62,7 +128,7 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 									{
 										type: 'status-tag',
 										parameters: {
-											status: ''
+											status: linkedAppealStatus(appeal.isParentAppeal, appeal.isChildAppeal)
 										}
 									}
 								]
@@ -72,8 +138,9 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
 									appeal.appealId,
 									appeal.appealStatus,
 									appeal.lpaQuestionnaireId,
-									appeal.documentationSummary?.appellantCase?.status,
-									appeal.documentationSummary?.lpaQuestionnaire?.status,
+									appeal.appellantCaseStatus,
+									appeal.lpaQuestionnaireStatus,
+									appeal.dueDate,
 									isInspector
 								)
 							},
@@ -121,6 +188,7 @@ export function personalListPage(appealsAssignedToCurrentUser, session) {
  * @param {number|null|undefined} lpaQuestionnaireId
  * @param {string} appellantCaseStatus
  * @param {string} lpaQuestionnaireStatus
+ * @param {string} dueDate
  * @param {boolean} [isInspector]
  * @returns {string}
  */
@@ -130,8 +198,12 @@ export function mapAppealStatusToActionRequiredHtml(
 	lpaQuestionnaireId,
 	appellantCaseStatus,
 	lpaQuestionnaireStatus,
+	dueDate,
 	isInspector = false
 ) {
+	const currentDate = new Date();
+	const appealDueDate = new Date(dueDate);
+
 	switch (appealStatus) {
 		case 'ready_to_start':
 		case 'review_appellant_case':
@@ -143,8 +215,8 @@ export function mapAppealStatusToActionRequiredHtml(
 			}
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/appellant-case">Review appellant case</a>`;
 		case 'lpa_questionnaire_due':
-			if (!lpaQuestionnaireId) {
-				return 'Awaiting LPA Questionnaire';
+			if (currentDate > appealDueDate) {
+				return 'LPA Questionnaire Overdue';
 			}
 			if (lpaQuestionnaireStatus == 'Incomplete') {
 				if (isInspector) {
@@ -152,7 +224,13 @@ export function mapAppealStatusToActionRequiredHtml(
 				}
 				return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Awaiting LPA update</a>`;
 			}
-			return 'LPA Questionnaire Overdue';
+			if (lpaQuestionnaireId) {
+				if (isInspector) {
+					return 'Review LPA Questionnaire';
+				}
+				return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}">Review LPA Questionnaire</a>`;
+			}
+			return 'Awaiting LPA Questionnaire';
 		case 'issue_determination':
 			return `<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/issue-decision/decision">Submit decision</a>`;
 		default:

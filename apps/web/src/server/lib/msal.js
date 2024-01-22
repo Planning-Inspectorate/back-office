@@ -1,6 +1,7 @@
 import msal, { LogLevel } from '@azure/msal-node';
 import config from '@pins/applications.web/environment/config.js';
 import pino from './logger.js';
+import redisClient from './redis.js';
 
 export const msalClient = new msal.ConfidentialClientApplication({
 	auth: {
@@ -35,7 +36,8 @@ export const msalClient = new msal.ConfidentialClientApplication({
 			piiLoggingEnabled: false,
 			logLevel: msal.LogLevel.Warning
 		}
-	}
+	},
+	cache: { cachePlugin: redisClient?.cachePlugin }
 });
 
 /**

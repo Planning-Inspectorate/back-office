@@ -1,0 +1,37 @@
+{
+    "name": "@pins/functions-applications-background-jobs",
+    "version": "0.0.0",
+    "private": true,
+    "engines": {
+        "node": ">=18.0.0 <19.0.0"
+    },
+	"description": "Azure functions related to Background Jobs",
+    "type": "module",
+    "scripts": {
+        "start": "func start",
+        "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit",
+        "run-local": "node notify-subscribers/run-local.js"
+	},
+    "dependencies": {
+        "@azure/functions": "^1.2.2",
+		"@azure/identity": "3.0.1",
+        "@pins/blob-storage-client": "^0.0.0",
+        "@pins/platform": "^0.0.0",
+		"@pins/event-client": "^0.0.0",
+        "azure-functions-core-tools": "3",
+		"docopt": "^0.6.2",
+        "dotenv": "16.0.3",
+        "got": "^12.5.2",
+        "joi": "*",
+		"lodash-es": "^4.17.21",
+        "pino": "7.11.0",
+        "stub-azure-function-context": "^2.0.0-alpha.4",
+		"notifications-node-client": "^7.0.3",
+		"turndown": "^7.1.2"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3",
+        "eslint": "8.14.0",
+        "jest": "^29.4.1"
+    }
+}

@@ -17,13 +17,7 @@ import {
 } from '../../constants.js';
 import { savedFolder } from '#tests/documents/mocks.js';
 import { azureAdUserId } from '#tests/shared/mocks.js';
-import {
-	householdAppeal,
-	fullPlanningAppeal,
-	householdAppealAppellantCaseIncomplete,
-	linkedAppeals,
-	otherAppeals
-} from '#tests/appeals/mocks.js';
+import { householdAppeal, fullPlanningAppeal, linkedAppeals } from '#tests/appeals/mocks.js';
 import formatAddress from '#utils/format-address.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 import { mapAppealToDueDate } from '../appeals.formatter.js';
@@ -31,6 +25,10 @@ import { mapAppealToDueDate } from '../appeals.formatter.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 describe('appeals routes', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
@@ -71,7 +69,9 @@ describe('appeals routes', () => {
 							localPlanningDepartment: householdAppeal.lpa.name,
 							appellantCaseStatus: '',
 							lpaQuestionnaireStatus: '',
-							dueDate: null
+							dueDate: null,
+							isParentAppeal: false,
+							isChildAppeal: false
 						},
 						{
 							appealId: fullPlanningAppeal.id,
@@ -89,12 +89,15 @@ describe('appeals routes', () => {
 							localPlanningDepartment: fullPlanningAppeal.lpa.name,
 							appellantCaseStatus: '',
 							lpaQuestionnaireStatus: '',
-							dueDate: null
+							dueDate: null,
+							isParentAppeal: false,
+							isChildAppeal: false
 						}
 					],
 					page: 1,
 					pageCount: 1,
-					pageSize: 30
+					pageSize: 30,
+					statuses: ['ready_to_start']
 				});
 			});
 
@@ -134,12 +137,15 @@ describe('appeals routes', () => {
 							localPlanningDepartment: fullPlanningAppeal.lpa.name,
 							appellantCaseStatus: '',
 							lpaQuestionnaireStatus: '',
-							dueDate: null
+							dueDate: null,
+							isParentAppeal: false,
+							isChildAppeal: false
 						}
 					],
 					page: 2,
 					pageCount: 1,
-					pageSize: 1
+					pageSize: 1,
+					statuses: ['ready_to_start']
 				});
 			});
 
@@ -198,12 +204,15 @@ describe('appeals routes', () => {
 							localPlanningDepartment: householdAppeal.lpa.name,
 							appellantCaseStatus: '',
 							lpaQuestionnaireStatus: '',
-							dueDate: null
+							dueDate: null,
+							isParentAppeal: false,
+							isChildAppeal: false
 						}
 					],
 					page: 1,
 					pageCount: 1,
-					pageSize: 30
+					pageSize: 30,
+					statuses: ['ready_to_start']
 				});
 			});
 
@@ -262,12 +271,15 @@ describe('appeals routes', () => {
 							localPlanningDepartment: householdAppeal.lpa.name,
 							appellantCaseStatus: '',
 							lpaQuestionnaireStatus: '',
-							dueDate: null
+							dueDate: null,
+							isParentAppeal: false,
+							isChildAppeal: false
 						}
 					],
 					page: 1,
 					pageCount: 1,
-					pageSize: 30
+					pageSize: 30,
+					statuses: ['ready_to_start']
 				});
 			});
 
@@ -326,12 +338,15 @@ describe('appeals routes', () => {
 							localPlanningDepartment: householdAppeal.lpa.name,
 							appellantCaseStatus: '',
 							lpaQuestionnaireStatus: '',
-							dueDate: null
+							dueDate: null,
+							isChildAppeal: false,
+							isParentAppeal: false
 						}
 					],
 					page: 1,
 					pageCount: 1,
-					pageSize: 30
+					pageSize: 30,
+					statuses: ['ready_to_start']
 				});
 			});
 
@@ -460,10 +475,9 @@ describe('appeals routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
-				databaseConnector.appeal.findMany
+				databaseConnector.appealRelationship.findMany
 					// @ts-ignore
-					.mockResolvedValueOnce(linkedAppeals)
-					.mockResolvedValueOnce(otherAppeals);
+					.mockResolvedValueOnce(linkedAppeals);
 
 				const response = await request
 					.get(`/appeals/${householdAppeal.id}`)
@@ -526,12 +540,14 @@ describe('appeals routes', () => {
 						}
 					},
 					isParentAppeal: true,
-					linkedAppeals: [
-						{
-							appealId: fullPlanningAppeal.id,
-							appealReference: fullPlanningAppeal.reference
-						}
-					],
+					isChildAppeal: false,
+					linkedAppeals: linkedAppeals.map((a) => {
+						return {
+							appealReference: a.childRef,
+							isParentAppeal: false,
+							linkingDate: a.linkingDate
+						};
+					}),
 					localPlanningDepartment: householdAppeal.lpa.name,
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
@@ -542,12 +558,6 @@ describe('appeals routes', () => {
 						})),
 						isAffected: householdAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
 					},
-					otherAppeals: [
-						{
-							appealId: householdAppealAppellantCaseIncomplete.id,
-							appealReference: householdAppealAppellantCaseIncomplete.reference
-						}
-					],
 					planningApplicationReference: householdAppeal.planningApplicationReference,
 					procedureType: householdAppeal.lpaQuestionnaire.procedureType.name,
 					siteVisit: {
@@ -566,11 +576,6 @@ describe('appeals routes', () => {
 				databaseConnector.folder.findMany.mockResolvedValue([savedFolder]);
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
-				// @ts-ignore
-				databaseConnector.appeal.findMany
-					// @ts-ignore
-					.mockResolvedValueOnce(linkedAppeals)
-					.mockResolvedValueOnce([]);
 
 				const response = await request
 					.get(`/appeals/${fullPlanningAppeal.id}`)
@@ -635,12 +640,8 @@ describe('appeals routes', () => {
 						}
 					},
 					isParentAppeal: false,
-					linkedAppeals: [
-						{
-							appealId: householdAppeal.id,
-							appealReference: householdAppeal.reference
-						}
-					],
+					isChildAppeal: false,
+					linkedAppeals: [],
 					localPlanningDepartment: fullPlanningAppeal.lpa.name,
 					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
@@ -653,7 +654,6 @@ describe('appeals routes', () => {
 						),
 						isAffected: fullPlanningAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
 					},
-					otherAppeals: [],
 					planningApplicationReference: fullPlanningAppeal.planningApplicationReference,
 					procedureType: fullPlanningAppeal.lpaQuestionnaire.procedureType.name,
 					siteVisit: {

@@ -3,6 +3,7 @@ import { APPEAL_TYPE_SHORTHAND_FPA, APPEAL_TYPE_SHORTHAND_HAS } from '#endpoints
 
 export {
 	Address,
+	AppealRelationship,
 	AppellantCase,
 	AppellantCaseIncompleteReason,
 	AppellantCaseInvalidReason,
@@ -39,10 +40,8 @@ export interface Appeal extends schema.Appeal {
 	dueDate?: Date;
 	id: number;
 	inspectorDecision?: InspectorDecision;
-	linkedAppealId?: number | null;
 	lpa: schema.LPA;
 	lpaQuestionnaire?: schema.LPAQuestionnaire;
-	otherAppealId?: number | null;
 	planningApplicationReference: string;
 	reference: string;
 	reviewQuestionnaire?: schema.ReviewQuestionnaire[];

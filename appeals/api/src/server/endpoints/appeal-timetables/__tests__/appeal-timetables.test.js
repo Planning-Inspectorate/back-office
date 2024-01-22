@@ -1,4 +1,5 @@
 import { request } from '../../../app-test.js';
+import { jest } from '@jest/globals';
 import {
 	AUDIT_TRAIL_CASE_TIMELINE_UPDATED,
 	ERROR_FAILED_TO_SAVE_DATA,
@@ -18,6 +19,13 @@ const futureDate = '2099-09-01';
 const futureDateAndTime = joinDateAndTime(futureDate);
 
 describe('appeal timetables routes', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 	describe('/appeals/:appealId/appeal-timetables/:appealTimetableId', () => {
 		describe('PATCH', () => {
 			const householdAppealRequestBody = {

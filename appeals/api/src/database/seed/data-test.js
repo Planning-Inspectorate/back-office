@@ -793,30 +793,42 @@ export async function seedTestData(databaseConnector) {
 		}
 	}
 
-	const linkedAppealGroups = [
-		[appeals[0].id, appeals[1].id, appeals[2].id],
-		[appeals[3].id, appeals[4].id, appeals[5].id],
-		[appeals[6].id, appeals[7].id, appeals[8].id],
-		[appeals[9].id, appeals[10].id, appeals[11].id],
-		[appeals[12].id, appeals[13].id],
-		[appeals[14].id, appeals[15].id],
-		[appeals[16].id, appeals[17].id],
-		[appeals[18].id, appeals[19].id],
-		[appeals[20].id, appeals[21].id]
+	const linkedAppeals = [
+		{
+			parentRef: appeals[0].reference,
+			parentId: appeals[0].id,
+			childRef: appeals[1].reference,
+			childId: appeals[1].id
+		},
+		{
+			parentRef: appeals[0].reference,
+			parentId: appeals[0].id,
+			childRef: appeals[2].reference,
+			childId: appeals[2].id
+		},
+		{
+			parentRef: appeals[0].reference,
+			parentId: appeals[0].id,
+			childRef: appeals[16].reference,
+			childId: appeals[16].id
+		},
+		{ parentRef: appeals[0].reference, parentId: appeals[0].id, childRef: 'HORIZON-76215416' },
+		{
+			parentRef: appeals[4].reference,
+			parentId: appeals[4].id,
+			childRef: appeals[19].reference,
+			childId: appeals[19].id
+		},
+		{
+			parentRef: appeals[4].reference,
+			parentId: appeals[4].id,
+			childRef: appeals[20].reference,
+			childId: appeals[20].id
+		},
+		{ parentRef: 'HORIZON-96215416', childRef: appeals[21].reference, childId: appeals[21].id }
 	];
 
-	await Promise.all(
-		linkedAppealGroups
-			.map((linkedAppealGroup) =>
-				linkedAppealGroup.map((linkedAppeal) =>
-					databaseConnector.appeal.update({
-						where: { id: linkedAppeal },
-						data: { linkedAppealId: linkedAppealGroup[0], otherAppealId: linkedAppealGroup[0] }
-					})
-				)
-			)
-			.flat()
-	);
+	await databaseConnector.appealRelationship.createMany({ data: linkedAppeals });
 
 	const appealTypes = await databaseConnector.appealType.findMany();
 	const appealStatus = await databaseConnector.appealStatus.findMany();

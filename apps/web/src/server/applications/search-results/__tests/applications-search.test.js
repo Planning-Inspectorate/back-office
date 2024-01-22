@@ -77,3 +77,26 @@ describe('applications search', () => {
 		});
 	});
 });
+
+const {
+	app: appUnauth,
+	installMockApi: installMockApiUnauth,
+	teardown: teardownUnauth
+} = createTestEnvironment({ authenticated: true, groups: ['not_valid_group'] });
+
+const requestUnauth = supertest(appUnauth);
+
+describe('Search page when user belongs to wrong group', () => {
+	beforeEach(installMockApiUnauth);
+	afterEach(teardownUnauth);
+
+	describe('GET /applications-service/search', () => {
+		it('should not render the page due to an authentication error', async () => {
+			const response = await requestUnauth.get('/applications-service/search');
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('You are not permitted to access this URL');
+		});
+	});
+});

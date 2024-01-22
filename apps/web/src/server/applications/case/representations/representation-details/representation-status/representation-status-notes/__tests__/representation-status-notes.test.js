@@ -65,7 +65,6 @@ describe('Change representation status page', () => {
 			expect(element.innerHTML).toContain('Merged');
 			expect(element.innerHTML).toContain('Not relevant');
 			expect(element.innerHTML).toContain('Resubmitted');
-			expect(element.innerHTML).toContain('TEST');
 		});
 	});
 

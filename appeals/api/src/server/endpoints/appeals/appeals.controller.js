@@ -37,16 +37,25 @@ const getAppeals = async (req, res) => {
 	const pageSize = Number(query.pageSize) || DEFAULT_PAGE_SIZE;
 	const searchTerm = String(query.searchTerm);
 
-	const [itemCount, appeals = []] = await appealRepository.getAllAppeals(
+	const [itemCount, appeals = [], rawStatuses = []] = await appealRepository.getAllAppeals(
 		pageNumber,
 		pageSize,
 		searchTerm
 	);
-	const formattedAppeals = appeals.map((appeal) => formatAppeals(appeal));
+
+	const formattedAppeals = await Promise.all(
+		appeals.map(async (appeal) => {
+			const linkedAppeals = await appealRepository.getLinkedAppeals(appeal.reference);
+			return formatAppeals(appeal, linkedAppeals);
+		})
+	);
+
+	const formattedStatuses = mapAppealStatuses(rawStatuses);
 
 	return res.send({
 		itemCount,
 		items: formattedAppeals,
+		statuses: formattedStatuses,
 		page: pageNumber,
 		pageCount: getPageCount(itemCount, pageSize),
 		pageSize
@@ -66,18 +75,26 @@ const getMyAppeals = async (req, res) => {
 	const azureUserId = req.get('azureAdUserId');
 
 	if (azureUserId) {
-		const [itemCount, appeals = []] = await appealRepository.getUserAppeals(
+		const [itemCount, appeals = [], rawStatuses = []] = await appealRepository.getUserAppeals(
 			azureUserId,
 			pageNumber,
 			pageSize,
 			status
 		);
 
-		const formattedAppeals = sortAppeals(appeals.map((appeal) => formatMyAppeals(appeal)));
+		const formattedAppeals = await Promise.all(
+			appeals.map(async (appeal) => {
+				const linkedAppeals = await appealRepository.getLinkedAppeals(appeal.reference);
+				return formatMyAppeals(appeal, linkedAppeals);
+			})
+		);
+		const sortedAppeals = sortAppeals(formattedAppeals);
+		const formattedStatuses = mapAppealStatuses(rawStatuses);
 
 		return res.send({
 			itemCount,
-			items: formattedAppeals,
+			items: sortedAppeals,
+			statuses: formattedStatuses,
 			page: pageNumber,
 			pageCount: getPageCount(itemCount, pageSize),
 			pageSize
@@ -167,6 +184,22 @@ const updateAppealById = async (req, res) => {
 	}
 
 	return res.send(body);
+};
+
+/**
+ * @param {{ appealStatus: { status: string; }[] }[]} rawStatuses
+ * @returns {string[]}
+ */
+const mapAppealStatuses = (rawStatuses) => {
+	return [
+		...new Set(
+			rawStatuses
+				.flat()
+				.flatMap((/** @type {} */ item) =>
+					item.appealStatus.map((/** @type {{ status: any; }} */ statusItem) => statusItem.status)
+				)
+		)
+	];
 };
 
 export { getAppealById, getAppeals, getMyAppeals, updateAppealById };

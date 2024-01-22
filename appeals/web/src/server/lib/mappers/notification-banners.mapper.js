@@ -82,11 +82,11 @@ export const notificationBannerDefinitions = {
  *
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
  * @param {ServicePageName} servicePage
- * @param {number} appealId
+ * @param {number|undefined} appealId
  * @returns {PageComponent[]}
  */
 export function buildNotificationBanners(session, servicePage, appealId) {
-	if (!('notificationBanners' in session)) {
+	if (appealId === undefined || !('notificationBanners' in session)) {
 		return [];
 	}
 

@@ -11,6 +11,7 @@ import { DATABASE_ORDER_BY_DESC, STATE_TARGET_COMPLETE } from '#endpoints/consta
 /** @typedef {import('@pins/appeals.api').Schema.InspectorDecision} InspectorDecision */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Schema.User} User */
+/** @typedef {import('@pins/appeals.api').Schema.AppealRelationship} AppealRelationship */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -20,7 +21,7 @@ import { DATABASE_ORDER_BY_DESC, STATE_TARGET_COMPLETE } from '#endpoints/consta
  * @param {number} pageNumber
  * @param {number} pageSize
  * @param {string} searchTerm
- * @returns {Promise<[number, RepositoryGetAllResultItem[]]>}
+ * @returns {Promise<[number, RepositoryGetAllResultItem[], any[]]>}
  */
 const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
 	const where = {
@@ -65,7 +66,8 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
 			},
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize
-		})
+		}),
+		getAppealsStatusesInNationalList(where)
 	]);
 };
 
@@ -74,7 +76,7 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
  * @param {number} pageNumber
  * @param {number} pageSize
  * @param {string} status
- * @returns {Promise<[number, RepositoryGetAllResultItem[]]>}
+ * @returns {Promise<[number, RepositoryGetAllResultItem[], any[]]>}
  */
 const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 	const where = {
@@ -99,6 +101,7 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 		databaseConnector.appeal.count({
 			where
 		}),
+
 		databaseConnector.appeal.findMany({
 			where,
 			include: {
@@ -110,12 +113,6 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 				},
 				appealTimetable: true,
 				appealType: true,
-				lpa: true,
-				lpaQuestionnaire: {
-					include: {
-						lpaQuestionnaireValidationOutcome: true
-					}
-				},
 				appellantCase: {
 					include: {
 						appellantCaseIncompleteReasonsOnAppellantCases: {
@@ -134,17 +131,76 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 						knowledgeOfOtherLandowners: true,
 						planningObligationStatus: true
 					}
+				},
+				lpa: true,
+				lpaQuestionnaire: {
+					include: {
+						lpaQuestionnaireValidationOutcome: true
+					}
 				}
 			},
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize
-		})
+		}),
+		getAppealsStatusesInPersonalList(userId)
 	]);
 };
 
 /**
+ * @param {string|undefined} userId
+ */
+const getAppealsStatusesInPersonalList = (userId) => {
+	const where = {
+		AND: {
+			appealStatus: {
+				some: { valid: true, status: { not: STATE_TARGET_COMPLETE } }
+			}
+		},
+		...(userId !== 'undefined' && {
+			OR: [
+				{ inspector: { azureAdUserId: { equals: userId } } },
+				{ caseOfficer: { azureAdUserId: { equals: userId } } }
+			]
+		})
+	};
+
+	return databaseConnector.appeal.findMany({
+		where,
+		select: {
+			appealStatus: {
+				select: {
+					status: true
+				},
+				where: {
+					valid: true
+				}
+			}
+		}
+	});
+};
+
+/**
+ * @param {object} where
+ */
+const getAppealsStatusesInNationalList = (where) => {
+	return databaseConnector.appeal.findMany({
+		where,
+		select: {
+			appealStatus: {
+				select: {
+					status: true
+				},
+				where: {
+					valid: true
+				}
+			}
+		}
+	});
+};
+
+/**
  * @param {number} id
- * @returns {Promise<RepositoryGetByIdResultItem | void>}
+ * @returns {Promise<RepositoryGetByIdResultItem|undefined>}
  */
 const getAppealById = async (id) => {
 	let appeal = await databaseConnector.appeal.findUnique({
@@ -245,31 +301,27 @@ const getAppealById = async (id) => {
 	});
 
 	if (appeal) {
-		const linkedAppeals = appeal.linkedAppealId
-			? await databaseConnector.appeal.findMany({
-					where: {
-						linkedAppealId: {
-							equals: appeal.linkedAppealId
+		const linkedAppeals = await databaseConnector.appealRelationship.findMany({
+			where: {
+				OR: [
+					{
+						parentRef: {
+							equals: appeal.reference
+						}
+					},
+					{
+						childRef: {
+							equals: appeal.reference
 						}
 					}
-			  })
-			: [];
-
-		const otherAppeals = appeal.otherAppealId
-			? await databaseConnector.appeal.findMany({
-					where: {
-						otherAppealId: {
-							equals: appeal.otherAppealId
-						}
-					}
-			  })
-			: [];
+				]
+			}
+		});
 
 		// @ts-ignore
 		return {
 			...appeal,
-			linkedAppeals,
-			otherAppeals
+			linkedAppeals
 		};
 	}
 };
@@ -349,7 +401,32 @@ const setInvalidAppealDecision = (id, { invalidDecisionReason, outcome }) => {
 	]);
 };
 
+/**
+ *
+ * @param {string} appealReference
+ * @returns {Promise<AppealRelationship[]>}
+ */
+const getLinkedAppeals = async (appealReference) => {
+	return await databaseConnector.appealRelationship.findMany({
+		where: {
+			OR: [
+				{
+					parentRef: {
+						equals: appealReference
+					}
+				},
+				{
+					childRef: {
+						equals: appealReference
+					}
+				}
+			]
+		}
+	});
+};
+
 export default {
+	getLinkedAppeals,
 	getAppealById,
 	getAllAppeals,
 	getUserAppeals,

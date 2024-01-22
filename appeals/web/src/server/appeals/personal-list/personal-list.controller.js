@@ -14,10 +14,13 @@ import { mapPagination } from '#lib/mappers/pagination.mapper.js';
 export const viewPersonalList = async (request, response) => {
 	const { originalUrl, query } = request;
 
+	const appealStatusFilter = query.appealStatusFilter && String(query.appealStatusFilter);
+
 	const urlWithoutQuery = originalUrl.split('?')[0];
 	const paginationParameters = getPaginationParametersFromQuery(query);
 	const assignedAppeals = await getAppealsAssignedToCurrentUser(
 		request.apiClient,
+		appealStatusFilter,
 		paginationParameters.pageNumber,
 		paginationParameters.pageSize
 	).catch((error) => logger.error(error));
@@ -26,12 +29,18 @@ export const viewPersonalList = async (request, response) => {
 		return response.status(404).render('app/404');
 	}
 
-	const mappedPageContent = personalListPage(assignedAppeals, request.session);
+	const mappedPageContent = personalListPage(
+		assignedAppeals,
+		urlWithoutQuery,
+		appealStatusFilter,
+		request.session
+	);
 	const pagination = mapPagination(
 		assignedAppeals.page,
 		assignedAppeals.pageCount,
 		assignedAppeals.pageSize,
-		urlWithoutQuery
+		urlWithoutQuery,
+		query
 	);
 
 	return response.render('patterns/display-page.pattern.njk', {

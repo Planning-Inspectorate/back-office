@@ -1,4 +1,5 @@
 import { request } from '#tests/../app-test.js';
+import { jest } from '@jest/globals';
 import { azureAdUserId } from '#tests/shared/mocks.js';
 import { householdAppeal } from '#tests/appeals/mocks.js';
 import {
@@ -14,6 +15,13 @@ const specialisms = [
 ];
 
 describe('appeal allocation routes', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 	describe('PATCH', () => {
 		test('returns 400 when level is not a string', async () => {
 			// @ts-ignore

@@ -27,6 +27,7 @@ const approxStageCompletion = {
 
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
+/** @typedef {import('@pins/appeals.api').Schema.AppealRelationship} AppealRelationship */
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -34,9 +35,10 @@ const approxStageCompletion = {
 /** @typedef {import('#db-client').AppealStatus} AppealStatus */
 /**
  * @param {RepositoryGetAllResultItem} appeal
+ * @param {AppealRelationship[]} linkedAppeals
  * @returns {AppealListResponse}}
  */
-const formatAppeals = (appeal) => ({
+const formatAppeals = (appeal, linkedAppeals) => ({
 	appealId: appeal.id,
 	appealReference: appeal.reference,
 	appealSite: formatAddress(appeal.address),
@@ -46,14 +48,17 @@ const formatAppeals = (appeal) => ({
 	localPlanningDepartment: appeal.lpa.name,
 	appellantCaseStatus: '',
 	lpaQuestionnaireStatus: '',
-	dueDate: null
+	dueDate: null,
+	isParentAppeal: linkedAppeals.filter((link) => link.parentRef === appeal.reference).length > 0,
+	isChildAppeal: linkedAppeals.filter((link) => link.childRef === appeal.reference).length > 0
 });
 
 /**
  * @param {RepositoryGetAllResultItem} appeal
+ * @param {AppealRelationship[]} linkedAppeals
  * @returns {AppealListResponse}}
  */
-const formatMyAppeals = (appeal) => ({
+const formatMyAppeals = (appeal, linkedAppeals) => ({
 	appealId: appeal.id,
 	appealReference: appeal.reference,
 	appealSite: formatAddress(appeal.address),
@@ -79,7 +84,9 @@ const formatMyAppeals = (appeal) => ({
 		appeal,
 		appeal?.appellantCase?.appellantCaseValidationOutcome?.name,
 		appeal.dueDate
-	)
+	),
+	isParentAppeal: linkedAppeals.filter((link) => link.parentRef === appeal.reference).length > 0,
+	isChildAppeal: linkedAppeals.filter((link) => link.childRef === appeal.reference).length > 0
 });
 
 /**
@@ -143,8 +150,13 @@ const formatAppeal = (appeal, folders) => {
 					isRequired: appeal.lpaQuestionnaire?.doesSiteRequireInspectorAccess || null
 				}
 			},
-			isParentAppeal: appeal.linkedAppealId ? appeal.id === appeal.linkedAppealId : null,
-			linkedAppeals: formatLinkedAppeals(appeal.linkedAppeals, appeal.id),
+			linkedAppeals: formatLinkedAppeals(appeal.linkedAppeals || [], appeal.reference),
+			isParentAppeal:
+				(appeal.linkedAppeals || []).filter((link) => link.parentRef === appeal.reference).length >
+				0,
+			isChildAppeal:
+				(appeal.linkedAppeals || []).filter((link) => link.childRef === appeal.reference).length >
+				0,
 			localPlanningDepartment: appeal.lpa.name,
 			lpaQuestionnaireId: appeal.lpaQuestionnaire?.id || null,
 			neighbouringSite: {
@@ -156,7 +168,6 @@ const formatAppeal = (appeal, folders) => {
 					})) || null,
 				isAffected: appeal.lpaQuestionnaire?.isAffectingNeighbouringSites || null
 			},
-			otherAppeals: formatLinkedAppeals(appeal.otherAppeals, appeal.id),
 			planningApplicationReference: appeal.planningApplicationReference,
 			procedureType: appeal.lpaQuestionnaire?.procedureType?.name || null,
 			siteVisit: {
@@ -189,7 +200,6 @@ const formatAppeal = (appeal, folders) => {
  * @returns { Date | null | undefined }
  */
 export const mapAppealToDueDate = (appeal, appellantCaseStatus, appellantCaseDueDate) => {
-	console.log('mapAppealToDueDate', JSON.stringify(appeal), ']');
 	switch (appeal.appealStatus[0].status) {
 		case STATE_TARGET_READY_TO_START:
 			if (appellantCaseStatus == 'Incomplete' && appellantCaseDueDate) {

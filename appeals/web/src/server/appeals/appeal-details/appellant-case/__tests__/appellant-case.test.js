@@ -924,7 +924,7 @@ describe('appellant-case', () => {
 					'due-date-year': '3000'
 				});
 
-			expect(response.statusCode).toBe(302);
+			expect(response.statusCode).toBe(200);
 		});
 	});
 
@@ -1018,7 +1018,7 @@ describe('appellant-case', () => {
 					'due-date-year': '3000'
 				});
 
-			expect(updateDateResponse.statusCode).toBe(302);
+			expect(updateDateResponse.statusCode).toBe(200);
 
 			const response = await request.get(
 				`${baseUrl}/1${appellantCasePagePath}${checkYourAnswersPagePath}`
@@ -1866,6 +1866,7 @@ describe('appellant-case', () => {
 			const response = await request.get(
 				`${baseUrl}/1${appellantCasePagePath}/manage-documents/1/1`
 			);
+
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();

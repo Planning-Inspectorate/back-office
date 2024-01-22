@@ -5,8 +5,10 @@ import { mapDocumentInfoVirusCheckStatus } from '#appeals/appeal-documents/appea
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 
 /**
- * @typedef {import('#appeals/appeals.types.js').DocumentInfo} DocumentInfo
- * @typedef {import('#appeals/appeals.types.js').FolderInfo} FolderInfo
+ * @typedef {import('@pins/appeals.api').Schema.Folder} Folder
+ * @typedef {import('@pins/appeals.api').Schema.Document} Document
+ * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
+ * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  */
 
 /**
@@ -103,7 +105,6 @@ export const formatListOfListedBuildingNumbers = (
 };
 
 /**
- *
  * @param {number} appealId
  * @param {DocumentInfo[]} listOfDocuments
  * @param {boolean} [addLateEntryStatusTag]
@@ -113,18 +114,10 @@ export const formatDocumentValues = (appealId, listOfDocuments, addLateEntryStat
 	/** @type {HtmlProperty} */
 	const htmlProperty = {
 		html: '',
-		pageComponentGroups: [
-			{
-				wrapperHtml: {
-					opening: '',
-					closing: ''
-				},
-				pageComponentGroups: []
-			}
-		]
+		pageComponents: []
 	};
 
-	if (listOfDocuments !== null) {
+	if (listOfDocuments.length > 0) {
 		for (let i = 0; i < listOfDocuments.length; i++) {
 			const document = listOfDocuments[i];
 			const virusCheckStatus = mapDocumentInfoVirusCheckStatus(document);
@@ -147,17 +140,33 @@ export const formatDocumentValues = (appealId, listOfDocuments, addLateEntryStat
 						closing: ''
 					},
 					parameters: {
-						html: `<div class="govuk-body govuk-!-margin-bottom-2">${document.name}</div>`
+						html: '',
+						pageComponents: [
+							{
+								type: 'html',
+								parameters: {
+									html: `<div class="govuk-body govuk-!-margin-bottom-2">${document.name}</div>`
+								}
+							}
+						]
 					}
 				});
 				documentPageComponents.push({
-					type: 'status-tag',
+					type: 'html',
 					wrapperHtml: {
 						opening: '',
 						closing: '</span>'
 					},
 					parameters: {
-						status: virusCheckStatus.statusText || ''
+						html: '',
+						pageComponents: [
+							{
+								type: 'status-tag',
+								parameters: {
+									status: virusCheckStatus.statusText || ''
+								}
+							}
+						]
 					}
 				});
 			}
@@ -171,24 +180,56 @@ export const formatDocumentValues = (appealId, listOfDocuments, addLateEntryStat
 				});
 			}
 
-			htmlProperty.pageComponentGroups[0].pageComponentGroups.push({
+			htmlProperty.pageComponents.push({
 				wrapperHtml: {
 					opening: '<li>',
 					closing: '</li>'
 				},
-				pageComponents: documentPageComponents
+				type: 'html',
+				parameters: {
+					html: '',
+					pageComponents: documentPageComponents
+				}
 			});
 		}
 
-		if (htmlProperty.pageComponentGroups[0].pageComponentGroups.length > 0) {
-			htmlProperty.pageComponentGroups[0].wrapperHtml.opening = '<ul class="govuk-list">';
-			htmlProperty.pageComponentGroups[0].wrapperHtml.closing = '</ul>';
+		if (htmlProperty.pageComponents.length > 0) {
+			htmlProperty.wrapperHtml = {
+				opening: '<ul class="govuk-list">',
+				closing: '</ul>'
+			};
 		}
 	} else {
 		logger.error('Document not in correct format');
 	}
 
 	return htmlProperty;
+};
+
+/**
+ * @param {number} appealId
+ * @param {Folder|undefined} folder
+ * @returns {HtmlProperty & ClassesProperty}
+ */
+export const formatFolderValues = (appealId, folder) => {
+	const mappedDocumentInfo =
+		folder?.documents?.map((document) => {
+			const documentInfo = {
+				id: document.id,
+				name: document.name,
+				// @ts-ignore - id property not present on import('@pins/appeals.api').Schema.Folder but present in data returned from document-folders endpoint...
+				folderId: folder.id,
+				caseId: appealId,
+				virusCheckStatus: document.latestDocumentVersion.virusCheckStatus,
+				isLateEntry: document.latestDocumentVersion.isLateEntry
+			};
+
+			return documentInfo;
+		}) || [];
+
+	const result = formatDocumentValues(appealId, mappedDocumentInfo);
+
+	return result;
 };
 
 /**

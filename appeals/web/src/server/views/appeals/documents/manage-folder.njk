@@ -6,26 +6,34 @@
 {%- set backLinkText = pageContent.backLinkText -%}
 {%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
+{%- set errorSummaryPageComponents = []-%}
+{%- set notificationBannerPageComponents = []-%}
+
+{%- for component in pageContent.pageComponents -%}
+	{%- if component.type === 'error-summary' -%}
+		{%- set _ = errorSummaryPageComponents.push(component) -%}
+	{%- endif -%}
+	{%- if component.type === 'notification-banner' -%}
+		{%- set _ = notificationBannerPageComponents.push(component) -%}
+	{%- endif -%}
+{%- endfor -%}
+
 {%- block pageHeading -%}
-{%- if pageContent.customErrorMessageComponents -%}
+	{%- if errorSummaryPageComponents | length -%}
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-two-thirds">
-				{%- for component in pageContent.customErrorMessageComponents -%}
-					{%- if component.type === 'error-summary' -%}
-						{{ govukErrorSummary(component.parameters) }}
-					{%- endif -%}
-				{%- endfor -%}
+			{%- for component in errorSummaryPageComponents -%}
+				{%- include "../components/page-component.njk" -%}
+			{%- endfor -%}
 			</div>
 		</div>
 	{%- endif -%}
-	{%- if pageContent.notificationBannerComponents -%}
+	{%- if notificationBannerPageComponents | length -%}
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-two-thirds">
-				{%- for component in pageContent.notificationBannerComponents -%}
-					{%- if component.type === 'notification-banner' -%}
-						{{ govukNotificationBanner(component.parameters) }}
-					{%- endif -%}
-				{%- endfor -%}
+			{%- for component in notificationBannerPageComponents -%}
+				{%- include "../components/page-component.njk" -%}
+			{%- endfor -%}
 			</div>
 		</div>
 	{%- endif -%}
@@ -39,6 +47,8 @@
 
 {%- block pageContent -%}
 	{%- for component in pageContent.pageComponents -%}
-		{%- include "../components/page-component.njk" -%}
+		{%- if component.type !== 'error-summary' and component.type !== 'notification-banner' -%}
+			{%- include "../components/page-component.njk" -%}
+		{%- endif -%}
 	{%- endfor -%}
 {%- endblock -%}

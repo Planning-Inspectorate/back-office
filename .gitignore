@@ -60,3 +60,6 @@ pids
 
 # Other, system file
 .DS_Store
+
+# Local redis dump
+dump.rdb

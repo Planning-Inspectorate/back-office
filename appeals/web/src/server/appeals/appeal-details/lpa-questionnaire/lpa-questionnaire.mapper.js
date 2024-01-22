@@ -13,7 +13,7 @@ import {
 } from '#lib/mappers/validation-outcome-reasons.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
-import { isDefined } from '#lib/ts-utilities.js';
+import { isDefined, isFolderInfo } from '#lib/ts-utilities.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
@@ -25,8 +25,8 @@ import * as displayPageFormatter from '#lib/display-page-formatter.js';
  * @typedef {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} Appeal
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
  * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireValidationOutcome} LPAQuestionnaireValidationOutcome
- * @typedef {import('../appeal-details.types.js').NotValidReasonResponse} NotValidReasonResponse
- * @typedef {import('../appeal-details.types.js').NotValidReasonOption} NotValidReasonOption
+ * @typedef {import('@pins/appeals.api').Appeals.IncompleteInvalidReasonsResponse} IncompleteInvalidReasonResponse
+ * @typedef {import('@pins/appeals.api').Appeals.NotValidReasonOption} NotValidReasonOption
  * @typedef {import('../appeal-details.types.js').BodyValidationOutcome} BodyValidationOutcome
  * @typedef {import('./lpa-questionnaire.types.js').LPAQuestionnaireSessionValidationOutcome} SessionValidationOutcome
  */
@@ -92,7 +92,10 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 				},
 				actions: {
 					items:
-						(lpaqDetails.documents.additionalDocuments.documents || []).length > 0
+						(isFolderInfo(lpaqDetails.documents.additionalDocuments)
+							? lpaqDetails.documents.additionalDocuments.documents
+							: []
+						).length > 0
 							? [
 									{
 										text: 'Manage',
@@ -100,7 +103,9 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 										href: mapDocumentManageUrl(
 											lpaqDetails.appealId,
 											lpaqDetails.lpaQuestionnaireId,
-											lpaqDetails.documents.additionalDocuments
+											(isFolderInfo(lpaqDetails.documents.additionalDocuments) &&
+												lpaqDetails.documents.additionalDocuments.folderId) ||
+												undefined
 										)
 									},
 									{
@@ -150,24 +155,19 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 	}
 
 	/** @type {PageComponent[]} */
-	let virusDetectedMessage = [];
+	const errorSummaryPageComponents = [];
+
 	if (getDocumentsForVirusStatus(lpaqDetails, 'failed_virus_check').length > 0) {
-		let folderIds = getDocumentsForVirusStatus(lpaqDetails, 'failed_virus_check');
-		/**
-		 * @type {{ text: string; href: string; }[]}
-		 */
-		let errorList = [];
-		folderIds.forEach((item) =>
-			errorList.push({
-				text: 'The selected file contains a virus. Upload a different version.',
-				href: `manage-documents/${item.folderId}/${item.id}`
-			})
-		);
-		virusDetectedMessage.push({
+		errorSummaryPageComponents.push({
 			type: 'error-summary',
 			parameters: {
 				titleText: 'There is a problem',
-				errorList: errorList
+				errorList: [
+					{
+						text: 'One or more documents in this LPA questionnaire contains a virus. Upload a different version of each document that contains a virus.',
+						href: '#constraints-summary'
+					}
+				]
 			}
 		});
 	}
@@ -186,8 +186,8 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'LPA questionnaire',
-		customErrorMessageComponents: virusDetectedMessage,
 		pageComponents: [
+			...errorSummaryPageComponents,
 			...notificationBanners,
 			caseSummary,
 			...appealTypeSpecificPageComponents,
@@ -432,6 +432,9 @@ const householderLpaQuestionnairePage = (mappedLPAQData) => {
 		/** @type {'summary-list'} */
 		type: 'summary-list',
 		parameters: {
+			attributes: {
+				id: 'constraints-summary'
+			},
 			card: {
 				title: {
 					text: '1. Constraints, designations and other issues'
@@ -553,7 +556,7 @@ export function mapIncompleteReasonOptionsToCheckboxItemParameters(
 	sessionValidationOutcome,
 	existingValidationOutcome
 ) {
-	/** @type {import('../appeal-details.types.js').NotValidReasonResponse[]} */
+	/** @type {import('@pins/appeals.api').Appeals.IncompleteInvalidReasonsResponse[]} */
 	let existingReasons = [];
 	/** @type {number[]|undefined} */
 	let existingReasonIds;
@@ -636,13 +639,13 @@ export function mapWebValidationOutcomeToApiValidationOutcome(
  *
  * @param {LPAQuestionnaire} lpaQuestionnaire
  * @param {"not_checked"|"checked"|"failed_virus_check"} virusStatus
- * @returns {import('#lib/mappers/lpaQuestionnaire.mapper.js').DocumentInfo[]}
+ * @returns {import('@pins/appeals.api').Appeals.DocumentInfo[]}
  */
 function getDocumentsForVirusStatus(lpaQuestionnaire, virusStatus) {
 	let unscannedFiles = [];
-	for (let document of Object.values(lpaQuestionnaire.documents)) {
-		const documentsOfStatus = document.documents.filter(
-			(/** @type {{ virusCheckStatus: string; }} */ item) => item.virusCheckStatus === virusStatus
+	for (let folder of Object.values(lpaQuestionnaire.documents)) {
+		const documentsOfStatus = (isFolderInfo(folder) ? folder.documents : []).filter(
+			(item) => item.virusCheckStatus === virusStatus
 		);
 		for (const document of documentsOfStatus) {
 			unscannedFiles.push(document);

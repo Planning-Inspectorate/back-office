@@ -198,6 +198,9 @@ export const createDateInputDateBusinessDayValidator = async (
 					.split('T')[0];
 
 				const result = await dateIsABusinessDay(req.apiClient, dateToValidate);
+				if (result === false) {
+					return Promise.reject();
+				}
 				return result;
 			})
 			.withMessage(

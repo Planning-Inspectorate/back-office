@@ -317,7 +317,7 @@ describe('applications documentation', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Delete selected document');
+				expect(element.innerHTML).toContain('Delete document');
 			});
 
 			it('should display warning if status is "ready_to_publish"', async () => {
@@ -485,6 +485,31 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toContain(`${results.itemCount} results`);
 				expect(element.innerHTML).toContain('Search results');
 			});
+		});
+	});
+});
+
+const {
+	app: appUnauth,
+	installMockApi: installMockApiUnauth,
+	teardown: teardownUnauth
+} = createTestEnvironment({ authenticated: true, groups: ['not_valid_group'] });
+
+const requestUnauth = supertest(appUnauth);
+
+describe('Project documentation pages when user belongs to wrong group', () => {
+	beforeEach(installMockApiUnauth);
+	afterEach(teardownUnauth);
+
+	describe('GET /case/123/project-documentation', () => {
+		it('should not render the page due to an authentication error', async () => {
+			const response = await requestUnauth.get(
+				'/applications-service/case/123/project-documentation'
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('You are not permitted to access this URL');
 		});
 	});
 });

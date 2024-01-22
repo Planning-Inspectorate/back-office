@@ -27,8 +27,9 @@ describe('site visit routes', () => {
 
 	beforeEach(() => {
 		householdAppeal = JSON.parse(JSON.stringify(householdAppealData));
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
 	});
-
 	afterEach(() => {
 		jest.clearAllMocks();
 	});

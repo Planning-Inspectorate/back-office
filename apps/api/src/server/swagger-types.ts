@@ -2782,7 +2782,7 @@ export interface ApplicationKeyDates {
 		 * Unix timestamp date
 		 * @example 1646822600
 		 */
-		notificationDateForEventsDeveloper?: number;
+		notificationDateForEventsApplicant?: number;
 	};
 	examination?: {
 		/**

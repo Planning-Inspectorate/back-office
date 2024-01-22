@@ -23,7 +23,15 @@ const decorator = {
 				if (args.length === 1 && typeof args[0] === 'string') {
 					target[prop]({ operationId, traceId, msg: args[0] });
 				} else {
-					target[prop]({ operationId, traceId }, ...args);
+					const messages = args.map((arg) =>
+						arg instanceof Error
+							? {
+									stack: arg.stack,
+									message: arg.message
+							  }
+							: arg
+					);
+					target[prop]({ operationId, traceId }, ...messages);
 				}
 			};
 		}

@@ -1,5 +1,6 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/hint/macro.njk" import govukHint %}
 
 {% macro dateInput(params) %}
 
@@ -20,9 +21,13 @@
 		}) %}
 
 			{% if layout.hint %}
-				<div id="{{fieldname}}-hint" class="govuk-hint">
-					{{ layout.hint }}
-				</div>
+				{{ govukHint({
+					id:  fieldName + '-hint',
+					classes: layout.hint.classes,
+					attributes: layout.hint.attributes,
+					html: layout.hint.html,
+					text: layout.hint.text or layout.hint
+				}) | indent(2) | trim }}
 			{% endif %}
 
 			{% if isError %}

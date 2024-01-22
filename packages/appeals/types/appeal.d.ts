@@ -36,12 +36,17 @@ export interface AppealSummary {
 	dueDate: string;
 	lpaQuestionnaireId?: number | null;
 	dueDate: Date | null;
+	appellantCaseStatus: string;
+	lpaQuestionnaireStatus: string;
 	documentationSummary: DocumentationSummary;
+	isParentAppeal: boolean;
+	isChildAppeal: boolean;
 }
 
 export interface AppealList {
 	itemCount: number;
 	items: AppealSummary[];
+	statuses: string[];
 	page: number;
 	pageCount: number;
 	pageSize: number;

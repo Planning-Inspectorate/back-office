@@ -16,19 +16,25 @@ export const buildNsipDocumentPayload = (version) => {
 		throw new Error(`Missing document for version ${version.documentGuid}`);
 	}
 
-	if (
-		!(
-			version.fileName &&
-			version.originalFilename &&
-			version.size &&
-			version.privateBlobContainer &&
-			version.privateBlobPath &&
-			version.publishedBlobPath &&
-			version.publishedBlobContainer &&
-			version.dateCreated
-		)
-	) {
-		throw new Error(`Missing required properties for version ${version.documentGuid}`);
+	const requiredProperties = [
+		'fileName',
+		'originalFilename',
+		'size',
+		'privateBlobContainer',
+		'privateBlobPath',
+		'dateCreated'
+	];
+
+	const missingProperties = requiredProperties.filter(
+		(property) => !Object.hasOwn(version, property)
+	);
+
+	if (missingProperties.length) {
+		throw new Error(
+			`Missing required properties (${missingProperties.join(', ')}) for version ${
+				version.documentGuid
+			}`
+		);
 	}
 
 	return {
@@ -39,8 +45,10 @@ export const buildNsipDocumentPayload = (version) => {
 		originalFilename: version.originalFilename,
 		size: version.size,
 		documentURI: buildBlobUri(version.privateBlobContainer, version.privateBlobPath),
-		publishedDocumentURI: buildBlobUri(version.publishedBlobContainer, version.publishedBlobPath),
-		dateCreated: version.dateCreated?.toISOString() ?? null, // TODO: Should this come from the version?
+		publishedDocumentURI: version.publishedBlobPath
+			? buildBlobUri(version.publishedBlobContainer, version.publishedBlobPath)
+			: undefined,
+		dateCreated: version.dateCreated?.toISOString() ?? null,
 		...(version.lastModified ? { lastModified: version.lastModified.toISOString() } : {}),
 		...(version.datePublished ? { datePublished: version.datePublished.toISOString() } : {}),
 		...(version.horizonDataID ? { horizonFolderId: version.horizonDataID } : {}),

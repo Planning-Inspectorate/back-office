@@ -6,16 +6,16 @@ const config = loadApiConfig();
 /**
  * Handle an HTTP trigger/request to run the migration
  *
- * @param {import('@azure/functions').Logger} log
+ * @param {import('@azure/functions').Logger} logger
  * @param {string} path
  * @param {unknown} body
  *
  * @returns {import('got').CancelableRequest<any>}
  */
-export const makePostRequest = (log, path, body) => {
+export const makePostRequest = (logger, path, body) => {
 	const requestUri = `https://${config.apiHost}/${path}`;
 
-	log(`Making POST request to ${requestUri}`);
+	logger.info(`Making POST request to ${requestUri}`);
 
 	return got.post(requestUri, {
 		json: body

@@ -1,4 +1,5 @@
 import { request } from '#tests/../app-test.js';
+import { jest } from '@jest/globals';
 import { azureAdUserId } from '#tests/shared/mocks.js';
 import { householdAppeal } from '#tests/appeals/mocks.js';
 import { ERROR_NOT_FOUND, ERROR_INVALID_APPEAL_STATE } from '#endpoints/constants.js';
@@ -30,6 +31,13 @@ const appealsWithValidStatus = [
 ];
 
 describe('appeal change type resubmit routes', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 	describe('POST', () => {
 		test('returns 400 when date is in the past', async () => {
 			// @ts-ignore

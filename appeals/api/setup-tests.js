@@ -3,6 +3,9 @@ import { jest } from '@jest/globals';
 import config from '#config/config.js';
 import { NODE_ENV_PRODUCTION } from '#endpoints/constants.js';
 
+const mockAppealRelationshipAdd = jest.fn().mockResolvedValue({});
+const mockAppealRelationshipRemove = jest.fn().mockResolvedValue({});
+const mockAppealRelationshipFindMany = jest.fn().mockResolvedValue({});
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
 const mockCaseUpdate = jest.fn().mockResolvedValue({});
 const mockAppealDecision = jest.fn().mockResolvedValue({});
@@ -138,6 +141,14 @@ class MockPrismaClient {
 			update: mockAppealUpdate,
 			findMany: mockAppealFindMany,
 			count: mockAppealCount
+		};
+	}
+
+	get appealRelationship() {
+		return {
+			findMany: mockAppealRelationshipFindMany,
+			delete: mockAppealRelationshipRemove,
+			create: mockAppealRelationshipAdd
 		};
 	}
 

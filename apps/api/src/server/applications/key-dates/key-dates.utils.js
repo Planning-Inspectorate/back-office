@@ -24,7 +24,7 @@ export const preExaminationDateNames = [
 	'rule6LetterPublishDate',
 	'preliminaryMeetingStartDate',
 	'notificationDateForPMAndEventsDirectlyFollowingPM',
-	'notificationDateForEventsDeveloper'
+	'notificationDateForEventsApplicant'
 ];
 export const examinationDateNames = [
 	'dateSection58NoticeReceived',

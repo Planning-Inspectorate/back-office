@@ -251,6 +251,7 @@ export async function updateApplicationsCaseDocumentationDelete(
 ) {
 	const { documentGuid } = params;
 	const { caseId } = response.locals;
+	const { title: caseName, reference: caseReference } = response.locals.case;
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
 	const { errors } = validationErrors
@@ -265,7 +266,8 @@ export async function updateApplicationsCaseDocumentationDelete(
 	}
 
 	response.render(`applications/case-documentation/documentation-success-banner`, {
-		serviceName: 'Document successfully deleted'
+		serviceName: 'Document successfully deleted',
+		successMessage: `<p class="govuk-!-font-size-19">Case: ${caseName}<br>Reference: ${caseReference}</p>`
 	});
 }
 

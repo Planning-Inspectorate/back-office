@@ -16,17 +16,25 @@
 {%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
 {%- block pageHeading -%}
-	{%- for component in pageContent.customErrorMessageComponents -%}
-		{%- if component.type === 'error-summary' -%}
-			{{ govukErrorSummary(component.parameters) }}
-		{%- endif -%}
-	{%- endfor -%}
+	{%- set errorSummaries = [] -%}
 	{%- set notificationBanners = [] -%}
 	{%- for component in pageContent.pageComponents -%}
+		{%- if component.type === 'error-summary' -%}
+			{%- set _ = errorSummaries.push(component) -%}
+		{%- endif -%}
 		{%- if component.type === 'notification-banner' -%}
 			{%- set _ = notificationBanners.push(component) -%}
 		{%- endif -%}
 	{%- endfor -%}
+	{%- if errorSummaries | length -%}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			{%- for component in errorSummaries -%}
+				{{ govukErrorSummary(component.parameters) }}
+			{%- endfor -%}
+		</div>
+	</div>
+	{%- endif -%}
 	{%- if notificationBanners | length -%}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds">
@@ -46,7 +54,7 @@
 
 {%- block pageContent -%}
 	{%- for component in pageContent.pageComponents -%}
-		{%- if component.type !== 'notification-banner' -%}
+		{%- if component.type !== 'error-summary' and component.type !== 'notification-banner' -%}
 			{%- if component.type === 'radios' or component.type === 'checkboxes' -%}
 				<div class="govuk-grid-row">
 					<div class="govuk-grid-column-full">
