@@ -79,6 +79,12 @@ export const getById = async (id) =>
 					azureReference: true
 				}
 			},
+			case: {
+				select: {
+					id: true,
+					reference: true
+				}
+			},
 			representedType: true,
 			represented: {
 				select: {

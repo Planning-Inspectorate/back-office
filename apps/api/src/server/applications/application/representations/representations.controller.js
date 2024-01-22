@@ -1,11 +1,12 @@
-import { sortByFromQuery } from '../../../utils/query/sort-by.js';
+import { sortByFromQuery } from '#utils/query/sort-by.js';
 import {
 	createCaseRepresentation,
 	getCaseRepresentation,
 	getCaseRepresentations,
 	getCaseRepresentationsStatusCount,
+	sendRepresentationUpdateEventMessage,
 	updateCaseRepresentation
-} from './representaions.service.js';
+} from './representations.service.js';
 import {
 	getLatestRedaction,
 	mapCaseRepresentationsStatusCount,
@@ -13,6 +14,7 @@ import {
 	mapDocumentRepresentationAttachments,
 	mapRepresentationSummary
 } from './representation.mapper.js';
+import { getById } from '#repositories/representation.repository.js';
 
 /**
  *
@@ -90,6 +92,7 @@ export const getRepresentations = async ({ params, query }, response) => {
 };
 
 /**
+ * Updates properties on a representation
  *
  * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").CreateUpdateRepresentation>}
  */
@@ -113,6 +116,10 @@ export const patchRepresentation = async ({ params, body, method }, response) =>
 			.status(400)
 			.json({ errors: { representation: `Error updating representation` } });
 	}
+
+	// broadcast update event message
+	const representationFullDetails = await getById(representation.id);
+	await sendRepresentationUpdateEventMessage(representationFullDetails);
 
 	return response.send({ id: representation.id, status: representation.status });
 };
