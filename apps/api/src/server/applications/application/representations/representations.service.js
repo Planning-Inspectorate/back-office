@@ -1,6 +1,6 @@
 import { eventClient } from '#infrastructure/event-client.js';
 import * as representationsRepository from '#repositories/representation.repository.js';
-import { NSIP_REPRESENTATION } from '#infrastructure/topics.js';
+import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 
 /**
@@ -25,7 +25,7 @@ export const getCaseRepresentation = async (repId) => {
 
 /**
  *
- * @param {import("../../repositories/representation.repository").CreateRepresentationParams} representation
+ * @param {import("#repositories/representation.repository").CreateRepresentationParams} representation
  * @returns {Promise<object>}
  */
 export const createCaseRepresentation = async (representation) => {
@@ -50,16 +50,22 @@ export const getCaseRepresentationsStatusCount = async (caseId) => {
 };
 
 /**
- * Broadcast an update event message to Service Bus, for a representation
+ * Broadcast an update event message to Service Bus, for a representation, and any service users (reps contact or agent)
+ *
  * @param {*} representation
  * @returns
  */
-export const sendRepresentationUpdateEventMessage = async (representation) =>
-	await eventClient.sendEvents(
-		NSIP_REPRESENTATION,
-		buildNsipRepresentationPayload(representation),
-		EventType.Update
-	);
+export const sendRepresentationUpdateEventMessage = async (representation) => {
+	const nsipRepresentationPayload = buildNsipRepresentationPayload(representation);
+	const serviceUsersPayload = buildRepresentationServiceUserPayload(representation);
+
+	await eventClient.sendEvents(NSIP_REPRESENTATION, nsipRepresentationPayload, EventType.Update);
+
+	// and service users
+	await eventClient.sendEvents(SERVICE_USER, serviceUsersPayload, EventType.Update, {
+		entityType: 'RepresentationContact'
+	});
+};
 
 /**
  * Build Representation message event payload
@@ -110,3 +116,35 @@ export const buildNsipRepresentationPayload = (representation) => {
 
 	return nsipRepresentation;
 };
+
+/**
+ *
+ * @param {Prisma.RepresentationSelect} representation
+ * @returns {ServiceUser[]}
+ */
+export const buildRepresentationServiceUserPayload = (representation) => {
+	const serviceUserPayloads = [];
+	if (representation.represented)
+		serviceUserPayloads.push(mapRepresentationServiceUser(representation.represented));
+	if (representation.representative)
+		serviceUserPayloads.push(mapRepresentationServiceUser(representation.representative));
+	return serviceUserPayloads;
+};
+
+const mapRepresentationServiceUser = (entity) => ({
+	id: entity.id.toString(),
+	firstName: entity.firstName,
+	lastName: entity.lastName,
+	addressLine1: entity.address?.addressLine1,
+	addressLine2: entity.address?.addressLine2,
+	addressTown: entity.address?.town,
+	addressCounty: entity.address?.county,
+	addressCountry: entity.address?.country,
+	postcode: entity.address?.postcode,
+	organisation: entity.organisationName,
+	role: entity.jobTitle,
+	telephoneNumber: entity.phoneNumber,
+	emailAddress: entity.email,
+	serviceUserType: 'RepresentationContact',
+	sourceSuid: entity.id.toString()
+});

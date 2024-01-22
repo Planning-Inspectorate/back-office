@@ -377,6 +377,12 @@ describe('Representation repository', () => {
 					azureReference: true
 				}
 			},
+			case: {
+				select: {
+					id: true,
+					reference: true
+				}
+			},
 			representedType: true,
 			represented: {
 				select: {

@@ -306,7 +306,6 @@ export const updateApplicationRepresentation = async (
 	}
 
 	if (!isEmpty(represented)) {
-		console.info('updating represented', represented);
 		await databaseConnector.representation.update({
 			where: {
 				id: representationId
@@ -336,7 +335,6 @@ export const updateApplicationRepresentation = async (
 	}
 
 	if (!isEmpty(representative)) {
-		console.info('updating representative', representative);
 		await databaseConnector.representation.update({
 			where: {
 				id: representationId
