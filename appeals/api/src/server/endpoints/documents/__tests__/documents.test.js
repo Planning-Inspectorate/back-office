@@ -37,6 +37,13 @@ const { databaseConnector } = await import('#utils/database-connector.js');
 const { default: got } = await import('got');
 
 describe('/appeals/:appealId/document-folders/:folderId', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 	describe('GET', () => {
 		test('gets a single document folder', async () => {
 			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);

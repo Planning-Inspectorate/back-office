@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { request } from '#tests/../app-test.js';
+import { jest } from '@jest/globals';
 import {
 	ERROR_NOT_FOUND,
 	ERROR_INVALID_APPELLANT_CASE_DATA,
@@ -10,6 +11,13 @@ import { validAppellantCase, validLpaQuestionnaire } from '#tests/integrations/m
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 describe('/appeals/case-submission', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 	describe('POST invalid appellant case submission', () => {
 		test('invalid appellant case payload: no appeal', async () => {
 			const { appeal, ...invalidPayload } = validAppellantCase;

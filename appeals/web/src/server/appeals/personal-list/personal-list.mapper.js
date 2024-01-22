@@ -1,6 +1,6 @@
 import config from '#environment/config.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
+import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { dateToDisplayDate } from '#lib/dates.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
@@ -128,7 +128,7 @@ export function personalListPage(
 									{
 										type: 'status-tag',
 										parameters: {
-											status: ''
+											status: linkedAppealStatus(appeal.isParentAppeal, appeal.isChildAppeal)
 										}
 									}
 								]

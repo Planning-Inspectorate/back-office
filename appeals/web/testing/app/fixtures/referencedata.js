@@ -104,16 +104,8 @@ export const appealData = {
 		}
 	},
 	isParentAppeal: false,
-	linkedAppeals: [
-		{
-			appealId: 1,
-			appealReference: 'APP/Q9999/D/21/725284'
-		},
-		{
-			appealId: 2,
-			appealReference: 'APP/Q9999/D/21/123456'
-		}
-	],
+	isChildAppeal: false,
+	linkedAppeals: [],
 	localPlanningDepartment: 'Wiltshire Council',
 	lpaQuestionnaireId: 1,
 	neighbouringSite: {
@@ -140,16 +132,7 @@ export const appealData = {
 		],
 		isAffected: true
 	},
-	otherAppeals: [
-		{
-			appealId: 3,
-			appealReference: 'APP/Q9999/D/21/765413'
-		},
-		{
-			appealId: 4,
-			appealReference: 'APP/Q9999/D/21/523467'
-		}
-	],
+	otherAppeals: [],
 	planningApplicationReference: '48269/APP/2021/1482',
 	procedureType: 'Written',
 	siteVisit: {
