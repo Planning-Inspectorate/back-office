@@ -1,7 +1,7 @@
 import { request } from '#app-test';
 import { jest } from '@jest/globals';
 import { eventClient } from '#infrastructure/event-client.js';
-import { SERVICE_USER } from '#infrastructure/topics.js';
+import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -104,20 +104,24 @@ const existingRepresentations = [
 	}
 ];
 
-// const rep1UpdatePayload =
-// {
-// 	attachmentIds: [],
-// 	caseId: 200,
-// 	caseRef: 'BC0110001',
-// 	dateReceived: "2023-03-14T14:28:25.704Z",
-// 	examinationLibraryRef: "",
-// 	originalRepresentation: 'the original representation',
-// 	redactedRepresentation: 'redacted version',
-// 	redacted: true,
-// 	referenceId: "BC0110001-2",
-// 	representationId: 1,
-// 	status: "VALID"
-// };
+const rep1UpdatePayload = {
+	attachmentIds: [],
+	caseId: 200,
+	caseRef: 'BC0110001',
+	dateReceived: '2023-03-14T14:28:25.704Z',
+	examinationLibraryRef: '',
+	originalRepresentation: 'the original representation',
+	redactedRepresentation: 'redacted version',
+	redacted: true,
+	referenceId: 'BC0110001-2',
+	representationId: 1,
+	status: 'VALID',
+	registerFor: undefined,
+	representationFrom: 'AGENT',
+	representationType: undefined,
+	representativeId: '10382',
+	representedId: '10381'
+};
 
 const serviceUserUpdatePayload = [
 	{
@@ -181,12 +185,14 @@ describe('Patch Application Representation', () => {
 		});
 
 		// test event broadcasts
-		// expect(eventClient.sendEvents).toHaveBeenCalledWith(
-		// 	NSIP_REPRESENTATION,
-		// 	rep1UpdatePayload,
-		// 	EventType.Update
-		// );
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_REPRESENTATION,
+			rep1UpdatePayload,
+			EventType.Update
+		);
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
 			SERVICE_USER,
 			serviceUserUpdatePayload,
 			EventType.Update,
@@ -218,12 +224,14 @@ describe('Patch Application Representation', () => {
 		});
 
 		// test event broadcasts
-		// expect(eventClient.sendEvents).toHaveBeenCalledWith(
-		// 	NSIP_REPRESENTATION,
-		// 	rep1UpdatePayload,
-		// 	EventType.Update
-		// );
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_REPRESENTATION,
+			rep1UpdatePayload,
+			EventType.Update
+		);
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
 			SERVICE_USER,
 			serviceUserUpdatePayload,
 			EventType.Update,
@@ -272,7 +280,14 @@ describe('Patch Application Representation', () => {
 			status: 'VALID'
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_REPRESENTATION,
+			rep1UpdatePayload,
+			EventType.Update
+		);
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
 			SERVICE_USER,
 			serviceUserUpdatePayload,
 			EventType.Update,
@@ -307,7 +322,15 @@ describe('Patch Application Representation', () => {
 			status: 'VALID'
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		// test event broadcasts
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_REPRESENTATION,
+			rep1UpdatePayload,
+			EventType.Update
+		);
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
 			SERVICE_USER,
 			serviceUserUpdatePayload,
 			EventType.Update,
@@ -356,7 +379,15 @@ describe('Patch Application Representation', () => {
 			status: 'VALID'
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		// test event broadcasts
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_REPRESENTATION,
+			rep1UpdatePayload,
+			EventType.Update
+		);
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
 			SERVICE_USER,
 			serviceUserUpdatePayload,
 			EventType.Update,
@@ -389,12 +420,14 @@ describe('Patch Application Representation', () => {
 		});
 
 		// test event broadcasts
-		// expect(eventClient.sendEvents).toHaveBeenCalledWith(
-		// 	NSIP_REPRESENTATION,
-		// 	rep1UpdatePayload,
-		// 	EventType.Update
-		// );
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_REPRESENTATION,
+			rep1UpdatePayload,
+			EventType.Update
+		);
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
 			SERVICE_USER,
 			serviceUserUpdatePayload,
 			EventType.Update,
