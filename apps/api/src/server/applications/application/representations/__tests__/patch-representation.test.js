@@ -1,7 +1,10 @@
-import { request } from '../../../../app-test.js';
+import { request } from '#app-test';
 import { jest } from '@jest/globals';
+import { eventClient } from '#infrastructure/event-client.js';
+import { SERVICE_USER } from '#infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
 
-const { databaseConnector } = await import('../../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const existingRepresentations = [
 	{
@@ -10,7 +13,67 @@ const existingRepresentations = [
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
-		received: '2023-03-14T14:28:25.704Z'
+		received: '2023-03-14T14:28:25.704Z',
+		originalRepresentation: 'the original representation',
+		redactedRepresentation: 'redacted version',
+		case: { id: 1, reference: 'BC0110001' },
+		representationActions: [
+			{
+				actionBy: '',
+				actionDate: '2022-03-31T23:00:00.000Z',
+				invalidReason: '',
+				notes: '',
+				previousRedactStatus: false,
+				previousStatus: 'AWAITING_REVIEW',
+				redactStatus: true,
+				referredTo: '',
+				status: 'VALID',
+				type: 'STATUS'
+			}
+		],
+		represented: {
+			id: 10381,
+			representationId: 6579,
+			firstName: 'Mrs',
+			lastName: 'Sue',
+			jobTitle: null,
+			under18: false,
+			organisationName: null,
+			email: 'sue@example.com',
+			phoneNumber: '01234 567890',
+			contactMethod: null,
+			address: {
+				id: 17059,
+				addressLine1: '123 Some Street',
+				addressLine2: 'Somewhere Else',
+				postcode: 'B1 9BB',
+				county: 'A County',
+				town: 'Some Town',
+				country: 'England'
+			}
+		},
+		representative: {
+			id: 10382,
+			representationId: 6579,
+			firstName: 'James',
+			lastName: 'Bond',
+			jobTitle: null,
+			under18: false,
+			organisationName: null,
+			email: 'test-agent@example.com',
+			phoneNumber: '01234 567890',
+			contactMethod: null,
+			address: {
+				id: 17060,
+				addressLine1: '1 Long Road',
+				addressLine2: 'Smallville',
+				postcode: 'P7 9LN',
+				county: 'A County',
+				town: 'Some Town',
+				country: 'England'
+			}
+		},
+		attachments: []
 	},
 	{
 		id: 2,
@@ -19,13 +82,84 @@ const existingRepresentations = [
 		status: 'PUBLISHED',
 		redacted: true,
 		unpublishedUpdates: false,
-		received: '2023-03-14T14:28:25.704Z'
+		received: '2023-03-14T14:28:25.704Z',
+		originalRepresentation: 'the original representation',
+		redactedRepresentation: 'redacted version',
+		case: { id: 1, reference: 'BC0110001' },
+		representationActions: [
+			{
+				actionBy: '',
+				actionDate: '2022-03-31T23:00:00.000Z',
+				invalidReason: '',
+				notes: '',
+				previousRedactStatus: false,
+				previousStatus: 'AWAITING_REVIEW',
+				redactStatus: true,
+				referredTo: '',
+				status: 'VALID',
+				type: 'STATUS'
+			}
+		],
+		attachments: []
+	}
+];
+
+// const rep1UpdatePayload =
+// {
+// 	attachmentIds: [],
+// 	caseId: 200,
+// 	caseRef: 'BC0110001',
+// 	dateReceived: "2023-03-14T14:28:25.704Z",
+// 	examinationLibraryRef: "",
+// 	originalRepresentation: 'the original representation',
+// 	redactedRepresentation: 'redacted version',
+// 	redacted: true,
+// 	referenceId: "BC0110001-2",
+// 	representationId: 1,
+// 	status: "VALID"
+// };
+
+const serviceUserUpdatePayload = [
+	{
+		id: '10381',
+		firstName: 'Mrs',
+		lastName: 'Sue',
+		addressLine1: '123 Some Street',
+		addressLine2: 'Somewhere Else',
+		addressTown: 'Some Town',
+		addressCounty: 'A County',
+		addressCountry: 'England',
+		postcode: 'B1 9BB',
+		organisation: null,
+		role: null,
+		telephoneNumber: '01234 567890',
+		emailAddress: 'sue@example.com',
+		serviceUserType: 'RepresentationContact',
+		sourceSuid: '10381'
+	},
+	{
+		id: '10382',
+		firstName: 'James',
+		lastName: 'Bond',
+		addressLine1: '1 Long Road',
+		addressLine2: 'Smallville',
+		addressTown: 'Some Town',
+		addressCounty: 'A County',
+		addressCountry: 'England',
+		postcode: 'P7 9LN',
+		organisation: null,
+		role: null,
+		telephoneNumber: '01234 567890',
+		emailAddress: 'test-agent@example.com',
+		serviceUserType: 'RepresentationContact',
+		sourceSuid: '10382'
 	}
 ];
 
 describe('Patch Application Representation', () => {
 	beforeAll(() => {
 		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[0]);
+		databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
 	});
 	afterEach(() => jest.clearAllMocks());
 
@@ -45,6 +179,21 @@ describe('Patch Application Representation', () => {
 			id: 1,
 			status: 'VALID'
 		});
+
+		// test event broadcasts
+		// expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		// 	NSIP_REPRESENTATION,
+		// 	rep1UpdatePayload,
+		// 	EventType.Update
+		// );
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			SERVICE_USER,
+			serviceUserUpdatePayload,
+			EventType.Update,
+			{
+				entityType: 'RepresentationContact'
+			}
+		);
 	});
 
 	it('Patch representation - with represented', async () => {
@@ -67,6 +216,21 @@ describe('Patch Application Representation', () => {
 			id: 1,
 			status: 'VALID'
 		});
+
+		// test event broadcasts
+		// expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		// 	NSIP_REPRESENTATION,
+		// 	rep1UpdatePayload,
+		// 	EventType.Update
+		// );
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			SERVICE_USER,
+			serviceUserUpdatePayload,
+			EventType.Update,
+			{
+				entityType: 'RepresentationContact'
+			}
+		);
 	});
 
 	it('Patch representation - with represented - address', async () => {
@@ -107,6 +271,15 @@ describe('Patch Application Representation', () => {
 			id: 1,
 			status: 'VALID'
 		});
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			SERVICE_USER,
+			serviceUserUpdatePayload,
+			EventType.Update,
+			{
+				entityType: 'RepresentationContact'
+			}
+		);
 	});
 
 	it('Patch representation - with representative', async () => {
@@ -133,6 +306,15 @@ describe('Patch Application Representation', () => {
 			id: 1,
 			status: 'VALID'
 		});
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			SERVICE_USER,
+			serviceUserUpdatePayload,
+			EventType.Update,
+			{
+				entityType: 'RepresentationContact'
+			}
+		);
 	});
 
 	it('Patch representation - with representative - address', async () => {
@@ -173,6 +355,15 @@ describe('Patch Application Representation', () => {
 			id: 1,
 			status: 'VALID'
 		});
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			SERVICE_USER,
+			serviceUserUpdatePayload,
+			EventType.Update,
+			{
+				entityType: 'RepresentationContact'
+			}
+		);
 	});
 
 	it('Patch published representation - set unpublishedUpdates', async () => {
@@ -196,5 +387,20 @@ describe('Patch Application Representation', () => {
 			id: 2,
 			status: 'PUBLISHED'
 		});
+
+		// test event broadcasts
+		// expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		// 	NSIP_REPRESENTATION,
+		// 	rep1UpdatePayload,
+		// 	EventType.Update
+		// );
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			SERVICE_USER,
+			serviceUserUpdatePayload,
+			EventType.Update,
+			{
+				entityType: 'RepresentationContact'
+			}
+		);
 	});
 });
