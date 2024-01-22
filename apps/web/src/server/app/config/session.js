@@ -8,12 +8,8 @@ import redisClient from '../../lib/redis.js';
  */
 function configureStore() {
 	if (!redisClient) {
-		if (config.isProduction) {
-			throw new Error('REDIS_CONNECTION_STRING is required in production.');
-		} else if (config.env !== 'local') {
-			logger.warn(
-				'REDIS_CONNECTION_STRING was not provided. Using express-session instead of Redis.'
-			);
+		if (config.env !== 'local') {
+			throw new Error('REDIS_CONNECTION_STRING is required and was not provided.');
 		}
 
 		logger.info('Configuring memory store for session storage');
