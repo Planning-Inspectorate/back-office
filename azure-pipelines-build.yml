@@ -126,8 +126,8 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
-          - template: steps/azure_auth.yml@templates
-          - template: steps/azure_get_secrets.yml@templates
+          - template: ../steps/azure_auth.yml@templates
+          - template: ../steps/azure_get_secrets.yml@templates
             parameters:
               secrets:
                 - name: back-office-sql-connection-string
