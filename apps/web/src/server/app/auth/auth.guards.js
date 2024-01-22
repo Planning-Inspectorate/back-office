@@ -23,35 +23,40 @@ import * as authSession from './auth-session.service.js';
 export async function assertIsAuthenticated(request, response, next) {
 	const sessionAccount = authSession.getAccount(request.session);
 
-	if (sessionAccount) {
-		try {
-			// Eagerly invoke the `acquireTokenSilent` method: Internally,
-			// @azure/msal-node will evaluate if the access token has (or is close to)
-			// expired on the existing authentication result, and only then make a
-			// network call with the refresh token to acquire a new authentication
-			// result.
-			const refreshedAuthenticationResult = await authService.acquireTokenSilent(sessionAccount);
-
-			if (refreshedAuthenticationResult) {
-				pino.debug('Refreshed MSAL authentication.');
-				authSession.setAccount(request.session, refreshedAuthenticationResult);
-				return next();
-			}
-			// Destroy current session if refreshedAuthenticationResult not provided.
-			// pino.info(`Session destroyed '${refreshedAuthenticationResult}'.`);
-			// await Promise.all([
-			// 	promisify(request.session.destroy.bind(request.session))(),
-			// 	authService.clearCacheForAccount(account)
-			// ]);
-			// response.clearCookie('connect.sid', { path: '/' }).redirect('/auth/signout/');
-			pino.info(`Log user out '${refreshedAuthenticationResult}'.`);
-			response.redirect('/auth/signout/');
-		} catch (error) {
-			pino.info(error, 'Failed to refresh MSAL authentication.');
-		}
+	if (!sessionAccount) {
+		pino.info(`Unauthenticated user redirected to sign in from '${request.originalUrl}'.`);
+		return response.redirect(`/auth/signin?redirect_to=${request.originalUrl}`);
 	}
-	pino.info(`Unauthenticated user redirected to sign in from '${request.originalUrl}'.`);
-	response.redirect(`/auth/signin?redirect_to=${request.originalUrl}`);
+
+	try {
+		// Eagerly invoke the `acquireTokenSilent` method: Internally,
+		// @azure/msal-node will evaluate if the access token has (or is close to)
+		// expired on the existing authentication result, and only then make a
+		// network call with the refresh token to acquire a new authentication
+		// result.
+		const refreshedAuthenticationResult = await authService.acquireTokenSilent(sessionAccount);
+
+		if (refreshedAuthenticationResult) {
+			pino.debug('Refreshed MSAL authentication.');
+			authSession.setAccount(request.session, refreshedAuthenticationResult);
+			return next();
+		}
+		// Destroy current session if refreshedAuthenticationResult not provided.
+		// pino.info(`Session destroyed '${refreshedAuthenticationResult}'.`);
+		// await Promise.all([
+		// 	promisify(request.session.destroy.bind(request.session))(),
+		// 	authService.clearCacheForAccount(account)
+		// ]);
+		// response.clearCookie('connect.sid', { path: '/' }).redirect('/auth/signout/');
+		pino.info(`Log user out '${refreshedAuthenticationResult}'.`);
+		return response.redirect('/auth/signout/');
+	} catch (error) {
+		pino.info(
+			error,
+			`Failed to refresh MSAL authentication. User redirected to sign in from '${request.originalUrl}'`
+		);
+		return response.redirect(`/auth/signin?redirect_to=${request.originalUrl}`);
+	}
 }
 
 /**
