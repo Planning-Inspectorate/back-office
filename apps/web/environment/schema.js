@@ -43,6 +43,7 @@ export default baseSchema
 				secret: joi.string().when('...env', { is: 'test', then: joi.optional() })
 			})
 			.when('env', { is: 'test', then: joi.optional() }),
+		disableRedis: joi.boolean().optional(),
 		sslCertificateFile: joi.string().when('serverProtocol', { is: 'http', then: joi.optional() }),
 		sslCertificateKeyFile: joi
 			.string()

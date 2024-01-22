@@ -7,17 +7,17 @@ import redisClient from '../../lib/redis.js';
  * @returns {import('express-session').Store}
  */
 function configureStore() {
-	if (!redisClient) {
-		if (config.env !== 'local') {
-			throw new Error('REDIS_CONNECTION_STRING is required and was not provided.');
-		}
-
-		logger.info('Configuring memory store for session storage');
-		return new session.MemoryStore();
+	if (redisClient) {
+		logger.info('Configuring Redis for session storage');
+		return redisClient.store;
 	}
 
-	logger.info('Configuring Redis for session storage');
-	return redisClient.store;
+	if (!(config.env === 'local' || config.disableRedis)) {
+		throw new Error('Redis is required but failed to initialise.');
+	}
+
+	logger.info('Configuring memory store for session storage');
+	return new session.MemoryStore();
 }
 
 const store = configureStore();
