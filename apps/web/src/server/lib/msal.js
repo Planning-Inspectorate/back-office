@@ -3,50 +3,70 @@ import config from '@pins/applications.web/environment/config.js';
 import pino from './logger.js';
 import redisClient from './redis.js';
 
+const msalConfig = {
+	auth: {
+		clientId: config.msal.clientId,
+		authority: config.msal.authority,
+		clientSecret: config.msal.clientSecret
+	},
+	system: {
+		loggerOptions: {
+			/**
+			 * @param {LogLevel} logLevel
+			 * @param {string} message
+			 * */
+			loggerCallback(logLevel, message) {
+				switch (logLevel) {
+					case LogLevel.Error:
+						pino.error(message);
+						break;
+
+					case LogLevel.Warning:
+						pino.warn(message);
+						break;
+
+					case LogLevel.Info:
+						pino.info(message);
+						break;
+
+					case LogLevel.Verbose:
+						pino.debug(message);
+						break;
+
+					default:
+						pino.trace(message);
+				}
+			},
+			piiLoggingEnabled: false,
+			logLevel: msal.LogLevel.Warning
+		}
+	}
+};
+
+/** @type {msal.ConfidentialClientApplication | null} */
+let msalClient = null;
+
 /**
+ * If not using Redis, behave as a singleton and return the one global MSAL client.
+ * If using Redis, generate an MSAL client specific to the user's session ID.
+ *
  * @param {string} sessionId
+ * @returns {msal.ConfidentialClientApplication}
  * */
-export const getMsalClient = (sessionId) =>
-	new msal.ConfidentialClientApplication({
-		auth: {
-			clientId: config.msal.clientId,
-			authority: config.msal.authority,
-			clientSecret: config.msal.clientSecret
-		},
-		system: {
-			loggerOptions: {
-				loggerCallback(logLevel, message) {
-					switch (logLevel) {
-						case LogLevel.Error:
-							pino.error(message);
-							break;
+export const getMsalClient = (sessionId) => {
+	if (redisClient) {
+		return new msal.ConfidentialClientApplication({
+			...msalConfig,
+			cache: { cachePlugin: redisClient.makeCachePlugin(sessionId) }
+		});
+	}
 
-						case LogLevel.Warning:
-							pino.warn(message);
-							break;
+	if (!msalClient) {
+		msalClient = new msal.ConfidentialClientApplication(msalConfig);
+	}
 
-						case LogLevel.Info:
-							pino.info(message);
-							break;
-
-						case LogLevel.Verbose:
-							pino.debug(message);
-							break;
-
-						default:
-							pino.trace(message);
-					}
-				},
-				piiLoggingEnabled: false,
-				logLevel: msal.LogLevel.Warning
-			}
-		},
-		...(redisClient
-			? {
-					cache: { cachePlugin: redisClient.makeCachePlugin(sessionId) }
-			  }
-			: {})
-	});
+	return msalClient;
+};
 
 /**
  * Set the MSAL redirectUri as an absolute url if it exists only as a path.
