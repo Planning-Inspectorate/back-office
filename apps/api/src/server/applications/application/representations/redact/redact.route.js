@@ -43,4 +43,4 @@ router.patch(
 	patchRepresentationRedact
 );
 
-export const representaionsRedactRouter = router;
+export const representationsRedactRouter = router;
