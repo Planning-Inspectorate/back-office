@@ -155,24 +155,19 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 	}
 
 	/** @type {PageComponent[]} */
-	let virusDetectedMessage = [];
+	const errorSummaryPageComponents = [];
+
 	if (getDocumentsForVirusStatus(lpaqDetails, 'failed_virus_check').length > 0) {
-		let folderIds = getDocumentsForVirusStatus(lpaqDetails, 'failed_virus_check');
-		/**
-		 * @type {{ text: string; href: string; }[]}
-		 */
-		let errorList = [];
-		folderIds.forEach((item) =>
-			errorList.push({
-				text: 'The selected file contains a virus. Upload a different version.',
-				href: `manage-documents/${item.folderId}/${item.id}`
-			})
-		);
-		virusDetectedMessage.push({
+		errorSummaryPageComponents.push({
 			type: 'error-summary',
 			parameters: {
 				titleText: 'There is a problem',
-				errorList: errorList
+				errorList: [
+					{
+						text: 'One or more documents in this LPA questionnaire contains a virus. Upload a different version of each document that contains a virus.',
+						href: '#constraints-summary'
+					}
+				]
 			}
 		});
 	}
@@ -191,8 +186,8 @@ export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRo
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'LPA questionnaire',
-		customErrorMessageComponents: virusDetectedMessage,
 		pageComponents: [
+			...errorSummaryPageComponents,
 			...notificationBanners,
 			caseSummary,
 			...appealTypeSpecificPageComponents,
@@ -437,6 +432,9 @@ const householderLpaQuestionnairePage = (mappedLPAQData) => {
 		/** @type {'summary-list'} */
 		type: 'summary-list',
 		parameters: {
+			attributes: {
+				id: 'constraints-summary'
+			},
 			card: {
 				title: {
 					text: '1. Constraints, designations and other issues'

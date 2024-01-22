@@ -19,11 +19,7 @@
 {%- endblock -%}
 
 {%- block pageContent -%}
-	{%- for componentGroup in pageContent.pageComponentGroups -%}
-		{%- if componentGroup.wrapperHtml -%}{{ componentGroup.wrapperHtml.opening | safe }}{%- endif -%}
-		{%- for component in componentGroup.pageComponents -%}
-			{%- include "../components/page-component.njk" -%}
-		{%- endfor -%}
-		{%- if componentGroup.wrapperHtml -%}{{ componentGroup.wrapperHtml.closing | safe }}{%- endif -%}
+	{%- for component in pageContent.pageComponents -%}
+		{%- include "../components/page-component.njk" -%}
 	{%- endfor -%}
 {%- endblock -%}

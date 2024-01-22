@@ -115,6 +115,9 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 	const appealSummary = {
 		type: 'summary-list',
 		parameters: {
+			attributes: {
+				id: 'appeal-summary'
+			},
 			card: {
 				title: {
 					text: '3. Appeal status'
@@ -199,26 +202,21 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 	if (getDocumentsForVirusStatus(appellantCaseData, 'not_checked').length > 0) {
 		addNotificationBannerToSession(session, 'notCheckedDocument', appealDetails?.appealId);
 	}
+
 	/** @type {PageComponent[]} */
-	let virusDetectedMessage = [];
+	const errorSummaryPageComponents = [];
 
 	if (getDocumentsForVirusStatus(appellantCaseData, 'failed_virus_check').length > 0) {
-		let folderIds = getDocumentsForVirusStatus(appellantCaseData, 'failed_virus_check');
-		/**
-		 * @type {{ text: string; href: string; }[]}
-		 */
-		let errorList = [];
-		folderIds.forEach((item) =>
-			errorList.push({
-				text: 'The selected file contains a virus. Upload a different version.',
-				href: `manage-documents/${item.folderId}/${item.id}`
-			})
-		);
-		virusDetectedMessage.push({
+		errorSummaryPageComponents.push({
 			type: 'error-summary',
 			parameters: {
 				titleText: 'There is a problem',
-				errorList: errorList
+				errorList: [
+					{
+						text: 'One or more documents in this appellant case contains a virus. Upload a different version of each document that contains a virus.',
+						href: '#appeal-summary'
+					}
+				]
 			}
 		});
 	}
@@ -241,8 +239,8 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'Appellant case',
-		customErrorMessageComponents: virusDetectedMessage,
 		pageComponents: [
+			...errorSummaryPageComponents,
 			...notificationBanners,
 			appellantCaseSummary,
 			appellantSummary,

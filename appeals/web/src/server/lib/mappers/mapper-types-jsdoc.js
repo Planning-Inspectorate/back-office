@@ -286,12 +286,6 @@
  */
 
 /**
- * @typedef {Object} PageComponentGroup
- * @property {PageComponentWrapperHtml} [wrapperHtml]
- * @property {PageComponent[]} pageComponents
- */
-
-/**
  * @typedef {Object} PageContent
  * @property {string} [title]
  * @property {string} [backLinkUrl]
@@ -301,10 +295,7 @@
  * @property {string} [headingClasses]
  * @property {string} [submitButtonText]
  * @property {string} [skipButtonUrl]
- * @property {*} [notificationBannerComponents]
  * @property {PageComponent[]} [pageComponents]
- * @property {PageComponentGroup[]} [pageComponentGroups]
- * @property {*} [customErrorMessageComponents]
  */
 
 /**

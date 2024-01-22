@@ -176,106 +176,108 @@ export function addDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Add document details',
 		heading: `${folderPathToFolderNameText(folder.path)} documents`,
-		pageComponentGroups: incompleteDocuments.map((document, index) => ({
-			wrapperHtml: {
-				opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
-				closing:
-					index < incompleteDocuments.length - 1
-						? '<hr class="govuk-!-margin-top-7"></div>'
-						: '</div>'
-			},
-			pageComponents: [
-				{
-					type: 'input',
-					parameters: {
-						type: 'hidden',
-						name: `items[${index}][documentId]`,
-						value: document.id
-					}
+		pageComponents: incompleteDocuments.flatMap((document, index) => [
+			{
+				wrapperHtml: {
+					opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
+					closing: ''
 				},
-				{
-					type: 'date-input',
-					parameters: {
-						id: `items[${index}]receivedDate`,
-						namePrefix: `items[${index}][receivedDate]`,
-						fieldset: {
-							legend: {
-								text: 'Date received'
-							}
-						},
-						items: [
-							{
-								classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
-								id: `items[${index}].receivedDate.day`,
-								name: '[day]',
-								label: 'Day',
-								value:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.receivedDate.day || ''
-							},
-							{
-								classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
-								id: `items[${index}].receivedDate.month`,
-								name: '[month]',
-								label: 'Month',
-								value:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.receivedDate.month || ''
-							},
-							{
-								classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
-								id: `items[${index}].receivedDate.year`,
-								name: '[year]',
-								label: 'Year',
-								value:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.receivedDate.year || ''
-							}
-						]
-					}
-				},
-				{
-					type: 'radios',
-					parameters: {
-						name: `items[${index}][redactionStatus]`,
-						fieldset: {
-							legend: {
-								text: 'Redaction'
-							}
-						},
-						items: [
-							{
-								text: 'Redacted',
-								value: 'redacted',
-								checked:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.redactionStatus === 'redacted'
-							},
-							{
-								text: 'Unredacted',
-								value: 'unredacted',
-								checked:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.redactionStatus === 'unredacted'
-							},
-							{
-								text: 'No redaction required',
-								value: 'no redaction required',
-								checked:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.redactionStatus === 'no redaction required'
-							}
-						]
-					}
+				type: 'input',
+				parameters: {
+					type: 'hidden',
+					name: `items[${index}][documentId]`,
+					value: document.id
 				}
-			]
-		}))
+			},
+			{
+				type: 'date-input',
+				parameters: {
+					id: `items[${index}]receivedDate`,
+					namePrefix: `items[${index}][receivedDate]`,
+					fieldset: {
+						legend: {
+							text: 'Date received'
+						}
+					},
+					items: [
+						{
+							classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+							id: `items[${index}].receivedDate.day`,
+							name: '[day]',
+							label: 'Day',
+							value:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.receivedDate.day || ''
+						},
+						{
+							classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+							id: `items[${index}].receivedDate.month`,
+							name: '[month]',
+							label: 'Month',
+							value:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.receivedDate.month || ''
+						},
+						{
+							classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
+							id: `items[${index}].receivedDate.year`,
+							name: '[year]',
+							label: 'Year',
+							value:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.receivedDate.year || ''
+						}
+					]
+				}
+			},
+			{
+				wrapperHtml: {
+					opening: '',
+					closing:
+						index < incompleteDocuments.length - 1
+							? '<hr class="govuk-!-margin-top-7"></div>'
+							: '</div>'
+				},
+				type: 'radios',
+				parameters: {
+					name: `items[${index}][redactionStatus]`,
+					fieldset: {
+						legend: {
+							text: 'Redaction'
+						}
+					},
+					items: [
+						{
+							text: 'Redacted',
+							value: 'redacted',
+							checked:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.redactionStatus === 'redacted'
+						},
+						{
+							text: 'Unredacted',
+							value: 'unredacted',
+							checked:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.redactionStatus === 'unredacted'
+						},
+						{
+							text: 'No redaction required',
+							value: 'no redaction required',
+							checked:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.redactionStatus === 'no redaction required'
+						}
+					]
+				}
+			}
+		])
 	};
 
 	return pageContent;
@@ -388,33 +390,27 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 		);
 	}
 
-	let notificationBannerComponents;
-	if (folder.caseId) {
-		notificationBannerComponents = buildNotificationBanners(
-			request.session,
-			'manageFolder',
-			parseInt(folder.caseId.toString(), 10)
-		);
-	}
+	const notificationBannerComponents = buildNotificationBanners(
+		request.session,
+		'manageFolder',
+		parseInt(folder.caseId.toString(), 10)
+	);
+
 	/** @type {PageComponent[]} */
-	let virusDetectedMessage = [];
-	if (getDocumentsForVirusStatus(folder, 'failed_virus_check').length > 0) {
-		let folderIds = getDocumentsForVirusStatus(folder, 'failed_virus_check');
-		/**
-		 * @type {{ text: string; href: string; }[]}
-		 */
-		let errorList = [];
-		folderIds.forEach((item) =>
-			errorList.push({
-				text: 'The selected file contains a virus. Upload a different version.',
-				href: `manage-documents/${item.folderId}/${item.id}`
-			})
-		);
-		virusDetectedMessage.push({
+	const errorSummaryPageComponents = [];
+	const documentsWithFailedVirusCheck = getDocumentsForVirusStatus(folder, 'failed_virus_check');
+
+	if (documentsWithFailedVirusCheck.length > 0) {
+		errorSummaryPageComponents.push({
 			type: 'error-summary',
 			parameters: {
 				titleText: 'There is a problem',
-				errorList: errorList
+				errorList: [
+					{
+						text: 'One or more files in this folder contains a virus. Upload a different version of each document that contains a virus.',
+						href: '#documents-table'
+					}
+				]
 			}
 		});
 	}
@@ -426,9 +422,9 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Manage documents',
 		heading: `${folderPathToFolderNameText(folder.path)} documents`,
-		notificationBannerComponents: notificationBannerComponents,
-		customErrorMessageComponents: virusDetectedMessage,
 		pageComponents: [
+			...notificationBannerComponents,
+			...errorSummaryPageComponents,
 			{
 				type: 'table',
 				parameters: {
@@ -446,39 +442,34 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 							text: 'Actions'
 						}
 					],
+					attributes: {
+						id: 'documents-table'
+					},
 					rows: (folder?.documents || []).map((document) => [
 						mapFolderDocumentInformationHtmlProperty(folder, document),
 						document?.latestDocumentVersion?.isLateEntry
 							? {
 									html: '',
-									pageComponentGroups: [
+									pageComponents: [
 										{
 											wrapperHtml: {
 												opening: '<div>',
 												closing: '</div>'
 											},
-											pageComponents: [
-												{
-													type: 'html',
-													parameters: {
-														html: dateToDisplayDate(document?.latestDocumentVersion?.dateReceived)
-													}
-												}
-											]
+											type: 'html',
+											parameters: {
+												html: dateToDisplayDate(document?.latestDocumentVersion?.dateReceived)
+											}
 										},
 										{
 											wrapperHtml: {
 												opening: '<div class="govuk-!-margin-top-3">',
 												closing: '</div>'
 											},
-											pageComponents: [
-												{
-													type: 'status-tag',
-													parameters: {
-														status: 'late_entry'
-													}
-												}
-											]
+											type: 'status-tag',
+											parameters: {
+												status: 'late_entry'
+											}
 										}
 									]
 							  }
@@ -667,7 +658,7 @@ function mapDocumentNameHtmlProperty(document, documentVersion) {
  * @param {string} removeDocumentUrl
  * @param {RedactionStatus[]} redactionStatuses
  * @param {DocumentDetails} document
- * @param {FolderInfo & {id: string, caseId: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
+ * @param {FolderInfo & {id: string, caseId: string}} folder
  * @param {import('@pins/express/types/express.js').Request} request
  * @returns {Promise<PageContent>}
  */
@@ -686,7 +677,6 @@ export async function manageDocumentPage(
 		'change-document-details'
 	);
 	const session = request.session;
-
 	const latestVersion = getDocumentLatestVersion(document);
 	const virusCheckStatus = mapDocumentVersionDetailsVirusCheckStatus(latestVersion);
 
@@ -698,48 +688,248 @@ export async function manageDocumentPage(
 		);
 	}
 
-	let notificationBannerComponents;
-	if (document.caseId) {
-		notificationBannerComponents = buildNotificationBanners(
-			session,
-			'manageDocuments',
-			document.caseId
-		);
-	}
-
 	/** @type {PageComponent[]} */
-	let virusDetectedMessage = [];
-	if (getDocumentsForVirusStatus(folder, 'failed_virus_check').length > 0) {
-		let folderIds = getDocumentsForVirusStatus(folder, 'failed_virus_check');
-		/**
-		 * @type {{ text: string; href: string; }[]}
-		 */
-		let errorList = [];
-		folderIds.forEach((item) =>
-			errorList.push({
-				text: 'The selected file contains a virus. Upload a different version.',
-				href: `manage-documents/${item.folderId}/${item.id}`
-			})
-		);
-		virusDetectedMessage.push({
-			type: 'error-summary',
-			parameters: {
-				titleText: 'There is a problem',
-				errorList: errorList
-			}
-		});
-	}
+	const notificationBannerComponents = buildNotificationBanners(
+		session,
+		'manageDocuments',
+		document?.caseId
+	);
 
 	const versionId = document?.latestVersionId?.toString() || '';
-
-	const removeDocumentUrlProcessed = removeDocumentUrl
-		?.replace('{{folderId}}', folder.id)
-		.replace('{{documentId}}', document.guid || '')
-		.replace('{{versionId}}', versionId);
-
 	const uploadNewVersionUrl = uploadUpdatedDocumentUrl
 		.replace('{{folderId}}', folder.id)
 		.replace('{{documentId}}', document.guid || '');
+
+	/** @type {PageComponent[]} */
+	const pageComponents = [...notificationBannerComponents];
+
+	if (virusCheckStatus.checked && !virusCheckStatus.safe) {
+		/** @type {PageComponent} */
+		const errorSummaryComponent = {
+			type: 'error-summary',
+			parameters: {
+				titleText: 'There is a problem',
+				errorList: [
+					{
+						text: 'The selected file contains a virus. Upload a different version.',
+						href: uploadNewVersionUrl
+					}
+				]
+			}
+		};
+		pageComponents.push(errorSummaryComponent);
+	}
+
+	/** @type {PageComponent} */
+	const documentSummary = {
+		wrapperHtml: {
+			opening: '<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">',
+			closing: '</div></div>'
+		},
+		type: 'summary-list',
+		parameters: {
+			rows: [
+				{
+					key: { text: 'File' },
+					value: mapVersionDocumentInformationHtmlProperty(document, latestVersion)
+				},
+				{
+					key: { text: 'Version' },
+					value: {
+						text: versionId
+					}
+				},
+				{
+					key: { text: 'Date received' },
+					value: latestVersion?.isLateEntry
+						? {
+								html: '',
+								pageComponents: [
+									{
+										type: 'html',
+										parameters: {
+											html: '',
+											pageComponents: [
+												{
+													wrapperHtml: {
+														opening: '<div class="govuk-!-margin-bottom-2">',
+														closing: '</div>'
+													},
+													type: 'html',
+													parameters: {
+														html: dateToDisplayDate(latestVersion?.dateReceived)
+													}
+												},
+												{
+													wrapperHtml: {
+														opening: '<div class="govuk-!-margin-bottom-1">',
+														closing: '</div>'
+													},
+													type: 'status-tag',
+													parameters: {
+														status: 'late_entry'
+													}
+												}
+											]
+										}
+									}
+								]
+						  }
+						: {
+								text: dateToDisplayDate(latestVersion?.dateReceived)
+						  },
+					actions: {
+						items: [
+							{
+								text: 'Change',
+								href: changeDetailsUrl
+							}
+						]
+					}
+				},
+				{
+					key: { text: 'Redaction' },
+					value: {
+						text: mapRedactionStatusIdToName(
+							redactionStatuses,
+							getDocumentLatestVersion(document)?.redactionStatusId
+						)
+					},
+					actions: {
+						items: [
+							{
+								text: 'Change',
+								href: changeDetailsUrl
+							}
+						]
+					}
+				}
+			]
+		}
+	};
+
+	pageComponents.push(documentSummary);
+
+	if (virusCheckStatus.checked) {
+		/** @type {PageComponent} */
+		const uploadUpdatedDocumentButton = {
+			wrapperHtml: {
+				opening: '<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">',
+				closing: ''
+			},
+			type: 'button',
+			parameters: {
+				id: 'upload-updated-document',
+				href: uploadNewVersionUrl,
+				classes: 'govuk-!-margin-right-2',
+				text: 'Upload an updated document'
+			}
+		};
+
+		const removeDocumentUrlProcessed = removeDocumentUrl
+			?.replace('{{folderId}}', folder.id)
+			.replace('{{documentId}}', document.guid || '')
+			.replace('{{versionId}}', versionId);
+
+		/** @type {PageComponent} */
+		const removeDocumentButton = {
+			wrapperHtml: {
+				opening: '',
+				closing: '</div></div>'
+			},
+			type: 'button',
+			parameters: {
+				id: 'remove-document',
+				href: removeDocumentUrlProcessed,
+				classes: 'govuk-button--secondary',
+				text: 'Remove this document'
+			}
+		};
+
+		pageComponents.push(uploadUpdatedDocumentButton);
+		pageComponents.push(removeDocumentButton);
+	}
+
+	/** @type {PageComponent} */
+	const documentHistoryDetails = {
+		wrapperHtml: {
+			opening:
+				'<div class="govuk-grid-row"><div class="govuk-grid-column-full"><h2>Document history</h2><p class="govuk-body">See version history, a change log or remove old documents</p>',
+			closing: '</div></div>'
+		},
+		type: 'details',
+		parameters: {
+			summaryText: 'Document history',
+			html: '',
+			pageComponents: [
+				{
+					type: 'table',
+					parameters: {
+						classes: 'govuk-!-font-size-16',
+						head: [
+							{
+								text: 'Version'
+							},
+							{
+								text: 'Document name'
+							},
+							{
+								text: 'Activity'
+							},
+							{
+								text: 'Redaction'
+							},
+							{
+								text: 'Action'
+							}
+						],
+						rows: await Promise.all(
+							(document.documentVersion || []).map(async (documentVersion) => {
+								const versionVirusCheckStatus =
+									mapDocumentVersionDetailsVirusCheckStatus(documentVersion);
+
+								return [
+									{
+										text: documentVersion.version?.toString() || ''
+									},
+									mapDocumentNameHtmlProperty(document, documentVersion),
+									{
+										html: await mapDocumentVersionToAuditActivityHtml(
+											documentVersion,
+											document.versionAudit || [],
+											session
+										)
+									},
+									{
+										text: mapRedactionStatusIdToName(
+											redactionStatuses,
+											documentVersion.redactionStatusId
+										)
+									},
+									{
+										html:
+											documentVersion.isDeleted || !versionVirusCheckStatus.checked
+												? ''
+												: `<a class="govuk-link" href="${removeDocumentUrl
+														?.replace('{{folderId}}', folder.id)
+														.replace('{{documentId}}', document.guid || '')
+														.replace(
+															'{{versionId}}',
+															documentVersion.version?.toString() || ''
+														)}">Remove</a>`
+									}
+								];
+							})
+						).then((result) =>
+							result.sort((a, b) => parseInt(b[0].text, 10) - parseInt(a[0].text, 10))
+						)
+					}
+				}
+			]
+		}
+	};
+
+	pageComponents.push(documentHistoryDetails);
 
 	/** @type {PageContent} */
 	const pageContent = {
@@ -748,221 +938,12 @@ export async function manageDocumentPage(
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Manage documents',
 		heading: document?.name || '',
-		notificationBannerComponents: notificationBannerComponents,
-		customErrorMessageComponents: virusDetectedMessage,
-		pageComponentGroups: [
-			{
-				wrapperHtml: {
-					opening: '<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">',
-					closing: ''
-				},
-				pageComponents: [
-					{
-						type: 'summary-list',
-						parameters: {
-							rows: [
-								{
-									key: { text: 'File' },
-									value: mapVersionDocumentInformationHtmlProperty(document, latestVersion)
-								},
-								{
-									key: { text: 'Version' },
-									value: {
-										text: versionId
-									}
-								},
-								{
-									key: { text: 'Date received' },
-									value: latestVersion?.isLateEntry
-										? {
-												html: '',
-												pageComponents: [
-													{
-														type: 'html',
-														parameters: {
-															html: '',
-															pageComponentGroups: [
-																{
-																	wrapperHtml: {
-																		opening: '<div class="govuk-!-margin-bottom-2">',
-																		closing: '</div>'
-																	},
-																	pageComponents: [
-																		{
-																			type: 'html',
-																			parameters: {
-																				html: dateToDisplayDate(latestVersion?.dateReceived)
-																			}
-																		}
-																	]
-																},
-																{
-																	wrapperHtml: {
-																		opening: '<div class="govuk-!-margin-bottom-1">',
-																		closing: '</div>'
-																	},
-																	pageComponents: [
-																		{
-																			type: 'status-tag',
-																			parameters: {
-																				status: 'late_entry'
-																			}
-																		}
-																	]
-																}
-															]
-														}
-													}
-												]
-										  }
-										: {
-												text: dateToDisplayDate(latestVersion?.dateReceived)
-										  },
-									actions: {
-										items: [
-											{
-												text: 'Change',
-												href: changeDetailsUrl
-											}
-										]
-									}
-								},
-								{
-									key: { text: 'Redaction' },
-									value: {
-										text: mapRedactionStatusIdToName(
-											redactionStatuses,
-											getDocumentLatestVersion(document)?.redactionStatusId
-										)
-									},
-									actions: {
-										items: [
-											{
-												text: 'Change',
-												href: changeDetailsUrl
-											}
-										]
-									}
-								}
-							]
-						}
-					}
-				]
-			},
-			{
-				wrapperHtml: {
-					opening: '',
-					closing: '</div></div>'
-				},
-				pageComponents: virusCheckStatus.checked
-					? [
-							{
-								type: 'button',
-								parameters: {
-									id: 'upload-updated-document',
-									href: uploadNewVersionUrl,
-									classes: 'govuk-!-margin-right-2',
-									text: 'Upload an updated document'
-								}
-							},
-							{
-								type: 'button',
-								parameters: {
-									id: 'remove-document',
-									href: removeDocumentUrlProcessed,
-									classes: 'govuk-button--secondary',
-									text: 'Remove this document'
-								}
-							}
-					  ]
-					: []
-			},
-			{
-				wrapperHtml: {
-					opening:
-						'<div class="govuk-grid-row"><div class="govuk-grid-column-full"><h2>Document history</h2><p class="govuk-body">See version history, a change log or remove old documents</p>',
-					closing: '</div></div>'
-				},
-				pageComponents: [
-					{
-						type: 'details',
-						parameters: {
-							summaryText: 'Document history',
-							html: '',
-							pageComponents: [
-								{
-									type: 'table',
-									parameters: {
-										classes: 'govuk-!-font-size-16',
-										head: [
-											{
-												text: 'Version'
-											},
-											{
-												text: 'Document name'
-											},
-											{
-												text: 'Activity'
-											},
-											{
-												text: 'Redaction'
-											},
-											{
-												text: 'Action'
-											}
-										],
-										rows: await Promise.all(
-											(document.documentVersion || []).map(async (documentVersion) => {
-												const versionVirusCheckStatus =
-													mapDocumentVersionDetailsVirusCheckStatus(documentVersion);
-												return [
-													{
-														text: documentVersion.version?.toString() || ''
-													},
-													mapDocumentNameHtmlProperty(document, documentVersion),
-													{
-														html: await mapDocumentVersionToAuditActivityHtml(
-															documentVersion,
-															document.versionAudit || [],
-															session
-														)
-													},
-													{
-														text: mapRedactionStatusIdToName(
-															redactionStatuses,
-															documentVersion.redactionStatusId
-														)
-													},
-													{
-														html:
-															documentVersion.isDeleted || !versionVirusCheckStatus.checked
-																? ''
-																: `<a class="govuk-link" href="${removeDocumentUrl
-																		?.replace('{{folderId}}', folder.id)
-																		.replace('{{documentId}}', document.guid || '')
-																		.replace(
-																			'{{versionId}}',
-																			documentVersion.version?.toString() || ''
-																		)}">Remove</a>`
-													}
-												];
-											})
-										).then((result) =>
-											result.sort((a, b) => parseInt(b[0].text, 10) - parseInt(a[0].text, 10))
-										)
-									}
-								}
-							]
-						}
-					}
-				]
-			}
-		]
+		pageComponents
 	};
 
-	pageContent.pageComponentGroups?.forEach((group) =>
-		preRenderPageComponents(group.pageComponents)
-	);
+	if (pageContent.pageComponents) {
+		preRenderPageComponents(pageContent.pageComponents);
+	}
 
 	return pageContent;
 }
@@ -1011,83 +992,72 @@ export async function deleteDocumentPage(
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Manage documents',
 		heading: 'Are you sure you want to remove this document?',
-		pageComponentGroups: [
+		pageComponents: [
 			{
 				wrapperHtml: {
 					opening: '<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">',
 					closing: ''
 				},
-				pageComponents: [
-					{
-						type: 'summary-list',
-						parameters: {
-							rows: [
-								{
-									key: { text: 'File' },
-									value: {
-										html: document && document?.name ? document.name : ''
-									}
-								},
-								{
-									key: { text: 'Version' },
-									value: {
-										text: versionId || ''
-									}
-								}
-							]
+				type: 'summary-list',
+				parameters: {
+					rows: [
+						{
+							key: { text: 'File' },
+							value: {
+								html: document && document?.name ? document.name : ''
+							}
+						},
+						{
+							key: { text: 'Version' },
+							value: {
+								text: versionId || ''
+							}
 						}
-					},
-					{
-						type: 'html',
-						parameters: {
-							html:
-								totalDocumentVersions === 1
-									? `<div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-										<strong class="govuk-warning-text__text">
-											<span class="govuk-warning-text__assistive">Warning</span> Removing the only version will delete the document from the case
-										</strong>
-									</div>`
-									: ''
-						}
-					}
-				]
+					]
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html:
+						totalDocumentVersions === 1
+							? `<div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+								<strong class="govuk-warning-text__text">
+									<span class="govuk-warning-text__assistive">Warning</span> Removing the only version will delete the document from the case
+								</strong>
+							</div>`
+							: ''
+				}
 			},
 			{
 				wrapperHtml: {
 					opening: '<form method="POST">',
-					closing: '</form>'
+					closing: ''
 				},
-				pageComponents: [
-					{
-						type: 'radios',
-						parameters: {
-							name: 'delete-file-answer',
-							items: radioEntries
-						}
-					},
-					{
-						type: 'button',
-						parameters: {
-							id: 'remove-document-button',
-							type: 'submit',
-							text: 'Continue'
-						}
-					}
-				]
+				type: 'radios',
+				parameters: {
+					name: 'delete-file-answer',
+					items: radioEntries
+				}
 			},
 			{
 				wrapperHtml: {
 					opening: '',
-					closing: '</div></div>'
+					closing: '</form></div></div>'
 				},
-				pageComponents: []
+				type: 'button',
+				parameters: {
+					id: 'remove-document-button',
+					type: 'submit',
+					text: 'Continue'
+				}
 			}
 		]
 	};
 
-	pageContent.pageComponentGroups?.forEach((group) =>
-		preRenderPageComponents(group.pageComponents)
-	);
+	if (pageContent.pageComponents) {
+		preRenderPageComponents(pageContent.pageComponents);
+	}
 
 	return pageContent;
 }
@@ -1268,105 +1238,113 @@ export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Change document details',
 		heading: `${folderPathToFolderNameText(folder.path)} documents`,
-		pageComponentGroups: latestDocuments.map((document, index) => ({
-			wrapperHtml: {
-				opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
-				closing:
-					index < latestDocuments.length - 1 ? '<hr class="govuk-!-margin-top-7"></div>' : '</div>'
-			},
-			pageComponents: [
-				{
-					type: 'input',
-					parameters: {
-						type: 'hidden',
-						name: `items[${index}][documentId]`,
-						value: document.id
-					}
+		pageComponents: latestDocuments.flatMap((document, index) => [
+			{
+				wrapperHtml: {
+					opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
+					closing: ''
 				},
-				{
-					type: 'date-input',
-					parameters: {
-						id: `items[${index}]receivedDate`,
-						namePrefix: `items[${index}][receivedDate]`,
-						fieldset: {
-							legend: {
-								text: 'Date received'
-							}
-						},
-						items: [
-							{
-								classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
-								id: `items[${index}].receivedDate.day`,
-								name: '[day]',
-								label: 'Day',
-								value:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.receivedDate.day || ''
-							},
-							{
-								classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
-								id: `items[${index}].receivedDate.month`,
-								name: '[month]',
-								label: 'Month',
-								value:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.receivedDate.month || ''
-							},
-							{
-								classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
-								id: `items[${index}].receivedDate.year`,
-								name: '[year]',
-								label: 'Year',
-								value:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.receivedDate.year || ''
-							}
-						]
-					}
-				},
-				{
-					type: 'radios',
-					parameters: {
-						name: `items[${index}][redactionStatus]`,
-						fieldset: {
-							legend: {
-								text: 'Redaction'
-							}
-						},
-						items: [
-							{
-								text: 'Redacted',
-								value: 'redacted',
-								checked:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.redactionStatus === 'redacted'
-							},
-							{
-								text: 'Unredacted',
-								value: 'unredacted',
-								checked:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.redactionStatus === 'unredacted'
-							},
-							{
-								text: 'No redaction required',
-								value: 'no redaction required',
-								checked:
-									bodyItems?.find(
-										(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-									)?.redactionStatus === 'no redaction required'
-							}
-						]
-					}
+				type: 'input',
+				parameters: {
+					type: 'hidden',
+					name: `items[${index}][documentId]`,
+					value: document.id
 				}
-			]
-		}))
+			},
+			{
+				type: 'date-input',
+				parameters: {
+					id: `items[${index}]receivedDate`,
+					namePrefix: `items[${index}][receivedDate]`,
+					fieldset: {
+						legend: {
+							text: 'Date received'
+						}
+					},
+					items: [
+						{
+							classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+							id: `items[${index}].receivedDate.day`,
+							name: '[day]',
+							label: 'Day',
+							value:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.receivedDate.day || ''
+						},
+						{
+							classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+							id: `items[${index}].receivedDate.month`,
+							name: '[month]',
+							label: 'Month',
+							value:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.receivedDate.month || ''
+						},
+						{
+							classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
+							id: `items[${index}].receivedDate.year`,
+							name: '[year]',
+							label: 'Year',
+							value:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.receivedDate.year || ''
+						}
+					]
+				}
+			},
+			{
+				wrapperHtml: {
+					opening: '',
+					closing:
+						index < latestDocuments.length - 1
+							? '<hr class="govuk-!-margin-top-7"></div>'
+							: '</div>'
+				},
+				type: 'radios',
+				parameters: {
+					name: `items[${index}][redactionStatus]`,
+					fieldset: {
+						legend: {
+							text: 'Redaction'
+						}
+					},
+					items: [
+						{
+							text: 'Redacted',
+							value: 'redacted',
+							checked:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.redactionStatus === 'redacted'
+						},
+						{
+							text: 'Unredacted',
+							value: 'unredacted',
+							checked:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.redactionStatus === 'unredacted'
+						},
+						{
+							text: 'No redaction required',
+							value: 'no redaction required',
+							checked:
+								bodyItems?.find(
+									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+								)?.redactionStatus === 'no redaction required'
+						}
+					]
+				}
+			}
+		])
 	};
+
+	if (pageContent.pageComponents) {
+		preRenderPageComponents(pageContent.pageComponents);
+	}
 
 	return pageContent;
 }
@@ -1378,11 +1356,11 @@ export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
  * @returns {DocumentInfo[]}
  */
 function getDocumentsForVirusStatus(folder, virusStatus) {
-	let unscannedFiles = [];
+	let matchingDocuments = [];
 	for (let document of Object.values(folder.documents)) {
 		if (document?.latestDocumentVersion?.virusCheckStatus === virusStatus) {
-			unscannedFiles.push(document);
+			matchingDocuments.push(document);
 		}
 	}
-	return unscannedFiles;
+	return matchingDocuments;
 }

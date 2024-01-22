@@ -71,7 +71,7 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
             <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
         </div>
         <div class="govuk-summary-card__content">
-            <dl class="govuk-summary-list">
+            <dl class="govuk-summary-list" id="constraints-summary">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Correct appeal type</dt>
                     <dd class="govuk-summary-list__value">Yes</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/is-correct-appeal-type"> Change<span class="govuk-visually-hidden"> Correct appeal type</span></a>
@@ -397,7 +397,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
             <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
         </div>
         <div class="govuk-summary-card__content">
-            <dl class="govuk-summary-list">
+            <dl class="govuk-summary-list" id="constraints-summary">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Correct appeal type</dt>
                     <dd class="govuk-summary-list__value">Yes</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/is-correct-appeal-type"> Change<span class="govuk-visually-hidden"> Correct appeal type</span></a>
@@ -725,7 +725,7 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
             <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
         </div>
         <div class="govuk-summary-card__content">
-            <dl class="govuk-summary-list">
+            <dl class="govuk-summary-list" id="constraints-summary">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Correct appeal type</dt>
                     <dd class="govuk-summary-list__value">Yes</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/is-correct-appeal-type"> Change<span class="govuk-visually-hidden"> Correct appeal type</span></a>
@@ -2323,7 +2323,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            <li><a href="#documents-table">One or more files in this folder contains a virus. Upload a different version of each document that contains a virus.</a>
                             </li>
                         </ul>
                     </div>
@@ -2349,7 +2349,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">New supporting documents</h1>
         </div>
     </div>
-    <table class="govuk-table">
+    <table class="govuk-table" id="documents-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
                 <th scope="col" class="govuk-table__header">Document information</th>
@@ -2465,24 +2465,6 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page with late entry tag in the date received row if the latest version of the document is marked as late entry, and a document history item for each version, with late entry tag in the history item document name column for versions marked as late entry 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
-    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
@@ -2578,24 +2560,6 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
-    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
@@ -2622,7 +2586,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
-            </dl><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
             data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
             <a             href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
@@ -2681,16 +2649,13 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            <li><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3">The selected file contains a virus. Upload a different version.</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
@@ -2721,7 +2686,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
-            </dl><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
             data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
             <a             href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
@@ -2775,24 +2744,6 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
@@ -2871,24 +2822,6 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
-    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
@@ -2965,24 +2898,6 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page without late entry tag in the date received row if the latest version of the document is not marked as late entry 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
@@ -3233,7 +3148,7 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
             <h2 class="govuk-summary-card__title">1. Constraints, designations and other issues</h2>
         </div>
         <div class="govuk-summary-card__content">
-            <dl class="govuk-summary-list">
+            <dl class="govuk-summary-list" id="constraints-summary">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Correct appeal type</dt>
                     <dd class="govuk-summary-list__value">Yes</dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/is-correct-appeal-type"> Change<span class="govuk-visually-hidden"> Correct appeal type</span></a>
