@@ -42,7 +42,14 @@ const getAppeals = async (req, res) => {
 		pageSize,
 		searchTerm
 	);
-	const formattedAppeals = appeals.map((appeal) => formatAppeals(appeal));
+
+	const formattedAppeals = await Promise.all(
+		appeals.map(async (appeal) => {
+			const linkedAppeals = await appealRepository.getLinkedAppeals(appeal.reference);
+			return formatAppeals(appeal, linkedAppeals);
+		})
+	);
+
 	const formattedStatuses = mapAppealStatuses(rawStatuses);
 
 	return res.send({
@@ -75,12 +82,18 @@ const getMyAppeals = async (req, res) => {
 			status
 		);
 
-		const formattedAppeals = sortAppeals(appeals.map((appeal) => formatMyAppeals(appeal)));
+		const formattedAppeals = await Promise.all(
+			appeals.map(async (appeal) => {
+				const linkedAppeals = await appealRepository.getLinkedAppeals(appeal.reference);
+				return formatMyAppeals(appeal, linkedAppeals);
+			})
+		);
+		const sortedAppeals = sortAppeals(formattedAppeals);
 		const formattedStatuses = mapAppealStatuses(rawStatuses);
 
 		return res.send({
 			itemCount,
-			items: formattedAppeals,
+			items: sortedAppeals,
 			statuses: formattedStatuses,
 			page: pageNumber,
 			pageCount: getPageCount(itemCount, pageSize),

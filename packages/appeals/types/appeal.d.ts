@@ -39,6 +39,8 @@ export interface AppealSummary {
 	appellantCaseStatus: string;
 	lpaQuestionnaireStatus: string;
 	documentationSummary: DocumentationSummary;
+	isParentAppeal: boolean;
+	isChildAppeal: boolean;
 }
 
 export interface AppealList {

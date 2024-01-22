@@ -1,4 +1,5 @@
 import { request } from '../../../app-test.js';
+import { jest } from '@jest/globals';
 import { azureAdUserId } from '#tests/shared/mocks.js';
 import { householdAppeal } from '#tests/appeals/mocks.js';
 import { documentCreated } from '#tests/documents/mocks.js';
@@ -7,6 +8,13 @@ import { STATE_TARGET_ISSUE_DETERMINATION } from '#endpoints/constants.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 describe('invalid appeal decision routes', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 	describe('POST', () => {
 		test('returns 400 when state is not correct - blank invalidDecisionReason', async () => {
 			// @ts-ignore

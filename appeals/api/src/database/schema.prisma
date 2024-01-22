@@ -24,8 +24,6 @@ model Appeal {
   appealTypeId                 Int?
   resubmitTypeId               Int?
   transferredCaseId            String?
-  linkedAppealId               Int?
-  otherAppealId                Int?
   dueDate                      DateTime?
   allocationId                 Int?
   address                      Address?              @relation(fields: [addressId], references: [id])
@@ -43,10 +41,6 @@ model Appeal {
   siteVisit                    SiteVisit?
   validationDecision           ValidationDecision[]
   appealTimetable              AppealTimetable?
-  linkedAppeal                 Appeal?               @relation("LinkedAppeals", fields: [linkedAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  linkedAppeals                Appeal[]              @relation("LinkedAppeals")
-  otherAppeal                  Appeal?               @relation("OtherAppeals", fields: [otherAppealId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  otherAppeals                 Appeal[]              @relation("OtherAppeals")
   folders                      Folder[]
   documents                    Document[]
   caseOfficerUserId            Int?
@@ -54,6 +48,15 @@ model Appeal {
   inspectorUserId              Int?
   inspector                    User?                 @relation("inspector", fields: [inspectorUserId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   auditTrail                   AuditTrail[]
+}
+
+model AppealRelationship {
+  id          Int      @id @default(autoincrement())
+  parentRef   String
+  childRef    String
+  parentId    Int?
+  childId     Int?
+  linkingDate DateTime @default(now())
 }
 
 /// AppealType model

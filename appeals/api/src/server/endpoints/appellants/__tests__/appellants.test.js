@@ -1,4 +1,5 @@
 import { request } from '../../../app-test.js';
+import { jest } from '@jest/globals';
 import {
 	ERROR_CANNOT_BE_EMPTY_STRING,
 	ERROR_FAILED_TO_SAVE_DATA,
@@ -15,6 +16,13 @@ import stringTokenReplacement from '#utils/string-token-replacement.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 describe('appellants routes', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 	describe('/appeals/:appealId/appellants/:appellantId', () => {
 		describe('GET', () => {
 			test('gets a single appellant', async () => {

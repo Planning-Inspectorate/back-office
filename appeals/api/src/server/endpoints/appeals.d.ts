@@ -33,7 +33,9 @@ interface TimetableDeadlineDate {
 
 interface LinkedAppeal {
 	appealId: number | null;
-	appealReference: string | null;
+	appealReference: string;
+	isParentAppeal: boolean;
+	linkingDate: Date;
 }
 
 interface AppealSite {
@@ -84,11 +86,9 @@ interface RepositoryGetByIdResultItem {
 	id: number;
 	inspector: User | null;
 	inspectorDecision?: Schema.InspectorDecision | null;
-	linkedAppealId: number | null;
-	linkedAppeals: Appeal[];
+	linkedAppeals: Schema.AppealRelationship[] | null;
 	lpa: LPA;
 	lpaQuestionnaire: Schema.LPAQuestionnaire | null;
-	otherAppeals: Appeal[];
 	planningApplicationReference: string;
 	reference: string;
 	siteVisit: Schema.SiteVisit | null;
@@ -173,7 +173,7 @@ interface SingleLPAQuestionnaireResponse {
 	lpaQuestionnaireId?: number;
 	meetsOrExceedsThresholdOrCriteriaInColumn2?: boolean | null;
 	neighbouringSiteContacts: NeighbouringSiteContactsResponse[] | null;
-	otherAppeals: LinkedAppeal[];
+	otherAppeals: string[];
 	procedureType?: string;
 	scheduleType?: string;
 	sensitiveAreaDetails?: string | null;
@@ -229,6 +229,7 @@ interface SingleAppealDetailsResponse {
 		};
 	};
 	isParentAppeal: boolean | null;
+	isChildAppeal: boolean | null;
 	linkedAppeals: LinkedAppeal[];
 	localPlanningDepartment: string;
 	lpaQuestionnaireId: number | null;
@@ -338,6 +339,8 @@ interface AppealListResponse {
 	appellantCaseStatus: string;
 	lpaQuestionnaireStatus: string;
 	dueDate: Date | undefined | null;
+	isParentAppeal: boolean | null;
+	isChildAppeal: boolean | null;
 }
 
 type BankHolidayFeedDivisions =

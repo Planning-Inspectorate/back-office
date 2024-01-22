@@ -35,8 +35,7 @@ import {
 	fullPlanningAppeal,
 	householdAppeal,
 	householdAppealLPAQuestionnaireComplete,
-	householdAppealLPAQuestionnaireIncomplete,
-	otherAppeals
+	householdAppealLPAQuestionnaireIncomplete
 } from '#tests/appeals/mocks.js';
 import { baseExpectedLPAQuestionnaireResponse } from '#tests/appeals/expectation.js';
 import createManyToManyRelationData from '#utils/create-many-to-many-relation-data.js';
@@ -45,8 +44,12 @@ import stringTokenReplacement from '#utils/string-token-replacement.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 describe('lpa questionnaires routes', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
 	afterEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('/appeals/:appealId/lpa-questionnaires/:lpaQuestionnaireId', () => {
@@ -55,8 +58,6 @@ describe('lpa questionnaires routes', () => {
 				// @ts-ignore
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				databaseConnector.folder.findMany.mockResolvedValue([]);
-				// @ts-ignore
-				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
@@ -72,9 +73,6 @@ describe('lpa questionnaires routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(
 					householdAppealLPAQuestionnaireComplete
 				);
-				databaseConnector.folder.findMany.mockResolvedValue([]);
-				// @ts-ignore
-				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
 				const { id, lpaQuestionnaire } = householdAppealLPAQuestionnaireComplete;
 				const response = await request
@@ -93,8 +91,6 @@ describe('lpa questionnaires routes', () => {
 					householdAppealLPAQuestionnaireIncomplete
 				);
 				databaseConnector.folder.findMany.mockResolvedValue([]);
-				// @ts-ignore
-				databaseConnector.appeal.findMany.mockResolvedValue(otherAppeals);
 
 				const { id, lpaQuestionnaire } = householdAppealLPAQuestionnaireIncomplete;
 				const response = await request

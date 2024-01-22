@@ -57,6 +57,10 @@ const startedAt = new Date(joinDateAndTime(format(new Date(), DEFAULT_DATE_FORMA
 const notifyClient = new NotifyClient();
 
 describe('appellant cases routes', () => {
+	beforeEach(() => {
+		// @ts-ignore
+		databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+	});
 	afterEach(() => {
 		jest.resetAllMocks();
 		jest.useRealTimers();

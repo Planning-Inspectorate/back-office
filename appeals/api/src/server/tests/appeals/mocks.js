@@ -219,9 +219,7 @@ export const householdAppeal = {
 		scheduleTypeId: 1,
 		sentAt: '2023-05-24T10:34:09.286Z',
 		siteWithinGreenBelt: null
-	},
-	linkedAppealId: 1,
-	otherAppealId: 3
+	}
 };
 
 export const fullPlanningAppeal = {
@@ -333,22 +331,9 @@ export const fullPlanningAppealLPAQuestionnaireIncomplete = {
 
 export const linkedAppeals = [
 	{
-		id: householdAppeal.id,
-		reference: householdAppeal.reference
-	},
-	{
-		id: fullPlanningAppeal.id,
-		reference: fullPlanningAppeal.reference
-	}
-];
-
-export const otherAppeals = [
-	{
-		id: householdAppeal.id,
-		reference: householdAppeal.reference
-	},
-	{
-		id: householdAppealAppellantCaseIncomplete.id,
-		reference: householdAppealAppellantCaseIncomplete.reference
+		parentId: householdAppeal.id,
+		parentRef: householdAppeal.reference,
+		childRef: 'HORIZON/12345',
+		linkingDate: '2024-01-01'
 	}
 ];

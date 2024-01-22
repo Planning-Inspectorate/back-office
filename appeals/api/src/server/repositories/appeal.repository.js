@@ -11,6 +11,7 @@ import { DATABASE_ORDER_BY_DESC, STATE_TARGET_COMPLETE } from '#endpoints/consta
 /** @typedef {import('@pins/appeals.api').Schema.InspectorDecision} InspectorDecision */
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Schema.User} User */
+/** @typedef {import('@pins/appeals.api').Schema.AppealRelationship} AppealRelationship */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -199,7 +200,7 @@ const getAppealsStatusesInNationalList = (where) => {
 
 /**
  * @param {number} id
- * @returns {Promise<RepositoryGetByIdResultItem | void>}
+ * @returns {Promise<RepositoryGetByIdResultItem|undefined>}
  */
 const getAppealById = async (id) => {
 	let appeal = await databaseConnector.appeal.findUnique({
@@ -300,31 +301,27 @@ const getAppealById = async (id) => {
 	});
 
 	if (appeal) {
-		const linkedAppeals = appeal.linkedAppealId
-			? await databaseConnector.appeal.findMany({
-					where: {
-						linkedAppealId: {
-							equals: appeal.linkedAppealId
+		const linkedAppeals = await databaseConnector.appealRelationship.findMany({
+			where: {
+				OR: [
+					{
+						parentRef: {
+							equals: appeal.reference
+						}
+					},
+					{
+						childRef: {
+							equals: appeal.reference
 						}
 					}
-			  })
-			: [];
-
-		const otherAppeals = appeal.otherAppealId
-			? await databaseConnector.appeal.findMany({
-					where: {
-						otherAppealId: {
-							equals: appeal.otherAppealId
-						}
-					}
-			  })
-			: [];
+				]
+			}
+		});
 
 		// @ts-ignore
 		return {
 			...appeal,
-			linkedAppeals,
-			otherAppeals
+			linkedAppeals
 		};
 	}
 };
@@ -404,7 +401,32 @@ const setInvalidAppealDecision = (id, { invalidDecisionReason, outcome }) => {
 	]);
 };
 
+/**
+ *
+ * @param {string} appealReference
+ * @returns {Promise<AppealRelationship[]>}
+ */
+const getLinkedAppeals = async (appealReference) => {
+	return await databaseConnector.appealRelationship.findMany({
+		where: {
+			OR: [
+				{
+					parentRef: {
+						equals: appealReference
+					}
+				},
+				{
+					childRef: {
+						equals: appealReference
+					}
+				}
+			]
+		}
+	});
+};
+
 export default {
+	getLinkedAppeals,
 	getAppealById,
 	getAllAppeals,
 	getUserAppeals,
