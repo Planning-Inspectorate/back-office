@@ -1,7 +1,7 @@
 import { createClient } from 'redis';
 import RedisStore from 'connect-redis';
 import { parseRedisConnectionString } from '@pins/platform';
-import { createMsalPlugin } from './msal-plugin.js';
+import { MSALPlugin, MSALCacheClient } from './msal-plugin.js';
 
 export class RedisClient {
 	/**
@@ -36,9 +36,10 @@ export class RedisClient {
 		// dev note: this may 'error' in vscode, but tscheck is all OK
 		this.store = new RedisStore({ client: this.client });
 
-    this.get = this.client.get;
-    this.set = this.client.set;
+		this.get = this.client.get;
+		this.set = this.client.set;
 
-    this.cachePlugin = createMsalPlugin(this.client, logger);
+		const msalCacheClient = new MSALCacheClient(this.client);
+		this.cachePlugin = new MSALPlugin(msalCacheClient, logger);
 	}
 }
