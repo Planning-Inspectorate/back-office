@@ -1,7 +1,9 @@
 import { createClient } from 'redis';
 import RedisStore from 'connect-redis';
+import { DistributedCachePlugin } from '@azure/msal-node';
 import { parseRedisConnectionString } from '@pins/platform';
-import { MSALPlugin, MSALCacheClient } from './msal-plugin.js';
+import { MSALCacheClient } from './msal-plugin.js';
+import { PartitionManager } from './partition-manager.js';
 
 export class RedisClient {
 	/**
@@ -9,6 +11,8 @@ export class RedisClient {
      @param {import('./types').Logger} logger
    **/
 	constructor(connString, logger) {
+		this.logger = logger;
+
 		const redisParams = parseRedisConnectionString(connString);
 
 		this.client = createClient({
@@ -39,7 +43,18 @@ export class RedisClient {
 		this.get = this.client.get;
 		this.set = this.client.set;
 
-		const msalCacheClient = new MSALCacheClient(this.client);
-		this.cachePlugin = new MSALPlugin(msalCacheClient, logger);
+		this.clientWrapper = new MSALCacheClient(this.client);
+	}
+
+	/**
+	 * @param {string} sessionId
+	 * @returns {import('@azure/msal-node').DistributedCachePlugin}
+	 * */
+	makeCachePlugin(sessionId) {
+		const partitionManager = new PartitionManager(this.clientWrapper, sessionId, this.logger);
+		return new DistributedCachePlugin(
+			this.clientWrapper,
+			/** @type {import('@azure/msal-node').IPartitionManager} */ (partitionManager)
+		);
 	}
 }
