@@ -27,7 +27,7 @@ export const storeInCacheTTL = (ttl) => ttl || 3600;
  * The `ttl` parameter is passed to the `storeInCacheTTL` function, which returns the cache TTL value.
  * The `nodeCache.set` method is then used to set the `value` in the cache with the specified `key` and `cacheTTL`.
  */
-export async function storeInCache(key, value, ttl) {
+export function storeInCache(key, value, ttl) {
 	const cacheTTL = storeInCacheTTL(ttl);
 
 	nodeCache.set(key, value, cacheTTL);
@@ -40,10 +40,10 @@ export async function storeInCache(key, value, ttl) {
  * @description Retrieve a value from the cache with a specified key.
  * @async
  * @param {string} key - The key of the value to be retrieved from the cache.
- * @returns {Promise<any>} - The value stored in the cache with the specified key.
+ * @returns {any} - The value stored in the cache with the specified key.
  */
-export async function fetchFromCache(key) {
-	const cache = await nodeCache.get(key);
+export function fetchFromCache(key) {
+	const cache = nodeCache.get(key);
 
 	if (cache) {
 		logger.info(`Successfully fetched value with key "${key}" from the cache`);
