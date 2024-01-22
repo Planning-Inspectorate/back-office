@@ -106,7 +106,7 @@ const getAllCachedUsers = async (session) => {
 			);
 		}
 		// store all users in the cache for 2h
-		await storeInCache(cacheName, cachedUsers, 7200);
+		storeInCache(cacheName, cachedUsers, 7200);
 	}
 
 	return cachedUsers;

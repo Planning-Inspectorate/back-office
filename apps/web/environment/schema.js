@@ -23,6 +23,7 @@ export default baseSchema
 		authDisabled: joi.boolean().optional(),
 		authDisabledGroupIds: joi.array().optional(),
 		authRedirectPath: joi.string(),
+		azureKeyVaultEnabled: joi.boolean().optional(),
 		blobStorageUrl: joi.string(),
 		logLevelFile: joi.string().valid(...logLevel),
 		logLevelStdOut: joi.string().valid(...logLevel),
@@ -36,6 +37,7 @@ export default baseSchema
 			.options({ presence: 'required' }),
 		serverProtocol: joi.string().valid('http', 'https'),
 		serverPort: joi.number(),
+		serviceName: joi.string(),
 		session: joi
 			.object({
 				// ...env means `.env` property of the parent object
