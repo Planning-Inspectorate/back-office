@@ -126,6 +126,14 @@ extends:
         dependsOn:
           - Run Linting & Tests
         steps:
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 18
+              script: npm ci --omit=dev
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 18
+              script: npm run prisma-generate -w apps/api
           - template: ../steps/azure_web_app_docker_build_push.yml@templates
             parameters:
               azurecrName: $(azurecrName)
