@@ -2,13 +2,15 @@
  * @jest-environment jsdom
  */
 import initHtmlContentEditor from '../html-content-editor.js';
+const initialText = `<p>Paragraph no break line</p><p>Paragraph one break line</p><br /><p>Paragraph two break lines</p><br /><br />`;
+const editorText = initialText.replaceAll(`<br />`, `<p><br></p>`);
 
 const DOM = `
 <div class="govuk-form-group">
     <label class="govuk-label govuk-!-font-weight-bold">
         Content
     </label>
-    <input type="hidden" name="content">
+    <input type="hidden" name="content" value="${editorText}">
     <div class="html-content-editor"></div>
 	<div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
     <noscript>
@@ -39,6 +41,22 @@ describe('html-content-editor', () => {
 		expect(buttons.item(2)?.classList.contains('bullet-list')).toEqual(true);
 	});
 
+	it('should remain the same when nothing is changed after a focus and blur', () => {
+		// first textbox is markdown preview (hidden/not-used)
+		const textBox = document.getElementsByClassName('toastui-editor-contents')[1];
+		const input = document.getElementsByName('content')[0];
+		if (!(textBox instanceof HTMLDivElement)) {
+			throw new Error('div expected');
+		}
+		if (!(input instanceof HTMLInputElement)) {
+			throw new Error('input expected');
+		}
+
+		textBox.focus();
+		textBox.blur();
+		expect(decodeURI(input.value)).toEqual(editorText);
+	});
+
 	it('should populate input value when content changes', async () => {
 		// first textbox is markdown preview (hidden/not-used)
 		const textBox = document.getElementsByClassName('toastui-editor-contents')[1];
@@ -58,6 +76,7 @@ describe('html-content-editor', () => {
 		// check the hidden input has the correct value - used for form submission
 		expect(input.value).toEqual(encodeURI(exampleText));
 	});
+
 	it('should count characters', async () => {
 		// first textbox is markdown preview (hidden/not-used)
 		const textBox = document.getElementsByClassName('toastui-editor-contents')[1];
