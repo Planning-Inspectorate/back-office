@@ -10,6 +10,10 @@ function configureStore() {
 	if (!redisClient) {
 		if (config.isProduction) {
 			throw new Error('REDIS_CONNECTION_STRING is required in production.');
+		} else if (config.env !== 'local') {
+			logger.warn(
+				'REDIS_CONNECTION_STRING was not provided. Using express-session instead of Redis.'
+			);
 		}
 
 		logger.info('Configuring memory store for session storage');
@@ -17,7 +21,7 @@ function configureStore() {
 	}
 
 	logger.info('Configuring Redis for session storage');
-  return redisClient.store;
+	return redisClient.store;
 }
 
 const store = configureStore();
