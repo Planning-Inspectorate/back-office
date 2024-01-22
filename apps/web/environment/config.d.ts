@@ -45,6 +45,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 		redis: string;
 		secret: string;
 	};
+	disableRedis: boolean;
 	sslCertificateFile: string;
 	sslCertificateKeyFile: string;
 	referenceData: {

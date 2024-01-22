@@ -6,11 +6,11 @@ import logger from './logger.js';
  * @returns {RedisClient | null}
  * */
 function initClient() {
-  if (!config.session.redis) {
-    return null;
-  }
+	if (!config.session.redis || config.disableRedis) {
+		return null;
+	}
 
-  return new RedisClient(config.session.redis, logger);
+	return new RedisClient(config.session.redis, logger);
 }
 
 export default initClient();

@@ -45,6 +45,7 @@ export function loadConfig() {
 		LOG_LEVEL_FILE,
 		LOG_LEVEL_STDOUT,
 		REDIS_CONNECTION_STRING,
+		DISABLE_REDIS,
 		SESSION_SECRET,
 		SSL_CERT_FILE,
 		SSL_KEY_FILE
@@ -73,6 +74,7 @@ export function loadConfig() {
 			redis: REDIS_CONNECTION_STRING,
 			secret: SESSION_SECRET
 		},
+		disableRedis: DISABLE_REDIS === 'true',
 		sslCertificateFile: SSL_CERT_FILE,
 		sslCertificateKeyFile: SSL_KEY_FILE,
 		referenceData: {
