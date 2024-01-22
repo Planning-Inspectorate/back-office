@@ -86,6 +86,8 @@ export function createContentFormView({
 					characterCountWarningMessage:
 						'You have exceeded the recommended length for a project update. Consider reviewing the content to make it shorter and easier to understand',
 					value: values.backOfficeProjectUpdateContent,
+					// The editorValue contains the content converted to the format expected by the toastUI editor
+					editorValue: values.backOfficeProjectUpdateContent?.replaceAll(`<br />`, `<p><br></p>`),
 					errorMessage: errors?.backOfficeProjectUpdateContent
 				},
 				{

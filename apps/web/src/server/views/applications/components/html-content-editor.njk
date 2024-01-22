@@ -5,7 +5,7 @@
 
 {#
     Show an html-content-editor (using toastui)
-    
+
     Used in conjuction with some client-side JS
     See: src/client/components/html-content-editor
     If no JS is enabled, fallsback to the govukTextarea component
@@ -23,8 +23,8 @@
         {% if params.errorMessage %}
             {{ govukErrorMessage({text: errorMessage}) }}
         {% endif %}
-        <input type="hidden" name="{{ params.name }}" value="{{ params.value }}">
-        <div class="html-content-editor" id="{{ params.name }}">{{ params.value }}</div>
+        <input type="hidden" name="{{ params.name }}" value="{{ params.editorValue }}">
+        <div class="html-content-editor" id="{{ params.name }}"></div>
         {% if params.characterCount %}
             <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
         {% endif %}
