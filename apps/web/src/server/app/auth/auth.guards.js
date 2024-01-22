@@ -34,7 +34,10 @@ export async function assertIsAuthenticated(request, response, next) {
 		// expired on the existing authentication result, and only then make a
 		// network call with the refresh token to acquire a new authentication
 		// result.
-		const refreshedAuthenticationResult = await authService.acquireTokenSilent(sessionAccount);
+		const refreshedAuthenticationResult = await authService.acquireTokenSilent(
+			sessionAccount,
+			request.session.id
+		);
 
 		if (refreshedAuthenticationResult) {
 			pino.debug('Refreshed MSAL authentication.');

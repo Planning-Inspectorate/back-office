@@ -23,7 +23,7 @@ const getActiveDirectoryAccessToken = async (
 	}
 
 	/** @type {{accessToken: string, expiresOn: any} | null} * */
-	const blobResourceAuthResult = await acquireTokenSilent(sessionAccount, customScopes);
+	const blobResourceAuthResult = await acquireTokenSilent(sessionAccount, session.id, customScopes);
 
 	if (!blobResourceAuthResult?.accessToken) {
 		throw new Error('Active Directory access token not found');

@@ -3,42 +3,50 @@ import config from '@pins/applications.web/environment/config.js';
 import pino from './logger.js';
 import redisClient from './redis.js';
 
-export const msalClient = new msal.ConfidentialClientApplication({
-	auth: {
-		clientId: config.msal.clientId,
-		authority: config.msal.authority,
-		clientSecret: config.msal.clientSecret
-	},
-	system: {
-		loggerOptions: {
-			loggerCallback(logLevel, message) {
-				switch (logLevel) {
-					case LogLevel.Error:
-						pino.error(message);
-						break;
+/**
+ * @param {string} sessionId
+ * */
+export const getMsalClient = (sessionId) =>
+	new msal.ConfidentialClientApplication({
+		auth: {
+			clientId: config.msal.clientId,
+			authority: config.msal.authority,
+			clientSecret: config.msal.clientSecret
+		},
+		system: {
+			loggerOptions: {
+				loggerCallback(logLevel, message) {
+					switch (logLevel) {
+						case LogLevel.Error:
+							pino.error(message);
+							break;
 
-					case LogLevel.Warning:
-						pino.warn(message);
-						break;
+						case LogLevel.Warning:
+							pino.warn(message);
+							break;
 
-					case LogLevel.Info:
-						pino.info(message);
-						break;
+						case LogLevel.Info:
+							pino.info(message);
+							break;
 
-					case LogLevel.Verbose:
-						pino.debug(message);
-						break;
+						case LogLevel.Verbose:
+							pino.debug(message);
+							break;
 
-					default:
-						pino.trace(message);
-				}
-			},
-			piiLoggingEnabled: false,
-			logLevel: msal.LogLevel.Warning
-		}
-	},
-	cache: { cachePlugin: redisClient?.cachePlugin }
-});
+						default:
+							pino.trace(message);
+					}
+				},
+				piiLoggingEnabled: false,
+				logLevel: msal.LogLevel.Warning
+			}
+		},
+		...(redisClient
+			? {
+					cache: { cachePlugin: redisClient.makeCachePlugin(sessionId) }
+			  }
+			: {})
+	});
 
 /**
  * Set the MSAL redirectUri as an absolute url if it exists only as a path.

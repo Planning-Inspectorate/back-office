@@ -37,7 +37,7 @@ export async function startMsalAuthentication(request, response) {
 	});
 	// Generate – and then redirect to – a url where the user will authenticate
 	// against MSAL using their PINS account.
-	response.redirect(await authService.getAuthCodeUrl({ nonce }));
+	response.redirect(await authService.getAuthCodeUrl({ nonce }, request.session.id));
 }
 
 /**
@@ -58,7 +58,10 @@ export async function completeMsalAuthentication(request, response) {
 	const { nonce, postSigninRedirectUri } = authSession.getAuthenticationData(request.session);
 
 	if (request.query.code) {
-		const authenticationResult = await authService.acquireTokenByCode(request.query.code);
+		const authenticationResult = await authService.acquireTokenByCode(
+			request.query.code,
+			request.session.id
+		);
 
 		// After acquiring an authentication result from MSAL, verify that the
 		// result is signed by the nonce for this authentication attempt. This check
@@ -101,7 +104,7 @@ export async function handleSignout(req, response) {
 	if (account) {
 		await Promise.all([
 			promisify(req.session.destroy.bind(req.session))(),
-			authService.clearCacheForAccount(account)
+			authService.clearCacheForAccount(account, req.session.id)
 		]);
 	}
 
