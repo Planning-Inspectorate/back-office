@@ -5,12 +5,13 @@
  * @type {Object<string, any>}
  * @property {string} text Text to use
  *
+ * @typedef {Object<string, string>} HtmlElementAttributes
+ *
  * @typedef HtmlProperty
  * Use for HTML. Make sure to sanitise when using HTML.
  * @type {Object<string, any>}
  * @property {string} html Html to use
  * @property {PageComponent[]} [pageComponents] Optional array of PageComponents to render and assign to this 'html' property
- * @property {PageComponentGroup[]} [pageComponentGroups] Optional array of PageComponentGroups to render and assign to this 'html' property
  *
  * @typedef SharedLegendProperties
  * @type {Object<string, any>}
@@ -599,6 +600,7 @@
  * @property {string} [captionClasses] Classes for caption text size. Classes should correspond to the available typography heading classes.
  * @property {boolean} [firstCellIsHeader] If set to true, first cell in table row will be a TH instead of a TD.
  * @property {string} [classes] Classes to add to the table container.
+ * @property {HtmlElementAttributes} [attributes] HTML attributes (for example data attributes) to add to the table container.
  *
  * @typedef TableCellProperties
  * @type {SharedTableCellProperties & TextProperty | SharedTableCellProperties & HtmlProperty}

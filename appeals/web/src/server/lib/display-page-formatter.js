@@ -105,7 +105,6 @@ export const formatListOfListedBuildingNumbers = (
 };
 
 /**
- *
  * @param {number} appealId
  * @param {DocumentInfo[]} listOfDocuments
  * @param {boolean} [addLateEntryStatusTag]
@@ -115,18 +114,10 @@ export const formatDocumentValues = (appealId, listOfDocuments, addLateEntryStat
 	/** @type {HtmlProperty} */
 	const htmlProperty = {
 		html: '',
-		pageComponentGroups: [
-			{
-				wrapperHtml: {
-					opening: '',
-					closing: ''
-				},
-				pageComponentGroups: []
-			}
-		]
+		pageComponents: []
 	};
 
-	if (listOfDocuments !== null) {
+	if (listOfDocuments.length > 0) {
 		for (let i = 0; i < listOfDocuments.length; i++) {
 			const document = listOfDocuments[i];
 			const virusCheckStatus = mapDocumentInfoVirusCheckStatus(document);
@@ -149,17 +140,33 @@ export const formatDocumentValues = (appealId, listOfDocuments, addLateEntryStat
 						closing: ''
 					},
 					parameters: {
-						html: `<div class="govuk-body govuk-!-margin-bottom-2">${document.name}</div>`
+						html: '',
+						pageComponents: [
+							{
+								type: 'html',
+								parameters: {
+									html: `<div class="govuk-body govuk-!-margin-bottom-2">${document.name}</div>`
+								}
+							}
+						]
 					}
 				});
 				documentPageComponents.push({
-					type: 'status-tag',
+					type: 'html',
 					wrapperHtml: {
 						opening: '',
 						closing: '</span>'
 					},
 					parameters: {
-						status: virusCheckStatus.statusText || ''
+						html: '',
+						pageComponents: [
+							{
+								type: 'status-tag',
+								parameters: {
+									status: virusCheckStatus.statusText || ''
+								}
+							}
+						]
 					}
 				});
 			}
@@ -173,18 +180,24 @@ export const formatDocumentValues = (appealId, listOfDocuments, addLateEntryStat
 				});
 			}
 
-			htmlProperty.pageComponentGroups[0].pageComponentGroups.push({
+			htmlProperty.pageComponents.push({
 				wrapperHtml: {
 					opening: '<li>',
 					closing: '</li>'
 				},
-				pageComponents: documentPageComponents
+				type: 'html',
+				parameters: {
+					html: '',
+					pageComponents: documentPageComponents
+				}
 			});
 		}
 
-		if (htmlProperty.pageComponentGroups[0].pageComponentGroups.length > 0) {
-			htmlProperty.pageComponentGroups[0].wrapperHtml.opening = '<ul class="govuk-list">';
-			htmlProperty.pageComponentGroups[0].wrapperHtml.closing = '</ul>';
+		if (htmlProperty.pageComponents.length > 0) {
+			htmlProperty.wrapperHtml = {
+				opening: '<ul class="govuk-list">',
+				closing: '</ul>'
+			};
 		}
 	} else {
 		logger.error('Document not in correct format');

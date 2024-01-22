@@ -142,7 +142,7 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
             <h2 class="govuk-summary-card__title">3. Appeal status</h2>
         </div>
         <div class="govuk-summary-card__content">
-            <dl class="govuk-summary-list">
+            <dl class="govuk-summary-list" id="appeal-summary">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form</dt>
                     <dd class="govuk-summary-list__value"></dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/1"> Add<span class="govuk-visually-hidden"> Application form</span></a>
@@ -387,7 +387,7 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
             <h2 class="govuk-summary-card__title">3. Appeal status</h2>
         </div>
         <div class="govuk-summary-card__content">
-            <dl class="govuk-summary-list">
+            <dl class="govuk-summary-list" id="appeal-summary">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
@@ -503,14 +503,18 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
 
 exports[`appellant-case GET /appellant-case with unchecked documents should render an error when a file has a virus 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-error-summary" data-module="govuk-error-summary">
-        <div role="alert">
-            <h2 class="govuk-error-summary__title"> There is a problem</h2>
-            <div class="govuk-error-summary__body">
-                <ul class="govuk-list govuk-error-summary__list">
-                    <li><a href="manage-documents/1/9635631c-507c-4af2-98a1-da007e8bb56a">The selected file contains a virus. Upload a different version.</a>
-                    </li>
-                </ul>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#appeal-summary">One or more documents in this appellant case contains a virus. Upload a different version of each document that contains a virus.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -654,7 +658,7 @@ exports[`appellant-case GET /appellant-case with unchecked documents should rend
             <h2 class="govuk-summary-card__title">3. Appeal status</h2>
         </div>
         <div class="govuk-summary-card__content">
-            <dl class="govuk-summary-list">
+            <dl class="govuk-summary-list" id="appeal-summary">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
@@ -2490,7 +2494,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            <li><a href="#documents-table">One or more files in this folder contains a virus. Upload a different version of each document that contains a virus.</a>
                             </li>
                         </ul>
                     </div>
@@ -2516,7 +2520,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">New supporting documents</h1>
         </div>
     </div>
-    <table class="govuk-table">
+    <table class="govuk-table" id="documents-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
                 <th scope="col" class="govuk-table__header">Document information</th>
@@ -2632,24 +2636,6 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with late entry tag in the date received row if the latest version of the document is marked as late entry, and a document history item for each version, with late entry tag in the history item document name column for versions marked as late entry 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
-    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
@@ -2745,24 +2731,6 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
-    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
@@ -2789,7 +2757,11 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
-            </dl><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
             data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
             <a             href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
@@ -2848,16 +2820,13 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
+                            <li><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3">The selected file contains a virus. Upload a different version.</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
@@ -2888,7 +2857,11 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
                     </dd>
                 </div>
-            </dl><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds"><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
             data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
             <a             href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
@@ -2942,24 +2915,6 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
@@ -3038,24 +2993,6 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
-    <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
@@ -3132,24 +3069,6 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page without late entry tag in the date received row if the latest version of the document is not marked as late entry 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="manage-documents/undefined/97260151-4334-407f-a76a-0b5666cbcfa6">The selected file contains a virus. Upload a different version.</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"></div>
-    </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
@@ -3510,7 +3429,7 @@ exports[`appellant-case POST /appellant-case should re-render the appellant case
             <h2 class="govuk-summary-card__title">3. Appeal status</h2>
         </div>
         <div class="govuk-summary-card__content">
-            <dl class="govuk-summary-list">
+            <dl class="govuk-summary-list" id="appeal-summary">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form</dt>
                     <dd class="govuk-summary-list__value"></dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/1"> Add<span class="govuk-visually-hidden"> Application form</span></a>

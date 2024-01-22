@@ -41,7 +41,6 @@ export const renderDocumentUpload = async (
 	const { currentFolder, errors } = request;
 
 	if (!appealDetails || !currentFolder) {
-		console.log('!appealDetails || !currentFolder');
 		return response.status(404).render('app/404');
 	}
 

@@ -6,30 +6,38 @@
 {%- set backLinkText = pageContent.backLinkText -%}
 {%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
+{%- set errorSummaryPageComponents = []-%}
+{%- set notificationBannerPageComponents = []-%}
+
+{%- for component in pageContent.pageComponents -%}
+	{%- if component.type === 'error-summary' -%}
+		{%- set _ = errorSummaryPageComponents.push(component) -%}
+	{%- endif -%}
+	{%- if component.type === 'notification-banner' -%}
+		{%- set _ = notificationBannerPageComponents.push(component) -%}
+	{%- endif -%}
+{%- endfor -%}
+
 {%- block pageHeading -%}
-	{%- if pageContent.customErrorMessageComponents -%}
+	{%- if errorSummaryPageComponents | length -%}
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-two-thirds">
-				{%- for component in pageContent.customErrorMessageComponents -%}
-					{%- if component.type === 'error-summary' -%}
-						{{ govukErrorSummary(component.parameters) }}
-					{%- endif -%}
-				{%- endfor -%}
+			{%- for component in errorSummaryPageComponents -%}
+				{%- include "../components/page-component.njk" -%}
+			{%- endfor -%}
 			</div>
 		</div>
 	{%- endif -%}
-	{%- if pageContent.notificationBannerComponents -%}
+	{%- if notificationBannerPageComponents | length -%}
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-two-thirds">
-				{%- for component in pageContent.notificationBannerComponents -%}
-					{%- if component.type === 'notification-banner' -%}
-						{{ govukNotificationBanner(component.parameters) }}
-					{%- endif -%}
-				{%- endfor -%}
+			{%- for component in notificationBannerPageComponents -%}
+				{%- include "../components/page-component.njk" -%}
+			{%- endfor -%}
 			</div>
 		</div>
 	{%- endif -%}
-		<div class="govuk-grid-row">
+	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{%- if pageContent.preHeading -%}<span class="govuk-caption-l govuk-!-margin-bottom-3">{{ pageContent.preHeading }}</span>{%- endif -%}
 			{%- if pageContent.heading -%}<h1 class="govuk-heading-l govuk-!-margin-bottom-9">{{ pageContent.heading }}</h1>{%- endif -%}
@@ -38,11 +46,9 @@
 {%- endblock -%}
 
 {%- block pageContent -%}
-	{%- for componentGroup in pageContent.pageComponentGroups -%}
-		{%- if componentGroup.wrapperHtml -%}{{ componentGroup.wrapperHtml.opening | safe }}{%- endif -%}
-		{%- for component in componentGroup.pageComponents -%}
+	{%- for component in pageContent.pageComponents -%}
+		{%- if component.type !== 'error-summary' and component.type !== 'notification-banner' -%}
 			{%- include "../components/page-component.njk" -%}
-		{%- endfor -%}
-		{%- if componentGroup.wrapperHtml -%}{{ componentGroup.wrapperHtml.closing | safe }}{%- endif -%}
+		{%- endif -%}
 	{%- endfor -%}
 {%- endblock -%}

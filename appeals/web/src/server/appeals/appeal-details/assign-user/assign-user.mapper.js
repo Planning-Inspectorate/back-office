@@ -31,68 +31,66 @@ export async function assignUserPage(
 		: `a${assignedUserId ? ' new' : ''}`;
 	const shortAppealReference = appealShortReference(appealDetails.appealReference);
 
-	/** @type {PageComponentGroup} */
-	const searchInputComponentGroup = {
+	/** @type {PageComponent} */
+	const searchInputPageComponent = {
+		type: 'input',
 		wrapperHtml: {
 			opening:
 				'<form name="assignUserSearch" method="post" novalidate="novalidate" class="govuk-!-margin-bottom-5">',
-			closing: '</form>'
+			closing: ''
 		},
-		pageComponents: [
-			{
-				type: 'input',
-				parameters: {
-					id: 'searchTerm',
-					name: 'searchTerm',
-					label: {
-						text: 'Search by name or email. A first name or surname may be enough to find the correct person.',
-						classes: 'govuk-caption-m govuk-!-margin-bottom-3 colour--secondary'
-					},
-					value: searchTerm || ''
-				}
+		parameters: {
+			id: 'searchTerm',
+			name: 'searchTerm',
+			label: {
+				text: 'Search by name or email. A first name or surname may be enough to find the correct person.',
+				classes: 'govuk-caption-m govuk-!-margin-bottom-3 colour--secondary'
 			},
-			{
-				type: 'button',
-				parameters: {
-					text: 'Search'
-				}
-			}
-		]
+			value: searchTerm || ''
+		}
 	};
 
-	/** @type {PageComponentGroup} */
-	const searchResultsComponentGroup = {
+	/** @type {PageComponent} */
+	const searchButtonPageComponent = {
+		type: 'button',
+		wrapperHtml: {
+			opening: '',
+			closing: '</form>'
+		},
+		parameters: {
+			text: 'Search'
+		}
+	};
+
+	/** @type {PageComponent} */
+	const searchResultsPageComponent = {
+		type: 'summary-list',
 		wrapperHtml: {
 			opening: `<div class="govuk-grid-row"><div class="govuk-grid-column-full govuk-!-margin-bottom-5"><h2 class="govuk-heading-m">Search results</h2><p class="govuk-body">Matches for <strong>${searchTerm}</strong></p>`,
 			closing: '</div></div>'
 		},
-		pageComponents: [
-			{
-				type: 'summary-list',
-				parameters: {
-					rows: searchResults.map((result) => ({
-						key: {
-							text: result.name
-						},
-						value: {
-							text: result.email
-						},
-						actions: {
-							items: [
-								{
-									text: 'Choose',
-									href: `/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/${userTypeRoute}/${result.id}/confirm`
-								}
-							]
+		parameters: {
+			rows: searchResults.map((result) => ({
+				key: {
+					text: result.name
+				},
+				value: {
+					text: result.email
+				},
+				actions: {
+					items: [
+						{
+							text: 'Choose',
+							href: `/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/${userTypeRoute}/${result.id}/confirm`
 						}
-					}))
+					]
 				}
-			}
-		]
+			}))
+		}
 	};
 
-	/** @type {PageComponentGroup|undefined} */
-	const currentAssigneeComponentGroup = await buildCurrentAssigneeComponentGroup(
+	/** @type {PageComponent|undefined} */
+	const currentAssigneeComponent = await buildCurrentAssigneeComponent(
 		assignedUserId,
 		appealDetails.appealId,
 		isInspector,
@@ -107,10 +105,11 @@ export async function assignUserPage(
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: `Find ${userTypeArticle} ${userTypeText}`,
-		pageComponentGroups: [
-			searchInputComponentGroup,
-			...(searchPerformed ? [searchResultsComponentGroup] : []),
-			...(currentAssigneeComponentGroup ? [currentAssigneeComponentGroup] : [])
+		pageComponents: [
+			searchInputPageComponent,
+			searchButtonPageComponent,
+			...(searchPerformed ? [searchResultsPageComponent] : []),
+			...(currentAssigneeComponent ? [currentAssigneeComponent] : [])
 		]
 	};
 
@@ -123,9 +122,9 @@ export async function assignUserPage(
  * @param {boolean} isInspector
  * @param {SessionWithAuth} session
  * @param {string} userTypeText
- * @returns {Promise<PageComponentGroup|undefined>}
+ * @returns {Promise<PageComponent|undefined>}
  */
-async function buildCurrentAssigneeComponentGroup(
+async function buildCurrentAssigneeComponent(
 	assignedUserId,
 	appealId,
 	isInspector,
@@ -148,40 +147,34 @@ async function buildCurrentAssigneeComponentGroup(
 		return;
 	}
 
-	/** @type {PageComponentGroup} */
-	const currentAssigneeComponentGroup = {
+	/** @type {PageComponent} */
+	return {
 		wrapperHtml: {
 			opening: `<h2 class="govuk-heading-s">Current ${userTypeText}</h2>`,
 			closing: ''
 		},
-		pageComponents: [
-			{
-				type: 'summary-list',
-				parameters: {
-					rows: [
-						{
-							key: {
-								text: surnameFirstToFullName(user.name)
-							},
-							value: {
-								text: user.email
-							},
-							actions: {
-								...(isInspector && {
-									items: [
-										{
-											text: 'Remove',
-											href: `/appeals-service/appeal-details/${appealId}/unassign-user/inspector/${assignedUserId}/confirm`
-										}
-									]
-								})
-							}
-						}
-					]
+		type: 'summary-list',
+		parameters: {
+			rows: [
+				{
+					key: {
+						text: surnameFirstToFullName(user.name)
+					},
+					value: {
+						text: user.email
+					},
+					actions: {
+						...(isInspector && {
+							items: [
+								{
+									text: 'Remove',
+									href: `/appeals-service/appeal-details/${appealId}/unassign-user/inspector/${assignedUserId}/confirm`
+								}
+							]
+						})
+					}
 				}
-			}
-		]
+			]
+		}
 	};
-
-	return currentAssigneeComponentGroup;
 }
