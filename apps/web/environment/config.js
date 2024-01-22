@@ -59,6 +59,7 @@ export function loadConfig() {
 		authDisabled: AUTH_DISABLED,
 		authDisabledGroupIds: AUTH_DISABLED_GROUP_IDS.split(','),
 		authRedirectPath: AUTH_REDIRECT_PATH,
+		azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED && environment.KEY_VAULT_ENABLED === 'true',
 		blobStorageUrl: AZURE_BLOB_STORE_HOST,
 		logLevelFile: LOG_LEVEL_FILE,
 		logLevelStdOut: LOG_LEVEL_STDOUT,
@@ -70,6 +71,7 @@ export function loadConfig() {
 		},
 		serverPort: HTTPS_ENABLED === 'true' ? HTTPS_PORT : HTTP_PORT,
 		serverProtocol: HTTPS_ENABLED === 'true' ? 'https' : 'http',
+		serviceName: 'web',
 		session: {
 			redis: REDIS_CONNECTION_STRING,
 			secret: SESSION_SECRET
