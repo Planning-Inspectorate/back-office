@@ -34,7 +34,10 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					text: 'Appellant name'
 				},
 				value: {
-					text: appellantCaseData.appellant.name || ''
+					text: nameToString({
+						firstName: appellantCaseData.appellant.firstName || '',
+						lastName: appellantCaseData.appellant.surname || ''
+					})
 				},
 				actions: {
 					items: [
@@ -54,7 +57,10 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 					type: 'input',
 					properties: {
 						name: 'appellant-name',
-						value: appellantCaseData.appellant.name || ''
+						value: nameToString({
+							firstName: appellantCaseData.appellant.firstName || '',
+							lastName: appellantCaseData.appellant.surname || ''
+						})
 					}
 				}
 			]

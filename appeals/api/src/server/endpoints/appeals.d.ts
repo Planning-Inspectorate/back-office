@@ -276,9 +276,8 @@ interface SingleAppellantCaseResponse {
 	appealSite: AppealSite;
 	appellantCaseId: number;
 	appellant: {
-		appellantId: number;
-		company: string;
-		name: string;
+		firstName: string;
+		surname: string;
 	};
 	applicant: {
 		firstName: string | null;

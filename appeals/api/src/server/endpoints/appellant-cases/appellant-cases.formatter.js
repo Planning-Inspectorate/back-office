@@ -34,6 +34,10 @@ const formatAppellantCase = (appeal, folders = null) => {
 				...formatAddress(appeal.address)
 			},
 			appellantCaseId: appellantCase.id,
+			appellant: {
+				firstName: appeal.appellant?.firstName || '',
+				surname: appeal.appellant?.lastName || ''
+			},
 			applicant: {
 				firstName: appellantCase.applicantFirstName,
 				surname: appellantCase.applicantSurname

@@ -141,6 +141,10 @@ export const baseExpectedAppellantCaseResponse = (appeal) => ({
 		postCode: appeal.address?.postcode
 	},
 	appellantCaseId: appeal.appellantCase?.id,
+	appellant: {
+		firstName: appeal.appellant?.firstName,
+		surname: appeal.appellant?.lastName
+	},
 	applicant: {
 		firstName: appeal.appellantCase?.applicantFirstName,
 		surname: appeal.appellantCase?.applicantSurname
