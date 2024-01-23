@@ -98,6 +98,21 @@ const formatAppeal = (appeal, folders) => {
 	if (appeal) {
 		return {
 			agentName: `${appeal.agent?.firstName} ${appeal.agent?.lastName}`,
+			appellantName: `${appeal.appellant?.firstName} ${appeal.appellant?.lastName}`,
+			...(appeal.agent && {
+				agent: {
+					firstName: appeal.agent?.firstName,
+					lastName: appeal.agent?.lastName,
+					email: appeal.agent?.email
+				}
+			}),
+			...(appeal.appellant && {
+				appellant: {
+					firstName: appeal.appellant?.firstName,
+					lastName: appeal.appellant?.lastName,
+					email: appeal.appellant?.email
+				}
+			}),
 			allocationDetails: appeal.allocation
 				? {
 						level: appeal.allocation.level,
@@ -121,7 +136,6 @@ const formatAppeal = (appeal, folders) => {
 				: null,
 			appealType: appeal.appealType?.type,
 			appellantCaseId: appeal.appellantCase?.id,
-			appellantName: `${appeal.appellant?.firstName} ${appeal.appellant?.lastName}`,
 			caseOfficer: appeal.caseOfficer?.azureAdUserId || null,
 			decision: {
 				folderId: folders[0].id,
