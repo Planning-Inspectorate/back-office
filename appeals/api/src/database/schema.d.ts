@@ -21,7 +21,8 @@ export {
 	AppellantCaseValidationOutcome,
 	PlanningObligationStatus,
 	SiteVisitType,
-	User
+	User,
+	ServiceUser
 } from '#utils/db-client';
 
 export interface Appeal extends schema.Appeal {
@@ -30,8 +31,8 @@ export interface Appeal extends schema.Appeal {
 	appealStatus: AppealStatus[];
 	appealTimetable?: AppealTimetable;
 	appealType: AppealType;
-	appellant?: schema.ServiceCustomer;
-	agent?: schema.ServiceCustomer;
+	appellant?: schema.ServiceUser;
+	agent?: schema.ServiceUser;
 	allocation?: schema.AppealAllocation;
 	specialisms: AppealSpecialism[];
 	createdAt: Date;

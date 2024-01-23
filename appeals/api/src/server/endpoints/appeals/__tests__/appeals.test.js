@@ -486,6 +486,17 @@ describe('appeals routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					agentName: `${householdAppeal.agent.firstName} ${householdAppeal.agent.lastName}`,
+					agent: {
+						firstName: householdAppeal.agent.firstName,
+						lastName: householdAppeal.agent.lastName,
+						email: householdAppeal.agent.email
+					},
+					appellantName: `${householdAppeal.appellant.firstName} ${householdAppeal.appellant.lastName}`,
+					appellant: {
+						firstName: householdAppeal.appellant.firstName,
+						lastName: householdAppeal.appellant.lastName,
+						email: householdAppeal.appellant.email
+					},
 					allocationDetails: null,
 					appealId: householdAppeal.id,
 					appealReference: householdAppeal.reference,
@@ -503,7 +514,6 @@ describe('appeals routes', () => {
 					},
 					appealType: householdAppeal.appealType.type,
 					appellantCaseId: 1,
-					appellantName: `${householdAppeal.appellant.firstName} ${householdAppeal.appellant.lastName}`,
 					caseOfficer: householdAppeal.caseOfficer.azureAdUserId,
 					decision: {
 						folderId: savedFolder.id
@@ -584,6 +594,17 @@ describe('appeals routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
 					agentName: `${fullPlanningAppeal.agent.firstName} ${fullPlanningAppeal.agent.lastName}`,
+					agent: {
+						firstName: fullPlanningAppeal.agent.firstName,
+						lastName: fullPlanningAppeal.agent.lastName,
+						email: fullPlanningAppeal.agent.email
+					},
+					appellantName: `${fullPlanningAppeal.appellant.firstName} ${fullPlanningAppeal.appellant.lastName}`,
+					appellant: {
+						firstName: fullPlanningAppeal.appellant.firstName,
+						lastName: fullPlanningAppeal.appellant.lastName,
+						email: fullPlanningAppeal.appellant.email
+					},
 					allocationDetails: null,
 					appealId: fullPlanningAppeal.id,
 					appealReference: fullPlanningAppeal.reference,
@@ -603,7 +624,6 @@ describe('appeals routes', () => {
 					},
 					appealType: fullPlanningAppeal.appealType.type,
 					appellantCaseId: 1,
-					appellantName: `${fullPlanningAppeal.appellant.firstName} ${fullPlanningAppeal.appellant.lastName}`,
 					caseOfficer: fullPlanningAppeal.caseOfficer.azureAdUserId,
 					decision: {
 						folderId: savedFolder.id
