@@ -8,7 +8,6 @@ import csurf from 'csurf';
 import express from 'express';
 import requestID from 'express-request-id';
 import helmet from 'helmet';
-import multer from 'multer';
 import responseTime from 'response-time';
 import serveStatic from 'serve-static';
 import pino from '../lib/logger.js';
@@ -100,8 +99,6 @@ app.use(session);
 // CSRF middleware via session
 app.use(
 	// where request uses multipart form body, then extract csrf token before verifying it
-	// @ts-ignore – Multer cannot be a string
-	multer(),
 	csurf({ cookie: false }),
 	(request, response, next) => {
 		response.locals.csrfToken = request.csrfToken();
