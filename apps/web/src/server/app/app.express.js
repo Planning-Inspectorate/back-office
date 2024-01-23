@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import csurf from 'csurf';
 import express from 'express';
 import requestID from 'express-request-id';
 import helmet from 'helmet';
@@ -95,16 +94,6 @@ app.use(msalMiddleware);
 
 // Session middleware
 app.use(session);
-
-// CSRF middleware via session
-app.use(
-	// where request uses multipart form body, then extract csrf token before verifying it
-	csurf({ cookie: false }),
-	(request, response, next) => {
-		response.locals.csrfToken = request.csrfToken();
-		next();
-	}
-);
 
 // Set the express view engine to nunjucks.
 nunjucksEnvironment.express(app);
