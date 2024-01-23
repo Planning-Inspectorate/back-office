@@ -27,13 +27,13 @@ steps:
       if [ -d $(Build.Repository.LocalPath)/${{parameters.root}}/functions/node_modules ]; then
         cp -r -n -L $(Build.Repository.LocalPath)/${{parameters.root}}/functions/node_modules/* $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/
       fi
-    displayName: Merge node_modules
+    displayName: ${{parameters.folderName}} - merge node_modules
   - task: ArchiveFiles@2
-    displayName: Archive files
+    displayName: ${{parameters.folderName}} - archive files
     inputs:
       rootFolderOrFile: $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}
       includeRootFolder: false
       archiveFile: $(System.DefaultWorkingDirectory)/functions.zip
   - publish: $(System.DefaultWorkingDirectory)/functions.zip
     artifact: function-${{parameters.root}}-${{parameters.folderName}}
-    displayName: Publish Artifact
+    displayName: ${{parameters.folderName}} - publish artifact
