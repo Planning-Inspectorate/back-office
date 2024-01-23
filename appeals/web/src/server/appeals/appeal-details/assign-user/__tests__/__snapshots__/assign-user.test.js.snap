@@ -648,8 +648,8 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
-            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
         </dl>
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
@@ -668,16 +668,6 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
                             <dd class="govuk-summary-list__value">Written</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/case-procedure"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
-                            <dd class="govuk-summary-list__value">Eva Sharma</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant-name"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                            <dd class="govuk-summary-list__value">Ryan Marshall</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/agent-name"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
@@ -828,10 +818,37 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case team</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case contacts</span></h2>
                 </div>
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant</dt>
+                            <dd class="govuk-summary-list__value">Roger Simmons
+                                <br>test3@example.com</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent</dt>
+                            <dd class="govuk-summary-list__value">Fiona Shell
+                                <br>test2@example.com</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/agent"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+                            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/local-planning-authority"> Change</a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-6"> Case team</span></h2>
+                </div>
+                <div id="accordion-default1-content-6" class="govuk-accordion__section-content"
+                aria-labelledby="accordion-default1-heading-6">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case officer</dt>
                             <dd class="govuk-summary-list__value"></dd>
@@ -1101,8 +1118,8 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
-            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
         </dl>
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
@@ -1121,16 +1138,6 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
                             <dd class="govuk-summary-list__value">Written</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/case-procedure"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
-                            <dd class="govuk-summary-list__value">Eva Sharma</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant-name"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                            <dd class="govuk-summary-list__value">Ryan Marshall</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/agent-name"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
@@ -1281,10 +1288,37 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case team</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case contacts</span></h2>
                 </div>
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant</dt>
+                            <dd class="govuk-summary-list__value">Roger Simmons
+                                <br>test3@example.com</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent</dt>
+                            <dd class="govuk-summary-list__value">Fiona Shell
+                                <br>test2@example.com</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/agent"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+                            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/local-planning-authority"> Change</a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-6"> Case team</span></h2>
+                </div>
+                <div id="accordion-default1-content-6" class="govuk-accordion__section-content"
+                aria-labelledby="accordion-default1-heading-6">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case officer</dt>
                             <dd class="govuk-summary-list__value"></dd>
@@ -1411,8 +1445,8 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
-            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
         </dl>
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default1">
@@ -1431,16 +1465,6 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case procedure</dt>
                             <dd class="govuk-summary-list__value">Written</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/case-procedure"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
-                            <dd class="govuk-summary-list__value">Eva Sharma</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant-name"> Change</a>
-                            </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                            <dd class="govuk-summary-list__value">Ryan Marshall</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/agent-name"> Change</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
@@ -1591,10 +1615,37 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case team</span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-5"> Case contacts</span></h2>
                 </div>
                 <div id="accordion-default1-content-5" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-default1-heading-5">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant</dt>
+                            <dd class="govuk-summary-list__value">Roger Simmons
+                                <br>test3@example.com</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/appellant"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent</dt>
+                            <dd class="govuk-summary-list__value">Fiona Shell
+                                <br>test2@example.com</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/agent"> Change</a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+                            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/local-planning-authority"> Change</a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default1-heading-6"> Case team</span></h2>
+                </div>
+                <div id="accordion-default1-content-6" class="govuk-accordion__section-content"
+                aria-labelledby="accordion-default1-heading-6">
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case officer</dt>
                             <dd class="govuk-summary-list__value"></dd>
