@@ -215,6 +215,9 @@ export const getStatusCountByCaseId = async (caseId) => {
 };
 
 /**
+ * Creates a Rel Rep record, and then updates it with the short reference.
+ * Also creates service users for the contacts if required
+ *
  * @param  {CreateRepresentationParams} representationCreateDetails
  */
 export const createApplicationRepresentation = async ({
