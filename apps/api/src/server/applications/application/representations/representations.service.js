@@ -50,19 +50,22 @@ export const getCaseRepresentationsStatusCount = async (caseId) => {
 };
 
 /**
- * Broadcast an update event message to Service Bus, for a representation, and any service users (reps contact or agent)
+ * Broadcast a create / update event message to Service Bus, for a representation, and any service users (reps contact or agent)
  *
  * @param {*} representation
+ * @param {EventType} eventType
  * @returns
  */
-export const sendRepresentationUpdateEventMessage = async (representation) => {
+export const sendRepresentationEventMessage = async (
+	representation,
+	eventType = EventType.Update
+) => {
 	const nsipRepresentationPayload = buildNsipRepresentationPayload(representation);
 	const serviceUsersPayload = buildRepresentationServiceUserPayload(representation);
-
-	await eventClient.sendEvents(NSIP_REPRESENTATION, nsipRepresentationPayload, EventType.Update);
+	await eventClient.sendEvents(NSIP_REPRESENTATION, nsipRepresentationPayload, eventType);
 
 	// and service users
-	await eventClient.sendEvents(SERVICE_USER, serviceUsersPayload, EventType.Update, {
+	await eventClient.sendEvents(SERVICE_USER, serviceUsersPayload, eventType, {
 		entityType: 'RepresentationContact'
 	});
 };
@@ -118,6 +121,7 @@ export const buildNsipRepresentationPayload = (representation) => {
 };
 
 /**
+ * Build Rel Rep Service User event message payload
  *
  * @param {Prisma.RepresentationSelect} representation
  * @returns {ServiceUser[]}
