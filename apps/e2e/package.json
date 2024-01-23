@@ -10,15 +10,13 @@
 	},
 	"author": "",
 	"license": "ISC",
-	"dependencies": {
-		"nodemon": "3.0.3"
-	},
+	"dependencies": {},
 	"devDependencies": {
-		"@badeball/cypress-cucumber-preprocessor": "^20.0.1",
+		"@badeball/cypress-cucumber-preprocessor": "^15.1.0",
 		"@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
 		"@cypress/webpack-preprocessor": "^5.16.1",
 		"@faker-js/faker": "^7.6.0",
-		"cypress": "^13.6.3",
+		"cypress": "^10.11.0",
 		"dotenv": "^16.0.3",
 		"eslint-plugin-cypress": "^2.12.1",
 		"puppeteer": "^19.4.1"
