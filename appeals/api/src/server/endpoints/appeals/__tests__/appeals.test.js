@@ -485,13 +485,11 @@ describe('appeals routes', () => {
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					agentName: `${householdAppeal.agent.firstName} ${householdAppeal.agent.lastName}`,
 					agent: {
 						firstName: householdAppeal.agent.firstName,
 						lastName: householdAppeal.agent.lastName,
 						email: householdAppeal.agent.email
 					},
-					appellantName: `${householdAppeal.appellant.firstName} ${householdAppeal.appellant.lastName}`,
 					appellant: {
 						firstName: householdAppeal.appellant.firstName,
 						lastName: householdAppeal.appellant.lastName,
@@ -593,13 +591,11 @@ describe('appeals routes', () => {
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					agentName: `${fullPlanningAppeal.agent.firstName} ${fullPlanningAppeal.agent.lastName}`,
 					agent: {
 						firstName: fullPlanningAppeal.agent.firstName,
 						lastName: fullPlanningAppeal.agent.lastName,
 						email: fullPlanningAppeal.agent.email
 					},
-					appellantName: `${fullPlanningAppeal.appellant.firstName} ${fullPlanningAppeal.appellant.lastName}`,
 					appellant: {
 						firstName: fullPlanningAppeal.appellant.firstName,
 						lastName: fullPlanningAppeal.appellant.lastName,

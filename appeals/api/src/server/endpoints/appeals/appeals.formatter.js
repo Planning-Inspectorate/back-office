@@ -97,8 +97,6 @@ const formatMyAppeals = (appeal, linkedAppeals) => ({
 const formatAppeal = (appeal, folders) => {
 	if (appeal) {
 		return {
-			agentName: `${appeal.agent?.firstName} ${appeal.agent?.lastName}`,
-			appellantName: `${appeal.appellant?.firstName} ${appeal.appellant?.lastName}`,
 			...(appeal.agent && {
 				agent: {
 					firstName: appeal.agent?.firstName,
@@ -135,7 +133,7 @@ const formatAppeal = (appeal, folders) => {
 				  }
 				: null,
 			appealType: appeal.appealType?.type,
-			appellantCaseId: appeal.appellantCase?.id,
+			appellantCaseId: appeal.appellantCase?.id || 0,
 			caseOfficer: appeal.caseOfficer?.azureAdUserId || null,
 			decision: {
 				folderId: folders[0].id,

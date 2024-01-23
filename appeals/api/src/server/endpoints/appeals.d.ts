@@ -189,8 +189,6 @@ interface NeighbouringSiteContactsResponse {
 }
 
 interface SingleAppealDetailsResponse {
-	agentName?: string | null;
-	appellantName?: string;
 	allocationDetails: AppealAllocation | null;
 	appealId: number;
 	appealReference: string;
