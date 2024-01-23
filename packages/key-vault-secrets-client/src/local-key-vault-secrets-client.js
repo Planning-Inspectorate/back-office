@@ -22,7 +22,7 @@ export class LocalKeyVaultSecretsClient {
 	 */
 	#createTestSecret = (secretName) => {
 		switch (true) {
-			case secretName.endsWith('api-key'):
+			case secretName.includes('api-key'):
 				return this.#createApiKeySecret();
 			default:
 				return 'some-secret';

@@ -1,4 +1,4 @@
-import BackOfficeAppError from '#utils/app-error.js';
+// import BackOfficeAppError from '#utils/app-error.js';
 import { getCache, setCache } from '#utils/cache-data.js';
 import { fetchApiKey } from '#utils/fetch-api-key.js';
 import logger from '#utils/logger.js';
@@ -11,14 +11,18 @@ export const authoriseRequest = async (request, _response, next) => {
 	const incomingRequestApiKey = request.headers['x-api-key'];
 
 	if (!callingClient) {
-		throw new BackOfficeAppError("No 'x-service-name' header found on request", 400);
+		console.log("API_KEY_TESTING: No 'x-service-name' header found on request");
+		return next();
+		// throw new BackOfficeAppError("No 'x-service-name' header found on request", 400);
 	}
 	if (!incomingRequestApiKey) {
-		throw new BackOfficeAppError(`No API key present on request from ${callingClient}`, 403);
+		console.log(`API_KEY_TESTING: No API key present on request from ${callingClient}`);
+		return next();
+		// throw new BackOfficeAppError(`No API key present on request from ${callingClient}`, 403);
 	}
 
 	logger.info(`Request received from ${callingClient}`);
-	const callingClientApiKeyName = callingClient + '-api-key';
+	const callingClientApiKeyName = 'backoffice-applications-api-key-' + callingClient;
 	if (!getCache(callingClientApiKeyName)) {
 		const callingClientApiKey = await fetchApiKey(callingClientApiKeyName);
 		const lessThanHourTtl = 3540;
@@ -29,9 +33,13 @@ export const authoriseRequest = async (request, _response, next) => {
 		logger.info(`Request from ${callingClient} authenticated`);
 		next();
 	} else {
-		throw new BackOfficeAppError(
-			`Could not authenticate request from ${callingClient} - invalid API key`
+		console.log(
+			`API_KEY_TESTING: Could not authenticate request from ${callingClient} - invalid API key`
 		);
+		return next();
+		// throw new BackOfficeAppError(
+		// 	`Could not authenticate request from ${callingClient} - invalid API key`
+		// );
 	}
 };
 
@@ -52,7 +60,9 @@ const isRequestApiKeyValid = (incomingRequestApiKey, cachedApiKeyAddress) => {
 	}
 	if (incomingRequestApiKey === oldestApiKey.key && !isOldestKeyStillValid(oldestApiKey)) {
 		// Set up alerting for Application Insights
-		throw new BackOfficeAppError('Expired API key used');
+		console.log(`API_KEY_TESTING: Expired API key used`);
+		return false;
+		// throw new BackOfficeAppError('Expired API key used');
 	}
 	return false;
 };

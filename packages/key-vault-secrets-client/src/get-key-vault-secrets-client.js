@@ -4,11 +4,8 @@ import { LocalKeyVaultSecretsClient } from './local-key-vault-secrets-client.js'
 /**
  *
  * @param {boolean} azureKeyVaultEnabled
- * @param {string} secretName
- * @returns
+ * @returns {KeyVaultSecretsClient | LocalKeyVaultSecretsClient}
  */
-export const getKeyVaultSecretsClient = (azureKeyVaultEnabled, secretName) => {
-	return azureKeyVaultEnabled
-		? new KeyVaultSecretsClient(secretName)
-		: new LocalKeyVaultSecretsClient();
+export const getKeyVaultSecretsClient = (azureKeyVaultEnabled) => {
+	return azureKeyVaultEnabled ? new KeyVaultSecretsClient() : new LocalKeyVaultSecretsClient();
 };
