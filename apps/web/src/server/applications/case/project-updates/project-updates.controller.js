@@ -38,7 +38,7 @@ const detailsView = 'applications/case/project-updates/project-updates-details.n
 export async function projectUpdatesTable({ params, query, session }, res) {
 	const { caseId } = params;
 
-	const { sortBy, pageSize = 25, page = 1 } = query;
+	const { sortBy = '-datePublished', pageSize = 25, page = 1 } = query;
 	const queryOptions = {};
 	if (page && pageSize) {
 		queryOptions.page = page;

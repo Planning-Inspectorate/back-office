@@ -44,7 +44,7 @@ const nocks = () => {
 		.persist();
 	nock('http://test/')
 		.get(`/applications/${mockCaseReference.id}/project-updates`)
-		.query({ page: 1, pageSize: 25 })
+		.query({ page: 1, pageSize: 25, sortBy: `-datePublished` })
 		.reply(200, {
 			page: 1,
 			pageSize: 25,
