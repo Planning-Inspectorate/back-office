@@ -435,7 +435,7 @@ describe('Delete examination timetable', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Timetable successfully deleted');
+			expect(element.innerHTML).toContain('Timetable item successfully deleted');
 		});
 	});
 });
@@ -461,7 +461,7 @@ describe('Publish examination timetable success page', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Timetable successfully published');
+			expect(element.innerHTML).toContain('Timetable item successfully published');
 		});
 	});
 });
@@ -487,7 +487,7 @@ describe('Unpublish examination timetable success page', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Timetable successfully unpublished');
+			expect(element.innerHTML).toContain('Timetable item successfully unpublished');
 		});
 	});
 });

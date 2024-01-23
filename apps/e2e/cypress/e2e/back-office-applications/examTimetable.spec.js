@@ -33,7 +33,7 @@ const itemOptions = [
 const texts = {
 	examTimetableLinkText: 'Examination timetable',
 	createTimetableButtonText: 'Create new timetable item',
-	successMessageText: 'Timetable successfully created'
+	successMessageText: 'Timetable item successfully created'
 };
 
 describe('Examination Timetable Errors', () => {

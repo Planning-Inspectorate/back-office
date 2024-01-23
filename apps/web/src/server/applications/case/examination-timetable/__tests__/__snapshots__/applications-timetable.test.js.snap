@@ -1265,7 +1265,7 @@ exports[`Delete examination timetable POST /case/123/examination-timetable/item/
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
             <div class=\\"govuk-panel govuk-panel--confirmation\\">
-                <h1 class=\\"govuk-panel__title\\"> Timetable successfully deleted</h1>
+                <h1 class=\\"govuk-panel__title\\"> Timetable item successfully deleted</h1>
                 <div class=\\"govuk-panel__body\\">Title CASE/04
                     <br>The case reference number
                     <br><strong>CASE/04</strong>
@@ -1898,7 +1898,7 @@ exports[`Publish examination timetable success page POST /case/123/examination-t
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
             <div class=\\"govuk-panel govuk-panel--confirmation\\">
-                <h1 class=\\"govuk-panel__title\\"> Timetable successfully published</h1>
+                <h1 class=\\"govuk-panel__title\\"> Timetable item successfully published</h1>
                 <div class=\\"govuk-panel__body\\">Title CASE/04
                     <br>The case reference number
                     <br><strong>CASE/04</strong>
@@ -2043,7 +2043,7 @@ exports[`Unpublish examination timetable success page POST /case/123/examination
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
             <div class=\\"govuk-panel govuk-panel--confirmation\\">
-                <h1 class=\\"govuk-panel__title\\"> Timetable successfully unpublished</h1>
+                <h1 class=\\"govuk-panel__title\\"> Timetable item successfully unpublished</h1>
                 <div class=\\"govuk-panel__body\\">Title CASE/04
                     <br>The case reference number
                     <br><strong>CASE/04</strong>
