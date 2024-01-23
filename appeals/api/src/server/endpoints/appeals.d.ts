@@ -519,6 +519,7 @@ interface UpdateAppellantCaseValidationOutcomeParams {
 		appealStatus: AppealStatus[];
 		appealType: AppealType;
 		appellant: Appellant;
+		agent: Agent;
 		id: number;
 		reference: string;
 	};

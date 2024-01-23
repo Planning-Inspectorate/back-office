@@ -877,7 +877,7 @@ describe('appellant cases routes', () => {
 				});
 				expect(notifyClient.sendEmail).toHaveBeenCalledWith(
 					config.govNotify.template.validAppellantCase.id,
-					householdAppeal.appellant.customer.email,
+					householdAppeal.appellant.email,
 					{
 						emailReplyToId: null,
 						personalisation: {
@@ -955,7 +955,7 @@ describe('appellant cases routes', () => {
 				});
 				expect(notifyClient.sendEmail).toHaveBeenCalledWith(
 					config.govNotify.template.validAppellantCase.id,
-					fullPlanningAppeal.appellant.customer.email,
+					fullPlanningAppeal.appellant.email,
 					{
 						emailReplyToId: null,
 						personalisation: {

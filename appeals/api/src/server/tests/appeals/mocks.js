@@ -28,23 +28,15 @@ export const householdAppeal = {
 	planningApplicationReference: '48269/APP/2021/1482',
 	appellant: {
 		id: 1,
-		name: 'Lee Thornton',
-		customer: {
-			id: 1,
-			firstName: 'some',
-			lastName: 'name',
-			email: 'test@1367.com'
-		}
+		firstName: 'Lee',
+		lastName: 'Thornton',
+		email: 'test@1367.com'
 	},
 	agent: {
 		id: 1,
-		name: 'John Smith',
-		customer: {
-			id: 1,
-			firstName: 'some',
-			lastName: 'name',
-			email: 'test@136s7.com'
-		}
+		firstName: 'John',
+		lastName: 'Smith',
+		email: 'test@136s7.com'
 	},
 	startedAt: new Date(2022, 4, 18),
 	address: {

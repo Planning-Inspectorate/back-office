@@ -234,16 +234,8 @@ const getAppealById = async (id) => {
 					planningObligationStatus: true
 				}
 			},
-			appellant: {
-				include: {
-					customer: true
-				}
-			},
-			agent: {
-				include: {
-					customer: true
-				}
-			},
+			appellant: true,
+			agent: true,
 			lpa: true,
 			appealStatus: {
 				where: {

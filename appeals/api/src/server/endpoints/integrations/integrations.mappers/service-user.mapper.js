@@ -6,52 +6,37 @@ import { ODW_SYSTEM_ID } from '#endpoints/constants.js';
 
 export const mapServiceUserIn = (data) => {
 	if (data) {
-		if (data.emailAddress) {
-			return {
-				create: {
-					name: `${data.firstName} ${data.lastName}`,
-					customer: {
-						connectOrCreate: {
-							where: { email: data.emailAddress },
-							create: {
-								firstName: data.firstName,
-								lastName: data.lastName,
-								email: data.emailAddress
-							}
-						}
-					}
-				}
-			};
-		}
-
+		const serviceUser = {
+			firstName: data.firstName,
+			lastName: data.lastName,
+			email: data.emailAddress
+		};
 		return {
-			create: {
-				name: `${data.firstName} ${data.lastName}`
-			}
+			create: serviceUser
 		};
 	}
 };
 
 export const mapServiceUserOut = (data, serviceUserType, caseReference) => {
-	if (data.customer) {
+	if (data) {
 		const user = {
 			sourceSystem: ODW_SYSTEM_ID,
-			sourceSuid: data.customer.id,
-			id: data.customer.id,
-			firstName: data.customer.firstName,
-			lastName: data.customer.lastName,
-			emailAddress: data.customer.email,
+			sourceSuid: data.id,
+			id: data.id,
+			firstName: data.firstName,
+			lastName: data.lastName,
+			emailAddress: data.email,
 			serviceUserType: serviceUserType,
 			caseReference: caseReference,
-			company: data.customer.organisationName
+			company: data.organisationName
 		};
 
-		if (data.customer.address) {
-			user.addressLine1 = data.customer.address.addressLine1;
-			user.addressLine2 = data.customer.address.addressLine2;
-			user.addressPostcode = data.customer.address.postcode;
-			user.addressTown = data.customer.address.addressTown;
-			user.addressCounty = data.customer.address.addressCounty;
+		if (data.address) {
+			user.addressLine1 = data.address.addressLine1;
+			user.addressLine2 = data.address.addressLine2;
+			user.addressPostcode = data.address.postcode;
+			user.addressTown = data.address.addressTown;
+			user.addressCounty = data.address.addressCounty;
 		}
 
 		return user;

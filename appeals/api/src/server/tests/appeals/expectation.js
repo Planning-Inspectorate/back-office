@@ -143,8 +143,8 @@ export const baseExpectedAppellantCaseResponse = (appeal) => ({
 	appellantCaseId: appeal.appellantCase?.id,
 	appellant: {
 		appellantId: appeal.appellant?.id,
-		company: appeal.appellant?.customer?.organisationName || null,
-		name: appeal.appellant?.name
+		company: appeal.appellant?.organisationName || null,
+		name: `${appeal.appellant?.firstName} ${appeal.appellant?.lastName}`
 	},
 	applicant: {
 		firstName: appeal.appellantCase?.applicantFirstName,
