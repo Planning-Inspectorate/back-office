@@ -187,6 +187,7 @@ const clientActions = (uploadForm) => {
 			// eslint-disable-next-line no-throw-literal
 			throw { message: 'FILE_SPECIFIC_ERRORS', details: errors };
 		} else {
+			disableLeavePageWarning();
 			window.location.href = uploadForm.dataset.nextPageUrl || '';
 		}
 	};
@@ -199,6 +200,8 @@ const clientActions = (uploadForm) => {
 
 		const { getUploadInfoFromInternalDB, uploadFiles, getVersionUploadInfoFromInternalDB } =
 			serverActions(uploadForm);
+
+		enableLeavePageWarning();
 
 		try {
 			const fileList = await onSubmitValidation();
@@ -230,6 +233,18 @@ const clientActions = (uploadForm) => {
 		uploadInput.addEventListener('change', onFileSelect, false);
 
 		submitButton.addEventListener('click', onSubmit);
+	};
+
+	const leavePageWarningEventHandler = (/** @type {{ preventDefault: () => any; }} */ event) => {
+		event.preventDefault();
+	};
+
+	const enableLeavePageWarning = () => {
+		window.addEventListener('beforeunload', leavePageWarningEventHandler);
+	};
+
+	const disableLeavePageWarning = () => {
+		window.removeEventListener('beforeunload', leavePageWarningEventHandler);
 	};
 
 	return { onFileSelect, onSubmitValidation, registerEvents };
