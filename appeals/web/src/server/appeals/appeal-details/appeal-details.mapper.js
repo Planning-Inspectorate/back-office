@@ -58,8 +58,6 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 			rows: [
 				mappedData.appeal.appealType.display.summaryListItem,
 				mappedData.appeal?.caseProcedure?.display.summaryListItem,
-				mappedData.appeal?.appellantName?.display.summaryListItem,
-				mappedData.appeal?.agentName?.display.summaryListItem,
 				mappedData.appeal?.linkedAppeals?.display.summaryListItem,
 				mappedData.appeal?.otherAppeals?.display.summaryListItem,
 				mappedData.appeal?.allocationDetails?.display.summaryListItem,
@@ -134,6 +132,18 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 	};
 
 	/** @type {PageComponent} */
+	const caseContacts = {
+		type: 'summary-list',
+		parameters: {
+			rows: [
+				mappedData.appeal.appellant.display.summaryListItem,
+				mappedData.appeal.agent.display.summaryListItem,
+				mappedData.appeal.localPlanningAuthority.display.summaryListItem
+			].filter(isDefined)
+		}
+	};
+
+	/** @type {PageComponent} */
 	const caseTeam = {
 		type: 'summary-list',
 		parameters: {
@@ -143,6 +153,20 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 			].filter(isDefined)
 		}
 	};
+
+	if (
+		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
+	) {
+		[
+			caseSummary,
+			caseOverview,
+			siteDetails,
+			caseTimetable,
+			caseDocumentation,
+			caseContacts,
+			caseTeam
+		].forEach((component) => removeActions(component));
+	}
 
 	/** @type {PageComponent} */
 	const appealDetailsAccordion = {
@@ -167,27 +191,16 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 					content: { html: '', pageComponents: [caseDocumentation] }
 				},
 				{
+					heading: { text: 'Case contacts' },
+					content: { html: '', pageComponents: [caseContacts] }
+				},
+				{
 					heading: { text: 'Case team' },
 					content: { html: '', pageComponents: [caseTeam] }
 				}
 			]
 		}
 	};
-
-	let components = [
-		caseSummary,
-		caseOverview,
-		siteDetails,
-		caseTimetable,
-		caseDocumentation,
-		caseTeam
-	];
-
-	if (
-		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
-	) {
-		components.map((component) => removeActions(component));
-	}
 
 	if (appealDetails.appealStatus === 'issue_determination') {
 		const bannerHtml = `<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Issue a decision</a>.</p>`;

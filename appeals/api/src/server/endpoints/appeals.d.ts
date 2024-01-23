@@ -198,6 +198,7 @@ interface SingleAppealDetailsResponse {
 	appealStatus: string;
 	appealTimetable: AppealTimetable | null;
 	appealType?: string;
+	appellantCaseId: number;
 	appellant?: {
 		firstName: string;
 		lastName: string;
@@ -276,6 +277,11 @@ interface SingleAppellantCaseResponse {
 	appealReference: string;
 	appealSite: AppealSite;
 	appellantCaseId: number;
+	appellant: {
+		appellantId: number;
+		company: string;
+		name: string;
+	};
 	applicant: {
 		firstName: string | null;
 		surname: string | null;

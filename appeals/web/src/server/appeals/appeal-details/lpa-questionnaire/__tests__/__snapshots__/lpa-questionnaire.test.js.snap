@@ -62,8 +62,8 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
-            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
     </dl>
     <div class="govuk-summary-card">
@@ -388,8 +388,8 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
-            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
     </dl>
     <div class="govuk-summary-card">
@@ -716,8 +716,8 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
-            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
     </dl>
     <div class="govuk-summary-card">
@@ -3139,8 +3139,8 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
             <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
         </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority (LPA)</dt>
-            <dd             class="govuk-summary-list__value">Wiltshire Council</dd>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
         </div>
     </dl>
     <div class="govuk-summary-card">

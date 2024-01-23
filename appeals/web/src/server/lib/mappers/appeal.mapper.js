@@ -29,6 +29,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	/** @type {{appeal: MappedInstructions}} */
 	let mappedData = {};
 	mappedData.appeal = {};
+
 	/** @type {Instructions} */
 	mappedData.appeal.appealType = {
 		id: 'appeal-type',
@@ -72,6 +73,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		submitApi: '#',
 		inputItemApi: '#'
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.caseProcedure = {
 		id: 'case-procedure',
@@ -124,38 +126,67 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		submitApi: `/appeals/${appealDetails.appealId}/lpa-questionnaire/${appealDetails.lpaQuestionnaireId}`,
 		inputItemApi: '#'
 	};
+
 	/** @type {Instructions} */
-	mappedData.appeal.appellantName = {
-		id: 'appellant-name',
+	mappedData.appeal.appellant = {
+		id: 'appellant',
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Appellant name'
+					text: 'Appellant'
 				},
 				value: {
-					text: appealDetails.appellantName || 'No applicant for this appeal'
+					html: appealDetails.appellant
+						? `${appealDetails.appellant?.firstName + ' ' || ''}${
+								appealDetails.appellant?.lastName + '<br>' || ''
+						  }${appealDetails.appellant?.email || ''}`
+						: 'No appellant'
 				},
 				actions: {
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/appellant-name`
+							href: `${currentRoute}/change-appeal-details/appellant`
 						}
 					]
 				}
 			}
 		},
 		input: {
-			displayName: 'Appellant name',
+			displayName: 'Appellant',
 			instructions: [
 				{
 					type: 'input',
 					properties: {
-						id: 'appellant-name',
-						name: 'appellantName',
-						value: displayPageFormatter.nullToEmptyString(appealDetails.appellantName),
+						id: 'appellant-firstName',
+						name: 'appellant-firstName',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.appellant?.firstName),
 						label: {
-							text: 'Fullname',
+							text: 'First name',
+							isPageHeading: false
+						}
+					}
+				},
+				{
+					type: 'input',
+					properties: {
+						id: 'appellant-lastName',
+						name: 'appellant-lastName',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.appellant?.lastName),
+						label: {
+							text: 'Last name',
+							isPageHeading: false
+						}
+					}
+				},
+				{
+					type: 'input',
+					properties: {
+						id: 'appellant-email',
+						name: 'appellant-email',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.appellant?.email),
+						label: {
+							text: 'Email address',
 							isPageHeading: false
 						}
 					}
@@ -164,39 +195,68 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		},
 		submitApi: '#'
 	};
+
 	/** @type {Instructions} */
-	mappedData.appeal.agentName = {
-		id: 'agent-name',
+	mappedData.appeal.agent = {
+		id: 'agent',
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Agent name'
+					text: 'Agent'
 				},
 				value: {
-					text: appealDetails.agentName || 'No agent for this appeal'
+					html: appealDetails.agent
+						? `${appealDetails.agent?.firstName + ' ' || ''}${
+								appealDetails.agent?.lastName + '<br>' || ''
+						  }${appealDetails.agent?.email || ''}`
+						: 'No agent'
 				},
 				actions: {
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/agent-name`
+							href: `${currentRoute}/change-appeal-details/agent`
 						}
 					]
 				}
 			}
 		},
 		input: {
-			displayName: 'Agent name',
+			displayName: 'Agent',
 			instructions: [
 				{
 					type: 'input',
 					properties: {
-						id: 'agent-name',
-						name: 'agentName',
-						value: displayPageFormatter.nullToEmptyString(appealDetails.agentName),
+						id: 'agent-firstName',
+						name: 'agent-firstName',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.agent?.firstName),
 						label: {
-							text: 'Fullname',
-							isPageHeading: true
+							text: 'First name',
+							isPageHeading: false
+						}
+					}
+				},
+				{
+					type: 'input',
+					properties: {
+						id: 'agent-lastName',
+						name: 'agent-lastName',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.agent?.lastName),
+						label: {
+							text: 'Last name',
+							isPageHeading: false
+						}
+					}
+				},
+				{
+					type: 'input',
+					properties: {
+						id: 'agent-email',
+						name: 'agent-email',
+						value: displayPageFormatter.nullToEmptyString(appealDetails.agent?.email),
+						label: {
+							text: 'Email address',
+							isPageHeading: false
 						}
 					}
 				}
@@ -204,6 +264,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		},
 		submitApi: '#'
 	};
+
 	// TODO: Need a decision on how the linked appeals change page looks
 	/** @type {Instructions} */
 	mappedData.appeal.linkedAppeals = {
@@ -246,6 +307,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		},
 		submitApi: '#'
 	};
+
 	// TODO: Need a decision on how the other appeals change page looks
 	/** @type {Instructions} */
 	mappedData.appeal.otherAppeals = {
@@ -359,6 +421,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		},
 		submitApi: '#'
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.lpaReference = {
 		id: 'lpa-reference',
@@ -381,6 +444,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		}
 	};
+
 	// TODO: Add radio options
 	/** @type {Instructions} */
 	mappedData.appeal.decision = {
@@ -415,6 +479,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		},
 		submitApi: '#'
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.siteAddress = {
 		id: 'site-address',
@@ -440,13 +505,14 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			instructions: mapAddressInput(appealDetails.appealSite)
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.localPlanningAuthority = {
-		id: 'local-planning-department',
+		id: 'local-planning-authority',
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Local planning authority (LPA)'
+					text: 'Planning authority'
 				},
 				value: {
 					text: appealDetails.localPlanningDepartment
@@ -455,13 +521,14 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/local-planning-department`
+							href: `${currentRoute}/change-appeal-details/local-planning-authority`
 						}
 					]
 				}
 			}
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.appealStatus = {
 		id: 'appeal-status',
@@ -480,6 +547,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.lpaInspectorAccess = {
 		id: 'lpa-inspector-access',
@@ -537,6 +605,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			]
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.appellantInspectorAccess = {
 		id: 'appellant-case-inspector-access',
@@ -594,6 +663,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			]
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.neighbouringSiteIsAffected = {
 		id: 'neighbouring-site-is-affected',
@@ -641,6 +711,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			]
 		}
 	};
+
 	if (
 		appealDetails.neighbouringSite.contacts &&
 		appealDetails.neighbouringSite.contacts.length > 0
@@ -672,6 +743,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			};
 		}
 	}
+
 	/** @type {Instructions} */
 	mappedData.appeal.lpaHealthAndSafety = {
 		id: 'lpa-health-and-safety',
@@ -729,6 +801,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			]
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.appellantHealthAndSafety = {
 		id: 'appellant-case-health-and-safety',
@@ -786,6 +859,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			]
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.visitType = {
 		id: 'set-visit-type',
@@ -810,6 +884,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.startedAt = {
 		id: 'start-date',
@@ -827,6 +902,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.lpaQuestionnaireDueDate = {
 		id: 'lpa-questionnaire-due-date',
@@ -851,6 +927,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.statementReviewDueDate = {
 		id: 'statement-review-due-date',
@@ -875,6 +952,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.finalCommentReviewDueDate = {
 		id: 'final-comment-review-due-date',
@@ -899,6 +977,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.siteVisitDate = {
 		id: 'schedule-visit',
@@ -1006,6 +1085,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			}
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.appellantCase = {
 		id: 'appellant-case',
@@ -1031,6 +1111,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			]
 		}
 	};
+
 	/** @type {Instructions} */
 	mappedData.appeal.lpaQuestionnaire = {
 		id: 'lpa-questionnaire',

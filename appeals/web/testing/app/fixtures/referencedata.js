@@ -74,7 +74,16 @@ export const appealData = {
 	},
 	appealType: 'Householder',
 	appellantCaseId: 0,
-	appellantName: 'Eva Sharma',
+	agent: {
+		firstName: 'Fiona',
+		lastName: 'Shell',
+		email: 'test2@example.com'
+	},
+	appellant: {
+		firstName: 'Roger',
+		lastName: 'Simmons',
+		email: 'test3@example.com'
+	},
 	caseOfficer: null,
 	decision: {
 		folderId: 123,
