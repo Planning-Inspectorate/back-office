@@ -54,7 +54,6 @@ export const appealsNationalList = {
  * @type {import('../../../src/server/appeals/appeal-details/appeal-details.types.d').WebAppeal}
  */
 export const appealData = {
-	agentName: 'Ryan Marshall',
 	allocationDetails: {
 		level: 'A',
 		band: 3,
