@@ -4,7 +4,7 @@ import {
 	getCaseRepresentation,
 	getCaseRepresentations,
 	getCaseRepresentationsStatusCount,
-	sendRepresentationUpdateEventMessage,
+	sendRepresentationEventMessage,
 	updateCaseRepresentation
 } from './representations.service.js';
 import {
@@ -15,6 +15,7 @@ import {
 	mapRepresentationSummary
 } from './representation.mapper.js';
 import { getById } from '#repositories/representation.repository.js';
+import { EventType } from '@pins/event-client';
 
 /**
  *
@@ -119,12 +120,13 @@ export const patchRepresentation = async ({ params, body, method }, response) =>
 
 	// broadcast update event message
 	const representationFullDetails = await getById(representation.id);
-	await sendRepresentationUpdateEventMessage(representationFullDetails);
+	await sendRepresentationEventMessage(representationFullDetails, EventType.Update);
 
 	return response.send({ id: representation.id, status: representation.status });
 };
 
 /**
+ * Create a Relevant Representation
  *
  * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").CreateUpdateRepresentation>}
  */
@@ -138,6 +140,10 @@ export const createRepresentation = async ({ params, body }, response) => {
 			.status(400)
 			.json({ errors: { representation: `Error creating representation` } });
 	}
+
+	// broadcast create event message
+	const representationFullDetails = await getById(representation.id);
+	await sendRepresentationEventMessage(representationFullDetails, EventType.Create);
 
 	return response.send({ id: representation.id, status: representation.status });
 };
