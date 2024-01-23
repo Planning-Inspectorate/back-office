@@ -30,8 +30,8 @@ export interface Appeal extends schema.Appeal {
 	appealStatus: AppealStatus[];
 	appealTimetable?: AppealTimetable;
 	appealType: AppealType;
-	appellant?: Appellant;
-	agent?: Agent;
+	appellant?: schema.ServiceCustomer;
+	agent?: schema.ServiceCustomer;
 	allocation?: schema.AppealAllocation;
 	specialisms: AppealSpecialism[];
 	createdAt: Date;
@@ -48,14 +48,6 @@ export interface Appeal extends schema.Appeal {
 	siteVisit?: SiteVisit;
 	startedAt: Date;
 	validationDecision?: ValidationDecision[];
-}
-
-export interface Agent extends schema.Agent {
-	customer?: schema.ServiceCustomer;
-}
-
-export interface Appellant extends schema.Appellant {
-	customer?: schema.ServiceCustomer;
 }
 
 export interface AppellantCase extends schema.AppellantCase {

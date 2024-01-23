@@ -248,24 +248,8 @@ const getFindUniqueAppealQueryIncludes = () => {
 				lpaQuestionnaireValidationOutcome: true
 			}
 		},
-		appellant: {
-			include: {
-				customer: {
-					include: {
-						address: true
-					}
-				}
-			}
-		},
-		agent: {
-			include: {
-				customer: {
-					include: {
-						address: true
-					}
-				}
-			}
-		},
+		appellant: true,
+		agent: true,
 		lpa: true,
 		inspector: true,
 		caseOfficer: true,

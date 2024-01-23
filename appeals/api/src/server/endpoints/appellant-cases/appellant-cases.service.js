@@ -51,7 +51,7 @@ const updateAppellantCaseValidationOutcome = async ({
 	notifyClient,
 	validationOutcome
 }) => {
-	const { appealStatus, appealType, appellant, id: appealId, reference } = appeal;
+	const { appealStatus, appealType, appellant, agent, id: appealId, reference } = appeal;
 	const { appealDueDate, incompleteReasons, invalidReasons } = data;
 
 	let startedAt = undefined;
@@ -65,7 +65,7 @@ const updateAppellantCaseValidationOutcome = async ({
 
 		await notifyClient.sendEmail(
 			config.govNotify.template.validAppellantCase,
-			appellant?.customer?.email,
+			appellant?.email || agent?.email,
 			{
 				appeal_reference: reference,
 				appeal_type: appealType.shorthand,

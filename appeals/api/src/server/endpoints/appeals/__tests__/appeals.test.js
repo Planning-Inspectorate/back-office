@@ -485,7 +485,7 @@ describe('appeals routes', () => {
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					agentName: householdAppeal.agent.name,
+					agentName: `${householdAppeal.agent.firstName} ${householdAppeal.agent.lastName}`,
 					allocationDetails: null,
 					appealId: householdAppeal.id,
 					appealReference: householdAppeal.reference,
@@ -503,7 +503,7 @@ describe('appeals routes', () => {
 					},
 					appealType: householdAppeal.appealType.type,
 					appellantCaseId: 1,
-					appellantName: householdAppeal.appellant.name,
+					appellantName: `${householdAppeal.appellant.firstName} ${householdAppeal.appellant.lastName}`,
 					caseOfficer: householdAppeal.caseOfficer.azureAdUserId,
 					decision: {
 						folderId: savedFolder.id
@@ -583,7 +583,7 @@ describe('appeals routes', () => {
 
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					agentName: fullPlanningAppeal.agent.name,
+					agentName: `${fullPlanningAppeal.agent.firstName} ${fullPlanningAppeal.agent.lastName}`,
 					allocationDetails: null,
 					appealId: fullPlanningAppeal.id,
 					appealReference: fullPlanningAppeal.reference,
@@ -603,7 +603,7 @@ describe('appeals routes', () => {
 					},
 					appealType: fullPlanningAppeal.appealType.type,
 					appellantCaseId: 1,
-					appellantName: fullPlanningAppeal.appellant.name,
+					appellantName: `${fullPlanningAppeal.appellant.firstName} ${fullPlanningAppeal.appellant.lastName}`,
 					caseOfficer: fullPlanningAppeal.caseOfficer.azureAdUserId,
 					decision: {
 						folderId: savedFolder.id

@@ -11,12 +11,13 @@ import { CONFIG_APPEAL_STAGES } from '#endpoints/constants.js';
 /**
  * @param {RepositoryGetByIdResultItem} appeal
  * @param {Folder[] | null} folders
- * @returns {SingleAppellantCaseResponse | void}
+ * @returns {SingleAppellantCaseResponse | undefined}
  */
 const formatAppellantCase = (appeal, folders = null) => {
 	const { appellantCase } = appeal;
 
 	if (appellantCase) {
+		// @ts-ignore
 		return {
 			...(isFPA(appeal.appealType) && {
 				agriculturalHolding: {
@@ -35,8 +36,8 @@ const formatAppellantCase = (appeal, folders = null) => {
 			appellantCaseId: appellantCase.id,
 			appellant: {
 				appellantId: appeal.appellant?.id || null,
-				company: appeal.appellant?.customer?.organisationName || null,
-				name: appeal.appellant?.name || null
+				company: appeal.appellant?.organisationName || null,
+				name: `${appeal.appellant?.firstName} ${appeal.appellant?.lastName}`
 			},
 			applicant: {
 				firstName: appellantCase.applicantFirstName,

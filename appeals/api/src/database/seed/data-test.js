@@ -126,26 +126,10 @@ const appealFactory = ({
 		appealStatus: { create: statuses },
 		appellantCase: { create: appellantCaseList[typeShorthand] },
 		appellant: {
-			create: {
-				name: `${appellantInput.firstName} ${appellantInput.lastName}`,
-				customer: {
-					connectOrCreate: {
-						where: { email: appellantInput.email },
-						create: appellantInput
-					}
-				}
-			}
+			create: appellantInput
 		},
 		agent: {
-			create: {
-				name: `${agentInput.firstName} ${agentInput.lastName}`,
-				customer: {
-					connectOrCreate: {
-						where: { email: agentInput.email },
-						create: agentInput
-					}
-				}
-			}
+			create: agentInput
 		},
 		lpa: {
 			connectOrCreate: {

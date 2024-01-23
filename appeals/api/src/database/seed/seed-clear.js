@@ -13,14 +13,12 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteAppellantCase = databaseConnector.appellantCase.deleteMany();
 	const deleteAppealStatus = databaseConnector.appealStatus.deleteMany();
 	const deleteAppealTimetable = databaseConnector.appealTimetable.deleteMany();
-	const deleteAppellant = databaseConnector.appellant.deleteMany();
-	const deleteAgent = databaseConnector.agent.deleteMany();
 	const deleteInspectorDecision = databaseConnector.inspectorDecision.deleteMany();
 	const deleteLPAQuestionnaire = databaseConnector.lPAQuestionnaire.deleteMany();
 	const deleteReviewQuestionnaire = databaseConnector.reviewQuestionnaire.deleteMany();
 	const deleteSiteVisit = databaseConnector.siteVisit.deleteMany();
 	const deleteValidationDecision = databaseConnector.validationDecision.deleteMany();
-	const deleteServiceCustomers = databaseConnector.serviceCustomer.deleteMany();
+	const deleteServiceCustomers = databaseConnector.serviceUser.deleteMany();
 	const deleteDocuments = databaseConnector.document.deleteMany();
 	const deleteDocumentsVersions = databaseConnector.documentVersion.deleteMany();
 	const deleteRepresentationContact = databaseConnector.representationContact.deleteMany();
@@ -107,12 +105,10 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteSiteVisit,
 		deleteAppealTimetable,
 		deleteInspectorDecision,
+		deleteServiceCustomers,
 		deleteFolders,
 		deleteAppeals,
-		deleteAppellant,
-		deleteAgent,
 		deleteAddresses,
-		deleteServiceCustomers,
 		deleteLPAs,
 		deleteListedBuildingDetails
 	]);
