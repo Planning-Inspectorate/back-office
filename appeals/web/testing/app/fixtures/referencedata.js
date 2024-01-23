@@ -175,9 +175,8 @@ export const appellantCaseDataNotValidated = {
 	},
 	appellantCaseId: 1,
 	appellant: {
-		appellantId: 1,
-		company: null,
-		name: 'Fiona Burgess'
+		firstName: 'Fiona',
+		surname: 'Burgess'
 	},
 	applicant: {
 		firstName: null,
