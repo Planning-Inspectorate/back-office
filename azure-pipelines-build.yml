@@ -1,34 +1,22 @@
 parameters:
-  - name: buildAPI
-    displayName: Build API
+  - name: buildAppsBoApi
+    displayName: Build Applications BO API
     type: boolean
     default: true
-  - name: buildWeb
-    displayName: Build Web
+  - name: buildAppsBoWeb
+    displayName: Build Applications BO Web
     type: boolean
     default: true
-  - name: buildFunctionApplicationsMigration
-    displayName: Build Function - Applications Migration
+  - name: buildAppealsBoApi
+    displayName: Build Appeals BO API
     type: boolean
     default: true
-  - name: buildFunctionApplicationsBackgroundJobs
-    displayName: Build Function - Applications Background Jobs
+  - name: buildAppealsBoWeb
+    displayName: Build Appeals BO Web
     type: boolean
     default: true
-  - name: buildFunctionApplicationsCommandHandlers
-    displayName: Build Function - Applications Command Handlers
-    type: boolean
-    default: true
-  - name: buildFunctionAppealsCasedataImport
-    displayName: Build Function - Appeals Casedata Import
-    type: boolean
-    default: true
-  - name: buildFunctionAppealsUserImport
-    displayName: Build Function - Appeals User Import
-    type: boolean
-    default: true
-  - name: buildFunctionAppealsDocProcessing
-    displayName: Build Function - Appeals Document Processing
+  - name: buildFunctions
+    displayName: Build All Function
     type: boolean
     default: true
 
@@ -78,49 +66,16 @@ extends:
                 TURBO_TEAM: $(TURBO_TEAM)
                 TURBO_API: $(TURBO_API)
                 TURBO_TOKEN: $(TURBO_TOKEN)
-          - template: ../steps/check_changed_files.yml
-            parameters:
-              pathFilters:
-                - name: packages
-                  path: packages
-                - name: web
-                  path: apps/web
-                - name: api
-                  path: apps/api
-                - name: appeals-api
-                  path: appeals/api
-                - name: appeals-web
-                  path: appeals/web
-                - name: function-applications-migration
-                  path: apps/functions/applications-migration
-                - name: function-applications-background-jobs
-                  path: apps/functions/applications-background-jobs
-                - name: function-applications-command-handlers
-                  path: apps/functions/applications-command-handlers
-                - name: function-appeals-casedata-import
-                  path: appeals/functions/casedata-import
-                - name: function-appeals-user-import
-                  path: appeals/functions/user-import
-                - name: function-appeals-document-processing
-                  path: appeals/functions/document-processing
-              stepName: check_files
-      - name: Build API
+      - name: Build Applications BO API
         condition: >-
           and(
             succeeded(),
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildAPI }}, 'true')
+                eq(${{ parameters.buildAppsBoApi }}, 'true')
               ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.api'], 'true')
-                )
-              )
+              ne(variables['Build.Reason'], 'Manual')
             )
           )
         dependsOn:
@@ -131,102 +86,16 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/apps/api/Dockerfile
               repository: back-office/back-office-api
-
-      - name: Build Function - Applications Migration
+      - name: Build Applications BO Web
         condition: >-
           and(
             succeeded(),
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildFunctionApplicationsMigration }}, 'true')
+                eq(${{ parameters.buildAppsBoWeb }}, 'true')
               ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-applications-migration'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              workspaceName: 'functions-applications-migration'
-              folderName: 'applications-migration'
-      - name: Build Function - Applications Background Jobs
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildFunctionApplicationsBackgroundJobs }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-applications-background-jobs'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              workspaceName: 'functions-applications-background-jobs'
-              folderName: 'applications-background-jobs'
-      - name: Build Function - Applications Command Handlers
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildFunctionApplicationsCommandHandlers }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-applications-command-handlers'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              workspaceName: 'functions-applications-command-handlers'
-              folderName: 'applications-command-handlers'
-      - name: Build Web
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildWeb }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.web'], 'true')
-                )
-              )
+              ne(variables['Build.Reason'], 'Manual')
             )
           )
         dependsOn:
@@ -237,23 +106,17 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/apps/web/Dockerfile
               repository: back-office/back-office-web
-      - name: Build Appeals API
+
+      - name: Build Appeals BO API
         condition: >-
           and(
             succeeded(),
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildAPI }}, 'true')
+                eq(${{ parameters.buildAppealsBoApi }}, 'true')
               ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.appeals-api'], 'true')
-                )
-              )
+              ne(variables['Build.Reason'], 'Manual')
             )
           )
         dependsOn:
@@ -264,23 +127,16 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/appeals/api/Dockerfile
               repository: back-office/back-office-appeals-api
-      - name: Build Appeals Web
+      - name: Build Appeals  BO Web
         condition: >-
           and(
             succeeded(),
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildWeb }}, 'true')
+                eq(${{ parameters.buildAppealsBoWeb }}, 'true')
               ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.packages'], 'true'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.appeals-web'], 'true')
-                )
-              )
+              ne(variables['Build.Reason'], 'Manual')
             )
           )
         dependsOn:
@@ -291,82 +147,66 @@ extends:
               azurecrName: $(azurecrName)
               dockerfilePath: $(Build.SourcesDirectory)/appeals/web/Dockerfile
               repository: back-office/appeals-web
-      - name: Build Function - Appeal Casedata Import
+
+      - name: Build All Functions
         condition: >-
           and(
             succeeded(),
             or(
               and(
                 eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildFunctionAppealsCasedataImport }}, 'true')
+                eq(${{ parameters.buildFunctions }}, 'true')
               ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-appeals-casedata-import'], 'true')
-                )
-              )
+              ne(variables['Build.Reason'], 'Manual')
             )
           )
         dependsOn:
           - Run Linting & Tests
         steps:
+          # install only function deps
+          - template: ../steps/node_script.yml
+            parameters:
+              nodeVersion: 18
+              script: npm ci --only=prod --workspace=@pins/functions-applications-migration --workspace=@pins/functions-applications-background-jobs --workspace=@pins/functions-applications-command-handlers --workspace=@pins/functions-bo-appeals-casedata-import --workspace=@pins/functions-bo-appeals-user-import --workspace=@pins/functions-bo-appeals-document-processing
+          
+          # package Applications BO migration function
+          - template: azure-pipelines-package-function.yml@self
+            parameters:
+              root: 'apps'
+              workspaceName: 'functions-applications-migration'
+              folderName: 'applications-migration'
+          
+          # package Applications BO background jobs function
+          - template: azure-pipelines-package-function.yml@self
+            parameters:
+              root: 'apps'
+              workspaceName: 'functions-applications-background-jobs'
+              folderName: 'applications-background-jobs'
+
+          # package Applications BO command handlers function
+          - template: azure-pipelines-package-function.yml@self
+            parameters:
+              root: 'apps'
+              workspaceName: 'functions-applications-command-handlers'
+              folderName: 'applications-command-handlers'
+
+          # package Appeals BO case data function
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'appeals'
               workspaceName: 'functions-bo-appeals-casedata-import'
               folderName: 'casedata-import'
-      - name: Build Function - Appeal User Import
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildFunctionAppealsUserImport }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-appeals-user-import'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
+          
+          # package Appeals BO user function
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'appeals'
               workspaceName: 'functions-bo-appeals-user-import'
               folderName: 'user-import'
-      - name: Build Function - Appeal Document Processing
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildFunctionAppealsDocProcessing }}, 'true')
-              ),
-              and(
-                ne(variables['Build.Reason'], 'Manual'),
-                or(
-                  eq(variables['Build.SourceBranchName'], 'main'),
-                  eq(dependencies.run_linting_and_tests.outputs['check_files.function-appeals-document-processing'], 'true')
-                )
-              )
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
+
+          # package Appeals BO document function
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'appeals'
-              workspaceName: 'functions-bo-appeals-document-processing
-              workingDirectory: $(Build.Repository.LocalPath)'
+              workspaceName: 'functions-bo-appeals-document-processing'
               folderName: 'document-processing'
