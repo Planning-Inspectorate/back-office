@@ -21,8 +21,8 @@ router
 	.post(
 		validators.validateChangeAppealFinalDateFields,
 		validators.validateChangeAppealFinalDateValid,
-		validators.validateChangeAppealFinalDateInFuture,
 		validators.validateChangeAppealFinalDateIsBusinessDay,
+		validators.validateChangeAppealFinalDateInFuture,
 		controller.postChangeAppealFinalDate
 	);
 

@@ -72,7 +72,7 @@ const renderAppealType = async (request, response) => {
 		request.session.changeAppealType = {};
 	}
 
-	let mappedPageContent = await appealTypePage(
+	const mappedPageContent = await appealTypePage(
 		appealData,
 		appealTypes,
 		request.session.changeAppealType
@@ -132,7 +132,7 @@ const renderResubmitAppeal = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	let mappedPageContent = await resubmitAppealPage(appealData, request.session.changeAppealType);
+	const mappedPageContent = await resubmitAppealPage(appealData, request.session.changeAppealType);
 
 	return response.render('appeals/appeal/issue-decision.njk', {
 		pageContent: mappedPageContent,
@@ -205,7 +205,7 @@ const renderChangeAppealFinalDate = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	let mappedPageContent = await changeAppealFinalDatePage(
+	const mappedPageContent = await changeAppealFinalDatePage(
 		appealData,
 		changeDay,
 		changeMonth,
@@ -226,6 +226,6 @@ export const getConfirmResubmit = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	let mappedPageContent = await resubmitConfirmationPage(appealData);
+	const mappedPageContent = await resubmitConfirmationPage(appealData);
 	return response.render('appeals/confirmation.njk', mappedPageContent);
 };
