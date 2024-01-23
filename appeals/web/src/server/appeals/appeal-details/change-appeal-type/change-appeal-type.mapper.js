@@ -67,13 +67,12 @@ export function mapAppealTypesToSelectItemParameters(appealTypes, changeAppeal) 
  */
 export async function resubmitAppealPage(appealDetails, changeAppeal) {
 	/** @type {PageComponent} */
-	const selectResubmitAppeaComponent = {
+	const selectResubmitAppealComponent = {
 		type: 'radios',
 		parameters: {
 			name: 'appealResubmit',
 			fieldset: {
 				legend: {
-					text: '',
 					classes: 'govuk-fieldset__legend--m'
 				}
 			},
@@ -86,7 +85,6 @@ export async function resubmitAppealPage(appealDetails, changeAppeal) {
 				{
 					value: false,
 					text: 'No',
-					// Set checked to true if resubmit is false or undefined
 					checked: changeAppeal?.resubmit === false || changeAppeal?.resubmit === undefined
 				}
 			]
@@ -101,7 +99,7 @@ export async function resubmitAppealPage(appealDetails, changeAppeal) {
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}/change-appeal-type/appeal-type`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'Should the appellant be asked to resubmit this appeal?',
-		pageComponents: [selectResubmitAppeaComponent]
+		pageComponents: [selectResubmitAppealComponent]
 	};
 
 	return pageContent;
