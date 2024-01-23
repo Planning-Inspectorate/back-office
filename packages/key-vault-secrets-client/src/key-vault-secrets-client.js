@@ -2,12 +2,10 @@ import { DefaultAzureCredential } from '@azure/identity';
 import { SecretClient } from '@azure/keyvault-secrets';
 
 export class KeyVaultSecretsClient {
-	/**
-	 *
-	 * @param {string} keyVaultUri
-	 */
-	constructor(keyVaultUri) {
-		this.client = new SecretClient(keyVaultUri, new DefaultAzureCredential());
+	constructor() {
+		const keyVaultUri = process.env.KEY_VAULT_URI || '';
+		const credentials = new DefaultAzureCredential();
+		this.client = new SecretClient(keyVaultUri, credentials);
 	}
 
 	/**
