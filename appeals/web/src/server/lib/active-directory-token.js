@@ -22,7 +22,7 @@ const getActiveDirectoryAccessToken = async (
 	}
 
 	/** @type {{accessToken: string, expiresOn: any} | null} * */
-	const resourceAuthResult = await acquireTokenSilent(sessionAccount, customScopes);
+	const resourceAuthResult = await acquireTokenSilent(sessionAccount, session.id, customScopes);
 
 	if (!resourceAuthResult?.accessToken) {
 		throw new Error('Active Directory access token not found');

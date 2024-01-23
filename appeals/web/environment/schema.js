@@ -39,6 +39,7 @@ export default baseSchema
 			.options({ presence: 'required' }),
 		serverProtocol: joi.string().valid('http', 'https'),
 		serverPort: joi.number(),
+		disableRedis: joi.boolean().optional(),
 		session: joi
 			.object({
 				// ...env means `.env` property of the parent object

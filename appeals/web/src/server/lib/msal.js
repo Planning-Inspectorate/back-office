@@ -1,8 +1,9 @@
 import msal, { LogLevel } from '@azure/msal-node';
-import config from '@pins/appeals.web/environment/config.js';
+import config from '#environment/config.js';
 import pino from './logger.js';
+import redisClient from './redis.js';
 
-export const msalClient = new msal.ConfidentialClientApplication({
+const msalConfig = {
 	auth: {
 		clientId: config.msal.clientId,
 		authority: config.msal.authority,
@@ -10,6 +11,10 @@ export const msalClient = new msal.ConfidentialClientApplication({
 	},
 	system: {
 		loggerOptions: {
+			/**
+			 * @param {LogLevel} logLevel
+			 * @param {string} message
+			 * */
 			loggerCallback(logLevel, message) {
 				switch (logLevel) {
 					case LogLevel.Error:
@@ -36,7 +41,32 @@ export const msalClient = new msal.ConfidentialClientApplication({
 			logLevel: msal.LogLevel.Warning
 		}
 	}
-});
+};
+
+/** @type {msal.ConfidentialClientApplication | null} */
+let msalClient = null;
+
+/**
+ * If not using Redis, behave as a singleton and return the one global MSAL client.
+ * If using Redis, generate an MSAL client specific to the user's session ID.
+ *
+ * @param {string} sessionId
+ * @returns {msal.ConfidentialClientApplication}
+ * */
+export const getMsalClient = (sessionId) => {
+	if (redisClient) {
+		return new msal.ConfidentialClientApplication({
+			...msalConfig,
+			cache: { cachePlugin: redisClient.makeCachePlugin(sessionId) }
+		});
+	}
+
+	if (!msalClient) {
+		msalClient = new msal.ConfidentialClientApplication(msalConfig);
+	}
+
+	return msalClient;
+};
 
 /**
  * Set the MSAL redirectUri as an absolute url if it exists only as a path.

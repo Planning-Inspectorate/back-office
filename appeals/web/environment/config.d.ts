@@ -44,6 +44,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	};
 	serverProtocol: 'http' | 'https';
 	serverPort: number;
+	disableRedis: boolean;
 	session: {
 		redis: string;
 		secret: string;

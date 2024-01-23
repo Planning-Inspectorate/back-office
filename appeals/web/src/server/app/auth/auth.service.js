@@ -1,6 +1,6 @@
-import config from '@pins/appeals.web/environment/config.js';
+import config from '#environment/config.js';
 import humps from 'humps';
-import { msalClient } from '../../lib/msal.js';
+import { getMsalClient } from '#lib/msal.js';
 
 /** @typedef {import('@azure/msal-node').AuthenticationResult} OriginalAuthenticationResult */
 /** @typedef {import('@pins/platform').PlanningInspectorAccountInfo} AccountInfo */
@@ -13,9 +13,13 @@ const scopes = ['user.read'];
  * having signed in manually at a MSAL authentication url.
  *
  * @param {string} code
+ * @param {string} sessionId
  * @returns {Promise<AuthenticationResult | null>}
  */
-export const acquireTokenByCode = async (code) => {
+export const acquireTokenByCode = async (code, sessionId) => {
+	const msalClient = getMsalClient(sessionId);
+	await msalClient.getTokenCache().getAllAccounts(); // required to trigger beforeCacheAccess
+
 	return transformAuthenticationResult(
 		await msalClient.acquireTokenByCode({
 			authority: config.msal.authority,
@@ -25,20 +29,20 @@ export const acquireTokenByCode = async (code) => {
 		})
 	);
 };
-
 /**
  * Acquire a new {@link AuthenticationResult} using an account. Note that
  * `acquireTokenSilent` will use a cached access token where posisble, and only
  * use a network request as a last resort.
  *
  * @param {AccountInfo} account
+ * @param {string} sessionId
  * @param {string[]} customScopes
  * @returns {Promise<AuthenticationResult | null>}
  */
-export const acquireTokenSilent = async (account, customScopes = scopes) => {
-	if (config.authDisabled) {
-		return null;
-	}
+export const acquireTokenSilent = async (account, sessionId, customScopes = scopes) => {
+	const msalClient = getMsalClient(sessionId);
+	await msalClient.getTokenCache().getAllAccounts(); // required to trigger beforeCacheAccess
+
 	return transformAuthenticationResult(
 		await msalClient.acquireTokenSilent({
 			account,
@@ -53,9 +57,11 @@ export const acquireTokenSilent = async (account, customScopes = scopes) => {
  * when signing a user out.
  *
  * @param {AccountInfo} account
+ * @param {string} sessionId
  * @returns {Promise<void>}
  */
-export const clearCacheForAccount = async (account) => {
+export const clearCacheForAccount = async (account, sessionId) => {
+	const msalClient = getMsalClient(sessionId);
 	await msalClient.getTokenCache().removeAccount(account);
 };
 
@@ -64,9 +70,11 @@ export const clearCacheForAccount = async (account) => {
  * scoped to the application via the `nonce` property.
  *
  * @param {{ nonce: string }} options
+ * @param {string} sessionId
  * @returns {Promise<string>}
  */
-export const getAuthCodeUrl = (options) => {
+export const getAuthCodeUrl = (options, sessionId) => {
+	const msalClient = getMsalClient(sessionId);
 	return msalClient.getAuthCodeUrl({
 		...options,
 		authority: config.msal.authority,
@@ -80,13 +88,14 @@ export const getAuthCodeUrl = (options) => {
  * @returns {AuthenticationResult | null}
  */
 function transformAuthenticationResult(authenticationResult) {
-	if (authenticationResult?.account) {
-		// camelize incoming keys to align casing with that of the codebase
-		// (otherwise, snake-cased properties are in play that mess with eslint)
-		return {
-			...authenticationResult,
-			account: /** @type {AccountInfo} */ (humps.camelizeKeys(authenticationResult.account))
-		};
+	if (!authenticationResult?.account) {
+		return null;
 	}
-	return null;
+
+	// camelize incoming keys to align casing with that of the codebase
+	// (otherwise, snake-cased properties are in play that mess with eslint)
+	return {
+		...authenticationResult,
+		account: /** @type {AccountInfo} */ (humps.camelizeKeys(authenticationResult.account))
+	};
 }

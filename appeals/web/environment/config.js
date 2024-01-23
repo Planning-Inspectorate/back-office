@@ -48,6 +48,7 @@ export function loadConfig() {
 		HTTPS_PORT,
 		LOG_LEVEL_FILE,
 		LOG_LEVEL_STDOUT,
+		DISABLE_REDIS,
 		REDIS_CONNECTION_STRING,
 		SESSION_SECRET,
 		SSL_CERT_FILE,
@@ -76,6 +77,7 @@ export function loadConfig() {
 		},
 		serverPort: HTTPS_ENABLED === 'true' ? HTTPS_PORT : HTTP_PORT,
 		serverProtocol: HTTPS_ENABLED === 'true' ? 'https' : 'http',
+		disableRedis: DISABLE_REDIS || false,
 		session: {
 			redis: REDIS_CONNECTION_STRING,
 			secret: SESSION_SECRET
