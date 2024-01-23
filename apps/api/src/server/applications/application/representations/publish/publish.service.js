@@ -2,11 +2,11 @@ import * as representationsRepository from '#repositories/representation.reposit
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
+import { buildNsipRepresentationStatusUpdatePayload } from './representation.js';
 import {
 	buildNsipRepresentationPayload,
-	buildNsipRepresentationStatusUpdatePayload,
 	buildRepresentationServiceUserPayload
-} from './representation.js';
+} from '../representations.service.js';
 import { setRepresentationsAsPublished } from '#repositories/representation.repository.js';
 
 export const publishCaseRepresentations = async (caseId, representationIds, actionBy) => {
