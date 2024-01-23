@@ -16,7 +16,7 @@ parameters:
     type: boolean
     default: true
   - name: buildFunctions
-    displayName: Build All Function
+    displayName: Build All Functions
     type: boolean
     default: true
 
@@ -168,45 +168,50 @@ extends:
             parameters:
               nodeVersion: 18
               script: npm ci --only=prod --workspace=@pins/functions-applications-migration --workspace=@pins/functions-applications-background-jobs --workspace=@pins/functions-applications-command-handlers --workspace=@pins/functions-bo-appeals-casedata-import --workspace=@pins/functions-bo-appeals-user-import --workspace=@pins/functions-bo-appeals-document-processing
-          
+          # merge node modules
+          - template: azure-pipelines-package-function-merge.yml@self
+            parameters:
+              appsFolderNames:
+                - 'applications-migration'
+                - 'applications-background-jobs'
+                - 'applications-command-handlers'
+              appealsFolderNames:
+                - 'casedata-import'
+                - 'user-import'
+                - 'document-processing'
+
           # package Applications BO migration function
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'apps'
-              workspaceName: 'functions-applications-migration'
               folderName: 'applications-migration'
           
           # package Applications BO background jobs function
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'apps'
-              workspaceName: 'functions-applications-background-jobs'
               folderName: 'applications-background-jobs'
 
           # package Applications BO command handlers function
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'apps'
-              workspaceName: 'functions-applications-command-handlers'
               folderName: 'applications-command-handlers'
 
           # package Appeals BO case data function
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'appeals'
-              workspaceName: 'functions-bo-appeals-casedata-import'
               folderName: 'casedata-import'
           
           # package Appeals BO user function
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'appeals'
-              workspaceName: 'functions-bo-appeals-user-import'
               folderName: 'user-import'
 
           # package Appeals BO document function
           - template: azure-pipelines-package-function.yml@self
             parameters:
               root: 'appeals'
-              workspaceName: 'functions-bo-appeals-document-processing'
               folderName: 'document-processing'

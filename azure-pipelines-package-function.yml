@@ -1,8 +1,6 @@
 parameters:
 - name: root
   type: string
-- name: workspaceName
-  type: string
 - name: folderName
   type: string
 - name: nodeVersion
@@ -10,24 +8,6 @@ parameters:
   default: 18
 
 steps:
-  # merge node_modules into the one in the function folder
-  # from node_modules/@pins/*
-  #      node_modules/*
-  #      <root>/functions/node_modules/*
-  # exclude the other functions and apps symlinked in node_modules/@pins
-  # to <root>/functions/<function>/node_modules/*
-  - script: |
-      source ~/.bashrc
-      shopt -s extglob
-      mkdir -p $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/@pins
-      if [ -d $(Build.Repository.LocalPath)/node_modules/@pins ]; then
-        cp -r -n -L $(Build.Repository.LocalPath)/node_modules/@pins/!(functions-*|appeals.*|applications.*) $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/@pins
-      fi
-      cp -r -n -L $(Build.Repository.LocalPath)/node_modules/!(@pins) $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/
-      if [ -d $(Build.Repository.LocalPath)/${{parameters.root}}/functions/node_modules ]; then
-        cp -r -n -L $(Build.Repository.LocalPath)/${{parameters.root}}/functions/node_modules/* $(Build.Repository.LocalPath)/${{parameters.root}}/functions/${{parameters.folderName}}/node_modules/
-      fi
-    displayName: ${{parameters.folderName}} - merge node_modules
   - task: ArchiveFiles@2
     displayName: ${{parameters.folderName}} - archive files
     inputs:
