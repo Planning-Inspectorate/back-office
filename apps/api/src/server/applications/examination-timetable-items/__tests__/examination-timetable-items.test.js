@@ -10,7 +10,7 @@ const examinationTimetableItem = {
 	id: 1,
 	examinationTypeId: 1,
 	name: 'Examination Timetable Item',
-	description: 'Examination Timetable Item Description',
+	description: '{"preText":"pretext", "bulletPoints":["pointone", "pointtwo"]}',
 	date: '2023-02-27T10:00:00Z',
 	folderId: 1234,
 	startDate: '2023-02-27T10:00:00Z',
@@ -260,6 +260,9 @@ describe('Test examination timetable items API', () => {
 		const resp = await request.get('/applications/examination-timetable-items/case/1');
 		expect(resp.status).toEqual(200);
 		expect(resp.body.items[0].submissions).toBe(false);
+		expect(resp.body.items[0].description).toBe(
+			`{"preText":"pretext\\r\\n","bulletPoints":[" pointone\\r\\n"," pointtwo"]}`
+		);
 		expect(databaseConnector.examinationTimetable.findUnique).toHaveBeenCalledWith({
 			where: { caseId: 1 }
 		});
@@ -288,6 +291,9 @@ describe('Test examination timetable items API', () => {
 		const resp = await request.get('/applications/examination-timetable-items/1');
 		expect(resp.status).toEqual(200);
 		expect(resp.body.submissions).toBe(true);
+		expect(resp.body.description).toBe(
+			`{"preText":"pretext\\r\\n","bulletPoints":[" pointone\\r\\n"," pointtwo"]}`
+		);
 		expect(databaseConnector.examinationTimetableItem.findUnique).toHaveBeenCalledWith({
 			include: { ExaminationTimetable: true, ExaminationTimetableType: true },
 			where: { id: 1 }
