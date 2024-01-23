@@ -5,6 +5,10 @@ import BackOfficeAppError from '#utils/app-error.js';
 import { format } from 'date-fns';
 import logger from '#utils/logger.js';
 import { mapUpdateExaminationTimetableItemRequest } from '#utils/mapping/map-examination-timetable-item.js';
+import {
+	mapExaminationTimetableItemDescriptionToSave,
+	mapExaminationTimetableItemDescriptionToView
+} from '#utils/mapping/map-examination-timetable-item-description.js';
 import * as service from './examination-timetable-items.service.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
@@ -36,7 +40,13 @@ export const getExaminationTimetableItems = async ({ params }, response) => {
 				new Promise((resolve, reject) => {
 					service
 						.validateSubmissions(item, examinationTimetable.caseId)
-						.then((submissions) => resolve({ ...item, submissions }))
+						.then((submissions) =>
+							resolve({
+								...item,
+								submissions,
+								description: mapExaminationTimetableItemDescriptionToView(item.description)
+							})
+						)
 						.catch(reject);
 				})
 		)
@@ -66,8 +76,11 @@ export const getExaminationTimetableItem = async (_request, response) => {
 	// @ts-ignore
 	const caseId = examinationTimetableItem.ExaminationTimetable.caseId;
 	const submissions = await service.validateSubmissions(examinationTimetableItem, caseId);
+	const description = mapExaminationTimetableItemDescriptionToView(
+		examinationTimetableItem.description
+	);
 
-	response.send({ ...examinationTimetableItem, submissions });
+	response.send({ ...examinationTimetableItem, submissions, description });
 };
 
 /**
@@ -126,6 +139,7 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 		throw new BackOfficeAppError('Failed to create sub folder for the examination item.', 500);
 	}
 
+	body.description = mapExaminationTimetableItemDescriptionToSave(body.description);
 	body.folderId = itemFolder.id;
 	body.examinationTimetableId = examinationTimetable.id;
 	delete body.caseId;
@@ -243,6 +257,8 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 		logger.info(`Examination timetable item with id: ${id} has submission.`);
 		throw new BackOfficeAppError('Can not delete examination timetable item.', 400);
 	}
+
+	body.description = mapExaminationTimetableItemDescriptionToSave(body.description);
 	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
 
 	// if changing the name, check the new timetable item name is unique
