@@ -22,7 +22,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
             <form             method=\\"GET\\">
                 <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
                 <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
-                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"\\">
+                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"-datePublished\\">
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-grid-column-one-half\\">
                         <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
@@ -396,7 +396,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <form             method=\\"GET\\">
                 <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
                 <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
-                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"\\">
+                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"-datePublished\\">
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-grid-column-one-half\\">
                         <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
@@ -499,7 +499,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <form             method=\\"GET\\">
                 <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
                 <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
-                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"\\">
+                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"-datePublished\\">
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-grid-column-one-half\\">
                         <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
@@ -602,7 +602,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <form             method=\\"GET\\">
                 <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
                 <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
-                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"\\">
+                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"-datePublished\\">
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-grid-column-one-half\\">
                         <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
