@@ -102,7 +102,7 @@ export async function handleSignout(req, response) {
 	const account = authSession.getAccount(req.session);
 
 	if (account) {
-		authService.clearCacheForAccount(account, req.session.id);
+		await authService.clearCacheForAccount(account, req.session.id);
 		promisify(req.session.destroy.bind(req.session))();
 	}
 
