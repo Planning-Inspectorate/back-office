@@ -1,3 +1,17 @@
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: Dev
+    values:
+      - Dev
+      - Test
+      - Prod
+
+pool: pins-odt-agent-pool
+
+pr: none
+
 trigger:
 - none
 
