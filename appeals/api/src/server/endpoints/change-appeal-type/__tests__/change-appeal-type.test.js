@@ -29,6 +29,17 @@ const appealsWithValidStatus = [
 		]
 	}
 ];
+const appealsWithInvalidStatus = [
+	{
+		...householdAppeal,
+		appealStatus: [
+			{
+				status: 'closed',
+				valid: true
+			}
+		]
+	}
+];
 
 describe('appeal change type resubmit routes', () => {
 	beforeEach(() => {
@@ -78,7 +89,7 @@ describe('appeal change type resubmit routes', () => {
 		});
 		test('returns 400 when appeal status is incorrect', async () => {
 			// @ts-ignore
-			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+			databaseConnector.appeal.findUnique.mockResolvedValue(appealsWithInvalidStatus[0]);
 			// @ts-ignore
 			databaseConnector.appealType.findMany.mockResolvedValue(appealTypes);
 
@@ -125,7 +136,7 @@ describe('appeal change type transfer routes', () => {
 
 		test('returns 400 when appeal status is incorrect', async () => {
 			// @ts-ignore
-			databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+			databaseConnector.appeal.findUnique.mockResolvedValue(appealsWithInvalidStatus[0]);
 			// @ts-ignore
 			databaseConnector.appealType.findMany.mockResolvedValue(appealTypes);
 
