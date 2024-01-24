@@ -1,0 +1,6 @@
+.pins-s51-edit-form {
+	// target dateInput component to compensate for the margin-left 15px in that component
+	.govuk-grid-column-full {
+		margin-left: -15px;
+	}
+}
