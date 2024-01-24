@@ -1,0 +1,95 @@
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: Dev
+    values:
+      - Dev
+      - Test
+      - Prod
+  - name: service
+    displayName: Service
+    type: string
+    default: Appeals
+    values:
+      - Appeals
+      - Applications
+  - name: migration_name
+    displayName: Migration to rollback / apply
+    type: string
+  - name: rollback
+    displayName: Rollback migration?
+    type: boolean
+    default: false
+  - name: apply
+    displayName: Apply/re-apply migration?
+    type: boolean
+    default: false
+
+pool: pins-odt-agent-pool
+
+pr: none
+
+trigger: none
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.4.0
+
+variables:
+  - template: variables/environments/${{ lower(parameters.environment )}}.yml@templates
+  - group: pipeline_secrets
+
+jobs:
+  - deployment: SquashMigrations
+    displayName: Squash ${{ parameters.environment }} Database Migrations
+    environment: ${{ parameters.environment }}
+    variables:
+      ${{ if eq(parameters.service, 'Appeals') }}:
+      workspace: '@pins/appeals.api'
+      ${{ if eq(parameters.service', 'Applications') }}:
+      workspace: '@pins/applications.api'
+      ${{ if eq(parameters.service', 'Appeals') }}:
+      path: 'appeals/api'
+      ${{ if eq(parameters.service', 'Applications') }}:
+      path: 'apps/api'
+      ${{ if eq(parameters.service', 'Appeals') }}:
+      secretName: 'back-office-appeals-sql-connection-string'
+      ${{ if eq(parameters.service', 'Applications') }}:
+      secretName: 'back-office-appeals-connection-string'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - download: none
+            - checkout: self
+            - template: steps/node_script.yml@templates
+              parameters:
+                script: npm ci --workspace=$(workspace)
+                nodeVersion: 18
+            - template: steps/azure_auth.yml@templates
+            - template: steps/azure_get_secrets.yml@templates
+              parameters:
+                secrets:
+                  - name: $(secretName)
+                    variable: DATABASE_URL
+            - ${{ if eq(parameters.rollback, true) }}:
+              - template: steps/node_script.yml@templates
+                parameters:
+                  environmentVariables:
+                    DATABASE_URL: $(DATABASE_URL)
+                  script: npx prisma migrate resolve --rolled-back ${{ parameters.migration_name }}
+                  workingDirectory: $(Build.Repository.LocalPath)/$(path)
+            - ${{ if eq(parameters.apply, true) }}:
+              - template: steps/node_script.yml@templates
+                parameters:
+                  environmentVariables:
+                    DATABASE_URL: $(DATABASE_URL)
+                  script: npx prisma migrate resolve --applied ${{ parameters.migration_name }}
+                  workingDirectory: $(Build.Repository.LocalPath)/$(path)
+    workspace:
+      clean: all
