@@ -21921,9 +21921,11 @@ exports[`applications documentation GET /case/123/project-documentation should r
                         <button class=\\"govuk-button pins-dashboard-form--btn\\" data-module=\\"govuk-button\\">Search</button>
                     </form>
                 </div>
-            </div><a class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\"> Project management</a>
-            <a             class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/11/correspondence/\\">Correspondence</a><a class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/2/legal-advice/\\"> Legal advice</a>
-                <a                 class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/3/transboundary/\\">Transboundary</a><a class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/4/land-rights/\\"> Land rights</a>
+            </div>
+            <div class=\\"pins-link-menu\\"><a class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\"> Project management</a>
+                <a                 class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/11/correspondence/\\">Correspondence</a><a class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/2/legal-advice/\\"> Legal advice</a>
+                    <a                     class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/3/transboundary/\\">Transboundary</a><a class=\\"govuk-link govuk-heading-s\\" href=\\"/applications-service/case/123/project-documentation/4/land-rights/\\"> Land rights</a>
+            </div>
         </div>
     </div>
 </main>"
