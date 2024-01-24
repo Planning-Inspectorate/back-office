@@ -36,7 +36,8 @@
 		"test:applications": "turbo run test --filter=./apps/*",
 		"web:applications": "npm run dev --workspace=@pins/applications.web",
 		"api:applications": "npm run dev --workspace=@pins/applications.api",
-		"api:test:applications": "npm run start:test --workspace=@pins/applications.api-testing"
+		"api:test:applications": "npm run start:test --workspace=@pins/applications.api-testing",
+		"applications:regenerate-api-keys" : "node ./apps/scripts/regenerate-api-keys"
 	},
 	"dependencies": {
 		"got": "^12.5.2",

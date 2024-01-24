@@ -1,0 +1,34 @@
+trigger:
+- none
+
+schedules:
+- cron: "0 0 1 * *"
+  displayName: MonthlyBuild
+
+variables:
+  - template: variables/environments/${{ lower(parameters.environment )}}.yml@templates
+  - group: pipeline_secrets
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.4.0
+
+jobs:
+  - deployment: RegenerateApiKeys
+    displayName: Regenerating ${{ parameters.environment }} Applications API keys
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - template: steps/azure_auth.yml@templates
+            - template: steps/node_script.yml@templates
+              parameters:
+                environmentVariables:
+                  KEY_VAULT_URI: ${KEY_VAULT_URI}
+                script: npm run applications:regenerate-api-keys
+                workingDirectory: $(Build.Repository.LocalPath)/apps/api
