@@ -29,6 +29,6 @@ jobs:
             - template: steps/node_script.yml@templates
               parameters:
                 environmentVariables:
-                  KEY_VAULT_URI: ${KEY_VAULT_URI}
+                  KEY_VAULT_NAME: ${KEY_VAULT_NAME}
                 script: npm run applications:regenerate-api-keys
-                workingDirectory: $(Build.Repository.LocalPath)/apps/api
+                workingDirectory: $(Build.Repository.LocalPath)

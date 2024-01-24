@@ -35,7 +35,7 @@ const regenerateApiKeys = async () => {
 
 const setUpKeyVaultClient = () => {
 	const credentials = new DefaultAzureCredential();
-	const keyVaultUri = process.env['KEY_VAULT_URI'] || '';
+	const keyVaultUri = `https://${process.env['KEY_VAULT_NAME'] || ''}.vault.azure.net/`;
 	return new SecretClient(keyVaultUri, credentials);
 };
 
