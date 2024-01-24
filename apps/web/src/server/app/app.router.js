@@ -5,7 +5,12 @@ import applicationsRouter from '../applications/applications.router.js';
 
 import { asyncHandler } from '@pins/express';
 
-import { handleHealthCheck, viewHomepage, viewUnauthenticatedError } from './app.controller.js';
+import {
+	handleHealthCheck,
+	handleAlwaysOn,
+	viewHomepage,
+	viewUnauthenticatedError
+} from './app.controller.js';
 import { handleSignout } from './auth/auth.controller.js';
 import { assertGroupAccess, assertIsAuthenticated } from './auth/auth.guards.js';
 import authRouter from './auth/auth.router.js';
@@ -27,6 +32,7 @@ if (config.authDisabled) {
 router.use(authRouter);
 router.route('/unauthenticated').get(viewUnauthenticatedError);
 router.route('/health').get(handleHealthCheck);
+router.route('/').get(handleAlwaysOn);
 
 // Authenticated routes (all other routes)
 

@@ -54,6 +54,15 @@ export function handleHealthCheck(_, response) {
 }
 
 /** @type {import('express').RequestHandler} */
+export function handleAlwaysOn(request, response, next) {
+	if (request.headers['user-agent'] === 'AlwaysOn') {
+		response.status(204).end();
+	} else {
+		next();
+	}
+}
+
+/** @type {import('express').RequestHandler} */
 export function viewUnauthenticatedError(_, response) {
 	response.status(200).render('app/401');
 }
