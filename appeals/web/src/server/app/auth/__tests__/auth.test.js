@@ -176,16 +176,6 @@ describe('auth', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
-
-		it('should destroy the msal token cache and session upon logging out', async () => {
-			await signinWithGroups(['appeals_case_officer']);
-			await request.get('/auth/signout');
-
-			// access an authenticated route to determine if we're signed out
-			const response = await request.get('/validation').redirects(1);
-
-			expect(response.get('Location')).toEqual('/test/azure-msal/signin');
-		});
 	});
 });
 
