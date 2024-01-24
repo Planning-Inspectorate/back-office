@@ -1,8 +1,6 @@
 import {
 	ERROR_NOT_FOUND,
 	ERROR_INVALID_APPEAL_STATE,
-	STATE_TARGET_ASSIGN_CASE_OFFICER,
-	STATE_TARGET_READY_TO_START,
 	STATE_TARGET_INVALID,
 	STATE_TARGET_CLOSED,
 	STATE_TARGET_COMPLETE,
@@ -49,8 +47,6 @@ export const validateAppealType = async (req, res, next) => {
 export const validateAppealStatus = async (req, res, next) => {
 	const isValidStatus =
 		[
-			STATE_TARGET_ASSIGN_CASE_OFFICER,
-			STATE_TARGET_READY_TO_START,
 			STATE_TARGET_CLOSED,
 			STATE_TARGET_COMPLETE,
 			STATE_TARGET_INVALID,
