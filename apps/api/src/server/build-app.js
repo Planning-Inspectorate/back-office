@@ -49,6 +49,14 @@ const buildApp = (
 		res.status(200).send('OK');
 	});
 
+	app.get('/', (req, res, next) => {
+		if (req.headers['user-agent'] === 'AlwaysOn') {
+			res.status(204).end();
+		} else {
+			next();
+		}
+	});
+
 	app.all('*', (req, res, next) => {
 		next(new BackOfficeAppError(`Method is not allowed`, 405));
 	});
