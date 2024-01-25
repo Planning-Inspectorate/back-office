@@ -21,13 +21,16 @@ import { DATABASE_ORDER_BY_DESC, STATE_TARGET_COMPLETE } from '#endpoints/consta
  * @param {number} pageNumber
  * @param {number} pageSize
  * @param {string} searchTerm
+ * @param {string} status
+ * @param {string} hasInspector
  * @returns {Promise<[number, RepositoryGetAllResultItem[], any[]]>}
  */
-const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
+const getAllAppeals = (pageNumber, pageSize, searchTerm, status, hasInspector) => {
 	const where = {
 		appealStatus: {
 			some: {
-				valid: true
+				valid: true,
+				...(status !== 'undefined' && { status })
 			}
 		},
 		...(searchTerm !== 'undefined' && {
@@ -45,6 +48,14 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm) => {
 					}
 				}
 			]
+		}),
+		...(hasInspector === 'true' && {
+			inspectorUserId: {
+				not: null
+			}
+		}),
+		...(hasInspector === 'false' && {
+			inspectorUserId: null
 		})
 	};
 

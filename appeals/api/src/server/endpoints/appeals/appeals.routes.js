@@ -7,6 +7,7 @@ import {
 	getAppealValidator,
 	patchAppealValidator
 } from './appeals.validators.js';
+import { validateAppealStatus, validateHasInspector } from './appeals.middleware.js';
 
 const router = createRouter();
 
@@ -36,6 +37,16 @@ router.get(
 			description: 'The search term - does a partial, case-insensitive match of appeal reference and postcode fields',
 			example: 'NR35 2ND',
 		}
+		#swagger.parameters['status'] = {
+			in: 'query',
+			description: 'The appeal status',
+			example: 'lpa_questionnaire_due',
+		}
+		#swagger.parameters['hasInspector'] = {
+			in: 'query',
+			description: 'The Inspector Filter assigned status',
+			example: 'true',
+		}
 		#swagger.responses[200] = {
 			description: 'Requested appeals',
 			schema: { $ref: '#/definitions/AllAppeals' },
@@ -43,6 +54,8 @@ router.get(
 		#swagger.responses[400] = {}
 	 */
 	getAppealsValidator,
+	validateAppealStatus,
+	validateHasInspector,
 	asyncHandler(getAppeals)
 );
 
@@ -79,6 +92,7 @@ router.get(
 		#swagger.responses[400] = {}
 	 */
 	getAppealsValidator,
+	validateAppealStatus,
 	asyncHandler(getMyAppeals)
 );
 
