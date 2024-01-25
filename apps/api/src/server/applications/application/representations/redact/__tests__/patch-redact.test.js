@@ -1,16 +1,66 @@
 import { jest } from '@jest/globals';
-import { request } from '../../../../../app-test.js';
+import { request } from '#app-test';
+import { eventClient } from '#infrastructure/event-client.js';
+import { NSIP_REPRESENTATION } from '#infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
 
-const { databaseConnector } = await import('../../../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const existingRepresentations = [
 	{
 		id: 1,
-		representationId: 200,
+		caseId: 200,
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
-		received: '2023-03-14T14:28:25.704Z'
+		received: '2023-03-14T14:28:25.704Z',
+		originalRepresentation: 'the original representation',
+		redactedRepresentation: 'redacted version',
+		case: { id: 1, reference: 'BC0110001' },
+		representationActions: [],
+		represented: {
+			id: 10381,
+			representationId: 6579,
+			firstName: 'Mrs',
+			lastName: 'Sue',
+			jobTitle: null,
+			under18: false,
+			organisationName: null,
+			email: 'sue@example.com',
+			phoneNumber: '01234 567890',
+			contactMethod: null,
+			address: {
+				id: 17059,
+				addressLine1: '123 Some Street',
+				addressLine2: 'Somewhere Else',
+				postcode: 'B1 9BB',
+				county: 'A County',
+				town: 'Some Town',
+				country: 'England'
+			}
+		},
+		representative: {
+			id: 10382,
+			representationId: 6579,
+			firstName: 'James',
+			lastName: 'Bond',
+			jobTitle: null,
+			under18: false,
+			organisationName: null,
+			email: 'test-agent@example.com',
+			phoneNumber: '01234 567890',
+			contactMethod: null,
+			address: {
+				id: 17060,
+				addressLine1: '1 Long Road',
+				addressLine2: 'Smallville',
+				postcode: 'P7 9LN',
+				county: 'A County',
+				town: 'Some Town',
+				country: 'England'
+			}
+		},
+		attachments: []
 	},
 	{
 		id: 2,
@@ -23,6 +73,25 @@ const existingRepresentations = [
 	}
 ];
 
+const rep1UpdatePayload = {
+	attachmentIds: [],
+	caseId: 200,
+	caseRef: 'BC0110001',
+	dateReceived: '2023-03-14T14:28:25.704Z',
+	examinationLibraryRef: '',
+	originalRepresentation: 'the original representation',
+	redactedRepresentation: 'redacted version',
+	redacted: true,
+	referenceId: 'BC0110001-2',
+	representationId: 1,
+	status: 'VALID',
+	registerFor: undefined,
+	representationFrom: 'AGENT',
+	representationType: undefined,
+	representativeId: '10382',
+	representedId: '10381'
+};
+
 const mockDate = new Date('2023-01-02');
 
 describe('Patch Application Representation Redact', () => {
@@ -30,8 +99,10 @@ describe('Patch Application Representation Redact', () => {
 		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[0]);
 		databaseConnector.representation.update.mockResolvedValue();
 		databaseConnector.representationAction.create.mockResolvedValue();
+		databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
 		jest.useFakeTimers().setSystemTime(mockDate);
 	});
+	afterEach(() => jest.clearAllMocks());
 
 	it('Patch representation redact', async () => {
 		const response = await request
@@ -65,6 +136,13 @@ describe('Patch Application Representation Redact', () => {
 			repId: 1,
 			redacted: true
 		});
+
+		// test event broadcasts
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			NSIP_REPRESENTATION,
+			rep1UpdatePayload,
+			EventType.Update
+		);
 	});
 
 	it('Patch representation redact - invalid request - missing mandatory field', async () => {
@@ -114,10 +192,18 @@ describe('Patch Application Representation Redact', () => {
 	});
 
 	it('Patch previously published representation', async () => {
-		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[1]);
-
+		const prevPublishedRep = {
+			...existingRepresentations[0],
+			status: 'PUBLISHED'
+		};
+		const prevPublishedPayload = {
+			...rep1UpdatePayload,
+			status: 'PUBLISHED'
+		};
+		databaseConnector.representation.findFirst.mockResolvedValue(prevPublishedRep);
+		databaseConnector.representation.findUnique.mockResolvedValue(prevPublishedRep);
 		const response = await request
-			.patch('/applications/1/representations/2/redact')
+			.patch('/applications/200/representations/1/redact')
 			.send({
 				actionBy: 'a person',
 				redactedRepresentation: 'i have been redacted',
@@ -132,13 +218,20 @@ describe('Patch Application Representation Redact', () => {
 				redactedRepresentation: 'i have been redacted',
 				unpublishedUpdates: true
 			},
-			where: { id: 2 }
+			where: { id: 1 }
 		});
 
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
-			repId: 2,
+			repId: 1,
 			redacted: true
 		});
+
+		// test event broadcasts
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			NSIP_REPRESENTATION,
+			prevPublishedPayload,
+			EventType.Update
+		);
 	});
 });
