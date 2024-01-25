@@ -1,6 +1,6 @@
 import config from './config.js';
-import got from 'got';
 import { blobClient } from './blob-client.js';
+import { gotInstance } from '../common/backend-api-request.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
@@ -41,7 +41,7 @@ export const index = async (
 
 	context.log(`Making POST request to ${requestUri}`);
 
-	await got
+	await gotInstance
 		.post(requestUri, {
 			json: {
 				publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,

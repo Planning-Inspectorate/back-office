@@ -1,7 +1,7 @@
-import got from 'got';
 import config from './config.js';
 import { blobClient } from './blob-client.js';
 import { parseBlobName } from './utils.js';
+import { gotInstance } from '../common/backend-api-request.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
@@ -26,5 +26,5 @@ export const index = async (context, { caseId, version, documentId, documentURI 
 
 	context.log(`Making POST request to ${requestUri}`);
 
-	await got.post(requestUri);
+	await gotInstance.post(requestUri);
 };

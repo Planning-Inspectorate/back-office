@@ -1,5 +1,5 @@
-import got from 'got';
 import config from './config.js';
+import { gotInstance } from '../common/backend-api-request.js';
 
 /** @typedef {{ id: number, displayNameEn: string }} FolderJSON */
 
@@ -9,7 +9,7 @@ import config from './config.js';
  * */
 async function getCaseID(caseReference) {
 	try {
-		const result = await got
+		const result = await gotInstance
 			.get(`https://${config.apiHost}/applications/reference/${caseReference}`)
 			.json();
 
@@ -25,7 +25,7 @@ async function getCaseID(caseReference) {
  */
 async function postRepresentation(caseId, representation) {
 	try {
-		return got.post(`https://${config.apiHost}/applications/${caseId}/representations`, {
+		return gotInstance.post(`https://${config.apiHost}/applications/${caseId}/representations`, {
 			json: representation
 		});
 	} catch (err) {

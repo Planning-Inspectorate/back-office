@@ -16,7 +16,7 @@ const instance = got.extend({
 			async (options) =>
 				await addAuthHeadersForBackend(options, {
 					azureKeyVaultEnabled: config.azureKeyVaultEnabled,
-					apiKeyName: `backoff-applications-api-key-${config.serviceName}`,
+					apiKeyName: `backoffice-applications-api-key-${config.serviceName}`,
 					callingClient: config.serviceName
 				})
 		],
