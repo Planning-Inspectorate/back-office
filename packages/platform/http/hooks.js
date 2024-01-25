@@ -15,7 +15,7 @@ export const createHttpLoggerHooks = (pino, stdOutLevel) => {
 	const responseLogger = (response) => {
 		// @ts-expect-error – `req` has not been added to type signature
 		const { body, req, requestUrl, statusCode } = response;
-		const responseItemsNumber = body.length ?? Object.keys(body || {}).length;
+		const responseItemsNumber = body.items?.length ?? body.length ?? Object.keys(body || {}).length;
 		const responseMessage = `[API] ${
 			req.method
 		} ${requestUrl.pathname.toString()} (Response code: ${statusCode}) - (Items retrieved: ${responseItemsNumber})`;
