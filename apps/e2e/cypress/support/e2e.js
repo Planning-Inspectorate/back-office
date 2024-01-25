@@ -27,7 +27,7 @@ after(() => {
 
 after(() => {
 	//cy.clearAllSessionStorage();
-	cy.clearCookies();
+	//cy.clearCookies();
 
 	});
 Cypress.on('uncaught:exception', (err, runnable) => {
