@@ -102,9 +102,14 @@ export async function handleSignout(req, response) {
 	const account = authSession.getAccount(req.session);
 
 	if (account) {
-		await authService.clearCacheForAccount(account, req.session.id);
-		promisify(req.session.destroy.bind(req.session))();
+		try {
+			await authService.clearCacheForAccount(account, req.session.id);
+		} catch (err) {
+			pino.error('Failed to remove account from cache:', err);
+		}
 	}
+
+	promisify(req.session.destroy.bind(req.session))();
 
 	pino.info('[WEB] clearing session:', req.session);
 
