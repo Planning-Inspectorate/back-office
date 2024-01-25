@@ -1,17 +1,17 @@
 import { getKeyVaultSecretsClient } from '@pins/key-vault-secrets-client';
-import config from '@pins/applications.web/environment/config.js';
 
 /**
+ * @param {boolean} azureKeyVaultEnabled
  * @param {string} apiKeyName
  */
-export const fetchApiKey = async (apiKeyName) => {
+export const fetchApiKey = async (azureKeyVaultEnabled, apiKeyName) => {
 	try {
 		// const secretsClient = getKeyVaultSecretsClient(config.azureKeyVaultEnabled);
 		// trycatch and let vars are temporary to keep failures silent
 		let secretsClient;
 		let apiKey;
 		try {
-			secretsClient = getKeyVaultSecretsClient(config.azureKeyVaultEnabled);
+			secretsClient = getKeyVaultSecretsClient(azureKeyVaultEnabled);
 			apiKey = await secretsClient.getSecret(apiKeyName);
 		} catch (error) {
 			console.log('API_KEY_TESTING: unable to get secret from key vault');
