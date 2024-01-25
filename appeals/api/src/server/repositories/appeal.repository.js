@@ -1,7 +1,11 @@
 import { getSkipValue } from '#utils/database-pagination.js';
 import { databaseConnector } from '#utils/database-connector.js';
 import { hasValueOrIsNull } from '#endpoints/appeals/appeals.service.js';
-import { DATABASE_ORDER_BY_DESC, STATE_TARGET_COMPLETE } from '#endpoints/constants.js';
+import {
+	DATABASE_ORDER_BY_DESC,
+	STATE_TARGET_CLOSED,
+	STATE_TARGET_COMPLETE
+} from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -119,7 +123,8 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 				address: true,
 				appealStatus: {
 					where: {
-						valid: true
+						valid: true,
+						status: { not: STATE_TARGET_CLOSED }
 					}
 				},
 				appealTimetable: true,
