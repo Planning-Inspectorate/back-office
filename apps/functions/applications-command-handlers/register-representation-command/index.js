@@ -45,6 +45,7 @@ export default async function (context, msg) {
 
 	const representation = {
 		reference: msg.referenceId,
+		status: 'AWAITING_REVIEW',
 		type: msg.representationType,
 		originalRepresentation: msg.originalRepresentation,
 		represented: mapContactDetails(msg.represented),
