@@ -55,11 +55,11 @@ export const updateApplication = async ({ params, body }, response) => {
 		throw new BackOfficeAppError('Application not found', 500);
 	}
 
-	updateResponse = await setCaseUnpublishedChangesIfTrue(originalResponse, updateResponse);
+	const finalResponse = await setCaseUnpublishedChangesIfTrue(originalResponse, updateResponse);
 
-	await broadcastNsipProjectEvent(updateResponse, EventType.Update);
+	await broadcastNsipProjectEvent(finalResponse, EventType.Update);
 
-	response.send({ id: updateResponse.id, applicantId: updateResponse.applicant?.id });
+	response.send({ id: finalResponse.id, applicantId: finalResponse.applicant?.id });
 };
 
 /**
