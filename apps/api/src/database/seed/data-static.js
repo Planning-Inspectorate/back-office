@@ -54,6 +54,12 @@ export const sectors = [
 		abbreviation: 'WA',
 		displayNameEn: 'Water',
 		displayNameCy: 'Water'
+	},
+	{
+		name: 'training',
+		abbreviation: 'TRAIN',
+		displayNameEn: 'Training',
+		displayNameCy: 'Training'
 	}
 ];
 
@@ -296,6 +302,15 @@ export const subSectors = [
 			displayNameCy: 'Transfer of Water Resources'
 		},
 		sectorName: 'water'
+	},
+	{
+		subSector: {
+			name: 'training',
+			abbreviation: 'TRAIN01',
+			displayNameEn: 'Training',
+			displayNameCy: 'Training'
+		},
+		sectorName: 'training'
 	}
 ];
 
