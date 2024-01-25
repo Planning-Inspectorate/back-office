@@ -2,7 +2,7 @@ import { createHttpLoggerHooks } from '@pins/platform';
 import config from '@pins/applications.web/environment/config.js';
 import got from 'got';
 import pino from './logger.js';
-import { addAuthHeadersForBackend } from './add-auth-headers.js';
+import { addAuthHeadersForBackend } from '@pins/add-auth-headers-for-backend';
 
 const [requestLogger, responseLogger] = createHttpLoggerHooks(pino, config.logLevelStdOut);
 
@@ -11,7 +11,15 @@ const instance = got.extend({
 	responseType: 'json',
 	resolveBodyOnly: true,
 	hooks: {
-		beforeRequest: [requestLogger, addAuthHeadersForBackend],
+		beforeRequest: [
+			requestLogger,
+			async (options) =>
+				await addAuthHeadersForBackend(options, {
+					azureKeyVaultEnabled: config.azureKeyVaultEnabled,
+					apiKeyName: `backoff-applications-api-key-${config.serviceName}`,
+					callingClient: config.serviceName
+				})
+		],
 		afterResponse: [responseLogger]
 	}
 });
