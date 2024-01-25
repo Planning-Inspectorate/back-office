@@ -304,3 +304,33 @@ export const validateCreateRepresentation = composeMiddleware(
 		.isLength({ min: 1, max: 64 }),
 	validationErrorHandler
 );
+
+/**
+ * Ensures the project in question is not a training project.
+ * Most of the time, multiple checks will be redundant, but we need to be as sure as possible that we're not emitting events for training projects.
+ *
+ * @param {number} caseId
+ * @throws {Error}
+ * */
+export const verifyNotTraining = async (caseId) => {
+	const projectWithSector = await caseRepository.getById(caseId, { sector: true });
+	if (!projectWithSector) {
+		throw new Error(`Could not find case with ID ${caseId}.`);
+	}
+
+	const noFieldsToTest = !(
+		projectWithSector.reference || projectWithSector.ApplicationDetails?.subSector?.sector?.name
+	);
+	if (noFieldsToTest) {
+		throw new Error(
+			`Could not verify case with ID ${caseId} is not a training case. It does not have a sector or reference to test.`
+		);
+	}
+
+	const isTraining =
+		/^TRAIN/.test(projectWithSector.reference ?? '') ||
+		projectWithSector.ApplicationDetails?.subSector?.sector?.name === 'training';
+	if (isTraining) {
+		throw new Error(`Case with ID ${caseId} is a training case.`);
+	}
+};
