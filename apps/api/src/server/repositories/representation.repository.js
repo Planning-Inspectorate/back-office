@@ -262,13 +262,16 @@ export const createApplicationRepresentation = async ({
 		data: representation
 	});
 
-	// Using the DB Id to generate a short reference id, references will also be created in FO so prefix id with 'B'
-	return databaseConnector.representation.update({
-		where: { id: createResponse.id },
-		data: {
-			reference: generateRepresentationReference(createResponse.id)
-		}
-	});
+	if (representation.reference) return createResponse;
+	else {
+		// Using the DB Id to generate a short reference id, references will also be created in FO so prefix id with 'B'
+		return databaseConnector.representation.update({
+			where: { id: createResponse.id },
+			data: {
+				reference: generateRepresentationReference(createResponse.id)
+			}
+		});
+	}
 };
 
 export const updateApplicationRepresentation = async (

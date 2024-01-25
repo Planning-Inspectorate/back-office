@@ -595,5 +595,76 @@ describe('Representation repository', () => {
 				}
 			});
 		});
+
+		it('Create a representation with reference id', async () => {
+			// GIVEN
+			const mappedData = {
+				representationDetails: {
+					status: 'DRAFT',
+					caseId: 1,
+					reference: 'FRONT_OFFICE_REFERENCE_ID'
+				},
+				represented: {
+					firstName: 'Joe',
+					lastName: 'Bloggs',
+					under18: false,
+					type: 'PERSON',
+					received: '2023-05-11T09:57:06.139Z'
+				},
+				representedAddress: {
+					addressLine1: 'Test Address Line 1'
+				}
+			};
+
+			const createdRepresentationWithReference = {
+				...createdRepresentation,
+				reference: 'FRONT_OFFICE_REFERENCE_ID'
+			};
+
+			databaseConnector.representation.create.mockResolvedValue(createdRepresentationWithReference);
+
+			// WHEN
+			const representation = await representationRepository.createApplicationRepresentation(
+				mappedData
+			);
+
+			// THEN
+			expect(representation).toEqual({
+				caseId: 1,
+				id: 1,
+				originalRepresentation: '',
+				received: '2023-05-11T09:57:06.139Z',
+				redacted: false,
+				redactedRepresentation: null,
+				reference: 'FRONT_OFFICE_REFERENCE_ID',
+				status: 'DRAFT',
+				userId: null
+			});
+
+			expect(databaseConnector.representation.create).toHaveBeenCalledWith({
+				data: {
+					status: 'DRAFT',
+					//
+					case: {
+						connect: {
+							id: 1
+						}
+					},
+					reference: 'FRONT_OFFICE_REFERENCE_ID',
+					represented: {
+						create: {
+							firstName: 'Joe',
+							lastName: 'Bloggs',
+							under18: false,
+							type: 'PERSON',
+							received: '2023-05-11T09:57:06.139Z',
+							address: { create: { addressLine1: 'Test Address Line 1' } }
+						}
+					}
+				}
+			});
+
+			expect(databaseConnector.representation.update).toHaveBeenCalledTimes(0);
+		});
 	});
 });

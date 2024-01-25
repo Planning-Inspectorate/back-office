@@ -16,6 +16,7 @@ export interface Contact {
 }
 
 export interface CreateUpdateRepresentation {
+	reference?: string;
 	status?: string;
 	redacted?: boolean;
 	received?: Date;

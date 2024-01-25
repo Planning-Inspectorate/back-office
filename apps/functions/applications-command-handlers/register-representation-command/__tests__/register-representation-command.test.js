@@ -66,6 +66,7 @@ describe('register-representation-command', () => {
 		expect(api.getCaseID).toHaveBeenCalledWith('BC0110002');
 		expect(api.postRepresentation).toHaveBeenCalledWith(1, {
 			reference: 'BC0110002-091222133021123',
+			status: 'AWAITING_REVIEW',
 			type: 'Members of the Public/Businesses',
 			originalRepresentation: 'this is the representation',
 			represented: message.represented,
