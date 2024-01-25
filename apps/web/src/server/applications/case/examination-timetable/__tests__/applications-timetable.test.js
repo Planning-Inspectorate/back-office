@@ -81,14 +81,14 @@ describe('Create examination timetable page', () => {
 		it('should show the page', async () => {
 			const response = await request
 				.post(`/applications-service/case/123/examination-timetable/item/new`)
-				.send({ 'timetable-type': 'starttime-mandatory' });
+				.send({ 'timetable-type': 'accompanied-site-inspection' });
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('starttime-mandatory');
+			expect(element.innerHTML).toContain('accompanied-site-inspection');
 			expect(element.innerHTML).toContain('Date');
 			expect(element.innerHTML).toContain('Item name');
-			expect(element.innerHTML).toContain('Start time');
+			expect(element.innerHTML).toContain('Start time (optional)');
 			expect(element.innerHTML).toContain('End time (optional)');
 			expect(element.innerHTML).toContain('Timetable item description (optional)');
 		});
@@ -100,93 +100,85 @@ describe('Create examination timetable page', () => {
 			nocks();
 		});
 
-		describe('templateType: starttime-mandatory', () => {
-			it('should display errors if mandatory fields are missing', async () => {
-				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/item/validate`)
-					.send({
-						templateType: 'starttime-mandatory',
-						itemTypeName: 'starttime-mandatory'
-					});
-				const element = parseHtml(response.text);
+		const fields = [
+			'item name',
+			'item date',
+			'item start time',
+			'item end time',
+			'item start date',
+			'item end date',
+			'timetable item description'
+		];
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('starttime-mandatory');
-				expect(element.innerHTML).toContain('You must enter the item name');
-				expect(element.innerHTML).toContain('You must enter the item date');
-				expect(element.innerHTML).toContain('You must enter the item start time');
-			});
-		});
+		const templateTypes = [
+			{
+				templateType: 'accompanied-site-inspection',
+				mandatory: ['item name', 'item date']
+			},
+			{
+				templateType: 'compulsory-acquisition-hearing',
+				mandatory: ['item name', 'item date']
+			},
+			{
+				templateType: 'deadline',
+				mandatory: ['item name', 'item end time', 'item end date', 'timetable item description']
+			},
+			{
+				templateType: 'deadline-for-close-of-examination',
+				mandatory: ['item name', 'item end time', 'item end date']
+			},
+			{ templateType: 'issued-by', mandatory: ['item name', 'item date'] },
+			{
+				templateType: 'issue-specific-hearing',
+				mandatory: ['item name', 'item date']
+			},
+			{
+				templateType: 'open-floor-hearing',
+				mandatory: ['item name', 'item date']
+			},
+			{
+				templateType: 'other-meeting',
+				mandatory: ['item name', 'item date']
+			},
+			{
+				templateType: 'preliminary-meeting',
+				mandatory: ['item name', 'item date', 'item start time']
+			},
+			{
+				templateType: 'procedural-deadline',
+				mandatory: ['item name', 'item end time', 'item end date', 'timetable item description']
+			},
+			{
+				templateType: 'procedural-decision',
+				mandatory: ['item name', 'item date']
+			},
+			{ templateType: 'publication-of', mandatory: ['item name', 'item date'] }
+		];
 
-		describe('templateType: deadline', () => {
-			it('should display errors if mandatory fields are missing', async () => {
-				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/item/validate`)
-					.send({
-						templateType: 'deadline',
-						itemTypeName: 'deadline'
-					});
-				const element = parseHtml(response.text);
+		templateTypes.forEach(({ templateType, mandatory }) => {
+			describe(`templateType: ${templateType}`, () => {
+				it('should display errors if mandatory fields are missing', async () => {
+					const response = await request
+						.post(`/applications-service/case/123/examination-timetable/item/validate`)
+						.send({
+							templateType: templateType,
+							itemTypeName: templateType
+						});
+					const element = parseHtml(response.text);
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('deadline');
-				expect(element.innerHTML).toContain('You must enter the item name');
-				expect(element.innerHTML).toContain('You must enter the item end date');
-				expect(element.innerHTML).toContain('You must enter the item end time');
-			});
-		});
-
-		describe('templateType: deadline-startdate-mandatory', () => {
-			it('should display errors if mandatory fields are missing', async () => {
-				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/item/validate`)
-					.send({
-						templateType: 'deadline-startdate-mandatory',
-						itemTypeName: 'deadline-startdate-mandatory'
-					});
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('deadline-startdate-mandatory');
-				expect(element.innerHTML).toContain('You must enter the item name');
-				expect(element.innerHTML).toContain('You must enter the item start date');
-				expect(element.innerHTML).toContain('You must enter the item end date');
-				expect(element.innerHTML).toContain('You must enter the item start time');
-				expect(element.innerHTML).toContain('You must enter the item end time');
-			});
-		});
-
-		describe('templateType: starttime-optional', () => {
-			it('should display errors if mandatory fields are missing', async () => {
-				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/item/validate`)
-					.send({
-						templateType: 'starttime-optional',
-						itemTypeName: 'starttime-optional'
-					});
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('starttime-optional');
-				expect(element.innerHTML).toContain('You must enter the item name');
-				expect(element.innerHTML).toContain('You must enter the item date');
-			});
-		});
-
-		describe('templateType: no-times', () => {
-			it('should display errors if mandatory fields are missing', async () => {
-				const response = await request
-					.post(`/applications-service/case/123/examination-timetable/item/validate`)
-					.send({
-						templateType: 'no-times',
-						itemTypeName: 'no-times'
-					});
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('no-times');
-				expect(element.innerHTML).toContain('You must enter the item name');
-				expect(element.innerHTML).toContain('You must enter the item date');
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain(templateType);
+					fields
+						.filter((field) => mandatory.includes(field))
+						.forEach((field) => {
+							expect(element.innerHTML).toContain(`You must enter the ${field}`);
+						});
+					fields
+						.filter((field) => !mandatory.includes(field))
+						.forEach((field) => {
+							expect(element.innerHTML).not.toContain(`You must enter the ${field}`);
+						});
+				});
 			});
 		});
 	});
@@ -206,7 +198,8 @@ describe('Create examination timetable page', () => {
 				'endDate.month': '02',
 				'endDate.year': '2000',
 				'endTime.hours': '01',
-				'endTime.minutes': '02'
+				'endTime.minutes': '02',
+				description: 'Some text with \n * one point \n* another point '
 			});
 		const element = parseHtml(response.text);
 
@@ -229,7 +222,8 @@ describe('Create examination timetable page', () => {
 				'endDate.month': '02',
 				'endDate.year': '2001',
 				'endTime.hours': '01',
-				'endTime.minutes': '02'
+				'endTime.minutes': '02',
+				description: 'Some text with \n * one point \n* another point '
 			});
 		const element = parseHtml(response.text);
 
@@ -241,8 +235,8 @@ describe('Create examination timetable page', () => {
 		const response = await request
 			.post(`/applications-service/case/123/examination-timetable/item/validate`)
 			.send({
-				templateType: 'starttime-mandatory',
-				itemTypeName: 'starttime-mandatory',
+				templateType: 'preliminary-meeting',
+				itemTypeName: 'preliminary-meeting',
 				name: 'Lorem',
 				'date.day': '01',
 				'date.month': '02',
@@ -285,8 +279,8 @@ describe('POST /case/123/examination-timetable/item/check-your-answers', () => {
 		const response = await request
 			.post(`/applications-service/case/123/examination-timetable/item/check-your-answers`)
 			.send({
-				templateType: 'starttime-mandatory',
-				itemTypeName: 'starttime-mandatory',
+				templateType: 'preliminary-meeting',
+				itemTypeName: 'preliminary-meeting',
 				name: 'Lorem',
 				'date.day': '01',
 				'date.month': '02',
@@ -307,8 +301,8 @@ describe('POST /case/123/examination-timetable/item/check-your-answers', () => {
 		const response = await request
 			.post(`/applications-service/case/123/examination-timetable/item/check-your-answers/1`)
 			.send({
-				templateType: 'starttime-mandatory',
-				itemTypeName: 'starttime-mandatory',
+				templateType: 'preliminary-meeting',
+				itemTypeName: 'preliminary-meeting',
 				timetableId: 1,
 				name: 'Lorem',
 				'date.day': '01',
@@ -337,8 +331,8 @@ describe('POST /case/123/examination-timetable/item/save', () => {
 		const response = await request
 			.post(`/applications-service/case/123/examination-timetable/item/save`)
 			.send({
-				templateType: 'starttime-mandatory',
-				itemTypeName: 'starttime-mandatory',
+				templateType: 'preliminary-meeting',
+				itemTypeName: 'preliminary-meeting',
 				examinationTypeId: 1,
 				name: 'Lorem',
 				date: new Date('2000-01-01'),
