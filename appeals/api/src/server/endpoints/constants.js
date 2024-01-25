@@ -85,6 +85,7 @@ export const ERROR_MUST_BE_SET_AS_HEADER = 'must be set as a header';
 export const ERROR_MUST_BE_STRING = 'must be a string';
 export const ERROR_MUST_BE_UUID = 'must be a uuid';
 export const ERROR_MUST_BE_VALID_FILEINFO = 'must be a valid file';
+export const ERROR_MUST_BE_VALID_APPEAL_STATE = 'must be a valid appeal state';
 export const ERROR_MUST_CONTAIN_AT_LEAST_1_VALUE = 'must contain at least one value';
 export const ERROR_MUST_HAVE_DETAILS =
 	'must have {replacement0} when {replacement1} is {replacement2}';

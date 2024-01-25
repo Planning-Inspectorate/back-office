@@ -7,11 +7,13 @@ import {
 	AUDIT_TRAIL_REMOVED_INSPECTOR,
 	ERROR_FAILED_TO_SAVE_DATA,
 	ERROR_LENGTH_BETWEEN_2_AND_8_CHARACTERS,
+	ERROR_MUST_BE_BOOLEAN,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
 	ERROR_MUST_BE_GREATER_THAN_ZERO,
 	ERROR_MUST_BE_NUMBER,
 	ERROR_MUST_BE_SET_AS_HEADER,
 	ERROR_MUST_BE_UUID,
+	ERROR_MUST_BE_VALID_APPEAL_STATE,
 	ERROR_NOT_FOUND,
 	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 } from '../../constants.js';
@@ -339,8 +341,172 @@ describe('appeals routes', () => {
 							appellantCaseStatus: '',
 							lpaQuestionnaireStatus: '',
 							dueDate: null,
-							isChildAppeal: false,
-							isParentAppeal: false
+							isParentAppeal: false,
+							isChildAppeal: false
+						}
+					],
+					page: 1,
+					pageCount: 1,
+					pageSize: 30,
+					statuses: ['ready_to_start']
+				});
+			});
+
+			test('gets appeals when given a valid status', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.count.mockResolvedValue(1);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal]);
+
+				const response = await request
+					.get('/appeals?status=assign_case_officer')
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
+					expect.objectContaining({
+						where: {
+							appealStatus: {
+								some: {
+									status: 'assign_case_officer',
+									valid: true
+								}
+							}
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					itemCount: 1,
+					items: [
+						{
+							appealId: householdAppeal.id,
+							appealReference: householdAppeal.reference,
+							appealSite: {
+								addressLine1: householdAppeal.address.addressLine1,
+								addressLine2: householdAppeal.address.addressLine2,
+								town: householdAppeal.address.addressTown,
+								county: householdAppeal.address.addressCounty,
+								postCode: householdAppeal.address.postcode
+							},
+							appealStatus: householdAppeal.appealStatus[0].status,
+							appealType: householdAppeal.appealType.type,
+							createdAt: householdAppeal.createdAt.toISOString(),
+							localPlanningDepartment: householdAppeal.lpa.name,
+							appellantCaseStatus: '',
+							lpaQuestionnaireStatus: '',
+							dueDate: null,
+							isParentAppeal: false,
+							isChildAppeal: false
+						}
+					],
+					page: 1,
+					pageCount: 1,
+					pageSize: 30,
+					statuses: ['ready_to_start']
+				});
+			});
+
+			test('gets appeals when given a true hasInspector param', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.count.mockResolvedValue(1);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal]);
+
+				const response = await request
+					.get('/appeals?hasInspector=true')
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
+					expect.objectContaining({
+						where: {
+							appealStatus: {
+								some: {
+									valid: true
+								}
+							},
+							inspectorUserId: {
+								not: null
+							}
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					itemCount: 1,
+					items: [
+						{
+							appealId: householdAppeal.id,
+							appealReference: householdAppeal.reference,
+							appealSite: {
+								addressLine1: householdAppeal.address.addressLine1,
+								addressLine2: householdAppeal.address.addressLine2,
+								town: householdAppeal.address.addressTown,
+								county: householdAppeal.address.addressCounty,
+								postCode: householdAppeal.address.postcode
+							},
+							appealStatus: householdAppeal.appealStatus[0].status,
+							appealType: householdAppeal.appealType.type,
+							createdAt: householdAppeal.createdAt.toISOString(),
+							localPlanningDepartment: householdAppeal.lpa.name,
+							appellantCaseStatus: '',
+							lpaQuestionnaireStatus: '',
+							dueDate: null,
+							isParentAppeal: false,
+							isChildAppeal: false
+						}
+					],
+					page: 1,
+					pageCount: 1,
+					pageSize: 30,
+					statuses: ['ready_to_start']
+				});
+			});
+
+			test('gets appeals when given a false hasInspector param', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.count.mockResolvedValue(1);
+				// @ts-ignore
+				databaseConnector.appeal.findMany.mockResolvedValue([householdAppeal]);
+
+				const response = await request
+					.get('/appeals?hasInspector=false')
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(databaseConnector.appeal.findMany).toHaveBeenCalledWith(
+					expect.objectContaining({
+						where: {
+							appealStatus: {
+								some: {
+									valid: true
+								}
+							},
+							inspectorUserId: null
+						}
+					})
+				);
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					itemCount: 1,
+					items: [
+						{
+							appealId: householdAppeal.id,
+							appealReference: householdAppeal.reference,
+							appealSite: {
+								addressLine1: householdAppeal.address.addressLine1,
+								addressLine2: householdAppeal.address.addressLine2,
+								town: householdAppeal.address.addressTown,
+								county: householdAppeal.address.addressCounty,
+								postCode: householdAppeal.address.postcode
+							},
+							appealStatus: householdAppeal.appealStatus[0].status,
+							appealType: householdAppeal.appealType.type,
+							createdAt: householdAppeal.createdAt.toISOString(),
+							localPlanningDepartment: householdAppeal.lpa.name,
+							appellantCaseStatus: '',
+							lpaQuestionnaireStatus: '',
+							dueDate: null,
+							isParentAppeal: false,
+							isChildAppeal: false
 						}
 					],
 					page: 1,
@@ -461,6 +627,32 @@ describe('appeals routes', () => {
 				expect(response.body).toEqual({
 					errors: {
 						azureAdUserId: ERROR_MUST_BE_SET_AS_HEADER
+					}
+				});
+			});
+
+			test('returns an error if status is provided and is not a valid status', async () => {
+				const response = await request
+					.get('/appeals?status=aaaaaaaaa')
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						status: ERROR_MUST_BE_VALID_APPEAL_STATE
+					}
+				});
+			});
+
+			test('returns an error if hasInspector is provided and not true or false', async () => {
+				const response = await request
+					.get('/appeals?hasInspector=aaaaaaaaa')
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						hasInspector: ERROR_MUST_BE_BOOLEAN
 					}
 				});
 			});

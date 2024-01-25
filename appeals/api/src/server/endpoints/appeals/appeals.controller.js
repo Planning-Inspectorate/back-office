@@ -36,11 +36,15 @@ const getAppeals = async (req, res) => {
 	const pageNumber = Number(query.pageNumber) || DEFAULT_PAGE_NUMBER;
 	const pageSize = Number(query.pageSize) || DEFAULT_PAGE_SIZE;
 	const searchTerm = String(query.searchTerm);
+	const status = String(query.status);
+	const hasInspector = String(query.hasInspector);
 
 	const [itemCount, appeals = [], rawStatuses = []] = await appealRepository.getAllAppeals(
 		pageNumber,
 		pageSize,
-		searchTerm
+		searchTerm,
+		status,
+		hasInspector
 	);
 
 	const formattedAppeals = await Promise.all(
