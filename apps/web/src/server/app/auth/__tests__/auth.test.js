@@ -178,7 +178,7 @@ describe('auth', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it.skip('should destroy the msal token cache and session upon logging out', async () => {
+		it('should destroy the msal token cache and session upon logging out', async () => {
 			await signinWithGroups(['applications_case_team']);
 			await request.get('/auth/signout');
 
