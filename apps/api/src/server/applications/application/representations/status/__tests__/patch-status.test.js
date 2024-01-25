@@ -15,20 +15,7 @@ const existingRepresentations = [
 		originalRepresentation: 'the original representation',
 		redactedRepresentation: 'redacted version',
 		case: { id: 1, reference: 'BC0110001' },
-		representationActions: [
-			{
-				actionBy: '',
-				actionDate: '2022-03-31T23:00:00.000Z',
-				invalidReason: '',
-				notes: '',
-				previousRedactStatus: false,
-				previousStatus: 'AWAITING_REVIEW',
-				redactStatus: true,
-				referredTo: '',
-				status: 'VALID',
-				type: 'STATUS'
-			}
-		],
+		representationActions: [],
 		represented: {
 			id: 10381,
 			representationId: 6579,
