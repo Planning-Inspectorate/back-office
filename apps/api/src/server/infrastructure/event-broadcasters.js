@@ -1,7 +1,9 @@
+import logger from '#utils/logger.js';
 import { eventClient } from './event-client.js';
 import { buildNsipProjectPayload } from './payload-builders/nsip-project.js';
 import { NSIP_PROJECT, SERVICE_USER } from './topics.js';
 import { buildServiceUserPayload } from './payload-builders/applicant.js';
+import { verifyNotTraining } from '../applications/application/application.validators.js';
 
 const applicant = 'Applicant';
 
@@ -14,6 +16,13 @@ const applicant = 'Applicant';
  * @param {string} eventType
  */
 export const broadcastNsipProjectEvent = async (project, eventType) => {
+	try {
+		await verifyNotTraining(project.id);
+	} catch (/** @type {*} */ err) {
+		logger.info('Aborted broadcasting event for project:', err.message);
+		return;
+	}
+
 	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(project)], eventType);
 
 	if (project.applicant && project.reference) {
