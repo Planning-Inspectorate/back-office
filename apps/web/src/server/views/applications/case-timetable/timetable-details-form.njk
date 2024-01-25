@@ -136,14 +136,14 @@
 							fieldName: 'endTime',
 							classes: 'govuk-grid-column-one-half',
 							label: ['End time', '' if templateFields.endTime else ' (optional)']|join,
-							hint: 'For example, 13 : 00'
+							hint: 'For example, 23 : 59' if templateFields.endTime else 'For example, 13 : 00'
 						},
 						errors: errors,
 						values: values
 					})  }}
 				{% endif %}
 
-				{% if selectedItemType.id in [uniqueTimeTableTypes.DEADLINE, uniqueTimeTableTypes.PROCEDURAL_DEADLINE_PRE_EXAMINATION] %}
+				{% if selectedItemType.id === uniqueTimeTableTypes.DEADLINE %}
 					{{ govukInsetText({
 						text: "The portal for this deadline will open when the previous one closes or on your chosen start and end dates."
 					}) }}
@@ -158,7 +158,7 @@
 							},
 						    rows: "20",
   							label: {
-    							text: "Timetable item description (optional)",
+    							text:['Timetable item description', '' if templateFields.description else ' (optional)']|join,
 								classes: 'font-weight--700 govuk-!-margin-bottom-4'
 							  },
 						    hint: {
