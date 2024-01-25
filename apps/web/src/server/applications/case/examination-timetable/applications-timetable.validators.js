@@ -55,6 +55,21 @@ const dateValidationChains = (field) => {
 	];
 };
 
+/**
+ * @param {Record<string, string>} data
+ * @param {boolean} isMandatory
+ * @returns {ValidationChain[]}
+ */
+const descriptionValidationChain = (data, isMandatory) =>
+	isMandatory
+		? [
+				body('description')
+					.trim()
+					.isLength({ min: 1 })
+					.withMessage('You must enter the timetable item description')
+		  ]
+		: [];
+
 /** @type {Record<string, ValidationChainsCallback>} */
 const fieldValidationsCreators = {
 	name: () => nameValidationChain,
@@ -62,7 +77,8 @@ const fieldValidationsCreators = {
 	startDate: dateValidationChains({ fieldName: 'startDate', extendedFieldName: 'item start date' }),
 	endDate: dateValidationChains({ fieldName: 'endDate', extendedFieldName: 'item end date' }),
 	startTime: timeValidationChains({ fieldName: 'startTime', extendedFieldName: 'item start time' }),
-	endTime: timeValidationChains({ fieldName: 'endTime', extendedFieldName: 'item end time' })
+	endTime: timeValidationChains({ fieldName: 'endTime', extendedFieldName: 'item end time' }),
+	description: descriptionValidationChain
 };
 
 /**
@@ -85,7 +101,7 @@ export const validatorsDispatcher = async (request, response, next) => {
 		}
 	}
 
-	if (templateType !== 'no-times') {
+	if (!['issued-by', 'publication-of'].includes(templateType)) {
 		templateValidations.push(validationDateStartBeforeEnd(request.body));
 	}
 

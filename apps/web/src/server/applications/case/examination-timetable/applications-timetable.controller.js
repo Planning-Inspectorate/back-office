@@ -21,10 +21,17 @@ import pino from '../../../lib/logger.js';
 
 /** @type {Record<string, Record<string, boolean>>} */
 export const timetableTemplatesSchema = {
-	'starttime-mandatory': {
+	'accompanied-site-inspection': {
 		name: true,
 		date: true,
-		startTime: true,
+		startTime: false,
+		endTime: false,
+		description: false
+	},
+	'compulsory-acquisition-hearing': {
+		name: true,
+		date: true,
+		startTime: false,
 		endTime: false,
 		description: false
 	},
@@ -34,24 +41,65 @@ export const timetableTemplatesSchema = {
 		endDate: true,
 		startTime: false,
 		endTime: true,
-		description: false
+		description: true
 	},
-	'deadline-startdate-mandatory': {
+	'deadline-for-close-of-examination': {
 		name: true,
-		startDate: true,
+		startDate: false,
 		endDate: true,
-		startTime: true,
+		startTime: false,
 		endTime: true,
 		description: false
 	},
-	'starttime-optional': {
+	'issued-by': {
+		name: true,
+		date: true,
+		description: false
+	},
+	'issue-specific-hearing': {
 		name: true,
 		date: true,
 		startTime: false,
 		endTime: false,
 		description: false
 	},
-	'no-times': {
+	'open-floor-hearing': {
+		name: true,
+		date: true,
+		startTime: false,
+		endTime: false,
+		description: false
+	},
+	'other-meeting': {
+		name: true,
+		date: true,
+		startTime: false,
+		endTime: false,
+		description: false
+	},
+	'preliminary-meeting': {
+		name: true,
+		date: true,
+		startTime: true,
+		endTime: false,
+		description: false
+	},
+	'procedural-deadline': {
+		name: true,
+		startDate: false,
+		endDate: true,
+		startTime: false,
+		endTime: true,
+		description: true
+	},
+	'procedural-decision': {
+		name: true,
+		date: true,
+		startTime: false,
+		endTime: false,
+		description: false
+	},
+	'publication-of': {
 		name: true,
 		date: true,
 		description: false
@@ -451,7 +499,7 @@ const getCheckYourAnswersRows = (body) => {
 		...(shouldShowField('startTime') ? [{ key: 'Start time', value: startTime || '' }] : []),
 		...(shouldShowField('endTime') ? [{ key: 'End time', value: endTime || '' }] : []),
 		{
-			key: 'Timetable item description (optional)',
+			key: 'Timetable item description',
 			value: (description || '').replace(/\*/g, '&middot;').replace(/\n/g, '<br />')
 		}
 	];

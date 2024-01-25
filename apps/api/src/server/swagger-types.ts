@@ -1445,7 +1445,7 @@ export interface ExaminationTimetableType {
 	id?: number;
 	/**
 	 * Examination timetable type template type
-	 * @example "starttime-mandatory"
+	 * @example "accompanied-site-inspection"
 	 */
 	templateType?: string;
 	/**

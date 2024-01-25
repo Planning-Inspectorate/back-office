@@ -19,7 +19,7 @@ const examinationTimetableItem = {
 	ExaminationTimetableType: {
 		id: 2,
 		name: 'Compulsory Acquisition Hearing',
-		templateType: 'starttime-mandatory',
+		templateType: 'compulsory-acquisition-hearing',
 		displayNameEn: 'Compulsory acquisition hearing',
 		displayNameCy: 'Compulsory acquisition hearing'
 	},
@@ -127,7 +127,7 @@ const publishExaminationTimetableItemsData = [
 		ExaminationTimetableType: {
 			id: 1,
 			name: 'Accompanied Site Inspection',
-			templateType: 'starttime-mandatory',
+			templateType: 'accompanied-site-inspection',
 			displayNameEn: 'Accompanied site inspection',
 			displayNameCy: 'Accompanied site inspection'
 		}
@@ -166,7 +166,7 @@ const publishExaminationTimetableItemsData = [
 		ExaminationTimetableType: {
 			id: 4,
 			name: 'Deadline For Close Of Examination',
-			templateType: 'deadline',
+			templateType: 'deadline-for-close-of-examination',
 			displayNameEn: 'Deadline for close of examination',
 			displayNameCy: 'Deadline for close of examination'
 		}
@@ -186,7 +186,7 @@ const publishExaminationTimetableItemsData = [
 		ExaminationTimetableType: {
 			id: 9,
 			name: 'Preliminary Meeting',
-			templateType: 'starttime-mandatory',
+			templateType: 'preliminary-meeting',
 			displayNameEn: 'Preliminary meeting',
 			displayNameCy: 'Preliminary meeting'
 		}
