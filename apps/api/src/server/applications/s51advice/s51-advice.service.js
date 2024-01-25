@@ -7,7 +7,7 @@ import { getStorageLocation } from '#utils/document-storage.js';
 import { getCaseDetails } from '../application/application.service.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
-import { publishDocuments } from '../application/documents/document.service.js';
+import { publishDocuments, unpublishDocuments } from '../application/documents/document.service.js';
 import {
 	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
 	verifyAllS51DocumentsAreVirusChecked,
@@ -191,6 +191,34 @@ export const publishS51Items = async (ids) => {
 
 		return acc;
 	}, /** @type {{fulfilled: S51Advice[], errors: string[]}} */ ({ fulfilled: [], errors: [] }));
+};
+
+/**
+ * Unpublish S51 advice item and associated documents
+ *
+ * @param {number} id
+ * @returns {Promise<S51Advice>}
+ * */
+export const unpublishS51 = async (id) => {
+	const advice = await s51AdviceRepository.get(id);
+	if (!advice) {
+		throw new BackOfficeAppError(`no S51 advice found with id ${id}`, 404);
+	}
+
+	const updateResponseInTable = await s51AdviceRepository.update(id, {
+		publishedStatus: 'not_checked',
+		publishedStatusPrev: advice.publishedStatus
+	});
+
+	if (advice.S51AdviceDocument.length > 0) {
+		const docs = advice.S51AdviceDocument.map(
+			(/** @type {S51AdviceDocument} */ advice) => advice.documentGuid
+		);
+
+		await unpublishDocuments(docs);
+	}
+
+	return updateResponseInTable;
 };
 
 /**
