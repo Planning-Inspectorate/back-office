@@ -7,6 +7,7 @@ import logger from '#utils/logger.js';
 import { createOrUpdateSubscription } from './subscriptions.service.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants.js';
 import { getPageCount } from '#utils/database-pagination.js';
+import { verifyNotTraining } from '../application/application.validators.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -128,12 +129,20 @@ export async function updateSubscription(request, response) {
 
 		const res = await subscriptionRepository.update(id, subscription);
 
-		// since we only allow updating end date (currently), we only need to send update events
-		await eventClient.sendEvents(
-			NSIP_SUBSCRIPTION,
-			buildSubscriptionPayloads(res),
-			EventType.Update
-		);
+		try {
+			if (res.caseId) {
+				await verifyNotTraining(res.caseId);
+			}
+
+			// since we only allow updating end date (currently), we only need to send update events
+			await eventClient.sendEvents(
+				NSIP_SUBSCRIPTION,
+				buildSubscriptionPayloads(res),
+				EventType.Update
+			);
+		} catch (/** @type {*} */ err) {
+			logger.info(`Blocked sending event for subscription with ID ${res.id}`, err.message);
+		}
 
 		response.send(subscriptionToResponse(res));
 	} catch (/** @type {any} */ e) {
