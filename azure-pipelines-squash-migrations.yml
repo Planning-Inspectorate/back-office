@@ -60,7 +60,7 @@ jobs:
       ${{ if eq(parameters.service', 'Appeals') }}:
       secretName: 'back-office-appeals-sql-connection-string'
       ${{ if eq(parameters.service', 'Applications') }}:
-      secretName: 'back-office-appeals-connection-string'
+      secretName: 'back-office-sql-connection-string'
     strategy:
       runOnce:
         deploy:
