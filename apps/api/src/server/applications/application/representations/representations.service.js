@@ -1,4 +1,77 @@
+import { eventClient } from '#infrastructure/event-client.js';
+import * as representationsRepository from '#repositories/representation.repository.js';
+import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
+
 /**
+ *
+ * @param {number} caseId
+ * @param {{page: number, pageSize: number}} pagination
+ * @param {{searchTerm: string?, filters: Record<string, string[] | boolean>?, sort: object[]?}} filterAndSort
+ * @returns {Promise<{ count: number, items: any[]}>}
+ */
+export const getCaseRepresentations = async (caseId, pagination, filterAndSort) => {
+	return representationsRepository.getByCaseId(caseId, pagination, filterAndSort);
+};
+
+/**
+ *
+ * @param {number} repId
+ * @returns {Promise<Prisma.RepresentationSelect>}
+ */
+export const getCaseRepresentation = async (repId) => {
+	return representationsRepository.getById(Number(repId));
+};
+
+/**
+ *
+ * @param {import("#repositories/representation.repository").CreateRepresentationParams} representation
+ * @returns {Promise<object>}
+ */
+export const createCaseRepresentation = async (representation) => {
+	return representationsRepository.createApplicationRepresentation(representation);
+};
+
+export const updateCaseRepresentation = async (representation, caseId, representationId) => {
+	return representationsRepository.updateApplicationRepresentation(
+		representation,
+		caseId,
+		representationId
+	);
+};
+
+/**
+ *
+ * @param {number} caseId
+ * @returns {Promise<*>}
+ */
+export const getCaseRepresentationsStatusCount = async (caseId) => {
+	return representationsRepository.getStatusCountByCaseId(caseId);
+};
+
+/**
+ * Broadcast a create / update event message to Service Bus, for a representation, and any service users (reps contact or agent)
+ *
+ * @param {*} representation
+ * @param {EventType} eventType
+ * @returns
+ */
+export const sendRepresentationEventMessage = async (
+	representation,
+	eventType = EventType.Update
+) => {
+	const nsipRepresentationPayload = buildNsipRepresentationPayload(representation);
+	const serviceUsersPayload = buildRepresentationServiceUserPayload(representation);
+	await eventClient.sendEvents(NSIP_REPRESENTATION, nsipRepresentationPayload, eventType);
+
+	// and service users
+	await eventClient.sendEvents(SERVICE_USER, serviceUsersPayload, eventType, {
+		entityType: 'RepresentationContact'
+	});
+};
+
+/**
+ * Build Representation message event payload
  *
  * @param {Representation} representation
  * @returns {{representationType: *, attachments: *, representationId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, caseRef: *, dateReceived: *, caseId: *, representedType: *, represented: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), representative: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), status: *}|{caseRef: *, representationType: *, attachments: *, representationId: *, redacted, redactedRepresentation, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}|{redactedBy, redactedNotes, caseRef: *, representationType: *, attachments: *, representationId: *, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}}
@@ -49,22 +122,7 @@ export const buildNsipRepresentationPayload = (representation) => {
 };
 
 /**
- *
- * @param {Prisma.RepresentationSelect} representation
- * @param {string} newStatus
- * @returns {{}|{representationId, status}}
- */
-export const buildNsipRepresentationStatusUpdatePayload = (representation, newStatus) => {
-	if (!representation) return [];
-	return [
-		{
-			representationId: representation.id,
-			status: newStatus
-		}
-	];
-};
-
-/**
+ * Build Rel Rep Service User event message payload
  *
  * @param {Prisma.RepresentationSelect} representation
  * @returns {ServiceUser[]}

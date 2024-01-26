@@ -1,11 +1,12 @@
-import { sortByFromQuery } from '../../../utils/query/sort-by.js';
+import { sortByFromQuery } from '#utils/query/sort-by.js';
 import {
 	createCaseRepresentation,
 	getCaseRepresentation,
 	getCaseRepresentations,
 	getCaseRepresentationsStatusCount,
+	sendRepresentationEventMessage,
 	updateCaseRepresentation
-} from './representaions.service.js';
+} from './representations.service.js';
 import {
 	getLatestRedaction,
 	mapCaseRepresentationsStatusCount,
@@ -13,6 +14,8 @@ import {
 	mapDocumentRepresentationAttachments,
 	mapRepresentationSummary
 } from './representation.mapper.js';
+import { getById } from '#repositories/representation.repository.js';
+import { EventType } from '@pins/event-client';
 
 /**
  *
@@ -90,6 +93,7 @@ export const getRepresentations = async ({ params, query }, response) => {
 };
 
 /**
+ * Updates properties on a representation
  *
  * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").CreateUpdateRepresentation>}
  */
@@ -114,10 +118,15 @@ export const patchRepresentation = async ({ params, body, method }, response) =>
 			.json({ errors: { representation: `Error updating representation` } });
 	}
 
+	// broadcast update event message
+	const representationFullDetails = await getById(representation.id);
+	await sendRepresentationEventMessage(representationFullDetails, EventType.Update);
+
 	return response.send({ id: representation.id, status: representation.status });
 };
 
 /**
+ * Create a Relevant Representation
  *
  * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").CreateUpdateRepresentation>}
  */
@@ -131,6 +140,10 @@ export const createRepresentation = async ({ params, body }, response) => {
 			.status(400)
 			.json({ errors: { representation: `Error creating representation` } });
 	}
+
+	// broadcast create event message
+	const representationFullDetails = await getById(representation.id);
+	await sendRepresentationEventMessage(representationFullDetails, EventType.Create);
 
 	return response.send({ id: representation.id, status: representation.status });
 };

@@ -10,9 +10,22 @@ describe('Sort appeals', () => {
 
 		//@ts-ignore
 		const data = sortAppeals(appeals);
-
 		const result = data.map((a) => a?.appealId);
 
 		expect(result).toEqual([2, 3, 1]);
+	});
+
+	test('handles undefined dueDate', () => {
+		const appeals = [
+			{ appealId: 1, createdAt: '2024-01-01', dueDate: undefined },
+			{ appealId: 2, createdAt: '2024-01-03', dueDate: new Date('2023-12-31') },
+			{ appealId: 3, createdAt: '2024-01-02', dueDate: undefined }
+		];
+
+		//@ts-ignore
+		const data = sortAppeals(appeals);
+		const result = data.map((a) => a?.appealId);
+
+		expect(result).toEqual([2, 1, 3]);
 	});
 });

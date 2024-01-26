@@ -16,7 +16,7 @@ import {
 	validateCreateUpdateApplication,
 	validateGetApplicationQuery
 } from './application.validators.js';
-import { representaionsRouter } from './representations/representations.routes.js';
+import { representationsRouter as representationsRouter } from './representations/representations.routes.js';
 import { getAllApplications } from '../all-applications/get-all-applications.controller.js';
 
 const router = createRouter();
@@ -196,6 +196,6 @@ router.patch(
 	asyncHandler(unpublishCase)
 );
 
-router.use('/:id/representations', representaionsRouter);
+router.use('/:id/representations', representationsRouter);
 
 export { router as applicationRoutes };

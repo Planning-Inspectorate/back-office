@@ -321,5 +321,8 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 		}
 	);
 
+	// send a broadcast event for the update (sends whole timetable)
+	await service.sendUpdateEvent(updatedExaminationTimetableItem.examinationTimetableId);
+
 	response.send(updatedExaminationTimetableItem);
 };

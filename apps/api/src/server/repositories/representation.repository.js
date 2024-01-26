@@ -79,6 +79,12 @@ export const getById = async (id) =>
 					azureReference: true
 				}
 			},
+			case: {
+				select: {
+					id: true,
+					reference: true
+				}
+			},
 			representedType: true,
 			represented: {
 				select: {
@@ -209,6 +215,9 @@ export const getStatusCountByCaseId = async (caseId) => {
 };
 
 /**
+ * Creates a Rel Rep record, and then updates it with the short reference.
+ * Also creates service users for the contacts if required
+ *
  * @param  {CreateRepresentationParams} representationCreateDetails
  */
 export const createApplicationRepresentation = async ({
@@ -262,13 +271,16 @@ export const createApplicationRepresentation = async ({
 		data: representation
 	});
 
-	// Using the DB Id to generate a short reference id, references will also be created in FO so prefix id with 'B'
-	return databaseConnector.representation.update({
-		where: { id: createResponse.id },
-		data: {
-			reference: generateRepresentationReference(createResponse.id)
-		}
-	});
+	if (representation.reference) return createResponse;
+	else {
+		// Using the DB Id to generate a short reference id, references will also be created in FO so prefix id with 'B'
+		return databaseConnector.representation.update({
+			where: { id: createResponse.id },
+			data: {
+				reference: generateRepresentationReference(createResponse.id)
+			}
+		});
+	}
 };
 
 export const updateApplicationRepresentation = async (
@@ -300,7 +312,6 @@ export const updateApplicationRepresentation = async (
 	}
 
 	if (!isEmpty(represented)) {
-		console.info('updating represented', represented);
 		await databaseConnector.representation.update({
 			where: {
 				id: representationId
@@ -330,7 +341,6 @@ export const updateApplicationRepresentation = async (
 	}
 
 	if (!isEmpty(representative)) {
-		console.info('updating representative', representative);
 		await databaseConnector.representation.update({
 			where: {
 				id: representationId

@@ -6,7 +6,7 @@ import {
 	validateGetRepresentationsQuery,
 	validateRepresentationId
 } from '../application.validators.js';
-import { representaionsRedactRouter } from './redact/redact.route.js';
+import { representationsRedactRouter as representationsRedactRouter } from './redact/redact.route.js';
 import {
 	createRepresentation,
 	getRepresentation,
@@ -253,9 +253,9 @@ router.patch(
 	asyncHandler(patchRepresentation)
 );
 
-router.use('/:repId/redact', representaionsRedactRouter);
+router.use('/:repId/redact', representationsRedactRouter);
 
 router.use('/:repId/attachment', representationsAttachmentRouter);
 router.use('/:repId/status', representationsStatusRouter);
 
-export const representaionsRouter = router;
+export const representationsRouter = router;

@@ -1,17 +1,64 @@
 import { jest } from '@jest/globals';
-import { request } from '../../../../../app-test.js';
+import { request } from '#app-test';
 import { eventClient } from '#infrastructure/event-client.js';
 
-const { databaseConnector } = await import('../../../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const existingRepresentations = [
 	{
 		id: 1,
-		caseId: 1,
+		caseId: 200,
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
-		received: '2023-03-14T14:28:25.704Z'
+		received: '2023-03-14T14:28:25.704Z',
+		originalRepresentation: 'the original representation',
+		redactedRepresentation: 'redacted version',
+		case: { id: 1, reference: 'BC0110001' },
+		representationActions: [],
+		represented: {
+			id: 10381,
+			representationId: 6579,
+			firstName: 'Mrs',
+			lastName: 'Sue',
+			jobTitle: null,
+			under18: false,
+			organisationName: null,
+			email: 'sue@example.com',
+			phoneNumber: '01234 567890',
+			contactMethod: null,
+			address: {
+				id: 17059,
+				addressLine1: '123 Some Street',
+				addressLine2: 'Somewhere Else',
+				postcode: 'B1 9BB',
+				county: 'A County',
+				town: 'Some Town',
+				country: 'England'
+			}
+		},
+		representative: {
+			id: 10382,
+			representationId: 6579,
+			firstName: 'James',
+			lastName: 'Bond',
+			jobTitle: null,
+			under18: false,
+			organisationName: null,
+			email: 'test-agent@example.com',
+			phoneNumber: '01234 567890',
+			contactMethod: null,
+			address: {
+				id: 17060,
+				addressLine1: '1 Long Road',
+				addressLine2: 'Smallville',
+				postcode: 'P7 9LN',
+				county: 'A County',
+				town: 'Some Town',
+				country: 'England'
+			}
+		},
+		attachments: []
 	},
 	{
 		id: 2,
@@ -23,12 +70,25 @@ const existingRepresentations = [
 	}
 ];
 
-const expectedUnpublishPayload = [
-	{
-		representationId: 2,
-		status: 'VALID'
-	}
-];
+const expectedRepresentationUpdatePayload = {
+	representationId: 1,
+	referenceId: 'BC0110001-2',
+	examinationLibraryRef: '',
+	caseRef: 'BC0110001',
+	caseId: 200,
+	status: 'VALID',
+	redacted: true,
+	originalRepresentation: 'the original representation',
+	representationType: undefined,
+	representedId: '10381',
+	representativeId: '10382',
+	representationFrom: 'AGENT',
+	registerFor: undefined,
+	dateReceived: '2023-03-14T14:28:25.704Z',
+	attachmentIds: [],
+	redactedRepresentation: 'redacted version'
+};
+
 const mockDate = new Date('2023-01-02');
 
 describe('Patch Application Representation Status', () => {
@@ -40,6 +100,7 @@ describe('Patch Application Representation Status', () => {
 		databaseConnector.representationAction.create.mockResolvedValue();
 		jest.useFakeTimers().setSystemTime(mockDate);
 	});
+	afterEach(() => jest.clearAllMocks());
 
 	it('Patch representation status', async () => {
 		const response = await request
@@ -70,7 +131,14 @@ describe('Patch Application Representation Status', () => {
 				type: 'STATUS'
 			}
 		});
-		expect(eventClient.sendEvents).not.toHaveBeenCalled();
+
+		// check event broadcast
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			'nsip-representation',
+			expectedRepresentationUpdatePayload,
+			'Update'
+		);
+
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({
 			repId: 1
@@ -180,7 +248,7 @@ describe('Patch Application Representation Status', () => {
 		});
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-representation',
-			expectedUnpublishPayload,
+			expectedRepresentationUpdatePayload,
 			'Update'
 		);
 		expect(response.status).toEqual(200);

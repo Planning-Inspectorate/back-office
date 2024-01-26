@@ -28,7 +28,7 @@ const getPublishableRepresentationItemsViewModel = (publishableReps) =>
  * @param {string} caseId
  * @param {string} serviceUrl
  * @param {Case} case
- * @param {PublishableReps} publishableRepresentaions
+ * @param {PublishableReps} publishableRepresentations
  * @returns {object}
  */
 const getPublishUpdatedRepresentationsViewModel = (

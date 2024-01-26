@@ -4,7 +4,7 @@ import { isEmpty, pick } from 'lodash-es';
  * @param {number} caseId
  * @param {import("@pins/applications").CreateUpdateRepresentation} representation
  * @param {string} method
- * @returns {import("../../../repositories/representation.repository.js").CreateRepresentationParams}
+ * @returns {import("#repositories/representation.repository.js").CreateRepresentationParams}
  */
 export const mapCreateOrUpdateRepRequestToRepository = (
 	caseId,
@@ -23,7 +23,7 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 
 	if (method === 'POST') {
 		defaultRepresentationDetails = {
-			reference: '',
+			reference: representation.reference || '',
 			caseId,
 			status: representation.status || 'DRAFT',
 			originalRepresentation: representation.originalRepresentation || '',
