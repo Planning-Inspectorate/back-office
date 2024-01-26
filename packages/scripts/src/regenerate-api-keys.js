@@ -1,6 +1,6 @@
-const { DefaultAzureCredential } = require('@azure/identity');
-const { SecretClient } = require('@azure/keyvault-secrets');
-const { randomBytes } = require('crypto');
+import { DefaultAzureCredential } from '@azure/identity';
+import { SecretClient } from '@azure/keyvault-secrets';
+import { randomBytes } from 'crypto';
 
 /**
  * @typedef {Object} ApiKey
@@ -13,12 +13,12 @@ const NEWEST = 'newest';
 const OLDEST = 'oldest';
 
 // Entry point
-const regenerateApiKeys = async () => {
+export const regenerateApiKeys = async () => {
 	const secretClient = setUpKeyVaultClient();
 
 	const listOfKeyVaultSecretsApiKeys = await getApiKeySecrets(secretClient);
 	listOfKeyVaultSecretsApiKeys.forEach((keyVaultSecretApiKeyObject) => {
-		const parsedApiKeys = JSON.parse(keyVaultSecretApiKeyObject.value || '{}');
+		const parsedApiKeys = JSON.parse(keyVaultSecretApiKeyObject.value || '[]');
 		removeOldestKey(parsedApiKeys);
 		setExpiryOnPreviouslyNewestKey(parsedApiKeys);
 		addNewApiKey(parsedApiKeys);
@@ -92,11 +92,3 @@ const addNewApiKey = (apiKeys) => {
 		status: NEWEST
 	});
 };
-
-regenerateApiKeys()
-	.then(() => {
-		console.log('Successfully regenerated all backoffice-applications api keys');
-	})
-	.catch((error) => {
-		console.error('Error occurred while regenerating backoffice-applications api keys: ', error);
-	});

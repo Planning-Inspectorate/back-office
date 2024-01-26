@@ -1,0 +1,20 @@
+{
+	"name": "script-regenerate-api-key",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"main": "index.js",
+	"engines": {
+		"node": ">=18.0.0 <19.0.0"
+	},
+	"scripts": {
+		"lint:js": "npx eslint .",
+		"lint:js:fix": "npx eslint . --fix",
+		"tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0",
+		"applications:regenerate-api-keys": "node ./run/regenerate-api-keys-entry.js"
+	},
+	"dependencies": {
+		"@azure/identity": "3.0.1",
+		"@azure/keyvault-secrets": "^4.7.0"
+	}
+}

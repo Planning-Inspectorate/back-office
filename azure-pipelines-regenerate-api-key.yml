@@ -16,12 +16,16 @@ trigger:
 - none
 
 schedules:
-- cron: "0 0 1 * *"
-  displayName: MonthlyBuild
+  - cron: "0 0 1 * *"
+    displayName: MonthlyBuild
+    branches:
+      include:
+        - main
+    always: true
 
 variables:
   - template: variables/environments/${{ lower(parameters.environment )}}.yml@templates
-  - group: pipeline_secrets
+  - group: back-office-infrastructure
 
 resources:
   repositories:
@@ -39,10 +43,39 @@ jobs:
       runOnce:
         deploy:
           steps:
-            - template: steps/azure_auth.yml@templates
+            - download: none
+            - checkout: self
             - template: steps/node_script.yml@templates
               parameters:
+                nodeVersion: 18
+                script: npm ci --workspaces=@pins/packages.scripts
+            - template: steps/node_script.yml@templates
+              parameters:
+                nodeVersion: 18
                 environmentVariables:
-                  KEY_VAULT_NAME: ${KEY_VAULT_NAME}
+                  AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+                  AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+                  AZURE_TENANT_ID: $(AZURE_TENANT_ID)
+                  KEY_VAULT_NAME: ${KEY_VAULT_NAME_DEV}
                 script: npm run applications:regenerate-api-keys
-                workingDirectory: $(Build.Repository.LocalPath)
+                workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
+            - template: steps/node_script.yml@templates
+              parameters:
+                nodeVersion: 18
+                environmentVariables:
+                  AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+                  AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+                  AZURE_TENANT_ID: $(AZURE_TENANT_ID)
+                  KEY_VAULT_NAME: ${KEY_VAULT_NAME_TEST}
+                script: npm run applications:regenerate-api-keys
+                workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
+            - template: steps/node_script.yml@templates
+              parameters:
+                nodeVersion: 18
+                environmentVariables:
+                  AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+                  AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+                  AZURE_TENANT_ID: $(AZURE_TENANT_ID)
+                  KEY_VAULT_NAME: ${KEY_VAULT_NAME_PROD}
+                script: npm run applications:regenerate-api-keys
+                workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
