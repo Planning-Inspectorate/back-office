@@ -6,6 +6,7 @@ import * as documentRepository from '#repositories/document.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import logger from '#utils/logger.js';
 import { EventType } from '@pins/event-client';
+import { verifyNotTrainingExamTimetable } from './examination-timetable-items.validators.js';
 
 /**
  * @typedef {import('pins-data-model').Schemas.Event} NSIPExamTimetableItem
@@ -90,13 +91,19 @@ function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
  * Publishes an examination timetable. Does so by updating the examination timetable to be published and
  * sending the examination timetable items to the event queue to be published on the front office.
  *
- * @param { Number } id
+ * @param {number} id
  * @returns {Promise<void>}
  */
 export async function publish(id) {
-	const examTimetablePayload = await buildExamTimetableItemsPayload(id);
-	if (examTimetablePayload) {
-		await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, [examTimetablePayload], EventType.Publish);
+	try {
+		await verifyNotTrainingExamTimetable(id);
+
+		const examTimetablePayload = await buildExamTimetableItemsPayload(id);
+		if (examTimetablePayload) {
+			await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, [examTimetablePayload], EventType.Publish);
+		}
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for examination timetable', err.message);
 	}
 
 	const now = new Date();
@@ -115,9 +122,19 @@ export async function publish(id) {
  * @returns {Promise<void>}
  */
 export async function unPublish(id) {
-	const examTimetablePayload = await buildExamTimetableItemsPayload(id);
-	if (examTimetablePayload) {
-		await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, [examTimetablePayload], EventType.Unpublish);
+	try {
+		await verifyNotTrainingExamTimetable(id);
+
+		const examTimetablePayload = await buildExamTimetableItemsPayload(id);
+		if (examTimetablePayload) {
+			await eventClient.sendEvents(
+				NSIP_EXAM_TIMETABLE,
+				[examTimetablePayload],
+				EventType.Unpublish
+			);
+		}
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for examination timetable', err.message);
 	}
 
 	await examinationTimetableRepository.update(id, {

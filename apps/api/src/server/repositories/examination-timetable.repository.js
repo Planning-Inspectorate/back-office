@@ -5,6 +5,14 @@ import { databaseConnector } from '#utils/database-connector.js';
  */
 
 /**
+ * @param {number} id
+ * */
+export const getById = (id) =>
+	databaseConnector.examinationTimetable.findUnique({
+		where: { id }
+	});
+
+/**
  * Returns a whole Examination Timetable inc case, with associated Examination Timetable Item records inc Exam Type records
  *
  * @param {number} id
