@@ -542,7 +542,9 @@ describe('project-updates', () => {
 			// setup
 			// mock case
 			databaseConnector.case.findUnique.mockReset();
-			databaseConnector.case.findUnique.mockResolvedValueOnce({ id: 1 });
+			databaseConnector.case.findUnique
+				.mockResolvedValueOnce({ id: 1, reference: 'TEST' })
+				.mockResolvedValueOnce({ id: 1, reference: 'TEST' });
 
 			databaseConnector.projectUpdate.create.mockReset();
 
@@ -925,7 +927,9 @@ describe('project-updates', () => {
 				// setup
 				// mock case
 				databaseConnector.case.findUnique.mockReset();
-				databaseConnector.case.findUnique.mockResolvedValueOnce({ id: 1 });
+				databaseConnector.case.findUnique
+					.mockResolvedValueOnce({ id: 1, reference: 'TEST' })
+					.mockResolvedValueOnce({ id: 1, reference: 'TEST' });
 
 				databaseConnector.projectUpdate.update.mockReset();
 				databaseConnector.projectUpdate.findUnique.mockReset();
@@ -1036,7 +1040,9 @@ describe('project-updates', () => {
 					// setup
 					// mock case
 					databaseConnector.case.findUnique.mockReset();
-					databaseConnector.case.findUnique.mockResolvedValueOnce({ id: 1 });
+					databaseConnector.case.findUnique
+						.mockResolvedValueOnce({ id: 1, reference: 'TEST' })
+						.mockResolvedValueOnce({ id: 1, reference: 'TEST' });
 
 					databaseConnector.projectUpdate.delete.mockReset();
 					databaseConnector.projectUpdate.findUnique.mockReset();

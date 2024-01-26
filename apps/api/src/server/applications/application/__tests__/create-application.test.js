@@ -3,10 +3,11 @@ import { request } from '../../../app-test.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 
-const createdCase = { id: 1, applicant: { id: 4 } };
+const createdCase = { id: 1, reference: 'TEST', applicant: { id: 4 } };
 
 const expectedNsipProjectPayload = {
 	caseId: 1,
+	caseReference: 'TEST',
 	sourceSystem: 'back-office-applications',
 	publishStatus: 'unpublished',
 	applicantId: '4',
@@ -20,6 +21,7 @@ jest.useFakeTimers({ now: 1_649_319_144_000 });
 test('creates new application with just title and first notified date', async () => {
 	// GIVEN
 	databaseConnector.case.create.mockResolvedValue(createdCase);
+	databaseConnector.case.findUnique.mockResolvedValue(createdCase);
 
 	// WHEN
 	const response = await request.post('/applications').send({

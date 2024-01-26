@@ -49,6 +49,7 @@ describe('Test Updating Key Dates', () => {
 
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
+			reference: 'TEST',
 			applicant: { id: 4 },
 			ApplicationDetails: {
 				datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
@@ -86,6 +87,7 @@ describe('Test Updating Key Dates', () => {
 			[
 				{
 					caseId: 1,
+					caseReference: 'TEST',
 					datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
 					dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
 					anticipatedSubmissionDateNonSpecific: 'Q3 2025',
