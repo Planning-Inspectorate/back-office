@@ -9,6 +9,8 @@ import versionRoutes from './middleware/version-routes.js';
 import BackOfficeAppError from './utils/app-error.js';
 import { databaseConnector } from './utils/database-connector.js';
 import { migrationRoutes } from './migration/migration.routes.js';
+import { authoriseRequest } from './middleware/authorise-request.js';
+import { asyncHandler } from '@pins/express';
 
 // The purpose of this is to allow the jest environment to create an instance of the app without loading Swagger
 // We have to use a HOF (i.e. we can't just conditionally register swagger UI) because Jest doesn't care about our conditionals and loads all of the modules based on the top-level imports
@@ -21,6 +23,8 @@ const buildApp = (
 	if (addSwaggerUi) {
 		addSwaggerUi(app);
 	}
+
+	app.use(asyncHandler(authoriseRequest));
 
 	app.use('/migration', bodyParser.json({ limit: '30mb' }));
 	app.use(bodyParser.json());

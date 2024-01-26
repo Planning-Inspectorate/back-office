@@ -28,6 +28,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	authDisabledGroupIds: string[];
 	// redirect path for MSAL auth, defaults to /auth/redirect
 	authRedirectPath: string;
+	azureKeyVaultEnabled: boolean;
 	blobStorageUrl: string;
 	cwd: string;
 	logLevelFile: LevelWithSilent;
@@ -41,6 +42,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	};
 	serverProtocol: 'http' | 'https';
 	serverPort: number;
+	serviceName: string;
 	session: {
 		redis: string;
 		secret: string;

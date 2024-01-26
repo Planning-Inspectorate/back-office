@@ -44,6 +44,7 @@
     "@pins/applications": "^0.0.0",
     "@pins/event-client": "^0.0.0",
     "@pins/express": "^0.0.0",
+		"@pins/key-vault-secrets-client": "^0.0.0",
     "@pins/platform": "^0.0.0",
     "@prisma/client": "^4.16.1",
     "@prisma/instrumentation": "^5.6.0",
