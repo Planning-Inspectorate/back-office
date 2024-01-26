@@ -2,7 +2,10 @@ import { composeMiddleware } from '@pins/express';
 import { body, param } from 'express-validator';
 import * as s51AdviceRepository from '#repositories/s51-advice.repository.js';
 import * as s51AdviceDocumentRepository from '#repositories/s51-advice-document.repository.js';
-import { validateExistingApplication } from '../application/application.validators.js';
+import {
+	validateExistingApplication,
+	verifyNotTraining
+} from '../application/application.validators.js';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 
 /**
@@ -208,4 +211,21 @@ export const hasPublishedDocument = async (adviceIds) => {
 	);
 
 	return publishedAdvices?.length > 0 ?? false;
+};
+
+/**
+ * @param {number} id
+ * @throws {Error}
+ * */
+export const verifyNotTrainingS51 = async (id) => {
+	const advice = await s51AdviceRepository.get(id);
+	if (!advice) {
+		throw new Error(`Could not find S51 advice with ID ${id}`);
+	}
+
+	try {
+		await verifyNotTraining(advice.caseId);
+	} catch (/** @type {*} */ err) {
+		throw new Error(`Failed to verify S51 with ID ${id}:`, err.message);
+	}
 };
