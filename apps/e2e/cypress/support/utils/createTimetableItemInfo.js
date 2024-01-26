@@ -39,7 +39,7 @@ export const timetableItem = () => {
 	const startHour = faker.datatype
 		.number({
 			min: 1,
-			max: 23
+			max: 11
 		})
 		.toString()
 		.padStart(2, '0');
