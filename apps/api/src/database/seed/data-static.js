@@ -409,13 +409,13 @@ export const zoomLevels = [
 export const examinationTimetableTypes = [
 	{
 		name: 'Accompanied Site Inspection',
-		templateType: 'starttime-mandatory',
+		templateType: 'accompanied-site-inspection',
 		displayNameEn: 'Accompanied site inspection',
 		displayNameCy: 'Accompanied site inspection'
 	},
 	{
 		name: 'Compulsory Acquisition Hearing',
-		templateType: 'starttime-mandatory',
+		templateType: 'compulsory-acquisition-hearing',
 		displayNameEn: 'Compulsory acquisition hearing',
 		displayNameCy: 'Compulsory acquisition hearing'
 	},
@@ -427,55 +427,55 @@ export const examinationTimetableTypes = [
 	},
 	{
 		name: 'Deadline For Close Of Examination',
-		templateType: 'deadline',
+		templateType: 'deadline-for-close-of-examination',
 		displayNameEn: 'Deadline for close of examination',
 		displayNameCy: 'Deadline for close of examination'
 	},
 	{
 		name: 'Issued By',
-		templateType: 'no-times',
+		templateType: 'issued-by',
 		displayNameEn: 'Issued by',
 		displayNameCy: 'Issued by'
 	},
 	{
 		name: 'Issue Specific Hearing',
-		templateType: 'starttime-mandatory',
+		templateType: 'issue-specific-hearing',
 		displayNameEn: 'Issue specific hearing',
 		displayNameCy: 'Issue specific hearing'
 	},
 	{
 		name: 'Open Floor Hearing',
-		templateType: 'starttime-mandatory',
+		templateType: 'open-floor-hearing',
 		displayNameEn: 'Open floor hearing',
 		displayNameCy: 'Open floor hearing'
 	},
 	{
 		name: 'Other Meeting',
-		templateType: 'starttime-mandatory',
+		templateType: 'other-meeting',
 		displayNameEn: 'Other meeting',
 		displayNameCy: 'Other meeting'
 	},
 	{
 		name: 'Preliminary Meeting',
-		templateType: 'starttime-mandatory',
+		templateType: 'preliminary-meeting',
 		displayNameEn: 'Preliminary meeting',
 		displayNameCy: 'Preliminary meeting'
 	},
 	{
 		name: 'Procedural Deadline (Pre-Examination)',
-		templateType: 'deadline-startdate-mandatory',
+		templateType: 'procedural-deadline',
 		displayNameEn: 'Procedural deadline (pre-examination)',
 		displayNameCy: 'Procedural deadline (pre-examination)'
 	},
 	{
 		name: 'Procedural Decision',
-		templateType: 'starttime-optional',
+		templateType: 'procedural-decision',
 		displayNameEn: 'Procedural decision',
 		displayNameCy: 'Procedural decision'
 	},
 	{
 		name: 'Publication Of',
-		templateType: 'no-times',
+		templateType: 'publication-of',
 		displayNameEn: 'Publication of',
 		displayNameCy: 'Publication of'
 	}

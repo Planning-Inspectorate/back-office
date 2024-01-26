@@ -1371,7 +1371,7 @@ export const spec = {
 				templateType: {
 					type: 'string',
 					description: 'Examination timetable type template type',
-					example: 'starttime-mandatory'
+					example: 'accompanied-site-inspection'
 				},
 				name: {
 					type: 'string',

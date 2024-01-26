@@ -11,10 +11,10 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
-                    <p class='govuk-body'>starttime-mandatory</p>
-                    <input class=\\"govuk-input\\" value='starttime-mandatory'
+                    <p class='govuk-body'>accompanied-site-inspection</p>
+                    <input class=\\"govuk-input\\" value='accompanied-site-inspection'
                     id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
-                    <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"templateType\\"
+                    <input class=\\"govuk-input\\" value='accompanied-site-inspection' id=\\"templateType\\"
                     name=\\"templateType\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
@@ -53,7 +53,279 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
-                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time</legend>
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
+                    <div id=\\"description-hint\\"
+                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: accompanied-site-inspection should display errors if mandatory fields are missing 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#name\\">You must enter the item name</a>
+                            </li>
+                            <li><a href=\\"#date\\">You must enter the item date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
+            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
+                    <p class='govuk-body'>accompanied-site-inspection</p>
+                    <input class=\\"govuk-input\\" value='accompanied-site-inspection'
+                    id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='accompanied-site-inspection' id=\\"templateType\\"
+                    name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                        name</p>
+                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
+                    <div id=\\"description-hint\\"
+                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: compulsory-acquisition-hearing should display errors if mandatory fields are missing 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#name\\">You must enter the item name</a>
+                            </li>
+                            <li><a href=\\"#date\\">You must enter the item date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
+            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
+                    <p class='govuk-body'>compulsory-acquisition-hearing</p>
+                    <input class=\\"govuk-input\\" value='compulsory-acquisition-hearing'
+                    id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='compulsory-acquisition-hearing' id=\\"templateType\\"
+                    name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                        name</p>
+                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
                         <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-time-form-group\\">
@@ -121,6 +393,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                             <li><a href=\\"#endDate\\">You must enter the item end date</a>
                             </li>
                             <li><a href=\\"#endTime\\">You must enter the item end time</a>
+                            </li>
+                            <li><a href=\\"#description\\">You must enter the timetable item description</a>
                             </li>
                         </ul>
                     </div>
@@ -237,7 +511,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 23 : 59</div>
                         <p id=\\"endTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                             end time</p>
                         <div class=\\"govuk-grid-column-one-half\\">
@@ -260,12 +534,14 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                         </div>
                     </fieldset>
                 </div>
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
-                    <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
-                    <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <p id=\\"description-error\\"
+                    class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the timetable
+                        item description</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint description-error\\"></textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -276,7 +552,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 </main>"
 `;
 
-exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: deadline-startdate-mandatory should display errors if mandatory fields are missing 1`] = `
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: deadline-for-close-of-examination should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -287,11 +563,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
                             <li><a href=\\"#name\\">You must enter the item name</a>
                             </li>
-                            <li><a href=\\"#startDate\\">You must enter the item start date</a>
-                            </li>
                             <li><a href=\\"#endDate\\">You must enter the item end date</a>
-                            </li>
-                            <li><a href=\\"#startTime\\">You must enter the item start time</a>
                             </li>
                             <li><a href=\\"#endTime\\">You must enter the item end time</a>
                             </li>
@@ -311,10 +583,10 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
-                    <p class='govuk-body'>deadline-startdate-mandatory</p>
-                    <input class=\\"govuk-input\\" value='deadline-startdate-mandatory'
+                    <p class='govuk-body'>deadline-for-close-of-examination</p>
+                    <input class=\\"govuk-input\\" value='deadline-for-close-of-examination'
                     id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
-                    <input class=\\"govuk-input\\" value='deadline-startdate-mandatory' id=\\"templateType\\"
+                    <input class=\\"govuk-input\\" value='deadline-for-close-of-examination' id=\\"templateType\\"
                     name=\\"templateType\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
@@ -329,60 +601,46 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
                     type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
                 </div>
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
-                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date</legend>
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
                         <div id=\\"startDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                        <p id=\\"startDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                            start date</p>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-date-form-group\\">
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <div class=\\"govuk-form-group\\">
                                     <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
-                                    <p id=\\"startDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
-                                    type=\\"text\\" aria-describedby=\\"startDate.day-error\\">
+                                    <input class=\\"govuk-input\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
+                                    type=\\"text\\">
                                 </div>
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <div class=\\"govuk-form-group\\">
                                     <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
-                                    <p id=\\"startDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
-                                    type=\\"text\\" aria-describedby=\\"startDate.month-error\\">
+                                    <input class=\\"govuk-input\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
+                                    type=\\"text\\">
                                 </div>
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <div class=\\"govuk-form-group\\">
                                     <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
-                                    <p id=\\"startDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
-                                    type=\\"text\\" aria-describedby=\\"startDate.year-error\\">
+                                    <input class=\\"govuk-input\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
+                                    type=\\"text\\">
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                 </div>
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
-                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time</legend>
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
                         <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                        <p id=\\"startTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                            start time</p>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-time-form-group\\">
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <div class=\\"govuk-form-group\\">
                                     <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
-                                    <p id=\\"startTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                    type=\\"text\\" aria-describedby=\\"startTime.hours-error\\">
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
                                 </div><span class='govuk-form-group'>:</span>
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                <div class=\\"govuk-form-group\\">
                                     <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
-                                    <p id=\\"startTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                    type=\\"text\\" aria-describedby=\\"startTime.minutes-error\\">
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
                                 </div>
                             </div>
                         </div>
@@ -424,7 +682,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 23 : 59</div>
                         <p id=\\"endTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
                             end time</p>
                         <div class=\\"govuk-grid-column-one-half\\">
@@ -463,7 +721,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 </main>"
 `;
 
-exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: no-times should display errors if mandatory fields are missing 1`] = `
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: issue-specific-hearing should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -492,250 +750,10 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
             novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
-                    <p class='govuk-body'>no-times</p>
-                    <input class=\\"govuk-input\\" value='no-times' id=\\"itemTypeName\\"
-                    name=\\"itemTypeName\\" type=\\"hidden\\">
-                    <input class=\\"govuk-input\\" value='no-times' id=\\"templateType\\" name=\\"templateType\\"
-                    type=\\"hidden\\">
-                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
-                    type=\\"hidden\\">
-                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                    type=\\"hidden\\">
-                </div>
-                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
-                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
-                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        name</p>
-                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
-                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
-                </div>
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <fieldset class=\\"govuk-fieldset\\">
-                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
-                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                            date</p>
-                        <div class=\\"govuk-grid-column-one-half\\">
-                            <div class=\\"govuk-grid-row pins-date-form-group\\">
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
-                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
-                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
-                                </div>
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
-                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
-                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
-                                </div>
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
-                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
-                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
-                    <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
-                    <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
-                </div>
-                <div class='govuk-grid-column-full'>
-                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: starttime-mandatory should display errors if mandatory fields are missing 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#name\\">You must enter the item name</a>
-                            </li>
-                            <li><a href=\\"#date\\">You must enter the item date</a>
-                            </li>
-                            <li><a href=\\"#startTime\\">You must enter the item start time</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class='govuk-grid-row'>
-        <div class='govuk-grid-column-two-thirds'>
-            <div>
-                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
-                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
-            </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
-            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
-                    <p class='govuk-body'>starttime-mandatory</p>
-                    <input class=\\"govuk-input\\" value='starttime-mandatory'
+                    <p class='govuk-body'>issue-specific-hearing</p>
+                    <input class=\\"govuk-input\\" value='issue-specific-hearing'
                     id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
-                    <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"templateType\\"
-                    name=\\"templateType\\" type=\\"hidden\\">
-                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
-                    type=\\"hidden\\">
-                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
-                    type=\\"hidden\\">
-                </div>
-                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
-                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
-                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                        name</p>
-                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
-                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
-                </div>
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <fieldset class=\\"govuk-fieldset\\">
-                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
-                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
-                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                            date</p>
-                        <div class=\\"govuk-grid-column-one-half\\">
-                            <div class=\\"govuk-grid-row pins-date-form-group\\">
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
-                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
-                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
-                                </div>
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
-                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
-                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
-                                </div>
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
-                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
-                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                    <fieldset class=\\"govuk-fieldset\\">
-                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                        <p id=\\"startTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
-                            start time</p>
-                        <div class=\\"govuk-grid-column-one-half\\">
-                            <div class=\\"govuk-grid-row pins-time-form-group\\">
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
-                                    <p id=\\"startTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
-                                    type=\\"text\\" aria-describedby=\\"startTime.hours-error\\">
-                                </div><span class='govuk-form-group'>:</span>
-                                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
-                                    <p id=\\"startTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
-                                    </p>
-                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
-                                    type=\\"text\\" aria-describedby=\\"startTime.minutes-error\\">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                    <fieldset class=\\"govuk-fieldset\\">
-                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
-                        <div class=\\"govuk-grid-column-one-half\\">
-                            <div class=\\"govuk-grid-row pins-time-form-group\\">
-                                <div class=\\"govuk-form-group\\">
-                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
-                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
-                                    type=\\"text\\">
-                                </div><span class='govuk-form-group'>:</span>
-                                <div class=\\"govuk-form-group\\">
-                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
-                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
-                                    type=\\"text\\">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
-                    <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
-                    <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
-                </div>
-                <div class='govuk-grid-column-full'>
-                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</main>"
-`;
-
-exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: starttime-optional should display errors if mandatory fields are missing 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#name\\">You must enter the item name</a>
-                            </li>
-                            <li><a href=\\"#date\\">You must enter the item date</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class='govuk-grid-row'>
-        <div class='govuk-grid-column-two-thirds'>
-            <div>
-                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
-                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
-            </div>
-            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
-            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
-                    <p class='govuk-body'>starttime-optional</p>
-                    <input class=\\"govuk-input\\" value='starttime-optional'
-                    id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
-                    <input class=\\"govuk-input\\" value='starttime-optional' id=\\"templateType\\"
+                    <input class=\\"govuk-input\\" value='issue-specific-hearing' id=\\"templateType\\"
                     name=\\"templateType\\" type=\\"hidden\\">
                     <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
                     type=\\"hidden\\">
@@ -818,6 +836,923 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                                     <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
                                     <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
                                     type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
+                    <div id=\\"description-hint\\"
+                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: issued-by should display errors if mandatory fields are missing 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#name\\">You must enter the item name</a>
+                            </li>
+                            <li><a href=\\"#date\\">You must enter the item date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
+            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
+                    <p class='govuk-body'>issued-by</p>
+                    <input class=\\"govuk-input\\" value='issued-by' id=\\"itemTypeName\\"
+                    name=\\"itemTypeName\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='issued-by' id=\\"templateType\\" name=\\"templateType\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                        name</p>
+                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
+                    <div id=\\"description-hint\\"
+                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: open-floor-hearing should display errors if mandatory fields are missing 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#name\\">You must enter the item name</a>
+                            </li>
+                            <li><a href=\\"#date\\">You must enter the item date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
+            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
+                    <p class='govuk-body'>open-floor-hearing</p>
+                    <input class=\\"govuk-input\\" value='open-floor-hearing'
+                    id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='open-floor-hearing' id=\\"templateType\\"
+                    name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                        name</p>
+                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
+                    <div id=\\"description-hint\\"
+                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: other-meeting should display errors if mandatory fields are missing 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#name\\">You must enter the item name</a>
+                            </li>
+                            <li><a href=\\"#date\\">You must enter the item date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
+            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
+                    <p class='govuk-body'>other-meeting</p>
+                    <input class=\\"govuk-input\\" value='other-meeting' id=\\"itemTypeName\\"
+                    name=\\"itemTypeName\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='other-meeting' id=\\"templateType\\" name=\\"templateType\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                        name</p>
+                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
+                    <div id=\\"description-hint\\"
+                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: preliminary-meeting should display errors if mandatory fields are missing 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#name\\">You must enter the item name</a>
+                            </li>
+                            <li><a href=\\"#date\\">You must enter the item date</a>
+                            </li>
+                            <li><a href=\\"#startTime\\">You must enter the item start time</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
+            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
+                    <p class='govuk-body'>preliminary-meeting</p>
+                    <input class=\\"govuk-input\\" value='preliminary-meeting'
+                    id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='preliminary-meeting' id=\\"templateType\\"
+                    name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                        name</p>
+                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <p id=\\"startTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            start time</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <p id=\\"startTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\" aria-describedby=\\"startTime.hours-error\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <p id=\\"startTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\" aria-describedby=\\"startTime.minutes-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
+                    <div id=\\"description-hint\\"
+                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: procedural-deadline should display errors if mandatory fields are missing 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#name\\">You must enter the item name</a>
+                            </li>
+                            <li><a href=\\"#endDate\\">You must enter the item end date</a>
+                            </li>
+                            <li><a href=\\"#endTime\\">You must enter the item end time</a>
+                            </li>
+                            <li><a href=\\"#description\\">You must enter the timetable item description</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
+            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
+                    <p class='govuk-body'>procedural-deadline</p>
+                    <input class=\\"govuk-input\\" value='procedural-deadline'
+                    id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='procedural-deadline' id=\\"templateType\\"
+                    name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                        name</p>
+                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start date (optional)</legend>
+                        <div id=\\"startDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.day\\">Day</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
+                                    type=\\"text\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
+                                    type=\\"text\\">
+                                </div>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
+                                    <input class=\\"govuk-input\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End date</legend>
+                        <div id=\\"endDate-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"endDate-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            end date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.day\\">Day</label>
+                                    <p id=\\"endDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.day\\" name=\\"endDate.day\\"
+                                    type=\\"text\\" aria-describedby=\\"endDate.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.month\\">Month</label>
+                                    <p id=\\"endDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.month\\" name=\\"endDate.month\\"
+                                    type=\\"text\\" aria-describedby=\\"endDate.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"endDate.year\\">Year</label>
+                                    <p id=\\"endDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endDate.year\\" name=\\"endDate.year\\"
+                                    type=\\"text\\" aria-describedby=\\"endDate.year-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 23 : 59</div>
+                        <p id=\\"endTime-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            end time</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <p id=\\"endTime.hours-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\" aria-describedby=\\"endTime.hours-error\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <p id=\\"endTime.minutes-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\" aria-describedby=\\"endTime.minutes-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <p id=\\"description-error\\"
+                    class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the timetable
+                        item description</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint description-error\\"></textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: procedural-decision should display errors if mandatory fields are missing 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#name\\">You must enter the item name</a>
+                            </li>
+                            <li><a href=\\"#date\\">You must enter the item date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
+            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
+                    <p class='govuk-body'>procedural-decision</p>
+                    <input class=\\"govuk-input\\" value='procedural-decision'
+                    id=\\"itemTypeName\\" name=\\"itemTypeName\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='procedural-decision' id=\\"templateType\\"
+                    name=\\"templateType\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                        name</p>
+                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Start time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.hours\\" name=\\"startTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"startTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"startTime.minutes\\" name=\\"startTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full \\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time (optional)</legend>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-time-form-group\\">
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.hours\\">Hours</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.hours\\" name=\\"endTime.hours\\"
+                                    type=\\"text\\">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class=\\"govuk-form-group\\">
+                                    <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"endTime.minutes\\">Minutes</label>
+                                    <input class=\\"govuk-input\\" id=\\"endTime.minutes\\" name=\\"endTime.minutes\\"
+                                    type=\\"text\\">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
+                    <div id=\\"description-hint\\"
+                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: publication-of should display errors if mandatory fields are missing 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#name\\">You must enter the item name</a>
+                            </li>
+                            <li><a href=\\"#date\\">You must enter the item date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/validate/\\"
+            novalidate=\\"novalidate\\" class=\\"govuk-grid-row\\">
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"item-type\\">Timetable item type</label>
+                    <p class='govuk-body'>publication-of</p>
+                    <input class=\\"govuk-input\\" value='publication-of' id=\\"itemTypeName\\"
+                    name=\\"itemTypeName\\" type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='publication-of' id=\\"templateType\\" name=\\"templateType\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"templateId\\" name=\\"templateId\\"
+                    type=\\"hidden\\">
+                    <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
+                    type=\\"hidden\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-one-half\\">
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"name\\">Item name</label>
+                    <div id=\\"name-hint\\" class=\\"govuk-hint\\">There is a limit of 200 characters</div>
+                    <p id=\\"name-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                        name</p>
+                    <input class=\\"govuk-input govuk-input--error\\" id=\\"name\\" name=\\"name\\"
+                    type=\\"text\\" aria-describedby=\\"name-hint name-error\\">
+                </div>
+                <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
+                    <fieldset class=\\"govuk-fieldset\\">
+                        <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date</legend>
+                        <div id=\\"date-hint\\" class=\\"govuk-hint\\">For example, 01 02 2000</div>
+                        <p id=\\"date-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the item
+                            date</p>
+                        <div class=\\"govuk-grid-column-one-half\\">
+                            <div class=\\"govuk-grid-row pins-date-form-group\\">
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.day\\">Day</label>
+                                    <p id=\\"date.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.day\\" name=\\"date.day\\"
+                                    type=\\"text\\" aria-describedby=\\"date.day-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.month\\">Month</label>
+                                    <p id=\\"date.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.month\\" name=\\"date.month\\"
+                                    type=\\"text\\" aria-describedby=\\"date.month-error\\">
+                                </div>
+                                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                                    <label class=\\"govuk-label govuk-hint\\" for=\\"date.year\\">Year</label>
+                                    <p id=\\"date.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                                    </p>
+                                    <input class=\\"govuk-input govuk-input--error\\" id=\\"date.year\\" name=\\"date.year\\"
+                                    type=\\"text\\" aria-describedby=\\"date.year-error\\">
                                 </div>
                             </div>
                         </div>
@@ -967,7 +1902,7 @@ exports[`Create examination timetable page should display errors if start date a
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 23 : 59</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-time-form-group\\">
                                 <div class=\\"govuk-form-group\\">
@@ -985,11 +1920,10 @@ exports[`Create examination timetable page should display errors if start date a
                     </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
-                    <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\">Some text with * one point * another point</textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -1126,7 +2060,7 @@ exports[`Create examination timetable page should display errors if start time a
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 23 : 59</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-time-form-group\\">
                                 <div class=\\"govuk-form-group\\">
@@ -1144,11 +2078,10 @@ exports[`Create examination timetable page should display errors if start time a
                     </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
-                    <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
+                    id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\">Some text with * one point * another point</textarea>
                 </div>
                 <div class='govuk-grid-column-full'>
                     <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -1378,7 +2311,7 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                 <div class=\\"govuk-form-group govuk-grid-column-full \\">
                     <fieldset class=\\"govuk-fieldset\\">
                         <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">End time</legend>
-                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 13 : 00</div>
+                        <div id=\\"-hint\\" class=\\"govuk-hint\\">For example, 23 : 59</div>
                         <div class=\\"govuk-grid-column-one-half\\">
                             <div class=\\"govuk-grid-row pins-time-form-group\\">
                                 <div class=\\"govuk-form-group\\">
@@ -1396,9 +2329,8 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                     </fieldset>
                 </div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
-                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
-                    <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\">test*ponintone*pointtwo</textarea>
                 </div>
@@ -1469,47 +2401,9 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <div class='timetable-table'>
                 <h3 class=\\"govuk-heading-m\\">Pre-examination</h3>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-pre-examination\\">
-                    <div class=\\"govuk-accordion__section\\">
-                        <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-pre-examination-heading-1\\"> 10 Oct 2023 - Test</span></h2>
-                        </div>
-                        <div id=\\"accordion-pre-examination-content-1\\" class=\\"govuk-accordion__section-content\\"
-                        aria-labelledby=\\"accordion-pre-examination-heading-1\\">
-                            <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/2\\">Edit timetable item</a>
-                            </div>
-                            <dl class=\\"govuk-summary-list\\">
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">Procedural Deadline (Pre-Examination)</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Name</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">Test</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\"></dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start time</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                                </div>
-                                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
-                                    <dd class=\\"govuk-summary-list__value\\">
-                                        <p class=\\"govuk-body\\">test</p>
-                                        <ul class='govuk-list govuk-list--bullet'>
-                                            <li>ponintone</li>
-                                            <li>pointtwo</li>
-                                        </ul>
-                                    </dd>
-                                </div>
-                            </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/2'>Delete timetable item</a>
-                        </div>
-                    </div>
-                </div>
+                <p class='govuk-body'>No timetable items</p>
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\"
+                id=\\"accordion-pre-examination\\"></div>
                 <div class='govuk-!-margin-top-8'>
                     <h3 class=\\"govuk-heading-m\\">Examination</h3>
                     <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-examination\\">
@@ -1552,6 +2446,45 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
                                 </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/1'>Delete timetable item</a>
                             </div>
                         </div>
+                        <div class=\\"govuk-accordion__section\\">
+                            <div class=\\"govuk-accordion__section-header\\">
+                                <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-examination-heading-2\\"> - Test</span></h2>
+                            </div>
+                            <div id=\\"accordion-examination-content-2\\" class=\\"govuk-accordion__section-content\\"
+                            aria-labelledby=\\"accordion-examination-heading-2\\">
+                                <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/2\\">Edit timetable item</a>
+                                </div>
+                                <dl class=\\"govuk-summary-list\\">
+                                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
+                                        <dd class=\\"govuk-summary-list__value\\">Procedural Deadline (Pre-Examination)</dd>
+                                    </div>
+                                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Name</dt>
+                                        <dd class=\\"govuk-summary-list__value\\">Test</dd>
+                                    </div>
+                                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
+                                        <dd class=\\"govuk-summary-list__value\\"></dd>
+                                    </div>
+                                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start time</dt>
+                                        <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                                    </div>
+                                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
+                                        <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
+                                    </div>
+                                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
+                                        <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                                    </div>
+                                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
+                                        <dd class=\\"govuk-summary-list__value\\">
+                                            <p class=\\"govuk-body\\">test</p>
+                                            <ul class='govuk-list govuk-list--bullet'>
+                                                <li>ponintone</li>
+                                                <li>pointtwo</li>
+                                            </ul>
+                                        </dd>
+                                    </div>
+                                </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/2'>Delete timetable item</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1568,7 +2501,7 @@ exports[`POST /case/123/examination-timetable/item/check-your-answers should sho
         <div class='govuk-grid-column-full'>
             <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Check your answers before editing an item</h1>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/edit/1\\">
-                <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
+                <input class=\\"govuk-input\\" value='preliminary-meeting' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='1' id=\\"timetableId\\" name=\\"timetableId\\"
                 type=\\"hidden\\">
@@ -1611,7 +2544,7 @@ exports[`POST /case/123/examination-timetable/item/check-your-answers should sho
             </form>
             <dl class=\\"govuk-summary-list\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item type</dt>
-                    <dd class=\\"govuk-summary-list__value\\">starttime-mandatory</dd>
+                    <dd class=\\"govuk-summary-list__value\\">preliminary-meeting</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item name</dt>
                     <dd class=\\"govuk-summary-list__value\\">Lorem</dd>
@@ -1625,14 +2558,14 @@ exports[`POST /case/123/examination-timetable/item/check-your-answers should sho
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End time</dt>
                     <dd class=\\"govuk-summary-list__value\\"></dd>
                 </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Timetable item description (optional)</dt>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Timetable item description</dt>
                     <dd                     class=\\"govuk-summary-list__value\\">Some text with
                         <br>&middot; one point
                         <br>&middot; another point</dd>
                 </div>
             </dl>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/save/\\">
-                <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
+                <input class=\\"govuk-input\\" value='preliminary-meeting' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='1' id=\\"timetableId\\" name=\\"timetableId\\"
                 type=\\"hidden\\">
@@ -1682,7 +2615,7 @@ exports[`POST /case/123/examination-timetable/item/check-your-answers should sho
         <div class='govuk-grid-column-full'>
             <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Check your answers before creating a new item</h1>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/new/\\">
-                <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
+                <input class=\\"govuk-input\\" value='preliminary-meeting' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
                 type=\\"hidden\\">
@@ -1725,7 +2658,7 @@ exports[`POST /case/123/examination-timetable/item/check-your-answers should sho
             </form>
             <dl class=\\"govuk-summary-list\\">
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item type</dt>
-                    <dd class=\\"govuk-summary-list__value\\">starttime-mandatory</dd>
+                    <dd class=\\"govuk-summary-list__value\\">preliminary-meeting</dd>
                 </div>
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item name</dt>
                     <dd class=\\"govuk-summary-list__value\\">Lorem</dd>
@@ -1739,14 +2672,14 @@ exports[`POST /case/123/examination-timetable/item/check-your-answers should sho
                 <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End time</dt>
                     <dd class=\\"govuk-summary-list__value\\"></dd>
                 </div>
-                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Timetable item description (optional)</dt>
+                <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Timetable item description</dt>
                     <dd                     class=\\"govuk-summary-list__value\\">Some text with
                         <br>&middot; one point
                         <br>&middot; another point</dd>
                 </div>
             </dl>
             <form method=\\"post\\" action=\\"/applications-service/case/123/examination-timetable/item/save/\\">
-                <input class=\\"govuk-input\\" value='starttime-mandatory' id=\\"timetable-type\\"
+                <input class=\\"govuk-input\\" value='preliminary-meeting' id=\\"timetable-type\\"
                 name=\\"timetable-type\\" type=\\"hidden\\">
                 <input class=\\"govuk-input\\" value='' id=\\"timetableId\\" name=\\"timetableId\\"
                 type=\\"hidden\\">
@@ -1801,47 +2734,9 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
     <p class=\\"govuk-body\\">Check before publishing</p>
     <div class='timetable-table'>
         <h3 class=\\"govuk-heading-m\\">Pre-examination</h3>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-pre-examination\\">
-            <div class=\\"govuk-accordion__section\\">
-                <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-pre-examination-heading-1\\"> 10 Oct 2023 - Test</span></h2>
-                </div>
-                <div id=\\"accordion-pre-examination-content-1\\" class=\\"govuk-accordion__section-content\\"
-                aria-labelledby=\\"accordion-pre-examination-heading-1\\">
-                    <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/2\\">Edit timetable item</a>
-                    </div>
-                    <dl class=\\"govuk-summary-list\\">
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
-                            <dd class=\\"govuk-summary-list__value\\">Procedural Deadline (Pre-Examination)</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Name</dt>
-                            <dd class=\\"govuk-summary-list__value\\">Test</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
-                            <dd class=\\"govuk-summary-list__value\\"></dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start time</dt>
-                            <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                            <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
-                            <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p class=\\"govuk-body\\">test</p>
-                                <ul class='govuk-list govuk-list--bullet'>
-                                    <li>ponintone</li>
-                                    <li>pointtwo</li>
-                                </ul>
-                            </dd>
-                        </div>
-                    </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/2'>Delete timetable item</a>
-                </div>
-            </div>
-        </div>
+        <p class='govuk-body'>No timetable items</p>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\"
+        id=\\"accordion-pre-examination\\"></div>
         <div class='govuk-!-margin-top-8'>
             <h3 class=\\"govuk-heading-m\\">Examination</h3>
             <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-examination\\">
@@ -1882,6 +2777,45 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                                 </dd>
                             </div>
                         </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/1'>Delete timetable item</a>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-examination-heading-2\\"> - Test</span></h2>
+                    </div>
+                    <div id=\\"accordion-examination-content-2\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-examination-heading-2\\">
+                        <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/2\\">Edit timetable item</a>
+                        </div>
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Procedural Deadline (Pre-Examination)</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Name</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Test</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start time</dt>
+                                <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
+                                <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
+                                <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
+                                <dd class=\\"govuk-summary-list__value\\">
+                                    <p class=\\"govuk-body\\">test</p>
+                                    <ul class='govuk-list govuk-list--bullet'>
+                                        <li>ponintone</li>
+                                        <li>pointtwo</li>
+                                    </ul>
+                                </dd>
+                            </div>
+                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/2'>Delete timetable item</a>
                     </div>
                 </div>
             </div>
@@ -1923,11 +2857,18 @@ exports[`Select examination timetable type page GET /case/123/examination-timeta
             <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-5\\" for=\\"timetable-type\\">Timetable item type</label>
             <select class=\\"govuk-select\\" id=\\"timetable-type\\"
             name=\\"timetable-type\\">
-                <option value=\\"starttime-mandatory\\">starttime-mandatory</option>
+                <option value=\\"accompanied-site-inspection\\">accompanied-site-inspection</option>
+                <option value=\\"compulsory-acquisition-hearing\\">compulsory-acquisition-hearing</option>
                 <option value=\\"deadline\\">deadline</option>
-                <option value=\\"no-times\\">no-times</option>
-                <option value=\\"deadline-startdate-mandatory\\">deadline-startdate-mandatory</option>
-                <option value=\\"starttime-optional\\">starttime-optional</option>
+                <option value=\\"deadline-for-close-of-examination\\">deadline-for-close-of-examination</option>
+                <option value=\\"issued-by\\">issued-by</option>
+                <option value=\\"issue-specific-hearing\\">issue-specific-hearing</option>
+                <option value=\\"open-floor-hearing\\">open-floor-hearing</option>
+                <option value=\\"other-meeting\\">other-meeting</option>
+                <option value=\\"preliminary-meeting\\">preliminary-meeting</option>
+                <option value=\\"procedural-deadline\\">procedural-deadline</option>
+                <option value=\\"procedural-decision\\">procedural-decision</option>
+                <option value=\\"publication-of\\">publication-of</option>
             </select>
         </div>
         <button class=\\"govuk-button govuk-!-margin-top-6\\" data-module=\\"govuk-button\\">Continue</button>
@@ -1946,47 +2887,9 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
     <p class=\\"govuk-body\\">Check before unpublishing</p>
     <div class='timetable-table'>
         <h3 class=\\"govuk-heading-m\\">Pre-examination</h3>
-        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-pre-examination\\">
-            <div class=\\"govuk-accordion__section\\">
-                <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-pre-examination-heading-1\\"> 10 Oct 2023 - Test</span></h2>
-                </div>
-                <div id=\\"accordion-pre-examination-content-1\\" class=\\"govuk-accordion__section-content\\"
-                aria-labelledby=\\"accordion-pre-examination-heading-1\\">
-                    <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/2\\">Edit timetable item</a>
-                    </div>
-                    <dl class=\\"govuk-summary-list\\">
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
-                            <dd class=\\"govuk-summary-list__value\\">Procedural Deadline (Pre-Examination)</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Name</dt>
-                            <dd class=\\"govuk-summary-list__value\\">Test</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
-                            <dd class=\\"govuk-summary-list__value\\"></dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start time</dt>
-                            <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
-                            <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
-                            <dd class=\\"govuk-summary-list__value\\">10:10</dd>
-                        </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
-                            <dd class=\\"govuk-summary-list__value\\">
-                                <p class=\\"govuk-body\\">test</p>
-                                <ul class='govuk-list govuk-list--bullet'>
-                                    <li>ponintone</li>
-                                    <li>pointtwo</li>
-                                </ul>
-                            </dd>
-                        </div>
-                    </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/2'>Delete timetable item</a>
-                </div>
-            </div>
-        </div>
+        <p class='govuk-body'>No timetable items</p>
+        <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\"
+        id=\\"accordion-pre-examination\\"></div>
         <div class='govuk-!-margin-top-8'>
             <h3 class=\\"govuk-heading-m\\">Examination</h3>
             <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-examination\\">
@@ -2027,6 +2930,45 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
                                 </dd>
                             </div>
                         </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/1'>Delete timetable item</a>
+                    </div>
+                </div>
+                <div class=\\"govuk-accordion__section\\">
+                    <div class=\\"govuk-accordion__section-header\\">
+                        <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"accordion-examination-heading-2\\"> - Test</span></h2>
+                    </div>
+                    <div id=\\"accordion-examination-content-2\\" class=\\"govuk-accordion__section-content\\"
+                    aria-labelledby=\\"accordion-examination-heading-2\\">
+                        <div class='top-right-link'><a class='govuk-link' href=\\"/applications-service/case/123/examination-timetable/item/edit/2\\">Edit timetable item</a>
+                        </div>
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Type</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Procedural Deadline (Pre-Examination)</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Item Name</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Test</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start Date</dt>
+                                <dd class=\\"govuk-summary-list__value\\"></dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Start time</dt>
+                                <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Date</dt>
+                                <dd class=\\"govuk-summary-list__value\\">10 Oct 2023</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> End Time</dt>
+                                <dd class=\\"govuk-summary-list__value\\">10:10</dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Description</dt>
+                                <dd class=\\"govuk-summary-list__value\\">
+                                    <p class=\\"govuk-body\\">test</p>
+                                    <ul class='govuk-list govuk-list--bullet'>
+                                        <li>ponintone</li>
+                                        <li>pointtwo</li>
+                                    </ul>
+                                </dd>
+                            </div>
+                        </dl><a class='govuk-link colour--red' href='/applications-service/case/123/examination-timetable/item/delete/2'>Delete timetable item</a>
                     </div>
                 </div>
             </div>
