@@ -3,8 +3,13 @@ import { body } from 'express-validator';
 import { param } from 'express-validator';
 import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
 import * as examinationTimetableItemsRepository from '#repositories/examination-timetable-items.repository.js';
-import { validateExistingApplication } from '../application/application.validators.js';
+import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
+import {
+	validateExistingApplication,
+	verifyNotTraining
+} from '../application/application.validators.js';
 import { validationErrorHandler } from '#middleware/error-handler.js';
+import logger from '#utils/logger.js';
 
 /**
  * Validate that an exam timetable item type exists
@@ -103,3 +108,20 @@ export const validateUpdateExaminationTimetableItem = composeMiddleware(
 	body('endTime').optional({ nullable: true }),
 	validationErrorHandler
 );
+
+/**
+ * @param {number} id
+ * @throws {Error}
+ * */
+export const verifyNotTrainingExamTimetable = async (id) => {
+	const timetable = await examinationTimetableRepository.getById(id);
+	if (!timetable) {
+		throw new Error(`Could not find examination timetable item with ID ${id}`);
+	}
+
+	try {
+		await verifyNotTraining(timetable.caseId);
+	} catch (/** @type {*} */ err) {
+		logger.info(`Could not verify examination timetable with ID ${id}`, err.message);
+	}
+};
