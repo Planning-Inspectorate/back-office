@@ -23,7 +23,7 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 
 	if (method === 'POST') {
 		defaultRepresentationDetails = {
-			reference: '',
+			reference: representation.reference || '',
 			caseId,
 			status: representation.status || 'DRAFT',
 			originalRepresentation: representation.originalRepresentation || '',
