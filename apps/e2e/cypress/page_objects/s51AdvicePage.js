@@ -129,6 +129,7 @@ export class S51AdvicePage extends Page {
         this.elements.titleInput().clear();
         this.elements.titleInput().type("Title Updated");
         this.elements.saveAndReturnTile().click();
+		cy.wait(3000);
         this.elements.verifyTitleUpdated().then((text)=> {
             let actualTitle=text.text();
          expect(actualTitle).to.include("Title Updated");
