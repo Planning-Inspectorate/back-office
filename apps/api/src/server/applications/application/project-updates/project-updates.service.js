@@ -14,6 +14,7 @@ import {
 import { NSIP_PROJECT_UPDATE } from '../../../infrastructure/topics.js';
 import logger from '../../../utils/logger.js';
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
+import { verifyNotTraining } from '../application.validators.js';
 
 /**
  * Create a new project update, and send the Create event
@@ -28,15 +29,21 @@ export async function createProjectUpdateService(body, caseId) {
 	const createReq = projectUpdateCreateReq(body, caseId);
 
 	const created = await createProjectUpdate(createReq);
+	if (!created.case?.reference) {
+		logger.warn('createProjectUpdateService: project update case has no reference. No event sent.');
+		return mapProjectUpdate(created);
+	}
 
-	if (created.case && created.case.reference) {
+	try {
+		await verifyNotTraining(caseId);
+
 		await eventClient.sendEvents(
 			NSIP_PROJECT_UPDATE,
 			[buildProjectUpdatePayload(created, created.case.reference)],
 			EventType.Create
 		);
-	} else {
-		logger.warn('createProjectUpdateService: project update case has no reference. No event sent.');
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for project update', err.message);
 	}
 
 	return mapProjectUpdate(created);
@@ -53,15 +60,24 @@ export async function updateProjectUpdateService(body, projectUpdateId) {
 	const updateReq = projectUpdateUpdateReq(body);
 
 	const update = await updateProjectUpdate(projectUpdateId, updateReq);
-
-	if (update.case && update.case.reference) {
-		const eventType = statusToEventType(update.status);
-		const events = [buildProjectUpdatePayload(update, update.case.reference)];
-		await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, eventType);
-	} else {
+	if (!update.case?.reference) {
 		logger.warn(
 			'updateProjectUpdateService: project update case has no reference. No event(s) sent.'
 		);
+
+		return mapProjectUpdate(update);
+	}
+
+	try {
+		await verifyNotTraining(update.caseId);
+
+		await eventClient.sendEvents(
+			NSIP_PROJECT_UPDATE,
+			[buildProjectUpdatePayload(update, update.case.reference)],
+			statusToEventType(update.status)
+		);
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for project update', err.message);
 	}
 
 	return mapProjectUpdate(update);
@@ -75,14 +91,24 @@ export async function updateProjectUpdateService(body, projectUpdateId) {
  */
 export async function deleteProjectUpdateService(projectUpdateId) {
 	const deleted = await deleteProjectUpdate(projectUpdateId);
-
-	if (deleted.case && deleted.case.reference) {
-		const events = [buildProjectUpdatePayload(deleted, deleted.case.reference)];
-		await eventClient.sendEvents(NSIP_PROJECT_UPDATE, events, EventType.Delete);
-	} else {
+	if (!deleted.case?.reference) {
 		logger.warn(
 			'deleteProjectUpdateService: project update case has no reference. No event(s) sent.'
 		);
+
+		return;
+	}
+
+	try {
+		await verifyNotTraining(deleted.caseId);
+
+		await eventClient.sendEvents(
+			NSIP_PROJECT_UPDATE,
+			[buildProjectUpdatePayload(deleted, deleted.case.reference)],
+			EventType.Delete
+		);
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for project update', err.message);
 	}
 }
 
