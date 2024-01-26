@@ -15,6 +15,7 @@ describe('Publish application', () => {
 
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
+			reference: 'TEST',
 			CasePublishedState: [{ createdAt: mockDate, isPublished: true }]
 		});
 		databaseConnector.case.update.mockResolvedValue({
@@ -50,6 +51,7 @@ describe('Publish application', () => {
 			[
 				{
 					caseId: 1,
+					caseReference: 'TEST',
 					sourceSystem: 'back-office-applications',
 					publishStatus: 'published',
 					nsipOfficerIds: [],

@@ -244,6 +244,7 @@ describe('Publish Representations', () => {
 
 	it('publishes representations with given ids', async () => {
 		databaseConnector.representation.findMany.mockResolvedValue(representations);
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, reference: 'BC0110001' });
 
 		const response = await request.patch('/applications/1/representations/publish').send({
 			representationIds: [6409, 6579],

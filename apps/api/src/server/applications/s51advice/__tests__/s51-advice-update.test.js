@@ -97,6 +97,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([]).mockResolvedValueOnce([1]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdated);
 		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue([]);
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, reference: 'TEST' });
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -139,7 +140,7 @@ describe('Test S51 advice update status and redacted status', () => {
 			publishedStatusPrev: 'not_checked'
 		};
 
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, reference: 'TEST' });
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBody);
 		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdated);

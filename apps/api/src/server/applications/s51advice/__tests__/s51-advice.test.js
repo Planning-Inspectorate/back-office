@@ -329,14 +329,14 @@ describe('Test S51 advice API', () => {
 	test('removePublishItemFromQueue remove an s51 advice item from the ready to publish queue', async () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdviceToBeReturned);
 		databaseConnector.s51Advice.update.mockResolvedValue(s51AdviceToBeReturned);
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 100000000 });
+		databaseConnector.case.findUnique.mockResolvedValue({ id: 100000000, reference: 'TEST' });
 		// databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdviceToBeReturned);
 		const resp = await request
 			.post('/applications/100000000/s51-advice/remove-queue-item')
 			.send({ adviceId: 1 });
 
 		expect(resp.status).toEqual(200);
-		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(2);
 		expect(databaseConnector.s51Advice.update).toHaveBeenCalledTimes(1);
 	});
 
