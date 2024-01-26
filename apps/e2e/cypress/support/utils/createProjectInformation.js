@@ -14,7 +14,7 @@ export const projectInformation = () => {
 	// P R O J E C T  I N F O R M A T I O N
 	let projectName = `AutoTest_${now}`;
 	let projectDescription = faker.lorem.sentence();
-	let projectLocation = faker.lorem.sentence();
+	const projectLocation = 'test location';
 	const gridRefEasting = faker.random.numeric(6);
 	const gridRefNorthing = faker.random.numeric(6);
 	const regions = faker.helpers.arrayElements(REGIONS).sort();
