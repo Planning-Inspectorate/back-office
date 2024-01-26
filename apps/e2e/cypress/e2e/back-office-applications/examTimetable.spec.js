@@ -200,7 +200,6 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('Item name', options.itemName);
 		examTimetablePage.checkAnswer('Date', options.startDateFull);
 		examTimetablePage.checkAnswer('Description', options.description);
-		examTimetablePage.toggleExaminationTimetableItem(options.itemName);
 	});
 
 	it('Should create timetable item - (Deadline StartDate Template)', () => {
@@ -234,6 +233,5 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
 		examTimetablePage.checkAnswer('Description', options.description);
-		examTimetablePage.toggleExaminationTimetableItem(options.itemName);
 	});
 });
