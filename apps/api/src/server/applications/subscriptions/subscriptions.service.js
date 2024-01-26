@@ -2,6 +2,7 @@ import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_SUBSCRIPTION, SERVICE_USER } from '#infrastructure/topics.js';
 import * as subscriptionRepository from '#repositories/subscription.respository.js';
 import * as serviceUserRepository from '#repositories/service-user.repository.js';
+import logger from '#utils/logger.js';
 import {
 	buildSubscriptionPayloads,
 	buildServiceUserPayload,
@@ -9,6 +10,7 @@ import {
 	typesToSubscription
 } from './subscriptions.js';
 import { EventType } from '@pins/event-client';
+import { verifyNotTraining } from '../application/application.validators.js';
 
 /**
  * Create or update a subscription, and publishes the corresponding event.
@@ -28,11 +30,19 @@ export async function createOrUpdateSubscription(request) {
 		// new subscription
 		const res = await subscriptionRepository.create(subscription);
 
-		await eventClient.sendEvents(
-			NSIP_SUBSCRIPTION,
-			buildSubscriptionPayloads(res),
-			EventType.Create
-		);
+		try {
+			if (res.caseId) {
+				await verifyNotTraining(res.caseId);
+			}
+
+			await eventClient.sendEvents(
+				NSIP_SUBSCRIPTION,
+				buildSubscriptionPayloads(res),
+				EventType.Create
+			);
+		} catch (/** @type {*} */ err) {
+			logger.info(`Blocked sending event for subscription with ID ${res.id}`, err.message);
+		}
 
 		if (!isExistingUser) {
 			await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Create);
@@ -47,7 +57,15 @@ export async function createOrUpdateSubscription(request) {
 	const eventsByType = subscriptionTypeChanges(existing, res);
 
 	for (const [type, payloads] of Object.entries(eventsByType)) {
-		await eventClient.sendEvents(NSIP_SUBSCRIPTION, payloads, type);
+		try {
+			if (res.caseId) {
+				await verifyNotTraining(res.caseId);
+			}
+
+			await eventClient.sendEvents(NSIP_SUBSCRIPTION, payloads, type);
+		} catch (/** @type {*} */ err) {
+			logger.info(`Blocked sending event for subscription ${res.id}`, err.message);
+		}
 	}
 
 	return { id: res.id, created: false };
