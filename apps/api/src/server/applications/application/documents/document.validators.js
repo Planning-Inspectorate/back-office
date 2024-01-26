@@ -12,6 +12,7 @@ import {
 	sourceSystemEnum
 } from '#utils/create-enums.js';
 import logger from '#utils/logger.js';
+import { verifyNotTraining } from '../application.validators.js';
 
 /** @typedef {{ guid: string}} documentGuid */
 
@@ -254,4 +255,23 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 		})),
 		invalid
 	};
+};
+
+/**
+ * @param {string} documentGuid
+ * */
+export const verifyNotTrainingAttachment = async (documentGuid) => {
+	const doc = await DocumentRepository.getById(documentGuid);
+	if (!doc) {
+		throw new Error(`Could not find document with ID '${documentGuid}'.`);
+	}
+
+	try {
+		await verifyNotTraining(doc.caseId);
+	} catch (/** @type {*} */ err) {
+		throw new Error(
+			`Could not verify document with ID '${documentGuid}' is not part of a training case:`,
+			err.message
+		);
+	}
 };

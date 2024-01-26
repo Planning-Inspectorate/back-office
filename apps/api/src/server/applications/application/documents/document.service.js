@@ -7,6 +7,7 @@ import {
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import * as caseRepository from '#repositories/case.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import { filterAsync } from '#utils/async.js';
 import { mapDocumentVersionDetails } from '#utils/mapping/map-document-details.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
@@ -22,7 +23,10 @@ import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { getFolder } from '../file-folders/folders.service.js';
 import config from '#config/config.js';
-import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
+import {
+	verifyAllDocumentsHaveRequiredPropertiesForPublishing,
+	verifyNotTrainingAttachment
+} from './document.validators.js';
 
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
@@ -568,9 +572,21 @@ export const publishDocumentVersions = async (documentVersionIds) => {
 		)
 	);
 
+	const events = (
+		await filterAsync(async (doc) => {
+			try {
+				await verifyNotTrainingAttachment(doc.documentGuid);
+				return true;
+			} catch (/** @type {*} */ err) {
+				logger.info('Blocked sending event for document:', err.message);
+				return false;
+			}
+		}, publishedDocuments)
+	).map(buildNsipDocumentPayload);
+
 	await eventClient.sendEvents(
 		NSIP_DOCUMENT,
-		publishedDocuments.map(buildNsipDocumentPayload),
+		events,
 		EventType.Update,
 		// This is an additional flag which triggers the Azure Function that publishes documents.
 		// It essentially means we can create a subscription to this topic with a filter, and saves us from managing a distinct publishing queue
@@ -647,11 +663,17 @@ export const markDocumentVersionAsPublished = async ({
 		publishedStatusPrev: 'publishing'
 	});
 
-	await eventClient.sendEvents(
-		NSIP_DOCUMENT,
-		[buildNsipDocumentPayload(publishedDocument)],
-		EventType.Publish
-	);
+	try {
+		await verifyNotTrainingAttachment(guid);
+
+		await eventClient.sendEvents(
+			NSIP_DOCUMENT,
+			[buildNsipDocumentPayload(publishedDocument)],
+			EventType.Publish
+		);
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for document:', err.message);
+	}
 
 	return publishedDocument;
 };
@@ -668,11 +690,17 @@ export const markDocumentVersionAsUnpublished = async ({ guid, version }) => {
 		publishedStatusPrev: 'unpublishing'
 	});
 
-	await eventClient.sendEvents(
-		NSIP_DOCUMENT,
-		[buildNsipDocumentPayload(publishedDocument)],
-		EventType.Unpublish
-	);
+	try {
+		await verifyNotTrainingAttachment(guid);
+
+		await eventClient.sendEvents(
+			NSIP_DOCUMENT,
+			[buildNsipDocumentPayload(publishedDocument)],
+			EventType.Unpublish
+		);
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for document:', err.message);
+	}
 
 	return publishedDocument;
 };
@@ -866,14 +894,21 @@ export const unpublishDocuments = async (guids) => {
 		)
 	);
 
-	await eventClient.sendEvents(
-		NSIP_DOCUMENT,
-		unpublishedDocuments.map(buildNsipDocumentPayload),
-		EventType.Update,
-		{
-			unpublishing: 'true'
-		}
-	);
+	const events = (
+		await filterAsync(async (doc) => {
+			try {
+				await verifyNotTrainingAttachment(doc.documentGuid);
+				return true;
+			} catch (/** @type {*} */ err) {
+				logger.info('Blocked sending event for document:', err.message);
+				return false;
+			}
+		}, unpublishedDocuments)
+	).map(buildNsipDocumentPayload);
+
+	await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Update, {
+		unpublishing: 'true'
+	});
 
 	return unpublishedDocuments.map((doc) => doc.documentGuid);
 };
