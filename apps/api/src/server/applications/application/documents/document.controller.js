@@ -11,7 +11,6 @@ import {
 	mapDocumentVersionDetails,
 	mapSingleDocumentDetailsFromVersion
 } from '#utils/mapping/map-document-details.js';
-import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	getDocumentsInCase,
 	extractDuplicates,
@@ -26,13 +25,10 @@ import {
 	separateNonPublishedDocuments,
 	separatePublishableDocuments,
 	upsertDocumentVersionAndReturnDetails,
-	unpublishDocuments as unpublishDocumentGuids
+	unpublishDocuments as unpublishDocumentGuids,
+	deleteDocument
 } from './document.service.js';
-import {
-	fetchDocumentByGuidAndCaseId,
-	getRedactionStatus,
-	validateDocumentVersionMetadataBody
-} from './document.validators.js';
+import { getRedactionStatus, validateDocumentVersionMetadataBody } from './document.validators.js';
 
 /**
  * @typedef {import('@prisma/client').Document} Document
@@ -435,28 +431,14 @@ export const revertDocumentPublishedStatus = async ({ params: { guid } }, respon
 /**
  * Soft deletes a document by its GUID and case ID.
  *
- *@async
+ * @async
  * @type {import('express').RequestHandler<{id:string; guid: string;}, ?, ?, any>}
  * @throws {BackOfficeAppError} If the document is published, or if the document cannot be deleted for any other reason.
  * @returns {Promise<void>} An object with the key "isDeleted" set to true.
  */
 export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, response) => {
-	// Step 1: Fetch the document to be deleted from the database
-	const document = await fetchDocumentByGuidAndCaseId(guid, Number(caseId));
-
-	// Step 2: Check if the document is published; if so, throw an error as it cannot be deleted
-	const documentIsPublished =
-		document.status?.toLowerCase() === applicationStates.published?.toLowerCase();
-
-	if (documentIsPublished) {
-		throw new BackOfficeAppError(
-			`unable to delete document guid ${guid} related to caseId ${caseId}`,
-			400
-		);
-	}
-
-	// Step 3: Soft delete the document from the database
-	await documentRepository.deleteDocument(guid);
+	// Soft delete the document from the database and broadcast message
+	await deleteDocument(guid, caseId);
 
 	// Step 4: Send a success response to the client
 	response.status(200).send({ isDeleted: true });
@@ -534,8 +516,6 @@ export const getReadyToPublishDocuments = async ({ params: { id }, body }, respo
 	});
 
 	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus(id);
-
-	console.log('documentsCount ' + documentsCount);
 
 	const mapDocument = paginatedReadyToPublishDocuments.map(
 		// @ts-ignore
