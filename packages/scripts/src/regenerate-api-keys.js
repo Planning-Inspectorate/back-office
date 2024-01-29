@@ -14,13 +14,25 @@ const OLDEST = 'oldest';
 
 // Entry point
 export const regenerateApiKeys = async () => {
+	console.log(
+		`Attempting to (re)generate Backoffice Applications API keys in ${process.env['KEY_VAULT_NAME']}`
+	);
 	const secretClient = setUpKeyVaultClient();
 
+	console.log('Key vault client set up');
 	const listOfKeyVaultSecretsApiKeys = await getApiKeySecrets(secretClient);
+	if (!listOfKeyVaultSecretsApiKeys.length) {
+		throw Error('No secrets starting with `backoffice-applications-api-key-*` found in Key-Vault');
+	}
+
 	listOfKeyVaultSecretsApiKeys.forEach((keyVaultSecretApiKeyObject) => {
+		console.log(`Handling key (re)generation for ${keyVaultSecretApiKeyObject.name}`);
+
 		const parsedApiKeys = JSON.parse(keyVaultSecretApiKeyObject.value || '[]');
 		removeOldestKey(parsedApiKeys);
+
 		setExpiryOnPreviouslyNewestKey(parsedApiKeys);
+
 		addNewApiKey(parsedApiKeys);
 
 		keyVaultSecretApiKeyObject.value = JSON.stringify(parsedApiKeys);
@@ -65,6 +77,9 @@ const removeOldestKey = (apiKeys) => {
 	const oldestKeyIndex = apiKeys.findIndex((apiKey) => apiKey.status === OLDEST);
 	if (oldestKeyIndex !== -1) {
 		apiKeys.splice(oldestKeyIndex, 1);
+		console.log('Removed oldest key from list');
+	} else {
+		console.log('No oldest key found in list - nothing removed');
 	}
 };
 
@@ -77,6 +92,9 @@ const setExpiryOnPreviouslyNewestKey = (apiKeys) => {
 	if (newestKeyIndex !== -1) {
 		apiKeys[newestKeyIndex].status = OLDEST;
 		apiKeys[newestKeyIndex].expiry = new Date(Date.now() + oneHour);
+		console.log("Set expiry on previously 'newest' key");
+	} else {
+		console.log("No 'newest' key found - no changes made");
 	}
 };
 
@@ -91,4 +109,5 @@ const addNewApiKey = (apiKeys) => {
 		key: apiKey,
 		status: NEWEST
 	});
+	console.log("Added newly generated API key to list and assigned status to 'newest'");
 };

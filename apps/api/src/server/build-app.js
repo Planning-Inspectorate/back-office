@@ -24,6 +24,19 @@ const buildApp = (
 		addSwaggerUi(app);
 	}
 
+	// Ordering is important - health-check here ensures that no api key check
+	// occurs on request to this endpoint.
+	app.get('/health', async (req, res) => {
+		try {
+			await databaseConnector.$queryRaw`SELECT 1;`;
+		} catch {
+			res.status(500).send('Database connection failed during health check');
+			return;
+		}
+
+		res.status(200).send('OK');
+	});
+
 	app.use(asyncHandler(authoriseRequest));
 
 	app.use('/migration', bodyParser.json({ limit: '30mb' }));
@@ -41,17 +54,6 @@ const buildApp = (
 	);
 
 	app.use('/migration', migrationRoutes);
-
-	app.get('/health', async (req, res) => {
-		try {
-			await databaseConnector.$queryRaw`SELECT 1;`;
-		} catch {
-			res.status(500).send('Database connection failed during health check');
-			return;
-		}
-
-		res.status(200).send('OK');
-	});
 
 	app.get('/', (req, res, next) => {
 		if (req.headers['user-agent'] === 'AlwaysOn') {
