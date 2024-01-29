@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "watch-training-cases",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "nsip-project",
+			"subscriptionName": "nsip-project-training-sub",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}
