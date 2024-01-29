@@ -27,6 +27,7 @@ import {
 	verifyAllDocumentsHaveRequiredPropertiesForPublishing,
 	verifyNotTrainingAttachment
 } from './document.validators.js';
+import { applicationStates } from '../../state-machine/application.machine.js';
 
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
@@ -955,4 +956,47 @@ export const getDocumentsInCase = async (
 		itemCount: documentsCount,
 		items: mapDocumentVersionDetails(mapDocument)
 	};
+};
+
+/**
+ * soft deletes a document
+ *
+ * @param {string} guid
+ * @param {string} caseId
+ * @throws {BackOfficeAppError} If the document is published, or if the document cannot be deleted for any other reason.
+ * @returns {Promise<Document>}
+ * */
+export const deleteDocument = async (guid, caseId) => {
+	// Step 1: Fetch the document to be deleted from the database
+	const document = await documentVersionRepository.getById(guid);
+
+	if (document === null || typeof document === 'undefined') {
+		throw new BackOfficeAppError(
+			`document not found: guid ${guid} related to caseId ${caseId}`,
+			404
+		);
+	}
+
+	// Step 2: Check if the document is published; if so, throw an error as it cannot be deleted
+	const documentIsPublished =
+		document.publishedStatus?.toLowerCase() === applicationStates.published?.toLowerCase();
+
+	if (documentIsPublished) {
+		throw new BackOfficeAppError(
+			`unable to delete document guid ${guid} related to caseId ${caseId}`,
+			400
+		);
+	}
+
+	// step 3: mark the document as deleted
+	const deletedDocument = await documentRepository.deleteDocument(guid);
+
+	// Step 4: breadcast event message
+	await eventClient.sendEvents(
+		NSIP_DOCUMENT,
+		[buildNsipDocumentPayload(document)],
+		EventType.Delete
+	);
+
+	return deletedDocument;
 };
