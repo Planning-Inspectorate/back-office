@@ -1,13 +1,3 @@
-parameters:
-  - name: environment
-    displayName: Environment
-    type: string
-    default: Dev
-    values:
-      - Dev
-      - Test
-      - Prod
-
 pool: pins-odt-agent-pool
 
 pr: none
@@ -24,7 +14,6 @@ schedules:
     always: true
 
 variables:
-  - template: variables/environments/${{ lower(parameters.environment )}}.yml@templates
   - group: back-office-infrastructure
 
 resources:
@@ -37,8 +26,6 @@ resources:
 
 jobs:
   - deployment: RegenerateApiKeys
-    displayName: Regenerating ${{ parameters.environment }} Applications API keys
-    environment: ${{ parameters.environment }}
     strategy:
       runOnce:
         deploy:
