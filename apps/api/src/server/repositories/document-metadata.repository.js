@@ -249,3 +249,103 @@ export const updateAll = async (documentVersionIds, documentDetails) => {
 
 	return results;
 };
+
+/**
+ * Set publishedStatus of training cases to 'published', and non-training cases to 'publishing'.
+ *
+ * @param {{documentGuid: string, version: number}[]} documentVersionIds
+ * @returns {Promise<DocumentVersionWithDocument[]>}
+ */
+export const publishMany = async (documentVersionIds) => {
+	const results = [];
+
+	for (const documentGuid_version of documentVersionIds) {
+		const current = await databaseConnector.documentVersion.findUnique({
+			where: { documentGuid_version },
+			include: {
+				Document: {
+					include: {
+						case: {
+							include: {
+								ApplicationDetails: {
+									include: {
+										subSector: {
+											include: {
+												sector: true
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+
+		const isTraining =
+			current?.Document?.case?.ApplicationDetails?.subSector?.sector.name === 'training';
+
+		const result = await databaseConnector.documentVersion.update({
+			where: { documentGuid_version },
+			data: {
+				publishedStatus: isTraining ? 'published' : 'publishing',
+				publishedStatusPrev: current?.publishedStatus
+			}
+		});
+
+		results.push(result);
+	}
+
+	return results;
+};
+
+/**
+ * Set publishedStatus of training cases to 'unpublished', and non-training cases to 'unpublishing'.
+ *
+ * @param {{documentGuid: string, version: number}[]} documentVersionIds
+ * @returns {Promise<DocumentVersionWithDocument[]>}
+ */
+export const unpublishMany = async (documentVersionIds) => {
+	const results = [];
+
+	for (const documentGuid_version of documentVersionIds) {
+		const current = await databaseConnector.documentVersion.findUnique({
+			where: { documentGuid_version },
+			include: {
+				Document: {
+					include: {
+						case: {
+							include: {
+								ApplicationDetails: {
+									include: {
+										subSector: {
+											include: {
+												sector: true
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+
+		const isTraining =
+			current?.Document?.case?.ApplicationDetails?.subSector?.sector.name === 'training';
+
+		const result = await databaseConnector.documentVersion.update({
+			where: { documentGuid_version },
+			data: {
+				publishedStatus: isTraining ? 'unpublished' : 'unpublishing',
+				publishedStatusPrev: current?.publishedStatus
+			}
+		});
+
+		results.push(result);
+	}
+
+	return results;
+};

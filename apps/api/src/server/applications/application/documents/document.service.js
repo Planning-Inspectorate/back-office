@@ -544,10 +544,7 @@ export const publishDocumentVersions = async (documentVersionIds) => {
 
 	const currentlyPublished = await getCurrentlyPublished(documentGuids);
 
-	const publishedDocuments = await documentVersionRepository.updateAll(documentVersionIds, {
-		publishedStatus: 'publishing',
-		publishedStatusPrev: 'ready_to_publish'
-	});
+	const publishedDocuments = await documentVersionRepository.publishMany(documentVersionIds);
 
 	const unpublishedDocuments = await documentVersionRepository.updateAll(
 		currentlyPublished.map((version) => ({
@@ -872,15 +869,11 @@ export const unpublishDocuments = async (guids) => {
 
 	const allVersions = versions.flatMap((docVersions) => docVersions?.filter(Boolean) ?? []);
 
-	const unpublishedDocuments = await documentVersionRepository.updateAll(
+	const unpublishedDocuments = await documentVersionRepository.unpublishMany(
 		allVersions.map((version) => ({
 			documentGuid: version.documentGuid,
 			version: version.version
-		})),
-		{
-			publishedStatus: 'unpublishing',
-			publishedStatusPrev: 'published'
-		}
+		}))
 	);
 
 	await Promise.all(
