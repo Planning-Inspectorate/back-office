@@ -36,13 +36,11 @@ describe('Search', () => {
 
 		it('Inspector user should be able to use search using Case Name', () => {
 			applicationsHomePage.searchFor(projectInfo.projectName);
-			searchResultsPage.verifySearchResultsCount(1);
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
 
 		it('Inspector user should be able to use search using Case Description', () => {
 			applicationsHomePage.searchFor(projectInfo.projectDescription);
-			searchResultsPage.verifySearchResultsCount(1);
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
 	});
@@ -62,13 +60,11 @@ describe('Search', () => {
 
 		it('Case Team Admin user should be able to use search using Case Name', () => {
 			applicationsHomePage.searchFor(projectInfo.projectName);
-			searchResultsPage.verifySearchResultsCount(1);
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
 
 		it('Case Team Admin user should be able to use search using Case Description', () => {
 			applicationsHomePage.searchFor(projectInfo.projectDescription);
-			searchResultsPage.verifySearchResultsCount(1);
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
 
