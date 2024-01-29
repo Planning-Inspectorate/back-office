@@ -10,6 +10,11 @@ import {
 	documentVersionAuditEntry,
 	folderWithDocs
 } from '#tests/documents/mocks.js';
+import {
+	linkedAppealRequest,
+	linkedAppealLegacyRequest,
+	unlinkAppealRequest
+} from '#tests/linked-appeals/mocks.js';
 
 export const spec = {
 	info: {
@@ -43,6 +48,15 @@ export const spec = {
 	// by default: empty object (Swagger 2.0)
 	securityDefinitions: {},
 	definitions: {
+		LinkedAppealRequest: {
+			...linkedAppealRequest
+		},
+		LinkedAppealLegacyRequest: {
+			...linkedAppealLegacyRequest
+		},
+		UnlinkAppealRequest: {
+			...unlinkAppealRequest
+		},
 		ValidateDate: {
 			inputDate: '2023-08-17'
 		},
