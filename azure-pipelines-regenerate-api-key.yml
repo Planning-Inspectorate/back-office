@@ -1,3 +1,13 @@
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: Dev
+    values:
+      - Dev
+      - Test
+      - Prod
+
 pool: pins-odt-agent-pool
 
 pr: none
@@ -26,6 +36,7 @@ resources:
 
 jobs:
   - deployment: RegenerateApiKeys
+    environment: ${{ parameters.environment }}
     strategy:
       runOnce:
         deploy:
@@ -43,7 +54,7 @@ jobs:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
                   AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
                   AZURE_TENANT_ID: $(AZURE_TENANT_ID)
-                  KEY_VAULT_NAME: ${KEY_VAULT_NAME_DEV}
+                  KEY_VAULT_NAME: $(KEY_VAULT_NAME_DEV)
                 script: npm run applications:regenerate-api-keys
                 workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
             - template: steps/node_script.yml@templates
@@ -53,7 +64,7 @@ jobs:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
                   AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
                   AZURE_TENANT_ID: $(AZURE_TENANT_ID)
-                  KEY_VAULT_NAME: ${KEY_VAULT_NAME_TEST}
+                  KEY_VAULT_NAME: $(KEY_VAULT_NAME_TEST)
                 script: npm run applications:regenerate-api-keys
                 workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
             - template: steps/node_script.yml@templates
@@ -63,6 +74,6 @@ jobs:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
                   AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
                   AZURE_TENANT_ID: $(AZURE_TENANT_ID)
-                  KEY_VAULT_NAME: ${KEY_VAULT_NAME_PROD}
+                  KEY_VAULT_NAME: $(KEY_VAULT_NAME_PROD)
                 script: npm run applications:regenerate-api-keys
                 workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
