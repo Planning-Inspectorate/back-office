@@ -45,7 +45,7 @@ export const viewNationalList = async (request, response) => {
 		id: 'searchTerm',
 		name: 'searchTerm',
 		label: {
-			text: 'Enter appeal ID or postcode',
+			text: 'Enter appeal ID or postcode (include spaces)',
 			classes: 'govuk-caption-m govuk-!-margin-bottom-3 colour--secondary'
 		}
 	};
