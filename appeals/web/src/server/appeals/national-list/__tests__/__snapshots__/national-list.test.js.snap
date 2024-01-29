@@ -13,9 +13,9 @@ exports[`national-list GET / should render national list - 10 pages - all page i
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text">
+                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    <input class="govuk-input"
+                    id="searchTerm" name="searchTerm" type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -107,9 +107,9 @@ exports[`national-list GET / should render national list - 15 pages - pagination
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text">
+                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    <input class="govuk-input"
+                    id="searchTerm" name="searchTerm" type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -181,9 +181,9 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text">
+                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    <input class="govuk-input"
+                    id="searchTerm" name="searchTerm" type="text">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -238,9 +238,9 @@ exports[`national-list GET / should render national list - search term - no resu
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text" value="NORESULT">
+                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    <input class="govuk-input"
+                    id="searchTerm" name="searchTerm" type="text" value="NORESULT">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
@@ -267,9 +267,9 @@ exports[`national-list GET / should render national list - search term 1`] = `
             <form action="" method="GET" novalidate>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode</label>
-                    <input class="govuk-input" id="searchTerm"
-                    name="searchTerm" type="text" value="BS7 8LQ">
+                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    <input class="govuk-input"
+                    id="searchTerm" name="searchTerm" type="text" value="BS7 8LQ">
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Search</button>
             </form>
