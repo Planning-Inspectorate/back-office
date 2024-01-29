@@ -1,7 +1,7 @@
 // @ts-nocheck
 // eslint-disable-next-line no-unused-vars
 import { jest } from '@jest/globals';
-import got from 'got';
+import { gotInstance } from '../../common/backend-api-request.js';
 import { index } from '../index.js';
 import { blobClient } from '../blob-client.js';
 
@@ -75,7 +75,7 @@ describe('Publishing document', () => {
 
 	it.each(testCases)('$name', async ({ document, expectedSourceName, expectedDestinationName }) => {
 		// Arrange
-		const mockGotPost = jest.spyOn(got, 'post');
+		const mockGotPost = jest.spyOn(gotInstance, 'post');
 		const mockCopyFile = jest.spyOn(blobClient, 'copyFile');
 
 		mockGotPost.mockReturnValue(mock200Response);

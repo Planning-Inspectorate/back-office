@@ -24,8 +24,16 @@ const buildApp = (
 		addSwaggerUi(app);
 	}
 
-	// Ordering is important - health-check here ensures that no api key check
-	// occurs on request to this endpoint.
+	// Ordering is important - 'always-on' and 'health-check' here ensures
+	// that no api key check occurs on requests to these endpoints.
+	app.get('/', (req, res, next) => {
+		if (req.headers['user-agent'] === 'AlwaysOn') {
+			res.status(204).end();
+		} else {
+			next();
+		}
+	});
+
 	app.get('/health', async (req, res) => {
 		try {
 			await databaseConnector.$queryRaw`SELECT 1;`;
@@ -54,14 +62,6 @@ const buildApp = (
 	);
 
 	app.use('/migration', migrationRoutes);
-
-	app.get('/', (req, res, next) => {
-		if (req.headers['user-agent'] === 'AlwaysOn') {
-			res.status(204).end();
-		} else {
-			next();
-		}
-	});
 
 	app.all('*', (req, res, next) => {
 		next(new BackOfficeAppError(`Method is not allowed`, 405));

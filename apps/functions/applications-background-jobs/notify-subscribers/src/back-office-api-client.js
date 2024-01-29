@@ -1,5 +1,6 @@
-import got, { HTTPError } from 'got';
+import { HTTPError } from 'got';
 import querystring from 'querystring';
+import { gotInstance } from '../../common/backend-api-request.js';
 
 /**
  * Simple API Client for interacting with the back office
@@ -24,7 +25,7 @@ export class BackOfficeApiClient {
 	 */
 	async getProjectUpdate(id) {
 		try {
-			return await got.get(`${this.baseUrl}/applications/project-updates/${id}`).json();
+			return await gotInstance.get(`${this.baseUrl}/applications/project-updates/${id}`).json();
 		} catch (e) {
 			if (e instanceof HTTPError) {
 				if (e.response.statusCode === 404) {
@@ -44,7 +45,7 @@ export class BackOfficeApiClient {
 	 * @returns {Promise<import('@pins/applications').ProjectUpdate>}
 	 */
 	async patchProjectUpdate(id, caseId, sentToSubscribers) {
-		return got
+		return gotInstance
 			.patch(`${this.baseUrl}/applications/${caseId}/project-updates/${id}`, {
 				json: { sentToSubscribers }
 			})
@@ -78,7 +79,7 @@ export class BackOfficeApiClient {
 			queryInput.endAfter = endAfter.toISOString();
 		}
 		const query = querystring.stringify(queryInput);
-		return got.get(`${this.baseUrl}/applications/subscriptions/list/?${query}`).json();
+		return gotInstance.get(`${this.baseUrl}/applications/subscriptions/list/?${query}`).json();
 	}
 
 	/**
@@ -90,7 +91,7 @@ export class BackOfficeApiClient {
 	 * @returns {Promise<{count: number}>}
 	 */
 	postNotificationLogs(projectUpdateId, caseId, logs) {
-		return got
+		return gotInstance
 			.post(
 				`${this.baseUrl}/applications/${caseId}/project-updates/${projectUpdateId}/notification-logs`,
 				{

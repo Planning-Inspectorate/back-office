@@ -1,5 +1,6 @@
 import got from 'got';
 import { loadApiConfig } from './config.js';
+import { addAuthHeadersForBackend } from '@pins/add-auth-headers-for-backend';
 
 const config = loadApiConfig();
 
@@ -17,7 +18,20 @@ export const makePostRequest = (logger, path, body) => {
 
 	logger.info(`Making POST request to ${requestUri}`);
 
-	return got.post(requestUri, {
+	const serviceName = 'function';
+	const gotInstance = got.extend({
+		hooks: {
+			beforeRequest: [
+				async (options) =>
+					await addAuthHeadersForBackend(options, {
+						azureKeyVaultEnabled: true,
+						apiKeyName: `backoffice-applications-api-key-${serviceName}`,
+						callingClient: serviceName
+					})
+			]
+		}
+	});
+	return gotInstance.post(requestUri, {
 		json: body
 	});
 };
