@@ -18,6 +18,10 @@ const expectedNsipProjectPayload = {
 
 jest.useFakeTimers({ now: 1_649_319_144_000 });
 
+beforeEach(() => {
+	jest.clearAllMocks();
+});
+
 test('creates new application with just title and first notified date', async () => {
 	// GIVEN
 	databaseConnector.case.create.mockResolvedValue(createdCase);
@@ -310,4 +314,24 @@ test('returns error if any validated values are invalid', async () => {
 			subSectorName: 'Must be existing sub-sector'
 		}
 	});
+});
+
+test('does not publish Service Bus events for training cases', async () => {
+	// GIVEN
+	databaseConnector.case.create.mockResolvedValue({ ...createdCase, reference: 'TRAIN' });
+	databaseConnector.case.findUnique.mockResolvedValue({ ...createdCase, reference: 'TRAIN' });
+
+	// WHEN
+	const response = await request.post('/applications').send({
+		title: 'some title',
+		keyDates: {
+			preApplication: {
+				submissionAtInternal: 1_649_319_344_000
+			}
+		}
+	});
+
+	// THEN
+	expect(response.status).toEqual(200);
+	expect(eventClient.sendEvents).not.toHaveBeenCalled();
 });
