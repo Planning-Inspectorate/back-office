@@ -4,8 +4,8 @@ import { getShortMonthName } from './utils.js';
 
 export const s51AdviceDetails = () => {
 	const title = faker.lorem.sentences(1);
-	const enquiryDetails = faker.lorem.sentences();
-	const adviceDetails = faker.lorem.sentences();
+	const enquiryDetails = 'enquiry details';
+	const adviceDetails = 'Advice details';
 	const firstName = faker.name.firstName();
 	const lastName = faker.name.lastName();
 	const organisation = faker.company.name();
