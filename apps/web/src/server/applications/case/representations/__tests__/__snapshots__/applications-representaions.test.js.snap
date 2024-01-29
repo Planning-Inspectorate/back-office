@@ -108,7 +108,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
                 data-module=\\"govuk-button\\"> Add a representation</a>
                 <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/api/download\\"
-                    download> Download all representations (CSV)</a>
+                    download> Download valid and published representations (CSV)</a>
                 </p>
             </div>
         </div>
@@ -299,7 +299,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
                 data-module=\\"govuk-button\\"> Add a representation</a>
                 <p class=\\"govuk-body\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/relevant-representations/api/download\\"
-                    download> Download all representations (CSV)</a>
+                    download> Download valid and published representations (CSV)</a>
                 </p>
             </div>
         </div>
