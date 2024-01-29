@@ -53,6 +53,10 @@ const applicationInPreApplicationState = applicationFactoryForTests({
 jest.useFakeTimers({ now: 1_649_319_144_000 });
 
 describe('Start case', () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
 	test('starts application if all needed information is present', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(applicationReadyToStart);
@@ -247,5 +251,20 @@ describe('Start case', () => {
 				application: "Could not transition 'pre_application' using 'START'."
 			}
 		});
+	});
+
+	test('does not publish Service Bus events for training cases', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue({
+			...applicationReadyToStart,
+			reference: 'TRAIN'
+		});
+
+		// WHEN
+		const response = await request.post('/applications/1/start');
+
+		// THEN
+		expect(response.status).toEqual(200);
+		expect(eventClient.sendEvents).not.toHaveBeenCalled();
 	});
 });

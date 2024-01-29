@@ -25,6 +25,10 @@ const { databaseConnector } = await import('#utils/database-connector.js');
 const { eventClient } = await import('#infrastructure/event-client.js');
 
 describe('Update application', () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
 	test('update-application updates application with just title and first notified date', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
@@ -485,5 +489,31 @@ describe('Update application', () => {
 				'applicant.id': 'Must be existing applicant that belongs to this case'
 			}
 		});
+	});
+
+	test('does not publish Service Bus events for training cases', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			reference: 'TRAIN',
+			applicant: { id: 1 }
+		});
+
+		databaseConnector.case.update.mockResolvedValue({});
+		jest.useFakeTimers({ now: 1_649_319_144_000 });
+
+		// WHEN
+		const response = await request.patch('/applications/1').send({
+			title: 'some title',
+			keyDates: {
+				preApplication: {
+					submissionAtInternal: 1_649_319_344_000
+				}
+			}
+		});
+
+		// THEN
+		expect(response.status).toEqual(200);
+		expect(eventClient.sendEvents).not.toHaveBeenCalledWith('nsip-project');
 	});
 });

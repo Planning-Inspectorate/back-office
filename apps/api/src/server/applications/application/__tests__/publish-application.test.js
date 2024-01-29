@@ -9,6 +9,10 @@ const mockDate = new Date(now);
 jest.useFakeTimers({ now });
 
 describe('Publish application', () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
 	test('publish an application and return published Date as a timestamp', async () => {
 		// GIVEN
 		const caseId = 1;
@@ -80,5 +84,27 @@ describe('Publish application', () => {
 				id: 'Must be an existing application'
 			}
 		});
+	});
+
+	test('does not publish Service Bus events for training cases', async () => {
+		// GIVEN
+		const caseId = 1;
+
+		databaseConnector.case.findUnique.mockResolvedValue({
+			id: 1,
+			reference: 'TRAIN',
+			CasePublishedState: [{ createdAt: mockDate, isPublished: true }]
+		});
+		databaseConnector.case.update.mockResolvedValue({
+			CasePublishedState: [{ createdAt: mockDate, isPublished: true }]
+		});
+
+		// WHEN
+		const response = await request.patch(`/applications/${caseId}/publish`);
+
+		// THEN
+		expect(response.status).toEqual(200);
+
+		expect(eventClient.sendEvents).not.toHaveBeenCalled();
 	});
 });
