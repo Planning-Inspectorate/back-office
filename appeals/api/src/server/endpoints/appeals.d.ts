@@ -567,6 +567,13 @@ interface SetInvalidAppealDecisionRequest {
 	invalidDecisionReason: string;
 }
 
+interface AppealRelationshipRequest {
+	parentRef: string;
+	parentId?: number | null;
+	childRef: string;
+	childId: number | null;
+}
+
 interface UsersToAssign {
 	caseOfficer?: string | null;
 	inspector?: string | null;
@@ -682,5 +689,6 @@ export {
 	UsersToAssign,
 	ValidationOutcomeResponse,
 	SetAppealDecisionRequest,
-	SetInvalidAppealDecisionRequest
+	SetInvalidAppealDecisionRequest,
+	AppealRelationshipRequest
 };
