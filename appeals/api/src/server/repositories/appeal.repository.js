@@ -106,7 +106,7 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 		],
 		AND: {
 			appealStatus: {
-				some: { valid: true, status: { not: STATE_TARGET_COMPLETE } }
+				some: { valid: true, status: { notIn: [STATE_TARGET_COMPLETE, STATE_TARGET_CLOSED] } }
 			}
 		}
 	};
@@ -123,8 +123,7 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 				address: true,
 				appealStatus: {
 					where: {
-						valid: true,
-						status: { not: STATE_TARGET_CLOSED }
+						valid: true
 					}
 				},
 				appealTimetable: true,
