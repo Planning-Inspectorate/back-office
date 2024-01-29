@@ -253,7 +253,7 @@ export class Page {
 	}
 
 	verifyFolderDocuments(fileCount) {
-		cy.wait(4000);
+		cy.wait(6000);
 		cy.get('.pins-files-list > .govuk-table .govuk-table__row').should(
 			'have.length',
 			2 + fileCount
