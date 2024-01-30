@@ -23,6 +23,7 @@ import { householdAppeal, fullPlanningAppeal, linkedAppeals } from '#tests/appea
 import formatAddress from '#utils/format-address.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 import { mapAppealToDueDate } from '../appeals.formatter.js';
+import { mapAppealStatuses } from '../appeals.controller.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -1415,5 +1416,26 @@ describe('mapAppealToDueDate Tests', () => {
 
 		const dueDate = mapAppealToDueDate(mockAppeal, '', null);
 		expect(dueDate).toBeUndefined();
+	});
+});
+
+describe('mapAppealStatuses Tests', () => {
+	test('correctly orders statuses', () => {
+		const preSortedStatuses = [
+			{ appealStatus: [{ status: 'issue_determination' }] },
+			{ appealStatus: [{ status: 'lpa_questionnaire_due' }] },
+			{ appealStatus: [{ status: 'awaiting_transfer' }] },
+			{ appealStatus: [{ status: 'ready_to_start' }] }
+		];
+
+		const expectedOrder = [
+			'ready_to_start',
+			'lpa_questionnaire_due',
+			'issue_determination',
+			'awaiting_transfer'
+		];
+
+		const orderedStatuses = mapAppealStatuses(preSortedStatuses);
+		expect(orderedStatuses).toEqual(expectedOrder);
 	});
 });

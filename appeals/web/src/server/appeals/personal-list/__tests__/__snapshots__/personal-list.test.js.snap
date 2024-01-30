@@ -17,8 +17,8 @@ exports[`personal-list GET / should render the first page of the personal list w
                     <select class="govuk-select" id="filters-select"
                     name="appealStatusFilter">
                         <option value="all">All</option>
-                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
                         <option value="ready_to_start">Ready to start</option>
+                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
                         <option value="issue_determination">Issue decision</option>
                     </select>
                 </div>
@@ -129,8 +129,8 @@ exports[`personal-list GET / should render the second page of the personal list 
                     <select class="govuk-select" id="filters-select"
                     name="appealStatusFilter">
                         <option value="all">All</option>
-                        <option value="lpa_questionnaire_due" selected>LPA questionnaire due</option>
                         <option value="ready_to_start">Ready to start</option>
+                        <option value="lpa_questionnaire_due" selected>LPA questionnaire due</option>
                         <option value="issue_determination">Issue decision</option>
                     </select>
                 </div>
@@ -198,8 +198,8 @@ exports[`personal-list GET / should render the second page of the personal list 
                     <select class="govuk-select" id="filters-select"
                     name="appealStatusFilter">
                         <option value="all">All</option>
-                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
                         <option value="ready_to_start">Ready to start</option>
+                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
                         <option value="issue_determination">Issue decision</option>
                     </select>
                 </div>

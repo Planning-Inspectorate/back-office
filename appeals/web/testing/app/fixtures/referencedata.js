@@ -1382,7 +1382,7 @@ export const assignedAppealsPage1 = {
 			dueDate: '2024-01-07T11:43:21.199Z'
 		}
 	],
-	statuses: ['lpa_questionnaire_due', 'ready_to_start', 'issue_determination'],
+	statuses: ['ready_to_start', 'lpa_questionnaire_due', 'issue_determination'],
 	page: 1,
 	pageCount: 2,
 	pageSize: 5
@@ -1455,7 +1455,7 @@ export const assignedAppealsPage2 = {
 			dueDate: '2024-01-07T11:43:21.298Z'
 		}
 	],
-	statuses: ['lpa_questionnaire_due', 'ready_to_start', 'issue_determination'],
+	statuses: ['ready_to_start', 'lpa_questionnaire_due', 'issue_determination'],
 	page: 2,
 	pageCount: 2,
 	pageSize: 5
@@ -1480,7 +1480,7 @@ export const assignedAppealsPage3 = {
 			dueDate: '2024-01-07T11:43:21.226Z'
 		}
 	],
-	statuses: ['lpa_questionnaire_due', 'ready_to_start', 'issue_determination'],
+	statuses: ['ready_to_start', 'lpa_questionnaire_due', 'issue_determination'],
 	page: 2,
 	pageCount: 2,
 	pageSize: 1
