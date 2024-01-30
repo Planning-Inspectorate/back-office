@@ -35,6 +35,8 @@ export const postIssueDecision = async (request, response) => {
 
 		/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
 		request.session.inspectorDecision = {
+			appealId: appealId,
+			...request.session.inspectorDecision,
 			outcome: decision
 		};
 
@@ -58,7 +60,14 @@ const renderIssueDecision = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	let mappedPageContent = await issueDecisionPage(appealData);
+	if (
+		request.session?.inspectorDecision?.appealId &&
+		request.session?.inspectorDecision?.appealId !== appealId
+	) {
+		request.session.inspectorDecision = {};
+	}
+
+	let mappedPageContent = await issueDecisionPage(appealData, request.session.inspectorDecision);
 
 	return response.render('appeals/appeal/issue-decision.njk', {
 		pageContent: mappedPageContent,
@@ -174,7 +183,7 @@ export const postDateDecisionLetter = async (request, response) => {
 		/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
 		request.session.inspectorDecision = {
 			...request.session.inspectorDecision,
-			letterDate
+			letterDate: letterDate
 		};
 
 		return response.redirect(
@@ -193,6 +202,11 @@ export const postDateDecisionLetter = async (request, response) => {
  */
 const renderDateDecisionLetter = async (request, response) => {
 	const { errors } = request;
+	// const {
+	// 	'decision-letter-date-day': decisionLetterDay,
+	// 	'decision-letter-date-month': decisionLetterMonth,
+	// 	'decision-letter-date-year': decisionLetterYear
+	// } = request.body;
 
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
@@ -216,14 +230,18 @@ const renderDateDecisionLetter = async (request, response) => {
 		};
 	}
 
-	// @ts-ignore
-	let {
-		body: {
-			'decision-letter-date-day': decisionLetterDay,
-			'decision-letter-date-month': decisionLetterMonth,
-			'decision-letter-date-year': decisionLetterYear
+	let decisionLetterDay = request.body['decision-letter-date-day'];
+	let decisionLetterMonth = request.body['decision-letter-date-month'];
+	let decisionLetterYear = request.body['decision-letter-date-year'];
+
+	if (!decisionLetterDay || !decisionLetterMonth || !decisionLetterYear) {
+		if (request.session.inspectorDecision?.letterDate) {
+			const letterDate = new Date(request.session.inspectorDecision.letterDate);
+			decisionLetterDay = letterDate.getDate();
+			decisionLetterMonth = letterDate.getMonth() + 1; // Months are 0-indexed
+			decisionLetterYear = letterDate.getFullYear();
 		}
-	} = request;
+	}
 
 	let mappedPageContent = await dateDecisionLetterPage(
 		appealData,
@@ -323,6 +341,9 @@ export const renderCheckDecision = async (request, response) => {
 export const getDecisionSent = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
+
+	/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
+	request.session.inspectorDecision = {};
 
 	let mappedPageContent = await decisionConfirmationPage(appealData);
 	return response.render('appeals/confirmation.njk', mappedPageContent);
