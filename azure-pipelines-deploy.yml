@@ -77,12 +77,12 @@ extends:
                     parameters:
                       secrets:
                         - name: back-office-sql-connection-string
-                          variable: DATABASE_URL
+                          variable: DATABASE_URL_ADMIN
                   - template: ../steps/node_script.yml
                     parameters:
                       nodeVersion: 18
                       environmentVariables:
-                        DATABASE_URL: $(DATABASE_URL)
+                        DATABASE_URL: $(DATABASE_URL_ADMIN)
                       script: npm run db:migrate:prod
                       workingDirectory: $(Build.Repository.LocalPath)/apps/api
               - template: ../steps/azure_web_app_deploy.yml

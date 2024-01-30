@@ -10,7 +10,7 @@ Currently there is no code depending on the reference field being in a certain f
 
 ## Steps to resolve
 
-1. Change the `DATABASE_URL` variable in your .env (in apps/api) to the connection string in the Azure config for the back office API. (This will change when we move to key vault).
+1. Change the `DATABASE_URL_ADMIN` variable in your .env (in apps/api) to the connection string in the Azure config for the back office API. (This will change when we move to key vault).
 
 2. Go to the back office database in UK West and click 'Set Server Firewall'. Add your IP address to the list of allowed IP addresses.
 

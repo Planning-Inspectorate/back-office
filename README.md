@@ -109,10 +109,12 @@ Install Azure Data Studio, and after setting up the database in Docker as descri
 > [!IMPORTANT]
 > The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please note that the following operations need to be executed in the `appeals/api` folder instead.
 
-The `api` app needs to know how to connect to the database. Copy the `.env.example` to `.env` in `apps/api` and replace `<YourStrong@Passw0rd>` in `DATABASE_URL`.
+The `api` app needs to know how to connect to the database. Copy the `.env.example` to `.env` in `apps/api` and replace `<YourStrong@Passw0rd>` in `DATABASE_URL` and `DATABASE_URL_ADMIN`.
 
 ```
 DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
+
+DATABASE_URL_ADMIN="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
 ```
 
 ##### Appeals API

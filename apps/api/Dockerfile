@@ -11,6 +11,7 @@ RUN npm ci
 # relative to cwd
 ENV SWAGGER_JSON_DIR=./src/server/swagger-output.json
 ENV DATABASE_URL=$DATABASE_URL
+ENV DATABASE_URL_ADMIN=$DATABASE_URL_ADMIN
 
 WORKDIR /src/app/apps/api
 RUN npx prisma generate

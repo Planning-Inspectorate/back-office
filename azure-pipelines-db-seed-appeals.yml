@@ -44,11 +44,11 @@ jobs:
               parameters:
                 secrets:
                   - name: back-office-appeals-sql-connection-string
-                    variable: DATABASE_URL
+                    variable: DATABASE_URL_ADMIN
             - template: steps/node_script.yml@templates
               parameters:
                 environmentVariables:
-                  DATABASE_URL: $(DATABASE_URL)
+                  DATABASE_URL: $(DATABASE_URL_ADMIN)
                 script: npm run db:seed
                 workingDirectory: $(Build.Repository.LocalPath)/appeals/api
     workspace:

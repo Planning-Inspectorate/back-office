@@ -25,7 +25,7 @@ If you're getting a P3009, you'll need to look back to the first migration run w
 
 ## 3. Configure your local connection string
 
-Modify the apps/api/.env file and set the DATABASE_URL value to the connection string for the impacted database. You can obtain these credentials currently by looking at the Back Office API Service for the impacted environment and copying the connection string (TODO: This will change when we move the connection string to Key Vault)
+Modify the apps/api/.env file and set the DATABASE_URL_ADMIN value to the connection string for the impacted database. You can obtain these credentials currently by looking at the Back Office API Service for the impacted environment and copying the connection string (TODO: This will change when we move the connection string to Key Vault)
 
 For environments other than dev, you'll need to reach out to operations team to get the connection strings.
 

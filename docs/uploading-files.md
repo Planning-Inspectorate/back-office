@@ -22,6 +22,8 @@ Log into the azure portal and take a look at the App Configuration settings for 
 
 ```
 DATABASE_URL
+
+DATABASE_URL_ADMIN
 ```
 
 Then for the document storage API, create a .env file that mirrors the dev settings for:
