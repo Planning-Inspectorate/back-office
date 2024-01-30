@@ -6,6 +6,7 @@ import { migrateNsipProjectUpdates } from './migrators/nsip-project-update-migra
 import { migrateNsipSubscriptions } from './migrators/nsip-subscription-migrator.js';
 import { migrateServiceUsers } from './migrators/service-user-migrator.js';
 import { migrateExamTimetables } from './migrators/nsip-exam-timetable-migrator.js';
+import { migrateS51Advice } from './migrators/s51-advice-migrator.js';
 
 /**
  * @callback Migrator
@@ -70,5 +71,10 @@ const initializeMapping = async () => {
 	migrationMap.set('nsip-exam-timetable', {
 		validator: ajv.getSchema('nsip-exam-timetable.schema.json'),
 		migrator: migrateExamTimetables
+	});
+
+	migrationMap.set('s51-advice', {
+		validator: ajv.getSchema('s51-advice.schema.json'),
+		migrator: migrateS51Advice
 	});
 };

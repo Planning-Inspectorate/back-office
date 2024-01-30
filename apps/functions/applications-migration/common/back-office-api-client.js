@@ -14,7 +14,7 @@ const config = loadApiConfig();
  * @returns {import('got').CancelableRequest<any>}
  */
 export const makePostRequest = (logger, path, body) => {
-	const requestUri = `https://${config.apiHost}/${path}`;
+	const requestUri = `https://${config.apiHost}${path}`;
 
 	logger.info(`Making POST request to ${requestUri}`);
 
