@@ -1,4 +1,3 @@
-import config from '@pins/appeals.web/environment/config.js';
 import logger from '#lib/logger.js';
 import {
 	getDocumentRedactionStatuses,
@@ -15,10 +14,9 @@ import {
 	mapRedactionStatusIdToName,
 	changeDocumentDetailsPage,
 	deleteDocumentPage,
-	mapAddDocumentsPageHeading
+	documentUploadPage
 } from './appeal-documents.mapper.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  *
@@ -51,39 +49,20 @@ export const renderDocumentUpload = async (
 		documentName = fileInfo?.latestDocumentVersion.fileName;
 	}
 
-	const pathComponents = currentFolder.path.split('/');
-	const documentStage = pathComponents[0];
-	const documentType = pathComponents[1];
-
-	const isAdditionalDocument = currentFolder.path.split('/')[1] === 'additionalDocuments';
-	const pageHeadingText = mapAddDocumentsPageHeading(
-		currentFolder,
-		isAdditionalDocument,
-		documentId
+	const mappedPageContent = documentUploadPage(
+		appealId,
+		appealDetails.appealReference,
+		`${currentFolder.id}`,
+		currentFolder.path,
+		documentId,
+		documentName,
+		backButtonUrl,
+		nextPageUrl,
+		isLateEntry,
+		errors
 	);
 
-	return response.render('appeals/documents/document-upload.njk', {
-		backButtonUrl: backButtonUrl?.replace('{{folderId}}', currentFolder.id),
-		appealId,
-		folderId: currentFolder.id,
-		documentId,
-		useBlobEmulator: config.useBlobEmulator,
-		blobStorageHost:
-			config.useBlobEmulator === true ? config.blobEmulatorSasUrl : config.blobStorageUrl,
-		blobStorageContainer: config.blobStorageDefaultContainer,
-		multiple: !documentId,
-		documentStage: documentStage,
-		serviceName: documentName || pageHeadingText,
-		appealShortReference: appealShortReference(appealDetails.appealReference),
-		pageHeadingText: pageHeadingText,
-		documentType: documentType,
-		nextPageUrl:
-			nextPageUrl?.replace('{{folderId}}', currentFolder.id) ||
-			backButtonUrl?.replace('{{folderId}}', currentFolder.id),
-		displayLateEntryContent: isAdditionalDocument && isLateEntry,
-		displayCorrectFolderConfirmationContent: isAdditionalDocument && !isLateEntry,
-		errors
-	});
+	return response.render('appeals/documents/document-upload.njk', mappedPageContent);
 };
 
 /**

@@ -1,5 +1,3 @@
-import { appealShortReference } from '#lib/appeals-formatter.js';
-import config from '@pins/appeals.web/environment/config.js';
 import { getAppealDetailsFromId, postInspectorDecision } from './issue-decision.service.js';
 import logger from '#lib/logger.js';
 import {
@@ -7,7 +5,8 @@ import {
 	dateDecisionLetterPage,
 	issueDecisionPage,
 	decisionConfirmationPage,
-	mapDecisionOutcome
+	mapDecisionOutcome,
+	decisionLetterUploadPage
 } from './issue-decision.mapper.js';
 import { getFolder } from '#appeals/appeal-documents/appeal.documents.service.js';
 
@@ -111,8 +110,6 @@ export const postDecisionLetterUpload = async (request, response) => {
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
 const renderDecisionLetterUpload = async (request, response) => {
-	let documentName;
-
 	const { appealId } = request.params;
 	const { errors } = request;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
@@ -125,29 +122,13 @@ const renderDecisionLetterUpload = async (request, response) => {
 		return response.status(404).render('app/404');
 	}
 
-	const pathComponents = currentFolder.path.split('/');
-	const documentStage = pathComponents[0];
-	const documentType = pathComponents[1];
-	const shortAppealReference = appealShortReference(appealData.appealReference);
-
-	let mappedPageContent = {
-		backButtonUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision`,
+	const mappedPageContent = decisionLetterUploadPage(
+		appealData,
+		appealData.decision?.folderId,
+		'appeal_decision/decisionLetter',
 		appealId,
-		folderId: currentFolder.id,
-		useBlobEmulator: config.useBlobEmulator,
-		blobStorageHost:
-			config.useBlobEmulator === true ? config.blobEmulatorSasUrl : config.blobStorageUrl,
-		blobStorageContainer: config.blobStorageDefaultContainer,
-		multiple: false,
-		documentStage: documentStage,
-		serviceName: documentName,
-		pageTitle: `Appeal ${shortAppealReference}`,
-		pageHeadingText: 'Upload your decision letter',
-		caseInfoText: `Appeal ${shortAppealReference}`,
-		documentType: documentType,
-		nextPageUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision-letter-date`,
 		errors
-	};
+	);
 
 	return response.render('appeals/documents/decision-letter-upload.njk', mappedPageContent);
 };
@@ -202,13 +183,8 @@ export const postDateDecisionLetter = async (request, response) => {
  */
 const renderDateDecisionLetter = async (request, response) => {
 	const { errors } = request;
-	// const {
-	// 	'decision-letter-date-day': decisionLetterDay,
-	// 	'decision-letter-date-month': decisionLetterMonth,
-	// 	'decision-letter-date-year': decisionLetterYear
-	// } = request.body;
-
 	const appealId = request.params.appealId;
+
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 	const currentFolder = {
 		id: appealData.decision?.folderId,

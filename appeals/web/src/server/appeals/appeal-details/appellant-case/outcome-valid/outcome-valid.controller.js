@@ -1,4 +1,5 @@
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
+import { decisionValidConfirmationPage } from './outcome-valid.mapper.js';
 
 /**
  *
@@ -11,34 +12,9 @@ const renderDecisionValidConfirmationPage = async (request, response) => {
 	}
 
 	const { appealId, appealReference } = request.session;
+	const mappedPageContent = decisionValidConfirmationPage(appealId, appealReference);
 
-	response.render('appeals/confirmation.njk', {
-		panel: {
-			title: 'Appeal valid',
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			}
-		},
-		body: {
-			preHeading: 'The timetable is now created and published.',
-			title: {
-				text: 'What happens next'
-			},
-			rows: [
-				{
-					text: "We've sent the start letter email to the Appellant and LPA."
-				},
-				{
-					text: 'The case has been published on the Appeals Casework Portal.'
-				},
-				{
-					text: 'Go to case details',
-					href: `/appeals-service/appeal-details/${appealId}`
-				}
-			]
-		}
-	});
+	response.render('appeals/confirmation.njk', mappedPageContent);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */

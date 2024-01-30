@@ -3,8 +3,11 @@ import * as appealDetailsService from '../appeal-details.service.js';
 import usersService from '../../appeal-users/users-service.js';
 import config from '#environment/config.js';
 import { setAppealAssignee } from './assign-user.service.js';
-import { assignUserPage } from './assign-user.mapper.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
+import {
+	assignOrUnassignUserCheckAndConfirmPage,
+	assignUserPage,
+	assignNewUserPage
+} from './assign-user.mapper.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
@@ -89,18 +92,17 @@ const renderAssignOrUnassignUserCheckAndConfirm = async (
 				);
 			}
 
-			return response.render('appeals/appeal/confirm-assign-unassign-user.njk', {
-				appeal: {
-					id: appealDetails?.appealId,
-					reference: appealDetails?.appealReference,
-					shortReference: appealShortReference(appealDetails?.appealReference)
-				},
+			const mappedPageContent = assignOrUnassignUserCheckAndConfirmPage(
+				request.params.appealId,
+				appealDetails?.appealReference,
 				user,
 				existingUser,
 				isInspector,
-				errors,
-				isUnassign
-			});
+				isUnassign,
+				errors
+			);
+
+			return response.render('appeals/appeal/confirm-assign-unassign-user.njk', mappedPageContent);
 		}
 
 		return response.render('app/404.njk');
@@ -279,15 +281,16 @@ const renderAssignNewUser = async (request, response, isInspector = false) => {
 		.catch((error) => logger.error(error));
 
 	if (appealDetails) {
-		return response.render('appeals/appeal/assign-new-user.njk', {
-			appeal: {
-				id: appealDetails.appealId,
-				reference: appealDetails?.appealReference,
-				shortReference: appealShortReference(appealDetails?.appealReference)
-			},
+		const mappedPageContent = assignNewUserPage(
+			request.params.appealId,
+			appealDetails?.appealReference,
 			isInspector,
 			errors
-		});
+		);
+
+		if (appealDetails) {
+			return response.render('appeals/appeal/assign-new-user.njk', mappedPageContent);
+		}
 	}
 
 	return response.render('app/404.njk');

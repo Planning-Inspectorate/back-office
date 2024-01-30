@@ -3,7 +3,8 @@ import {
 	lpaQuestionnairePage,
 	checkAndConfirmPage,
 	mapWebValidationOutcomeToApiValidationOutcome,
-	getValidationOutcomeFromLpaQuestionnaire
+	getValidationOutcomeFromLpaQuestionnaire,
+	reviewCompletePage
 } from './lpa-questionnaire.mapper.js';
 import logger from '#lib/logger.js';
 import * as appealDetailsService from '../appeal-details.service.js';
@@ -133,31 +134,9 @@ export const renderLpaQuestionnaireReviewCompletePage = async (request, response
 	}
 
 	const { appealId, appealReference } = request.session;
+	const mappedPageContent = reviewCompletePage(appealId, appealReference);
 
-	return response.render('appeals/confirmation.njk', {
-		panel: {
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			},
-			title: 'LPA questionnaire complete'
-		},
-		body: {
-			preHeading: 'The review of LPA questionnaire is finished.',
-			title: {
-				text: 'What happens next'
-			},
-			rows: [
-				{
-					text: "We've sent an email to the LPA to confirm their questionnaire is complete and the the review is finished."
-				},
-				{
-					href: `/appeals-service/appeal-details/${appealId}`,
-					text: 'Go back to case details'
-				}
-			]
-		}
-	});
+	return response.render('appeals/confirmation.njk', mappedPageContent);
 };
 
 /**

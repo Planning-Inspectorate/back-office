@@ -5,6 +5,7 @@ import {
 } from '../appellant-case.mapper.js';
 import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
+import { decisionIncompleteConfirmationPage } from './outcome-incomplete.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { getNotValidReasonsTextFromRequestBody } from '#lib/mappers/validation-outcome-reasons.mapper.js';
@@ -119,34 +120,9 @@ const renderDecisionIncompleteConfirmationPage = async (request, response) => {
 	}
 
 	const { appealId, appealReference } = request.session;
+	const mappedPageContent = decisionIncompleteConfirmationPage(appealId, appealReference);
 
-	response.render('appeals/confirmation.njk', {
-		panel: {
-			title: 'Appeal incomplete',
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			}
-		},
-		body: {
-			preHeading: 'The appeal has been reviewed.',
-			title: {
-				text: 'What happens next'
-			},
-			rows: [
-				{
-					text: 'We’ve sent an email to the appellant and LPA to inform the case is incomplete, and let them know what to do next.'
-				},
-				{
-					text: 'We also sent them a reminder about the appeal’s due date.'
-				},
-				{
-					text: 'Go to case details',
-					href: `/appeals-service/appeal-details/${appealId}`
-				}
-			]
-		}
-	});
+	response.render('appeals/confirmation.njk', mappedPageContent);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */

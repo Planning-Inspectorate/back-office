@@ -2,6 +2,7 @@ import logger from '#lib/logger.js';
 import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
 import { mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters } from '../appellant-case.mapper.js';
+import { decisionInvalidConfirmationPage } from './outcome-invalid.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { getNotValidReasonsTextFromRequestBody } from '#lib/mappers/validation-outcome-reasons.mapper.js';
@@ -92,31 +93,9 @@ const renderDecisionInvalidConfirmationPage = async (request, response) => {
 	}
 
 	const { appealId, appealReference } = request.session;
+	const mappedPageContent = decisionInvalidConfirmationPage(appealId, appealReference);
 
-	response.render('appeals/confirmation.njk', {
-		panel: {
-			title: 'Appeal invalid',
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			}
-		},
-		body: {
-			preHeading: 'The appeal has been closed.',
-			title: {
-				text: 'What happens next'
-			},
-			rows: [
-				{
-					text: "We've sent an email to the appellant and LPA to inform them the case is invalid."
-				},
-				{
-					text: 'Go to case details',
-					href: `/appeals-service/appeal-details/${appealId}`
-				}
-			]
-		}
-	});
+	response.render('appeals/confirmation.njk', mappedPageContent);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
