@@ -135,6 +135,7 @@ const formatAppeal = (appeal, folders) => {
 			appealType: appeal.appealType?.type,
 			appellantCaseId: appeal.appellantCase?.id || 0,
 			caseOfficer: appeal.caseOfficer?.azureAdUserId || null,
+			transferredAppealRef: appeal.transferredCaseId,
 			decision: {
 				folderId: folders[0].id,
 				outcome: appeal.inspectorDecision?.outcome,
