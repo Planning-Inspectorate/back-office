@@ -13,7 +13,7 @@ const message = {
 		lastName: 'Bloggs',
 		type: 'PERSON',
 		under18: false,
-		contactMethod: undefined,
+		contactMethod: 'email',
 		email: 'joe@example.org',
 		phoneNumber: '07700900000',
 		address: {
