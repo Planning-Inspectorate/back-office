@@ -12,7 +12,7 @@ import {
 } from './assign-user/assign-user.router.js';
 import * as controller from './appeal-details.controller.js';
 import changePageRouter from '../change-page/change-page.router.js';
-import issueDecisionRouter from '../issue-decision/issue-decision.router.js';
+import issueDecisionRouter from './issue-decision/issue-decision.router.js';
 import appealTypeChangeRouter from './change-appeal-type/change-appeal-type.router.js';
 
 const router = createRouter();

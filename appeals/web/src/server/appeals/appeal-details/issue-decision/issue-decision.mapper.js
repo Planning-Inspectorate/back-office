@@ -3,7 +3,7 @@ import * as displayPageFormatter from '#lib/display-page-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 
 /**
- * @typedef {import('../appeal-details/appeal-details.types.js').WebAppeal} Appeal
+ * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
  */
 /**
  * @typedef {import('./issue-decision.types.js').InspectorDecisionRequest} InspectorDecisionRequest
@@ -13,8 +13,9 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
  *
  * @param {Appeal} appealDetails
  * @returns {Promise<PageContent>}
+ * @param { InspectorDecisionRequest } inspectorDecision
  */
-export async function issueDecisionPage(appealDetails) {
+export async function issueDecisionPage(appealDetails, inspectorDecision) {
 	/** @type {PageComponent} */
 	const selectVisitTypeComponent = {
 		type: 'radios',
@@ -30,17 +31,17 @@ export async function issueDecisionPage(appealDetails) {
 				{
 					value: 'Allowed',
 					text: 'Allowed',
-					checked: appealDetails.decision?.outcome === 'Allowed'
+					checked: inspectorDecision?.outcome === 'Allowed'
 				},
 				{
 					value: 'Dismissed',
 					text: 'Dismissed',
-					checked: appealDetails.decision?.outcome === 'Dismissed'
+					checked: inspectorDecision?.outcome === 'Dismissed'
 				},
 				{
 					value: 'Split',
 					text: 'Split Decision',
-					checked: appealDetails.decision?.outcome === 'Split-decision'
+					checked: inspectorDecision?.outcome === 'Split-decision'
 				}
 			]
 		}
@@ -113,7 +114,7 @@ export async function dateDecisionLetterPage(
 
 	return {
 		title,
-		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision-letter-date`,
+		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision-letter-upload`,
 		backLinkText: 'Back',
 		preHeading: `Appeal ${appealShortReference(appealData.appealReference)}`,
 		heading: title,
@@ -124,7 +125,7 @@ export async function dateDecisionLetterPage(
 /**
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {Appeal} appealData
- * @param  {import('./issue-decision.types').InspectorDecisionRequest} session
+ * @param  {import('./issue-decision.types.js').InspectorDecisionRequest} session
  * @param {import('@pins/appeals.api').Schema.Folder|undefined} decisionLetterFolder
  * @returns {PageContent}
  */
@@ -167,7 +168,7 @@ export function checkAndConfirmPage(request, appealData, session, decisionLetter
 						items: [
 							{
 								text: 'Change',
-								href: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision`
+								href: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision-letter-upload`
 							}
 						]
 					}
