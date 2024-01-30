@@ -195,7 +195,14 @@ const updateAppealById = async (req, res) => {
  * @returns {string[]}
  */
 const mapAppealStatuses = (rawStatuses) => {
-	return [
+	const statusOrder = [
+		'ready_to_start',
+		'lpa_questionnaire_due',
+		'issue_determination',
+		'awaiting_transfer'
+	];
+
+	const extractedStatuses = [
 		...new Set(
 			rawStatuses
 				.flat()
@@ -204,6 +211,7 @@ const mapAppealStatuses = (rawStatuses) => {
 				)
 		)
 	];
+	return statusOrder.filter((status) => extractedStatuses.includes(status));
 };
 
-export { getAppealById, getAppeals, getMyAppeals, updateAppealById };
+export { getAppealById, getAppeals, getMyAppeals, updateAppealById, mapAppealStatuses };
