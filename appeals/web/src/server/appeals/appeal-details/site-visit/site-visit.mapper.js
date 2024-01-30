@@ -4,7 +4,11 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { isDefined } from '#lib/ts-utilities.js';
 import { capitalize } from 'lodash-es';
-import { dateToDisplayDate } from '#lib/dates.js';
+import {
+	dateToDisplayDate,
+	hourMinuteToApiDateString,
+	dayMonthYearToApiDateString
+} from '#lib/dates.js';
 
 /**
  * @typedef {'unaccompanied'|'accompanied'|'accessRequired'} WebSiteVisitType
@@ -450,4 +454,103 @@ export function setVisitTypePage(appealDetails, visitType) {
 	};
 
 	return pageContent;
+}
+
+/**
+ * @typedef {Object} SiteVisitBookedConfirmationPageContent
+ * @property {Object} appeal
+ * @property {string} appeal.id
+ * @property {string} appeal.reference
+ * @property {string|null|undefined} appeal.shortReference
+ */
+
+/**
+ * @param {string} appealId
+ * @param {string} appealReference
+ * @returns {SiteVisitBookedConfirmationPageContent}
+ */
+export function siteVisitBookedConfirmationPage(appealId, appealReference) {
+	return {
+		appeal: {
+			id: appealId,
+			reference: appealReference,
+			shortReference: appealShortReference(appealReference)
+		}
+	};
+}
+
+/**
+ * @param {string} appealId
+ * @param {string} visitDateDay
+ * @param {string} visitDateMonth
+ * @param {string} visitDateYear
+ * @param {string} visitStartTimeHour
+ * @param {string} visitStartTimeMinute
+ * @param {string} visitEndTimeHour
+ * @param {string} visitEndTimeMinute
+ * @param {WebSiteVisitType} visitType
+ * @returns {import('./site-visit.service.js').UpdateOrCreateSiteVisitParameters}
+ */
+export function mapPostScheduleOrManageSiteVisitCommonParameters(
+	appealId,
+	visitDateDay,
+	visitDateMonth,
+	visitDateYear,
+	visitStartTimeHour,
+	visitStartTimeMinute,
+	visitEndTimeHour,
+	visitEndTimeMinute,
+	visitType
+) {
+	return {
+		appealIdNumber: parseInt(appealId, 10),
+		visitDate: dayMonthYearToApiDateString({
+			day: parseInt(visitDateDay, 10),
+			month: parseInt(visitDateMonth, 10),
+			year: parseInt(visitDateYear, 10)
+		}),
+		visitStartTime: hourMinuteToApiDateString(visitStartTimeHour, visitStartTimeMinute),
+		visitEndTime: hourMinuteToApiDateString(visitEndTimeHour, visitEndTimeMinute),
+		apiVisitType: mapWebVisitTypeToApiVisitType(visitType)
+	};
+}
+
+/**
+ * @typedef {'unchanged'|'visit-type'|'date-time'|'all'} ScheduleOrManageSiteVisitConfirmationPageType
+ */
+
+/**
+ * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
+ * @param {import('./site-visit.service.js').UpdateOrCreateSiteVisitParameters} updateOrCreateSiteVisitParameters
+ * @returns {ScheduleOrManageSiteVisitConfirmationPageType}
+ */
+export function mapPostScheduleOrManageSiteVisitConfirmationPageType(
+	appealDetails,
+	updateOrCreateSiteVisitParameters
+) {
+	const oldApiVisitType = appealDetails.siteVisit?.visitType;
+	const oldVisitDate = appealDetails.siteVisit?.visitDate?.split('T')[0];
+	const oldVisitStartTime = appealDetails.siteVisit?.visitStartTime;
+	const oldVisitEndTime = appealDetails.siteVisit?.visitEndTime;
+	const visitTypeChanged =
+		oldApiVisitType &&
+		updateOrCreateSiteVisitParameters.apiVisitType &&
+		oldApiVisitType.toLowerCase() !== updateOrCreateSiteVisitParameters.apiVisitType.toLowerCase();
+	const dateTimeChanged =
+		oldVisitDate !== updateOrCreateSiteVisitParameters.visitDate ||
+		oldVisitStartTime !== updateOrCreateSiteVisitParameters.visitStartTime ||
+		oldVisitEndTime !== updateOrCreateSiteVisitParameters.visitEndTime;
+
+	/** @type {ScheduleOrManageSiteVisitConfirmationPageType} */
+	let confirmationPageTypeToRender = 'unchanged';
+
+	if (visitTypeChanged && !dateTimeChanged) {
+		confirmationPageTypeToRender = 'visit-type';
+	} else if (!visitTypeChanged && dateTimeChanged) {
+		confirmationPageTypeToRender = 'date-time';
+	} else if (visitTypeChanged && dateTimeChanged) {
+		confirmationPageTypeToRender = 'all';
+	}
+
+	return confirmationPageTypeToRender;
 }

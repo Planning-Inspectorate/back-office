@@ -1,4 +1,5 @@
 import { appealShortReference } from '#lib/appeals-formatter.js';
+import config from '@pins/appeals.web/environment/config.js';
 import * as displayPageFormatter from '#lib/display-page-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 
@@ -59,6 +60,39 @@ export async function issueDecisionPage(appealDetails, inspectorDecision) {
 	};
 
 	return pageContent;
+}
+
+/**
+ * @param {Appeal} appealData
+ * @param {number|undefined} folderId
+ * @param {string} folderPath
+ * @param {string} appealId
+ * @param {import('@pins/express').ValidationErrors|undefined} errors
+ * @returns {import('#appeals/appeal-documents/appeal-documents.types.js').DocumentUploadPageParameters}
+ */
+export function decisionLetterUploadPage(appealData, folderId, folderPath, appealId, errors) {
+	const pathComponents = folderPath.split('/');
+	const documentStage = pathComponents[0];
+	const documentType = pathComponents[1];
+	const shortAppealReference = appealShortReference(appealData.appealReference);
+
+	return {
+		backButtonUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision`,
+		appealId,
+		folderId: `${folderId}`,
+		useBlobEmulator: config.useBlobEmulator,
+		blobStorageHost:
+			config.useBlobEmulator === true ? config.blobEmulatorSasUrl : config.blobStorageUrl,
+		blobStorageContainer: config.blobStorageDefaultContainer,
+		multiple: false,
+		documentStage: documentStage,
+		pageTitle: `Appeal ${shortAppealReference}`,
+		pageHeadingText: 'Upload your decision letter',
+		caseInfoText: `Appeal ${shortAppealReference}`,
+		documentType: documentType,
+		nextPageUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision-letter-date`,
+		errors
+	};
 }
 
 /**

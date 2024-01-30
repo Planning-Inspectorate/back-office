@@ -1,4 +1,13 @@
 /**
+ * @typedef {Object} UpdateOrCreateSiteVisitParameters
+ * @property {number} appealIdNumber
+ * @property {string} visitDate
+ * @property {string} visitStartTime
+ * @property {string} visitEndTime
+ * @property {import('@pins/appeals/types/inspector.js').SiteVisitType} apiVisitType
+ */
+
+/**
  * @param {import('got').Got} apiClient
  * @param {number} appealId
  * @param {import('@pins/appeals/types/inspector.js').SiteVisitType} visitType
