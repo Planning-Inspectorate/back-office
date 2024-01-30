@@ -85,6 +85,7 @@ interface RepositoryGetByIdResultItem {
 	dueDate: Date | null;
 	id: number;
 	inspector: User | null;
+	transferredCaseId?: string | null;
 	inspectorDecision?: Schema.InspectorDecision | null;
 	linkedAppeals: Schema.AppealRelationship[] | null;
 	lpa: LPA;
@@ -245,6 +246,7 @@ interface SingleAppealDetailsResponse {
 		contacts: NeighbouringSiteContactsResponse[] | null;
 		isAffected: boolean | null;
 	};
+	transferredAppealRef?: string | null;
 	otherAppeals: LinkedAppeal[];
 	planningApplicationReference: string;
 	procedureType: string | null;

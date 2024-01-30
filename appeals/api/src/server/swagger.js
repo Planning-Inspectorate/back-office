@@ -106,6 +106,9 @@ export const spec = {
 		AppealTypeTransferRequest: {
 			newAppealTypeId: 32
 		},
+		AppealTypeTransferConfirmationRequest: {
+			newAppealReference: 'HORIZON/12345'
+		},
 		AppealTypes: [
 			{
 				type: 'Appeal type name',
