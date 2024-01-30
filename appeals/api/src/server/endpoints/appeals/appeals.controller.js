@@ -199,7 +199,7 @@ const mapAppealStatuses = (rawStatuses) => {
 		...new Set(
 			rawStatuses
 				.flat()
-				.flatMap((/** @type {} */ item) =>
+				.flatMap((/** @type {*} */ item) =>
 					item.appealStatus.map((/** @type {{ status: any; }} */ statusItem) => statusItem.status)
 				)
 		)

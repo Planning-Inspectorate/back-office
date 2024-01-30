@@ -28,6 +28,7 @@ import { appealsDecisionRoutes } from './appeal-decision/appeal-decision.routes.
 import { invalidAppealDecisionRoutes } from './invalid-appeal-decision/invalid-appeal-decision.routes.js';
 import { changeAppealTypeRoutes } from './change-appeal-type/change-appeal-type.routes.js';
 import { businessDaysRoutes } from './business-days/business-days.routes.js';
+import { linkAppealsRoutes } from './link-appeals/link-appeals.routes.js';
 import checkAzureAdUserIdHeaderExists from '#middleware/check-azure-ad-user-id-header-exists.js';
 
 const router = createRouter();
@@ -62,6 +63,7 @@ router.use(scheduleTypesRoutes);
 router.use(siteVisitRoutes);
 router.use(siteVisitTypesRoutes);
 router.use(changeAppealTypeRoutes);
+router.use(linkAppealsRoutes);
 router.use(appealsRoutes);
 
 export { router as appealsRoutes };

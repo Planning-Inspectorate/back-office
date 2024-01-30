@@ -16,6 +16,7 @@ import {
 /** @typedef {import('@pins/appeals.api').Schema.DocumentVersion} DocumentVersion */
 /** @typedef {import('@pins/appeals.api').Schema.User} User */
 /** @typedef {import('@pins/appeals.api').Schema.AppealRelationship} AppealRelationship */
+/** @typedef {import('@pins/appeals.api').Appeals.AppealRelationshipRequest } AppealRelationshipRequest */
 /**
  * @typedef {import('#db-client').Prisma.PrismaPromise<T>} PrismaPromise
  * @template T
@@ -432,6 +433,60 @@ const getLinkedAppeals = async (appealReference) => {
 	});
 };
 
+/**
+ *
+ * @param {AppealRelationshipRequest} relation
+ * @returns {Promise<AppealRelationship>}
+ */
+const linkAppeal = async (relation) => {
+	return await databaseConnector.appealRelationship.create({
+		data: relation
+	});
+};
+
+/**
+ *
+ * @param {number} appealId
+ * @param {string} linkedAppealReference
+ * @returns {Promise<void>}
+ */
+const unlinkAppeal = async (appealId, linkedAppealReference) => {
+	await databaseConnector.appealRelationship.deleteMany({
+		where: {
+			AND: [
+				{
+					OR: [
+						{
+							parentId: {
+								equals: appealId
+							}
+						},
+						{
+							childId: {
+								equals: appealId
+							}
+						}
+					]
+				},
+				{
+					OR: [
+						{
+							parentRef: {
+								equals: linkedAppealReference
+							}
+						},
+						{
+							childRef: {
+								equals: linkedAppealReference
+							}
+						}
+					]
+				}
+			]
+		}
+	});
+};
+
 export default {
 	getLinkedAppeals,
 	getAppealById,
@@ -439,5 +494,7 @@ export default {
 	getUserAppeals,
 	updateAppealById,
 	setAppealDecision,
-	setInvalidAppealDecision
+	setInvalidAppealDecision,
+	linkAppeal,
+	unlinkAppeal
 };

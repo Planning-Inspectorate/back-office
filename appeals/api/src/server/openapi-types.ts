@@ -1,3 +1,22 @@
+export interface LinkedAppealRequest {
+	/** @example 25 */
+	linkedAppealId?: number;
+	/** @example true */
+	isCurrentAppealParent?: boolean;
+}
+
+export interface LinkedAppealLegacyRequest {
+	/** @example "HORIZON/51243165" */
+	linkedAppealReference?: string;
+	/** @example false */
+	isCurrentAppealParent?: boolean;
+}
+
+export interface UnlinkAppealRequest {
+	/** @example "HORIZON/51243165" */
+	linkedAppealReference?: string;
+}
+
 export interface ValidateDate {
 	/** @example "2023-08-17" */
 	inputDate?: string;
@@ -457,6 +476,8 @@ export interface AllAppeals {
 			addressLine1?: string;
 			/** @example "Bristol" */
 			town?: string;
+			/** @example "Bristol" */
+			county?: string;
 			/** @example "BS7 8LQ" */
 			postCode?: string;
 		};
@@ -472,7 +493,7 @@ export interface AllAppeals {
 		appellantCaseStatus?: string;
 		/** @example "Incomplete" */
 		lpaQuestionnaireStatus?: string;
-		/** @example "2023-02-16T00:00:00.000Z" */
+		/** @example "2023-06-18T00:00:00.000Z" */
 		dueDate?: string;
 	}[];
 	/** @example 1 */
@@ -580,8 +601,6 @@ export interface SingleAppealResponse {
 				postCode?: string;
 				/** @example "Woodton" */
 				town?: string;
-				/** @example "Woodton" */
-				county?: string;
 			};
 			/** @example "Fiona" */
 			firstName?: string;
