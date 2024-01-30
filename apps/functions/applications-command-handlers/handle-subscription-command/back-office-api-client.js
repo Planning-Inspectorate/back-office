@@ -1,5 +1,5 @@
 import config from './config.js';
-import { gotInstance } from '../common/backend-api-request.js';
+import { requestWithApiKey } from '../common/backend-api-request.js';
 
 /**
  *
@@ -8,7 +8,7 @@ import { gotInstance } from '../common/backend-api-request.js';
  * @returns {Promise<{id: number}|null>}
  */
 function getSubscription(caseReference, emailAddress) {
-	return gotInstance
+	return requestWithApiKey
 		.post(`https://${config.API_HOST}/applications/subscriptions/`, {
 			json: { caseReference, emailAddress }
 		})
@@ -21,7 +21,7 @@ function getSubscription(caseReference, emailAddress) {
  * @returns {Promise<{id: number}>}
  */
 function createOrUpdateSubscription(subscription) {
-	return gotInstance
+	return requestWithApiKey
 		.put(`https://${config.API_HOST}/applications/subscriptions/`, {
 			json: subscription
 		})
@@ -35,7 +35,7 @@ function createOrUpdateSubscription(subscription) {
  * @returns {Promise<{id: number}>}
  */
 function updateSubscription(id, subscription) {
-	return gotInstance
+	return requestWithApiKey
 		.patch(`https://${config.API_HOST}/applications/subscriptions/${id}`, {
 			json: subscription
 		})

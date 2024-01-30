@@ -1,5 +1,5 @@
 import config from './config.js';
-import { gotInstance } from '../common/backend-api-request.js';
+import { requestWithApiKey } from '../common/backend-api-request.js';
 
 /** @typedef {{ id: number, displayNameEn: string }} FolderJSON */
 
@@ -9,7 +9,7 @@ import { gotInstance } from '../common/backend-api-request.js';
  * */
 async function getCaseID(caseReference) {
 	try {
-		const result = await gotInstance
+		const result = await requestWithApiKey
 			.get(`https://${config.apiHost}/applications/reference/${caseReference}`)
 			.json();
 
@@ -32,7 +32,7 @@ async function submitDocument({
 	userEmail
 }) {
 	try {
-		return await gotInstance
+		return await requestWithApiKey
 			.post(`https://${config.apiHost}/applications/${caseID}/documents?all=true`, {
 				json: [
 					{
@@ -61,7 +61,7 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
 	/** @type {FolderJSON[]} */
 	const folders = await (async () => {
 		try {
-			return await gotInstance
+			return await requestWithApiKey
 				.get(`https://${config.apiHost}/applications/${caseID}/folders?all=true`)
 				.json();
 		} catch (err) {
@@ -77,7 +77,7 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
 	/** @type {FolderJSON[]} */
 	const subfolders = await (async () => {
 		try {
-			return await gotInstance
+			return await requestWithApiKey
 				.get(`https://${config.apiHost}/applications/${caseID}/folders/${folder.id}/sub-folders`)
 				.json();
 		} catch (err) {
@@ -104,7 +104,7 @@ async function lineItemExists(caseID, timetableItemName, lineItem) {
 	/** @type {{ items: { name: string, description: string }[] }} */
 	const results = await (async () => {
 		try {
-			return await gotInstance
+			return await requestWithApiKey
 				.get(`https://${config.apiHost}/applications/examination-timetable-items/case/${caseID}`)
 				.json();
 		} catch (err) {
@@ -133,7 +133,7 @@ async function populateDocumentMetadata(
 	caseID,
 	{ documentGuid, documentName, userName, deadline, submissionType, representative }
 ) {
-	await gotInstance.post(
+	await requestWithApiKey.post(
 		`https://${config.apiHost}/applications/${caseID}/documents/${documentGuid}/metadata`,
 		{
 			json: {

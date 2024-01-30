@@ -19,9 +19,6 @@ export const addAuthHeadersForBackend = async (requestOptions, apiKeyParameters)
 			apiKeyParameters.apiKeyName
 		);
 
-		// temporary to keep failures silent
-		if (!apiKey) return;
-
 		const lessThanHourTtl = 3540;
 		storeInCache(apiKeyParameters.apiKeyName, apiKey, lessThanHourTtl);
 	}

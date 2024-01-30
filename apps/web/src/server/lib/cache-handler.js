@@ -45,11 +45,5 @@ export function storeInCache(key, value, ttl) {
 export function fetchFromCache(key) {
 	const cache = nodeCache.get(key);
 
-	if (cache) {
-		logger.info(`Successfully fetched value with key "${key}" from the cache`);
-	} else {
-		logger.info(`Unable to fetch value with key "${key}" from the cache`);
-	}
-
 	return cache;
 }
