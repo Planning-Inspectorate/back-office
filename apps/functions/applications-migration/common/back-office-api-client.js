@@ -19,7 +19,7 @@ export const makePostRequest = (logger, path, body) => {
 	logger.info(`Making POST request to ${requestUri}`);
 
 	const serviceName = 'function';
-	const gotInstance = got.extend({
+	const requestWithApiKey = got.extend({
 		hooks: {
 			beforeRequest: [
 				async (options) =>
@@ -31,7 +31,7 @@ export const makePostRequest = (logger, path, body) => {
 			]
 		}
 	});
-	return gotInstance.post(requestUri, {
+	return requestWithApiKey.post(requestUri, {
 		json: body
 	});
 };
