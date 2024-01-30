@@ -1,7 +1,7 @@
-import { migrationNsipProjects } from './src/nsip-project-migration.js';
+import { migrateS51Advice } from './src/s51-advice-migration.js';
 
 // @ts-ignore
-migrationNsipProjects(
+await migrateS51Advice(
 	{
 		info: console.log,
 		error: console.error,
