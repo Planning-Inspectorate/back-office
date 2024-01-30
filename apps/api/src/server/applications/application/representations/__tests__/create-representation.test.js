@@ -217,7 +217,7 @@ describe('Create Representation', () => {
 			originalRepresentation: 'This is a rep',
 			represented: {
 				firstName: 'Joe',
-				lastName: 'Bloggs',
+				lastName: '',
 				under18: true,
 				address: {
 					addressLine1: 'Test Address'
@@ -248,7 +248,7 @@ describe('Create Representation', () => {
 				represented: {
 					create: {
 						firstName: 'Joe',
-						lastName: 'Bloggs',
+						lastName: '',
 						under18: true,
 						address: {
 							create: {
@@ -305,6 +305,7 @@ describe('Create Representation', () => {
 			received: '2023-05-11T09:57:06.139Z',
 			originalRepresentation: 'This is a rep',
 			represented: {
+				firstName: '',
 				lastName: 'Bloggs'
 			}
 		});
