@@ -46,6 +46,9 @@ export default joi
 				level: joi.string(),
 				band: joi.number()
 			})
-		)
+		),
+		horizon: joi.object({
+			url: joi.string()
+		})
 	})
 	.options({ presence: 'required' }); // required by default;

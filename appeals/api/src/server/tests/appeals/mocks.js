@@ -11,7 +11,7 @@ import {
 
 export const householdAppeal = {
 	id: 1,
-	reference: 'APP/Q9999/D/21/1345264',
+	reference: '1345264',
 	appealStatus: [
 		{
 			status: 'ready_to_start',

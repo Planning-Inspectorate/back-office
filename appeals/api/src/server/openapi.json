@@ -2829,6 +2829,55 @@
 					}
 				}
 			}
+		},
+		"/appeals/linkable-appeal/{appealReference}": {
+			"get": {
+				"tags": ["Linkable appeals"],
+				"description": "Gets a single related appeal by id from BO or Horizon",
+				"parameters": [
+					{
+						"name": "appealReference",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "Appeal Reference"
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets a single related appeal by reference from BO or Horizon",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleRelatedAppealResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleRelatedAppealResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
 		}
 	},
 	"components": {
@@ -3311,7 +3360,7 @@
 								},
 								"caseReference": {
 									"type": "string",
-									"example": "APP/Q9999/D/21/1345264"
+									"example": "1345264"
 								},
 								"GUID": {
 									"type": "string",
@@ -3327,7 +3376,7 @@
 								},
 								"blobStoreUrl": {
 									"type": "string",
-									"example": "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
+									"example": "appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
 								}
 							}
 						}
@@ -3350,7 +3399,7 @@
 					},
 					"caseId": {
 						"type": "string",
-						"example": "APP/Q9999/D/21/1345264"
+						"example": "1345264"
 					},
 					"documents": {
 						"type": "array",
@@ -3423,7 +3472,7 @@
 					},
 					"blobStoragePath": {
 						"type": "string",
-						"example": "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
+						"example": "appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
 					},
 					"dateCreated": {
 						"type": "string",
@@ -3452,7 +3501,7 @@
 					},
 					"documentURI": {
 						"type": "string",
-						"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
+						"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
 					},
 					"dateReceived": {}
 				},
@@ -3554,7 +3603,7 @@
 								},
 								"blobStoragePath": {
 									"type": "string",
-									"example": "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
+									"example": "appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
 								},
 								"dateCreated": {
 									"type": "string",
@@ -3583,7 +3632,7 @@
 								},
 								"documentURI": {
 									"type": "string",
-									"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
+									"example": "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf"
 								},
 								"dateReceived": {}
 							}
@@ -6594,6 +6643,76 @@
 				},
 				"xml": {
 					"name": "GetAuditTrailsResponse"
+				}
+			},
+			"SingleLinkableAppealSummaryResponse": {
+				"type": "object",
+				"properties": {
+					"appealReference": {
+						"type": "string",
+						"description": "Horizon or Back Office appeal reference",
+						"example": "3000359"
+					},
+					"appealType": {
+						"type": "string",
+						"description": "Type of appeal",
+						"example": "Planning Appeal (W)"
+					},
+					"appealStatus": {
+						"type": "string",
+						"description": "Status of appeal",
+						"example": "Decision Issued"
+					},
+					"siteAddress": {
+						"type": "object",
+						"properties": {
+							"siteAddressLine1": {
+								"type": "string",
+								"description": "First line of site address",
+								"example": "123 Main Street"
+							},
+							"siteAddressLine2": {
+								"type": "string",
+								"description": "Second line of site address",
+								"example": "Brentry"
+							},
+							"siteAddressTown": {
+								"type": "string",
+								"description": "Site town",
+								"example": "Bristol"
+							},
+							"siteAddressCounty": {
+								"type": "string",
+								"description": "Site county",
+								"example": "Bristol, city of"
+							},
+							"siteAddressPostcode": {
+								"type": "string",
+								"description": "Site postcode",
+								"example": "BS1 1AA"
+							}
+						}
+					},
+					"localPlanningDepartment": {
+						"type": "string",
+						"description": "Name of Local Planning Department",
+						"example": "Bristol City Council"
+					},
+					"appellantName": {
+						"type": "string",
+						"description": "Full name of the appellant",
+						"example": "Mr John Wick"
+					},
+					"agentName": {
+						"type": "string",
+						"description": "Name of the agent",
+						"example": "Mr John Smith (Smith Planning Agency)"
+					},
+					"submissionDate": {
+						"type": "string",
+						"description": "Date string of the submission: YYYY-MM-DDTHH:MM:SS+HH:MM",
+						"example": "2014-11-14T00:00:00+00:00"
+					}
 				}
 			}
 		}

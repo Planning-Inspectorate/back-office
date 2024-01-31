@@ -729,5 +729,77 @@ export const spec = {
 			}
 		]
 	},
+	'@definitions': {
+		SingleLinkableAppealSummaryResponse: {
+			type: 'object',
+			properties: {
+				appealReference: {
+					type: 'string',
+					description: 'Horizon or Back Office appeal reference',
+					example: '3000359'
+				},
+				appealType: {
+					type: 'string',
+					description: 'Type of appeal',
+					example: 'Planning Appeal (W)'
+				},
+				appealStatus: {
+					type: 'string',
+					description: 'Status of appeal',
+					example: 'Decision Issued'
+				},
+				siteAddress: {
+					type: 'object',
+					properties: {
+						siteAddressLine1: {
+							type: 'string',
+							description: 'First line of site address',
+							example: '123 Main Street'
+						},
+						siteAddressLine2: {
+							type: 'string',
+							description: 'Second line of site address',
+							example: 'Brentry'
+						},
+						siteAddressTown: {
+							type: 'string',
+							description: 'Site town',
+							example: 'Bristol'
+						},
+						siteAddressCounty: {
+							type: 'string',
+							description: 'Site county',
+							example: 'Bristol, city of'
+						},
+						siteAddressPostcode: {
+							type: 'string',
+							description: 'Site postcode',
+							example: 'BS1 1AA'
+						}
+					}
+				},
+				localPlanningDepartment: {
+					type: 'string',
+					description: 'Name of Local Planning Department',
+					example: 'Bristol City Council'
+				},
+				appellantName: {
+					type: 'string',
+					description: 'Full name of the appellant',
+					example: 'Mr John Wick'
+				},
+				agentName: {
+					type: 'string',
+					description: 'Name of the agent',
+					example: 'Mr John Smith (Smith Planning Agency)'
+				},
+				submissionDate: {
+					type: 'string',
+					description: 'Date string of the submission: YYYY-MM-DDTHH:MM:SS+HH:MM',
+					example: '2014-11-14T00:00:00+00:00'
+				}
+			}
+		}
+	},
 	components: {}
 };
