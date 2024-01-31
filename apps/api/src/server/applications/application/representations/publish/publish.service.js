@@ -4,7 +4,7 @@ import logger from '#utils/logger.js';
 import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import {
-	buildNsipRepresentationPayload,
+	buildNsipRepresentationPayloadForPublish,
 	buildRepresentationServiceUserPayload
 } from '../representations.service.js';
 import { setRepresentationsAsPublished } from '#repositories/representation.repository.js';
@@ -22,7 +22,9 @@ export const publishCaseRepresentations = async (caseId, representationIds, acti
 	);
 
 	if (representations.length > 0) {
-		const nsipRepresentationsPayload = representations.map(buildNsipRepresentationPayload);
+		const nsipRepresentationsPayload = representations.map(
+			buildNsipRepresentationPayloadForPublish
+		);
 		const serviceUsersPayload = representations.flatMap(buildRepresentationServiceUserPayload);
 
 		try {
