@@ -36,6 +36,18 @@ router.get(
 			description: 'The number of results per page, defaults to 25',
 			example: 25,
 		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Notification logs',
 			schema: { $ref: '#/definitions/ProjectUpdateNotificationLogList' },
@@ -79,6 +91,18 @@ router.post(
             schema: { $ref: '#/definitions/ProjectUpdateNotificationLogCreateRequest' },
             required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Created',
             schema: {count: 1}

@@ -44,6 +44,18 @@ router.post(
             description: 'Created S51 advice',
             schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	validateCreateS51Advice,
 	asyncHandler(createS51Advice)
@@ -71,6 +83,18 @@ router.get(
             description: 'An S51 Advice on a case',
             schema: { $ref: '#/definitions/S51AdviceDetailsWithDocumentDetails' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	validateApplicationId,
 	asyncHandler(getS51Advice)
@@ -100,6 +124,18 @@ router.get(
             required: true,
             type: 'number'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'A paginated data set of S51 Advices and their properties',
             schema: { $ref: '#/definitions/S51AdvicePaginatedResponse' }
@@ -141,6 +177,18 @@ router.post(
             description: 'Document Details',
             schema: { $ref: '#/definitions/DocumentsToSaveManyRequestBody' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'S51 Documents that have been saved',
             schema: { $ref: '#/definitions/DocumentAndBlobInfoManyResponse' }
@@ -176,6 +224,18 @@ router.get(
 			required: true,
 			type: 'integer'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'S51 Documents',
             schema: { $ref: '#/definitions/DocumentAndBlobInfoManyResponse' }
@@ -202,6 +262,18 @@ router.patch(
 			description: 'S51 Advice update parameters',
 			schema: { $ref: '#/definitions/S51AdviceMultipleUpdateRequestBody' },
 			required: true
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'S51 Advice(s) that have been updated',
@@ -241,6 +313,18 @@ router.patch(
             required: true,
             type: 'integer'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
 		#swagger.parameters['body'] = {
 			in: 'body',
 			description: 'S51 Advice update parameters',
@@ -281,6 +365,18 @@ router.delete(
 			required: true,
 			type: 'integer'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'S51 Advice successfully soft-deleted',
             schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
@@ -318,6 +414,18 @@ router.post(
             schema: { $ref: '#/definitions/PaginationRequestBody' },
             required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
 		#swagger.responses[200] = {
             description: 'An paginated data set of s51 advices and their properties',
             schema: { $ref: '#/definitions/S51AdvicePaginatedResponseWithDocumentDetails' }
@@ -344,6 +452,18 @@ router.post(
             schema: { adviceId: 1 },
             required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
 		#swagger.responses[200] = {
             description: 'Updated S51 Advice record',
             schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }
@@ -370,6 +490,18 @@ router.head(
 			required: true,
 			type: 'string'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'valid unique S51 Advice title',
             schema: null
@@ -400,12 +532,24 @@ router.post(
 			required: true,
 			type: 'integer'
 		}
-    #swagger.parameters['body'] = {
-        in: 'body',
-        description: 'Payload to publish items',
-        schema: { $ref: '#/definitions/S51AdvicePublishRequestBody' },
-        required: true
-    }
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Payload to publish items',
+			schema: { $ref: '#/definitions/S51AdvicePublishRequestBody' },
+			required: true
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
 	#swagger.responses[200] = {
 		description: 'Array of all updated S51 Advice records',
 		schema: { $ref: '#/definitions/S51AdviceDetailsArrayWithCaseId' }
@@ -432,6 +576,18 @@ router.patch(
             required: true,
             type: 'integer'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Unpublished S51 Advice record',
             schema: { $ref: '#/definitions/S51AdviceDetailsWithCaseId' }

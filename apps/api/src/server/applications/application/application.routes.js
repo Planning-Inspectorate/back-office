@@ -27,6 +27,18 @@ router.get(
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/'
         #swagger.description = 'Gets all applications'
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'List of applications',
             schema: { $ref: '#/definitions/ApplicationSummaryMany' }
@@ -46,6 +58,18 @@ router.post(
             description: 'Application Details',
             schema: { $ref: '#/definitions/CreateApplication' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'ID of application',
             schema: { id: 1, applicantId: 2 }
@@ -68,6 +92,18 @@ router.get(
             required: false,
             type: 'string'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Application Details',
             schema: { id: 1, reference: 'AB0110203', status: 'Pre-Application'}
@@ -89,6 +125,18 @@ router.post(
             required: true,
             type: 'integer'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Application Details',
             schema: { id: 1, reference: 'AB0110203', status: 'Pre-Application'}
@@ -115,7 +163,19 @@ router.get(
             description: 'Application details',
 			example: '\{ &ldquo;title&rdquo;\:true, &ldquo;description&rdquo;\:true\, &ldquo;reference&rdquo;\:true, &ldquo;status&rdquo;\:true, &ldquo;caseEmail&rdquo;\:true, &ldquo;sector&rdquo;\:true, &ldquo;subSector&rdquo;\:true, &ldquo;applicant&rdquo;\:true, &ldquo;geographicalInformation&rdquo;\:true, &ldquo;keyDates&rdquo;\:true \}',
     	}
-      #swagger.responses[200] = {
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+		#swagger.responses[200] = {
             description: 'IDs of application',
             schema: { id: 1, reference: "BC010001", title: "Office Use Test Application 1", description: "A description of test case 1 which is a case of subsector type Office Use", status: "Withdrawn", caseEmail: "caseemail@gmail.com", sector: {}, subSector: { name: "office_use", abbreviation: "BC01", displayNameEn: "Office Use", displayNameCy: "Office Use"  }, applicant: {}, geographicalInformation: { mapZoomLevel: { id: 5, name: "district", displayNameEn: "District", displayNameCy: "District" }}, locationDescription: "location description", gridReference: {}, regions: [{}], keyDates: {}, hasUnpublishedChanges: false }
         }
@@ -143,6 +203,18 @@ router.patch(
             description: 'Application Details',
             schema: { $ref: '#/definitions/UpdateApplication' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'ID of application',
             schema: { id: 1, applicantId: 2 }
@@ -166,6 +238,18 @@ router.patch(
 			required: true,
 			type: 'integer'
 		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'response will have the date that the case was published as a timestamp',
             schema: { publishedDate: 1673873105 }
@@ -186,6 +270,18 @@ router.patch(
 			description: 'Application ID',
 			required: true,
 			type: 'integer'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'response will have the date that the case was unpublished as a timestamp',

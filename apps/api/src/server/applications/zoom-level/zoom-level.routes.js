@@ -14,6 +14,18 @@ router.get(
             description: 'List of map zoom levels',
             schema: { $ref: '#/definitions/MapZoomLevelForApplications' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	asyncHandler(getZoomLevels)
 );
