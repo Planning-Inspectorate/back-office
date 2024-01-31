@@ -86,6 +86,7 @@ interface RepositoryGetByIdResultItem {
 	id: number;
 	inspector: User | null;
 	transferredCaseId?: string | null;
+	resubmitTypeId?: number | null;
 	inspectorDecision?: Schema.InspectorDecision | null;
 	linkedAppeals: Schema.AppealRelationship[] | null;
 	lpa: LPA;
@@ -95,6 +96,7 @@ interface RepositoryGetByIdResultItem {
 	siteVisit: Schema.SiteVisit | null;
 	specialisms: Schema.AppealSpecialism[];
 	startedAt: Date | null;
+	updatedAt: Date | null;
 }
 
 interface BankHolidayFeedEvent {
@@ -246,7 +248,10 @@ interface SingleAppealDetailsResponse {
 		contacts: NeighbouringSiteContactsResponse[] | null;
 		isAffected: boolean | null;
 	};
-	transferredAppealRef?: string | null;
+	transferStatus?: {
+		transferredAppealType: string;
+		transferredAppealReference: string;
+	};
 	otherAppeals: LinkedAppeal[];
 	planningApplicationReference: string;
 	procedureType: string | null;
