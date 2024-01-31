@@ -510,10 +510,10 @@ model S51Advice {
   enquirer            String?
   enquiryMethod       String
   enquiryDate         DateTime
-  enquiryDetails      String
+  enquiryDetails      String              @db.NText
   adviser             String
   adviceDate          DateTime
-  adviceDetails       String
+  adviceDetails       String              @db.NText
   referenceNumber     Int                 @default(00001)
   redactedStatus      String?
   publishedStatus     String              @default("not_checked")
