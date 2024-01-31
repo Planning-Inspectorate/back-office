@@ -50,7 +50,11 @@ export const authoriseRequest = async (request, _response, next) => {
 const isRequestApiKeyValid = (incomingRequestApiKey, cachedApiKeyAddress) => {
 	const apiKeyPair = getCache(cachedApiKeyAddress);
 	const newestApiKey = apiKeyPair.find((key) => key.status === 'newest');
-	const oldestApiKey = apiKeyPair.find((key) => key.status === 'oldest');
+	const oldestApiKey = apiKeyPair.find((key) => key.status === 'oldest') || {};
+	if (!newestApiKey) {
+		console.log('API_KEY_TESTING: Newest key not present in retrieved key vault secret');
+		// throw new BackOfficeAppError('Newest key not present in retrieved key vault secret', 500);
+	}
 
 	if (incomingRequestApiKey === newestApiKey.key) {
 		return true;
