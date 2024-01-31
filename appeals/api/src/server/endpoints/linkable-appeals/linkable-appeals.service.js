@@ -1,6 +1,6 @@
 import appealRepository from '#repositories/appeal.repository.js';
 import { getAppealFromHorizon } from '#utils/horizon-gateway.js';
-import { formattedLinkableAppealSummary } from './linkable-appeals.formatter.js/index.js';
+import { formattedLinkableAppealSummary } from './linkable-appeals.formatter.js';
 
 /**
  *
