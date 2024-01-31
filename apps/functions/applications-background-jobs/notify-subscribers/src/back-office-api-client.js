@@ -1,5 +1,4 @@
 import { HTTPError } from 'got';
-import querystring from 'querystring';
 import { gotInstance } from '../../common/backend-api-request.js';
 
 /**
@@ -78,7 +77,8 @@ export class BackOfficeApiClient {
 		if (endAfter) {
 			queryInput.endAfter = endAfter.toISOString();
 		}
-		const query = querystring.stringify(queryInput);
+		const queryParams = new URLSearchParams(queryInput);
+		const query = queryParams.toString();
 		return gotInstance.get(`${this.baseUrl}/applications/subscriptions/list/?${query}`).json();
 	}
 
