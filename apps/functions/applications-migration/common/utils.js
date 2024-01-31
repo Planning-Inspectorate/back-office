@@ -1,5 +1,7 @@
 /**
  * @param {any} obj
+ *
+ * @returns {any} obj
  */
 export const removeNullValues = (obj) => {
 	Object.keys(obj).forEach((key) => {
@@ -7,4 +9,6 @@ export const removeNullValues = (obj) => {
 			delete obj[key];
 		}
 	});
+
+	return obj;
 };

@@ -1,3 +1,4 @@
+import { removeNullValues } from '../../common/utils.js';
 import { makePostRequest } from '../../common/back-office-api-client.js';
 import { SynapseDB } from '../../common/synapse-db.js';
 import { QueryTypes } from 'sequelize';
@@ -61,7 +62,7 @@ const getExamTimetable = async (log, caseReference) => {
 
 /**
  * @typedef {Object} ExamTimetableItemRow
- * @property {number} eventID
+ * @property {string} eventID
  * @property {'Accompanied Site Inspection' | 'Compulsory Acquisition Hearing' | 'Deadline' | 'Deadline For Close Of Examination' | 'Issued By' | 'Issue Specific Hearing' | 'Open Floor Hearing' | 'Other Meeting' | 'Preliminary Meeting' | 'Procedural Deadline (Pre-Examination)' | 'Procedural Decision' | 'Publication Of'} eventType
  * @property {string} eventTitle
  * @property {string} eventDeadlineStartDate
@@ -94,14 +95,16 @@ const mapTimetableFromItems = (caseReference, timetableItems) => {
 				eventLineItemDescription
 			}
 		) => {
-			timetable.events.push({
-				eventId: eventID,
-				type: eventType,
-				eventTitle,
-				description: eventLineItemDescription,
-				date: eventDate,
-				eventDeadlineStartDate
-			});
+			timetable.events.push(
+				removeNullValues({
+					eventId: Number(eventID),
+					type: eventType,
+					eventTitle,
+					description: eventLineItemDescription,
+					date: eventDate,
+					eventDeadlineStartDate
+				})
+			);
 
 			return timetable;
 		},

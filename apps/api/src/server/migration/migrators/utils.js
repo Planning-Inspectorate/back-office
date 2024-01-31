@@ -16,7 +16,7 @@ const caseRefToIdCache = new Map();
  *
  * @returns {Promise<number | undefined>} caseId
  */
-const getCaseIdFromRef = async (reference) => {
+export const getCaseIdFromRef = async (reference) => {
 	const existingCaseId = caseRefToIdCache.get(reference);
 
 	if (existingCaseId) {
@@ -196,6 +196,34 @@ export const getRegionIdsFromNames = async (regionNames) => {
 
 		return region.id;
 	});
+};
+
+/**
+ @type {Mapping[]}
+ */
+let timetableItemTypes = [];
+
+/**
+ *
+ * @param {string} examTimetableItemType
+ *
+ * @returns {Promise<number | undefined>} timetableTypeId
+ */
+export const getExamTimetableTypeIdFromName = async (examTimetableItemType) => {
+	if (!examTimetableItemType) {
+		throw Error('Missing required parameter examTimetableItemType');
+	}
+
+	if (!timetableItemTypes.length) {
+		timetableItemTypes = await databaseConnector.examinationTimetableType.findMany({
+			select: {
+				id: true,
+				name: true
+			}
+		});
+	}
+
+	return timetableItemTypes.find(({ name }) => name === examTimetableItemType)?.id;
 };
 
 // 100 events would allow each event to have a body size of 10kb which is more than enough
