@@ -28,6 +28,7 @@ const approxStageCompletion = {
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/appeals.api').Schema.AppealRelationship} AppealRelationship */
+/** @typedef {import('@pins/appeals.api').Schema.AppealType} AppealType */
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -92,9 +93,10 @@ const formatMyAppeals = (appeal, linkedAppeals) => ({
 /**
  * @param {RepositoryGetByIdResultItem} appeal
  * @param {Folder[]} folders
+ * @param {AppealType | null} transferAppealTypeInfo
  * @returns {SingleAppealDetailsResponse | void}}
  */
-const formatAppeal = (appeal, folders) => {
+const formatAppeal = (appeal, folders, transferAppealTypeInfo = null) => {
 	if (appeal) {
 		return {
 			...(appeal.agent && {
@@ -122,6 +124,12 @@ const formatAppeal = (appeal, folders) => {
 			appealReference: appeal.reference,
 			appealSite: formatAddress(appeal.address),
 			appealStatus: appeal.appealStatus[0].status,
+			...(transferAppealTypeInfo && {
+				transferStatus: {
+					transferredAppealType: `(${transferAppealTypeInfo?.code}) ${transferAppealTypeInfo?.type}`,
+					transferredAppealReference: appeal.transferredCaseId
+				}
+			}),
 			appealTimetable: appeal.appealTimetable
 				? {
 						appealTimetableId: appeal.appealTimetable.id,
@@ -135,7 +143,6 @@ const formatAppeal = (appeal, folders) => {
 			appealType: appeal.appealType?.type,
 			appellantCaseId: appeal.appellantCase?.id || 0,
 			caseOfficer: appeal.caseOfficer?.azureAdUserId || null,
-			transferredAppealRef: appeal.transferredCaseId,
 			decision: {
 				folderId: folders[0].id,
 				outcome: appeal.inspectorDecision?.outcome,
