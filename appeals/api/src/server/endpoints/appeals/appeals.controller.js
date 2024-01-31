@@ -196,10 +196,12 @@ const updateAppealById = async (req, res) => {
  */
 const mapAppealStatuses = (rawStatuses) => {
 	const statusOrder = [
+		'assign_case_officer',
 		'ready_to_start',
 		'lpa_questionnaire_due',
 		'issue_determination',
-		'awaiting_transfer'
+		'awaiting_transfer',
+		'complete'
 	];
 
 	const extractedStatuses = [
