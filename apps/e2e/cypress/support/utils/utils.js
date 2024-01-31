@@ -183,6 +183,7 @@ const getShortMonthNameExamTimeTable = (monthNumber) => {
 	return date.toLocaleString('default', { month: 'short' }).substring(0,3);
 };
 
+
 const enquirerString = (details) => {
 	const hasName = details.firstName && details.lastName;
 	const hasOrg = details.organisation;

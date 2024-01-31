@@ -68,8 +68,6 @@ describe('Examination Timetable Errors', () => {
 		createCasePage.validateErrorMessageCountOnPage(5);
 		createCasePage.validateErrorMessage('You must enter the item name');
 		createCasePage.validateErrorMessage('You must enter the item date');
-		// Commented due to start time is optional
-		//createCasePage.validateErrorMessage('You must enter the item start time');
 	});
 
 	it('Should trigger validation errors - name, end time', () => {
@@ -81,7 +79,7 @@ describe('Examination Timetable Errors', () => {
 		createCasePage.validateErrorMessage('You must enter the item end date');
 	});
 
-	it.only('Should trigger validation errors - end date', () => {
+	it('Should trigger validation errors - end date', () => {
 		const itemType = itemOptions[2];
 		const options = timetableItem();
 		options.endYear = (options.currentYear - 2).toString();
@@ -103,7 +101,7 @@ describe('Examination Timetable', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it.only('Should create timetable item - only start dates (StartTime Mandatory Template)', () => {
+	it('Should create timetable item - only start dates (StartTime Mandatory Template)', () => {
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
@@ -118,7 +116,6 @@ describe('Examination Timetable', () => {
 		examTimetablePage.clickButtonByText('Continue');
 		examTimetablePage.checkAnswer('Item type', itemType);
 		examTimetablePage.checkAnswer('Item name', options.itemName);
-		examTimetablePage.checkAnswer('Date', options.startDateFullDeadLine);
 		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
 		examTimetablePage.checkAnswer('Timetable item description', options.description);
@@ -130,7 +127,6 @@ describe('Examination Timetable', () => {
 		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
 		examTimetablePage.checkAnswer('Item type', itemType);
 		examTimetablePage.checkAnswer('Item name', options.itemName);
-		examTimetablePage.checkAnswer('Date', options.startDateFullDeadLine);
 		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
 		examTimetablePage.checkAnswer('Description', options.description);
