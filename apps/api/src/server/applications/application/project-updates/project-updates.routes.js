@@ -48,6 +48,18 @@ router.get(
 			required: false,
 			type: 'boolean'
 		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'List of project updates',
 			schema: { $ref: '#/definitions/ApplicationProjectUpdates' },
@@ -77,6 +89,18 @@ router.get(
 			description: 'Project Update ID',
 			required: true,
 			type: 'integer'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'The project update',
@@ -123,6 +147,18 @@ router.get(
 			required: false,
 			type: 'string'
 		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'List of project updates',
 			schema: { $ref: '#/definitions/ApplicationProjectUpdates' },
@@ -160,6 +196,18 @@ router.post(
             schema: { $ref: '#/definitions/ApplicationProjectUpdateCreateRequest' },
             required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Created project update',
 			schema: { $ref: '#/definitions/ApplicationProjectUpdate' },
@@ -195,6 +243,18 @@ router.get(
 			description: 'Project Update ID',
 			required: true,
 			type: 'integer'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'The project update',
@@ -238,6 +298,18 @@ router.patch(
             schema: { $ref: '#/definitions/ApplicationProjectUpdateUpdateRequest' },
             required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'The project update',
 			schema: { $ref: '#/definitions/ApplicationProjectUpdate' },
@@ -278,6 +350,18 @@ router.delete(
 			description: 'Project Update ID',
 			required: true,
 			type: 'integer'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[204] = {
             description: 'Successfully deleted'

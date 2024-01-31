@@ -34,6 +34,18 @@ router.get(
             description: 'List of examination timetable items',
             schema: { $ref: '#/definitions/ExaminationTimetableWithItems' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	asyncHandler(getExaminationTimetableItems)
 );
@@ -54,6 +66,18 @@ router.get(
             description: 'Examination timetable item',
             schema: { $ref: '#/definitions/ExaminationTimetableItemWithExamTimetable' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	asyncHandler(getExaminationTimetableItem)
 );
@@ -78,6 +102,18 @@ router.post(
             description: 'Bad Request',
             schema: { $ref: '#/definitions/ExaminationTimetableItemSaveBadRequest' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	validateCreateExaminationTimetableItem,
 	asyncHandler(createExaminationTimetableItem)
@@ -99,6 +135,18 @@ router.patch(
             description: 'Examination timetable items published',
 			schema: { success: true } }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	validateApplicationId,
 	asyncHandler(publishExaminationTimetable)
@@ -120,6 +168,18 @@ router.patch(
             description: 'Examination timetable items unpublished',
 			schema: { success: true } }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	validateApplicationId,
 	asyncHandler(unpublishExaminationTimetable)
@@ -141,6 +201,18 @@ router.delete(
         #swagger.responses[200] = {
             description: 'Examination timetable item successfully deleted',
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	asyncHandler(deleteExaminationTimetableItem)
 );
@@ -171,6 +243,18 @@ router.patch(
             description: 'Example of an error response',
             schema: { errors: { id: "Must be an existing examination timetable item" } }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	validateExistingExaminationTimetableItemId,
 	validateUpdateExaminationTimetableItem,
