@@ -432,6 +432,109 @@ const getLinkedAppeals = async (appealReference) => {
 		}
 	});
 };
+/**
+ *
+ * @param {string} appealReference
+ * @returns {Promise<RepositoryGetByIdResultItem|undefined>}
+ */
+const getAppealByAppealReference = async (appealReference) => {
+	return await databaseConnector.appeal.findUnique({
+		where: {
+			reference: appealReference
+		},
+		include: {
+			address: true,
+			allocation: true,
+			specialisms: {
+				include: {
+					specialism: true
+				}
+			},
+			appellantCase: {
+				include: {
+					appellantCaseIncompleteReasonsOnAppellantCases: {
+						include: {
+							appellantCaseIncompleteReason: true,
+							appellantCaseIncompleteReasonText: true
+						}
+					},
+					appellantCaseInvalidReasonsOnAppellantCases: {
+						include: {
+							appellantCaseInvalidReason: true,
+							appellantCaseInvalidReasonText: true
+						}
+					},
+					appellantCaseValidationOutcome: true,
+					knowledgeOfOtherLandowners: true,
+					planningObligationStatus: true
+				}
+			},
+			appellant: {
+				include: {
+					customer: true
+				}
+			},
+			agent: {
+				include: {
+					customer: true
+				}
+			},
+			lpa: true,
+			appealStatus: {
+				where: {
+					valid: true
+				}
+			},
+			appealTimetable: true,
+			appealType: true,
+			auditTrail: {
+				include: {
+					user: true
+				},
+				orderBy: {
+					loggedAt: DATABASE_ORDER_BY_DESC
+				}
+			},
+			caseOfficer: true,
+			inspector: true,
+			inspectorDecision: true,
+			lpaQuestionnaire: {
+				include: {
+					designatedSites: {
+						include: {
+							designatedSite: true
+						}
+					},
+					listedBuildingDetails: true,
+					lpaNotificationMethods: {
+						include: {
+							lpaNotificationMethod: true
+						}
+					},
+					lpaQuestionnaireIncompleteReasonOnLPAQuestionnaire: {
+						include: {
+							lpaQuestionnaireIncompleteReason: true,
+							lpaQuestionnaireIncompleteReasonText: true
+						}
+					},
+					lpaQuestionnaireValidationOutcome: true,
+					neighbouringSiteContact: {
+						include: {
+							address: true
+						}
+					},
+					procedureType: true,
+					scheduleType: true
+				}
+			},
+			siteVisit: {
+				include: {
+					siteVisitType: true
+				}
+			}
+		}
+	});
+};
 
 /**
  *
@@ -492,6 +595,7 @@ export default {
 	getAppealById,
 	getAllAppeals,
 	getUserAppeals,
+	getAppealByAppealReference,
 	updateAppealById,
 	setAppealDecision,
 	setInvalidAppealDecision,

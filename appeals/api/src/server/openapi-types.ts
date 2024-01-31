@@ -210,7 +210,7 @@ export interface AddDocumentsResponse {
 	documents?: {
 		/** @example "appeal" */
 		caseType?: string;
-		/** @example "APP/Q9999/D/21/1345264" */
+		/** @example "1345264" */
 		caseReference?: string;
 		/** @example "27d0fda4-8a9a-4f5a-a158-68eaea676158" */
 		GUID?: string;
@@ -218,7 +218,7 @@ export interface AddDocumentsResponse {
 		documentName?: string;
 		/** @example 1 */
 		versionId?: number;
-		/** @example "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
+		/** @example "appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
 		blobStoreUrl?: string;
 	}[];
 }
@@ -228,7 +228,7 @@ export interface Folder {
 	folderId?: number;
 	/** @example "appellant_case/appealStatement" */
 	path?: string;
-	/** @example "APP/Q9999/D/21/1345264" */
+	/** @example "1345264" */
 	caseId?: string;
 	/** @example [] */
 	documents?: any[];
@@ -269,7 +269,7 @@ export interface DocumentVersionDetails {
 	filter1?: any;
 	/** @example "document-service-uploads" */
 	blobStorageContainer?: string;
-	/** @example "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
+	/** @example "appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
 	blobStoragePath?: string;
 	/** @example "2023-08-17T15:22:20.827Z" */
 	dateCreated?: string;
@@ -286,7 +286,7 @@ export interface DocumentVersionDetails {
 	redactionStatusId?: any;
 	/** @example false */
 	redacted?: boolean;
-	/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
+	/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
 	documentURI?: string;
 	dateReceived?: any;
 }
@@ -341,7 +341,7 @@ export interface DocumentDetails {
 		filter1?: any;
 		/** @example "document-service-uploads" */
 		blobStorageContainer?: string;
-		/** @example "appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
+		/** @example "appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
 		blobStoragePath?: string;
 		/** @example "2023-08-17T15:22:20.827Z" */
 		dateCreated?: string;
@@ -358,7 +358,7 @@ export interface DocumentDetails {
 		redactionStatusId?: any;
 		/** @example false */
 		redacted?: boolean;
-		/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/APP-Q9999-D-21-1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
+		/** @example "https://127.0.0.1:10000/devstoreaccount1/document-service-uploads/document-service-uploads/appeal/1345264/27d0fda4-8a9a-4f5a-a158-68eaea676158/v1/mydoc.pdf" */
 		documentURI?: string;
 		dateReceived?: any;
 	}[];
@@ -1669,3 +1669,68 @@ export type GetAuditTrailsResponse = {
 	/** @example "2023-09-26T16:22:20.688Z" */
 	loggedDate?: string;
 }[];
+
+export interface SingleLinkableAppealSummaryResponse {
+	/**
+	 * Horizon or Back Office appeal reference
+	 * @example "3000359"
+	 */
+	appealReference?: string;
+	/**
+	 * Type of appeal
+	 * @example "Planning Appeal (W)"
+	 */
+	appealType?: string;
+	/**
+	 * Status of appeal
+	 * @example "Decision Issued"
+	 */
+	appealStatus?: string;
+	siteAddress?: {
+		/**
+		 * First line of site address
+		 * @example "123 Main Street"
+		 */
+		siteAddressLine1?: string;
+		/**
+		 * Second line of site address
+		 * @example "Brentry"
+		 */
+		siteAddressLine2?: string;
+		/**
+		 * Site town
+		 * @example "Bristol"
+		 */
+		siteAddressTown?: string;
+		/**
+		 * Site county
+		 * @example "Bristol, city of"
+		 */
+		siteAddressCounty?: string;
+		/**
+		 * Site postcode
+		 * @example "BS1 1AA"
+		 */
+		siteAddressPostcode?: string;
+	};
+	/**
+	 * Name of Local Planning Department
+	 * @example "Bristol City Council"
+	 */
+	localPlanningDepartment?: string;
+	/**
+	 * Full name of the appellant
+	 * @example "Mr John Wick"
+	 */
+	appellantName?: string;
+	/**
+	 * Name of the agent
+	 * @example "Mr John Smith (Smith Planning Agency)"
+	 */
+	agentName?: string;
+	/**
+	 * Date string of the submission: YYYY-MM-DDTHH:MM:SS+HH:MM
+	 * @example "2014-11-14T00:00:00+00:00"
+	 */
+	submissionDate?: string;
+}

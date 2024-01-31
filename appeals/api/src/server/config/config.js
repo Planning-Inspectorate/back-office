@@ -53,7 +53,10 @@ const { value, error } = schema.validate({
 		{ level: 'F', band: 1 },
 		{ level: 'G', band: 1 },
 		{ level: 'H', band: 1 }
-	]
+	],
+	horizon: {
+		url: environment.HORIZON_URL
+	}
 });
 
 if (error) {
