@@ -11,7 +11,7 @@ export const authoriseRequest = async (request, _response, next) => {
 	const incomingRequestApiKey = request.headers['x-api-key'];
 
 	if (!callingClient) {
-		throw new BackOfficeAppError("No 'x-service-name' header found on request", 400);
+		throw new BackOfficeAppError("No 'x-service-name' header found on request", 403);
 	}
 	if (!incomingRequestApiKey) {
 		throw new BackOfficeAppError(`No API key present on request from ${callingClient}`, 403);
@@ -30,7 +30,8 @@ export const authoriseRequest = async (request, _response, next) => {
 		next();
 	} else {
 		throw new BackOfficeAppError(
-			`Could not authenticate request from ${callingClient} - invalid API key`
+			`Could not authenticate request from ${callingClient} - invalid API key`,
+			403
 		);
 	}
 };
@@ -44,8 +45,7 @@ const isRequestApiKeyValid = (incomingRequestApiKey, cachedApiKeyAddress) => {
 	const newestApiKey = apiKeyPair.find((key) => key.status === 'newest');
 	const oldestApiKey = apiKeyPair.find((key) => key.status === 'oldest') || {};
 	if (!newestApiKey) {
-		console.log('API_KEY_TESTING: Newest key not present in retrieved key vault secret');
-		// throw new BackOfficeAppError('Newest key not present in retrieved key vault secret', 500);
+		throw new BackOfficeAppError('Newest key not present in cache', 500);
 	}
 
 	if (incomingRequestApiKey === newestApiKey.key) {
@@ -56,7 +56,7 @@ const isRequestApiKeyValid = (incomingRequestApiKey, cachedApiKeyAddress) => {
 	}
 	if (incomingRequestApiKey === oldestApiKey.key && !isOldestKeyStillValid(oldestApiKey)) {
 		// Set up alerting for Application Insights
-		throw new BackOfficeAppError('Expired API key used');
+		throw new BackOfficeAppError('Expired API key used', 403);
 	}
 	return false;
 };
