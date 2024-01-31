@@ -42,7 +42,7 @@ export const linkAppeal = async (req, res) => {
 		return res.send(result);
 	}
 
-	return res.status(404);
+	return res.status(404).send({});
 };
 
 /**

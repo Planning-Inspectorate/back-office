@@ -299,9 +299,7 @@ export const validateCreateRepresentation = composeMiddleware(
 	body('represented.firstName')
 		.exists({ checkFalsy: true, checkNull: true })
 		.isLength({ min: 1, max: 64 }),
-	body('represented.lastName')
-		.exists({ checkFalsy: true, checkNull: true })
-		.isLength({ min: 1, max: 64 }),
+	body('represented.lastName').exists(),
 	validationErrorHandler
 );
 

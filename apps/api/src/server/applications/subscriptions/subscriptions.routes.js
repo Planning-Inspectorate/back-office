@@ -29,6 +29,18 @@ router.post(
             schema: { $ref: '#/definitions/SubscriptionGetRequest' },
             required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Subscription',
             schema: { $ref: '#/definitions/Subscription' }
@@ -87,6 +99,18 @@ router.get(
             type: 'integer',
 			example: 25,
 		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Subscription',
             schema: { $ref: '#/definitions/Subscriptions' }
@@ -117,6 +141,18 @@ router.put(
             schema: { $ref: '#/definitions/SubscriptionCreateRequest' },
             required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Updated subscription',
             schema: { id: {'type': 'number'} }
@@ -156,6 +192,18 @@ router.patch(
             schema: { $ref: '#/definitions/SubscriptionUpdateRequest' },
             required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Updated subscription',
             schema: { id: {'type': 'number'} }

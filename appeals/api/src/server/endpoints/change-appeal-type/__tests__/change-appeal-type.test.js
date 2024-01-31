@@ -2,7 +2,12 @@ import { request } from '#tests/../app-test.js';
 import { jest } from '@jest/globals';
 import { azureAdUserId } from '#tests/shared/mocks.js';
 import { householdAppeal } from '#tests/appeals/mocks.js';
-import { ERROR_NOT_FOUND, ERROR_INVALID_APPEAL_STATE } from '#endpoints/constants.js';
+import {
+	ERROR_NOT_FOUND,
+	ERROR_INVALID_APPEAL_STATE,
+	ERROR_CANNOT_BE_EMPTY_STRING,
+	ERROR_MUST_BE_STRING
+} from '#endpoints/constants.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 const appealTypes = [
@@ -151,6 +156,118 @@ describe('appeal change type transfer routes', () => {
 			expect(response.body).toEqual({
 				errors: {
 					appealStatus: ERROR_INVALID_APPEAL_STATE
+				}
+			});
+		});
+	});
+});
+
+describe('appeal change type transfer confirmation routes', () => {
+	describe('POST', () => {
+		test('returns 400 when appeal status is invalid', async () => {
+			// @ts-ignore
+			databaseConnector.appeal.findUnique.mockResolvedValue({
+				...householdAppeal,
+				appealStatus: [
+					{
+						status: 'lpa_questionnaire_due',
+						valid: true
+					}
+				]
+			});
+
+			const response = await request
+				.post(`/appeals/${householdAppeal.id}/appeal-transfer-confirmation`)
+				.send({
+					newAppealReference: 'A string'
+				})
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					appealStatus: ERROR_INVALID_APPEAL_STATE
+				}
+			});
+		});
+
+		test('returns 400 when newAppealReference is null', async () => {
+			// @ts-ignore
+			databaseConnector.appeal.findUnique.mockResolvedValue({
+				...householdAppeal,
+				appealStatus: [
+					{
+						status: 'awaiting_transfer',
+						valid: true
+					}
+				]
+			});
+
+			const response = await request
+				.post(`/appeals/${householdAppeal.id}/appeal-transfer-confirmation`)
+				.send({
+					newAppealReference: null
+				})
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					newAppealReference: ERROR_MUST_BE_STRING
+				}
+			});
+		});
+
+		test('returns 400 when newAppealReference is empty', async () => {
+			// @ts-ignore
+			databaseConnector.appeal.findUnique.mockResolvedValue({
+				...householdAppeal,
+				appealStatus: [
+					{
+						status: 'awaiting_transfer',
+						valid: true
+					}
+				]
+			});
+
+			const response = await request
+				.post(`/appeals/${householdAppeal.id}/appeal-transfer-confirmation`)
+				.send({
+					newAppealReference: ''
+				})
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					newAppealReference: ERROR_CANNOT_BE_EMPTY_STRING
+				}
+			});
+		});
+
+		test('returns 400 when newAppealReference is not a string', async () => {
+			// @ts-ignore
+			databaseConnector.appeal.findUnique.mockResolvedValue({
+				...householdAppeal,
+				appealStatus: [
+					{
+						status: 'awaiting_transfer',
+						valid: true
+					}
+				]
+			});
+
+			const response = await request
+				.post(`/appeals/${householdAppeal.id}/appeal-transfer-confirmation`)
+				.send({
+					newAppealReference: 320
+				})
+				.set('azureAdUserId', azureAdUserId);
+
+			expect(response.status).toEqual(400);
+			expect(response.body).toEqual({
+				errors: {
+					newAppealReference: ERROR_MUST_BE_STRING
 				}
 			});
 		});

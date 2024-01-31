@@ -21,6 +21,18 @@ router.get(
             description: 'List of sectors or sub-sectors',
             schema: { $ref: '#/definitions/Sectors' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
 	 */
 	validateGetSubSectors,
 	trimUnexpectedRequestParameters,

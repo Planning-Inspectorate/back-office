@@ -154,6 +154,7 @@ exports[`issue-decision GET /change-appeal-type/decision-letter-upload should re
     data-document-stage="appeal_decision" data-blob-storage-host="https://127.0.0.1:10000/devstoreaccount1"
     data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
+        <h1 class="govuk-heading-m govuk-grid-column-full">Upload decision letter</h1>
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">

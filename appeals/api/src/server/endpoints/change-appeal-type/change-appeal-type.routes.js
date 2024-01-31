@@ -4,16 +4,19 @@ import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-an
 import {
 	loadAllAppealTypesAndAddToRequest,
 	validateAppealType,
-	validateAppealStatus
+	validateAppealStatus,
+	validateAppealStatusForTransfer
 } from './change-appeal-type.middleware.js';
 import {
 	getAppealTypes,
 	requestChangeOfAppealType,
-	requestTransferOfAppeal
+	requestTransferOfAppeal,
+	requestConfirmationTransferOfAppeal
 } from './change-appeal-type.controller.js';
 import {
 	postAppealTypeChangeValidator,
-	postAppealTypeTransferValidator
+	postAppealTypeTransferValidator,
+	postAppealTypeTransferConfirmationValidator
 } from './change-appeal-type.validators.js';
 
 const router = createRouter();
@@ -92,6 +95,31 @@ router.post(
 	validateAppealType,
 	postAppealTypeTransferValidator,
 	asyncHandler(requestTransferOfAppeal)
+);
+
+router.post(
+	'/:appealId/appeal-transfer-confirmation',
+	/*
+		#swagger.tags = ['Appeal Type Change Request']
+		#swagger.path = '/appeals/{appealId}/appeal-transfer-confirmation'
+		#swagger.description = 'Confirms the transfer of the appeal to another system'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'Appeal type transfer confirmation',
+			schema: { $ref: '#/definitions/AppealTypeTransferConfirmationRequest' },
+			required: true
+		}
+		#swagger.responses[400] = {}
+	 */
+	checkAppealExistsAndAddToRequest,
+	validateAppealStatusForTransfer,
+	postAppealTypeTransferConfirmationValidator,
+	asyncHandler(requestConfirmationTransferOfAppeal)
 );
 
 export { router as changeAppealTypeRoutes };

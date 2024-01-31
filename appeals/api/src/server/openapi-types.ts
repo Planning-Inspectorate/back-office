@@ -450,6 +450,11 @@ export interface AppealTypeTransferRequest {
 	newAppealTypeId?: number;
 }
 
+export interface AppealTypeTransferConfirmationRequest {
+	/** @example "HORIZON/12345" */
+	newAppealReference?: string;
+}
+
 export type AppealTypes = {
 	/** @example "Appeal type name" */
 	type?: string;

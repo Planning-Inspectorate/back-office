@@ -6,10 +6,11 @@ import {
 	scheduleOrManageSiteVisitPage,
 	scheduleOrManageSiteVisitConfirmationPage,
 	setVisitTypePage,
-	stringIsSiteVisitConfirmationPageType
+	stringIsSiteVisitConfirmationPageType,
+	siteVisitBookedConfirmationPage,
+	mapPostScheduleOrManageSiteVisitCommonParameters as mapPostScheduleOrManageSiteVisitToUpdateOrCreateSiteVisitParameters,
+	mapPostScheduleOrManageSiteVisitConfirmationPageType
 } from './site-visit.mapper.js';
-import { hourMinuteToApiDateString, dayMonthYearToApiDateString } from '#lib/dates.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
@@ -116,13 +117,12 @@ export const renderSiteVisitBooked = async (request, response) => {
 		const siteVisitIdAsNumber = appealDetails.siteVisit?.siteVisitId;
 
 		if (typeof siteVisitIdAsNumber === 'number' && !Number.isNaN(siteVisitIdAsNumber)) {
-			return response.render('appeals/appeal/site-visit-booked.njk', {
-				appeal: {
-					id: appealDetails?.appealId,
-					reference: appealDetails?.appealReference,
-					shortReference: appealShortReference(appealDetails?.appealReference)
-				}
-			});
+			const mappedPageContent = siteVisitBookedConfirmationPage(
+				request.params.appealId,
+				appealDetails.appealReference
+			);
+
+			return response.render('appeals/appeal/site-visit-booked.njk', mappedPageContent);
 		}
 	}
 
@@ -202,6 +202,7 @@ export const postScheduleOrManageSiteVisit = async (request, response, pageType)
 		if (appealDetails) {
 			const {
 				body: {
+					/** @type {WebSiteVisitType} */
 					'visit-type': visitType,
 					'visit-date-day': visitDateDay,
 					'visit-date-month': visitDateMonth,
@@ -213,51 +214,33 @@ export const postScheduleOrManageSiteVisit = async (request, response, pageType)
 				}
 			} = request;
 
-			// TODO: move all this mapping logic into the mapper
-			const appealIdNumber = parseInt(appealId, 10);
-			const visitDate = dayMonthYearToApiDateString({
-				day: parseInt(visitDateDay, 10),
-				month: parseInt(visitDateMonth, 10),
-				year: parseInt(visitDateYear, 10)
-			});
-
-			const visitStartTime = hourMinuteToApiDateString(visitStartTimeHour, visitStartTimeMinute);
-			const visitEndTime = hourMinuteToApiDateString(visitEndTimeHour, visitEndTimeMinute);
-			const apiVisitType = mapWebVisitTypeToApiVisitType(visitType);
+			const mappedUpdateOrCreateSiteVisitParameters =
+				mapPostScheduleOrManageSiteVisitToUpdateOrCreateSiteVisitParameters(
+					appealId,
+					visitDateDay,
+					visitDateMonth,
+					visitDateYear,
+					visitStartTimeHour,
+					visitStartTimeMinute,
+					visitEndTimeHour,
+					visitEndTimeMinute,
+					visitType
+				);
 
 			if (appealDetails.siteVisit?.siteVisitId) {
-				const oldApiVisitType = appealDetails.siteVisit.visitType;
-				const oldVisitDate = appealDetails.siteVisit.visitDate?.split('T')[0];
-				const { visitStartTime: oldVisitStartTime } = appealDetails.siteVisit;
-				const { visitEndTime: oldVisitEndTime } = appealDetails.siteVisit;
-
-				const visitTypeChanged =
-					oldApiVisitType &&
-					apiVisitType &&
-					oldApiVisitType.toLowerCase() !== apiVisitType.toLowerCase();
-				const dateTimeChanged =
-					oldVisitDate !== visitDate ||
-					oldVisitStartTime !== visitStartTime ||
-					oldVisitEndTime !== visitEndTime;
-
-				let confirmationPageTypeToRender = 'unchanged';
-
-				if (visitTypeChanged && !dateTimeChanged) {
-					confirmationPageTypeToRender = 'visit-type';
-				} else if (!visitTypeChanged && dateTimeChanged) {
-					confirmationPageTypeToRender = 'date-time';
-				} else if (visitTypeChanged && dateTimeChanged) {
-					confirmationPageTypeToRender = 'all';
-				}
+				const confirmationPageTypeToRender = mapPostScheduleOrManageSiteVisitConfirmationPageType(
+					appealDetails,
+					mappedUpdateOrCreateSiteVisitParameters
+				);
 
 				await siteVisitService.updateSiteVisit(
 					request.apiClient,
-					appealIdNumber,
+					mappedUpdateOrCreateSiteVisitParameters.appealIdNumber,
 					appealDetails.siteVisit?.siteVisitId,
-					apiVisitType,
-					visitDate,
-					visitStartTime,
-					visitEndTime
+					mappedUpdateOrCreateSiteVisitParameters.apiVisitType,
+					mappedUpdateOrCreateSiteVisitParameters.visitDate,
+					mappedUpdateOrCreateSiteVisitParameters.visitStartTime,
+					mappedUpdateOrCreateSiteVisitParameters.visitEndTime
 				);
 
 				return response.redirect(
@@ -266,11 +249,11 @@ export const postScheduleOrManageSiteVisit = async (request, response, pageType)
 			} else {
 				await siteVisitService.createSiteVisit(
 					request.apiClient,
-					appealIdNumber,
-					apiVisitType,
-					visitDate,
-					visitStartTime,
-					visitEndTime
+					mappedUpdateOrCreateSiteVisitParameters.appealIdNumber,
+					mappedUpdateOrCreateSiteVisitParameters.apiVisitType,
+					mappedUpdateOrCreateSiteVisitParameters.visitDate,
+					mappedUpdateOrCreateSiteVisitParameters.visitStartTime,
+					mappedUpdateOrCreateSiteVisitParameters.visitEndTime
 				);
 
 				return response.redirect(

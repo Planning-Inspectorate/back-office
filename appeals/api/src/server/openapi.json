@@ -2385,6 +2385,53 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/appeal-transfer-confirmation": {
+			"post": {
+				"tags": ["Appeal Type Change Request"],
+				"description": "Confirms the transfer of the appeal to another system",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Appeal type transfer confirmation",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealTypeTransferConfirmationRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/AppealTypeTransferConfirmationRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/link-appeal": {
 			"post": {
 				"tags": ["Linked Appeals"],
@@ -3733,6 +3780,18 @@
 				},
 				"xml": {
 					"name": "AppealTypeTransferRequest"
+				}
+			},
+			"AppealTypeTransferConfirmationRequest": {
+				"type": "object",
+				"properties": {
+					"newAppealReference": {
+						"type": "string",
+						"example": "HORIZON/12345"
+					}
+				},
+				"xml": {
+					"name": "AppealTypeTransferConfirmationRequest"
 				}
 			},
 			"AppealTypes": {

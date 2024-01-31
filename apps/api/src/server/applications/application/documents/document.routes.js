@@ -56,6 +56,18 @@ router.post(
             description: 'Document Details',
             schema: { $ref: '#/definitions/DocumentVersionUpsertRequestBody' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
 		#swagger.responses[200] = {
 			description: 'The metadata has been successfully stored.',
 			schema: { $ref: '#/definitions/DocumentDetails' }
@@ -81,6 +93,18 @@ router.post(
             description: 'Document Details',
             schema: { $ref: '#/definitions/DocumentsToSaveManyRequestBody' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Documents that have been saved',
             schema: { $ref: '#/definitions/DocumentAndBlobInfoManyResponse' }
@@ -118,6 +142,18 @@ router.patch(
             description: 'Document Details',
             schema: { $ref: '#/definitions/DocumentsToUnpublishRequestBody' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Documents that have been unpublished',
             schema: { $ref: '#/definitions/DocumentsUnpublishResponseBody' }
@@ -161,6 +197,18 @@ router.post(
             description: 'Document Details',
             schema: { $ref: '#/definitions/DocumentToSave' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Document that has been saved',
             schema: { $ref: '#/definitions/DocumentAndBlobInfoResponse' }
@@ -190,6 +238,18 @@ router.patch(
             schema: { $ref: '#/definitions/DocumentsToUpdateRequestBody' },
 			required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Documents that have been updated',
             schema: [ { guid: '0084b156-006b-48b1-a47f-e7176414db29', "status": "not_checked", "redactedStatus": "redacted" } ]
@@ -236,6 +296,18 @@ router.post(
             schema: { $ref: '#/definitions/DocumentMarkAsPublishedRequestBody' },
 			required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Updated document response',
             schema: { $ref: '#definitions/DocumentPropertiesWithVersionWithCase' }
@@ -278,6 +350,18 @@ router.post(
 			required: true,
 			type: 'integer'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Updated document response',
             schema: { $ref: '#definitions/DocumentPropertiesWithVersionWithCase' }
@@ -308,6 +392,18 @@ router.get(
 			description: 'guid of the required document here',
 			required: true,
 			type: 'string'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'Document properties',
@@ -354,12 +450,24 @@ router.get(
 			description: 'A list of guids',
 			example: [1, 2],
 		}
-    #swagger.parameters['published'] = {
-      in: 'query',
-      description: 'Only return published documents',
-      type: 'boolean',
-      example: false
-    }
+		#swagger.parameters['published'] = {
+		in: 'query',
+		description: 'Only return published documents',
+		type: 'boolean',
+		example: false
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Document properties',
             schema: { $ref: '#/definitions/DocumentProperties' }
@@ -392,6 +500,18 @@ router.get(
 			required: true,
 			type: 'integer'
 		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Document properties',
             schema: { $ref: '#/definitions/DocumentProperties' }
@@ -412,6 +532,18 @@ router.get(
 			required: true,
 			type: 'string'
 		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Document properties',
             schema: { $ref: '#/definitions/DocumentPropertiesWithAllVersionWithAuditHistory' }
@@ -431,6 +563,18 @@ router.get(
 			description: 'guid of the required document here',
 			required: true,
 			type: 'string'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'Array of folders which consitute the path the document is located in',
@@ -458,6 +602,18 @@ router.post(
 			required: true,
 			type: 'string'
 		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'OK'
         }
@@ -483,6 +639,18 @@ router.post(
 			description: 'guid of the required document here',
 			required: true,
 			type: 'string'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
 		#swagger.responses[200] = {
 			description: 'The document has been successfully soft-deleted and is no longer accessible.',
@@ -518,6 +686,18 @@ router.post(
             schema: { $ref: '#/definitions/PaginationRequestBody' },
             required: true
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
 		#swagger.responses[200] = {
             description: 'An paginated data set of documents and their properties',
             schema: { $ref: '#/definitions/PaginatedDocumentDetails' }
@@ -543,6 +723,18 @@ router.patch(
             description: 'Array of document guids to publish',
             schema: { $ref: '#/definitions/DocumentsToPublishRequestBody' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Documents that have been published',
             schema: { $ref: '#/definitions/DocumentsPublished' }
@@ -589,6 +781,18 @@ router.get(
 			type: 'string',
 			required: true
     	}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
 			description: 'An paginated data set of matching documents and their properties',
             schema: { $ref: '#/definitions/PaginatedDocumentDetails' }

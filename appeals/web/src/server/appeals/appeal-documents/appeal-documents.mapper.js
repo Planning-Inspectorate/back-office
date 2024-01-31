@@ -1,3 +1,5 @@
+import { appealShortReference } from '#lib/appeals-formatter.js';
+import config from '@pins/appeals.web/environment/config.js';
 import { capitalize } from 'lodash-es';
 import { dayMonthYearToApiDateString, dateToDisplayDate, dateToDisplayTime } from '#lib/dates.js';
 import { kilobyte, megabyte, gigabyte } from '#appeals/appeal.constants.js';
@@ -8,6 +10,7 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
+ * @typedef {import('../appeal-details/appeal-details.types.js').WebAppeal} Appeal
  * @typedef {import('@pins/appeals.api').Appeals.FolderInfo} FolderInfo
  * @typedef {import('@pins/appeals.api').Appeals.DocumentInfo} DocumentInfo
  * @typedef {import('#lib/nunjucks-template-builders/tag-builders.js').HtmlLink} HtmlLink
@@ -15,11 +18,63 @@ import { addNotificationBannerToSession } from '#lib/session-utilities.js';
  * @typedef {import('@pins/appeals.api').Api.DocumentDetails} DocumentDetails
  * @typedef {import('@pins/appeals.api').Api.DocumentVersionDetails} DocumentVersionDetails
  * @typedef {import('@pins/appeals.api').Api.DocumentVersionAuditEntry} DocumentVersionAuditEntry
+ * @typedef {FolderInfo & {id: string, caseId: string}} DocumentFolder
  */
 
 /**
- * @typedef {FolderInfo & {id: string, caseId: string}} DocumentFolder
+ * @param {string} appealId
+ * @param {string} appealReference
+ * @param {string} folderId
+ * @param {string} folderPath
+ * @param {string} documentId
+ * @param {string} documentName
+ * @param {string} backButtonUrl
+ * @param {string|undefined} nextPageUrl
+ * @param {boolean} isLateEntry
+ * @param {import('@pins/express').ValidationErrors|undefined} errors
+ * @returns {import('#appeals/appeal-documents/appeal-documents.types.js').DocumentUploadPageParameters}
  */
+export function documentUploadPage(
+	appealId,
+	appealReference,
+	folderId,
+	folderPath,
+	documentId,
+	documentName,
+	backButtonUrl,
+	nextPageUrl,
+	isLateEntry,
+	errors
+) {
+	const isAdditionalDocument = folderPath.split('/')[1] === 'additionalDocuments';
+	const pageHeadingText = mapAddDocumentsPageHeading(isAdditionalDocument, documentId);
+	const pathComponents = folderPath.split('/');
+	const documentStage = pathComponents[0];
+	const documentType = pathComponents[1];
+
+	return {
+		backButtonUrl: backButtonUrl?.replace('{{folderId}}', folderId),
+		appealId,
+		folderId: folderId,
+		documentId,
+		useBlobEmulator: config.useBlobEmulator,
+		blobStorageHost:
+			config.useBlobEmulator === true ? config.blobEmulatorSasUrl : config.blobStorageUrl,
+		blobStorageContainer: config.blobStorageDefaultContainer,
+		multiple: !documentId,
+		documentStage: documentStage,
+		serviceName: documentName || pageHeadingText,
+		appealShortReference: appealShortReference(appealReference),
+		pageHeadingText: pageHeadingText,
+		documentType: documentType,
+		nextPageUrl:
+			nextPageUrl?.replace('{{folderId}}', folderId) ||
+			backButtonUrl?.replace('{{folderId}}', folderId),
+		displayLateEntryContent: isAdditionalDocument && isLateEntry,
+		displayCorrectFolderConfirmationContent: isAdditionalDocument && !isLateEntry,
+		errors
+	};
+}
 
 /**
  * @param {string|number} appealId
@@ -141,12 +196,11 @@ export function mapDocumentVersionDetailsVirusCheckStatus(document) {
 }
 
 /**
- * @param {FolderInfo} currentFolder
  * @param {boolean} isAdditionalDocument
  * @param {string} [documentId]
  * @returns {string}
  */
-export function mapAddDocumentsPageHeading(currentFolder, isAdditionalDocument, documentId) {
+export function mapAddDocumentsPageHeading(isAdditionalDocument, documentId) {
 	const isExistingDocument = !!documentId;
 
 	if (isAdditionalDocument) {
