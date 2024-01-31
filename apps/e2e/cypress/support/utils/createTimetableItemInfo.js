@@ -2,6 +2,7 @@
 import { faker } from '@faker-js/faker';
 import { getShortMonthNameExamTimeTable } from './utils.js';
 import { getShortMonthName} from './utils.js';
+
 export const timetableItem = () => {
 	const now = Date.now();
 	const currentYear = new Date().getFullYear();
