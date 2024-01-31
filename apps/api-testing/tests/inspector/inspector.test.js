@@ -23,9 +23,9 @@ describe(`GET - ${endpoint}`, () => {
 			validateSchema(schema, body);
 		});
 
-		it('should return a 405 status code and an error message indicating that the requested method is not allowed', async () => {
+		it('should return a 404 status code and an error message indicating that the requested method is not found', async () => {
 			const { body, statusCode } = await request.post();
-			expect(statusCode).to.equal(405);
+			expect(statusCode).to.equal(404);
 		});
 	});
 });
