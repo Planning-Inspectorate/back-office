@@ -83,7 +83,8 @@ describe('Update application', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'service-user',
 			[expectedApplicantPayload],
-			'Update'
+			'Update',
+			{ entityType: 'Applicant' }
 		);
 	});
 
@@ -138,7 +139,8 @@ describe('Update application', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'service-user',
 			[expectedApplicantPayload],
-			'Update'
+			'Update',
+			{ entityType: 'Applicant' }
 		);
 	});
 
@@ -299,7 +301,8 @@ describe('Update application', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'service-user',
 			[expectedApplicantPayload],
-			'Update'
+			'Update',
+			{ entityType: 'Applicant' }
 		);
 	});
 
@@ -371,7 +374,8 @@ describe('Update application', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'service-user',
 			[expectedApplicantPayload],
-			'Update'
+			'Update',
+			{ entityType: 'Applicant' }
 		);
 	});
 
