@@ -318,9 +318,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					text: 'Related appeals'
 				},
 				value: {
-					html:
-						displayPageFormatter.formatListOfAppeals(appealDetails.otherAppeals) ||
-						'<span>No related appeals</span>'
+					html: displayPageFormatter.formatListOfAppeals([]) || '<span>No related appeals</span>'
 				},
 				actions: {
 					items: [

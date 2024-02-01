@@ -197,25 +197,29 @@ interface SingleAppealDetailsResponse {
 	appealReference: string;
 	appealSite: AppealSite;
 	appealStatus: string;
+	transferStatus?: {
+		transferredAppealType: string;
+		transferredAppealReference: string;
+	};
 	appealTimetable: AppealTimetable | null;
 	appealType?: string;
 	appellantCaseId: number;
 	appellant?: {
 		firstName: string;
 		lastName: string;
-		email?: string;
+		email?: string | null;
 	};
 	agent?: {
 		firstName: string;
 		lastName: string;
-		email?: string;
+		email: string;
 	};
 	caseOfficer: string | null;
-	decision?: {
+	decision: {
+		folderId: number;
 		outcome?: string;
 		documentId?: string;
-		folderId: number;
-		letterDate: string | null;
+		letterDate?: Date;
 	};
 	documentationSummary: DocumentationSummary;
 	healthAndSafety: {
@@ -242,15 +246,12 @@ interface SingleAppealDetailsResponse {
 	isParentAppeal: boolean | null;
 	isChildAppeal: boolean | null;
 	linkedAppeals: LinkedAppeal[];
+	otherAppeals: string[];
 	localPlanningDepartment: string;
 	lpaQuestionnaireId: number | null;
 	neighbouringSite: {
 		contacts: NeighbouringSiteContactsResponse[] | null;
 		isAffected: boolean | null;
-	};
-	transferStatus?: {
-		transferredAppealType: string;
-		transferredAppealReference: string;
 	};
 	otherAppeals: LinkedAppeal[];
 	planningApplicationReference: string;

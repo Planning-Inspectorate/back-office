@@ -28,6 +28,7 @@ import {
 import { formatAppeal, formatAppeals, formatMyAppeals } from './appeals.formatter.js';
 import { assignUser, assignedUserType } from './appeals.service.js';
 import transitionState from '#state/transition-state.js';
+import { getDocumentById } from '#repositories/document.repository.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
@@ -125,11 +126,26 @@ const getAppealById = async (req, res) => {
 	const folders = await getFoldersForAppeal(appeal, CONFIG_APPEAL_STAGES.decision);
 
 	let transferAppealTypeInfo;
-	if (appeal.resubmitTypeId) {
-		transferAppealTypeInfo = await getAppealTypeByTypeId(appeal.resubmitTypeId);
+	if (appeal.resubmitTypeId && appeal.transferredCaseId) {
+		const resubmitType = await getAppealTypeByTypeId(appeal.resubmitTypeId);
+		if (resubmitType) {
+			transferAppealTypeInfo = {
+				transferredAppealType: `(${resubmitType.code}) ${resubmitType.type}`,
+				transferredAppealReference: appeal.transferredCaseId
+			};
+		}
 	}
 
-	const formattedAppeal = formatAppeal(appeal, folders, transferAppealTypeInfo);
+	let decisionDate;
+	if (
+		appeal.appealStatus[0].status === STATE_TARGET_COMPLETE &&
+		appeal.inspectorDecision?.decisionLetterGuid
+	) {
+		const document = await getDocumentById(appeal.inspectorDecision.decisionLetterGuid);
+		decisionDate = document?.latestDocumentVersion?.dateReceived;
+	}
+
+	const formattedAppeal = formatAppeal(appeal, folders, transferAppealTypeInfo, decisionDate);
 	return res.send(formattedAppeal);
 };
 
