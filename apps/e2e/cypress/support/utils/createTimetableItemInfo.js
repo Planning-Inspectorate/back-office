@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { faker } from '@faker-js/faker';
-import { getShortMonthName } from './utils.js';
+import { getShortMonthNameExamTimeTable } from './utils.js';
+import { getShortMonthName} from './utils.js';
 
 export const timetableItem = () => {
 	const now = Date.now();
@@ -46,8 +47,12 @@ export const timetableItem = () => {
 
 	const endHour = (parseInt(startHour) + 1).toString().padStart(2, '0');
 
-	const startDateFull = `${day} ${getShortMonthName(month).substring(0, 3)} ${startYear}`;
-	const endDateFull = `${day} ${getShortMonthName(month).substring(0, 3)} ${endYear}`;
+	const startDateFull = `${day} ${getShortMonthNameExamTimeTable(month).substring(0, 3)} ${startYear}`;
+	const endDateFull = `${day} ${getShortMonthNameExamTimeTable(month).substring(0, 3)} ${endYear}`;
+
+	const startDateFullDeadLine = `${day} ${getShortMonthName(month).substring(0, 3)} ${startYear}`;
+	const endDateFulldeadLine = `${day} ${getShortMonthName(month).substring(0, 3)} ${endYear}`;
+
 	const startTimeFormatted = `${startHour}:${minutes}`;
 	const endTimeFormatted = `${endHour}:${minutes}`;
 
@@ -65,6 +70,8 @@ export const timetableItem = () => {
 		startDateFull,
 		endDateFull,
 		startTimeFormatted,
-		endTimeFormatted
+		endTimeFormatted,
+		startDateFullDeadLine,
+		endDateFulldeadLine
 	};
 };
