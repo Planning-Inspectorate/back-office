@@ -179,7 +179,7 @@ describe('Create Representation', () => {
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			1,
 			NSIP_REPRESENTATION,
-			rep1CreateMsgPayload,
+			[rep1CreateMsgPayload],
 			EventType.Create
 		);
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(2, SERVICE_USER, [], EventType.Create, {
@@ -283,7 +283,7 @@ describe('Create Representation', () => {
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			3,
 			NSIP_REPRESENTATION,
-			rep1CreateMsgPayloadWithUsers,
+			[rep1CreateMsgPayloadWithUsers],
 			EventType.Create
 		);
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(

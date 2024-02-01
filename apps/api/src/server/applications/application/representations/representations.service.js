@@ -62,7 +62,7 @@ export const sendRepresentationEventMessage = async (
 ) => {
 	const nsipRepresentationPayload = buildNsipRepresentationPayload(representation);
 	const serviceUsersPayload = buildRepresentationServiceUserPayload(representation);
-	await eventClient.sendEvents(NSIP_REPRESENTATION, nsipRepresentationPayload, eventType);
+	await eventClient.sendEvents(NSIP_REPRESENTATION, [nsipRepresentationPayload], eventType);
 
 	// and service users
 	await eventClient.sendEvents(SERVICE_USER, serviceUsersPayload, eventType, {

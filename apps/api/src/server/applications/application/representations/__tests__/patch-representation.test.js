@@ -104,24 +104,26 @@ const existingRepresentations = [
 	}
 ];
 
-const rep1UpdatePayload = {
-	attachmentIds: [],
-	caseId: 200,
-	caseRef: 'BC0110001',
-	dateReceived: '2023-03-14T14:28:25.704Z',
-	examinationLibraryRef: '',
-	originalRepresentation: 'the original representation',
-	redactedRepresentation: 'redacted version',
-	redacted: true,
-	referenceId: 'BC0110001-2',
-	representationId: 1,
-	status: 'VALID',
-	registerFor: undefined,
-	representationFrom: 'AGENT',
-	representationType: undefined,
-	representativeId: '10382',
-	representedId: '10381'
-};
+const rep1UpdatePayload = [
+	{
+		attachmentIds: [],
+		caseId: 200,
+		caseRef: 'BC0110001',
+		dateReceived: '2023-03-14T14:28:25.704Z',
+		examinationLibraryRef: '',
+		originalRepresentation: 'the original representation',
+		redactedRepresentation: 'redacted version',
+		redacted: true,
+		referenceId: 'BC0110001-2',
+		representationId: 1,
+		status: 'VALID',
+		registerFor: undefined,
+		representationFrom: 'AGENT',
+		representationType: undefined,
+		representativeId: '10382',
+		representedId: '10381'
+	}
+];
 
 const serviceUserUpdatePayload = [
 	{
