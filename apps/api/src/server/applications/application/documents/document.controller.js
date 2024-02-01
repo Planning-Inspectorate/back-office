@@ -20,7 +20,7 @@ import {
 	markDocumentVersionAsPublished,
 	markDocumentVersionAsUnpublished,
 	obtainURLForDocumentVersion,
-	obtainURLsForDocuments,
+	createDocuments,
 	publishDocuments as _publishDocuments,
 	separateNonPublishedDocuments,
 	separatePublishableDocuments,
@@ -41,12 +41,13 @@ import { getRedactionStatus, validateDocumentVersionMetadataBody } from './docum
  */
 
 /**
- * Upload an array of documents to a folder on a case
+ * Adds an array of documents to a folder on a case, creating Document and Document Version records, and Activity log records,
+ * and emit service bus events
  *
  * @type {import('express').RequestHandler<any, any, DocumentsToSaveManyRequestBody | any, any>}
  * @throws {BackOfficeAppError} if the case cannot be found
  */
-export const provideDocumentUploadURLs = async ({ params, body }, response) => {
+export const createDocumentsOnCase = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 
 	const lastDocumentsInCase = await documentRepository.getByCaseId({
@@ -82,7 +83,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	}
 
 	// Obtain URLs for documents from blob storage
-	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
+	const { response: dbResponse, failedDocuments } = await createDocuments(
 		filteredToUpload,
 		params.id
 	);
