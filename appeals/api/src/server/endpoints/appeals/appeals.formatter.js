@@ -93,24 +93,25 @@ const formatMyAppeals = (appeal, linkedAppeals) => ({
 /**
  * @param {RepositoryGetByIdResultItem} appeal
  * @param {Folder[]} folders
- * @param {AppealType | null} transferAppealTypeInfo
+ * @param {{ transferredAppealType: string, transferredAppealReference: string} | null} transferAppealTypeInfo
+ * @param {Date | null} completionDate
  * @returns {SingleAppealDetailsResponse | void}}
  */
-const formatAppeal = (appeal, folders, transferAppealTypeInfo = null) => {
+const formatAppeal = (appeal, folders, transferAppealTypeInfo = null, completionDate = null) => {
 	if (appeal) {
-		return {
+		const formattedAppeal = {
 			...(appeal.agent && {
 				agent: {
-					firstName: appeal.agent?.firstName,
-					lastName: appeal.agent?.lastName,
-					email: appeal.agent?.email
+					firstName: appeal.agent.firstName || '',
+					lastName: appeal.agent.lastName || '',
+					email: appeal.agent.email
 				}
 			}),
 			...(appeal.appellant && {
 				appellant: {
-					firstName: appeal.appellant?.firstName,
-					lastName: appeal.appellant?.lastName,
-					email: appeal.appellant?.email
+					firstName: appeal.appellant.firstName || '',
+					lastName: appeal.appellant.lastName || '',
+					email: appeal.appellant?.email || null
 				}
 			}),
 			allocationDetails: appeal.allocation
@@ -126,8 +127,8 @@ const formatAppeal = (appeal, folders, transferAppealTypeInfo = null) => {
 			appealStatus: appeal.appealStatus[0].status,
 			...(transferAppealTypeInfo && {
 				transferStatus: {
-					transferredAppealType: `(${transferAppealTypeInfo?.code}) ${transferAppealTypeInfo?.type}`,
-					transferredAppealReference: appeal.transferredCaseId
+					transferredAppealType: transferAppealTypeInfo.transferredAppealType,
+					transferredAppealReference: transferAppealTypeInfo.transferredAppealReference
 				}
 			}),
 			appealTimetable: appeal.appealTimetable
@@ -146,8 +147,8 @@ const formatAppeal = (appeal, folders, transferAppealTypeInfo = null) => {
 			decision: {
 				folderId: folders[0].id,
 				outcome: appeal.inspectorDecision?.outcome,
-				// @ts-ignore
-				documentId: appeal.inspectorDecision?.decisionLetterGuid
+				documentId: appeal.inspectorDecision?.decisionLetterGuid || undefined,
+				letterDate: completionDate || undefined
 			},
 			healthAndSafety: {
 				appellantCase: {
@@ -170,6 +171,7 @@ const formatAppeal = (appeal, folders, transferAppealTypeInfo = null) => {
 					isRequired: appeal.lpaQuestionnaire?.doesSiteRequireInspectorAccess || null
 				}
 			},
+			otherAppeals: [],
 			linkedAppeals: formatLinkedAppeals(appeal.linkedAppeals || [], appeal.reference),
 			isParentAppeal:
 				(appeal.linkedAppeals || []).filter((link) => link.parentRef === appeal.reference).length >
@@ -209,6 +211,9 @@ const formatAppeal = (appeal, folders, transferAppealTypeInfo = null) => {
 				}
 			}
 		};
+
+		// @ts-ignore
+		return formattedAppeal;
 	}
 };
 

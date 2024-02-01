@@ -749,6 +749,7 @@ describe('appeals routes', () => {
 							linkingDate: a.linkingDate
 						};
 					}),
+					otherAppeals: [],
 					localPlanningDepartment: householdAppeal.lpa.name,
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
@@ -851,6 +852,7 @@ describe('appeals routes', () => {
 					isParentAppeal: false,
 					isChildAppeal: false,
 					linkedAppeals: [],
+					otherAppeals: [],
 					localPlanningDepartment: fullPlanningAppeal.lpa.name,
 					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
