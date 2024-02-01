@@ -30,13 +30,11 @@ export const parseHorizonGetCaseResponse = (data) => {
 };
 
 /**
- * @typedef UndefinedObject
- * @type {{ [x: string]: string; }}
+ * @typedef {{ [x: string]: string; }} UnnamedStringObject
  */
 
 /**
  * @param {import("#utils/horizon-gateway.js").HorizonGetCaseSuccessResponse} data
- *
  * @returns {import("#endpoints/linkable-appeals/linkable-appeals.service.js").LinkableAppealSummary}
  */
 export const formatHorizonGetCaseData = (data) => {
@@ -58,24 +56,24 @@ export const formatHorizonGetCaseData = (data) => {
 		localPlanningDepartment: convertedData['Case:LPA Name'],
 		appellantName:
 			convertedData['Case Involvement:Case Involvement'].findIndex(
-				(/** @type {UndefinedObject} */ value) =>
+				(/** @type {UnnamedStringObject} */ value) =>
 					value['Case Involvement:Case Involvement:Type Of Involvement'] === 'Appellant'
 			) >= 0
 				? convertedData['Case Involvement:Case Involvement'][
 						convertedData['Case Involvement:Case Involvement'].findIndex(
-							(/** @type {UndefinedObject} */ value) =>
+							(/** @type {UnnamedStringObject} */ value) =>
 								value['Case Involvement:Case Involvement:Type Of Involvement'] === 'Appellant'
 						)
 				  ]['Case Involvement:Case Involvement:Contact Details']
 				: null,
 		agentName:
 			convertedData['Case Involvement:Case Involvement'].findIndex(
-				(/** @type {UndefinedObject} */ value) =>
+				(/** @type {UnnamedStringObject} */ value) =>
 					value['Case Involvement:Case Involvement:Type Of Involvement'] === 'Agent'
 			) >= 0
 				? convertedData['Case Involvement:Case Involvement'][
 						convertedData['Case Involvement:Case Involvement'].findIndex(
-							(/** @type {UndefinedObject} */ value) =>
+							(/** @type {UnnamedStringObject} */ value) =>
 								value['Case Involvement:Case Involvement:Type Of Involvement'] === 'Agent'
 						)
 				  ]['Case Involvement:Case Involvement:Contact Details']
@@ -84,23 +82,31 @@ export const formatHorizonGetCaseData = (data) => {
 		source: 'horizon'
 	};
 };
+/**
+ * @param {import("#utils/horizon-gateway.js").HorizonAttributeMultiple|import("#utils/horizon-gateway.js").HorizonAttributeSingle} value
+ * @return {value is import("#utils/horizon-gateway.js").HorizonAttributeMultiple}
+ */
+function isHorizonAttributeMultiple(value) {
+	return Object.hasOwn(value, 'Values');
+}
 
 /**
  *
- * @param {*} parsedData
- * @returns {*}
+ * @param {import("#utils/horizon-gateway.js").HorizonGetCaseSuccessResponse} parsedData
+ * @returns {Object<string, any>}
  */
 const convertSOAPKeyValuePairToJSON = (parsedData) => {
 	/**
-	 * @type {{[x: string]: any}}
+	 * @type {Object<string, any>}
 	 */
 	const formattedData = {};
 
 	//Process metadata
-	let metadata = parsedData.Envelope.Body.GetCaseResponse.GetCaseResult.Metadata.Attributes;
+	const metadata = parsedData.Envelope.Body.GetCaseResponse.GetCaseResult.Metadata.Attributes;
 
 	for (const value in metadata) {
-		if (Object.hasOwn(metadata[value], 'Values')) {
+		if (isHorizonAttributeMultiple(metadata[value])) {
+			// @ts-ignore
 			const subObject = metadata[value].Values;
 			/**
 			 * @type {{[x: string]: any}}
@@ -117,6 +123,7 @@ const convertSOAPKeyValuePairToJSON = (parsedData) => {
 				formattedData[metadata[value].Name.value].push(innerObjects);
 			}
 		} else {
+			// @ts-ignore
 			formattedData[metadata[value].Name.value] = metadata[value].Value.value;
 		}
 	}

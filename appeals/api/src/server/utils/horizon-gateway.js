@@ -23,19 +23,36 @@ import logger from './logger.js';
  */
 
 /**
- * @typedef {{[x: string]: {Name: {value: string}, Value: {value: string}}}} HorizonAttributeValue
+ * @typedef {Object} HorizonAttributeValue
+ * @property {string} value
+ */
+
+/**
+ * @typedef {Object} HorizonAttributeSingle
+ * @property {HorizonAttributeValue} Name
+ * @property {HorizonAttributeValue} Value
+ */
+
+/**
+ * @typedef {Object} HorizonAttributeMultiple
+ * @property {HorizonAttributeValue} Name
+ * @property {HorizonAttributeMap} Values
+ */
+
+/**
+ * @typedef {Object<string, HorizonAttributeSingle|HorizonAttributeMultiple>} HorizonAttributeMap
  */
 
 /**
  * @typedef HorizonCaseResults
- * @property {{value: string}} CaseId
- * @property {{Email: {value: string}, Name: {value: string}}} CaseOfficer
- * @property {{value: string}} CaseReference
- * @property {{value: string}} CaseType
- * @property {{value: string}} LPACode
+ * @property {HorizonAttributeValue} CaseId
+ * @property {{Email: HorizonAttributeValue, Name: HorizonAttributeValue}} CaseOfficer
+ * @property {HorizonAttributeValue} CaseReference
+ * @property {HorizonAttributeValue} CaseType
+ * @property {HorizonAttributeValue} LPACode
  * @property {any} LinkedCases
- * @property {{Attributes: HorizonAttributeValue | {Name: {value: string}, Values: HorizonAttributeValue }}} Metadata
- * @property {{value: string}} ProcedureType
+ * @property {{Attributes: HorizonAttributeMap}} Metadata
+ * @property {HorizonAttributeValue} ProcedureType
  * @property {any} PublishedDocuments
  *
  */
@@ -58,7 +75,7 @@ export const getAppealFromHorizon = async (caseReference) => {
 	const appealData = await got
 		.post(url, {
 			json: requestBody,
-			parseJson: async (data) => await parseHorizonGetCaseResponse(data)
+			parseJson: (data) => parseHorizonGetCaseResponse(data)
 		})
 		.json()
 		.catch((error) => {
