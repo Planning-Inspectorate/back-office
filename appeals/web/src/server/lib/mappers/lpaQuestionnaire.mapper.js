@@ -19,9 +19,9 @@ import { isFolderInfo } from '#lib/ts-utilities.js';
 /**
  * @param {import("#appeals/appeal-details/appeal-details.types.js").SingleLPAQuestionnaireResponse} data
  * @param {string} currentRoute
- * @returns {Promise<{lpaq: MappedInstructions}>}
+ * @returns {{lpaq: MappedInstructions}}
  */
-export async function initialiseAndMapLPAQData(data, currentRoute) {
+export function initialiseAndMapLPAQData(data, currentRoute) {
 	/** @type {{lpaq: MappedInstructions}} */
 	const mappedData = {};
 	mappedData.lpaq = {};

@@ -36,13 +36,19 @@ const renderIncompleteReason = async (request, response) => {
 		return response.render('app/404.njk');
 	}
 
-	const appellantCaseResponse = await appellantCaseService
-		.getAppellantCaseFromAppealId(
+	const [appellantCaseResponse, incompleteReasonOptions] = await Promise.all([
+		appellantCaseService
+			.getAppellantCaseFromAppealId(
+				request.apiClient,
+				appealDetails.appealId,
+				appealDetails.appellantCaseId
+			)
+			.catch((error) => logger.error(error)),
+		appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
 			request.apiClient,
-			appealDetails.appealId,
-			appealDetails.appellantCaseId
+			'incomplete'
 		)
-		.catch((error) => logger.error(error));
+	]);
 
 	if (!appellantCaseResponse) {
 		return response.render('app/404.njk');
@@ -57,11 +63,6 @@ const renderIncompleteReason = async (request, response) => {
 	}
 
 	const { webAppellantCaseReviewOutcome } = request.session;
-	const incompleteReasonOptions =
-		await appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
-			request.apiClient,
-			'incomplete'
-		);
 
 	if (incompleteReasonOptions) {
 		const mappedIncompleteReasonOptions =

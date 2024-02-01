@@ -33,10 +33,10 @@ export async function appealChangePage(question, appealData, currentRoute, sessi
  * @param {Appeal} appealData
  * @param {import('../appeal-details/appeal-details.types.js').SingleLPAQuestionnaireResponse} lpaqData
  * @param {string} currentRoute
- * @returns {Promise<PageContent>}
+ * @returns {PageContent}
  */
-export async function lpaQuestionnaireChangePage(question, appealData, lpaqData, currentRoute) {
-	const mappedData = await initialiseAndMapLPAQData(lpaqData, currentRoute);
+export function lpaQuestionnaireChangePage(question, appealData, lpaqData, currentRoute) {
+	const mappedData = initialiseAndMapLPAQData(lpaqData, currentRoute);
 	const instructionsForQuestion = getInstructions(question, mappedData.lpaq);
 
 	return mapInstructionsToChangePage(

@@ -13,10 +13,10 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
 /**
  *
  * @param {Appeal} appealDetails
- * @returns {Promise<PageContent>}
- * @param { InspectorDecisionRequest } inspectorDecision
+ * @param {InspectorDecisionRequest} inspectorDecision
+ * @returns {PageContent}
  */
-export async function issueDecisionPage(appealDetails, inspectorDecision) {
+export function issueDecisionPage(appealDetails, inspectorDecision) {
 	/** @type {PageComponent} */
 	const selectVisitTypeComponent = {
 		type: 'radios',
@@ -101,9 +101,9 @@ export function decisionLetterUploadPage(appealData, folderId, folderPath, appea
  * @param {string} decisionLetterDay
  * @param {string} decisionLetterMonth
  * @param {string} decisionLetterYear
- * @returns {Promise<PageContent>}
+ * @returns {PageContent}
  */
-export async function dateDecisionLetterPage(
+export function dateDecisionLetterPage(
 	appealData,
 	decisionLetterDay,
 	decisionLetterMonth,

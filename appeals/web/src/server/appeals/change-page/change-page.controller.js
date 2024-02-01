@@ -14,23 +14,24 @@ const renderChangePage = async (request, response) => {
 		const origin = currentUrlFragments[currentUrlFragments.length - 2];
 		const appealId = request.params.appealId;
 		const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
-		let lpaqData;
 		let mappedPageContent;
 
 		switch (origin) {
-			case 'change-lpa-questionnaire':
-				lpaqData = await getLpaQuestionnaireFromId(
+			case 'change-lpa-questionnaire': {
+				const lpaqData = await getLpaQuestionnaireFromId(
 					request.apiClient,
 					request.params.appealId,
 					request.params.lpaQuestionnaireId
 				);
-				mappedPageContent = await lpaQuestionnaireChangePage(
+				mappedPageContent = lpaQuestionnaireChangePage(
 					request.params.question,
 					appealData,
 					lpaqData,
 					currentUrl
 				);
+
 				break;
+			}
 			default:
 				return response.render('app/500.njk');
 		}

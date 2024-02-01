@@ -33,13 +33,19 @@ const renderInvalidReason = async (request, response) => {
 		return response.render('app/404.njk');
 	}
 
-	const appellantCaseResponse = await appellantCaseService
-		.getAppellantCaseFromAppealId(
+	const [appellantCaseResponse, invalidReasonOptions] = await Promise.all([
+		appellantCaseService
+			.getAppellantCaseFromAppealId(
+				request.apiClient,
+				appealDetails?.appealId,
+				appealDetails?.appellantCaseId
+			)
+			.catch((error) => logger.error(error)),
+		appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
 			request.apiClient,
-			appealDetails?.appealId,
-			appealDetails?.appellantCaseId
+			'invalid'
 		)
-		.catch((error) => logger.error(error));
+	]);
 
 	if (!appellantCaseResponse) {
 		return response.render('app/404.njk');
@@ -52,12 +58,6 @@ const renderInvalidReason = async (request, response) => {
 	) {
 		delete request.session.webAppellantCaseReviewOutcome;
 	}
-
-	const invalidReasonOptions =
-		await appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
-			request.apiClient,
-			'invalid'
-		);
 
 	if (invalidReasonOptions) {
 		const mappedInvalidReasonOptions = mapInvalidOrIncompleteReasonOptionsToCheckboxItemParameters(

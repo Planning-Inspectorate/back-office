@@ -25,11 +25,14 @@ const renderIncompleteReason = async (request, response) => {
 
 	const { appealId, appealReference, lpaQuestionnaireId } = session;
 
-	const lpaQuestionnaireResponse = await lpaQuestionnaireService.getLpaQuestionnaireFromId(
-		request.apiClient,
-		appealId,
-		lpaQuestionnaireId
-	);
+	const [lpaQuestionnaireResponse, incompleteReasonOptions] = await Promise.all([
+		lpaQuestionnaireService.getLpaQuestionnaireFromId(
+			request.apiClient,
+			appealId,
+			lpaQuestionnaireId
+		),
+		getLPAQuestionnaireIncompleteReasonOptions(request.apiClient)
+	]);
 
 	if (!lpaQuestionnaireResponse) {
 		return response.render('app/404.njk');
@@ -43,10 +46,6 @@ const renderIncompleteReason = async (request, response) => {
 	) {
 		delete session.webLPAQuestionnaireReviewOutcome;
 	}
-
-	const incompleteReasonOptions = await getLPAQuestionnaireIncompleteReasonOptions(
-		request.apiClient
-	);
 
 	if (incompleteReasonOptions) {
 		const mappedIncompleteReasonOptions = mapIncompleteReasonOptionsToCheckboxItemParameters(
@@ -191,7 +190,6 @@ export const postUpdateDueDate = async (request, response) => {
 	}
 
 	const { appealId, lpaQuestionnaireId } = request.session;
-
 	const { body } = request;
 
 	if (!objectContainsAllKeys(body, ['due-date-day', 'due-date-month', 'due-date-year'])) {

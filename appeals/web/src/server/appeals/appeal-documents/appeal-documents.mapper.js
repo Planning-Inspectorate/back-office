@@ -1146,43 +1146,40 @@ const mapDocumentVersionToAuditActivityHtml = async (
 		return '';
 	}
 
-	let auditActivityHtml = '';
+	const matchingAuditItemUsers = await Promise.all(
+		matchingAuditItems
+			.map((matchingAuditItem) =>
+				matchingAuditItem.auditTrail?.loggedAt && matchingAuditItem.auditTrail?.user
+					? matchingAuditItem.auditTrail?.user
+					: undefined
+			)
+			.filter((item) => item !== undefined)
+			.map((user) => usersService.getUserById(user?.azureAdUserId || '', session))
+	);
 
-	const composeAuditActivityHtmlAsynced = async () => {
-		for (const matchingAuditItem of matchingAuditItems) {
+	const auditActivityHtml = matchingAuditItems
+		.map((matchingAuditItem) => {
 			if (matchingAuditItem.auditTrail?.loggedAt && matchingAuditItem.auditTrail?.user) {
-				const loggedAt = new Date(matchingAuditItem.auditTrail.loggedAt);
-				const userName = await mapAuditTrailUserToName(matchingAuditItem.auditTrail?.user, session);
+				const userData = matchingAuditItemUsers.find(
+					(user) => user?.id === matchingAuditItem.auditTrail?.user?.azureAdUserId
+				);
 
-				auditActivityHtml += `<p class="govuk-body"><strong>${
-					matchingAuditItem.action
-				}</strong>: ${dateToDisplayTime(loggedAt)}, ${dateToDisplayDate(loggedAt)}${
-					userName.length > 0 ? `,<br/>by ${userName}` : ''
-				}</p>`;
+				if (userData) {
+					const userName = surnameFirstToFullName(userData?.name);
+					const loggedAt = new Date(matchingAuditItem.auditTrail.loggedAt);
+
+					return `<p class="govuk-body"><strong>${
+						matchingAuditItem.action
+					}</strong>: ${dateToDisplayTime(loggedAt)}, ${dateToDisplayDate(loggedAt)}${
+						userName.length > 0 ? `,<br/>by ${userName}` : ''
+					}</p>`;
+				}
 			}
-		}
-	};
-
-	await composeAuditActivityHtmlAsynced();
+		})
+		.filter((activityHtmlEntry) => activityHtmlEntry !== undefined)
+		.join('');
 
 	return auditActivityHtml;
-};
-
-/**
- * @param {import('@pins/appeals.api/src/server/openapi-types.js').AuditTrailUserInfo} auditTrailUser
- * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
- * @returns {Promise<string>}
- */
-const mapAuditTrailUserToName = async (auditTrailUser, session) => {
-	let user = await usersService.getUserById(auditTrailUser.azureAdUserId || '', session);
-
-	// TODO: how to handle sapId?
-
-	if (user) {
-		return surnameFirstToFullName(user.name);
-	}
-
-	return '';
 };
 
 /**
