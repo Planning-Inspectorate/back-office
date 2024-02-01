@@ -13,7 +13,6 @@ export const getLinkableAppealById = async (req, res) => {
 	try {
 		return res.send(await getLinkableAppealSummaryByCaseReference(appealReference));
 	} catch (error) {
-		console.log('Trigger 5');
 		if (error === 404) {
 			return res.status(404).send();
 		} else {

@@ -11,7 +11,7 @@ const { default: got } = await import('got');
 
 describe('Horizon gateway', () => {
 	describe('GetCase success response', () => {
-		it('should return a valid linkable appeal summary', async () => {
+		it('should parse the data correctly and return a valid linkable appeal summary', async () => {
 			got.post.mockReturnValueOnce({
 				json: jest
 					.fn()
@@ -25,11 +25,9 @@ describe('Horizon gateway', () => {
 	describe('GetCase failure responses', () => {
 		it('should return a 404 if the case is not found', async () => {
 			got.post.mockReturnValueOnce({
-				json: jest
-					.fn()
-					.mockRejectedValue({
-						response: { body: parseHorizonGetCaseResponse(horizonGetCaseNotFoundResponse) }
-					})
+				json: jest.fn().mockRejectedValue({
+					response: { body: parseHorizonGetCaseResponse(horizonGetCaseNotFoundResponse) }
+				})
 			});
 			let response = await getAppealFromHorizon('1').catch((error) => {
 				return error;
@@ -38,11 +36,9 @@ describe('Horizon gateway', () => {
 		});
 		it('should return a 500 for other errors', async () => {
 			got.post.mockReturnValueOnce({
-				json: jest
-					.fn()
-					.mockRejectedValue({
-						response: { body: parseHorizonGetCaseResponse(horizonGetCaseOtherErrorResponse) }
-					})
+				json: jest.fn().mockRejectedValue({
+					response: { body: parseHorizonGetCaseResponse(horizonGetCaseOtherErrorResponse) }
+				})
 			});
 			let response = await getAppealFromHorizon('1').catch((error) => {
 				return error;

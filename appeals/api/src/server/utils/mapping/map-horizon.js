@@ -25,13 +25,20 @@ export const parseHorizonGetCaseResponse = (/** @type {string} */ data) => {
 };
 
 /**
+ * @typedef UndefinedObject
+ * @type {{ [x: string]: string; }}
+ */
+
+/**
  *
- * @param {any} data
+ * @param {{ Envelope: { Body: { GetCaseResponse: { GetCaseResult: { CaseReference: { value: string; }; CaseType: { value: any; }; }; }; }; }; }} data
  * @returns {import("#utils/horizon-gateway.js").LinkableAppealSummary}
  */
-export const formatHorizonGetCaseData = (data) => {
+export const formatHorizonGetCaseData = (
+	/** @type {{ Envelope: { Body: { GetCaseResponse: { GetCaseResult: { CaseReference: { value: string; }; CaseType: { value: any; }; }; }; }; }; }} */ data
+) => {
 	const convertedData = convertSOAPKeyValuePairToJSON(data);
-	let formattedData = {
+	return {
 		appealReference: data.Envelope.Body.GetCaseResponse.GetCaseResult.CaseReference.value
 			.split('/')
 			.pop(),
@@ -47,32 +54,30 @@ export const formatHorizonGetCaseData = (data) => {
 		localPlanningDepartment: convertedData['Case:LPA Name'],
 		appellantName:
 			convertedData['Case Involvement:Case Involvement'].findIndex(
-				(/** @type {{ [x: string]: string; }} */ value) =>
+				(/** @type {UndefinedObject} */ value) =>
 					value['Case Involvement:Case Involvement:Type Of Involvement'] === 'Appellant'
 			) >= 0
 				? convertedData['Case Involvement:Case Involvement'][
 						convertedData['Case Involvement:Case Involvement'].findIndex(
-							(/** @type {{ [x: string]: string; }} */ value) =>
+							(/** @type {UndefinedObject} */ value) =>
 								value['Case Involvement:Case Involvement:Type Of Involvement'] === 'Appellant'
 						)
 				  ]['Case Involvement:Case Involvement:Contact Details']
 				: null,
 		agentName:
 			convertedData['Case Involvement:Case Involvement'].findIndex(
-				(/** @type {{ [x: string]: string; }} */ value) =>
+				(/** @type {UndefinedObject} */ value) =>
 					value['Case Involvement:Case Involvement:Type Of Involvement'] === 'Agent'
 			) >= 0
 				? convertedData['Case Involvement:Case Involvement'][
 						convertedData['Case Involvement:Case Involvement'].findIndex(
-							(/** @type {{ [x: string]: string; }} */ value) =>
+							(/** @type {UndefinedObject} */ value) =>
 								value['Case Involvement:Case Involvement:Type Of Involvement'] === 'Agent'
 						)
 				  ]['Case Involvement:Case Involvement:Contact Details']
 				: null,
 		submissionDate: new Date(convertedData['Case Dates:Receipt Date']).toISOString()
 	};
-
-	return formattedData;
 };
 
 /**
@@ -84,7 +89,7 @@ const convertSOAPKeyValuePairToJSON = (parsedData) => {
 	/**
 	 * @type {{[x: string]: any}}
 	 */
-	let formattedData = {};
+	const formattedData = {};
 
 	//Process metadata
 	let metadata = parsedData.Envelope.Body.GetCaseResponse.GetCaseResult.Metadata.Attributes;
@@ -95,7 +100,7 @@ const convertSOAPKeyValuePairToJSON = (parsedData) => {
 			/**
 			 * @type {{[x: string]: any}}
 			 */
-			let innerObjects = {};
+			const innerObjects = {};
 
 			for (const subValue in subObject) {
 				innerObjects[subObject[subValue].Name.value] = subObject[subValue].Value.value;
