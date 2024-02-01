@@ -140,7 +140,7 @@ describe('Patch Application Representation Redact', () => {
 		// test event broadcasts
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_REPRESENTATION,
-			rep1UpdatePayload,
+			[rep1UpdatePayload],
 			EventType.Update
 		);
 	});
@@ -230,7 +230,7 @@ describe('Patch Application Representation Redact', () => {
 		// test event broadcasts
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_REPRESENTATION,
-			prevPublishedPayload,
+			[prevPublishedPayload],
 			EventType.Update
 		);
 	});
