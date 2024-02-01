@@ -4,13 +4,21 @@ import got from 'got';
 import pino from './logger.js';
 import { addAuthHeadersForBackend } from '@pins/add-auth-headers-for-backend';
 
-const [requestLogger, responseLogger] = createHttpLoggerHooks(pino, config.logLevelStdOut);
+const [requestLogger, responseLogger, retryLogger] = createHttpLoggerHooks(
+	pino,
+	config.logLevelStdOut
+);
 
 const instance = got.extend({
 	prefixUrl: config.apiUrl,
 	responseType: 'json',
 	resolveBodyOnly: true,
+	retry: {
+		limit: 3,
+		statusCodes: [500, 502, 503, 504]
+	},
 	hooks: {
+		beforeRetry: [retryLogger],
 		beforeRequest: [
 			requestLogger,
 			async (options) =>

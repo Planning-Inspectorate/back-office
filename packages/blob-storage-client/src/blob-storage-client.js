@@ -1,6 +1,7 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { BlobServiceClient } from '@azure/storage-blob';
 
+const commonOptions = { retryOptions: { maxTries: 3 } };
 export class BlobStorageClient {
 	/**
 	 * @param {BlobServiceClient} client
@@ -15,7 +16,7 @@ export class BlobStorageClient {
 	 * @returns {BlobStorageClient}
 	 */
 	static fromUrl(url) {
-		const client = new BlobServiceClient(url, new DefaultAzureCredential());
+		const client = new BlobServiceClient(url, new DefaultAzureCredential(), commonOptions);
 
 		return new BlobStorageClient(client);
 	}
@@ -26,7 +27,7 @@ export class BlobStorageClient {
 	 * @returns {BlobStorageClient}
 	 */
 	static fromUrlAndCredential(url, credential) {
-		const client = new BlobServiceClient(url, credential);
+		const client = new BlobServiceClient(url, credential, commonOptions);
 
 		return new BlobStorageClient(client);
 	}
@@ -38,9 +39,13 @@ export class BlobStorageClient {
 	 * @returns {BlobStorageClient}
 	 */
 	static fromUrlAndToken(url, accessToken) {
-		const client = new BlobServiceClient(url, {
-			getToken: async () => accessToken
-		});
+		const client = new BlobServiceClient(
+			url,
+			{
+				getToken: async () => accessToken
+			},
+			commonOptions
+		);
 
 		return new BlobStorageClient(client);
 	}

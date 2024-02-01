@@ -4,7 +4,10 @@ import got from 'got';
 import pino from '../logger.js';
 import * as authSession from '../../app/auth/auth-session.service.js';
 
-const [requestLogger, responseLogger] = createHttpLoggerHooks(pino, config.logLevelStdOut);
+const [requestLogger, responseLogger, retryLogger] = createHttpLoggerHooks(
+	pino,
+	config.logLevelStdOut
+);
 
 const instance = got.extend({
 	prefixUrl: config.apiUrl,
@@ -14,7 +17,12 @@ const instance = got.extend({
 
 const getInstance = (/** @type {string} */ userId) =>
 	instance.extend({
+		retry: {
+			limit: 3,
+			statusCodes: [500, 502, 503, 504]
+		},
 		hooks: {
+			beforeRetry: [retryLogger],
 			beforeRequest: [
 				requestLogger,
 				async (options) => {
