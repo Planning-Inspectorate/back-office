@@ -39,7 +39,7 @@ import * as displayPageFormatter from '#lib/display-page-formatter.js';
  * @returns {Promise<PageContent>}
  */
 export async function lpaQuestionnairePage(lpaqDetails, appealDetails, currentRoute, session) {
-	const mappedLpaqDetails = await initialiseAndMapLPAQData(lpaqDetails, currentRoute);
+	const mappedLpaqDetails = initialiseAndMapLPAQData(lpaqDetails, currentRoute);
 	const mappedAppealDetails = await initialiseAndMapAppealData(
 		appealDetails,
 		currentRoute,

@@ -12,9 +12,9 @@ import { appealShortReference } from '#lib/appeals-formatter.js';
  * @param {Appeal} appealDetails
  * @param {AppealType[]} appealTypes
  * @param { ChangeAppealTypeRequest } changeAppeal
- * @returns {Promise<PageContent>}
+ * @returns {PageContent}
  */
-export async function appealTypePage(appealDetails, appealTypes, changeAppeal) {
+export function appealTypePage(appealDetails, appealTypes, changeAppeal) {
 	/** @type {PageComponent} */
 	const selectVisitTypeComponent = {
 		type: 'radios',
@@ -63,9 +63,9 @@ export function mapAppealTypesToSelectItemParameters(appealTypes, changeAppeal) 
  *
  * @param {Appeal} appealDetails
  * @param { ChangeAppealTypeRequest } changeAppeal
- * @returns {Promise<PageContent>}
+ * @returns {PageContent}
  */
-export async function resubmitAppealPage(appealDetails, changeAppeal) {
+export function resubmitAppealPage(appealDetails, changeAppeal) {
 	/** @type {PageComponent} */
 	const selectResubmitAppealComponent = {
 		type: 'radios',
@@ -111,9 +111,9 @@ export async function resubmitAppealPage(appealDetails, changeAppeal) {
  * @param { number } changeDay
  * @param { number } changeMonth
  * @param { number } changeYear
- * @returns {Promise<PageContent>}
+ * @returns {PageContent}
  */
-export async function changeAppealFinalDatePage(appealDetails, changeDay, changeMonth, changeYear) {
+export function changeAppealFinalDatePage(appealDetails, changeDay, changeMonth, changeYear) {
 	/** @type {PageComponent} */
 	const selectDateComponent = {
 		type: 'date-input',

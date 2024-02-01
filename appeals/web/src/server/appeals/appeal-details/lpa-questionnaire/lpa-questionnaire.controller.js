@@ -255,16 +255,14 @@ export const getConfirmation = async (request, response) => {
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const getAddDocuments = async (request, response) => {
-	const appealDetails = await appealDetailsService
-		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
-		.catch((error) => logger.error(error));
+	const [appealDetails, lpaQuestionnaireDetails] = await Promise.all([
+		appealDetailsService
+			.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+			.catch((error) => logger.error(error)),
+		getLpaQuestionnaireDetails(request)
+	]);
 
-	if (!appealDetails) {
-		return response.status(404).render('app/404');
-	}
-
-	const lpaQuestionnaireDetails = await getLpaQuestionnaireDetails(request);
-	if (!lpaQuestionnaireDetails) {
+	if (!appealDetails || !lpaQuestionnaireDetails) {
 		return response.status(404).render('app/404');
 	}
 
@@ -326,16 +324,14 @@ export const getManageDocument = async (request, response) => {
 
 /** @type {import('@pins/express').RequestHandler<Response>} */
 export const getAddDocumentsVersion = async (request, response) => {
-	const appealDetails = await appealDetailsService
-		.getAppealDetailsFromId(request.apiClient, request.params.appealId)
-		.catch((error) => logger.error(error));
+	const [appealDetails, lpaQuestionnaireDetails] = await Promise.all([
+		appealDetailsService
+			.getAppealDetailsFromId(request.apiClient, request.params.appealId)
+			.catch((error) => logger.error(error)),
+		getLpaQuestionnaireDetails(request)
+	]);
 
-	if (!appealDetails) {
-		return response.status(404).render('app/404');
-	}
-
-	const lpaQuestionnaireDetails = await getLpaQuestionnaireDetails(request);
-	if (!lpaQuestionnaireDetails) {
+	if (!appealDetails || !lpaQuestionnaireDetails) {
 		return response.status(404).render('app/404');
 	}
 
