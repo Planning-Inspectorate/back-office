@@ -66,7 +66,7 @@ const renderIssueDecision = async (request, response) => {
 		request.session.inspectorDecision = {};
 	}
 
-	let mappedPageContent = await issueDecisionPage(appealData, request.session.inspectorDecision);
+	const mappedPageContent = issueDecisionPage(appealData, request.session.inspectorDecision);
 
 	return response.render('appeals/appeal/issue-decision.njk', {
 		pageContent: mappedPageContent,
@@ -219,7 +219,7 @@ const renderDateDecisionLetter = async (request, response) => {
 		}
 	}
 
-	let mappedPageContent = await dateDecisionLetterPage(
+	const mappedPageContent = dateDecisionLetterPage(
 		appealData,
 		decisionLetterDay,
 		decisionLetterMonth,
@@ -298,12 +298,13 @@ export const renderCheckDecision = async (request, response) => {
 		appealData.decision.folderId.toString() || ''
 	);
 
-	let mappedPageContent = checkAndConfirmPage(
+	const mappedPageContent = checkAndConfirmPage(
 		request,
 		appealData,
 		request.session.inspectorDecision,
 		decisionLetterFolder
 	);
+
 	return response.render('appeals/appeal/issue-decision.njk', {
 		pageContent: mappedPageContent,
 		errors
@@ -321,6 +322,7 @@ export const getDecisionSent = async (request, response) => {
 	/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
 	request.session.inspectorDecision = {};
 
-	let mappedPageContent = await decisionConfirmationPage(appealData);
+	const mappedPageContent = decisionConfirmationPage(appealData);
+
 	return response.render('appeals/confirmation.njk', mappedPageContent);
 };
