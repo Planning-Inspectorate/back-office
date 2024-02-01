@@ -31,7 +31,8 @@ export const broadcastNsipProjectEvent = async (project, eventType) => {
 		await eventClient.sendEvents(
 			SERVICE_USER,
 			[buildServiceUserPayload(project.applicant, project.reference, applicant)],
-			eventType
+			eventType,
+			{ entityType: applicant }
 		);
 	}
 };

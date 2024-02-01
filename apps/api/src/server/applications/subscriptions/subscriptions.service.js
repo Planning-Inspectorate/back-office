@@ -45,7 +45,9 @@ export async function createOrUpdateSubscription(request) {
 		}
 
 		if (!isExistingUser) {
-			await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Create);
+			await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Create, {
+				entityType: 'Subscriber'
+			});
 		}
 
 		return { id: res.id, created: true };
