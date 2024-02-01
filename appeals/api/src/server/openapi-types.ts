@@ -1680,6 +1680,11 @@ export type GetAuditTrailsResponse = {
 
 export interface SingleLinkableAppealSummaryResponse {
 	/**
+	 * ID in back-office or horizon
+	 * @example "12345"
+	 */
+	appealId?: string;
+	/**
 	 * Horizon or Back Office appeal reference
 	 * @example "3000359"
 	 */
@@ -1741,4 +1746,9 @@ export interface SingleLinkableAppealSummaryResponse {
 	 * @example "2014-11-14T00:00:00+00:00"
 	 */
 	submissionDate?: string;
+	/**
+	 * Information origin (back-office or horizon)
+	 * @example "horizon"
+	 */
+	source?: string;
 }

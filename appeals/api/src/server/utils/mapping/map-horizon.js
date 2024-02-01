@@ -8,7 +8,12 @@ export const horizonGetCaseRequestBody = (/** @type {string} */ caseReference) =
 	};
 };
 
-export const parseHorizonGetCaseResponse = (/** @type {string} */ data) => {
+/**
+ *
+ * @param {string} data
+ * @returns {import("#utils/horizon-gateway.js").HorizonGetCaseSuccessResponse|import("#utils/horizon-gateway.js").HorizonGetCaseFailureResponse}
+ */
+export const parseHorizonGetCaseResponse = (data) => {
 	let unparsedResponse = data;
 	let i = 0;
 	let parseComplete = false;
@@ -30,15 +35,14 @@ export const parseHorizonGetCaseResponse = (/** @type {string} */ data) => {
  */
 
 /**
+ * @param {import("#utils/horizon-gateway.js").HorizonGetCaseSuccessResponse} data
  *
- * @param {{ Envelope: { Body: { GetCaseResponse: { GetCaseResult: { CaseReference: { value: string; }; CaseType: { value: any; }; }; }; }; }; }} data
- * @returns {import("#utils/horizon-gateway.js").LinkableAppealSummary}
+ * @returns {import("#endpoints/linkable-appeals/linkable-appeals.service.js").LinkableAppealSummary}
  */
-export const formatHorizonGetCaseData = (
-	/** @type {{ Envelope: { Body: { GetCaseResponse: { GetCaseResult: { CaseReference: { value: string; }; CaseType: { value: any; }; }; }; }; }; }} */ data
-) => {
+export const formatHorizonGetCaseData = (data) => {
 	const convertedData = convertSOAPKeyValuePairToJSON(data);
 	return {
+		appealId: data.Envelope.Body.GetCaseResponse.GetCaseResult.CaseId.value,
 		appealReference: data.Envelope.Body.GetCaseResponse.GetCaseResult.CaseReference.value
 			.split('/')
 			.pop(),
@@ -76,7 +80,8 @@ export const formatHorizonGetCaseData = (
 						)
 				  ]['Case Involvement:Case Involvement:Contact Details']
 				: null,
-		submissionDate: new Date(convertedData['Case Dates:Receipt Date']).toISOString()
+		submissionDate: new Date(convertedData['Case Dates:Receipt Date']).toISOString(),
+		source: 'horizon'
 	};
 };
 

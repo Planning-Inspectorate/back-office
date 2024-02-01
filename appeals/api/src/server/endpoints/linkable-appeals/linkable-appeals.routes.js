@@ -23,7 +23,7 @@ router.get(
         }
 		#swagger.responses[200] = {
 			description: 'Gets a single related appeal by reference from BO or Horizon',
-			schema: { $ref: '#/definitions/SingleRelatedAppealResponse' }
+			schema: { $ref: '#/definitions/SingleLinkableAppealSummaryResponse' }
 		}
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}

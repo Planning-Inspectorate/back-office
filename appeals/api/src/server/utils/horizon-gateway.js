@@ -1,27 +1,49 @@
 import config from '#config/config.js';
 import got from 'got';
-import {
-	formatHorizonGetCaseData,
-	horizonGetCaseRequestBody,
-	parseHorizonGetCaseResponse
-} from './mapping/map-horizon.js';
+import { horizonGetCaseRequestBody, parseHorizonGetCaseResponse } from './mapping/map-horizon.js';
 import logger from './logger.js';
+/**
+ * @typedef HorizonGetCaseSuccessResponse
+ * @property {{Body: {GetCaseResponse: {GetCaseResult: HorizonCaseResults}}}} Envelope
+ *
+ */
 
 /**
- * @typedef {object} LinkableAppealSummary
- * @property {string | undefined} appealReference
- * @property {string | undefined} appealType
- * @property {string} appealStatus
- * @property {{siteAddressLine1: string | undefined | null, siteAddressLine2: string | undefined | null, siteAddressTown: string | undefined | null, siteAddressCounty: string | undefined | null, siteAddressPostcode: string | undefined | null}} siteAddress
- * @property {string} localPlanningDepartment
- * @property {string | undefined} appellantName
- * @property {string | undefined | null} [agentName]
- * @property {string} submissionDate
+ * @typedef HorizonGetCaseFailureResponse
+ * @property {{Body: Fault}} Envelope
+ *
  */
+
+/**
+ * @typedef Fault
+ * @property {{value: string}} faultcode
+ * @property {{value: string}} faultstring
+ * @property {{ExceptionDetail: {HelpLink : any, InnerException: any, Message: {value: string}, StackTrace: {value: string}, Type: {value: string}}}} detail
+ *
+ */
+
+/**
+ * @typedef {{[x: string]: {Name: {value: string}, Value: {value: string}}}} HorizonAttributeValue
+ */
+
+/**
+ * @typedef HorizonCaseResults
+ * @property {{value: string}} CaseId
+ * @property {{Email: {value: string}, Name: {value: string}}} CaseOfficer
+ * @property {{value: string}} CaseReference
+ * @property {{value: string}} CaseType
+ * @property {{value: string}} LPACode
+ * @property {any} LinkedCases
+ * @property {{Attributes: HorizonAttributeValue | {Name: {value: string}, Values: HorizonAttributeValue }}} Metadata
+ * @property {{value: string}} ProcedureType
+ * @property {any} PublishedDocuments
+ *
+ */
+
 /**
  *
  * @param {string} caseReference
- * @returns {Promise<LinkableAppealSummary>}
+ * @returns {Promise<HorizonGetCaseSuccessResponse>}
  */
 export const getAppealFromHorizon = async (caseReference) => {
 	const endpoint = 'horizon';
@@ -30,6 +52,9 @@ export const getAppealFromHorizon = async (caseReference) => {
 	const requestBody = horizonGetCaseRequestBody(caseReference);
 
 	logger.debug('Case not found in BO, now trying to query Horizon');
+	/**
+	 * @type {Promise<HorizonGetCaseSuccessResponse>}
+	 */
 	const appealData = await got
 		.post(url, {
 			json: requestBody,
@@ -52,6 +77,6 @@ export const getAppealFromHorizon = async (caseReference) => {
 			return error.response.body;
 		});
 
-	logger.debug('Found case on Horizon. Now formatting...');
-	return formatHorizonGetCaseData(appealData);
+	logger.debug('Found case on Horizon.');
+	return appealData;
 };
