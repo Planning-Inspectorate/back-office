@@ -2,7 +2,7 @@ import { post, patch } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
 /** @typedef {import('../../applications.types.js').DocumentationFile} DocumentationFile */
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('@pins/express').ExtendedValidationErrors} ExtendedValidationErrors */
 
 /**
  * Save new / updated metadata for the document
@@ -10,17 +10,15 @@ import pino from '../../../lib/logger.js';
  * @param {number} caseId
  * @param {string} documentGuid
  * @param {Partial<DocumentationFile>} newMetaData
- * @returns {Promise<{updatedTimetable?: string, errors?: ValidationErrors}>}
+ * @returns {Promise<{updatedTimetable?: string, errors?: ExtendedValidationErrors}>}
  */
 export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) => {
 	if (newMetaData.publishedStatus) {
 		return await updatePublishedStatusMetadata(newMetaData.publishedStatus, documentGuid, caseId);
 	}
 
-	let response;
-
 	try {
-		response = await post(`applications/${caseId}/documents/${documentGuid}/metadata`, {
+		return await post(`applications/${caseId}/documents/${documentGuid}/metadata`, {
 			json: newMetaData
 		});
 	} catch (/** @type {*} */ error) {
@@ -36,10 +34,8 @@ export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) 
 			}`
 		);
 
-		response = { errors: errorMessage };
+		return { errors: errorMessage };
 	}
-
-	return response;
 };
 
 /**
@@ -48,25 +44,21 @@ export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) 
  * @param {string} newStatus
  * @param {string} documentGuid
  * @param {number} caseId
- * @returns {Promise<{updatedTimetable?: string, errors?: ValidationErrors}>}
+ * @returns {Promise<{updatedTimetable?: string, errors?: ExtendedValidationErrors}>}
  */
 export const updatePublishedStatusMetadata = async (newStatus, documentGuid, caseId) => {
-	let response;
-
 	try {
-		response = await patch(`applications/${caseId}/documents`, {
+		return await patch(`applications/${caseId}/documents`, {
 			json: {
 				status: newStatus,
 				documents: [{ guid: documentGuid }]
 			}
 		});
 	} catch {
-		response = {
+		return {
 			errors: {
 				msg: 'You must fill in all mandatory document properties to publish a document.  Please go back to the document properties screen to make the changes.'
 			}
 		};
 	}
-
-	return response;
 };

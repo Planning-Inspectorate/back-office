@@ -8,6 +8,10 @@ import { ValidationError } from 'express-validator';
 import { ParsedQs } from 'qs';
 
 export type ValidationErrors = Record<string, ValidationError>;
+export type ExtendedValidationErrors =
+	| ValidationErrors
+	| { [p: string] }
+	| { guid: string; msg: string }[];
 
 declare global {
 	namespace Express {

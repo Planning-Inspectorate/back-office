@@ -2,7 +2,7 @@ import logger from '../../../lib/logger.js';
 import { get, patch, post } from '../../../lib/request.js';
 
 /**
- * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
+ * @typedef {import('@pins/express').ExtendedValidationErrors} ExtendedValidationErrors
  * @typedef {import('../../applications.types').DocumentationCategory} DocumentationCategory
  * @typedef {import('../../applications.types').DocumentationFile} DocumentationFile
  * @typedef {import('../../applications.types').DocumentVersion} DocumentVersion
@@ -158,20 +158,18 @@ export const getCaseDocumentationFileVersions = async (fileGuid) => {
  * @param {number} caseId
  * @param {string} documentGuid
  * @param {string} fileName
- * @returns {Promise<{isDeleted?: boolean, errors?: ValidationErrors}>}
+ * @returns {Promise<{isDeleted?: boolean, errors?: ExtendedValidationErrors}>}
  */
 export const deleteCaseDocumentationFile = async (caseId, documentGuid, fileName) => {
-	let response;
-
 	try {
-		response = await post(`applications/${caseId}/documents/${documentGuid}/delete`);
+		return await post(`applications/${caseId}/documents/${documentGuid}/delete`);
 	} catch {
-		response = new Promise((resolve) => {
-			resolve({ errors: { msg: `${fileName} could not be deleted, please try again.` } });
+		return new Promise((resolve) => {
+			resolve({
+				errors: { msg: `${fileName} could not be deleted, please try again.` }
+			});
 		});
 	}
-
-	return response;
 };
 
 /**
@@ -179,17 +177,13 @@ export const deleteCaseDocumentationFile = async (caseId, documentGuid, fileName
  *
  * @param {number} caseId
  * @param {string} documentGuid
- * @returns {Promise<{isDeleted?: boolean, errors?: ValidationErrors}>}
+ * @returns {Promise<{isDeleted?: boolean, errors?: ExtendedValidationErrors}>}
  */
 export const removeCaseDocumentationPublishingQueue = async (caseId, documentGuid) => {
-	let response;
-
 	try {
-		response = await post(
-			`applications/${caseId}/documents/${documentGuid}/revert-published-status`
-		);
+		return await post(`applications/${caseId}/documents/${documentGuid}/revert-published-status`);
 	} catch {
-		response = new Promise((resolve) => {
+		return new Promise((resolve) => {
 			resolve({
 				errors: {
 					msg: `The document could not be removed from the publishing queue, please try again.`
@@ -197,8 +191,6 @@ export const removeCaseDocumentationPublishingQueue = async (caseId, documentGui
 			});
 		});
 	}
-
-	return response;
 };
 
 /**
@@ -223,7 +215,7 @@ export const getCaseDocumentationReadyToPublish = async (caseId, pageNumber) => 
  * @param {number} caseId
  * @param {{guid: string}[]} documents
  * @param {string} username
- * @returns {Promise<{documents?: Array<{guid: string}>, errors?: any}>}
+ * @returns {Promise<{documents?: Array<{guid: string}>, errors?: ExtendedValidationErrors}>}
  */
 export const publishCaseDocumentationFiles = async (caseId, documents, username) => {
 	try {

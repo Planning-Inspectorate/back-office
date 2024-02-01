@@ -25,6 +25,8 @@ import {
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload
 } from './applications-s51.mapper.js';
+import { invalidRoleError as s51Advice } from '@pins/applications.api-testing/tests/search/index.js';
+import { response } from 'express';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -32,6 +34,7 @@ import {
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51UpdateBody} ApplicationsS51UpdateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51ChangeStatusBody} ApplicationsS51ChangeStatusBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('@pins/express').ExtendedValidationErrors} ExtendedValidationErrors */
 /** @typedef {import('../../applications.types.js').S51Advice} S51Advice */
 /** @typedef {import('../../applications.types.js').PaginatedResponse<S51Advice>} S51AdvicePaginatedResponse */
 /** @typedef {import('../../../lib/pagination-params.js').PaginationParams} PaginationParams */

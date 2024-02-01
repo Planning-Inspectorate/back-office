@@ -5,7 +5,7 @@ import pino from '../../../lib/logger.js';
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetable} ApplicationsTimetable */
 /** @typedef {import('./applications-timetable.types.js').ApplicationExaminationTimetable} ApplicationExaminationTimetable */
 /** @typedef {import('./applications-timetable.types.js').ApplicationExaminationTimetableItem} ApplicationExaminationTimetableItem */
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('@pins/express').ExtendedValidationErrors} ExtendedValidationErrors */
 
 /**
  * Get the timetable item types
@@ -20,16 +20,14 @@ export const getCaseTimetableItemTypes = async () => {
  * Save new timetable item
  *
  * @param {ApplicationsTimetablePayload} payload
- * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ValidationErrors}>}
+ * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ExtendedValidationErrors}>}
  */
 export const createCaseTimetableItem = async (payload) => {
-	let response;
-
 	try {
 		const updatedTimetable = await post('applications/examination-timetable-items', {
 			json: payload
 		});
-		response = { updatedTimetable };
+		return { updatedTimetable };
 	} catch (/** @type {*} */ error) {
 		let errorMsg = 'There was an issue and your item could not be saved, try again';
 		if (error?.response?.body?.errors?.unique) {
@@ -42,27 +40,24 @@ export const createCaseTimetableItem = async (payload) => {
 
 		pino.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
 
-		response = new Promise((resolve) => {
+		return new Promise((resolve) => {
 			resolve({ errors: { msg: errorMsg } });
 		});
 	}
-
-	return response;
 };
 
 /**
  * Updates an existing timetable item
  *
  * @param {ApplicationsTimetablePayload} payload
- * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ValidationErrors}>}
+ * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ExtendedValidationErrors}>}
  */
 export const updateCaseTimetableItem = async (payload) => {
-	let response;
 	try {
 		const updatedTimetable = await patch(`applications/examination-timetable-items/${payload.id}`, {
 			json: payload
 		});
-		response = { updatedTimetable };
+		return { updatedTimetable };
 	} catch (/** @type {*} */ error) {
 		let errorMsg = 'There was an issue and your item could not be saved, try again';
 		if (error?.response?.body?.errors?.unique) {
@@ -75,12 +70,10 @@ export const updateCaseTimetableItem = async (payload) => {
 
 		pino.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
 
-		response = new Promise((resolve) => {
+		return new Promise((resolve) => {
 			resolve({ errors: { msg: errorMsg } });
 		});
 	}
-
-	return response;
 };
 
 /**
@@ -144,63 +137,54 @@ export const getCaseTimetableItemTypeById = async (selectedItemTypeId) => {
 /**
  * Publish case timetable items
  * @param {number} caseId
- * @returns {Promise<{publishedItems: ApplicationsTimetable[], errors?: ValidationErrors}>}
+ * @returns {Promise<{publishedItems?: ApplicationsTimetable[], errors?: ExtendedValidationErrors}>}
  */
 export const publishCaseTimetableItems = async (caseId) => {
-	let response;
 	try {
-		response = await patch(`applications/examination-timetable-items/publish/${caseId}`, {});
+		return await patch(`applications/examination-timetable-items/publish/${caseId}`, {});
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
-		response = new Promise((resolve) => {
+		return new Promise((resolve) => {
 			resolve({
 				errors: { msg: 'There was an issue and the timetable could not be published, try again' }
 			});
 		});
 	}
-
-	return response;
 };
 
 /**
  * Unpublish case timetable items
  * @param {number} caseId
- * @returns {Promise<{publishedItems: ApplicationsTimetable[], errors?: ValidationErrors}>}
+ * @returns {Promise<{publishedItems?: ApplicationsTimetable[], errors?: ExtendedValidationErrors}>}
  */
 export const unpublishCaseTimetableItems = async (caseId) => {
-	let response;
 	try {
-		response = await patch(`applications/examination-timetable-items/unpublish/${caseId}`, {});
+		return await patch(`applications/examination-timetable-items/unpublish/${caseId}`, {});
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
-		response = new Promise((resolve) => {
+		return new Promise((resolve) => {
 			resolve({
 				errors: { msg: 'There was an issue and the timetable could not be unpublished, try again' }
 			});
 		});
 	}
-
-	return response;
 };
 
 /**
  * Delete single timetable item
  * @param {number} timetableId
- * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ValidationErrors}>}
+ * @returns {Promise<{updatedTimetable?: ApplicationsTimetable, errors?: ExtendedValidationErrors}>}
  */
 export const deleteCaseTimetableItem = async (timetableId) => {
-	let response;
 	try {
-		response = await deleteRequest(`applications/examination-timetable-items/${timetableId}`);
+		return await deleteRequest(`applications/examination-timetable-items/${timetableId}`);
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
-		response = new Promise((resolve) => {
+		return new Promise((resolve) => {
 			resolve({ errors: { msg: 'An error occurred, please try again later' } });
 		});
 	}
-
-	return response;
 };

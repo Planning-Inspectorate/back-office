@@ -1,10 +1,10 @@
 import { sortBy } from 'lodash-es';
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import {
+	destroySuccessBanner,
 	getSessionFilesNumberOnList,
-	setSessionFilesNumberOnList,
 	getSuccessBanner,
-	destroySuccessBanner
+	setSessionFilesNumberOnList
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -14,12 +14,12 @@ import {
 	getCaseDocumentationFileVersions,
 	getCaseDocumentationReadyToPublish,
 	getCaseFolders,
+	getCaseManyDocumentationFilesInfo,
 	publishCaseDocumentationFiles,
 	removeCaseDocumentationPublishingQueue,
-	updateCaseDocumentationFiles,
+	searchDocuments,
 	unpublishCaseDocumentationFiles,
-	getCaseManyDocumentationFilesInfo,
-	searchDocuments
+	updateCaseDocumentationFiles
 } from './applications-documentation.service.js';
 import {
 	destroySessionFolderPage,
@@ -29,7 +29,7 @@ import {
 import { paginationParams } from '../../../lib/pagination-params.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('@pins/express').ExtendedValidationErrors} ExtendedValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
 /** @typedef {import('../../applications.types').DocumentationCategory} DocumentationCategory */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
@@ -243,7 +243,7 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 /**
  * Delete a document
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile?: DocumentationFile, errors?: ValidationErrors} | {serviceName?: string, successMessage?: string}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile?: DocumentationFile, errors?: ExtendedValidationErrors} | {serviceName?: string, successMessage?: string}, {}>}
  */
 export async function updateApplicationsCaseDocumentationDelete(
 	{ params, errors: validationErrors },
@@ -298,7 +298,7 @@ export async function viewApplicationsCaseDocumentationPublishingQueue(request, 
  *
  * @param {*} request
  * @param {*} response
- * @type {import('@pins/express').RenderHandler<{documentationFiles: DocumentationFile[], backLink: any, paginationButtons: any, errors?: ValidationErrors |string} | {serviceName: string, successMessage: string}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFiles: DocumentationFile[], backLink: any, paginationButtons: any, errors?: ExtendedValidationErrors} | {serviceName: string, successMessage: string}, {}>}
  */
 export async function updateApplicationsCaseDocumentationPublish(request, response) {
 	const currentPageNumber = Number.parseInt(request.query.number || '1', 10);
@@ -310,9 +310,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 	// incoming:  [ 'guid-1', 'guid-2']
 	// API wants: [ { guid: 'guid-1'}, { guid: 'guid-2'} ]
 	const items = (selectedFilesIds || []).map((/** @type {string} */ item) => {
-		const container = { guid: item };
-
-		return container;
+		return { guid: item };
 	});
 
 	const username = session.account?.name;
