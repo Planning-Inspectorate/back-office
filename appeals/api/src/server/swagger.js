@@ -733,6 +733,11 @@ export const spec = {
 		SingleLinkableAppealSummaryResponse: {
 			type: 'object',
 			properties: {
+				appealId: {
+					type: 'string',
+					description: 'ID in back-office or horizon',
+					example: '12345'
+				},
 				appealReference: {
 					type: 'string',
 					description: 'Horizon or Back Office appeal reference',
@@ -797,6 +802,11 @@ export const spec = {
 					type: 'string',
 					description: 'Date string of the submission: YYYY-MM-DDTHH:MM:SS+HH:MM',
 					example: '2014-11-14T00:00:00+00:00'
+				},
+				source: {
+					type: 'string',
+					description: 'Information origin (back-office or horizon)',
+					example: 'horizon'
 				}
 			}
 		}

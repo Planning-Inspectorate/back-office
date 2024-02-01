@@ -24,6 +24,7 @@ describe('/appeals/linkable-appeal/:appealReference', () => {
 				.set('azureAdUserId', azureAdUserId);
 			expect(response.status).toEqual(200);
 			expect(response.body).toEqual({
+				appealId: householdAppeal.id.toString(),
 				appealReference: householdAppeal.reference,
 				appealType: householdAppeal.appealType?.type,
 				appealStatus: householdAppeal.appealStatus[0].status,
@@ -35,9 +36,14 @@ describe('/appeals/linkable-appeal/:appealReference', () => {
 					siteAddressPostcode: householdAppeal.address?.postcode
 				},
 				localPlanningDepartment: householdAppeal.lpa.name,
-				appellantName: householdAppeal.appellant?.name,
-				agentName: householdAppeal.agent?.name,
-				submissionDate: new Date(householdAppeal.createdAt).toISOString()
+				appellantName: `${householdAppeal.appellant?.firstName} ${householdAppeal.appellant?.lastName}`,
+				agentName: `${householdAppeal.agent?.firstName} ${householdAppeal.agent?.lastName} ${
+					householdAppeal.agent?.organisationName
+						? '(' + householdAppeal.agent?.organisationName + ')'
+						: ''
+				}`,
+				submissionDate: new Date(householdAppeal.createdAt).toISOString(),
+				source: 'back-office'
 			});
 		});
 		test('gets a back office linkable appeal summary when the appeal does not exists in back office but exists in Horizon', async () => {
@@ -52,6 +58,7 @@ describe('/appeals/linkable-appeal/:appealReference', () => {
 				.set('azureAdUserId', azureAdUserId);
 			expect(response.status).toEqual(200);
 			expect(response.body).toEqual({
+				appealId: '20486402',
 				appealReference: '3171066',
 				appealType: 'Planning Appeal (W)',
 				appealStatus: 'Closed - Opened in Error',
@@ -64,17 +71,16 @@ describe('/appeals/linkable-appeal/:appealReference', () => {
 				localPlanningDepartment: 'System Test Borough Council',
 				appellantName: 'Mrs Tammy Rogers',
 				agentName: null,
-				submissionDate: '2017-03-07T00:00:00.000Z'
+				submissionDate: '2017-03-07T00:00:00.000Z',
+				source: 'horizon'
 			});
 		});
 		test('responds with a 404 if no cases are found', async () => {
 			databaseConnector.appeal.findUnique.mockResolvedValueOnce(null);
 			got.post.mockReturnValueOnce({
-				json: jest
-					.fn()
-					.mockRejectedValueOnce({
-						response: { body: parseHorizonGetCaseResponse(horizonGetCaseNotFoundResponse) }
-					})
+				json: jest.fn().mockRejectedValueOnce({
+					response: { body: parseHorizonGetCaseResponse(horizonGetCaseNotFoundResponse) }
+				})
 			});
 			const response = await request
 				.get(`/appeals/linkable-appeal/1`)

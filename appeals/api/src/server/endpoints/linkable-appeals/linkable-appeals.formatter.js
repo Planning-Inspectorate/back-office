@@ -1,10 +1,11 @@
 /**
  *
  * @param {import("#endpoints/appeals.js").RepositoryGetByIdResultItem} appeal
- * @returns {import("#utils/horizon-gateway.js").LinkableAppealSummary}
+ * @returns {import("./linkable-appeals.service.js").LinkableAppealSummary}
  */
-export const formattedLinkableAppealSummary = (appeal) => {
+export const formatLinkableAppealSummary = (appeal) => {
 	return {
+		appealId: appeal.id.toString(),
 		appealReference: appeal.reference,
 		appealType: appeal.appealType?.type,
 		appealStatus: appeal.appealStatus[0].status,
@@ -16,8 +17,11 @@ export const formattedLinkableAppealSummary = (appeal) => {
 			siteAddressPostcode: appeal.address?.postcode
 		},
 		localPlanningDepartment: appeal.lpa.name,
-		appellantName: appeal.appellant?.name,
-		agentName: appeal.agent?.name,
-		submissionDate: new Date(appeal.createdAt).toISOString()
+		appellantName: `${appeal.appellant?.firstName} ${appeal.appellant?.lastName}`,
+		agentName: `${appeal.agent?.firstName} ${appeal.agent?.lastName} ${
+			appeal.agent?.organisationName ? '(' + appeal.agent?.organisationName + ')' : ''
+		}`,
+		submissionDate: new Date(appeal.createdAt).toISOString(),
+		source: 'back-office'
 	};
 };
