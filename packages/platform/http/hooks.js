@@ -1,9 +1,17 @@
 /**
  * @param {import('pino').Logger} pino
  * @param {string} stdOutLevel
- * @returns {[import('got').BeforeRequestHook, import('got').AfterResponseHook]}
+ * @returns {[import('got').BeforeRequestHook, import('got').AfterResponseHook, import('got').BeforeRetryHook]}
  */
 export const createHttpLoggerHooks = (pino, stdOutLevel) => {
+	/** @type {import('got').BeforeRetryHook} */
+	const retryLogger = (error, retryCount) => {
+		const URL = error?.options?.url;
+		const pathname = typeof URL === 'string' ? URL : URL?.pathname;
+		pino.warn(
+			`[API] ${error.options.method} ${pathname?.toString()} failed. Retry attempts: ${retryCount}`
+		);
+	};
 	/** @type {import('got').BeforeRequestHook} */
 	const requestLogger = (options) => {
 		if (options.url) {
@@ -34,5 +42,5 @@ export const createHttpLoggerHooks = (pino, stdOutLevel) => {
 		return Promise.resolve(response);
 	};
 
-	return [requestLogger, responseLogger];
+	return [requestLogger, responseLogger, retryLogger];
 };

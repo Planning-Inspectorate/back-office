@@ -20,6 +20,10 @@ export const makePostRequest = (logger, path, body) => {
 
 	const serviceName = 'function';
 	const requestWithApiKey = got.extend({
+		retry: {
+			limit: 3,
+			statusCodes: [500, 502, 503, 504]
+		},
 		hooks: {
 			beforeRequest: [
 				async (options) =>
