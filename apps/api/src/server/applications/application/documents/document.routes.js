@@ -10,7 +10,7 @@ import {
 	getDocumentProperties,
 	getDocumentVersions,
 	getReadyToPublishDocuments,
-	provideDocumentUploadURLs,
+	createDocumentsOnCase,
 	provideDocumentVersionUploadURL,
 	publishDocuments,
 	revertDocumentPublishedStatus,
@@ -122,7 +122,7 @@ router.post(
 	validateDocumentsToUploadProvided,
 	validateFolderIds,
 	trimUnexpectedRequestParameters,
-	asyncHandler(provideDocumentUploadURLs)
+	asyncHandler(createDocumentsOnCase)
 );
 
 router.patch(

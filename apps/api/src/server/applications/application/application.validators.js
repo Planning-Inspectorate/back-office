@@ -332,3 +332,14 @@ export const verifyNotTraining = async (caseId) => {
 		throw new Error(`Case with ID ${caseId} is a training case.`);
 	}
 };
+
+/**
+ * Is this is a "Training" case? - checks the reference name and/or the sector name, rather than querying DB
+ *
+ * @param {string |undefined} reference
+ * @param {string |undefined} sector
+ * @returns
+ */
+export const isTrainingCase = (reference, sector) => {
+	return /^TRAIN/.test(reference ?? '') || (sector ?? '') === 'training';
+};
