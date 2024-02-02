@@ -296,8 +296,6 @@ export const mapAppealToDueDate = (appeal, appellantCaseStatus, appellantCaseDue
 const getRelevantLinkedAppealIds = (linkedAppeals, currentAppealRef) => {
 	const isParentAppeal = linkedAppeals.some((link) => link.parentRef === currentAppealRef);
 
-	console.log('getRelevantLinkedAppealIds', JSON.stringify(linkedAppeals));
-
 	let relevantIds = linkedAppeals
 		.filter(
 			(linkedAppeal) =>

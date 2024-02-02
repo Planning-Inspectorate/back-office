@@ -520,8 +520,6 @@ const unlinkAppeal = async (appealId, linkedAppealReference) => {
  * @returns {Promise<RepositoryGetAllResultItem[]>}
  */
 const getAppeaslByIds = async (linkedAppealIds) => {
-	console.log('getAppeaslByIds ', JSON.stringify(linkedAppealIds));
-
 	if (!Array.isArray(linkedAppealIds) || linkedAppealIds.length === 0) {
 		return [];
 	}
