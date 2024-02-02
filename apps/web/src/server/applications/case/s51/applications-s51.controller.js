@@ -25,8 +25,6 @@ import {
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload
 } from './applications-s51.mapper.js';
-import { invalidRoleError as s51Advice } from '@pins/applications.api-testing/tests/search/index.js';
-import { response } from 'express';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -134,7 +132,12 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 export async function viewApplicationsCaseEditS51Item({ params }, response) {
 	const { caseId, adviceId, step } = params;
 
-	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+	const { errors, ...s51Advice } = await getS51Advice(Number(caseId), Number(adviceId));
+
+	if (errors) {
+		// ToDo: Handle errors
+	}
+
 	const values = mapS51AdviceToPage(s51Advice);
 
 	response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
@@ -333,7 +336,12 @@ export async function viewApplicationsCaseS51AttachmentDelete({ params }, respon
 	const { adviceId, attachmentId } = params;
 	const { caseId } = response.locals;
 
-	const s51Advice = await getS51Advice(caseId, Number(adviceId));
+	const { errors, ...s51Advice } = await getS51Advice(caseId, Number(adviceId));
+
+	if (errors) {
+		// ToDo: Handle errors
+	}
+
 	const attachmentToDelete = s51Advice.attachments.find(
 		(attachment) => attachment.documentGuid === attachmentId
 	);
@@ -458,7 +466,12 @@ export async function removeApplicationsCaseS51AdviceFromPublishingQueue(
 const getS51FolderData = async (caseId, query) => {
 	const { pageNumber, pageSize } = getIntegerRequestQuery(query, 50);
 
-	const items = await getS51FilesInFolder(caseId, pageNumber, pageSize);
+	const { errors, ...items } = await getS51FilesInFolder(caseId, pageNumber, pageSize);
+
+	if (errors) {
+		// ToDo: Handle errors
+	}
+
 	const pagination = paginationParams(pageSize, pageNumber, items.pageCount);
 
 	return { items, pagination };
@@ -473,7 +486,11 @@ const getS51FolderData = async (caseId, query) => {
 const getS51PublishinQueueData = async (caseId, query) => {
 	const { pageNumber, pageSize } = getIntegerRequestQuery(query, 25);
 
-	const s51Advices = await getS51AdviceReadyToPublish(caseId, pageNumber, pageSize);
+	const { errors, ...s51Advices } = await getS51AdviceReadyToPublish(caseId, pageNumber, pageSize);
+
+	if (errors) {
+		// ToDo: Handle errors
+	}
 
 	const pagination = paginationParams(pageSize, pageNumber, s51Advices.pageCount);
 
@@ -488,7 +505,11 @@ const getS51PublishinQueueData = async (caseId, query) => {
 export async function viewUnpublishAdvice({ params }, response) {
 	const { caseId, adviceId } = params;
 
-	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+	const { errors, ...s51Advice } = await getS51Advice(Number(caseId), Number(adviceId));
+
+	if (errors) {
+		// ToDo: Handle errors
+	}
 
 	if (s51Advice.publishedStatus !== 'published') {
 		return response.render(`applications/case-s51/s51-unpublish`, {
@@ -510,7 +531,11 @@ export async function viewUnpublishAdvice({ params }, response) {
 export async function postUnpublishAdvice({ params }, response) {
 	const { caseId, adviceId } = params;
 
-	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+	const { errors, ...s51Advice } = await getS51Advice(Number(caseId), Number(adviceId));
+
+	if (errors) {
+		// ToDo: Handle errors
+	}
 
 	if (s51Advice.publishedStatus !== 'published') {
 		return response.render(`applications/case-s51/s51-unpublish`, {
