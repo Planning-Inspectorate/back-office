@@ -143,7 +143,7 @@
 					})  }}
 				{% endif %}
 
-				{% if selectedItemType.id in [uniqueTimeTableTypes.DEADLINE] %}
+				{% if selectedItemType.templateType == 'deadline' %}
 					{{ govukInsetText({
 						text: "The portal for this deadline will open when the previous one closes or on your chosen start and end dates."
 					}) }}
