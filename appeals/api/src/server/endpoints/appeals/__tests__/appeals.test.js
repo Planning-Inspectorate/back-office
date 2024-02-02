@@ -749,6 +749,7 @@ describe('appeals routes', () => {
 							linkingDate: a.linkingDate
 						};
 					}),
+					otherAppeals: [],
 					localPlanningDepartment: householdAppeal.lpa.name,
 					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
@@ -851,6 +852,7 @@ describe('appeals routes', () => {
 					isParentAppeal: false,
 					isChildAppeal: false,
 					linkedAppeals: [],
+					otherAppeals: [],
 					localPlanningDepartment: fullPlanningAppeal.lpa.name,
 					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
 					neighbouringSite: {
@@ -1420,7 +1422,7 @@ describe('mapAppealToDueDate Tests', () => {
 });
 
 describe('mapAppealStatuses Tests', () => {
-	test('correctly orders statuses', () => {
+	test('correctly orders statuses personal list', () => {
 		const preSortedStatuses = [
 			{ appealStatus: [{ status: 'issue_determination' }] },
 			{ appealStatus: [{ status: 'lpa_questionnaire_due' }] },
@@ -1433,6 +1435,30 @@ describe('mapAppealStatuses Tests', () => {
 			'lpa_questionnaire_due',
 			'issue_determination',
 			'awaiting_transfer'
+		];
+
+		const orderedStatuses = mapAppealStatuses(preSortedStatuses);
+		expect(orderedStatuses).toEqual(expectedOrder);
+	});
+
+	test('correctly orders statuses national list', () => {
+		const preSortedStatuses = [
+			{ appealStatus: [{ status: 'assign_case_officer' }] },
+			{ appealStatus: [{ status: 'ready_to_start' }] },
+			{ appealStatus: [{ status: 'issue_determination' }] },
+			{ appealStatus: [{ status: 'lpa_questionnaire_due' }] },
+			{ appealStatus: [{ status: 'awaiting_transfer' }] },
+			{ appealStatus: [{ status: 'ready_to_start' }] },
+			{ appealStatus: [{ status: 'complete' }] }
+		];
+
+		const expectedOrder = [
+			'assign_case_officer',
+			'ready_to_start',
+			'lpa_questionnaire_due',
+			'issue_determination',
+			'awaiting_transfer',
+			'complete'
 		];
 
 		const orderedStatuses = mapAppealStatuses(preSortedStatuses);

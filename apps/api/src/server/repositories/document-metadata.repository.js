@@ -291,6 +291,13 @@ export const publishMany = async (documentVersionIds) => {
 			data: {
 				publishedStatus: isTraining ? 'published' : 'publishing',
 				publishedStatusPrev: current?.publishedStatus
+			},
+			include: {
+				Document: {
+					include: {
+						case: true
+					}
+				}
 			}
 		});
 
@@ -341,6 +348,13 @@ export const unpublishMany = async (documentVersionIds) => {
 			data: {
 				publishedStatus: isTraining ? 'unpublished' : 'unpublishing',
 				publishedStatusPrev: current?.publishedStatus
+			},
+			include: {
+				Document: {
+					include: {
+						case: true
+					}
+				}
 			}
 		});
 

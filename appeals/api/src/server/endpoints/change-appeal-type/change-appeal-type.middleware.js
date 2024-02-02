@@ -8,7 +8,7 @@ import {
 	STATE_TARGET_TRANSFERRED,
 	STATE_TARGET_WITHDRAWN
 } from '#endpoints/constants.js';
-import { databaseConnector } from '#utils/database-connector.js';
+import { getAllAppealTypes } from '#repositories/appeal-type.repository.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
@@ -21,7 +21,7 @@ import { databaseConnector } from '#utils/database-connector.js';
  * @returns {Promise<Response | void>}
  */
 export const loadAllAppealTypesAndAddToRequest = async (req, res, next) => {
-	const allAppealTypes = await databaseConnector.appealType.findMany();
+	const allAppealTypes = await getAllAppealTypes();
 	req.appealTypes = allAppealTypes;
 	next();
 };

@@ -53,11 +53,11 @@ const renderAllocationDetailsSpecialism = async (request, response, errors = nul
 		return response.render('app/500.njk');
 	}
 
-	const allocationDetailsLevels = await allocationDetailsService.getAllocationDetailsLevels(
-		request.apiClient
-	);
-	const allocationDetailsSpecialisms =
-		await allocationDetailsService.getAllocationDetailsSpecialisms(request.apiClient);
+	const [allocationDetailsLevels, allocationDetailsSpecialisms] = await Promise.all([
+		allocationDetailsService.getAllocationDetailsLevels(request.apiClient),
+		allocationDetailsService.getAllocationDetailsSpecialisms(request.apiClient)
+	]);
+
 	const selectedAllocationLevel = allocationDetailsLevels.find(
 		(levelItem) => levelItem.level === request.session.allocationLevel
 	);
@@ -101,11 +101,10 @@ const renderAllocationDetailsCheckAnswers = async (request, response) => {
 		return response.render('app/500.njk');
 	}
 
-	const allocationDetailsLevels = await allocationDetailsService.getAllocationDetailsLevels(
-		request.apiClient
-	);
-	const allocationDetailsSpecialisms =
-		await allocationDetailsService.getAllocationDetailsSpecialisms(request.apiClient);
+	const [allocationDetailsLevels, allocationDetailsSpecialisms] = await Promise.all([
+		allocationDetailsService.getAllocationDetailsLevels(request.apiClient),
+		allocationDetailsService.getAllocationDetailsSpecialisms(request.apiClient)
+	]);
 	const selectedAllocationLevel = allocationDetailsLevels.find(
 		(levelItem) => levelItem.level === request.session.allocationLevel
 	);

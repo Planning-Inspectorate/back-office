@@ -178,3 +178,55 @@ async function buildCurrentAssigneeComponent(
 		}
 	};
 }
+
+/**
+ * @param {string} appealId
+ * @param {string} appealReference
+ * @param {Object|undefined} user
+ * @param {Object|null|undefined} existingUser
+ * @param {boolean} isInspector
+ * @param {boolean} isUnassign
+ * @param {import('@pins/express/types/express.js').ValidationErrors | undefined} errors
+ * @returns {import('./assign-user.types.js').AssignUserCheckAndConfirmPageContent}
+ */
+export function assignOrUnassignUserCheckAndConfirmPage(
+	appealId,
+	appealReference,
+	user,
+	existingUser,
+	isInspector,
+	isUnassign,
+	errors
+) {
+	return {
+		appeal: {
+			id: appealId,
+			reference: appealReference,
+			shortReference: appealShortReference(appealReference)
+		},
+		user,
+		existingUser,
+		isInspector,
+		isUnassign,
+		errors
+	};
+}
+
+/**
+ * @param {string} appealId
+ * @param {string} appealReference
+ * @param {boolean} isInspector
+ * @param {import('@pins/express/types/express.js').ValidationErrors | undefined} errors
+ * @returns {import('./assign-user.types.js').AssignNewUserPageContent}
+ */
+export function assignNewUserPage(appealId, appealReference, isInspector, errors) {
+	return {
+		appeal: {
+			id: appealId,
+			reference: appealReference,
+			shortReference: appealShortReference(appealReference)
+		},
+		isInspector,
+		errors
+	};
+}

@@ -64,7 +64,7 @@ const buildApp = (
 	app.use('/migration', migrationRoutes);
 
 	app.all('*', (req, res, next) => {
-		next(new BackOfficeAppError(`Method is not allowed`, 405));
+		next(new BackOfficeAppError(`Not found`, 404));
 	});
 
 	app.use(stateMachineErrorHandler);

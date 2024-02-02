@@ -13,7 +13,8 @@ const mapContactDetails = (entity) => {
 			'email',
 			'phoneNumber',
 			'type',
-			'under18'
+			'under18',
+			'contactMethod'
 		]),
 		...(!isEmpty(entity.address)
 			? {

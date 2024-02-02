@@ -62,7 +62,7 @@ export const sendRepresentationEventMessage = async (
 ) => {
 	const nsipRepresentationPayload = buildNsipRepresentationPayload(representation);
 	const serviceUsersPayload = buildRepresentationServiceUserPayload(representation);
-	await eventClient.sendEvents(NSIP_REPRESENTATION, nsipRepresentationPayload, eventType);
+	await eventClient.sendEvents(NSIP_REPRESENTATION, [nsipRepresentationPayload], eventType);
 
 	// and service users
 	await eventClient.sendEvents(SERVICE_USER, serviceUsersPayload, eventType, {
@@ -119,6 +119,20 @@ export const buildNsipRepresentationPayload = (representation) => {
 	}
 
 	return nsipRepresentation;
+};
+
+/**
+ * Build Representation message event payload which optimistically sets the message status to published before being
+ * updated in the database.  This avoids multiple reads of representation data in the controller.
+ * The message is idempotent so in case of failure to update in DB users would re-publish for eventual consistency.
+ *
+ * @param {Representation} representation
+ * @returns {{representationType: *, attachments: *, representationId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, caseRef: *, dateReceived: *, caseId: *, representedType: *, represented: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), representative: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), status: *}|{caseRef: *, representationType: *, attachments: *, representationId: *, redacted, redactedRepresentation, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}|{redactedBy, redactedNotes, caseRef: *, representationType: *, attachments: *, representationId: *, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}}
+ */
+export const buildNsipRepresentationPayloadForPublish = (representation) => {
+	let publishRepresentationPayload = buildNsipRepresentationPayload(representation);
+	publishRepresentationPayload.status = 'PUBLISHED';
+	return publishRepresentationPayload;
 };
 
 /**

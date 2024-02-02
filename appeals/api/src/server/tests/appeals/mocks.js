@@ -116,6 +116,8 @@ export const householdAppeal = {
 			name: 'Access required'
 		}
 	},
+	linkedAppeals: [],
+	otherAppeals: [],
 	lpaQuestionnaire: {
 		id: 1,
 		appealId: 1,
@@ -245,8 +247,7 @@ export const fullPlanningAppeal = {
 		planningObligationStatus: {
 			name: 'Finalised'
 		}
-	},
-	otherAppealId: null
+	}
 };
 
 export const householdAppealAppellantCaseValid = {

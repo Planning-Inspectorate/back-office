@@ -28,6 +28,7 @@ const approxStageCompletion = {
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/appeals.api').Schema.AppealRelationship} AppealRelationship */
+/** @typedef {import('@pins/appeals.api').Schema.AppealType} AppealType */
 /** @typedef {import('@pins/appeals.api').Appeals.AppealListResponse} AppealListResponse */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetByIdResultItem} RepositoryGetByIdResultItem */
@@ -92,23 +93,25 @@ const formatMyAppeals = (appeal, linkedAppeals) => ({
 /**
  * @param {RepositoryGetByIdResultItem} appeal
  * @param {Folder[]} folders
+ * @param {{ transferredAppealType: string, transferredAppealReference: string} | null} transferAppealTypeInfo
+ * @param {Date | null} completionDate
  * @returns {SingleAppealDetailsResponse | void}}
  */
-const formatAppeal = (appeal, folders) => {
+const formatAppeal = (appeal, folders, transferAppealTypeInfo = null, completionDate = null) => {
 	if (appeal) {
-		return {
+		const formattedAppeal = {
 			...(appeal.agent && {
 				agent: {
-					firstName: appeal.agent?.firstName,
-					lastName: appeal.agent?.lastName,
-					email: appeal.agent?.email
+					firstName: appeal.agent.firstName || '',
+					lastName: appeal.agent.lastName || '',
+					email: appeal.agent.email
 				}
 			}),
 			...(appeal.appellant && {
 				appellant: {
-					firstName: appeal.appellant?.firstName,
-					lastName: appeal.appellant?.lastName,
-					email: appeal.appellant?.email
+					firstName: appeal.appellant.firstName || '',
+					lastName: appeal.appellant.lastName || '',
+					email: appeal.appellant?.email || null
 				}
 			}),
 			allocationDetails: appeal.allocation
@@ -122,6 +125,12 @@ const formatAppeal = (appeal, folders) => {
 			appealReference: appeal.reference,
 			appealSite: formatAddress(appeal.address),
 			appealStatus: appeal.appealStatus[0].status,
+			...(transferAppealTypeInfo && {
+				transferStatus: {
+					transferredAppealType: transferAppealTypeInfo.transferredAppealType,
+					transferredAppealReference: transferAppealTypeInfo.transferredAppealReference
+				}
+			}),
 			appealTimetable: appeal.appealTimetable
 				? {
 						appealTimetableId: appeal.appealTimetable.id,
@@ -135,12 +144,11 @@ const formatAppeal = (appeal, folders) => {
 			appealType: appeal.appealType?.type,
 			appellantCaseId: appeal.appellantCase?.id || 0,
 			caseOfficer: appeal.caseOfficer?.azureAdUserId || null,
-			transferredAppealRef: appeal.transferredCaseId,
 			decision: {
 				folderId: folders[0].id,
 				outcome: appeal.inspectorDecision?.outcome,
-				// @ts-ignore
-				documentId: appeal.inspectorDecision?.decisionLetterGuid
+				documentId: appeal.inspectorDecision?.decisionLetterGuid || undefined,
+				letterDate: completionDate || undefined
 			},
 			healthAndSafety: {
 				appellantCase: {
@@ -163,6 +171,7 @@ const formatAppeal = (appeal, folders) => {
 					isRequired: appeal.lpaQuestionnaire?.doesSiteRequireInspectorAccess || null
 				}
 			},
+			otherAppeals: [],
 			linkedAppeals: formatLinkedAppeals(appeal.linkedAppeals || [], appeal.reference),
 			isParentAppeal:
 				(appeal.linkedAppeals || []).filter((link) => link.parentRef === appeal.reference).length >
@@ -202,6 +211,9 @@ const formatAppeal = (appeal, folders) => {
 				}
 			}
 		};
+
+		// @ts-ignore
+		return formattedAppeal;
 	}
 };
 

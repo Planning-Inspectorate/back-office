@@ -424,7 +424,7 @@ exports[`assign-user POST /assign-user/case-officer should re-render the assign 
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Smith, John</dt>
                             <dd class="govuk-summary-list__value">John.Smith@planninginspectorate.gov.uk</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/case-officer/1/confirm"> Choose</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/case-officer/923ac03b-9031-4cf4-8b17-348c274321f9/confirm"> Choose</a>
                             </dd>
                         </div>
                     </dl>
@@ -894,7 +894,7 @@ exports[`assign-user POST /assign-user/inspector should re-render the assign ins
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Smith, John</dt>
                             <dd class="govuk-summary-list__value">John.Smith@planninginspectorate.gov.uk</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/inspector/1/confirm"> Choose</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/assign-user/inspector/923ac03b-9031-4cf4-8b17-348c274321f9/confirm"> Choose</a>
                             </dd>
                         </div>
                     </dl>

@@ -177,6 +177,12 @@ const getShortMonthName = (monthNumber) => {
 	date.setMonth(monthNumber - 1);
 	return date.toLocaleString('default', { month: 'short' }).substring(0,3);
 };
+const getShortMonthNameExamTimeTable = (monthNumber) => {
+	const date = new Date();
+	date.setMonth(monthNumber - 2);
+	return date.toLocaleString('default', { month: 'short' }).substring(0,3);
+};
+
 
 const enquirerString = (details) => {
 	const hasName = details.firstName && details.lastName;
@@ -234,5 +240,6 @@ module.exports = {
 	enquirerString,
 	getRandomFormattedDate,
 	getRandomQuarterDate,
-	validatePreviewAndPublishInfo
+	validatePreviewAndPublishInfo,
+	getShortMonthNameExamTimeTable
 };

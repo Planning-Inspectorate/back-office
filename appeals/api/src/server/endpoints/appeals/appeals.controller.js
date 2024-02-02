@@ -3,6 +3,7 @@ import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
 import appealRepository from '#repositories/appeal.repository.js';
 import { getPageCount } from '#utils/database-pagination.js';
 import { sortAppeals } from '#utils/appeal-sorter.js';
+import { getAppealTypeByTypeId } from '#repositories/appeal-type.repository.js';
 import { broadcastAppealState } from '#endpoints/integrations/integrations.service.js';
 import logger from '#utils/logger.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
@@ -17,14 +18,21 @@ import {
 	ERROR_CANNOT_BE_EMPTY_STRING,
 	CONFIG_APPEAL_STAGES,
 	AUDIT_TRAIL_SYSTEM_UUID,
-	STATE_TARGET_READY_TO_START
+	STATE_TARGET_READY_TO_START,
+	STATE_TARGET_ASSIGN_CASE_OFFICER,
+	STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
+	STATE_TARGET_ISSUE_DETERMINATION,
+	STATE_TARGET_AWAITING_TRANSFER,
+	STATE_TARGET_COMPLETE
 } from '../constants.js';
 import { formatAppeal, formatAppeals, formatMyAppeals } from './appeals.formatter.js';
 import { assignUser, assignedUserType } from './appeals.service.js';
 import transitionState from '#state/transition-state.js';
+import { getDocumentById } from '#repositories/document.repository.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
+/** @typedef {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse} SingleAppealDetailsResponse */
 
 /**
  * @param {Request} req
@@ -116,8 +124,28 @@ const getMyAppeals = async (req, res) => {
 const getAppealById = async (req, res) => {
 	const { appeal } = req;
 	const folders = await getFoldersForAppeal(appeal, CONFIG_APPEAL_STAGES.decision);
-	const formattedAppeal = formatAppeal(appeal, folders);
 
+	let transferAppealTypeInfo;
+	if (appeal.resubmitTypeId && appeal.transferredCaseId) {
+		const resubmitType = await getAppealTypeByTypeId(appeal.resubmitTypeId);
+		if (resubmitType) {
+			transferAppealTypeInfo = {
+				transferredAppealType: `(${resubmitType.code}) ${resubmitType.type}`,
+				transferredAppealReference: appeal.transferredCaseId
+			};
+		}
+	}
+
+	let decisionDate;
+	if (
+		appeal.appealStatus[0].status === STATE_TARGET_COMPLETE &&
+		appeal.inspectorDecision?.decisionLetterGuid
+	) {
+		const document = await getDocumentById(appeal.inspectorDecision.decisionLetterGuid);
+		decisionDate = document?.latestDocumentVersion?.dateReceived;
+	}
+
+	const formattedAppeal = formatAppeal(appeal, folders, transferAppealTypeInfo, decisionDate);
 	return res.send(formattedAppeal);
 };
 
@@ -196,10 +224,12 @@ const updateAppealById = async (req, res) => {
  */
 const mapAppealStatuses = (rawStatuses) => {
 	const statusOrder = [
-		'ready_to_start',
-		'lpa_questionnaire_due',
-		'issue_determination',
-		'awaiting_transfer'
+		STATE_TARGET_ASSIGN_CASE_OFFICER,
+		STATE_TARGET_READY_TO_START,
+		STATE_TARGET_LPA_QUESTIONNAIRE_DUE,
+		STATE_TARGET_ISSUE_DETERMINATION,
+		STATE_TARGET_AWAITING_TRANSFER,
+		STATE_TARGET_COMPLETE
 	];
 
 	const extractedStatuses = [

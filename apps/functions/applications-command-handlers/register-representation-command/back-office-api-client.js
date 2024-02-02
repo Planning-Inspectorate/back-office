@@ -1,5 +1,5 @@
 import config from './config.js';
-import { gotInstance } from '../common/backend-api-request.js';
+import { requestWithApiKey } from '../common/backend-api-request.js';
 
 /** @typedef {{ id: number, displayNameEn: string }} FolderJSON */
 
@@ -9,7 +9,7 @@ import { gotInstance } from '../common/backend-api-request.js';
  * */
 async function getCaseID(caseReference) {
 	try {
-		const result = await gotInstance
+		const result = await requestWithApiKey
 			.get(`https://${config.apiHost}/applications/reference/${caseReference}`)
 			.json();
 
@@ -25,9 +25,12 @@ async function getCaseID(caseReference) {
  */
 async function postRepresentation(caseId, representation) {
 	try {
-		return gotInstance.post(`https://${config.apiHost}/applications/${caseId}/representations`, {
-			json: representation
-		});
+		return requestWithApiKey.post(
+			`https://${config.apiHost}/applications/${caseId}/representations`,
+			{
+				json: representation
+			}
+		);
 	} catch (err) {
 		throw new Error(`postRepresentation failed for caseId ${caseId} with error: ${err}`);
 	}

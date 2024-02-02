@@ -18,6 +18,18 @@ router.get(
 			required: true,
 			type: 'integer'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'List of Key Dates',
             schema: { $ref: '#/definitions/ApplicationKeyDates' }
@@ -44,6 +56,18 @@ router.patch(
 			description: 'Key Dates update parameters',
 			schema: { $ref: '#/definitions/ApplicationKeyDates' },
 			required: true
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'New updated Key Dates for the entire project',

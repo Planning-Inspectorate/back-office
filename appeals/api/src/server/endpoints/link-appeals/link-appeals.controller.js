@@ -1,5 +1,5 @@
 import appealRepository from '#repositories/appeal.repository.js';
-import { isAppealLinked } from './link-appeals.service.js';
+import { canLinkAppeals } from './link-appeals.service.js';
 import { ERROR_LINKING_APPEALS } from '#endpoints/constants.js';
 
 /** @typedef {import('express').Request} Request */
@@ -13,10 +13,16 @@ import { ERROR_LINKING_APPEALS } from '#endpoints/constants.js';
 export const linkAppeal = async (req, res) => {
 	const { linkedAppealId, isCurrentAppealParent } = req.body;
 	const currentAppeal = req.appeal;
-	const appealToLink = await appealRepository.getAppealById(Number(linkedAppealId));
+	const linkedAppeal = await appealRepository.getAppealById(Number(linkedAppealId));
 
-	if (appealToLink) {
-		if (isAppealLinked(currentAppeal) || isAppealLinked(appealToLink)) {
+	if (linkedAppeal) {
+		const currentAppealType = isCurrentAppealParent ? 'lead' : 'child';
+		const linkedAppealType = !isCurrentAppealParent ? 'lead' : 'child';
+
+		if (
+			!canLinkAppeals(currentAppeal, currentAppealType) ||
+			!canLinkAppeals(linkedAppeal, linkedAppealType)
+		) {
 			return res.status(400).send({
 				errors: {
 					body: ERROR_LINKING_APPEALS
@@ -28,12 +34,12 @@ export const linkAppeal = async (req, res) => {
 			? {
 					parentId: currentAppeal.id,
 					parentRef: currentAppeal.reference,
-					childId: appealToLink.id,
-					childRef: appealToLink.reference
+					childId: linkedAppeal.id,
+					childRef: linkedAppeal.reference
 			  }
 			: {
-					parentId: appealToLink.id,
-					parentRef: appealToLink.reference,
+					parentId: linkedAppeal.id,
+					parentRef: linkedAppeal.reference,
 					childId: currentAppeal.id,
 					childRef: currentAppeal.reference
 			  };
@@ -53,8 +59,8 @@ export const linkAppeal = async (req, res) => {
 export const linkExternalAppeal = async (req, res) => {
 	const { isCurrentAppealParent, linkedAppealReference } = req.body;
 	const currentAppeal = req.appeal;
-
-	if (isAppealLinked(currentAppeal)) {
+	const currentAppealType = isCurrentAppealParent ? 'lead' : 'child';
+	if (!canLinkAppeals(currentAppeal, currentAppealType)) {
 		return res.status(400).send({
 			errors: {
 				body: ERROR_LINKING_APPEALS

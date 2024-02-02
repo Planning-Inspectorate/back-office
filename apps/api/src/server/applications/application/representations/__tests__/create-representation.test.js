@@ -179,7 +179,7 @@ describe('Create Representation', () => {
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			1,
 			NSIP_REPRESENTATION,
-			rep1CreateMsgPayload,
+			[rep1CreateMsgPayload],
 			EventType.Create
 		);
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(2, SERVICE_USER, [], EventType.Create, {
@@ -217,7 +217,7 @@ describe('Create Representation', () => {
 			originalRepresentation: 'This is a rep',
 			represented: {
 				firstName: 'Joe',
-				lastName: 'Bloggs',
+				lastName: '',
 				under18: true,
 				address: {
 					addressLine1: 'Test Address'
@@ -248,7 +248,7 @@ describe('Create Representation', () => {
 				represented: {
 					create: {
 						firstName: 'Joe',
-						lastName: 'Bloggs',
+						lastName: '',
 						under18: true,
 						address: {
 							create: {
@@ -283,7 +283,7 @@ describe('Create Representation', () => {
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			3,
 			NSIP_REPRESENTATION,
-			rep1CreateMsgPayloadWithUsers,
+			[rep1CreateMsgPayloadWithUsers],
 			EventType.Create
 		);
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
@@ -305,6 +305,7 @@ describe('Create Representation', () => {
 			received: '2023-05-11T09:57:06.139Z',
 			originalRepresentation: 'This is a rep',
 			represented: {
+				firstName: '',
 				lastName: 'Bloggs'
 			}
 		});

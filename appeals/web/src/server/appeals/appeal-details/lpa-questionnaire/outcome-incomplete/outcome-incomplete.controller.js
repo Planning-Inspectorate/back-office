@@ -6,9 +6,10 @@ import {
 } from '../lpa-questionnaire.mapper.js';
 import { getLPAQuestionnaireIncompleteReasonOptions } from '../lpa-questionnaire.service.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
-import { webDateToDisplayDate, dateToDisplayDate } from '#lib/dates.js';
+import { dateToDisplayDate } from '#lib/dates.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { getNotValidReasonsTextFromRequestBody } from '#lib/mappers/validation-outcome-reasons.mapper.js';
+import { decisionIncompleteConfirmationPage } from './outcome-incomplete.mapper.js';
 
 /**
  *
@@ -24,11 +25,14 @@ const renderIncompleteReason = async (request, response) => {
 
 	const { appealId, appealReference, lpaQuestionnaireId } = session;
 
-	const lpaQuestionnaireResponse = await lpaQuestionnaireService.getLpaQuestionnaireFromId(
-		request.apiClient,
-		appealId,
-		lpaQuestionnaireId
-	);
+	const [lpaQuestionnaireResponse, incompleteReasonOptions] = await Promise.all([
+		lpaQuestionnaireService.getLpaQuestionnaireFromId(
+			request.apiClient,
+			appealId,
+			lpaQuestionnaireId
+		),
+		getLPAQuestionnaireIncompleteReasonOptions(request.apiClient)
+	]);
 
 	if (!lpaQuestionnaireResponse) {
 		return response.render('app/404.njk');
@@ -42,10 +46,6 @@ const renderIncompleteReason = async (request, response) => {
 	) {
 		delete session.webLPAQuestionnaireReviewOutcome;
 	}
-
-	const incompleteReasonOptions = await getLPAQuestionnaireIncompleteReasonOptions(
-		request.apiClient
-	);
 
 	if (incompleteReasonOptions) {
 		const mappedIncompleteReasonOptions = mapIncompleteReasonOptionsToCheckboxItemParameters(
@@ -112,43 +112,13 @@ export const renderDecisionIncompleteConfirmationPage = async (request, response
 	}
 
 	const { appealId, appealReference } = request.session;
+	const mappedPageContent = decisionIncompleteConfirmationPage(
+		appealId,
+		appealReference,
+		request.session.lpaQuestionnaireUpdatedDueDate
+	);
 
-	const rows = [
-		{
-			text: 'We’ve sent an email to the appellant and LPA to confirm their questionnaire is incomplete, and let them know what to do to complete it.'
-		}
-	];
-
-	if (request.session.lpaQuestionnaireUpdatedDueDate) {
-		rows.push({
-			text: `We also let them know the due date has changed to the ${webDateToDisplayDate(
-				request.session.lpaQuestionnaireUpdatedDueDate
-			)}.`
-		});
-	}
-
-	rows.push({
-		text: 'Go to case details',
-		// @ts-ignore
-		href: `/appeals-service/appeal-details/${appealId}`
-	});
-
-	response.render('appeals/confirmation.njk', {
-		panel: {
-			title: 'LPA questionnaire incomplete',
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			}
-		},
-		body: {
-			preHeading: 'The review of LPA questionnaire is finished.',
-			title: {
-				text: 'What happens next'
-			},
-			rows
-		}
-	});
+	response.render('appeals/confirmation.njk', mappedPageContent);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
@@ -220,7 +190,6 @@ export const postUpdateDueDate = async (request, response) => {
 	}
 
 	const { appealId, lpaQuestionnaireId } = request.session;
-
 	const { body } = request;
 
 	if (!objectContainsAllKeys(body, ['due-date-day', 'due-date-month', 'due-date-year'])) {

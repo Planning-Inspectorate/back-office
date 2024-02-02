@@ -106,6 +106,19 @@ describe('appeal-details', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should render a Decision inset panel when the appealStatus is complete', async () => {
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, { ...appealData, appealStatus: 'complete' });
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 	});
 
 	it('should not render a back button', async () => {

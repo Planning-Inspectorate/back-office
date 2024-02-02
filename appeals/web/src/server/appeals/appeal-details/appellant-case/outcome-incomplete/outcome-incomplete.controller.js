@@ -5,6 +5,7 @@ import {
 } from '../appellant-case.mapper.js';
 import * as appealDetailsService from '../../appeal-details.service.js';
 import * as appellantCaseService from '../appellant-case.service.js';
+import { decisionIncompleteConfirmationPage } from './outcome-incomplete.mapper.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { getNotValidReasonsTextFromRequestBody } from '#lib/mappers/validation-outcome-reasons.mapper.js';
@@ -35,13 +36,19 @@ const renderIncompleteReason = async (request, response) => {
 		return response.render('app/404.njk');
 	}
 
-	const appellantCaseResponse = await appellantCaseService
-		.getAppellantCaseFromAppealId(
+	const [appellantCaseResponse, incompleteReasonOptions] = await Promise.all([
+		appellantCaseService
+			.getAppellantCaseFromAppealId(
+				request.apiClient,
+				appealDetails.appealId,
+				appealDetails.appellantCaseId
+			)
+			.catch((error) => logger.error(error)),
+		appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
 			request.apiClient,
-			appealDetails.appealId,
-			appealDetails.appellantCaseId
+			'incomplete'
 		)
-		.catch((error) => logger.error(error));
+	]);
 
 	if (!appellantCaseResponse) {
 		return response.render('app/404.njk');
@@ -56,11 +63,6 @@ const renderIncompleteReason = async (request, response) => {
 	}
 
 	const { webAppellantCaseReviewOutcome } = request.session;
-	const incompleteReasonOptions =
-		await appellantCaseService.getAppellantCaseNotValidReasonOptionsForOutcome(
-			request.apiClient,
-			'incomplete'
-		);
 
 	if (incompleteReasonOptions) {
 		const mappedIncompleteReasonOptions =
@@ -119,34 +121,9 @@ const renderDecisionIncompleteConfirmationPage = async (request, response) => {
 	}
 
 	const { appealId, appealReference } = request.session;
+	const mappedPageContent = decisionIncompleteConfirmationPage(appealId, appealReference);
 
-	response.render('appeals/confirmation.njk', {
-		panel: {
-			title: 'Appeal incomplete',
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			}
-		},
-		body: {
-			preHeading: 'The appeal has been reviewed.',
-			title: {
-				text: 'What happens next'
-			},
-			rows: [
-				{
-					text: 'We’ve sent an email to the appellant and LPA to inform the case is incomplete, and let them know what to do next.'
-				},
-				{
-					text: 'We also sent them a reminder about the appeal’s due date.'
-				},
-				{
-					text: 'Go to case details',
-					href: `/appeals-service/appeal-details/${appealId}`
-				}
-			]
-		}
-	});
+	response.render('appeals/confirmation.njk', mappedPageContent);
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */

@@ -88,7 +88,7 @@ export const appealData = {
 		folderId: 123,
 		outcome: 'dismissed',
 		documentId: 'e1e90a49-fab3-44b8-a21a-bb73af089f6b',
-		letterDate: '2023-12-25T00:00:00.000Z'
+		letterDate: new Date('2023-12-25T00:00:00.000Z')
 	},
 	healthAndSafety: {
 		appellantCase: {
@@ -917,7 +917,7 @@ export const inspectorDecisionData = {
 export const activeDirectoryUsersData = [
 	{
 		'@odata.type': '#microsoft.graph.user',
-		id: '1',
+		id: '923ac03b-9031-4cf4-8b17-348c274321f9',
 		name: 'Smith, John',
 		email: 'John.Smith@planninginspectorate.gov.uk'
 	},

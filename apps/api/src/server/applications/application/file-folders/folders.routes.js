@@ -29,6 +29,18 @@ router.get(
           required: false,
           type: 'boolean'
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'IDs of application',
             schema: [ { id: 1, displayNameEn: 'Post-decision', displayOrder: 1100 } ]
@@ -55,6 +67,18 @@ router.get(
 			description: 'Id of current folder',
 			required: true,
 			type: 'integer'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'IDs of application',
@@ -84,6 +108,18 @@ router.get(
 			required: true,
 			type: 'integer'
 		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'IDs of application',
             schema: { id: 1, displayNameEn: 'Post-decision', displayOrder: 1100 }
@@ -111,6 +147,18 @@ router.get(
 			description: 'Id of current folder',
 			required: true,
 			type: 'integer'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'IDs of application',
@@ -147,6 +195,18 @@ router.post(
 			description: 'document pagination parameters',
 			schema: { $ref: '#/definitions/PaginationRequestBody' },
 			required: true
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
 		}
         #swagger.responses[200] = {
             description: 'An paginated data set of documents and their properties',

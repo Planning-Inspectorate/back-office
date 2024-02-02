@@ -73,6 +73,18 @@ router.patch(
             description: 'Document status updated',
             schema: { caseId: 1, guid: 'a1b2c4d4-7ce5-410c-937e-28926dd7ab24', status: 'awaiting_virus_check'}
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
 	 */
 	validateDocumentGUID,
 	validateMachineAction,
@@ -100,6 +112,18 @@ router.post(
             description: 'HTML string does not contain a YouTube iframe',
             schema: { $ref: '#/definitions/DocumentBadHTMLResponse' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
 	 */
 	asyncHandler(processHTMLForYouTube)
 );

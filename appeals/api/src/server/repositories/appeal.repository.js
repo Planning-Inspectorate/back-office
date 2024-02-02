@@ -83,7 +83,7 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm, status, hasInspector) =
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize
 		}),
-		getAppealsStatusesInNationalList(where)
+		getAppealsStatusesInNationalList(searchTerm, hasInspector)
 	]);
 };
 
@@ -169,7 +169,7 @@ const getAppealsStatusesInPersonalList = (userId) => {
 	const where = {
 		AND: {
 			appealStatus: {
-				some: { valid: true, status: { not: STATE_TARGET_COMPLETE } }
+				some: { valid: true, status: { notIn: [STATE_TARGET_COMPLETE, STATE_TARGET_CLOSED] } }
 			}
 		},
 		...(userId !== 'undefined' && {
@@ -196,9 +196,37 @@ const getAppealsStatusesInPersonalList = (userId) => {
 };
 
 /**
- * @param {object} where
+ * @param {string} searchTerm
+ * @param {string} hasInspector
  */
-const getAppealsStatusesInNationalList = (where) => {
+const getAppealsStatusesInNationalList = (searchTerm, hasInspector) => {
+	const where = {
+		...(searchTerm !== 'undefined' && {
+			OR: [
+				{
+					reference: {
+						contains: searchTerm
+					}
+				},
+				{
+					address: {
+						postcode: {
+							contains: searchTerm
+						}
+					}
+				}
+			]
+		}),
+		...(hasInspector === 'true' && {
+			inspectorUserId: {
+				not: null
+			}
+		}),
+		...(hasInspector === 'false' && {
+			inspectorUserId: null
+		})
+	};
+
 	return databaseConnector.appeal.findMany({
 		where,
 		select: {

@@ -56,11 +56,13 @@ export const postAppealType = async (request, response) => {
  */
 const renderAppealType = async (request, response) => {
 	const { errors } = request;
-
 	const appealId = request.params.appealId;
-	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	const appealTypes = await getAppealTypesFromId(request.apiClient, appealId);
+	const [appealData, appealTypes] = await Promise.all([
+		getAppealDetailsFromId(request.apiClient, appealId),
+		getAppealTypesFromId(request.apiClient, appealId)
+	]);
+
 	if (!appealTypes) {
 		throw new Error('error retrieving Appeal Types');
 	}
@@ -72,7 +74,7 @@ const renderAppealType = async (request, response) => {
 		request.session.changeAppealType = {};
 	}
 
-	const mappedPageContent = await appealTypePage(
+	const mappedPageContent = appealTypePage(
 		appealData,
 		appealTypes,
 		request.session.changeAppealType
@@ -132,7 +134,7 @@ const renderResubmitAppeal = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	const mappedPageContent = await resubmitAppealPage(appealData, request.session.changeAppealType);
+	const mappedPageContent = resubmitAppealPage(appealData, request.session.changeAppealType);
 
 	return response.render('appeals/appeal/issue-decision.njk', {
 		pageContent: mappedPageContent,
@@ -205,7 +207,7 @@ const renderChangeAppealFinalDate = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	const mappedPageContent = await changeAppealFinalDatePage(
+	const mappedPageContent = changeAppealFinalDatePage(
 		appealData,
 		changeDay,
 		changeMonth,
@@ -226,6 +228,6 @@ export const getConfirmResubmit = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	const mappedPageContent = await resubmitConfirmationPage(appealData);
+	const mappedPageContent = resubmitConfirmationPage(appealData);
 	return response.render('appeals/confirmation.njk', mappedPageContent);
 };
