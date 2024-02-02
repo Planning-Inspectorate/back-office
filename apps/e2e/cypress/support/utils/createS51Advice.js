@@ -16,7 +16,7 @@ export const s51AdviceDetails = () => {
 
 	const year = new Date().getFullYear();
 	var todaydate = new Date();
-    var mon = todaydate.getMonth()+1;
+    var mon = todaydate.getMonth();
     var month=mon.toString().padStart(2,'0');
 	const day = new Date().getDay().toString().padStart(2, '0');
 
