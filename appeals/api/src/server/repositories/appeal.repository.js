@@ -519,7 +519,7 @@ const unlinkAppeal = async (appealId, linkedAppealReference) => {
  * @param {number[]} linkedAppealIds
  * @returns {Promise<RepositoryGetAllResultItem[]>}
  */
-const getAppeaslByIds = async (linkedAppealIds) => {
+const getAppealsByIds = async (linkedAppealIds) => {
 	if (!Array.isArray(linkedAppealIds) || linkedAppealIds.length === 0) {
 		return [];
 	}
@@ -553,5 +553,5 @@ export default {
 	setInvalidAppealDecision,
 	linkAppeal,
 	unlinkAppeal,
-	getAppeaslByIds
+	getAppealsByIds
 };

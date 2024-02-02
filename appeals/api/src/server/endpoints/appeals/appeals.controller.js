@@ -153,7 +153,7 @@ const getAppealById = async (req, res) => {
 	let formattedAppealWithLinkedTypes;
 	if (appeal.linkedAppeals) {
 		const linkedAppealIds = getRelevantLinkedAppealIds(appeal.linkedAppeals, appeal.reference);
-		formattedAppealWithLinkedTypes = await appealRepository.getAppeaslByIds(linkedAppealIds);
+		formattedAppealWithLinkedTypes = await appealRepository.getAppealsByIds(linkedAppealIds);
 	}
 
 	const formattedAppeal = formatAppeal(
