@@ -17,7 +17,8 @@ export const SECTORS = [
 	'Transport',
 	'Waste',
 	'Waste Water',
-	'Water'
+	'Water',
+	'Training'
 ];
 
 export const SUBSECTORS = {
@@ -50,7 +51,8 @@ export const SUBSECTORS = {
 	],
 	Water: ['Dams and Reservoirs', 'Transfer of Water Resources'],
 	Waste: ['Hazardous Waste Facilities'],
-	'Waste Water': ['Waste Water Treatment Plants']
+	'Waste Water': ['Waste Water Treatment Plants'],
+	Training: ['Training']
 };
 
 export const ZOOM_LEVELS = [
