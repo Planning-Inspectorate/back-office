@@ -16,6 +16,7 @@
         "@azure/functions": "^1.2.2",
 		"@azure/identity": "3.0.1",
 		"@pins/add-auth-headers-for-backend": "^0.0.0",
+        "@pins/applications": "^0.0.0",
         "@pins/blob-storage-client": "^0.0.0",
         "@pins/platform": "^0.0.0",
 		"@pins/event-client": "^0.0.0",
