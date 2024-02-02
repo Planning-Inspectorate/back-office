@@ -515,6 +515,36 @@ const unlinkAppeal = async (appealId, linkedAppealReference) => {
 	});
 };
 
+/**
+ * @param {number[]} linkedAppealIds
+ * @returns {Promise<RepositoryGetAllResultItem[]>}
+ */
+const getAppeaslByIds = async (linkedAppealIds) => {
+	console.log('getAppeaslByIds ', JSON.stringify(linkedAppealIds));
+
+	if (!Array.isArray(linkedAppealIds) || linkedAppealIds.length === 0) {
+		return [];
+	}
+
+	const where = {
+		id: {
+			in: linkedAppealIds
+		}
+	};
+
+	const appeals = await databaseConnector.appeal.findMany({
+		where,
+		include: {
+			address: true,
+			appealStatus: true,
+			appealType: true,
+			lpa: true
+		}
+	});
+
+	return appeals;
+};
+
 export default {
 	getLinkedAppeals,
 	getAppealById,
@@ -524,5 +554,6 @@ export default {
 	setAppealDecision,
 	setInvalidAppealDecision,
 	linkAppeal,
-	unlinkAppeal
+	unlinkAppeal,
+	getAppeaslByIds
 };

@@ -95,9 +95,16 @@ const formatMyAppeals = (appeal, linkedAppeals) => ({
  * @param {Folder[]} folders
  * @param {{ transferredAppealType: string, transferredAppealReference: string} | null} transferAppealTypeInfo
  * @param {Date | null} completionDate
+ * @param { RepositoryGetAllResultItem[] | null} formattedAppealWithLinkedTypes
  * @returns {SingleAppealDetailsResponse | void}}
  */
-const formatAppeal = (appeal, folders, transferAppealTypeInfo = null, completionDate = null) => {
+const formatAppeal = (
+	appeal,
+	folders,
+	transferAppealTypeInfo = null,
+	completionDate = null,
+	formattedAppealWithLinkedTypes = null
+) => {
 	if (appeal) {
 		const formattedAppeal = {
 			...(appeal.agent && {
@@ -172,7 +179,11 @@ const formatAppeal = (appeal, folders, transferAppealTypeInfo = null, completion
 				}
 			},
 			otherAppeals: [],
-			linkedAppeals: formatLinkedAppeals(appeal.linkedAppeals || [], appeal.reference),
+			linkedAppeals: formatLinkedAppeals(
+				appeal.linkedAppeals || [],
+				appeal.reference,
+				formattedAppealWithLinkedTypes
+			),
 			isParentAppeal:
 				(appeal.linkedAppeals || []).filter((link) => link.parentRef === appeal.reference).length >
 				0,
@@ -277,4 +288,28 @@ export const mapAppealToDueDate = (appeal, appellantCaseStatus, appellantCaseDue
 	}
 };
 
-export { formatAppeal, formatAppeals, formatMyAppeals };
+/**
+ * @param {AppealRelationship[]} linkedAppeals
+ * @param {string} currentAppealRef
+ * @returns {number[]}
+ */
+const getRelevantLinkedAppealIds = (linkedAppeals, currentAppealRef) => {
+	const isParentAppeal = linkedAppeals.some((link) => link.parentRef === currentAppealRef);
+
+	console.log('getRelevantLinkedAppealIds', JSON.stringify(linkedAppeals));
+
+	let relevantIds = linkedAppeals
+		.filter(
+			(linkedAppeal) =>
+				(isParentAppeal
+					? linkedAppeal.parentRef === currentAppealRef
+					: linkedAppeal.childRef === currentAppealRef) &&
+				linkedAppeal.childId !== null &&
+				linkedAppeal.parentId !== null
+		)
+		.map((linkedApp) => (isParentAppeal ? Number(linkedApp.childId) : Number(linkedApp.parentId)));
+
+	return relevantIds.filter((id, index, self) => self.indexOf(id) === index);
+};
+
+export { formatAppeal, formatAppeals, formatMyAppeals, getRelevantLinkedAppealIds };
