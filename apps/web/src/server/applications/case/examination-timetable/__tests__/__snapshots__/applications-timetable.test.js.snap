@@ -534,6 +534,8 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                         </div>
                     </fieldset>
                 </div>
+                <div class=\\"govuk-inset-text\\">The portal for this deadline will open when the previous one closes or
+                    on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
                     <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
@@ -1919,6 +1921,8 @@ exports[`Create examination timetable page should display errors if start date a
                         </div>
                     </fieldset>
                 </div>
+                <div class=\\"govuk-inset-text\\">The portal for this deadline will open when the previous one closes or
+                    on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
                     <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
@@ -2077,6 +2081,8 @@ exports[`Create examination timetable page should display errors if start time a
                         </div>
                     </fieldset>
                 </div>
+                <div class=\\"govuk-inset-text\\">The portal for this deadline will open when the previous one closes or
+                    on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
                     <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
@@ -2328,6 +2334,8 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                         </div>
                     </fieldset>
                 </div>
+                <div class=\\"govuk-inset-text\\">The portal for this deadline will open when the previous one closes or
+                    on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
                     <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>

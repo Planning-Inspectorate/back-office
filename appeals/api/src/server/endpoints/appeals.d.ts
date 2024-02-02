@@ -36,6 +36,7 @@ interface LinkedAppeal {
 	appealReference: string;
 	isParentAppeal: boolean;
 	linkingDate: Date;
+	appealType?: string;
 }
 
 interface AppealSite {

@@ -25,7 +25,12 @@ import {
 	STATE_TARGET_AWAITING_TRANSFER,
 	STATE_TARGET_COMPLETE
 } from '../constants.js';
-import { formatAppeal, formatAppeals, formatMyAppeals } from './appeals.formatter.js';
+import {
+	formatAppeal,
+	formatAppeals,
+	formatMyAppeals,
+	getRelevantLinkedAppealIds
+} from './appeals.formatter.js';
 import { assignUser, assignedUserType } from './appeals.service.js';
 import transitionState from '#state/transition-state.js';
 import { getDocumentById } from '#repositories/document.repository.js';
@@ -145,7 +150,19 @@ const getAppealById = async (req, res) => {
 		decisionDate = document?.latestDocumentVersion?.dateReceived;
 	}
 
-	const formattedAppeal = formatAppeal(appeal, folders, transferAppealTypeInfo, decisionDate);
+	let formattedAppealWithLinkedTypes;
+	if (appeal.linkedAppeals) {
+		const linkedAppealIds = getRelevantLinkedAppealIds(appeal.linkedAppeals, appeal.reference);
+		formattedAppealWithLinkedTypes = await appealRepository.getAppealsByIds(linkedAppealIds);
+	}
+
+	const formattedAppeal = formatAppeal(
+		appeal,
+		folders,
+		transferAppealTypeInfo,
+		decisionDate,
+		formattedAppealWithLinkedTypes
+	);
 	return res.send(formattedAppeal);
 };
 
