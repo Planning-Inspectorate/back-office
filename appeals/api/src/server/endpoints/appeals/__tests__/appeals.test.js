@@ -22,7 +22,7 @@ import { azureAdUserId } from '#tests/shared/mocks.js';
 import { householdAppeal, fullPlanningAppeal, linkedAppeals } from '#tests/appeals/mocks.js';
 import formatAddress from '#utils/format-address.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
-import { mapAppealToDueDate } from '../appeals.formatter.js';
+import { getRelevantLinkedAppealIds, mapAppealToDueDate } from '../appeals.formatter.js';
 import { mapAppealStatuses } from '../appeals.controller.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -746,7 +746,8 @@ describe('appeals routes', () => {
 						return {
 							appealReference: a.childRef,
 							isParentAppeal: false,
-							linkingDate: a.linkingDate
+							linkingDate: a.linkingDate,
+							appealType: 'Unknown'
 						};
 					}),
 					otherAppeals: [],
@@ -1463,5 +1464,94 @@ describe('mapAppealStatuses Tests', () => {
 
 		const orderedStatuses = mapAppealStatuses(preSortedStatuses);
 		expect(orderedStatuses).toEqual(expectedOrder);
+	});
+});
+
+describe('getRelevantLinkedAppealIds Tests', () => {
+	const linkedAppeals = [
+		{
+			id: 1,
+			parentRef: 'TEST/396994',
+			childRef: 'TEST/100071',
+			parentId: 1027,
+			childId: 1028,
+			linkingDate: new Date('2024-01-30T13:44:39.655Z')
+		},
+		{
+			id: 2,
+			parentRef: 'TEST/396994',
+			childRef: 'TEST/123813',
+			parentId: 1027,
+			childId: 1029,
+			linkingDate: new Date('2024-01-30T13:44:39.655Z')
+		},
+		{
+			id: 3,
+			parentRef: 'TEST/396994',
+			childRef: 'TEST/864955',
+			parentId: 1027,
+			childId: 1043,
+			linkingDate: new Date('2024-01-30T13:44:39.655Z')
+		},
+		{
+			id: 4,
+			parentRef: 'TEST/396994',
+			childRef: 'HORIZON-76215416',
+			parentId: 1027,
+			childId: null,
+			linkingDate: new Date('2024-01-30T13:44:39.655Z')
+		}
+	];
+
+	test('should return correct child IDs when current appeal is a parent', () => {
+		const currentAppealRef = 'TEST/396994';
+		const result = getRelevantLinkedAppealIds(linkedAppeals, currentAppealRef);
+		expect(result).toEqual([1028, 1029, 1043]);
+	});
+
+	test('should return correct parent ID when current appeal is a child', () => {
+		const currentAppealRef = 'TEST/100071';
+		const result = getRelevantLinkedAppealIds(linkedAppeals, currentAppealRef);
+		expect(result).toEqual([1027]);
+	});
+
+	test('should return an empty array when there are no linked appeals', () => {
+		const currentAppealRef = 'TEST/999999';
+		const result = getRelevantLinkedAppealIds(linkedAppeals, currentAppealRef);
+		expect(result).toEqual([]);
+	});
+
+	test('should exclude linked appeals with null child IDs', () => {
+		const linkedAppealsWithNullChildId = [
+			...linkedAppeals,
+			{
+				id: 5,
+				parentRef: 'TEST/396994',
+				childRef: 'TEST/100071',
+				parentId: 1027,
+				childId: null,
+				linkingDate: new Date('2024-01-30T13:44:39.655Z')
+			}
+		];
+		const currentAppealRef = 'TEST/396994';
+		const result = getRelevantLinkedAppealIds(linkedAppealsWithNullChildId, currentAppealRef);
+		expect(result).toEqual([1028, 1029, 1043]);
+	});
+
+	test('should exclude duplicate row ids in the output', () => {
+		const linkedAppealsWithDuplucate = [
+			...linkedAppeals,
+			{
+				id: 5,
+				parentRef: 'TEST/396994',
+				childRef: 'TEST/100071',
+				parentId: 1027,
+				childId: 1028,
+				linkingDate: new Date('2024-01-30T13:44:39.655Z')
+			}
+		];
+		const currentAppealRef = 'TEST/396994';
+		const result = getRelevantLinkedAppealIds(linkedAppealsWithDuplucate, currentAppealRef);
+		expect(result).toEqual([1028, 1029, 1043]);
 	});
 });
