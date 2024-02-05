@@ -5,7 +5,10 @@ import { isDefined } from '#lib/ts-utilities.js';
 import { removeActions } from '#lib/mappers/mapper-utilities.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
-import { mapDocumentDownloadUrl } from '#appeals/appeal-documents/appeal-documents.mapper.js';
+import {
+	mapDocumentDownloadUrl,
+	mapVirusCheckStatus
+} from '#appeals/appeal-documents/appeal-documents.mapper.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 export const pageHeading = 'Case details';
@@ -216,29 +219,52 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 
 	const statusTagComponentGroup = statusTag ? [statusTag] : [];
 	const isAppealComplete = appealDetails.appealStatus === 'complete';
-	if (isAppealComplete && statusTagComponentGroup.length > 0) {
+	if (isAppealComplete && statusTagComponentGroup.length > 0 && appealDetails.decision.documentId) {
 		const letterDate = appealDetails.decision?.letterDate
 			? new Date(appealDetails.decision.letterDate)
 			: new Date();
 
+		const virusCheckStatus = mapVirusCheckStatus(
+			appealDetails.decision.virusCheckStatus || 'not_checked'
+		);
 		const letterDownloadUrl = appealDetails.decision?.documentId
 			? mapDocumentDownloadUrl(appealDetails.appealId, appealDetails.decision?.documentId)
 			: '#';
 
-		statusTagComponentGroup.push({
-			type: 'inset-text',
-			parameters: {
-				html: `<p>
-					Appeal completed: ${letterDate.toLocaleDateString('en-gb', {
-						day: 'numeric',
-						month: 'long',
-						year: 'numeric'
-					})}
-						</p>
-						<p>Decision: ${appealDetails.decision?.outcome}</p>
-						<p><a class="govuk-link" target="_blank" href="${letterDownloadUrl}">View decision letter</a></p>`
-			}
-		});
+		if (virusCheckStatus.checked && virusCheckStatus.safe) {
+			statusTagComponentGroup.push({
+				type: 'inset-text',
+				parameters: {
+					html: `<p>
+						Appeal completed: ${letterDate.toLocaleDateString('en-gb', {
+							day: 'numeric',
+							month: 'long',
+							year: 'numeric'
+						})}
+							</p>
+							<p>Decision: ${appealDetails.decision?.outcome}</p>
+							<p><a class="govuk-link" target="_blank" href="${letterDownloadUrl}">View decision letter</a></p>`
+				}
+			});
+		} else {
+			statusTagComponentGroup.push({
+				type: 'inset-text',
+				parameters: {
+					html: `<p>
+						Appeal completed: ${letterDate.toLocaleDateString('en-gb', {
+							day: 'numeric',
+							month: 'long',
+							year: 'numeric'
+						})}
+							</p>
+							<p>Decision: ${appealDetails.decision?.outcome}</p>
+							<p><span class="govuk-body">View decision letter</span>
+							<strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></p>`
+				}
+			});
+		}
+
+		shortAppealReference;
 	}
 
 	const pageComponents = [

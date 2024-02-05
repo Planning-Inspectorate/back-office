@@ -141,13 +141,18 @@ const getAppealById = async (req, res) => {
 		}
 	}
 
-	let decisionDate;
+	let decisionInfo;
 	if (
 		appeal.appealStatus[0].status === STATE_TARGET_COMPLETE &&
 		appeal.inspectorDecision?.decisionLetterGuid
 	) {
 		const document = await getDocumentById(appeal.inspectorDecision.decisionLetterGuid);
-		decisionDate = document?.latestDocumentVersion?.dateReceived;
+		if (document && document.latestDocumentVersion) {
+			decisionInfo = {
+				letterDate: document.latestDocumentVersion.dateReceived,
+				virusCheckStatus: document.latestDocumentVersion.virusCheckStatus
+			};
+		}
 	}
 
 	let formattedAppealWithLinkedTypes;
@@ -160,7 +165,7 @@ const getAppealById = async (req, res) => {
 		appeal,
 		folders,
 		transferAppealTypeInfo,
-		decisionDate,
+		decisionInfo,
 		formattedAppealWithLinkedTypes
 	);
 	return res.send(formattedAppeal);
