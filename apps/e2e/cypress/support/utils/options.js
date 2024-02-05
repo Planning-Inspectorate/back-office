@@ -22,7 +22,7 @@ export const SECTORS = [
 ];
 
 export const SUBSECTORS = {
-	'Business and Commercial': [
+	"Business and Commercial": [
 		'Office Use',
 		'Research and Development of Products or Processes',
 		'An Industrial Process or Processes',
@@ -51,7 +51,7 @@ export const SUBSECTORS = {
 	],
 	Water: ['Dams and Reservoirs', 'Transfer of Water Resources'],
 	Waste: ['Hazardous Waste Facilities'],
-	'Waste Water': ['Waste Water Treatment Plants'],
+	"Waste Water": ['Waste Water Treatment Plants'],
 	Training: ['Training']
 };
 
