@@ -1,4 +1,5 @@
 export * from './http/hooks.js';
+export * from './http/retry.js';
 export * from './testing/assets/assets.js';
 export * from './testing/fake.js';
 export * from './testing/html-parser.js';

@@ -40,6 +40,10 @@ export default baseSchema
 		serverProtocol: joi.string().valid('http', 'https'),
 		serverPort: joi.number(),
 		disableRedis: joi.boolean().optional(),
+		retry: joi.object({
+			maxAttempts: joi.number(),
+			statusCodes: joi.string()
+		}),
 		session: joi
 			.object({
 				// ...env means `.env` property of the parent object

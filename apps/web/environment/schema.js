@@ -27,6 +27,10 @@ export default baseSchema
 		blobStorageUrl: joi.string(),
 		logLevelFile: joi.string().valid(...logLevel),
 		logLevelStdOut: joi.string().valid(...logLevel),
+		retry: joi.object({
+			maxAttempts: joi.number(),
+			statusCodes: joi.string()
+		}),
 		msal: joi
 			.object({
 				authority: joi.string(),

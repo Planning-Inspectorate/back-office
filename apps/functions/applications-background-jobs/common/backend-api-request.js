@@ -1,12 +1,13 @@
 import { addAuthHeadersForBackend } from '@pins/add-auth-headers-for-backend';
+import { createHttpRetryParams } from '@pins/platform';
 import got from 'got';
+import config from '@pins/appeals.web/environment/config.js';
+
+const retryParams = createHttpRetryParams(config.retry);
 
 const serviceName = 'function';
 export const requestWithApiKey = got.extend({
-	retry: {
-		limit: 3,
-		statusCodes: [500, 502, 503, 504]
-	},
+	retry: retryParams,
 	hooks: {
 		beforeRequest: [
 			async (options) =>

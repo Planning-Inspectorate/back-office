@@ -42,6 +42,10 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 		redirectUri: string;
 		logoutUri: string;
 	};
+	retry: {
+		maxAttempts: number;
+		statusCodes: string;
+	};
 	serverProtocol: 'http' | 'https';
 	serverPort: number;
 	disableRedis: boolean;

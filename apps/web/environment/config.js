@@ -48,7 +48,9 @@ export function loadConfig() {
 		DISABLE_REDIS,
 		SESSION_SECRET,
 		SSL_CERT_FILE,
-		SSL_KEY_FILE
+		SSL_KEY_FILE,
+		RETRY_MAX_ATTEMPTS,
+		RETRY_STATUS_CODES
 	} = environment;
 
 	const config = {
@@ -75,6 +77,10 @@ export function loadConfig() {
 		session: {
 			redis: REDIS_CONNECTION_STRING,
 			secret: SESSION_SECRET
+		},
+		retry: {
+			maxAttempts: RETRY_MAX_ATTEMPTS,
+			statusCodes: RETRY_STATUS_CODES
 		},
 		disableRedis: DISABLE_REDIS === 'true',
 		sslCertificateFile: SSL_CERT_FILE,
