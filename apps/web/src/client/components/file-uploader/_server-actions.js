@@ -277,25 +277,21 @@ const serverActions = (uploadForm) => {
 		blobStorageClient,
 		privateBlobContainer
 	) => {
-		let response;
-
 		try {
 			// todo: remove the initial / from backend
-			await blobStorageClient.uploadFile(
+			return await blobStorageClient.uploadFile(
 				privateBlobContainer,
 				fileToUpload,
 				blobStoreUrl.slice(1),
 				fileToUpload.type
 			);
 		} catch {
-			response = {
+			return {
 				message: 'GENERIC_SINGLE_FILE',
 				fileRowId: fileToUpload.fileRowId || '',
 				name: fileToUpload.name
 			};
 		}
-
-		return response;
 	};
 
 	return {

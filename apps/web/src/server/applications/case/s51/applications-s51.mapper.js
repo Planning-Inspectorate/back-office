@@ -22,7 +22,7 @@ export const getIntegerRequestQuery = ({ number, size }, defaultPageSize) => {
 /**
  * Transform ApplicationsS51UpdatePayload to ApplicationsS51UpdateBody
  *
- * @param {S51Advice} payload
+ * @param {S51Advice | any} payload
  * @returns {ApplicationsS51UpdateBody}
  * */
 export const mapS51AdviceToPage = (payload) => {

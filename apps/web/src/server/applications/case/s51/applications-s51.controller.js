@@ -25,6 +25,9 @@ import {
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload
 } from './applications-s51.mapper.js';
+import pino from '../../../lib/logger.js';
+import { response } from 'express';
+import { isEmpty } from 'lodash-es';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -92,10 +95,10 @@ export async function updateApplicationsCaseS51ItemStatus(
 	}
 
 	if (validationErrors || apiErrors) {
-		const { pagination, items } = await getS51FolderData(caseId, query);
+		const { pagination, errors, items } = await getS51FolderData(caseId, query);
 
 		return response.render(`applications/components/folder/folder`, {
-			errors: validationErrors || apiErrors,
+			errors: errors || validationErrors || apiErrors,
 			pagination,
 			items
 		});
@@ -134,8 +137,8 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
 
 	const { errors, ...s51Advice } = await getS51Advice(Number(caseId), Number(adviceId));
 
-	if (errors) {
-		// ToDo: Handle errors
+	if (errors && !s51Advice) {
+		return response.render('app/500.njk');
 	}
 
 	const values = mapS51AdviceToPage(s51Advice);
@@ -338,8 +341,8 @@ export async function viewApplicationsCaseS51AttachmentDelete({ params }, respon
 
 	const { errors, ...s51Advice } = await getS51Advice(caseId, Number(adviceId));
 
-	if (errors) {
-		// ToDo: Handle errors
+	if (errors || s51Advice.attachments === undefined) {
+		return response.render('app/500.njk');
 	}
 
 	const attachmentToDelete = s51Advice.attachments.find(
@@ -461,35 +464,35 @@ export async function removeApplicationsCaseS51AdviceFromPublishingQueue(
  *
  * @param {number} caseId
  * @param {{size?: string, number?: string}} query
- * @returns {Promise<{items: S51AdvicePaginatedResponse, pagination: null | PaginationParams }>}
+ * @returns {Promise<{items?: S51AdvicePaginatedResponse, errors?: ExtendedValidationErrors, pagination?: null | PaginationParams }>}
  */
 const getS51FolderData = async (caseId, query) => {
 	const { pageNumber, pageSize } = getIntegerRequestQuery(query, 50);
 
 	const { errors, ...items } = await getS51FilesInFolder(caseId, pageNumber, pageSize);
 
-	if (errors) {
-		// ToDo: Handle errors
+	if (errors || items.pageCount === undefined) {
+		return { items, errors, pagination: null };
 	}
 
 	const pagination = paginationParams(pageSize, pageNumber, items.pageCount);
 
-	return { items, pagination };
+	return { items, errors, pagination };
 };
 
 /**
  *
  * @param {number} caseId
  * @param {{size?: string, number?: string}} query
- * @returns {Promise<{s51Advices: S51AdvicePaginatedResponse, paginationButtons: null | Buttons }>}
+ * @returns {Promise<{s51Advices?: Partial<S51AdvicePaginatedResponse>, errors?: Partial<ExtendedValidationErrors>, paginationButtons?: null | Buttons }>}
  */
 const getS51PublishinQueueData = async (caseId, query) => {
 	const { pageNumber, pageSize } = getIntegerRequestQuery(query, 25);
 
 	const { errors, ...s51Advices } = await getS51AdviceReadyToPublish(caseId, pageNumber, pageSize);
 
-	if (errors) {
-		// ToDo: Handle errors
+	if (errors || s51Advices.pageCount === undefined) {
+		return { errors };
 	}
 
 	const pagination = paginationParams(pageSize, pageNumber, s51Advices.pageCount);
@@ -507,8 +510,8 @@ export async function viewUnpublishAdvice({ params }, response) {
 
 	const { errors, ...s51Advice } = await getS51Advice(Number(caseId), Number(adviceId));
 
-	if (errors) {
-		// ToDo: Handle errors
+	if (errors || !s51Advice) {
+		return response.render('app/500.njk', {});
 	}
 
 	if (s51Advice.publishedStatus !== 'published') {
@@ -533,8 +536,8 @@ export async function postUnpublishAdvice({ params }, response) {
 
 	const { errors, ...s51Advice } = await getS51Advice(Number(caseId), Number(adviceId));
 
-	if (errors) {
-		// ToDo: Handle errors
+	if (errors || s51Advice.publishedStatus === undefined) {
+		return response.render('app/500.njk');
 	}
 
 	if (s51Advice.publishedStatus !== 'published') {

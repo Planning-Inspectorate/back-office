@@ -9,17 +9,13 @@ import { post } from '../../lib/request.js';
  * @returns {Promise<{id?: number, applicantId?: number, errors?: ValidationErrors}>}
  */
 export const moveStateToPreApplication = async (id) => {
-	let response;
-
 	try {
-		response = await post(`applications/${id}/start`);
+		return await post(`applications/${id}/start`);
 	} catch (/** @type {*} */ error) {
-		response = new Promise((resolve) => {
+		return new Promise((resolve) => {
 			resolve({ errors: error?.response?.body?.errors || {} });
 		});
 	}
-
-	return response;
 };
 
 /**

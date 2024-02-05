@@ -98,7 +98,7 @@ export const checkS51NameIsUnique = async (caseId, title) => {
  *
  * @param {number} caseId
  * @param {number} adviceId
- * @returns {Promise<{validS51Advice?: S51Advice, errors?: ExtendedValidationErrors}>}
+ * @returns {Promise<{validS51Advice?: Partial<S51Advice>, errors?: Partial<ExtendedValidationErrors>}>}
  */
 export const getS51Advice = async (caseId, adviceId) => {
 	try {
