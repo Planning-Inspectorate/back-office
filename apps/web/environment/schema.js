@@ -28,8 +28,8 @@ export default baseSchema
 		logLevelFile: joi.string().valid(...logLevel),
 		logLevelStdOut: joi.string().valid(...logLevel),
 		retry: joi.object({
-			maxAttempts: joi.number(),
-			statusCodes: joi.string()
+			maxAttempts: joi.number().optional(),
+			statusCodes: joi.string().optional()
 		}),
 		msal: joi
 			.object({
