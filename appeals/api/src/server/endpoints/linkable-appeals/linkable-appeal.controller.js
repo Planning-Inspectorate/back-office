@@ -1,4 +1,4 @@
-import { getLinkableAppealSummaryByCaseReference } from './linkable-appeals.service.js';
+import { getLinkableAppealSummaryByCaseReference } from './linkable-appeal.service.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
@@ -11,7 +11,8 @@ import { getLinkableAppealSummaryByCaseReference } from './linkable-appeals.serv
 export const getLinkableAppealById = async (req, res) => {
 	const { appealReference } = req.params;
 	try {
-		return res.send(await getLinkableAppealSummaryByCaseReference(appealReference));
+		const response = await getLinkableAppealSummaryByCaseReference(appealReference);
+		return res.send(response);
 	} catch (error) {
 		if (error === 404) {
 			return res.status(404).send();

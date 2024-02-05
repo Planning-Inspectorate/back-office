@@ -463,10 +463,10 @@ const getLinkedAppeals = async (appealReference) => {
 /**
  *
  * @param {string} appealReference
- * @returns {Promise<RepositoryGetByIdResultItem|undefined>}
+ * @returns {Promise<RepositoryGetByIdResultItem|undefined|null>}
  */
 const getAppealByAppealReference = async (appealReference) => {
-	return await databaseConnector.appeal.findUnique({
+	const appeal = await databaseConnector.appeal.findUnique({
 		where: {
 			reference: appealReference
 		},
@@ -497,16 +497,8 @@ const getAppealByAppealReference = async (appealReference) => {
 					planningObligationStatus: true
 				}
 			},
-			appellant: {
-				include: {
-					customer: true
-				}
-			},
-			agent: {
-				include: {
-					customer: true
-				}
-			},
+			appellant: true,
+			agent: true,
 			lpa: true,
 			appealStatus: {
 				where: {
@@ -562,6 +554,31 @@ const getAppealByAppealReference = async (appealReference) => {
 			}
 		}
 	});
+
+	if (appeal) {
+		const linkedAppeals = await databaseConnector.appealRelationship.findMany({
+			where: {
+				OR: [
+					{
+						parentRef: {
+							equals: appeal.reference
+						}
+					},
+					{
+						childRef: {
+							equals: appeal.reference
+						}
+					}
+				]
+			}
+		});
+
+		// @ts-ignore
+		return {
+			...appeal,
+			linkedAppeals
+		};
+	}
 };
 
 /**

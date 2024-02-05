@@ -14,19 +14,21 @@ export const horizonGetCaseRequestBody = (/** @type {string} */ caseReference) =
  * @returns {import("#utils/horizon-gateway.js").HorizonGetCaseSuccessResponse|import("#utils/horizon-gateway.js").HorizonGetCaseFailureResponse}
  */
 export const parseHorizonGetCaseResponse = (data) => {
-	let unparsedResponse = data;
-	let i = 0;
-	let parseComplete = false;
+	if (data) {
+		let unparsedResponse = data;
+		let i = 0;
+		let parseComplete = false;
 
-	while (!parseComplete) {
-		if (unparsedResponse.includes('"AttributeValue":')) {
-			unparsedResponse = unparsedResponse.replace('"AttributeValue":', `"AttributeValue${i}":`);
-			i++;
-		} else {
-			parseComplete = true;
+		while (!parseComplete) {
+			if (unparsedResponse.includes('"AttributeValue":')) {
+				unparsedResponse = unparsedResponse.replace('"AttributeValue":', `"AttributeValue${i}":`);
+				i++;
+			} else {
+				parseComplete = true;
+			}
 		}
+		return JSON.parse(unparsedResponse);
 	}
-	return JSON.parse(unparsedResponse);
 };
 
 /**
@@ -35,7 +37,7 @@ export const parseHorizonGetCaseResponse = (data) => {
 
 /**
  * @param {import("#utils/horizon-gateway.js").HorizonGetCaseSuccessResponse} data
- * @returns {import("#endpoints/linkable-appeals/linkable-appeals.service.js").LinkableAppealSummary}
+ * @returns {import("#endpoints/linkable-appeals/linkable-appeal.service.js").LinkableAppealSummary}
  */
 export const formatHorizonGetCaseData = (data) => {
 	const convertedData = convertSOAPKeyValuePairToJSON(data);
