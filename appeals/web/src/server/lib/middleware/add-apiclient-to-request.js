@@ -1,4 +1,4 @@
-import { createHttpLoggerHooks } from '@pins/platform';
+import { createHttpLoggerHooks, createHttpRetryParams } from '@pins/platform';
 import config from '@pins/appeals.web/environment/config.js';
 import got from 'got';
 import pino from '../logger.js';
@@ -8,6 +8,7 @@ const [requestLogger, responseLogger, retryLogger] = createHttpLoggerHooks(
 	pino,
 	config.logLevelStdOut
 );
+const retryParams = createHttpRetryParams(config.retry);
 
 const instance = got.extend({
 	prefixUrl: config.apiUrl,
@@ -17,10 +18,7 @@ const instance = got.extend({
 
 const getInstance = (/** @type {string} */ userId) =>
 	instance.extend({
-		retry: {
-			limit: 3,
-			statusCodes: [500, 502, 503, 504]
-		},
+		retry: retryParams,
 		hooks: {
 			beforeRetry: [retryLogger],
 			beforeRequest: [
