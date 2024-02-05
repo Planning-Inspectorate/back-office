@@ -7,7 +7,7 @@ export const createHttpRetryParams = (config) => {
 	const statusCodesArray = (statusCodes || '').split(',').map((sc) => Number(sc));
 
 	return {
-		limit: maxAttempts,
-		statusCodes: statusCodesArray
+		limit: maxAttempts || 0,
+		statusCodes: statusCodesArray || []
 	};
 };
