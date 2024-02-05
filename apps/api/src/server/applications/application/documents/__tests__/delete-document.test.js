@@ -5,7 +5,53 @@ import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 
-const documentToDelete = {
+const application1 = {
+	id: 100000000,
+	reference: 'BC0110001',
+	modifiedAt: '2024-01-17T14:32:37.530Z',
+	createdAt: '2024-01-16T16:44:26.710Z',
+	description:
+		'A description of test case 1 which is a case of subsector type Office Use. A David case',
+	title: 'Office Use Test Application 1',
+	hasUnpublishedChanges: true,
+	applicantId: 100000000,
+	ApplicationDetails: {
+		id: 100000000,
+		caseId: 100000000,
+		subSectorId: 1,
+		locationDescription: null,
+		zoomLevelId: 4,
+		caseEmail: null,
+		subSector: {
+			id: 1,
+			abbreviation: 'BC01',
+			name: 'office_use',
+			displayNameEn: 'Office Use',
+			displayNameCy: 'Office Use',
+			sectorId: 1,
+			sector: {
+				id: 1,
+				abbreviation: 'BC',
+				name: 'business_and_commercial',
+				displayNameEn: 'Business and Commercial',
+				displayNameCy: 'Business and Commercial'
+			}
+		}
+	}
+};
+const DocumentToDelete = {
+	guid: '1111-2222-3333',
+	reference: 'BC0110001-000004',
+	folderId: 10003,
+	createdAt: '2024-01-31T14:18:26.834Z',
+	isDeleted: true,
+	latestVersionId: 1,
+	caseId: 100000000,
+	documentType: 'document',
+	fromFrontOffice: false
+};
+
+const documentVersionWithDocumentToDelete = {
 	guid: '1111-2222-3333',
 	version: 1,
 	lastModified: null,
@@ -68,7 +114,7 @@ const documentToDelete = {
 	transcript: null
 };
 const publishedDoc = {
-	...documentToDelete,
+	...documentVersionWithDocumentToDelete,
 	published: true,
 	publishedStatus: 'published'
 };
@@ -102,7 +148,11 @@ describe('delete Document', () => {
 
 	test('The test case involves deleting a document setting its "isDeleted" property to "true".', async () => {
 		// GIVEN
-		databaseConnector.documentVersion.findUnique.mockResolvedValue(documentToDelete);
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			documentVersionWithDocumentToDelete
+		);
+		databaseConnector.document.findUnique.mockResolvedValue(DocumentToDelete);
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
 
 		const isDeleted = true;
 
@@ -151,7 +201,7 @@ describe('delete Document', () => {
 			}
 		});
 
-		// and test brodcast event message
+		// and test broadcast event message
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_DOCUMENT,
 			[expectedDeleteMessagePayload],

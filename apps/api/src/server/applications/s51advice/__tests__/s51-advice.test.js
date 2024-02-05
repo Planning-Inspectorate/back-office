@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { request } from '../../../app-test.js';
+import { request } from '#app-test';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 import { EventType } from '@pins/event-client';
 import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
@@ -67,13 +67,40 @@ const inValidS51AdviceBody = {
 	adviceDetails: 'adviceDetails'
 };
 
-const application1 = applicationFactoryForTests({
+const applicationBase = applicationFactoryForTests({
 	id: 100000000,
 	reference: 'BC0110001',
 	title: 'BC010001 - NI Case 1 Name',
 	description: 'BC010001 - NI Case 1 Name Description',
 	caseStatus: 'pre-application'
 });
+const application1 = {
+	...applicationBase,
+	ApplicationDetails: {
+		id: 100000000,
+		caseId: 1,
+		subSectorId: 1,
+		locationDescription: null,
+		zoomLevelId: 4,
+		caseEmail: null,
+		subSector: {
+			id: 1,
+			abbreviation: 'BC01',
+			name: 'office_use',
+			displayNameEn: 'Office Use',
+			displayNameCy: 'Office Use',
+			sectorId: 1,
+			sector: {
+				id: 1,
+				abbreviation: 'BC',
+				name: 'business_and_commercial',
+				displayNameEn: 'Business and Commercial',
+				displayNameCy: 'Business and Commercial'
+			}
+		}
+	}
+};
+
 const s51AdvicesInApplication1Count = 1;
 
 const s51AdvicesOnCase1 = [

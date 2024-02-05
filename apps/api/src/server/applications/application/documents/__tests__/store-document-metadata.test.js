@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
-const { databaseConnector } = await import('../../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
-import { request } from '../../../../app-test.js';
+import { request } from '#app-test';
 import { applicationStates } from '../../../state-machine/application.machine.js';
 
 const generatesDocumentMetadataResponse = (

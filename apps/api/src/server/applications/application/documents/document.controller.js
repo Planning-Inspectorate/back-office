@@ -15,18 +15,19 @@ import {
 	getDocumentsInCase,
 	extractDuplicates,
 	getIndexFromReference,
-	handleUpdateDocument,
+	handleUpdateDocuments,
 	makeDocumentReference,
 	markDocumentVersionAsPublished,
 	markDocumentVersionAsUnpublished,
-	obtainURLForDocumentVersion,
+	createDocumentVersion,
 	createDocuments,
 	publishDocuments as _publishDocuments,
 	separateNonPublishedDocuments,
 	separatePublishableDocuments,
 	upsertDocumentVersionAndReturnDetails,
 	unpublishDocuments as unpublishDocumentGuids,
-	deleteDocument
+	deleteDocument,
+	revertDocumentStatusToPrevious
 } from './document.service.js';
 import { getRedactionStatus, validateDocumentVersionMetadataBody } from './document.validators.js';
 
@@ -111,14 +112,15 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 };
 
 /**
- * Upload a new document version
+ * Upload a new document version to a document, creating Document Version records, and Activity log records, updating Document to reflect latest version,
+ * and emit service bus events
  *
  * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
  */
-export const provideDocumentVersionUploadURL = async ({ params, body }, response) => {
+export const createDocumentVersionOnCase = async ({ params, body }, response) => {
 	const documentToUpload = body;
-	// Obtain URL of document from blob storage
-	const { blobStorageHost, privateBlobContainer, documents } = await obtainURLForDocumentVersion(
+	// create version record etc
+	const { blobStorageHost, privateBlobContainer, documents } = await createDocumentVersion(
 		documentToUpload,
 		Number(params.id),
 		params.guid
@@ -158,7 +160,7 @@ export const updateDocuments = async ({ body }, response) => {
 		return await separatePublishableDocuments(documentIds);
 	})();
 
-	const { results, errors: updateErrors } = await handleUpdateDocument(
+	const { results, errors: updateErrors } = await handleUpdateDocuments(
 		publishableIds,
 		publishedStatus,
 		redactedStatus
@@ -401,7 +403,7 @@ export const getDocumentVersions = async ({ params: { guid } }, response) => {
 /**
  * Revert the published status of a document to the previous published status.
  *
- * @type {import('express').RequestHandler<{id: number;guid: string}, any, any, any>}
+ * @type {import('express').RequestHandler<{id: number; guid: string}, any, any, any>}
  */
 export const revertDocumentPublishedStatus = async ({ params: { guid } }, response) => {
 	const documentVersion = await documentVersionRepository.getById(guid);
@@ -422,10 +424,8 @@ export const revertDocumentPublishedStatus = async ({ params: { guid } }, respon
 	logger.info(
 		`updating document version ${guid} to previous publishedStatus: '${publishedStatusToRevertTo}'`
 	);
-	await documentVersionRepository.update(guid, {
-		publishedStatus: publishedStatusToRevertTo,
-		publishedStatusPrev: null
-	});
+	await revertDocumentStatusToPrevious(guid, publishedStatusToRevertTo, null);
+
 	response.sendStatus(200);
 };
 
@@ -490,6 +490,7 @@ export const storeDocumentVersion = async (request, response) => {
 
 	// Upsert the document version metadata to the database and get the updated document details
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
+		caseId,
 		document.guid,
 		documentVersion,
 		document.latestVersionId ?? 1
