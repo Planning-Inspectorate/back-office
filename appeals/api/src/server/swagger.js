@@ -809,6 +809,16 @@ export const spec = {
 					example: 'horizon'
 				}
 			}
+		},
+		ExistsOnHorizonResponse: {
+			type: 'object',
+			properties: {
+				caseFound: {
+					type: 'boolean',
+					description: 'Case found status in Horizon',
+					example: true
+				}
+			}
 		}
 	},
 	components: {}
