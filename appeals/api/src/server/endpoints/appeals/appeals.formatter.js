@@ -93,8 +93,8 @@ const formatMyAppeals = (appeal, linkedAppeals) => ({
 /**
  * @param {RepositoryGetByIdResultItem} appeal
  * @param {Folder[]} folders
- * @param {{ transferredAppealType: string, transferredAppealReference: string} | null} transferAppealTypeInfo
- * @param {Date | null} completionDate
+ * @param {{ transferredAppealType: string, transferredAppealReference: string } | null} transferAppealTypeInfo
+ * @param {{ letterDate: Date|null, virusCheckStatus: string|null } | null} decisionInfo
  * @param { RepositoryGetAllResultItem[] | null} formattedAppealWithLinkedTypes
  * @returns {SingleAppealDetailsResponse | void}}
  */
@@ -102,7 +102,7 @@ const formatAppeal = (
 	appeal,
 	folders,
 	transferAppealTypeInfo = null,
-	completionDate = null,
+	decisionInfo = null,
 	formattedAppealWithLinkedTypes = null
 ) => {
 	if (appeal) {
@@ -151,12 +151,20 @@ const formatAppeal = (
 			appealType: appeal.appealType?.type,
 			appellantCaseId: appeal.appellantCase?.id || 0,
 			caseOfficer: appeal.caseOfficer?.azureAdUserId || null,
-			decision: {
-				folderId: folders[0].id,
-				outcome: appeal.inspectorDecision?.outcome,
-				documentId: appeal.inspectorDecision?.decisionLetterGuid || undefined,
-				letterDate: completionDate || undefined
-			},
+			decision:
+				decisionInfo &&
+				appeal.inspectorDecision?.outcome &&
+				appeal.inspectorDecision?.decisionLetterGuid
+					? {
+							folderId: folders[0].id,
+							outcome: appeal.inspectorDecision.outcome,
+							documentId: appeal.inspectorDecision?.decisionLetterGuid,
+							letterDate: decisionInfo.letterDate,
+							virusCheckStatus: decisionInfo.virusCheckStatus
+					  }
+					: {
+							folderId: folders[0].id
+					  },
 			healthAndSafety: {
 				appellantCase: {
 					details: appeal.appellantCase?.healthAndSafetyIssues || null,

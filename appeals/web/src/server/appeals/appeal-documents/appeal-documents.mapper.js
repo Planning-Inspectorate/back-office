@@ -149,7 +149,7 @@ const mapDocumentFileTypeAndSize = (document) => {
  * @param {string} virusCheckStatus
  * @returns {DocumentVirusCheckStatus}
  */
-function mapVirusCheckStatus(virusCheckStatus) {
+export function mapVirusCheckStatus(virusCheckStatus) {
 	/** @type {DocumentVirusCheckStatus} */
 	const result = {
 		checked: false,

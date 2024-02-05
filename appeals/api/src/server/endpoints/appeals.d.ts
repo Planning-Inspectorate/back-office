@@ -221,6 +221,7 @@ interface SingleAppealDetailsResponse {
 		outcome?: string;
 		documentId?: string;
 		letterDate?: Date;
+		virusCheckStatus?: string;
 	};
 	documentationSummary: DocumentationSummary;
 	healthAndSafety: {
