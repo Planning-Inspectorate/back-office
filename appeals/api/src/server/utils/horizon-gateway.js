@@ -2,6 +2,12 @@ import config from '#config/config.js';
 import got from 'got';
 import { horizonGetCaseRequestBody, parseHorizonGetCaseResponse } from './mapping/map-horizon.js';
 import logger from './logger.js';
+import nock from 'nock';
+import {
+	horizonGetCaseNotFoundResponse,
+	horizonGetCaseNotPublishedResponse,
+	horizonGetCaseSuccessResponse
+} from '#tests/horizon/mocks.js';
 /**
  * @typedef HorizonGetCaseSuccessResponse
  * @property {{Body: {GetCaseResponse: {GetCaseResult: HorizonCaseResults}}}} Envelope
@@ -69,6 +75,28 @@ export const getAppealFromHorizon = async (caseReference) => {
 	const requestBody = horizonGetCaseRequestBody(caseReference);
 
 	logger.debug('Case not found in BO, now trying to query Horizon');
+	if (config.NODE_ENV === 'development' && config.horizon.url === 'http://localhost:4000') {
+		switch (caseReference) {
+			//Case found
+			case '1000000':
+				nock(config.horizon.url)
+					.post('/horizon', requestBody)
+					.reply(200, parseHorizonGetCaseResponse(horizonGetCaseSuccessResponse));
+				break;
+			//Case not published
+			case '2000000':
+				nock(config.horizon.url)
+					.post('/horizon', requestBody)
+					.reply(500, parseHorizonGetCaseResponse(horizonGetCaseNotPublishedResponse));
+				break;
+			//Case not found
+			default:
+				nock(config.horizon.url)
+					.post('/horizon', requestBody)
+					.reply(500, parseHorizonGetCaseResponse(horizonGetCaseNotFoundResponse));
+				break;
+		}
+	}
 	/**
 	 * @type {Promise<HorizonGetCaseSuccessResponse>}
 	 */
@@ -79,21 +107,17 @@ export const getAppealFromHorizon = async (caseReference) => {
 		})
 		.json()
 		.catch((error) => {
-			logger.error(JSON.parse(JSON.stringify(error.response.body)).Envelope.Body.Fault.faultstring);
-			if (JSON.parse(JSON.stringify(error.response.body)).Envelope.Body.Fault.faultstring) {
+			if (error.response.body && JSON.stringify(error.response.body).includes('faultstring')) {
 				if (
-					JSON.parse(
-						JSON.stringify(error.response.body)
-					).Envelope.Body.Fault.faultstring.value.includes('not found')
+					JSON.stringify(error.response.body).includes('not found') ||
+					JSON.stringify(error.response.body).includes('is not published')
 				) {
 					throw 404;
-				} else {
-					throw 500;
 				}
 			}
-			return error.response.body;
+			logger.error(error.response.body);
+			throw 500;
 		});
-
 	logger.debug('Found case on Horizon.');
 	return appealData;
 };
