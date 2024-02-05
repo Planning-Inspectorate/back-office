@@ -581,17 +581,19 @@ export const publishDocumentVersions = async (documentVersionIds) => {
 		}, publishedDocuments)
 	).map(buildNsipDocumentPayload);
 
-	await eventClient.sendEvents(
-		NSIP_DOCUMENT,
-		events,
-		EventType.Update,
-		// This is an additional flag which triggers the Azure Function that publishes documents.
-		// It essentially means we can create a subscription to this topic with a filter, and saves us from managing a distinct publishing queue
-		// It has to be a string because the Terraform module for configuring subscription filters only seems to support string value
-		{
-			publishing: 'true'
-		}
-	);
+	if (events.length) {
+		await eventClient.sendEvents(
+			NSIP_DOCUMENT,
+			events,
+			EventType.Update,
+			// This is an additional flag which triggers the Azure Function that publishes documents.
+			// It essentially means we can create a subscription to this topic with a filter, and saves us from managing a distinct publishing queue
+			// It has to be a string because the Terraform module for configuring subscription filters only seems to support string value
+			{
+				publishing: 'true'
+			}
+		);
+	}
 
 	return publishedDocuments;
 };
@@ -899,9 +901,11 @@ export const unpublishDocuments = async (guids) => {
 		}, unpublishedDocuments)
 	).map(buildNsipDocumentPayload);
 
-	await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Update, {
-		unpublishing: 'true'
-	});
+	if (events.length) {
+		await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Update, {
+			unpublishing: 'true'
+		});
+	}
 
 	return unpublishedDocuments.map((doc) => doc.documentGuid);
 };
