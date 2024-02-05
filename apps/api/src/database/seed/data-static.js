@@ -306,7 +306,7 @@ export const subSectors = [
 	{
 		subSector: {
 			name: 'training',
-			abbreviation: 'TRAI',
+			abbreviation: 'TRAIN01',
 			displayNameEn: 'Training',
 			displayNameCy: 'Training'
 		},
