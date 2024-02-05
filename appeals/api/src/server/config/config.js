@@ -24,6 +24,10 @@ const { value, error } = schema.validate({
 		levelFile: environment.LOG_LEVEL_FILE || 'silent',
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
 	},
+	retry: {
+		maxAttempts: environment.RETRY_MAX_ATTEMPTS,
+		statusCodes: environment.RETRY_STATUS_CODES
+	},
 	cwd: url.fileURLToPath(new URL('..', import.meta.url)),
 	// flag name convention: featureFlag[ jira number ][ferature shoret description]
 	// set Feature Flag default val here [default: false] - will be overwritted by values cming from the .env file
