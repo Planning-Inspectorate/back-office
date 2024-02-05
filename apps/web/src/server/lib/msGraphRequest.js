@@ -1,4 +1,4 @@
-import { createHttpLoggerHooks } from '@pins/platform';
+import { createHttpLoggerHooks, createHttpRetryParams } from '@pins/platform';
 import config from '@pins/applications.web/environment/config.js';
 import got from 'got';
 import pino from './logger.js';
@@ -7,6 +7,7 @@ const [requestLogger, responseLogger, retryLogger] = createHttpLoggerHooks(
 	pino,
 	config.logLevelStdOut
 );
+const retryParams = createHttpRetryParams(config.retry);
 
 const prefixUrl = 'https://graph.microsoft.com/v1.0/';
 
@@ -14,10 +15,7 @@ const instance = got.extend({
 	prefixUrl,
 	responseType: 'json',
 	resolveBodyOnly: true,
-	retry: {
-		limit: 3,
-		statusCodes: [500, 502, 503, 504]
-	},
+	retry: retryParams,
 	hooks: {
 		beforeRetry: [retryLogger],
 		beforeRequest: [requestLogger],
