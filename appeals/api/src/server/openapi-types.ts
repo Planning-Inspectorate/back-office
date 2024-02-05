@@ -1744,3 +1744,11 @@ export interface SingleLinkableAppealSummaryResponse {
 	 */
 	source?: string;
 }
+
+export interface ExistsOnHorizonResponse {
+	/**
+	 * Case found status in Horizon
+	 * @example true
+	 */
+	caseFound?: boolean;
+}

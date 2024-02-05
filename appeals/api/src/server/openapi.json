@@ -2878,6 +2878,33 @@
 					}
 				}
 			}
+		},
+		"/appeals/transferred-appeal/{appealReference}": {
+			"get": {
+				"tags": ["Transferred appeals"],
+				"description": "Gets appeal from Horizon returns found status (true/false)",
+				"parameters": [
+					{
+						"name": "appealReference",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "Appeal Reference"
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {}
+			}
 		}
 	},
 	"components": {
@@ -6722,6 +6749,16 @@
 						"type": "string",
 						"description": "Information origin (back-office or horizon)",
 						"example": "horizon"
+					}
+				}
+			},
+			"ExistsOnHorizonResponse": {
+				"type": "object",
+				"properties": {
+					"caseFound": {
+						"type": "boolean",
+						"description": "Case found status in Horizon",
+						"example": true
 					}
 				}
 			}
