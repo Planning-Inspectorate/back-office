@@ -186,7 +186,7 @@ export const getAllByDocumentGuid = (guid) => {
  *
  * @param {string} documentGuid
  * @param {import('@pins/applications.api').Schema.DocumentVersionUpdateInput} documentDetails
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersion>}
+ * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocument>}
  */
 export const update = (documentGuid, { version = 1, ...documentDetails }) => {
 	return databaseConnector.documentVersion.update({

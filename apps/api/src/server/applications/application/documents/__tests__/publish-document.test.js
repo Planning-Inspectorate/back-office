@@ -1,6 +1,7 @@
-import { request } from '../../../../app-test.js';
-import { applicationFactoryForTests } from '../../../../utils/application-factory-for-tests.js';
-const { databaseConnector } = await import('../../../../utils/database-connector.js');
+import { request } from '#app-test';
+import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
+const { databaseConnector } = await import('#utils/database-connector.js');
+const { eventClient } = await import('#infrastructure/event-client.js');
 
 const application1 = applicationFactoryForTests({
 	id: 1,
@@ -8,8 +9,6 @@ const application1 = applicationFactoryForTests({
 	description: 'EN010003 - NI Case 3 Name Description',
 	caseStatus: 'pre-application'
 });
-
-const { eventClient } = await import('../../../../infrastructure/event-client.js');
 
 /**
  * @type {any[]}
@@ -160,8 +159,8 @@ describe('Publish documents', () => {
 			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
 			privateBlobContainer: 'document-uploads',
 			privateBlobPath: 'en010120/filename.pdf',
-      publishedBlobContainer: 'test-container',
-      publishedBlobPath: 'test-path',
+			publishedBlobContainer: 'test-container',
+			publishedBlobPath: 'test-path',
 			publishedStatus: 'publishing'
 		};
 
@@ -231,14 +230,14 @@ describe('Publish documents', () => {
 		]);
 		databaseConnector.documentVersion.update.mockResolvedValue({
 			documentGuid: 'document_to_publish_guid',
-      fileName: 'test-file-name',
-      originalFilename: 'test-original-filename',
-      size: 1,
-      privateBlobContainer: 'test-container',
-      privateBlobPath: 'test-path',
-      publishedBlobContainer: 'test-container',
-      publishedBlobPath: 'test-path',
-      dateCreated: new Date(),
+			fileName: 'test-file-name',
+			originalFilename: 'test-original-filename',
+			size: 1,
+			privateBlobContainer: 'test-container',
+			privateBlobPath: 'test-path',
+			publishedBlobContainer: 'test-container',
+			publishedBlobPath: 'test-path',
+			dateCreated: new Date(),
 			Document: {
 				guid: 'document_to_publish_guid',
 				reference: 'document-reference',
