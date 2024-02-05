@@ -38,7 +38,19 @@ export const mapRequestToKeyDates = ({
 		...acceptance
 	};
 
-	return pick(allKeyDates, allKeyDateNames);
+	const keyDateNames = Object.keys(allKeyDates).reduce((uniqueNames, currentName) => {
+		const keyDateName = currentName.split('.')[0];
+
+		if (allKeyDateNames.includes(keyDateName)) {
+			return uniqueNames.includes(keyDateName) ? uniqueNames : [...uniqueNames, keyDateName];
+		}
+
+		return uniqueNames;
+	}, []);
+
+	return keyDateNames.reduce((keyDates, keyDateName) => {
+		return { ...keyDates, [keyDateName]: allKeyDates[keyDateName] || null };
+	}, {});
 };
 
 /**
