@@ -12,6 +12,9 @@ export class LocalEventClient {
 		/** @type {any[]} */ events,
 		/** @type {import('./event-type.js').EventType}*/ type
 	) => {
+		if (events?.length < 1) {
+			throw Error(`No events provided for type ${type} and topic ${topic}`);
+		}
 		this.logger.info(
 			`Dummy publishing events ${JSON.stringify(events)} with type ${type} to topic ${topic}`
 		);

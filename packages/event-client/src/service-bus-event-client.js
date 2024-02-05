@@ -62,7 +62,7 @@ export class ServiceBusEventClient {
 	 */
 	sendEvents = async (topic, events, eventType, additionalProperties = {}) => {
 		if (events?.length < 1) {
-			throw Error('No events provided');
+			throw Error(`No events provided for type ${eventType} and topic ${topic}`);
 		}
 
 		const sender = this.#createSender(topic);
