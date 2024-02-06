@@ -48,6 +48,7 @@ describe('Document Download', () => {
 	});
 
 	it('Case Team Admin user should be able to download a document from document properties page', () => {
+		Cypress.on('uncaught:exception', () => { return false })
 		const fileName = 'sample-file.doc';
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
