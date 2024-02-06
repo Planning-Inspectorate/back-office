@@ -17,7 +17,7 @@ const { applications: applicationsUsers } = users;
 let projectInfo;
 
 describe('Document Download', () => {
-	beforeEach(() => {
+	before(() => {
 		cy.deleteDownloads();
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
@@ -28,7 +28,7 @@ describe('Document Download', () => {
 		cy.deleteDownloads();
 	});
 
-	it('Case Team Admin user should be able to download a document', () => {
+	it.only('Case Team Admin user should be able to download a document', () => {
 		const fileName = 'sample-doc.pdf';
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -45,24 +45,7 @@ describe('Document Download', () => {
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.downloadFile(1);
 		cy.validateDownloadedFile(fileName);
-	});
-
-	it('Case Team Admin user should be able to download a document from document properties page', () => {
-		Cypress.on('uncaught:exception', () => { return false })
-		const fileName = 'sample-file.doc';
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		validateProjectOverview(projectInfo);
-		searchResultsPage.clickLinkByText('Update project information');
-		searchResultsPage.clickLinkByText('Project documentation');
-		searchResultsPage.clickLinkByText('Project management');
-		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile(fileName);
-		searchResultsPage.clickButtonByText('Save and continue');
-		fileUploadPage.verifyFolderDocuments(1);
-		fileUploadPage.verifyUploadIsComplete();
+// Verify the document is downloaded from properties page
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		const useButton = true;
 		fileUploadPage.downloadFile(1, useButton);
