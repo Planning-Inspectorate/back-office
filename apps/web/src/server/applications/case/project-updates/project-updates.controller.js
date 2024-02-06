@@ -246,6 +246,9 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
 	const { caseId, projectUpdateId } = req.params;
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	let buttonText = 'Save and continue';
+	const warningText = projectUpdate.datePublished
+		? 'If you edit this project update, the publication date will change. Subscribers will not be notified. If you need to make a change, you must create a new update so subscribers will be informed.'
+		: 'Check all the information in your project update is correct. When you publish your update an email will be sent to subscribers.';
 	let form;
 	switch (projectUpdate.status) {
 		case ProjectUpdate.Status.readyToPublish:
@@ -268,6 +271,7 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
 		createDetailsView({
 			caseInfo: res.locals.case,
 			title: 'Check your project update',
+			warningText,
 			backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.status),
 			buttonText,
 			form,
