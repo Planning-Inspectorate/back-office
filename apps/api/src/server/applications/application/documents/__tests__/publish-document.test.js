@@ -1,79 +1,111 @@
+import { jest } from '@jest/globals';
 import { request } from '#app-test';
-import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 const { eventClient } = await import('#infrastructure/event-client.js');
+import { EventType } from '@pins/event-client';
+import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
 
-const application1 = applicationFactoryForTests({
+const dateDocCreated = '2022-01-01T11:59:38.129Z';
+const dateDocLastModified = '2024-02-05T11:59:38.129Z';
+const docGuid = 'D1234';
+const application1 = {
 	id: 1,
-	title: 'EN010003 - NI Case 3 Name',
-	description: 'EN010003 - NI Case 3 Name Description',
-	caseStatus: 'pre-application'
-});
+	reference: 'EN0110001',
+	title: 'EN0110001 - NI Case 3 Name',
+	description: 'test',
+	createdAt: '2022-01-01T11:59:38.129Z',
+	modifiedAt: '2023-03-10T13:49:09.666Z',
+	publishedAt: null,
+	CaseStatus: [{ id: 1, status: 'draft' }]
+};
 
-/**
- * @type {any[]}
- */
-const documents = [
-	{
-		guid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
-		folderId: 1,
-		privateBlobContainer: null,
-		privateBlobPath: null,
-		status: 'awaiting_upload',
-		createdAt: '2023-03-13T16:54:09.282Z',
-		redacted: false,
-		fileSize: 0,
-		fileType: null,
-		isDeleted: false,
-		versionId: null,
-		latestDocumentVersion: {
-			documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
-			version: 1,
-			lastModified: null,
-			documentType: '',
-			published: false,
-			sourceSystem: 'back-office',
-			stage: null,
-			origin: null,
-			originalFilename: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
-			fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
-			representative: null,
-			description: null,
-			owner: null,
-			author: null,
-			securityClassification: null,
-			mime: 'image/png',
-			horizonDataID: null,
-			fileMD5: null,
-			privateBlobPath: null,
-			virusCheckStatus: null,
-			size: 4375,
-			filter1: null,
-			privateBlobContainer: null,
-			dateCreated: '2023-03-13T16:54:09.398Z',
-			datePublished: null,
-			isDeleted: false,
-			examinationRefNo: null,
-			filter2: null,
-			publishedStatus: 'awaiting_upload',
-			redactedStatus: null,
-			redacted: false
-		},
-		folder: {
-			id: 1,
-			displayNameEn: 'Project management',
-			displayOrder: 100,
-			parentFolderId: null,
-			caseId: 1
-		}
-	}
-];
+const document1 = {
+	guid: docGuid,
+	folderId: 2,
+	privateBlobContainer: 'test-container',
+	privateBlobPath: 'test-path',
+	caseId: 1,
+	latestVersionNo: 1,
+	reference: null,
+	folder: {
+		id: 1,
+		displayNameEn: 'Project management',
+		displayOrder: 100,
+		parentFolderId: null,
+		caseId: 1,
+		case: application1
+	},
+	case: application1
+};
+const documentVersion1 = {
+	version: 1,
+	documentId: 12,
+	caseId: 1,
+	documentGuid: docGuid,
+	description: 'a test document',
+	documentType: 'Doc Category',
+	publishedStatus: 'ready_to_publish',
+	redactedStatus: 'redacted',
+	fileName: 'test-filename',
+	originalFilename: 'test-original-filename',
+	mime: 'image/png',
+	size: 23452,
+	author: 'Billy B',
+	privateBlobContainer: 'test-container',
+	privateBlobPath: 'test-path',
+	publishedBlobContainer: 'test-container',
+	publishedBlobPath: 'test-path',
+	dateCreated: new Date(dateDocCreated),
+	lastModified: new Date(dateDocLastModified),
+	filter1: 'Filter Category 1',
+	filter2: null,
+	stage: null,
+	representative: null
+};
 
+const documentWithDocumentVersionWithLatest = {
+	...document1,
+	documentVersion: [documentVersion1],
+	latestDocumentVersion: documentVersion1
+};
+
+const documentVersionWithDocument = {
+	...documentVersion1,
+	Document: document1
+};
+
+const expectedEventPayload = {
+	documentId: docGuid,
+	caseId: 1,
+	caseRef: 'EN0110001',
+	reference: null,
+	version: 1,
+	filename: 'test-filename',
+	originalFilename: 'test-original-filename',
+	size: 23452,
+	documentURI: 'https://127.0.0.1:10000/test-container/test-path',
+	dateCreated: dateDocCreated,
+	lastModified: dateDocLastModified,
+	author: 'Billy B',
+	publishedStatus: 'ready_to_publish',
+	redactedStatus: 'redacted',
+	publishedDocumentURI: 'https://127.0.0.1:10000/test-container/test-path',
+	filter1: 'Filter Category 1',
+	description: 'a test document',
+	documentType: 'Doc Category',
+	mime: 'image/png'
+};
+
+// -------   TESTS   ---------------------------------------------------------------
 describe('Ready-to-publish-documents', () => {
 	test('returns ready-to-publish documents metadata on a case', async () => {
 		// GIVEN
+		let findManyDocs = [documentWithDocumentVersionWithLatest];
+		findManyDocs[0].documentVersion[0].publishedStatus = 'ready_to_publish';
+		findManyDocs[0].latestDocumentVersion.publishedStatus = 'ready_to_publish';
+
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
-		databaseConnector.document.findMany.mockResolvedValue(documents);
+		databaseConnector.document.findMany.mockResolvedValue(findManyDocs);
 		databaseConnector.document.count.mockResolvedValue(1);
 
 		// WHEN
@@ -111,29 +143,29 @@ describe('Ready-to-publish-documents', () => {
 			itemCount: 1,
 			items: [
 				{
-					documentGuid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
-					documentId: null,
+					documentGuid: docGuid,
+					documentId: 12,
 					documentRef: null,
 					folderId: 1,
-					caseRef: null,
-					sourceSystem: 'back-office',
+					caseRef: 'EN0110001',
+					sourceSystem: 'Back Office',
 					stage: null,
-					privateBlobContainer: '',
-					privateBlobPath: '',
-					author: '',
-					fileName: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
-					originalFilename: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
-					dateCreated: 1_678_726_449,
-					size: 4375,
+					privateBlobContainer: 'test-container',
+					privateBlobPath: 'test-path',
+					author: 'Billy B',
+					fileName: 'test-filename',
+					originalFilename: 'test-original-filename',
+					dateCreated: 1641038378,
+					size: 23452,
 					mime: 'image/png',
-					publishedStatus: 'awaiting_upload',
-					redactedStatus: '',
+					publishedStatus: 'ready_to_publish',
+					redactedStatus: 'redacted',
 					datePublished: null,
-					description: null,
+					description: 'a test document',
 					version: 1,
 					representative: null,
-					documentType: '',
-					filter1: null,
+					documentType: 'Doc Category',
+					filter1: 'Filter Category 1',
 					filter2: null,
 					examinationRefNo: '',
 					fromFrontOffice: false,
@@ -145,119 +177,158 @@ describe('Ready-to-publish-documents', () => {
 });
 
 describe('Publish documents', () => {
+	beforeEach(() => {
+		jest.resetAllMocks();
+	});
+
 	test('publishes selected documents on a case from ready-to-publish queue', async () => {
 		// GIVEN
-		const updatedPublishedDocument = {
-			Document: {
-				guid: 'document_to_publish_guid'
-			},
-			documentGuid: 'document_to_publish_guid',
-			version: 1,
-			originalFilename: 'original_filename.pdf',
-			fileName: 'filename.pdf',
-			size: 23452,
-			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
-			privateBlobContainer: 'document-uploads',
-			privateBlobPath: 'en010120/filename.pdf',
-			publishedBlobContainer: 'test-container',
-			publishedBlobPath: 'test-path',
-			publishedStatus: 'publishing'
-		};
-
-		databaseConnector.document.findMany.mockResolvedValue([
-			{
-				guid: 'document_to_publish_guid',
-				latestVersionId: 1
-			}
-		]);
-
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'ready_to_publish';
 
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'ready_to_publish'
+		};
+		let documentVersionWithDocumentAfterUpdate = {
+			...docVersionWithDocumentBeforeUpdate,
+			publishedStatus: 'publishing',
+			publishedStatusPrev: 'not_checked'
+		};
+		let findManyDocs = [
+			{
+				guid: docGuid,
+				latestVersionId: 1,
+				latestDocumentVersion: documentVersion1
+			}
+		];
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
 		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
-		databaseConnector.documentVersion.update.mockResolvedValue(updatedPublishedDocument);
-		databaseConnector.documentVersion.findMany.mockResolvedValue([updatedPublishedDocument]);
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue(findManyDocs);
+		databaseConnector.documentVersion.update.mockResolvedValue(
+			documentVersionWithDocumentAfterUpdate
+		);
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({
-			documents: [{ guid: 'document_to_publish_guid' }]
+			documents: [{ guid: docGuid }]
 		});
 
 		// THEN
 		expect(response.body).toEqual([
 			{
-				guid: 'document_to_publish_guid',
+				guid: docGuid,
 				publishedStatus: 'publishing'
 			}
 		]);
 		expect(response.status).toEqual(200);
 
+		// expect event broadcast
+		let expectedEventPayloadAmended = {
+			...expectedEventPayload,
+			publishedStatus: 'publishing'
+		};
 		expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			NSIP_DOCUMENT,
+			[expectedEventPayloadAmended],
+			EventType.Update,
+			{ publishing: 'true' }
+		);
 	});
 
 	test('throws error if document missing properties required for publishing', async () => {
 		// GIVEN
-		databaseConnector.document.findMany.mockResolvedValueOnce([]);
-		databaseConnector.documentVersion.update.mockResolvedValue({
-			Document: {
-				guid: 'document_to_publish_guid',
-				reference: 'document-reference',
-				case: {
-					id: 1,
-					reference: 'case-reference'
-				}
-			}
-		});
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
+
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'not_checked',
+			filter1: null,
+			author: null
+		};
+
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue([]); // no matching publishable docs returned
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({
-			documents: [{ guid: 'bad_document_to_publish_guid' }]
+			documents: [{ guid: docGuid }]
 		});
 
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
-			errors: [{ guid: 'bad_document_to_publish_guid' }]
+			errors: [{ guid: docGuid }]
 		});
 	});
 
 	test('returns partial success if some documents missing properties required for publishing', async () => {
 		// GIVEN
-		databaseConnector.document.findMany.mockResolvedValueOnce([
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'ready_to_publish';
+
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'ready_to_publish'
+		};
+		let documentVersionWithDocumentAfterUpdate = {
+			...docVersionWithDocumentBeforeUpdate,
+			publishedStatus: 'publishing'
+		};
+		let findManyDocs = [
 			{
-				guid: 'document_to_publish_guid',
-				latestVersionId: 1
+				guid: docGuid,
+				latestVersionId: 1,
+				latestDocumentVersion: documentVersion1
 			}
-		]);
-		databaseConnector.documentVersion.update.mockResolvedValue({
-			documentGuid: 'document_to_publish_guid',
-			fileName: 'test-file-name',
-			originalFilename: 'test-original-filename',
-			size: 1,
-			privateBlobContainer: 'test-container',
-			privateBlobPath: 'test-path',
-			publishedBlobContainer: 'test-container',
-			publishedBlobPath: 'test-path',
-			dateCreated: new Date(),
-			Document: {
-				guid: 'document_to_publish_guid',
-				reference: 'document-reference',
-				case: {
-					id: 1,
-					reference: 'case-reference'
-				}
-			}
-		});
+		];
+
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue(findManyDocs);
+		databaseConnector.documentVersion.update.mockResolvedValue(
+			documentVersionWithDocumentAfterUpdate
+		);
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents/publish').send({
-			documents: [{ guid: 'document_to_publish_guid' }, { guid: 'bad_document_to_publish_guid' }]
+			documents: [{ guid: docGuid }, { guid: 'bad_document_to_publish_guid' }]
 		});
 
 		// THEN
 		expect(response.status).toEqual(207);
 		expect(response.body).toEqual({
-			successful: [{ guid: 'document_to_publish_guid', publishedStatus: 'publishing' }],
+			successful: [{ guid: docGuid, publishedStatus: 'publishing' }],
 			errors: [{ guid: 'bad_document_to_publish_guid' }]
 		});
+
+		// expect event broadcast
+		let expectedEventPayloadAmended = {
+			...expectedEventPayload,
+			publishedStatus: 'publishing'
+		};
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			NSIP_DOCUMENT,
+			[expectedEventPayloadAmended],
+			EventType.Update,
+			{ publishing: 'true' }
+		);
 	});
 });
