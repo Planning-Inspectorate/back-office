@@ -29,7 +29,7 @@ describe('/appeals/transferred-appeal/:appealReference', () => {
 				caseFound: true
 			});
 		});
-		test('get 200 and {caseFound: false} when an appeal exists in Horizon', async () => {
+		test('get 200 and {caseFound: false} when an appeal does not exist in Horizon', async () => {
 			got.post.mockReturnValueOnce({
 				json: jest.fn().mockRejectedValueOnce({
 					response: { body: parseHorizonGetCaseResponse(horizonGetCaseNotFoundResponse) }
