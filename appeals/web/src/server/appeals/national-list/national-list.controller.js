@@ -1,21 +1,12 @@
-import * as nationalListService from './national-list.service.js';
+import logger from '#lib/logger.js';
 import config from '#environment/config.js';
 import usersService from '#appeals/appeal-users/users-service.js';
+import { nationalListPage } from './national-list.mapper.js';
+import { getAppeals } from './national-list.service.js';
 import { getPaginationParametersFromQuery } from '#lib/pagination-utilities.js';
 import { mapPagination } from '#lib/mappers/pagination.mapper.js';
 
 /** @typedef {import('@pins/appeals').Pagination} Pagination */
-/** @typedef {import('@pins/appeals').SearchInputFieldObject} SearchInputFieldObject */
-
-/**
- * @typedef {object} ViewNationalListRenderOptions
- * @property {object[]} appeals
- * @property {string} userRole
- * @property {Pagination} pagination
- * @property {object} searchObject
- * @property {string} searchTerm
- * @property {string} nationalListHeading
- */
 
 //This is a test functions to check user permissions on AD
 export const getCaseOfficers = async (
@@ -31,57 +22,58 @@ export const getCaseOfficers = async (
 	response.json(caseOfficers);
 };
 
-/** @type {import('@pins/express').RenderHandler<ViewNationalListRenderOptions>}  */
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
 export const viewNationalList = async (request, response) => {
 	const { originalUrl, query } = request;
-	const urlWithoutQuery = originalUrl.split('?')[0];
 
-	const paginationParameters = getPaginationParametersFromQuery(query);
-
+	const appealStatusFilter = query.appealStatusFilter && String(query.appealStatusFilter);
+	const inspectorStatusFilter = query.inspectorStatusFilter && String(query.inspectorStatusFilter);
 	let searchTerm = query?.searchTerm ? String(query.searchTerm).trim() : '';
+	let searchTermError = '';
 
-	/** @type {SearchInputFieldObject} */
-	const searchObject = {
-		id: 'searchTerm',
-		name: 'searchTerm',
-		label: {
-			text: 'Enter appeal ID or postcode (include spaces)',
-			classes: 'govuk-caption-m govuk-!-margin-bottom-3 colour--secondary'
-		}
-	};
-
-	if (searchTerm.length === 1 || searchTerm.length >= 9) {
+	if (searchTerm && searchTerm.length && (searchTerm.length === 1 || searchTerm.length >= 9)) {
 		searchTerm = '';
-		searchObject.errorMessage = {
-			text: 'Search query must be between 2 and 8 characters'
-		};
-	} else {
-		searchObject.value = searchTerm;
+		searchTermError = 'Search query must be between 2 and 8 characters';
 	}
 
-	const searchParam = searchTerm ? `&searchTerm=${searchTerm}` : '';
-	const nationalListHeading = searchTerm ? 'Search results' : 'All cases';
-
-	const appealsData = await nationalListService.getAppealsByPage(
+	const urlWithoutQuery = originalUrl.split('?')[0];
+	const paginationParameters = getPaginationParametersFromQuery(query);
+	const appeals = await getAppeals(
 		request.apiClient,
+		searchTerm,
+		appealStatusFilter,
+		inspectorStatusFilter,
 		paginationParameters.pageNumber,
-		paginationParameters.pageSize,
-		searchParam
+		paginationParameters.pageSize
+	).catch((error) => logger.error(error));
+
+	if (!appeals) {
+		return response.status(404).render('app/404');
+	}
+
+	const mappedPageContent = nationalListPage(
+		appeals,
+		urlWithoutQuery,
+		searchTerm,
+		searchTermError,
+		appealStatusFilter,
+		inspectorStatusFilter
 	);
+
 	const pagination = mapPagination(
-		appealsData.page,
-		appealsData.pageCount,
-		appealsData.pageSize,
+		appeals.page,
+		appeals.pageCount,
+		appeals.pageSize,
 		urlWithoutQuery,
 		query
 	);
 
-	response.render('appeals/all-appeals/dashboard.njk', {
-		userRole: 'Case officer',
-		appeals: appealsData?.items,
-		pagination,
-		searchObject,
-		searchTerm,
-		nationalListHeading
+	return response.render('patterns/display-page.pattern.njk', {
+		pageContent: mappedPageContent,
+		pagination
 	});
 };

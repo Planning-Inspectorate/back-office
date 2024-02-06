@@ -4,25 +4,59 @@ exports[`national-list GET / should render national list - 10 pages - all page i
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l">National List</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <form action="" method="GET" novalidate>
+            <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
                     for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text">
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+                    id="filters-submit">Search</button>
+                </div>
             </form>
             <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">All cases</h2>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+            </summary>
+            <div class="govuk-details__text">
+                <form method="GET">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by case status</label>
+                        <select class="govuk-select" id="" name="appealStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assign_case_officer">Assign case officer</option>
+                            <option value="ready_to_start">Ready to start</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="issue_determination">Issue decision</option>
+                            <option value="complete">Complete</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by inspector status</label>
+                        <select class="govuk-select" id="" name="inspectorStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="unassigned">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                        id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/appeals-list">Clear filter</a>
+                    </div>
+                </form>
+            </div>
+        </details>
+    </div>
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -35,21 +69,21 @@ exports[`national-list GET / should render national list - 10 pages - all page i
         </thead>
         <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="appeal 9 4 3 2 4 5"> 943245</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="Appeal 9 4 3 2 4 5">943245</a>
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">Received appeal</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="appeal 1 2 9 2 8 5"> 129285</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 1 2 9 2 8 5">129285</a>
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class="govuk-table__cell">Dorset Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">Received appeal</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--pink single-line">Issue decision</strong>
                 </td>
             </tr>
         </tbody>
@@ -98,25 +132,59 @@ exports[`national-list GET / should render national list - 15 pages - pagination
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l">National List</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <form action="" method="GET" novalidate>
+            <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
                     for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text">
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+                    id="filters-submit">Search</button>
+                </div>
             </form>
             <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">All cases</h2>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+            </summary>
+            <div class="govuk-details__text">
+                <form method="GET">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by case status</label>
+                        <select class="govuk-select" id="" name="appealStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assign_case_officer">Assign case officer</option>
+                            <option value="ready_to_start">Ready to start</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="issue_determination">Issue decision</option>
+                            <option value="complete">Complete</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by inspector status</label>
+                        <select class="govuk-select" id="" name="inspectorStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="unassigned">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                        id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/appeals-list">Clear filter</a>
+                    </div>
+                </form>
+            </div>
+        </details>
+    </div>
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -129,21 +197,21 @@ exports[`national-list GET / should render national list - 15 pages - pagination
         </thead>
         <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="appeal 9 4 3 2 4 5"> 943245</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="Appeal 9 4 3 2 4 5">943245</a>
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">Received appeal</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="appeal 1 2 9 2 8 5"> 129285</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 1 2 9 2 8 5">129285</a>
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class="govuk-table__cell">Dorset Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">Received appeal</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--pink single-line">Issue decision</strong>
                 </td>
             </tr>
         </tbody>
@@ -172,25 +240,59 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l">National List</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <form action="" method="GET" novalidate>
+            <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
                     for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text">
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+                    id="filters-submit">Search</button>
+                </div>
             </form>
             <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">All cases</h2>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+            </summary>
+            <div class="govuk-details__text">
+                <form method="GET">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by case status</label>
+                        <select class="govuk-select" id="" name="appealStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assign_case_officer">Assign case officer</option>
+                            <option value="ready_to_start">Ready to start</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="issue_determination">Issue decision</option>
+                            <option value="complete">Complete</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by inspector status</label>
+                        <select class="govuk-select" id="" name="inspectorStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="unassigned">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                        id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/appeals-list">Clear filter</a>
+                    </div>
+                </form>
+            </div>
+        </details>
+    </div>
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -203,21 +305,192 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
         </thead>
         <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="appeal 9 4 3 2 4 5"> 943245</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="Appeal 9 4 3 2 4 5">943245</a>
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">Received appeal</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="appeal 1 2 9 2 8 5"> 129285</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 1 2 9 2 8 5">129285</a>
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class="govuk-table__cell">Dorset Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">Received appeal</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--pink single-line">Issue decision</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>"
+`;
+
+exports[`national-list GET / should render national list - no search term - filter applied 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form method="GET">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
+                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    <input class="govuk-input"
+                    id="searchTerm" name="searchTerm" type="text">
+                </div>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+                    id="filters-submit">Search</button>
+                </div>
+            </form>
+            <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
+        </div>
+    </div>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <h2 class="govuk-heading-m">1 result (filters applied)</h2>
+    </div>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+            </summary>
+            <div class="govuk-details__text">
+                <form method="GET">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by case status</label>
+                        <select class="govuk-select" id="" name="appealStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assign_case_officer">Assign case officer</option>
+                            <option value="ready_to_start">Ready to start</option>
+                            <option value="lpa_questionnaire_due" selected>LPA questionnaire due</option>
+                            <option value="issue_determination">Issue decision</option>
+                            <option value="complete">Complete</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by inspector status</label>
+                        <select class="govuk-select" id="" name="inspectorStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="unassigned">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                        id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/appeals-list">Clear filter</a>
+                    </div>
+                </form>
+            </div>
+        </details>
+    </div>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Site address</th>
+                <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
+                <th scope="col" class="govuk-table__header">Status</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="Appeal 9 4 3 2 4 5">943245</a>
+                </td>
+                <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
+                <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell">Householder</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>"
+`;
+
+exports[`national-list GET / should render national list - search term - filter applied 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form method="GET">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
+                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    <input class="govuk-input"
+                    id="searchTerm" name="searchTerm" type="text" value="BS7 8LQ">
+                </div>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+                    id="filters-submit">Search</button><a class="govuk-link" href="/appeals-service/appeals-list">Clear search</a>
+                </div>
+            </form>
+            <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
+        </div>
+    </div>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <h2 class="govuk-heading-m">1 result for BS7 8LQ (filters applied)</h2>
+    </div>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+            </summary>
+            <div class="govuk-details__text">
+                <form method="GET">
+                    <input type="hidden" name="searchTerm" value="BS7 8LQ">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by case status</label>
+                        <select class="govuk-select" id="" name="appealStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assign_case_officer">Assign case officer</option>
+                            <option value="ready_to_start">Ready to start</option>
+                            <option value="lpa_questionnaire_due" selected>LPA questionnaire due</option>
+                            <option value="issue_determination">Issue decision</option>
+                            <option value="complete">Complete</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by inspector status</label>
+                        <select class="govuk-select" id="" name="inspectorStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="unassigned">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                        id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/appeals-list?searchTerm=BS7%208LQ">Clear filter</a>
+                    </div>
+                </form>
+            </div>
+        </details>
+    </div>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Site address</th>
+                <th scope="col" class="govuk-table__header">Local planning authority</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
+                <th scope="col" class="govuk-table__header">Status</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="Appeal 9 4 3 2 4 5">943245</a>
+                </td>
+                <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
+                <td class="govuk-table__cell">Wiltshire Council</td>
+                <td class="govuk-table__cell">Householder</td>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
                 </td>
             </tr>
         </tbody>
@@ -229,28 +502,63 @@ exports[`national-list GET / should render national list - search term - no resu
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l">National List</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <form action="" method="GET" novalidate>
+            <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
                     for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text" value="NORESULT">
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+                    id="filters-submit">Search</button><a class="govuk-link" href="/appeals-service/appeals-list">Clear search</a>
+                </div>
             </form>
             <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <div><a href="/appeals-service/appeals-list" class="govuk-caption-m govuk-!-margin-bottom-8">Clear search results</a>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <h2 class="govuk-heading-m">No results found for NORESULT</h2>
     </div>
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Search results</h2>
-    <div class="govuk-caption-m govuk-!-margin-bottom-3">Your search query did not return any results.</div>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+            </summary>
+            <div class="govuk-details__text">
+                <form method="GET">
+                    <input type="hidden" name="searchTerm" value="NORESULT">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by case status</label>
+                        <select class="govuk-select" id="" name="appealStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assign_case_officer">Assign case officer</option>
+                            <option value="ready_to_start">Ready to start</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="issue_determination">Issue decision</option>
+                            <option value="complete">Complete</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by inspector status</label>
+                        <select class="govuk-select" id="" name="inspectorStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="unassigned">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                        id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/appeals-list?searchTerm=NORESULT">Clear filter</a>
+                    </div>
+                </form>
+            </div>
+        </details>
+    </div>
 </main>"
 `;
 
@@ -258,27 +566,63 @@ exports[`national-list GET / should render national list - search term 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l">National List</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h3 class="govuk-heading-m govuk-!-margin-bottom-3">Search cases</h3>
-            <form action="" method="GET" novalidate>
+            <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
                     for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text" value="BS7 8LQ">
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+                    id="filters-submit">Search</button><a class="govuk-link" href="/appeals-service/appeals-list">Clear search</a>
+                </div>
             </form>
             <div class="govuk-section-break--visible govuk-!-margin-top-2 govuk-!-margin-bottom-6"></div>
         </div>
     </div>
-    <div><a href="/appeals-service/appeals-list" class="govuk-caption-m govuk-!-margin-bottom-8">Clear search results</a>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <h2 class="govuk-heading-m">2 results for BS7 8LQ</h2>
     </div>
-    <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Search results</h2>
+    <div class="govuk-grid-row govuk-!-padding-left-3">
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Filters</span>
+            </summary>
+            <div class="govuk-details__text">
+                <form method="GET">
+                    <input type="hidden" name="searchTerm" value="BS7 8LQ">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by case status</label>
+                        <select class="govuk-select" id="" name="appealStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assign_case_officer">Assign case officer</option>
+                            <option value="ready_to_start">Ready to start</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="issue_determination">Issue decision</option>
+                            <option value="complete">Complete</option>
+                        </select>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label">Filter by inspector status</label>
+                        <select class="govuk-select" id="" name="inspectorStatusFilter">
+                            <option value="all">All</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="unassigned">Unassigned</option>
+                        </select>
+                    </div>
+                    <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                        id="filters-submit">Apply</button><a class="govuk-link" href="/appeals-service/appeals-list?searchTerm=BS7%208LQ">Clear filter</a>
+                    </div>
+                </form>
+            </div>
+        </details>
+    </div>
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -291,21 +635,21 @@ exports[`national-list GET / should render national list - search term 1`] = `
         </thead>
         <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="appeal 9 4 3 2 4 5"> 943245</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="Appeal 9 4 3 2 4 5">943245</a>
                 </td>
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">Received appeal</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="appeal 1 2 9 2 8 5"> 129285</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 1 2 9 2 8 5">129285</a>
                 </td>
                 <td class="govuk-table__cell">19 Beauchamp Road, Bristol, BS7 8LQ</td>
                 <td class="govuk-table__cell">Dorset Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">Received appeal</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--pink single-line">Issue decision</strong>
                 </td>
             </tr>
         </tbody>
