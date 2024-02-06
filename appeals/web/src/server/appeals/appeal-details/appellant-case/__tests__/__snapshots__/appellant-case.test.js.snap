@@ -245,6 +245,266 @@ exports[`appellant-case GET /appellant-case should render the appellant case pag
 </main>"
 `;
 
+exports[`appellant-case GET /appellant-case should render the appellant case page with draft documents notification banner with links to add metadata page for each folder containing draft documents, and no links for folders with only non-draft documents 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Virus scan in progress</p><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>
+                </div>
+            </div>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <p class="govuk-notification-banner__heading">Some document details were not entered during upload.</p>
+                    <p class="govuk-body">Default settings have been added but may be incorrect. You need to review
+                        and change (if applicable) the details for:</p>
+                    <ul class="govuk-list">
+                        <li><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-document-details/2864">New supporting documents</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h3 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Appeal is incomplete</h3>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Incorrect name and/or missing documents</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>Appellant name is not the same on the application form and appeal form</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Attachments and/or appendices have not been included to the full statement of case</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 1</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Other</span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <ul class="govuk-!-margin-top-0">
+                                <li>test reason 2</li>
+                                <li>test reason 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Appellant case</h1>
+        </div>
+    </div>
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+            <dd class="govuk-summary-list__value">96 The Avenue, Maidstone, Kent, MD21 5XY</dd>
+        </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+            <dd             class="govuk-summary-list__value">Worthing Borough Council</dd>
+        </div>
+    </dl>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">1. Appellant</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
+                    <dd class="govuk-summary-list__value">Fiona Burgess</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/appellant-name"> Change<span class="govuk-visually-hidden"> Appellant name</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Applicant name</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/applicant-name"> Change<span class="govuk-visually-hidden"> Applicant name</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application reference</dt>
+                    <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/application-reference"> Change<span class="govuk-visually-hidden"> Application reference</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">2. Appeal site</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <dd class="govuk-summary-list__value">96 The Avenue, Maidstone, Kent, MD21 5XY</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-address"> Change<span class="govuk-visually-hidden"> Site address</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site fully owned</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-fully-owned"> Change<span class="govuk-visually-hidden"> Site fully owned</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site partially owned</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-partially-owned"> Change<span class="govuk-visually-hidden"> Site partially owned</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> All owners known</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/all-owners-known"> Change<span class="govuk-visually-hidden"> All owners known</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Attempted to identify owners</dt>
+                    <dd                     class="govuk-summary-list__value"></dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/attempted-to-identify-owners"> Change<span class="govuk-visually-hidden"> Attempted to identify owners</span></a>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Advertised appeal</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/advertised-appeal"> Change<span class="govuk-visually-hidden"> Advertised appeal</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visibility</dt>
+                    <dd class="govuk-summary-list__value">Yes</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/visibility"> Change<span class="govuk-visually-hidden"> Visibility</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Potential safety risks</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/site-health-and-safety-issues"> Change<span class="govuk-visually-hidden"> Potential safety risks</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">3. Appeal status</h2>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list" id="appeal-summary">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application form</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/1"> Add<span class="govuk-visually-hidden"> Application form</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision letter</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/2"> Add<span class="govuk-visually-hidden"> Decision letter</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal statement</dt>
+                    <dd class="govuk-summary-list__value"></dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/9"> Add<span class="govuk-visually-hidden"> Appeal statement</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Supporting documents</dt>
+                    <dd class="govuk-summary-list__value">No</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-appeal-details/add-new-supporting-documents"> Change<span class="govuk-visually-hidden"> Supporting documents</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New supporting documents</dt>
+                    <dd                     class="govuk-summary-list__value"></dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/8"> Add<span class="govuk-visually-hidden"> New supporting documents</span></a>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/manage-documents/10/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/add-documents/10"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">What is the outcome of your review?</legend>
+                        <div class="govuk-radios"
+                        data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="reviewOutcome" name="reviewOutcome"
+                                type="radio" value="valid">
+                                <label class="govuk-label govuk-radios__label" for="reviewOutcome">Valid</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="reviewOutcome-2" name="reviewOutcome"
+                                type="radio" value="invalid">
+                                <label class="govuk-label govuk-radios__label" for="reviewOutcome-2">Invalid</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="reviewOutcome-3" name="reviewOutcome"
+                                type="radio" value="incomplete">
+                                <label class="govuk-label govuk-radios__label" for="reviewOutcome-3">Incomplete</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`appellant-case GET /appellant-case with unchecked documents should render a notification banner when a file is unscanned 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -812,7 +1072,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -820,7 +1080,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -828,7 +1088,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -850,7 +1110,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
-                                    type="radio" value="no redaction required">
+                                    type="radio" value="no redaction required" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
                                 </div>
                             </div>
@@ -873,7 +1133,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -881,7 +1141,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -889,7 +1149,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -906,7 +1166,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
-                                    type="radio" value="unredacted">
+                                    type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
                                 <div class="govuk-radios__item">
@@ -950,7 +1210,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -958,7 +1218,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -966,7 +1226,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -988,7 +1248,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
-                                    type="radio" value="no redaction required">
+                                    type="radio" value="no redaction required" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
                                 </div>
                             </div>
@@ -1011,7 +1271,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1019,7 +1279,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1027,7 +1287,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -1044,7 +1304,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
-                                    type="radio" value="unredacted">
+                                    type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
                                 <div class="govuk-radios__item">
@@ -1088,7 +1348,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1096,7 +1356,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1104,7 +1364,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -1126,7 +1386,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
-                                    type="radio" value="no redaction required">
+                                    type="radio" value="no redaction required" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
                                 </div>
                             </div>
@@ -1149,7 +1409,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1157,7 +1417,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1165,7 +1425,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -1182,7 +1442,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
-                                    type="radio" value="unredacted">
+                                    type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
                                 <div class="govuk-radios__item">
@@ -1226,7 +1486,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1234,7 +1494,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1242,7 +1502,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -1264,7 +1524,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
-                                    type="radio" value="no redaction required">
+                                    type="radio" value="no redaction required" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
                                 </div>
                             </div>
@@ -1287,7 +1547,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1295,7 +1555,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1303,7 +1563,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -1320,7 +1580,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
-                                    type="radio" value="unredacted">
+                                    type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
                                 <div class="govuk-radios__item">
@@ -1364,7 +1624,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.day" name="items[0][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1372,7 +1632,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[0].receivedDate.month" name="items[0][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1380,7 +1640,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[0].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[0].receivedDate.year" name="items[0][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -1402,7 +1662,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
-                                    type="radio" value="no redaction required">
+                                    type="radio" value="no redaction required" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
                                 </div>
                             </div>
@@ -1425,7 +1685,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.day">Day</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.day" name="items[1][receivedDate]-[day]" type="text"
-                                        inputmode="numeric">
+                                        value="3" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1433,7 +1693,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.month">Month</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-2"
                                         id="items[1].receivedDate.month" name="items[1][receivedDate]-[month]"
-                                        type="text" inputmode="numeric">
+                                        type="text" value="4" inputmode="numeric">
                                     </div>
                                 </div>
                                 <div class="govuk-date-input__item">
@@ -1441,7 +1701,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                         <label class="govuk-label govuk-date-input__label" for="items[1].receivedDate.year">Year</label>
                                         <input class="govuk-input govuk-date-input__input govuk-input govuk-date-input__input govuk-input--width-4"
                                         id="items[1].receivedDate.year" name="items[1][receivedDate]-[year]" type="text"
-                                        inputmode="numeric">
+                                        value="2025" inputmode="numeric">
                                     </div>
                                 </div>
                             </div>
@@ -1458,7 +1718,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                 </div>
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]-2" name="items[1][redactionStatus]"
-                                    type="radio" value="unredacted">
+                                    type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
                                 <div class="govuk-radios__item">

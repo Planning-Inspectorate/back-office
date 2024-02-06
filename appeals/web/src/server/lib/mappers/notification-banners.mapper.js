@@ -75,6 +75,9 @@ export const notificationBannerDefinitions = {
 	notCheckedDocument: {
 		pages: ['lpaQuestionnaire', 'manageDocuments', 'appellantCase', 'manageFolder'],
 		html: '<p class="govuk-notification-banner__heading">Virus scan in progress</p></br><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>'
+	},
+	foldersWithDraftDocuments: {
+		pages: ['appellantCase', 'lpaQuestionnaire']
 	}
 };
 

@@ -17,7 +17,7 @@ export interface SelectItemParameter {
 
 export interface DayMonthYear {
 	day: number;
-	month: number;
+	month: number; // 1-based, i.e. January === 1 (Date stores this as 0-based value, eg. Date.getMonth() called on a date in January will return 0)
 	year: number;
 }
 

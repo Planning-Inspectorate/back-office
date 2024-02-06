@@ -1,5 +1,6 @@
 import { formatInTimeZone } from 'date-fns-tz';
 import enGB from 'date-fns/locale/en-GB/index.js';
+import logger from '#lib/logger.js';
 
 export const timeZone = 'Europe/London';
 
@@ -74,6 +75,38 @@ export const dayMonthYearToApiDateString = (dayMonthYear) => {
 };
 
 /**
+ * @param {string|null|undefined} apiDateString - date in format YYYY-MM-DD
+ * @returns {import('../appeals/appeals.types.js').DayMonthYear|undefined}
+ */
+export const apiDateStringToDayMonthYear = (apiDateString) => {
+	if (apiDateString === null || apiDateString === undefined) {
+		return;
+	}
+
+	const date = new Date(apiDateString);
+
+	if (date.toString() === 'Invalid Date') {
+		logger.error('The date string provided parsed to an invalid date');
+		return;
+	}
+
+	const dayMonthYear = {
+		day: date.getDate(),
+		month: date.getMonth(),
+		year: date.getFullYear()
+	};
+
+	if (isNaN(dayMonthYear.day) || isNaN(dayMonthYear.month) || isNaN(dayMonthYear.year)) {
+		return;
+	}
+
+	// date.getMonth() returns a zero-based month value, but DayMonthYear.month should be a 1-based value (see notes on DayMonthYear type definition)
+	dayMonthYear.month += 1;
+
+	return dayMonthYear;
+};
+
+/**
  * @param {string | undefined} hour
  * @param {string | undefined} minute
  * @returns {string} - time in format HH:MM
@@ -133,6 +166,7 @@ export function webDateToDisplayDate(dayMonthYear, { condensed = false } = {}) {
 	if (day && month && year) {
 		const date = new Date();
 		date.setDate(day);
+		// date.setMonth() requires a zero-based month value, but DayMonthYear.month is a 1-based value (see notes on DayMonthYear type definition)
 		date.setMonth(month - 1);
 		date.setFullYear(year);
 

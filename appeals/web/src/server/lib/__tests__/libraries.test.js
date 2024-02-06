@@ -6,7 +6,8 @@ import {
 	dateIsValid,
 	isDateInstance,
 	dayMonthYearToApiDateString,
-	webDateToDisplayDate
+	webDateToDisplayDate,
+	apiDateStringToDayMonthYear
 } from '../dates.js';
 import { appealShortReference } from '../nunjucks-filters/appeals.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
@@ -223,6 +224,36 @@ describe('Libraries', () => {
 				});
 
 				expect(convertedDate).toBe('1 January 2024');
+			});
+		});
+
+		describe('apiDateStringToDayMonthYear', () => {
+			it('should return undefined when the provided date string is null', () => {
+				const convertedDate = apiDateStringToDayMonthYear(null);
+
+				expect(convertedDate).toEqual(undefined);
+			});
+
+			it('should return undefined when the provided date string is undefined', () => {
+				const convertedDate = apiDateStringToDayMonthYear(undefined);
+
+				expect(convertedDate).toEqual(undefined);
+			});
+
+			it('should return undefined when provided an invalid date string', () => {
+				const convertedDate = apiDateStringToDayMonthYear('abc123');
+
+				expect(convertedDate).toEqual(undefined);
+			});
+
+			it('should return the correct date as a DayMonthYear object when provided a valid date string', () => {
+				const convertedDate = apiDateStringToDayMonthYear('2024-02-02T13:24:10.359Z');
+
+				expect(convertedDate).toEqual({
+					day: 2,
+					month: 2,
+					year: 2024
+				});
 			});
 		});
 

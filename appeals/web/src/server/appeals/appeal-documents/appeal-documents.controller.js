@@ -84,7 +84,18 @@ export const renderDocumentDetails = async (
 		return response.status(404).render('app/404.njk');
 	}
 
-	const mappedPageContent = addDocumentDetailsPage(backButtonUrl, currentFolder, body?.items);
+	const redactionStatuses = await getDocumentRedactionStatuses(request.apiClient);
+
+	if (!redactionStatuses) {
+		return response.render('app/500.njk');
+	}
+
+	const mappedPageContent = addDocumentDetailsPage(
+		backButtonUrl,
+		currentFolder,
+		body?.items,
+		redactionStatuses
+	);
 	const isAdditionalDocument = currentFolder.path.split('/')[1] === 'additionalDocuments';
 
 	return response.render('appeals/documents/add-document-details.njk', {
@@ -240,13 +251,16 @@ export const renderChangeDocumentDetails = async (request, response, backButtonU
 	const { appealId, documentId } = request.params;
 	let items = body?.items;
 
-	if (!items) {
-		const [redactionStatuses, currentFile] = await Promise.all([
-			getDocumentRedactionStatuses(request.apiClient),
-			getFileInfo(request.apiClient, appealId, documentId)
-		]);
+	const redactionStatuses = await getDocumentRedactionStatuses(request.apiClient);
 
-		if (redactionStatuses && currentFile) {
+	if (!redactionStatuses) {
+		return response.status(500).render('app/500.njk');
+	}
+
+	if (!items) {
+		const currentFile = await getFileInfo(request.apiClient, appealId, documentId);
+
+		if (currentFile) {
 			const receivedDate = new Date(currentFile?.latestDocumentVersion?.dateReceived);
 			const redactionStatus = mapRedactionStatusIdToName(
 				redactionStatuses,
@@ -269,7 +283,12 @@ export const renderChangeDocumentDetails = async (request, response, backButtonU
 		return response.status(404).render('app/404.njk');
 	}
 
-	const mappedPageContent = changeDocumentDetailsPage(backButtonUrl, currentFolder, items);
+	const mappedPageContent = changeDocumentDetailsPage(
+		backButtonUrl,
+		currentFolder,
+		items,
+		redactionStatuses
+	);
 
 	return response.render('appeals/documents/add-document-details.njk', {
 		pageContent: mappedPageContent,

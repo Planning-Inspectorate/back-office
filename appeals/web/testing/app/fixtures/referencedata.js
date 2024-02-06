@@ -300,6 +300,23 @@ export const appellantCaseDataNotValidated = {
 	}
 };
 
+export const appellantCaseDataNotValidatedWithDocuments = {
+	...appellantCaseDataNotValidated,
+	documents: {
+		...appellantCaseDataNotValidated.documents,
+		newSupportingDocuments: {
+			folderId: 1,
+			path: 'appellant_case/newSupportingDocuments',
+			documents: []
+		},
+		appealStatement: {
+			folderId: 2,
+			path: 'appellant_case/appealStatement',
+			documents: []
+		}
+	}
+};
+
 export const appellantCaseDataInvalidOutcome = {
 	...appellantCaseDataNotValidated,
 	validation: {
@@ -762,6 +779,25 @@ export const lpaQuestionnaireDataNotValidated = {
 	validation: null
 };
 
+export const lpaQuestionnaireDataNotValidatedWithDocuments = {
+	...lpaQuestionnaireDataNotValidated,
+	documents: {
+		...lpaQuestionnaireDataNotValidated.documents,
+		conservationAreaMap: {
+			folderId: 1,
+			path: 'lpa_questionnaire/conservationAreaMap',
+			documents: [
+				{
+					id: '9635631c-507c-4af2-98a1-da007e8bb56b',
+					name: 'conservationAreaMap.docx',
+					folderId: 1,
+					caseId: 1
+				}
+			]
+		}
+	}
+};
+
 export const lpaQuestionnaireDataIncompleteOutcome = {
 	...lpaQuestionnaireDataNotValidated,
 	validation: {
@@ -1150,6 +1186,39 @@ export const documentFolderInfo = {
 				size: 58987,
 				mime: 'image/jpeg',
 				virusCheckStatus: 'checked',
+				isLateEntry: true
+			}
+		}
+	],
+	id: 2864,
+	path: 'appellant_case/newSupportingDocuments'
+};
+
+export const documentFolderInfoWithoutDraftDocuments = {
+	caseId: 103,
+	documents: [
+		{
+			id: '15d19184-155b-4b6c-bba6-2bd2a61ca9a3',
+			name: 'test-pdf-documentFolderInfo.pdf',
+			latestDocumentVersion: {
+				draft: false,
+				dateReceived: '2023-02-01T01:00:00.000Z',
+				redactionStatus: 1,
+				size: 129363,
+				mime: 'application/pdf',
+				isLateEntry: false
+			}
+		},
+		{
+			id: '47d8f073-c837-4f07-9161-c1a5626eba56',
+			name: 'sample-20s-documentFolderInfo.mp4',
+			latestDocumentVersion: {
+				draft: false,
+				dateReceived: '2024-03-02T01:00:00.000Z',
+				redactionStatus: 2,
+				size: 11815175,
+				mime: 'video/mp4',
+				virusCheckStatus: 'not_checked',
 				isLateEntry: true
 			}
 		}
