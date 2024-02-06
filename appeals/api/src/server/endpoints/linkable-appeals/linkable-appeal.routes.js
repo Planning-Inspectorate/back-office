@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
-import { getLinkableAppealById } from './linkable-appeals.controller.js';
+import { getLinkableAppealById } from './linkable-appeal.controller.js';
 
 const router = createRouter();
 

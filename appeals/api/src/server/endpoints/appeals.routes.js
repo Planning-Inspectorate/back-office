@@ -30,7 +30,7 @@ import { changeAppealTypeRoutes } from './change-appeal-type/change-appeal-type.
 import { businessDaysRoutes } from './business-days/business-days.routes.js';
 import { linkAppealsRoutes } from './link-appeals/link-appeals.routes.js';
 import checkAzureAdUserIdHeaderExists from '#middleware/check-azure-ad-user-id-header-exists.js';
-import { linkedAppealsRoutes } from './linkable-appeals/linkable-appeals.routes.js';
+import { linkedAppealsRoutes } from './linkable-appeals/linkable-appeal.routes.js';
 
 const router = createRouter();
 router.use(integrationsRoutes);

@@ -590,14 +590,6 @@ export interface SingleAppealResponse {
 		appealId?: number;
 		/** @example "APP/Q9999/D/21/725284" */
 		appealReference?: string;
-		/** @example "Householder" */
-		appealType?: string;
-		/** @example "2024-01-30T13:44:39.655Z" */
-		linkingDate?: string; // New addition
-		/** @example true */
-		isParentAppeal?: boolean;
-		/** @example false */
-		isChildAppeal?: boolean;
 	}[];
 	/** @example "Wiltshire Council" */
 	localPlanningDepartment?: string;
