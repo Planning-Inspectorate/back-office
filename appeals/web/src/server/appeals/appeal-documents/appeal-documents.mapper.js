@@ -1,7 +1,12 @@
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import config from '@pins/appeals.web/environment/config.js';
 import { capitalize } from 'lodash-es';
-import { dayMonthYearToApiDateString, dateToDisplayDate, dateToDisplayTime } from '#lib/dates.js';
+import {
+	dayMonthYearToApiDateString,
+	dateToDisplayDate,
+	dateToDisplayTime,
+	apiDateStringToDayMonthYear
+} from '#lib/dates.js';
 import { kilobyte, megabyte, gigabyte } from '#appeals/appeal.constants.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 import usersService from '#appeals/appeal-users/users-service.js';
@@ -216,9 +221,10 @@ export function mapAddDocumentsPageHeading(isAdditionalDocument, documentId) {
  * @param {string} backLinkUrl
  * @param {FolderInfo & {id: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
  * @param {Object<string, any>} bodyItems
+ * @param {RedactionStatus[]} redactionStatuses
  * @returns {PageContent}
  */
-export function addDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
+export function addDocumentDetailsPage(backLinkUrl, folder, bodyItems, redactionStatuses) {
 	const incompleteDocuments = folder.documents.filter(
 		(document) => document.latestDocumentVersion?.draft === true
 	);
@@ -230,111 +236,136 @@ export function addDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Add document details',
 		heading: `${folderPathToFolderNameText(folder.path)} documents`,
-		pageComponents: incompleteDocuments.flatMap((document, index) => [
-			{
-				wrapperHtml: {
-					opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
-					closing: ''
-				},
-				type: 'input',
-				parameters: {
-					type: 'hidden',
-					name: `items[${index}][documentId]`,
-					value: document.id
-				}
-			},
-			{
-				type: 'date-input',
-				parameters: {
-					id: `items[${index}]receivedDate`,
-					namePrefix: `items[${index}][receivedDate]`,
-					fieldset: {
-						legend: {
-							text: 'Date received'
-						}
-					},
-					items: [
-						{
-							classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
-							id: `items[${index}].receivedDate.day`,
-							name: '[day]',
-							label: 'Day',
-							value:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.receivedDate.day || ''
-						},
-						{
-							classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
-							id: `items[${index}].receivedDate.month`,
-							name: '[month]',
-							label: 'Month',
-							value:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.receivedDate.month || ''
-						},
-						{
-							classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
-							id: `items[${index}].receivedDate.year`,
-							name: '[year]',
-							label: 'Year',
-							value:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.receivedDate.year || ''
-						}
-					]
-				}
-			},
-			{
-				wrapperHtml: {
-					opening: '',
-					closing:
-						index < incompleteDocuments.length - 1
-							? '<hr class="govuk-!-margin-top-7"></div>'
-							: '</div>'
-				},
-				type: 'radios',
-				parameters: {
-					name: `items[${index}][redactionStatus]`,
-					fieldset: {
-						legend: {
-							text: 'Redaction'
-						}
-					},
-					items: [
-						{
-							text: 'Redacted',
-							value: 'redacted',
-							checked:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.redactionStatus === 'redacted'
-						},
-						{
-							text: 'Unredacted',
-							value: 'unredacted',
-							checked:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.redactionStatus === 'unredacted'
-						},
-						{
-							text: 'No redaction required',
-							value: 'no redaction required',
-							checked:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.redactionStatus === 'no redaction required'
-						}
-					]
-				}
-			}
-		])
+		pageComponents: incompleteDocuments.flatMap((document, index) => {
+			return mapDocumentDetailsPageComponentsForDocument(
+				document,
+				index,
+				incompleteDocuments,
+				bodyItems,
+				redactionStatuses
+			);
+		})
 	};
 
 	return pageContent;
+}
+
+/**
+ * @param {DocumentInfo} document
+ * @param {number} index
+ * @param {DocumentInfo[]} documents
+ * @param {Object<string, any>} bodyItems
+ * @param {RedactionStatus[]} redactionStatuses
+ * @returns {PageComponent[]}
+ */
+function mapDocumentDetailsPageComponentsForDocument(
+	document,
+	index,
+	documents,
+	bodyItems,
+	redactionStatuses
+) {
+	const latestVersionReceivedDate = apiDateStringToDayMonthYear(
+		`${document.latestDocumentVersion?.dateReceived}`
+	);
+	const latestVersionRedactionStatus = redactionStatuses.find(
+		(status) => status.id === document.latestDocumentVersion?.redactionStatus
+	);
+	const bodyItem = bodyItems?.find(
+		(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
+	);
+	const bodyRecievedDateDay = bodyItem?.receivedDate?.day;
+	const bodyRecievedDateMonth = bodyItem?.receivedDate?.month;
+	const bodyRecievedDateYear = bodyItem?.receivedDate?.year;
+	const bodyRedactionStatus = bodyItem?.redactionStatus;
+
+	return [
+		{
+			wrapperHtml: {
+				opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
+				closing: ''
+			},
+			type: 'input',
+			parameters: {
+				type: 'hidden',
+				name: `items[${index}][documentId]`,
+				value: document.id
+			}
+		},
+		{
+			type: 'date-input',
+			parameters: {
+				id: `items[${index}]receivedDate`,
+				namePrefix: `items[${index}][receivedDate]`,
+				fieldset: {
+					legend: {
+						text: 'Date received'
+					}
+				},
+				items: [
+					{
+						classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+						id: `items[${index}].receivedDate.day`,
+						name: '[day]',
+						label: 'Day',
+						value: bodyRecievedDateDay || latestVersionReceivedDate?.day || ''
+					},
+					{
+						classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
+						id: `items[${index}].receivedDate.month`,
+						name: '[month]',
+						label: 'Month',
+						value: bodyRecievedDateMonth || latestVersionReceivedDate?.month || ''
+					},
+					{
+						classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
+						id: `items[${index}].receivedDate.year`,
+						name: '[year]',
+						label: 'Year',
+						value: bodyRecievedDateYear || latestVersionReceivedDate?.year || ''
+					}
+				]
+			}
+		},
+		{
+			wrapperHtml: {
+				opening: '',
+				closing: index < documents.length - 1 ? '<hr class="govuk-!-margin-top-7"></div>' : '</div>'
+			},
+			type: 'radios',
+			parameters: {
+				name: `items[${index}][redactionStatus]`,
+				fieldset: {
+					legend: {
+						text: 'Redaction'
+					}
+				},
+				items: [
+					{
+						text: 'Redacted',
+						value: 'redacted',
+						checked: bodyRedactionStatus
+							? bodyItem?.redactionStatus === 'redacted'
+							: latestVersionRedactionStatus?.name.toLowerCase() === 'redacted'
+					},
+					{
+						text: 'Unredacted',
+						value: 'unredacted',
+						checked: bodyRedactionStatus
+							? bodyItem?.redactionStatus === 'unredacted'
+							: latestVersionRedactionStatus?.name.toLowerCase() === 'unredacted'
+					},
+					{
+						text: 'No redaction required',
+						value: 'no redaction required',
+						checked: bodyRedactionStatus
+							? bodyItem?.redactionStatus === 'no redaction required'
+							: latestVersionRedactionStatus?.name.toLowerCase() === 'no redaction required'
+					}
+				]
+			}
+		}
+	];
 }
 
 /**
@@ -1253,7 +1284,7 @@ export const mapRedactionStatusIdToName = (redactionStatuses, redactionStatusId)
  * @param {string} folderPath
  * @returns {string}
  */
-const folderPathToFolderNameText = (folderPath) => {
+export const folderPathToFolderNameText = (folderPath) => {
 	let nameText = capitalize(
 		(folderPath.split('/')?.[1] || '').replace(/(?<!^)([A-Z])/g, ' $1').toLowerCase()
 	);
@@ -1277,9 +1308,10 @@ const folderPathToFolderNameText = (folderPath) => {
  * @param {string} backLinkUrl
  * @param {FolderInfo & {id: string}} folder - API type needs to be updated here (should be Folder, but there are worse problems with that type)
  * @param {Object<string, any>} bodyItems
+ * @param {RedactionStatus[]} redactionStatuses
  * @returns {PageContent}
  */
-export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
+export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems, redactionStatuses) {
 	const latestDocuments = folder.documents;
 
 	/** @type {PageContent} */
@@ -1289,108 +1321,15 @@ export function changeDocumentDetailsPage(backLinkUrl, folder, bodyItems) {
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
 		preHeading: 'Change document details',
 		heading: `${folderPathToFolderNameText(folder.path)} documents`,
-		pageComponents: latestDocuments.flatMap((document, index) => [
-			{
-				wrapperHtml: {
-					opening: `<div class="govuk-form-group"><h2 class="govuk-heading-m">${document.name}</h2>`,
-					closing: ''
-				},
-				type: 'input',
-				parameters: {
-					type: 'hidden',
-					name: `items[${index}][documentId]`,
-					value: document.id
-				}
-			},
-			{
-				type: 'date-input',
-				parameters: {
-					id: `items[${index}]receivedDate`,
-					namePrefix: `items[${index}][receivedDate]`,
-					fieldset: {
-						legend: {
-							text: 'Date received'
-						}
-					},
-					items: [
-						{
-							classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
-							id: `items[${index}].receivedDate.day`,
-							name: '[day]',
-							label: 'Day',
-							value:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.receivedDate.day || ''
-						},
-						{
-							classes: 'govuk-input govuk-date-input__input govuk-input--width-2',
-							id: `items[${index}].receivedDate.month`,
-							name: '[month]',
-							label: 'Month',
-							value:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.receivedDate.month || ''
-						},
-						{
-							classes: 'govuk-input govuk-date-input__input govuk-input--width-4',
-							id: `items[${index}].receivedDate.year`,
-							name: '[year]',
-							label: 'Year',
-							value:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.receivedDate.year || ''
-						}
-					]
-				}
-			},
-			{
-				wrapperHtml: {
-					opening: '',
-					closing:
-						index < latestDocuments.length - 1
-							? '<hr class="govuk-!-margin-top-7"></div>'
-							: '</div>'
-				},
-				type: 'radios',
-				parameters: {
-					name: `items[${index}][redactionStatus]`,
-					fieldset: {
-						legend: {
-							text: 'Redaction'
-						}
-					},
-					items: [
-						{
-							text: 'Redacted',
-							value: 'redacted',
-							checked:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.redactionStatus === 'redacted'
-						},
-						{
-							text: 'Unredacted',
-							value: 'unredacted',
-							checked:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.redactionStatus === 'unredacted'
-						},
-						{
-							text: 'No redaction required',
-							value: 'no redaction required',
-							checked:
-								bodyItems?.find(
-									(/** @type {{ documentId: string; }} */ item) => item.documentId === document.id
-								)?.redactionStatus === 'no redaction required'
-						}
-					]
-				}
-			}
-		])
+		pageComponents: latestDocuments.flatMap((document, index) => {
+			return mapDocumentDetailsPageComponentsForDocument(
+				document,
+				index,
+				latestDocuments,
+				bodyItems,
+				redactionStatuses
+			);
+		})
 	};
 
 	if (pageContent.pageComponents) {

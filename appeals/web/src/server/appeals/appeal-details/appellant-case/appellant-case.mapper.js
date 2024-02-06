@@ -19,6 +19,7 @@ import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-co
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 import * as displayPageFormatter from '#lib/display-page-formatter.js';
 import { isFolderInfo } from '#lib/ts-utilities.js';
+import { addDraftDocumentsNotificationBanner } from '#lib/mappers/documents.mapper.js';
 
 /**
  * @typedef {import('../../appeals.types.js').DayMonthYear} DayMonthYear
@@ -39,9 +40,16 @@ import { isFolderInfo } from '#lib/ts-utilities.js';
  * @param {Appeal} appealDetails
  * @param {string} currentRoute
  * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
- * @returns {PageContent}
+ * @param {import('got').Got} apiClient
+ * @returns {Promise<PageContent>}
  */
-export function appellantCasePage(appellantCaseData, appealDetails, currentRoute, session) {
+export async function appellantCasePage(
+	appellantCaseData,
+	appealDetails,
+	currentRoute,
+	session,
+	apiClient
+) {
 	const mappedAppellantCaseData = initialiseAndMapData(appellantCaseData, currentRoute);
 
 	/**
@@ -202,6 +210,14 @@ export function appellantCasePage(appellantCaseData, appealDetails, currentRoute
 	if (getDocumentsForVirusStatus(appellantCaseData, 'not_checked').length > 0) {
 		addNotificationBannerToSession(session, 'notCheckedDocument', appealDetails?.appealId);
 	}
+
+	await addDraftDocumentsNotificationBanner(
+		appealDetails?.appealId,
+		appellantCaseData.documents,
+		session,
+		apiClient,
+		`/appeals-service/appeal-details/${appealDetails?.appealId}/appellant-case/add-document-details/{{folderId}}`
+	);
 
 	/** @type {PageComponent[]} */
 	const errorSummaryPageComponents = [];

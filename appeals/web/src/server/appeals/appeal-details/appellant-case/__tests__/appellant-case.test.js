@@ -5,11 +5,13 @@ import { jest } from '@jest/globals';
 import { createTestEnvironment } from '#testing/index.js';
 import {
 	appellantCaseDataNotValidated,
+	appellantCaseDataNotValidatedWithDocuments,
 	appellantCaseDataIncompleteOutcome,
 	appellantCaseDataValidOutcome,
 	appellantCaseInvalidReasons,
 	appellantCaseIncompleteReasons,
 	documentFolderInfo,
+	documentFolderInfoWithoutDraftDocuments,
 	documentFileInfo,
 	additionalDocumentsFolderInfo,
 	documentRedactionStatuses,
@@ -62,6 +64,11 @@ describe('appellant-case', () => {
 	afterEach(teardown);
 
 	describe('GET /appellant-case', () => {
+		beforeEach(() => {
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
+		});
 		afterEach(() => {
 			nock.cleanAll();
 		});
@@ -76,12 +83,30 @@ describe('appellant-case', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should render the appellant case page with draft documents notification banner with links to add metadata page for each folder containing draft documents, and no links for folders with only non-draft documents', async () => {
+			nock('http://test/')
+				.get('/appeals/1/appellant-cases/0')
+				.reply(200, appellantCaseDataNotValidatedWithDocuments);
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/2')
+				.reply(200, documentFolderInfoWithoutDraftDocuments);
+
+			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 	});
 
 	describe('GET /appellant-case with unchecked documents', () => {
 		beforeEach(() => {
 			nock.cleanAll();
 			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData).persist();
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
 		});
 
 		it('should render a notification banner when a file is unscanned', async () => {
@@ -1199,6 +1224,9 @@ describe('appellant-case', () => {
 		beforeEach(() => {
 			nock.cleanAll();
 			nock('http://test/').get('/appeals/1').reply(200, appealData);
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
 		});
 		afterEach(() => {
 			nock.cleanAll();
@@ -1279,6 +1307,9 @@ describe('appellant-case', () => {
 			nock.cleanAll();
 			nock('http://test/').get('/appeals/1').reply(200, appealData);
 			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
 		});
 		afterEach(() => {
 			nock.cleanAll();
@@ -1358,6 +1389,9 @@ describe('appellant-case', () => {
 			nock.cleanAll();
 			nock('http://test/').get('/appeals/1').reply(200, appealData);
 			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
 		});
 		afterEach(() => {
 			nock.cleanAll();

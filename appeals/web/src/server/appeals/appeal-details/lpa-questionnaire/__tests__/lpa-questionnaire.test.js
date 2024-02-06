@@ -4,10 +4,12 @@ import supertest from 'supertest';
 import { jest } from '@jest/globals';
 import {
 	lpaQuestionnaireDataNotValidated,
+	lpaQuestionnaireDataNotValidatedWithDocuments,
 	lpaQuestionnaireDataIncompleteOutcome,
 	lpaQuestionnaireDataCompleteOutcome,
 	lpaQuestionnaireIncompleteReasons,
 	documentFolderInfo,
+	documentFolderInfoWithoutDraftDocuments,
 	additionalDocumentsFolderInfo,
 	documentFileInfo,
 	documentFileVersionsInfo,
@@ -50,6 +52,21 @@ describe('LPA Questionnaire review', () => {
 				.reply(200, lpaQuestionnaireDataIncompleteOutcome);
 
 			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the LPA Questionnaire page with draft documents notification banner with links to add metadata page for each folder containing draft documents, and no links for folders with only non-draft documents', async () => {
+			nock('http://test/')
+				.get('/appeals/1/lpa-questionnaires/2')
+				.reply(200, lpaQuestionnaireDataNotValidatedWithDocuments);
+			nock('http://test/').get('/appeals/1/document-folders/1').reply(200, documentFolderInfo);
+			nock('http://test/')
+				.get('/appeals/1/document-folders/2')
+				.reply(200, documentFolderInfoWithoutDraftDocuments);
+
+			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -874,6 +891,9 @@ describe('LPA Questionnaire review', () => {
 			nock.cleanAll();
 			nock('http://test/').get('/appeals/1').reply(200, appealData);
 			nock('http://test/').get('/appeals/1/documents/1').reply(200, documentFileInfo);
+			nock('http://test/')
+				.get('/appeals/document-redaction-statuses')
+				.reply(200, documentRedactionStatuses);
 		});
 		afterEach(() => {
 			nock.cleanAll();

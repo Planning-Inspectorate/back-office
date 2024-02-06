@@ -6,8 +6,8 @@ import logger from '#lib/logger.js';
 
 /**
  * @param {import('got').Got} apiClient
- * @param {string} appealId
- * @param {string} folderId
+ * @param {string|number} appealId
+ * @param {string|number} folderId
  * @returns {Promise<SingleFolderResponse|undefined>}
  */
 export const getFolder = async (apiClient, appealId, folderId) => {

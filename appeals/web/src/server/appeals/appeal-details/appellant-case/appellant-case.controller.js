@@ -45,11 +45,12 @@ const renderAppellantCase = async (request, response) => {
 			)
 			.catch((error) => logger.error(error));
 
-		const mappedPageContent = appellantCasePage(
+		const mappedPageContent = await appellantCasePage(
 			appellantCaseResponse,
 			appealDetails,
 			request.originalUrl,
-			request.session
+			request.session,
+			request.apiClient
 		);
 
 		return response.render('patterns/display-page.pattern.njk', {
