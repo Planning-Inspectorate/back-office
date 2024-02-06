@@ -22,6 +22,7 @@ export interface FormComponent {
 export interface ProjectUpdatesDetailsView {
 	case: any;
 	title?: string;
+	warningText?: string;
 	buttonText?: string;
 	buttonLink?: string;
 	buttonClasses?: string;

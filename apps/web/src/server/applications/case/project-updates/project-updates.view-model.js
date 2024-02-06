@@ -123,6 +123,7 @@ export function createContentFormView({
  * @param {Object} options
  * @param {any} options.caseInfo
  * @param {string} [options.title]
+ * @param {string} [options.warningText]
  * @param {string} [options.buttonText]
  * @param {string} [options.buttonLink]
  * @param {boolean} [options.buttonWarning]
@@ -135,6 +136,7 @@ export function createContentFormView({
 export function createDetailsView({
 	caseInfo,
 	title,
+	warningText,
 	buttonText,
 	buttonLink,
 	buttonWarning,
@@ -195,6 +197,7 @@ export function createDetailsView({
 	return {
 		case: caseInfo,
 		title,
+		warningText,
 		buttonText,
 		buttonLink,
 		buttonClasses: buttonWarning ? 'govuk-button--warning' : '',
