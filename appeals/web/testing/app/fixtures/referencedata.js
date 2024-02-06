@@ -12,7 +12,7 @@ export const localPlanningDepartments = [
 ];
 
 export const appealsNationalList = {
-	itemsCount: 2,
+	itemCount: 2,
 	items: [
 		{
 			appealId: 1,
@@ -23,10 +23,15 @@ export const appealsNationalList = {
 				town: 'West Hill',
 				postCode: 'BS48 1PN'
 			},
-			appealStatus: 'received_appeal',
+			appealStatus: 'lpa_questionnaire_due',
 			appealType: 'Householder',
 			createdAt: '2023-04-17T09:49:22.021Z',
-			localPlanningDepartment: 'Wiltshire Council'
+			localPlanningDepartment: 'Wiltshire Council',
+			appellantCaseStatus: '',
+			lpaQuestionnaireStatus: '',
+			dueDate: null,
+			isParentAppeal: false,
+			isChildAppeal: false
 		},
 		{
 			appealId: 2,
@@ -36,11 +41,23 @@ export const appealsNationalList = {
 				town: 'Bristol',
 				postCode: 'BS7 8LQ'
 			},
-			appealStatus: 'received_appeal',
+			appealStatus: 'issue_determination',
 			appealType: 'Householder',
 			createdAt: '2023-04-17T09:49:22.057Z',
-			localPlanningDepartment: 'Dorset Council'
+			localPlanningDepartment: 'Dorset Council',
+			appellantCaseStatus: '',
+			lpaQuestionnaireStatus: '',
+			dueDate: null,
+			isParentAppeal: false,
+			isChildAppeal: false
 		}
+	],
+	statuses: [
+		'assign_case_officer',
+		'ready_to_start',
+		'lpa_questionnaire_due',
+		'issue_determination',
+		'complete'
 	],
 	page: 1,
 	pageCount: 1,

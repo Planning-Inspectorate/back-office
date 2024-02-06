@@ -33,6 +33,9 @@ export interface AppealSummary {
 	appealId: number;
 	appealReference: string;
 	appealStatus: string;
+	appealSite: Address;
+	appealType: string;
+	localPlanningDepartment: string;
 	dueDate: string;
 	lpaQuestionnaireId?: number | null;
 	dueDate: Date | null;

@@ -28,6 +28,7 @@
 	</div>
 	{% if searchTerm %}
 		<div><a href="/appeals-service/appeals-list" class="govuk-caption-m govuk-!-margin-bottom-8">Clear search results</a></div>
+		<div class="govuk-heading-m govuk-!-margin-bottom-3">{{resultsString}}</div>
 	{% endif %}
 	<h2 class="govuk-heading-m govuk-!-margin-bottom-3">{{ nationalListHeading }}</h2>
 	{% if (searchTerm.length == 0 or (searchTerm.length > 0 and appeals.length > 0)) %}
