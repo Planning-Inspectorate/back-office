@@ -35,7 +35,7 @@
           [{ text: "Project name" }, { text: case.title }],
 					[{ text: "Sector" }, { text: case.sector.displayNameEn }],
 					[{ text: "Subsector" }, { text: case.subSector.displayNameEn }],
-					[{ text: "Case stage" },{ text: '' }],
+					[{ text: "Case stage" },{ text: case.status }],
 					[{ text: 'Project description' }, { html: case.description }],
 					[{ text: 'Project email address' }, { html: case.caseEmail }],
 					[{ text: 'Project location' }, { html: case.geographicalInformation.locationDescription }],
