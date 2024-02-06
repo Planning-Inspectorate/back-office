@@ -20,7 +20,7 @@ export const patchRepresentationRedact = async ({ params, body }, response) => {
 	);
 
 	// broadcast update event message
-	const representationFullDetails = await getById(representationId);
+	const representationFullDetails = await getById(Number(representationId));
 	await sendRepresentationEventMessage(representationFullDetails, EventType.Update);
 
 	if (!representation) {
