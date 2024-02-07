@@ -574,7 +574,7 @@ const appealsFinalCommentReview = [
 		assignCaseOfficer: true
 	})
 ];
-*/
+
 
 const appealsArrangeSiteVisit = [
 	appealFactory({
@@ -715,14 +715,16 @@ const appealsComplete = [
 	})
 ];
 
+*/
+
 const appealsData = [
 	...newAppeals,
-	...appealsLpaQuestionnaireDue,
+	...appealsLpaQuestionnaireDue
 	//...appealsStatementReview,
 	//...appealsFinalCommentReview,
-	...appealsArrangeSiteVisit,
-	...appealsIssueDetermination,
-	...appealsComplete
+	//...appealsArrangeSiteVisit,
+	//...appealsIssueDetermination,
+	//...appealsComplete
 ];
 
 /**
