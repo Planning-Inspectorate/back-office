@@ -1,6 +1,8 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
+import { EventType } from '@pins/event-client';
+import { NSIP_FOLDER, NSIP_PROJECT } from '#infrastructure/topics.js';
 
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -50,6 +52,37 @@ const applicationInPreApplicationState = applicationFactoryForTests({
 	}
 });
 
+const folders = [
+	{
+		id: 78671,
+		caseReference: 'EN01-1',
+		displayNameEnglish: 'Project management',
+		displayNameWelsh: null,
+		parentFolderId: null
+	},
+	{
+		id: 78672,
+		caseReference: 'EN01-1',
+		displayNameEnglish: 'Logistics',
+		displayNameWelsh: null,
+		parentFolderId: 78671
+	},
+	{
+		id: 78673,
+		caseReference: 'EN01-1',
+		displayNameEnglish: 'Travel',
+		displayNameWelsh: null,
+		parentFolderId: 78672
+	},
+	{
+		id: 78674,
+		caseReference: 'EN01-1',
+		displayNameEnglish: 'Welsh',
+		displayNameWelsh: null,
+		parentFolderId: 78672
+	}
+];
+
 jest.useFakeTimers({ now: 1_649_319_144_000 });
 
 describe('Start case', () => {
@@ -60,6 +93,7 @@ describe('Start case', () => {
 	test('starts application if all needed information is present', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(applicationReadyToStart);
+		databaseConnector.folder.findMany.mockResolvedValue(folders);
 
 		// WHEN
 		const response = await request.post('/applications/1/start');
@@ -168,7 +202,7 @@ describe('Start case', () => {
 			}
 		});
 
-		const expectedEventPayload = {
+		const expectedProjectEventPayload = {
 			caseId: 1,
 			caseReference: 'EN01-1',
 			projectName: 'Title',
@@ -192,10 +226,30 @@ describe('Start case', () => {
 			inspectorIds: []
 		};
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'nsip-project',
-			[expectedEventPayload],
-			'Update'
+		const expectedFolderEventPayload = folders.map((folder) => {
+			return {
+				id: folder.id,
+				caseReference: 'EN01-1',
+				displayNameEnglish: folder.displayNameEn,
+				displayNameWelsh: null,
+				parentFolderId: folder.parentFolderId
+			};
+		});
+
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_PROJECT,
+			[expectedProjectEventPayload],
+			EventType.Update
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			NSIP_FOLDER,
+			expectedFolderEventPayload,
+			EventType.Create
 		);
 	});
 

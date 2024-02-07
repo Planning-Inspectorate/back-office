@@ -1,10 +1,21 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 import { eventClient } from '#infrastructure/event-client.js';
-import { NSIP_EXAM_TIMETABLE } from '#infrastructure/topics.js';
+import { NSIP_EXAM_TIMETABLE, NSIP_FOLDER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
+
+const project = {
+	id: 1,
+	reference: 'REF-ID-1',
+	modifiedAt: '2024-01-16T16:44:24.930Z',
+	createdAt: '2024-01-16T16:44:26.710Z',
+	description: 'case description',
+	title: 'Office Use Test Application 1',
+	hasUnpublishedChanges: false,
+	applicantId: 1
+};
 
 const examinationTimetableItem = {
 	id: 1,
@@ -33,16 +44,7 @@ const examinationTimetableData = {
 	id: 1,
 	caseId: 1,
 	published: true,
-	case: {
-		id: 1,
-		reference: 'REF-ID-1',
-		modifiedAt: '2024-01-16T16:44:24.930Z',
-		createdAt: '2024-01-16T16:44:26.710Z',
-		description: 'case description',
-		title: 'Office Use Test Application 1',
-		hasUnpublishedChanges: false,
-		applicantId: 1
-	}
+	case: project
 };
 
 const examinationTimetableItemDeadline = {
@@ -103,13 +105,37 @@ const examinationTimetableItemDeadlineUpdateResponse = {
 	}
 };
 
-const ExaminationFolder = {
+const examinationFolder = {
 	id: 1,
 	caseId: 1,
 	displayNameEn: 'Examination',
 	parentFolderId: null,
 	displayOrder: 100
 };
+
+const examinationSubFolders = [
+	{
+		id: 2,
+		caseId: 1,
+		displayNameEn: 'pointone',
+		parentFolderId: 1,
+		displayOrder: 100
+	},
+	{
+		id: 3,
+		caseId: 1,
+		displayNameEn: 'pointtwo',
+		parentFolderId: 1,
+		displayOrder: 200
+	},
+	{
+		id: 4,
+		caseId: 1,
+		displayNameEn: 'Other',
+		parentFolderId: 1,
+		displayOrder: 300
+	}
+];
 
 const publishExaminationTimetableItemsData = [
 	{
@@ -249,19 +275,26 @@ const expectedPublishExaminationTimetablePayload = {
 	]
 };
 
+const buildExpectedFolder = (folder) => {
+	return {
+		id: folder.id,
+		caseReference: project.reference,
+		displayNameEnglish: folder.displayNameEn,
+		displayNameWelsh: null,
+		parentFolderId: folder.parentFolderId
+	};
+};
+
+const expectedFolder = buildExpectedFolder(examinationFolder);
+const expectedSubFolders = examinationSubFolders.map(buildExpectedFolder);
+
 describe('Test examination timetable items API', () => {
 	afterEach(() => {
 		jest.resetAllMocks();
 	});
 
 	test('gets all examination timetable items for case', async () => {
-		databaseConnector.folder.findUnique.mockResolvedValue({
-			id: 1,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: null,
-			displayOrder: 100
-		});
+		databaseConnector.folder.findUnique.mockResolvedValue(examinationFolder);
 		databaseConnector.document.count.mockResolvedValue(0);
 		databaseConnector.folder.findMany.mockResolvedValue([]);
 		databaseConnector.examinationTimetableItem.findMany.mockResolvedValue([
@@ -287,13 +320,7 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('gets examination timetable item by id', async () => {
-		databaseConnector.folder.findUnique.mockResolvedValue({
-			id: 1,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: null,
-			displayOrder: 100
-		});
+		databaseConnector.folder.findUnique.mockResolvedValue(examinationFolder);
 		databaseConnector.document.count.mockResolvedValue(1);
 		databaseConnector.folder.findMany.mockResolvedValue([]);
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
@@ -312,15 +339,9 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('creates examination timetable item and examination sub folder', async () => {
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
-		databaseConnector.folder.findFirst.mockResolvedValue(ExaminationFolder);
-		databaseConnector.folder.create.mockResolvedValue({
-			id: 2,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: 1,
-			displayOrder: 100
-		});
+		databaseConnector.case.findUnique.mockResolvedValue(project);
+		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
 		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({ name: 'NODeadline' });
 		databaseConnector.examinationTimetableItem.create.mockResolvedValue(
 			examinationTimetableItemDeadline
@@ -340,8 +361,8 @@ describe('Test examination timetable items API', () => {
 		});
 	});
 
-	test.skip('creates examination timetable throws an error when examination folder does not exist for the case', async () => {
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+	test('creates examination timetable throws an error when examination folder does not exist for the case', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(project);
 		databaseConnector.folder.findFirst.mockResolvedValue(null);
 		const resp = await request
 			.post('/applications/examination-timetable-items')
@@ -375,17 +396,15 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('creates examination timetable item and examination deadline category sub folders', async () => {
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
+		databaseConnector.case.findUnique.mockResolvedValue(project);
 		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(null);
 		databaseConnector.examinationTimetable.create.mockResolvedValue(examinationTimetableData);
-		databaseConnector.folder.findFirst.mockResolvedValue(ExaminationFolder);
-		databaseConnector.folder.create.mockResolvedValue({
-			id: 2,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: 1,
-			displayOrder: 100
-		});
+		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.create
+			.mockResolvedValueOnce(examinationFolder)
+			.mockResolvedValueOnce(examinationSubFolders[0])
+			.mockResolvedValueOnce(examinationSubFolders[1])
+			.mockResolvedValueOnce(examinationSubFolders[2]);
 		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({ name: 'Deadline' });
 		databaseConnector.examinationTimetableItem.create.mockResolvedValue(
 			examinationTimetableItemDeadline
@@ -401,6 +420,21 @@ describe('Test examination timetable items API', () => {
 		expect(databaseConnector.examinationTimetableType.findUnique).toHaveBeenCalledWith({
 			where: { id: 3 }
 		});
+
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_FOLDER,
+			[expectedFolder],
+			EventType.Create
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_FOLDER,
+			expectedSubFolders,
+			EventType.Create
+		);
 	});
 
 	test('publish examination timetable item returns 404 when invalid case is not exists', async () => {
@@ -433,7 +467,9 @@ describe('Test examination timetable items API', () => {
 			data: { published: true, publishedAt: expect.any(Date), updatedAt: expect.any(Date) }
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_EXAM_TIMETABLE,
 			[expectedPublishExaminationTimetablePayload],
 			EventType.Publish
@@ -472,7 +508,9 @@ describe('Test examination timetable items API', () => {
 			data: { published: false }
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
+
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_EXAM_TIMETABLE,
 			[expectedPublishExaminationTimetablePayload],
 			EventType.Unpublish
@@ -488,13 +526,7 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('Delete examination timetable item returns 400 when timetable is published and has submittions', async () => {
-		databaseConnector.folder.findUnique.mockResolvedValue({
-			id: 1,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: null,
-			displayOrder: 100
-		});
+		databaseConnector.folder.findUnique.mockResolvedValue(examinationFolder);
 		databaseConnector.document.count.mockResolvedValue(1);
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
 			examinationTimetableItem
@@ -504,15 +536,10 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('Delete examination timetable item returns 200 when timetable is deleted successfully', async () => {
-		databaseConnector.folder.findUnique.mockResolvedValue({
-			id: 1,
-			caseId: 1,
-			displayNameEn: 'Examination',
-			parentFolderId: null,
-			displayOrder: 100
-		});
+		databaseConnector.case.findUnique.mockResolvedValue(project);
+		databaseConnector.folder.findUnique.mockResolvedValue(examinationFolder);
 		databaseConnector.document.count.mockResolvedValue(0);
-		databaseConnector.folder.findMany.mockResolvedValue([]);
+		databaseConnector.folder.findMany.mockResolvedValue(examinationSubFolders);
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
 			examinationTimetableItemDeadline
 		);
@@ -526,33 +553,26 @@ describe('Test examination timetable items API', () => {
 		expect(databaseConnector.folder.delete).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.folder.deleteMany).toHaveBeenCalledTimes(1);
 
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_FOLDER,
+			expectedSubFolders,
+			EventType.Delete
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			NSIP_FOLDER,
+			[expectedFolder],
+			EventType.Delete
+		);
+
 		expect(resp.status).toEqual(200);
 	});
 
 	test('update examination timetable item successfully', async () => {
-		const deadlineSubFolders = [
-			{
-				id: 2,
-				caseId: 1,
-				displayNameEn: 'pointone',
-				parentFolderId: 1,
-				displayOrder: 100
-			},
-			{
-				id: 3,
-				caseId: 1,
-				displayNameEn: 'pointtwo',
-				parentFolderId: 1,
-				displayOrder: 200
-			},
-			{
-				id: 4,
-				caseId: 1,
-				displayNameEn: 'Other',
-				parentFolderId: 1,
-				displayOrder: 300
-			}
-		];
 		const expectedFullTimetable = {
 			...examinationTimetableData,
 			ExaminationTimetableItem: [
@@ -564,10 +584,11 @@ describe('Test examination timetable items API', () => {
 			]
 		};
 
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1 });
-		databaseConnector.folder.findUnique.mockResolvedValue(ExaminationFolder);
-		databaseConnector.folder.findMany.mockResolvedValue(deadlineSubFolders);
-		databaseConnector.folder.deleteMany.mockResolvedValue(deadlineSubFolders);
+		databaseConnector.case.findUnique.mockResolvedValue(project);
+		databaseConnector.folder.findUnique.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.findMany.mockResolvedValue(examinationSubFolders);
+		databaseConnector.folder.deleteMany.mockResolvedValue(examinationSubFolders);
+		databaseConnector.folder.update.mockResolvedValue(examinationFolder);
 		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
 			examinationTimetableItemDeadline
 		);
@@ -601,7 +622,23 @@ describe('Test examination timetable items API', () => {
 			]
 		};
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(3);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_FOLDER,
+			[expectedFolder],
+			EventType.Update
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			NSIP_FOLDER,
+			expectedSubFolders,
+			EventType.Delete
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_EXAM_TIMETABLE,
 			[expectedUpdateExaminationTimetablePayload],
 			EventType.Update

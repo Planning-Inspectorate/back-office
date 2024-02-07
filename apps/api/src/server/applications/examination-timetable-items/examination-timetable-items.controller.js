@@ -1,6 +1,7 @@
 import * as examinationTimetableItemsRepository from '#repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
+import * as caseRepository from '#repositories/case.repository.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import { format } from 'date-fns';
 import logger from '#utils/logger.js';
@@ -10,6 +11,11 @@ import {
 	mapExaminationTimetableItemDescriptionToView
 } from '#utils/mapping/map-examination-timetable-item-description.js';
 import * as service from './examination-timetable-items.service.js';
+import { eventClient } from '#infrastructure/event-client.js';
+import { NSIP_FOLDER } from '#infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
+import { buildNsipFolderPayload } from '#infrastructure/payload-builders/nsip-folder.js';
+import { verifyNotTraining } from '../application/application.validators.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
@@ -107,7 +113,7 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 	);
 
 	if (!examinationFolder) {
-		throw new BackOfficeAppError(`Examination folder not found for the case ${body.caseId}`, 404);
+		throw new BackOfficeAppError(`Examination folder not found for the case ${body.caseId}`, 500);
 	}
 
 	// check the new timetable item name is unique
@@ -137,6 +143,21 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 	const itemFolder = await folderRepository.createFolder(folder);
 	if (!itemFolder) {
 		throw new BackOfficeAppError('Failed to create sub folder for the examination item.', 500);
+	}
+
+	const project = await caseRepository.getById(body.caseId, { sector: true });
+
+	// now send broadcast event for folder creation - ignoring folders on training cases.
+	try {
+		await verifyNotTraining(body.caseId);
+
+		await eventClient.sendEvents(
+			NSIP_FOLDER,
+			[buildNsipFolderPayload(itemFolder, project.reference)],
+			EventType.Create
+		);
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for folder create', err.message);
 	}
 
 	body.description = mapExaminationTimetableItemDescriptionToSave(body.description);
@@ -224,8 +245,24 @@ export const deleteExaminationTimetableItem = async ({ params }, response) => {
 		examinationTimetableItem.folderId
 	);
 
+	const folder = await folderRepository.getById(examinationTimetableItem.folderId);
+	const project = await caseRepository.getById(caseId, { sector: true });
+
 	logger.info(`delete folder Id ${examinationTimetableItem.folderId}`);
 	await folderRepository.deleteById(examinationTimetableItem.folderId);
+
+	// now send broadcast event for folder deletion - ignoring folders on training cases.
+	try {
+		await verifyNotTraining(caseId);
+
+		await eventClient.sendEvents(
+			NSIP_FOLDER,
+			[buildNsipFolderPayload(folder, project.reference)],
+			EventType.Delete
+		);
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for folder delete', err.message);
+	}
 
 	await examinationTimetableRepository.update(examinationTimetableItem.examinationTimetableId, {
 		updatedAt: new Date()
@@ -293,10 +330,24 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 
 		const newDisplayOrder = Number(format(new Date(mappedExamTimetableDetails.date), 'yyyyMMdd'));
 
-		await folderRepository.updateFolderById(timetableBeforeUpdate.folderId, {
+		const folder = await folderRepository.updateFolderById(timetableBeforeUpdate.folderId, {
 			displayNameEn: newFolderName,
 			displayOrder: newDisplayOrder
 		});
+
+		const project = await caseRepository.getById(caseId, { sector: true });
+		// now send broadcast event for folder update - ignoring folders on training cases.
+		try {
+			await verifyNotTraining(caseId);
+
+			await eventClient.sendEvents(
+				NSIP_FOLDER,
+				[buildNsipFolderPayload(folder, project.reference)],
+				EventType.Update
+			);
+		} catch (/** @type {*} */ err) {
+			logger.info('Blocked sending event for folder update', err.message);
+		}
 	}
 
 	if (timetableBeforeUpdate.description !== mappedExamTimetableDetails.description) {
