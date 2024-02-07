@@ -47,7 +47,7 @@ export const migrateNsipProjectUpdates = async (projectUpdates) => {
 	}
 
 	if (updateEvents.length > 0) {
-		console.info(`Broadcasting ${publishEvents.length} Project Update UPDATE events`);
+		console.info(`Broadcasting ${updateEvents.length} Project Update UPDATE events`);
 		await sendChunkedEvents(NSIP_PROJECT_UPDATE, updateEvents, EventType.Update);
 	}
 };

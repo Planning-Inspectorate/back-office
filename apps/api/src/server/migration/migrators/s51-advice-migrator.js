@@ -3,10 +3,12 @@
  * @typedef {import('apps/api/src/database/schema.d.ts').S51Advice} S51Advice
  */
 
-import { getCaseIdFromRef } from './utils.js';
+import { getCaseIdFromRef, sendChunkedEvents } from './utils.js';
 import { MigratedEntityIdCeiling } from '../migrator.consts.js';
 import { buildUpsertForEntity } from './sql-tools.js';
 import { databaseConnector } from '#utils/database-connector.js';
+import { EventType } from '@pins/event-client';
+import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
 
 /**
  * @param {S51AdviceModel[]} s51AdviceList
@@ -38,6 +40,26 @@ export const migrateS51Advice = async (s51AdviceList) => {
 		// 	// create attachment/document
 		// }
 	}
+
+	const { publishEvents, updateEvents } = s51AdviceList.reduce(
+		(memo, s51Advice) => {
+			s51Advice.status === 'published'
+				? memo.publishEvents.push(s51Advice)
+				: memo.updateEvents.push(s51Advice);
+
+			return memo;
+		},
+		{
+			publishEvents: [],
+			updateEvents: []
+		}
+	);
+
+	console.info(`Broadcasting ${updateEvents.length} S51 Advice UPDATE events`);
+	await sendChunkedEvents(NSIP_S51_ADVICE, updateEvents, EventType.Update);
+
+	console.info(`Broadcasting ${publishEvents.length} S51 Advice PUBLISH events`);
+	await sendChunkedEvents(NSIP_S51_ADVICE, publishEvents, EventType.Publish);
 };
 
 /**

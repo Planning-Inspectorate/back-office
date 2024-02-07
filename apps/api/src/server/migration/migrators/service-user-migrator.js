@@ -1,6 +1,9 @@
 import { MigratedEntityIdCeiling } from '../migrator.consts.js';
 import { buildUpsertForEntity } from './sql-tools.js';
 import { databaseConnector } from '#utils/database-connector.js';
+import { SERVICE_USER } from '#infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
+import { sendChunkedEvents } from './utils.js';
 
 /**
  * @typedef import('pins-data-model').Schemas.ServiceUser ServiceUser
@@ -56,6 +59,9 @@ export const migrateServiceUsers = async (serviceUsers) => {
 			}
 		});
 	}
+
+	console.info(`Broadcasting ${serviceUsers.length} Service User PUBLISH events`);
+	await sendChunkedEvents(SERVICE_USER, serviceUsers, EventType.Publish);
 };
 
 /**
