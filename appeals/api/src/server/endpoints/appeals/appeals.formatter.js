@@ -210,7 +210,7 @@ const formatAppeal = (
 				isAffected: appeal.lpaQuestionnaire?.isAffectingNeighbouringSites || null
 			},
 			planningApplicationReference: appeal.planningApplicationReference,
-			procedureType: appeal.lpaQuestionnaire?.procedureType?.name || null,
+			procedureType: appeal.lpaQuestionnaire?.procedureType?.name || 'Written',
 			siteVisit: {
 				siteVisitId: appeal.siteVisit?.id || null,
 				visitDate: appeal.siteVisit?.visitDate || null,
