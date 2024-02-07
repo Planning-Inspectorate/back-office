@@ -1,12 +1,15 @@
 import { eventClient } from '#infrastructure/event-client.js';
-import { NSIP_EXAM_TIMETABLE } from '#infrastructure/topics.js';
+import { NSIP_EXAM_TIMETABLE, NSIP_FOLDER } from '#infrastructure/topics.js';
 import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
 import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
+import * as caseRepository from '#repositories/case.repository.js';
 import logger from '#utils/logger.js';
 import { EventType } from '@pins/event-client';
 import { verifyNotTrainingExamTimetable } from './examination-timetable-items.validators.js';
+import { buildNsipFoldersPayload } from '#infrastructure/payload-builders/nsip-folder.js';
+import { verifyNotTraining } from '../application/application.validators.js';
 
 /**
  * @typedef {import('pins-data-model').Schemas.Event} NSIPExamTimetableItem
@@ -216,8 +219,22 @@ export const createDeadlineSubFolders = async (
 	});
 
 	logger.info('Create sub folders');
-	await Promise.all(createFolderPromise);
+	const folders = await Promise.all(createFolderPromise);
 	logger.info('Sub folders created successfully');
+
+	const project = await caseRepository.getById(caseId, { sector: true });
+	// now send broadcast event for folders creation - ignoring folders on training cases.
+	try {
+		await verifyNotTraining(caseId);
+
+		await eventClient.sendEvents(
+			NSIP_FOLDER,
+			buildNsipFoldersPayload(folders, project.reference),
+			EventType.Create
+		);
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for folder create', err.message);
+	}
 };
 
 /**
@@ -237,6 +254,20 @@ export const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 	const idsToDelete = subFolders.map((folder) => folder.id);
 	await folderRepository.deleteFolderMany(idsToDelete);
 	logger.info(`Sub folders deleted successfully in folder: ${parentFolderId}`);
+
+	const project = await caseRepository.getById(caseId, { sector: true });
+	// now send broadcast event for folders deletion - ignoring folders on training cases.
+	try {
+		await verifyNotTraining(caseId);
+
+		await eventClient.sendEvents(
+			NSIP_FOLDER,
+			buildNsipFoldersPayload(subFolders, project.reference),
+			EventType.Delete
+		);
+	} catch (/** @type {*} */ err) {
+		logger.info('Blocked sending event for folder delete', err.message);
+	}
 };
 
 /**

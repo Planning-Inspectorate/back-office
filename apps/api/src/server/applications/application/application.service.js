@@ -75,6 +75,8 @@ const verifyAllApplicationDetailsPresent = async (id) => {
 };
 
 /**
+ * This moves a case from draft into pre-application
+ *
  * @param {number} id
  * @returns {Promise<{id: number | undefined, reference: string | null | undefined, status: import('xstate').StateValue}>}
  */
@@ -112,7 +114,7 @@ export const startApplication = async (id) => {
 		throw new Error('Case does not exist');
 	}
 
-	await broadcastNsipProjectEvent(updatedCase, EventType.Update);
+	await broadcastNsipProjectEvent(updatedCase, EventType.Update, true);
 
 	return {
 		id: updatedCase.id,
