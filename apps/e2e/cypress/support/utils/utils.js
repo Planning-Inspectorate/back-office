@@ -88,7 +88,7 @@ const validatePreviewAndPublishInfo = (projectInformation) => {
 	casePage.checkProjectAnswer('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.checkProjectAnswer('Sector', projectInformation.sector);
 	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
-	casePage.checkProjectAnswer('Case stage', '');
+	casePage.checkProjectAnswer('Case stage', 'Pre-Application');
 	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription);
 	casePage.checkProjectAnswer(/^Email address$/, projectInformation.applicantEmail);
 	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation);
