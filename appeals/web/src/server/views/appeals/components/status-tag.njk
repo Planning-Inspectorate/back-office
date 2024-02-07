@@ -31,6 +31,8 @@
 			{%- set statusTagColor = 'red' -%}
 		{%- case 'late_entry' -%}
 			{%- set statusTagColor = 'pink' -%}
+		{%- case 'awaiting_transfer' -%}
+			{%- set statusTagColor = 'red' -%}
 	{%- endswitch -%}
 	<strong class="govuk-tag govuk-tag--{{ statusTagColor }} single-line{{ ' ' + classes if classes }}">{{ statusLabel | appealStatusToStatusTag }}</strong>
 {%- endmacro -%}

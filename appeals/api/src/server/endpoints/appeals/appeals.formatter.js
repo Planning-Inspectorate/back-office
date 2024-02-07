@@ -149,6 +149,9 @@ const formatAppeal = (
 				  }
 				: null,
 			appealType: appeal.appealType?.type,
+			...(appeal.resubmitTypeId && {
+				resubmitTypeId: appeal.resubmitTypeId
+			}),
 			appellantCaseId: appeal.appellantCase?.id || 0,
 			caseOfficer: appeal.caseOfficer?.azureAdUserId || null,
 			decision:

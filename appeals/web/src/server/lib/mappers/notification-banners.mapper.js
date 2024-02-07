@@ -76,6 +76,17 @@ export const notificationBannerDefinitions = {
 		pages: ['lpaQuestionnaire', 'manageDocuments', 'appellantCase', 'manageFolder'],
 		html: '<p class="govuk-notification-banner__heading">Virus scan in progress</p></br><a class="govuk-notification-banner__link" href=".">Refresh page to see if scan has finished</a>'
 	},
+	appealAwaitingTransfer: {
+		pages: ['appealDetails'],
+		persist: true,
+		type: 'success',
+		html: '<p class="govuk-notification-banner__heading">This appeal is awaiting transfer</p><p class="govuk-body">The appeal must be transferred to Horizon. When this is done, update the appeal with the new horizon reference.</p>'
+	},
+	horizonReferenceAdded: {
+		pages: ['appealDetails'],
+		type: 'success',
+		text: 'Horizon reference added'
+	},
 	foldersWithDraftDocuments: {
 		pages: ['appellantCase', 'lpaQuestionnaire']
 	}

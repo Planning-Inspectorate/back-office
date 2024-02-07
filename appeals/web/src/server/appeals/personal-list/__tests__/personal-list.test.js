@@ -198,6 +198,21 @@ describe('mapAppealStatusToActionRequiredHtml', () => {
 		);
 	});
 
+	it('should return "Update Horizon reference" link for awaiting_transfer status', () => {
+		const result = mapAppealStatusToActionRequiredHtml(
+			appealId,
+			'awaiting_transfer',
+			null,
+			'',
+			'',
+			'',
+			false
+		);
+		expect(result).toEqual(
+			`<a class="govuk-link" href="/appeals-service/appeal-details/${appealId}/change-appeal-type/add-horizon-reference">Update Horizon reference</a>`
+		);
+	});
+
 	it('should return "View appellant case" link for any other status', () => {
 		const result = mapAppealStatusToActionRequiredHtml(
 			appealId,

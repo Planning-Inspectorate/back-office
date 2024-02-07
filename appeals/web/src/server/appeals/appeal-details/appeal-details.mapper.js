@@ -1,3 +1,4 @@
+import logger from '../../lib/logger.js';
 import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
@@ -158,18 +159,22 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		}
 	};
 
+	const accordionComponents = [
+		caseSummary,
+		caseOverview,
+		siteDetails,
+		caseTimetable,
+		caseDocumentation,
+		caseContacts,
+		caseTeam
+	];
+
+	mapStatusDependentNotifications(appealDetails, session, accordionComponents);
+
 	if (
 		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
 	) {
-		[
-			caseSummary,
-			caseOverview,
-			siteDetails,
-			caseTimetable,
-			caseDocumentation,
-			caseContacts,
-			caseTeam
-		].forEach((component) => removeActions(component));
+		removeAccordionComponentsActions(accordionComponents);
 	}
 
 	/** @type {PageComponent} */
@@ -206,20 +211,15 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		}
 	};
 
-	if (appealDetails.appealStatus === 'issue_determination') {
-		const bannerHtml = `<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Issue a decision</a>.</p>`;
-		addNotificationBannerToSession(session, 'readyForDecision', appealDetails.appealId, bannerHtml);
-	}
-
 	const notificationBanners = buildNotificationBanners(
 		session,
 		'appealDetails',
 		appealDetails.appealId
 	);
 
-	const statusTagComponentGroup = statusTag ? [statusTag] : [];
+	const statusComponentGroup = statusTag ? [statusTag] : [];
 	const isAppealComplete = appealDetails.appealStatus === 'complete';
-	if (isAppealComplete && statusTagComponentGroup.length > 0 && appealDetails.decision.documentId) {
+	if (isAppealComplete && statusComponentGroup.length > 0 && appealDetails.decision.documentId) {
 		const letterDate = appealDetails.decision?.letterDate
 			? new Date(appealDetails.decision.letterDate)
 			: new Date();
@@ -232,7 +232,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 			: '#';
 
 		if (virusCheckStatus.checked && virusCheckStatus.safe) {
-			statusTagComponentGroup.push({
+			statusComponentGroup.push({
 				type: 'inset-text',
 				parameters: {
 					html: `<p>
@@ -247,7 +247,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 				}
 			});
 		} else {
-			statusTagComponentGroup.push({
+			statusComponentGroup.push({
 				type: 'inset-text',
 				parameters: {
 					html: `<p>
@@ -267,9 +267,30 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		shortAppealReference;
 	}
 
+	if (appealDetails.appealStatus === 'transferred') {
+		if (
+			appealDetails.transferStatus &&
+			appealDetails.transferStatus.transferredAppealReference &&
+			appealDetails.transferStatus.transferredAppealType
+		) {
+			statusComponentGroup.push({
+				type: 'inset-text',
+				parameters: {
+					html: `<p class="govuk-body">This appeal needed to change to a ${appealDetails.transferStatus.transferredAppealType}</p>
+						<p class="govuk-body">It has been transferred to Horizon with the reference <a target="_blank" class="govuk-link" href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=${appealDetails.transferStatus.transferredAppealReference}">${appealDetails.transferStatus.transferredAppealReference}</a></p>`,
+					classes: 'govuk-!-margin-top-0'
+				}
+			});
+		} else {
+			logger.error(
+				`appeal ${appealDetails.appealId} status is 'transferred' but transferStatus or one of its properties is not present in the appeal data`
+			);
+		}
+	}
+
 	const pageComponents = [
 		...notificationBanners,
-		...statusTagComponentGroup,
+		...statusComponentGroup,
 		caseSummary,
 		appealDetailsAccordion
 	];
@@ -279,4 +300,64 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 	pageContent.pageComponents = pageComponents;
 
 	return pageContent;
+}
+
+/**
+ * @param {import('./appeal-details.types.js').WebAppeal} appealDetails
+ * @param {import("express-session").Session & Partial<import("express-session").SessionData>} session
+ * @param {PageComponent[]} accordionComponents
+ * @returns {void}
+ */
+function mapStatusDependentNotifications(appealDetails, session, accordionComponents) {
+	switch (appealDetails.appealStatus) {
+		case 'issue_determination':
+			addNotificationBannerToSession(
+				session,
+				'readyForDecision',
+				appealDetails.appealId,
+				`<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Issue a decision</a>.</p>`
+			);
+			break;
+		case 'awaiting_transfer':
+			addNotificationBannerToSession(
+				session,
+				'appealAwaitingTransfer',
+				appealDetails.appealId,
+				`<p class="govuk-notification-banner__heading">This appeal is awaiting transfer</p><p class="govuk-body">The appeal must be transferred to Horizon. When this is done, <a class="govuk-link" href="/appeals-service/appeal-details/${appealDetails.appealId}/change-appeal-type/add-horizon-reference">update the appeal with the new horizon reference</a>.</p>`
+			);
+			removeAccordionComponentsActions(accordionComponents);
+			break;
+		default:
+			break;
+	}
+}
+
+const caseDocumentationTableActionColumnIndex = 3;
+
+/**
+ * @param {PageComponent[]} accordionComponents
+ * @returns {void}
+ */
+function removeAccordionComponentsActions(accordionComponents) {
+	accordionComponents.forEach((component) => {
+		switch (component.type) {
+			case 'summary-list':
+				component.parameters.rows = component.parameters.rows.map(
+					(/** @type {SummaryListRowProperties} */ row) => removeActions(row)
+				);
+				break;
+			case 'table':
+				component.parameters.rows.forEach((/** @type {TableCellProperties[]} */ row) =>
+					row.forEach((cell, index) => {
+						if (index === caseDocumentationTableActionColumnIndex && 'html' in cell) {
+							cell.html = '';
+						}
+					})
+				);
+				break;
+			default:
+				removeActions(component);
+				break;
+		}
+	});
 }

@@ -18,11 +18,16 @@
 
 {%- block pageContent -%}
 	{%- for component in pageContent.pageComponents -%}
-		{%- if component.type === 'summary-list' or component.type === 'inset-text' -%}
+		{%- if component.type !== 'notification-banner' and component.type !== 'error-summary' and component.type !== 'checkboxes' and component.type !== 'radios' -%}
 			{%- include "../appeals/components/page-component.njk" -%}
 		{%- endif -%}
 	{%- endfor -%}
 	<form method="post" novalidate="novalidate">
+		{%- for component in pageContent.pageComponents -%}
+			{%- if component.type === 'checkboxes' or component.type === 'radios' -%}
+				{%- include "../appeals/components/page-component.njk" -%}
+			{%- endif -%}
+		{%- endfor -%}
 		{{ govukButton({
 			text: submitButtonText if submitButtonText else "Confirm",
 			type: "submit"

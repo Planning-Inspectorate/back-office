@@ -68,7 +68,7 @@ const renderIssueDecision = async (request, response) => {
 
 	const mappedPageContent = issueDecisionPage(appealData, request.session.inspectorDecision);
 
-	return response.render('appeals/appeal/issue-decision.njk', {
+	return response.render('patterns/change-page.pattern.njk', {
 		pageContent: mappedPageContent,
 		errors
 	});
@@ -226,7 +226,7 @@ const renderDateDecisionLetter = async (request, response) => {
 		decisionLetterYear
 	);
 
-	return response.render('appeals/appeal/issue-decision.njk', {
+	return response.render('patterns/change-page.pattern.njk', {
 		pageContent: mappedPageContent,
 		errors
 	});
