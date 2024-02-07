@@ -119,6 +119,67 @@ describe('appeal-details', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should render a notification banner with a link to add the Horizon reference of the transferred appeal, when the appeal is awaiting transfer', async () => {
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, { ...appealData, appealStatus: 'awaiting_transfer' });
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a "horizon reference added" notification banner, a "transferred" status tag, and an inset text component with the appeal type and horizon link for the transferred appeal, when the appeal was successfully transferred to horizon', async () => {
+			nock('http://test/').get('/appeals/transferred-appeal/123').reply(200, {
+				caseFound: true
+			});
+			nock('http://test/')
+				.post('/appeals/1/appeal-transfer-confirmation')
+				.reply(200, { success: true });
+
+			const addHorizonReferencePostResponse = await request
+				.post(`${baseUrl}/1/change-appeal-type/add-horizon-reference`)
+				.send({
+					'horizon-reference': '123'
+				});
+
+			expect(addHorizonReferencePostResponse.statusCode).toBe(302);
+
+			const postCheckTransferResponse = await request
+				.post(`${baseUrl}/1/change-appeal-type/check-transfer`)
+				.send({
+					confirm: 'yes'
+				});
+
+			console.log('postCheckTransferResponse.text:');
+			console.log(postCheckTransferResponse.text);
+
+			expect(postCheckTransferResponse.statusCode).toBe(302);
+
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, {
+					...appealData,
+					appealStatus: 'transferred',
+					transferStatus: {
+						transferredAppealType: '(C) Enforcement notice appeal',
+						transferredAppealReference: '12345'
+					}
+				});
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 	});
 
 	it('should not render a back button', async () => {

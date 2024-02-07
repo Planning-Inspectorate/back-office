@@ -94,6 +94,7 @@ interface RepositoryGetByIdResultItem {
 	lpaQuestionnaire: Schema.LPAQuestionnaire | null;
 	planningApplicationReference: string;
 	reference: string;
+	resubmitTypeId?: number;
 	siteVisit: Schema.SiteVisit | null;
 	specialisms: Schema.AppealSpecialism[];
 	startedAt: Date | null;
@@ -204,6 +205,7 @@ interface SingleAppealDetailsResponse {
 	};
 	appealTimetable: AppealTimetable | null;
 	appealType?: string;
+	resubmitTypeId?: number;
 	appellantCaseId: number;
 	appellant?: {
 		firstName: string;

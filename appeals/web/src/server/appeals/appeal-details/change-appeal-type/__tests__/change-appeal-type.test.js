@@ -12,6 +12,8 @@ const appealTypePath = '/appeal-type';
 const resubmitPath = '/resubmit';
 const changeAppealFinalDatePath = '/change-appeal-final-date';
 const confirmationPath = '/confirm-resubmit';
+const addHorizonReferencePath = '/add-horizon-reference';
+const checkTransferPath = '/check-transfer';
 
 /** @typedef {import('../../../../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 
@@ -234,6 +236,151 @@ describe('change-appeal-type', () => {
 			expect(response.statusCode).toBe(200);
 			const element = parseHtml(response.text);
 			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /change-appeal-type/add-horizon-reference', () => {
+		it('should render the add horizon reference page', async () => {
+			const response = await request.get(
+				`${baseUrl}/1${changeAppealTypePath}${addHorizonReferencePath}`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('POST /change-appeal-type/add-horizon-reference', () => {
+		it('should re-render the add horizon reference page with an error message if no horizon reference was provided', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${addHorizonReferencePath}`)
+				.send({
+					'horizon-reference': ''
+				});
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the add horizon reference page with an error message if an appeal matching the provided horizon reference was not found in horizon', async () => {
+			nock('http://test/').get('/appeals/transferred-appeal/123').reply(200, {
+				caseFound: false
+			});
+
+			const response = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${addHorizonReferencePath}`)
+				.send({
+					'horizon-reference': '123'
+				});
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should redirect to the check transfer page if an appeal matching the provided horizon reference was found in horizon', async () => {
+			nock('http://test/').get('/appeals/transferred-appeal/123').reply(200, {
+				caseFound: true
+			});
+
+			const response = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${addHorizonReferencePath}`)
+				.send({
+					'horizon-reference': '123'
+				});
+
+			expect(response.statusCode).toBe(302);
+		});
+	});
+
+	describe('GET /change-appeal-type/check-transfer', () => {
+		it('should render a 500 error page if the required data is not present in the session', async () => {
+			const response = await request.get(`${baseUrl}/1${changeAppealTypePath}${checkTransferPath}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the check transfer page, with the appeal reference of the transferred appeal displayed in the summary, if the required data is present in the session', async () => {
+			nock('http://test/').get('/appeals/transferred-appeal/123').reply(200, {
+				caseFound: true
+			});
+
+			const addHorizonReferencePostResponse = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${addHorizonReferencePath}`)
+				.send({
+					'horizon-reference': '123'
+				});
+
+			expect(addHorizonReferencePostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/1${changeAppealTypePath}${checkTransferPath}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('POST /change-appeal-type/check-transfer', () => {
+		it('should render a 500 error page if the required data is not present in the session', async () => {
+			const response = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${checkTransferPath}`)
+				.send({
+					confirm: 'yes'
+				});
+
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the check transfer page with an error message if the required data is present in the session, but the confirmation checkbox was not checked', async () => {
+			nock('http://test/').get('/appeals/transferred-appeal/123').reply(200, {
+				caseFound: true
+			});
+
+			const addHorizonReferencePostResponse = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${addHorizonReferencePath}`)
+				.send({
+					'horizon-reference': '123'
+				});
+
+			expect(addHorizonReferencePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${checkTransferPath}`)
+				.send({});
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should redirect to the case details page if the required data is present in the session and the confirmation checkbox was checked', async () => {
+			nock('http://test/').get('/appeals/transferred-appeal/123').reply(200, {
+				caseFound: true
+			});
+			nock('http://test/')
+				.post('/appeals/1/appeal-transfer-confirmation')
+				.reply(200, { success: true });
+
+			const addHorizonReferencePostResponse = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${addHorizonReferencePath}`)
+				.send({
+					'horizon-reference': '123'
+				});
+
+			expect(addHorizonReferencePostResponse.statusCode).toBe(302);
+
+			const response = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${checkTransferPath}`)
+				.send({
+					confirm: 'yes'
+				});
+
+			expect(response.statusCode).toBe(302);
 		});
 	});
 });

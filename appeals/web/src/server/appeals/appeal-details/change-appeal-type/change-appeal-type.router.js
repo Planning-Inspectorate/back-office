@@ -26,6 +26,16 @@ router
 		controller.postChangeAppealFinalDate
 	);
 
+router
+	.route('/add-horizon-reference')
+	.get(controller.getAddHorizonReference)
+	.post(validators.validateHorizonReference, controller.postAddHorizonReference);
+
+router
+	.route('/check-transfer')
+	.get(controller.getCheckTransfer)
+	.post(validators.validateCheckTransfer, controller.postCheckTransfer);
+
 router.route('/confirm-resubmit').get(controller.getConfirmResubmit);
 
 export default router;
