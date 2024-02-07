@@ -336,8 +336,8 @@ export const verifyNotTraining = async (caseId) => {
 /**
  * Is this a "Training" case? - checks the reference name and/or the sector name, rather than querying DB
  *
- * @param {string |undefined} reference
- * @param {string |undefined} sector
+ * @param {string} [reference]
+ * @param {string} [sector]
  * @returns {boolean}
  */
 export const isTrainingCase = (reference, sector) => {
