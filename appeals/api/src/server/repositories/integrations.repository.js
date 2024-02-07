@@ -117,9 +117,9 @@ export const createOrUpdateLpaQuestionnaire = async (
 			where: { reference: caseReference }
 		});
 
-		const otherAppeals = await tx.appeal.findMany({
-			where: { reference: { in: nearbyReferences } }
-		});
+		// const otherAppeals = await tx.appeal.findMany({
+		// 	where: { reference: { in: nearbyReferences } }
+		// });
 
 		if (appeal) {
 			appeal = await tx.appeal.update({
@@ -130,12 +130,13 @@ export const createOrUpdateLpaQuestionnaire = async (
 							create: data,
 							update: data
 						}
-					},
-					otherAppeals: {
-						set: otherAppeals.map((other) => {
-							return { id: other.id };
-						})
 					}
+					// ,
+					// otherAppeals: {
+					// 	set: otherAppeals.map((other) => {
+					// 		return { id: other.id };
+					// 	})
+					// }
 				}
 			});
 		}
