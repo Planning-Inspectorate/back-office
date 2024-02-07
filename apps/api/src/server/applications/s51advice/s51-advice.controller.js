@@ -511,16 +511,16 @@ export const verifyS51TitleIsUnique = async ({ params }, response) => {
 /**
  * Publishes an array of S51 Advice selected from the Ready to Publish queue, and any attached documents
  *
- * @type {import('express').RequestHandler<{ id: string }, ?, {selectAll?: boolean, ids: string[]}>}
+ * @type {import('express').RequestHandler<{ id: string }, ?, {publishAll?: boolean, ids: string[]}>}
  * */
 export const publishQueueItems = async ({ params: { id }, body }, response) => {
 	const caseId = Number(id);
 
-	if (!(body.selectAll || body.ids)) {
-		throw new BackOfficeAppError('`selectAll` or `ids` must be specified in request body');
+	if (!(body.publishAll || body.ids)) {
+		throw new BackOfficeAppError('`publishAll` or `ids` must be specified in request body');
 	}
 
-	if (body.selectAll) {
+	if (body.publishAll) {
 		await s51AdviceRepository.updateForCase(caseId, {
 			publishedStatus: 'published',
 			datePublished: new Date()

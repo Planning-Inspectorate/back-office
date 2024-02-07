@@ -2322,7 +2322,7 @@ export const spec = {
 		S51AdvicePublishRequestBody: {
 			type: 'object',
 			properties: {
-				selectAll: {
+				publishAll: {
 					type: 'boolean',
 					description:
 						'Optional parameter. True if all S51 Advice in the publishing queue for that case is to be published',
