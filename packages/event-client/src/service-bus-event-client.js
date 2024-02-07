@@ -11,7 +11,9 @@ export class ServiceBusEventClient {
 	 */
 	constructor(logger, serviceBusHostname) {
 		this.logger = logger;
-		this.client = new ServiceBusClient(serviceBusHostname, new DefaultAzureCredential());
+		this.client = new ServiceBusClient(serviceBusHostname, new DefaultAzureCredential(), {
+			retryOptions: { maxRetries: 3 }
+		});
 	}
 
 	/**
