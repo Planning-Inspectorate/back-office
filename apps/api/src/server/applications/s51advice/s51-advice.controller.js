@@ -31,7 +31,7 @@ import * as caseRepository from '#repositories/case.repository.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import {
 	makeDocumentReference,
-	obtainURLsForDocuments
+	createDocuments
 } from './../application/documents/document.service.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
@@ -202,8 +202,8 @@ export const addDocuments = async ({ params, body }, response) => {
 		nextReferenceIndex++;
 	}
 
-	// Obtain URLs for documents from blob storage
-	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
+	// create document records
+	const { response: dbResponse, failedDocuments } = await createDocuments(
 		filteredToUpload,
 		caseId,
 		true

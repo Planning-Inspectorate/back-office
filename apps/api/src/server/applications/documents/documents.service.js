@@ -1,9 +1,9 @@
 import { EventType } from '@pins/event-client';
-import { eventClient } from '../../infrastructure/event-client.js';
-import { NSIP_DOCUMENT } from '../../infrastructure/topics.js';
+import { eventClient } from '#infrastructure/event-client.js';
+import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
 import { buildNsipDocumentPayload } from '../application/documents/document.js';
-import * as documentRepository from '../../repositories/document.repository.js';
-import * as documentVersionRepository from '../../repositories/document-metadata.repository.js';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import logger from '#utils/logger.js';
 import { YouTubeHTMLTemplate } from './youtube-html-template.js';
 
