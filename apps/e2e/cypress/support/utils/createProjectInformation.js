@@ -23,15 +23,15 @@ export const projectInformation = () => {
 
 	// A P P L I C A N T  I N F O R M A T I O N
 	let orgName = `Automation_Test_Org_${now}`;
-	let applicantFirstName = faker.name.firstName();
-	let applicantLastName = faker.name.lastName();
-	let applicantFullName = `${applicantFirstName} ${applicantLastName}`;
+	let applicantFirstName = 'Applicantfirstname';
+	let applicantLastName = 'Applicantsecondname';
+	let applicantFullName = 'Applicantfirstname Applicantsecondname';
 	const postcode = 'BS1 6PN';
 	const postcode2 = 'SW1P 4DF';
 	let applicantFullAddress = `2 Temple Quay,        Planning Inspectorate,        Bristol,        ${postcode}`;
 	let applicantFullAddress1 = `2 Temple Quay, Planning Inspectorate, Bristol, ${postcode}`;
 	let applicantFullAddress2 = `2 Marsham Street,        Home Office,        London,        ${postcode2}`;
-	const applicantWebsite = faker.internet.url();
+	const applicantWebsite = 'https://www.google.com';
 	const applicantEmail = `${applicantFirstName}.${applicantLastName}@email.com`;
 	const applicantPhoneNumber = faker.phone.number('+4479########');
 	const defaultPublishedStatus = 'NOT PUBLISHED';
