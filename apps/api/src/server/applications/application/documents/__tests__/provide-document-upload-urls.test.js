@@ -1,75 +1,10 @@
-import { request } from '#app-test';
+import { request } from '../../../../app-test.js';
 import config from '#config/config.js';
-const { databaseConnector } = await import('#utils/database-connector.js');
-import { EventType } from '@pins/event-client';
-import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
-import { buildNsipDocumentPayload } from '../document.js';
-const { eventClient } = await import('#infrastructure/event-client.js');
+const { databaseConnector } = await import('../../../../utils/database-connector.js');
 
 const application = {
 	id: 1,
 	reference: 'case reference'
-};
-
-const updatedDocResponse = {
-	guid: 'a24f43d4-a3d1-4b38-8633-cb78fc5cc67c',
-	reference: 'BC0110001-000016',
-	folderId: 28,
-	createdAt: '2024-01-31T18:09:40.765Z',
-	isDeleted: false,
-	latestVersionId: 1,
-	caseId: 100000000,
-	documentType: 'document',
-	fromFrontOffice: false
-};
-const upsertedDocVersionResponse = {
-	documentGuid: 'a24f43d4-a3d1-4b38-8633-cb78fc5cc67c',
-	version: 1,
-	lastModified: null,
-	documentType: null,
-	published: false,
-	sourceSystem: 'back-office',
-	origin: null,
-	originalFilename: 'Small1.pdf',
-	fileName: 'Small1',
-	representative: null,
-	description: null,
-	owner: 'Rodrick Shanahan',
-	author: null,
-	securityClassification: null,
-	mime: 'application/pdf',
-	horizonDataID: null,
-	fileMD5: null,
-	virusCheckStatus: null,
-	size: 7945,
-	stage: 'Correspondence',
-	filter1: null,
-	privateBlobContainer: null,
-	privateBlobPath: '/application/BC0110001/a24f43d4-a3d1-4b38-8633-cb78fc5cc67c/1',
-	publishedBlobContainer: null,
-	publishedBlobPath: null,
-	dateCreated: new Date('2024-01-31T18:17:12.692Z'),
-	datePublished: null,
-	isDeleted: false,
-	examinationRefNo: null,
-	filter2: null,
-	publishedStatus: 'awaiting_upload',
-	publishedStatusPrev: null,
-	redactedStatus: null,
-	redacted: false,
-	transcriptGuid: null,
-	Document: {
-		guid: 'a24f43d4-a3d1-4b38-8633-cb78fc5cc67c',
-		reference: 'BC0110001-000017',
-		folderId: 28,
-		createdAt: new Date('2024-01-31T18:17:12.673Z'),
-		isDeleted: false,
-		latestVersionId: 1,
-		caseId: 100000000,
-		documentType: 'document',
-		fromFrontOffice: false,
-		folder: []
-	}
 };
 
 /**
@@ -88,7 +23,7 @@ const restoreEnvVars = () => {
 	}
 };
 
-describe('Create documents', () => {
+describe('Provide document upload URLs', () => {
 	beforeAll(() => {
 		saveEnvVars();
 
@@ -99,7 +34,7 @@ describe('Create documents', () => {
 		restoreEnvVars();
 	});
 
-	test('saves documents information and returns create documents with Blob Storage URLs', async () => {
+	test('saves documents information and returns upload URL', async () => {
 		const guid = 'some-guid';
 
 		// GIVEN
@@ -108,8 +43,7 @@ describe('Create documents', () => {
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 		databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
 		databaseConnector.document.findFirst.mockResolvedValueOnce(null);
-		databaseConnector.documentVersion.upsert.mockResolvedValue(upsertedDocVersionResponse);
-		databaseConnector.document.update.mockResolvedValue(updatedDocResponse);
+		databaseConnector.documentVersion.upsert.mockResolvedValue({});
 
 		// WHEN
 		const response = await request.post('/applications/1/documents').send([
@@ -122,12 +56,9 @@ describe('Create documents', () => {
 		]);
 
 		const blobPath = `/application/${application.reference}/${guid}/1`;
-		// @ts-ignore
-		const eventPayload = buildNsipDocumentPayload(upsertedDocVersionResponse);
 
 		// THEN
 		expect(response.status).toEqual(200);
-
 		expect(response.body).toEqual({
 			blobStorageHost: 'blob-store-host',
 			privateBlobContainer: 'blob-store-container',
@@ -202,13 +133,6 @@ describe('Create documents', () => {
 				}
 			}
 		});
-
-		// // EXPECT event broadcast
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			NSIP_DOCUMENT,
-			[eventPayload],
-			EventType.Create
-		);
 	});
 
 	test('returns file names which failed to upload', async () => {

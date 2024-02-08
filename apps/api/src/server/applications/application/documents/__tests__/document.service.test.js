@@ -2,7 +2,7 @@ import { jest } from '@jest/globals';
 import config from '#config/config.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
-import { createDocumentVersion } from '../document.service.js';
+import { obtainURLForDocumentVersion } from '../document.service.js';
 
 /**
  * @type {Object<string, any>}
@@ -21,38 +21,8 @@ const restoreEnvVars = () => {
 };
 
 const application = {
-	id: 100000000,
-	reference: 'BC0110001',
-	modifiedAt: '2024-01-17T14:32:37.530Z',
-	createdAt: '2024-01-16T16:44:26.710Z',
-	description:
-		'A description of test case 1 which is a case of subsector type Office Use. A David case',
-	title: 'Office Use Test Application 1',
-	hasUnpublishedChanges: true,
-	applicantId: 100000000,
-	ApplicationDetails: {
-		id: 100000000,
-		caseId: 100000000,
-		subSectorId: 1,
-		locationDescription: null,
-		zoomLevelId: 4,
-		caseEmail: null,
-		subSector: {
-			id: 1,
-			abbreviation: 'BC01',
-			name: 'office_use',
-			displayNameEn: 'Office Use',
-			displayNameCy: 'Office Use',
-			sectorId: 1,
-			sector: {
-				id: 1,
-				abbreviation: 'BC',
-				name: 'business_and_commercial',
-				displayNameEn: 'Business and Commercial',
-				displayNameCy: 'Business and Commercial'
-			}
-		}
-	}
+	id: 1,
+	reference: 'case reference'
 };
 
 const caseId = 1234;
@@ -68,34 +38,20 @@ const document = {
 
 const documentWithVersions = {
 	guid: documentGuid,
-	reference: 'BC0110001-000003',
 	documentName: 'test',
 	folderId: 1111,
-	caseId: caseId,
 	documentSize: 1111,
 	documentType: 'test',
 	latestVersionId: 1,
-	fromFrontOffice: false,
 	documentVersion: [
 		{
-			documentGuid: documentGuid + '1',
 			version: 1,
 			author: 'test',
-			publishedStatus: 'published',
-			fileName: 'Small',
-			mime: 'application/pdf',
-			size: 7945,
-			owner: 'William Wordsworth'
+			publishedStatus: 'published'
 		},
 		{
-			documentGuid: documentGuid,
 			version: 2,
-			author: 'test',
-			fileName: 'Small1',
-			publishedStatus: 'not_checked',
-			mime: 'application/pdf',
-			size: 7945,
-			owner: 'William Wordsworth'
+			author: 'test'
 		}
 	]
 };
@@ -120,65 +76,6 @@ const documentWithVersionsUnpublished = {
 	]
 };
 
-const docVersionAfterUpdate = {
-	documentGuid: documentGuid,
-	version: 2,
-	lastModified: null,
-	documentType: null,
-	published: false,
-	sourceSystem: 'back-office',
-	origin: null,
-	originalFilename: 'Small7.pdf',
-	fileName: 'Small',
-	representative: null,
-	description: null,
-	owner: 'Annamae Moore',
-	author: null,
-	securityClassification: null,
-	mime: 'application/pdf',
-	horizonDataID: null,
-	fileMD5: null,
-	virusCheckStatus: null,
-	size: 7945,
-	stage: null,
-	filter1: null,
-	privateBlobContainer: null,
-	privateBlobPath: '/application/BC0110001/5d4826de-40f5-4b01-a72b-fa507c818799/2',
-	publishedBlobContainer: null,
-	publishedBlobPath: null,
-	dateCreated: new Date('2024-01-31T14:18:26.889Z'),
-	datePublished: null,
-	isDeleted: false,
-	examinationRefNo: null,
-	filter2: null,
-	publishedStatus: 'not_checked',
-	publishedStatusPrev: null,
-	redactedStatus: 'redacted',
-	redacted: false,
-	transcriptGuid: null,
-	Document: {
-		guid: documentGuid,
-		reference: 'BC0110001-000004',
-		folderId: 8,
-		createdAt: '2024-01-31T14:18:26.834Z',
-		isDeleted: false,
-		latestVersionId: 1,
-		caseId: caseId,
-		documentType: 'document',
-		fromFrontOffice: false,
-		case: {
-			id: caseId,
-			reference: 'BC0110001',
-			modifiedAt: '2024-01-17T14:32:37.530Z',
-			createdAt: '2024-01-16T16:44:26.710Z',
-			description: 'A description of test case 1 which is a case of subsector type Office Use.',
-			title: 'Office Use Test Application 1',
-			hasUnpublishedChanges: true,
-			applicantId: 100000000
-		}
-	}
-};
-
 describe('Document service test', () => {
 	beforeAll(() => {
 		saveEnvVars();
@@ -193,27 +90,30 @@ describe('Document service test', () => {
 		restoreEnvVars();
 	});
 
-	test('createDocumentVersion throws error when case not exist', async () => {
+	test('obtainURLForDocumentVersion throws error when case not exist', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(null);
-		await expect(createDocumentVersion(document, caseId, documentGuid)).rejects.toThrow(Error);
+		await expect(obtainURLForDocumentVersion(document, caseId, documentGuid)).rejects.toThrow(
+			Error
+		);
 	});
 
-	test('createDocumentVersion throws error when document not exist', async () => {
+	test('obtainURLForDocumentVersion throws error when document not exist', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.document.findUnique.mockResolvedValue(null);
-		await expect(createDocumentVersion(document, caseId, documentGuid)).rejects.toThrow(Error);
+		await expect(obtainURLForDocumentVersion(document, caseId, documentGuid)).rejects.toThrow(
+			Error
+		);
 	});
 
-	test('createDocumentVersion uploads new version of document', async () => {
+	test('obtainURLForDocumentVersion uploads new version of document', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersions);
-		databaseConnector.documentVersion.update.mockResolvedValue(docVersionAfterUpdate);
 
-		const response = await createDocumentVersion(document, caseId, documentGuid);
+		const ressponse = await obtainURLForDocumentVersion(document, caseId, documentGuid);
 
-		expect(response.blobStorageHost).toEqual('blob-store-host');
-		expect(response.privateBlobContainer).toEqual('blob-store-container');
-		expect(response.documents).toEqual([
+		expect(ressponse.blobStorageHost).toEqual('blob-store-host');
+		expect(ressponse.privateBlobContainer).toEqual('blob-store-container');
+		expect(ressponse.documents).toEqual([
 			{
 				GUID: documentGuid,
 				blobStoreUrl: `/application/${application.reference}/${documentGuid}/2`,
@@ -230,11 +130,11 @@ describe('Document service test', () => {
 		expect(databaseConnector.documentActivityLog.create).toHaveBeenCalledTimes(1);
 	});
 
-	test('createDocumentVersion uploads new version of document and does not unblish the document', async () => {
+	test('obtainURLForDocumentVersion uploads new version of document and does not unblish the document', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersionsUnpublished);
 
-		const ressponse = await createDocumentVersion(document, caseId, documentGuid);
+		const ressponse = await obtainURLForDocumentVersion(document, caseId, documentGuid);
 
 		expect(ressponse.blobStorageHost).toEqual('blob-store-host');
 		expect(ressponse.privateBlobContainer).toEqual('blob-store-container');

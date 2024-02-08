@@ -27,15 +27,12 @@ import {
 	verifyAllDocumentsHaveRequiredPropertiesForPublishing,
 	verifyNotTrainingAttachment
 } from './document.validators.js';
-import { applicationStates } from '../../state-machine/application.machine.js';
-import { isTrainingCase } from '../application.validators.js';
 
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
  * @typedef {import('@prisma/client').Document} Document
  * @typedef {import('@prisma/client').Document & {documentName: string}} DocumentWithDocumentName
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
- * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
  * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
  * @typedef {import('@pins/applications.api').Api.DocumentAndBlobStorageDetail} DocumentAndBlobStorageDetail
  * @typedef {import('@pins/applications.api').Api.DocumentToSave} DocumentToSave
@@ -154,6 +151,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 			let stage = await getCaseStageMapping(documentToDB.folderId);
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
+
 			await documentVersionRepository.upsert({
 				documentGuid: document.guid,
 				fileName,
@@ -166,6 +164,10 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 				...(config.virusScanningDisabled && {
 					publishedStatus: 'not_checked'
 				})
+			});
+
+			await documentRepository.update(document.guid, {
+				latestVersionId: 1
 			});
 
 			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
@@ -188,7 +190,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
  * @param {string} caseReference
  * @returns {DocumentBlobStoragePayload[]}
  */
-const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
+const mapDocumentsToSendToBlobStorage = (documents, caseReference) => {
 	return documents.map((document) => {
 		return {
 			caseType: 'application',
@@ -206,7 +208,7 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
  *
  * @param {DocumentAndBlobStorageDetail[]} blobStorageDocuments - Array of documents containing metadata to upsert.
  * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
- * @returns {Promise<DocumentVersionWithDocument[]>}
+ * @returns {Promise<void>}
  */
 const upsertDocumentVersionsMetadataToDatabase = async (
 	blobStorageDocuments,
@@ -223,7 +225,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 	});
 
 	// Use PromisePool to concurrently process the documents metadata with a concurrency of 5.
-	const upsertedDocumentsResponse = await PromisePool.withConcurrency(5)
+	await PromisePool.withConcurrency(5)
 		.for(documentsMetadataToSendToDatabase)
 		.handleError((error) => {
 			// Log any errors that occur during the upsert process and re-throw the error.
@@ -234,24 +236,21 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 			// Log the metadata being upserted for debugging purposes
 			logger.info(`Upserting document metadata: ${JSON.stringify(metadata)}`);
 
-			// Upsert the metadata using the documentVersionRepository
+			// Upsert the metadata using the documentVerisonRepository
 			return documentVersionRepository.upsert(metadata);
 		});
-	return upsertedDocumentsResponse.results;
 };
 
 /**
- * creates document, document version, and activity log records for an array of new documents on a case
- *
  * @param {DocumentToSaveExtended[]} documentsToUpload
  * @param {number} caseId
  * @param {boolean} [isS51]
  * @returns {Promise<{response: DocumentAndBlobInfoManyResponse | null, failedDocuments: string[]}>}}
  */
-export const createDocuments = async (documentsToUpload, caseId, isS51) => {
+export const obtainURLsForDocuments = async (documentsToUpload, caseId, isS51) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId}...`);
-	const caseForDocuments = await caseRepository.getById(Number(caseId), { sector: true });
+	const caseForDocuments = await caseRepository.getById(Number(caseId), {});
 	logger.info(`Case retrieved: ${JSON.stringify(caseForDocuments)}`);
 
 	// Step 2: Check if the case object is found and has a reference
@@ -264,6 +263,7 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 	// Step 3: Map documents to the format expected by the database
 	logger.info(`Mapping documents to database format...`);
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
+	//throw Error(JSON.stringify(documentsToSendToDatabase));
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
 
 	// Step 4: Add documents to the database if all are new
@@ -279,34 +279,29 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 	}
 	logger.info(`Documents inserted: ${JSON.stringify(successful)}`);
 
-	// Step 5: Map documents to the format expected to get blob storage properties
+	// Step 5: Map documents to the format expected by the blob storage service
 	logger.info(`Mapping documents to blob storage format...`);
-	const requestToGetDocumentStorageProperties = mapDocumentsToGetBlobStorageProperties(
+	const requestToDocumentStorage = mapDocumentsToSendToBlobStorage(
 		successful,
 		caseForDocuments.reference
 	);
-	logger.info(`Documents mapped: ${JSON.stringify(requestToGetDocumentStorageProperties)}`);
+	logger.info(`Documents mapped: ${JSON.stringify(requestToDocumentStorage)}`);
 
-	// Step 6: generate the blob storage service properties
-	const documentsWithBlobStorageInfo = await getStorageLocation(
-		requestToGetDocumentStorageProperties
-	);
-	logger.info(
-		`Documents with Blob storage service properties: ${JSON.stringify(
-			documentsWithBlobStorageInfo
-		)}`
-	);
+	// Step 6: Send a request to the blob storage service to get the storage location for each document
+	logger.info(`Sending request to blob storage service...`);
+	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
+	logger.info(`Response from blob storage service: ${JSON.stringify(responseFromDocumentStorage)}`);
 
 	// Step 7: Upsert document versions metadata to the database
 	logger.info(`Upserting document versions metadata to database...`);
-	const upsertedDocuments = await upsertDocumentVersionsMetadataToDatabase(
-		documentsWithBlobStorageInfo.documents,
-		documentsWithBlobStorageInfo.privateBlobContainer
+	await upsertDocumentVersionsMetadataToDatabase(
+		responseFromDocumentStorage.documents,
+		responseFromDocumentStorage.privateBlobContainer
 	);
 
 	/** @type {Promise<import('@prisma/client').DocumentActivityLog>[]} */
 	// TODO: refactor to use createMany instead?
-	const documentActivityLogs = requestToGetDocumentStorageProperties.map((document) =>
+	const documentActivityLogs = requestToDocumentStorage.map((document) =>
 		documentActivityLogRepository.create({
 			documentGuid: document.GUID,
 			version: document.version,
@@ -317,59 +312,58 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 
 	await Promise.all(documentActivityLogs);
 
-	// now send broadcast events for doc creations - ignoring docs on training cases.
-	if (
-		!isTrainingCase(
-			caseForDocuments.reference,
-			caseForDocuments.ApplicationDetails?.subSector?.sector?.name
-		)
-	) {
-		const events = upsertedDocuments.map(buildNsipDocumentPayload);
-		await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Create);
-	}
-
-	// Step 8: Return information about the uploaded documents and their storage location
-	logger.info(`Returning created and failed documents with blob storage properties...`);
-	return { response: documentsWithBlobStorageInfo, failedDocuments: failed };
+	// Step 8: Return the response from the blob storage service, including information about the uploaded documents and their storage location
+	logger.info(`Returning response from blob storage service...`);
+	return { response: responseFromDocumentStorage, failedDocuments: failed };
 };
 
 /**
- * creates a new document version on a document, creating doc version records, activity log records, updating Document latest version, and broadcast event
+ * Used when uploading a new document version
  *
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, username: string, documentReference: string}} documentToUpload
  * @param {number} caseId
  * @param {string} documentId
  * @returns {Promise<DocumentAndBlobInfoManyResponse>}}
  */
-export const createDocumentVersion = async (documentToUpload, caseId, documentId) => {
+export const obtainURLForDocumentVersion = async (documentToUpload, caseId, documentId) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId} ${documentId}...`);
-	const caseForDocuments = await caseRepository.getById(caseId, { sector: true });
+
+	const caseForDocuments = await caseRepository.getById(caseId, {});
+
 	logger.info(`Case retrieved: ${JSON.stringify(caseForDocuments)}`);
 
 	// Step 2: Check if the case object is found and has a reference
 	logger.info(`Checking if case has reference...`);
+
 	if (caseForDocuments == null || caseForDocuments.reference == null) {
 		throw new Error('Case not found or has no reference');
 	}
 
 	// Step 3: Finding existing document from database
 	logger.info(`Finding existing document from database...`);
+
 	const documentFromDatabase = await documentRepository.getByIdWithVersion(documentId);
 
 	if (!documentFromDatabase) {
 		throw new Error('Document not found');
 	}
 
-	// Step 4: Map document to the format expected by the database
-	logger.info(`Mapping document to database format...`);
+	logger.info(`Case has reference`);
+
+	// Step 4: Map documents to the format expected by the database
+	logger.info(`Mapping documents to database format...`);
+
 	const documentToSendToDatabase = mapDocumentToSendToDatabase(documentToUpload);
+
 	logger.info(`Document mapped: ${JSON.stringify(documentToSendToDatabase)}`);
 
 	// Step 5: upsert the document to the database
+
 	logger.info(`Document found from database: ${JSON.stringify(documentFromDatabase)}`);
+
 	const fileName = documentName(documentToSendToDatabase.documentName);
-	const version = (documentFromDatabase.latestVersionId ?? 0) + 1;
+	const version = documentFromDatabase.latestVersionId + 1;
 
 	const { documentVersion } = documentFromDatabase;
 
@@ -393,75 +387,56 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 		status: 'uploaded'
 	});
 
-	// Step 6: Map document to the format expected to get blob storage properties
-	logger.info(`Mapping document to blob storage format...`);
-	const requestToGetDocumentStorageProperties = [
+	// Step 6: Map documents to the format expected by the blob storage service
+	logger.info(`Mapping documents to blob storage format...`);
+
+	const requestToDocumentStorage = [
 		{
-			/** @type {'appeal' | 'application'} */ caseType: 'application',
+			caseType: 'application',
 			caseReference: caseForDocuments.reference,
 			GUID: documentFromDatabase.guid,
 			documentName: documentToSendToDatabase.documentName,
 			version
 		}
 	];
-	logger.info(`Documents mapped: ${JSON.stringify(requestToGetDocumentStorageProperties)}`);
 
-	// Step 7: generate the blob storage service properties
-	logger.info(`Generate the blob storage properties...`);
-	const documentWithBlobStorageInfo = await getStorageLocation(
-		requestToGetDocumentStorageProperties
-	);
-	logger.info(
-		`Documents with Blob storage service properties: ${JSON.stringify(documentWithBlobStorageInfo)}`
-	);
+	logger.info(`Documents mapped: ${JSON.stringify(requestToDocumentStorage)}`);
 
-	// Step 8: Upsert document version metadata to the database
-	logger.info(`Upserting document version metadata to database...`);
+	// Step 7: Send a request to the blob storage service to get the storage location for each document
 
-	let createdVersionWithDocInfo = await documentVersionRepository.update(documentId, {
-		privateBlobContainer: documentWithBlobStorageInfo.privateBlobContainer,
+	logger.info(`Sending request to blob storage service...`);
+
+	const responseFromDocumentStorage = await getStorageLocation(requestToDocumentStorage);
+
+	logger.info(`Response from blob storage service: ${JSON.stringify(responseFromDocumentStorage)}`);
+
+	// Step 8: Upsert document versions metadata to the database
+	logger.info(`Upserting document versions metadata to database...`);
+
+	await documentVersionRepository.update(documentId, {
+		privateBlobContainer: responseFromDocumentStorage.privateBlobContainer,
 		version,
-		privateBlobPath: documentWithBlobStorageInfo.documents[0].blobStoreUrl
+		privateBlobPath: responseFromDocumentStorage.documents[0].blobStoreUrl
 	});
 
-	const thisVersionId = (documentFromDatabase.latestVersionId ?? 0) + 1;
 	await documentRepository.update(documentId, {
-		latestVersionId: thisVersionId
+		latestVersionId: documentFromDatabase.latestVersionId + 1
 	});
 
-	// broadcast event - ignoring if doc is on non Training cases
-	if (
-		!isTrainingCase(
-			caseForDocuments.reference,
-			caseForDocuments.ApplicationDetails?.subSector?.sector?.name
-		)
-	) {
-		// 1st fix the doc latestversionId in the payload to match (saves having to get the whole doc+version again after the doc update)
-		// @ts-ignore
-		createdVersionWithDocInfo.Document.latestVersionId = thisVersionId;
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(createdVersionWithDocInfo)],
-			EventType.Update
-		);
-	}
-
-	// Step 8: Return information about the uploaded document version and its storage location
-	logger.info(`Returning updated document with blob storage properties...`);
-	return documentWithBlobStorageInfo;
+	// Step 8: Return the response from the blob storage service, including information about the uploaded documents and their storage location
+	logger.info(`Returning response from blob storage service...`);
+	return responseFromDocumentStorage;
 };
 
 /**
  * Upserts the metadata for a document with the provided GUID using the provided metadata body.
  *
- * @param {string} caseId - The case id this document is in
  * @param {string} documentGuid - The GUID of the document to upsert metadata for.
  * @param {DocumentVersion} documentVersionBody - The metadata body to use for upserting.
  * @param {number} version
  * @returns {Promise<DocumentDetails>} A promise that resolves with the document details after the upsert.
  */
 export const upsertDocumentVersionAndReturnDetails = async (
-	caseId,
 	documentGuid,
 	documentVersionBody,
 	version
@@ -471,22 +446,6 @@ export const upsertDocumentVersionAndReturnDetails = async (
 		documentGuid,
 		version
 	});
-
-	// broadcast event - ignoring if doc is on non Training cases
-	const caseWithThisDocument = await caseRepository.getById(Number(caseId), { sector: true });
-	if (
-		caseWithThisDocument &&
-		!isTrainingCase(
-			caseWithThisDocument.reference ?? '',
-			caseWithThisDocument.ApplicationDetails?.subSector?.sector?.name
-		)
-	) {
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(documentVersion)],
-			EventType.Update
-		);
-	}
 
 	return mapSingleDocumentDetailsFromVersion(documentVersion);
 };
@@ -809,14 +768,12 @@ export const separatePublishableDocuments = async (guids) => {
  * @param {'redacted' | 'not_redacted'} [redactedStatus]
  * @returns {Promise<{ errors: ItemError[], results: Record<string, any>[] }>}
  * */
-export const handleUpdateDocuments = async (guids, publishedStatus, redactedStatus) => {
+export const handleUpdateDocument = async (guids, publishedStatus, redactedStatus) => {
 	/** @type {ItemError[]} */
 	let errors = [];
 
 	/** @type {Record<string, any>[]} */
 	let results = [];
-
-	let updatedDocuments = [];
 
 	for (const guid of guids) {
 		logger.info(
@@ -864,7 +821,6 @@ export const handleUpdateDocuments = async (guids, publishedStatus, redactedStat
 			version: documentVersion.version,
 			...documentVersionUpdates
 		});
-		updatedDocuments.push(updateResponseInTable);
 
 		const formattedResponse = formatDocumentUpdateResponseBody(
 			updateResponseInTable.documentGuid ?? '',
@@ -874,20 +830,6 @@ export const handleUpdateDocuments = async (guids, publishedStatus, redactedStat
 
 		results.push(formattedResponse);
 	}
-
-	// broadcast an update event for each of the updated documents
-	const events = (
-		await filterAsync(async (doc) => {
-			try {
-				await verifyNotTrainingAttachment(doc.documentGuid);
-				return true;
-			} catch (/** @type {*} */ err) {
-				logger.info('Blocked sending event for document:', err.message);
-				return false;
-			}
-		}, updatedDocuments)
-	).map(buildNsipDocumentPayload);
-	await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Update);
 
 	return { errors, results };
 };
@@ -1013,87 +955,4 @@ export const getDocumentsInCase = async (
 		itemCount: documentsCount,
 		items: mapDocumentVersionDetails(mapDocument)
 	};
-};
-
-/**
- * soft deletes a document
- *
- * @param {string} guid
- * @param {string} caseId
- * @throws {BackOfficeAppError} If the document is published, or if the document cannot be deleted for any other reason.
- * @returns {Promise<Document>}
- * */
-export const deleteDocument = async (guid, caseId) => {
-	// Step 1: Fetch the document to be deleted from the database
-	const documentToDelete = await documentVersionRepository.getById(guid);
-
-	if (documentToDelete === null || typeof documentToDelete === 'undefined') {
-		throw new BackOfficeAppError(
-			`document not found: guid ${guid} related to caseId ${caseId}`,
-			404
-		);
-	}
-
-	// Step 2: Check if the document is published; if so, throw an error as it cannot be deleted
-	const documentIsPublished =
-		documentToDelete.publishedStatus?.toLowerCase() === applicationStates.published?.toLowerCase();
-
-	if (documentIsPublished) {
-		throw new BackOfficeAppError(
-			`unable to delete document guid ${guid} related to caseId ${caseId}`,
-			400
-		);
-	}
-
-	// step 3: mark the document as deleted
-	const deletedDocument = await documentRepository.deleteDocument(guid);
-
-	// Step 4: broadcast event message - ignoring training cases
-	try {
-		await verifyNotTrainingAttachment(guid);
-
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(documentToDelete)],
-			EventType.Delete
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for document:', err.message);
-	}
-
-	return deletedDocument;
-};
-
-/**
- * reverts a document status to its previous status - eg ready_to_publish back to not_checked
- *
- * @param {string} guid
- * @param {string} newPublishedStatus
- * @param {string |null} newPublishedStatusPrev
- * @returns {Promise<DocumentVersionWithDocument>}
- * */
-export const revertDocumentStatusToPrevious = async (
-	guid,
-	newPublishedStatus,
-	newPublishedStatusPrev
-) => {
-	const updatedDocument = await documentVersionRepository.update(guid, {
-		publishedStatus: newPublishedStatus,
-		publishedStatusPrev: newPublishedStatusPrev
-	});
-
-	// broadcast event message - ignore training cases
-	try {
-		await verifyNotTrainingAttachment(guid);
-
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(updatedDocument)],
-			EventType.Update
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for document:', err.message);
-	}
-
-	return updatedDocument;
 };
