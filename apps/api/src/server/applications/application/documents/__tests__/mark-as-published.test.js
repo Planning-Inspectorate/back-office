@@ -1,17 +1,14 @@
-import { request } from '#app-test';
-const { databaseConnector } = await import('#utils/database-connector.js');
-const { eventClient } = await import('#infrastructure/event-client.js');
+import { applicationFactoryForTests } from '../../../../utils/application-factory-for-tests.js';
+import { request } from '../../../../app-test.js';
+const { databaseConnector } = await import('../../../../utils/database-connector.js');
+const { eventClient } = await import('../../../../infrastructure/event-client.js');
 
 describe('Mark-as-published', () => {
 	test('Marks a document as published', async () => {
 		// Arrange
-
-		const caseId = 1;
-		const documentGuid = '1111-2222-3333';
-
 		const updatedDocument = {
 			Document: {
-				guid: documentGuid
+				guid: 'document_to_publish_guid'
 			},
 			version: 1,
 			originalFilename: 'original_filename.pdf',
@@ -24,70 +21,16 @@ describe('Mark-as-published', () => {
 			publishedBlobPath: 'published/en010120-filename.pdf'
 		};
 
-		const documentWithVersions = {
-			guid: documentGuid,
-			reference: 'BC0110001-000003',
-			documentName: 'test',
-			folderId: 1111,
-			caseId: caseId,
-			documentSize: 1111,
-			documentType: 'test',
-			latestVersionId: 1,
-			fromFrontOffice: false,
-			documentVersion: [
-				{
-					documentGuid: documentGuid,
-					version: 1,
-					author: 'test',
-					publishedStatus: 'published',
-					fileName: 'Small',
-					mime: 'application/pdf',
-					size: 7945,
-					owner: 'William Wordsworth'
-				}
-			]
-		};
-
-		const application1 = {
-			id: caseId,
-			reference: 'BC0110001',
-			modifiedAt: '2024-01-17T14:32:37.530Z',
-			createdAt: '2024-01-16T16:44:26.710Z',
-			description:
-				'A description of test case 1 which is a case of subsector type Office Use. A David case',
-			title: 'Office Use Test Application 1',
-			hasUnpublishedChanges: true,
-			applicantId: 100000000,
-			ApplicationDetails: {
-				id: 100000000,
-				caseId: caseId,
-				subSectorId: 1,
-				locationDescription: null,
-				zoomLevelId: 4,
-				caseEmail: null,
-				subSector: {
-					id: 1,
-					abbreviation: 'BC01',
-					name: 'office_use',
-					displayNameEn: 'Office Use',
-					displayNameCy: 'Office Use',
-					sectorId: 1,
-					sector: {
-						id: 1,
-						abbreviation: 'BC',
-						name: 'business_and_commercial',
-						displayNameEn: 'Business and Commercial',
-						displayNameCy: 'Business and Commercial'
-					}
-				}
-			}
-		};
+		const application1 = applicationFactoryForTests({
+			id: 1,
+			title: 'EN010003 - NI Case 3 Name',
+			description: 'EN010003 - NI Case 3 Name Description',
+			caseStatus: 'pre-application'
+		});
 
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
-		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersions);
-		databaseConnector.documentVersion.findUnique.mockResolvedValue(updatedDocument);
 		databaseConnector.documentVersion.update.mockResolvedValue(updatedDocument);
-		console.log('app 1 is: ', application1);
+
 		// Act
 		const response = await request
 			.post('/applications/1/documents/1111-2222-3333/version/1/mark-as-published')
@@ -116,14 +59,14 @@ describe('Mark-as-published', () => {
 			},
 			where: {
 				documentGuid_version: {
-					documentGuid: documentGuid,
+					documentGuid: '1111-2222-3333',
 					version: 1
 				}
 			}
 		});
 
 		const expectedEventPayload = {
-			documentId: documentGuid,
+			documentId: 'document_to_publish_guid',
 			version: 1,
 			filename: 'filename.pdf',
 			originalFilename: 'original_filename.pdf',

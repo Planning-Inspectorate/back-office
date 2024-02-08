@@ -2,14 +2,12 @@ import { pick, omitBy, isNull } from 'lodash-es';
 import config from '#config/config.js';
 
 /**
- * @typedef {import('pins-data-model').Schemas.NSIPDocument} NSIPDocumentSchema
- */
+ * @typedef {import('pins-data-model').Schemas.NSIPDocument} NSIPDocument
+ * */
 
 /**
- * Returns document in event message schema format
- *
  * @param {import('@pins/applications.api').Schema.DocumentVersionWithDocument} version
- * @returns {NSIPDocumentSchema}
+ * @returns {NSIPDocument}
  */
 export const buildNsipDocumentPayload = (version) => {
 	const { Document: document } = version;
