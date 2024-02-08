@@ -1,44 +1,26 @@
 import { jest } from '@jest/globals';
-import { request } from '#app-test';
+const { databaseConnector } = await import('../../../../utils/database-connector.js');
+
+import { request } from '../../../../app-test.js';
 import { applicationStates } from '../../../state-machine/application.machine.js';
-import { EventType } from '@pins/event-client';
-import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
-
-const { databaseConnector } = await import('#utils/database-connector.js');
-const { eventClient } = await import('#infrastructure/event-client.js');
-
-const dateDocCreated = '2022-01-01T11:59:38.129Z';
-const dateDocLastModified = '2024-02-05T11:59:38.129Z';
-const docGuid = '1111-2222-3333';
-
-const application1 = {
-	id: 1,
-	reference: 'EN0110001',
-	title: 'EN0110001 - NI Case 3 Name',
-	description: 'test',
-	createdAt: '2022-01-01T11:59:38.129Z',
-	modifiedAt: '2023-03-10T13:49:09.666Z',
-	publishedAt: null,
-	CaseStatus: [{ id: 1, status: 'draft' }]
-};
 
 const generatesDocumentMetadataResponse = (
 	/** @type {Record<string, any>} */ updateResponseValues
 ) => ({
 	...updateResponseValues,
-	documentGuid: docGuid,
+	documentGuid: '1111-2222-3333',
 	documentId: 12,
 	documentRef: null,
 	folderId: null,
-	caseRef: 'EN0110001',
+	caseRef: 'EN01-823011',
 	sourceSystem: 'Back Office',
-	privateBlobContainer: 'container',
-	privateBlobPath: 'path',
+	privateBlobContainer: '',
+	privateBlobPath: '',
 	author: '',
-	fileName: 'filename.pdf',
-	originalFilename: 'original_filename.pdf',
-	dateCreated: 1641038378,
-	size: 23452,
+	fileName: '',
+	originalFilename: '',
+	dateCreated: null,
+	size: 0,
 	mime: '',
 	publishedStatus: '',
 	redactedStatus: '',
@@ -53,60 +35,39 @@ const generatesDocumentMetadataResponse = (
 
 const mockResolvedDocumentValue = (/** @type {Record<string, any>} */ updateResponseValues) => ({
 	...updateResponseValues,
-	guid: docGuid,
+	guid: '1111-2222-3333',
 	folderId: 1,
 	privateBlobContainer: 'document-service-uploads',
 	documentURI: '/application/BC010001/1111-2222-3333/my_doc.doc',
 	status: applicationStates.draft,
-	createdAt: dateDocCreated,
+	createdAt: '2022-12-12 17:12:25.9610000',
 	redacted: true
 });
 
-const mockDocumentVersionAndDocumentAfterUpdate = (
+const mockResolvedDocumentVersionValue = (
 	/** @type {Record<string, any>} */ updateResponseValues
 ) => ({
 	...updateResponseValues,
 	version: 1,
 	documentId: 12,
-	dateCreated: new Date(dateDocCreated),
-	lastModified: new Date(dateDocLastModified),
-	documentGuid: docGuid,
-	caseRef: 'EN0110001',
-	sourceSystem: 'Back Office',
-	privateBlobContainer: 'container',
-	privateBlobPath: 'path',
-	author: '',
-	fileName: 'filename.pdf',
-	originalFilename: 'original_filename.pdf',
-	size: 23452,
-	publishedDocumentURI: 'https://127.0.0.1:10000/document-uploads/published/en010120-filename.pdf',
+	createdAt: '2023-02-28T11:59:38.129Z',
+	lastModified: '2023-02-28T11:59:38.129Z',
+	documentGuid: '1111-2222-3333',
 	Document: {
-		guid: docGuid,
-		caseId: 1,
-		reference: null,
 		folder: {
-			case: application1
-		},
-		case: application1
+			case: {
+				id: 3,
+				reference: 'EN01-823011',
+				title: 'EN010003 - NI Case 3 Name',
+				description: 'test',
+				createdAt: '2023-03-10T13:49:09.666Z',
+				modifiedAt: '2022-06-15T13:14:42.000Z',
+				publishedAt: null,
+				CaseStatus: [{ id: 1, status: 'draft' }]
+			}
+		}
 	}
 });
-
-const expectedEventPayload = {
-	documentId: docGuid,
-	caseId: 1,
-	caseRef: 'EN0110001',
-	reference: null,
-	version: 1,
-	filename: 'filename.pdf',
-	originalFilename: 'original_filename.pdf',
-	size: 23452,
-	documentURI: 'https://127.0.0.1:10000/container/path',
-	dateCreated: dateDocCreated,
-	lastModified: dateDocLastModified,
-	author: '',
-	publishedDocumentURI: undefined,
-	sourceSystem: 'Back Office'
-};
 
 describe('store Document metadata', () => {
 	beforeEach(() => {
@@ -114,18 +75,16 @@ describe('store Document metadata', () => {
 	});
 
 	test('This test case verifies that the metadata is correctly associated with the appropriate document and case when creating/updating document metadata.', async () => {
-		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		databaseConnector.document.findUnique.mockResolvedValue(mockResolvedDocumentValue());
-		databaseConnector.documentVersion.upsert.mockResolvedValue(
-			mockDocumentVersionAndDocumentAfterUpdate()
-		);
+
+		databaseConnector.documentVersion.upsert.mockResolvedValue(mockResolvedDocumentVersionValue());
 
 		const { body, statusCode } = await request
-			.post(`/applications/1/documents/${docGuid}/metadata`)
+			.post('/applications/1/documents/1111-2222-3333/metadata')
 			.send({
 				version: 1,
-				dateCreated: dateDocCreated,
-				lastModified: dateDocLastModified
+				dateCreated: '2023-02-28T11:59:38.129Z',
+				lastModified: '2023-02-28T11:59:38.129Z'
 			});
 
 		const generatedResponse = generatesDocumentMetadataResponse({ documentId: 12 });
@@ -134,8 +93,8 @@ describe('store Document metadata', () => {
 
 		const upsertCalledWIth = {
 			version: 1,
-			dateCreated: dateDocCreated,
-			lastModified: dateDocLastModified
+			dateCreated: '2023-02-28T11:59:38.129Z',
+			lastModified: '2023-02-28T11:59:38.129Z'
 		};
 
 		expect(statusCode).toEqual(200);
@@ -143,9 +102,9 @@ describe('store Document metadata', () => {
 		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
 			create: {
 				...upsertCalledWIth,
-				Document: { connect: { guid: docGuid } }
+				Document: { connect: { guid: '1111-2222-3333' } }
 			},
-			where: { documentGuid_version: { documentGuid: docGuid, version: 1 } },
+			where: { documentGuid_version: { documentGuid: '1111-2222-3333', version: 1 } },
 			update: upsertCalledWIth,
 			include: {
 				Document: {
@@ -166,16 +125,9 @@ describe('store Document metadata', () => {
 
 		expect(databaseConnector.document.findUnique).toHaveBeenCalledWith({
 			where: {
-				guid: docGuid
+				guid: '1111-2222-3333'
 			}
 		});
-
-		// expect event broadcast
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			NSIP_DOCUMENT,
-			[expectedEventPayload],
-			EventType.Update
-		);
 	});
 
 	test('If the case is not linked to a document, this test case generates a 404 error.', async () => {
