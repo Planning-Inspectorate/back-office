@@ -8,8 +8,8 @@ export const CASE_OUTCOME_DISMISSED = 'dismissed';
 export const CASE_OUTCOME_SPLIT_DECISION = 'split decision';
 export const CASE_OUTCOME_INVALID = 'invalid';
 
-export const APPEAL_TYPE_SHORTHAND_FPA = 'FPA';
-export const APPEAL_TYPE_SHORTHAND_HAS = 'HAS';
+export const APPEAL_TYPE_SHORTHAND_FPA = 'W';
+export const APPEAL_TYPE_SHORTHAND_HAS = 'D';
 
 export const AUDIT_TRAIL_ALLOCATION_DETAILS_ADDED = 'The allocation details were added';
 export const AUDIT_TRAIL_APPELLANT_IMPORT_MSG = 'The appellant case was received';
@@ -161,7 +161,7 @@ export const STATUSES = {
 // Static config
 export const CONFIG_BANKHOLIDAYS_FEED_URL = 'https://www.gov.uk/bank-holidays.json';
 export const CONFIG_APPEAL_TIMETABLE = {
-	FPA: {
+	W: {
 		lpaQuestionnaireDueDate: {
 			daysFromStartDate: 5
 		},
@@ -172,7 +172,7 @@ export const CONFIG_APPEAL_TIMETABLE = {
 			daysFromStartDate: 35
 		}
 	},
-	HAS: {
+	D: {
 		lpaQuestionnaireDueDate: {
 			daysFromStartDate: 5
 		}

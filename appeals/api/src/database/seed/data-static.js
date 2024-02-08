@@ -24,36 +24,36 @@
  *
  */
 export const appealTypes = [
-	{ shorthand: 'HAS', type: 'Householder', code: 'D', enabled: true },
-	{ shorthand: 'FPA', type: 'Planning appeal', code: 'A', enabled: false },
-	{ shorthand: 'X1', type: 'Enforcement notice appeal', code: 'C', enabled: false },
+	{ shorthand: 'D', type: 'Householder', code: 'D', enabled: true },
+	//{ shorthand: 'FPA', type: 'Planning appeal (legacy)', code: 'A', enabled: false },
+	{ shorthand: 'C', type: 'Enforcement notice appeal', code: 'C', enabled: false },
+	// {
+	// 	shorthand: 'X2',
+	// 	type: 'Planned listed building and conservation area appeal (legacy)',
+	// 	code: 'E',
+	// 	enabled: false
+	// },
 	{
-		shorthand: 'X2',
-		type: 'Planned listed building and conservation area appeal',
-		code: 'E',
-		enabled: false
-	},
-	{
-		shorthand: 'X3',
+		shorthand: 'F',
 		type: 'Enforcement listed building and conservation area appeal',
 		code: 'F',
 		enabled: false
 	},
-	{ shorthand: 'X4', type: 'Discontinuance notice appeal', code: 'G', enabled: false },
-	{ shorthand: 'X5', type: 'Advertisement appeal', code: 'H', enabled: false },
-	{ shorthand: 'X6', type: 'Community infrastructure levy', code: 'L', enabled: false },
-	{ shorthand: 'X7', type: 'Planning obligation appeal', code: 'Q', enabled: false },
-	{ shorthand: 'X8', type: 'Affordable housing obligation appeal', code: 'S', enabled: false },
-	{ shorthand: 'X9', type: 'Call-in application', code: 'V', enabled: false },
-	{ shorthand: 'X10', type: 'Planning appeal (W)', code: 'W', enabled: false },
-	{ shorthand: 'X11', type: 'Lawful development certificate appeal', code: 'X', enabled: false },
+	{ shorthand: 'G', type: 'Discontinuance notice appeal', code: 'G', enabled: false },
+	{ shorthand: 'H', type: 'Advertisement appeal', code: 'H', enabled: false },
+	{ shorthand: 'L', type: 'Community infrastructure levy', code: 'L', enabled: false },
+	{ shorthand: 'Q', type: 'Planning obligation appeal', code: 'Q', enabled: false },
+	{ shorthand: 'S', type: 'Affordable housing obligation appeal', code: 'S', enabled: false },
+	{ shorthand: 'V', type: 'Call-in application', code: 'V', enabled: false },
+	{ shorthand: 'W', type: 'Planning appeal', code: 'W', enabled: false },
+	{ shorthand: 'X', type: 'Lawful development certificate appeal', code: 'X', enabled: false },
 	{
-		shorthand: 'X12',
-		type: 'Planned listed building and conservation area appeal (Y)',
+		shorthand: 'Y',
+		type: 'Planned listed building and conservation area appeal',
 		code: 'Y',
 		enabled: false
 	},
-	{ shorthand: 'X13', type: 'Commercial (CAS) appeal', code: 'Z', enabled: false }
+	{ shorthand: 'Z', type: 'Commercial (CAS) appeal', code: 'Z', enabled: false }
 ];
 
 /**
