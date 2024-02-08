@@ -1,5 +1,9 @@
 import got from 'got';
 import { addBusinessDays, isAfter, isBefore, sub, add } from 'date-fns';
+import { createHttpRetryParams } from '@pins/platform';
+import config from '@pins/applications.web/environment/config.js';
+
+const retry = createHttpRetryParams(config.retry);
 
 /**
  * @typedef {Object} BankHoliday
@@ -16,7 +20,10 @@ import { addBusinessDays, isAfter, isBefore, sub, add } from 'date-fns';
  */
 const getBankHolidays = async (division = 'england-and-wales') => {
 	try {
-		const bankHolidaysResponse = await got.get('https://www.gov.uk/bank-holidays.json').json();
+		const bankHolidaysResponse = await got
+			.extend({ retry })
+			.get('https://www.gov.uk/bank-holidays.json')
+			.json();
 
 		return bankHolidaysResponse[division].events;
 	} catch (/** @type {*} */ error) {
