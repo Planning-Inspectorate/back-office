@@ -8,7 +8,7 @@ export const timetableItem = () => {
 	const currentYear = new Date().getFullYear();
 
 	const itemName = `Test_Item_${now}`;
-	const description = faker.lorem.sentences();
+	const description = 'Exam time table example'
 
 	const day = faker.datatype
 		.number({
