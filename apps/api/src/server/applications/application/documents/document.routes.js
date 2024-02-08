@@ -10,8 +10,8 @@ import {
 	getDocumentProperties,
 	getDocumentVersions,
 	getReadyToPublishDocuments,
-	provideDocumentUploadURLs,
-	provideDocumentVersionUploadURL,
+	createDocumentsOnCase,
+	createDocumentVersionOnCase,
 	publishDocuments,
 	revertDocumentPublishedStatus,
 	storeDocumentVersion,
@@ -81,7 +81,7 @@ router.post(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/{id}/documents'
-        #swagger.description = 'Saves new documents to database and returns location in Blob Storage'
+        #swagger.description = 'Saves new documents to database and returns document info and location in Blob Storage'
         #swagger.parameters['id'] = {
             in: 'path',
 			description: 'Application ID',
@@ -122,7 +122,7 @@ router.post(
 	validateDocumentsToUploadProvided,
 	validateFolderIds,
 	trimUnexpectedRequestParameters,
-	asyncHandler(provideDocumentUploadURLs)
+	asyncHandler(createDocumentsOnCase)
 );
 
 router.patch(
@@ -217,7 +217,7 @@ router.post(
 	validateApplicationId,
 	validateDocumentToUploadProvided,
 	validateFolderId,
-	asyncHandler(provideDocumentVersionUploadURL)
+	asyncHandler(createDocumentVersionOnCase)
 );
 
 router.patch(
@@ -557,7 +557,7 @@ router.get(
 	/*
         #swagger.tags = ['Applications']
         #swagger.path = '/applications/documents/{guid}/path'
-        #swagger.description = 'Gets the array of folders containing a document'
+        #swagger.description = 'Gets the folder path of a document, as an array'
 		#swagger.parameters['guid'] = {
             in: 'path',
 			description: 'guid of the required document here',
