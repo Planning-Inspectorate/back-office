@@ -1,12 +1,12 @@
 import logger from '#utils/logger.js';
 import { eventClient } from './event-client.js';
 import { buildNsipProjectPayload } from './payload-builders/nsip-project.js';
-import { NSIP_FOLDER, NSIP_PROJECT, SERVICE_USER } from './topics.js';
+import { FOLDER, NSIP_PROJECT, SERVICE_USER } from './topics.js';
 import { buildServiceUserPayload } from './payload-builders/applicant.js';
 import { verifyNotTraining } from '../applications/application/application.validators.js';
 import { EventType } from '@pins/event-client';
 import { getAllByCaseId } from '#repositories/folder.repository.js';
-import { buildNsipFoldersPayload } from '#infrastructure/payload-builders/nsip-folder.js';
+import { buildFoldersPayload } from '#infrastructure/payload-builders/folder.js';
 
 const applicant = 'Applicant';
 
@@ -45,8 +45,8 @@ export const broadcastNsipProjectEvent = async (project, eventType, isCaseStart 
 		// We can safely call get all by case as it will only be the folders we have created.
 		const caseFolders = await getAllByCaseId(project.id);
 		await eventClient.sendEvents(
-			NSIP_FOLDER,
-			buildNsipFoldersPayload(caseFolders, project.reference),
+			FOLDER,
+			buildFoldersPayload(caseFolders, project.reference),
 			EventType.Create
 		);
 	}

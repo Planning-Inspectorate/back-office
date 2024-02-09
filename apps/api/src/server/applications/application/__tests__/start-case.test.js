@@ -2,7 +2,7 @@ import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 import { EventType } from '@pins/event-client';
-import { NSIP_FOLDER, NSIP_PROJECT } from '#infrastructure/topics.js';
+import { FOLDER, NSIP_PROJECT } from '#infrastructure/topics.js';
 
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -247,7 +247,7 @@ describe('Start case', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			2,
-			NSIP_FOLDER,
+			FOLDER,
 			expectedFolderEventPayload,
 			EventType.Create
 		);

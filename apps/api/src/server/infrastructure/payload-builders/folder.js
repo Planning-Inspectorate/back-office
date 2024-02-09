@@ -4,7 +4,7 @@
  *
  * @returns {import('pins-data-model').Schemas.Folder} Folder
  */
-export const buildNsipFolderPayload = (folderEntity, caseReference) => {
+export const buildFolderPayload = (folderEntity, caseReference) => {
 	// TODO: displayNameCy needs to be in the folder db table
 	const { id, displayNameEn, displayNameCy = null, parentFolderId } = folderEntity || {};
 	return {
@@ -22,9 +22,9 @@ export const buildNsipFolderPayload = (folderEntity, caseReference) => {
  *
  * @returns {import('pins-data-model').Schemas.Folder[]} Folder[]
  */
-export const buildNsipFoldersPayload = (folderEntities, caseReference) => {
+export const buildFoldersPayload = (folderEntities, caseReference) => {
 	return folderEntities
-		.map((folderEntity) => buildNsipFolderPayload(folderEntity, caseReference))
+		.map((folderEntity) => buildFolderPayload(folderEntity, caseReference))
 		.sort(({ id: firstId }, { id: secondId }) => {
 			return firstId - secondId;
 		});

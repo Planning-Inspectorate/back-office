@@ -12,9 +12,9 @@ import {
 } from '#utils/mapping/map-examination-timetable-item-description.js';
 import * as service from './examination-timetable-items.service.js';
 import { eventClient } from '#infrastructure/event-client.js';
-import { NSIP_FOLDER } from '#infrastructure/topics.js';
+import { FOLDER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
-import { buildNsipFolderPayload } from '#infrastructure/payload-builders/nsip-folder.js';
+import { buildFolderPayload } from '#infrastructure/payload-builders/folder.js';
 import { verifyNotTraining } from '../application/application.validators.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
@@ -152,8 +152,8 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 		await verifyNotTraining(body.caseId);
 
 		await eventClient.sendEvents(
-			NSIP_FOLDER,
-			[buildNsipFolderPayload(itemFolder, project.reference)],
+			FOLDER,
+			[buildFolderPayload(itemFolder, project.reference)],
 			EventType.Create
 		);
 	} catch (/** @type {*} */ err) {
@@ -256,8 +256,8 @@ export const deleteExaminationTimetableItem = async ({ params }, response) => {
 		await verifyNotTraining(caseId);
 
 		await eventClient.sendEvents(
-			NSIP_FOLDER,
-			[buildNsipFolderPayload(folder, project.reference)],
+			FOLDER,
+			[buildFolderPayload(folder, project.reference)],
 			EventType.Delete
 		);
 	} catch (/** @type {*} */ err) {
@@ -341,8 +341,8 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 			await verifyNotTraining(caseId);
 
 			await eventClient.sendEvents(
-				NSIP_FOLDER,
-				[buildNsipFolderPayload(folder, project.reference)],
+				FOLDER,
+				[buildFolderPayload(folder, project.reference)],
 				EventType.Update
 			);
 		} catch (/** @type {*} */ err) {

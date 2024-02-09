@@ -1,5 +1,5 @@
 import { eventClient } from '#infrastructure/event-client.js';
-import { NSIP_EXAM_TIMETABLE, NSIP_FOLDER } from '#infrastructure/topics.js';
+import { NSIP_EXAM_TIMETABLE, FOLDER } from '#infrastructure/topics.js';
 import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
 import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
 import * as documentRepository from '#repositories/document.repository.js';
@@ -8,7 +8,7 @@ import * as caseRepository from '#repositories/case.repository.js';
 import logger from '#utils/logger.js';
 import { EventType } from '@pins/event-client';
 import { verifyNotTrainingExamTimetable } from './examination-timetable-items.validators.js';
-import { buildNsipFoldersPayload } from '#infrastructure/payload-builders/nsip-folder.js';
+import { buildFoldersPayload } from '#infrastructure/payload-builders/folder.js';
 import { verifyNotTraining } from '../application/application.validators.js';
 
 /**
@@ -228,8 +228,8 @@ export const createDeadlineSubFolders = async (
 		await verifyNotTraining(caseId);
 
 		await eventClient.sendEvents(
-			NSIP_FOLDER,
-			buildNsipFoldersPayload(folders, project.reference),
+			FOLDER,
+			buildFoldersPayload(folders, project.reference),
 			EventType.Create
 		);
 	} catch (/** @type {*} */ err) {
@@ -261,8 +261,8 @@ export const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 		await verifyNotTraining(caseId);
 
 		await eventClient.sendEvents(
-			NSIP_FOLDER,
-			buildNsipFoldersPayload(subFolders, project.reference),
+			FOLDER,
+			buildFoldersPayload(subFolders, project.reference),
 			EventType.Delete
 		);
 	} catch (/** @type {*} */ err) {
