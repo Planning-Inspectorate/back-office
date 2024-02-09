@@ -3,14 +3,14 @@ import { faker } from '@faker-js/faker';
 import { getShortMonthName } from './utils.js';
 
 export const s51AdviceDetails = () => {
-	const title = faker.lorem.sentences(1);
+	const title = 'title';
 	const enquiryDetails = 'enquiry details';
 	const adviceDetails = 'Advice details';
-	const firstName = faker.name.firstName();
-	const lastName = faker.name.lastName();
-	const organisation = faker.company.name();
+	const firstName = 'S51firstname';
+	const lastName = 'S51secondname';
+	const organisation = 'Organisation name';
 	const enquirerFull = `${firstName} ${lastName}, ${organisation}`;
-	const adviserName = faker.name.firstName();
+	const adviserName = 'Advisername';
 	const methods = ['Phone', 'Email', 'Meeting', 'Post'];
 	const methodOfEnquiry = faker.helpers.arrayElement(methods);
 
