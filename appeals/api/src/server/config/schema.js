@@ -48,7 +48,8 @@ export default joi
 			})
 		),
 		horizon: joi.object({
-			url: joi.string()
+			url: joi.string().optional(),
+			mock: joi.string().valid('true', 'false').optional()
 		})
 	})
 	.options({ presence: 'required' }); // required by default;

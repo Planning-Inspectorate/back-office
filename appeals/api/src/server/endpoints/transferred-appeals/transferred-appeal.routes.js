@@ -9,7 +9,7 @@ router.get(
 	/*
 		#swagger.tags = ['Transferred appeals']
 		#swagger.path = '/appeals/transferred-appeal/{appealReference}'
-		#swagger.description = Gets appeal from Horizon returns found status (true/false)
+		#swagger.description = Gets appeal from Horizon returns found status (true/false). If mocking use 1000000 for valid case on horizon, 2000000 for unpublished case on horizon, any for case not found on horizon
 		#swagger.parameters['azureAdUserId'] = {
 			in: 'header',
 			required: true,
