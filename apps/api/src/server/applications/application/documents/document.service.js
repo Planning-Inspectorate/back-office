@@ -891,7 +891,10 @@ export const handleUpdateDocuments = async (guids, publishedStatus, redactedStat
 			}
 		}, updatedDocuments)
 	).map(buildNsipDocumentPayload);
-	await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Update);
+
+	if (events.length) {
+		await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Update);
+	}
 
 	return { errors, results };
 };

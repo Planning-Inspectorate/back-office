@@ -201,82 +201,110 @@ describe('Update document statuses and redacted statuses', () => {
 		);
 	});
 
-	test('updates document status only to ready_to_publish', async () => {
-		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue(application1);
+	describe('updates document status only to ready_to_publish', () => {
+		beforeEach(() => {
+			// GIVEN
+			databaseConnector.case.findUnique.mockResolvedValue(application1);
 
-		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
-		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
+			let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+			docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
 
-		let docVersionWithDocumentBeforeUpdate = {
-			...documentVersionWithDocument,
-			publishedStatus: 'not_checked',
-			redactedStatus: 'unredacted'
-		};
-		let documentVersionWithDocumentAfterUpdate = {
-			...docVersionWithDocumentBeforeUpdate,
-			publishedStatus: 'ready_to_publish'
-		};
-		let findManyDocs = [
-			{
-				guid: docGuid,
-				latestVersionId: 1,
-				latestDocumentVersion: documentVersion1
-			}
-		];
-		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
-		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
-		databaseConnector.documentVersion.findUnique.mockResolvedValue(
-			docVersionWithDocumentBeforeUpdate
-		);
-		databaseConnector.document.findMany.mockResolvedValue(findManyDocs);
-		databaseConnector.documentVersion.update.mockResolvedValue(
-			documentVersionWithDocumentAfterUpdate
-		);
-
-		// WHEN
-		const response = await request.patch('/applications/1/documents').send({
-			status: 'ready_to_publish',
-			documents: [{ guid: docGuid }]
-		});
-
-		// THEN
-		expect(response.status).toEqual(200);
-		expect(response.body).toEqual([
-			{
-				guid: docGuid,
-				redactedStatus: 'unredacted',
-				status: 'ready_to_publish'
-			}
-		]);
-		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
-			where: { documentGuid_version: { documentGuid: docGuid, version: 1 } },
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
+			let docVersionWithDocumentBeforeUpdate = {
+				...documentVersionWithDocument,
+				publishedStatus: 'not_checked',
+				redactedStatus: 'unredacted'
+			};
+			let documentVersionWithDocumentAfterUpdate = {
+				...docVersionWithDocumentBeforeUpdate,
+				publishedStatus: 'ready_to_publish'
+			};
+			let findManyDocs = [
+				{
+					guid: docGuid,
+					latestVersionId: 1,
+					latestDocumentVersion: documentVersion1
 				}
-			},
-			data: {
-				publishedStatus: 'ready_to_publish',
-				publishedStatusPrev: 'not_checked',
-				redactedStatus: undefined
-			}
+			];
+			databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+			databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+			databaseConnector.documentVersion.findUnique.mockResolvedValue(
+				docVersionWithDocumentBeforeUpdate
+			);
+			databaseConnector.document.findMany.mockResolvedValue(findManyDocs);
+			databaseConnector.documentVersion.update.mockResolvedValue(
+				documentVersionWithDocumentAfterUpdate
+			);
 		});
 
-		// expect event broadcast
-		let expectedEventPayloadAmended = {
-			...expectedEventPayload,
-			publishedStatus: 'ready_to_publish',
-			redactedStatus: 'unredacted'
+		const testResponse = (response) => {
+			expect(response.status).toEqual(200);
+			expect(response.body).toEqual([
+				{
+					guid: docGuid,
+					redactedStatus: 'unredacted',
+					status: 'ready_to_publish'
+				}
+			]);
+			expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
+				where: { documentGuid_version: { documentGuid: docGuid, version: 1 } },
+				include: {
+					Document: {
+						include: {
+							case: true
+						}
+					}
+				},
+				data: {
+					publishedStatus: 'ready_to_publish',
+					publishedStatusPrev: 'not_checked',
+					redactedStatus: undefined
+				}
+			});
+
+			// expect event broadcast
+			return {
+				...expectedEventPayload,
+				publishedStatus: 'ready_to_publish',
+				redactedStatus: 'unredacted'
+			};
 		};
-		expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			NSIP_DOCUMENT,
-			[expectedEventPayloadAmended],
-			EventType.Update
-		);
+
+		test('when not training', async () => {
+			// WHEN
+			const response = await request.patch('/applications/1/documents').send({
+				status: 'ready_to_publish',
+				documents: [{ guid: docGuid }]
+			});
+
+			// THEN
+			let expectedEventPayloadAmended = testResponse(response);
+
+			expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
+			expect(eventClient.sendEvents).toHaveBeenCalledWith(
+				NSIP_DOCUMENT,
+				[expectedEventPayloadAmended],
+				EventType.Update
+			);
+		});
+
+		test('when training', async () => {
+			// WHEN
+
+			databaseConnector.case.findUnique.mockResolvedValue({
+				...application1,
+				reference: 'TRAIN0110001'
+			});
+
+			const response = await request.patch('/applications/1/documents').send({
+				status: 'ready_to_publish',
+				documents: [{ guid: docGuid }]
+			});
+
+			// THEN
+			testResponse(response);
+
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
+		});
 	});
 
 	test('updates document status only to not_checked - redacted status remains unchanged', async () => {
