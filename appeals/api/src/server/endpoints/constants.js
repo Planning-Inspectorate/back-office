@@ -26,6 +26,7 @@ export const AUDIT_TRAIL_DOCUMENT_DELETED =
 	'Version {replacement1} of document {replacement0} was removed';
 export const AUDIT_TRAIL_LPAQ_IMPORT_MSG = 'The LPA questionnaire was received';
 export const AUDIT_TRAIL_PROGRESSED_TO_STATUS = 'The case has progressed to {replacement0}';
+export const AUDIT_TRAIL_SUBMISSION_INCOMPLETE = 'The {replacement0} was marked as incomplete';
 export const AUDIT_TRAIL_REMOVED_CASE_OFFICER =
 	'The case officer {replacement0} was removed from the team';
 export const AUDIT_TRAIL_REMOVED_INSPECTOR =
