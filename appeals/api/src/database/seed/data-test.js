@@ -48,7 +48,7 @@ function getDateTwoWeeksAgo() {
 function generateAppealReference() {
 	const number = Math.floor(Math.random() * 999_999 + 1);
 
-	return `TEST/${number}`;
+	return `TEST-${number}`;
 }
 
 /**
