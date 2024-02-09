@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { request } from '../../../app-test.js';
+import { request } from '#app-test';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 import { EventType } from '@pins/event-client';
 import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
@@ -71,13 +71,39 @@ const s51AdviceDocuments = [
 	}
 ];
 
-const application1 = applicationFactoryForTests({
+const applicationBase = applicationFactoryForTests({
 	id: 1,
 	reference: 'BC0110001',
 	title: 'BC010001 - NI Case 1 Name',
 	description: 'BC010001 - NI Case 1 Name Description',
 	caseStatus: 'pre-application'
 });
+const application1 = {
+	...applicationBase,
+	ApplicationDetails: {
+		id: 100000000,
+		caseId: 1,
+		subSectorId: 1,
+		locationDescription: null,
+		zoomLevelId: 4,
+		caseEmail: null,
+		subSector: {
+			id: 1,
+			abbreviation: 'BC01',
+			name: 'office_use',
+			displayNameEn: 'Office Use',
+			displayNameCy: 'Office Use',
+			sectorId: 1,
+			sector: {
+				id: 1,
+				abbreviation: 'BC',
+				name: 'business_and_commercial',
+				displayNameEn: 'Business and Commercial',
+				displayNameCy: 'Business and Commercial'
+			}
+		}
+	}
+};
 
 describe('Test S51 advice update status and redacted status', () => {
 	afterEach(() => {
@@ -97,7 +123,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([]).mockResolvedValueOnce([1]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdated);
 		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue([]);
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, reference: 'TEST' });
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
 
 		// WHEN
 		const response = await request.patch('/applications/1/s51-advice').send({
@@ -140,7 +166,7 @@ describe('Test S51 advice update status and redacted status', () => {
 			publishedStatusPrev: 'not_checked'
 		};
 
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, reference: 'TEST' });
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBody);
 		databaseConnector.s51Advice.findMany.mockResolvedValueOnce([1]).mockResolvedValueOnce([]);
 		databaseConnector.s51Advice.update.mockResolvedValue(validS51AdviceUpdated);

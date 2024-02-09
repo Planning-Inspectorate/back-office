@@ -87,21 +87,6 @@ export const updateDocumentPublishedStatus = ({ guid, status, version = 1, dateP
 };
 
 /**
- *  Hard-Deletes a document from the database based on its `guid`
- *
- * @async
- * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<Document>}
- */
-export const deleteDocument = (documentGuid) => {
-	return databaseConnector.document.delete({
-		where: {
-			guid: documentGuid
-		}
-	});
-};
-
-/**
 
  * Get a document metadata by documentGuid
  *
@@ -201,7 +186,7 @@ export const getAllByDocumentGuid = (guid) => {
  *
  * @param {string} documentGuid
  * @param {import('@pins/applications.api').Schema.DocumentVersionUpdateInput} documentDetails
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersion>}
+ * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocument>}
  */
 export const update = (documentGuid, { version = 1, ...documentDetails }) => {
 	return databaseConnector.documentVersion.update({
