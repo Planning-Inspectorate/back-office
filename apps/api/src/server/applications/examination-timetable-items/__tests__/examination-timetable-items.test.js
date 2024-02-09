@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 import { eventClient } from '#infrastructure/event-client.js';
-import { NSIP_EXAM_TIMETABLE, NSIP_FOLDER } from '#infrastructure/topics.js';
+import { NSIP_EXAM_TIMETABLE, FOLDER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
@@ -425,13 +425,13 @@ describe('Test examination timetable items API', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			1,
-			NSIP_FOLDER,
+			FOLDER,
 			[expectedFolder],
 			EventType.Create
 		);
 
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
-			NSIP_FOLDER,
+			FOLDER,
 			expectedSubFolders,
 			EventType.Create
 		);
@@ -557,14 +557,14 @@ describe('Test examination timetable items API', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			1,
-			NSIP_FOLDER,
+			FOLDER,
 			expectedSubFolders,
 			EventType.Delete
 		);
 
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			2,
-			NSIP_FOLDER,
+			FOLDER,
 			[expectedFolder],
 			EventType.Delete
 		);
@@ -626,14 +626,14 @@ describe('Test examination timetable items API', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			1,
-			NSIP_FOLDER,
+			FOLDER,
 			[expectedFolder],
 			EventType.Update
 		);
 
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
 			2,
-			NSIP_FOLDER,
+			FOLDER,
 			expectedSubFolders,
 			EventType.Delete
 		);

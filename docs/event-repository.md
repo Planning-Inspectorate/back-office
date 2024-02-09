@@ -9,7 +9,7 @@ The ODT services emit events to Service Bus Topics from within Appeals Back Offi
 | service-user        | 1.0     | [Service User](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/service-user.schema.json)               | Appeals BO, Applications BO | ODW, Appeals FO, Applications FO |
 | nsip-project        | 1.0     | [NSIP Project](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/nsip-project.schema.json)               | Applications BO             | ODW, Applications FO             |
 | nsip-exam-timetable | 0.1     | [Exam Timetable](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/nsip-exam-timetable.schema.json)      | Applications BO             | ODW, Applications FO             |
-| nsip-folder         | 0.1     | [Folder](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/folder.schema.json)                           | Applications BO             | ODW                              |
+| folder              | 0.1     | [Folder](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/folder.schema.json)                           | Applications BO             | ODW                              |
 | nsip-document       | 0.1     | [NSIP Document](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/nsip-document.schema.json)             | Applications BO             | ODW, Applications FO             |
 | s51-advice          | 0.1     | [S51 Advice](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/s51-advice.schema.json)                   | Applications BO             | ODW, Applications FO             |
 | nsip-representation | 0.1     | [NSIP Representation](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/nsip-representation.schema.json) | Applications BO             | ODW, Applications FO             |
@@ -39,7 +39,7 @@ This table is essentially a copy of the outgoing events, but without topics for 
 | service-user        | 1.0     | [Service User](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/service-user.schema.json)               | ODW         | Applications BO |
 | nsip-project        | 1.0     | [NSIP Project](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/nsip-project.schema.json)               | ODW         | Applications BO |
 | nsip-exam-timetable | 0.1     | [Exam Timetable](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/nsip-exam-timetable.schema.json)      | ODW         | Applications BO |
-| nsip-folder         | 0.1     | [Folder](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/folder.schema.json)                           | ODW         | Applications BO |
+| folder              | 0.1     | [Folder](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/folder.schema.json)                           | ODW         | Applications BO |
 | nsip-document       | 0.1     | [NSIP Document](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/nsip-document.schema.json)             | ODW         | Applications BO |
 | s51-advice          | 0.1     | [S51 Advice](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/s51-advice.schema.json)                   | ODW         | Applications BO |
 | nsip-representation | 0.1     | [NSIP Representation](https://github.com/Planning-Inspectorate/data-model/blob/main/schemas/nsip-representation.schema.json) | ODW         | Applications BO |
