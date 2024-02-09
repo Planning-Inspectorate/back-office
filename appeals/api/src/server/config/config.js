@@ -55,7 +55,8 @@ const { value, error } = schema.validate({
 		{ level: 'H', band: 1 }
 	],
 	horizon: {
-		url: environment.SRV_HORIZON_URL
+		url: environment.SRV_HORIZON_URL,
+		mock: environment.MOCK_HORIZON
 	}
 });
 
