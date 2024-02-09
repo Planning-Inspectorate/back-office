@@ -49,7 +49,7 @@ export default joi
 		),
 		horizon: joi.object({
 			url: joi.string().optional(),
-			mock: joi.string().valid('true', 'false').optional()
+			mock: joi.bool().optional()
 		})
 	})
 	.options({ presence: 'required' }); // required by default;
