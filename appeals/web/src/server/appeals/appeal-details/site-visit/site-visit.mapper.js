@@ -282,7 +282,7 @@ export function stringIsSiteVisitConfirmationPageType(pageType) {
  * @param {SiteVisitConfirmationPageType} pageType
  * @param {import('@pins/appeals.api/src/server/endpoints/appeals.js').SingleSiteVisitDetailsResponse} siteVisit
  * @param {Appeal} appealDetails
- * @returns {ConfirmationPageContent}
+ * @returns {PageContent}
  */
 export function scheduleOrManageSiteVisitConfirmationPage(pageType, siteVisit, appealDetails) {
 	const formattedSiteVisitType = siteVisit.visitType.toLowerCase();
@@ -290,119 +290,196 @@ export function scheduleOrManageSiteVisitConfirmationPage(pageType, siteVisit, a
 		? Object.values(appealDetails?.appealSite)?.join(', ')
 		: 'Address not known';
 	const formattedSiteVisitDate = dateToDisplayDate(siteVisit.visitDate);
-
 	const timeText =
 		siteVisit.visitStartTime && siteVisit.visitEndTime
 			? `, between ${siteVisit.visitStartTime} and ${siteVisit.visitEndTime}`
 			: '';
 
-	let title;
-	let preHeading;
-	const bodyTitleTextForChangedPageTypes = 'What happens next';
-	let bodyTitleText;
-	let bodyRows = [];
-	const backToCaseDetailsBodyRow = {
-		text: 'Go back to case details',
-		href: `/appeals-service/appeal-details/${appealDetails.appealId}`
+	/** @type {PageContent} */
+	const pageContent = {
+		title: '',
+		pageComponents: []
+	};
+	/** @type {PageComponent} */
+	const whatHappensNextComponent = {
+		type: 'html',
+		parameters: {
+			html: `<h2>What happens next</h2>`
+		}
+	};
+	/** @type {PageComponent} */
+	const backToCaseDetailsComponent = {
+		type: 'html',
+		parameters: {
+			html: `<p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/${appealDetails.appealId}">Go back to case details</a></p>`
+		}
 	};
 
 	switch (pageType) {
 		case 'new':
-			title = 'Site visit scheduled';
-			preHeading = `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${timeText}.`;
-			bodyTitleText = bodyTitleTextForChangedPageTypes;
-			bodyRows = [
+			pageContent.title = 'Site visit scheduled';
+			pageContent.pageComponents = [
 				{
-					text: `The case timetable has been updated.${
-						formattedSiteVisitType !== 'unaccompanied'
-							? ` We've sent an email to the LPA and appellant to confirm the site visit.`
-							: ''
-					}`
+					type: 'panel',
+					parameters: {
+						titleText: 'Site visit scheduled',
+						headingLevel: 1,
+						html: `Appeal reference<br><strong>${appealShortReference(
+							appealDetails.appealReference
+						)}</strong>`
+					}
 				},
-				backToCaseDetailsBodyRow
+				{
+					type: 'html',
+					parameters: {
+						html: `<span class="govuk-body">Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is booked for ${formattedSiteVisitDate}${timeText}.</span>`
+					}
+				},
+				whatHappensNextComponent,
+				{
+					type: 'html',
+					parameters: {
+						html: `<p class="govuk-body">The case timetable has been updated.${
+							formattedSiteVisitType !== 'unaccompanied'
+								? ` We've sent an email to the LPA and appellant to confirm the site visit.`
+								: ''
+						}</p>`
+					}
+				},
+				backToCaseDetailsComponent
 			];
 			break;
 		case 'unchanged':
-			title = 'No changes were made';
-			bodyRows = [
+			pageContent.title = 'No changes were made';
+			pageContent.pageComponents = [
 				{
-					text: `The original details still apply.`
+					type: 'panel',
+					parameters: {
+						titleText: 'No changes were made',
+						headingLevel: 1,
+						html: `Appeal reference<br><strong>${appealShortReference(
+							appealDetails.appealReference
+						)}</strong>`
+					}
 				},
 				{
-					text: `No emails have been sent to the parties.`
+					type: 'html',
+					parameters: {
+						html: `<p class="govuk-body">The original details still apply.</p>`
+					}
 				},
-				backToCaseDetailsBodyRow
+				{
+					type: 'html',
+					parameters: {
+						html: `<p class="govuk-body">No emails have been sent to the parties.</p>`
+					}
+				},
+				backToCaseDetailsComponent
 			];
 			break;
 		case 'visit-type':
-			title = 'Site visit type changed';
-			preHeading = `The visit type is now changed to ${formattedSiteVisitType}. Your site visit at ${formattedSiteAddress} is still scheduled for ${formattedSiteVisitDate}${timeText}.`;
-			bodyTitleText = bodyTitleTextForChangedPageTypes;
-			bodyRows = [
+			pageContent.title = 'Site visit type changed';
+			pageContent.pageComponents = [
 				{
-					text: `We updated the case timetable.${
-						formattedSiteVisitType !== 'unaccompanied'
-							? ` We've sent an email to the LPA and appellant to confirm the changes to the site visit.`
-							: ''
-					}`
+					type: 'panel',
+					parameters: {
+						titleText: 'Site visit type changed',
+						headingLevel: 1,
+						html: `Appeal reference<br><strong>${appealShortReference(
+							appealDetails.appealReference
+						)}</strong>`
+					}
 				},
-				backToCaseDetailsBodyRow
+				{
+					type: 'html',
+					parameters: {
+						html: `<span class="govuk-body">The visit type is now changed to ${formattedSiteVisitType}. Your site visit at ${formattedSiteAddress} is still scheduled for ${formattedSiteVisitDate}${timeText}.</span>`
+					}
+				},
+				whatHappensNextComponent,
+				{
+					type: 'html',
+					parameters: {
+						html: `<p class="govuk-body">We updated the case timetable.${
+							formattedSiteVisitType !== 'unaccompanied'
+								? ` We've sent an email to the LPA and appellant to confirm the changes to the site visit.`
+								: ''
+						}</p>`
+					}
+				},
+				backToCaseDetailsComponent
 			];
 			break;
 		case 'date-time':
-			title = 'Site visit rescheduled';
-			preHeading = `Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is rescheduled for ${formattedSiteVisitDate}${timeText}.`;
-			bodyTitleText = bodyTitleTextForChangedPageTypes;
-			bodyRows = [
+			pageContent.title = 'Site visit rescheduled';
+			pageContent.pageComponents = [
 				{
-					text: `We updated the case timetable.${
-						formattedSiteVisitType !== 'unaccompanied'
-							? ` We've sent an email to the LPA and appellant to confirm the site visit.`
-							: ''
-					}`
+					type: 'panel',
+					parameters: {
+						titleText: 'Site visit rescheduled',
+						headingLevel: 1,
+						html: `Appeal reference<br><strong>${appealShortReference(
+							appealDetails.appealReference
+						)}</strong>`
+					}
 				},
-				backToCaseDetailsBodyRow
+				{
+					type: 'html',
+					parameters: {
+						html: `<span class="govuk-body">Your ${formattedSiteVisitType} site visit at ${formattedSiteAddress} is rescheduled for ${formattedSiteVisitDate}${timeText}.</span>`
+					}
+				},
+				whatHappensNextComponent,
+				{
+					type: 'html',
+					parameters: {
+						html: `<p class="govuk-body">We updated the case timetable.${
+							formattedSiteVisitType !== 'unaccompanied'
+								? ` We've sent an email to the LPA and appellant to confirm the site visit.`
+								: ''
+						}</p>`
+					}
+				},
+				backToCaseDetailsComponent
 			];
 			break;
 		case 'all':
 		default:
-			title = 'Site visit changed';
-			preHeading = `Your site visit at ${formattedSiteAddress} is rescheduled for ${formattedSiteVisitDate}${timeText}. The site visit type is now changed to ${formattedSiteVisitType}.`;
-			bodyTitleText = bodyTitleTextForChangedPageTypes;
-			bodyRows = [
+			pageContent.title = 'Site visit changed';
+			pageContent.pageComponents = [
 				{
-					text: `We updated the case timetable.${
-						formattedSiteVisitType !== 'unaccompanied'
-							? ` We've sent an email to the LPA and appellant to confirm the changes to the site visit.`
-							: ''
-					}`
+					type: 'panel',
+					parameters: {
+						titleText: 'Site visit changed',
+						headingLevel: 1,
+						html: `Appeal reference<br><strong>${appealShortReference(
+							appealDetails.appealReference
+						)}</strong>`
+					}
 				},
-				backToCaseDetailsBodyRow
+				{
+					type: 'html',
+					parameters: {
+						html: `<span class="govuk-body">Your site visit at ${formattedSiteAddress} is rescheduled for ${formattedSiteVisitDate}${timeText}. The site visit type is now changed to ${formattedSiteVisitType}.</span>`
+					}
+				},
+				whatHappensNextComponent,
+				{
+					type: 'html',
+					parameters: {
+						html: `<p class="govuk-body">We updated the case timetable.${
+							formattedSiteVisitType !== 'unaccompanied'
+								? ` We've sent an email to the LPA and appellant to confirm the changes to the site visit.`
+								: ''
+						}</p>`
+					}
+				},
+				backToCaseDetailsComponent
 			];
 			break;
 	}
 
-	return {
-		pageTitle: title,
-		panel: {
-			title,
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealShortReference(appealDetails?.appealReference) || ''
-			}
-		},
-		body: {
-			...(preHeading && {
-				preHeading: preHeading || ''
-			}),
-			...(bodyTitleText && {
-				title: {
-					text: bodyTitleText || ''
-				}
-			}),
-			rows: bodyRows
-		}
-	};
+	return pageContent;
 }
 
 /**
@@ -457,25 +534,32 @@ export function setVisitTypePage(appealDetails, visitType) {
 }
 
 /**
- * @typedef {Object} SiteVisitBookedConfirmationPageContent
- * @property {Object} appeal
- * @property {string} appeal.id
- * @property {string} appeal.reference
- * @property {string|null|undefined} appeal.shortReference
- */
-
-/**
  * @param {string} appealId
  * @param {string} appealReference
- * @returns {SiteVisitBookedConfirmationPageContent}
+ * @returns {PageContent}
  */
-export function siteVisitBookedConfirmationPage(appealId, appealReference) {
+export function siteVisitBookedPage(appealId, appealReference) {
 	return {
-		appeal: {
-			id: appealId,
-			reference: appealReference,
-			shortReference: appealShortReference(appealReference)
-		}
+		title: 'Site visit is booked already',
+		backLinkUrl: `/appeals-service/appeal-details/${appealId}`,
+		preHeading: `Appeal ${appealShortReference(appealReference)}`,
+		heading: 'Site visit is booked already',
+		pageComponents: [
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body">Manage the site visit to change visit type, date or time.</p>`
+				}
+			},
+			{
+				type: 'button',
+				parameters: {
+					text: 'Manage the site visit',
+					href: `/appeals-service/appeal-details/${appealId}/site-visit/manage-visit`,
+					classes: 'govuk-!-margin-top-3'
+				}
+			}
+		]
 	};
 }
 

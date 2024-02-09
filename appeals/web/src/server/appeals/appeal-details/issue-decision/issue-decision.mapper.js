@@ -271,37 +271,51 @@ export function checkAndConfirmPage(request, appealData, session, decisionLetter
 /**
  *
  * @param {Appeal} appealData
- * @returns {ConfirmationPageContent}
+ * @returns {PageContent}
  */
 export function decisionConfirmationPage(appealData) {
-	/** @type {ConfirmationPageContent} */
-	const confirmationPage = {
-		pageTitle: 'Decision sent',
-		panel: {
-			title: 'Decision sent',
-			appealReference: {
-				label: 'Appeal reference',
-				reference: appealData.appealReference
-			}
-		},
-		body: {
-			preHeading: 'We have sent the decision to the relevant appeal parties.',
-			title: {
-				text: 'What happens next'
-			},
-			rows: [
-				{
-					text: 'The appeal will be closed.'
-				},
-				{
-					text: 'Back to your list',
-					href: '/appeals-service/appeals-list'
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Decision sent',
+		pageComponents: [
+			{
+				type: 'panel',
+				parameters: {
+					titleText: 'Decision sent',
+					headingLevel: 1,
+					html: `Appeal reference<br><strong>${appealShortReference(
+						appealData.appealReference
+					)}</strong>`
 				}
-			]
-		}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<span class="govuk-body">We have sent the decision to the relevant appeal parties.</span>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: '<h2>What happens next</h2>'
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body">The appeal will be closed.</p>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body"><a href="/appeals-service/appeals-list" class="govuk-link">Back to your list</a></p>`
+				}
+			}
+		]
 	};
 
-	return confirmationPage;
+	return pageContent;
 }
 
 /**

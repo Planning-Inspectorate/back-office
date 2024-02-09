@@ -1,36 +1,56 @@
+import { appealShortReference } from '#lib/appeals-formatter.js';
+
 /**
  *
  * @param {string} appealId
  * @param {string} appealReference
- * @returns {ConfirmationPageContent}
+ * @returns {PageContent}
  */
 export function decisionIncompleteConfirmationPage(appealId, appealReference) {
-	return {
-		pageTitle: 'Appeal incomplete',
-		panel: {
-			title: 'Appeal incomplete',
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			}
-		},
-		body: {
-			preHeading: 'The appeal has been reviewed.',
-			title: {
-				text: 'What happens next'
-			},
-			rows: [
-				{
-					text: 'We’ve sent an email to the appellant and LPA to inform the case is incomplete, and let them know what to do next.'
-				},
-				{
-					text: 'We also sent them a reminder about the appeal’s due date.'
-				},
-				{
-					text: 'Go to case details',
-					href: `/appeals-service/appeal-details/${appealId}`
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Appeal incomplete',
+		pageComponents: [
+			{
+				type: 'panel',
+				parameters: {
+					titleText: 'Appeal incomplete',
+					headingLevel: 1,
+					html: `Appeal reference<br><strong>${appealShortReference(appealReference)}</strong>`
 				}
-			]
-		}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<span class="govuk-body">The appeal has been reviewed.</span>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<h2>What happens next</h2>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body">The appellant and LPA have been informed. We have told them what to do next.</p>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body">They have been advised of any new due date for missing information.</p>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/${appealId}">Go back to case details</a></p>`
+				}
+			}
+		]
 	};
+
+	return pageContent;
 }

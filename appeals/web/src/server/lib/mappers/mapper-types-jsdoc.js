@@ -303,23 +303,3 @@
  * @property {string} text
  * @property {string} [href]
  */
-
-/**
- * @typedef {Object} ConfirmationPageContent
- * @property {string} pageTitle
- * @property {Object} panel
- * @property {string} panel.title
- * @property {Object} panel.appealReference
- * @property {string} panel.appealReference.label
- * @property {string} panel.appealReference.reference
- * @property {string} [panel.classes]
- * @property {Object} body
- * @property {string} [body.containerClasses]
- * @property {string} [body.preHeading]
- * @property {Object} [body.title]
- * @property {string} body.title.text
- * @property {number} [body.title.headingLevel]
- * @property {string} [body.title.classes]
- * @property {PageBodyRow[]} [body.rows]
- * @property {PageComponent[]} [pageComponents]
- */
