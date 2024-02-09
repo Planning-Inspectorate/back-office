@@ -75,7 +75,7 @@ export const getAppealFromHorizon = async (caseReference) => {
 	const requestBody = horizonGetCaseRequestBody(caseReference);
 
 	logger.debug('Case not found in BO, now trying to query Horizon');
-	if (config.horizon.mock) {
+	if (config.horizon.mock === 'true') {
 		switch (caseReference) {
 			//Case found
 			case '1000000':
