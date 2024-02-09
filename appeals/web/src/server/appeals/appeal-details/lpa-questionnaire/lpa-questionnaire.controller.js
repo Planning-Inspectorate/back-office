@@ -135,9 +135,11 @@ export const renderLpaQuestionnaireReviewCompletePage = async (request, response
 	}
 
 	const { appealId, appealReference } = request.session;
-	const mappedPageContent = reviewCompletePage(appealId, appealReference);
+	const pageContent = reviewCompletePage(appealId, appealReference);
 
-	return response.render('appeals/confirmation.njk', mappedPageContent);
+	return response.render('appeals/confirmation.njk', {
+		pageContent
+	});
 };
 
 /**

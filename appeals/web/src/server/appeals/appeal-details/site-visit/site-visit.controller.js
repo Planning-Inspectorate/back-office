@@ -7,7 +7,7 @@ import {
 	scheduleOrManageSiteVisitConfirmationPage,
 	setVisitTypePage,
 	stringIsSiteVisitConfirmationPageType,
-	siteVisitBookedConfirmationPage,
+	siteVisitBookedPage,
 	mapPostScheduleOrManageSiteVisitCommonParameters as mapPostScheduleOrManageSiteVisitToUpdateOrCreateSiteVisitParameters,
 	mapPostScheduleOrManageSiteVisitConfirmationPageType
 } from './site-visit.mapper.js';
@@ -89,13 +89,15 @@ export const renderScheduleOrManageSiteVisitConfirmation = async (request, respo
 			);
 
 			if (siteVisit && stringIsSiteVisitConfirmationPageType(confirmationPageTypeToRender)) {
-				const mappedConfirmationPage = scheduleOrManageSiteVisitConfirmationPage(
+				const pageContent = scheduleOrManageSiteVisitConfirmationPage(
 					confirmationPageTypeToRender,
 					siteVisit,
 					appealDetails
 				);
 
-				return response.render('appeals/confirmation.njk', mappedConfirmationPage);
+				return response.render('appeals/confirmation.njk', {
+					pageContent
+				});
 			}
 		}
 	}
@@ -117,12 +119,14 @@ export const renderSiteVisitBooked = async (request, response) => {
 		const siteVisitIdAsNumber = appealDetails.siteVisit?.siteVisitId;
 
 		if (typeof siteVisitIdAsNumber === 'number' && !Number.isNaN(siteVisitIdAsNumber)) {
-			const mappedPageContent = siteVisitBookedConfirmationPage(
+			const pageContent = siteVisitBookedPage(
 				request.params.appealId,
 				appealDetails.appealReference
 			);
 
-			return response.render('appeals/appeal/site-visit-booked.njk', mappedPageContent);
+			return response.render('patterns/display-page.pattern.njk', {
+				pageContent
+			});
 		}
 	}
 

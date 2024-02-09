@@ -387,18 +387,14 @@ exports[`change-appeal-type POST /change-appeal-type/confirm-resubmit should re-
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> Appeal closed</h1>
                     <div class="govuk-panel__body">Appeal reference
                         <br><strong>351062</strong>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
-                <p class="govuk-body">The appellant has been emailled to ask them to resubmit their appeal with
+                <p class="govuk-body">The appellant has been emailed to ask them to resubmit their appeal with
                     the correct type.</p>
                 <p class="govuk-body">You can go <a href="/appeals-service/appeals-list" class="govuk-link">back to your list</a> or
                     <a                     href="/appeals-service/appeal-details/1" class="govuk-link">view the closed case</a>.</p>

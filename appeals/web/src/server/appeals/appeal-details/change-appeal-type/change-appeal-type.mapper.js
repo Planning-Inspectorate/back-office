@@ -347,36 +347,37 @@ export function changeAppealFinalDatePage(appealDetails, changeDay, changeMonth,
 /**
  *
  * @param {Appeal} appealData
- * @returns {ConfirmationPageContent}
+ * @returns {PageContent}
  */
 export function resubmitConfirmationPage(appealData) {
-	/** @type {HtmlPageComponent} */
-	const multiLinkComponent = {
-		type: 'html',
-		parameters: {
-			html: `<p class="govuk-body">  You can go <a href="/appeals-service/appeals-list" class="govuk-link">back to your list</a> or <a href="/appeals-service/appeal-details/${appealData.appealId}" class="govuk-link">view the closed case</a>.</p>`
-		}
-	};
-
-	/** @type {ConfirmationPageContent} */
-	const confirmationPage = {
-		pageTitle: 'Appeal closed',
-		panel: {
-			title: 'Appeal closed',
-			appealReference: {
-				label: 'Appeal reference',
-				reference: appealData.appealReference
-			}
-		},
-		body: {
-			rows: [
-				{
-					text: 'The appellant has been emailled to ask them to resubmit their appeal with the correct type.'
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Appeal closed',
+		pageComponents: [
+			{
+				type: 'panel',
+				parameters: {
+					titleText: 'Appeal closed',
+					headingLevel: 1,
+					html: `Appeal reference<br><strong>${appealShortReference(
+						appealData.appealReference
+					)}</strong>`
 				}
-			]
-		},
-		pageComponents: [multiLinkComponent]
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body">The appellant has been emailed to ask them to resubmit their appeal with the correct type.</p>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body">You can go <a href="/appeals-service/appeals-list" class="govuk-link">back to your list</a> or <a href="/appeals-service/appeal-details/${appealData.appealId}" class="govuk-link">view the closed case</a>.</p>`
+				}
+			}
+		]
 	};
 
-	return confirmationPage;
+	return pageContent;
 }

@@ -251,22 +251,18 @@ exports[`site-visit GET /site-visit/visit-scheduled/:confirmationPageTypeToRende
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> Site visit scheduled</h1>
-                    <div class="govuk-panel__body">Appeal ID
+                    <div class="govuk-panel__body">Appeal reference
                         <br><strong>351062</strong>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2"><span class="govuk-body">Your accompanied site visit at 21 The Pavement, Wandsworth, SW4 0HY is booked for 9 October 2023, between 09:38 and 10:44.</span>
-                <h2                 class="govuk-heading-m">What happens next</h2>
-                    <p class="govuk-body">The case timetable has been updated. We&#39;ve sent an email to the LPA
-                        and appellant to confirm the site visit.</p>
-                    <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
-                    </p>
+                </div><span class="govuk-body">Your accompanied site visit at 21 The Pavement, Wandsworth, SW4 0HY is booked for 9 October 2023, between 09:38 and 10:44.</span>
+                <h2>What happens next</h2>
+                <p class="govuk-body">The case timetable has been updated. We've sent an email to the LPA and
+                    appellant to confirm the site visit.</p>
+                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
+                </p>
             </div>
         </div>
     </div>
@@ -277,17 +273,13 @@ exports[`site-visit GET /site-visit/visit-scheduled/:confirmationPageTypeToRende
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> No changes were made</h1>
-                    <div class="govuk-panel__body">Appeal ID
+                    <div class="govuk-panel__body">Appeal reference
                         <br><strong>351062</strong>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <p class="govuk-body">The original details still apply.</p>
                 <p class="govuk-body">No emails have been sent to the parties.</p>
                 <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
@@ -302,22 +294,18 @@ exports[`site-visit GET /site-visit/visit-scheduled/:confirmationPageTypeToRende
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> Site visit rescheduled</h1>
-                    <div class="govuk-panel__body">Appeal ID
+                    <div class="govuk-panel__body">Appeal reference
                         <br><strong>351062</strong>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2"><span class="govuk-body">Your accompanied site visit at 21 The Pavement, Wandsworth, SW4 0HY is rescheduled for 9 October 2023, between 09:38 and 10:44.</span>
-                <h2                 class="govuk-heading-m">What happens next</h2>
-                    <p class="govuk-body">We updated the case timetable. We&#39;ve sent an email to the LPA and
-                        appellant to confirm the site visit.</p>
-                    <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
-                    </p>
+                </div><span class="govuk-body">Your accompanied site visit at 21 The Pavement, Wandsworth, SW4 0HY is rescheduled for 9 October 2023, between 09:38 and 10:44.</span>
+                <h2>What happens next</h2>
+                <p class="govuk-body">We updated the case timetable. We've sent an email to the LPA and appellant
+                    to confirm the site visit.</p>
+                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
+                </p>
             </div>
         </div>
     </div>
@@ -328,22 +316,18 @@ exports[`site-visit GET /site-visit/visit-scheduled/:confirmationPageTypeToRende
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-width-container">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
                 <div class="govuk-panel govuk-panel--confirmation">
                     <h1 class="govuk-panel__title"> Site visit type changed</h1>
-                    <div class="govuk-panel__body">Appeal ID
+                    <div class="govuk-panel__body">Appeal reference
                         <br><strong>351062</strong>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-padding-top-2"><span class="govuk-body">The visit type is now changed to accompanied. Your site visit at 21 The Pavement, Wandsworth, SW4 0HY is still scheduled for 9 October 2023, between 09:38 and 10:44.</span>
-                <h2                 class="govuk-heading-m">What happens next</h2>
-                    <p class="govuk-body">We updated the case timetable. We&#39;ve sent an email to the LPA and
-                        appellant to confirm the changes to the site visit.</p>
-                    <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
-                    </p>
+                </div><span class="govuk-body">The visit type is now changed to accompanied. Your site visit at 21 The Pavement, Wandsworth, SW4 0HY is still scheduled for 9 October 2023, between 09:38 and 10:44.</span>
+                <h2>What happens next</h2>
+                <p class="govuk-body">We updated the case timetable. We've sent an email to the LPA and appellant
+                    to confirm the changes to the site visit.</p>
+                <p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/1">Go back to case details</a>
+                </p>
             </div>
         </div>
     </div>

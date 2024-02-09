@@ -121,9 +121,11 @@ const renderDecisionIncompleteConfirmationPage = async (request, response) => {
 	}
 
 	const { appealId, appealReference } = request.session;
-	const mappedPageContent = decisionIncompleteConfirmationPage(appealId, appealReference);
+	const pageContent = decisionIncompleteConfirmationPage(appealId, appealReference);
 
-	response.render('appeals/confirmation.njk', mappedPageContent);
+	response.render('appeals/confirmation.njk', {
+		pageContent
+	});
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */
