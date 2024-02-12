@@ -1094,7 +1094,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				},
 				{
 					text: displayPageFormatter.mapDocumentStatus(
-						appealDetails?.documentationSummary?.appellantCase?.status
+						appealDetails?.documentationSummary?.appellantCase?.status,
+						appealDetails?.documentationSummary?.appellantCase?.dueDate
 					)
 				},
 				{
