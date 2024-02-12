@@ -32,7 +32,7 @@ exports[`personal-list GET / should render the first page of the personal list w
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal reference</th>
                 <th scope="col" class="govuk-table__header">Lead or child</th>
                 <th scope="col" class="govuk-table__header">Action required</th>
                 <th scope="col" class="govuk-table__header">Due by</th>
@@ -144,7 +144,7 @@ exports[`personal-list GET / should render the second page of the personal list 
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal reference</th>
                 <th scope="col" class="govuk-table__header">Lead or child</th>
                 <th scope="col" class="govuk-table__header">Action required</th>
                 <th scope="col" class="govuk-table__header">Due by</th>
@@ -213,7 +213,7 @@ exports[`personal-list GET / should render the second page of the personal list 
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal reference</th>
                 <th scope="col" class="govuk-table__header">Lead or child</th>
                 <th scope="col" class="govuk-table__header">Action required</th>
                 <th scope="col" class="govuk-table__header">Due by</th>

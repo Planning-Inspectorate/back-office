@@ -12,7 +12,7 @@ exports[`national-list GET / should render national list - 10 pages - all page i
             <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    for="searchTerm">Enter appeal reference or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text">
                 </div>
@@ -60,7 +60,7 @@ exports[`national-list GET / should render national list - 10 pages - all page i
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal reference</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
                 <th scope="col" class="govuk-table__header">Appeal type</th>
@@ -140,7 +140,7 @@ exports[`national-list GET / should render national list - 15 pages - pagination
             <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    for="searchTerm">Enter appeal reference or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text">
                 </div>
@@ -188,7 +188,7 @@ exports[`national-list GET / should render national list - 15 pages - pagination
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal reference</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
                 <th scope="col" class="govuk-table__header">Appeal type</th>
@@ -248,7 +248,7 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
             <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    for="searchTerm">Enter appeal reference or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text">
                 </div>
@@ -296,7 +296,7 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal reference</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
                 <th scope="col" class="govuk-table__header">Appeal type</th>
@@ -339,7 +339,7 @@ exports[`national-list GET / should render national list - no search term - filt
             <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    for="searchTerm">Enter appeal reference or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text">
                 </div>
@@ -390,7 +390,7 @@ exports[`national-list GET / should render national list - no search term - filt
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal reference</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
                 <th scope="col" class="govuk-table__header">Appeal type</th>
@@ -424,7 +424,7 @@ exports[`national-list GET / should render national list - search term - filter 
             <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    for="searchTerm">Enter appeal reference or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text" value="BS7 8LQ">
                 </div>
@@ -476,7 +476,7 @@ exports[`national-list GET / should render national list - search term - filter 
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal reference</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
                 <th scope="col" class="govuk-table__header">Appeal type</th>
@@ -510,7 +510,7 @@ exports[`national-list GET / should render national list - search term - no resu
             <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    for="searchTerm">Enter appeal reference or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text" value="NORESULT">
                 </div>
@@ -574,7 +574,7 @@ exports[`national-list GET / should render national list - search term 1`] = `
             <form method="GET">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-caption-m govuk-!-margin-bottom-3 colour--secondary"
-                    for="searchTerm">Enter appeal ID or postcode (include spaces)</label>
+                    for="searchTerm">Enter appeal reference or postcode (include spaces)</label>
                     <input class="govuk-input"
                     id="searchTerm" name="searchTerm" type="text" value="BS7 8LQ">
                 </div>
@@ -626,7 +626,7 @@ exports[`national-list GET / should render national list - search term 1`] = `
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal reference</th>
                 <th scope="col" class="govuk-table__header">Site address</th>
                 <th scope="col" class="govuk-table__header">Local planning authority</th>
                 <th scope="col" class="govuk-table__header">Appeal type</th>
