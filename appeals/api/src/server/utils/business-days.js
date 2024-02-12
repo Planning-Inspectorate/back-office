@@ -21,8 +21,8 @@ import {
 const bankHolidaysBetweenDates = (dateFrom, dateTo, bankHolidays) =>
 	bankHolidays.filter(
 		({ date }) =>
-			isAfter(new Date(date), sub(new Date(dateFrom), { days: 1 })) &&
-			isBefore(new Date(date), add(new Date(dateTo), { days: 1 }))
+			isAfter(new Date(date), sub(new Date(dateFrom), { hours: 23 })) &&
+			isBefore(new Date(date), add(new Date(dateTo), { hours: 23 }))
 	).length;
 
 /**
