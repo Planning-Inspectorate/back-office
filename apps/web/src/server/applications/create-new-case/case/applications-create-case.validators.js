@@ -16,8 +16,8 @@ export const validateApplicationsCreateCaseDescription = createValidator(
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the description of the project')
-		.isLength({ max: 500 })
-		.withMessage('The description of the project must be 500 characters or fewer')
+		.isLength({ max: 2000 })
+		.withMessage('The description of the project must be 2000 characters or fewer')
 );
 
 export const validateApplicationsCreateCaseSector = createValidator(

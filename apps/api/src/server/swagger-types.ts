@@ -2388,7 +2388,7 @@ export interface S51AdvicePublishRequestBody {
 	 * Optional parameter. True if all S51 Advice in the publishing queue for that case is to be published
 	 * @example true
 	 */
-	selectAll?: boolean;
+	publishAll?: boolean;
 	/** Array of S51 Advice Ids to publish */
 	ids?: string[];
 }
