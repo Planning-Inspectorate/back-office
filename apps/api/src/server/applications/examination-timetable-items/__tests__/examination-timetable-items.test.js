@@ -224,14 +224,10 @@ const expectedPublishExaminationTimetablePayload = {
 	events: [
 		{
 			date: '2022-01-01T00:00:00.000',
-			description: 'Some description',
+			description: 'Some description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3',
 			eventDeadlineStartDate: undefined,
 			eventId: 1,
-			eventLineItems: [
-				{ description: 'Line item 1' },
-				{ description: 'Line item 2' },
-				{ description: 'Line item 3' }
-			],
+			eventLineItems: [],
 			eventTitle: 'My timetable',
 			type: 'Accompanied Site Inspection'
 		},
@@ -246,29 +242,21 @@ const expectedPublishExaminationTimetablePayload = {
 		},
 		{
 			date: '2023-06-20T00:00:00.000',
-			description: 'Description',
+			description:
+				'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
 			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
 			eventId: 3,
-			eventLineItems: [
-				{ description: 'Line item 1' },
-				{ description: 'Line item 2' },
-				{ description: 'Line item 3' },
-				{ description: 'Line item 4' }
-			],
+			eventLineItems: [],
 			eventTitle: 'Deadline For Close Of Examination',
 			type: 'Deadline For Close Of Examination'
 		},
 		{
 			date: '2023-06-20T00:00:00.000',
-			description: 'Description',
+			description:
+				'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
 			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
 			eventId: 4,
-			eventLineItems: [
-				{ description: 'Line item 1' },
-				{ description: 'Line item 2' },
-				{ description: 'Line item 3' },
-				{ description: 'Line item 4' }
-			],
+			eventLineItems: [],
 			eventTitle: 'Preliminary Meeting',
 			type: 'Preliminary Meeting'
 		}
