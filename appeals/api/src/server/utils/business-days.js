@@ -1,4 +1,4 @@
-import { add, addBusinessDays, isAfter, isBefore, isWeekend, parseISO, sub } from 'date-fns';
+import { addBusinessDays, isSameDay, isAfter, isBefore, isWeekend, parseISO } from 'date-fns';
 import fetch from 'node-fetch';
 import {
 	CONFIG_BANKHOLIDAYS_FEED_URL,
@@ -13,17 +13,20 @@ import {
 /**
  * Count the number of bank holidays between two dates
  *
+ *
  * @param {Date} dateFrom
  * @param {Date} dateTo
  * @param {BankHolidayFeedEvents} bankHolidays
  * @returns {number}
  */
-const bankHolidaysBetweenDates = (dateFrom, dateTo, bankHolidays) =>
-	bankHolidays.filter(
+const getNumberOfBankHolidaysBetweenDates = (dateFrom, dateTo, bankHolidays) => {
+	return bankHolidays.filter(
 		({ date }) =>
-			isAfter(new Date(date), sub(new Date(dateFrom), { hours: 23 })) &&
-			isBefore(new Date(date), add(new Date(dateTo), { hours: 23 }))
+			(isSameDay(new Date(date), new Date(dateFrom)) ||
+				isAfter(new Date(date), new Date(dateFrom))) &&
+			(isSameDay(new Date(date), new Date(dateTo)) || isBefore(new Date(date), new Date(dateTo)))
 	).length;
+};
 
 /**
  * @param {BankHolidayFeedDivisions} division
@@ -50,7 +53,7 @@ const fetchBankHolidaysForDivision = async (division = BANK_HOLIDAY_FEED_DIVISIO
  * @returns {{ bankHolidayCount: number, calculatedDate: Date }}
  */
 const recalculateDateForBankHolidays = (dateFrom, dateTo, bankHolidays) => {
-	const bankHolidayCount = bankHolidaysBetweenDates(dateFrom, dateTo, bankHolidays);
+	const bankHolidayCount = getNumberOfBankHolidaysBetweenDates(dateFrom, dateTo, bankHolidays);
 
 	if (bankHolidayCount) {
 		return {
