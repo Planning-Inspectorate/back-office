@@ -89,6 +89,9 @@ export const notificationBannerDefinitions = {
 	},
 	foldersWithDraftDocuments: {
 		pages: ['appellantCase', 'lpaQuestionnaire']
+	},
+	assignCaseOfficer: {
+		pages: ['appealDetails']
 	}
 };
 

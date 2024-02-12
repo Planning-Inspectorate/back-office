@@ -134,6 +134,19 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render a notification banner with a link to assign case officer when status is "Assign case officer"', async () => {
+			const appealId = 2;
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, { ...appealData, appealId, appealStatus: 'assign_case_officer' });
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should render a "horizon reference added" notification banner, a "transferred" status tag, and an inset text component with the appeal type and horizon link for the transferred appeal, when the appeal was successfully transferred to horizon', async () => {
 			nock('http://test/').get('/appeals/transferred-appeal/123').reply(200, {
 				caseFound: true
