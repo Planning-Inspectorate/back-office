@@ -180,6 +180,52 @@ describe('appeal-details', () => {
 			const element = parseHtml(response.text);
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is not in the past', async () => {
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, {
+					...appealData,
+					appealStatus: 'ready_to_start',
+					documentationSummary: {
+						appellantCase: {
+							status: 'incomplete',
+							dueDate: '2099-02-01T10:27:06.626Z'
+						}
+					}
+				});
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the appellant case status as "Overdue" if the appellant case validation status is incomplete, and the due date is in the past', async () => {
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, {
+					...appealData,
+					appealStatus: 'ready_to_start',
+					documentationSummary: {
+						appellantCase: {
+							status: 'incomplete',
+							dueDate: '2024-02-01T10:27:06.626Z'
+						}
+					}
+				});
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 	});
 
 	it('should not render a back button', async () => {

@@ -3,6 +3,7 @@ import { buildHtmSpan } from '#lib/nunjucks-template-builders/tag-builders.js';
 import { appealShortReference } from './nunjucks-filters/appeals.js';
 import { mapDocumentInfoVirusCheckStatus } from '#appeals/appeal-documents/appeal-documents.mapper.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
+import { apiDateStringToDayMonthYear, dateIsInTheFuture } from '#lib/dates.js';
 
 /**
  * @typedef {import('@pins/appeals.api').Schema.Folder} Folder
@@ -246,9 +247,10 @@ export function nullToEmptyString(value) {
 
 /**
  * @param {string|undefined} status
+ * @param {string|null|undefined} [dueDate]
  * @returns {string}
  */
-export function mapDocumentStatus(status) {
+export function mapDocumentStatus(status, dueDate) {
 	switch (status?.toLowerCase()) {
 		case 'received':
 			return 'Received';
@@ -257,6 +259,18 @@ export function mapDocumentStatus(status) {
 		case 'invalid':
 			return 'Invalid';
 		case 'incomplete':
+			if (dueDate) {
+				const parsedDueDate = apiDateStringToDayMonthYear(dueDate);
+				if (
+					parsedDueDate &&
+					parsedDueDate.year &&
+					parsedDueDate.month &&
+					parsedDueDate.day &&
+					!dateIsInTheFuture(parsedDueDate.year, parsedDueDate.month, parsedDueDate.day)
+				) {
+					return 'Overdue';
+				}
+			}
 			return 'Incomplete';
 		case 'valid':
 			return 'Valid';
