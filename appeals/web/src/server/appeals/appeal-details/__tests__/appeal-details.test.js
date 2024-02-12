@@ -134,6 +134,19 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render a notification banner with a link to assign case officer when status is "Assign case officer"', async () => {
+			const appealId = 2;
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, { ...appealData, appealId, appealStatus: 'assign_case_officer' });
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should render a "horizon reference added" notification banner, a "transferred" status tag, and an inset text component with the appeal type and horizon link for the transferred appeal, when the appeal was successfully transferred to horizon', async () => {
 			nock('http://test/').get('/appeals/transferred-appeal/123').reply(200, {
 				caseFound: true
@@ -171,6 +184,52 @@ describe('appeal-details', () => {
 					transferStatus: {
 						transferredAppealType: '(C) Enforcement notice appeal',
 						transferredAppealReference: '12345'
+					}
+				});
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is not in the past', async () => {
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, {
+					...appealData,
+					appealStatus: 'ready_to_start',
+					documentationSummary: {
+						appellantCase: {
+							status: 'incomplete',
+							dueDate: '2099-02-01T10:27:06.626Z'
+						}
+					}
+				});
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the appellant case status as "Overdue" if the appellant case validation status is incomplete, and the due date is in the past', async () => {
+			const appealId = '2';
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, {
+					...appealData,
+					appealStatus: 'ready_to_start',
+					documentationSummary: {
+						appellantCase: {
+							status: 'incomplete',
+							dueDate: '2024-02-01T10:27:06.626Z'
+						}
 					}
 				});
 

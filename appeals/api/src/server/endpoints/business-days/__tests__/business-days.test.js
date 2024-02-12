@@ -22,6 +22,16 @@ describe('business day validation routes', () => {
 
 				expect(response.status).toEqual(400);
 			});
+
+			test('another valid business day', async () => {
+				const payload = {
+					inputDate: '2024-03-28'
+				};
+
+				const response = await request.post('/appeals/validate-business-date').send(payload);
+
+				expect(response.status).toEqual(200);
+			});
 		});
 	});
 });
