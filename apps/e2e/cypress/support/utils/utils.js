@@ -235,7 +235,7 @@ const getRandomQuarterDate = (direction = 'future') => {
 const validateSectorSubsectorValues = () => {
 	casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
 	casePage.clickLinkByText('Update project information');
-	casePage.elements.caseRefTRAIN().contains('TRAIN');
+	casePage.elements.caseRefTRAIN().contains(/^TRAIN[0-9]*$/);
 	casePage.checkProjectAnswer('Sector', 'Training');
 	casePage.checkProjectAnswer('Subsector', 'Training');
 	casePage.checkProjectAnswer('Case stage', 'Pre-Application');
