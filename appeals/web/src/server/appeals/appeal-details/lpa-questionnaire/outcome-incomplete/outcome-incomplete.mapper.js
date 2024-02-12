@@ -1,52 +1,71 @@
 import { webDateToDisplayDate } from '#lib/dates.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  *
  * @param {string} appealId
  * @param {string} appealReference
  * @param {import('../lpa-questionnaire.mapper.js').DayMonthYear} lpaQuestionnaireUpdatedDueDate
- * @returns {ConfirmationPageContent}
+ * @returns {PageContent}
  */
 export function decisionIncompleteConfirmationPage(
 	appealId,
 	appealReference,
 	lpaQuestionnaireUpdatedDueDate
 ) {
-	/** @type {PageBodyRow[]} */
-	const rows = [
-		{
-			text: 'We’ve sent an email to the appellant and LPA to confirm their questionnaire is incomplete, and let them know what to do to complete it.'
-		}
-	];
+	/** @type {PageComponent[]} */
+	const updatedDueDateComponents = [];
 
 	if (lpaQuestionnaireUpdatedDueDate) {
-		rows.push({
-			text: `We also let them know the due date has changed to the ${webDateToDisplayDate(
-				lpaQuestionnaireUpdatedDueDate
-			)}.`
+		updatedDueDateComponents.push({
+			type: 'html',
+			parameters: {
+				html: `<p class="govuk-body">We also let them know the due date has changed to the ${webDateToDisplayDate(
+					lpaQuestionnaireUpdatedDueDate
+				)}.</p>`
+			}
 		});
 	}
 
-	rows.push({
-		text: 'Go to case details',
-		href: `/appeals-service/appeal-details/${appealId}`
-	});
-
-	return {
-		pageTitle: 'LPA questionnaire incomplete',
-		panel: {
-			title: 'LPA questionnaire incomplete',
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			}
-		},
-		body: {
-			preHeading: 'The review of LPA questionnaire is finished.',
-			title: {
-				text: 'What happens next'
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'LPA questionnaire incomplete',
+		pageComponents: [
+			{
+				type: 'panel',
+				parameters: {
+					titleText: 'LPA questionnaire incomplete',
+					headingLevel: 1,
+					html: `Appeal reference<br><strong>${appealShortReference(appealReference)}</strong>`
+				}
 			},
-			rows
-		}
+			{
+				type: 'html',
+				parameters: {
+					html: `<span class="govuk-body">The review of LPA questionnaire is finished.</span>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<h2>What happens next</h2>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body">We’ve sent an email to the appellant and LPA to confirm their questionnaire is incomplete, and let them know what to do to complete it.</p>`
+				}
+			},
+			...updatedDueDateComponents,
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/${appealId}">Go back to case details</a></p>`
+				}
+			}
+		]
 	};
+
+	return pageContent;
 }

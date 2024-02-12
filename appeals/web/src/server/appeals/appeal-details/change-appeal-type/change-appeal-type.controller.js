@@ -380,7 +380,9 @@ export const postCheckTransfer = async (request, response) => {
 export const getConfirmResubmit = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
-	const mappedPageContent = resubmitConfirmationPage(appealData);
+	const pageContent = resubmitConfirmationPage(appealData);
 
-	return response.render('appeals/confirmation.njk', mappedPageContent);
+	return response.render('appeals/confirmation.njk', {
+		pageContent
+	});
 };

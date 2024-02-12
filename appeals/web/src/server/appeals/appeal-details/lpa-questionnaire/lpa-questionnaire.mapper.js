@@ -697,32 +697,47 @@ export function getValidationOutcomeFromLpaQuestionnaire(lpaQuestionnaireData) {
  *
  * @param {string} appealId
  * @param {string} appealReference
- * @returns {ConfirmationPageContent}
+ * @returns {PageContent}
  */
 export function reviewCompletePage(appealId, appealReference) {
-	return {
-		pageTitle: 'LPA questionnaire complete',
-		panel: {
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			},
-			title: 'LPA questionnaire complete'
-		},
-		body: {
-			preHeading: 'The review of LPA questionnaire is finished.',
-			title: {
-				text: 'What happens next'
-			},
-			rows: [
-				{
-					text: "We've sent an email to the LPA to confirm their questionnaire is complete and the the review is finished."
-				},
-				{
-					href: `/appeals-service/appeal-details/${appealId}`,
-					text: 'Go back to case details'
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'LPA questionnaire complete',
+		pageComponents: [
+			{
+				type: 'panel',
+				parameters: {
+					titleText: 'LPA questionnaire complete',
+					headingLevel: 1,
+					html: `Appeal reference<br><strong>${appealShortReference(appealReference)}</strong>`
 				}
-			]
-		}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<span class="govuk-body">The review of LPA questionnaire is finished.</span>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<h2>What happens next</h2>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body">We've sent an email to the LPA to confirm their questionnaire is complete and that the review is finished.</p>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/${appealId}">Go back to case details</a></p>`
+				}
+			}
+		]
 	};
+
+	return pageContent;
 }

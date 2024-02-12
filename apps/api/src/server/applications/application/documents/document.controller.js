@@ -11,28 +11,25 @@ import {
 	mapDocumentVersionDetails,
 	mapSingleDocumentDetailsFromVersion
 } from '#utils/mapping/map-document-details.js';
-import { applicationStates } from '../../state-machine/application.machine.js';
 import {
 	getDocumentsInCase,
 	extractDuplicates,
 	getIndexFromReference,
-	handleUpdateDocument,
+	handleUpdateDocuments,
 	makeDocumentReference,
 	markDocumentVersionAsPublished,
 	markDocumentVersionAsUnpublished,
-	obtainURLForDocumentVersion,
-	obtainURLsForDocuments,
+	createDocumentVersion,
+	createDocuments,
 	publishDocuments as _publishDocuments,
 	separateNonPublishedDocuments,
 	separatePublishableDocuments,
 	upsertDocumentVersionAndReturnDetails,
-	unpublishDocuments as unpublishDocumentGuids
+	unpublishDocuments as unpublishDocumentGuids,
+	deleteDocument,
+	revertDocumentStatusToPrevious
 } from './document.service.js';
-import {
-	fetchDocumentByGuidAndCaseId,
-	getRedactionStatus,
-	validateDocumentVersionMetadataBody
-} from './document.validators.js';
+import { getRedactionStatus, validateDocumentVersionMetadataBody } from './document.validators.js';
 
 /**
  * @typedef {import('@prisma/client').Document} Document
@@ -45,12 +42,13 @@ import {
  */
 
 /**
- * Upload an array of documents to a folder on a case
+ * Adds an array of documents to a folder on a case, creating Document and Document Version records, and Activity log records,
+ * and emit service bus events
  *
  * @type {import('express').RequestHandler<any, any, DocumentsToSaveManyRequestBody | any, any>}
  * @throws {BackOfficeAppError} if the case cannot be found
  */
-export const provideDocumentUploadURLs = async ({ params, body }, response) => {
+export const createDocumentsOnCase = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 
 	const lastDocumentsInCase = await documentRepository.getByCaseId({
@@ -86,7 +84,7 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 	}
 
 	// Obtain URLs for documents from blob storage
-	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
+	const { response: dbResponse, failedDocuments } = await createDocuments(
 		filteredToUpload,
 		params.id
 	);
@@ -114,14 +112,15 @@ export const provideDocumentUploadURLs = async ({ params, body }, response) => {
 };
 
 /**
- * Upload a new document version
+ * Upload a new document version to a document, creating Document Version records, and Activity log records, updating Document to reflect latest version,
+ * and emit service bus events
  *
  * @type {import('express').RequestHandler<any, any, { blobStorageHost: string, privateBlobContainer: string, documents: { documentName: string, blobStoreUrl: string }[] } | any, any>}
  */
-export const provideDocumentVersionUploadURL = async ({ params, body }, response) => {
+export const createDocumentVersionOnCase = async ({ params, body }, response) => {
 	const documentToUpload = body;
-	// Obtain URL of document from blob storage
-	const { blobStorageHost, privateBlobContainer, documents } = await obtainURLForDocumentVersion(
+	// create version record etc
+	const { blobStorageHost, privateBlobContainer, documents } = await createDocumentVersion(
 		documentToUpload,
 		Number(params.id),
 		params.guid
@@ -161,7 +160,7 @@ export const updateDocuments = async ({ body }, response) => {
 		return await separatePublishableDocuments(documentIds);
 	})();
 
-	const { results, errors: updateErrors } = await handleUpdateDocument(
+	const { results, errors: updateErrors } = await handleUpdateDocuments(
 		publishableIds,
 		publishedStatus,
 		redactedStatus
@@ -404,7 +403,7 @@ export const getDocumentVersions = async ({ params: { guid } }, response) => {
 /**
  * Revert the published status of a document to the previous published status.
  *
- * @type {import('express').RequestHandler<{id: number;guid: string}, any, any, any>}
+ * @type {import('express').RequestHandler<{id: number; guid: string}, any, any, any>}
  */
 export const revertDocumentPublishedStatus = async ({ params: { guid } }, response) => {
 	const documentVersion = await documentVersionRepository.getById(guid);
@@ -425,40 +424,24 @@ export const revertDocumentPublishedStatus = async ({ params: { guid } }, respon
 	logger.info(
 		`updating document version ${guid} to previous publishedStatus: '${publishedStatusToRevertTo}'`
 	);
-	await documentVersionRepository.update(guid, {
-		publishedStatus: publishedStatusToRevertTo,
-		publishedStatusPrev: null
-	});
+	await revertDocumentStatusToPrevious(guid, publishedStatusToRevertTo, null);
+
 	response.sendStatus(200);
 };
 
 /**
  * Soft deletes a document by its GUID and case ID.
  *
- *@async
+ * @async
  * @type {import('express').RequestHandler<{id:string; guid: string;}, ?, ?, any>}
  * @throws {BackOfficeAppError} If the document is published, or if the document cannot be deleted for any other reason.
  * @returns {Promise<void>} An object with the key "isDeleted" set to true.
  */
 export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, response) => {
-	// Step 1: Fetch the document to be deleted from the database
-	const document = await fetchDocumentByGuidAndCaseId(guid, Number(caseId));
+	// Soft delete the document from the database and broadcast message
+	await deleteDocument(guid, caseId);
 
-	// Step 2: Check if the document is published; if so, throw an error as it cannot be deleted
-	const documentIsPublished =
-		document.status?.toLowerCase() === applicationStates.published?.toLowerCase();
-
-	if (documentIsPublished) {
-		throw new BackOfficeAppError(
-			`unable to delete document guid ${guid} related to caseId ${caseId}`,
-			400
-		);
-	}
-
-	// Step 3: Soft delete the document from the database
-	await documentRepository.deleteDocument(guid);
-
-	// Step 4: Send a success response to the client
+	// Send a success response to the client
 	response.status(200).send({ isDeleted: true });
 };
 
@@ -507,6 +490,7 @@ export const storeDocumentVersion = async (request, response) => {
 
 	// Upsert the document version metadata to the database and get the updated document details
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
+		caseId,
 		document.guid,
 		documentVersion,
 		document.latestVersionId ?? 1
@@ -534,8 +518,6 @@ export const getReadyToPublishDocuments = async ({ params: { id }, body }, respo
 	});
 
 	const documentsCount = await documentRepository.getDocumentsCountInByPublishStatus(id);
-
-	console.log('documentsCount ' + documentsCount);
 
 	const mapDocument = paginatedReadyToPublishDocuments.map(
 		// @ts-ignore

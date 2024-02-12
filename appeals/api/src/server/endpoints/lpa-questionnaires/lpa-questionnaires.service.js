@@ -3,7 +3,9 @@ import { broadcastAppealState } from '#endpoints/integrations/integrations.servi
 import { recalculateDateIfNotBusinessDay } from '#utils/business-days.js';
 import { isOutcomeIncomplete } from '#utils/check-validation-outcome.js';
 import transitionState from '#state/transition-state.js';
-import { ERROR_NOT_FOUND } from '../constants.js';
+import { AUDIT_TRAIL_SUBMISSION_INCOMPLETE, ERROR_NOT_FOUND } from '../constants.js';
+import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
+import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 /** @typedef {import('@pins/appeals.api').Appeals.UpdateLPAQuestionaireValidationOutcomeParams} UpdateLPAQuestionaireValidationOutcomeParams */
@@ -57,7 +59,21 @@ const updateLPAQuestionaireValidationOutcome = async ({
 		})
 	});
 
-	await transitionState(appealId, appealType, azureAdUserId, appealStatus, validationOutcome.name);
+	if (!isOutcomeIncomplete(validationOutcome.name)) {
+		await transitionState(
+			appealId,
+			appealType,
+			azureAdUserId,
+			appealStatus,
+			validationOutcome.name
+		);
+	} else {
+		createAuditTrail({
+			appealId,
+			azureAdUserId,
+			details: stringTokenReplacement(AUDIT_TRAIL_SUBMISSION_INCOMPLETE, ['LPA questionnaire'])
+		});
+	}
 
 	await broadcastAppealState(appealId);
 

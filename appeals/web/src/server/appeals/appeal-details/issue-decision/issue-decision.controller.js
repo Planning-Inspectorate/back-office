@@ -322,7 +322,9 @@ export const getDecisionSent = async (request, response) => {
 	/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
 	request.session.inspectorDecision = {};
 
-	const mappedPageContent = decisionConfirmationPage(appealData);
+	const pageContent = decisionConfirmationPage(appealData);
 
-	return response.render('appeals/confirmation.njk', mappedPageContent);
+	return response.render('appeals/confirmation.njk', {
+		pageContent
+	});
 };

@@ -112,13 +112,15 @@ export const renderDecisionIncompleteConfirmationPage = async (request, response
 	}
 
 	const { appealId, appealReference } = request.session;
-	const mappedPageContent = decisionIncompleteConfirmationPage(
+	const pageContent = decisionIncompleteConfirmationPage(
 		appealId,
 		appealReference,
 		request.session.lpaQuestionnaireUpdatedDueDate
 	);
 
-	response.render('appeals/confirmation.njk', mappedPageContent);
+	response.render('appeals/confirmation.njk', {
+		pageContent
+	});
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */

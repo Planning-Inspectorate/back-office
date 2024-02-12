@@ -31,7 +31,7 @@ import * as caseRepository from '#repositories/case.repository.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import {
 	makeDocumentReference,
-	obtainURLsForDocuments
+	createDocuments
 } from './../application/documents/document.service.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
@@ -202,8 +202,8 @@ export const addDocuments = async ({ params, body }, response) => {
 		nextReferenceIndex++;
 	}
 
-	// Obtain URLs for documents from blob storage
-	const { response: dbResponse, failedDocuments } = await obtainURLsForDocuments(
+	// create document records
+	const { response: dbResponse, failedDocuments } = await createDocuments(
 		filteredToUpload,
 		caseId,
 		true
@@ -510,23 +510,19 @@ export const verifyS51TitleIsUnique = async ({ params }, response) => {
 
 /**
  * Publishes an array of S51 Advice selected from the Ready to Publish queue, and any attached documents
- *
- * @type {import('express').RequestHandler<{ id: string }, ?, {selectAll?: boolean, ids: string[]}>}
+ * TODO: Ideally, we update the table entry after successfully sending to service bus
+ * CORRECT ORDER
+ * pull object from db
+ * add properties to pulled item: published, datePublished, publishedStatusPrev
+ * filter out training S51s
+ * build NsipS51AdvicePayload for eventbus
+ * once confirmed, update db entry with new published object
+ * END
+ * @type {import('express').RequestHandler<{ id: string }, ?, {publishAll?: boolean, ids: string[]}>}
  * */
-export const publishQueueItems = async ({ params: { id }, body }, response) => {
-	const caseId = Number(id);
-
-	if (!(body.selectAll || body.ids)) {
-		throw new BackOfficeAppError('`selectAll` or `ids` must be specified in request body');
-	}
-
-	if (body.selectAll) {
-		await s51AdviceRepository.updateForCase(caseId, {
-			publishedStatus: 'published',
-			datePublished: new Date()
-		});
-		response.status(200).end();
-		return;
+export const publishQueueItems = async ({ body }, response) => {
+	if (!body.ids.length) {
+		throw new BackOfficeAppError('`ids` must be specified in request body');
 	}
 
 	const { fulfilled, errors } = await publishS51Items(body.ids.map(Number));
@@ -540,17 +536,19 @@ export const publishQueueItems = async ({ params: { id }, body }, response) => {
 		f.S51AdviceDocument = docs;
 	}
 
-	const eventPayloads = (
-		await filterAsync(async (advice) => {
-			try {
-				await verifyNotTrainingS51(advice.id);
-				return true;
-			} catch (/** @type {*} */ err) {
-				logger.info('Blocked sending event for S51', err.message);
-				return false;
-			}
-		}, fulfilled)
-	).map(buildNsipS51AdvicePayload);
+	const eventPayloads = await Promise.all(
+		(
+			await filterAsync(async (advice) => {
+				try {
+					await verifyNotTrainingS51(advice.id);
+					return true;
+				} catch (/** @type {*} */ err) {
+					logger.info('Blocked sending event for S51', err.message);
+					return false;
+				}
+			}, fulfilled)
+		).map(buildNsipS51AdvicePayload)
+	);
 
 	await eventClient.sendEvents(NSIP_S51_ADVICE, eventPayloads, EventType.Publish);
 

@@ -1,33 +1,50 @@
+import { appealShortReference } from '#lib/appeals-formatter.js';
+
 /**
  *
  * @param {string} appealId
  * @param {string} appealReference
- * @returns {ConfirmationPageContent}
+ * @returns {PageContent}
  */
 export function decisionInvalidConfirmationPage(appealId, appealReference) {
-	return {
-		pageTitle: 'Appeal invalid',
-		panel: {
-			title: 'Appeal invalid',
-			appealReference: {
-				label: 'Appeal ID',
-				reference: appealReference
-			}
-		},
-		body: {
-			preHeading: 'The appeal has been closed.',
-			title: {
-				text: 'What happens next'
-			},
-			rows: [
-				{
-					text: "We've sent an email to the appellant and LPA to inform them the case is invalid."
-				},
-				{
-					text: 'Go to case details',
-					href: `/appeals-service/appeal-details/${appealId}`
+	/** @type {PageContent} */
+	const pageContent = {
+		title: 'Appeal invalid',
+		pageComponents: [
+			{
+				type: 'panel',
+				parameters: {
+					titleText: 'Appeal invalid',
+					headingLevel: 1,
+					html: `Appeal reference<br><strong>${appealShortReference(appealReference)}</strong>`
 				}
-			]
-		}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<span class="govuk-body">The appeal has been closed.</span>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<h2>What happens next</h2>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body">The appellant and LPA have been informed.</p>`
+				}
+			},
+			{
+				type: 'html',
+				parameters: {
+					html: `<p class="govuk-body"><a class="govuk-link" href="/appeals-service/appeal-details/${appealId}">Go back to case details</a></p>`
+				}
+			}
+		]
 	};
+
+	return pageContent;
 }

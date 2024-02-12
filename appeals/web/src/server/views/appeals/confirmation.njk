@@ -1,49 +1,14 @@
 {%- extends "app/layouts/app.layout.njk" -%}
 {%- from "govuk/components/panel/macro.njk" import govukPanel -%}
 
-{%- set pageTitle = (pageTitle + ' - ' if pageTitle else '') + "GOV.UK" -%}
-
-{%- set panelHtml -%}
-	{%- if panel.appealReference -%}
-		{{ panel.appealReference.label }}<br><strong>{{ panel.appealReference.reference | appealShortReference }}</strong>
-	{%- endif -%}
-{%- endset -%}
-
-{%- set gridColumnClasses = gridColumnClasses if gridColumnClasses else 'govuk-grid-column-two-thirds' -%}
-{%- set bodyContainerClasses = body.containerClasses if body.containerClasses else 'govuk-!-padding-top-2' -%}
-{%- set bodyTitleHeadingLevel = body.title.headingLevel if body.title.headingLevel else 2 -%}
-{%- set bodyTitleClasses = body.title.classes if body.title.classes else 'govuk-heading-m' -%}
+{%- set pageTitle = (pageContent.title + ' - ' if pageContent.title else '') + "GOV.UK" -%}
 
 {%- block main -%}
 	<main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main" {% if mainLang %} lang="{{ mainLang }}" {% endif %}>
 		<div class="{{ containerClasses }}">
 			<div class="govuk-grid-row">
-				<div class="{{ gridColumnClasses }}">
-					{{ govukPanel({
-						headingLevel: 1,
-						classes: panel.classes,
-						titleText: panel.title,
-						html: panelHtml
-					}) }}
-				</div>
-			</div>
-			<div class="govuk-grid-row">
-				<div class="{{ gridColumnClasses }} {{ bodyContainerClasses }}">
-					{%- if body.preHeading -%}<span class="govuk-body">{{ body.preHeading }}</span>{%- endif -%}
-					{%- if body.title -%}<h{{ bodyTitleHeadingLevel }} class="{{ bodyTitleClasses }}">{{ body.title.text }}</h{{ bodyTitleHeadingLevel }}>{%- endif -%}
-					{%- if body.rows -%}
-						{%- for row in body.rows -%}
-							{%- if row.href -%}
-								<p class="govuk-body">
-									<a class="govuk-link" href="{{ row.href }}">{{ row.text }}</a>
-								</p>
-							{%- else -%}
-								<p class="govuk-body">{{ row.text }}</p>
-							{%- endif -%}
-						{%- endfor -%}
-					{%- endif -%}
-		
-					{%- for component in pageComponents -%}
+				<div class="govuk-grid-column-two-thirds govuk-!-padding-top-2">
+					{%- for component in pageContent.pageComponents -%}
 						{%- include "./components/page-component.njk" -%}
 					{%- endfor -%}
 				</div>

@@ -31,7 +31,7 @@ export const getAppealTypes = async (req, res) => {
  */
 export const requestChangeOfAppealType = async (req, res) => {
 	const appeal = req.appeal;
-	const { azureUserId } = req.params;
+	const azureAdUserId = String(req.get('azureAdUserId'));
 	const { newAppealTypeId, newAppealTypeFinalDate } = req.body;
 
 	Promise.all([
@@ -48,7 +48,7 @@ export const requestChangeOfAppealType = async (req, res) => {
 		await transitionState(
 			appeal.id,
 			appeal.appealType,
-			azureUserId,
+			azureAdUserId,
 			appeal.appealStatus,
 			STATE_TARGET_CLOSED
 		),
@@ -65,7 +65,7 @@ export const requestChangeOfAppealType = async (req, res) => {
  */
 export const requestTransferOfAppeal = async (req, res) => {
 	const appeal = req.appeal;
-	const { azureUserId } = req.params;
+	const azureAdUserId = String(req.get('azureAdUserId'));
 	const { newAppealTypeId } = req.body;
 
 	Promise.all([
@@ -79,7 +79,7 @@ export const requestTransferOfAppeal = async (req, res) => {
 		await transitionState(
 			appeal.id,
 			appeal.appealType,
-			azureUserId,
+			azureAdUserId,
 			appeal.appealStatus,
 			STATE_TARGET_AWAITING_TRANSFER
 		),
@@ -96,7 +96,7 @@ export const requestTransferOfAppeal = async (req, res) => {
  */
 export const requestConfirmationTransferOfAppeal = async (req, res) => {
 	const appeal = req.appeal;
-	const { azureUserId } = req.params;
+	const azureAdUserId = String(req.get('azureAdUserId'));
 	const { newAppealReference } = req.body;
 
 	Promise.all([
@@ -110,7 +110,7 @@ export const requestConfirmationTransferOfAppeal = async (req, res) => {
 		await transitionState(
 			appeal.id,
 			appeal.appealType,
-			azureUserId,
+			azureAdUserId,
 			appeal.appealStatus,
 			STATE_TARGET_TRANSFERRED
 		),

@@ -93,9 +93,11 @@ const renderDecisionInvalidConfirmationPage = async (request, response) => {
 	}
 
 	const { appealId, appealReference } = request.session;
-	const mappedPageContent = decisionInvalidConfirmationPage(appealId, appealReference);
+	const pageContent = decisionInvalidConfirmationPage(appealId, appealReference);
 
-	response.render('appeals/confirmation.njk', mappedPageContent);
+	response.render('appeals/confirmation.njk', {
+		pageContent
+	});
 };
 
 /** @type {import('@pins/express').RequestHandler<Response>}  */

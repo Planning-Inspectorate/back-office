@@ -1,5 +1,5 @@
 import { buildNsipDocumentPayload } from '../document.js';
-import { validateNsipDocument } from '../../../../utils/schema-test-utils.js';
+import { validateNsipDocument } from '#utils/schema-test-utils.js';
 
 describe('validateNsipDocument', () => {
 	test('validateNsipDocument maps NSIP Document to NSIP Document Payload', () => {

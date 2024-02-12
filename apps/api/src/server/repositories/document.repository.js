@@ -224,8 +224,7 @@ export const update = (documentId, documentDetails) => {
 };
 
 /**
- *  Deletes a document from the database based on its `guid`
- * TODO: check - this does an actual delete, not a soft delete, is that correct?
+ *  Soft-Deletes a document from the database based on its `guid`
  *
  * @async
  * @param {string} documentGuid

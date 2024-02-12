@@ -129,17 +129,17 @@ const renderConfirmationPage = async (request, response) => {
 	const appealDetails = request.currentAppeal;
 	const timetableProperty = routeToObjectMapper[timetableType];
 
-	const mappedPageData = mapConfirmationPage(
+	const pageContent = mapConfirmationPage(
 		appealDetails?.appealTimetable,
 		timetableProperty,
 		appealDetails
 	);
 
-	if (!mappedPageData) {
+	if (!pageContent) {
 		return response.render('app/500.njk');
 	} else {
 		response.render('appeals/confirmation.njk', {
-			...mappedPageData
+			pageContent
 		});
 	}
 };
