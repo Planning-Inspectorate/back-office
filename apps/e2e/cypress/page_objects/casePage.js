@@ -18,7 +18,8 @@ export class CasePage extends Page {
 		sectorInformation: (sector, subector) =>
 			cy.contains(this.selectors.fullColumn, `${sector}, ${subector}`),
 		summaryValue: (keyText) =>
-			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next()
+			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next(),
+			caseRefTRAIN:()=>cy.get(this.selectors.caseRefTraining)
 	};
 
 	checkProjectAnswer(question, answer) {
