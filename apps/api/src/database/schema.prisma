@@ -1,10 +1,10 @@
 generator client {
-  provider = "prisma-client-js"
+	provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlserver"
-  url      = env("DATABASE_URL")
+	provider = "sqlserver"
+	url      = env("DATABASE_URL")
 }
 
 /// Case model
@@ -12,58 +12,59 @@ datasource db {
 /// For Applications, the case reference is generated once the case passes Draft state
 /// This model is intended to contain records for all Applications, Appeals and any other Case Type
 model Case {
-  id                    Int                   @id @default(autoincrement())
-  reference             String?
-  modifiedAt            DateTime              @default(now())
-  createdAt             DateTime              @default(now())
-  description           String?               @db.VarChar(2000)
-  title                 String?
-  hasUnpublishedChanges Boolean               @default(false)
-  applicantId           Int?
-  ApplicationDetails    ApplicationDetails?
-  applicant             ServiceUser?          @relation(fields: [applicantId], references: [id])
-  CaseStatus            CaseStatus[]
-  CasePublishedState    CasePublishedState[]
-  folder                Folder[]
-  gridReference         GridReference?
-  Representation        Representation[]
-  document              Document[]
-  Subscriptions         Subscription[]
-  ExaminationTimetable  ExaminationTimetable?
-  ProjectUpdate         ProjectUpdate[]
-  S51Advice             S51Advice[]
+	id                    Int                   @id @default(autoincrement())
+	reference             String?
+	modifiedAt            DateTime              @default(now())
+	createdAt             DateTime              @default(now())
+	description           String?               @db.VarChar(2000)
+	title                 String?
+	hasUnpublishedChanges Boolean               @default(false)
+	applicantId           Int?
+	ApplicationDetails    ApplicationDetails?
+	applicant             ServiceUser?          @relation(fields: [applicantId], references: [id])
+	CaseStatus            CaseStatus[]
+	CasePublishedState    CasePublishedState[]
+	folder                Folder[]
+	gridReference         GridReference?
+	Representation        Representation[]
+	document              Document[]
+	Subscriptions         Subscription[]
+	ExaminationTimetable  ExaminationTimetable?
+	ProjectUpdate         ProjectUpdate[]
+	S51Advice             S51Advice[]
+	ProjectTeam           ProjectTeam[]
 }
 
 // ServiceUser model which represents a person or oranisation who can have some role in a case
 // Example roles: applicant, represented, representative, subscriber
 model ServiceUser {
-  id               Int              @id @default(autoincrement())
-  organisationName String?
-  firstName        String?
-  middleName       String?
-  lastName         String?
-  jobTitle         String? // role?
-  under18          Boolean?
-  email            String? // In practice this should be unique
-  website          String?
-  phoneNumber      String?
-  contactMethod    String? // Email | Phone Number
-  addressId        Int?
-  address          Address?         @relation(fields: [addressId], references: [id])
-  Case             Case[]
-  Represented      Representation[] @relation("Represented")
-  Representative   Representation[] @relation("Representative")
-  Subscriptions    Subscription[]
+	id               Int              @id @default(autoincrement())
+	organisationName String?
+	firstName        String?
+	middleName       String?
+	lastName         String?
+	jobTitle         String? // role?
+	under18          Boolean?
+	email            String? // In practice this should be unique
+	website          String?
+	phoneNumber      String?
+	contactMethod    String? // Email | Phone Number
+	addressId        Int?
+	address          Address?         @relation(fields: [addressId], references: [id])
+	Case             Case[]
+	Represented      Representation[] @relation("Represented")
+	Representative   Representation[] @relation("Representative")
+	Subscriptions    Subscription[]
 }
 
 /// GridReference model
 /// Records easting and northing for a case
 model GridReference {
-  id       Int  @id @default(autoincrement())
-  easting  Int?
-  northing Int?
-  caseId   Int  @unique
-  case     Case @relation(fields: [caseId], references: [id])
+	id       Int  @id @default(autoincrement())
+	easting  Int?
+	northing Int?
+	caseId   Int  @unique
+	case     Case @relation(fields: [caseId], references: [id])
 }
 
 /// CaseStatus model
@@ -73,14 +74,14 @@ model GridReference {
 /// which can be built up into a compound status using the `subStateMachineName` and
 /// `compoundStateName` values.
 model CaseStatus {
-  id                  Int      @id @default(autoincrement())
-  status              String
-  createdAt           DateTime @default(now())
-  valid               Boolean  @default(true)
-  subStateMachineName String?
-  compoundStateName   String?
-  caseId              Int
-  case                Case     @relation(fields: [caseId], references: [id])
+	id                  Int      @id @default(autoincrement())
+	status              String
+	createdAt           DateTime @default(now())
+	valid               Boolean  @default(true)
+	subStateMachineName String?
+	compoundStateName   String?
+	caseId              Int
+	case                Case     @relation(fields: [caseId], references: [id])
 }
 
 /// CasePublishedState model
@@ -88,142 +89,142 @@ model CaseStatus {
 /// Does not include a `valid` column like in CaseStatus because only one row can be valid at a time.
 /// Therefore, the current row is the one with the most recent `createdAt` value.
 model CasePublishedState {
-  id          Int      @id @default(autoincrement())
-  isPublished Boolean
-  createdAt   DateTime @default(now())
-  caseId      Int
-  case        Case     @relation(fields: [caseId], references: [id])
+	id          Int      @id @default(autoincrement())
+	isPublished Boolean
+	createdAt   DateTime @default(now())
+	caseId      Int
+	case        Case     @relation(fields: [caseId], references: [id])
 }
 
 /// ApplicationDetails model
 /// Contains general information about a case that pertains only to Applications
 model ApplicationDetails {
-  id                                                Int       @id @default(autoincrement())
-  caseId                                            Int       @unique
-  subSectorId                                       Int?
-  locationDescription                               String?
-  zoomLevelId                                       Int?
-  caseEmail                                         String?
-  // Key Dates
-  datePINSFirstNotifiedOfProject                    DateTime?
-  dateProjectAppearsOnWebsite                       DateTime?
-  submissionAtPublished                             String?
-  submissionAtInternal                              DateTime?
-  screeningOpinionSought                            DateTime?
-  screeningOpinionIssued                            DateTime?
-  scopingOpinionSought                              DateTime?
-  scopingOpinionIssued                              DateTime?
-  section46Notification                             DateTime?
-  dateOfDCOSubmission                               DateTime?
-  deadlineForAcceptanceDecision                     DateTime?
-  dateOfDCOAcceptance                               DateTime?
-  dateOfNonAcceptance                               DateTime?
-  dateOfRepresentationPeriodOpen                    DateTime?
-  dateOfRelevantRepresentationClose                 DateTime?
-  extensionToDateRelevantRepresentationsClose       DateTime?
-  dateRRepAppearOnWebsite                           DateTime?
-  dateIAPIDue                                       DateTime?
-  rule6LetterPublishDate                            DateTime?
-  preliminaryMeetingStartDate                       DateTime?
-  notificationDateForPMAndEventsDirectlyFollowingPM DateTime?
-  notificationDateForEventsApplicant                DateTime?
-  dateSection58NoticeReceived                       DateTime?
-  confirmedStartOfExamination                       DateTime?
-  rule8LetterPublishDate                            DateTime?
-  deadlineForCloseOfExamination                     DateTime?
-  dateTimeExaminationEnds                           DateTime?
-  stage4ExtensionToExamCloseDate                    DateTime?
-  deadlineForSubmissionOfRecommendation             DateTime?
-  dateOfRecommendations                             DateTime?
-  stage5ExtensionToRecommendationDeadline           DateTime?
-  deadlineForDecision                               DateTime?
-  confirmedDateOfDecision                           DateTime?
-  stage5ExtensionToDecisionDeadline                 DateTime?
-  jRPeriodEndDate                                   DateTime?
-  dateProjectWithdrawn                              DateTime?
+	id                                                Int       @id @default(autoincrement())
+	caseId                                            Int       @unique
+	subSectorId                                       Int?
+	locationDescription                               String?
+	zoomLevelId                                       Int?
+	caseEmail                                         String?
+	// Key Dates
+	datePINSFirstNotifiedOfProject                    DateTime?
+	dateProjectAppearsOnWebsite                       DateTime?
+	submissionAtPublished                             String?
+	submissionAtInternal                              DateTime?
+	screeningOpinionSought                            DateTime?
+	screeningOpinionIssued                            DateTime?
+	scopingOpinionSought                              DateTime?
+	scopingOpinionIssued                              DateTime?
+	section46Notification                             DateTime?
+	dateOfDCOSubmission                               DateTime?
+	deadlineForAcceptanceDecision                     DateTime?
+	dateOfDCOAcceptance                               DateTime?
+	dateOfNonAcceptance                               DateTime?
+	dateOfRepresentationPeriodOpen                    DateTime?
+	dateOfRelevantRepresentationClose                 DateTime?
+	extensionToDateRelevantRepresentationsClose       DateTime?
+	dateRRepAppearOnWebsite                           DateTime?
+	dateIAPIDue                                       DateTime?
+	rule6LetterPublishDate                            DateTime?
+	preliminaryMeetingStartDate                       DateTime?
+	notificationDateForPMAndEventsDirectlyFollowingPM DateTime?
+	notificationDateForEventsApplicant                DateTime?
+	dateSection58NoticeReceived                       DateTime?
+	confirmedStartOfExamination                       DateTime?
+	rule8LetterPublishDate                            DateTime?
+	deadlineForCloseOfExamination                     DateTime?
+	dateTimeExaminationEnds                           DateTime?
+	stage4ExtensionToExamCloseDate                    DateTime?
+	deadlineForSubmissionOfRecommendation             DateTime?
+	dateOfRecommendations                             DateTime?
+	stage5ExtensionToRecommendationDeadline           DateTime?
+	deadlineForDecision                               DateTime?
+	confirmedDateOfDecision                           DateTime?
+	stage5ExtensionToDecisionDeadline                 DateTime?
+	jRPeriodEndDate                                   DateTime?
+	dateProjectWithdrawn                              DateTime?
 
-  case      Case                          @relation(fields: [caseId], references: [id])
-  subSector SubSector?                    @relation(fields: [subSectorId], references: [id])
-  zoomLevel ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
-  regions   RegionsOnApplicationDetails[]
+	case      Case                          @relation(fields: [caseId], references: [id])
+	subSector SubSector?                    @relation(fields: [subSectorId], references: [id])
+	zoomLevel ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
+	regions   RegionsOnApplicationDetails[]
 }
 
 /// RegionsOnApplicationDetails model
 /// Connects many-to-many Regions to Applications
 model RegionsOnApplicationDetails {
-  applicationDetailsId Int
-  regionId             Int
-  applicationDetails   ApplicationDetails @relation(fields: [applicationDetailsId], references: [id])
-  region               Region             @relation(fields: [regionId], references: [id])
+	applicationDetailsId Int
+	regionId             Int
+	applicationDetails   ApplicationDetails @relation(fields: [applicationDetailsId], references: [id])
+	region               Region             @relation(fields: [regionId], references: [id])
 
-  @@id([applicationDetailsId, regionId])
+	@@id([applicationDetailsId, regionId])
 }
 
 /// Sector model
 /// Lookup table to Sectors that are assigned to Applications
 model Sector {
-  id            Int         @id @default(autoincrement())
-  abbreviation  String      @unique
-  name          String      @unique
-  displayNameEn String
-  displayNameCy String
-  subSector     SubSector[]
+	id            Int         @id @default(autoincrement())
+	abbreviation  String      @unique
+	name          String      @unique
+	displayNameEn String
+	displayNameCy String
+	subSector     SubSector[]
 }
 
 /// SubSector model
 /// Lookup table for Sub-Sectors that are assigned to Applications
 model SubSector {
-  id                 Int                  @id @default(autoincrement())
-  abbreviation       String               @unique
-  name               String               @unique
-  displayNameEn      String
-  displayNameCy      String
-  sectorId           Int
-  applicationDetails ApplicationDetails[]
-  sector             Sector               @relation(fields: [sectorId], references: [id])
+	id                 Int                  @id @default(autoincrement())
+	abbreviation       String               @unique
+	name               String               @unique
+	displayNameEn      String
+	displayNameCy      String
+	sectorId           Int
+	applicationDetails ApplicationDetails[]
+	sector             Sector               @relation(fields: [sectorId], references: [id])
 }
 
 /// Address model
 /// Contains information on addresses
 model Address {
-  id           Int           @id @default(autoincrement())
-  addressLine1 String?
-  addressLine2 String?
-  postcode     String?
-  county       String?
-  town         String?
-  country      String?
-  ServiceUser  ServiceUser[]
+	id           Int           @id @default(autoincrement())
+	addressLine1 String?
+	addressLine2 String?
+	postcode     String?
+	county       String?
+	town         String?
+	country      String?
+	ServiceUser  ServiceUser[]
 }
 
 /// Region model
 /// Lookup table for Regions which might be assigned to applications
 model Region {
-  id                 Int                           @id @default(autoincrement())
-  name               String                        @unique
-  displayNameEn      String
-  displayNameCy      String
-  ApplicationDetails RegionsOnApplicationDetails[]
+	id                 Int                           @id @default(autoincrement())
+	name               String                        @unique
+	displayNameEn      String
+	displayNameCy      String
+	ApplicationDetails RegionsOnApplicationDetails[]
 }
 
 /// User model
 /// Contains information on Back Office users (PINS employees)
 model User {
-  id             Int              @id @default(autoincrement())
-  azureReference Int?             @unique
-  Representation Representation[]
-  ProjectUpdate  ProjectUpdate[]
+	id             Int              @id @default(autoincrement())
+	azureReference Int?             @unique
+	Representation Representation[]
+	ProjectUpdate  ProjectUpdate[]
 }
 
 /// ZoomLevel model
 /// Lookup table for zoom level of an application
 model ZoomLevel {
-  id            Int                  @id @default(autoincrement())
-  name          String               @unique
-  displayOrder  Int                  @unique
-  displayNameEn String
-  displayNameCy String
-  Application   ApplicationDetails[]
+	id            Int                  @id @default(autoincrement())
+	name          String               @unique
+	displayOrder  Int                  @unique
+	displayNameEn String
+	displayNameCy String
+	Application   ApplicationDetails[]
 }
 
 /// Folder model
@@ -231,19 +232,19 @@ model ZoomLevel {
 /// This exists to specify the struture with which documents are displayed
 /// in the back office (not the front office).
 model Folder {
-  id                       Int                        @id @default(autoincrement())
-  displayNameEn            String
-  displayOrder             Int?
-  parentFolderId           Int?
-  caseId                   Int?
-  document                 Document[]
-  case                     Case?                      @relation(fields: [caseId], references: [id])
-  parentFolder             Folder?                    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  childFolders             Folder[]                   @relation("FolderTree")
-  stage                    String?
-  ExaminationTimetableItem ExaminationTimetableItem[]
+	id                       Int                        @id @default(autoincrement())
+	displayNameEn            String
+	displayOrder             Int?
+	parentFolderId           Int?
+	caseId                   Int?
+	document                 Document[]
+	case                     Case?                      @relation(fields: [caseId], references: [id])
+	parentFolder             Folder?                    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	childFolders             Folder[]                   @relation("FolderTree")
+	stage                    String?
+	ExaminationTimetableItem ExaminationTimetableItem[]
 
-  @@unique([caseId, displayNameEn, parentFolderId])
+	@@unique([caseId, displayNameEn, parentFolderId])
 }
 
 /// Document model
@@ -251,24 +252,24 @@ model Folder {
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
 model Document {
-  guid                     String                    @id @default(uuid())
-  reference                String?
-  folderId                 Int
-  createdAt                DateTime                  @default(now())
-  isDeleted                Boolean                   @default(false)
-  latestVersionId          Int?
-  caseId                   Int
-  documentType             String
-  folder                   Folder                    @relation(fields: [folderId], references: [id])
-  documentVersion          DocumentVersion[]         @relation("VersionHistory")
-  representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
-  s51AdviceDocument        S51AdviceDocument?        @relation("S51AdviceDocument")
-  latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
-  transcriptedDocuments    DocumentVersion[]         @relation("TranscriptedDocuments")
-  case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
-  fromFrontOffice          Boolean                   @default(false)
+	guid                     String                    @id @default(uuid())
+	reference                String?
+	folderId                 Int
+	createdAt                DateTime                  @default(now())
+	isDeleted                Boolean                   @default(false)
+	latestVersionId          Int?
+	caseId                   Int
+	documentType             String
+	folder                   Folder                    @relation(fields: [folderId], references: [id])
+	documentVersion          DocumentVersion[]         @relation("VersionHistory")
+	representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
+	s51AdviceDocument        S51AdviceDocument?        @relation("S51AdviceDocument")
+	latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
+	transcriptedDocuments    DocumentVersion[]         @relation("TranscriptedDocuments")
+	case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+	fromFrontOffice          Boolean                   @default(false)
 
-  @@unique([guid, latestVersionId])
+	@@unique([guid, latestVersionId])
 }
 
 /// DocumentVersion model
@@ -276,169 +277,169 @@ model Document {
 /// Versions are stored against the `version` value (starting with 1).
 /// The physical location of these documents should be stored here.
 model DocumentVersion {
-  documentGuid           String
-  version                Int
-  lastModified           DateTime?
-  documentType           String?
-  published              Boolean               @default(false)
-  sourceSystem           String                @default("back-office")
-  origin                 String?
-  originalFilename       String?
-  fileName               String?
-  representative         String?
-  description            String?
-  owner                  String?
-  author                 String?
-  securityClassification String?
-  mime                   String?
-  horizonDataID          String?
-  fileMD5                String?
-  virusCheckStatus       String?
-  size                   Int?
-  stage                  String?
-  filter1                String?
-  privateBlobContainer   String?
-  privateBlobPath        String?
-  publishedBlobContainer String?
-  publishedBlobPath      String?
-  dateCreated            DateTime?             @default(now())
-  datePublished          DateTime?
-  isDeleted              Boolean               @default(false)
-  examinationRefNo       String?
-  filter2                String?
-  publishedStatus        String?               @default("awaiting_upload")
-  publishedStatusPrev    String?
-  redactedStatus         String?
-  redacted               Boolean               @default(false)
-  Document               Document?             @relation("VersionHistory", fields: [documentGuid], references: [guid])
-  latestVersionDocument  Document?             @relation("LatestVersion")
-  transcript             Document?             @relation("TranscriptedDocuments", fields: [transcriptGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
-  transcriptGuid         String?
-  DocumentActivityLog    DocumentActivityLog[]
+	documentGuid           String
+	version                Int
+	lastModified           DateTime?
+	documentType           String?
+	published              Boolean               @default(false)
+	sourceSystem           String                @default("back-office")
+	origin                 String?
+	originalFilename       String?
+	fileName               String?
+	representative         String?
+	description            String?
+	owner                  String?
+	author                 String?
+	securityClassification String?
+	mime                   String?
+	horizonDataID          String?
+	fileMD5                String?
+	virusCheckStatus       String?
+	size                   Int?
+	stage                  String?
+	filter1                String?
+	privateBlobContainer   String?
+	privateBlobPath        String?
+	publishedBlobContainer String?
+	publishedBlobPath      String?
+	dateCreated            DateTime?             @default(now())
+	datePublished          DateTime?
+	isDeleted              Boolean               @default(false)
+	examinationRefNo       String?
+	filter2                String?
+	publishedStatus        String?               @default("awaiting_upload")
+	publishedStatusPrev    String?
+	redactedStatus         String?
+	redacted               Boolean               @default(false)
+	Document               Document?             @relation("VersionHistory", fields: [documentGuid], references: [guid])
+	latestVersionDocument  Document?             @relation("LatestVersion")
+	transcript             Document?             @relation("TranscriptedDocuments", fields: [transcriptGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
+	transcriptGuid         String?
+	DocumentActivityLog    DocumentActivityLog[]
 
-  @@id([documentGuid, version])
-  @@index([filter1], map: "filter1")
-  @@index([documentGuid], map: "documentGuid")
+	@@id([documentGuid, version])
+	@@index([filter1], map: "filter1")
+	@@index([documentGuid], map: "documentGuid")
 }
 
 /// Representation model
 model Representation {
-  id                     Int                        @id @default(autoincrement())
-  reference              String
-  caseId                 Int
-  status                 String
-  unpublishedUpdates     Boolean                    @default(false)
-  originalRepresentation String                     @db.NText
-  redactedRepresentation String?                    @db.NText
-  redacted               Boolean                    @default(false)
-  userId                 Int?
-  received               DateTime?
-  representativeId       Int?
-  representedId          Int?
-  case                   Case                       @relation(fields: [caseId], references: [id])
-  user                   User?                      @relation(fields: [userId], references: [id])
-  type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
-  representedType        String? // PERSON|ORGANISATION|FAMILY_GROUP
-  attachments            RepresentationAttachment[]
-  representationActions  RepresentationAction[]
-  representative         ServiceUser?               @relation("Representative", fields: [representativeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  represented            ServiceUser?               @relation("Represented", fields: [representedId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	id                     Int                        @id @default(autoincrement())
+	reference              String
+	caseId                 Int
+	status                 String
+	unpublishedUpdates     Boolean                    @default(false)
+	originalRepresentation String                     @db.NText
+	redactedRepresentation String?                    @db.NText
+	redacted               Boolean                    @default(false)
+	userId                 Int?
+	received               DateTime?
+	representativeId       Int?
+	representedId          Int?
+	case                   Case                       @relation(fields: [caseId], references: [id])
+	user                   User?                      @relation(fields: [userId], references: [id])
+	type                   String? // Local authorities | Members of the public/businesses | Non-statutory organisations | Statutory consultees | Parish councils
+	representedType        String? // PERSON|ORGANISATION|FAMILY_GROUP
+	attachments            RepresentationAttachment[]
+	representationActions  RepresentationAction[]
+	representative         ServiceUser?               @relation("Representative", fields: [representativeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+	represented            ServiceUser?               @relation("Represented", fields: [representedId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@index([reference], name: "reference")
+	@@index([reference], name: "reference")
 }
 
 // RepresentationAction model
 model RepresentationAction {
-  id                   Int            @id @default(autoincrement())
-  representationId     Int
-  type                 String? // STATUS | REDACTION | REDACT_STATUS
-  status               String?
-  previousStatus       String?
-  redactStatus         Boolean?
-  previousRedactStatus Boolean?
-  invalidReason        String?
-  referredTo           String?
-  actionBy             String
-  actionDate           DateTime
-  notes                String?        @db.NText
-  Representation       Representation @relation(fields: [representationId], references: [id])
+	id                   Int            @id @default(autoincrement())
+	representationId     Int
+	type                 String? // STATUS | REDACTION | REDACT_STATUS
+	status               String?
+	previousStatus       String?
+	redactStatus         Boolean?
+	previousRedactStatus Boolean?
+	invalidReason        String?
+	referredTo           String?
+	actionBy             String
+	actionDate           DateTime
+	notes                String?        @db.NText
+	Representation       Representation @relation(fields: [representationId], references: [id])
 }
 
 //  RepresentationAttachment model
 model RepresentationAttachment {
-  id               Int            @id @default(autoincrement())
-  representationId Int
-  documentGuid     String         @unique
-  Representation   Representation @relation(fields: [representationId], references: [id], onUpdate: NoAction)
-  Document         Document       @relation("AttachmentDocument", fields: [documentGuid], references: [guid])
+	id               Int            @id @default(autoincrement())
+	representationId Int
+	documentGuid     String         @unique
+	Representation   Representation @relation(fields: [representationId], references: [id], onUpdate: NoAction)
+	Document         Document       @relation("AttachmentDocument", fields: [documentGuid], references: [guid])
 }
 
 model ExaminationTimetableType {
-  id            Int                        @id @default(autoincrement())
-  name          String                     @unique // Note this the value sent to the front office. Note the Title Case format
-  templateType  String?
-  displayNameEn String
-  displayNameCy String
-  items         ExaminationTimetableItem[]
+	id            Int                        @id @default(autoincrement())
+	name          String                     @unique // Note this the value sent to the front office. Note the Title Case format
+	templateType  String?
+	displayNameEn String
+	displayNameCy String
+	items         ExaminationTimetableItem[]
 }
 
 model ExaminationTimetableItem {
-  id                       Int                      @id @default(autoincrement())
-  examinationTimetableId   Int
-  examinationTypeId        Int
-  name                     String
-  description              String?                  @db.NText
-  date                     DateTime
-  startDate                DateTime?
-  startTime                String?
-  endTime                  String?
-  folderId                 Int
-  ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
-  ExaminationTimetable     ExaminationTimetable     @relation(fields: [examinationTimetableId], references: [id])
-  Folder                   Folder                   @relation(fields: [folderId], references: [id], onUpdate: NoAction)
-  createdAt                DateTime                 @default(now())
+	id                       Int                      @id @default(autoincrement())
+	examinationTimetableId   Int
+	examinationTypeId        Int
+	name                     String
+	description              String?                  @db.NText
+	date                     DateTime
+	startDate                DateTime?
+	startTime                String?
+	endTime                  String?
+	folderId                 Int
+	ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
+	ExaminationTimetable     ExaminationTimetable     @relation(fields: [examinationTimetableId], references: [id])
+	Folder                   Folder                   @relation(fields: [folderId], references: [id], onUpdate: NoAction)
+	createdAt                DateTime                 @default(now())
 }
 
 // Subscription represents a subscriber interested in project updates for a case
 // when a project update is published, all subscribers are emailed
 // subscribers originate from the front-office - see nsip-subscription schema
 model Subscription {
-  id Int @id @default(autoincrement())
+	id Int @id @default(autoincrement())
 
-  serviceUserId Int
-  serviceUser   ServiceUser @relation(fields: [serviceUserId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+	serviceUserId Int
+	serviceUser   ServiceUser @relation(fields: [serviceUserId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
-  // the associated case reference - which will be passed in the subscriber message
-  // it's saved here in case subscriptions are added to the back-office before their associated case, they can be linked to a case later on
-  // TODO: This is impossible right? I'm not sure we should be de-normalising this if we can help it because it means we need to maintain the integrity manually
-  caseReference String
+	// the associated case reference - which will be passed in the subscriber message
+	// it's saved here in case subscriptions are added to the back-office before their associated case, they can be linked to a case later on
+	// TODO: This is impossible right? I'm not sure we should be de-normalising this if we can help it because it means we need to maintain the integrity manually
+	caseReference String
 
-  // what has been subscribed to
-  subscribedToAllUpdates           Boolean @default(false)
-  subscribedToApplicationSubmitted Boolean @default(false)
-  subscribedToApplicationDecided   Boolean @default(false)
-  subscribedToRegistrationOpen     Boolean @default(false)
+	// what has been subscribed to
+	subscribedToAllUpdates           Boolean @default(false)
+	subscribedToApplicationSubmitted Boolean @default(false)
+	subscribedToApplicationDecided   Boolean @default(false)
+	subscribedToRegistrationOpen     Boolean @default(false)
 
-  startDate DateTime?
-  endDate   DateTime?
-  language  String? // English|Welsh
+	startDate DateTime?
+	endDate   DateTime?
+	language  String? // English|Welsh
 
-  caseId Int?
-  case   Case? @relation(fields: [caseId], references: [id])
+	caseId Int?
+	case   Case? @relation(fields: [caseId], references: [id])
 
-  // we don't want to allow multiple records with the same user+caseRef combination
-  @@unique([serviceUserId, caseReference])
+	// we don't want to allow multiple records with the same user+caseRef combination
+	@@unique([serviceUserId, caseReference])
 }
 
 model ExaminationTimetable {
-  id                       Int                        @id @default(autoincrement())
-  caseId                   Int                        @unique
-  published                Boolean                    @default(false)
-  publishedAt              DateTime?
-  createdAt                DateTime                   @default(now())
-  updatedAt                DateTime                   @default(now())
-  case                     Case                       @relation(fields: [caseId], references: [id])
-  ExaminationTimetableItem ExaminationTimetableItem[]
+	id                       Int                        @id @default(autoincrement())
+	caseId                   Int                        @unique
+	published                Boolean                    @default(false)
+	publishedAt              DateTime?
+	createdAt                DateTime                   @default(now())
+	updatedAt                DateTime                   @default(now())
+	case                     Case                       @relation(fields: [caseId], references: [id])
+	ExaminationTimetableItem ExaminationTimetableItem[]
 }
 
 // ProjectUpdate represents some content in relation to a case (application/nsip) that may be of interest to
@@ -446,99 +447,100 @@ model ExaminationTimetable {
 // subscribers, and published to the fr`ont office.
 // Otherwise known as Banners or Latest Updates.
 model ProjectUpdate {
-  id                Int       @id @default(autoincrement())
-  // the ID of the case this project update relates to
-  caseId            Int
-  case              Case?     @relation(fields: [caseId], references: [id])
-  // the ID of the user who created this update
-  authorId          Int?
-  author            User?     @relation(fields: [authorId], references: [id])
-  // when was this project update first created
-  dateCreated       DateTime  @default(now())
-  // should this update be emailed to subscribers?
-  emailSubscribers  Boolean   @default(false)
-  // status of this update
-  status            String    @default("draft") // draft | published | unpublished | archived
-  // when was this project update changed to status "published"
-  datePublished     DateTime?
-  // when the (background) task to notify subscribers has been run for this update, this will be marked true
-  sentToSubscribers Boolean   @default(false)
-  // an internal title/name for this update
-  title             String?
-  // the content of this project update, which can include HTML and must be santised before entry into the database
-  // it can only include <a> <b> <ul> <li> tags
-  htmlContent       String    @db.VarChar(8000)
-  // the content of this project update, in Welsh, which can include HTML and must be santised before entry into the database
-  htmlContentWelsh  String?   @db.VarChar(8000)
-  // the type of update - which determines which subscribers will recieve the notification emails
-  // of type SubscriptionType
-  type              String    @default("general") // general | applicationSubmitted | applicationDecided | registrationOpen
+	id                Int       @id @default(autoincrement())
+	// the ID of the case this project update relates to
+	caseId            Int
+	case              Case?     @relation(fields: [caseId], references: [id])
+	// the ID of the user who created this update
+	authorId          Int?
+	author            User?     @relation(fields: [authorId], references: [id])
+	// when was this project update first created
+	dateCreated       DateTime  @default(now())
+	// should this update be emailed to subscribers?
+	emailSubscribers  Boolean   @default(false)
+	// status of this update
+	status            String    @default("draft") // draft | published | unpublished | archived
+	// when was this project update changed to status "published"
+	datePublished     DateTime?
+	// when the (background) task to notify subscribers has been run for this update, this will be marked true
+	sentToSubscribers Boolean   @default(false)
+	// an internal title/name for this update
+	title             String?
+	// the content of this project update, which can include HTML and must be santised before entry into the database
+	// it can only include <a> <b> <ul> <li> tags
+	htmlContent       String    @db.VarChar(8000)
+	// the content of this project update, in Welsh, which can include HTML and must be santised before entry into the database
+	htmlContentWelsh  String?   @db.VarChar(8000)
+	// the type of update - which determines which subscribers will recieve the notification emails
+	// of type SubscriptionType
+	type              String    @default("general") // general | applicationSubmitted | applicationDecided | registrationOpen
 }
 
 // A log of notifications for project updates
 // this will include a line for each subscription that was notified of an update via email
 model ProjectUpdateNotificationLog {
-  id                   Int      @id @default(autoincrement())
-  // ID of the project update this entry relates to
-  projectUpdateId      Int
-  // ID of the subscription this entry relates to
-  subscriptionId       Int
-  // the date this notification was handled
-  entryDate            DateTime
-  // whether an email was successfully sent
-  emailSent            Boolean
-  // the ID of the Azure function run that handled this entry
-  functionInvocationId String
+	id                   Int      @id @default(autoincrement())
+	// ID of the project update this entry relates to
+	projectUpdateId      Int
+	// ID of the subscription this entry relates to
+	subscriptionId       Int
+	// the date this notification was handled
+	entryDate            DateTime
+	// whether an email was successfully sent
+	emailSent            Boolean
+	// the ID of the Azure function run that handled this entry
+	functionInvocationId String
 }
 
 model DocumentActivityLog {
-  id              Int             @id @default(autoincrement())
-  documentGuid    String
-  version         Int
-  user            String
-  status          String
-  createdAt       DateTime        @default(now())
-  DocumentVersion DocumentVersion @relation(fields: [documentGuid, version], references: [documentGuid, version])
+	id              Int             @id @default(autoincrement())
+	documentGuid    String
+	version         Int
+	user            String
+	status          String
+	createdAt       DateTime        @default(now())
+	DocumentVersion DocumentVersion @relation(fields: [documentGuid, version], references: [documentGuid, version])
 }
 
 model S51Advice {
-  id                  Int                 @id @default(autoincrement())
-  caseId              Int
-  title               String
-  firstName           String?
-  lastName            String?
-  enquirer            String?
-  enquiryMethod       String
-  enquiryDate         DateTime
-  enquiryDetails      String              @db.NText
-  adviser             String
-  adviceDate          DateTime
-  adviceDetails       String              @db.NText
-  referenceNumber     Int                 @default(00001)
-  redactedStatus      String?
-  publishedStatus     String              @default("not_checked")
-  publishedStatusPrev String?
-  datePublished       DateTime?
-  isDeleted           Boolean             @default(false)
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @default(now())
-  case                Case                @relation(fields: [caseId], references: [id])
-  S51AdviceDocument   S51AdviceDocument[]
+	id                  Int                 @id @default(autoincrement())
+	caseId              Int
+	title               String
+	firstName           String?
+	lastName            String?
+	enquirer            String?
+	enquiryMethod       String
+	enquiryDate         DateTime
+	enquiryDetails      String              @db.NText
+	adviser             String
+	adviceDate          DateTime
+	adviceDetails       String              @db.NText
+	referenceNumber     Int                 @default(00001)
+	redactedStatus      String?
+	publishedStatus     String              @default("not_checked")
+	publishedStatusPrev String?
+	datePublished       DateTime?
+	isDeleted           Boolean             @default(false)
+	createdAt           DateTime            @default(now())
+	updatedAt           DateTime            @default(now())
+	case                Case                @relation(fields: [caseId], references: [id])
+	S51AdviceDocument   S51AdviceDocument[]
 }
 
 model S51AdviceDocument {
-  id           Int       @id @default(autoincrement())
-  adviceId     Int
-  documentGuid String    @unique
-  S51Advice    S51Advice @relation(fields: [adviceId], references: [id], onUpdate: NoAction)
-  Document     Document  @relation("S51AdviceDocument", fields: [documentGuid], references: [guid])
+	id           Int       @id @default(autoincrement())
+	adviceId     Int
+	documentGuid String    @unique
+	S51Advice    S51Advice @relation(fields: [adviceId], references: [id], onUpdate: NoAction)
+	Document     Document  @relation("S51AdviceDocument", fields: [documentGuid], references: [guid])
 }
 
 model ProjectTeam {
-  caseId    Int
-  userId    String
-  role      String
-  createdAt DateTime @default(now())
+	caseId    Int
+	userId    String
+	role      String
+	createdAt DateTime @default(now())
+	case      Case     @relation(fields: [caseId], references: [id])
 
-  @@id([caseId, userId])
+	@@id([caseId, userId])
 }

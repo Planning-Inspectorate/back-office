@@ -12,7 +12,9 @@ export const buildNsipProjectPayload = (projectEntity) => {
 
 	const sectorAndType = mapSectorAndType(projectEntity);
 
-  // @ts-ignore
+	const projectTeam = mapProjectTeam(projectEntity);
+
+	// @ts-ignore
 	return {
 		caseId: projectEntity.id,
 		caseReference: projectEntity.reference ?? undefined,
@@ -23,10 +25,7 @@ export const buildNsipProjectPayload = (projectEntity) => {
 		...application,
 		...sectorAndType,
 		applicantId: projectEntity.applicant?.id?.toString(),
-		// TODO: Will be added with Case Involvement work
-		nsipOfficerIds: [],
-		nsipAdministrationOfficerIds: [],
-		inspectorIds: []
+		...projectTeam
 	};
 };
 
@@ -93,4 +92,61 @@ const mapSectorAndType = (projectEntity) => {
 		sector: `${sectorAbbreviation} - ${sectorName}`,
 		projectType: `${subSectorAbbreviation} - ${subSectorName}`
 	};
+};
+
+/**
+ * @param {import('@pins/applications.api').Schema.Case} projectEntity
+ * @returns { {
+ * operationsLeadId: number | undefined,
+ * operationsManagerId: number | undefined,
+ * caseManagerId: number | undefined,
+ * nsipOfficerIds: number[],
+ * nsipAdministrationOfficerIds: number[],
+ * leadInspectorId: number | undefined,
+ * inspectorIds: number[],
+ * environmentalServicesOfficerId: number | undefined,
+ * legalOfficerId: number | undefined } }
+ */
+const mapProjectTeam = (projectEntity) => {
+	const projectTeam = projectEntity.ProjectTeam || [];
+
+	const teamMembers = {
+		nsipOfficerIds: [],
+		nsipAdministrationOfficerIds: [],
+		inspectorIds: []
+	};
+
+	projectTeam.forEach((member) => {
+		switch (member.role) {
+			case 'operations_lead':
+				teamMembers.operationsLeadId = member.userId;
+				break;
+			case 'operations_manager':
+				teamMembers.operationsManagerId = member.userId;
+				break;
+			case 'case_manager':
+				teamMembers.caseManagerId = member.userId;
+				break;
+			case 'NSIP_officer':
+				teamMembers.nsipOfficerIds.push(member.userId);
+				break;
+			case 'NSIP_administration_officer':
+				teamMembers.nsipAdministrationOfficerIds.push(member.userId);
+				break;
+			case 'lead_inspector':
+				teamMembers.leadInspectorId = member.userId;
+				break;
+			case 'inspector':
+				teamMembers.inspectorIds.push(member.userId);
+				break;
+			case 'environmental_services':
+				teamMembers.environmentalServicesOfficerId = member.userId;
+				break;
+			case 'legal_officer':
+				teamMembers.legalOfficerId = member.userId;
+				break;
+		}
+	});
+
+	return teamMembers;
 };

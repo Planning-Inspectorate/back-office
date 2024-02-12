@@ -1,6 +1,9 @@
 import * as projectTeamRepository from '#repositories/project-team.repository.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import { mapProjectTeamMember, mapProjectTeamMembers } from '#utils/mapping/map-project-team.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
+import { EventType } from '@pins/event-client';
 
 /**
  * @type {import('express').RequestHandler}
@@ -42,13 +45,15 @@ export const updateProjectTeamMemberRole = async ({ params, body }, response) =>
 	const { role } = body;
 
 	const projectTeamMember = await projectTeamRepository.upsert(userId, Number(id), role);
+	const project = await caseRepository.getById(id, { projectTeam: true });
 
-	if (!projectTeamMember) {
+	if (!projectTeamMember || !project) {
 		throw new BackOfficeAppError(
 			`An error occured during the upsert of user id ${userId} for the case ${id}`,
 			500
 		);
 	}
+	await broadcastNsipProjectEvent(project, EventType.Update);
 
 	response.send(mapProjectTeamMember(projectTeamMember));
 };
@@ -59,6 +64,12 @@ export const updateProjectTeamMemberRole = async ({ params, body }, response) =>
 export const removeProjectTeamMember = async ({ params, body }, response) => {
 	const { id } = params;
 	const { userId } = body;
+
+	const project = await caseRepository.getById(id, { projectTeam: true });
+
+	if (!project) {
+		throw new BackOfficeAppError(`Error while removing user ${userId} for the case ${id}`, 500);
+	}
 
 	const projectTeamMember = await projectTeamRepository.getByUserIdRelatedToCaseId(
 		userId,
@@ -74,6 +85,7 @@ export const removeProjectTeamMember = async ({ params, body }, response) => {
 
 	try {
 		await projectTeamRepository.remove(userId, Number(id));
+		await broadcastNsipProjectEvent(project, EventType.Update);
 
 		response.send(projectTeamMember);
 	} catch {

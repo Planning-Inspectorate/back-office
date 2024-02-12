@@ -3,6 +3,8 @@ import { fetchFromCache, storeInCache } from '../../../lib/cache-handler.js';
 import HttpError from '../../../lib/http-error.js';
 import { msGraphGet } from '../../../lib/msGraphRequest.js';
 import config from '@pins/applications.web/environment/config.js';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 /** @typedef {import('../../applications.types.js').ProjectTeamMember} ProjectTeamMember */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -79,6 +81,29 @@ export const getAllADUsers = async (ADToken) => {
 };
 
 /**
+ * Retrieve Azure Directory Users via the execution of a ms graph api request unless the environment is development and dummy user data is available
+ *
+ * @param {SessionWithAuth} session
+ * @returns {Promise<ProjectTeamMember[]>}
+ */
+const getAzureDirectoryUsers = async (session) => {
+	if (config.authDisabled) {
+		// In development only, do not trigger any Azure request
+		if (config.authDisabled) {
+			if (config.dummyUserData) {
+				// In development only, use dummy user data if available
+				const dummyUserDataFile = path.join(process.cwd(), config.dummyUserData);
+				return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
+			}
+			return [];
+		} else {
+			const token = await getTokenOrFail(session);
+			return (await getAllADUsers(token)) || [];
+		}
+	}
+};
+
+/**
  * Retrieve all Azure Directory Users from cache or execute ms graph api request if cache empty
  *
  * @param {SessionWithAuth} session
@@ -87,6 +112,10 @@ export const getAllADUsers = async (ADToken) => {
 const getAllCachedUsers = async (session) => {
 	if (config.authDisabled) {
 		// In development only, do not trigger any Azure request
+		if (config.dummyUserData) {
+			const dummyUserDataFile = path.join(process.cwd(), config.dummyUserData);
+			return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
+		}
 		return [];
 	}
 
@@ -96,9 +125,7 @@ const getAllCachedUsers = async (session) => {
 
 	if (!cachedUsers) {
 		try {
-			const token = await getTokenOrFail(session);
-
-			cachedUsers = (await getAllADUsers(token)) || [];
+			cachedUsers = await getAzureDirectoryUsers(session);
 		} catch (/** @type {*} */ error) {
 			throw new HttpError(
 				`[GRAPH MICROSOFT API] ${error?.response?.body?.error?.code || 'Unknown error'}`,

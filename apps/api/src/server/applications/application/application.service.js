@@ -114,7 +114,7 @@ export const startApplication = async (id) => {
 		throw new Error('Case does not exist');
 	}
 
-	await broadcastNsipProjectEvent(updatedCase, EventType.Update, true);
+	await broadcastNsipProjectEvent(updatedCase, EventType.Update, { isCaseStart: true });
 
 	return {
 		id: updatedCase.id,

@@ -65,6 +65,7 @@ export default baseSchema
 					.options({ presence: 'required' })
 			})
 			.options({ presence: 'required' }),
-		featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean())
+		featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
+		dummyUserData: joi.optional()
 	})
 	.options({ presence: 'required' }); // all required by default
