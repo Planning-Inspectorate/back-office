@@ -310,6 +310,14 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
  */
 function mapStatusDependentNotifications(appealDetails, session, accordionComponents) {
 	switch (appealDetails.appealStatus) {
+		case 'assign_case_officer':
+			addNotificationBannerToSession(
+				session,
+				'assignCaseOfficer',
+				appealDetails.appealId,
+				`<p class="govuk-notification-banner__heading">Appeal ready to be assigned to case officer</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/case-officer">Assign case officer</a></p>`
+			);
+			break;
 		case 'issue_determination':
 			addNotificationBannerToSession(
 				session,
