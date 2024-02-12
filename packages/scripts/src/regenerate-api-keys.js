@@ -40,7 +40,13 @@ export const regenerateApiKeys = async () => {
 
 	await Promise.all(
 		listOfKeyVaultSecretsApiKeys.map((keyVaultSecret) => {
-			secretClient.setSecret(keyVaultSecret.name, keyVaultSecret.value || '{}');
+			return disablePreviousKeyVersions(secretClient, keyVaultSecret.name);
+		})
+	);
+
+	await Promise.all(
+		listOfKeyVaultSecretsApiKeys.map((keyVaultSecret) => {
+			return secretClient.setSecret(keyVaultSecret.name, keyVaultSecret.value || '{}');
 		})
 	);
 };
@@ -110,4 +116,29 @@ const addNewApiKey = (apiKeys) => {
 		status: NEWEST
 	});
 	console.log("Added newly generated API key to list and assigned status to 'newest'");
+};
+
+/**
+ * @param {SecretClient} secretClient
+ * @param {String} keyVaultSecretName
+ */
+const disablePreviousKeyVersions = async (secretClient, keyVaultSecretName) => {
+	const secretVersionPropertiesIterable =
+		secretClient.listPropertiesOfSecretVersions(keyVaultSecretName);
+	for await (const secretVersionProperties of secretVersionPropertiesIterable) {
+		if (secretVersionProperties.enabled) {
+			if (!secretVersionProperties.version) continue;
+
+			await secretClient.updateSecretProperties(
+				secretVersionProperties.name,
+				secretVersionProperties.version,
+				{
+					enabled: false
+				}
+			);
+			console.log(
+				`Disabled version ${secretVersionProperties.version} of ${secretVersionProperties.name}`
+			);
+		}
+	}
 };
