@@ -232,6 +232,14 @@ const getRandomQuarterDate = (direction = 'future') => {
 	return `${quarter} ${year}`;
 };
 
+const validateSectorSubsectorValues = () => {
+	casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
+	casePage.clickLinkByText('Update project information');
+	casePage.checkProjectAnswer('Sector', 'Training');
+	casePage.checkProjectAnswer('Subsector', 'Training');
+	casePage.checkProjectAnswer('Case stage', 'Pre-Application');
+};
+
 module.exports = {
 	validateProjectOverview,
 	validateProjectInformation,
@@ -241,5 +249,6 @@ module.exports = {
 	getRandomFormattedDate,
 	getRandomQuarterDate,
 	validatePreviewAndPublishInfo,
-	getShortMonthNameExamTimeTable
+	getShortMonthNameExamTimeTable,
+	validateSectorSubsectorValues
 };
