@@ -98,7 +98,7 @@ export function nationalListPage(
 				id: 'searchTerm',
 				name: 'searchTerm',
 				label: {
-					text: 'Enter appeal ID or postcode (include spaces)',
+					text: 'Enter appeal reference or postcode (include spaces)',
 					classes: 'govuk-caption-m govuk-!-margin-bottom-3 colour--secondary'
 				},
 				value: searchTerm,
@@ -216,7 +216,7 @@ export function nationalListPage(
 					parameters: {
 						head: [
 							{
-								text: 'Appeal ID'
+								text: 'Appeal reference'
 							},
 							{
 								text: 'Site address'

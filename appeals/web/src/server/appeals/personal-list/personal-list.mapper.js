@@ -97,7 +97,7 @@ export function personalListPage(
 				parameters: {
 					head: [
 						{
-							text: 'Appeal ID'
+							text: 'Appeal reference'
 						},
 						{
 							text: 'Lead or child'
