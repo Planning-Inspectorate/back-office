@@ -51,7 +51,8 @@ export class Page {
 		summaryErrorMessages: '.govuk-list.govuk-error-summary__list',
 		xlHeader: '.govuk-heading-xl',
 		projectManagement: 'span.font-weight--700:nth-child(2)',
-		unpublish: 'a.govuk-button:nth-child(5)'
+		unpublish: 'a.govuk-button:nth-child(5)',
+		caseRefTraining :':nth-child(2) > .govuk-table__body > :nth-child(1) > :nth-child(2)'
 	};
 
 	// E L E M E N T S
