@@ -19,13 +19,15 @@ import { verifyNotTraining } from '../application/application.validators.js';
  */
 
 /**
- * Grabs the description from the examinationTimetableItem and parses it into a description string and
- * NSIPExamTimetableItemDescriptionLineItem array.
+ * Grabs the description and event line items from the examinationTimetableItem and parses them into a description string and
+ * NSIPExamTimetableItemDescriptionLineItem array when the categoryType is Deadline
  *
  * @param {import('@prisma/client').ExaminationTimetableItem} examinationTimetableItem
- * @returns { { description: string, eventLineItems: { description: string }[] } }
+ * @returns { { description: string, eventLineItems: { description: string }[] | string } }
  */
 function extractDescriptionAndLineItems(examinationTimetableItem) {
+	const isDeadline = examinationTimetableItem?.ExaminationTimetableType?.name === 'Deadline';
+
 	if (!examinationTimetableItem.description) {
 		return {
 			description: '',
@@ -36,10 +38,16 @@ function extractDescriptionAndLineItems(examinationTimetableItem) {
 	/** @type {{ preText: string, bulletPoints: string[] }} */
 	const parsedDescription = JSON.parse(examinationTimetableItem.description);
 
-	return {
-		description: parsedDescription.preText,
-		eventLineItems: parsedDescription.bulletPoints.map((bp) => ({ description: bp }))
-	};
+	if (isDeadline) {
+		return {
+			description: parsedDescription.preText,
+			eventLineItems: parsedDescription.bulletPoints.map((bp) => ({ description: bp }))
+		};
+	} else {
+		return {
+			description: [parsedDescription.preText, ...parsedDescription.bulletPoints].join('\r\n* ')
+		};
+	}
 }
 
 /**
@@ -76,10 +84,10 @@ async function buildExamTimetableItemsPayload(examinationTimetableId) {
  * @returns {NSIPExamTimetableItem}
  */
 function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
-	const { description, eventLineItems } = extractDescriptionAndLineItems(examinationTimetableItem);
+	const { description = '', eventLineItems = [] } =
+		extractDescriptionAndLineItems(examinationTimetableItem);
 
 	return {
-		// @ts-ignore
 		type: examinationTimetableItem.ExaminationTimetableType.name,
 		date: examinationTimetableItem.date.toISOString().replace('Z', ''),
 		description,
