@@ -326,7 +326,7 @@ export const linkedAppeals = [
 	{
 		parentId: householdAppeal.id,
 		parentRef: householdAppeal.reference,
-		childRef: 'HORIZON/12345',
+		childRef: '76215416',
 		linkingDate: '2024-01-01'
 	}
 ];

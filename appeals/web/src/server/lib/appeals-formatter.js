@@ -20,7 +20,7 @@ export function appealShortReference(reference) {
 		return reference;
 	}
 
-	const referenceParts = reference.split('/');
+	const referenceParts = reference.split(/\/|-/);
 
 	if (referenceParts.length === 1) {
 		return reference;

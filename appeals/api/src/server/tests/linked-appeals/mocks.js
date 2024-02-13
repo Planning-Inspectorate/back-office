@@ -4,10 +4,10 @@ export const linkedAppealRequest = {
 };
 
 export const linkedAppealLegacyRequest = {
-	linkedAppealReference: 'HORIZON/51243165',
+	linkedAppealReference: '51243165',
 	isCurrentAppealParent: false
 };
 
 export const unlinkAppealRequest = {
-	linkedAppealReference: 'HORIZON/51243165'
+	linkedAppealReference: '51243165'
 };
