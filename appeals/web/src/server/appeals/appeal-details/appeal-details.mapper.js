@@ -315,7 +315,7 @@ function mapStatusDependentNotifications(appealDetails, session, accordionCompon
 				session,
 				'assignCaseOfficer',
 				appealDetails.appealId,
-				`<p class="govuk-notification-banner__heading">Appeal ready to be assigned to case officer</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/case-officer">Assign case officer</a></p>`
+				`<p class="govuk-notification-banner__heading">Appeal ready to be assigned to case officer</p><p><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/assign-user/case-officer">Assign case officer</a></p>`
 			);
 			break;
 		case 'issue_determination':
@@ -323,7 +323,7 @@ function mapStatusDependentNotifications(appealDetails, session, accordionCompon
 				session,
 				'readyForDecision',
 				appealDetails.appealId,
-				`<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p class="govuk-notification-banner__heading"><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Issue a decision</a>.</p>`
+				`<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Issue a decision</a>.</p>`
 			);
 			break;
 		case 'awaiting_transfer':
