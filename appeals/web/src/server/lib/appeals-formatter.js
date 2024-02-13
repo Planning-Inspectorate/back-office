@@ -30,12 +30,16 @@ export function appealShortReference(reference) {
 
 /**
  *
+ * @param {boolean} isParent
  * @param {boolean} isChild
  * @returns  {string}
  */
-export const linkedAppealStatus = (isChild) => {
+export const linkedAppealStatus = (isParent, isChild) => {
+	if (isParent) {
+		return 'Lead';
+	}
 	if (isChild) {
 		return 'Child';
 	}
-	return 'Lead';
+	return '';
 };
