@@ -6,7 +6,10 @@ const router = createRouter({ mergeParams: true });
 
 router.route('/linked-appeals').get(controller.getLinkedAppeals);
 router
-	.route('/unlink-appeal/:parentId/:parentRef/:childRef')
+	.route('/linked-appeals/:childShortAppealReference/:parentId')
+	.get(controller.getLinkedAppeals);
+router
+	.route('/unlink-appeal/:childId')
 	.get(controller.getUnlinkAppeal)
 	.post(validators.validateUnlinkAppeal, controller.postUnlinkAppeal);
 

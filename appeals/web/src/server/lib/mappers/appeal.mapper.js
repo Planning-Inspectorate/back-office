@@ -1203,7 +1203,7 @@ function generateManageLinkedAppealsHref(currentRoute, appealDetails) {
 		const shortAppealReference = appealShortReference(appealDetails.appealReference);
 
 		if (parentAppeal) {
-			linkedAppealsHref += `?childShortAppealReference=${shortAppealReference}&parentId=${parentAppeal.appealId}`;
+			linkedAppealsHref += `/${shortAppealReference}/${parentAppeal.appealId}`;
 		}
 	}
 

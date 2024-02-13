@@ -1496,7 +1496,7 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 		{
 			id: 4,
 			parentRef: 'TEST/396994',
-			childRef: 'HORIZON-76215416',
+			childRef: '76215416',
 			parentId: 1027,
 			childId: null,
 			linkingDate: new Date('2024-01-30T13:44:39.655Z')

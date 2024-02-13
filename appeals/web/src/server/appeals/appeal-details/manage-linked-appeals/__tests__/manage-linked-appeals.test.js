@@ -25,7 +25,7 @@ const leadAppealDataWithLinkedAppeals = {
 		},
 		{
 			appealId: null,
-			appealReference: 'HORIZON-76215416',
+			appealReference: '76215416',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
 			appealType: 'Unknown'
@@ -46,7 +46,7 @@ const childAppealDataWithLinkedAppeals = {
 		},
 		{
 			appealId: null,
-			appealReference: 'HORIZON-76215416',
+			appealReference: '76215416',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
 			appealType: 'Unknown'
@@ -102,7 +102,7 @@ describe('change-appeal-type', () => {
 
 		it('should redirect to the unlink appeal page if the selected confirmation value is "no"', async () => {
 			const response = await request
-				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/1/PARENTREF/CHILDREF`)
+				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/1`)
 				.send({
 					unlinkAppeal: 'no'
 				});
@@ -116,7 +116,7 @@ describe('change-appeal-type', () => {
 		it('should call the unlink API and redirect to the unlink-appeal page', async () => {
 			nock('http://test/').delete('/appeals/1/unlink-appeal').reply(200, { success: true });
 			const response = await request
-				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/1/PARENTREF/CHILDREF`)
+				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/2`)
 				.send({
 					unlinkAppeal: 'yes'
 				});
@@ -127,7 +127,7 @@ describe('change-appeal-type', () => {
 
 		it('should re-render the unlink appeal page with the expected error message if yes or no are not selected', async () => {
 			const response = await request
-				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/1/PARENTREF/CHILDREF`)
+				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/2`)
 				.send({
 					unlinkAppeal: ''
 				});

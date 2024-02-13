@@ -15,7 +15,8 @@ import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter
  * @returns {Promise<PageContent>}
  */
 export async function linkedAppealsPage(appealData, childShortAppealReference, appealId, parentId) {
-	const isChildAppeal = parentId !== '';
+	const isChildAppeal = parentId !== undefined;
+
 	const isHorizonLeadAppeal =
 		appealData.appealType === 'Horizon' &&
 		!parentId &&
@@ -35,16 +36,12 @@ export async function linkedAppealsPage(appealData, childShortAppealReference, a
 			closing: '</div>'
 		},
 		parameters: {
-			status: linkedAppealStatus(false, isChildAppeal)
+			status: linkedAppealStatus(!isChildAppeal, isChildAppeal)
 		}
 	};
 	pageComponents.push(appealStatusTagComponent);
 
 	if (isChildAppeal && !isHorizonLeadAppeal) {
-		const childAppealReference =
-			appealData.linkedAppeals.find((la) => la.appealId === Number(appealId))?.appealReference ||
-			'';
-
 		/** @type {PageComponent} */
 		let leadAppealTable = {
 			wrapperHtml: {
@@ -68,11 +65,7 @@ export async function linkedAppealsPage(appealData, childShortAppealReference, a
 							text: appealData.appealType
 						},
 						{
-							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${
-								appealData.appealId
-							}/manage-linked-appeals/unlink-appeal/${parentId}/${encodeURIComponent(
-								appealData.appealReference
-							)}/${encodeURIComponent(childAppealReference)}">Unlink</a>`
+							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${appealId}">Unlink</a>`
 						}
 					]
 				]
@@ -98,13 +91,7 @@ export async function linkedAppealsPage(appealData, childShortAppealReference, a
 					text: linkedAppeal.appealType
 				},
 				{
-					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${
-						appealData.appealId
-					}/manage-linked-appeals/unlink-appeal/${
-						parentId || appealData.appealId
-					}/${encodeURIComponent(appealData.appealReference)}/${encodeURIComponent(
-						linkedAppeal.appealReference
-					)}">Unlink</a>`
+					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${linkedAppeal.appealId}">Unlink</a>`
 				}
 			];
 		});
@@ -146,11 +133,10 @@ export async function linkedAppealsPage(appealData, childShortAppealReference, a
 /**
  *
  * @param {Appeal} appealData
- * @param {string} parentRef
  * @param {string} childRef
  * @returns {PageContent}
  */
-export function unlinkAppealPage(appealData, parentRef, childRef) {
+export function unlinkAppealPage(appealData, childRef) {
 	/** @type {PageComponent} */
 	const selectAppealTypeRadiosComponent = {
 		type: 'radios',
@@ -175,7 +161,8 @@ export function unlinkAppealPage(appealData, parentRef, childRef) {
 	};
 
 	const shortAppealReference = appealShortReference(appealData.appealReference);
-	const titleAndHeading = `Do you want to unlink the appeal ${childRef} from appeal ${parentRef}?`;
+	const shortChildAppealReference = appealShortReference(childRef);
+	const titleAndHeading = `Do you want to unlink the appeal ${shortChildAppealReference} from appeal ${shortAppealReference}?`;
 
 	/** @type {PageContent} */
 	const pageContent = {

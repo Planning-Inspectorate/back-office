@@ -798,7 +798,7 @@ export async function seedTestData(databaseConnector) {
 			childRef: appeals[16].reference,
 			childId: appeals[16].id
 		},
-		{ parentRef: appeals[0].reference, parentId: appeals[0].id, childRef: 'HORIZON-76215416' },
+		{ parentRef: appeals[0].reference, parentId: appeals[0].id, childRef: '76215416' },
 		{
 			parentRef: appeals[4].reference,
 			parentId: appeals[4].id,
@@ -811,7 +811,7 @@ export async function seedTestData(databaseConnector) {
 			childRef: appeals[20].reference,
 			childId: appeals[20].id
 		},
-		{ parentRef: 'HORIZON-96215416', childRef: appeals[21].reference, childId: appeals[21].id }
+		{ parentRef: '96215416', childRef: appeals[21].reference, childId: appeals[21].id }
 	];
 
 	await databaseConnector.appealRelationship.createMany({ data: linkedAppeals });
