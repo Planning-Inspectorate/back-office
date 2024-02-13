@@ -1206,7 +1206,6 @@ function generateManageLinkedAppealsHref(currentRoute, appealDetails) {
 			linkedAppealsHref += `?childShortAppealReference=${shortAppealReference}&parentId=${parentAppeal.appealId}`;
 		}
 	}
-	console.log(`generateManageLinkedAppealsHref ${linkedAppealsHref}`);
 
 	return linkedAppealsHref;
 }

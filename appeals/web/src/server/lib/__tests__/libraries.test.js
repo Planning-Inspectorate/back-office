@@ -35,6 +35,7 @@ import { stringContainsDigitsOnly } from '#lib/string-utilities.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 import { paginationDefaultSettings } from '#appeals/appeal.constants.js';
 import { getPaginationParametersFromQuery } from '#lib/pagination-utilities.js';
+import { linkedAppealStatus } from '#lib/appeals-formatter.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -1162,5 +1163,17 @@ describe('Libraries', () => {
 				expect(result.pageSize).toEqual(16);
 			});
 		});
+	});
+});
+
+describe('linkedAppealStatus', () => {
+	it('returns "Child" when isChild is true', () => {
+		const result = linkedAppealStatus(true);
+		expect(result).toBe('Child');
+	});
+
+	it('returns "Lead" when isChild is false', () => {
+		const result = linkedAppealStatus(false);
+		expect(result).toBe('Lead');
 	});
 });
