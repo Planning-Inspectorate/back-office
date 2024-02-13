@@ -1,5 +1,5 @@
 
-{% macro globalHeader(domainType, domainName, containerClasses) %}
+{% macro globalHeader(domainType, domainName, containerClasses, pageIsPersonalList, pageIsNationalList) %}
 	<header class="govuk-header" id="pins-applications-header" role="banner" data-module="govuk-header">
 		<div class="{{containerClasses}}">
 			<div class="pins-row">
@@ -65,15 +65,26 @@
 					<span>Planning Inspectorate</span>
 				</div>
 				<div class="pins-column--central">
-					<p>
+					<p class="pins-header-domainname govuk-!-margin-top-1">
 						{{ domainName }}
 					</p>
+					<nav class="govuk-header__navigation pins-header-navigation" aria-label="Menu">
+						<ul class="govuk-header__navigation-list">
+							<li class="govuk-header__navigation-item{{ ' govuk-header__navigation-item--active' if pageIsPersonalList else '' }}">
+								<a class="govuk-header__link" href="/appeals-service/personal-list">Assigned to me</a>
+							</li>
+							<li class="govuk-header__navigation-item{{ ' govuk-header__navigation-item--active' if pageIsNationalList else '' }}">
+								<a class="govuk-header__link" href="/appeals-service/appeals-list">All cases</a>
+							</li>
+							<li class="govuk-header__navigation-item">
+								<a class="govuk-header__link" href="/auth/signout">Sign out</a>
+							</li>
+						</ul>
+					</nav>
 				</div>
 				<div class="pins-column--right">
-					{# <span class="font-weight--700">{{ domainType | displayValue }}</span> #}
 					<span class="font-weight--700">{{ domainType | userTypeMap }}</span>
 					<a href="/" class="govuk-link">Go to Dashboard</a>
-					<a href="/auth/signout" class="govuk-link">Sign out</a>
 				</div>
 			</div>
 		</div>

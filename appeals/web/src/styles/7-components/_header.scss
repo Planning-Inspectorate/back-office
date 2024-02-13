@@ -1,8 +1,31 @@
 @use "../govuk-frontend/govuk/helpers/media-queries" as mixins;
 @use "../govuk-frontend/govuk/settings/media-queries" as settings;
+@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "../../1-settings/_settings.global.scss" as pins-colours;
 
 .pins-header__navigation--align-right {
   @include mixins.govuk-media-query ($from: map-get(settings.$govuk-breakpoints, 'desktop')) {
     float: right;
   }
+}
+
+.pins-header-domainname {
+	margin: 0;
+	text-align: left;
+}
+
+.pins-header-navigation {
+	text-align: left;
+
+	.govuk-header__navigation-list {
+		.govuk-header__navigation-item {
+			.govuk-header__link {
+				color: colors.govuk-colour("black");
+			}
+
+			&--active .govuk-header__link {
+				color: pins-colours.$pins-colours-teal-100;
+			}
+		}
+	}
 }

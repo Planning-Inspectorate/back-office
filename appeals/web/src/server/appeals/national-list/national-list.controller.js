@@ -74,6 +74,7 @@ export const viewNationalList = async (request, response) => {
 
 	return response.render('patterns/display-page.pattern.njk', {
 		pageContent: mappedPageContent,
-		pagination
+		pagination,
+		pageIsNationalList: true
 	});
 };

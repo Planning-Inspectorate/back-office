@@ -22,18 +22,11 @@ export const viewHomepage = async (request, response) => {
 
 	if (appealGroupIds.length === 0) {
 		return response.render('app/403');
-	}
-
-	if (appealGroupIds.length === 1) {
-		switch (appealGroupIds[0]) {
-			case config.referenceData.appeals.customerServiceGroupId:
-			case config.referenceData.appeals.legalGroupId:
-			case config.referenceData.appeals.caseOfficerGroupId:
-			case config.referenceData.appeals.inspectorGroupId:
-				return response.redirect('/appeals-service/appeals-list');
-
-			default:
-		}
+	} else if (
+		appealGroupIds.includes(config.referenceData.appeals.caseOfficerGroupId) ||
+		appealGroupIds.includes(config.referenceData.appeals.inspectorGroupId)
+	) {
+		return response.redirect('/appeals-service/personal-list');
 	}
 
 	response.render('app/dashboard');
