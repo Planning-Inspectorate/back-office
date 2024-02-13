@@ -24,6 +24,17 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render the header with navigation containing links to the personal list, national list, and sign out route, without any active modifier classes', async () => {
+			const appealId = appealData.appealId.toString();
+
+			nock('http://test/').get(`/appeals/${appealId}`).reply(200, undefined);
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+			const element = parseHtml(response.text, { rootElement: 'header' });
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should render the received appeal details for a valid appealId with single linked/other appeals', async () => {
 			const appealId = '2';
 

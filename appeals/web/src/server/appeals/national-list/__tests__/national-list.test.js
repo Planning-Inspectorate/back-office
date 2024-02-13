@@ -115,5 +115,14 @@ describe('national-list', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should render the header with navigation containing links to the personal list, national list (with active modifier class), and sign out route', async () => {
+			nock('http://test/').get('/appeals?pageNumber=1&pageSize=30').reply(200, appealsNationalList);
+
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text, { rootElement: 'header' });
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 	});
 });

@@ -19,8 +19,8 @@
 {% endblock %}
 
 {% block header %}
-	{% set domainName = 'Appeals'%}
-  {{ globalHeader(domainType, domainName, containerClasses) }}
+	{% set domainName = 'Manage appeals'%}
+  {{ globalHeader(domainType, domainName, containerClasses, pageIsPersonalList, pageIsNationalList) }}
 {% endblock %}
 
 {% block beforeContent %}

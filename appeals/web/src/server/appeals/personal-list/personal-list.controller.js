@@ -45,6 +45,7 @@ export const viewPersonalList = async (request, response) => {
 
 	return response.render('patterns/display-page.pattern.njk', {
 		pageContent: mappedPageContent,
-		pagination
+		pagination,
+		pageIsPersonalList: true
 	});
 };
