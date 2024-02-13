@@ -1167,13 +1167,15 @@ describe('Libraries', () => {
 });
 
 describe('linkedAppealStatus', () => {
-	it('returns "Child" when isChild is true', () => {
-		const result = linkedAppealStatus(true);
-		expect(result).toBe('Child');
+	it('returns "Lead" when isParent is true', () => {
+		expect(linkedAppealStatus(true, false)).toBe('Lead');
 	});
 
-	it('returns "Lead" when isChild is false', () => {
-		const result = linkedAppealStatus(false);
-		expect(result).toBe('Lead');
+	it('returns "Child" when isChild is true', () => {
+		expect(linkedAppealStatus(false, true)).toBe('Child');
+	});
+
+	it('returns an empty string when both isParent and isChild are false', () => {
+		expect(linkedAppealStatus(false, false)).toBe('');
 	});
 });

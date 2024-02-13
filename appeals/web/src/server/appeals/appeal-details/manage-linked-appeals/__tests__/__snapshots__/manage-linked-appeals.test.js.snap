@@ -64,7 +64,7 @@ exports[`change-appeal-type GET /change-appeal-type/appeal-type should render th
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Manage linked appeals</h1>
         </div>
     </div>
-    <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--grey single-line">Lead</strong>
+    <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--grey single-line"></strong>
     </div>
     <h2 class="govuk-!-margin-top-6">Child appeals of 351062</h2>
     <table class="govuk-table">

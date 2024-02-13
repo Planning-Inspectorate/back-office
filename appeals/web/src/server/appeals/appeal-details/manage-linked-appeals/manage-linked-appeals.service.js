@@ -5,7 +5,6 @@
  * @returns {Promise<import('../appeal-details.types.js').WebAppeal>}
  */
 export function getAppealDetailsFromId(apiClient, appealId) {
-	console.log('getAppealDetailsFromId', appealId);
 	return apiClient.get(`appeals/${appealId}`).json();
 }
 
