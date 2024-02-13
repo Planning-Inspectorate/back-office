@@ -11,6 +11,7 @@ import {
 	mapAddressInput
 } from './global-mapper-formatter.js';
 import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
+import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
@@ -282,8 +283,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				actions: {
 					items: [
 						{
-							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/linked-appeals`
+							text: 'Manage',
+							href: generateManageLinkedAppealsHref(currentRoute, appealDetails)
 						}
 					]
 				}
@@ -1187,4 +1188,25 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	};
 
 	return mappedData;
+}
+
+/**
+ * @param {string} currentRoute
+ * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
+ * @returns {string}
+ */
+function generateManageLinkedAppealsHref(currentRoute, appealDetails) {
+	let linkedAppealsHref = `${currentRoute}/manage-linked-appeals/linked-appeals`;
+
+	if (appealDetails.isChildAppeal === true) {
+		const parentAppeal = appealDetails.linkedAppeals.find((link) => link.isParentAppeal === true);
+		const shortAppealReference = appealShortReference(appealDetails.appealReference);
+
+		if (parentAppeal) {
+			linkedAppealsHref += `?childShortAppealReference=${shortAppealReference}&parentId=${parentAppeal.appealId}`;
+		}
+	}
+	console.log(`generateManageLinkedAppealsHref ${linkedAppealsHref}`);
+
+	return linkedAppealsHref;
 }

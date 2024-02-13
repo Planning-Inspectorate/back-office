@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`change-appeal-type GET /change-appeal-type/appeal-type should render the decision page child 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 802437</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Manage linked appeals</h1>
+        </div>
+    </div>
+    <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--grey single-line">Child</strong>
+    </div>
+    <h2 class="govuk-!-margin-top-6">Lead appeal of 802437</h2>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
+                <th scope="col" class="govuk-table__header">Action</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="Appeal 3 5 1 0 6 2">351062</a>
+                </td>
+                <td class="govuk-table__cell">Householder</td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/2/APP%2FQ9999%2FD%2F21%2F351062/">Unlink</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h2 class="govuk-!-margin-top-6">Other child appeals of 351062</h2>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
+                <th scope="col" class="govuk-table__header">Action</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 7 2 5 2 8 4">725284</a>
+                </td>
+                <td class="govuk-table__cell">Householder</td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/2/APP%2FQ9999%2FD%2F21%2F351062/APP%2FQ9999%2FD%2F21%2F725284">Unlink</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/null" aria-label="Appeal HORIZON-76215416">HORIZON-76215416</a>
+                </td>
+                <td class="govuk-table__cell">Unknown</td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/2/APP%2FQ9999%2FD%2F21%2F351062/HORIZON-76215416">Unlink</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>"
+`;
+
+exports[`change-appeal-type GET /change-appeal-type/appeal-type should render the decision page lead 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Manage linked appeals</h1>
+        </div>
+    </div>
+    <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--grey single-line">Lead</strong>
+    </div>
+    <h2 class="govuk-!-margin-top-6">Child appeals of 351062</h2>
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Appeal ID</th>
+                <th scope="col" class="govuk-table__header">Appeal type</th>
+                <th scope="col" class="govuk-table__header">Action</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 7 2 5 2 8 4">725284</a>
+                </td>
+                <td class="govuk-table__cell">Householder</td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/1/APP%2FQ9999%2FD%2F21%2F351062/APP%2FQ9999%2FD%2F21%2F725284">Unlink</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/null" aria-label="Appeal HORIZON-76215416">HORIZON-76215416</a>
+                </td>
+                <td class="govuk-table__cell">Unknown</td>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/1/APP%2FQ9999%2FD%2F21%2F351062/HORIZON-76215416">Unlink</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>"
+`;
+
+exports[`change-appeal-type GET /change-appeal-type/unlink-appeal should render the unlink-appeal page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Do you want to unlink the appeal CHILDREF from appeal PARENTREF?</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="unlinkAppeal" name="unlinkAppeal"
+                                type="radio" value="yes">
+                                <label class="govuk-label govuk-radios__label" for="unlinkAppeal">Yes</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="unlinkAppeal-2" name="unlinkAppeal"
+                                type="radio" value="no">
+                                <label class="govuk-label govuk-radios__label" for="unlinkAppeal-2">No</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`change-appeal-type POST /change-appeal-type/unlink-appeal should re-render the unlink appeal page with the expected error message if yes or no are not selected 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#unlinkAppeal">Please choose an option</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Do you want to unlink the appeal CHILDREF from appeal PARENTREF?</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="unlinkAppeal" name="unlinkAppeal"
+                                type="radio" value="yes">
+                                <label class="govuk-label govuk-radios__label" for="unlinkAppeal">Yes</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="unlinkAppeal-2" name="unlinkAppeal"
+                                type="radio" value="no">
+                                <label class="govuk-label govuk-radios__label" for="unlinkAppeal-2">No</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
