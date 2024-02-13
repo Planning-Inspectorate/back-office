@@ -35,7 +35,7 @@ export async function linkedAppealsPage(appealData, childShortAppealReference, a
 			closing: '</div>'
 		},
 		parameters: {
-			status: linkedAppealStatus(childShortAppealReference)
+			status: linkedAppealStatus(isChildAppeal)
 		}
 	};
 	pageComponents.push(appealStatusTagComponent);

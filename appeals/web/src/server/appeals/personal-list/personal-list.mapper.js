@@ -128,7 +128,7 @@ export function personalListPage(
 									{
 										type: 'status-tag',
 										parameters: {
-											status: linkedAppealStatus(appeal.isParentAppeal, appeal.isChildAppeal)
+											status: linkedAppealStatus(appeal.isChildAppeal)
 										}
 									}
 								]
