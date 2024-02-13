@@ -1,4 +1,4 @@
-export const LABEL_NATIONAL_LIST = 'National list';
+export const LABEL_NATIONAL_LIST = 'All cases';
 export const LABEL_SEARCH_APPEALS = 'Search cases';
 export const LABEL_APPEAL_ID = 'Appeal reference';
 export const LABEL_APPEAL_TYPE = 'Appeal type';

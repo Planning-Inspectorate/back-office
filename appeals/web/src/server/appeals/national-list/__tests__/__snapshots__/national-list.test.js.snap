@@ -4,7 +4,7 @@ exports[`national-list GET / should render national list - 10 pages - all page i
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search all cases</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -132,7 +132,7 @@ exports[`national-list GET / should render national list - 15 pages - pagination
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search all cases</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -240,7 +240,7 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search all cases</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -331,7 +331,7 @@ exports[`national-list GET / should render national list - no search term - filt
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search all cases</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -416,7 +416,7 @@ exports[`national-list GET / should render national list - search term - filter 
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search all cases</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -502,7 +502,7 @@ exports[`national-list GET / should render national list - search term - no resu
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search all cases</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
@@ -566,7 +566,7 @@ exports[`national-list GET / should render national list - search term 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search national list</h1>
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Search all cases</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
