@@ -12,9 +12,9 @@ import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter
  * @param {string} childShortAppealReference
  * @param {string} appealId
  * @param {string} parentId
- * @returns {Promise<PageContent>}
+ * @returns {PageContent}
  */
-export async function linkedAppealsPage(appealData, childShortAppealReference, appealId, parentId) {
+export function linkedAppealsPage(appealData, childShortAppealReference, appealId, parentId) {
 	const isChildAppeal = parentId !== '';
 	const isHorizonLeadAppeal =
 		appealData.appealType === 'Horizon' &&
@@ -138,6 +138,40 @@ export async function linkedAppealsPage(appealData, childShortAppealReference, a
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: 'Manage linked appeals',
 		pageComponents
+	};
+
+	return pageContent;
+}
+
+/**
+ * @param {Appeal} appealData
+ * @returns {PageContent}
+ */
+export function addLinkedAppealPage(appealData) {
+	const shortAppealReference = appealShortReference(appealData.appealReference);
+
+	/** @type {PageContent} */
+	const pageContent = {
+		title: `Add linked appeal - ${shortAppealReference}`,
+		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}`,
+		preHeading: `Appeal ${shortAppealReference}`,
+		heading: 'What is the appeal reference?',
+		pageComponents: [
+			{
+				type: 'input',
+				parameters: {
+					id: 'appeal-reference',
+					name: 'appeal-reference',
+					type: 'text',
+					classes: 'govuk-input govuk-input--width-10',
+					label: {
+						isPageHeading: false,
+						text: 'Appeal reference',
+						classes: 'govuk-visually-hidden'
+					}
+				}
+			}
+		]
 	};
 
 	return pageContent;

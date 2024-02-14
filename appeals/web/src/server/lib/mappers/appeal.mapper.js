@@ -266,7 +266,6 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		submitApi: '#'
 	};
 
-	// TODO: Need a decision on how the linked appeals change page looks
 	/** @type {Instructions} */
 	mappedData.appeal.linkedAppeals = {
 		id: 'linked-appeals',
@@ -283,8 +282,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				actions: {
 					items: [
 						{
-							text: 'Manage',
-							href: generateManageLinkedAppealsHref(currentRoute, appealDetails)
+							text: appealDetails.linkedAppeals.length > 0 ? 'Manage' : 'Add',
+							href: generateLinkedAppealsActionLinkHref(appealDetails)
 						}
 					]
 				}
@@ -1191,21 +1190,24 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 }
 
 /**
- * @param {string} currentRoute
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @returns {string}
  */
-function generateManageLinkedAppealsHref(currentRoute, appealDetails) {
-	let linkedAppealsHref = `${currentRoute}/manage-linked-appeals/linked-appeals`;
+function generateLinkedAppealsActionLinkHref(appealDetails) {
+	const baseUrl = `/appeals-service/appeal-details/${appealDetails.appealId}/linked-appeals`;
 
-	if (appealDetails.isChildAppeal === true) {
-		const parentAppeal = appealDetails.linkedAppeals.find((link) => link.isParentAppeal === true);
-		const shortAppealReference = appealShortReference(appealDetails.appealReference);
+	if (appealDetails.linkedAppeals.length > 0) {
+		if (appealDetails.isChildAppeal === true) {
+			const parentAppeal = appealDetails.linkedAppeals.find((link) => link.isParentAppeal === true);
+			const shortAppealReference = appealShortReference(appealDetails.appealReference);
 
-		if (parentAppeal) {
-			linkedAppealsHref += `?childShortAppealReference=${shortAppealReference}&parentId=${parentAppeal.appealId}`;
+			if (parentAppeal) {
+				return `${baseUrl}/manage?childShortAppealReference=${shortAppealReference}&parentId=${parentAppeal.appealId}`;
+			}
 		}
+
+		return `${baseUrl}/manage`;
 	}
 
-	return linkedAppealsHref;
+	return `${baseUrl}/add`;
 }

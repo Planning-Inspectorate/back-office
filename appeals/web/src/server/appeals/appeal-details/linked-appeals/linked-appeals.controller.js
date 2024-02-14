@@ -1,5 +1,9 @@
-import { getAppealDetailsFromId, postUnlinkRequest } from './manage-linked-appeals.service.js';
-import { linkedAppealsPage, unlinkAppealPage } from './manage-linked-appeals.mapper.js';
+import { getAppealDetailsFromId, postUnlinkRequest } from './linked-appeals.service.js';
+import {
+	linkedAppealsPage,
+	addLinkedAppealPage,
+	unlinkAppealPage
+} from './linked-appeals.mapper.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
@@ -29,7 +33,7 @@ const renderLinkedAppeals = async (request, response) => {
 
 	const appealData = await getAppealDetailsFromId(request.apiClient, parentId || appealId);
 
-	const mappedPageContent = await linkedAppealsPage(
+	const mappedPageContent = linkedAppealsPage(
 		appealData,
 		childShortAppealReference,
 		appealId,
@@ -37,6 +41,26 @@ const renderLinkedAppeals = async (request, response) => {
 	);
 
 	return response.render('patterns/display-page.pattern.njk', {
+		pageContent: mappedPageContent,
+		errors
+	});
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const getAddLinkedAppeal = async (request, response) => {
+	const {
+		errors,
+		params: { appealId }
+	} = request;
+
+	const appealDetails = await getAppealDetailsFromId(request.apiClient, appealId);
+
+	const mappedPageContent = addLinkedAppealPage(appealDetails);
+
+	return response.render('patterns/change-page.pattern.njk', {
 		pageContent: mappedPageContent,
 		errors
 	});
