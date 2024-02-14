@@ -50,7 +50,8 @@ export function loadConfig() {
 		SSL_CERT_FILE,
 		SSL_KEY_FILE,
 		RETRY_MAX_ATTEMPTS,
-		RETRY_STATUS_CODES
+		RETRY_STATUS_CODES,
+		DUMMY_USER_DATA
 	} = environment;
 
 	const config = {
@@ -96,7 +97,8 @@ export function loadConfig() {
 		// set Feature Flag default val here [default: false] - will be overwritted by values cming from the .env file
 		featureFlags: {
 			featureFlagBoas1TestFeature: FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
-		}
+		},
+		dummyUserData: (AUTH_DISABLED && DUMMY_USER_DATA) || ''
 	};
 
 	const { value: validatedConfig, error } = schema.validate(config);
