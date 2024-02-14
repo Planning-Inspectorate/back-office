@@ -18,9 +18,9 @@ const applicant = 'Applicant';
  *
  * @param {import('@pins/applications.api').Schema.Case} project
  * @param {string} eventType
- * @param {boolean} [isCaseStart]
+ * @param {object} [options]
  */
-export const broadcastNsipProjectEvent = async (project, eventType, isCaseStart = false) => {
+export const broadcastNsipProjectEvent = async (project, eventType, options = {}) => {
 	try {
 		await verifyNotTraining(project.id);
 	} catch (/** @type {*} */ err) {
@@ -41,7 +41,7 @@ export const broadcastNsipProjectEvent = async (project, eventType, isCaseStart 
 		);
 	}
 
-	if (isCaseStart) {
+	if (options?.isCaseStart) {
 		// We can safely call get all by case as it will only be the folders we have created.
 		const caseFolders = await getAllByCaseId(project.id);
 		await eventClient.sendEvents(

@@ -410,7 +410,8 @@ export const publishCase = async ({ caseId }) => {
 		caseStatus: true,
 		casePublishedState: true,
 		applicant: true,
-		gridReference: true
+		gridReference: true,
+		projectTeam: true
 	});
 };
 
@@ -439,14 +440,15 @@ export const unpublishCase = async ({ caseId }) => {
 		caseStatus: true,
 		casePublishedState: true,
 		applicant: true,
-		gridReference: true
+		gridReference: true,
+		projectTeam: true
 	});
 };
 
 /**
  *
  * @param {number} id
- * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, casePublishedState?: boolean, applicant?: boolean, gridReference?: boolean}} inclusions
+ * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, casePublishedState?: boolean, applicant?: boolean, gridReference?: boolean, projectTeam?: boolean}} inclusions
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>}
  */
 export const getById = (
@@ -460,7 +462,8 @@ export const getById = (
 		caseStatus = false,
 		casePublishedState = false,
 		applicant = false,
-		gridReference = false
+		gridReference = false,
+		projectTeam = false
 	}
 ) => {
 	return databaseConnector.case.findUnique({
@@ -472,7 +475,8 @@ export const getById = (
 			regions ||
 			caseStatus ||
 			casePublishedState ||
-			applicant) && {
+			applicant ||
+			projectTeam) && {
 			include: {
 				...((applicationDetails || subSector || zoomLevel || regions || sector) && {
 					ApplicationDetails: {
@@ -490,7 +494,8 @@ export const getById = (
 				...(applicant && {
 					applicant: { include: { address: true } }
 				}),
-				...(gridReference && { gridReference: true })
+				...(gridReference && { gridReference: true }),
+				...(projectTeam && { ProjectTeam: { orderBy: { createdAt: 'desc' } } })
 			}
 		})
 	});
