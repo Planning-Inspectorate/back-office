@@ -164,11 +164,7 @@ export function webDateToDisplayDate(dayMonthYear, { condensed = false } = {}) {
 	const { day, month, year } = dayMonthYear;
 
 	if (day && month && year) {
-		const date = new Date();
-		date.setDate(day);
-		// date.setMonth() requires a zero-based month value, but DayMonthYear.month is a 1-based value (see notes on DayMonthYear type definition)
-		date.setMonth(month - 1);
-		date.setFullYear(year);
+		const date = new Date(year, month - 1, day);
 
 		return formatInTimeZone(date, timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
 			locale: enGB
