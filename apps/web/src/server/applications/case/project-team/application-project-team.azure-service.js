@@ -96,11 +96,11 @@ const getAzureDirectoryUsers = async (session) => {
 				return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
 			}
 			return [];
-		} else {
-			const token = await getTokenOrFail(session);
-			return (await getAllADUsers(token)) || [];
 		}
+		const token = await getTokenOrFail(session);
+		return (await getAllADUsers(token)) || [];
 	}
+	return [];
 };
 
 /**
