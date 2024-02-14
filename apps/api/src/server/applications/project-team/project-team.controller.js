@@ -85,6 +85,8 @@ export const removeProjectTeamMember = async ({ params, body }, response) => {
 
 	try {
 		await projectTeamRepository.remove(userId, Number(id));
+
+		project.ProjectTeam = project.ProjectTeam.filter((member) => member.userId !== userId);
 		await broadcastNsipProjectEvent(project, EventType.Update);
 
 		response.send(projectTeamMember);

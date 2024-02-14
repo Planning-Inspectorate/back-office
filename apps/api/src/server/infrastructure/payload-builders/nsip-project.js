@@ -97,23 +97,41 @@ const mapSectorAndType = (projectEntity) => {
 /**
  * @param {import('@pins/applications.api').Schema.Case} projectEntity
  * @returns { {
- * operationsLeadId: number | undefined,
- * operationsManagerId: number | undefined,
- * caseManagerId: number | undefined,
+ * operationsLeadId: number | null,
+ * operationsManagerId: number | null,
+ * caseManagerId: number | null,
  * nsipOfficerIds: number[],
  * nsipAdministrationOfficerIds: number[],
- * leadInspectorId: number | undefined,
+ * leadInspectorId: number | null,
  * inspectorIds: number[],
- * environmentalServicesOfficerId: number | undefined,
- * legalOfficerId: number | undefined } }
+ * environmentalServicesOfficerId: number | null,
+ * legalOfficerId: number | null } | {
+ * nsipOfficerIds: number[],
+ * nsipAdministrationOfficerIds: number[],
+ * inspectorIds: number[],
+ * }}
  */
 const mapProjectTeam = (projectEntity) => {
-	const projectTeam = projectEntity.ProjectTeam || [];
+	const projectTeam = projectEntity?.ProjectTeam;
+
+	if (!projectTeam) {
+		return {
+			nsipOfficerIds: [],
+			nsipAdministrationOfficerIds: [],
+			inspectorIds: []
+		};
+	}
 
 	const teamMembers = {
+		operationsLeadId: null,
+		operationsManagerId: null,
+		caseManagerId: null,
 		nsipOfficerIds: [],
 		nsipAdministrationOfficerIds: [],
-		inspectorIds: []
+		leadInspectorId: null,
+		inspectorIds: [],
+		environmentalServicesOfficerId: null,
+		legalOfficerId: null
 	};
 
 	projectTeam.forEach((member) => {
