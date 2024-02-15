@@ -3,11 +3,14 @@ import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 import {
 	dateIsInTheFuture,
+	dateIsInThePast,
+	dateIsTodayOrInThePast,
 	dateIsValid,
 	isDateInstance,
 	dayMonthYearToApiDateString,
 	webDateToDisplayDate,
-	apiDateStringToDayMonthYear
+	apiDateStringToDayMonthYear,
+	dateToUTCDateWithoutTime
 } from '../dates.js';
 import { appealShortReference } from '../nunjucks-filters/appeals.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
@@ -178,6 +181,57 @@ describe('Libraries', () => {
 		describe('dateIsInTheFuture', () => {
 			it('should return true if day, month and year params form a date that is in the future', () => {
 				expect(dateIsInTheFuture(3000, 1, 1)).toBe(true);
+			});
+			it('should return false if day, month and year params form a date that is today', () => {
+				const now = dateToUTCDateWithoutTime(new Date());
+				expect(
+					dateIsInTheFuture(now.getUTCFullYear(), now.getUTCMonth() + 1, now.getUTCDate())
+				).toBe(false);
+			});
+			it('should return false if day, month and year params form a date that is in the past', () => {
+				expect(dateIsInTheFuture(2000, 1, 1)).toBe(false);
+			});
+		});
+
+		describe('dateIsInThePast', () => {
+			it('should return true if day, month and year params form a date that is in the past', () => {
+				expect(dateIsInThePast(2000, 1, 1)).toBe(true);
+			});
+			it('should return false if day, month and year params form a date that is today', () => {
+				const now = dateToUTCDateWithoutTime(new Date());
+				expect(dateIsInThePast(now.getUTCFullYear(), now.getUTCMonth() + 1, now.getUTCDate())).toBe(
+					false
+				);
+			});
+			it('should return false if day, month and year params form a date that is in the future', () => {
+				expect(dateIsInThePast(3000, 1, 1)).toBe(false);
+			});
+		});
+
+		describe('dateIsTodayOrInThePast', () => {
+			it('should return true if day, month and year params form a date that is in the past', () => {
+				expect(dateIsTodayOrInThePast(2000, 1, 1)).toBe(true);
+			});
+			it('should return true if day, month and year params form a date that is today', () => {
+				const now = dateToUTCDateWithoutTime(new Date());
+				expect(
+					dateIsTodayOrInThePast(now.getUTCFullYear(), now.getUTCMonth() + 1, now.getUTCDate())
+				).toBe(true);
+			});
+			it('should return false if day, month and year params form a date that is in the future', () => {
+				expect(dateIsTodayOrInThePast(3000, 1, 1)).toBe(false);
+			});
+		});
+
+		describe('dateToUTCDateWithoutTime', () => {
+			it('should return the supplied date without any time portion', () => {
+				const now = new Date();
+				const convertedDate = dateToUTCDateWithoutTime(now);
+
+				expect(convertedDate.getUTCHours()).toBe(0);
+				expect(convertedDate.getUTCMinutes()).toBe(0);
+				expect(convertedDate.getUTCSeconds()).toBe(0);
+				expect(convertedDate.getUTCMilliseconds()).toBe(0);
 			});
 		});
 

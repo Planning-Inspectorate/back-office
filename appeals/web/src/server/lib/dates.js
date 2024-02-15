@@ -31,9 +31,24 @@ export const dateIsValid = (year, month, day) => {
  */
 export const dateIsInTheFuture = (year, month, day) => {
 	const date = new Date(year, month - 1, day);
-	const now = new Date();
+	const today = new Date();
 
-	return dateIsValid(year, month, day) && now < date;
+	return date > today;
+};
+
+/**
+ * @param {number} year
+ * @param {number} month
+ * @param {number} day
+ * @returns {boolean}
+ */
+export const dateIsInThePast = (year, month, day) => {
+	const date = new Date(year, month - 1, day);
+	const today = new Date();
+	const dateWithoutTime = dateToUTCDateWithoutTime(date);
+	const todayWithoutTime = dateToUTCDateWithoutTime(today);
+
+	return dateWithoutTime < todayWithoutTime;
 };
 
 /**
@@ -43,10 +58,17 @@ export const dateIsInTheFuture = (year, month, day) => {
  * @returns {boolean}
  */
 export const dateIsTodayOrInThePast = (year, month, day) => {
-	const date = new Date(year, month - 1, day);
-	const now = new Date();
+	return !dateIsInTheFuture(year, month, day);
+};
 
-	return dateIsValid(year, month, day) && date <= now;
+/**
+ * Converts the supplied date to a UTC date without any time component (useful for comparisons which should not factor in time)
+ * More information here: https://stackoverflow.com/a/38050824
+ * @param {Date} date
+ * @returns {Date}
+ */
+export const dateToUTCDateWithoutTime = (date) => {
+	return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
 };
 
 /**
