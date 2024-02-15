@@ -17,61 +17,41 @@ export default async function (context, msg) {
 		Boolean(applicationProperties) &&
 		Object.prototype.hasOwnProperty.call(applicationProperties, 'type');
 	if (!hasType) {
-		context.log.warn('Ingoring invalid message, no type', msgWithoutEmail);
-		return;
+		throw new Error('Ignoring invalid message, no type');
 	}
+
 
 	const type = applicationProperties?.type;
-
-	if (type !== EventType.Create && type !== EventType.Delete) {
-		context.log.warn(`Ingoring invalid message, unsupported type '${type}'`, msgWithoutEmail);
-		return;
-	}
-
-	if (!msg.nsipSubscription) {
-		context.log.warn(`Ingoring invalid message, nsipSubscription is required`, msgWithoutEmail);
-		return;
-	}
+	if (type !== EventType.Create && type !== EventType.Delete)
+		throw new Error(`Ignoring invalid message, unsupported type '${type}'`);
 
 	const { caseReference, emailAddress } = msg.nsipSubscription;
-	if (!caseReference || typeof caseReference !== 'string') {
-		context.log.warn(`Ingoring invalid message, invalid caseReference`, msgWithoutEmail);
-		return;
-	}
-	if (!emailAddress || typeof emailAddress !== 'string') {
-		context.log.warn(`Ingoring invalid message, invalid emailAddress`, msgWithoutEmail);
-		return;
-	}
+	if (!msg.nsipSubscription)
+		throw new Error('Ignoring invalid message, nsipSubscription is required');
+	if (!caseReference || typeof caseReference !== 'string')
+		throw new Error('Ignoring invalid message, invalid caseReference');
+	if (!emailAddress || typeof emailAddress !== 'string')
+		throw new Error('Ignoring invalid message, invalid emailAddress');
 
 	if (type === EventType.Create) {
-		if (!msg.subscriptionTypes) {
-			context.log.warn(`Ingoring invalid message, subscriptionTypes is required`, msgWithoutEmail);
-			return;
-		}
+		if (!msg.subscriptionTypes)
+			throw new Error(
+				`Ignoring invalid message, subscriptionTypes is required`
+			);
 
-		try {
-			const res = await api.createOrUpdateSubscription({
-				...msg.nsipSubscription,
-				subscriptionTypes: msg.subscriptionTypes
-			});
-			context.log.info(`subscription created/updated: ${res.id}`);
-		} catch (e) {
-			context.log.error('error creating/updating subscription', e);
-		}
+		const res = await api.createOrUpdateSubscription({
+			...msg.nsipSubscription,
+			subscriptionTypes: msg.subscriptionTypes
+		});
+
+		context.log.info(`subscription created/updated: ${res.id}`);
 	} else if (type === EventType.Delete) {
-		try {
-			const existing = await api.getSubscription(caseReference, emailAddress);
-			if (existing === null) {
-				context.log.warn(`Existing subscription not found`, msgWithoutEmail);
-				return;
-			}
+		const existing = await api.getSubscription(caseReference, emailAddress);
+		if (existing === null) throw new Error('Existing subscription not found');
 
-			// todo: maybe we do want to delete?
-			const endDate = new Date().toISOString();
-			await api.updateSubscription(existing.id, { endDate });
-			context.log.info(`subscription updated to end now: ${existing.id}, ${endDate}`);
-		} catch (e) {
-			context.log.error('error deleting subscription', e);
-		}
+		// todo: maybe we do want to delete?
+		const endDate = new Date().toISOString();
+		await api.updateSubscription(existing.id, { endDate });
+		context.log.info(`subscription updated to end now: ${existing.id}, ${endDate}`);
 	}
 }

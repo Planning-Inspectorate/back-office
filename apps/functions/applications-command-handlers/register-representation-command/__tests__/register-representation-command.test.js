@@ -46,16 +46,16 @@ const message = {
 
 const now = 1_675_209_600_000;
 
-jest.useFakeTimers({ now });
-
 describe('register-representation-command', () => {
 	beforeEach(() => {
 		api.getCaseID = jest.fn().mockResolvedValueOnce(1);
 		api.postRepresentation = jest.fn().mockResolvedValueOnce({});
+		jest.useFakeTimers({ now });
 	});
 
 	afterEach(() => {
 		jest.resetAllMocks();
+		jest.useRealTimers();
 	});
 
 	const mockContext = { log: jest.fn() };
