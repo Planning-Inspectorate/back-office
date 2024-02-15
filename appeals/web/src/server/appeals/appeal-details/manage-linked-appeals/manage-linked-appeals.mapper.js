@@ -9,12 +9,12 @@ import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter
 /**
  *
  * @param {Appeal} appealData
- * @param {string} childShortAppealReference
+ * @param {string} relationshipId
  * @param {string} appealId
  * @param {string} parentId
  * @returns {Promise<PageContent>}
  */
-export async function linkedAppealsPage(appealData, childShortAppealReference, appealId, parentId) {
+export async function linkedAppealsPage(appealData, relationshipId, appealId, parentId) {
 	const isChildAppeal = parentId !== undefined;
 
 	const isHorizonLeadAppeal =
@@ -22,8 +22,12 @@ export async function linkedAppealsPage(appealData, childShortAppealReference, a
 		!parentId &&
 		appealData.linkedAppeals.every((link) => link.isParentAppeal);
 
-	const shortAppealReference =
-		childShortAppealReference || appealShortReference(appealData.appealReference);
+	const matchingLinkedAppeal = appealData.linkedAppeals.find(
+		(linkedAppeal) => linkedAppeal.relationshipId === Number(relationshipId)
+	);
+	const shortAppealReference = matchingLinkedAppeal
+		? appealShortReference(matchingLinkedAppeal.appealReference)
+		: appealShortReference(appealData.appealReference);
 
 	/** @type {PageComponent[]} **/
 	let pageComponents = [];
@@ -65,7 +69,7 @@ export async function linkedAppealsPage(appealData, childShortAppealReference, a
 							text: appealData.appealType
 						},
 						{
-							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${appealId}">Unlink</a>`
+							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${appealId}/${matchingLinkedAppeal?.relationshipId}">Unlink</a>`
 						}
 					]
 				]
@@ -91,7 +95,7 @@ export async function linkedAppealsPage(appealData, childShortAppealReference, a
 					text: linkedAppeal.appealType
 				},
 				{
-					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${linkedAppeal.appealId}">Unlink</a>`
+					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${linkedAppeal.appealId}/${linkedAppeal.relationshipId}">Unlink</a>`
 				}
 			];
 		});

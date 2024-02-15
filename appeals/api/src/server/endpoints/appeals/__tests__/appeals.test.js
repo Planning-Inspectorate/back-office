@@ -1475,7 +1475,8 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 			childRef: 'TEST/100071',
 			parentId: 1027,
 			childId: 1028,
-			linkingDate: new Date('2024-01-30T13:44:39.655Z')
+			linkingDate: new Date('2024-01-30T13:44:39.655Z'),
+			relationshipId: 101
 		},
 		{
 			id: 2,
@@ -1483,7 +1484,8 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 			childRef: 'TEST/123813',
 			parentId: 1027,
 			childId: 1029,
-			linkingDate: new Date('2024-01-30T13:44:39.655Z')
+			linkingDate: new Date('2024-01-30T13:44:39.655Z'),
+			relationshipId: 102
 		},
 		{
 			id: 3,
@@ -1491,7 +1493,8 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 			childRef: 'TEST/864955',
 			parentId: 1027,
 			childId: 1043,
-			linkingDate: new Date('2024-01-30T13:44:39.655Z')
+			linkingDate: new Date('2024-01-30T13:44:39.655Z'),
+			relationshipId: 103
 		},
 		{
 			id: 4,
@@ -1499,7 +1502,8 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 			childRef: '76215416',
 			parentId: 1027,
 			childId: null,
-			linkingDate: new Date('2024-01-30T13:44:39.655Z')
+			linkingDate: new Date('2024-01-30T13:44:39.655Z'),
+			relationshipId: 104
 		}
 	];
 
@@ -1530,7 +1534,8 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 				childRef: 'TEST/100071',
 				parentId: 1027,
 				childId: null,
-				linkingDate: new Date('2024-01-30T13:44:39.655Z')
+				linkingDate: new Date('2024-01-30T13:44:39.655Z'),
+				relationshipId: 105
 			}
 		];
 		const currentAppealRef = 'TEST/396994';
@@ -1547,7 +1552,8 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 				childRef: 'TEST/100071',
 				parentId: 1027,
 				childId: 1028,
-				linkingDate: new Date('2024-01-30T13:44:39.655Z')
+				linkingDate: new Date('2024-01-30T13:44:39.655Z'),
+				relationshipId: 105
 			}
 		];
 		const currentAppealRef = 'TEST/396994';

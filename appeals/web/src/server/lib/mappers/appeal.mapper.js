@@ -11,7 +11,6 @@ import {
 	mapAddressInput
 } from './global-mapper-formatter.js';
 import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
 
 /**
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
@@ -1200,10 +1199,9 @@ function generateManageLinkedAppealsHref(currentRoute, appealDetails) {
 
 	if (appealDetails.isChildAppeal === true) {
 		const parentAppeal = appealDetails.linkedAppeals.find((link) => link.isParentAppeal === true);
-		const shortAppealReference = appealShortReference(appealDetails.appealReference);
 
 		if (parentAppeal) {
-			linkedAppealsHref += `/${shortAppealReference}/${parentAppeal.appealId}`;
+			linkedAppealsHref += `/${parentAppeal.relationshipId}/${parentAppeal.appealId}`;
 		}
 	}
 
