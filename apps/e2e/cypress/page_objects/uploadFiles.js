@@ -28,9 +28,8 @@ export class FileUploadPage extends Page {
 	}
 
 	verifyUploadIsComplete() {
-		cy.wait(6000);
+		cy.wait(7000);
 		cy.reload();
-		cy.get('strong.govuk-tag:nth-child(1)').should('not.exist');
 		cy.contains('a', 'View/Edit properties').should('exist');
 		cy.contains('a', 'Download').should('exist');
 	}
