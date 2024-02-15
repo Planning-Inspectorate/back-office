@@ -3,7 +3,7 @@ import { buildHtmSpan } from '#lib/nunjucks-template-builders/tag-builders.js';
 import { appealShortReference } from './nunjucks-filters/appeals.js';
 import { mapDocumentInfoVirusCheckStatus } from '#appeals/appeal-documents/appeal-documents.mapper.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
-import { apiDateStringToDayMonthYear, dateIsInTheFuture } from '#lib/dates.js';
+import { apiDateStringToDayMonthYear, dateIsInThePast } from '#lib/dates.js';
 
 /**
  * @typedef {import('@pins/appeals.api').Schema.Folder} Folder
@@ -266,7 +266,7 @@ export function mapDocumentStatus(status, dueDate) {
 					parsedDueDate.year &&
 					parsedDueDate.month &&
 					parsedDueDate.day &&
-					!dateIsInTheFuture(parsedDueDate.year, parsedDueDate.month, parsedDueDate.day)
+					dateIsInThePast(parsedDueDate.year, parsedDueDate.month, parsedDueDate.day)
 				) {
 					return 'Overdue';
 				}

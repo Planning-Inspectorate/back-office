@@ -180,9 +180,6 @@ describe('appeal-details', () => {
 					confirm: 'yes'
 				});
 
-			console.log('postCheckTransferResponse.text:');
-			console.log(postCheckTransferResponse.text);
-
 			expect(postCheckTransferResponse.statusCode).toBe(302);
 
 			const appealId = '2';
@@ -205,7 +202,7 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is not in the past', async () => {
+		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is in the future', async () => {
 			const appealId = '2';
 
 			nock('http://test/')
@@ -217,6 +214,30 @@ describe('appeal-details', () => {
 						appellantCase: {
 							status: 'incomplete',
 							dueDate: '2099-02-01T10:27:06.626Z'
+						}
+					}
+				});
+
+			const response = await request.get(`${baseUrl}/${appealId}`);
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is today', async () => {
+			const appealId = '2';
+			const today = new Date();
+
+			nock('http://test/')
+				.get(`/appeals/${appealId}`)
+				.reply(200, {
+					...appealData,
+					appealStatus: 'ready_to_start',
+					documentationSummary: {
+						appellantCase: {
+							status: 'incomplete',
+							dueDate: today.toISOString()
 						}
 					}
 				});
