@@ -73,7 +73,7 @@ describe('change-appeal-type', () => {
 		it('should render the decision page child', async () => {
 			nock('http://test/').get('/appeals/2').reply(200, childAppealDataWithLinkedAppeals);
 			const response = await request.get(
-				`${baseUrl}/1${manageLinkedAppealsPath}/${linkedAppealsPath}?childShortAppealReference=802437&parentId=2`
+				`${baseUrl}/1${manageLinkedAppealsPath}/${linkedAppealsPath}/100/2`
 			);
 			const element = parseHtml(response.text);
 
@@ -85,7 +85,7 @@ describe('change-appeal-type', () => {
 		it('should render the unlink-appeal page', async () => {
 			nock('http://test/').get('/appeals/1').reply(200, leadAppealDataWithLinkedAppeals);
 			const response = await request.get(
-				`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/1/PARENTREF/CHILDREF`
+				`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/1/1/1`
 			);
 			const element = parseHtml(response.text);
 
@@ -102,7 +102,7 @@ describe('change-appeal-type', () => {
 
 		it('should redirect to the unlink appeal page if the selected confirmation value is "no"', async () => {
 			const response = await request
-				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/1`)
+				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/1/2`)
 				.send({
 					unlinkAppeal: 'no'
 				});
@@ -116,7 +116,7 @@ describe('change-appeal-type', () => {
 		it('should call the unlink API and redirect to the unlink-appeal page', async () => {
 			nock('http://test/').delete('/appeals/1/unlink-appeal').reply(200, { success: true });
 			const response = await request
-				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/2`)
+				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/2/1`)
 				.send({
 					unlinkAppeal: 'yes'
 				});
@@ -127,7 +127,7 @@ describe('change-appeal-type', () => {
 
 		it('should re-render the unlink appeal page with the expected error message if yes or no are not selected', async () => {
 			const response = await request
-				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/2`)
+				.post(`${baseUrl}/1${manageLinkedAppealsPath}/${unlinkAppealPath}/2/1`)
 				.send({
 					unlinkAppeal: ''
 				});

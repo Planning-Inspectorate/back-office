@@ -5,11 +5,11 @@ import * as validators from './manage-linked-appeals.validators.js';
 const router = createRouter({ mergeParams: true });
 
 router.route('/linked-appeals').get(controller.getLinkedAppeals);
+
+router.route('/linked-appeals/:relationshipId/:parentId').get(controller.getLinkedAppeals);
+
 router
-	.route('/linked-appeals/:childShortAppealReference/:parentId')
-	.get(controller.getLinkedAppeals);
-router
-	.route('/unlink-appeal/:childId')
+	.route('/unlink-appeal/:childId/:relationshipId')
 	.get(controller.getUnlinkAppeal)
 	.post(validators.validateUnlinkAppeal, controller.postUnlinkAppeal);
 

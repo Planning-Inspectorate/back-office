@@ -17,15 +17,11 @@ export const getLinkedAppeals = async (request, response) => {
  */
 const renderLinkedAppeals = async (request, response) => {
 	const { errors } = request;
-	const { appealId, parentId, childShortAppealReference } = request.params;
-	const appealData = await getAppealDetailsFromId(request.apiClient, parentId || appealId);
+	const { appealId, parentId, relationshipId } = request.params;
+	const validId = parentId !== 'null' && parentId ? parentId : appealId;
+	const appealData = await getAppealDetailsFromId(request.apiClient, validId);
 
-	const mappedPageContent = await linkedAppealsPage(
-		appealData,
-		childShortAppealReference,
-		appealId,
-		parentId
-	);
+	const mappedPageContent = await linkedAppealsPage(appealData, relationshipId, appealId, parentId);
 
 	return response.render('patterns/display-page.pattern.njk', {
 		pageContent: mappedPageContent,
@@ -47,7 +43,7 @@ export const getUnlinkAppeal = async (request, response) => {
  */
 export const postUnlinkAppeal = async (request, response) => {
 	try {
-		const { appealId } = request.params;
+		const { appealId, relationshipId } = request.params;
 		const { unlinkAppeal } = request.body;
 		const { errors } = request;
 
@@ -64,8 +60,7 @@ export const postUnlinkAppeal = async (request, response) => {
 			const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 			const childRef =
 				appealData.linkedAppeals.find(
-					(appeal) =>
-						appeal.appealId === parseInt(request.params.childId, 10) && !appeal.isParentAppeal
+					(appeal) => appeal.relationshipId === parseInt(relationshipId, 10)
 				)?.appealReference || '';
 
 			await postUnlinkRequest(request.apiClient, appealId, childRef);
@@ -95,13 +90,13 @@ export const postUnlinkAppeal = async (request, response) => {
 const renderUnlinkAppeal = async (request, response) => {
 	const { errors } = request;
 
-	const { appealId } = request.params;
+	const { appealId, relationshipId } = request.params;
 
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
 	const childRef =
 		appealData.linkedAppeals.find(
-			(appeal) => appeal.appealId === parseInt(request.params.childId, 10) && !appeal.isParentAppeal
+			(appeal) => appeal.relationshipId === parseInt(relationshipId, 10)
 		)?.appealReference || '';
 
 	const mappedPageContent = await unlinkAppealPage(appealData, childRef);
