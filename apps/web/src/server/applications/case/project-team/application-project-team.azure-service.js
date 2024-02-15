@@ -92,7 +92,7 @@ const getAzureDirectoryUsers = async (session) => {
 		if (config.authDisabled) {
 			if (config.dummyUserData) {
 				// In development only, use dummy user data if available
-				const dummyUserDataFile = path.join(process.cwd(), config.dummyUserData);
+				const dummyUserDataFile = path.join(process.cwd(), 'dummy_user_data.json');
 				return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
 			}
 			return [];
@@ -110,15 +110,6 @@ const getAzureDirectoryUsers = async (session) => {
  * @returns {Promise<ProjectTeamMember[]>}
  */
 const getAllCachedUsers = async (session) => {
-	if (config.authDisabled) {
-		// In development only, do not trigger any Azure request
-		if (config.dummyUserData) {
-			const dummyUserDataFile = path.join(process.cwd(), config.dummyUserData);
-			return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
-		}
-		return [];
-	}
-
 	const cacheName = `cache_applications_users`;
 
 	let cachedUsers = await fetchFromCache(cacheName);
@@ -132,8 +123,10 @@ const getAllCachedUsers = async (session) => {
 				500
 			);
 		}
-		// store all users in the cache for 2h
-		storeInCache(cacheName, cachedUsers, 7200);
+		if (!config.authDisabled) {
+			// store all users in the cache for 2h
+			storeInCache(cacheName, cachedUsers, 7200);
+		}
 	}
 
 	return cachedUsers;
