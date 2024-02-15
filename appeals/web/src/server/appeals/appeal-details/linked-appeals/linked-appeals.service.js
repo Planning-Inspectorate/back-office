@@ -2,17 +2,6 @@
  *
  * @param {import('got').Got} apiClient
  * @param {string} appealId
- * @returns {Promise<import('../appeal-details.types.js').WebAppeal>}
- */
-export function getAppealDetailsFromId(apiClient, appealId) {
-	console.log('getAppealDetailsFromId', appealId);
-	return apiClient.get(`appeals/${appealId}`).json();
-}
-
-/**
- *
- * @param {import('got').Got} apiClient
- * @param {string} appealId
  * @param {string} linkedAppealReference
  * @returns {Promise<{}>}
  */
@@ -22,4 +11,13 @@ export function postUnlinkRequest(apiClient, appealId, linkedAppealReference) {
 			json: { linkedAppealReference: linkedAppealReference }
 		})
 		.json();
+}
+
+/**
+ * @param {import('got').Got} apiClient
+ * @param {string} appealReference
+ * @returns {Promise<import('@pins/appeals.api/src/server/endpoints/linkable-appeals/linkable-appeal.service.js').LinkableAppealSummary>}
+ */
+export async function getLinkableAppealByReference(apiClient, appealReference) {
+	return await apiClient.get(`appeals/linkable-appeal/${appealReference}`).json();
 }

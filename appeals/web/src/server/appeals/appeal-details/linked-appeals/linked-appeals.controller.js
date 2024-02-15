@@ -1,9 +1,10 @@
-import { getAppealDetailsFromId, postUnlinkRequest } from './linked-appeals.service.js';
+import { postUnlinkRequest } from './linked-appeals.service.js';
 import {
 	linkedAppealsPage,
 	addLinkedAppealPage,
 	unlinkAppealPage
 } from './linked-appeals.mapper.js';
+import { getAppealDetailsFromId } from '../appeal-details.service.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 
 /**
@@ -51,6 +52,14 @@ const renderLinkedAppeals = async (request, response) => {
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
 export const getAddLinkedAppeal = async (request, response) => {
+	return renderAddLinkedAppeal(request, response);
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const renderAddLinkedAppeal = async (request, response) => {
 	const {
 		errors,
 		params: { appealId }
@@ -64,6 +73,18 @@ export const getAddLinkedAppeal = async (request, response) => {
 		pageContent: mappedPageContent,
 		errors
 	});
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const postAddLinkedAppeal = async (request, response) => {
+	const { errors } = request;
+
+	if (errors) {
+		return renderAddLinkedAppeal(request, response);
+	}
 };
 
 /**

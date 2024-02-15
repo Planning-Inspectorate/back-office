@@ -4,7 +4,10 @@ import * as validators from './linked-appeals.validators.js';
 
 const router = createRouter({ mergeParams: true });
 
-router.route('/add').get(controller.getAddLinkedAppeal);
+router.route('/add')
+	.get(controller.getAddLinkedAppeal)
+	.post(validators.validateAddLinkedAppeal, controller.postAddLinkedAppeal);
+
 router.route('/manage').get(controller.getLinkedAppeals);
 router
 	.route('/unlink-appeal/:parentId/:parentRef/:childRef')
