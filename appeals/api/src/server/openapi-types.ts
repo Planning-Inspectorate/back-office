@@ -6,14 +6,14 @@ export interface LinkedAppealRequest {
 }
 
 export interface LinkedAppealLegacyRequest {
-	/** @example "HORIZON/51243165" */
+	/** @example "51243165" */
 	linkedAppealReference?: string;
 	/** @example false */
 	isCurrentAppealParent?: boolean;
 }
 
 export interface UnlinkAppealRequest {
-	/** @example "HORIZON/51243165" */
+	/** @example "51243165" */
 	linkedAppealReference?: string;
 }
 
@@ -451,7 +451,7 @@ export interface AppealTypeTransferRequest {
 }
 
 export interface AppealTypeTransferConfirmationRequest {
-	/** @example "HORIZON/12345" */
+	/** @example "76215416" */
 	newAppealReference?: string;
 }
 
@@ -590,6 +590,14 @@ export interface SingleAppealResponse {
 		appealId?: number;
 		/** @example "APP/Q9999/D/21/725284" */
 		appealReference?: string;
+		/** @example false */
+		isParentAppeal?: boolean;
+		/** @example "2024-02-14T11:16:24.085Z" */
+		linkingDate?: string;
+		/** @example "Householder" */
+		appealType?: string;
+		/** @example 1 */
+		relationshipId?: number;
 	}[];
 	/** @example "Wiltshire Council" */
 	localPlanningDepartment?: string;

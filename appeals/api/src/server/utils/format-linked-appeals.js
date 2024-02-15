@@ -19,7 +19,8 @@ const formatLinkedAppeals = (linkedAppeals, reference, formattedAppealWithLinked
 				appealReference: rel.childRef,
 				isParentAppeal: false,
 				linkingDate: rel.linkingDate,
-				appealType: assignAppealType(formattedAppealWithLinkedTypes, rel.childId)
+				appealType: assignAppealType(formattedAppealWithLinkedTypes, rel.childId),
+				relationshipId: rel.id
 			};
 		});
 	} else if (parentRelationship) {
@@ -29,7 +30,8 @@ const formatLinkedAppeals = (linkedAppeals, reference, formattedAppealWithLinked
 				appealReference: parentRelationship.parentRef,
 				isParentAppeal: true,
 				linkingDate: parentRelationship.linkingDate,
-				appealType: assignAppealType(formattedAppealWithLinkedTypes, parentRelationship.parentId)
+				appealType: assignAppealType(formattedAppealWithLinkedTypes, parentRelationship.parentId),
+				relationshipId: parentRelationship.id
 			}
 		];
 	}

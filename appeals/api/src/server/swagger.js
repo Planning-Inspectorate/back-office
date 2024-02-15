@@ -194,7 +194,11 @@ export const spec = {
 			linkedAppeals: [
 				{
 					appealId: 1,
-					appealReference: 'APP/Q9999/D/21/725284'
+					appealReference: 'APP/Q9999/D/21/725284',
+					isParentAppeal: false,
+					linkingDate: '2024-02-14T11:16:24.085Z',
+					appealType: 'Householder',
+					relationshipId: 1
 				}
 			],
 			localPlanningDepartment: 'Wiltshire Council',

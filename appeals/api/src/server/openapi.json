@@ -2833,7 +2833,7 @@
 		"/appeals/linkable-appeal/{appealReference}": {
 			"get": {
 				"tags": ["Linkable appeals"],
-				"description": "Gets a single related appeal by id from BO or Horizon",
+				"description": "Gets a single related appeal by id from BO or Horizon. If mocking use 1000000 for valid case on horizon, 2000000 for unpublished case on horizon, any for case not found on horizon",
 				"parameters": [
 					{
 						"name": "appealReference",
@@ -2882,7 +2882,7 @@
 		"/appeals/transferred-appeal/{appealReference}": {
 			"get": {
 				"tags": ["Transferred appeals"],
-				"description": "Gets appeal from Horizon returns found status (true/false)",
+				"description": "Gets appeal from Horizon returns found status (true/false). If mocking use 1000000 for valid case on horizon, 2000000 for unpublished case on horizon, any for case not found on horizon",
 				"parameters": [
 					{
 						"name": "appealReference",
@@ -2930,7 +2930,7 @@
 				"properties": {
 					"linkedAppealReference": {
 						"type": "string",
-						"example": "HORIZON/51243165"
+						"example": "51243165"
 					},
 					"isCurrentAppealParent": {
 						"type": "boolean",
@@ -2946,7 +2946,7 @@
 				"properties": {
 					"linkedAppealReference": {
 						"type": "string",
-						"example": "HORIZON/51243165"
+						"example": "51243165"
 					}
 				},
 				"xml": {
@@ -3863,7 +3863,7 @@
 				"properties": {
 					"newAppealReference": {
 						"type": "string",
-						"example": "HORIZON/12345"
+						"example": "76215416"
 					}
 				},
 				"xml": {
@@ -4166,6 +4166,22 @@
 								"appealReference": {
 									"type": "string",
 									"example": "APP/Q9999/D/21/725284"
+								},
+								"isParentAppeal": {
+									"type": "boolean",
+									"example": false
+								},
+								"linkingDate": {
+									"type": "string",
+									"example": "2024-02-14T11:16:24.085Z"
+								},
+								"appealType": {
+									"type": "string",
+									"example": "Householder"
+								},
+								"relationshipId": {
+									"type": "number",
+									"example": 1
 								}
 							}
 						}
