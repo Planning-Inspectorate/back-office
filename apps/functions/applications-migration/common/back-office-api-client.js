@@ -24,7 +24,7 @@ export const makePostRequest = (logger, path, body) => {
 			beforeRequest: [
 				async (options) =>
 					await addAuthHeadersForBackend(options, {
-						azureKeyVaultEnabled: true,
+						azureKeyVaultEnabled: config.azureKeyVaultEnabled,
 						apiKeyName: `backoffice-applications-api-key-${serviceName}`,
 						callingClient: serviceName
 					})

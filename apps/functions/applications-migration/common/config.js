@@ -39,11 +39,13 @@ const validate = (schema, config) => {
  */
 const loadApiConfig = memoize(() => {
 	const schema = {
-		apiHost: joi.string()
+		apiHost: joi.string(),
+		azureKeyVaultEnabled: joi.boolean()
 	};
 
 	const config = {
-		apiHost: environment.API_HOST
+		apiHost: environment.API_HOST,
+		azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED === 'true'
 	};
 
 	validate(schema, config);
