@@ -89,18 +89,15 @@ export const getAllADUsers = async (ADToken) => {
 const getAzureDirectoryUsers = async (session) => {
 	if (config.authDisabled) {
 		// In development only, do not trigger any Azure request
-		if (config.authDisabled) {
-			if (config.dummyUserData) {
-				// In development only, use dummy user data if available
-				const dummyUserDataFile = path.join(process.cwd(), 'dummy_user_data.json');
-				return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
-			}
-			return [];
+		if (config.dummyUserData) {
+			// In development only, use dummy user data if available
+			const dummyUserDataFile = path.join(process.cwd(), 'dummy_user_data.json');
+			return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
 		}
-		const token = await getTokenOrFail(session);
-		return (await getAllADUsers(token)) || [];
+		return [];
 	}
-	return [];
+	const token = await getTokenOrFail(session);
+	return (await getAllADUsers(token)) || [];
 };
 
 /**
