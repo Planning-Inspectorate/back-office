@@ -63,3 +63,6 @@ pids
 
 # Local redis dump
 dump.rdb
+
+# Dummy data
+dummy_user_data.json
