@@ -20,10 +20,13 @@ export function createProjectTeamMember({ id = `${fake.createUniqueId()}` } = {}
 
 	const userPrincipalName = `${givenName}.${surname}@planninginspectorate.gov.uk`;
 
+	const role = 'inspector';
+
 	return {
 		givenName,
 		surname,
 		userPrincipalName,
-		id
+		id,
+		role
 	};
 }
