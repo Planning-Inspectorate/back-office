@@ -186,7 +186,7 @@ exports[`change-appeal-type GET /change-appeal-type/resubmit should render the r
                             </div>
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="appealResubmit-2" name="appealResubmit"
-                                type="radio" value="false" checked>
+                                type="radio" value="false">
                                 <label class="govuk-label govuk-radios__label" for="appealResubmit-2">No</label>
                             </div>
                         </div>
@@ -435,7 +435,7 @@ exports[`change-appeal-type POST /change-appeal-type/resubmit should re-render t
                             </div>
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="appealResubmit-2" name="appealResubmit"
-                                type="radio" value="false" checked>
+                                type="radio" value="false">
                                 <label class="govuk-label govuk-radios__label" for="appealResubmit-2">No</label>
                             </div>
                         </div>
