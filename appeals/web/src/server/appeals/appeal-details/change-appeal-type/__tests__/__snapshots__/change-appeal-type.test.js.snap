@@ -396,7 +396,7 @@ exports[`change-appeal-type POST /change-appeal-type/confirm-resubmit should re-
                 </div>
                 <p class="govuk-body">The appellant has been emailed to ask them to resubmit their appeal with
                     the correct type.</p>
-                <p class="govuk-body">You can go <a href="/appeals-service/appeals-list" class="govuk-link">back to your list</a> or
+                <p class="govuk-body">You can go <a href="/appeals-service/personal-list" class="govuk-link">back to your list</a> or
                     <a                     href="/appeals-service/appeal-details/1" class="govuk-link">view the closed case</a>.</p>
             </div>
         </div>
