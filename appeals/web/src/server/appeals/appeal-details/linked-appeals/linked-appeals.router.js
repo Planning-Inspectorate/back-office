@@ -5,8 +5,11 @@ import * as validators from './linked-appeals.validators.js';
 const router = createRouter({ mergeParams: true });
 
 router.route('/add')
-	.get(controller.getAddLinkedAppeal)
-	.post(validators.validateAddLinkedAppeal, controller.postAddLinkedAppeal);
+	.get(controller.getAddLinkedAppealReference)
+	.post(validators.validateAddLinkedAppealReference, controller.postAddLinkedAppeal);
+
+router.route('/add/check-and-confirm')
+	.get(controller.getAddLinkedAppealCheckAndConfirm);
 
 router.route('/manage').get(controller.getLinkedAppeals);
 router

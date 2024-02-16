@@ -2,10 +2,12 @@ import { postUnlinkRequest } from './linked-appeals.service.js';
 import {
 	linkedAppealsPage,
 	addLinkedAppealPage,
+	addLinkedAppealCheckAndConfirmPage,
 	unlinkAppealPage
 } from './linked-appeals.mapper.js';
 import { getAppealDetailsFromId } from '../appeal-details.service.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
+import { objectContainsAllKeys } from '#lib/object-utilities.js';
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
@@ -51,15 +53,15 @@ const renderLinkedAppeals = async (request, response) => {
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
-export const getAddLinkedAppeal = async (request, response) => {
-	return renderAddLinkedAppeal(request, response);
+export const getAddLinkedAppealReference = async (request, response) => {
+	return renderAddLinkedAppealReference(request, response);
 };
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
-export const renderAddLinkedAppeal = async (request, response) => {
+export const renderAddLinkedAppealReference = async (request, response) => {
 	const {
 		errors,
 		params: { appealId }
@@ -67,7 +69,7 @@ export const renderAddLinkedAppeal = async (request, response) => {
 
 	const appealDetails = await getAppealDetailsFromId(request.apiClient, appealId);
 
-	const mappedPageContent = addLinkedAppealPage(appealDetails);
+	const mappedPageContent = await addLinkedAppealPage(appealDetails);
 
 	return response.render('patterns/change-page.pattern.njk', {
 		pageContent: mappedPageContent,
@@ -80,11 +82,49 @@ export const renderAddLinkedAppeal = async (request, response) => {
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
 export const postAddLinkedAppeal = async (request, response) => {
-	const { errors } = request;
-
-	if (errors) {
-		return renderAddLinkedAppeal(request, response);
+	if (request.errors) {
+		return renderAddLinkedAppealReference(request, response);
 	}
+
+	return response.redirect('/appeals-service/appeal-details/4428/linked-appeals/add/check-and-confirm');
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const getAddLinkedAppealCheckAndConfirm = async (request, response) => {
+	return renderAddLinkedAppealCheckgetAddLinkedAppealCheckAndConfirm(request, response);
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const renderAddLinkedAppealCheckgetAddLinkedAppealCheckAndConfirm = async (request, response) => {
+	const {
+		params: { appealId }
+	} = request;
+
+	if (!objectContainsAllKeys(request.session, 'linkableAppeal')) {
+		return response.render('app/500.njk');
+	}
+
+	const [targetAppealDetails, candidateAppealDetails] = await Promise.all([
+		getAppealDetailsFromId(request.apiClient, appealId),
+		getAppealDetailsFromId(request.apiClient, request.session.linkableAppeal.linkableAppealSummary.appealId),
+	]);
+
+	const mappedPageContent = addLinkedAppealCheckAndConfirmPage(
+		targetAppealDetails,
+		candidateAppealDetails,
+		request.originalUrl,
+		request.session
+	);
+
+	return response.render('patterns/check-and-confirm-page.pattern.njk', {
+		pageContent: mappedPageContent
+	});
 };
 
 /**

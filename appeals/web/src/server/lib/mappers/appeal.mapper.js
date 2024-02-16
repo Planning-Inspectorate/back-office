@@ -32,6 +32,21 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	mappedData.appeal = {};
 
 	/** @type {Instructions} */
+	mappedData.appeal.appealReference = {
+		id: 'appeal-reference',
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Appeal reference'
+				},
+				value: {
+					text: appealDetails.appealReference
+				}
+			}
+		}
+	};
+
+	/** @type {Instructions} */
 	mappedData.appeal.appealType = {
 		id: 'appeal-type',
 		display: {
