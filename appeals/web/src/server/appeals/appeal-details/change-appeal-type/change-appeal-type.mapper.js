@@ -373,7 +373,7 @@ export function resubmitConfirmationPage(appealData) {
 			{
 				type: 'html',
 				parameters: {
-					html: `<p class="govuk-body">You can go <a href="/appeals-service/appeals-list" class="govuk-link">back to your list</a> or <a href="/appeals-service/appeal-details/${appealData.appealId}" class="govuk-link">view the closed case</a>.</p>`
+					html: `<p class="govuk-body">You can go <a href="/appeals-service/personal-list" class="govuk-link">back to your list</a> or <a href="/appeals-service/appeal-details/${appealData.appealId}" class="govuk-link">view the closed case</a>.</p>`
 				}
 			}
 		]
