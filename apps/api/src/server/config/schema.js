@@ -17,11 +17,6 @@ export default joi
 		serviceBusOptions: joi.object({
 			hostname: joi.string().optional()
 		}),
-		msal: joi.object({
-			clientId: joi.string().optional(),
-			clientSecret: joi.string().optional(),
-			tenantId: joi.string().optional()
-		}),
 		log: joi.object({
 			levelFile: joi.string(),
 			levelStdOut: joi.string()
