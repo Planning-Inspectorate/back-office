@@ -90,7 +90,7 @@ export function resubmitAppealPage(appealDetails, changeAppeal) {
 				{
 					value: false,
 					text: 'No',
-					checked: changeAppeal?.resubmit === false || changeAppeal?.resubmit === undefined
+					checked: changeAppeal?.resubmit === false
 				}
 			]
 		}

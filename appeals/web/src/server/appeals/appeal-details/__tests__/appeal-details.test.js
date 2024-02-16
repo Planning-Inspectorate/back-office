@@ -227,7 +227,7 @@ describe('appeal-details', () => {
 
 		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is today', async () => {
 			const appealId = '2';
-			const today = new Date();
+			const today = new Date('2099-02-01T10:27:06.626Z');
 
 			nock('http://test/')
 				.get(`/appeals/${appealId}`)
