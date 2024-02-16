@@ -18,10 +18,6 @@ const { value, error } = schema.validate({
 	serviceBusOptions: {
 		hostname: environment.SERVICE_BUS_HOSTNAME
 	},
-	msal: {
-		clientId: environment.AUTH_CLIENT_BACKEND_API_ID,
-		tenantId: environment.AUTH_TENANT_ID
-	},
 	log: {
 		levelFile: environment.LOG_LEVEL_FILE || 'silent',
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
