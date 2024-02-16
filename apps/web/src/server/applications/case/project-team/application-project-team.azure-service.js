@@ -28,10 +28,10 @@ const getTokenOrFail = async (session) => {
 };
 
 /**
- *  Search the query in the azure Active Directory groups using Microsfot Graph REST API
+ *  Search the query in the azure Active Directory groups using Microsoft Graph REST API
  *
  * @param {string} ADToken
- * @returns {Promise<Array<ProjectTeamMember>>}
+ * @returns {Promise<Partial<ProjectTeamMember>[]>}
  */
 export const getAllADUsers = async (ADToken) => {
 	const containerGroupsIds = [
@@ -84,7 +84,7 @@ export const getAllADUsers = async (ADToken) => {
  * Retrieve Azure Directory Users via the execution of a ms graph api request unless the environment is development and dummy user data is available
  *
  * @param {SessionWithAuth} session
- * @returns {Promise<ProjectTeamMember[]>}
+ * @returns {Promise<Partial<ProjectTeamMember>[]>}
  */
 const getAzureDirectoryUsers = async (session) => {
 	if (config.authDisabled) {
@@ -104,7 +104,7 @@ const getAzureDirectoryUsers = async (session) => {
  * Retrieve all Azure Directory Users from cache or execute ms graph api request if cache empty
  *
  * @param {SessionWithAuth} session
- * @returns {Promise<ProjectTeamMember[]>}
+ * @returns {Promise<Partial<ProjectTeamMember>[]>}
  */
 const getAllCachedUsers = async (session) => {
 	const cacheName = `cache_applications_users`;

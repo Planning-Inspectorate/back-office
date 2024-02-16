@@ -150,6 +150,9 @@ describe('Project team', () => {
 		describe('GET /case/123/project-team/1/choose-role', () => {
 			it('should render the page with the name of the NEW user and no default option', async () => {
 				nock('http://test/').get('/applications/123/project-team/1').reply(500, {});
+				nock('http://test/')
+					.get('/applications/123/project-team')
+					.reply(200, [{ userId: '3' }]);
 				installMockADToken(fixtureProjectTeamMembers);
 
 				const response = await request.get(`${baseUrl}/1/choose-role`);
@@ -157,6 +160,30 @@ describe('Project team', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).not.toContain('checked');
+				expect(element.innerHTML).toContain('case_manager');
+				expect(element.innerHTML).toContain('inspector');
+				expect(element.innerHTML).toContain('Choose role');
+				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
+				expect(element.innerHTML).toContain('another');
+			});
+
+			it('should render the page with the name of the NEW user, no default option and no Case Manager option', async () => {
+				nock('http://test/').get('/applications/123/project-team/1').reply(500, {});
+				nock('http://test/')
+					.get('/applications/123/project-team')
+					.reply(200, [
+						{ userId: '3', role: 'case_manager' },
+						{ userId: '5', role: 'inspector' }
+					]);
+				installMockADToken(fixtureProjectTeamMembers);
+
+				const response = await request.get(`${baseUrl}/1/choose-role`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain('checked');
+				expect(element.innerHTML).not.toContain('case_manager');
+				expect(element.innerHTML).toContain('inspector');
 				expect(element.innerHTML).toContain('Choose role');
 				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
 				expect(element.innerHTML).toContain('another');

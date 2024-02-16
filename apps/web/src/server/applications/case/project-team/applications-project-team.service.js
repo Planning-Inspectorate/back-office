@@ -4,13 +4,13 @@ import projectTeamADService from './application-project-team.azure-service.js';
 
 /** @typedef {import("../../../app/auth/auth-session.service.js").SessionWithAuth} SessionWithAuth */
 /** @typedef {import('../../applications.types').ProjectTeamMember} ProjectTeamMember */
-/** @typedef {import('../../applications.types').PaginatedResponse<ProjectTeamMember>} PaginatedProjectTeamMembers */
+/** @typedef {import('../../applications.types').PaginatedResponse<Partial<ProjectTeamMember>>} PaginatedProjectTeamMembers */
 
 /**
  * Retrieve the paginated list of the team members matching the query
  *
  * @param {string} searchTerm
- * @param {ProjectTeamMember[]} allAzureUsers
+ * @param {Partial<ProjectTeamMember>[]} allAzureUsers
  * @param {number} pageNumber
  * @returns {Promise<{results: PaginatedProjectTeamMembers}>}
  */
