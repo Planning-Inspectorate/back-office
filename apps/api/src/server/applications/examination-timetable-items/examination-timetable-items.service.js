@@ -171,12 +171,14 @@ export async function sendUpdateEvent(id) {
  *
  * @param {import('@pins/applications.api').Schema.ExaminationTimetableItem} examinationTimetableItem
  * @param {Number} parentFolderId
+ * @param {String} stage
  * @param {Number} caseId
  * @returns
  */
 export const createDeadlineSubFolders = async (
 	examinationTimetableItem,
 	parentFolderId,
+	stage,
 	caseId
 ) => {
 	if (!examinationTimetableItem?.description) {
@@ -207,6 +209,7 @@ export const createDeadlineSubFolders = async (
 		displayNameEn: 'Other',
 		caseId,
 		parentFolderId: parentFolderId,
+		stage,
 		displayOrder: 100
 	};
 	createFolderPromise.push(folderRepository.createFolder(otherFolder));
@@ -220,7 +223,8 @@ export const createDeadlineSubFolders = async (
 		const subFolder = {
 			displayNameEn: folderName?.trim(),
 			caseId,
-			parentFolderId: parentFolderId,
+			parentFolderId,
+			stage,
 			displayOrder: 100
 		};
 		createFolderPromise.push(folderRepository.createFolder(subFolder));
