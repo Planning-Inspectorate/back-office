@@ -1,9 +1,39 @@
 import { pick, omitBy, isNull } from 'lodash-es';
 import config from '#config/config.js';
+import { folderDocumentCaseStageMappings } from '../../constants.js';
 
 /**
  * @typedef {import('pins-data-model').Schemas.NSIPDocument} NSIPDocumentSchema
  * */
+
+/**
+ * convert our DB Document Version stage value into the event schema value
+ *
+ * @param {string |null} stage
+ * @returns
+ */
+export const mapDocumentCaseStageToSchema = (stage) => {
+	// conversion is mostly just changing to all lower case
+	let schemaValue = null;
+
+	if (stage) {
+		switch (stage) {
+			case folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION:
+				schemaValue = 'developers_application';
+				break;
+			case folderDocumentCaseStageMappings.POST_DECISION:
+				// note that post decision has inconsistent format in the schema, it uses underscore instead of hyphen
+				// our DB 'Post-decision' maps to 'post_decision'
+				schemaValue = stage.toLowerCase().replace('-', '_');
+				break;
+			default:
+				schemaValue = stage.toLowerCase();
+				break;
+		}
+	}
+
+	return schemaValue;
+};
 
 /**
  * Returns document in event message schema format
@@ -39,7 +69,7 @@ export const buildNsipDocumentPayload = (version) => {
 		);
 	}
 
-	return {
+	let payload = {
 		documentId: document.guid,
 		...(document.case?.reference ? { caseRef: document.case.reference.toString() } : {}),
 		version: version.version,
@@ -72,20 +102,25 @@ export const buildNsipDocumentPayload = (version) => {
 				'author',
 				'representative',
 				'description',
-				'stage',
 				'filter1',
 				'filter2'
 			]),
 			isNull
 		)
 	};
+
+	if (version.stage) {
+		payload.documentCaseStage = mapDocumentCaseStageToSchema(version.stage);
+	}
+
+	return payload;
 };
 
 /**
  * return the document blob uri, eg config.blobStorageUrl/containerName/path
  *
- * @param {string} containerName
- * @param {string} path
+ * @param {string |null} containerName
+ * @param {string |null} path
  *
  * @returns {string}
  */
