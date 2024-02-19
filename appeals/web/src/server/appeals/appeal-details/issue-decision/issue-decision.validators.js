@@ -6,6 +6,7 @@ import {
 	createDateInputDateInFutureValidator,
 	createDateInputDateInPastOrTodayValidator
 } from '#lib/validators/date-input.validator.js';
+import { createTextareaValidator } from '#lib/validators/textarea-validator.js';
 // import { createCheckboxTextItemsValidator } from '../../../../lib/validators/checkbox-text-items.validator.js';
 
 // export const validateIncompleteReason = createValidator(
@@ -24,6 +25,11 @@ import {
 export const validateDueDateFields = createDateInputFieldsValidator('due-date');
 export const validateDueDateValid = createDateInputDateValidityValidator('due-date');
 export const validateDueDateInFuture = createDateInputDateInFutureValidator('due-date');
+export const validateTextArea = createTextareaValidator(
+	'decision-invalid-reason',
+	'Text must not exceed {{maximumCharacters}} characters',
+	1000
+);
 
 export const validateDecision = createValidator(
 	body('decision').trim().notEmpty().withMessage('Please issue a decision')

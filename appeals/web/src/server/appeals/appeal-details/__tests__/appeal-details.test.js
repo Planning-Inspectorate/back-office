@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
@@ -226,8 +227,12 @@ describe('appeal-details', () => {
 		});
 
 		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is today', async () => {
+			// Do not fakes here stop nock from timing out, by stopping jest from freezing time
+			jest
+				.useFakeTimers({ doNotFake: ['nextTick', 'setImmediate'] })
+				.setSystemTime(new Date('2024-02-15'));
 			const appealId = '2';
-			const today = new Date('2099-02-01T10:27:06.626Z');
+			const today = new Date();
 
 			nock('http://test/')
 				.get(`/appeals/${appealId}`)
@@ -243,7 +248,7 @@ describe('appeal-details', () => {
 				});
 
 			const response = await request.get(`${baseUrl}/${appealId}`);
-
+			jest.useRealTimers();
 			expect(response.statusCode).toBe(200);
 			const element = parseHtml(response.text);
 			expect(element.innerHTML).toMatchSnapshot();

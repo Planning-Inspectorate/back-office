@@ -26,9 +26,19 @@ router
 	);
 
 router
+	.route('/invalid-reason')
+	.get(controller.getInvalidReason)
+	.post(validators.validateTextArea, controller.postInvalidReason);
+
+router
 	.route('/check-your-decision')
 	.get(controller.getCheckDecision)
 	.post(validators.validateCheckDecision, controller.postCheckDecision);
+
+router
+	.route('/check-invalid-decision')
+	.get(controller.getCheckInvalidDecision)
+	.post(validators.validateCheckDecision, controller.postCheckInvalidDecision);
 
 router.route('/decision-sent').get(controller.getDecisionSent);
 

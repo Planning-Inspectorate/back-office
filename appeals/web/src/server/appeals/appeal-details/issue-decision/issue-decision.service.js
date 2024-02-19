@@ -34,3 +34,18 @@ export async function postInspectorDecision(
 		})
 		.json();
 }
+
+/**
+ *
+ * @param {import('got').Got} apiClient
+ * @param {string} appealId
+ * @param {string} invalidReason
+ * @returns {Promise<InspectorDecisionRequest>}
+ */
+export async function postInspectorInvalidReason(apiClient, appealId, invalidReason) {
+	return await apiClient
+		.post(`appeals/${appealId}/inspector-decision-invalid`, {
+			json: { invalidDecisionReason: invalidReason }
+		})
+		.json();
+}

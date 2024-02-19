@@ -26,7 +26,6 @@ describe('issue-decision', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});
-
 	describe('POST /:appealId/issue-decision/decision', () => {
 		beforeEach(() => {
 			nock('http://test/').get('/appeals/1').reply(200, inspectorDecisionData);
@@ -44,6 +43,19 @@ describe('issue-decision', () => {
 
 			expect(response.headers.location).toBe(
 				`/appeals-service/appeal-details/${mockAppealId}/issue-decision/decision-letter-upload`
+			);
+		});
+
+		it('should send the decision details for invalid, and redirect correctly', async () => {
+			const mockAppealId = '1';
+			const mockAppealDecision = 'Invalid';
+			const response = await request
+				.post(`${baseUrl}/${mockAppealId}/issue-decision/decision`)
+				.send({ decision: mockAppealDecision })
+				.expect(302);
+
+			expect(response.headers.location).toBe(
+				`/appeals-service/appeal-details/${mockAppealId}/issue-decision/invalid-reason`
 			);
 		});
 	});
@@ -135,34 +147,64 @@ describe('issue-decision', () => {
 			const element = parseHtml(response.text);
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should re-render the  decision letter date page with an error message if the provided date year is not in the past', async () => {
+			teardown;
+			const response = await request
+				.post(`${baseUrl}/1${issueDecisionPath}/${decisionLetterDatePath}`)
+				.send({
+					'decision-letter-date-day': 1,
+					'decision-letter-date-month': 11,
+					'decision-letter-date-year': 3000
+				});
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the  decision letter date page with an error message if the provided date is not a business day', async () => {
+			teardown;
+			const response = await request
+				.post(`${baseUrl}/1${issueDecisionPath}/${decisionLetterDatePath}`)
+				.send({
+					'decision-letter-date-day': 25,
+					'decision-letter-date-month': 12,
+					'decision-letter-date-year': 2024
+				});
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 	});
 
-	it('should re-render the  decision letter date page with an error message if the provided date year is not in the past', async () => {
-		const response = await request
-			.post(`${baseUrl}/1${issueDecisionPath}/${decisionLetterDatePath}`)
-			.send({
-				'decision-letter-date-day': 1,
-				'decision-letter-date-month': 11,
-				'decision-letter-date-year': 3000
-			});
+	describe('GET /invalid-reason', () => {
+		it('should render the invalid reason page', async () => {
+			const mockAppealId = '1';
+			const response = await request.get(
+				`${baseUrl}/${mockAppealId}/issue-decision/invalid-reason`
+			);
 
-		expect(response.statusCode).toBe(200);
-		const element = parseHtml(response.text);
-		expect(element.innerHTML).toMatchSnapshot();
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 	});
 
-	it('should re-render the  decision letter date page with an error message if the provided date is not a business day', async () => {
-		const response = await request
-			.post(`${baseUrl}/1${issueDecisionPath}/${decisionLetterDatePath}`)
-			.send({
-				'decision-letter-date-day': 25,
-				'decision-letter-date-month': 12,
-				'decision-letter-date-year': 2024
-			});
+	describe('POST /invalid-reason', () => {
+		it('should process the invalid reason page and redirect', async () => {
+			const mockAppealId = '1';
+			const mockReason = 'Reasons!';
+			const response = await request
+				.post(`${baseUrl}/${mockAppealId}/issue-decision/invalid-reason`)
+				.send({ invalidReason: mockReason })
+				.expect(302);
 
-		expect(response.statusCode).toBe(200);
-		const element = parseHtml(response.text);
-		expect(element.innerHTML).toMatchSnapshot();
+			expect(response.headers.location).toBe(
+				`/appeals-service/appeal-details/${mockAppealId}/issue-decision/check-invalid-decision`
+			);
+		});
 	});
 
 	describe('GET /change-appeal-type/check-your-decision', () => {
@@ -170,6 +212,26 @@ describe('issue-decision', () => {
 			const response = await request.get(
 				`${baseUrl}/1${issueDecisionPath}/${checkYourDecisionPath}`
 			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+	});
+
+	describe('GET /check-invalid-decision', () => {
+		it('should render the check your answer page for invalid decision', async () => {
+			const mockAppealId = '1';
+			const mockReason = 'Reasons!';
+			const invalidReasonResponse = await request
+				.post(`${baseUrl}/${mockAppealId}/issue-decision/invalid-reason`)
+				.send({ invalidReason: mockReason })
+				.expect(302);
+
+			expect(invalidReasonResponse.headers.location).toBe(
+				`/appeals-service/appeal-details/${mockAppealId}/issue-decision/check-invalid-decision`
+			);
+
+			const response = await request.get(`${baseUrl}/1${issueDecisionPath}/check-invalid-decision`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
