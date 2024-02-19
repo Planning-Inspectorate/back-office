@@ -1,4 +1,8 @@
-import { getAppealDetailsFromId, postInspectorDecision } from './issue-decision.service.js';
+import {
+	getAppealDetailsFromId,
+	postInspectorDecision,
+	postInspectorInvalidReason
+} from './issue-decision.service.js';
 import logger from '#lib/logger.js';
 import {
 	checkAndConfirmPage,
@@ -6,7 +10,9 @@ import {
 	issueDecisionPage,
 	decisionConfirmationPage,
 	mapDecisionOutcome,
-	decisionLetterUploadPage
+	decisionLetterUploadPage,
+	invalidReasonPage,
+	checkAndConfirmInvalidPage
 } from './issue-decision.mapper.js';
 import { getFolder } from '#appeals/appeal-documents/appeal.documents.service.js';
 
@@ -38,6 +44,12 @@ export const postIssueDecision = async (request, response) => {
 			...request.session.inspectorDecision,
 			outcome: decision
 		};
+
+		if (decision === 'Invalid') {
+			return response.redirect(
+				`/appeals-service/appeal-details/${appealId}/issue-decision/invalid-reason`
+			);
+		}
 
 		return response.redirect(
 			`/appeals-service/appeal-details/${appealId}/issue-decision/decision-letter-upload`
@@ -231,6 +243,67 @@ const renderDateDecisionLetter = async (request, response) => {
 		errors
 	});
 };
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const getInvalidReason = async (request, response) => {
+	return renderInvalidReason(request, response);
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const postInvalidReason = async (request, response) => {
+	try {
+		const { appealId } = request.params;
+		const { decisionInvalidReason: invalidReason } = request.body;
+		const { errors } = request;
+		if (errors) {
+			return renderInvalidReason(request, response);
+		}
+
+		/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
+		request.session.inspectorDecision = {
+			...request.session.inspectorDecision,
+			invalidReason: invalidReason
+		};
+
+		return response.redirect(
+			`/appeals-service/appeal-details/${appealId}/issue-decision/check-invalid-decision`
+		);
+	} catch (error) {
+		logger.error(error);
+		return response.render('app/500.njk');
+	}
+};
+
+/**
+ *
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+const renderInvalidReason = async (request, response) => {
+	const { errors } = request;
+	const appealId = request.params.appealId;
+
+	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
+
+	if (!appealData) {
+		return response.status(404).render('app/404');
+	}
+
+	let invalidReason = request.body['decision-invalid-reason'];
+
+	const mappedPageContent = invalidReasonPage(appealData, invalidReason);
+
+	return response.render('patterns/change-page.pattern.njk', {
+		pageContent: mappedPageContent,
+		errors
+	});
+};
 
 /**
  * @param {import('@pins/express/types/express.js').Request} request
@@ -318,13 +391,73 @@ export const renderCheckDecision = async (request, response) => {
 export const getDecisionSent = async (request, response) => {
 	const appealId = request.params.appealId;
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
+	const appealIsInvalid = request.session.inspectorDecision.outcome === 'Invalid';
 
 	/** @type {import('./issue-decision.types.js').InspectorDecisionRequest} */
 	request.session.inspectorDecision = {};
 
-	const pageContent = decisionConfirmationPage(appealData);
+	const pageContent = decisionConfirmationPage(appealData, appealIsInvalid);
 
 	return response.render('appeals/confirmation.njk', {
 		pageContent
 	});
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const getCheckInvalidDecision = async (request, response) => {
+	return renderCheckInvalidDecision(request, response);
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const renderCheckInvalidDecision = async (request, response) => {
+	const { errors } = request;
+	const appealId = request.params.appealId;
+	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
+
+	if (!appealData) {
+		return response.render('app/404.njk');
+	}
+
+	const mappedPageContent = checkAndConfirmInvalidPage(
+		request,
+		appealData,
+		request.session.inspectorDecision
+	);
+
+	return response.render('appeals/appeal/issue-decision.njk', {
+		pageContent: mappedPageContent,
+		errors
+	});
+};
+
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
+ */
+export const postCheckInvalidDecision = async (request, response) => {
+	try {
+		const { appealId } = request.params;
+		const { errors } = request;
+
+		if (errors) {
+			return renderCheckInvalidDecision(request, response);
+		}
+
+		const invalidReason = request.session.inspectorDecision.invalidReason;
+
+		await postInspectorInvalidReason(request.apiClient, appealId, invalidReason);
+
+		return response.redirect(
+			`/appeals-service/appeal-details/${appealId}/issue-decision/decision-sent`
+		);
+	} catch (error) {
+		logger.error(error);
+		return response.render('app/500.njk');
+	}
 };

@@ -1588,7 +1588,7 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">Appellant case</th>
                                 <td class="govuk-table__cell">Incomplete</td>
-                                <td class="govuk-table__cell">1 February 2099</td>
+                                <td class="govuk-table__cell">15 February 2024</td>
                                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/2/appellant-case" class="govuk-link">Review</a>
                                 </td>
                             </tr>

@@ -43,6 +43,11 @@ export function issueDecisionPage(appealDetails, inspectorDecision) {
 					value: 'Split',
 					text: 'Split Decision',
 					checked: inspectorDecision?.outcome === 'Split-decision'
+				},
+				{
+					value: 'Invalid',
+					text: 'Invalid',
+					checked: inspectorDecision?.outcome === 'Invalid'
 				}
 			]
 		}
@@ -271,17 +276,146 @@ export function checkAndConfirmPage(request, appealData, session, decisionLetter
 /**
  *
  * @param {Appeal} appealData
+ * @param {String} invalidReason
  * @returns {PageContent}
  */
-export function decisionConfirmationPage(appealData) {
+export function invalidReasonPage(appealData, invalidReason) {
+	const title = 'Why is the appeal invalid?';
+
+	/** @type {PageComponent} */
+	const invalidReasonComponent = {
+		type: 'character-count',
+		parameters: {
+			id: 'decision-invalid-reason',
+			name: 'decisionInvalidReason',
+			rows: '15',
+			maxlength: 1000,
+			value: invalidReason || ''
+		}
+	};
+	return {
+		title,
+		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision`,
+		backLinkText: 'Back',
+		preHeading: `Appeal ${appealShortReference(appealData.appealReference)}`,
+		heading: title,
+		pageComponents: [invalidReasonComponent]
+	};
+}
+/**
+ * @param {import('@pins/express/types/express.js').Request} request
+ * @param {Appeal} appealData
+ * @param  {import('./issue-decision.types.js').InspectorDecisionRequest} session
+ * @returns {PageContent}
+ */
+export function checkAndConfirmInvalidPage(request, appealData, session) {
+	const decisionOutcome = 'Invalid';
+
+	/** @type {PageComponent} */
+	const summaryListComponent = {
+		type: 'summary-list',
+		parameters: {
+			rows: [
+				{
+					key: {
+						text: 'Decision'
+					},
+					value: {
+						text: decisionOutcome
+					},
+					actions: {
+						items: [
+							{
+								text: 'Change',
+								href: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/decision`
+							}
+						]
+					}
+				},
+				{
+					key: {
+						text: 'Why the appeal is invalid'
+					},
+					value: {
+						text: session.invalidReason
+					},
+					actions: {
+						items: [
+							{
+								text: 'Change',
+								href: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/invalid-reason`
+							}
+						]
+					}
+				}
+			]
+		}
+	};
+
+	/** @type {PageComponent} */
+	const insetHtmlComponent = {
+		type: 'html',
+		parameters: {
+			html: `<div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+					<strong class="govuk-warning-text__text">
+						<span class="govuk-warning-text__assistive">Warning</span> Submit your decision to inform all parties and close the appeal. Make sure you have reviewed the decision before submitting.
+					</strong>
+				</div>`
+		}
+	};
+
+	/** @type {PageComponent} */
+	const insetConfirmComponent = {
+		type: 'html',
+		parameters: {
+			html: `<div class="govuk-checkboxes__item govuk-!-margin-bottom-5">
+					<input class="govuk-checkboxes__input" id="ready-to-send" name="ready-to-send" type="checkbox" value="Yes">
+					<label class="govuk-label govuk-checkboxes__label" for="ready-to-send">This decision is ready to be sent to all parties</label>
+				</div>`
+		}
+	};
+
+	const title = 'Check your answers';
+	const pageContent = {
+		title,
+		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/issue-decision/invalid-reason`,
+		backLinkText: 'Back',
+		preHeading: `Appeal ${appealShortReference(appealData.appealReference)}`,
+		heading: title,
+		submitButtonText: 'Submit this decision',
+		pageComponents: [summaryListComponent, insetHtmlComponent, insetConfirmComponent]
+	};
+
+	if (pageContent.pageComponents) {
+		preRenderPageComponents(pageContent.pageComponents);
+	}
+
+	return pageContent;
+}
+
+/**
+ *
+ * @param {Appeal} appealData
+ * @param {boolean} appealIsInvalid
+ * @returns {PageContent}
+ */
+export function decisionConfirmationPage(appealData, appealIsInvalid) {
+	const title = appealIsInvalid ? 'Appeal Invalid' : 'Decision sent';
+	const details = appealIsInvalid
+		? `<span class="govuk-body">All parties have been informed of the decision.</span>`
+		: `<span class="govuk-body">We have sent the decision to the relevant appeal parties.</span>`;
+	const whatHappensNext = appealIsInvalid
+		? `<p class="govuk-body">The appeal has been closed.</p>`
+		: `<p class="govuk-body">The appeal will be closed.</p>`;
+
 	/** @type {PageContent} */
 	const pageContent = {
-		title: 'Decision sent',
+		title: title,
 		pageComponents: [
 			{
 				type: 'panel',
 				parameters: {
-					titleText: 'Decision sent',
+					titleText: title,
 					headingLevel: 1,
 					html: `Appeal reference<br><strong>${appealShortReference(
 						appealData.appealReference
@@ -291,7 +425,7 @@ export function decisionConfirmationPage(appealData) {
 			{
 				type: 'html',
 				parameters: {
-					html: `<span class="govuk-body">We have sent the decision to the relevant appeal parties.</span>`
+					html: details
 				}
 			},
 			{
@@ -303,7 +437,7 @@ export function decisionConfirmationPage(appealData) {
 			{
 				type: 'html',
 				parameters: {
-					html: `<p class="govuk-body">The appeal will be closed.</p>`
+					html: whatHappensNext
 				}
 			},
 			{
