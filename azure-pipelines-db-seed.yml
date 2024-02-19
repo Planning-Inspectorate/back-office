@@ -43,7 +43,7 @@ jobs:
             - template: steps/azure_get_secrets.yml@templates
               parameters:
                 secrets:
-                  - name: back-office-sql-connection-string
+                  - name: back-office-sql-server-connection-string
                     variable: DATABASE_URL
             - template: steps/node_script.yml@templates
               parameters:
