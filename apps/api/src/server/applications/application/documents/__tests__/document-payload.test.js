@@ -81,7 +81,7 @@ describe('validateNsipDocument', () => {
 			representative: 'ZZZ Agency',
 			description:
 				'Attachments to the letter to Department for Business, Energy & Industrial Strategy',
-			stage: 'examination',
+			documentCaseStage: 'examination',
 			filter1: 'Deadline 2',
 			filter2: 'Scoping Option Report'
 		};
