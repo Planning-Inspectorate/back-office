@@ -19,12 +19,13 @@ import {
 import isFPA from '#utils/is-fpa.js';
 import { calculateTimetable } from '#utils/business-days.js';
 import {
-	//APPEAL_TYPE_SHORTHAND_FPA,
 	APPEAL_TYPE_SHORTHAND_HAS,
 	STATE_TARGET_COMPLETE,
 	STATE_TARGET_ISSUE_DETERMINATION,
 	STATE_TARGET_READY_TO_START,
-	STATE_TARGET_ASSIGN_CASE_OFFICER
+	STATE_TARGET_ASSIGN_CASE_OFFICER,
+	CASE_RELATIONSHIP_LINKED,
+	CASE_RELATIONSHIP_RELATED
 } from '#endpoints/constants.js';
 
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
@@ -57,34 +58,6 @@ function generateAppealReference() {
  * @returns {number}
  */
 const pickRandom = (list) => Math.floor(Math.random() * list.length);
-
-/**
- *
- * @param {string} lpaQuestionnaireAndInspectorPickupState
- * @param {string} statementsAndFinalCommentsState
- * @param {Date} createdAt
- * @returns {{status: string, createdAt: Date, subStateMachineName: string, compoundStateName: string}[]}
- */
-// const buildCompoundState = (
-// 	lpaQuestionnaireAndInspectorPickupState,
-// 	statementsAndFinalCommentsState,
-// 	createdAt = new Date()
-// ) => {
-// 	return [
-// 		{
-// 			status: lpaQuestionnaireAndInspectorPickupState,
-// 			createdAt,
-// 			subStateMachineName: 'lpaQuestionnaireAndInspectorPickup',
-// 			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
-// 		},
-// 		{
-// 			status: statementsAndFinalCommentsState,
-// 			createdAt,
-// 			subStateMachineName: 'statementsAndFinalComments',
-// 			compoundStateName: 'awaiting_lpa_questionnaire_and_statements'
-// 		}
-// 	];
-// };
 
 /**
  *
@@ -208,20 +181,6 @@ const newAppeals = [
 		siteAddressList: addressListForTrainers,
 		assignCaseOfficer: false
 	}),
-	/*
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_FPA, assignCaseOfficer: false }),
-	*/
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
@@ -365,367 +324,9 @@ const appealsLpaQuestionnaireDue = [
 		siteAddressList: addressListForTrainers,
 		assignCaseOfficer: true
 	})
-	/*
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: buildCompoundState(
-			'lpa_questionnaire_due',
-			'available_for_statements',
-			getDateTwoWeeksAgo()
-		),
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: buildCompoundState(
-			'lpa_questionnaire_due',
-			'available_for_statements',
-			getDateTwoWeeksAgo()
-		),
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: buildCompoundState(
-			'lpa_questionnaire_due',
-			'available_for_statements',
-			getDateTwoWeeksAgo()
-		),
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: buildCompoundState(
-			'lpa_questionnaire_due',
-			'available_for_statements',
-			getDateTwoWeeksAgo()
-		),
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: buildCompoundState(
-			'lpa_questionnaire_due',
-			'available_for_statements',
-			getDateTwoWeeksAgo()
-		),
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: buildCompoundState(
-			'lpa_questionnaire_due',
-			'available_for_statements',
-			getDateTwoWeeksAgo()
-		),
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: buildCompoundState(
-			'lpa_questionnaire_due',
-			'available_for_statements',
-			getDateTwoWeeksAgo()
-		),
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: buildCompoundState(
-			'lpa_questionnaire_due',
-			'available_for_statements',
-			getDateTwoWeeksAgo()
-		),
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: buildCompoundState(
-			'lpa_questionnaire_due',
-			'available_for_statements',
-			getDateTwoWeeksAgo()
-		),
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	})
-	*/
 ];
 
-/*
-const appealsStatementReview = [
-
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'statement_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'statement_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'statement_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'statement_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'statement_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	})
-];
-
-const appealsFinalCommentReview = [
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'final_comment_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'final_comment_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'final_comment_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'final_comment_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_FPA,
-		statuses: { status: 'final_comment_review', valid: true },
-		completeValidationDecision: true,
-		completeReviewQuestionnaire: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(),
-		assignCaseOfficer: true
-	})
-];
-
-
-const appealsArrangeSiteVisit = [
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'lpa_questionnaire_due' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 3, 1, 10),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'lpa_questionnaire_due' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 4, 2, 10),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'lpa_questionnaire_due' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 5, 3, 10),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'lpa_questionnaire_due' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 6, 4, 9),
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'lpa_questionnaire_due' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 7, 5, 8),
-		assignCaseOfficer: true
-	})
-];
-
-const appealsIssueDetermination = [
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'issue_determination' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 4, 1, 11),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'issue_determination' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 5, 2, 10),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'issue_determination' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 6, 3, 9),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'issue_determination' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 7, 4, 8),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'issue_determination' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 8, 5, 7),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	})
-];
-
-const appealsComplete = [
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'complete' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 4, 1, 11),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'complete' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 5, 2, 10),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'complete' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 6, 3, 9),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'complete' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 7, 4, 8),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'complete' },
-		completeValidationDecision: true,
-		lpaQuestionnaire: true,
-		startedAt: new Date(2022, 8, 5, 7),
-		completeReviewQuestionnaire: true,
-		assignCaseOfficer: true
-	})
-];
-
-*/
-
-const appealsData = [
-	...newAppeals,
-	...appealsLpaQuestionnaireDue
-	//...appealsStatementReview,
-	//...appealsFinalCommentReview,
-	//...appealsArrangeSiteVisit,
-	//...appealsIssueDetermination,
-	//...appealsComplete
-];
+const appealsData = [...newAppeals, ...appealsLpaQuestionnaireDue];
 
 /**
  * @param {import('#db-client').PrismaClient} databaseConnector
@@ -784,37 +385,87 @@ export async function seedTestData(databaseConnector) {
 			parentRef: appeals[0].reference,
 			parentId: appeals[0].id,
 			childRef: appeals[1].reference,
-			childId: appeals[1].id
+			childId: appeals[1].id,
+			type: CASE_RELATIONSHIP_LINKED
 		},
 		{
 			parentRef: appeals[0].reference,
 			parentId: appeals[0].id,
 			childRef: appeals[2].reference,
-			childId: appeals[2].id
+			childId: appeals[2].id,
+			type: CASE_RELATIONSHIP_LINKED
 		},
 		{
 			parentRef: appeals[0].reference,
 			parentId: appeals[0].id,
 			childRef: appeals[16].reference,
-			childId: appeals[16].id
+			childId: appeals[16].id,
+			type: CASE_RELATIONSHIP_LINKED
 		},
-		{ parentRef: appeals[0].reference, parentId: appeals[0].id, childRef: '76215416' },
+		{
+			parentRef: appeals[0].reference,
+			parentId: appeals[0].id,
+			childRef: '76215416',
+			externalSource: true,
+			type: CASE_RELATIONSHIP_LINKED
+		},
 		{
 			parentRef: appeals[4].reference,
 			parentId: appeals[4].id,
 			childRef: appeals[19].reference,
-			childId: appeals[19].id
+			childId: appeals[19].id,
+			type: CASE_RELATIONSHIP_LINKED
 		},
 		{
 			parentRef: appeals[4].reference,
 			parentId: appeals[4].id,
 			childRef: appeals[20].reference,
-			childId: appeals[20].id
+			childId: appeals[20].id,
+			type: CASE_RELATIONSHIP_LINKED
 		},
-		{ parentRef: '96215416', childRef: appeals[21].reference, childId: appeals[21].id }
+		{
+			parentRef: '96215416',
+			childRef: appeals[21].reference,
+			childId: appeals[21].id,
+			externalSource: true,
+			type: CASE_RELATIONSHIP_LINKED
+		}
 	];
 
-	await databaseConnector.appealRelationship.createMany({ data: linkedAppeals });
+	const relatedAppeals = [
+		{
+			parentRef: appeals[11].reference,
+			parentId: appeals[11].id,
+			childRef: appeals[12].reference,
+			childId: appeals[12].id,
+			type: CASE_RELATIONSHIP_RELATED
+		},
+		{
+			parentRef: appeals[12].reference,
+			parentId: appeals[12].id,
+			childRef: appeals[13].reference,
+			childId: appeals[13].id,
+			type: CASE_RELATIONSHIP_RELATED
+		},
+		{
+			parentRef: appeals[0].reference,
+			parentId: appeals[0].id,
+			childRef: '76215416',
+			externalSource: true,
+			type: CASE_RELATIONSHIP_RELATED
+		},
+		{
+			parentRef: '96215416',
+			childRef: appeals[21].reference,
+			childId: appeals[21].id,
+			externalSource: true,
+			type: CASE_RELATIONSHIP_RELATED
+		}
+	];
+
+	await databaseConnector.appealRelationship.createMany({
+		data: [...linkedAppeals, ...relatedAppeals]
+	});
 
 	const appealTypes = await databaseConnector.appealType.findMany();
 	const appealStatus = await databaseConnector.appealStatus.findMany();

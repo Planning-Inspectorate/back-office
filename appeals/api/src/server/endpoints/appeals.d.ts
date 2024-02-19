@@ -38,6 +38,16 @@ interface LinkedAppeal {
 	linkingDate: Date;
 	appealType?: string;
 	relationshipId: number;
+	externalSource: boolean;
+	externalAppealType?: string;
+}
+
+interface RelatedAppeal {
+	appealId: number | null;
+	appealReference: string;
+	linkingDate: Date;
+	relationshipId: number;
+	externalSource: boolean;
 }
 
 interface AppealSite {
@@ -91,6 +101,7 @@ interface RepositoryGetByIdResultItem {
 	resubmitTypeId?: number | null;
 	inspectorDecision?: Schema.InspectorDecision | null;
 	linkedAppeals: Schema.AppealRelationship[] | null;
+	relatedAppeals: Schema.AppealRelationship[] | null;
 	lpa: LPA;
 	lpaQuestionnaire: Schema.LPAQuestionnaire | null;
 	planningApplicationReference: string;
@@ -251,7 +262,7 @@ interface SingleAppealDetailsResponse {
 	isParentAppeal: boolean | null;
 	isChildAppeal: boolean | null;
 	linkedAppeals: LinkedAppeal[];
-	otherAppeals: string[];
+	otherAppeals: RelatedAppeal[];
 	localPlanningDepartment: string;
 	lpaQuestionnaireId: number | null;
 	neighbouringSite: {
@@ -672,6 +683,7 @@ export {
 	IncompleteInvalidReasons,
 	IncompleteInvalidReasonsResponse,
 	LinkedAppeal,
+	RelatedAppeal,
 	ListedBuildingDetailsResponse,
 	LookupTables,
 	NeighbouringSiteContactsResponse,

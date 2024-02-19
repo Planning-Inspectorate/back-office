@@ -12,13 +12,13 @@ export function getAppealDetailsFromId(apiClient, appealId) {
  *
  * @param {import('got').Got} apiClient
  * @param {string} appealId
- * @param {string} linkedAppealReference
+ * @param {number} relationshipId
  * @returns {Promise<{}>}
  */
-export function postUnlinkRequest(apiClient, appealId, linkedAppealReference) {
+export function postUnlinkRequest(apiClient, appealId, relationshipId) {
 	return apiClient
 		.delete(`appeals/${appealId}/unlink-appeal`, {
-			json: { linkedAppealReference: linkedAppealReference }
+			json: { relationshipId }
 		})
 		.json();
 }

@@ -5,7 +5,13 @@ import {
 	postLinkAppealValidator,
 	postLinkLegacyAppealValidator
 } from './link-appeals.validators.js';
-import { linkExternalAppeal, linkAppeal, unlinkAppeal } from './link-appeals.controller.js';
+import {
+	linkAppeal,
+	linkExternalAppeal,
+	associateAppeal,
+	associateExternalAppeal,
+	unlinkAppeal
+} from './link-appeals.controller.js';
 
 const router = createRouter();
 
@@ -57,12 +63,60 @@ router.post(
 	asyncHandler(linkExternalAppeal)
 );
 
+router.post(
+	'/:appealId/associate-appeal',
+	/*
+		#swagger.tags = ['Linked Appeals']
+		#swagger.path = '/appeals/{appealId}/associate-appeal'
+		#swagger.description = 'Associate an appeal to the current appeal, as related'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'Related Appeal Request',
+			schema: { $ref: '#/definitions/RelatedAppealRequest' },
+			required: true
+		}
+		#swagger.responses[400] = {}
+	 */
+	checkAppealExistsAndAddToRequest,
+	postLinkAppealValidator,
+	asyncHandler(associateAppeal)
+);
+
+router.post(
+	'/:appealId/associate-legacy-appeal',
+	/*
+		#swagger.tags = ['Linked Appeals']
+		#swagger.path = '/appeals/{appealId}/associate-legacy-appeal'
+		#swagger.description = 'Links a legacy appeal (on Horizon) to the current appeal'
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
+		#swagger.requestBody = {
+			in: 'body',
+			description: 'Related Appeal Request (legacy)',
+			schema: { $ref: '#/definitions/RelatedAppealLegacyRequest' },
+			required: true
+		}
+		#swagger.responses[400] = {}
+	 */
+	checkAppealExistsAndAddToRequest,
+	postLinkLegacyAppealValidator,
+	asyncHandler(associateExternalAppeal)
+);
+
 router.delete(
 	'/:appealId/unlink-appeal',
 	/*
 		#swagger.tags = ['Linked Appeals']
 		#swagger.path = '/appeals/{appealId}/unlink-appeal'
-		#swagger.description = 'Remove a linked appeal from the current appeal'
+		#swagger.description = 'Remove an appeal relationship by ID'
 		#swagger.parameters['azureAdUserId'] = {
 			in: 'header',
 			required: true,

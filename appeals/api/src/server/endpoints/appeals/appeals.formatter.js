@@ -1,6 +1,6 @@
 import formatAddress from '#utils/format-address.js';
 import isFPA from '#utils/is-fpa.js';
-import formatLinkedAppeals from '#utils/format-linked-appeals.js';
+import { formatLinkedAppeals, formatRelatedAppeals } from '#utils/format-linked-appeals.js';
 import {
 	formatAppellantCaseDocumentationStatus,
 	formatLpaQuestionnaireDocumentationStatus
@@ -189,7 +189,7 @@ const formatAppeal = (
 					isRequired: appeal.lpaQuestionnaire?.doesSiteRequireInspectorAccess || null
 				}
 			},
-			otherAppeals: [],
+			otherAppeals: formatRelatedAppeals(appeal.relatedAppeals || [], appeal.id),
 			linkedAppeals: formatLinkedAppeals(
 				appeal.linkedAppeals || [],
 				appeal.reference,

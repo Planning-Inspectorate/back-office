@@ -144,6 +144,9 @@ export const STATE_TYPE_FINAL = 'final';
 export const USER_TYPE_CASE_OFFICER = 'caseOfficer';
 export const USER_TYPE_INSPECTOR = 'inspector';
 
+export const CASE_RELATIONSHIP_LINKED = 'linked';
+export const CASE_RELATIONSHIP_RELATED = 'related';
+
 export const STATUSES = {
 	STATE_TARGET_COMPLETE,
 	STATE_TARGET_FINAL_COMMENT_REVIEW,
@@ -161,6 +164,7 @@ export const STATUSES = {
 
 // Static config
 export const CONFIG_BANKHOLIDAYS_FEED_URL = 'https://www.gov.uk/bank-holidays.json';
+
 export const CONFIG_APPEAL_TIMETABLE = {
 	W: {
 		lpaQuestionnaireDueDate: {

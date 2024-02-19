@@ -57,13 +57,13 @@ export const postUnlinkAppeal = async (request, response) => {
 			);
 		}
 		if (unlinkAppeal === 'yes') {
+			const appealRelationshipId = parseInt(relationshipId, 10);
 			const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 			const childRef =
-				appealData.linkedAppeals.find(
-					(appeal) => appeal.relationshipId === parseInt(relationshipId, 10)
-				)?.appealReference || '';
+				appealData.linkedAppeals.find((appeal) => appeal.relationshipId === appealRelationshipId)
+					?.appealReference || '';
 
-			await postUnlinkRequest(request.apiClient, appealId, childRef);
+			await postUnlinkRequest(request.apiClient, appealId, appealRelationshipId);
 			addNotificationBannerToSession(
 				request.session,
 				'appealUnlinked',

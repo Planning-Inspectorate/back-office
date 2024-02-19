@@ -58,6 +58,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteLPAQuestionnaireValidationOutcome =
 		databaseConnector.lPAQuestionnaireValidationOutcome.deleteMany();
 	const deleteAppealAllocationLevels = databaseConnector.appealAllocation.deleteMany();
+	const deleteAppealRelationships = databaseConnector.appealRelationship.deleteMany();
 	const deleteAppealSpecialisms = databaseConnector.appealSpecialism.deleteMany();
 	const deleteSpecialisms = databaseConnector.specialism.deleteMany();
 	const deleteLPAQUestionnaireIncompleteReason =
@@ -88,6 +89,7 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteUsers,
 		deleteAppealAllocationLevels,
 		deleteAppealSpecialisms,
+		deleteAppealRelationships,
 		deleteAppellantCaseIncompleteReasonText,
 		deleteAppellantCaseIncompleteReasonOnAppellantCase,
 		deleteAppellantCaseInvalidReasonText,

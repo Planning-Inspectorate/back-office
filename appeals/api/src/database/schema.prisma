@@ -50,13 +50,20 @@ model Appeal {
   auditTrail                   AuditTrail[]
 }
 
+/// AppealRelationship table
+/// Stores case relationships, where at least one of the cases is on the beta system
+/// Both linked and related appeals are stored here
+/// Related appeals ignore the parent / child relationship
 model AppealRelationship {
-  id          Int      @id @default(autoincrement())
-  parentRef   String
-  childRef    String
-  parentId    Int?
-  childId     Int?
-  linkingDate DateTime @default(now())
+  id                Int      @id @default(autoincrement())
+  type              String   @default("linked") // or 'related' see endpoints/contants.js
+  parentRef         String
+  childRef          String
+  parentId          Int?
+  childId           Int?
+  externalSource    Boolean?
+  externaAppealType String?
+  linkingDate       DateTime @default(now())
 }
 
 /// AppealType model

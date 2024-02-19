@@ -1,5 +1,6 @@
 /** @typedef {import('@pins/appeals.api').Schema.Appeal} Appeal */
 /** @typedef {import('@pins/appeals.api').Appeals.LinkedAppeal} LinkedAppeal */
+/** @typedef {import('@pins/appeals.api').Appeals.RelatedAppeal} RelatedAppeal */
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
 
 /**
@@ -20,7 +21,8 @@ const formatLinkedAppeals = (linkedAppeals, reference, formattedAppealWithLinked
 				isParentAppeal: false,
 				linkingDate: rel.linkingDate,
 				appealType: assignAppealType(formattedAppealWithLinkedTypes, rel.childId),
-				relationshipId: rel.id
+				relationshipId: rel.id,
+				externalSource: rel.externalSource || false
 			};
 		});
 	} else if (parentRelationship) {
@@ -31,12 +33,32 @@ const formatLinkedAppeals = (linkedAppeals, reference, formattedAppealWithLinked
 				isParentAppeal: true,
 				linkingDate: parentRelationship.linkingDate,
 				appealType: assignAppealType(formattedAppealWithLinkedTypes, parentRelationship.parentId),
-				relationshipId: parentRelationship.id
+				relationshipId: parentRelationship.id,
+				externalSource: parentRelationship.externalSource || false
 			}
 		];
 	}
 
 	return [];
+};
+
+/**
+ * @param {import('./db-client/index.js').AppealRelationship[]} relatedAppeals
+ * @param { number } currentAppealId
+ * @returns {RelatedAppeal[]}
+ */
+const formatRelatedAppeals = (relatedAppeals, currentAppealId) => {
+	return relatedAppeals.map((rel) => {
+		const appealId = currentAppealId === rel.parentId ? rel.parentId : rel.childId;
+		const appealReference = currentAppealId === rel.parentId ? rel.parentRef : rel.childRef;
+		return {
+			appealId,
+			appealReference,
+			externalSource: rel.externalSource === true,
+			linkingDate: rel.linkingDate,
+			relationshipId: rel.id
+		};
+	});
 };
 
 /**
@@ -56,4 +78,4 @@ const assignAppealType = (formattedAppealWithLinkedTypes, appealId) => {
 	return 'Unknown';
 };
 
-export default formatLinkedAppeals;
+export { formatLinkedAppeals, formatRelatedAppeals };

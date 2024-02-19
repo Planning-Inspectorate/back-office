@@ -13,6 +13,8 @@ import {
 import {
 	linkedAppealRequest,
 	linkedAppealLegacyRequest,
+	relatedAppealRequest,
+	relatedAppealLegacyRequest,
 	unlinkAppealRequest
 } from '#tests/linked-appeals/mocks.js';
 
@@ -53,6 +55,12 @@ export const spec = {
 		},
 		LinkedAppealLegacyRequest: {
 			...linkedAppealLegacyRequest
+		},
+		RelatedAppealRequest: {
+			...relatedAppealRequest
+		},
+		RelatedAppealLegacyRequest: {
+			...relatedAppealLegacyRequest
 		},
 		UnlinkAppealRequest: {
 			...unlinkAppealRequest
