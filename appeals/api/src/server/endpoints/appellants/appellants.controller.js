@@ -1,13 +1,14 @@
 import logger from '#utils/logger.js';
-import { ERROR_FAILED_TO_SAVE_DATA, ERROR_NOT_FOUND } from '../constants.js';
+import { ERROR_FAILED_TO_SAVE_DATA, ERROR_NOT_FOUND } from '#endpoints/constants.js';
 import { formatAppellant } from './appellants.formatter.js';
 import appellantRepository from '#repositories/appellant.repository.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const getAppellantById = async (req, res) => {
@@ -21,12 +22,12 @@ const getAppellantById = async (req, res) => {
 };
 
 /**
- * @type {RequestHandler}
+ * @param {Request} req
+ * @param {Response} res
  * @returns {Promise<Response>}
  */
 const updateAppellantById = async (req, res) => {
 	const {
-		body,
 		body: { name },
 		params: { appellantId }
 	} = req;
@@ -40,7 +41,7 @@ const updateAppellantById = async (req, res) => {
 		return res.status(500).send({ errors: { body: ERROR_FAILED_TO_SAVE_DATA } });
 	}
 
-	return res.send(body);
+	return res.send({ name });
 };
 
 export { getAppellantById, updateAppellantById };

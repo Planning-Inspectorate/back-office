@@ -1,4 +1,4 @@
-import config from '../config/config.js';
+import config from '#config/config.js';
 
 /**
  *
@@ -6,7 +6,16 @@ import config from '../config/config.js';
  * @returns {string}
  */
 function getVersion(request) {
-	return request.headers['accept-version']?.toString() || config.defaultApiVersion;
+	if (request.headers['accept-version'] === config.defaultApiVersion) {
+		return config.defaultApiVersion;
+	}
+
+	const userVersion = Number(request.headers['accept-version']);
+	if (userVersion > 0 && userVersion < config.defaultApiVersion) {
+		return userVersion.toString();
+	}
+
+	return config.defaultApiVersion;
 }
 
 /** @typedef {Record<number | string, import('express').Router>} ApiVersionConfig */

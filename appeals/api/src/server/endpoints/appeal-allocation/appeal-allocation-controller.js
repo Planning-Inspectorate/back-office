@@ -1,4 +1,4 @@
-import config from '../../config/config.js';
+import config from '#config/config.js';
 import appealAllocationRepository from '#repositories/appeal-allocation.repository.js';
 import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
 import { broadcastAppealState } from '#endpoints/integrations/integrations.service.js';
@@ -44,5 +44,8 @@ export const saveAllocation = async (req, res) => {
 		await broadcastAppealState(appeal.id);
 	}
 
-	return res.send(req.body);
+	return res.send({
+		selectedLevel,
+		specialisms
+	});
 };
