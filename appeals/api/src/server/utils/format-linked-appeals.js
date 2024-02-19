@@ -49,8 +49,8 @@ const formatLinkedAppeals = (linkedAppeals, reference, formattedAppealWithLinked
  */
 const formatRelatedAppeals = (relatedAppeals, currentAppealId) => {
 	return relatedAppeals.map((rel) => {
-		const appealId = currentAppealId === rel.parentId ? rel.parentId : rel.childId;
-		const appealReference = currentAppealId === rel.parentId ? rel.parentRef : rel.childRef;
+		const appealId = currentAppealId === rel.parentId ? rel.childId : rel.parentId;
+		const appealReference = currentAppealId === rel.parentId ? rel.childRef : rel.parentRef;
 		return {
 			appealId,
 			appealReference,
