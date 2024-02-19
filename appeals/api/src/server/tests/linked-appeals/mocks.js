@@ -8,6 +8,14 @@ export const linkedAppealLegacyRequest = {
 	isCurrentAppealParent: false
 };
 
-export const unlinkAppealRequest = {
+export const relatedAppealRequest = {
+	linkedAppealId: 25
+};
+
+export const relatedAppealLegacyRequest = {
 	linkedAppealReference: '51243165'
+};
+
+export const unlinkAppealRequest = {
+	relationshipId: 1002
 };

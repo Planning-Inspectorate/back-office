@@ -4,7 +4,9 @@ import { hasValueOrIsNull } from '#endpoints/appeals/appeals.service.js';
 import {
 	DATABASE_ORDER_BY_DESC,
 	STATE_TARGET_CLOSED,
-	STATE_TARGET_COMPLETE
+	STATE_TARGET_COMPLETE,
+	CASE_RELATIONSHIP_LINKED,
+	CASE_RELATIONSHIP_RELATED
 } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
@@ -247,7 +249,7 @@ const getAppealsStatusesInNationalList = (searchTerm, hasInspector) => {
  * @returns {Promise<RepositoryGetByIdResultItem|undefined>}
  */
 const getAppealById = async (id) => {
-	let appeal = await databaseConnector.appeal.findUnique({
+	const appeal = await databaseConnector.appeal.findUnique({
 		where: {
 			id
 		},
@@ -337,7 +339,7 @@ const getAppealById = async (id) => {
 	});
 
 	if (appeal) {
-		const linkedAppeals = await databaseConnector.appealRelationship.findMany({
+		const appealRelationships = await databaseConnector.appealRelationship.findMany({
 			where: {
 				OR: [
 					{
@@ -354,10 +356,18 @@ const getAppealById = async (id) => {
 			}
 		});
 
+		const linkedAppeals = appealRelationships.filter(
+			(relationship) => relationship.type === CASE_RELATIONSHIP_LINKED
+		);
+		const relatedAppeals = appealRelationships.filter(
+			(relationship) => relationship.type === CASE_RELATIONSHIP_RELATED
+		);
+
 		// @ts-ignore
 		return {
 			...appeal,
-			linkedAppeals
+			linkedAppeals,
+			relatedAppeals
 		};
 	}
 };
@@ -594,43 +604,13 @@ const linkAppeal = async (relation) => {
 
 /**
  *
- * @param {number} appealId
- * @param {string} linkedAppealReference
+ * @param {number} appealRelationshipId
  * @returns {Promise<void>}
  */
-const unlinkAppeal = async (appealId, linkedAppealReference) => {
-	await databaseConnector.appealRelationship.deleteMany({
+const unlinkAppeal = async (appealRelationshipId) => {
+	await databaseConnector.appealRelationship.delete({
 		where: {
-			AND: [
-				{
-					OR: [
-						{
-							parentId: {
-								equals: appealId
-							}
-						},
-						{
-							childId: {
-								equals: appealId
-							}
-						}
-					]
-				},
-				{
-					OR: [
-						{
-							parentRef: {
-								equals: linkedAppealReference
-							}
-						},
-						{
-							childRef: {
-								equals: linkedAppealReference
-							}
-						}
-					]
-				}
-			]
+			id: appealRelationshipId
 		}
 	});
 };

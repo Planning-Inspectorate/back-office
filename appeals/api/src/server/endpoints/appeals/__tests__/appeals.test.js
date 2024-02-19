@@ -747,7 +747,8 @@ describe('appeals routes', () => {
 							appealReference: a.childRef,
 							isParentAppeal: false,
 							linkingDate: a.linkingDate,
-							appealType: 'Unknown'
+							appealType: 'Unknown',
+							externalSource: true
 						};
 					}),
 					otherAppeals: [],
@@ -1468,95 +1469,106 @@ describe('mapAppealStatuses Tests', () => {
 });
 
 describe('getRelevantLinkedAppealIds Tests', () => {
-	const linkedAppeals = [
+	const moreLinkedAppeals = [
 		{
-			id: 1,
-			parentRef: 'TEST/396994',
-			childRef: 'TEST/100071',
+			id: 101,
+			parentRef: 'TEST-396994',
+			childRef: 'TEST-100071',
 			parentId: 1027,
 			childId: 1028,
 			linkingDate: new Date('2024-01-30T13:44:39.655Z'),
-			relationshipId: 101
+			type: 'linked',
+			externalSource: false
 		},
 		{
-			id: 2,
-			parentRef: 'TEST/396994',
-			childRef: 'TEST/123813',
+			id: 102,
+			parentRef: 'TEST-396994',
+			childRef: 'TEST-123813',
 			parentId: 1027,
 			childId: 1029,
 			linkingDate: new Date('2024-01-30T13:44:39.655Z'),
-			relationshipId: 102
+			type: 'linked',
+			externalSource: false
 		},
 		{
-			id: 3,
-			parentRef: 'TEST/396994',
-			childRef: 'TEST/864955',
+			id: 103,
+			parentRef: 'TEST-396994',
+			childRef: 'TEST-864955',
 			parentId: 1027,
 			childId: 1043,
 			linkingDate: new Date('2024-01-30T13:44:39.655Z'),
-			relationshipId: 103
+			type: 'linked',
+			externalSource: false
 		},
 		{
-			id: 4,
-			parentRef: 'TEST/396994',
+			id: 104,
+			parentRef: 'TEST-396994',
 			childRef: '76215416',
 			parentId: 1027,
 			childId: null,
 			linkingDate: new Date('2024-01-30T13:44:39.655Z'),
-			relationshipId: 104
+			type: 'linked',
+			externalSource: true
 		}
 	];
 
 	test('should return correct child IDs when current appeal is a parent', () => {
-		const currentAppealRef = 'TEST/396994';
-		const result = getRelevantLinkedAppealIds(linkedAppeals, currentAppealRef);
+		const currentAppealRef = 'TEST-396994';
+		// @ts-ignore
+		const result = getRelevantLinkedAppealIds(moreLinkedAppeals, currentAppealRef);
 		expect(result).toEqual([1028, 1029, 1043]);
 	});
 
 	test('should return correct parent ID when current appeal is a child', () => {
-		const currentAppealRef = 'TEST/100071';
-		const result = getRelevantLinkedAppealIds(linkedAppeals, currentAppealRef);
+		const currentAppealRef = 'TEST-100071';
+		// @ts-ignore
+		const result = getRelevantLinkedAppealIds(moreLinkedAppeals, currentAppealRef);
 		expect(result).toEqual([1027]);
 	});
 
 	test('should return an empty array when there are no linked appeals', () => {
 		const currentAppealRef = 'TEST/999999';
-		const result = getRelevantLinkedAppealIds(linkedAppeals, currentAppealRef);
+		// @ts-ignore
+		const result = getRelevantLinkedAppealIds(moreLinkedAppeals, currentAppealRef);
 		expect(result).toEqual([]);
 	});
 
 	test('should exclude linked appeals with null child IDs', () => {
 		const linkedAppealsWithNullChildId = [
-			...linkedAppeals,
+			...moreLinkedAppeals,
 			{
-				id: 5,
-				parentRef: 'TEST/396994',
-				childRef: 'TEST/100071',
+				id: 105,
+				parentRef: 'TEST-396994',
+				childRef: 'TEST-100071',
 				parentId: 1027,
 				childId: null,
 				linkingDate: new Date('2024-01-30T13:44:39.655Z'),
-				relationshipId: 105
+				type: 'linked',
+				externalSource: true
 			}
 		];
-		const currentAppealRef = 'TEST/396994';
+		const currentAppealRef = 'TEST-396994';
+		// @ts-ignore
 		const result = getRelevantLinkedAppealIds(linkedAppealsWithNullChildId, currentAppealRef);
 		expect(result).toEqual([1028, 1029, 1043]);
 	});
 
 	test('should exclude duplicate row ids in the output', () => {
 		const linkedAppealsWithDuplucate = [
-			...linkedAppeals,
+			...moreLinkedAppeals,
 			{
-				id: 5,
-				parentRef: 'TEST/396994',
-				childRef: 'TEST/100071',
+				id: 105,
+				parentRef: 'TEST-396994',
+				childRef: 'TEST-100071',
 				parentId: 1027,
 				childId: 1028,
 				linkingDate: new Date('2024-01-30T13:44:39.655Z'),
-				relationshipId: 105
+				type: 'linked',
+				externalSource: false
 			}
 		];
-		const currentAppealRef = 'TEST/396994';
+		const currentAppealRef = 'TEST-396994';
+		// @ts-ignore
 		const result = getRelevantLinkedAppealIds(linkedAppealsWithDuplucate, currentAppealRef);
 		expect(result).toEqual([1028, 1029, 1043]);
 	});

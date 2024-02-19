@@ -2526,10 +2526,104 @@
 				}
 			}
 		},
+		"/appeals/{appealId}/associate-appeal": {
+			"post": {
+				"tags": ["Linked Appeals"],
+				"description": "Associate an appeal to the current appeal, as related",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Related Appeal Request",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RelatedAppealRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/RelatedAppealRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/associate-legacy-appeal": {
+			"post": {
+				"tags": ["Linked Appeals"],
+				"description": "Links a legacy appeal (on Horizon) to the current appeal",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"400": {
+						"description": "Bad Request"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "Related Appeal Request (legacy)",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RelatedAppealLegacyRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/RelatedAppealLegacyRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/appeals/{appealId}/unlink-appeal": {
 			"delete": {
 				"tags": ["Linked Appeals"],
-				"description": "Remove a linked appeal from the current appeal",
+				"description": "Remove an appeal relationship by ID",
 				"parameters": [
 					{
 						"name": "appealId",
@@ -2941,12 +3035,36 @@
 					"name": "LinkedAppealLegacyRequest"
 				}
 			},
-			"UnlinkAppealRequest": {
+			"RelatedAppealRequest": {
+				"type": "object",
+				"properties": {
+					"linkedAppealId": {
+						"type": "number",
+						"example": 25
+					}
+				},
+				"xml": {
+					"name": "RelatedAppealRequest"
+				}
+			},
+			"RelatedAppealLegacyRequest": {
 				"type": "object",
 				"properties": {
 					"linkedAppealReference": {
 						"type": "string",
 						"example": "51243165"
+					}
+				},
+				"xml": {
+					"name": "RelatedAppealLegacyRequest"
+				}
+			},
+			"UnlinkAppealRequest": {
+				"type": "object",
+				"properties": {
+					"relationshipId": {
+						"type": "number",
+						"example": 1002
 					}
 				},
 				"xml": {

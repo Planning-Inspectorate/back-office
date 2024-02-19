@@ -12,9 +12,19 @@ export interface LinkedAppealLegacyRequest {
 	isCurrentAppealParent?: boolean;
 }
 
-export interface UnlinkAppealRequest {
+export interface RelatedAppealRequest {
+	/** @example 25 */
+	linkedAppealId?: number;
+}
+
+export interface RelatedAppealLegacyRequest {
 	/** @example "51243165" */
 	linkedAppealReference?: string;
+}
+
+export interface UnlinkAppealRequest {
+	/** @example 1002 */
+	relationshipId?: number;
 }
 
 export interface ValidateDate {
