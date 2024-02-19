@@ -1,8 +1,7 @@
 import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
+import { CONFIG_APPEAL_STAGES, ERROR_FAILED_TO_SAVE_DATA } from '#endpoints/constants.js';
 import appellantCaseRepository from '#repositories/appellant-case.repository.js';
 import logger from '#utils/logger.js';
-import { CONFIG_APPEAL_STAGES } from '#endpoints/constants.js';
-import { ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
 import { formatAppellantCase } from './appellant-cases.formatter.js';
 import { updateAppellantCaseValidationOutcome } from './appellant-cases.service.js';
 
@@ -80,7 +79,25 @@ const updateAppellantCaseById = async (req, res) => {
 		}
 	}
 
-	return res.send(body);
+	const response = validationOutcome
+		? {
+				validationOutcome
+		  }
+		: {
+				applicantFirstName,
+				applicantSurname,
+				areAllOwnersKnown,
+				hasAdvertisedAppeal,
+				hasAttemptedToIdentifyOwners,
+				hasHealthAndSafetyIssues,
+				healthAndSafetyIssues,
+				isSiteFullyOwned,
+				isSitePartiallyOwned,
+				isSiteVisibleFromPublicRoad,
+				visibilityRestrictions
+		  };
+
+	return res.send(response);
 };
 
 export { getAppellantCaseById, updateAppellantCaseById };

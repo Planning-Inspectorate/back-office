@@ -1,4 +1,4 @@
-import { ERROR_FAILED_TO_SAVE_DATA, CONFIG_APPEAL_STAGES } from '../constants.js';
+import { ERROR_FAILED_TO_SAVE_DATA, CONFIG_APPEAL_STAGES } from '#endpoints/constants.js';
 import { getFoldersForAppeal } from '#endpoints/documents/documents.service.js';
 import { formatLpaQuestionnaire } from './lpa-questionnaires.formatter.js';
 import { updateLPAQuestionaireValidationOutcome } from './lpa-questionnaires.service.js';
@@ -90,7 +90,32 @@ const updateLPAQuestionnaireById = async (req, res) => {
 		}
 	}
 
-	return res.send(body);
+	const dueDate = new Date(body.lpaQuestionnaireDueDate);
+	const response = validationOutcome
+		? {
+				lpaQuestionnaireDueDate: dueDate.toDateString()
+		  }
+		: {
+				designatedSites,
+				doesAffectAListedBuilding,
+				doesAffectAScheduledMonument,
+				hasCompletedAnEnvironmentalStatement,
+				hasProtectedSpecies,
+				hasTreePreservationOrder,
+				includesScreeningOption,
+				isConservationArea,
+				isEnvironmentalStatementRequired,
+				isGypsyOrTravellerSite,
+				isListedBuilding,
+				isPublicRightOfWay,
+				isSensitiveArea,
+				isTheSiteWithinAnAONB,
+				meetsOrExceedsThresholdOrCriteriaInColumn2,
+				scheduleTypeId: scheduleType,
+				sensitiveAreaDetails
+		  };
+
+	return res.send(response);
 };
 
 export { getLpaQuestionnaireById, updateLPAQuestionnaireById };
