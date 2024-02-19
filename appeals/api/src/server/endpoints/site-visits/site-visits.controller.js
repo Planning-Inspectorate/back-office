@@ -17,9 +17,9 @@ import { formatSiteVisit } from './site-visits.formatter.js';
 /**
  * @param {Request} req
  * @param {Response} res
- * @returns {Response}
+ * @returns {Promise<Response>}
  */
-const getSiteVisitById = (req, res) => {
+const getSiteVisitById = async (req, res) => {
 	const { appeal } = req;
 	const formattedAppeal = formatSiteVisit(appeal);
 

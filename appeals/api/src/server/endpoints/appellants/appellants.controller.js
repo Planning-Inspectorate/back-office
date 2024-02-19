@@ -1,5 +1,5 @@
 import logger from '#utils/logger.js';
-import { ERROR_FAILED_TO_SAVE_DATA } from '../constants.js';
+import { ERROR_FAILED_TO_SAVE_DATA, ERROR_NOT_FOUND } from '../constants.js';
 import { formatAppellant } from './appellants.formatter.js';
 import appellantRepository from '#repositories/appellant.repository.js';
 
@@ -8,13 +8,15 @@ import appellantRepository from '#repositories/appellant.repository.js';
 
 /**
  * @type {RequestHandler}
- * @returns {Response}
+ * @returns {Promise<Response>}
  */
-const getAppellantById = (req, res) => {
+const getAppellantById = async (req, res) => {
 	const { appellant } = req.appeal;
 	if (appellant) {
 		const formattedAppellant = formatAppellant(appellant);
 		return res.send(formattedAppellant);
+	} else {
+		return res.status(404).send({ errors: ERROR_NOT_FOUND });
 	}
 };
 
@@ -34,10 +36,8 @@ const updateAppellantById = async (req, res) => {
 			name
 		});
 	} catch (error) {
-		if (error) {
-			logger.error(error);
-			return res.status(500).send({ errors: { body: ERROR_FAILED_TO_SAVE_DATA } });
-		}
+		logger.error(error);
+		return res.status(500).send({ errors: { body: ERROR_FAILED_TO_SAVE_DATA } });
 	}
 
 	return res.send(body);
