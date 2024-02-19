@@ -1,6 +1,8 @@
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter.js';
-import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
+import { appealSiteToAddressString } from '#lib/address-formatter.js';
+import { appealStatusToStatusTag } from '#lib/nunjucks-filters/status-tag.js';
+
 /**
  * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
  * @typedef {import('@pins/appeals.api').Appeals.NotValidReasonOption} NotValidReasonOption
@@ -180,14 +182,16 @@ export function addLinkedAppealPage(appealData) {
 
 /**
  * @param {Appeal} appealData
- * @param {Appeal} linkCandidateAppealData
- * @param {string} currentRoute
- * @param {import('../../../app/auth/auth-session.service').SessionWithAuth} session
+ * @param {import('@pins/appeals.api/src/server/endpoints/linkable-appeals/linkable-appeal.service.js').LinkableAppealSummary} linkCandidateSummary
+ * @param {Appeal|undefined} linkCandidateAppealData
  * @returns {Promise<PageContent>}
  */
-export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandidateAppealData, currentRoute, session) {
+export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandidateSummary, linkCandidateAppealData) {
 	const shortAppealReference = appealShortReference(appealData.appealReference);
-	const mappedCandidateData = await initialiseAndMapAppealData(linkCandidateAppealData, currentRoute, session);
+
+	// if (mappedCandidateData.appeal.appealStatus.display.summaryListItem) {
+	// 	mappedCandidateData.appeal.appealStatus.display.summaryListItem.value.text = appealStatusToStatusTag(mappedCandidateData.appeal.appealStatus.display.summaryListItem.value.text);
+	// }
 
 	/** @type {PageContent} */
 	const pageContent = {
@@ -195,19 +199,69 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: `Details of the appeal you're linking to`,
+		headingClasses: 'govuk-heading-l',
 		pageComponents: [
 			{
 				type: 'summary-list',
 				parameters: {
+					classes: 'govuk-!-margin-bottom-9',
 					rows: [
-						// TODO: remove actions from all of these rows
-						mappedCandidateData.appeal.appealReference,
-						mappedCandidateData.appeal.appealStatus,
-						mappedCandidateData.appeal.appealType,
-						mappedCandidateData.appeal.siteAddress,
-						mappedCandidateData.appeal.localPlanningAuthority,
-						mappedCandidateData.appeal.appellant,
-						mappedCandidateData.appeal.agent
+						{
+							key: {
+								text: 'Appeal reference'
+							},
+							value: {
+								text: `${linkCandidateSummary.appealReference}${linkCandidateSummary.source === 'horizon' ? ' (Horizon)' : ''}`
+							}
+						},
+						{
+							key: {
+								text: 'Appeal status'
+							},
+							value: {
+								text: appealStatusToStatusTag(linkCandidateSummary.appealStatus)
+							}
+						},
+						{
+							key: {
+								text: 'Appeal type'
+							},
+							value: {
+								text: linkCandidateSummary.appealType
+							}
+						},
+						{
+							key: {
+								text: 'Site address'
+							},
+							value: {
+								text: appealSiteToAddressString(linkCandidateSummary.siteAddress)
+							}
+						},
+						{
+							key: {
+								text: 'Local planning authority'
+							},
+							value: {
+								text: linkCandidateSummary.localPlanningDepartment
+							}
+						},
+						{
+							key: {
+								text: 'Appellant name'
+							},
+							value: {
+								text: linkCandidateSummary.appellantName
+							}
+						},
+						{
+							key: {
+								text: 'Agent name'
+							},
+							value: {
+								text: linkCandidateSummary.appellantName
+							}
+						}
 					]
 				}
 			}
@@ -215,114 +269,124 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 	};
 
 	const targetIsLead = appealData.linkedAppeals.filter(targetLinkedAppeal => targetLinkedAppeal.isParentAppeal === false).length > 0;
-	const candidateIsLead = linkCandidateAppealData.linkedAppeals.filter(candidateLinkedAppeal => candidateLinkedAppeal.isParentAppeal === false).length > 0;
+
+	// if candidate is a horizon appeal, there is no way of knowing whether it's a lead or child
+	const candidateIsLead = linkCandidateAppealData && linkCandidateAppealData?.linkedAppeals.filter(candidateLinkedAppeal => candidateLinkedAppeal.isParentAppeal === false).length > 0;
 
 	/** @type {PageComponent} */
 	const alreadyHasLeadWarningTextComponent = {
 		type: 'warning-text',
 		parameters: {
-			parameters: {
-				text: 'The appeal you are trying to link to already has a lead appeal.'
-			}
+			text: 'The appeal you are trying to link to already has a lead appeal.'
 		}
 	};
 
 	// if target has no linked appeals
 	if (appealData.linkedAppeals.length === 0) {
 		// if candidate has no linked appeals
-		if (linkCandidateAppealData.linkedAppeals.length === 0) {
-			// display check and confirm page (3a) with options:
-			// - yes, make this the lead appeal for (target)
-			// - yes, this is a child appeal of (target)
-			// - no, return to search
+		if (!linkCandidateAppealData || linkCandidateAppealData?.linkedAppeals.length === 0) {
 			pageContent.pageComponents?.push({
 				type: 'radios',
 				parameters: {
-					parameters: {
-						name: 'confirmation',
-						id: 'confirmation',
-						items: [
-							{
-								value: 'lead',
-								text: `Yes, make this the lead appeal for ${shortAppealReference}`
-							},
-							{
-								value: 'child',
-								text: `Yes, this is a child appeal of ${shortAppealReference}`
-							},
-							{
-								value: 'cancel',
-								text: `No, return to search`
-							}
-						]
-					}
+					name: 'confirmation',
+					id: 'confirmation',
+					fieldset: {
+						legend: {
+							text: 'Is this the appeal you want to link?',
+							classes: 'govuk-fieldset__legend--m'
+						}
+					},
+					items: [
+						{
+							value: 'lead',
+							text: `Yes, make this the lead appeal for ${shortAppealReference}`
+						},
+						{
+							value: 'child',
+							text: `Yes, this is a child appeal of ${shortAppealReference}`
+						},
+						{
+							divider: "or"
+						},
+						{
+							value: 'cancel',
+							text: `No, return to search`
+						}
+					]
 				}
 			});
+			pageContent.submitButtonProperties = {
+				text: 'Continue',
+				type: 'submit'
+			};
 		}
 		// else if candidate is a lead
 		else if (candidateIsLead) {
-			// display check and confirm page (3d) with options:
-			// - yes, make this the lead appeal for (target)
-			// - no, return to search
 			pageContent.pageComponents?.push({
 				type: 'radios',
 				parameters: {
-					parameters: {
-						name: 'confirmation',
-						id: 'confirmation',
-						items: [
-							{
-								value: 'lead',
-								text: `Yes, make this the lead appeal for ${shortAppealReference}`
-							},
-							{
-								value: 'cancel',
-								text: `No, return to search`
-							}
-						]
-					}
+					name: 'confirmation',
+					id: 'confirmation',
+					items: [
+						{
+							value: 'lead',
+							text: `Yes, make this the lead appeal for ${shortAppealReference}`
+						},
+						{
+							divider: "or"
+						},
+						{
+							value: 'cancel',
+							text: `No, return to search`
+						}
+					]
 				}
 			});
+			pageContent.submitButtonProperties = {
+				text: 'Continue',
+				type: 'submit'
+			};
 		}
 		// else (if candidate is a child)
 		else {
-			// display check and confirm page (3e) with message:
-			// - the appeal you are trying to link to already has a lead appeal
 			pageContent.pageComponents?.unshift(alreadyHasLeadWarningTextComponent);
+			pageContent.submitButtonProperties = {
+				text: 'Return to search',
+				href: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`
+			};
 		}
 	}
 	// else if target is a lead
 	else if (targetIsLead) {
 		// if candidate has no linked appeals
-		if (linkCandidateAppealData.linkedAppeals.length === 0) {
-			// display check and confirm page (3c) with options:
-			// - yes, this is a child appeal of (target)
-			// - no, return to search
+		if (!linkCandidateAppealData || linkCandidateAppealData.linkedAppeals.length === 0) {
 			pageContent.pageComponents?.push({
 				type: 'radios',
 				parameters: {
-					parameters: {
-						name: 'confirmation',
-						id: 'confirmation',
-						items: [
-							{
-								value: 'child',
-								text: `Yes, this is a child appeal of ${shortAppealReference}`
-							},
-							{
-								value: 'cancel',
-								text: `No, return to search`
-							}
-						]
-					}
+					name: 'confirmation',
+					id: 'confirmation',
+					items: [
+						{
+							value: 'child',
+							text: `Yes, this is a child appeal of ${shortAppealReference}`
+						},
+						{
+							divider: "or"
+						},
+						{
+							value: 'cancel',
+							text: `No, return to search`
+						}
+					]
 				}
 			});
+			pageContent.submitButtonProperties = {
+				text: 'Continue',
+				type: 'submit'
+			};
 		}
 		// else if candidate is a lead
 		else if (candidateIsLead) {
-			// display check and confirm page (variant of 3e) with message:
-			// - the appeal you are trying to link to is a lead appeal
-			// this variant of the screen is not shown in the design but is needed because the messaging of screen 3e is incorrect in this case.
 			pageContent.pageComponents?.unshift({
 				type: 'warning-text',
 				parameters: {
@@ -331,23 +395,30 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 					}
 				}
 			});
+			pageContent.submitButtonProperties = {
+				text: 'Return to search',
+				href: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`
+			};
 		}
 		// else (if candidate is a child)
 		else {
-			// display check and confirm page (3e) with message:
-			// - the appeal you are trying to link to already has a lead appeal
 			// this branch is also executed when the appeals are already linked (i.e. trying to link to a candidate which is already linked to the target)
-			// ideally we would show different messaging if this is the case, but the messaging is technically correct, and the design doesn't account for this
+			// ideally we would show different messaging if this is the case, but this would require additional checks to confirm the candidate is a child of the target
 			pageContent.pageComponents?.unshift(alreadyHasLeadWarningTextComponent);
+			pageContent.submitButtonProperties = {
+				text: 'Return to search',
+				href: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`
+			};
 		}
 	}
 	// else (if target is a child)
 	else {
-		// display check and confirm page (3e) with message:
-		// - the appeal you are trying to link to already has a lead appeal
 		// as above, ideally the scenario where the candidate is already linked to the target would be handled differently (show different messaging)
-		// but this isn't accounted for in the design, and the flow is already complex enough - can always add this later as an improvement if we feel it's worth doing
 		pageContent.pageComponents?.unshift(alreadyHasLeadWarningTextComponent);
+		pageContent.submitButtonProperties = {
+			text: 'Return to search',
+			href: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`
+		};
 	}
 
 	return pageContent;

@@ -296,9 +296,15 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				},
 				actions: {
 					items: [
+						...([
+							{
+								text: 'Manage',
+								href: generateLinkedAppealsManageLinkHref(appealDetails)
+							}
+						]),
 						{
-							text: appealDetails.linkedAppeals.length > 0 ? 'Manage' : 'Add',
-							href: generateLinkedAppealsActionLinkHref(appealDetails)
+							text: 'Add',
+							href: `/appeals-service/appeal-details/${appealDetails.appealId}/linked-appeals/add`
 						}
 					]
 				}
@@ -321,6 +327,11 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			]
 		},
 		submitApi: '#'
+	};
+
+	mappedData.appeal.leadOrChild = {
+		id: 'lead-or-child',
+		display: mapLeadOrChildStatus(appealDetails)
 	};
 
 	// TODO: Need a decision on how the other appeals change page looks
@@ -1208,7 +1219,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @returns {string}
  */
-function generateLinkedAppealsActionLinkHref(appealDetails) {
+function generateLinkedAppealsManageLinkHref(appealDetails) {
 	const baseUrl = `/appeals-service/appeal-details/${appealDetails.appealId}/linked-appeals`;
 
 	if (appealDetails.linkedAppeals.length > 0) {
@@ -1224,5 +1235,24 @@ function generateLinkedAppealsActionLinkHref(appealDetails) {
 		return `${baseUrl}/manage`;
 	}
 
-	return `${baseUrl}/add`;
+	return '';
+}
+
+/**
+ * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
+ * @returns {DisplayInstructions}
+ */
+function mapLeadOrChildStatus (appealDetails) {
+	if (appealDetails.linkedAppeals.length > 0) {
+		return {
+			statusTag: {
+				status: appealDetails.linkedAppeals.filter(linkedAppeal => linkedAppeal.isParentAppeal).length > 0
+					? 'child'
+					: 'lead',
+				classes: 'govuk-!-margin-left-1 govuk-!-margin-bottom-4'
+			}
+		};
+	}
+
+	return {};
 }

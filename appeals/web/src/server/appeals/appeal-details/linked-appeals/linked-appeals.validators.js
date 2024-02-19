@@ -31,6 +31,20 @@ export const validateAddLinkedAppealReference = createValidator(
 	.withMessage('Enter a valid appeal reference')
 );
 
+export const validateAddLinkedAppealCheckAndConfirm = createValidator(
+	body('confirmation')
+		.trim()
+		.notEmpty()
+		.withMessage('Choose an option')
+		.bail()
+		.isIn([
+			'lead',
+			'child',
+			'cancel'
+		])
+		.withMessage('Something went wrong')
+);
+
 export const validateUnlinkAppeal = createValidator(
 	body('unlinkAppeal').trim().notEmpty().withMessage('Please choose an option')
 );

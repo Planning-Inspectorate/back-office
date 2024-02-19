@@ -9,7 +9,8 @@ router.route('/add')
 	.post(validators.validateAddLinkedAppealReference, controller.postAddLinkedAppeal);
 
 router.route('/add/check-and-confirm')
-	.get(controller.getAddLinkedAppealCheckAndConfirm);
+	.get(controller.getAddLinkedAppealCheckAndConfirm)
+	.post(validators.validateAddLinkedAppealCheckAndConfirm, controller.postAddLinkedAppealCheckAndConfirm);
 
 router.route('/manage').get(controller.getLinkedAppeals);
 router
