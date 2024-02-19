@@ -11,7 +11,7 @@ import {
 	projectUpdateCreateReq,
 	projectUpdateUpdateReq
 } from './project-updates.mapper.js';
-import { NSIP_PROJECT_UPDATE } from '../../../infrastructure/topics.js';
+import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';
 import logger from '../../../utils/logger.js';
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 import { verifyNotTraining } from '../application.validators.js';

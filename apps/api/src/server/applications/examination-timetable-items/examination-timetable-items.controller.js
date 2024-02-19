@@ -137,6 +137,7 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 		displayNameEn: folderName?.trim(),
 		caseId: body.caseId,
 		parentFolderId: examinationFolder.id,
+		stage: examinationFolder.stage,
 		displayOrder
 	};
 
@@ -170,6 +171,7 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 	await service.createDeadlineSubFolders(
 		examinationTimetableItem,
 		itemFolder.id,
+		itemFolder.stage,
 		examinationTimetable.caseId
 	);
 
@@ -320,6 +322,7 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 	);
 
 	// if name or dates have changed, then need to rename matching folders
+	let folder;
 	if (
 		timetableBeforeUpdate.name !== mappedExamTimetableDetails.name ||
 		timetableBeforeUpdate.date !== mappedExamTimetableDetails.date
@@ -330,7 +333,7 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 
 		const newDisplayOrder = Number(format(new Date(mappedExamTimetableDetails.date), 'yyyyMMdd'));
 
-		const folder = await folderRepository.updateFolderById(timetableBeforeUpdate.folderId, {
+		folder = await folderRepository.updateFolderById(timetableBeforeUpdate.folderId, {
 			displayNameEn: newFolderName,
 			displayOrder: newDisplayOrder
 		});
@@ -348,6 +351,8 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 		} catch (/** @type {*} */ err) {
 			logger.info('Blocked sending event for folder update', err.message);
 		}
+	} else {
+		folder = await folderRepository.getById(timetableBeforeUpdate.folderId);
 	}
 
 	if (timetableBeforeUpdate.description !== mappedExamTimetableDetails.description) {
@@ -361,6 +366,7 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 		await service.createDeadlineSubFolders(
 			updatedExaminationTimetableItem,
 			timetableBeforeUpdate.folderId,
+			folder.stage,
 			caseId
 		);
 	}
