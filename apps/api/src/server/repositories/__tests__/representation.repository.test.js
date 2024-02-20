@@ -67,7 +67,7 @@ describe('Representation repository', () => {
 						status: 'asc'
 					},
 					{
-						received: 'asc'
+						received: 'desc'
 					},
 					{
 						id: 'asc'
@@ -121,7 +121,7 @@ describe('Representation repository', () => {
 						status: 'asc'
 					},
 					{
-						received: 'asc'
+						received: 'desc'
 					},
 					{
 						id: 'asc'
@@ -221,7 +221,7 @@ describe('Representation repository', () => {
 						status: 'asc'
 					},
 					{
-						received: 'asc'
+						received: 'desc'
 					},
 					{
 						id: 'asc'
@@ -293,7 +293,7 @@ describe('Representation repository', () => {
 						status: 'asc'
 					},
 					{
-						received: 'asc'
+						received: 'desc'
 					},
 					{
 						id: 'asc'
@@ -350,7 +350,7 @@ describe('Representation repository', () => {
 						reference: 'desc'
 					},
 					{
-						received: 'asc'
+						received: 'desc'
 					},
 					{
 						id: 'asc'

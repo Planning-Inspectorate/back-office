@@ -825,7 +825,7 @@ function buildOrderBy(sort) {
 	const secondarySort =
 		sort && sort.some((sortObject) => Object.keys(sortObject)[0] === 'received')
 			? []
-			: [{ received: 'asc' }];
+			: [{ received: 'desc' }];
 
 	return [...primarySort, ...secondarySort, { id: 'asc' }];
 }
