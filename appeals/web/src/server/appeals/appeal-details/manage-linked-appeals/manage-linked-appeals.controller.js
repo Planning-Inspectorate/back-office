@@ -3,13 +3,13 @@ import {
 	postUnlinkRequest,
 	linkAppealToBackOfficeAppeal,
 	linkAppealToLegacyAppeal
-} from './linked-appeals.service.js';
+} from './manage-linked-appeals.service.js';
 import {
 	linkedAppealsPage,
 	addLinkedAppealPage,
 	addLinkedAppealCheckAndConfirmPage,
 	unlinkAppealPage
-} from './linked-appeals.mapper.js';
+} from './manage-linked-appeals.mapper.js';
 import { getAppealDetailsFromId } from '../appeal-details.service.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 import { objectContainsAllKeys } from '#lib/object-utilities.js';
@@ -18,8 +18,8 @@ import { objectContainsAllKeys } from '#lib/object-utilities.js';
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
-export const getLinkedAppeals = async (request, response) => {
-	return renderLinkedAppeals(request, response);
+export const getManageLinkedAppeals = async (request, response) => {
+	return renderManageLinkedAppeals(request, response);
 };
 
 /**
@@ -27,7 +27,7 @@ export const getLinkedAppeals = async (request, response) => {
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
-const renderLinkedAppeals = async (request, response) => {
+const renderManageLinkedAppeals = async (request, response) => {
 	const { errors } = request;
 
 	const appealId = request.params.appealId;

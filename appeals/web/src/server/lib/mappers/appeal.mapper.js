@@ -11,7 +11,7 @@ import {
 	mapAddressInput
 } from './global-mapper-formatter.js';
 import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
-import { appealShortReference } from '#lib/appeals-formatter.js';
+import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter.js';
 
 /**
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
@@ -1246,9 +1246,7 @@ function mapLeadOrChildStatus (appealDetails) {
 	if (appealDetails.linkedAppeals.length > 0) {
 		return {
 			statusTag: {
-				status: appealDetails.linkedAppeals.filter(linkedAppeal => linkedAppeal.isParentAppeal).length > 0
-					? 'child'
-					: 'lead',
+				status: linkedAppealStatus(appealDetails.isChildAppeal || false),
 				classes: 'govuk-!-margin-left-1 govuk-!-margin-bottom-4'
 			}
 		};

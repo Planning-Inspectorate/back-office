@@ -1,7 +1,7 @@
 import logger from '#lib/logger.js';
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import { getLinkableAppealByReference } from './linked-appeals.service.js';
+import { getLinkableAppealByReference } from './manage-linked-appeals.service.js';
 
 export const validateAddLinkedAppealReference = createValidator(
 	body('appeal-reference')
