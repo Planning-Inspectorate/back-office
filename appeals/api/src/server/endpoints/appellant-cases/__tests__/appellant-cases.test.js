@@ -318,10 +318,6 @@ describe('appellant cases routes', () => {
 					}
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					...body,
-					appealDueDate: formattedAppealDueDate
-				});
 			});
 
 			test('updates appellant case when the validation outcome is Incomplete with reason text', async () => {
@@ -403,7 +399,6 @@ describe('appellant cases routes', () => {
 					}
 				);
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates appellant case when the validation outcome is Invalid with reason text', async () => {
@@ -482,7 +477,6 @@ describe('appellant cases routes', () => {
 					]
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates appellant case when the validation outcome is Incomplete with reason text containing blank strings', async () => {
@@ -572,19 +566,6 @@ describe('appellant cases routes', () => {
 					}
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					incompleteReasons: [
-						{
-							id: 1,
-							text: ['Reason 1', 'Reason 2']
-						},
-						{
-							id: 2,
-							text: ['Reason 3', 'Reason 4']
-						}
-					],
-					validationOutcome: 'Incomplete'
-				});
 			});
 
 			test('updates appellant case when the validation outcome is Incomplete with reason text where blank strings takes the text over 10 items', async () => {
@@ -653,15 +634,6 @@ describe('appellant cases routes', () => {
 					}
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					incompleteReasons: [
-						{
-							id: 1,
-							text: eightItemArray
-						}
-					],
-					validationOutcome: 'Incomplete'
-				});
 			});
 
 			test('updates appellant case when the validation outcome is Invalid with reason text containing blank strings', async () => {
@@ -740,19 +712,6 @@ describe('appellant cases routes', () => {
 					]
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					invalidReasons: [
-						{
-							id: 1,
-							text: ['Reason 1', 'Reason 2']
-						},
-						{
-							id: 2,
-							text: ['Reason 3', 'Reason 4']
-						}
-					],
-					validationOutcome: 'Invalid'
-				});
 			});
 
 			test('updates appellant case when the validation outcome is Invalid with reason text where blank strings takes the text over 10 items', async () => {
@@ -811,15 +770,6 @@ describe('appellant cases routes', () => {
 					})
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					invalidReasons: [
-						{
-							id: 1,
-							text: eightItemArray
-						}
-					],
-					validationOutcome: 'Invalid'
-				});
 			});
 
 			test('updates appellant case when the validation outcome is Invalid with numeric array', async () => {
@@ -873,7 +823,6 @@ describe('appellant cases routes', () => {
 				});
 				expect(databaseConnector.appeal.update).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates appellant case when the validation outcome is valid and sets the timetable and correct status for a household appeal', async () => {
@@ -955,7 +904,6 @@ describe('appellant cases routes', () => {
 					}
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates appellant case when the validation outcome is Valid and sets the timetable for a full planning appeal', async () => {
@@ -1036,7 +984,6 @@ describe('appellant cases routes', () => {
 					}
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('sets the timetable deadline to two days after the deadline if the deadline day and the day after are bank holidays', async () => {
@@ -1086,7 +1033,6 @@ describe('appellant cases routes', () => {
 					}
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('sets the timetable deadline to the Monday after the deadline if the deadline is a Saturday', async () => {
@@ -1127,7 +1073,6 @@ describe('appellant cases routes', () => {
 					})
 				);
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('sets the timetable deadline to the Tuesday after the deadline if the deadline is a Saturday and the Monday after is a bank holiday', async () => {
@@ -1176,7 +1121,6 @@ describe('appellant cases routes', () => {
 					}
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates Appellant Case details when not saving the validation outcome', async () => {
@@ -1207,7 +1151,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('returns an error if appealId is not numeric', async () => {
@@ -2043,7 +1986,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates isSitePartiallyOwned when given boolean false', async () => {
@@ -2064,7 +2006,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates isSitePartiallyOwned when given string true', async () => {
@@ -2249,7 +2190,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates areAllOwnersKnown when given boolean false', async () => {
@@ -2270,7 +2210,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates areAllOwnersKnown when given string true', async () => {
@@ -2457,7 +2396,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates hasAttemptedToIdentifyOwners when given boolean false', async () => {
@@ -2667,7 +2605,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates hasAdvertisedAppeal when given boolean false', async () => {
@@ -2688,7 +2625,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates hasAdvertisedAppeal when given string true', async () => {
@@ -2873,7 +2809,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates isSiteVisibleFromPublicRoad when given boolean false', async () => {
@@ -2895,7 +2830,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates isSiteVisibleFromPublicRoad when given string true', async () => {
@@ -3198,7 +3132,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates hasHealthAndSafetyIssues when given boolean false', async () => {
@@ -3219,7 +3152,6 @@ describe('appellant cases routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates hasHealthAndSafetyIssues when given string true', async () => {

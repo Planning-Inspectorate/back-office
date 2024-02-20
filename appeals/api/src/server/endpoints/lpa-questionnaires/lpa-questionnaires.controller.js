@@ -90,10 +90,9 @@ const updateLPAQuestionnaireById = async (req, res) => {
 		}
 	}
 
-	const dueDate = new Date(body.lpaQuestionnaireDueDate);
 	const response = validationOutcome
 		? {
-				lpaQuestionnaireDueDate: dueDate.toDateString()
+				validationOutcome
 		  }
 		: {
 				designatedSites,
@@ -111,7 +110,7 @@ const updateLPAQuestionnaireById = async (req, res) => {
 				isSensitiveArea,
 				isTheSiteWithinAnAONB,
 				meetsOrExceedsThresholdOrCriteriaInColumn2,
-				scheduleTypeId: scheduleType,
+				scheduleType: scheduleType,
 				sensitiveAreaDetails
 		  };
 
