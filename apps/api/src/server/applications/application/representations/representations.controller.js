@@ -58,11 +58,7 @@ export const getRepresentations = async ({ params, query }, response) => {
 		};
 	}
 
-	let sort = null;
-	const sortBy = sortByFromQuery(query.sortBy);
-	if (sortBy) {
-		sort = [sortBy];
-	}
+	const sort = sortByFromQuery(query.sortBy) ?? null;
 
 	const { count, items } = await getCaseRepresentations(
 		params.id,
