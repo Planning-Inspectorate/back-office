@@ -10,6 +10,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteCaseStatuses = databaseConnector.caseStatus.deleteMany();
 	const deleteCasePublishedStates = databaseConnector.casePublishedState.deleteMany();
 	const deleteApplicationDetails = databaseConnector.applicationDetails.deleteMany();
+	const deleteProjectTeam = databaseConnector.projectTeam.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
 	const deleteAddresses = databaseConnector.address.deleteMany();
 	const deleteServiceUsers = databaseConnector.serviceUser.deleteMany();
@@ -66,6 +67,7 @@ export async function deleteAllRecords(databaseConnector) {
 	await databaseConnector.$transaction([
 		deleteGridReference,
 		deleteServiceUsers,
+		deleteProjectTeam,
 		deleteApplicationDetails,
 		deleteCaseStatuses,
 		deleteCasePublishedStates,
