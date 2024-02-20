@@ -189,10 +189,6 @@ export function addLinkedAppealPage(appealData) {
 export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandidateSummary, linkCandidateAppealData) {
 	const shortAppealReference = appealShortReference(appealData.appealReference);
 
-	// if (mappedCandidateData.appeal.appealStatus.display.summaryListItem) {
-	// 	mappedCandidateData.appeal.appealStatus.display.summaryListItem.value.text = appealStatusToStatusTag(mappedCandidateData.appeal.appealStatus.display.summaryListItem.value.text);
-	// }
-
 	/** @type {PageContent} */
 	const pageContent = {
 		title: `Details of the appeal you're linking to ${shortAppealReference}`,
@@ -268,10 +264,7 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 		]
 	};
 
-	const targetIsLead = appealData.linkedAppeals.filter(targetLinkedAppeal => targetLinkedAppeal.isParentAppeal === false).length > 0;
-
-	// if candidate is a horizon appeal, there is no way of knowing whether it's a lead or child
-	const candidateIsLead = linkCandidateAppealData && linkCandidateAppealData?.linkedAppeals.filter(candidateLinkedAppeal => candidateLinkedAppeal.isParentAppeal === false).length > 0;
+	const candidateIsLead = linkCandidateAppealData && linkCandidateAppealData.isParentAppeal;
 
 	/** @type {PageComponent} */
 	const alreadyHasLeadWarningTextComponent = {
@@ -357,7 +350,7 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 		}
 	}
 	// else if target is a lead
-	else if (targetIsLead) {
+	else if (appealData.isParentAppeal) {
 		// if candidate has no linked appeals
 		if (!linkCandidateAppealData || linkCandidateAppealData.linkedAppeals.length === 0) {
 			pageContent.pageComponents?.push({

@@ -49,7 +49,7 @@ export async function linkAppealToBackOfficeAppeal(apiClient, appealId, linkedAp
 export async function linkAppealToLegacyAppeal(apiClient, appealId, linkedAppealReference, targetAppealIsParent = false) {
 	return apiClient.post(`appeals/${appealId}/link-legacy-appeal`, {
 		json: {
-			linkedAppealReference, // TODO: think this may need 'HORIZON' to be prepended...
+			linkedAppealReference,
 			isCurrentAppealParent: targetAppealIsParent
 		}
 	})
