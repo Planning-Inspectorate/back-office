@@ -108,6 +108,13 @@ export function findUnique(caseReference, email) {
 			serviceUser: {
 				email
 			}
+		},
+		include: {
+			serviceUser: {
+				select: {
+					email: true
+				}
+			}
 		}
 	});
 }
