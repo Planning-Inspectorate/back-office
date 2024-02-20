@@ -11,10 +11,10 @@ import {
 	AUDIT_TRAIL_CASE_TIMELINE_CREATED,
 	AUDIT_TRAIL_SUBMISSION_INCOMPLETE,
 	DEFAULT_DATE_FORMAT_DATABASE,
-	DEFAULT_DATE_FORMAT_DISPLAY,
+	//DEFAULT_DATE_FORMAT_DISPLAY,
 	ERROR_NOT_FOUND
 } from '#endpoints/constants.js';
-import config from '#config/config.js';
+//import config from '#config/config.js';
 import appellantCaseRepository from '#repositories/appellant-case.repository.js';
 import transitionState from '../../state/transition-state.js';
 import appealRepository from '#repositories/appeal.repository.js';
@@ -50,10 +50,17 @@ const updateAppellantCaseValidationOutcome = async ({
 	appellantCaseId,
 	azureAdUserId,
 	data,
-	notifyClient,
+	//notifyClient,
 	validationOutcome
 }) => {
-	const { appealStatus, appealType, appellant, agent, id: appealId, reference } = appeal;
+	const {
+		appealStatus,
+		appealType,
+		//appellant,
+		//agent,
+		id: appealId
+		//reference
+	} = appeal;
 	const { appealDueDate, incompleteReasons, invalidReasons } = data;
 
 	let startedAt = undefined;
@@ -65,6 +72,8 @@ const updateAppellantCaseValidationOutcome = async ({
 		);
 		timetable = await calculateTimetable(appealType.shorthand, startedAt);
 
+		// Disable temporarily, until templates are created
+		/*
 		await notifyClient.sendEmail(
 			config.govNotify.template.validAppellantCase,
 			appellant?.email || agent?.email,
@@ -74,6 +83,7 @@ const updateAppellantCaseValidationOutcome = async ({
 				date_started: format(startedAt, DEFAULT_DATE_FORMAT_DISPLAY)
 			}
 		);
+		*/
 
 		await createAuditTrail({
 			appealId,
