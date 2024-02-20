@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { request } from '../../../app-test.js';
 import {
 	DEFAULT_DATE_FORMAT_DATABASE,
-	DEFAULT_DATE_FORMAT_DISPLAY,
+	//DEFAULT_DATE_FORMAT_DISPLAY,
 	DEFAULT_TIMESTAMP_TIME,
 	ERROR_MUST_BE_IN_FUTURE,
 	ERROR_CANNOT_BE_EMPTY_STRING,
@@ -49,13 +49,13 @@ import { baseExpectedAppellantCaseResponse } from '#tests/appeals/expectation.js
 
 import joinDateAndTime from '#utils/join-date-and-time.js';
 import { calculateTimetable } from '../../../utils/business-days.js';
-import config from '../../../config/config.js';
-import { NotifyClient } from 'notifications-node-client';
+//import config from '../../../config/config.js';
+//import { NotifyClient } from 'notifications-node-client';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 const startedAt = new Date(joinDateAndTime(format(new Date(), DEFAULT_DATE_FORMAT_DATABASE)));
-const notifyClient = new NotifyClient();
+//const notifyClient = new NotifyClient();
 
 describe('appellant cases routes', () => {
 	beforeEach(() => {
@@ -921,6 +921,8 @@ describe('appellant cases routes', () => {
 						valid: true
 					}
 				});
+				// Disable temporarily, until templates are created
+				/*
 				expect(notifyClient.sendEmail).toHaveBeenCalledWith(
 					config.govNotify.template.validAppellantCase.id,
 					householdAppeal.appellant.email,
@@ -934,6 +936,8 @@ describe('appellant cases routes', () => {
 						reference: null
 					}
 				);
+				*/
+
 				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
 					data: {
 						appealId: householdAppeal.id,
@@ -999,6 +1003,8 @@ describe('appellant cases routes', () => {
 						valid: true
 					}
 				});
+				// Disable temporarily, until templates are created
+				/*
 				expect(notifyClient.sendEmail).toHaveBeenCalledWith(
 					config.govNotify.template.validAppellantCase.id,
 					fullPlanningAppeal.appellant.email,
@@ -1012,6 +1018,7 @@ describe('appellant cases routes', () => {
 						reference: null
 					}
 				);
+				*/
 				expect(databaseConnector.auditTrail.create).toHaveBeenCalledWith({
 					data: {
 						appealId: fullPlanningAppeal.id,
