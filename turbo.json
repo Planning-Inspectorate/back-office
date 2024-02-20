@@ -5,6 +5,10 @@
 			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],
 			"dependsOn": ["^build", "$NODE_ENV", "$APP_RELEASE"]
 		},
+		"build:release": {
+			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],
+			"dependsOn": ["^build", "$NODE_ENV", "$APP_RELEASE"]
+		},
 		"topo": {
 			"dependsOn": ["^topo"]
 		},
