@@ -45,8 +45,7 @@ export const migrateRepresentations = async (logger, caseReferences) => {
 
 				return {
 					...row,
-					originalRepresentation: row.originalRepresentation || '',
-					status: mapStatus(row.status)
+					originalRepresentation: row.originalRepresentation || ''
 					// attachmentIds: row.attachmentIds?.split(',')
 				};
 			});
@@ -70,12 +69,3 @@ export const migrateRepresentations = async (logger, caseReferences) => {
 		}
 	}
 };
-
-const mapStatus = (status) =>
-	({
-		New: 'awaiting_review',
-		'In Progress': 'awaiting_review',
-		Complete: 'valid',
-		Published: 'published',
-		'Do Not Publish': 'invalid'
-	}[status]);
