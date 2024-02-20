@@ -16,7 +16,7 @@ export function postUnlinkRequest(apiClient, appealId, relationshipId) {
 /**
  * @param {import('got').Got} apiClient
  * @param {string} appealReference
- * @returns {Promise<import('@pins/appeals.api/src/server/endpoints/linkable-appeals/linkable-appeal.service.js').LinkableAppealSummary>}
+ * @returns {Promise<import('@pins/appeals.api').Appeals.LinkableAppealSummary>}
  */
 export async function getLinkableAppealByReference(apiClient, appealReference) {
 	return apiClient.get(`appeals/linkable-appeal/${appealReference}`).json();
@@ -29,14 +29,20 @@ export async function getLinkableAppealByReference(apiClient, appealReference) {
  * @param {boolean} [targetAppealIsParent]
  * @returns {Promise<{}>}
  */
-export async function linkAppealToBackOfficeAppeal(apiClient, appealId, linkedAppealId, targetAppealIsParent = false) {
-	return apiClient.post(`appeals/${appealId}/link-appeal`, {
-		json: {
-			linkedAppealId,
-			isCurrentAppealParent: targetAppealIsParent
-		}
-	})
-	.json();
+export async function linkAppealToBackOfficeAppeal(
+	apiClient,
+	appealId,
+	linkedAppealId,
+	targetAppealIsParent = false
+) {
+	return apiClient
+		.post(`appeals/${appealId}/link-appeal`, {
+			json: {
+				linkedAppealId,
+				isCurrentAppealParent: targetAppealIsParent
+			}
+		})
+		.json();
 }
 
 /**
@@ -46,12 +52,18 @@ export async function linkAppealToBackOfficeAppeal(apiClient, appealId, linkedAp
  * @param {boolean} [targetAppealIsParent]
  * @returns {Promise<{}>}
  */
-export async function linkAppealToLegacyAppeal(apiClient, appealId, linkedAppealReference, targetAppealIsParent = false) {
-	return apiClient.post(`appeals/${appealId}/link-legacy-appeal`, {
-		json: {
-			linkedAppealReference,
-			isCurrentAppealParent: targetAppealIsParent
-		}
-	})
-	.json();
+export async function linkAppealToLegacyAppeal(
+	apiClient,
+	appealId,
+	linkedAppealReference,
+	targetAppealIsParent = false
+) {
+	return apiClient
+		.post(`appeals/${appealId}/link-legacy-appeal`, {
+			json: {
+				linkedAppealReference,
+				isCurrentAppealParent: targetAppealIsParent
+			}
+		})
+		.json();
 }

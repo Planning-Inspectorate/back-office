@@ -1,7 +1,7 @@
 /**
  *
  * @param {import("#endpoints/appeals.js").RepositoryGetByIdResultItem} appeal
- * @returns {import("./linkable-appeal.service.js").LinkableAppealSummary}
+ * @returns {import('@pins/appeals.api').Appeals.LinkableAppealSummary}
  */
 export const formatLinkableAppealSummary = (appeal) => {
 	return {

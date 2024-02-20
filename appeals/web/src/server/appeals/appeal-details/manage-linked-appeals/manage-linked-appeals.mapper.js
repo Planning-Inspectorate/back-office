@@ -173,11 +173,15 @@ export function addLinkedAppealPage(appealData) {
 
 /**
  * @param {Appeal} appealData
- * @param {import('@pins/appeals.api/src/server/endpoints/linkable-appeals/linkable-appeal.service.js').LinkableAppealSummary} linkCandidateSummary
+ * @param {import('@pins/appeals.api').Appeals.LinkableAppealSummary} linkCandidateSummary
  * @param {Appeal|undefined} linkCandidateAppealData
  * @returns {Promise<PageContent>}
  */
-export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandidateSummary, linkCandidateAppealData) {
+export async function addLinkedAppealCheckAndConfirmPage(
+	appealData,
+	linkCandidateSummary,
+	linkCandidateAppealData
+) {
 	const shortAppealReference = appealShortReference(appealData.appealReference);
 
 	/** @type {PageContent} */
@@ -198,7 +202,9 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 								text: 'Appeal reference'
 							},
 							value: {
-								text: `${linkCandidateSummary.appealReference}${linkCandidateSummary.source === 'horizon' ? ' (Horizon)' : ''}`
+								text: `${linkCandidateSummary.appealReference}${
+									linkCandidateSummary.source === 'horizon' ? ' (Horizon)' : ''
+								}`
 							}
 						},
 						{
@@ -274,7 +280,11 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 	};
 
 	// if candidate is already linked to target
-	if (appealData.linkedAppeals.filter(linkedAppeal => linkedAppeal.appealReference === linkCandidateSummary.appealReference).length > 0) {
+	if (
+		appealData.linkedAppeals.filter(
+			(linkedAppeal) => linkedAppeal.appealReference === linkCandidateSummary.appealReference
+		).length > 0
+	) {
 		pageContent.pageComponents?.unshift({
 			type: 'warning-text',
 			parameters: {

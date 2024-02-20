@@ -319,7 +319,9 @@ export function updateDueDatePage(appealId, appealReference) {
 		backLinkUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/incomplete/`,
 		preHeading: `Appeal ${appealShortReference(appealReference)}`,
 		heading: 'Update appeal due date',
-		submitButtonText: 'Save and continue',
+		submitButtonProperties: {
+			text: 'Save and continue'
+		},
 		skipButtonUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/check-your-answers`,
 		pageComponents: []
 	};
