@@ -80,15 +80,6 @@ export const subSectors = [
 	},
 	{
 		subSector: {
-			name: 'office_use',
-			abbreviation: 'BC01',
-			displayNameEn: 'Office Use',
-			displayNameCy: 'Office Use'
-		},
-		sectorName: 'business_and_commercial'
-	},
-	{
-		subSector: {
 			name: 'research_and_development_of_products_or_processes',
 			abbreviation: 'BC02',
 			displayNameEn: 'Research and Development of Products or Processes',
