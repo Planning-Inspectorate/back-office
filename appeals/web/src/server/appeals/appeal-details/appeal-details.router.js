@@ -31,5 +31,5 @@ router.use('/:appealId/assign-new-user', assignNewUserRouter);
 router.use('/:appealId/change-appeal-details', changePageRouter);
 router.use('/:appealId/issue-decision', issueDecisionRouter);
 router.use('/:appealId/change-appeal-type', appealTypeChangeRouter);
-router.use('/:appealId/manage-linked-appeals', linkedAppealsRouter);
+router.use('/:appealId/linked-appeals', linkedAppealsRouter);
 export default router;

@@ -9,7 +9,7 @@ import { formatHorizonGetCaseData } from '#utils//mapping/map-horizon.js';
  * @property {string | undefined} appealReference
  * @property {string | undefined} appealType
  * @property {string} appealStatus
- * @property {{siteAddressLine1: string | undefined | null, siteAddressLine2: string | undefined | null, siteAddressTown: string | undefined | null, siteAddressCounty: string | undefined | null, siteAddressPostcode: string | undefined | null}} siteAddress
+ * @property {import('@pins/appeals.api').Appeals.AppealSite} siteAddress
  * @property {string} localPlanningDepartment
  * @property {string | undefined} appellantName
  * @property {string | undefined | null} [agentName]

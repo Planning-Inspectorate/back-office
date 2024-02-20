@@ -114,6 +114,8 @@ export function personalListPage(
 					],
 					rows: (appealsAssignedToCurrentUser?.items || []).map((appeal) => {
 						const shortReference = appealShortReference(appeal.appealReference);
+						const linkedAppealStatusText = linkedAppealStatus(appeal.isParentAppeal, appeal.isChildAppeal);
+
 						return [
 							{
 								html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
@@ -124,14 +126,17 @@ export function personalListPage(
 							},
 							{
 								html: '',
-								pageComponents: [
-									{
-										type: 'status-tag',
-										parameters: {
-											status: linkedAppealStatus(appeal.isParentAppeal, appeal.isChildAppeal)
-										}
-									}
-								]
+								pageComponents:
+									linkedAppealStatusText === ''
+										? []
+										: [
+											{
+												type: 'status-tag',
+												parameters: {
+													status: linkedAppealStatusText
+												}
+											}
+										]
 							},
 							{
 								html: mapAppealStatusToActionRequiredHtml(
