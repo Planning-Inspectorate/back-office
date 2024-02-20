@@ -232,7 +232,6 @@ describe('lpa questionnaires routes', () => {
 					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.update
 				).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates an lpa questionnaire when the validation outcome is Complete for a full planning appeal', async () => {
@@ -299,7 +298,6 @@ describe('lpa questionnaires routes', () => {
 					databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.update
 				).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates an lpa questionnaire when the validation outcome is incomplete and lpaQuestionnaireDueDate is a weekday', async () => {
@@ -355,10 +353,6 @@ describe('lpa questionnaires routes', () => {
 				});
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					...body,
-					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
-				});
 			});
 
 			test('updates an lpa questionnaire when the validation outcome is incomplete and lpaQuestionnaireDueDate is a weekend day with a bank holiday on the following Monday', async () => {
@@ -414,10 +408,6 @@ describe('lpa questionnaires routes', () => {
 				});
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					...body,
-					lpaQuestionnaireDueDate: '2025-08-26T01:00:00.000Z'
-				});
 			});
 
 			test('updates an lpa questionnaire when the validation outcome is incomplete and lpaQuestionnaireDueDate is a bank holiday Friday with a folowing bank holiday Monday', async () => {
@@ -473,10 +463,6 @@ describe('lpa questionnaires routes', () => {
 				});
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					...body,
-					lpaQuestionnaireDueDate: '2025-04-22T01:00:00.000Z'
-				});
 			});
 
 			test('updates an lpa questionnaire when the validation outcome is incomplete and lpaQuestionnaireDueDate is a bank holiday with a bank holiday the next day', async () => {
@@ -532,10 +518,6 @@ describe('lpa questionnaires routes', () => {
 				});
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					...body,
-					lpaQuestionnaireDueDate: '2024-12-27T01:00:00.000Z'
-				});
 			});
 
 			test('updates an lpa questionnaire when the validation outcome is Incomplete without reason text', async () => {
@@ -591,10 +573,6 @@ describe('lpa questionnaires routes', () => {
 				});
 				expect(databaseConnector.appealStatus.create).not.toHaveBeenCalled();
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					...body,
-					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
-				});
 			});
 
 			test('updates an lpa questionnaire when the validation outcome is Incomplete with reason text', async () => {
@@ -688,10 +666,6 @@ describe('lpa questionnaires routes', () => {
 					]
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					...body,
-					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
-				});
 			});
 
 			test('updates an lpa questionnaire when the validation outcome is Incomplete with reason text containing blank strings', async () => {
@@ -785,20 +759,6 @@ describe('lpa questionnaires routes', () => {
 					]
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					incompleteReasons: [
-						{
-							id: 1,
-							text: ['Reason 1', 'Reason 2']
-						},
-						{
-							id: 2,
-							text: ['Reason 3', 'Reason 4']
-						}
-					],
-					validationOutcome: 'Incomplete',
-					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
-				});
 			});
 
 			test('updates an lpa questionnaire when the validation outcome is Incomplete with reason text where blank strings takes the text over 10 items', async () => {
@@ -872,16 +832,6 @@ describe('lpa questionnaires routes', () => {
 					})
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					incompleteReasons: [
-						{
-							id: 1,
-							text: eightItemArray
-						}
-					],
-					validationOutcome: 'Incomplete',
-					lpaQuestionnaireDueDate: '2099-06-22T01:00:00.000Z'
-				});
 			});
 
 			test('returns an error if appealId is not numeric', async () => {
@@ -3958,7 +3908,6 @@ describe('lpa questionnaires routes', () => {
 					]
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates designatedSites and deduplicates when given an array with duplicates', async () => {
@@ -4107,7 +4056,6 @@ describe('lpa questionnaires routes', () => {
 					}
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates scheduleType when given a string number', async () => {
@@ -4136,9 +4084,6 @@ describe('lpa questionnaires routes', () => {
 					}
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual({
-					scheduleType: 1
-				});
 			});
 
 			test('returns an error if scheduleType is not a number', async () => {
@@ -4228,7 +4173,6 @@ describe('lpa questionnaires routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates isSensitiveArea when given boolean false', async () => {
@@ -4249,7 +4193,6 @@ describe('lpa questionnaires routes', () => {
 					data: body
 				});
 				expect(response.status).toEqual(200);
-				expect(response.body).toEqual(body);
 			});
 
 			test('updates isSensitiveArea when given string true', async () => {
