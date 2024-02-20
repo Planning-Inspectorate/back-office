@@ -2,6 +2,7 @@ import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter.js';
 import { appealSiteToAddressString } from '#lib/address-formatter.js';
 import { appealStatusToStatusTag } from '#lib/nunjucks-filters/status-tag.js';
+import { dateToDisplayDate } from '#lib/dates.js';
 
 /**
  * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
@@ -257,6 +258,14 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 							value: {
 								text: linkCandidateSummary.appellantName
 							}
+						},
+						{
+							key: {
+								text: 'Submission date'
+							},
+							value: {
+								text: dateToDisplayDate(linkCandidateSummary.submissionDate)
+							}
 						}
 					]
 				}
@@ -274,8 +283,21 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 		}
 	};
 
+	// if candidate is already linked to target
+	if (appealData.linkedAppeals.filter(linkedAppeal => linkedAppeal.appealReference === linkCandidateSummary.appealReference)) {
+		pageContent.pageComponents?.unshift({
+			type: 'warning-text',
+			parameters: {
+				text: `The appeals are already linked.`
+			}
+		});
+		pageContent.submitButtonProperties = {
+			text: 'Return to search',
+			href: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`
+		};
+	}
 	// if target has no linked appeals
-	if (appealData.linkedAppeals.length === 0) {
+	else if (appealData.linkedAppeals.length === 0) {
 		// if candidate has no linked appeals
 		if (!linkCandidateAppealData || linkCandidateAppealData?.linkedAppeals.length === 0) {
 			pageContent.pageComponents?.push({
@@ -299,7 +321,7 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 							text: `Yes, this is a child appeal of ${shortAppealReference}`
 						},
 						{
-							divider: "or"
+							divider: 'or'
 						},
 						{
 							value: 'cancel',
@@ -326,7 +348,7 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 							text: `Yes, make this the lead appeal for ${shortAppealReference}`
 						},
 						{
-							divider: "or"
+							divider: 'or'
 						},
 						{
 							value: 'cancel',
@@ -364,7 +386,7 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 							text: `Yes, this is a child appeal of ${shortAppealReference}`
 						},
 						{
-							divider: "or"
+							divider: 'or'
 						},
 						{
 							value: 'cancel',
@@ -383,9 +405,7 @@ export async function addLinkedAppealCheckAndConfirmPage(appealData, linkCandida
 			pageContent.pageComponents?.unshift({
 				type: 'warning-text',
 				parameters: {
-					parameters: {
-						text: `Appeal ${shortAppealReference} and the appeal you are trying to link to it are both lead appeals, and cannot be linked.`
-					}
+					text: `Appeal ${shortAppealReference} and the appeal you are trying to link to it are both lead appeals, and cannot be linked.`
 				}
 			});
 			pageContent.submitButtonProperties = {
