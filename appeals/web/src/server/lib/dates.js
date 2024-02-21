@@ -1,6 +1,7 @@
 import { formatInTimeZone } from 'date-fns-tz';
 import enGB from 'date-fns/locale/en-GB/index.js';
 import logger from '#lib/logger.js';
+import { isValid, isBefore, isAfter, startOfDay, parseISO, format } from 'date-fns';
 
 export const timeZone = 'Europe/London';
 
@@ -16,7 +17,7 @@ export const dateIsValid = (year, month, day) => {
 	const cleanDay = `${day}`[0] === '0' ? `${day}`.slice(1) : `${day}`;
 
 	return (
-		isDateInstance(date) &&
+		isValid(date) &&
 		`${date.getFullYear()}` === `${year}` &&
 		`${date.getMonth() + 1}` === cleanMonth.trim() &&
 		`${date.getDate()}` === cleanDay.trim()
@@ -31,9 +32,7 @@ export const dateIsValid = (year, month, day) => {
  */
 export const dateIsInTheFuture = (year, month, day) => {
 	const date = new Date(year, month - 1, day);
-	const today = new Date();
-
-	return date > today;
+	return isAfter(date, startOfDay(new Date()));
 };
 
 /**
@@ -44,11 +43,7 @@ export const dateIsInTheFuture = (year, month, day) => {
  */
 export const dateIsInThePast = (year, month, day) => {
 	const date = new Date(year, month - 1, day);
-	const today = new Date();
-	const dateWithoutTime = dateToUTCDateWithoutTime(date);
-	const todayWithoutTime = dateToUTCDateWithoutTime(today);
-
-	return dateWithoutTime < todayWithoutTime;
+	return isBefore(date, startOfDay(new Date()));
 };
 
 /**
@@ -58,7 +53,8 @@ export const dateIsInThePast = (year, month, day) => {
  * @returns {boolean}
  */
 export const dateIsTodayOrInThePast = (year, month, day) => {
-	return !dateIsInTheFuture(year, month, day);
+	const date = new Date(year, month - 1, day);
+	return !isAfter(date, startOfDay(new Date()));
 };
 
 /**
@@ -104,28 +100,17 @@ export const apiDateStringToDayMonthYear = (apiDateString) => {
 	if (apiDateString === null || apiDateString === undefined) {
 		return;
 	}
+	const date = parseISO(apiDateString);
 
-	const date = new Date(apiDateString);
-
-	if (date.toString() === 'Invalid Date') {
+	if (!isValid(date)) {
 		logger.error('The date string provided parsed to an invalid date');
 		return;
 	}
-
-	const dayMonthYear = {
+	return {
 		day: date.getDate(),
-		month: date.getMonth(),
+		month: date.getMonth() + 1,
 		year: date.getFullYear()
 	};
-
-	if (isNaN(dayMonthYear.day) || isNaN(dayMonthYear.month) || isNaN(dayMonthYear.year)) {
-		return;
-	}
-
-	// date.getMonth() returns a zero-based month value, but DayMonthYear.month should be a 1-based value (see notes on DayMonthYear type definition)
-	dayMonthYear.month += 1;
-
-	return dayMonthYear;
 };
 
 /**
@@ -154,7 +139,7 @@ export function dateToDisplayDate(date, { condensed = false } = {}) {
 		return '';
 	}
 
-	return formatInTimeZone(new Date(date), timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
+	return formatInTimeZone(date, timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
 		locale: enGB
 	});
 }
@@ -168,10 +153,7 @@ export function dateToDisplayTime(date) {
 		return '';
 	}
 
-	const hours = date.getHours();
-	const minutes = date.getMinutes();
-
-	return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+	return format(date, 'HH:mm');
 }
 
 /**
@@ -184,14 +166,7 @@ export function webDateToDisplayDate(dayMonthYear, { condensed = false } = {}) {
 	}
 
 	const { day, month, year } = dayMonthYear;
-
-	if (day && month && year) {
-		const date = new Date(year, month - 1, day);
-
-		return formatInTimeZone(date, timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
-			locale: enGB
-		});
-	} else {
-		return '';
-	}
+	const date = new Date(Date.UTC(year, month - 1, day));
+	const formatString = condensed ? 'd MMM yyyy' : 'd MMMM yyyy';
+	return formatInTimeZone(date, timeZone, formatString, { locale: enGB });
 }
