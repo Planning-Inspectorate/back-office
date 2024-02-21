@@ -2,6 +2,7 @@ import * as got from 'got';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import { post } from '../../lib/request.js';
 import { setSuccessBanner } from '../../applications/common/services/session.service.js';
+import logger from '../../lib/logger.js';
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, username?: string, name?: string}} DocumentUploadInfo */
@@ -96,10 +97,17 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 			uploadInfo = await createNewDocument(caseId, payload);
 		}
 	} catch (err) {
-		if (!(err instanceof got.HTTPError) || err.response.statusCode !== 409) {
-			throw err;
+		logger.error(err);
+		if (!(err instanceof got.HTTPError)) {
+			return response.status(500).send({
+				errors: { unknown: 'unknown internal error' }
+			});
 		}
-
+		if (err.response.statusCode === 400) {
+			return response.status(400).send({
+				errors: { message: 'Bad Request' }
+			});
+		}
 		return response.status(409).send(err.response.body);
 	}
 
