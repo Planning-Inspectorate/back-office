@@ -3,7 +3,8 @@ BEGIN TRY
 BEGIN TRAN;
 
 -- AddForeignKey
-ALTER TABLE [dbo].[ProjectTeam] ADD CONSTRAINT [ProjectTeam_caseId_fkey] FOREIGN KEY ([caseId]) REFERENCES [dbo].[Case]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+-- 	DO NOTHING: SEE TICKET https://pins-ds.atlassian.net/browse/BOAS-1576
+-- ALTER TABLE [dbo].[ProjectTeam] ADD CONSTRAINT [ProjectTeam_caseId_fkey] FOREIGN KEY ([caseId]) REFERENCES [dbo].[Case]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 COMMIT TRAN;
 

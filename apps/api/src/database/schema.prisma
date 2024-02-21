@@ -32,7 +32,6 @@ model Case {
   ExaminationTimetable  ExaminationTimetable?
   ProjectUpdate         ProjectUpdate[]
   S51Advice             S51Advice[]
-  ProjectTeam           ProjectTeam[]
 }
 
 // ServiceUser model which represents a person or oranisation who can have some role in a case
@@ -540,7 +539,6 @@ model ProjectTeam {
   userId    String
   role      String
   createdAt DateTime @default(now())
-  case      Case     @relation(fields: [caseId], references: [id])
 
   @@id([caseId, userId])
 }
