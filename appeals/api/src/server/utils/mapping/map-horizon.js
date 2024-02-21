@@ -11,7 +11,7 @@ export const horizonGetCaseRequestBody = (/** @type {string} */ caseReference) =
 /**
  *
  * @param {string} data
- * @returns {import("#utils/horizon-gateway.js").HorizonGetCaseSuccessResponse|import("#utils/horizon-gateway.js").HorizonGetCaseFailureResponse}
+ * @returns {import("#utils/horizon-gateway.js").HorizonGetCaseSuccessResponse|import("#utils/horizon-gateway.js").HorizonGetCaseFailureResponse|undefined}
  */
 export const parseHorizonGetCaseResponse = (data) => {
 	if (data) {
@@ -49,11 +49,11 @@ export const formatHorizonGetCaseData = (data) => {
 		appealType: data.Envelope.Body.GetCaseResponse.GetCaseResult.CaseType.value,
 		appealStatus: convertedData['Case:Processing State'],
 		siteAddress: {
-			siteAddressLine1: convertedData['Case Site:Site Address Line 1'],
-			siteAddressLine2: convertedData['Case Site:Site Address Line 2'],
-			siteAddressTown: convertedData['Case Site:Site Address Town'],
-			siteAddressCounty: convertedData['Case Site:Site Address County'],
-			siteAddressPostcode: convertedData['Case Site:Site Address Postcode']
+			addressLine1: convertedData['Case Site:Site Address Line 1'],
+			addressLine2: convertedData['Case Site:Site Address Line 2'],
+			town: convertedData['Case Site:Site Address Town'],
+			county: convertedData['Case Site:Site Address County'],
+			postCode: convertedData['Case Site:Site Address Postcode']
 		},
 		localPlanningDepartment: convertedData['Case:LPA Name'],
 		appellantName:
