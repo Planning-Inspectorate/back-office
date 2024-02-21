@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { postInspectorDecision } from './appeal-decision.controller.js';
 import {
 	getOutcomeValidator,
@@ -35,7 +35,7 @@ router.post(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	getOutcomeValidator,
 	getDateValidator,
 	getDocumentValidator,

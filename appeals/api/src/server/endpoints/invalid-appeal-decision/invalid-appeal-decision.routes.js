@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { postInvalidDecision } from './invalid-appeal-decision.controller.js';
 import { getInvalidDecisionReasonValidator } from './invalid-appeal-decision.validator.js';
 import { asyncHandler } from '#middleware/async-handler.js';
@@ -30,7 +30,7 @@ router.post(
 		#swagger.responses[400] = {}
 		#swagger.responses[404] = {}
 	 */
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	getInvalidDecisionReasonValidator,
 	asyncHandler(postInvalidDecision)
 );

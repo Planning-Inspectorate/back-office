@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import { getAddressById, updateAddressById } from './addresses.controller.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { checkAddressExists } from './addresses.service.js';
 import { getAddressValidator, patchAddressValidator } from './addresses.validators.js';
 
@@ -26,7 +26,7 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	getAddressValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkAddressExists,
 	asyncHandler(getAddressById)
 );
@@ -56,7 +56,7 @@ router.patch(
 		#swagger.responses[404] = {}
 	 */
 	patchAddressValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkAddressExists,
 	asyncHandler(updateAddressById)
 );

@@ -3,7 +3,7 @@ import { asyncHandler } from '../../middleware/async-handler.js';
 import { getLookupData } from '../../common/controllers/lookup-data.controller.js';
 import { getAllocationLevels, saveAllocation } from './appeal-allocation-controller.js';
 import { getAllocationValidator, validateSpecialism } from './appeal-allocation-validator.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 
 const router = createRouter();
 
@@ -72,7 +72,7 @@ router.patch(
 	 */
 	getAllocationValidator,
 	validateSpecialism,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	asyncHandler(saveAllocation)
 );
 

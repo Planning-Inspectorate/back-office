@@ -126,7 +126,7 @@ const getMyAppeals = async (req, res) => {
  * @param {Response} res
  * @returns {Promise<Response>}
  */
-const getAppealById = async (req, res) => {
+const getAppeal = async (req, res) => {
 	const { appeal } = req;
 	const folders = await getFoldersForAppeal(appeal, CONFIG_APPEAL_STAGES.decision);
 
@@ -266,4 +266,4 @@ const mapAppealStatuses = (rawStatuses) => {
 	return statusOrder.filter((status) => extractedStatuses.includes(status));
 };
 
-export { getAppealById, getAppeals, getMyAppeals, updateAppealById, mapAppealStatuses };
+export { getAppeal, getAppeals, getMyAppeals, updateAppealById, mapAppealStatuses };

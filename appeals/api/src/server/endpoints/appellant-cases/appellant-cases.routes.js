@@ -3,7 +3,7 @@ import { asyncHandler } from '../../middleware/async-handler.js';
 import { getAppellantCaseById, updateAppellantCaseById } from './appellant-cases.controller.js';
 import checkLookupValueIsValidAndAddToRequest from '#middleware/check-lookup-value-is-valid-and-add-to-request.js';
 import checkLookupValuesAreValid from '#middleware/check-lookup-values-are-valid.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { checkAppellantCaseExists } from './appellant-cases.service.js';
 import {
 	getAppellantCaseValidator,
@@ -32,7 +32,7 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	getAppellantCaseValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkAppellantCaseExists,
 	asyncHandler(getAppellantCaseById)
 );
@@ -62,7 +62,7 @@ router.patch(
 		#swagger.responses[404] = {}
 	 */
 	patchAppellantCaseValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkAppellantCaseExists,
 	checkLookupValueIsValidAndAddToRequest(
 		'validationOutcome',

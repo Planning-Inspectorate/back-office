@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import { getAppealValidator } from '#endpoints/appeals/appeals.validators.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { validateDocumentAndAddToRequest } from './documents.middleware.js';
 import {
 	getFolderIdValidator,
@@ -34,7 +34,7 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	getAppealValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	getFolderIdValidator,
 	asyncHandler(controller.getFolder)
 );
@@ -58,7 +58,7 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	getAppealValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	getDocumentIdValidator,
 	validateDocumentAndAddToRequest,
 	asyncHandler(controller.getDocument)
@@ -83,7 +83,7 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	getAppealValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	getDocumentIdValidator,
 	asyncHandler(controller.getDocumentAndVersions)
 );
@@ -113,7 +113,7 @@ router.post(
 		#swagger.responses[404] = {}
 	 */
 	getAppealValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	getDocumentsValidator,
 	asyncHandler(controller.addDocuments)
 );
@@ -143,7 +143,7 @@ router.post(
 		#swagger.responses[404] = {}
 	 */
 	getAppealValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	getDocumentIdValidator,
 	validateDocumentAndAddToRequest,
 	getDocumentValidator,
@@ -175,7 +175,7 @@ router.patch(
 		#swagger.responses[404] = {}
 	 */
 	patchDocumentsValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	asyncHandler(controller.updateDocuments)
 );
 
@@ -226,7 +226,7 @@ router.delete(
 		#swagger.responses[404] = {}
 	 */
 	getAppealValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	getDocumentIdValidator,
 	validateDocumentAndAddToRequest,
 	asyncHandler(controller.deleteDocumentVersion)

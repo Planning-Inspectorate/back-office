@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import {
 	postLinkAppealValidator,
 	postLinkLegacyAppealValidator
@@ -34,7 +34,7 @@ router.post(
 		}
 		#swagger.responses[400] = {}
 	 */
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	postLinkAppealValidator,
 	asyncHandler(linkAppeal)
 );
@@ -58,7 +58,7 @@ router.post(
 		}
 		#swagger.responses[400] = {}
 	 */
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	postLinkLegacyAppealValidator,
 	asyncHandler(linkExternalAppeal)
 );
@@ -82,7 +82,7 @@ router.post(
 		}
 		#swagger.responses[400] = {}
 	 */
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	postLinkAppealValidator,
 	asyncHandler(associateAppeal)
 );
@@ -106,7 +106,7 @@ router.post(
 		}
 		#swagger.responses[400] = {}
 	 */
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	postLinkLegacyAppealValidator,
 	asyncHandler(associateExternalAppeal)
 );
@@ -130,7 +130,7 @@ router.delete(
 		}
 		#swagger.responses[400] = {}
 	 */
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	asyncHandler(unlinkAppeal)
 );
 

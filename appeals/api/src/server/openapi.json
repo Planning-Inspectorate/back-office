@@ -2924,6 +2924,54 @@
 				}
 			}
 		},
+		"/appeals/case-reference/{caseReference}": {
+			"get": {
+				"tags": ["Appeals"],
+				"description": "Gets a single appeal by case reference",
+				"parameters": [
+					{
+						"name": "caseReference",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Gets a single appeal by id",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleAppealResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/SingleAppealResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
 		"/appeals/linkable-appeal/{appealReference}": {
 			"get": {
 				"tags": ["Linkable appeals"],
