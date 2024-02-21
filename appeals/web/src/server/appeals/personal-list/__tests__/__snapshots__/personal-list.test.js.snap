@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`personal-list GET / should render a message when there are no cases assigned to the user 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-l govuk-!-margin-bottom-6">There are currently no cases assigned to you.</h1>
+        </div>
+    </div><a href="/appeals-service/appeals-list" role="button" draggable="false"
+    class="govuk-button govuk-button--secondary" data-module="govuk-button"
+    id="remove-document"> Search all cases</a>
+</main>"
+`;
+
 exports[`personal-list GET / should render the first page of the personal list with the expected content and pagination 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
