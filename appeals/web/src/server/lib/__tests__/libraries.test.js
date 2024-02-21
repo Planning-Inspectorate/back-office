@@ -10,7 +10,10 @@ import {
 	dayMonthYearToApiDateString,
 	webDateToDisplayDate,
 	apiDateStringToDayMonthYear,
-	dateToUTCDateWithoutTime
+	dateToUTCDateWithoutTime,
+	dateToDisplayDate,
+	hourMinuteToApiDateString,
+	dateToDisplayTime
 } from '../dates.js';
 import { appealShortReference } from '../nunjucks-filters/appeals.js';
 import { datestamp, displayDate } from '../nunjucks-filters/date.js';
@@ -175,6 +178,11 @@ describe('Libraries', () => {
 			it('should return false if month parameter is outside the valid range', () => {
 				expect(dateIsValid(2023, 0, 1)).toBe(false);
 				expect(dateIsValid(2023, 13, 1)).toBe(false);
+				// @ts-ignore
+				expect(dateIsValid('abc', 2, 29)).toBe(false);
+				expect(dateIsValid(NaN, 2, 29)).toBe(false);
+				// @ts-ignore
+				expect(dateIsValid(null, 2, 29)).toBe(false);
 			});
 		});
 
@@ -246,6 +254,15 @@ describe('Libraries', () => {
 
 				expect(typeof instanceOfDate).toEqual('boolean');
 			});
+
+			it('should return false for non-Date types', () => {
+				// @ts-ignore
+				expect(isDateInstance('2023-01-01')).toBe(false);
+				// @ts-ignore
+				expect(isDateInstance(null)).toBe(false);
+				// @ts-ignore
+				expect(isDateInstance(undefined)).toBe(false);
+			});
 		});
 
 		describe('dayMonthYearToApiDateString', () => {
@@ -280,25 +297,34 @@ describe('Libraries', () => {
 
 				expect(convertedDate).toBe('1 January 2024');
 			});
+			it('should return the correct date as a string in the format of "1 January 2024" when provided a DayMonthYear with single-digit day and month values and condensed is true', () => {
+				const convertedDate = webDateToDisplayDate({
+					day: 1,
+					month: 1,
+					year: 2024
+				});
+
+				expect(convertedDate).toBe('1 January 2024');
+			});
 		});
 
 		describe('apiDateStringToDayMonthYear', () => {
 			it('should return undefined when the provided date string is null', () => {
 				const convertedDate = apiDateStringToDayMonthYear(null);
 
-				expect(convertedDate).toEqual(undefined);
+				expect(convertedDate).toBeUndefined();
 			});
 
 			it('should return undefined when the provided date string is undefined', () => {
 				const convertedDate = apiDateStringToDayMonthYear(undefined);
 
-				expect(convertedDate).toEqual(undefined);
+				expect(convertedDate).toBeUndefined();
 			});
 
 			it('should return undefined when provided an invalid date string', () => {
 				const convertedDate = apiDateStringToDayMonthYear('abc123');
 
-				expect(convertedDate).toEqual(undefined);
+				expect(convertedDate).toBeUndefined();
 			});
 
 			it('should return the correct date as a DayMonthYear object when provided a valid date string', () => {
@@ -309,6 +335,87 @@ describe('Libraries', () => {
 					month: 2,
 					year: 2024
 				});
+			});
+
+			it('should handle invalid dates gracefully', () => {
+				expect(apiDateStringToDayMonthYear('invalid-date')).toBeUndefined();
+			});
+		});
+
+		describe('hourMinuteToApiDateString', () => {
+			it('formats hours and minutes correctly', () => {
+				expect(hourMinuteToApiDateString('1', '9')).toBe('01:09');
+				expect(hourMinuteToApiDateString('12', '30')).toBe('12:30');
+				expect(hourMinuteToApiDateString('0', '0')).toBe('00:00');
+			});
+
+			it('defaults minutes to "00" if undefined', () => {
+				expect(hourMinuteToApiDateString('5')).toBe('05:00');
+			});
+
+			it('returns an empty string if hour is undefined', () => {
+				expect(hourMinuteToApiDateString(undefined, '30')).toBe('');
+			});
+
+			it('handles single digit hours and minutes by padding with zeros', () => {
+				expect(hourMinuteToApiDateString('3', '7')).toBe('03:07');
+			});
+		});
+
+		describe('dateToDisplayDate', () => {
+			it('returns an empty string for null input', () => {
+				expect(dateToDisplayDate(null)).toBe('');
+			});
+
+			it('returns an empty string for undefined input', () => {
+				expect(dateToDisplayDate(undefined)).toBe('');
+			});
+
+			it('formats a Date object correctly with default options', () => {
+				const date = new Date('2024-01-01T12:00:00Z');
+				expect(dateToDisplayDate(date)).toBe('1 January 2024');
+			});
+
+			it('formats a Date object correctly with condensed = true', () => {
+				const date = new Date('2024-01-01T12:00:00Z');
+				expect(dateToDisplayDate(date, { condensed: true })).toBe('1 Jan 2024');
+			});
+
+			it('formats a string date correctly with default options', () => {
+				const dateString = '2024-01-01T12:00:00Z';
+				expect(dateToDisplayDate(dateString)).toBe('1 January 2024');
+			});
+
+			it('formats a string date correctly with condensed = true', () => {
+				const dateString = '2024-01-01T12:00:00Z';
+				expect(dateToDisplayDate(dateString, { condensed: true })).toBe('1 Jan 2024');
+			});
+
+			it('formats a timestamp correctly with default options', () => {
+				const timestamp = new Date('2024-01-01T12:00:00Z').getTime();
+				expect(dateToDisplayDate(timestamp)).toBe('1 January 2024');
+			});
+
+			it('formats a timestamp correctly with condensed = true', () => {
+				const timestamp = new Date('2024-01-01T12:00:00Z').getTime();
+				expect(dateToDisplayDate(timestamp, { condensed: true })).toBe('1 Jan 2024');
+			});
+		});
+
+		describe('dateToDisplayTime', () => {
+			it('formats a Date object into a HH:MM string', () => {
+				const date = new Date('2024-01-01T13:09:00Z');
+				expect(dateToDisplayTime(date)).toBe('13:09');
+			});
+
+			it('pads single digit hours and minutes with zeros', () => {
+				const earlyMorning = new Date('2024-01-01T01:05:00Z');
+				expect(dateToDisplayTime(earlyMorning)).toBe('01:05');
+			});
+
+			it('returns an empty string for undefined or null dates', () => {
+				expect(dateToDisplayTime(undefined)).toBe('');
+				expect(dateToDisplayTime(null)).toBe('');
 			});
 		});
 
