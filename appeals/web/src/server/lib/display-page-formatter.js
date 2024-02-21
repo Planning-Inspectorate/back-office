@@ -72,7 +72,9 @@ export const formatListOfAppeals = (listOfAppeals) => {
 				listOfAppeals[i].appealId
 			}' class="govuk-link" aria-label="Appeal ${numberToAccessibleDigitLabel(
 				shortAppealReference || ''
-			)}">${shortAppealReference}</a></li>`;
+			)}">${shortAppealReference}</a>${
+				listOfAppeals[i].isParentAppeal ? ' (Lead)' : ' (Child)'
+			}</li>`;
 		}
 		return `<ul class="govuk-list"">${formattedLinks}</ul>`;
 	}
