@@ -50,7 +50,11 @@ export async function appellantCasePage(
 	session,
 	apiClient
 ) {
-	const mappedAppellantCaseData = initialiseAndMapData(appellantCaseData, currentRoute);
+	const mappedAppellantCaseData = initialiseAndMapData(
+		appellantCaseData,
+		appealDetails,
+		currentRoute
+	);
 
 	/**
 	 * @type {PageComponent}
@@ -87,11 +91,18 @@ export async function appellantCasePage(
 			},
 			rows: [
 				mappedAppellantCaseData.appellantName.display.summaryListItem,
-				mappedAppellantCaseData.applicantName.display.summaryListItem,
 				mappedAppellantCaseData.applicationReference.display.summaryListItem
 			]
 		}
 	};
+
+	if (appealDetails.agent) {
+		appellantSummary.parameters.rows.splice(
+			1,
+			0,
+			mappedAppellantCaseData.agentName.display.summaryListItem
+		);
+	}
 
 	/**
 	 * @type {PageComponent}
