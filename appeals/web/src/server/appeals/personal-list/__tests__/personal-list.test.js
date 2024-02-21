@@ -62,6 +62,17 @@ describe('personal-list', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
+		it('should render a message when there are no cases assigned to the user', async () => {
+			nock('http://test/')
+				.get('/appeals/my-appeals?pageNumber=1&pageSize=5')
+				.reply(200, { items: [], totalItems: 0, page: 1, totalPages: 1, pageSize: 5 });
+
+			const response = await request.get(`${baseUrl}?pageNumber=1&pageSize=5`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
 	});
 });
 

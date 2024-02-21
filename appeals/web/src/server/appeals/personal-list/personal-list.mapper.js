@@ -37,133 +37,161 @@ export function personalListPage(
 			selected: appealStatusFilter === appealStatus
 		})
 	);
+	/** @type {PageComponent} */
+	const searchAllCasesButton = {
+		wrapperHtml: {
+			opening: '',
+			closing: ''
+		},
+		type: 'button',
+		parameters: {
+			id: 'remove-document',
+			href: '/appeals-service/appeals-list',
+			classes: 'govuk-button--secondary',
+			text: 'Search all cases'
+		}
+	};
+
+	/** @type {PageComponent} */
+	const filterComponent = {
+		type: 'details',
+		parameters: {
+			summaryText: 'Filters',
+			html: '',
+			pageComponents: [
+				{
+					type: 'html',
+					parameters: {
+						html: `<form method="GET">`
+					}
+				},
+				{
+					type: 'select',
+					parameters: {
+						label: {
+							text: 'Show cases with status'
+						},
+						id: 'filters-select',
+						name: 'appealStatusFilter',
+						value: 'all',
+						items: filterItemsArray
+					}
+				},
+				{
+					type: 'html',
+					parameters: {
+						html: '<div class="govuk-button-group">'
+					}
+				},
+				{
+					type: 'button',
+					parameters: {
+						id: 'filters-submit',
+						type: 'submit',
+						classes: 'govuk-button--secondary',
+						text: 'Apply'
+					}
+				},
+				{
+					type: 'html',
+					parameters: {
+						html: `<a class="govuk-link" href="${urlWithoutQuery}">Clear filter</a></div></form>`
+					}
+				}
+			]
+		}
+	};
+
+	/** @type {PageComponent} */
+	const casesComponent = {
+		type: 'table',
+		parameters: {
+			head: [
+				{
+					text: 'Appeal reference'
+				},
+				{
+					text: 'Lead or child'
+				},
+				{
+					text: 'Action required'
+				},
+				{
+					text: 'Due by'
+				},
+				{
+					text: 'Case status'
+				}
+			],
+			rows: (appealsAssignedToCurrentUser?.items || []).map((appeal) => {
+				const shortReference = appealShortReference(appeal.appealReference);
+				return [
+					{
+						html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
+							appeal.appealId
+						}" aria-label="Appeal ${numberToAccessibleDigitLabel(
+							shortReference || ''
+						)}">${shortReference}</a></strong>`
+					},
+					{
+						html: '',
+						pageComponents: [
+							{
+								type: 'status-tag',
+								parameters: {
+									status: linkedAppealStatus(appeal.isParentAppeal, appeal.isChildAppeal)
+								}
+							}
+						]
+					},
+					{
+						html: mapAppealStatusToActionRequiredHtml(
+							appeal.appealId,
+							appeal.appealStatus,
+							appeal.lpaQuestionnaireId,
+							appeal.appellantCaseStatus,
+							appeal.lpaQuestionnaireStatus,
+							appeal.dueDate,
+							isInspector
+						)
+					},
+					{
+						text: dateToDisplayDate(appeal.dueDate) || ''
+					},
+					{
+						html: '',
+						pageComponents: [
+							{
+								type: 'status-tag',
+								parameters: {
+									status: appeal.appealStatus || 'ERROR'
+								}
+							}
+						]
+					}
+				];
+			})
+		}
+	};
 
 	/** @type {PageContent} */
 	const pageContent = {
 		title: 'Personal list',
 		heading: 'Cases assigned to you',
 		headingClasses: 'govuk-heading-l govuk-!-margin-bottom-6',
-		pageComponents: [
-			{
-				type: 'details',
-				parameters: {
-					summaryText: 'Filters',
-					html: '',
-					pageComponents: [
-						{
-							type: 'html',
-							parameters: {
-								html: `<form method="GET">`
-							}
-						},
-						{
-							type: 'select',
-							parameters: {
-								label: {
-									text: 'Show cases with status'
-								},
-								id: 'filters-select',
-								name: 'appealStatusFilter',
-								value: 'all',
-								items: filterItemsArray
-							}
-						},
-						{
-							type: 'html',
-							parameters: {
-								html: '<div class="govuk-button-group">'
-							}
-						},
-						{
-							type: 'button',
-							parameters: {
-								id: 'filters-submit',
-								type: 'submit',
-								classes: 'govuk-button--secondary',
-								text: 'Apply'
-							}
-						},
-						{
-							type: 'html',
-							parameters: {
-								html: `<a class="govuk-link" href="${urlWithoutQuery}">Clear filter</a></div></form>`
-							}
-						}
-					]
-				}
-			},
-			{
-				type: 'table',
-				parameters: {
-					head: [
-						{
-							text: 'Appeal reference'
-						},
-						{
-							text: 'Lead or child'
-						},
-						{
-							text: 'Action required'
-						},
-						{
-							text: 'Due by'
-						},
-						{
-							text: 'Case status'
-						}
-					],
-					rows: (appealsAssignedToCurrentUser?.items || []).map((appeal) => {
-						const shortReference = appealShortReference(appeal.appealReference);
-						return [
-							{
-								html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
-									appeal.appealId
-								}" aria-label="Appeal ${numberToAccessibleDigitLabel(
-									shortReference || ''
-								)}">${shortReference}</a></strong>`
-							},
-							{
-								html: '',
-								pageComponents: [
-									{
-										type: 'status-tag',
-										parameters: {
-											status: linkedAppealStatus(appeal.isParentAppeal, appeal.isChildAppeal)
-										}
-									}
-								]
-							},
-							{
-								html: mapAppealStatusToActionRequiredHtml(
-									appeal.appealId,
-									appeal.appealStatus,
-									appeal.lpaQuestionnaireId,
-									appeal.appellantCaseStatus,
-									appeal.lpaQuestionnaireStatus,
-									appeal.dueDate,
-									isInspector
-								)
-							},
-							{
-								text: dateToDisplayDate(appeal.dueDate) || ''
-							},
-							{
-								html: '',
-								pageComponents: [
-									{
-										type: 'status-tag',
-										parameters: {
-											status: appeal.appealStatus || 'ERROR'
-										}
-									}
-								]
-							}
-						];
-					})
-				}
-			}
-		]
+		pageComponents: []
 	};
+
+	if (
+		appealsAssignedToCurrentUser &&
+		appealsAssignedToCurrentUser.items &&
+		appealsAssignedToCurrentUser.items.length > 0
+	) {
+		pageContent.pageComponents?.push(filterComponent, casesComponent);
+	} else {
+		pageContent.heading = 'There are currently no cases assigned to you.';
+		pageContent.pageComponents?.push(searchAllCasesButton);
+	}
 
 	if (
 		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
