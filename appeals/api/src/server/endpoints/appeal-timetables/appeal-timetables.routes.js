@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import { updateAppealTimetableById } from './appeal-timetables.controller.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { patchAppealTimetableValidator } from './appeal-timetables.validators.js';
 import { checkAppealTimetableExists } from './appeal-timetables.service.js';
 
@@ -31,7 +31,7 @@ router.patch(
 		#swagger.responses[400] = {}
 		#swagger.responses[500] = {}
 	 */
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkAppealTimetableExists,
 	patchAppealTimetableValidator,
 	asyncHandler(updateAppealTimetableById)

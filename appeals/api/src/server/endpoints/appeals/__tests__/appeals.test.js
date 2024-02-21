@@ -1232,6 +1232,243 @@ describe('appeals routes', () => {
 			});
 		});
 	});
+
+	describe('appeals/case-reference/:caseReference', () => {
+		describe('GET', () => {
+			test('gets a single household appeal', async () => {
+				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([savedFolder]);
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				// @ts-ignore
+				databaseConnector.appealRelationship.findMany
+					// @ts-ignore
+					.mockResolvedValueOnce(linkedAppeals);
+
+				const response = await request
+					.get(`/appeals/case-reference/${householdAppeal.reference}`)
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					agent: {
+						firstName: householdAppeal.agent.firstName,
+						lastName: householdAppeal.agent.lastName,
+						email: householdAppeal.agent.email
+					},
+					appellant: {
+						firstName: householdAppeal.appellant.firstName,
+						lastName: householdAppeal.appellant.lastName,
+						email: householdAppeal.appellant.email
+					},
+					allocationDetails: null,
+					appealId: householdAppeal.id,
+					appealReference: householdAppeal.reference,
+					appealSite: {
+						addressLine1: householdAppeal.address.addressLine1,
+						addressLine2: householdAppeal.address.addressLine2,
+						town: householdAppeal.address.addressTown,
+						county: householdAppeal.address.addressCounty,
+						postCode: householdAppeal.address.postcode
+					},
+					appealStatus: householdAppeal.appealStatus[0].status,
+					appealTimetable: {
+						appealTimetableId: householdAppeal.appealTimetable.id,
+						lpaQuestionnaireDueDate: householdAppeal.appealTimetable.lpaQuestionnaireDueDate
+					},
+					appealType: householdAppeal.appealType.type,
+					appellantCaseId: 1,
+					caseOfficer: householdAppeal.caseOfficer.azureAdUserId,
+					decision: {
+						folderId: savedFolder.id
+					},
+					documentationSummary: {
+						appellantCase: {
+							status: 'received',
+							dueDate: householdAppeal.dueDate
+						},
+						lpaQuestionnaire: {
+							dueDate: '2023-05-16T01:00:00.000Z',
+							status: 'received'
+						}
+					},
+					healthAndSafety: {
+						appellantCase: {
+							details: householdAppeal.appellantCase.healthAndSafetyIssues,
+							hasIssues: householdAppeal.appellantCase.hasHealthAndSafetyIssues
+						},
+						lpaQuestionnaire: {
+							details: householdAppeal.lpaQuestionnaire.healthAndSafetyDetails,
+							hasIssues: householdAppeal.lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues
+						}
+					},
+					inspector: householdAppeal.inspector.azureAdUserId,
+					inspectorAccess: {
+						appellantCase: {
+							details: householdAppeal.appellantCase.visibilityRestrictions,
+							isRequired: !householdAppeal.appellantCase.isSiteVisibleFromPublicRoad
+						},
+						lpaQuestionnaire: {
+							details: householdAppeal.lpaQuestionnaire.inspectorAccessDetails,
+							isRequired: householdAppeal.lpaQuestionnaire.doesSiteRequireInspectorAccess
+						}
+					},
+					isParentAppeal: true,
+					isChildAppeal: false,
+					linkedAppeals: linkedAppeals.map((a) => {
+						return {
+							appealReference: a.childRef,
+							isParentAppeal: false,
+							linkingDate: a.linkingDate,
+							appealType: 'Unknown',
+							externalSource: true
+						};
+					}),
+					otherAppeals: [],
+					localPlanningDepartment: householdAppeal.lpa.name,
+					lpaQuestionnaireId: householdAppeal.lpaQuestionnaire.id,
+					neighbouringSite: {
+						contacts: householdAppeal.lpaQuestionnaire.neighbouringSiteContact.map((contact) => ({
+							address: formatAddress(contact.address),
+							firstName: contact.firstName,
+							lastName: contact.lastName
+						})),
+						isAffected: householdAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
+					},
+					planningApplicationReference: householdAppeal.planningApplicationReference,
+					procedureType: householdAppeal.lpaQuestionnaire.procedureType.name,
+					siteVisit: {
+						siteVisitId: householdAppeal.siteVisit.id,
+						visitDate: householdAppeal.siteVisit.visitDate,
+						visitStartTime: householdAppeal.siteVisit.visitStartTime,
+						visitEndTime: householdAppeal.siteVisit.visitEndTime,
+						visitType: householdAppeal.siteVisit.siteVisitType.name
+					},
+					startedAt: householdAppeal.startedAt.toISOString()
+				});
+			});
+
+			test('gets a single full planning appeal', async () => {
+				// @ts-ignore
+				databaseConnector.folder.findMany.mockResolvedValue([savedFolder]);
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(fullPlanningAppeal);
+
+				const response = await request
+					.get(`/appeals/case-reference/${fullPlanningAppeal.reference}`)
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(response.status).toEqual(200);
+				expect(response.body).toEqual({
+					agent: {
+						firstName: fullPlanningAppeal.agent.firstName,
+						lastName: fullPlanningAppeal.agent.lastName,
+						email: fullPlanningAppeal.agent.email
+					},
+					appellant: {
+						firstName: fullPlanningAppeal.appellant.firstName,
+						lastName: fullPlanningAppeal.appellant.lastName,
+						email: fullPlanningAppeal.appellant.email
+					},
+					allocationDetails: null,
+					appealId: fullPlanningAppeal.id,
+					appealReference: fullPlanningAppeal.reference,
+					appealSite: {
+						addressLine1: fullPlanningAppeal.address.addressLine1,
+						addressLine2: fullPlanningAppeal.address.addressLine2,
+						town: fullPlanningAppeal.address.addressTown,
+						county: fullPlanningAppeal.address.addressCounty,
+						postCode: fullPlanningAppeal.address.postcode
+					},
+					appealStatus: fullPlanningAppeal.appealStatus[0].status,
+					appealTimetable: {
+						appealTimetableId: fullPlanningAppeal.appealTimetable.id,
+						finalCommentReviewDate: fullPlanningAppeal.appealTimetable.finalCommentReviewDate,
+						lpaQuestionnaireDueDate: fullPlanningAppeal.appealTimetable.lpaQuestionnaireDueDate,
+						statementReviewDate: fullPlanningAppeal.appealTimetable.statementReviewDate
+					},
+					appealType: fullPlanningAppeal.appealType.type,
+					appellantCaseId: 1,
+					caseOfficer: fullPlanningAppeal.caseOfficer.azureAdUserId,
+					decision: {
+						folderId: savedFolder.id
+					},
+					documentationSummary: {
+						appellantCase: {
+							status: 'received',
+							dueDate: fullPlanningAppeal.dueDate
+						},
+						lpaQuestionnaire: {
+							dueDate: '2023-05-16T01:00:00.000Z',
+							status: 'received'
+						}
+					},
+					healthAndSafety: {
+						appellantCase: {
+							details: fullPlanningAppeal.appellantCase.healthAndSafetyIssues,
+							hasIssues: fullPlanningAppeal.appellantCase.hasHealthAndSafetyIssues
+						},
+						lpaQuestionnaire: {
+							details: fullPlanningAppeal.lpaQuestionnaire.healthAndSafetyDetails,
+							hasIssues: fullPlanningAppeal.lpaQuestionnaire.doesSiteHaveHealthAndSafetyIssues
+						}
+					},
+					inspector: fullPlanningAppeal.inspector.azureAdUserId,
+					inspectorAccess: {
+						appellantCase: {
+							details: fullPlanningAppeal.appellantCase.visibilityRestrictions,
+							isRequired: !fullPlanningAppeal.appellantCase.isSiteVisibleFromPublicRoad
+						},
+						lpaQuestionnaire: {
+							details: fullPlanningAppeal.lpaQuestionnaire.inspectorAccessDetails,
+							isRequired: fullPlanningAppeal.lpaQuestionnaire.doesSiteRequireInspectorAccess
+						}
+					},
+					isParentAppeal: false,
+					isChildAppeal: false,
+					linkedAppeals: [],
+					otherAppeals: [],
+					localPlanningDepartment: fullPlanningAppeal.lpa.name,
+					lpaQuestionnaireId: fullPlanningAppeal.lpaQuestionnaire.id,
+					neighbouringSite: {
+						contacts: fullPlanningAppeal.lpaQuestionnaire.neighbouringSiteContact.map(
+							(contact) => ({
+								address: formatAddress(contact.address),
+								firstName: contact.firstName,
+								lastName: contact.lastName
+							})
+						),
+						isAffected: fullPlanningAppeal.lpaQuestionnaire.isAffectingNeighbouringSites
+					},
+					planningApplicationReference: fullPlanningAppeal.planningApplicationReference,
+					procedureType: fullPlanningAppeal.lpaQuestionnaire.procedureType.name,
+					siteVisit: {
+						siteVisitId: fullPlanningAppeal.siteVisit.id,
+						visitDate: fullPlanningAppeal.siteVisit.visitDate,
+						visitStartTime: fullPlanningAppeal.siteVisit.visitStartTime,
+						visitEndTime: fullPlanningAppeal.siteVisit.visitEndTime,
+						visitType: fullPlanningAppeal.siteVisit.siteVisitType.name
+					},
+					startedAt: fullPlanningAppeal.startedAt.toISOString()
+				});
+			});
+			test('returns an error if appealId is not found', async () => {
+				// @ts-ignore
+				databaseConnector.appeal.findUnique.mockResolvedValue(null);
+
+				const response = await request
+					.get('/appeals/case-reference/5')
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(response.status).toEqual(404);
+				expect(response.body).toEqual({
+					errors: {
+						caseReference: ERROR_NOT_FOUND
+					}
+				});
+			});
+		});
+	});
 });
 
 describe('mapAppealToDueDate Tests', () => {

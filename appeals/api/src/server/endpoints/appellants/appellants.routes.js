@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { getAppellantById, updateAppellantById } from './appellants.controller.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { checkAppellantExists } from './appellants.service.js';
 import { getAppellantValidator, patchAppellantValidator } from './appellants.validators.js';
 
@@ -26,7 +26,7 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	getAppellantValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkAppellantExists,
 	asyncHandler(getAppellantById)
 );
@@ -56,7 +56,7 @@ router.patch(
 		#swagger.responses[404] = {}
 	 */
 	patchAppellantValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkAppellantExists,
 	asyncHandler(updateAppellantById)
 );

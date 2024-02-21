@@ -6,7 +6,7 @@ import {
 } from './lpa-questionnaires.controller.js';
 import checkLookupValueIsValidAndAddToRequest from '#middleware/check-lookup-value-is-valid-and-add-to-request.js';
 import checkLookupValuesAreValid from '#middleware/check-lookup-values-are-valid.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { checkLPAQuestionnaireExists } from './lpa-questionnaires.service.js';
 import {
 	getLPAQuestionnaireValidator,
@@ -35,7 +35,7 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	getLPAQuestionnaireValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkLPAQuestionnaireExists,
 	asyncHandler(getLpaQuestionnaireById)
 );
@@ -65,7 +65,7 @@ router.patch(
 		#swagger.responses[404] = {}
 	 */
 	patchLPAQuestionnaireValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkLPAQuestionnaireExists,
 	checkLookupValueIsValidAndAddToRequest(
 		'validationOutcome',

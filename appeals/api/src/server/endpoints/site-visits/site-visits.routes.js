@@ -2,7 +2,7 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
 import { createSiteVisit, getSiteVisitById, updateSiteVisit } from './site-visits.controller.js';
 import checkLookupValueIsValidAndAddToRequest from '#middleware/check-lookup-value-is-valid-and-add-to-request.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import {
 	getSiteVisitValidator,
 	patchSiteVisitValidator,
@@ -38,7 +38,7 @@ router.post(
 		#swagger.responses[500] = {}
 	 */
 	postSiteVisitValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkLookupValueIsValidAndAddToRequest(
 		'visitType',
 		'siteVisitType',
@@ -66,7 +66,7 @@ router.get(
 		#swagger.responses[500] = {}
 	 */
 	getSiteVisitValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkSiteVisitExists,
 	asyncHandler(getSiteVisitById)
 );
@@ -96,7 +96,7 @@ router.patch(
 		#swagger.responses[500] = {}
 	 */
 	patchSiteVisitValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	checkSiteVisitExists,
 	checkLookupValueIsValidAndAddToRequest(
 		'visitType',

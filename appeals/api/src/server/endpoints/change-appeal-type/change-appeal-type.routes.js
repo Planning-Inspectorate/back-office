@@ -1,6 +1,6 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import {
 	loadAllAppealTypesAndAddToRequest,
 	validateAppealType,
@@ -39,7 +39,7 @@ router.get(
 		#swagger.responses[400] = {}
 	 */
 	loadAllAppealTypesAndAddToRequest,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	asyncHandler(getAppealTypes)
 );
 
@@ -63,7 +63,7 @@ router.post(
 		#swagger.responses[400] = {}
 	 */
 	loadAllAppealTypesAndAddToRequest,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	validateAppealStatus,
 	validateAppealType,
 	postAppealTypeChangeValidator,
@@ -90,7 +90,7 @@ router.post(
 		#swagger.responses[400] = {}
 	 */
 	loadAllAppealTypesAndAddToRequest,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	validateAppealStatus,
 	validateAppealType,
 	postAppealTypeTransferValidator,
@@ -116,7 +116,7 @@ router.post(
 		}
 		#swagger.responses[400] = {}
 	 */
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	validateAppealStatusForTransfer,
 	postAppealTypeTransferConfirmationValidator,
 	asyncHandler(requestConfirmationTransferOfAppeal)

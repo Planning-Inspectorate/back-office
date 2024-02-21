@@ -11,7 +11,7 @@ import appealRepository from '#repositories/appeal.repository.js';
  * @param {NextFunction} next
  * @returns {Promise<Response | void>}
  */
-const checkAppealExistsAndAddToRequest = async (req, res, next) => {
+export const checkAppealExistsByIdAndAddToRequest = async (req, res, next) => {
 	const {
 		params: { appealId }
 	} = req;
@@ -25,4 +25,22 @@ const checkAppealExistsAndAddToRequest = async (req, res, next) => {
 	next();
 };
 
-export default checkAppealExistsAndAddToRequest;
+/**
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ * @returns {Promise<Response | void>}
+ */
+export const checkAppealExistsByCaseReferenceAndAddToRequest = async (req, res, next) => {
+	const {
+		params: { caseReference }
+	} = req;
+	const appeal = await appealRepository.getAppealByAppealReference(caseReference);
+
+	if (!appeal) {
+		return res.status(404).send({ errors: { caseReference: ERROR_NOT_FOUND } });
+	}
+
+	req.appeal = appeal;
+	next();
+};

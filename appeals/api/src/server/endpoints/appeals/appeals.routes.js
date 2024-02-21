@@ -1,7 +1,10 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '#middleware/async-handler.js';
-import { getAppealById, getAppeals, updateAppealById, getMyAppeals } from './appeals.controller.js';
-import checkAppealExistsAndAddToRequest from '#middleware/check-appeal-exists-and-add-to-request.js';
+import { getAppeal, getAppeals, updateAppealById, getMyAppeals } from './appeals.controller.js';
+import {
+	checkAppealExistsByIdAndAddToRequest,
+	checkAppealExistsByCaseReferenceAndAddToRequest
+} from '#middleware/check-appeal-exists-and-add-to-request.js';
 import {
 	getAppealsValidator,
 	getAppealValidator,
@@ -115,8 +118,30 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	getAppealValidator,
-	checkAppealExistsAndAddToRequest,
-	asyncHandler(getAppealById)
+	checkAppealExistsByIdAndAddToRequest,
+	asyncHandler(getAppeal)
+);
+
+router.get(
+	'/case-reference/:caseReference',
+	/*
+		#swagger.tags = ['Appeals']
+		#swagger.path = '/appeals/case-reference/{caseReference}'
+		#swagger.description = Gets a single appeal by case reference
+		#swagger.parameters['azureAdUserId'] = {
+			in: 'header',
+			required: true,
+			example: '434bff4e-8191-4ce0-9a0a-91e5d6cdd882'
+		}
+		#swagger.responses[200] = {
+			description: 'Gets a single appeal by id',
+			schema: { $ref: '#/definitions/SingleAppealResponse' }
+		}
+		#swagger.responses[400] = {}
+		#swagger.responses[404] = {}
+	 */
+	checkAppealExistsByCaseReferenceAndAddToRequest,
+	asyncHandler(getAppeal)
 );
 
 router.patch(
@@ -144,7 +169,7 @@ router.patch(
 		#swagger.responses[500] = {}
 	 */
 	patchAppealValidator,
-	checkAppealExistsAndAddToRequest,
+	checkAppealExistsByIdAndAddToRequest,
 	asyncHandler(updateAppealById)
 );
 
