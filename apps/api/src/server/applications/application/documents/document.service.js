@@ -750,26 +750,24 @@ export const markDocumentVersionAsUnpublished = async ({ guid, version }) => {
 };
 
 /**
- * Given a list of file names, return two lists: one of pre-existing files with that name in the folder, and another with the remainder
+ * Given a list of file names, return three lists: one of pre-existing files with that name in the folder, one of deleted files with that name in the folder, and one with the remainder
  *
- * @typedef {{ duplicates: string[], remainder: string[] }} ExtractedDuplicates
+ * @typedef {{ duplicates: string[], deleted: string[], remainder: string[] }} ExtractedDuplicates
  * @param {DocumentToSave[]} documents
  * @returns {Promise<ExtractedDuplicates>}
  * */
-export const extractDuplicates = async (documents) => {
+export const extractDuplicatesAndDeleted = async (documents) => {
 	const results = await Promise.allSettled(
 		documents.map(
-			(doc) =>
+			({ folderId, documentName }) =>
 				new Promise((resolve, reject) =>
-					documentRepository
-						.getInFolderByName(doc.folderId, doc.documentName, true)
-						.then((existing) => {
-							if (existing) {
-								reject(doc.documentName);
-							} else {
-								resolve(doc.documentName);
-							}
-						})
+					documentRepository.getInFolderByName(folderId, documentName, true).then((existing) => {
+						if (existing) {
+							reject({ documentName, isDeleted: existing.isDeleted });
+						} else {
+							resolve(documentName);
+						}
+					})
 				)
 		)
 	);
@@ -777,12 +775,14 @@ export const extractDuplicates = async (documents) => {
 	return results.reduce((acc, result) => {
 		if (result.status === 'fulfilled') {
 			acc.remainder.push(result.value);
+		} else if (result.reason.isDeleted) {
+			acc.deleted.push(result.reason.documentName);
 		} else {
-			acc.duplicates.push(result.reason);
+			acc.duplicates.push(result.reason.documentName);
 		}
 
 		return acc;
-	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], remainder: [] }));
+	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], deleted: [], remainder: [] }));
 };
 
 /**

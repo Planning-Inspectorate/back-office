@@ -17,7 +17,7 @@ import { getCaseDetails } from '../application/application.service.js';
 import { verifyNotTraining } from '../application/application.validators.js';
 import {
 	checkCanPublish,
-	extractDuplicates,
+	extractDuplicatesAndDeleted,
 	formatS51AdviceUpdateResponseBody,
 	getManyS51AdviceOnCase,
 	getS51AdviceDocuments,
@@ -186,7 +186,7 @@ export const addDocuments = async ({ params, body }, response) => {
 		? existingS51ForCase.referenceNumber + 1
 		: 1;
 
-	const { duplicates, remainder } = await extractDuplicates(
+	const { duplicates, deleted, remainder } = await extractDuplicatesAndDeleted(
 		adviceId,
 		/** @type {DocumentToSaveExtended[]} */ (documentsToUpload).map((doc) => doc.documentName)
 	);
@@ -241,12 +241,13 @@ export const addDocuments = async ({ params, body }, response) => {
 		logger.info(`Blocked sending event for S51 ${s51Advice.id}:`, err.message);
 	}
 
-	response.status([...failedDocuments, ...duplicates].length > 0 ? 206 : 200).send({
+	response.status([...failedDocuments, ...duplicates, ...deleted].length > 0 ? 206 : 200).send({
 		blobStorageHost,
 		privateBlobContainer,
 		documents: documentsWithUrls,
 		failedDocuments,
-		duplicates
+		duplicates,
+		deleted
 	});
 };
 
