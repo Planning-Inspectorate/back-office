@@ -55,9 +55,10 @@ const serverActions = (uploadForm) => {
 		})
 			.then((response) => response.json())
 			.then((uploadsInfos) => {
-				if (uploadsInfos.failedDocuments || uploadsInfos.duplicates) {
-					const failedDocuments = /** @type {string[]} */ (uploadsInfos.failedDocuments);
-					const duplicates = /** @type {string[]} */ (uploadsInfos.duplicates);
+				if (uploadsInfos.failedDocuments || uploadsInfos.duplicates || uploadsInfos.deleted) {
+					const failedDocuments = /** @type {string[]} */ (uploadsInfos.failedDocuments || []);
+					const duplicates = /** @type {string[]} */ (uploadsInfos.duplicates || []);
+					const deleted = /** @type {string[]} */ (uploadsInfos.deleted || []);
 
 					failedUploads.push(
 						...failedDocuments.map((name, idx) => ({
@@ -67,6 +68,11 @@ const serverActions = (uploadForm) => {
 						})),
 						...duplicates.map((name, idx) => ({
 							message: 'CONFLICT',
+							name,
+							fileRowId: `failedUpload${idx}`
+						})),
+						...deleted.map((name, idx) => ({
+							message: 'DELETED',
 							name,
 							fileRowId: `failedUpload${idx}`
 						}))
