@@ -71,4 +71,8 @@ export class FileUploadPage extends Page {
 		cy.wait(5000);
 		cy.reload();
 	}
+	clickDownloadFile(){
+		cy.get('#main-content > div > div > nav > a:nth-child(3)').should('exist');
+		cy.get('#main-content > div > div > nav > a:nth-child(3)').click();
+	}
 }

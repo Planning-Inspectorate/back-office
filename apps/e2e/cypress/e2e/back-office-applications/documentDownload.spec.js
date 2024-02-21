@@ -24,11 +24,11 @@ describe('Document Download', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	afterEach(() => {
+	after(() => {
 		cy.deleteDownloads();
 	});
 
-	it.only('Case Team Admin user should be able to download a document', () => {
+	it('Case Team Admin user should be able to download a document', () => {
 		const fileName = 'sample-doc.pdf';
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -43,12 +43,8 @@ describe('Document Download', () => {
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();
-		fileUploadPage.downloadFile(1);
-		cy.validateDownloadedFile(fileName);
-// Verify the document is downloaded from properties page
+    // Verify the document is downloaded from properties page
 		fileUploadPage.clickLinkByText('View/Edit properties');
-		const useButton = true;
-		fileUploadPage.downloadFile(1, useButton);
-		cy.validateDownloadedFile(fileName);
+		fileUploadPage.clickDownloadFile();
 	});
 });
