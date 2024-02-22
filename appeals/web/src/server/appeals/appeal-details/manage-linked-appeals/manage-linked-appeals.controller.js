@@ -118,7 +118,7 @@ export const renderAddLinkedAppealCheckAndConfirm = async (request, response) =>
 		);
 	}
 
-	const mappedPageContent = await addLinkedAppealCheckAndConfirmPage(
+	const mappedPageContent = addLinkedAppealCheckAndConfirmPage(
 		targetAppealDetails,
 		request.session.linkableAppeal?.linkableAppealSummary,
 		linkCandidateAppealData

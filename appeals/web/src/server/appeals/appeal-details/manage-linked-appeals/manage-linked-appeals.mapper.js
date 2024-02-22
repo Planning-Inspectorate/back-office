@@ -175,9 +175,9 @@ export function addLinkedAppealPage(appealData) {
  * @param {Appeal} appealData
  * @param {import('@pins/appeals.api').Appeals.LinkableAppealSummary} linkCandidateSummary
  * @param {Appeal|undefined} linkCandidateAppealData
- * @returns {Promise<PageContent>}
+ * @returns {PageContent}
  */
-export async function addLinkedAppealCheckAndConfirmPage(
+export function addLinkedAppealCheckAndConfirmPage(
 	appealData,
 	linkCandidateSummary,
 	linkCandidateAppealData

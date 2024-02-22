@@ -64,9 +64,6 @@ export const appealsNationalList = {
 	pageSize: 30
 };
 
-// /**
-//  * @type {import('@pins/appeals.api').Appeals.SingleAppealDetailsResponse}
-//  */
 /**
  * @type {import('../../../src/server/appeals/appeal-details/appeal-details.types.d').WebAppeal}
  */
@@ -1570,6 +1567,91 @@ export const assignedAppealsPage3 = {
 	page: 2,
 	pageCount: 2,
 	pageSize: 1
+};
+
+export const linkedAppeals = [
+	{
+		appealId: 5449,
+		appealReference: 'TEST-784706',
+		appealType: 'Householder',
+		externalSource: false,
+		isParentAppeal: false,
+		linkingDate: '2024-02-21T10:15:10.436Z',
+		relationshipId: 3046
+	},
+	{
+		appealId: null,
+		appealReference: '87326527',
+		appealType: 'Unknown',
+		externalSource: true,
+		isParentAppeal: false,
+		linkingDate: '2024-01-24T11:16:11.436Z',
+		relationshipId: 3049
+	},
+	{
+		appealId: 5464,
+		appealReference: 'TEST-140079',
+		appealType: 'Householder',
+		externalSource: false,
+		isParentAppeal: false,
+		linkingDate: '2024-02-21T10:15:10.436Z',
+		relationshipId: 3048
+	},
+	{
+		appealId: null,
+		appealReference: '76215416',
+		appealType: 'Unknown',
+		externalSource: true,
+		isParentAppeal: false,
+		linkingDate: '2024-02-21T10:15:10.436Z',
+		relationshipId: 3049
+	},
+	{
+		appealId: 5451,
+		appealReference: 'TEST-721086',
+		appealType: 'Householder',
+		externalSource: false,
+		isParentAppeal: false,
+		linkingDate: '2024-02-21T11:10:15.491Z',
+		relationshipId: 3057
+	}
+];
+
+export const linkableAppealSummaryBackOffice = {
+	appealId: '5448',
+	appealReference: 'TEST-12345',
+	appealType: 'Householder',
+	appealStatus: 'assign_case_officer',
+	siteAddress: {
+		addressLine1: '96 The Avenue',
+		addressLine2: 'Maidstone',
+		town: '',
+		county: 'Kent',
+		postCode: 'MD21 5XY'
+	},
+	localPlanningDepartment: 'Wiltshire Council',
+	appellantName: 'Roger Simmons',
+	agentName: 'Eva Sharma (Eva Sharma Ltd)',
+	submissionDate: '2024-02-21T10:15:09.378Z',
+	source: 'back-office'
+};
+
+export const linkableAppealSummaryHorizon = {
+	appealId: '20486402',
+	appealReference: '3171066',
+	appealType: 'Planning Appeal (W)',
+	appealStatus: 'Closed - Opened in Error',
+	siteAddress: {
+		addressLine1: 'Planning Inspectorate',
+		addressLine2: 'Temple Quay House, 2 The Square, Temple Quay',
+		town: 'BRISTOL',
+		postCode: 'BS1 6PN'
+	},
+	localPlanningDepartment: 'System Test Borough Council',
+	appellantName: 'Mrs Tammy Rogers',
+	agentName: null,
+	submissionDate: '2017-03-07T00:00:00.000Z',
+	source: 'horizon'
 };
 
 export const baseSession = {
