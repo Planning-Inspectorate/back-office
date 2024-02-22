@@ -11,10 +11,11 @@ import { isFolderInfo } from '#lib/ts-utilities.js';
 
 /**
  * @param {import('@pins/appeals.api').Appeals.SingleAppellantCaseResponse} appellantCaseData
+ * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @param {string} currentRoute
  * @returns {MappedInstructions}
  */
-export function initialiseAndMapData(appellantCaseData, currentRoute) {
+export function initialiseAndMapData(appellantCaseData, appealDetails, currentRoute) {
 	if (appellantCaseData === undefined) {
 		throw new Error('appellantCaseDetails is undefined');
 	}
@@ -104,6 +105,49 @@ export function initialiseAndMapData(appellantCaseData, currentRoute) {
 						value: nameToString({
 							firstName: appellantCaseData.applicant.firstName || '',
 							lastName: appellantCaseData.applicant.surname || ''
+						})
+					}
+				}
+			]
+		},
+		submitApi: '#',
+		inputItemApi: '#'
+	};
+
+	mappedData.agentName = {
+		id: 'agent-name',
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Agent name'
+				},
+				value: {
+					text: nameToString({
+						firstName: appealDetails.agent?.firstName || '',
+						lastName: appealDetails.agent?.lastName || ''
+					})
+				},
+				actions: {
+					items: [
+						{
+							text: 'Change',
+							visuallyHiddenText: 'Agent name',
+							href: `${currentRoute}/change-appeal-details/agent-name`
+						}
+					]
+				}
+			}
+		},
+		input: {
+			displayName: 'Agent name',
+			instructions: [
+				{
+					type: 'input',
+					properties: {
+						name: 'agent-name',
+						value: nameToString({
+							firstName: appealDetails.agent?.firstName || '',
+							lastName: appealDetails.agent?.lastName || ''
 						})
 					}
 				}
