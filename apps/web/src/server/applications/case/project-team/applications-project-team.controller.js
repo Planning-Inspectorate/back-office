@@ -42,17 +42,17 @@ export const allRoles = [
  * @param {Partial<ProjectTeamMember>[]} projectTeamMembers
  */
 function availableRoles(projectTeamMember, projectTeamMembers) {
-	const availableRoles = [projectTeamMember.role];
+	const rolesAvailable = [projectTeamMember.role];
 
 	allRoles.forEach(({ value, unique }) => {
 		if (!unique || !projectTeamMembers.some((member) => member.role === value)) {
-			if (!availableRoles.includes(value)) {
-				availableRoles.push(value);
+			if (!rolesAvailable.includes(value)) {
+				rolesAvailable.push(value);
 			}
 		}
 	});
 
-	return allRoles.filter(({ value }) => availableRoles.includes(value));
+	return allRoles.filter(({ value }) => rolesAvailable.includes(value));
 }
 
 /**
