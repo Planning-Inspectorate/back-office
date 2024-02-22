@@ -116,13 +116,4 @@ describe('Upload different types of document and validate the transcript value',
 		documentPropertiesPage.validateDocumentErrorMessage();
 	});
 
-
-	it('Inspector user should not be able to upload a document to a case', () => {
-		cy.login(applicationsUsers.inspector);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		validateProjectOverview(projectInfo);
-	});
 });

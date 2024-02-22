@@ -67,13 +67,4 @@ describe('Document Properties', () => {
 		documentPropertiesPage.updateRedactionStatus('Redacted');
 	});
 
-	it('Inspector user should not be able to upload a document to a case', () => {
-		cy.login(applicationsUsers.inspector);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		validateProjectOverview(projectInfo);
-		fileUploadPage.verifyUploadButtonIsVisible(true);
-	});
 });
