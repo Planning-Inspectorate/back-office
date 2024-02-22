@@ -84,7 +84,7 @@ interface RepositoryGetAllResultItem {
 
 interface RepositoryGetByIdResultItem {
 	address: Schema.Address | null;
-	neighbouringSites: NeighbouringSite[];
+	neighbouringSites?: NeighbouringSite[] | null;
 	allocation?: Schema.AppealAllocation | null;
 	appealStatus: Schema.AppealStatus[];
 	appealTimetable: Schema.AppealTimetable | null;
