@@ -3045,7 +3045,220 @@
 						}
 					}
 				],
-				"responses": {}
+				"responses": {
+					"200": {
+						"description": "Gets appeal from Horizon returns found status (true/false)",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ExistsOnHorizonResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/ExistsOnHorizonResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/appeals/{appealId}/neighbouring-sites": {
+			"post": {
+				"tags": ["Neighbouring sites"],
+				"description": "Adds a neighbouring site with an address to an existing appeal",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns the siteId",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NeighbouringSiteCreateResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/NeighbouringSiteCreateResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "An address",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAddressRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateAddressRequest"
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Neighbouring sites"],
+				"description": "Updates a neighbouring site from its id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns the siteId",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NeighbouringSiteUpdateResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/NeighbouringSiteUpdateResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "An address",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/NeighbouringSiteUpdateRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/NeighbouringSiteUpdateRequest"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Neighbouring sites"],
+				"description": "Deletes a neighbouring from its id",
+				"parameters": [
+					{
+						"name": "appealId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "azureAdUserId",
+						"in": "header",
+						"required": true,
+						"example": "434bff4e-8191-4ce0-9a0a-91e5d6cdd882",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns the siteId",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NeighbouringSiteUpdateResponse"
+								}
+							},
+							"application/xml": {
+								"schema": {
+									"$ref": "#/components/schemas/NeighbouringSiteUpdateResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"requestBody": {
+					"in": "body",
+					"description": "The id of the neighbouring site to delete",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/NeighbouringSiteDeleteRequest"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/NeighbouringSiteDeleteRequest"
+							}
+						}
+					}
+				}
 			}
 		}
 	},
@@ -6653,6 +6866,112 @@
 				},
 				"xml": {
 					"name": "UpdateAddressResponse"
+				}
+			},
+			"NeighbouringSiteCreateResponse": {
+				"type": "object",
+				"properties": {
+					"siteId": {
+						"type": "number",
+						"example": 1
+					},
+					"address": {
+						"type": "object",
+						"properties": {
+							"addressLine1": {
+								"type": "string",
+								"example": "1 Grove Cottage"
+							},
+							"addressLine2": {
+								"type": "string",
+								"example": "Shotesham Road"
+							},
+							"country": {
+								"type": "string",
+								"example": "United Kingdom"
+							},
+							"county": {
+								"type": "string",
+								"example": "Devon"
+							},
+							"postcode": {
+								"type": "string",
+								"example": "NR35 2ND"
+							},
+							"town": {
+								"type": "string",
+								"example": "Woodton"
+							}
+						}
+					}
+				},
+				"xml": {
+					"name": "NeighbouringSiteCreateResponse"
+				}
+			},
+			"NeighbouringSiteUpdateRequest": {
+				"type": "object",
+				"properties": {
+					"siteId": {
+						"type": "number",
+						"example": 1
+					},
+					"address": {
+						"type": "object",
+						"properties": {
+							"addressLine1": {
+								"type": "string",
+								"example": "1 Grove Cottage"
+							},
+							"addressLine2": {
+								"type": "string",
+								"example": "Shotesham Road"
+							},
+							"country": {
+								"type": "string",
+								"example": "United Kingdom"
+							},
+							"county": {
+								"type": "string",
+								"example": "Devon"
+							},
+							"postcode": {
+								"type": "string",
+								"example": "NR35 2ND"
+							},
+							"town": {
+								"type": "string",
+								"example": "Woodton"
+							}
+						}
+					}
+				},
+				"xml": {
+					"name": "NeighbouringSiteUpdateRequest"
+				}
+			},
+			"NeighbouringSiteUpdateResponse": {
+				"type": "object",
+				"properties": {
+					"siteId": {
+						"type": "number",
+						"example": 1
+					}
+				},
+				"xml": {
+					"name": "NeighbouringSiteUpdateResponse"
+				}
+			},
+			"NeighbouringSiteDeleteRequest": {
+				"type": "object",
+				"properties": {
+					"siteId": {
+						"type": "number",
+						"example": 1
+					}
+				},
+				"xml": {
+					"name": "NeighbouringSiteDeleteRequest"
 				}
 			},
 			"UpdateAppealTimetableRequest": {

@@ -117,6 +117,8 @@ export const ERROR_CASE_OUTCOME_MUST_BE_ONE_OF = `The case outcome must be one o
 export const ERROR_LINKING_APPEALS =
 	'The appeals cannot be linked as the lead or child are already linked to other appeals.';
 
+export const ERROR_INVALID_POSTCODE = 'needs to be a valid and include spaces';
+
 export const LENGTH_1 = 1;
 export const LENGTH_8 = 8;
 export const LENGTH_10 = 10;

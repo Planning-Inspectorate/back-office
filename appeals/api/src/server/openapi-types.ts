@@ -1606,6 +1606,54 @@ export interface UpdateAddressResponse {
 	town?: string;
 }
 
+export interface NeighbouringSiteCreateResponse {
+	/** @example 1 */
+	siteId?: number;
+	address?: {
+		/** @example "1 Grove Cottage" */
+		addressLine1?: string;
+		/** @example "Shotesham Road" */
+		addressLine2?: string;
+		/** @example "United Kingdom" */
+		country?: string;
+		/** @example "Devon" */
+		county?: string;
+		/** @example "NR35 2ND" */
+		postcode?: string;
+		/** @example "Woodton" */
+		town?: string;
+	};
+}
+
+export interface NeighbouringSiteUpdateRequest {
+	/** @example 1 */
+	siteId?: number;
+	address?: {
+		/** @example "1 Grove Cottage" */
+		addressLine1?: string;
+		/** @example "Shotesham Road" */
+		addressLine2?: string;
+		/** @example "United Kingdom" */
+		country?: string;
+		/** @example "Devon" */
+		county?: string;
+		/** @example "NR35 2ND" */
+		postcode?: string;
+		/** @example "Woodton" */
+		town?: string;
+	};
+}
+
+export interface NeighbouringSiteUpdateResponse {
+	/** @example 1 */
+	siteId?: number;
+}
+
+export interface NeighbouringSiteDeleteRequest {
+	/** @example 1 */
+	siteId?: number;
+}
+
 export interface UpdateAppealTimetableRequest {
 	/** @example "2023-08-09" */
 	finalCommentReviewDate?: string;

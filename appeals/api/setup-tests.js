@@ -74,6 +74,7 @@ const mockExaminationTimetableItemFindMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemCreate = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemUpdateMany = jest.fn().mockResolvedValue({});
 const mockExaminationTimetableItemDelete = jest.fn().mockResolvedValue({});
+const mockAddressCreate = jest.fn().mockResolvedValue({});
 const mockAddressDelete = jest.fn().mockResolvedValue({});
 const mockAddressUpdate = jest.fn().mockResolvedValue({});
 const mockAppellantCaseIncompleteReasonFindMany = jest.fn().mockResolvedValue({});
@@ -127,12 +128,14 @@ const mockAuditTrailFindMany = jest.fn().mockResolvedValue({});
 const mockAuditTrailCreate = jest.fn().mockResolvedValue({});
 const mockDocumentVersionAuditCreate = jest.fn().mockResolvedValue({});
 const mockAppealTypes = jest.fn().mockResolvedValue({});
+const mockNeighbouringSites = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get address() {
 		return {
 			delete: mockAddressDelete,
-			update: mockAddressUpdate
+			update: mockAddressUpdate,
+			create: mockAddressCreate
 		};
 	}
 	get appeal() {
@@ -522,6 +525,14 @@ class MockPrismaClient {
 	get inspectorDecision() {
 		return {
 			create: mockAppealDecision
+		};
+	}
+
+	get neighbouringSite() {
+		return {
+			create: mockNeighbouringSites,
+			update: mockNeighbouringSites,
+			findUnique: mockNeighbouringSites
 		};
 	}
 
