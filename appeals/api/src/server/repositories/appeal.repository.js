@@ -255,6 +255,9 @@ const getAppealById = async (id) => {
 		},
 		include: {
 			address: true,
+			neighbouringSites: {
+				include: { address: true }
+			},
 			allocation: true,
 			specialisms: {
 				include: {

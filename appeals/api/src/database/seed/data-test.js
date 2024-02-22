@@ -28,6 +28,7 @@ import {
 	CASE_RELATIONSHIP_RELATED
 } from '#endpoints/constants.js';
 
+import neighbouringSitesRepository from '#repositories/neighbouring-sites.repository.js';
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.AppealSite} AppealSite */
@@ -379,6 +380,16 @@ export async function seedTestData(databaseConnector) {
 			});
 		}
 	}
+
+	const appealWithNeighbouringSitesId = appeals[10].id;
+	await neighbouringSitesRepository.addSite(
+		appealWithNeighbouringSitesId,
+		addressesList[pickRandom(addressesList)]
+	);
+	await neighbouringSitesRepository.addSite(
+		appealWithNeighbouringSitesId,
+		addressesList[pickRandom(addressesList)]
+	);
 
 	const linkedAppeals = [
 		{

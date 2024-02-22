@@ -32,6 +32,7 @@ import { linkAppealsRoutes } from './link-appeals/link-appeals.routes.js';
 import checkAzureAdUserIdHeaderExists from '#middleware/check-azure-ad-user-id-header-exists.js';
 import { linkedAppealsRoutes } from './linkable-appeals/linkable-appeal.routes.js';
 import { transferredAppealsRoutes } from './transferred-appeals/transferred-appeal.routes.js';
+import { neighbouringSitesRoutes } from './neighbouring-sites/neighbouring-sites.routes.js';
 
 const router = createRouter();
 router.use(integrationsRoutes);
@@ -69,5 +70,6 @@ router.use(linkAppealsRoutes);
 router.use(appealsRoutes);
 router.use(linkedAppealsRoutes);
 router.use(transferredAppealsRoutes);
+router.use(neighbouringSitesRoutes);
 
 export { router as appealsRoutes };
