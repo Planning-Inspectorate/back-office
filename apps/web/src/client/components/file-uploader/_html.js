@@ -19,6 +19,8 @@ export const errorMessage = (type, replaceValue) => {
 		TYPE_SINGLE_FILE: `{REPLACE_VALUE} could not be added because it is not an allowed file type`,
 		CONFLICT:
 			'{REPLACE_VALUE} could not be added, check if the file does not already exist and try again.',
+		DELETED:
+			'{REPLACE_VALUE} could not be added as a file with the same name was previously uploaded and deleted.',
 		BAD_HTML_FILE:
 			'{REPLACE_VALUE} is not valid for upload. HTML files must contain a YouTube iframe.'
 	};

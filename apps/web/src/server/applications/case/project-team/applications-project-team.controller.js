@@ -1,8 +1,8 @@
 import projectTeamADService from './application-project-team.azure-service.js';
 import {
-	setSuccessBanner,
+	destroySuccessBanner,
 	getSuccessBanner,
-	destroySuccessBanner
+	setSuccessBanner
 } from '../../../applications/common/services/session.service.js';
 import {
 	getManyProjectTeamMembersInfo,
@@ -18,17 +18,42 @@ import {
 /** @typedef {import("../../../app/auth/auth-session.service.js").SessionWithAuth} SessionWithAuth */
 
 export const allRoles = [
-	{ value: 'case_manager', text: 'Case Manager' },
-	{ value: 'environmental_services', text: 'Environmental Services' },
-	{ value: 'inspector', text: 'Inspector' },
-	{ value: 'lead_inspector', text: 'Lead Inspector' },
-	{ value: 'legal_officer', text: 'Legal Officer' },
-	{ value: 'NSIP_administration_officer', text: 'NSIP Administration Officer' },
-	{ value: 'NSIP_officer', text: 'NSIP Officer' },
-	{ value: 'officer', text: 'Officer' },
-	{ value: 'operations_lead', text: 'Operations Lead' },
-	{ value: 'operations_manager', text: 'Operations Manager' }
+	{ value: 'case_manager', text: 'Case Manager', unique: true },
+	{ value: 'environmental_services', text: 'Environmental Services', unique: true },
+	{ value: 'inspector', text: 'Inspector', unique: false },
+	{ value: 'lead_inspector', text: 'Lead Inspector', unique: true },
+	{ value: 'legal_officer', text: 'Legal Officer', unique: true },
+	{ value: 'NSIP_administration_officer', text: 'NSIP Administration Officer', unique: false },
+	{ value: 'NSIP_officer', text: 'NSIP Officer', unique: false },
+	{ value: 'officer', text: 'Officer', unique: false },
+	{ value: 'operations_lead', text: 'Operations Lead', unique: true },
+	{ value: 'operations_manager', text: 'Operations Manager', unique: true }
 ];
+
+/**
+ * Returns available roles.
+ *
+ * Available roles include:
+ * - The role already assigned to the team member
+ * - The roles that can be assigned to multiple team members
+ * - The unassigned roles that cannot be assigned to multiple team members
+ *
+ * @param {Partial<ProjectTeamMember>} projectTeamMember
+ * @param {Partial<ProjectTeamMember>[]} projectTeamMembers
+ */
+function availableRoles(projectTeamMember, projectTeamMembers) {
+	const rolesAvailable = [projectTeamMember.role];
+
+	allRoles.forEach(({ value, unique }) => {
+		if (!unique || !projectTeamMembers.some((member) => member.role === value)) {
+			if (!rolesAvailable.includes(value)) {
+				rolesAvailable.push(value);
+			}
+		}
+	});
+
+	return allRoles.filter(({ value }) => rolesAvailable.includes(value));
+}
 
 /**
  * View all the project team members
@@ -67,11 +92,13 @@ export async function viewProjectTeamChooseRolePage({ params, session }, respons
 	const { caseId } = response.locals;
 	const { userId } = params;
 
+	const { projectTeamMembers = [] } = await getProjectTeamMembers(caseId);
+
 	const projectTeamMember = await getSingleProjectTeamMemberInfo(caseId, userId, session);
 
 	return response.render(`applications/case-project-team/project-team-choose-role.njk`, {
 		projectTeamMember,
-		allRoles
+		availableRoles: availableRoles(projectTeamMember, projectTeamMembers)
 	});
 }
 
@@ -137,11 +164,12 @@ export async function updateProjectTeamChooseRole(
 	}
 
 	if (validationErrors || apiErrors) {
+		const { projectTeamMembers = [] } = await getProjectTeamMembers(caseId);
 		const projectTeamMember = await getSingleProjectTeamMemberInfo(caseId, userId, session);
 
 		return response.render(`applications/case-project-team/project-team-choose-role.njk`, {
 			projectTeamMember,
-			allRoles,
+			availableRoles: availableRoles(projectTeamMember, projectTeamMembers),
 			errors: validationErrors || apiErrors
 		});
 	}
@@ -189,7 +217,7 @@ export async function viewProjectTeamSearchPage(
  * Search project team members and return results
  *
  * @param {string} searchTerm
- * @param {ProjectTeamMember[]} allAzureUsers
+ * @param {Partial<ProjectTeamMember>[]} allAzureUsers
  * @param {number} pageNumber
  * @param {number} caseId
  */

@@ -34,7 +34,7 @@
 
 		{{ govukRadios({
 				name: "role",
-				items: allRoles | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: projectTeamMember.role})
+				items: availableRoles | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: projectTeamMember.role})
 
 			}) }}
 

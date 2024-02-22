@@ -101,21 +101,21 @@ export const formatS51AdviceUpdateResponseBody = (id, status, redactedStatus) =>
 };
 
 /**
- * Given a list of file names, return two lists: one of pre-existing files with that name in the S51 case and another with the remainder
+ * Given a list of file names, return three lists: one of pre-existing files with that name in the S51 case, one of pre-existing file that has been deleted, and one with the remainder
  *
- * @typedef {{ duplicates: string[], remainder: string[] }} ExtractedDuplicates
+ * @typedef {{ duplicates: string[], deleted: string[], remainder: string[] }} ExtractedDuplicates
  * @param {number} adviceId
  * @param {string[]} fileNames
  * @returns {Promise<ExtractedDuplicates>}
  * */
-export const extractDuplicates = async (adviceId, fileNames) => {
+export const extractDuplicatesAndDeleted = async (adviceId, fileNames) => {
 	const results = await Promise.allSettled(
 		fileNames.map(
 			(name) =>
 				new Promise((resolve, reject) =>
 					s51AdviceDocumentRepository.getDocumentInAdviceByName(adviceId, name).then((existing) => {
 						if (existing) {
-							reject(name);
+							reject({ name, isDeleted: existing.isDeleted });
 						} else {
 							resolve(name);
 						}
@@ -127,12 +127,14 @@ export const extractDuplicates = async (adviceId, fileNames) => {
 	return results.reduce((acc, result) => {
 		if (result.status === 'fulfilled') {
 			acc.remainder.push(result.value);
+		} else if (result.reason.isDeleted) {
+			acc.deleted.push(result.reason.name);
 		} else {
-			acc.duplicates.push(result.reason);
+			acc.duplicates.push(result.reason.name);
 		}
 
 		return acc;
-	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], remainder: [] }));
+	}, /** @type {ExtractedDuplicates} */ ({ duplicates: [], deleted: [], remainder: [] }));
 };
 
 /**
