@@ -20,7 +20,7 @@ export const errorMessage = (type, replaceValue) => {
 		CONFLICT:
 			'{REPLACE_VALUE} could not be added, check if the file does not already exist and try again.',
 		DELETED:
-			'{REPLACE_VALUE} could not be added as it was previously uploaded and deleted. Rename the file and try and upload again.',
+			'{REPLACE_VALUE} could not be added as a file with the same name was previously uploaded and deleted.',
 		BAD_HTML_FILE:
 			'{REPLACE_VALUE} is not valid for upload. HTML files must contain a YouTube iframe.'
 	};
