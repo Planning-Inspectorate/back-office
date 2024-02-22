@@ -88,9 +88,8 @@ export async function viewProjectTeamListPage({ session }, response) {
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {userId: string}>}
  */
-export async function viewProjectTeamChooseRolePage({ params, session }, response) {
-	const { caseId } = response.locals;
-	const { userId } = params;
+export async function viewProjectTeamChooseRolePage({ session }, response) {
+	const { caseId, userId } = response.locals;
 
 	const { projectTeamMembers = [] } = await getProjectTeamMembers(caseId);
 
@@ -105,11 +104,10 @@ export async function viewProjectTeamChooseRolePage({ params, session }, respons
 /**
  * Page for removing team member from project
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {userId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}>}
  */
-export async function viewProjectTeamRemovePage({ params, session }, response) {
-	const { caseId } = response.locals;
-	const { userId } = params;
+export async function viewProjectTeamRemovePage({ session }, response) {
+	const { caseId, userId } = response.locals;
 
 	const projectTeamMember = await getSingleProjectTeamMemberInfo(caseId, userId, session);
 
@@ -121,11 +119,10 @@ export async function viewProjectTeamRemovePage({ params, session }, response) {
 /**
  * Execute removal of team member from project
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {userId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}>}
  */
-export async function updateProjectTeamRemove({ params, session }, response) {
-	const { caseId } = response.locals;
-	const { userId } = params;
+export async function updateProjectTeamRemove({ session }, response) {
+	const { caseId, userId } = response.locals;
 
 	const { errors } = await removeProjectTeamMember(caseId, userId);
 
@@ -146,14 +143,13 @@ export async function updateProjectTeamRemove({ params, session }, response) {
 /**
  * Update role of the project team member
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {role: string}, {toSearchPage: string}, {userId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {role: string}, {toSearchPage: string}>}
  */
 export async function updateProjectTeamChooseRole(
-	{ query, params, session, body, errors: validationErrors },
+	{ query, session, body, errors: validationErrors },
 	response
 ) {
-	const { caseId } = response.locals;
-	const { userId } = params;
+	const { caseId, userId } = response.locals;
 	const { role } = body;
 	const { toSearchPage } = query;
 	let apiErrors = null;

@@ -61,6 +61,11 @@ export const updateStatus = async (guid, status) => {
  * @returns {string}
  * */
 export const extractYouTubeURLFromHTML = (html) => {
+	if (html.length > 2000) {
+		// performing string.match() actions on too long strings allow a malicious user to perform a Denial of Service ("DoS") attack
+		throw new Error('Html element too long');
+	}
+
 	const match = html.match(/<iframe.+?src=["|'](.+?)["|']/);
 	if (!match) {
 		throw new Error('No iframe found in the HTML');
