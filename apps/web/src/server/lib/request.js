@@ -4,6 +4,23 @@ import got from 'got';
 import pino from './logger.js';
 import { addAuthHeadersForBackend } from '@pins/add-auth-headers-for-backend';
 
+/**
+ * Sanitize URL
+ * Avoids Server-side request forgery in case the url is built out of a user input param
+ *
+ * @param {string} url
+ */
+const isValidUrl = (url) => {
+	//Regex validation for a url having a simple format
+	const validUrlRegex = /^(\/|(\/[a-zA-Z0-9-]+)+)$/;
+
+	if (!validUrlRegex.test('/' + url)) {
+		return false;
+	}
+
+	return true;
+};
+
 const [requestLogger, responseLogger, retryLogger] = createHttpLoggerHooks(
 	pino,
 	config.logLevelStdOut
@@ -41,11 +58,13 @@ const instance = got.extend({
  * Type-safe implementation of a HEAD request using the got instance.
  *
  * @template T
- * @param {string | URL} url
+ * @param {string} url
  * @param {import('got').OptionsOfJSONResponseBody=} options
  * @returns {import('got').CancelableRequest<T>}
  */
 export function head(url, options) {
+	if (!isValidUrl(url)) throw new Error('Bad request');
+
 	return /** @type {import('got').CancelableRequest<*>} */ (instance.head(url, options));
 }
 
@@ -53,11 +72,13 @@ export function head(url, options) {
  * Type-safe implementation of a post request using the got instance.
  *
  * @template T
- * @param {string | URL} url
+ * @param {string} url
  * @param {import('got').OptionsOfJSONResponseBody=} options
  * @returns {import('got').CancelableRequest<T>}
  */
 export function get(url, options) {
+	if (!isValidUrl(url)) throw new Error('Bad request');
+
 	return /** @type {import('got').CancelableRequest<*>} */ (instance.get(url, options));
 }
 
@@ -70,11 +91,13 @@ export function get(url, options) {
  * string.
  *
  * @template T
- * @param {string | URL} url
+ * @param {string} url
  * @param {import('got').OptionsOfJSONResponseBody=} options
  * @returns {import('got').CancelableRequest<T>}
  */
 export function post(url, options) {
+	if (!isValidUrl(url)) throw new Error('Bad request');
+
 	return /** @type {import('got').CancelableRequest<*>} */ (instance.post(url, options));
 }
 
@@ -98,7 +121,7 @@ export function patch(url, options) {
 /**
  *
  * @template T
- * @param {string | URL} url
+ * @param {string} url
  * @param {import('got').OptionsOfJSONResponseBody=} options
  * @returns {import('got').CancelableRequest<T>}
  */
@@ -110,7 +133,7 @@ export function deleteRequest(url, options) {
  * Type-safe implementation of a stream request using the got instance.
  *
  * @template T
- * @param {string | URL} url
+ * @param {string} url
  * @returns {*}
  */
 export function stream(url) {
