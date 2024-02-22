@@ -55,13 +55,17 @@ router.use(assertGroupAccess(...groupIds));
 
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(asyncHandler(handleSignout));
-router.route('/documents/:caseId/upload').post(postDocumentsUpload);
-router.route('/documents/:caseId/s51-advice/:adviceId/upload').post(postDocumentsUpload);
-router.route('/documents/:caseId/upload/:documentId/add-version').post(postUploadDocumentVersion);
+router.route('/documents/:caseId/upload').post(asyncHandler(postDocumentsUpload));
+router
+	.route('/documents/:caseId/s51-advice/:adviceId/upload')
+	.post(asyncHandler(postDocumentsUpload));
+router
+	.route('/documents/:caseId/upload/:documentId/add-version')
+	.post(asyncHandler(postUploadDocumentVersion));
 router
 	.route('/documents/:caseId/download/:guid/version/:version/:preview?')
 	.get(asyncHandler(getDocumentsDownload));
-router.route('/documents/process-html').post(postProcessHTMLFile);
+router.route('/documents/process-html').post(asyncHandler(postProcessHTMLFile));
 router.use('/applications-service', applicationsRouter);
 
 export default router;

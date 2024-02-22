@@ -1,4 +1,3 @@
-import * as got from 'got';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import { post } from '../../lib/request.js';
 import { setSuccessBanner } from '../../applications/common/services/session.service.js';
@@ -87,21 +86,9 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 		return document;
 	});
 
-	let uploadInfo;
-	try {
-		// @ts-ignore
-		if (adviceId) {
-			uploadInfo = await createS51AdviceDocuments(caseId, Number(adviceId), payload);
-		} else {
-			uploadInfo = await createNewDocument(caseId, payload);
-		}
-	} catch (err) {
-		if (!(err instanceof got.HTTPError) || err.response.statusCode !== 409) {
-			throw err;
-		}
-
-		return response.status(409).send(err.response.body);
-	}
+	const uploadInfo = adviceId
+		? await createS51AdviceDocuments(caseId, Number(adviceId), payload)
+		: await createNewDocument(caseId, payload);
 
 	const { documents } = uploadInfo;
 
