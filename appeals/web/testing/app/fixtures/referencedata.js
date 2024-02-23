@@ -1593,7 +1593,7 @@ export const linkedAppeals = [
 		appealReference: 'TEST-140079',
 		appealType: 'Householder',
 		externalSource: false,
-		isParentAppeal: false,
+		isParentAppeal: true,
 		linkingDate: '2024-02-21T10:15:10.436Z',
 		relationshipId: 3048
 	},
@@ -1602,7 +1602,7 @@ export const linkedAppeals = [
 		appealReference: '76215416',
 		appealType: 'Unknown',
 		externalSource: true,
-		isParentAppeal: false,
+		isParentAppeal: true,
 		linkingDate: '2024-02-21T10:15:10.436Z',
 		relationshipId: 3049
 	},

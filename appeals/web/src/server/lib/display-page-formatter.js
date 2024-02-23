@@ -78,7 +78,7 @@ export const formatListOfAppeals = (listOfAppeals) => {
 			formattedLinks += `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a> ${relationshipText}</li>`;
 		}
 
-		return `<ul class="govuk-list"">${formattedLinks}</ul>`;
+		return `<ul class="govuk-list">${formattedLinks}</ul>`;
 	}
 
 	return '<span>No appeals</span>';
