@@ -999,7 +999,7 @@ describe('appellant cases routes', () => {
 					azureAdUserId
 				});
 
-				jest.useFakeTimers().setSystemTime(new Date('2023-12-18'));
+				jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(new Date('2023-12-18'));
 
 				const body = {
 					validationOutcome: 'valid'
@@ -1048,7 +1048,7 @@ describe('appellant cases routes', () => {
 					azureAdUserId
 				});
 
-				jest.useFakeTimers().setSystemTime(new Date('2023-06-05'));
+				jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(new Date('2023-06-05'));
 
 				const body = {
 					validationOutcome: 'valid'
@@ -1088,7 +1088,7 @@ describe('appellant cases routes', () => {
 					azureAdUserId
 				});
 
-				jest.useFakeTimers().setSystemTime(new Date('2023-05-22'));
+				jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(new Date('2023-05-22'));
 
 				const body = {
 					validationOutcome: 'valid'
@@ -1266,7 +1266,7 @@ describe('appellant cases routes', () => {
 			});
 
 			test('returns an error if appealDueDate is in the past', async () => {
-				jest.useFakeTimers().setSystemTime(new Date('2023-06-05'));
+				jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(new Date('2023-06-05'));
 
 				const { appellantCase, id } = householdAppeal;
 				const body = {

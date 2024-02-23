@@ -1057,7 +1057,7 @@ describe('lpa questionnaires routes', () => {
 			});
 
 			test('returns an error if lpaQuestionnaireDueDate is in the past', async () => {
-				jest.useFakeTimers().setSystemTime(new Date('2023-06-05'));
+				jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(new Date('2023-06-05'));
 
 				const { id, lpaQuestionnaire } = householdAppeal;
 				const response = await request
