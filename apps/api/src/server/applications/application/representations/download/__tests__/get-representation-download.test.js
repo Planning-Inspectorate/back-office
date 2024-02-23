@@ -6,7 +6,7 @@ const { databaseConnector } = await import('../../../../../utils/database-connec
 
 describe('Get Application Representation Download', () => {
 	beforeAll(() => {
-		jest.useFakeTimers();
+		jest.useFakeTimers({ doNotFake: ['performance'] });
 		jest.setSystemTime(new Date('2020-01-01'));
 	});
 	it('representation has a single valid rep', async () => {
@@ -33,7 +33,7 @@ describe('Get Application Representation Download', () => {
 			.mockResolvedValueOnce(Array(100).fill(existingRepresentationsTestData))
 			.mockResolvedValueOnce(Array(20).fill(existingRepresentationsTestData));
 
-		// jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
+		// jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(new Date('2020-01-01'));
 
 		const response = await request.get('/applications/1/representations/download');
 

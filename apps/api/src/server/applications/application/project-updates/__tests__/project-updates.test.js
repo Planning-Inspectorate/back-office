@@ -704,7 +704,7 @@ describe('project-updates', () => {
 		describe('patch', () => {
 			const fakeNow = new Date();
 			beforeAll(() => {
-				jest.useFakeTimers();
+				jest.useFakeTimers({ doNotFake: ['performance'] });
 				jest.setSystemTime(fakeNow);
 			});
 			afterAll(() => {
@@ -971,7 +971,7 @@ describe('project-updates', () => {
 		describe('delete', () => {
 			const fakeNow = new Date();
 			beforeAll(() => {
-				jest.useFakeTimers();
+				jest.useFakeTimers({ doNotFake: ['performance'] });
 				jest.setSystemTime(fakeNow);
 			});
 			afterAll(() => {

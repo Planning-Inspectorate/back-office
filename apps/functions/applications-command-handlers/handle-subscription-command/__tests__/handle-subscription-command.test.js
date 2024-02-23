@@ -86,7 +86,7 @@ describe('handle-subscription-command', () => {
 	describe('delete', () => {
 		const mockDate = new Date('2023-06-16T10:00Z');
 		beforeEach(() => {
-			jest.useFakeTimers();
+			jest.useFakeTimers({ doNotFake: ['performance'] });
 			jest.setSystemTime(mockDate);
 		});
 		afterEach(() => {
