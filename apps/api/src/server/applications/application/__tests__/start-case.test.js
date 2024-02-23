@@ -83,7 +83,7 @@ const folders = [
 	}
 ];
 
-jest.useFakeTimers({ now: 1_649_319_144_000 });
+jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
 
 describe('Start case', () => {
 	beforeEach(() => {

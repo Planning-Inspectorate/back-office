@@ -16,7 +16,7 @@ const expectedNsipProjectPayload = {
 	inspectorIds: []
 };
 
-jest.useFakeTimers({ now: 1_649_319_144_000 });
+jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
 
 beforeEach(() => {
 	jest.clearAllMocks();

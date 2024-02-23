@@ -46,7 +46,7 @@ const message = {
 
 const now = 1_675_209_600_000;
 
-jest.useFakeTimers({ now });
+jest.useFakeTimers({ doNotFake: ['performance'], now });
 
 describe('register-representation-command', () => {
 	beforeEach(() => {
