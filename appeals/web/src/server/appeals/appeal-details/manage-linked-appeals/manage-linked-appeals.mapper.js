@@ -270,6 +270,7 @@ export function addLinkedAppealCheckAndConfirmPage(
 	};
 
 	const candidateIsLead = linkCandidateAppealData && linkCandidateAppealData.isParentAppeal;
+	const candidateIsChild = linkCandidateAppealData && linkCandidateAppealData.isChildAppeal;
 
 	/** @type {PageComponent} */
 	const alreadyHasLeadWarningTextComponent = {
@@ -296,9 +297,9 @@ export function addLinkedAppealCheckAndConfirmPage(
 			href: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`
 		};
 	}
-	// if target has no linked appeals
+	// target has no linked appeals
 	else if (appealData.linkedAppeals.length === 0) {
-		// if candidate has no linked appeals
+		// candidate has no linked appeals
 		if (!linkCandidateAppealData || linkCandidateAppealData?.linkedAppeals.length === 0) {
 			pageContent.pageComponents?.push({
 				type: 'radios',
@@ -335,7 +336,7 @@ export function addLinkedAppealCheckAndConfirmPage(
 				type: 'submit'
 			};
 		}
-		// else if candidate is a lead
+		// candidate is a lead
 		else if (candidateIsLead) {
 			pageContent.pageComponents?.push({
 				type: 'radios',
@@ -362,8 +363,8 @@ export function addLinkedAppealCheckAndConfirmPage(
 				type: 'submit'
 			};
 		}
-		// else (if candidate is a child)
-		else {
+		// candidate is a child
+		else if (candidateIsChild) {
 			pageContent.pageComponents?.unshift(alreadyHasLeadWarningTextComponent);
 			pageContent.submitButtonProperties = {
 				text: 'Return to search',
@@ -371,9 +372,9 @@ export function addLinkedAppealCheckAndConfirmPage(
 			};
 		}
 	}
-	// else if target is a lead
+	// target is a lead
 	else if (appealData.isParentAppeal) {
-		// if candidate has no linked appeals
+		// candidate has no linked appeals
 		if (!linkCandidateAppealData || linkCandidateAppealData.linkedAppeals.length === 0) {
 			pageContent.pageComponents?.push({
 				type: 'radios',
@@ -400,7 +401,7 @@ export function addLinkedAppealCheckAndConfirmPage(
 				type: 'submit'
 			};
 		}
-		// else if candidate is a lead
+		// candidate is a lead
 		else if (candidateIsLead) {
 			pageContent.pageComponents?.unshift({
 				type: 'warning-text',
@@ -413,7 +414,7 @@ export function addLinkedAppealCheckAndConfirmPage(
 				href: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`
 			};
 		}
-		// else (if candidate is a child)
+		// candidate is a child
 		else {
 			pageContent.pageComponents?.unshift(alreadyHasLeadWarningTextComponent);
 			pageContent.submitButtonProperties = {
@@ -422,8 +423,8 @@ export function addLinkedAppealCheckAndConfirmPage(
 			};
 		}
 	}
-	// else (if target is a child)
-	else {
+	// target is a child
+	else if (appealData.isChildAppeal) {
 		pageContent.pageComponents?.unshift(alreadyHasLeadWarningTextComponent);
 		pageContent.submitButtonProperties = {
 			text: 'Return to search',

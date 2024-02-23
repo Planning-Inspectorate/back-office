@@ -1654,6 +1654,26 @@ export const linkableAppealSummaryHorizon = {
 	source: 'horizon'
 };
 
+export const linkedAppealBackOffice = {
+	appealId: 5464,
+	appealReference: 'TEST-140079',
+	isParentAppeal: false,
+	linkingDate: '2024-02-21T10:15:10.436Z',
+	appealType: 'Householder',
+	relationshipId: 3048,
+	externalSource: false
+};
+
+export const linkedAppealHorizon = {
+	appealId: null,
+	appealReference: '76215416',
+	isParentAppeal: false,
+	linkingDate: '2024-02-21T10:15:10.436Z',
+	appealType: 'Unknown',
+	relationshipId: 3049,
+	externalSource: true
+};
+
 export const baseSession = {
 	id: '',
 	cookie: { originalMaxAge: 1 },
