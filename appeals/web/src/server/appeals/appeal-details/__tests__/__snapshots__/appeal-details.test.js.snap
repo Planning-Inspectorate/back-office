@@ -55,7 +55,7 @@ exports[`appeal-details GET /:appealId should render a "horizon reference added"
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                                 <dd class="govuk-summary-list__value"><span>No appeals</span>
                                 </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals"> Manage</a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/add"> Add</a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -291,7 +291,7 @@ exports[`appeal-details GET /:appealId should render a Decision inset panel when
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -535,7 +535,7 @@ exports[`appeal-details GET /:appealId should render a Issue a decision action b
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -1444,7 +1444,7 @@ exports[`appeal-details GET /:appealId should render a notification banner with 
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -3120,7 +3120,7 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -3351,7 +3351,7 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -3582,7 +3582,7 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -4415,7 +4415,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -4645,7 +4645,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -4846,13 +4846,14 @@ exports[`appeal-details GET /:appealId should render the received appeal details
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Case details</h1>
         </div>
     </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Received appeal</strong>
-    <dl     class="govuk-summary-list govuk-summary-list--no-border">
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
-            <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
-        </div>
-        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
-            <dd class="govuk-summary-list__value">Wiltshire Council</dd>
-        </div>
+    <strong     class="govuk-tag govuk-tag--grey single-line govuk-!-margin-left-1 govuk-!-margin-bottom-4"></strong>
+        <dl class="govuk-summary-list govuk-summary-list--no-border">
+            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                <dd class="govuk-summary-list__value">21 The Pavement, Wandsworth, SW4 0HY</dd>
+            </div>
+            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Planning authority</dt>
+                <dd class="govuk-summary-list__value">Wiltshire Council</dd>
+            </div>
         </dl>
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default2">
             <div class="govuk-accordion__section">
@@ -4874,10 +4875,12 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value">
-                                <ul class="govuk-list"
-                                "><li><a href='/appeals-service/appeal-details/1' class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
-                                ">725284</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals
-                                "> Manage</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
+                                <ul class="govuk-list" "><li><a href="/appeals-service/appeal-details/1
+                                " class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
+                                ">725284</a> (Child)</li></ul></dd><dd class="govuk-summary-list__actions "><ul class="govuk-summary-list__actions-list
+                                "><li class="govuk-summary-list__actions-list-item "><a class="govuk-link " href="/appeals-service/appeal-details/2/linked-appeals/manage
+                                "> Manage</a></li><li class="govuk-summary-list__actions-list-item "><a class="govuk-link " href="/appeals-service/appeal-details/2/linked-appeals/add
+                                "> Add</a></li></ul></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
                                 "> Related appeals</dt><dd class="govuk-summary-list__value "><span>No appeals</span></dd><dd class="govuk-summary-list__actions
                                 "><a class="govuk-link " href="/appeals-service/appeal-details/2/change-appeal-details/other-appeals
                                 "> Change</a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
@@ -5008,7 +5011,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
@@ -5365,7 +5368,7 @@ exports[`appeal-details should not render a back button 1`] = `
                                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                                         <dd class="govuk-summary-list__value"><span>No appeals</span>
                                         </dd>
-                                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/manage-linked-appeals/linked-appeals"> Manage</a>
+                                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/linked-appeals/add"> Add</a>
                                         </dd>
                                     </div>
                                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
