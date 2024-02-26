@@ -8,5 +8,9 @@ import { stream } from '../../../../lib/request.js';
  * @param {*} res.pipe
  * @return {Promise<any>}
  */
-export const getRepDownloadController = async (req, res) =>
-	stream(`applications/${req.params.caseId}/representations/download`).pipe(res);
+export const getRepDownloadController = async (req, res) => {
+	const { caseId } = req.params;
+	if (Number(caseId) < 0) throw new Error('Bad request');
+
+	return stream(`applications/${caseId}/representations/download`).pipe(res);
+};
