@@ -1,5 +1,5 @@
 import { getCaseDocumentationFileInfo } from '../documentation/applications-documentation.service.js';
-
+import pino from './../../../lib/logger.js';
 /**
  * Register url parameters.
  *
@@ -21,7 +21,13 @@ export const registerUrlParameters = async ({ params }, response, next) => {
  * @type {import('express').RequestHandler<{caseId: string, documentGuid: string}>}
  */
 export const registerDocumentMetaData = async ({ params }, response, next) => {
-	const { caseId, documentGuid } = params;
+	const { caseId, documentGuid: unparsedDocumentGuid } = params;
+
+	const documentGuid = String(unparsedDocumentGuid);
+	if (!/^[A-Za-z0-9-]+$/.test(documentGuid)) {
+		pino.error(`[WEB] Wrong document guid: ${documentGuid}`);
+		return response.render(`app/500.njk`);
+	}
 
 	const documentMetaData = await getCaseDocumentationFileInfo(
 		Number.parseInt(caseId, 10),

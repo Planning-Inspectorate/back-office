@@ -28,8 +28,8 @@ export const getAddressDetailsController = async (req, res) => {
  * @param {import("express").Response} res
  */
 export const postAddressDetailsController = async (req, res) => {
-	const { body, errors, params, query } = req;
-	const { caseId } = params;
+	const { body, errors, query } = req;
+	const { caseId } = res.locals;
 	const { repId, repType, repMode } = query;
 	const { lookupPostcode, setPostcode, stage } = body;
 	const { locals } = res;

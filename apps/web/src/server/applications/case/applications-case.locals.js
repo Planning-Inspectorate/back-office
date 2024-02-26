@@ -83,7 +83,7 @@ export const registerFolder = async ({ params }, response, next) => {
  * @type {import('@pins/express').RequestHandler<ApplicationCaseLocals>}
  */
 export const registerDocumentGuid = async ({ params }, response, next) => {
-	const documentGuid = params.documentGuid;
+	const documentGuid = params.documentGuid || params.documentId;
 
 	if (!/^[A-Za-z0-9-]+$/.test(documentGuid)) {
 		pino.error(`[WEB] Wrong document guid: ${documentGuid}`);
