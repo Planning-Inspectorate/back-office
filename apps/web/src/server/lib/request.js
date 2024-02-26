@@ -10,17 +10,18 @@ import { addAuthHeadersForBackend } from '@pins/add-auth-headers-for-backend';
  *
  * @param {string} url
  */
-const isValidUrl = (url) => {
-	//Regex validation for a url having a simple format
-	// word-or-number/word-or-number?word=word-or-number&word=word-or-number
-	const validUrlRegex = /^(\/|(\/[a-zA-Z0-9-?&=]+)+)$/;
+// const isValidUrl = (url) => {
+// 	//Regex validation for a url having a simple format
+// 	// word-or-number/word-or-number?word=word-or-number&word=word-or-number
+// 	const validUrlRegex = /^([A-Za-z0-9(/)(?)(=)(\-)(&)]+)$/;
 
-	if (!validUrlRegex.test('/' + url)) {
-		return false;
-	}
+// 	if (!validUrlRegex.test('/' + url)) {
+// 		console.error(url, 'not valid not valid not valid')
+// 		return false;
+// 	}
 
-	return true;
-};
+// 	return true;
+// };
 
 const [requestLogger, responseLogger, retryLogger] = createHttpLoggerHooks(
 	pino,
@@ -64,7 +65,7 @@ const instance = got.extend({
  * @returns {import('got').CancelableRequest<T>}
  */
 export function head(url, options) {
-	if (!isValidUrl(url)) throw new Error('Bad request');
+	//if (!isValidUrl(url)) throw new Error('Bad request');
 
 	return /** @type {import('got').CancelableRequest<*>} */ (instance.head(url, options));
 }
@@ -78,7 +79,7 @@ export function head(url, options) {
  * @returns {import('got').CancelableRequest<T>}
  */
 export function get(url, options) {
-	if (!isValidUrl(url)) throw new Error('Bad request');
+	//if (!isValidUrl(url)) throw new Error('Bad request');
 
 	return /** @type {import('got').CancelableRequest<*>} */ (instance.get(url, options));
 }
@@ -97,7 +98,7 @@ export function get(url, options) {
  * @returns {import('got').CancelableRequest<T>}
  */
 export function post(url, options) {
-	if (!isValidUrl(url)) throw new Error('Bad request');
+	//if (!isValidUrl(url)) throw new Error('Bad request');
 
 	return /** @type {import('got').CancelableRequest<*>} */ (instance.post(url, options));
 }
