@@ -16,7 +16,7 @@ beforeEach(() => {
 });
 
 beforeAll(() => {
-	jest.useFakeTimers('modern');
+	jest.useFakeTimers({ doNotFake: ['performance'] });
 	jest.setSystemTime(new Date('2023-01-01T00:00:00.000Z'));
 });
 

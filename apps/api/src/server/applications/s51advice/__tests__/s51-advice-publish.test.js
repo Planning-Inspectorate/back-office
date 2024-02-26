@@ -54,7 +54,7 @@ const caseObject = {
 
 describe('Test S51 advice publishing', () => {
 	beforeAll(() => {
-		jest.useFakeTimers().setSystemTime(new Date());
+		jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(new Date());
 	});
 	beforeEach(() => {
 		jest.resetAllMocks();

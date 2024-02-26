@@ -35,7 +35,13 @@ export const getById = (id) => {
 export const getByCaseId = (caseId) => {
 	return databaseConnector.folder.findMany({
 		where: { caseId },
-		include: { documents: true }
+		include: {
+			documents: {
+				orderBy: {
+					createdAt: 'desc'
+				}
+			}
+		}
 	});
 };
 
@@ -56,6 +62,9 @@ export const getByCaseIdPath = (caseId, path) => {
 			documents: {
 				include: {
 					latestDocumentVersion: true
+				},
+				orderBy: {
+					createdAt: 'desc'
 				}
 			}
 		}
