@@ -1,16 +1,14 @@
 import { stream } from '../../../../lib/request.js';
 /**
  *
- * @param {object} req
- * @param {*} req.params
- * @param {*} req.body
+ * @param {object} _
  * @param {object} res
  * @param {*} res.pipe
+ * @param {{caseId: string}} res.locals
  * @return {Promise<any>}
  */
-export const getRepDownloadController = async (req, res) => {
-	const { caseId } = req.params;
-	if (Number(caseId) < 0) throw new Error('Bad request');
+export const getRepDownloadController = async (_, res) => {
+	const { caseId } = res.locals;
 
 	return stream(`applications/${caseId}/representations/download`).pipe(res);
 };
