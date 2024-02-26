@@ -11,6 +11,7 @@ import {
 	mapAddressInput
 } from './global-mapper-formatter.js';
 import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
+import { linkedAppealStatus } from '#lib/appeals-formatter.js';
 
 /**
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
@@ -29,6 +30,21 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	/** @type {{appeal: MappedInstructions}} */
 	let mappedData = {};
 	mappedData.appeal = {};
+
+	/** @type {Instructions} */
+	mappedData.appeal.appealReference = {
+		id: 'appeal-reference',
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Appeal reference'
+				},
+				value: {
+					text: appealDetails.appealReference
+				}
+			}
+		}
+	};
 
 	/** @type {Instructions} */
 	mappedData.appeal.appealType = {
@@ -265,7 +281,6 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		submitApi: '#'
 	};
 
-	// TODO: Need a decision on how the linked appeals change page looks
 	/** @type {Instructions} */
 	mappedData.appeal.linkedAppeals = {
 		id: 'linked-appeals',
@@ -281,9 +296,17 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				},
 				actions: {
 					items: [
+						...(appealDetails.linkedAppeals.length > 0
+							? [
+									{
+										text: 'Manage',
+										href: generateLinkedAppealsManageLinkHref(appealDetails)
+									}
+							  ]
+							: []),
 						{
-							text: 'Manage',
-							href: generateManageLinkedAppealsHref(currentRoute, appealDetails)
+							text: 'Add',
+							href: `/appeals-service/appeal-details/${appealDetails.appealId}/linked-appeals/add`
 						}
 					]
 				}
@@ -306,6 +329,11 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			]
 		},
 		submitApi: '#'
+	};
+
+	mappedData.appeal.leadOrChild = {
+		id: 'lead-or-child',
+		display: mapLeadOrChildStatus(appealDetails)
 	};
 
 	// TODO: Need a decision on how the other appeals change page looks
@@ -1190,20 +1218,43 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 }
 
 /**
- * @param {string} currentRoute
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @returns {string}
  */
-function generateManageLinkedAppealsHref(currentRoute, appealDetails) {
-	let linkedAppealsHref = `${currentRoute}/manage-linked-appeals/linked-appeals`;
+function generateLinkedAppealsManageLinkHref(appealDetails) {
+	const baseUrl = `/appeals-service/appeal-details/${appealDetails.appealId}/linked-appeals`;
 
-	if (appealDetails.isChildAppeal === true) {
-		const parentAppeal = appealDetails.linkedAppeals.find((link) => link.isParentAppeal === true);
+	if (appealDetails.linkedAppeals.length > 0) {
+		if (appealDetails.isChildAppeal === true) {
+			const parentAppeal = appealDetails.linkedAppeals.find((link) => link.isParentAppeal === true);
 
-		if (parentAppeal) {
-			linkedAppealsHref += `/${parentAppeal.relationshipId}/${parentAppeal.appealId}`;
+			if (parentAppeal) {
+				return `${baseUrl}/manage/${parentAppeal.relationshipId}/${parentAppeal.appealId}`;
+			}
 		}
+
+		return `${baseUrl}/manage`;
 	}
 
-	return linkedAppealsHref;
+	return `${baseUrl}/add`;
+}
+
+/**
+ * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
+ * @returns {DisplayInstructions}
+ */
+function mapLeadOrChildStatus(appealDetails) {
+	if (appealDetails.linkedAppeals.length > 0) {
+		return {
+			statusTag: {
+				status: linkedAppealStatus(
+					appealDetails.isParentAppeal || false,
+					appealDetails.isChildAppeal || false
+				),
+				classes: 'govuk-!-margin-left-1 govuk-!-margin-bottom-4'
+			}
+		};
+	}
+
+	return {};
 }
