@@ -124,9 +124,8 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
  *
  * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile}, {}>}
  */
-export async function viewApplicationsCaseDocumentationVersionUpload({ params }, response) {
-	const { documentGuid } = params;
-	const { caseId } = response.locals;
+export async function viewApplicationsCaseDocumentationVersionUpload(_, response) {
+	const { caseId, documentGuid } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 

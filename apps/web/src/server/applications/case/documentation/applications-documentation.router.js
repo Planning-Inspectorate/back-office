@@ -85,7 +85,7 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/new-version')
 	.get(
-		[locals.registerFolder],
+		[locals.registerDocumentGuid, locals.registerFolder],
 		asyncHandler(controller.viewApplicationsCaseDocumentationVersionUpload)
 	);
 
