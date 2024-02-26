@@ -17,8 +17,5 @@ export const registerUserId = async (request, response, next) => {
 	}
 
 	response.locals.userId = parsedUserId;
-
-	console.log(parsedUserId);
-
 	next();
 };
