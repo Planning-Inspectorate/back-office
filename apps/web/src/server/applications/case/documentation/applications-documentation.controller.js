@@ -223,6 +223,10 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
  */
 export async function viewApplicationsCaseDocumentationPages({ params }, response) {
 	const { action } = params;
+	if (!['delete', 'edit', 'publish', 'unpublish', 'upload'].includes(action)) {
+		return response.render('apps/500.njk');
+	}
+
 	const { caseId, documentGuid } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
