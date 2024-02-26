@@ -8,7 +8,8 @@ import pino from '../../../lib/logger.js';
 export const registerUserId = async (request, response, next) => {
 	const parsedUserId = String(request.params.userId);
 
-	const validUserIdRegex = /^[a-zA-Z0-9\\s\\-]{1,50}{\/}$/;
+	// user id has the form: aadd12-23bdddb-cc45-dd65
+	const validUserIdRegex = /^[A-Za-z0-9-]+$/;
 
 	if (!validUserIdRegex.test(parsedUserId)) {
 		pino.error('[WEB] User id not valid');

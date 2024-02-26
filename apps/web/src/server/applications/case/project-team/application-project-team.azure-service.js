@@ -109,6 +109,16 @@ const getAzureDirectoryUsers = async (session) => {
 const getAllCachedUsers = async (session) => {
 	const cacheName = `cache_applications_users`;
 
+	console.log('cached trigger', 120);
+	// return [
+	// 	{
+	// 		id: 'd26e67b7-2cda-446b-bd30-46bc344bd396',
+	// 		givenName: 'Lu',
+	// 		surname: 'Tam',
+	// 		userPrincipalName: 'lguf@fdmfd.dffd'
+	// 	}
+	// ];
+
 	let cachedUsers = await fetchFromCache(cacheName);
 
 	if (!cachedUsers) {
