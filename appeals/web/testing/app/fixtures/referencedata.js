@@ -1401,7 +1401,9 @@ export const assignedAppealsPage1 = {
 				appealTimetableId: 83,
 				lpaQuestionnaireDueDate: '2022-04-08T09:00:00.000Z'
 			},
-			dueDate: '2022-04-08T09:00:00.000Z'
+			dueDate: '2022-04-08T09:00:00.000Z',
+			isParentAppeal: true,
+			isChildAppeal: false
 		},
 		{
 			appealId: 161,
@@ -1416,7 +1418,9 @@ export const assignedAppealsPage1 = {
 			createdAt: '2024-01-02T11:43:21.081Z',
 			localPlanningDepartment: 'Wiltshire Council',
 			lpaQuestionnaireId: null,
-			dueDate: '2024-01-07T11:43:21.081Z'
+			dueDate: '2024-01-07T11:43:21.081Z',
+			isParentAppeal: false,
+			isChildAppeal: true
 		},
 		{
 			appealId: 162,
@@ -1431,7 +1435,9 @@ export const assignedAppealsPage1 = {
 			createdAt: '2024-01-02T11:43:21.142Z',
 			localPlanningDepartment: 'Dorset Council',
 			lpaQuestionnaireId: null,
-			dueDate: '2024-01-07T11:43:21.142Z'
+			dueDate: '2024-01-07T11:43:21.142Z',
+			isParentAppeal: false,
+			isChildAppeal: false
 		},
 		{
 			appealId: 163,
@@ -1447,7 +1453,9 @@ export const assignedAppealsPage1 = {
 			createdAt: '2024-01-02T11:43:21.169Z',
 			localPlanningDepartment: 'Wiltshire Council',
 			lpaQuestionnaireId: null,
-			dueDate: '2024-01-07T11:43:21.169Z'
+			dueDate: '2024-01-07T11:43:21.169Z',
+			isParentAppeal: false,
+			isChildAppeal: false
 		},
 		{
 			appealId: 164,
@@ -1462,7 +1470,9 @@ export const assignedAppealsPage1 = {
 			createdAt: '2024-01-02T11:43:21.199Z',
 			localPlanningDepartment: 'Dorset Council',
 			lpaQuestionnaireId: null,
-			dueDate: '2024-01-07T11:43:21.199Z'
+			dueDate: '2024-01-07T11:43:21.199Z',
+			isParentAppeal: false,
+			isChildAppeal: false
 		}
 	],
 	statuses: ['ready_to_start', 'lpa_questionnaire_due', 'issue_determination'],
