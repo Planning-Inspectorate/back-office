@@ -12,7 +12,8 @@ import { addAuthHeadersForBackend } from '@pins/add-auth-headers-for-backend';
  */
 const isValidUrl = (url) => {
 	//Regex validation for a url having a simple format
-	const validUrlRegex = /^(\/|(\/[a-zA-Z0-9-]+)+)$/;
+	// word-or-number/word-or-number?word=word-or-number&word=word-or-number
+	const validUrlRegex = /^(\/|(\/[a-zA-Z0-9-?&=]+)+)$/;
 
 	if (!validUrlRegex.test('/' + url)) {
 		return false;
