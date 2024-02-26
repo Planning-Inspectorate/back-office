@@ -20,7 +20,8 @@ import {
 	postUploadDocumentVersion,
 	postProcessHTMLFile
 } from './components/file-uploader.component.js';
-import { registerDownloadParams, registerS51UploadParams } from './app.locals.js';
+import { registerAdviceId, registerDownloadParams } from './app.locals.js';
+import { registerCaseId } from '../applications/create-new-case/applications-create.locals.js';
 
 const router = createRouter();
 
@@ -56,10 +57,10 @@ router.use(assertGroupAccess(...groupIds));
 
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(asyncHandler(handleSignout));
-router.route('/documents/:caseId/upload').post(asyncHandler(postDocumentsUpload));
+router.route('/documents/:caseId/upload').post(registerCaseId, asyncHandler(postDocumentsUpload));
 router
 	.route('/documents/:caseId/s51-advice/:adviceId/upload')
-	.post(registerS51UploadParams, asyncHandler(postDocumentsUpload));
+	.post(registerCaseId, registerAdviceId, asyncHandler(postDocumentsUpload));
 router
 	.route('/documents/:caseId/upload/:documentId/add-version')
 	.post(asyncHandler(postUploadDocumentVersion));

@@ -75,7 +75,7 @@ export const documentName = (documentNameWithExtension) => {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string, adviceId: string}, session: SessionWithAuth, body: DocumentUploadInfo[]}} request
+ * @param {{session: SessionWithAuth, body: DocumentUploadInfo[]}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
