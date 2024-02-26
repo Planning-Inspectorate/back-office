@@ -201,9 +201,8 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
  *
  * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], showSuccessBanner: boolean|undefined}, {}>}
  */
-export async function viewApplicationsCaseDocumentationProperties({ params, session }, response) {
-	const { documentGuid } = params;
-	const { caseId } = response.locals;
+export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
+	const { caseId, documentGuid } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
@@ -245,11 +244,10 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
  * @type {import('@pins/express').RenderHandler<{documentationFile?: DocumentationFile, errors?: ValidationErrors} | {serviceName?: string, successMessage?: string}, {}>}
  */
 export async function updateApplicationsCaseDocumentationDelete(
-	{ params, errors: validationErrors },
+	{ errors: validationErrors },
 	response
 ) {
-	const { documentGuid } = params;
-	const { caseId } = response.locals;
+	const { caseId, documentGuid } = response.locals;
 	const { title: caseName, reference: caseReference } = response.locals.case;
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
