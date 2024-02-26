@@ -337,7 +337,7 @@ function mapDocumentDetailsPageComponentsForDocument(
 				name: `items[${index}][redactionStatus]`,
 				fieldset: {
 					legend: {
-						text: 'Redaction'
+						text: 'Redaction status'
 					}
 				},
 				items: [
@@ -354,6 +354,9 @@ function mapDocumentDetailsPageComponentsForDocument(
 						checked: bodyRedactionStatus
 							? bodyItem?.redactionStatus === 'unredacted'
 							: latestVersionRedactionStatus?.name.toLowerCase() === 'unredacted'
+					},
+					{
+						divider: 'Or'
 					},
 					{
 						text: 'No redaction required',
@@ -502,10 +505,10 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 
 	/** @type {PageContent} */
 	const pageContent = {
-		title: 'Manage documents',
+		title: 'Manage folder',
 		backLinkText: 'Back',
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
-		preHeading: 'Manage documents',
+		preHeading: 'Manage folder',
 		heading: `${folderPathToFolderNameText(folder.path)} documents`,
 		pageComponents: [
 			...notificationBannerComponents,
@@ -515,13 +518,13 @@ export function manageFolderPage(backLinkUrl, viewAndEditUrl, folder, redactionS
 				parameters: {
 					head: [
 						{
-							text: 'Document information'
+							text: 'Name'
 						},
 						{
 							text: 'Date received'
 						},
 						{
-							text: 'Redaction'
+							text: 'Redaction status'
 						},
 						{
 							text: 'Actions'
@@ -815,7 +818,7 @@ export async function manageDocumentPage(
 		parameters: {
 			rows: [
 				{
-					key: { text: 'File' },
+					key: { text: 'Name' },
 					value: mapVersionDocumentInformationHtmlProperty(document, latestVersion)
 				},
 				{
@@ -873,7 +876,7 @@ export async function manageDocumentPage(
 					}
 				},
 				{
-					key: { text: 'Redaction' },
+					key: { text: 'Redaction status' },
 					value: {
 						text: mapRedactionStatusIdToName(
 							redactionStatuses,
@@ -907,7 +910,7 @@ export async function manageDocumentPage(
 				id: 'upload-updated-document',
 				href: uploadNewVersionUrl,
 				classes: 'govuk-!-margin-right-2',
-				text: 'Upload an updated document'
+				text: 'Upload a new version'
 			}
 		};
 
@@ -927,7 +930,7 @@ export async function manageDocumentPage(
 				id: 'remove-document',
 				href: removeDocumentUrlProcessed,
 				classes: 'govuk-button--secondary',
-				text: 'Remove this document'
+				text: 'Remove current version'
 			}
 		};
 
@@ -939,12 +942,12 @@ export async function manageDocumentPage(
 	const documentHistoryDetails = {
 		wrapperHtml: {
 			opening:
-				'<div class="govuk-grid-row"><div class="govuk-grid-column-full"><h2>Document history</h2><p class="govuk-body">See version history, a change log or remove old documents</p>',
+				'<div class="govuk-grid-row"><div class="govuk-grid-column-full"><h2>Document versions</h2><p class="govuk-body">View and remove versions of this document</p>',
 			closing: '</div></div>'
 		},
 		type: 'details',
 		parameters: {
-			summaryText: 'Document history',
+			summaryText: 'Version history',
 			html: '',
 			pageComponents: [
 				{
@@ -956,13 +959,13 @@ export async function manageDocumentPage(
 								text: 'Version'
 							},
 							{
-								text: 'Document name'
+								text: 'Name'
 							},
 							{
 								text: 'Activity'
 							},
 							{
-								text: 'Redaction'
+								text: 'Redaction status'
 							},
 							{
 								text: 'Action'
@@ -1018,10 +1021,10 @@ export async function manageDocumentPage(
 
 	/** @type {PageContent} */
 	const pageContent = {
-		title: 'Manage documents',
+		title: 'Manage document',
 		backLinkText: 'Back',
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
-		preHeading: 'Manage documents',
+		preHeading: 'Manage document',
 		heading: document?.name || '',
 		pageComponents
 	};
@@ -1060,8 +1063,8 @@ export async function deleteDocumentPage(
 
 	if (totalDocumentVersions === 1) {
 		radioEntries.push({
-			text: 'Yes, and upload new document',
-			value: 'yes-and-upload-new-document'
+			text: 'Yes, and upload another document',
+			value: 'yes-and-upload-another-document'
 		});
 	}
 
@@ -1075,8 +1078,8 @@ export async function deleteDocumentPage(
 		title: 'Remove document',
 		backLinkText: 'Back',
 		backLinkUrl: backLinkUrl?.replace('{{folderId}}', folder.id),
-		preHeading: 'Manage documents',
-		heading: 'Are you sure you want to remove this document?',
+		preHeading: 'Manage versions',
+		heading: 'Are you sure you want to remove this version?',
 		pageComponents: [
 			{
 				wrapperHtml: {
@@ -1087,7 +1090,7 @@ export async function deleteDocumentPage(
 				parameters: {
 					rows: [
 						{
-							key: { text: 'File' },
+							key: { text: 'Name' },
 							value: {
 								html: document && document?.name ? document.name : ''
 							}
@@ -1108,7 +1111,7 @@ export async function deleteDocumentPage(
 						totalDocumentVersions === 1
 							? `<div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
 								<strong class="govuk-warning-text__text">
-									<span class="govuk-warning-text__assistive">Warning</span> Removing the only version will delete the document from the case
+									<span class="govuk-warning-text__assistive">Warning</span> Removing the only version of a document will delete the document from the case
 								</strong>
 							</div>`
 							: ''

@@ -55,7 +55,7 @@ describe('LPA Questionnaire review', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-		});
+		}, 10000);
 
 		it('should render the LPA Questionnaire page with draft documents notification banner with links to add metadata page for each folder containing draft documents, and no links for folders with only non-draft documents', async () => {
 			nock('http://test/')

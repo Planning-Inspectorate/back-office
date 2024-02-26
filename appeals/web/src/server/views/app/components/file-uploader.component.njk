@@ -4,7 +4,7 @@
 {%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 
 {%- macro extensionsHtml(params) -%}
-<span>{{"Your file must be "}}
+<span>{{"Files must be "}}
 {%- for extension in params.allowedTypes -%}
 	{%- if loop.index !== params.allowedTypes.length -%}{{ extension|upper }}{{", "}}
 	{%- else -%}{{"	or " }}{{ extension|upper }}.
