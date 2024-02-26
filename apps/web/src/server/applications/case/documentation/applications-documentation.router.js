@@ -78,7 +78,11 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/delete')
 	.post(
-		[locals.registerFolder, validateApplicationsDocumentationsDeleteStatus],
+		[
+			locals.registerFolder,
+			locals.registerDocumentGuid,
+			validateApplicationsDocumentationsDeleteStatus
+		],
 		asyncHandler(controller.updateApplicationsCaseDocumentationDelete)
 	);
 
@@ -92,7 +96,7 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/properties')
 	.get(
-		[locals.registerFolder],
+		[locals.registerFolder, locals.registerDocumentGuid],
 		asyncHandler(controller.viewApplicationsCaseDocumentationProperties)
 	);
 
