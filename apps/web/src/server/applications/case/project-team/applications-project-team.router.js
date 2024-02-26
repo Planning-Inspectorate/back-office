@@ -8,6 +8,7 @@ import {
 	validateApplicationsProjectTeamNotEmptySearch,
 	validateApplicationsProjectTeamRole
 } from './applications-project-team.validators.js';
+import { registerUserId } from './application-project-team.locals.js';
 
 const applicationsProjectTeamRouter = createRouter({ mergeParams: true });
 
@@ -19,13 +20,19 @@ applicationsProjectTeamRouter
 
 applicationsProjectTeamRouter
 	.route('/:userId/choose-role')
-	.get(asyncHandler(controller.viewProjectTeamChooseRolePage))
-	.post(validateApplicationsProjectTeamRole, asyncHandler(controller.updateProjectTeamChooseRole));
+	.get(registerUserId, asyncHandler(controller.viewProjectTeamChooseRolePage))
+	.post(
+		[registerUserId, validateApplicationsProjectTeamRole],
+		asyncHandler(controller.updateProjectTeamChooseRole)
+	);
 
 applicationsProjectTeamRouter
 	.route('/:userId/remove')
-	.get(asyncHandler(controller.viewProjectTeamRemovePage))
-	.post(validateApplicationsProjectTeamRole, asyncHandler(controller.updateProjectTeamRemove));
+	.get(registerUserId, asyncHandler(controller.viewProjectTeamRemovePage))
+	.post(
+		[registerUserId, validateApplicationsProjectTeamRole],
+		asyncHandler(controller.updateProjectTeamRemove)
+	);
 
 applicationsProjectTeamRouter
 	.route('/search')
