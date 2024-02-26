@@ -91,7 +91,7 @@ export async function projectUpdatesCreatePost(req, res) {
 	if (req.errors) {
 		return projectUpdatesCreateGet(req, res);
 	}
-	const { caseId } = req.params;
+	const { caseId } = res.locals;
 	const projectUpdate = bodyToCreateRequest(req.body);
 	const created = await createProjectUpdate(caseId, projectUpdate);
 	const projectUpdateId = created.id;
@@ -104,8 +104,7 @@ export async function projectUpdatesCreatePost(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesContentGet(req, res) {
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	const values = {
 		backOfficeProjectUpdateContent: projectUpdate.htmlContent,
@@ -133,8 +132,7 @@ export async function projectUpdatesContentPost(req, res) {
 	if (req.errors) {
 		return projectUpdatesContentGet(req, res);
 	}
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	const projectUpdate = bodyToUpdateRequest(req.body);
 	await patchProjectUpdate(caseId, projectUpdateId, projectUpdate);
@@ -147,8 +145,7 @@ export async function projectUpdatesContentPost(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesTypeGet(req, res) {
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	const errors = req.errors;
@@ -181,8 +178,7 @@ export async function projectUpdatesTypePost(req, res) {
 	if (req.errors) {
 		return projectUpdatesTypeGet(req, res);
 	}
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	await patchProjectUpdate(caseId, projectUpdateId, { type: req.body.type });
 	const nextUrl = stepLink(caseId, projectUpdateId, projectUpdateRoutes.status);
@@ -194,8 +190,7 @@ export async function projectUpdatesTypePost(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesStatusGet(req, res) {
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	const errors = req.errors;
@@ -241,8 +236,7 @@ export async function projectUpdatesStatusPost(req, res) {
 	if (req.errors) {
 		return projectUpdatesStatusGet(req, res);
 	}
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
 	const nextUrl = stepLink(caseId, projectUpdateId, projectUpdateRoutes.checkAnswers);
@@ -254,8 +248,7 @@ export async function projectUpdatesStatusPost(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesCheckAnswersGet(req, res) {
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	let buttonText = 'Save and continue';
@@ -298,8 +291,7 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesCheckAnswersPost(req, res) {
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	if (req.body.status) {
 		await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
@@ -329,8 +321,7 @@ export async function projectUpdatesCheckAnswersPost(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesReviewGet(req, res) {
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	let buttonText;
@@ -360,8 +351,7 @@ export async function projectUpdatesReviewGet(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesDeleteGet(req, res) {
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	return res.render(formView, {
@@ -387,8 +377,7 @@ export async function projectUpdatesDeleteGet(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesDeletePost(req, res) {
-	const { projectUpdateId } = req.params;
-	const { caseId } = res.locals;
+	const { caseId, projectUpdateId } = res.locals;
 
 	try {
 		await deleteProjectUpdate(caseId, projectUpdateId);
