@@ -35,10 +35,11 @@
 			<p class="govuk-body">If the existing due date still applies, please skip to the confirmation screen.</p>
 		{% endif %}
 		<div class="govuk-button-group">
-			{{ govukButton({
-				text: pageContent.submitButtonText,
+			{%- set defaultButtonProperties = {
+				text: "Save and continue",
 				type: "submit"
-			}) }}
+			} -%}
+			{{ govukButton(pageContent.submitButtonProperties if pageContent.submitButtonProperties else defaultButtonProperties) }}
 			{% if pageContent.skipButtonUrl %}
 				{{ govukButton({
 					text: "Skip",

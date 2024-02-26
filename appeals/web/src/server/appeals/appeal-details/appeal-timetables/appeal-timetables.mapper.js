@@ -53,7 +53,8 @@ export const mapUpdateDueDatePage = (appealTimetables, timetableType, appealDeta
 		preHeading: `Appeal ${appealShortReference(appealDetails.appealReference)}`,
 		heading: `${changeOrScheduleText} ${timetableTypeText} due date`,
 		submitButtonProperties: {
-			text: 'Continue'
+			text: 'Continue',
+			type: 'submit'
 		},
 		pageComponents: []
 	};

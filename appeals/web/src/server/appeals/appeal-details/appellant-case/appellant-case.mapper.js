@@ -320,7 +320,8 @@ export function updateDueDatePage(appealId, appealReference) {
 		preHeading: `Appeal ${appealShortReference(appealReference)}`,
 		heading: 'Update appeal due date',
 		submitButtonProperties: {
-			text: 'Save and continue'
+			text: 'Save and continue',
+			type: 'submit'
 		},
 		skipButtonUrl: `/appeals-service/appeal-details/${appealId}/appellant-case/check-your-answers`,
 		pageComponents: []

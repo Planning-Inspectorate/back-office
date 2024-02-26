@@ -245,7 +245,8 @@ export function updateDueDatePage(appealId, appealReference, lpaQuestionnaireId,
 		preHeading: `Appeal ${appealShortReference(appealReference)}`,
 		heading: 'Update LPA questionnaire due date',
 		submitButtonProperties: {
-			text: 'Save and continue'
+			text: 'Save and continue',
+			type: 'submit'
 		},
 		pageComponents: []
 	};
