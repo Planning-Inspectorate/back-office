@@ -1,19 +1,18 @@
 import pino from '../lib/logger.js';
 
 /**
- * Validate and register the params for the upload file
+ * Validate and register the adviceId for the upload file
  *
  * @type {import('express').RequestHandler<*, *, *, *, {caseId: string, adviceId: string}>}
  */
-export const registerS51UploadParams = ({ params }, response, next) => {
-	const { caseId, adviceId } = params;
+export const registerAdviceId = ({ params }, response, next) => {
+	const { adviceId } = params;
 
-	if (isNaN(Number(caseId)) || isNaN(Number(adviceId))) {
-		pino.error(`[WEB] Bad params for s51 file upload. Advice id: ${adviceId}`);
+	if (isNaN(Number(adviceId))) {
+		pino.error(`[WEB] Bad advice id for s51 file upload. Advice id: ${adviceId}`);
 		return response.render(`app/500.njk`);
 	}
 
-	response.locals.caseId = String(params.caseId) || '';
 	response.locals.adviceId = String(params.adviceId) || '';
 
 	next();
