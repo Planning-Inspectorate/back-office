@@ -119,15 +119,15 @@ export async function postDocumentsUpload({ body, session }, response) {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string, documentId: string}, session: SessionWithAuth, body: DocumentUploadInfo}} request
+ * @param {{session: SessionWithAuth, body: DocumentUploadInfo}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
-export async function postUploadDocumentVersion({ params, body, session }, response) {
-	const { caseId, documentId } = params;
+export async function postUploadDocumentVersion({ body, session }, response) {
+	const { caseId, documentGuid } = response.locals;
 	body.username = session.account?.name;
 
-	const document = await createNewDocumentVersion(caseId, documentId, body);
+	const document = await createNewDocumentVersion(caseId, documentGuid, body);
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 

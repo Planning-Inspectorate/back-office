@@ -22,6 +22,7 @@ import {
 } from './components/file-uploader.component.js';
 import { registerAdviceId, registerDownloadParams } from './app.locals.js';
 import { registerCaseId } from '../applications/create-new-case/applications-create.locals.js';
+import { registerDocumentGuid } from '../applications/case/applications-case.locals.js';
 
 const router = createRouter();
 
@@ -63,7 +64,7 @@ router
 	.post(registerCaseId, registerAdviceId, asyncHandler(postDocumentsUpload));
 router
 	.route('/documents/:caseId/upload/:documentId/add-version')
-	.post(asyncHandler(postUploadDocumentVersion));
+	.post(registerCaseId, registerDocumentGuid, asyncHandler(postUploadDocumentVersion));
 router
 	.route('/documents/:caseId/download/:guid/version/:version/:preview?')
 	.get(registerDownloadParams, asyncHandler(getDocumentsDownload));
