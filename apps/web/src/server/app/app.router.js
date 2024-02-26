@@ -20,7 +20,7 @@ import {
 	postUploadDocumentVersion,
 	postProcessHTMLFile
 } from './components/file-uploader.component.js';
-import { registerDownloadParams } from './app.locals.js';
+import { registerDownloadParams, registerS51UploadParams } from './app.locals.js';
 
 const router = createRouter();
 
@@ -59,7 +59,7 @@ router.route('/auth/signout').get(asyncHandler(handleSignout));
 router.route('/documents/:caseId/upload').post(asyncHandler(postDocumentsUpload));
 router
 	.route('/documents/:caseId/s51-advice/:adviceId/upload')
-	.post(asyncHandler(postDocumentsUpload));
+	.post(registerS51UploadParams, asyncHandler(postDocumentsUpload));
 router
 	.route('/documents/:caseId/upload/:documentId/add-version')
 	.post(asyncHandler(postUploadDocumentVersion));

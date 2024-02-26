@@ -79,8 +79,8 @@ export const documentName = (documentNameWithExtension) => {
  * @param {*} response
  * @returns {Promise<{}>}
  */
-export async function postDocumentsUpload({ params, body, session }, response) {
-	const { caseId, adviceId } = params;
+export async function postDocumentsUpload({ body, session }, response) {
+	const { caseId, adviceId } = response.locals;
 
 	const payload = body.map((document) => {
 		document.username = session.account?.name;

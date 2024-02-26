@@ -18,12 +18,7 @@ const view = 'applications/representations/publish-valid-representations/index.n
  * @param {import("express").Response} res
  */
 export const getPublishValidRepsController = async (req, res) => {
-	const {
-		params: { caseId }
-	} = req;
-	const {
-		locals: { serviceUrl }
-	} = res;
+	const { serviceUrl, caseId } = res.locals;
 
 	const { title: projectName } = await getCase(Number(caseId));
 	const { itemCount: publishableRepsCount } = await getPublishableRepresentations(caseId);
@@ -42,13 +37,8 @@ export const getPublishValidRepsController = async (req, res) => {
  */
 export const postPublishValidRepsController = async (req, res) => {
 	try {
-		const {
-			params: { caseId },
-			session
-		} = req;
-		const {
-			locals: { serviceUrl }
-		} = res;
+		const { session } = req;
+		const { serviceUrl, caseId } = res.locals;
 
 		const { items } = await getPublishableRepresentations(caseId);
 
