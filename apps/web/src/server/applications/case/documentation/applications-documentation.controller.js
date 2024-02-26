@@ -181,16 +181,16 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {folderId: string, folderName: string, documentGuid: string}>}
  */
 export async function viewApplicationsCaseDocumentationUnpublishSinglePage(request, response) {
-	const caseId = parseInt(response.locals.caseId);
+	const { caseId, documentGuid } = response.locals;
 
-	const file = await getCaseDocumentationFileInfo(caseId, request.params.documentGuid);
+	const file = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
 	return response.render(`applications/case-documentation/documentation-unpublish`, {
 		documentationFiles: [file],
 		backLink: url('document', {
 			caseId,
 			folderId: parseInt(request.params.folderId),
-			documentGuid: request.params.documentGuid,
+			documentGuid: documentGuid,
 			step: 'properties'
 		})
 	});
@@ -222,8 +222,8 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
  * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null}, {}>}
  */
 export async function viewApplicationsCaseDocumentationPages({ params }, response) {
-	const { documentGuid, action } = params;
-	const { caseId } = response.locals;
+	const { action } = params;
+	const { caseId, documentGuid } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
@@ -361,8 +361,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {documentGuid: string}>}
  */
 export async function removeApplicationsCaseDocumentationPublishingQueue(request, response) {
-	const { documentGuid } = request.params;
-	const { caseId } = response.locals;
+	const { caseId, documentGuid } = response.locals;
 
 	await removeCaseDocumentationPublishingQueue(caseId, documentGuid);
 
