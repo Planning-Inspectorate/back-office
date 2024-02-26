@@ -20,6 +20,7 @@ import {
 	postUploadDocumentVersion,
 	postProcessHTMLFile
 } from './components/file-uploader.component.js';
+import { registerDownloadParams } from './app.locals.js';
 
 const router = createRouter();
 
@@ -64,7 +65,7 @@ router
 	.post(asyncHandler(postUploadDocumentVersion));
 router
 	.route('/documents/:caseId/download/:guid/version/:version/:preview?')
-	.get(asyncHandler(getDocumentsDownload));
+	.get(registerDownloadParams, asyncHandler(getDocumentsDownload));
 router.route('/documents/process-html').post(asyncHandler(postProcessHTMLFile));
 router.use('/applications-service', applicationsRouter);
 
