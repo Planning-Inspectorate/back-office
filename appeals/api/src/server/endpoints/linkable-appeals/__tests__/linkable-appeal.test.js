@@ -29,11 +29,11 @@ describe('/appeals/linkable-appeal/:appealReference', () => {
 				appealType: householdAppeal.appealType?.type,
 				appealStatus: householdAppeal.appealStatus[0].status,
 				siteAddress: {
-					siteAddressLine1: householdAppeal.address?.addressLine1,
-					siteAddressLine2: householdAppeal.address?.addressLine2,
-					siteAddressTown: householdAppeal.address?.addressTown,
-					siteAddressCounty: householdAppeal.address?.addressCounty,
-					siteAddressPostcode: householdAppeal.address?.postcode
+					addressLine1: householdAppeal.address?.addressLine1,
+					addressLine2: householdAppeal.address?.addressLine2,
+					town: householdAppeal.address?.addressTown,
+					county: householdAppeal.address?.addressCounty,
+					postCode: householdAppeal.address?.postcode
 				},
 				localPlanningDepartment: householdAppeal.lpa.name,
 				appellantName: `${householdAppeal.appellant?.firstName} ${householdAppeal.appellant?.lastName}`,
@@ -46,7 +46,7 @@ describe('/appeals/linkable-appeal/:appealReference', () => {
 				source: 'back-office'
 			});
 		});
-		test('gets a back office linkable appeal summary when the appeal does not exists in back office but exists in Horizon', async () => {
+		test('gets a back office linkable appeal summary when the appeal does not exist in back office but exists in Horizon', async () => {
 			databaseConnector.appeal.findUnique.mockResolvedValueOnce(null);
 			got.post.mockReturnValueOnce({
 				json: jest
@@ -63,10 +63,10 @@ describe('/appeals/linkable-appeal/:appealReference', () => {
 				appealType: 'Planning Appeal (W)',
 				appealStatus: 'Closed - Opened in Error',
 				siteAddress: {
-					siteAddressLine1: 'Planning Inspectorate',
-					siteAddressLine2: 'Temple Quay House, 2 The Square, Temple Quay',
-					siteAddressTown: 'BRISTOL',
-					siteAddressPostcode: 'BS1 6PN'
+					addressLine1: 'Planning Inspectorate',
+					addressLine2: 'Temple Quay House, 2 The Square, Temple Quay',
+					town: 'BRISTOL',
+					postCode: 'BS1 6PN'
 				},
 				localPlanningDepartment: 'System Test Borough Council',
 				appellantName: 'Mrs Tammy Rogers',

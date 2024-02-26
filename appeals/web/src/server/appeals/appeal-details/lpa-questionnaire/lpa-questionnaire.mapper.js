@@ -244,7 +244,10 @@ export function updateDueDatePage(appealId, appealReference, lpaQuestionnaireId,
 		backLinkUrl: `/appeals-service/appeal-details/${appealId}/lpa-questionnaire/${lpaQuestionnaireId}/incomplete`,
 		preHeading: `Appeal ${appealShortReference(appealReference)}`,
 		heading: 'Update LPA questionnaire due date',
-		submitButtonText: 'Save and continue',
+		submitButtonProperties: {
+			text: 'Save and continue',
+			type: 'submit'
+		},
 		pageComponents: []
 	};
 

@@ -93,6 +93,10 @@ export const notificationBannerDefinitions = {
 	assignCaseOfficer: {
 		pages: ['appealDetails']
 	},
+	appealLinked: {
+		type: 'success',
+		pages: ['appealDetails']
+	},
 	appealUnlinked: {
 		pages: ['appealDetails']
 	}

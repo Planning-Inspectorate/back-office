@@ -3877,7 +3877,7 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Linked appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/linked-appeals"> Manage</a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>

@@ -65,17 +65,22 @@ export const formatAnswerAndDetails = (answer, details) => {
  */
 export const formatListOfAppeals = (listOfAppeals) => {
 	if (listOfAppeals && listOfAppeals.length > 0) {
-		let formattedLinks = ``;
+		let formattedLinks = '';
+
 		for (let i = 0; i < listOfAppeals.length; i++) {
 			const shortAppealReference = appealShortReference(listOfAppeals[i].appealReference);
-			formattedLinks += `<li><a href='/appeals-service/appeal-details/${
-				listOfAppeals[i].appealId
-			}' class="govuk-link" aria-label="Appeal ${numberToAccessibleDigitLabel(
-				shortAppealReference || ''
-			)}">${shortAppealReference}</a></li>`;
+			const linkUrl = listOfAppeals[i].externalSource
+				? `https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=${listOfAppeals[i].appealReference}`
+				: `/appeals-service/appeal-details/${listOfAppeals[i].appealId}`;
+			const linkAriaLabel = `Appeal ${numberToAccessibleDigitLabel(shortAppealReference || '')}`;
+			const relationshipText = listOfAppeals[i].isParentAppeal ? ' (Lead)' : ' (Child)';
+
+			formattedLinks += `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a> ${relationshipText}</li>`;
 		}
-		return `<ul class="govuk-list"">${formattedLinks}</ul>`;
+
+		return `<ul class="govuk-list">${formattedLinks}</ul>`;
 	}
+
 	return '<span>No appeals</span>';
 };
 

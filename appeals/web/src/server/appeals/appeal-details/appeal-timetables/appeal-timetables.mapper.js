@@ -52,7 +52,10 @@ export const mapUpdateDueDatePage = (appealTimetables, timetableType, appealDeta
 		backLinkUrl: `/appeals-service/appeal-details/${appealDetails.appealId}`,
 		preHeading: `Appeal ${appealShortReference(appealDetails.appealReference)}`,
 		heading: `${changeOrScheduleText} ${timetableTypeText} due date`,
-		submitButtonText: 'Continue',
+		submitButtonProperties: {
+			text: 'Continue',
+			type: 'submit'
+		},
 		pageComponents: []
 	};
 
