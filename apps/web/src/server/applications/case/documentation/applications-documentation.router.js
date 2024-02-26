@@ -14,7 +14,6 @@ import { assertFolderIsNotReps } from './applications-documentation.guard.js';
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 
-// TODO: make sure this is used only by the routes that require it
 applicationsDocumentationRouter.use(locals.registerCase);
 
 applicationsDocumentationRouter.use('/:folderId/s51-advice', applicationsS51Router);
@@ -55,14 +54,17 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName/unpublishing-queue')
 	.post(
-		[validateApplicationsDocumentsToUnpublish, locals.registerFolder],
+		[locals.registerDocumentGuid, validateApplicationsDocumentsToUnpublish, locals.registerFolder],
 		asyncHandler(controller.viewApplicationsCaseDocumentationUnpublishPage)
 	);
 
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/unpublish')
-	.get(asyncHandler(controller.viewApplicationsCaseDocumentationUnpublishSinglePage))
-	.post(asyncHandler(controller.postUnpublishDocuments));
+	.get(
+		locals.registerDocumentGuid,
+		asyncHandler(controller.viewApplicationsCaseDocumentationUnpublishSinglePage)
+	)
+	.post(locals.registerDocumentGuid, asyncHandler(controller.postUnpublishDocuments));
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folders/upload')
@@ -71,7 +73,7 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/remove-from-publishing-queue')
 	.get(
-		[locals.registerFolder],
+		[locals.registerFolder, locals.registerDocumentGuid],
 		asyncHandler(controller.removeApplicationsCaseDocumentationPublishingQueue)
 	);
 
@@ -89,23 +91,29 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/new-version')
 	.get(
-		[locals.registerDocumentGuid, locals.registerFolder],
+		locals.registerFolder,
+		locals.registerDocumentGuid,
 		asyncHandler(controller.viewApplicationsCaseDocumentationVersionUpload)
 	);
 
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/properties')
 	.get(
-		[locals.registerFolder, locals.registerDocumentGuid],
+		locals.registerFolder,
+		locals.registerDocumentGuid,
 		asyncHandler(controller.viewApplicationsCaseDocumentationProperties)
 	);
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName/unpublish')
-	.post([locals.registerFolder], asyncHandler(controller.postUnpublishDocuments));
+	.post(locals.registerFolder, asyncHandler(controller.postUnpublishDocuments));
 
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/:action')
-	.get([locals.registerFolder], asyncHandler(controller.viewApplicationsCaseDocumentationPages));
+	.get(
+		locals.registerFolder,
+		locals.registerDocumentGuid,
+		asyncHandler(controller.viewApplicationsCaseDocumentationPages)
+	);
 
 export default applicationsDocumentationRouter;
