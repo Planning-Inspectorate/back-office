@@ -26,8 +26,11 @@ export const s51ValidatorsDispatcher = async (request, response, next) => {
 		'advice-details': validateS51Details('advice', 'advice given')
 	};
 
-	if (validators[step]) {
-		return validators[step](request, response, next);
+	const validatorKey = Object.entries(validators).find((entry) => entry[0] === step);
+	if (validatorKey && validatorKey[1]) {
+		const validator = validatorKey[1];
+
+		return validator(request, response, next);
 	}
 
 	return next();
