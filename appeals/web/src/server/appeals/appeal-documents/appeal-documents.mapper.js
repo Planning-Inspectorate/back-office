@@ -455,7 +455,7 @@ function mapFolderDocumentActionsHtmlProperty(folder, document, viewAndEditUrl) 
 			.replace('{{folderId}}', folder.id.toString())
 			.replace('{{documentId}}', document.id)}" class="govuk-link">${
 			virusCheckStatus.manageFolderPageActionText
-		}</a>`;
+		} <span class="govuk-visually-hidden">${document.name}</span></a>`;
 	}
 
 	return htmlProperty;
@@ -870,7 +870,8 @@ export async function manageDocumentPage(
 						items: [
 							{
 								text: 'Change',
-								href: changeDetailsUrl
+								href: changeDetailsUrl,
+								visuallyHiddenText: `${document.name} date received`
 							}
 						]
 					}
@@ -887,7 +888,8 @@ export async function manageDocumentPage(
 						items: [
 							{
 								text: 'Change',
-								href: changeDetailsUrl
+								href: changeDetailsUrl,
+								visuallyHiddenText: `${document.name} redaction status`
 							}
 						]
 					}
