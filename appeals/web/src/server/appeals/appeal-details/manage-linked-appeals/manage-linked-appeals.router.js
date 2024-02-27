@@ -8,14 +8,14 @@ const router = createRouter({ mergeParams: true });
 router
 	.route('/add')
 	.get(asyncRoute(controller.getAddLinkedAppealReference))
-	.post(validators.validateAddLinkedAppealReference, controller.postAddLinkedAppeal);
+	.post(validators.validateAddLinkedAppealReference, asyncRoute(controller.postAddLinkedAppeal));
 
 router
 	.route('/add/check-and-confirm')
 	.get(asyncRoute(controller.getAddLinkedAppealCheckAndConfirm))
 	.post(
 		validators.validateAddLinkedAppealCheckAndConfirm,
-		controller.postAddLinkedAppealCheckAndConfirm
+		asyncRoute(controller.postAddLinkedAppealCheckAndConfirm)
 	);
 
 router.route('/manage').get(asyncRoute(controller.getManageLinkedAppeals));
@@ -27,6 +27,6 @@ router
 router
 	.route('/unlink-appeal/:childId/:relationshipId')
 	.get(asyncRoute(controller.getUnlinkAppeal))
-	.post(validators.validateUnlinkAppeal, controller.postUnlinkAppeal);
+	.post(validators.validateUnlinkAppeal, asyncRoute(controller.postUnlinkAppeal));
 
 export default router;

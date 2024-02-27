@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-import asyncRoute from '../../lib/async-route.js';
+import asyncRoute from '#lib/async-route.js';
 import * as controller from './appeal-documents.controller.js';
 import { validateCaseFolderId, validateCaseDocumentId } from './appeal-documents.middleware.js';
 
