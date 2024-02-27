@@ -35,9 +35,8 @@ const detailsView = 'applications/case/project-updates/project-updates-details.n
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function projectUpdatesTable({ params, query, session }, res) {
-	const { caseId } = params;
-
+export async function projectUpdatesTable({ query, session }, res) {
+	const { caseId } = res.locals;
 	const { sortBy = '-datePublished', pageSize = 25, page = 1 } = query;
 	const queryOptions = {};
 	if (page && pageSize) {

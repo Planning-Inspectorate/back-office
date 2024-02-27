@@ -4,12 +4,13 @@ import * as controller from './project-updates.controller.js';
 import * as validators from './project-updates.validators.js';
 import { registerCase } from '../applications-case.locals.js';
 import { registerProjectUpdateId } from './project-updates.locals.js';
+import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
 
 const projectUpdatesRouter = createRouter({ mergeParams: true });
 
 projectUpdatesRouter.use(registerCase);
 
-projectUpdatesRouter.route('/').get(asyncHandler(controller.projectUpdatesTable));
+projectUpdatesRouter.route('/').get(registerCaseId, asyncHandler(controller.projectUpdatesTable));
 
 export const projectUpdateRoutes = Object.freeze({
 	create: 'create',
