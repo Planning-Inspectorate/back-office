@@ -17,6 +17,7 @@ import {
 	documentUploadPage
 } from './appeal-documents.mapper.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
+import { isInternalUrl } from '#lib/url-utilities.js';
 
 /**
  *
@@ -423,6 +424,12 @@ export const postDocumentDelete = async (
 	const uploadNewDocumentVersionUrlProcessed = uploadNewDocumentVersionUrl
 		?.replace('{{folderId}}', currentFolder.id)
 		.replace('{{documentId}}', documentId);
+
+	if (!isInternalUrl(returnUrl, request) || !isInternalUrl(uploadNewDocumentVersionUrl, request)) {
+		return response.status(400).render('errorPageTemplate', {
+			message: 'Invalid redirection attempt detected.'
+		});
+	}
 
 	if (body['delete-file-answer'] === 'no') {
 		return response.redirect(returnUrlProcessed);

@@ -42,6 +42,8 @@ import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 import { paginationDefaultSettings } from '#appeals/appeal.constants.js';
 import { getPaginationParametersFromQuery } from '#lib/pagination-utilities.js';
 import { linkedAppealStatus } from '#lib/appeals-formatter.js';
+import httpMocks from 'node-mocks-http';
+import { isInternalUrl } from '#lib/url-utilities.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
@@ -1338,5 +1340,76 @@ describe('linkedAppealStatus', () => {
 
 	it('returns an empty string when both isParent and isChild are false', () => {
 		expect(linkedAppealStatus(false, false)).toBe('');
+	});
+});
+
+describe('isInternalUrl', () => {
+	test('should return true for fully qualified internal HTTP URL', () => {
+		const url = 'http://localhost/appeals-service/appeals-list';
+
+		const request = httpMocks.createRequest({
+			method: 'GET',
+			url: '/appeals-service/appeals-list',
+			secure: true,
+			headers: {
+				host: 'localhost'
+			}
+		});
+
+		expect(isInternalUrl(url, request)).toBe(true);
+	});
+
+	describe('isInternalUrl', () => {
+		test('should return true for fully qualified internal HTTPS URL', () => {
+			const url = 'https://localhost/appeals-service/appeals-list';
+			const request = httpMocks.createRequest({
+				method: 'GET',
+				url: '/appeals-service/appeals-list',
+				secure: true,
+				headers: {
+					host: 'localhost'
+				}
+			});
+			expect(isInternalUrl(url, request)).toBe(true);
+		});
+
+		test('should return false for external URL', () => {
+			const url = 'https://external-phishing-url.com';
+			const request = httpMocks.createRequest({
+				method: 'GET',
+				url: '/',
+				secure: true,
+				headers: {
+					host: 'localhost'
+				}
+			});
+			expect(isInternalUrl(url, request)).toBe(false);
+		});
+
+		test('should return false for an invalid URL', () => {
+			const url = '://bad.url';
+			const request = httpMocks.createRequest({
+				method: 'GET',
+				url: '/',
+				secure: false,
+				headers: {
+					host: 'localhost'
+				}
+			});
+			expect(isInternalUrl(url, request)).toBe(false);
+		});
+
+		test('should handle URLs without protocols', () => {
+			const url = '//localhost/appeals-service/appeals-list';
+			const request = httpMocks.createRequest({
+				method: 'GET',
+				url: '/appeals-service/appeals-list',
+				secure: false,
+				headers: {
+					host: 'localhost'
+				}
+			});
+			expect(isInternalUrl(url, request)).toBe(true);
+		});
 	});
 });
