@@ -42,6 +42,19 @@ interface LinkedAppeal {
 	externalAppealType?: string;
 }
 
+interface LinkableAppealSummary {
+	appealId: string | undefined;
+	appealReference: string | undefined;
+	appealType: string | undefined;
+	appealStatus: string;
+	siteAddress: AppealSite;
+	localPlanningDepartment: string;
+	appellantName: string | undefined;
+	agentName?: string | undefined | null;
+	submissionDate: string;
+	source: 'horizon' | 'back-office';
+}
+
 interface RelatedAppeal {
 	appealId: number | null;
 	appealReference: string;
@@ -684,6 +697,7 @@ export {
 	IncompleteInvalidReasons,
 	IncompleteInvalidReasonsResponse,
 	LinkedAppeal,
+	LinkableAppealSummary,
 	RelatedAppeal,
 	ListedBuildingDetailsResponse,
 	LookupTables,

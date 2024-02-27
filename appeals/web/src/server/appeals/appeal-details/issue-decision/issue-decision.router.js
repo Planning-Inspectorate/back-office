@@ -1,5 +1,5 @@
 import { Router as createRouter } from 'express';
-
+import asyncRoute from '#lib/async-route.js';
 import * as controller from './issue-decision.controller.js';
 import * as validators from './issue-decision.validators.js';
 
@@ -7,39 +7,39 @@ const router = createRouter({ mergeParams: true });
 
 router
 	.route('/decision')
-	.get(controller.getIssueDecision)
-	.post(validators.validateDecision, controller.postIssueDecision);
+	.get(asyncRoute(controller.getIssueDecision))
+	.post(validators.validateDecision, asyncRoute(controller.postIssueDecision));
 
 router
 	.route('/decision-letter-upload')
-	.get(controller.getDecisionLetterUpload)
-	.post(controller.postDecisionLetterUpload);
+	.get(asyncRoute(controller.getDecisionLetterUpload))
+	.post(asyncRoute(controller.postDecisionLetterUpload));
 
 router
 	.route('/decision-letter-date')
-	.get(controller.getDateDecisionLetter)
+	.get(asyncRoute(controller.getDateDecisionLetter))
 	.post(
 		validators.validateVisitDateFields,
 		validators.validateVisitDateValid,
 		validators.validateDueDateInPastOrToday,
-		controller.postDateDecisionLetter
+		asyncRoute(controller.postDateDecisionLetter)
 	);
 
 router
 	.route('/invalid-reason')
-	.get(controller.getInvalidReason)
-	.post(validators.validateTextArea, controller.postInvalidReason);
+	.get(asyncRoute(controller.getInvalidReason))
+	.post(validators.validateTextArea, asyncRoute(controller.postInvalidReason));
 
 router
 	.route('/check-your-decision')
-	.get(controller.getCheckDecision)
-	.post(validators.validateCheckDecision, controller.postCheckDecision);
+	.get(asyncRoute(controller.getCheckDecision))
+	.post(validators.validateCheckDecision, asyncRoute(controller.postCheckDecision));
 
 router
 	.route('/check-invalid-decision')
-	.get(controller.getCheckInvalidDecision)
-	.post(validators.validateCheckDecision, controller.postCheckInvalidDecision);
+	.get(asyncRoute(controller.getCheckInvalidDecision))
+	.post(validators.validateCheckDecision, asyncRoute(controller.postCheckInvalidDecision));
 
-router.route('/decision-sent').get(controller.getDecisionSent);
+router.route('/decision-sent').get(asyncRoute(controller.getDecisionSent));
 
 export default router;

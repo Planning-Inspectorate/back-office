@@ -265,42 +265,86 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
-                        <ul class="govuk-list"
-                        "><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
-                        ">725284</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals
-                        "> Change<span class="govuk-visually-hidden
-                        "> Appeals near the site</span></a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                        "> Extra conditions</dt><dd class="govuk-summary-list__value
-                        "><span>Yes</span><br><span>Some extra conditions</span></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions
-                        "> Change<span class="govuk-visually-hidden
-                        "> Extra conditions</span></a></dd></div></dl></div></div><div class="govuk-summary-card "><div class="govuk-summary-card__title-wrapper
-                        "><h2 class="govuk-summary-card__title ">Additional documents</h2><ul class="govuk-summary-card__actions
-                        "><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/
-                        "> Manage<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21
-                        "> Add<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li></ul></div><div class="govuk-summary-card__content "><dl class="govuk-summary-list pins-summary-list--fullwidth-value
-                        "><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview' target=" '_blank' " class="govuk-link ">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink
-                        single-line ">Late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
-                        "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview' target=" '_blank' " class="govuk-link
-                        ">ph0.jpeg</a></li></ul></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><span><div class="govuk-body govuk-!-margin-bottom-2
-                        ">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line
-                        ">Virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
-                        " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
-                        "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
-                        " id="review-outcome " name="review-outcome " type="radio " value="complete
-                        "><label class="govuk-label govuk-radios__label " for="review-outcome
-                        "> Complete</label></div><div class="govuk-radios__item "><input class="govuk-radios__input " id="review-outcome-2
-                        " name="review-outcome " type="radio " value="incomplete "><label class="govuk-label
-                        govuk-radios__label " for="review-outcome-2
-                        "> Incomplete</label></div></div></div><button class="govuk-button " data-module="govuk-button
-                        "> Continue</button></form></div></div></main>"
+                        <ul class="govuk-list">
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extra conditions</dt>
+                    <dd class="govuk-summary-list__value"><span>Yes</span>
+                        <br><span>Some extra conditions</span>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions"> Change<span class="govuk-visually-hidden"> Extra conditions</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                            type="radio" value="complete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                            type="radio" value="incomplete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
 `;
 
 exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page with the expected content 1`] = `
@@ -591,42 +635,86 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
-                        <ul class="govuk-list"
-                        "><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
-                        ">725284</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals
-                        "> Change<span class="govuk-visually-hidden
-                        "> Appeals near the site</span></a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                        "> Extra conditions</dt><dd class="govuk-summary-list__value
-                        "><span>Yes</span><br><span>Some extra conditions</span></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions
-                        "> Change<span class="govuk-visually-hidden
-                        "> Extra conditions</span></a></dd></div></dl></div></div><div class="govuk-summary-card "><div class="govuk-summary-card__title-wrapper
-                        "><h2 class="govuk-summary-card__title ">Additional documents</h2><ul class="govuk-summary-card__actions
-                        "><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/
-                        "> Manage<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21
-                        "> Add<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li></ul></div><div class="govuk-summary-card__content "><dl class="govuk-summary-list pins-summary-list--fullwidth-value
-                        "><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview' target=" '_blank' " class="govuk-link ">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink
-                        single-line ">Late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
-                        "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview' target=" '_blank' " class="govuk-link
-                        ">ph0.jpeg</a></li></ul></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><span><div class="govuk-body govuk-!-margin-bottom-2
-                        ">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line
-                        ">Virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
-                        " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
-                        "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
-                        " id="review-outcome " name="review-outcome " type="radio " value="complete
-                        "><label class="govuk-label govuk-radios__label " for="review-outcome
-                        "> Complete</label></div><div class="govuk-radios__item "><input class="govuk-radios__input " id="review-outcome-2
-                        " name="review-outcome " type="radio " value="incomplete "><label class="govuk-label
-                        govuk-radios__label " for="review-outcome-2
-                        "> Incomplete</label></div></div></div><button class="govuk-button " data-module="govuk-button
-                        "> Continue</button></form></div></div></main>"
+                        <ul class="govuk-list">
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extra conditions</dt>
+                    <dd class="govuk-summary-list__value"><span>Yes</span>
+                        <br><span>Some extra conditions</span>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions"> Change<span class="govuk-visually-hidden"> Extra conditions</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                            type="radio" value="complete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                            type="radio" value="incomplete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
 `;
 
 exports[`LPA Questionnaire review GET / with unchecked documents should render a notification banner when a file is unscanned 1`] = `
@@ -919,42 +1007,86 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
-                        <ul class="govuk-list"
-                        "><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
-                        ">725284</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals
-                        "> Change<span class="govuk-visually-hidden
-                        "> Appeals near the site</span></a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                        "> Extra conditions</dt><dd class="govuk-summary-list__value
-                        "><span>Yes</span><br><span>Some extra conditions</span></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions
-                        "> Change<span class="govuk-visually-hidden
-                        "> Extra conditions</span></a></dd></div></dl></div></div><div class="govuk-summary-card "><div class="govuk-summary-card__title-wrapper
-                        "><h2 class="govuk-summary-card__title ">Additional documents</h2><ul class="govuk-summary-card__actions
-                        "><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/
-                        "> Manage<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21
-                        "> Add<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li></ul></div><div class="govuk-summary-card__content "><dl class="govuk-summary-list pins-summary-list--fullwidth-value
-                        "><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview' target=" '_blank' " class="govuk-link ">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink
-                        single-line ">Late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
-                        "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview' target=" '_blank' " class="govuk-link
-                        ">ph0.jpeg</a></li></ul></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><span><div class="govuk-body govuk-!-margin-bottom-2
-                        ">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line
-                        ">Virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
-                        " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
-                        "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
-                        " id="review-outcome " name="review-outcome " type="radio " value="complete
-                        "><label class="govuk-label govuk-radios__label " for="review-outcome
-                        "> Complete</label></div><div class="govuk-radios__item "><input class="govuk-radios__input " id="review-outcome-2
-                        " name="review-outcome " type="radio " value="incomplete "><label class="govuk-label
-                        govuk-radios__label " for="review-outcome-2
-                        "> Incomplete</label></div></div></div><button class="govuk-button " data-module="govuk-button
-                        "> Continue</button></form></div></div></main>"
+                        <ul class="govuk-list">
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extra conditions</dt>
+                    <dd class="govuk-summary-list__value"><span>Yes</span>
+                        <br><span>Some extra conditions</span>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions"> Change<span class="govuk-visually-hidden"> Extra conditions</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                            type="radio" value="complete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                            type="radio" value="incomplete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
 `;
 
 exports[`LPA Questionnaire review GET / with unchecked documents should render an error when a file has a virus 1`] = `
@@ -1247,42 +1379,86 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
-                        <ul class="govuk-list"
-                        "><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
-                        ">725284</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals
-                        "> Change<span class="govuk-visually-hidden
-                        "> Appeals near the site</span></a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                        "> Extra conditions</dt><dd class="govuk-summary-list__value
-                        "><span>Yes</span><br><span>Some extra conditions</span></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions
-                        "> Change<span class="govuk-visually-hidden
-                        "> Extra conditions</span></a></dd></div></dl></div></div><div class="govuk-summary-card "><div class="govuk-summary-card__title-wrapper
-                        "><h2 class="govuk-summary-card__title ">Additional documents</h2><ul class="govuk-summary-card__actions
-                        "><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/
-                        "> Manage<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21
-                        "> Add<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li></ul></div><div class="govuk-summary-card__content "><dl class="govuk-summary-list pins-summary-list--fullwidth-value
-                        "><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview' target=" '_blank' " class="govuk-link ">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink
-                        single-line ">Late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
-                        "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview' target=" '_blank' " class="govuk-link
-                        ">ph0.jpeg</a></li></ul></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><span><div class="govuk-body govuk-!-margin-bottom-2
-                        ">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line
-                        ">Virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
-                        " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
-                        "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
-                        " id="review-outcome " name="review-outcome " type="radio " value="complete
-                        "><label class="govuk-label govuk-radios__label " for="review-outcome
-                        "> Complete</label></div><div class="govuk-radios__item "><input class="govuk-radios__input " id="review-outcome-2
-                        " name="review-outcome " type="radio " value="incomplete "><label class="govuk-label
-                        govuk-radios__label " for="review-outcome-2
-                        "> Incomplete</label></div></div></div><button class="govuk-button " data-module="govuk-button
-                        "> Continue</button></form></div></div></main>"
+                        <ul class="govuk-list">
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extra conditions</dt>
+                    <dd class="govuk-summary-list__value"><span>Yes</span>
+                        <br><span>Some extra conditions</span>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions"> Change<span class="govuk-visually-hidden"> Extra conditions</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                            type="radio" value="complete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                            type="radio" value="incomplete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
 `;
 
 exports[`LPA Questionnaire review GET /appeals-service/appeal-details/1/lpa-questionnaire/2/check-your-answers should render the 500 error page if required data is not present in the session 1`] = `
@@ -1706,7 +1882,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
@@ -1718,10 +1894,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                                     type="radio" value="unredacted">
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-4" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required" checked>
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1767,7 +1944,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
@@ -1779,10 +1956,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                                     type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-4" name="items[1][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1844,7 +2022,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
@@ -1856,10 +2034,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                                     type="radio" value="unredacted">
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-4" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required" checked>
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1905,7 +2084,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
@@ -1917,10 +2096,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                                     type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-4" name="items[1][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1982,7 +2162,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
@@ -1994,10 +2174,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                                     type="radio" value="unredacted">
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-4" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required" checked>
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -2043,7 +2224,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
@@ -2055,10 +2236,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                                     type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-4" name="items[1][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -2120,7 +2302,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
@@ -2132,10 +2314,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                                     type="radio" value="unredacted">
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-4" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required" checked>
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -2181,7 +2364,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
@@ -2193,10 +2376,11 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-document-details/
                                     type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-4" name="items[1][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -2220,7 +2404,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -2257,7 +2441,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -2309,7 +2493,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -2376,7 +2560,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -2414,7 +2598,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -2451,7 +2635,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -2503,7 +2687,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -2570,7 +2754,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/add-documents/:folder
         <form class="govuk-grid-column-two-thirds">
             <div class="pins-file-upload--container">
                 <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
             <div class="display--flex">
@@ -2640,16 +2824,16 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
         </div>
     </div>
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage folder</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">New supporting documents</h1>
         </div>
     </div>
     <table class="govuk-table" id="documents-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Document information</th>
+                <th scope="col" class="govuk-table__header">Name</th>
                 <th scope="col" class="govuk-table__header">Date received</th>
-                <th scope="col" class="govuk-table__header">Redaction</th>
+                <th scope="col" class="govuk-table__header">Redaction status</th>
                 <th scope="col" class="govuk-table__header">Actions</th>
             </tr>
         </thead>
@@ -2667,7 +2851,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 <td class="govuk-table__cell">1 February 2023</td>
                 <td class="govuk-table__cell">Redacted</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
-                    class="govuk-link">Edit</a>
+                    class="govuk-link">Edit <span class="govuk-visually-hidden">test-pdf-documentFolderInfo.pdf</span></a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -2687,7 +2871,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 </td>
                 <td class="govuk-table__cell">Unredacted</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/47d8f073-c837-4f07-9161-c1a5626eba56"
-                    class="govuk-link">Edit</a>
+                    class="govuk-link">Edit <span class="govuk-visually-hidden">sample-20s-documentFolderInfo.mp4</span></a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -2703,7 +2887,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 <td class="govuk-table__cell">3 April 2025</td>
                 <td class="govuk-table__cell">No redaction required</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa6"
-                    class="govuk-link">Edit or remove</a>
+                    class="govuk-link">Edit or remove <span class="govuk-visually-hidden">ph0-documentFolderInfo.jpeg</span></a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -2721,7 +2905,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 </td>
                 <td class="govuk-table__cell">Unredacted</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa7"
-                    class="govuk-link">View and edit</a>
+                    class="govuk-link">View and edit <span class="govuk-visually-hidden">ph1-documentFolderInfo.jpeg</span></a>
                 </td>
             </tr>
         </tbody>
@@ -2760,14 +2944,14 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page with late entry tag in the date received row if the latest version of the document is marked as late entry, and a document history item for each version, with late entry tag in the history item document name column for versions marked as late entry 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -2784,12 +2968,12 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                         <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
                         </div>
                     </dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -2797,19 +2981,20 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -2855,14 +3040,14 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf-documentFileVersionsInfo.pdf</a>
                         </div>
@@ -2873,12 +3058,12 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -2887,27 +3072,28 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
-            data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
+            data-module="govuk-button" id="upload-updated-document"> Upload a new version</a>
             <a             href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
             role="button" draggable="false" class="govuk-button govuk-button--secondary"
-            data-module="govuk-button" id="remove-document">Remove this document</a>
+            data-module="govuk-button" id="remove-document">Remove current version</a>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -2929,7 +3115,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                         </tbody>
                     </table>
                 </div>
-                </details>
+            </details>
         </div>
     </div>
 </main>"
@@ -2953,14 +3139,14 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
         </div>
     </div>
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -2973,12 +3159,12 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -2987,27 +3173,28 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"><a href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
-            data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
+            data-module="govuk-button" id="upload-updated-document"> Upload a new version</a>
             <a             href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
             role="button" draggable="false" class="govuk-button govuk-button--secondary"
-            data-module="govuk-button" id="remove-document">Remove this document</a>
+            data-module="govuk-button" id="remove-document">Remove current version</a>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -3040,14 +3227,14 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -3060,12 +3247,12 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -3073,19 +3260,20 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -3117,14 +3305,14 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -3137,12 +3325,12 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -3150,19 +3338,20 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -3194,14 +3383,14 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId should render the manage individual document page without late entry tag in the date received row if the latest version of the document is not marked as late entry 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -3214,12 +3403,12 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -3227,19 +3416,20 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -3271,14 +3461,14 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId/:versionId/delete should render the delete document page with multiple document versons 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
+        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage versions</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this version?</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
@@ -3311,14 +3501,14 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
 exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:folderId/:documentId/:versionId/delete should render the delete document page with single document verson 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
+        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage versions</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this version?</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
@@ -3327,7 +3517,7 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
             </dl>
             <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Removing the
-                    only version will delete the document from the case</strong>
+                    only version of a document will delete the document from the case</strong>
             </div>
             <form method="POST">
                 <div class="govuk-form-group">
@@ -3339,8 +3529,8 @@ exports[`LPA Questionnaire review GET /lpa-questionnaire/1/manage-documents/:fol
                         </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="delete-file-answer-2" name="delete-file-answer"
-                            type="radio" value="yes-and-upload-new-document">
-                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">Yes, and upload new document</label>
+                            type="radio" value="yes-and-upload-another-document">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">Yes, and upload another document</label>
                         </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="delete-file-answer-3" name="delete-file-answer"
@@ -3660,42 +3850,86 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
-                        <ul class="govuk-list"
-                        "><li><a href='/appeals-service/appeal-details/2' class="govuk-link " aria-label="Appeal 7 2 5 2 8 4
-                        ">725284</a></li></ul></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals
-                        "> Change<span class="govuk-visually-hidden
-                        "> Appeals near the site</span></a></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key
-                        "> Extra conditions</dt><dd class="govuk-summary-list__value
-                        "><span>Yes</span><br><span>Some extra conditions</span></dd><dd class="govuk-summary-list__actions "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions
-                        "> Change<span class="govuk-visually-hidden
-                        "> Extra conditions</span></a></dd></div></dl></div></div><div class="govuk-summary-card "><div class="govuk-summary-card__title-wrapper
-                        "><h2 class="govuk-summary-card__title ">Additional documents</h2><ul class="govuk-summary-card__actions
-                        "><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/
-                        "> Manage<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li><li class="govuk-summary-card__action "><a class="govuk-link " href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21
-                        "> Add<span class="govuk-visually-hidden
-                        "> additional documents</span></a></li></ul></div><div class="govuk-summary-card__content "><dl class="govuk-summary-list pins-summary-list--fullwidth-value
-                        "><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview' target=" '_blank' " class="govuk-link ">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink
-                        single-line ">Late entry</strong></li></ul></dd></div><div class="govuk-summary-list__row
-                        "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview' target=" '_blank' " class="govuk-link
-                        ">ph0.jpeg</a></li></ul></dd></div><div class="govuk-summary-list__row "><dt class="govuk-summary-list__key govuk-visually-hidden
-                        "> Additional documents</dt><dd class="govuk-summary-list__value "><ul class="govuk-list
-                        "><li><span><div class="govuk-body govuk-!-margin-bottom-2
-                        ">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line
-                        ">Virus scanning</strong></span></li></ul></dd></div></dl></div></div><div class="govuk-grid-row "><div class="govuk-grid-column-full "><form action="
-                        " method="POST " novalidate><div class="govuk-form-group "><div class="govuk-radios
-                        "    data-module="govuk-radios "><div class="govuk-radios__item "><input class="govuk-radios__input
-                        " id="review-outcome " name="review-outcome " type="radio " value="complete
-                        "><label class="govuk-label govuk-radios__label " for="review-outcome
-                        "> Complete</label></div><div class="govuk-radios__item "><input class="govuk-radios__input " id="review-outcome-2
-                        " name="review-outcome " type="radio " value="incomplete "><label class="govuk-label
-                        govuk-radios__label " for="review-outcome-2
-                        "> Incomplete</label></div></div></div><button class="govuk-button " data-module="govuk-button
-                        "> Continue</button></form></div></div></main>"
+                        <ul class="govuk-list">
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                        </ul>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extra conditions</dt>
+                    <dd class="govuk-summary-list__value"><span>Yes</span>
+                        <br><span>Some extra conditions</span>
+                    </dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/extra-conditions"> Change<span class="govuk-visually-hidden"> Extra conditions</span></a>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Additional documents</h2>
+            <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/manage-documents/21/"> Manage<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+                <li class="govuk-summary-card__action"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/add-documents/21"> Add<span class="govuk-visually-hidden"> additional documents</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list pins-summary-list--fullwidth-value">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/00c43c8c-829a-4aa8-883a-fd6fc1f52c3d/preview'
+                                target="'_blank'" class="govuk-link">ph1.jpeg</a><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><a href='/documents/1/download/a78446aa-167a-4bef-89b7-18bcb0da11c1/preview'
+                                target="'_blank'" class="govuk-link">ph0.jpeg</a>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key govuk-visually-hidden"> Additional documents</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <ul class="govuk-list">
+                            <li><span><div class="govuk-body govuk-!-margin-bottom-2">test-doc.jpeg</div><strong class="govuk-tag govuk-tag--yellow single-line">Virus scanning</strong></span>
+                            </li>
+                        </ul>
+                        </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome" name="review-outcome"
+                            type="radio" value="complete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome">Complete</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="review-outcome-2" name="review-outcome"
+                            type="radio" value="incomplete">
+                            <label class="govuk-label govuk-radios__label" for="review-outcome-2">Incomplete</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
 `;
 
 exports[`LPA Questionnaire review POST /appeals-service/appeal-details/1/lpa-questionnaire/2/incomplete should re-render the incomplete reason page with the expected error message if a single incomplete reason with text was provided but the matching text property exceeds the character limit 1`] = `

@@ -44,6 +44,18 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		};
 	}
 
+	/** @type {PageComponent|undefined} */
+	let leadOrChildTag;
+
+	if (mappedData.appeal.leadOrChild.display?.statusTag) {
+		leadOrChildTag = {
+			type: 'status-tag',
+			parameters: {
+				...mappedData.appeal.leadOrChild.display.statusTag
+			}
+		};
+	}
+
 	/** @type {PageComponent} */
 	const caseSummary = {
 		type: 'summary-list',
@@ -217,9 +229,14 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		appealDetails.appealId
 	);
 
-	const statusComponentGroup = statusTag ? [statusTag] : [];
+	const statusTagsComponentGroup = statusTag ? [statusTag] : [];
+
+	if (leadOrChildTag) {
+		statusTagsComponentGroup.push(leadOrChildTag);
+	}
+
 	const isAppealComplete = appealDetails.appealStatus === 'complete';
-	if (isAppealComplete && statusComponentGroup.length > 0 && appealDetails.decision.documentId) {
+	if (isAppealComplete && statusTag && appealDetails.decision.documentId) {
 		const letterDate = appealDetails.decision?.letterDate
 			? new Date(appealDetails.decision.letterDate)
 			: new Date();
@@ -232,7 +249,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 			: '#';
 
 		if (virusCheckStatus.checked && virusCheckStatus.safe) {
-			statusComponentGroup.push({
+			statusTagsComponentGroup.push({
 				type: 'inset-text',
 				parameters: {
 					html: `<p>
@@ -247,7 +264,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 				}
 			});
 		} else {
-			statusComponentGroup.push({
+			statusTagsComponentGroup.push({
 				type: 'inset-text',
 				parameters: {
 					html: `<p>
@@ -273,7 +290,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 			appealDetails.transferStatus.transferredAppealReference &&
 			appealDetails.transferStatus.transferredAppealType
 		) {
-			statusComponentGroup.push({
+			statusTagsComponentGroup.push({
 				type: 'inset-text',
 				parameters: {
 					html: `<p class="govuk-body">This appeal needed to change to a ${appealDetails.transferStatus.transferredAppealType}</p>
@@ -290,7 +307,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 
 	const pageComponents = [
 		...notificationBanners,
-		...statusComponentGroup,
+		...statusTagsComponentGroup,
 		caseSummary,
 		appealDetailsAccordion
 	];

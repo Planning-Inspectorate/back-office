@@ -1,4 +1,5 @@
 import { Router as createRouter } from 'express';
+import asyncRoute from '#lib/async-route.js';
 import lpaQuestionnaireRouter from './lpa-questionnaire/lpa-questionnaire.router.js';
 import allocationDetailsRouter from './allocation-details/allocation-details.router.js';
 import appealTimetablesRouter from './appeal-timetables/appeal-timetables.router.js';
@@ -18,7 +19,7 @@ import linkedAppealsRouter from './manage-linked-appeals/manage-linked-appeals.r
 
 const router = createRouter();
 
-router.route('/:appealId').get(controller.viewAppealDetails);
+router.route('/:appealId').get(asyncRoute(controller.viewAppealDetails));
 router.use('/:appealId/documents', appealDocumentsRouter);
 router.use('/:appealId/lpa-questionnaire', lpaQuestionnaireRouter);
 router.use('/:appealId/allocation-details', allocationDetailsRouter);
@@ -31,5 +32,5 @@ router.use('/:appealId/assign-new-user', assignNewUserRouter);
 router.use('/:appealId/change-appeal-details', changePageRouter);
 router.use('/:appealId/issue-decision', issueDecisionRouter);
 router.use('/:appealId/change-appeal-type', appealTypeChangeRouter);
-router.use('/:appealId/manage-linked-appeals', linkedAppealsRouter);
+router.use('/:appealId/linked-appeals', linkedAppealsRouter);
 export default router;

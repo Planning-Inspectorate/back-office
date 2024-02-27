@@ -28,6 +28,7 @@ describe('personal-list', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
+
 		it('should render the second page of the personal list with the expected content and pagination', async () => {
 			nock('http://test/')
 				.get('/appeals/my-appeals?pageNumber=2&pageSize=5')
@@ -59,6 +60,39 @@ describe('personal-list', () => {
 
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text, { rootElement: 'header' });
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a lead status tag in the lead or child column, for appeals linked as a parent', async () => {
+			nock('http://test/')
+				.get('/appeals/my-appeals?pageNumber=1&pageSize=30')
+				.reply(200, assignedAppealsPage1);
+
+			const response = await request.get(`${baseUrl}${'?pageNumber=1&pageSize=30'}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a child status tag in the lead or child column, for appeals linked as a child', async () => {
+			nock('http://test/')
+				.get('/appeals/my-appeals?pageNumber=1&pageSize=30')
+				.reply(200, assignedAppealsPage1);
+
+			const response = await request.get(`${baseUrl}${'?pageNumber=1&pageSize=30'}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render an empty cell in the lead or child column, for appeals with no linked appeals (neither parent nor child)', async () => {
+			nock('http://test/')
+				.get('/appeals/my-appeals?pageNumber=1&pageSize=30')
+				.reply(200, assignedAppealsPage1);
+
+			const response = await request.get(`${baseUrl}${'?pageNumber=1&pageSize=30'}`);
+			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
 		});
