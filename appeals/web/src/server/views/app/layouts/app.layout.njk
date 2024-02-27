@@ -6,6 +6,7 @@
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% from '../components/global-header.njk' import globalHeader %}
 
 {% set containerClasses = 'pins-width-container' if containerSize === 'xl' else 'govuk-width-container'%}
@@ -63,4 +64,16 @@
       </div>
     {% endblock %}
     {% block pageContent %}{% endblock %}
-  {% endblock %}
+{% endblock %}
+
+{% block footer %}
+<footer class="govuk-footer" role="contentinfo">
+  <div class="govuk-width-container ">
+    <div class="govuk-footer__meta">
+      <div class="govuk-footer__meta-item govuk-footer__meta-item">
+				<!-- footer container -->
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock %}
