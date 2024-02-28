@@ -22,7 +22,6 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 export const processHTMLForYouTube = async ({ body }, response) => {
 	const html = body.html;
 
-	console.log(252525, 'process html');
 	try {
 		const youtubeUrl = extractYouTubeURLFromHTML(html);
 		const renderedHTML = renderYouTubeTemplate(youtubeUrl);
