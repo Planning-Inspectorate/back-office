@@ -5,6 +5,15 @@ parameters:
     values:
       - 'dev'
       - 'test'
+  - name: test-suite
+    type: string
+    default:
+      MY_ENV_VARIABLE: 'regression'
+    default: 'regression'
+    values:
+      - 'regression'
+      - 'smoke'
+      - 'sanity'
 
 variables:
   - name: APP
@@ -52,7 +61,9 @@ jobs:
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
+          TEST_SUITE: npm run regression ${{ parameter.test-suite }}
         displayName: "Run Cypress Tests"
+
 
       - task: PublishBuildArtifacts@1
         inputs:
