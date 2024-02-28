@@ -76,7 +76,7 @@ export async function scheduleOrManageSiteVisitPage(
 	visitEndTimeHour,
 	visitEndTimeMinute
 ) {
-	const mappedData = await initialiseAndMapAppealData(appealDetails, currentRoute, session);
+	const mappedData = await initialiseAndMapAppealData(appealDetails, currentRoute, session, true);
 	const titlePrefix = capitalize(pageType);
 
 	visitType ??= mapGetApiVisitTypeToWebVisitType(appealDetails.siteVisit?.visitType);
