@@ -405,7 +405,15 @@ export interface WebDocumentationSummary extends DocumentationSummary {
 
 export interface WebAppeal extends SingleAppealDetailsResponse {
 	appealTimetable: WebAppealTimetable | null;
-	siteVisit: WebSiteVisit | null;
+	siteAddress?: Address;
 	startedAt: string | null;
 	documentationSummary: WebDocumentationSummary;
+	source?: string;
+	siteVisit: {
+		siteVisitId: number | null;
+		visitDate: string | null;
+		visitStartTime: string | null;
+		visitEndTime: string | null;
+		visitType: string | null;
+	};
 }

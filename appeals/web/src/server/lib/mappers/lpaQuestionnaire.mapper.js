@@ -1003,7 +1003,8 @@ export function initialiseAndMapLPAQData(data, currentRoute) {
 					text: 'Appeals near the site'
 				},
 				value: {
-					html: displayPageFormatter.formatListOfAppeals(data.otherAppeals) || 'No other appeals'
+					html:
+						displayPageFormatter.formatListOfRelatedAppeals(data.otherAppeals) || 'No other appeals'
 				},
 				actions: {
 					items: [

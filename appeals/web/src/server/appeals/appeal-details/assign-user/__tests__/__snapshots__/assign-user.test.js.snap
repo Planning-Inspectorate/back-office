@@ -679,7 +679,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/other-appeals"> Change<span class="govuk-visually-hidden"> related appeals</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/other-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation level</dt>
@@ -1149,7 +1149,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/other-appeals"> Change<span class="govuk-visually-hidden"> related appeals</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/other-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation level</dt>
@@ -1476,7 +1476,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Related appeals</dt>
                             <dd class="govuk-summary-list__value"><span>No appeals</span>
                             </dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/change-appeal-details/other-appeals"> Change<span class="govuk-visually-hidden"> related appeals</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/other-appeals/add"> Add</a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Allocation level</dt>

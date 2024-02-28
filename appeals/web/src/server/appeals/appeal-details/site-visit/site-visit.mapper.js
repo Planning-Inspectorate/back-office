@@ -612,8 +612,12 @@ export function mapPostScheduleOrManageSiteVisitConfirmationPageType(
 	appealDetails,
 	updateOrCreateSiteVisitParameters
 ) {
+	const oldVisitDate = appealDetails.siteVisit?.visitDate;
+
+	// TODO: Tech debt (BOAT-981): align date conversion to use date-fns
+	const oldVisitDateString = String(oldVisitDate) && String(oldVisitDate).split('T')[0];
+
 	const oldApiVisitType = appealDetails.siteVisit?.visitType;
-	const oldVisitDate = appealDetails.siteVisit?.visitDate?.split('T')[0];
 	const oldVisitStartTime = appealDetails.siteVisit?.visitStartTime;
 	const oldVisitEndTime = appealDetails.siteVisit?.visitEndTime;
 	const visitTypeChanged =
@@ -621,7 +625,7 @@ export function mapPostScheduleOrManageSiteVisitConfirmationPageType(
 		updateOrCreateSiteVisitParameters.apiVisitType &&
 		oldApiVisitType.toLowerCase() !== updateOrCreateSiteVisitParameters.apiVisitType.toLowerCase();
 	const dateTimeChanged =
-		oldVisitDate !== updateOrCreateSiteVisitParameters.visitDate ||
+		oldVisitDateString !== updateOrCreateSiteVisitParameters.visitDate ||
 		oldVisitStartTime !== updateOrCreateSiteVisitParameters.visitStartTime ||
 		oldVisitEndTime !== updateOrCreateSiteVisitParameters.visitEndTime;
 

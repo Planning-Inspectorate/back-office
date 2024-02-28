@@ -266,7 +266,8 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a>
+                            </li>
                         </ul>
                     </dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
@@ -636,7 +637,8 @@ exports[`LPA Questionnaire review GET / should render the LPA Questionnaire page
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a>
+                            </li>
                         </ul>
                     </dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
@@ -1008,7 +1010,8 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a>
+                            </li>
                         </ul>
                     </dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
@@ -1380,7 +1383,8 @@ exports[`LPA Questionnaire review GET / with unchecked documents should render a
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a>
+                            </li>
                         </ul>
                     </dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
@@ -3851,7 +3855,8 @@ exports[`LPA Questionnaire review POST / should render LPA Questionnaire review 
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeals near the site</dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a> (Child)</li>
+                            <li><a href="/appeals-service/appeal-details/2" class="govuk-link" aria-label="Appeal 7 2 5 2 8 4">725284</a>
+                            </li>
                         </ul>
                     </dd>
                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/lpa-questionnaire/2/change-lpa-questionnaire/other-appeals"> Change<span class="govuk-visually-hidden"> Appeals near the site</span></a>
