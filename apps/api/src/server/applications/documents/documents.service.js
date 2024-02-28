@@ -61,7 +61,7 @@ export const updateStatus = async (guid, status) => {
  * @returns {string}
  * */
 export const extractYouTubeURLFromHTML = (html) => {
-	if (html.length > 2000) {
+	if (html.length > 20000) {
 		// performing string.match() actions on too long strings allow malicious users to perform a Denial of Service ("DoS") attack
 		throw new Error('Html element too long');
 	}
