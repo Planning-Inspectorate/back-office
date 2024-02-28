@@ -17,9 +17,15 @@ import { linkedAppealStatus } from '#lib/appeals-formatter.js';
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @param {string} currentRoute
  * @param {import('../../app/auth/auth-session.service').SessionWithAuth} session
+ * @param {boolean} [skipAssignedUsersData]
  * @returns {Promise<{appeal: MappedInstructions}>}
  */
-export async function initialiseAndMapAppealData(appealDetails, currentRoute, session) {
+export async function initialiseAndMapAppealData(
+	appealDetails,
+	currentRoute,
+	session,
+	skipAssignedUsersData = false
+) {
 	if (appealDetails === undefined) {
 		throw new Error('appealDetails is undefined');
 	}
@@ -1068,7 +1074,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	let caseOfficerRowValue = '';
 	let caseOfficerUser;
 
-	if (appealDetails.caseOfficer) {
+	if (appealDetails.caseOfficer && !skipAssignedUsersData) {
 		caseOfficerUser = await usersService.getUserByRoleAndId(
 			config.referenceData.appeals.caseOfficerGroupId,
 			session,
@@ -1108,7 +1114,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	let inspectorRowValue = '';
 	let inspectorUser;
 
-	if (appealDetails.inspector) {
+	if (appealDetails.inspector && !skipAssignedUsersData) {
 		inspectorUser = await usersService.getUserByRoleAndId(
 			config.referenceData.appeals.inspectorGroupId,
 			session,
