@@ -61,21 +61,16 @@ export const updateStatus = async (guid, status) => {
  * @returns {string}
  * */
 export const extractYouTubeURLFromHTML = (html) => {
-	// if (html.length > 50000) {
-	// 	// performing string.match() actions on too long strings allow malicious users to perform a Denial of Service ("DoS") attack
-	// 	throw new Error('Html element too long');
-	// }
-
-	console.log('qui ce il prolebma');
-	//const match = html.match(/<iframe.+?src=["|'](.+?)["|']/);
-	//const match = html.match(/<iframe(.*)>/);
-	//const match = html.split(/<iframe(.*)>/);
 	if (!html.includes('<iframe')) {
 		throw new Error('No iframe found in the HTML');
 	}
 
-	const match = html;
-	const isYouTube = /^src=["|']https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(match[1]);
+	// this could be simplified with a regex, but it would expose the code to malicious exploits
+	// 	(/<iframe.+?src=["|'](.+?)["|']/)
+	const iframe = (html || '').split('<iframe');
+	const match = iframe.length > 1 ? iframe[1].split('>') : [''];
+
+	const isYouTube = /^https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(match[0]);
 	if (!isYouTube) {
 		throw new Error(`iframe src is not a YouTube URL: ${match[1]}`);
 	}
