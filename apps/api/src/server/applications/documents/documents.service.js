@@ -68,12 +68,16 @@ export const extractYouTubeURLFromHTML = (html) => {
 
 	console.log('qui ce il prolebma');
 	//const match = html.match(/<iframe.+?src=["|'](.+?)["|']/);
-	const match = html.match(/<iframe(.*)>/);
-	if (!match) {
+	//const match = html.match(/<iframe(.*)>/);
+	//const match = html.split(/<iframe(.*)>/);
+	if (!html.includes('<iframe')) {
 		throw new Error('No iframe found in the HTML');
 	}
 
-	const isYouTube = /^https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(match[1]);
+	const match = html;
+	const isYouTube = /^<iframe.+?src=["|']https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(
+		match[1]
+	);
 	if (!isYouTube) {
 		throw new Error(`iframe src is not a YouTube URL: ${match[1]}`);
 	}
