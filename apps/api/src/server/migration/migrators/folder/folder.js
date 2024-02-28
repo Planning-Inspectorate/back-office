@@ -1,285 +1,42 @@
-import { databaseConnector } from '#utils/database-connector.js';
-import { folderDocumentCaseStageMappings } from '../applications/constants.js';
-
-/** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
-/** @typedef {import('@pins/applications').FolderTemplate} FolderTemplate */
-/** @typedef {import('@pins/applications').ChildFolderTemplate} ChildFolderTemplate */
-/** @typedef {import('@pins/applications').FolderDetails} FolderDetails */
+import { folderDocumentCaseStageMappings } from '../../../applications/constants.js';
 
 /**
- * Returns array of folders in a folder or case (if parentFolderId is null)
+ * Folders to be created for cases which are being migrated. Includes all the default Back Office folders that
+ * are defined in `folder.repository.js#defaultCaseFolders` except the root level `Correspondence` folder.
  *
- * @param {number} caseId
- * @param {number |null} parentFolderId
- * @returns {Promise<Folder[]>}
+ * In addition to the default folders, the following are created:
+ * Project management > Case management
+ * Project management > Logistics > Programme officer
+ * Project management > Internal ExA meetings
+ * Pre-application > Draft documents > SOCC
+ * Pre-application > Events / meetings > Outreach
+ * Pre-application > Developer's consulation > Statutory > PEIR
+ * Acceptance > Correspondence > 01 - Internal
+ * Acceptance > Correspondence > 02 - External
+ * Recommendation > Correspondence > 01 - Internal
+ * Recommendation > Correspondence > 02 - External
+ * Decision > Correspondence
+ * Decision > Correspondence > 01 - Internal
+ * Decision > Correspondence > 02 - External
+ * Post-decision > Correspondence
+ * Post-decision > Correspondence > 01 - Internal
+ * Post-decision > Correspondence > 02 - External
+ * Decision > SoS consultation > Correspondence
+ * Decision > SoS consultation > Correspondence > 01 - Internal
+ * Decision > SoS consultation > Correspondence > 02 - External
+ * Acceptance > Drafting
+ * Acceptance > Decision
+ * Decision > SoS consultation > Consultation documents
+ * Decision > SoS consultation > Post examination submissions
+ * Post-decision > Feedback
+ * Post-decision > Non-material change > Application documents
+ * Post-decision > Non-material change > Consultation responses
+ * Post-decision > Non-material change > Procedural decisions
+ * Archived documentation
+ *
+ * @type {FolderTemplate[]} defaultCaseFoldersForMigration
  */
-export const getByCaseId = async (caseId, parentFolderId = null) => {
-	// if no parentFolderId, null value in the call, to get the top level folders on the case
-
-	const result = await databaseConnector.folder.findMany({ where: { caseId, parentFolderId } });
-	if (!Array.isArray(result)) {
-		return [];
-	}
-
-	return result;
-};
-
-/**
- * Returns full array of folders in a case
- *
- * @param {number} caseId
- * @returns {Promise<Folder[]>}
- * */
-export const getAllByCaseId = async (caseId) => {
-	const result = await databaseConnector.folder.findMany({ where: { caseId } });
-	if (!Array.isArray(result)) {
-		return [];
-	}
-
-	return result;
-};
-
-/**
- * Returns a single folder on a case
- *
- * @param {number} folderId
- * @returns {Promise<Folder |null>}
- */
-export const getById = (folderId) => {
-	return databaseConnector.folder.findUnique({ where: { id: folderId } });
-};
-
-/**
- * find a folder in an array
- *
- * @param { Folder[] } folders
- * @param { number } id
- * @returns { Folder |null}
- */
-const findFolder = (folders, id) => {
-	const matchedFolder = folders.find((folder) => folder.id === id);
-
-	return matchedFolder ?? null;
-};
-
-/**
- * Returns the requested folder along with all of its parents
- *
- * @param {number} folderId
- * @returns {Promise<Folder[]>}
- * */
-export const getFolderWithParents = async (folderId) => {
-	const folder = await databaseConnector.folder.findUnique({ where: { id: folderId } });
-	if (!folder) {
-		return [];
-	}
-
-	if (!folder.parentFolderId) {
-		return [folder];
-	}
-
-	const parents = await getFolderWithParents(folder.parentFolderId);
-
-	return [folder, ...parents];
-};
-
-/**
- * Returns array of folder path (parent folders) from current folder upwards
- * used for breadcrumbs etc
- *
- * @param {number} caseId
- * @param {number} currentFolderId
- * @returns {Promise<(Folder |null)[]>}
- */
-export const getFolderPath = async (caseId, currentFolderId) => {
-	const allFolders = await databaseConnector.folder.findMany({ where: { caseId } });
-
-	let folderPath = [];
-
-	/** @type {number | null} */ let searchId = currentFolderId;
-	let currentFolder;
-
-	do {
-		currentFolder = findFolder(allFolders, searchId);
-		folderPath.push(currentFolder);
-		searchId = currentFolder?.parentFolderId ?? null;
-	} while (searchId);
-
-	// tree is traversed in order, we want it reversed
-	if (folderPath) {
-		folderPath = folderPath.reverse();
-	}
-	return folderPath;
-};
-
-/**
- *
- * @param {number} caseId
- * @param {string} folderName
- * @returns {Promise<(Folder |null)>}
- */
-export const getFolderByNameAndCaseId = (caseId, folderName) => {
-	return databaseConnector.folder.findFirst({
-		where: { caseId, displayNameEn: folderName }
-	});
-};
-
-/**
- * @param {Object} folder
- * @param {string} folder.displayNameEn
- * @param {number} folder.caseId
- * @param {number|null} folder.parentFolderId
- * @param {number|null} folder.displayOrder
- * @returns {Promise<(Folder |null)>}
- */
-export const createFolder = (folder) => {
-	return databaseConnector.folder.create({ data: folder });
-};
-
-/**
- * Deletes many folders by array of ids
- *
- * @param {number[]} idsToDelete
- * @returns
- */
-export const deleteFolderMany = (idsToDelete) => {
-	return databaseConnector.folder.deleteMany({
-		where: {
-			id: {
-				in: idsToDelete
-			}
-		}
-	});
-};
-
-/**
- * Deletes folder by id
- *
- * @param {number} id
- * @returns
- */
-export const deleteById = (id) => {
-	return databaseConnector.folder.delete({
-		where: { id }
-	});
-};
-
-/** Map months folders for internal/external correspondence */
-const createCorrespondenceFolders = () => {
-	const correspondenceTypes = ['Internal', 'External'];
-	const allMonths = [
-		'01 January',
-		'02 February',
-		'03 March',
-		'04 April',
-		'05 May',
-		'06 June',
-		'07 July',
-		'08 August',
-		'09 September',
-		'10 October',
-		'11 November',
-		'12 December'
-	];
-
-	const monthsFolders = allMonths.map((month, index) => ({
-		displayNameEn: month,
-		displayOrder: 100 * (index + 1),
-		stage: folderDocumentCaseStageMappings.CORRESPONDENCE
-	}));
-
-	return correspondenceTypes.map((type, index) => ({
-		displayNameEn: type,
-		displayOrder: 100 * (index + 1),
-		stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
-		childFolders: {
-			create: monthsFolders
-		}
-	}));
-};
-
-/**
- * adds the caseId to a folder ready for db creation, and recursively adds to all child folders
- *
- * @param {number} caseId
- * @param {FolderTemplate} folder
- * @returns {FolderTemplate}
- */
-const mapFolderTemplateWithCaseId = (caseId, folder) => {
-	folder.caseId = caseId;
-
-	if (folder.childFolders && folder.childFolders.create) {
-		for (let /** @type {FolderTemplate} */ child of folder.childFolders.create) {
-			child = mapFolderTemplateWithCaseId(caseId, child);
-		}
-	}
-
-	return folder;
-};
-
-/**
- * Creates the top level folders on a case using the folder template
- * and recursively creates all sub folders.
- * Returns an array of promises
- *
- * @param {number} caseId
- * @param folders
- * @returns {Promise<Folder>[]}
- */
-export const createFolders = (caseId, folders = defaultCaseFolders) => {
-	const foldersCreated = [];
-
-	// Prisma many to nested many does not work, so we cannot create the top folders and all subfolders nested using createMany.
-	// so we loop through the top folders, using create to create the folder and all its subfolders, correctly assigning caseId, parentFolderId etc
-	// and we return an array of these promises
-	for (const topLevelFolder of folders) {
-		const newFolders = {
-			data: mapFolderTemplateWithCaseId(caseId, topLevelFolder)
-		};
-
-		const topFoldersCreated = databaseConnector.folder.create(newFolders);
-
-		foldersCreated.push(topFoldersCreated);
-	}
-
-	return foldersCreated;
-};
-
-/**
- *
- * @param {number} folderId
- * @param {*} updateValues
- * @returns {Promise<(Folder |null)>}
- */
-export const updateFolderById = (folderId, updateValues) => {
-	return databaseConnector.folder.update({
-		where: { id: folderId },
-		data: updateValues
-	});
-};
-
-/**
- * Get the S51 Advice folder on a case
- *
- * @param {number} caseId
- * @returns {Promise<Folder |null>}
- */
-export const getS51AdviceFolder = (caseId) => {
-	return databaseConnector.folder.findFirst({
-		where: {
-			caseId,
-			displayNameEn: 'S51 advice',
-			parentFolderId: null
-		}
-	});
-};
-
-/**
- * The default template folder structure for a new NI Applications type case
- *
- * @type {FolderTemplate[]} defaultCaseFolders
- */
-const defaultCaseFolders = [
+export const defaultCaseFoldersForMigration = [
 	{
 		displayNameEn: 'Project management',
 		displayOrder: 100,
@@ -301,6 +58,11 @@ const defaultCaseFolders = [
 								displayNameEn: 'Welsh',
 								displayOrder: 200,
 								stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
+							},
+							{
+								displayNameEn: 'Programme officer',
+								displayOrder: 200,
+								stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
 							}
 						]
 					}
@@ -314,31 +76,16 @@ const defaultCaseFolders = [
 					displayNameEn: 'Fees',
 					displayOrder: 300,
 					stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
-				}
-			]
-		}
-	},
-	{
-		displayNameEn: 'Correspondence',
-		displayOrder: 150,
-		stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
-		childFolders: {
-			create: [
-				{
-					displayNameEn: '2023',
-					displayOrder: 100,
-					stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
-					childFolders: {
-						create: createCorrespondenceFolders()
-					}
 				},
 				{
-					displayNameEn: '2024',
-					displayOrder: 200,
-					stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
-					childFolders: {
-						create: createCorrespondenceFolders()
-					}
+					displayNameEn: 'Case management',
+					displayOrder: 400,
+					stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
+				},
+				{
+					displayNameEn: 'Internal ExA meetings',
+					displayOrder: 500,
+					stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
 				}
 			]
 		}
@@ -438,7 +185,16 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Events / meetings',
 					displayOrder: 100,
-					stage: folderDocumentCaseStageMappings.PRE_APPLICATION
+					stage: folderDocumentCaseStageMappings.PRE_APPLICATION,
+					childFolders: {
+						create: [
+							{
+								displayNameEn: 'Outreach',
+								displayOrder: 100,
+								stage: folderDocumentCaseStageMappings.PRE_APPLICATION
+							}
+						]
+					}
 				},
 				{
 					displayNameEn: 'Correspondence',
@@ -486,7 +242,16 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Draft documents',
 					displayOrder: 600,
-					stage: folderDocumentCaseStageMappings.PRE_APPLICATION
+					stage: folderDocumentCaseStageMappings.PRE_APPLICATION,
+					childFolders: {
+						create: [
+							{
+								displayNameEn: 'SOCC',
+								displayOrder: 100,
+								stage: folderDocumentCaseStageMappings.PRE_APPLICATION
+							}
+						]
+					}
 				},
 				{
 					displayNameEn: "Developer's consultation",
@@ -497,7 +262,16 @@ const defaultCaseFolders = [
 							{
 								displayNameEn: 'Statutory',
 								displayOrder: 100,
-								stage: folderDocumentCaseStageMappings.PRE_APPLICATION
+								stage: folderDocumentCaseStageMappings.PRE_APPLICATION,
+								childFolders: {
+									create: [
+										{
+											displayNameEn: 'PEIR',
+											displayOrder: 100,
+											stage: folderDocumentCaseStageMappings.PRE_APPLICATION
+										}
+									]
+								}
 							},
 							{
 								displayNameEn: 'Non-statutory',
@@ -529,7 +303,21 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Correspondence',
 					displayOrder: 200,
-					stage: folderDocumentCaseStageMappings.ACCEPTANCE
+					stage: folderDocumentCaseStageMappings.ACCEPTANCE,
+					childFolders: {
+						create: [
+							{
+								displayNameEn: '01 - Internal',
+								displayOrder: 100,
+								stage: folderDocumentCaseStageMappings.ACCEPTANCE
+							},
+							{
+								displayNameEn: '02 - External',
+								displayOrder: 200,
+								stage: folderDocumentCaseStageMappings.ACCEPTANCE
+							}
+						]
+					}
 				},
 				{
 					displayNameEn: 'EST',
@@ -720,7 +508,21 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Correspondence',
 					displayOrder: 200,
-					stage: folderDocumentCaseStageMappings.RECOMMENDATION
+					stage: folderDocumentCaseStageMappings.RECOMMENDATION,
+					childFolders: {
+						create: [
+							{
+								displayNameEn: '01 - Internal',
+								displayOrder: 100,
+								stage: folderDocumentCaseStageMappings.RECOMMENDATION
+							},
+							{
+								displayNameEn: '02 - External',
+								displayOrder: 200,
+								stage: folderDocumentCaseStageMappings.RECOMMENDATION
+							}
+						]
+					}
 				},
 				{
 					displayNameEn: 'Recommendation report',
@@ -753,12 +555,64 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'SoS consultation',
 					displayOrder: 100,
-					stage: folderDocumentCaseStageMappings.DECISION
+					stage: folderDocumentCaseStageMappings.DECISION,
+					childFolders: {
+						create: [
+							{
+								displayNameEn: 'Correspondence',
+								displayOrder: 100,
+								stage: folderDocumentCaseStageMappings.DECISION,
+								childFolders: {
+									create: [
+										{
+											displayNameEn: '01 - Internal',
+											displayOrder: 100,
+											stage: folderDocumentCaseStageMappings.DECISION
+										},
+										{
+											displayNameEn: '02 - External',
+											displayOrder: 200,
+											stage: folderDocumentCaseStageMappings.DECISION
+										}
+									]
+								}
+							},
+							{
+								displayNameEn: 'Consultation documents',
+								displayOrder: 200,
+								stage: folderDocumentCaseStageMappings.DECISION
+							},
+							{
+								displayNameEn: 'Post examination submissions',
+								displayOrder: 300,
+								stage: folderDocumentCaseStageMappings.DECISION
+							}
+						]
+					}
 				},
 				{
 					displayNameEn: 'SoS decision',
 					displayOrder: 200,
 					stage: folderDocumentCaseStageMappings.DECISION
+				},
+				{
+					displayNameEn: 'Correspondence',
+					displayOrder: 300,
+					stage: folderDocumentCaseStageMappings.DECISION,
+					childFolders: {
+						create: [
+							{
+								displayNameEn: '01 - Internal',
+								displayOrder: 100,
+								stage: folderDocumentCaseStageMappings.DECISION
+							},
+							{
+								displayNameEn: '02 - External',
+								displayOrder: 200,
+								stage: folderDocumentCaseStageMappings.DECISION
+							}
+						]
+					}
 				}
 			]
 		}
@@ -782,7 +636,26 @@ const defaultCaseFolders = [
 				{
 					displayNameEn: 'Non-material change',
 					displayOrder: 300,
-					stage: folderDocumentCaseStageMappings.POST_DECISION
+					stage: folderDocumentCaseStageMappings.POST_DECISION,
+					childFolders: {
+						create: [
+							{
+								displayNameEn: 'Application documents',
+								displayOrder: 100,
+								stage: folderDocumentCaseStageMappings.POST_DECISION
+							},
+							{
+								displayNameEn: 'Consultation responses',
+								displayOrder: 200,
+								stage: folderDocumentCaseStageMappings.POST_DECISION
+							},
+							{
+								displayNameEn: 'Procedural decisions',
+								displayOrder: 200,
+								stage: folderDocumentCaseStageMappings.POST_DECISION
+							}
+						]
+					}
 				},
 				{
 					displayNameEn: 'Material change',
@@ -793,8 +666,36 @@ const defaultCaseFolders = [
 					displayNameEn: 'Redetermination',
 					displayOrder: 500,
 					stage: folderDocumentCaseStageMappings.POST_DECISION
+				},
+				{
+					displayNameEn: 'Correspondence',
+					displayOrder: 600,
+					stage: folderDocumentCaseStageMappings.POST_DECISION,
+					childFolders: {
+						create: [
+							{
+								displayNameEn: '01 - Internal',
+								displayOrder: 100,
+								stage: folderDocumentCaseStageMappings.POST_DECISION
+							},
+							{
+								displayNameEn: '02 - External',
+								displayOrder: 200,
+								stage: folderDocumentCaseStageMappings.POST_DECISION
+							}
+						]
+					}
+				},
+				{
+					displayNameEn: 'Feedback',
+					displayOrder: 700,
+					stage: folderDocumentCaseStageMappings.POST_DECISION
 				}
 			]
 		}
+	},
+	{
+		displayNameEn: 'Archived documentation',
+		displayOrder: 1400
 	}
 ];

@@ -1,5 +1,6 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { eventClient } from '#infrastructure/event-client.js';
+import { pick } from 'lodash-es';
 
 /**
  * @typedef {Object} NSIPProjectMinimalCaseData
@@ -247,5 +248,51 @@ export const sendChunkedEvents = async (topic, events, eventType, additionalProp
 			console.error(`Failed to broadcast at range ${i} - ${i + eventChunkSize}`, error);
 			throw error;
 		}
+	}
+};
+
+/**
+ * @typedef {import('pins-data-model').Schemas.Folder} FolderModel
+ * @typedef {Object} SortedFolder
+ * @extends FolderModel
+ * @property {SortedFolder[]} children
+ *
+ * @param {FolderModel[]} folders
+ * @return {SortedFolder[]}
+ */
+export const buildFolderHierarchy = (folders) => {
+	const rootFolders = [];
+	const map = {};
+
+	folders.forEach(
+		(folder) =>
+			(map[folder.id] = {
+				...pick(folder, [
+					'id',
+					'caseReference',
+					'displayNameEnglish',
+					'parentFolderId',
+					'caseStage'
+				]),
+				children: []
+			})
+	);
+	folders.forEach((folder) => {
+		if (folder.parentFolderId) {
+			map[folder.parentFolderId].children.push(map[folder.id]);
+		} else {
+			rootFolders.push(map[folder.id]);
+		}
+	});
+
+	return rootFolders;
+};
+
+const pathFn = (docs, str = '') => {
+	for (const doc of docs) {
+		// if (doc.children) {
+		// 	pathFn(doc.children, str);
+		// }
+		console.log(`${str}/${doc.displayNameEnglish}`)
 	}
 };
