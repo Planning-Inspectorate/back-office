@@ -355,6 +355,14 @@ function mapStatusDependentNotifications(appealDetails, session, accordionCompon
 		default:
 			break;
 	}
+
+	if (
+		'notificationBanners' in session &&
+		'appealAwaitingTransfer' in session.notificationBanners &&
+		appealDetails.appealStatus !== 'awaiting_transfer'
+	) {
+		delete session.notificationBanners.appealAwaitingTransfer;
+	}
 }
 
 const caseDocumentationTableActionColumnIndex = 3;
