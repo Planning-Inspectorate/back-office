@@ -3,10 +3,7 @@
 {% set pageTitle = 'Sorry, there is a problem with the service' %}
 
 {% block pageContent %}
-	<p class="govuk-body">Try again later.</p>
-	<p class="govuk-body">
-		<a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if the problem persists.
-	</p>
+	<p class="govuk-body">If the problem persists, <a href="https://intranet.planninginspectorate.gov.uk/task/report-it-problem/" class="govuk-link">report an IT problem or make an IT request.</a></p>
 
 	{% if error and isDevelopment %}
 		<hr>
