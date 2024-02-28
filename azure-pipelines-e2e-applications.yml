@@ -59,10 +59,10 @@ jobs:
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
-          TEST_SUITE: npm run regression ${{ parameter.test-suite }}
+          #npm run regression ${{ parameter.test-suite }}
+          TEST_SUITE: $(TEST_SUITE)
         displayName: "Run Cypress Tests"
-
-
+#
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
