@@ -66,16 +66,24 @@ export const extractYouTubeURLFromHTML = (html) => {
 	}
 
 	// this could be simplified with a regex, but it would expose the code to malicious exploits
-	const iframe = (html || '').split(/<iframe.+?src=["|']/);
-	const match = iframe.length > 1 ? iframe[1].split(/["|']/) : [''];
+	// 	(/<iframe.+?src=["|'](.+?)["|']/)
+	const iframe = (html || '').split('<iframe');
+	const iframeContent = iframe.length > 1 ? iframe[1].split('>') : [''];
+	const iframeSrc = iframeContent[0].split(/src=["|']/);
+	const match = iframeSrc.length > 1 ? iframeSrc[1].split(/["|']/) : [''];
+	// const youtubeUrl = (srcContent[0].match(/["|'](.+?)["|']/));
 
+	//const iframe = (html || '').split(/<iframe.+?src=["|']/);
+	//const match = iframe.length > 1 ? iframe[1].split(/["|']/) : [''];
+
+	console.log(8080808, match);
 	const isYouTube = /^https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(match[0]);
 
 	if (!isYouTube) {
 		throw new Error(`iframe src is not a YouTube URL: ${match[0]}`);
 	}
 
-	return match[0];
+	return iframeContent[0];
 };
 
 /**
