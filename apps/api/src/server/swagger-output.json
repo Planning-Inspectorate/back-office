@@ -16,6 +16,47 @@
 	"schemes": [],
 	"securityDefinitions": {},
 	"paths": {
+		"/migration/folder": {
+			"post": {
+				"tags": ["Migration"],
+				"description": "Migrate folders",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Case reference",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"caseReference": {
+									"type": "string",
+									"example": "TR020002"
+								}
+							}
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Models successfully migrated"
+					}
+				}
+			}
+		},
 		"/migration/{modelType}": {
 			"post": {
 				"tags": ["Migration"],
