@@ -10,6 +10,7 @@ export function appealStatusToStatusTag(appealStatus) {
 	return capitalizeFirstLetter(
 		appealStatus
 			.replace('issue_determination', 'issue_decision')
+			.replace('lpa_questionnaire_due', 'lpa_questionnaire')
 			.replace('lpa_', 'LPA_')
 			.replace('lpaq_', 'LPAQ_')
 			.replaceAll('_', ' ')

@@ -18,7 +18,7 @@ exports[`personal-list GET / should render a child status tag in the lead or chi
                     name="appealStatusFilter">
                         <option value="all">All</option>
                         <option value="ready_to_start">Ready to start</option>
-                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                        <option value="lpa_questionnaire_due">LPA questionnaire</option>
                         <option value="issue_determination">Issue decision</option>
                     </select>
                 </div>
@@ -47,7 +47,7 @@ exports[`personal-list GET / should render a child status tag in the lead or chi
                 </td>
                 <td class="govuk-table__cell">LPA Questionnaire Overdue</td>
                 <td class="govuk-table__cell">8 April 2022</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -127,7 +127,7 @@ exports[`personal-list GET / should render a lead status tag in the lead or chil
                     name="appealStatusFilter">
                         <option value="all">All</option>
                         <option value="ready_to_start">Ready to start</option>
-                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                        <option value="lpa_questionnaire_due">LPA questionnaire</option>
                         <option value="issue_determination">Issue decision</option>
                     </select>
                 </div>
@@ -156,7 +156,7 @@ exports[`personal-list GET / should render a lead status tag in the lead or chil
                 </td>
                 <td class="govuk-table__cell">LPA Questionnaire Overdue</td>
                 <td class="govuk-table__cell">8 April 2022</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -248,7 +248,7 @@ exports[`personal-list GET / should render an empty cell in the lead or child co
                     name="appealStatusFilter">
                         <option value="all">All</option>
                         <option value="ready_to_start">Ready to start</option>
-                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                        <option value="lpa_questionnaire_due">LPA questionnaire</option>
                         <option value="issue_determination">Issue decision</option>
                     </select>
                 </div>
@@ -277,7 +277,7 @@ exports[`personal-list GET / should render an empty cell in the lead or child co
                 </td>
                 <td class="govuk-table__cell">LPA Questionnaire Overdue</td>
                 <td class="govuk-table__cell">8 April 2022</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -357,7 +357,7 @@ exports[`personal-list GET / should render the first page of the personal list w
                     name="appealStatusFilter">
                         <option value="all">All</option>
                         <option value="ready_to_start">Ready to start</option>
-                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                        <option value="lpa_questionnaire_due">LPA questionnaire</option>
                         <option value="issue_determination">Issue decision</option>
                     </select>
                 </div>
@@ -386,7 +386,7 @@ exports[`personal-list GET / should render the first page of the personal list w
                 </td>
                 <td class="govuk-table__cell">LPA Questionnaire Overdue</td>
                 <td class="govuk-table__cell">8 April 2022</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -608,7 +608,7 @@ exports[`personal-list GET / should render the second page of the personal list 
                     name="appealStatusFilter">
                         <option value="all">All</option>
                         <option value="ready_to_start">Ready to start</option>
-                        <option value="lpa_questionnaire_due" selected>LPA questionnaire due</option>
+                        <option value="lpa_questionnaire_due" selected>LPA questionnaire</option>
                         <option value="issue_determination">Issue decision</option>
                     </select>
                 </div>
@@ -676,7 +676,7 @@ exports[`personal-list GET / should render the second page of the personal list 
                     name="appealStatusFilter">
                         <option value="all">All</option>
                         <option value="ready_to_start">Ready to start</option>
-                        <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                        <option value="lpa_questionnaire_due">LPA questionnaire</option>
                         <option value="issue_determination">Issue decision</option>
                     </select>
                 </div>
