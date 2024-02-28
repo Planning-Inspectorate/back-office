@@ -59,7 +59,6 @@ jobs:
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
-          #npm run regression ${{ parameter.test-suite }}
           TEST_SUITE: $(TEST_SUITE)
         displayName: "Run Cypress Tests"
 #
