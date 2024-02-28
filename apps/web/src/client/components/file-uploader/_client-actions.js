@@ -235,7 +235,6 @@ const clientActions = (uploadForm) => {
 	 * @returns {Promise<{ files: File[], errors: AnError[] }>}
 	 * */
 	const prepareFilesForUpload = async (files) => {
-		console.log(238, 'prepare');
 		const { processHTMLForYouTube } = serverActions(uploadForm);
 
 		/** @type {File[]} */
@@ -249,8 +248,6 @@ const clientActions = (uploadForm) => {
 				processedList.push(f);
 				continue;
 			}
-
-			console.log(2525252, 'FILEFILE', f);
 
 			const { file: newFile, errors: _errors } = await processHTMLForYouTube(f);
 			if (_errors.length > 0) {
@@ -270,7 +267,6 @@ const clientActions = (uploadForm) => {
 	const onSubmit = async (clickEvent) => {
 		clickEvent.preventDefault();
 
-		console.log(272727);
 		const {
 			getUploadInfoFromInternalDB,
 			uploadFiles,
@@ -278,7 +274,6 @@ const clientActions = (uploadForm) => {
 			uploadFile
 		} = serverActions(uploadForm);
 
-		console.log(2792729);
 		try {
 			const fileList = await onSubmitValidation();
 
@@ -287,9 +282,7 @@ const clientActions = (uploadForm) => {
 			const errors = [];
 			let uploadInfo;
 
-			console.log(282982892928);
 			const { files: processedList, errors: _errors } = await prepareFilesForUpload(fileList);
-			console.log(291291291291, 'cc');
 			errors.push(..._errors);
 
 			if (processedList.length === 0) {
@@ -313,7 +306,6 @@ const clientActions = (uploadForm) => {
 
 			finalizeUpload(errors);
 		} catch (/** @type {*} */ error) {
-			console.log(3141414);
 			showErrors(error, uploadForm);
 
 			throw error;
