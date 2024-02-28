@@ -61,12 +61,14 @@ export const updateStatus = async (guid, status) => {
  * @returns {string}
  * */
 export const extractYouTubeURLFromHTML = (html) => {
-	if (html.length > 20000) {
-		// performing string.match() actions on too long strings allow malicious users to perform a Denial of Service ("DoS") attack
-		throw new Error('Html element too long');
-	}
+	// if (html.length > 50000) {
+	// 	// performing string.match() actions on too long strings allow malicious users to perform a Denial of Service ("DoS") attack
+	// 	throw new Error('Html element too long');
+	// }
 
-	const match = html.match(/<iframe.+?src=["|'](.+?)["|']/);
+	console.log('qui ce il prolebma');
+	//const match = html.match(/<iframe.+?src=["|'](.+?)["|']/);
+	const match = html.match(/(?:<iframe[^>]*)(?:(?:\/>)|(?:>.*?<\/iframe>))/);
 	if (!match) {
 		throw new Error('No iframe found in the HTML');
 	}

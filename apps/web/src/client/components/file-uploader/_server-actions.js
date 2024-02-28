@@ -125,6 +125,7 @@ const serverActions = (uploadForm) => {
 	 * @returns {Promise<{ file: FileWithRowId | null, errors: AnError[] }>}
 	 * */
 	const processHTMLForYouTube = async (file) => {
+		console.log('128 process');
 		const readerPromise = new Promise((resolve, reject) => {
 			const fr = new FileReader();
 			fr.onload = () => resolve(fr);
@@ -140,6 +141,8 @@ const serverActions = (uploadForm) => {
 					iframe: ['src']
 				}
 			});
+
+			console.log(1414141, 'qui ho html', html);
 
 			const response = await fetch('/documents/process-html', {
 				method: 'POST',
