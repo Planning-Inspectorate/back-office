@@ -7,7 +7,7 @@ parameters:
       - 'test'
   - name: test-suite
     type: string
-    default:
+    default: 'regression'
     values:
       - 'regression'
       - 'smoke'
