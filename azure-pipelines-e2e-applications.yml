@@ -8,8 +8,6 @@ parameters:
   - name: test-suite
     type: string
     default:
-      MY_ENV_VARIABLE: 'regression'
-    default: 'regression'
     values:
       - 'regression'
       - 'smoke'
