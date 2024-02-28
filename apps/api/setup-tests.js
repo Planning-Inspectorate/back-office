@@ -8,6 +8,7 @@ const mockCaseCreate = jest.fn().mockResolvedValue({});
 const mockCaseUpdateMany = jest.fn().mockResolvedValue({});
 const mockCaseStatusUpdateMany = jest.fn().mockResolvedValue({});
 const mockCaseStatusCreate = jest.fn().mockResolvedValue({});
+const mockCaseFindFirst = jest.fn().mockResolvedValue({});
 const mockCaseFindMany = jest.fn().mockResolvedValue({});
 const mockCaseCount = jest.fn().mockResolvedValue({});
 
@@ -124,6 +125,7 @@ class MockPrismaClient {
 
 	get case() {
 		return {
+			findFirst: mockCaseFindFirst,
 			findMany: mockCaseFindMany,
 			findUnique: mockCaseFindUnique,
 			update: mockCaseUpdate,

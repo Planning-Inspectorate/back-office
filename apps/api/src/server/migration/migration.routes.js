@@ -1,8 +1,40 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '@pins/express';
-import { postMigrateModel } from './migration.controller.js';
+import { postMigrateFolders, postMigrateModel } from './migration.controller.js';
 
 const router = createRouter();
+
+router.post(
+	'/folder',
+	/*
+        #swagger.tags = ['Migration']
+        #swagger.path =  '/migration/folder'
+        #swagger.description = 'Migrate folders'
+        #swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Case reference',
+			schema: {
+				caseReference: 'TR020002'
+			}
+		}
+        #swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+        #swagger.responses[200] = {
+            description: 'Models successfully migrated',
+        }
+	 */
+	asyncHandler(postMigrateFolders)
+);
 
 router.post(
 	'/:modelType',
@@ -15,7 +47,7 @@ router.post(
             description: 'Model type to migrate',
 			required: true,
 			type: 'string'
-        } 
+        }
 		#swagger.parameters['body'] = {
             in: 'body',
             description: 'Models',
@@ -23,7 +55,7 @@ router.post(
         }
         #swagger.parameters['x-service-name'] = {
 			in: 'header',
-			type: 'string', 
+			type: 'string',
 			description: 'Service name header',
 			default: 'swagger'
 		}
