@@ -68,7 +68,7 @@ export const extractYouTubeURLFromHTML = (html) => {
 
 	console.log('qui ce il prolebma');
 	//const match = html.match(/<iframe.+?src=["|'](.+?)["|']/);
-	const match = html.match(/<iframe.+?src=["|'](.)/);
+	const match = html.match(/<iframe(.*)>/);
 	if (!match) {
 		throw new Error('No iframe found in the HTML');
 	}
