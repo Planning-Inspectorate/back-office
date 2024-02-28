@@ -75,9 +75,7 @@ export const extractYouTubeURLFromHTML = (html) => {
 	}
 
 	const match = html;
-	const isYouTube = /^<iframe.+?src=["|']https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(
-		match[1]
-	);
+	const isYouTube = /^src=["|']https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(match[1]);
 	if (!isYouTube) {
 		throw new Error(`iframe src is not a YouTube URL: ${match[1]}`);
 	}
