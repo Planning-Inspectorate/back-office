@@ -15,6 +15,7 @@ import appRouter from './app.router.js';
 import locals from './config/locals.js';
 import nunjucksEnvironment from './config/nunjucks.js';
 import session from './config/session.js';
+import crypto from 'node:crypto';
 
 // Create a new Express app.
 const app = express();
@@ -53,12 +54,29 @@ app.use(bodyParser.json());
 // Parse Cookie header and populate req.cookies with an object keyed by the cookie names.
 app.use(cookieParser());
 
+// Generate the nonce for each request.  The exception is in test to allow for snapshots.
+app.use((req, res, next) => {
+	if (!config.isTest) {
+		res.locals.cspNonce = crypto.randomBytes(16).toString('hex');
+	}
+	next();
+});
+
+/**
+ * Middleware to return current nonce
+ *
+ * @type {import('express').RequestHandler}
+ * @returns {string}
+ */
+const addCSPNonce = (req, res) => `'nonce-${res.locals.cspNonce}'`;
+
 // Secure apps by setting various HTTP headers
 app.use(helmet());
 app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
-			scriptSrc: ["'self'", () => `'nonce-${locals.cspNonce}'`],
+			// @ts-ignore
+			scriptSrc: ["'self'", "'unsafe-eval'", addCSPNonce],
 			defaultSrc: ["'self'", config.blobStorageUrl],
 			'font-src': ["'self'"],
 			'img-src': ["'self'", config.blobStorageUrl],
