@@ -63,7 +63,7 @@ export const formatAnswerAndDetails = (answer, details) => {
  * @param {import('@pins/appeals.api').Appeals.LinkedAppeal[]} listOfAppeals
  * @returns {string}
  */
-export const formatListOfAppeals = (listOfAppeals) => {
+export const formatListOfLinkedAppeals = (listOfAppeals) => {
 	if (listOfAppeals && listOfAppeals.length > 0) {
 		let formattedLinks = '';
 
@@ -76,6 +76,31 @@ export const formatListOfAppeals = (listOfAppeals) => {
 			const relationshipText = listOfAppeals[i].isParentAppeal ? ' (Lead)' : ' (Child)';
 
 			formattedLinks += `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a> ${relationshipText}</li>`;
+		}
+
+		return `<ul class="govuk-list">${formattedLinks}</ul>`;
+	}
+
+	return '<span>No appeals</span>';
+};
+
+/**
+ *
+ * @param {import('@pins/appeals.api').Appeals.RelatedAppeal[]} listOfAppeals
+ * @returns {string}
+ */
+export const formatListOfRelatedAppeals = (listOfAppeals) => {
+	if (listOfAppeals && listOfAppeals.length > 0) {
+		let formattedLinks = '';
+
+		for (let i = 0; i < listOfAppeals.length; i++) {
+			const shortAppealReference = appealShortReference(listOfAppeals[i].appealReference);
+			const linkUrl = listOfAppeals[i].externalSource
+				? `https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=${listOfAppeals[i].appealReference}`
+				: `/appeals-service/appeal-details/${listOfAppeals[i].appealId}`;
+			const linkAriaLabel = `Appeal ${numberToAccessibleDigitLabel(shortAppealReference || '')}`;
+
+			formattedLinks += `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a></li>`;
 		}
 
 		return `<ul class="govuk-list">${formattedLinks}</ul>`;

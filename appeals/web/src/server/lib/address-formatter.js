@@ -3,7 +3,7 @@ import { join, map, pick } from 'lodash-es';
 /**
  * converts a multi part address to a single string
  *
- * @param {import('@pins/appeals').Address} address
+ * @param {import('@pins/appeals').Address | import('@pins/appeals.api/src/server/endpoints/appeals.js').AppealSite} address
  * @returns {string}
  */
 export const addressToString = (address) => {

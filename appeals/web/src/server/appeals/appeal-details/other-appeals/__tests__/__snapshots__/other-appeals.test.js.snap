@@ -1,0 +1,246 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`other-appeals GET /other-appeals/add should render the "Related appeal details" page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal APP/Q9999/D/21/351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Related appeal details</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+            <table class="govuk-table">
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Appeal reference</strong>
+                        </td>
+                        <td class="govuk-table__cell">12345</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Appeal type</strong>
+                        </td>
+                        <td class="govuk-table__cell">Planning Appeal (W)</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Site address</strong>
+                        </td>
+                        <td class="govuk-table__cell"></td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Local planning authority</strong>
+                        </td>
+                        <td class="govuk-table__cell">Bristol City Council</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Appellant name</strong>
+                        </td>
+                        <td class="govuk-table__cell">Mr John Wick</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Agent name</strong>
+                        </td>
+                        <td class="govuk-table__cell">Mr John Smith (Smith Planning Agency)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Do you want to relate these appeals?</legend>
+                        <div class="govuk-radios"
+                        data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="relateAppealsAnswer" name="relateAppealsAnswer"
+                                type="radio" value="yes">
+                                <label class="govuk-label govuk-radios__label" for="relateAppealsAnswer">Yes, relate this appeal to APP/Q9999/D/21/351062</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="relateAppealsAnswer-2" name="relateAppealsAnswer"
+                                type="radio" value="no">
+                                <label class="govuk-label govuk-radios__label" for="relateAppealsAnswer-2">No, return to search</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`other-appeals GET /other-appeals/add should render the "Related appeal details" page with the error if the answer was not provided 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#relateAppealsAnswer">You must answer if you want to relate appeals</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal APP/Q9999/D/21/351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Related appeal details</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+            <table class="govuk-table">
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Appeal reference</strong>
+                        </td>
+                        <td class="govuk-table__cell">12345</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Appeal type</strong>
+                        </td>
+                        <td class="govuk-table__cell">Planning Appeal (W)</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Site address</strong>
+                        </td>
+                        <td class="govuk-table__cell"></td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Local planning authority</strong>
+                        </td>
+                        <td class="govuk-table__cell">Bristol City Council</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Appellant name</strong>
+                        </td>
+                        <td class="govuk-table__cell">Mr John Wick</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Agent name</strong>
+                        </td>
+                        <td class="govuk-table__cell">Mr John Smith (Smith Planning Agency)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Do you want to relate these appeals?</legend>
+                        <div class="govuk-radios"
+                        data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="relateAppealsAnswer" name="relateAppealsAnswer"
+                                type="radio" value="yes">
+                                <label class="govuk-label govuk-radios__label" for="relateAppealsAnswer">Yes, relate this appeal to APP/Q9999/D/21/351062</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="relateAppealsAnswer-2" name="relateAppealsAnswer"
+                                type="radio" value="no">
+                                <label class="govuk-label govuk-radios__label" for="relateAppealsAnswer-2">No, return to search</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`other-appeals GET /other-appeals/add should render the "What is the appeal reference?" page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal APP/Q9999/D/21/351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">What is the appeal reference?</h1>
+        </div>
+    </div>
+    <form method="POST">
+        <div class="govuk-form-group">
+            <input class="govuk-input govuk-input--width-10" id="addOtherAppealsReference"
+            name="addOtherAppealsReference" type="text">
+        </div>
+        <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+        id="filters-submit">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`other-appeals GET /other-appeals/add should render the "What is the appeal reference?" page with error "Appeal reference could not be found" 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#addOtherAppealsReference">Appeal reference could not be found</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal APP/Q9999/D/21/351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">What is the appeal reference?</h1>
+        </div>
+    </div>
+    <form method="POST">
+        <div class="govuk-form-group">
+            <input class="govuk-input govuk-input--width-10" id="addOtherAppealsReference"
+            name="addOtherAppealsReference" type="text" value="1">
+        </div>
+        <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+        id="filters-submit">Continue</button>
+    </form>
+</main>"
+`;
+
+exports[`other-appeals GET /other-appeals/add should render the "What is the appeal reference?" page with error "Enter an appeal reference" 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#addOtherAppealsReference">Enter an appeal reference</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal APP/Q9999/D/21/351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">What is the appeal reference?</h1>
+        </div>
+    </div>
+    <form method="POST">
+        <div class="govuk-form-group">
+            <input class="govuk-input govuk-input--width-10" id="addOtherAppealsReference"
+            name="addOtherAppealsReference" type="text">
+        </div>
+        <button type="submit" class="govuk-button govuk-button" data-module="govuk-button"
+        id="filters-submit">Continue</button>
+    </form>
+</main>"
+`;

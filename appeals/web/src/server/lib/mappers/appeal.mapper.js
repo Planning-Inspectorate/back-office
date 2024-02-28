@@ -295,7 +295,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				},
 				value: {
 					html:
-						displayPageFormatter.formatListOfAppeals(appealDetails.linkedAppeals) ||
+						displayPageFormatter.formatListOfLinkedAppeals(appealDetails.linkedAppeals) ||
 						'No linked appeals'
 				},
 				actions: {
@@ -342,7 +342,20 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		display: mapLeadOrChildStatus(appealDetails)
 	};
 
-	// TODO: Need a decision on how the other appeals change page looks
+	const otherAppealsItems = [];
+
+	if (appealDetails.otherAppeals.length) {
+		otherAppealsItems.push({
+			text: 'Manage',
+			href: `${currentRoute}/change-appeal-details/other-appeals`
+		});
+	}
+
+	otherAppealsItems.push({
+		text: 'Add',
+		href: `${currentRoute}/other-appeals/add`
+	});
+
 	/** @type {Instructions} */
 	mappedData.appeal.otherAppeals = {
 		id: 'other-appeals',
@@ -352,16 +365,12 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					text: 'Related appeals'
 				},
 				value: {
-					html: displayPageFormatter.formatListOfAppeals([]) || '<span>No related appeals</span>'
+					html:
+						displayPageFormatter.formatListOfRelatedAppeals(appealDetails.otherAppeals || []) ||
+						'<span>No related appeals</span>'
 				},
 				actions: {
-					items: [
-						{
-							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/other-appeals`,
-							visuallyHiddenText: 'related appeals'
-						}
-					]
+					items: otherAppealsItems
 				}
 			}
 		},

@@ -99,6 +99,10 @@ export const notificationBannerDefinitions = {
 	},
 	appealUnlinked: {
 		pages: ['appealDetails']
+	},
+	otherAppeal: {
+		pages: ['appealDetails'],
+		type: 'success'
 	}
 };
 

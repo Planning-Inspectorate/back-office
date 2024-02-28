@@ -283,7 +283,6 @@ interface SingleAppealDetailsResponse {
 		contacts: NeighbouringSiteContactsResponse[] | null;
 		isAffected: boolean | null;
 	};
-	otherAppeals: LinkedAppeal[];
 	planningApplicationReference: string;
 	procedureType: string | null;
 	siteVisit: {
