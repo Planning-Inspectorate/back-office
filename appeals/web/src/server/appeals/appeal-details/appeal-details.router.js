@@ -11,6 +11,7 @@ import {
 	unassignUserRouter,
 	assignNewUserRouter
 } from './assign-user/assign-user.router.js';
+import { auditRouter } from './audit/audit.router.js';
 import * as controller from './appeal-details.controller.js';
 import changePageRouter from '../change-page/change-page.router.js';
 import issueDecisionRouter from './issue-decision/issue-decision.router.js';
@@ -35,4 +36,5 @@ router.use('/:appealId/issue-decision', issueDecisionRouter);
 router.use('/:appealId/change-appeal-type', appealTypeChangeRouter);
 router.use('/:appealId/linked-appeals', linkedAppealsRouter);
 router.use('/:appealId/other-appeals', otherAppealsRouter);
+router.use('/:appealId/audit', auditRouter);
 export default router;
