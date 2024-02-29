@@ -1,5 +1,5 @@
 import * as representationsRepository from '#repositories/representation.repository.js';
-import { eventClient } from '#infrastructure/event-client.js';
+import { batchSendEvents } from '../../../_utils/batch-send-events.js';
 import logger from '#utils/logger.js';
 import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
@@ -30,12 +30,9 @@ export const publishCaseRepresentations = async (caseId, representationIds, acti
 		try {
 			await verifyNotTraining(caseId);
 
-			await eventClient.sendEvents(
-				NSIP_REPRESENTATION,
-				nsipRepresentationsPayload,
-				EventType.Publish
-			);
-			await eventClient.sendEvents(SERVICE_USER, serviceUsersPayload, EventType.Publish, {
+			await batchSendEvents(NSIP_REPRESENTATION, nsipRepresentationsPayload, EventType.Publish);
+
+			await batchSendEvents(SERVICE_USER, serviceUsersPayload, EventType.Publish, {
 				entityType: 'RepresentationContact'
 			});
 		} catch (/** @type {*} */ err) {

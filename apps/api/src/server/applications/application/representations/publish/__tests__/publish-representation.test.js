@@ -1,5 +1,5 @@
 import { request } from '#app-test';
-import { eventClient } from '#infrastructure/event-client.js';
+import { batchSendEvents } from '../../../../_utils/batch-send-events.js';
 import { jest } from '@jest/globals';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -254,12 +254,12 @@ describe('Publish Representations', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ publishedRepIds: [6409, 6579] });
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		expect(batchSendEvents).toHaveBeenCalledWith(
 			'nsip-representation',
 			expectedNsipRepresentationPayload,
 			'Publish'
 		);
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		expect(batchSendEvents).toHaveBeenCalledWith(
 			'service-user',
 			expectedServiceUserPayload,
 			'Publish',
@@ -304,7 +304,7 @@ describe('Publish Representations', () => {
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({ errors: { message: 'unable to publish representations' } });
 
-		expect(eventClient.sendEvents).not.toHaveBeenCalled();
+		expect(batchSendEvents).not.toHaveBeenCalled();
 		expect(databaseConnector.representation.update).not.toHaveBeenCalled();
 		expect(databaseConnector.representationAction.create).not.toHaveBeenCalled();
 		expect(databaseConnector.representation.updateMany).not.toHaveBeenCalled();
