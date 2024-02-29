@@ -29,7 +29,10 @@ describe('Document Properties', () => {
 
 	const getDate = (received) => {
 		const today = new Date();
-		const day = today.getDate().toString().padStart(2, '0');
+		let day = today.getDate().toString().padStart(2, '0');
+		if(day==='29'){
+			day='28';
+		   }
 		const month = (today.getMonth() + 1).toString().padStart(2, '0');
 		const year = today.getFullYear();
 		return `${day}/${month}/${received ? year - 1 : year}`;
