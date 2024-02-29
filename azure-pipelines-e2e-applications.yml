@@ -6,17 +6,6 @@ parameters:
       - 'dev'
       - 'test'
 
-    displayName: test-suite
-  - name: regression
-    type: boolean
-    default: false
-  - name: smoke
-    type: boolean
-    default: false
-  - name: sanity
-    type: boolean
-    default: false
-
 variables:
   - name: APP
     value: 'applications'
@@ -64,17 +53,6 @@ jobs:
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
         displayName: "Run Cypress Tests"
-
-        displayName: "test-suite"
-      - task: regression
-        - script: Regression tests
-          condition: ${{ eq(parameters.regression, true) }}
-      - task: smoke
-        - script: smoke tests
-          condition: ${{ eq(parameters.smoke, true) }}
-      - task: sanity
-        - script: sanity tests
-          condition: ${{ eq(parameters.sanity, true) }}
 
       - task: PublishBuildArtifacts@1
         inputs:
