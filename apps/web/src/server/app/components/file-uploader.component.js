@@ -1,7 +1,7 @@
 import * as got from 'got';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import { post } from '../../lib/request.js';
-import { setSuccessBanner } from '../../applications/common/services/session.service.js';
+// import { setSuccessBanner } from '../../applications/common/services/session.service.js';
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, username?: string, name?: string}} DocumentUploadInfo */
@@ -119,21 +119,23 @@ export async function postDocumentsUpload({ body, session }, response) {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{session: SessionWithAuth, body: DocumentUploadInfo}} request
+ * @param {*} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
-export async function postUploadDocumentVersion({ body, session }, response) {
-	const { caseId, documentGuid } = response.locals;
-	body.username = session.account?.name;
+export async function postUploadDocumentVersion(request, response) {
+	console.log(request, response);
+	// const { caseId, documentGuid } = response.locals;
+	// body.username = session.account?.name;
 
-	const document = await createNewDocumentVersion(caseId, documentGuid, body);
+	// const document = await createNewDocumentVersion(caseId, documentGuid, body);
 
-	const accessToken = await getActiveDirectoryAccessToken(session);
+	// const accessToken = await getActiveDirectoryAccessToken(session);
 
-	document.fileRowId = body?.fileRowId || '';
+	// document.fileRowId = body?.fileRowId || '';
 
-	setSuccessBanner(session);
+	// setSuccessBanner(session);
 
-	return response.send({ ...document, accessToken });
+	// return response.send({ ...document, accessToken });
+	return 0;
 }
