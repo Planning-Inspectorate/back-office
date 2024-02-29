@@ -73,7 +73,9 @@ const pickRandom = (list) => Math.floor(Math.random() * list.length);
  *  incompleteReviewQuestionnaire?: boolean,
  *  completeReviewQuestionnaire?: boolean,
  *  siteAddressList?: AppealSite[],
- *  assignCaseOfficer: boolean}} param0
+ *  assignCaseOfficer: boolean,
+ *  agent?: boolean
+ * }} param0
  * @returns {object}
  */
 const appealFactory = ({
@@ -87,13 +89,14 @@ const appealFactory = ({
 	incompleteReviewQuestionnaire = false,
 	completeReviewQuestionnaire = false,
 	siteAddressList = addressesList,
-	assignCaseOfficer = false
+	assignCaseOfficer = false,
+	agent = true
 }) => {
 	const appellantInput = appellantsList[pickRandom(appellantsList)];
 	const agentInput = agentsList[pickRandom(agentsList)];
 	const lpaInput = localPlanningDepartmentList[pickRandom(localPlanningDepartmentList)];
 
-	return {
+	const appeal = {
 		appealType: { connect: { shorthand: typeShorthand } },
 		reference: generateAppealReference(),
 		startedAt,
@@ -102,9 +105,11 @@ const appealFactory = ({
 		appellant: {
 			create: appellantInput
 		},
-		agent: {
-			create: agentInput
-		},
+		...(agent && {
+			agent: {
+				create: agentInput
+			}
+		}),
 		lpa: {
 			connectOrCreate: {
 				where: { lpaCode: lpaInput.lpaCode },
@@ -136,41 +141,38 @@ const appealFactory = ({
 		}),
 		...(completeReviewQuestionnaire && { reviewQuestionnaire: { create: { complete: true } } })
 	};
+
+	if (Math.random() < 0.5) {
+		delete appeal.agent;
+	}
+
+	return appeal;
 };
 
 const newAppeals = [
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
+		assignCaseOfficer: false,
+		agent: false
 	}),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
+		assignCaseOfficer: false,
+		agent: false
 	}),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
+		assignCaseOfficer: false,
+		agent: false
 	}),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
+		assignCaseOfficer: false,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -180,12 +182,41 @@ const newAppeals = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false,
+		agent: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false,
+		agent: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false,
+		agent: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
 		assignCaseOfficer: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
+		assignCaseOfficer: true,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -195,7 +226,8 @@ const newAppeals = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
+		assignCaseOfficer: true,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -205,7 +237,8 @@ const newAppeals = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
+		assignCaseOfficer: true,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -215,7 +248,8 @@ const newAppeals = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
+		assignCaseOfficer: true,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -225,7 +259,8 @@ const newAppeals = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
+		assignCaseOfficer: true,
+		agent: false
 	})
 ];
 
