@@ -131,12 +131,11 @@ export async function postUploadDocumentVersion(request, response) {
 
 	const document = await createNewDocumentVersion(caseId, documentGuid, body);
 
-	//const accessToken = await getActiveDirectoryAccessToken(session);
+	const accessToken = await getActiveDirectoryAccessToken(session);
 
 	document.fileRowId = body?.fileRowId || '';
 
 	setSuccessBanner(session);
 
-	//return response.send({ ...document, accessToken });
-	return 0;
+	return response.send({ ...document, accessToken });
 }
