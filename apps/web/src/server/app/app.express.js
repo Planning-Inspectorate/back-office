@@ -2,7 +2,7 @@ import { installRequestLocalsMiddleware } from '@pins/express';
 import config from '@pins/applications.web/environment/config.js';
 import bodyParser from 'body-parser';
 import compression from 'compression';
-//import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import crypto from 'node:crypto';
 import express from 'express';
@@ -52,7 +52,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Parse Cookie header and populate req.cookies with an object keyed by the cookie names.
-// app.use(cookieParser());
+app.use(cookieParser());
 
 // Generate the nonce for each request.  The exception is in test to allow for snapshots.
 app.use((req, res, next) => {
