@@ -6,12 +6,33 @@ parameters:
       - 'dev'
       - 'test'
   - name: test-suite
+    displayName: test-suite
     type: string
-    default: 'regression'
     values:
       - 'regression'
       - 'smoke'
       - 'sanity'
+
+# or this way...Needs to be an option where you click into it rather than on main `run pipeline` page
+    displayName: test-suite
+  - name: regression
+    type: boolean
+    default: false
+  - name: smoke
+    type: boolean
+    default: false
+  - name: sanity
+    type: boolean
+    default: false
+
+# define the parameters, and reference it in a stage/step
+# could include a boolen set to false : `type: boolean`
+# Create variables in the pipeline?
+# Create a new regression test-suite file in common pipelines
+  # Would this file run the tests?
+# link the variables into the test script
+# Can be a single stage with multiple jobs/tasks or multiple stages that depend on previous stage completing
+# echo what is happening
 
 
 variables:
@@ -60,8 +81,18 @@ jobs:
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
-          TEST_SUITE: $(TEST_SUITE)
         displayName: "Run Cypress Tests"
+
+        displayName: "test-suite"
+      - task: regression
+        - script: Regression tests
+          condition: ${{ eq(parameters.regression, true) }}
+      - task: smoke
+        - script: smoke tests
+          condition: ${{ eq(parameters.smoke, true) }}
+      - task: sanity
+        - script: sanity tests
+          condition: ${{ eq(parameters.sanity, true) }}
 
       - task: PublishBuildArtifacts@1
         inputs:
