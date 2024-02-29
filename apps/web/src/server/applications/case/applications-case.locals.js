@@ -86,7 +86,7 @@ export const registerDocumentGuid = async ({ params }, response, next) => {
 	const documentGuid = params.documentGuid || params.documentId;
 
 	if (!/^[A-Za-z0-9-]+$/.test(documentGuid)) {
-		pino.error(`[WEB] Wrong document guid: ${documentGuid}`);
+		pino.error(`[WEB] Document guid not valid: ${documentGuid}`);
 		return response.render(`app/500.njk`);
 	}
 
