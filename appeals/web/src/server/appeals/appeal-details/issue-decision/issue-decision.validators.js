@@ -26,7 +26,7 @@ export const validateDueDateFields = createDateInputFieldsValidator('due-date');
 export const validateDueDateValid = createDateInputDateValidityValidator('due-date');
 export const validateDueDateInFuture = createDateInputDateInFutureValidator('due-date');
 export const validateTextArea = createTextareaValidator(
-	'decision-invalid-reason',
+	'decisionInvalidReason',
 	'Text must not exceed {{maximumCharacters}} characters',
 	1000
 );

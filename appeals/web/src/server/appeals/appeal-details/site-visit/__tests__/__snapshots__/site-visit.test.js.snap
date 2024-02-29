@@ -4068,5 +4068,8 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;

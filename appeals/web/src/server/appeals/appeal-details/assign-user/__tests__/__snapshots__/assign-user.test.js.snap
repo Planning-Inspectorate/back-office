@@ -864,6 +864,9 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -1334,6 +1337,9 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -1661,5 +1667,8 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
