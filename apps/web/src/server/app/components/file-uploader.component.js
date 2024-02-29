@@ -127,7 +127,7 @@ export async function postDocumentsUpload({ body, session }, response) {
 export async function postUploadDocumentVersion(request, response) {
 	const { session, body } = request;
 	const { caseId, documentGuid } = response.locals;
-	body.username = session.account?.name;
+	body.username = 'a'; //session.account?.name;
 
 	const document = await createNewDocumentVersion(caseId, documentGuid, body);
 
