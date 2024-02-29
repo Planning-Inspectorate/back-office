@@ -76,7 +76,7 @@ app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
 			// @ts-ignore
-			scriptSrc: ["'self'", "'unsafe-eval'", addCSPNonce],
+			scriptSrc: ["'self'", addCSPNonce],
 			defaultSrc: ["'self'", config.blobStorageUrl],
 			'font-src': ["'self'"],
 			'img-src': ["'self'", config.blobStorageUrl],
