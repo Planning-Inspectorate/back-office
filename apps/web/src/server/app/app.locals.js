@@ -3,7 +3,7 @@ import pino from '../lib/logger.js';
 /**
  * Validate and register the adviceId for the upload file
  *
- * @type {import('express').RequestHandler<*, *, *, *, {caseId: string, adviceId: string}>}
+ * @type {import('express').RequestHandler<*, *, *, *, *>}
  */
 export const registerAdviceId = ({ params }, response, next) => {
 	const { adviceId } = params;
@@ -21,7 +21,7 @@ export const registerAdviceId = ({ params }, response, next) => {
 /**
  * Validate and register the params for the download file url
  *
- * @type {import('express').RequestHandler<*, *, *, *, {fileGuid: string, caseId: string, version: string}>}
+ * @type {import('express').RequestHandler<*, *, *, *, *>}
  */
 export const registerDownloadParams = ({ params }, response, next) => {
 	const { guid, caseId, version } = params;

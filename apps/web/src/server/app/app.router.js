@@ -61,13 +61,13 @@ router.route('/auth/signout').get(asyncHandler(handleSignout));
 router.route('/documents/:caseId/upload').post(registerCaseId, asyncHandler(postDocumentsUpload));
 router
 	.route('/documents/:caseId/s51-advice/:adviceId/upload')
-	.post(registerCaseId, registerAdviceId, asyncHandler(postDocumentsUpload));
+	.post([registerCaseId, registerAdviceId], asyncHandler(postDocumentsUpload));
 router
 	.route('/documents/:caseId/upload/:documentId/add-version')
-	.post(registerCaseId, registerDocumentGuid, asyncHandler(postUploadDocumentVersion));
+	.post([registerCaseId, registerDocumentGuid], asyncHandler(postUploadDocumentVersion));
 router
 	.route('/documents/:caseId/download/:guid/version/:version/:preview?')
-	.get(registerDownloadParams, asyncHandler(getDocumentsDownload));
+	.get([registerDownloadParams], asyncHandler(getDocumentsDownload));
 router.route('/documents/process-html').post(asyncHandler(postProcessHTMLFile));
 router.use('/applications-service', applicationsRouter);
 
