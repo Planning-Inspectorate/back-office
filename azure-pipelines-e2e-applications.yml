@@ -13,7 +13,6 @@ parameters:
       - 'smoke'
       - 'sanity'
 
-# or this way...Needs to be an option where you click into it rather than on main `run pipeline` page
     displayName: test-suite
   - name: regression
     type: boolean
@@ -24,16 +23,6 @@ parameters:
   - name: sanity
     type: boolean
     default: false
-
-# define the parameters, and reference it in a stage/step
-# could include a boolen set to false : `type: boolean`
-# Create variables in the pipeline?
-# Create a new regression test-suite file in common pipelines
-  # Would this file run the tests?
-# link the variables into the test script
-# Can be a single stage with multiple jobs/tasks or multiple stages that depend on previous stage completing
-# echo what is happening
-
 
 variables:
   - name: APP
