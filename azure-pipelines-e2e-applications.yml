@@ -5,6 +5,14 @@ parameters:
     values:
       - 'dev'
       - 'test'
+  - name: test-suite
+    type: string
+    default: 'regression'
+    values:
+      - 'regression'
+      - 'smoke'
+      - 'sanity'
+
 
 variables:
   - name: APP
@@ -52,6 +60,7 @@ jobs:
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
+          TEST_SUITE: $(TEST_SUITE)
         displayName: "Run Cypress Tests"
 
       - task: PublishBuildArtifacts@1
