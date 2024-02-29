@@ -51,9 +51,6 @@ app.use((request, response, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Parse Cookie header and populate req.cookies with an object keyed by the cookie names.
-app.use(cookieParser());
-
 // Generate the nonce for each request.  The exception is in test to allow for snapshots.
 app.use((req, res, next) => {
 	if (!config.isTest) {
@@ -69,6 +66,9 @@ app.use((req, res, next) => {
  * @returns {string}
  */
 const addCSPNonce = (req, res) => `'nonce-${res.locals.cspNonce}'`;
+
+// Parse Cookie header and populate req.cookies with an object keyed by the cookie names.
+app.use(cookieParser());
 
 // Secure apps by setting various HTTP headers
 app.use(helmet());
