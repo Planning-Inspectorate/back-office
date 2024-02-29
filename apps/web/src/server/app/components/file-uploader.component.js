@@ -122,7 +122,7 @@ export async function postDocumentsUpload({ body, session }, response) {
  *
  * @param {*} request
  * @param {*} response
- * @returns {Promise<{}>}
+ * @returns {Promise<*>}
  */
 export async function postUploadDocumentVersion(request, response) {
 	const { session, body } = request;
@@ -131,8 +131,7 @@ export async function postUploadDocumentVersion(request, response) {
 
 	const document = await createNewDocumentVersion(caseId, documentGuid, body);
 
-	const accessToken = await getActiveDirectoryAccessToken(session);
-	console.log(accessToken);
+	//const accessToken = await getActiveDirectoryAccessToken(session);
 
 	document.fileRowId = body?.fileRowId || '';
 
