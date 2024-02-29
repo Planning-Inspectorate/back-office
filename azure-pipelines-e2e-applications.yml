@@ -5,13 +5,6 @@ parameters:
     values:
       - 'dev'
       - 'test'
-  - name: test-suite
-    displayName: test-suite
-    type: string
-    values:
-      - 'regression'
-      - 'smoke'
-      - 'sanity'
 
     displayName: test-suite
   - name: regression
