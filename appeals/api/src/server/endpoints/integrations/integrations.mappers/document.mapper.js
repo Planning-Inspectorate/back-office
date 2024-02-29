@@ -15,11 +15,11 @@ export const mapDocumentIn = (doc) => {
 	}
 
 	metadata.blobStorageContainer = config.BO_BLOB_CONTAINER;
-	metadata.blobStoragePath = `${originalGuid}/v1/${originalFilename}`;
+	metadata.blobStoragePath = `${documentGuid}/v1/${originalFilename}`;
 
 	return {
 		...metadata,
-		documentGuid: originalGuid,
+		documentGuid,
 		fileName: originalFilename,
 		dateCreated: (doc.dateCreated ? new Date(doc.dateCreated) : new Date()).toISOString(),
 		lastModified: (doc.lastModified ? new Date(doc.lastModified) : new Date()).toISOString()

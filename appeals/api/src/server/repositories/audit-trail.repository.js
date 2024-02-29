@@ -1,3 +1,4 @@
+import { DATABASE_ORDER_BY_DESC } from '#endpoints/constants.js';
 import { databaseConnector } from '#utils/database-connector.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.CreateAuditTrailRequest} CreateAuditTrailRequest */
@@ -22,4 +23,28 @@ const createAuditTrail = ({ appealId, details, loggedAt, userId }) =>
 		}
 	});
 
-export default { createAuditTrail };
+/**
+ * @param {number} appealId
+ * @returns {PrismaPromise<*>}
+ */
+const getAuditTrail = (appealId) =>
+	databaseConnector.auditTrail.findMany({
+		where: { appealId },
+		include: {
+			user: true,
+			doc: {
+				select: {
+					document: {
+						include: {
+							latestDocumentVersion: true
+						}
+					}
+				}
+			}
+		},
+		orderBy: {
+			loggedAt: DATABASE_ORDER_BY_DESC
+		}
+	});
+
+export default { createAuditTrail, getAuditTrail };

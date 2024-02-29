@@ -9,6 +9,16 @@ import {
 	incompleteLPAQuestionnaireOutcome
 } from '#tests/shared/mocks.js';
 
+export const auditTrails = [
+	{
+		details: 'The case officer 13de469c-8de6-4908-97cd-330ea73df618 was added to the team',
+		loggedAt: new Date().toISOString(),
+		user: {
+			azureAdUserId
+		}
+	}
+];
+
 export const householdAppeal = {
 	id: 1,
 	reference: '1345264',
@@ -87,15 +97,6 @@ export const householdAppeal = {
 		},
 		visibilityRestrictions: 'The site is behind a tall hedge'
 	},
-	auditTrail: [
-		{
-			details: 'The case officer 13de469c-8de6-4908-97cd-330ea73df618 was added to the team',
-			loggedAt: new Date().toISOString(),
-			user: {
-				azureAdUserId
-			}
-		}
-	],
 	caseOfficer: {
 		id: 1,
 		azureAdUserId: 'a8973f33-4d2e-486b-87b0-d068343ad9eb'

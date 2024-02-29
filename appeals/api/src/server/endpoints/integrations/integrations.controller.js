@@ -88,7 +88,7 @@ export const postAppealSubmission = async (req, res) => {
 		const auditTrail = await createAuditTrail({
 			appealId: dbSavedResult.appeal.id,
 			azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID,
-			details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_IMPORTED, [documentTopic.documentGuid])
+			details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_IMPORTED, [documentTopic.fileName])
 		});
 		if (auditTrail) {
 			await addDocumentAudit(documentTopic.documentGuid, 1, auditTrail, 'Create');
@@ -144,7 +144,7 @@ export const postLpaqSubmission = async (req, res) => {
 		const auditTrail = await createAuditTrail({
 			appealId: dbSavedResult.appeal.id,
 			azureAdUserId: AUDIT_TRAIL_SYSTEM_UUID,
-			details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_IMPORTED, [documentTopic.documentGuid])
+			details: stringTokenReplacement(AUDIT_TRAIL_DOCUMENT_IMPORTED, [documentTopic.fileName])
 		});
 		if (auditTrail) {
 			await addDocumentAudit(documentTopic.documentGuid, 1, auditTrail, 'Create');

@@ -246,6 +246,9 @@ exports[`appeal-details GET /:appealId should render a "horizon reference added"
                     </div>
                 </div>
             </div>
+            <h2>Case history</h2>
+            <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+                have been made to this appeal.</p>
 </main>"
 `;
 
@@ -482,6 +485,9 @@ exports[`appeal-details GET /:appealId should render a Decision inset panel when
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -726,6 +732,9 @@ exports[`appeal-details GET /:appealId should render a Issue a decision action b
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -968,6 +977,9 @@ exports[`appeal-details GET /:appealId should render a child tag next to the app
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -1211,6 +1223,9 @@ exports[`appeal-details GET /:appealId should render a lead tag next to the appe
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -1415,6 +1430,9 @@ exports[`appeal-details GET /:appealId should render a notification banner with 
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -1660,6 +1678,9 @@ exports[`appeal-details GET /:appealId should render a notification banner with 
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/2/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -1917,6 +1938,9 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -2160,6 +2184,9 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -2403,6 +2430,9 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -2646,6 +2676,9 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -2892,6 +2925,9 @@ exports[`appeal-details GET /:appealId should render action links to the manage 
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -3122,6 +3158,9 @@ exports[`appeal-details GET /:appealId should render an action link to the add l
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -3353,6 +3392,9 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -3584,6 +3626,9 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -3815,6 +3860,9 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -4061,6 +4109,9 @@ exports[`appeal-details GET /:appealId should render the case reference for each
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -4449,6 +4500,9 @@ exports[`appeal-details GET /:appealId should render the lead or child status af
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -4679,6 +4733,9 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -4909,6 +4966,9 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/3/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -5159,6 +5219,9 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/2/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -5373,6 +5436,9 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                 </div>
             </div>
         </div>
+        <h2>Case history</h2>
+        <p><a class="govuk-link" href="/appeals-service/appeal-details/1/audit">View changes</a> that
+            have been made to this appeal.</p>
 </main>"
 `;
 
@@ -5746,6 +5812,9 @@ exports[`appeal-details should not render a back button 1`] = `
                             </div>
                         </div>
                     </div>
+                    <h2>Case history</h2>
+                    <p><a class="govuk-link" href="/appeals-service/appeal-details/2/audit">View changes</a> that
+                        have been made to this appeal.</p>
             </main>
         </div>
         <footer class="govuk-footer" role="contentinfo">

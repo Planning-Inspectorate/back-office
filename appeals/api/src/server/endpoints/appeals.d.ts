@@ -105,7 +105,6 @@ interface RepositoryGetByIdResultItem {
 	appellant: Schema.ServiceUser | null;
 	agent: Schema.ServiceUser | null;
 	appellantCase?: Schema.AppellantCase | null;
-	auditTrail: Schema.AuditTrail[] | null;
 	caseOfficer: User | null;
 	createdAt: Date;
 	dueDate: Date | null;
@@ -651,6 +650,14 @@ type GetAuditTrailsResponse = {
 	azureAdUserId: string;
 	details: string;
 	loggedDate: Date;
+	doc?:
+		| {
+				documentGuid: string;
+				stage: string;
+				name: string;
+				folderId: number;
+		  }
+		| undefined;
 }[];
 
 type UpdateDocumentsRequest = {

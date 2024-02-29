@@ -1,3 +1,4 @@
+import auditTrailRepository from '#repositories/audit-trail.repository.js';
 import { formatAuditTrail } from './audit-trails.formatter.js';
 
 /** @typedef {import('express').Request} Request */
@@ -9,7 +10,8 @@ import { formatAuditTrail } from './audit-trails.formatter.js';
  * @returns {Promise<Response>}
  */
 const getAuditTrailById = async (req, res) => {
-	const { auditTrail } = req.appeal;
+	const { appealId } = req.params;
+	const auditTrail = await auditTrailRepository.getAuditTrail(Number(appealId));
 	const formattedAuditTrail = formatAuditTrail(auditTrail);
 
 	return res.send(formattedAuditTrail);
