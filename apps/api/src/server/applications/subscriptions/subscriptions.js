@@ -102,8 +102,9 @@ export function subscriptionToTypes(subscription) {
 /**
  *
  * @param {SubscriptionType[]} types
- * @param {import('@prisma/client').Prisma.SubscriptionCreateInput} subscription
- * @returns {import('@prisma/client').Prisma.SubscriptionCreateInput}
+ * @param {T} subscription
+ * @returns {T}
+ * @template {import('@prisma/client').Prisma.SubscriptionCreateInput|import('@prisma/client').Prisma.SubscriptionUncheckedCreateInput} T
  */
 export function typesToSubscription(types, subscription) {
 	const _subscription = {
