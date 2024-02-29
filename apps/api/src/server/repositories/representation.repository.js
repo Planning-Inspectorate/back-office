@@ -665,28 +665,49 @@ export const getApplicationRepresentationForDownload = async (caseId, skip, batc
  * @param {number} caseId
  * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
  */
-export const getPublishableRepresentations = async (caseId) =>
-	databaseConnector.representation.findMany({
-		select: {
-			id: true,
-			reference: true,
-			status: true,
-			redacted: true,
-			received: true,
-			represented: {
-				select: {
-					firstName: true,
-					lastName: true,
-					organisationName: true
-				}
-			}
-		},
+export const getPublishableRepresentations = async (caseId) => {
+	const totalPublishableRepsCount = await databaseConnector.representation.count({
 		where: {
 			caseId,
 			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
-		},
-		orderBy: [{ status: 'desc' }, { reference: 'asc' }]
+		}
 	});
+
+	const batchSize = 2000;
+	const publishableRepsPromises = [];
+
+	for (let i = 0; i < totalPublishableRepsCount; i += batchSize) {
+		publishableRepsPromises.push(
+			databaseConnector.representation.findMany({
+				select: {
+					id: true,
+					reference: true,
+					status: true,
+					redacted: true,
+					received: true,
+					represented: {
+						select: {
+							firstName: true,
+							lastName: true,
+							organisationName: true
+						}
+					}
+				},
+				where: {
+					caseId,
+					OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+				},
+				orderBy: [{ status: 'desc' }, { reference: 'asc' }],
+				take: batchSize,
+				skip: i
+			})
+		);
+	}
+
+	const publishableReps = await Promise.all(publishableRepsPromises);
+
+	return publishableReps.flat();
+};
 
 export const isRepresentationsPreviouslyPublished = async (caseId) => {
 	const previouslyPublished = await databaseConnector.representation.count({
@@ -707,65 +728,78 @@ export const isRepresentationsPreviouslyPublished = async (caseId) => {
  * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
  */
 export const getPublishableRepresentationsById = async (caseId, representationIds) => {
-	return databaseConnector.representation.findMany({
-		where: {
-			caseId,
-			id: { in: representationIds },
-			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
-		},
-		include: {
-			user: true,
-			attachments: true,
-			case: true,
-			represented: {
-				select: {
-					id: true,
-					firstName: true,
-					lastName: true,
-					organisationName: true,
-					jobTitle: true,
-					under18: true,
-					email: true,
-					contactMethod: true,
-					phoneNumber: true,
-					address: {
+	const batchSize = 2000;
+	const publishableRepsPromises = [];
+
+	for (let i = 0; i < representationIds.length; i += batchSize) {
+		const batchIds = representationIds.slice(i, i + batchSize);
+
+		publishableRepsPromises.push(
+			databaseConnector.representation.findMany({
+				where: {
+					caseId,
+					id: { in: batchIds },
+					OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+				},
+				include: {
+					user: true,
+					attachments: true,
+					case: true,
+					represented: {
 						select: {
-							addressLine1: true,
-							addressLine2: true,
-							town: true,
-							county: true,
-							postcode: true,
-							country: true
+							id: true,
+							firstName: true,
+							lastName: true,
+							organisationName: true,
+							jobTitle: true,
+							under18: true,
+							email: true,
+							contactMethod: true,
+							phoneNumber: true,
+							address: {
+								select: {
+									addressLine1: true,
+									addressLine2: true,
+									town: true,
+									county: true,
+									postcode: true,
+									country: true
+								}
+							}
 						}
-					}
-				}
-			},
-			representative: {
-				select: {
-					id: true,
-					firstName: true,
-					lastName: true,
-					organisationName: true,
-					jobTitle: true,
-					under18: true,
-					email: true,
-					contactMethod: true,
-					phoneNumber: true,
-					address: {
+					},
+					representative: {
 						select: {
-							addressLine1: true,
-							addressLine2: true,
-							town: true,
-							county: true,
-							postcode: true,
-							country: true
+							id: true,
+							firstName: true,
+							lastName: true,
+							organisationName: true,
+							jobTitle: true,
+							under18: true,
+							email: true,
+							contactMethod: true,
+							phoneNumber: true,
+							address: {
+								select: {
+									addressLine1: true,
+									addressLine2: true,
+									town: true,
+									county: true,
+									postcode: true,
+									country: true
+								}
+							}
 						}
-					}
+					},
+					representationActions: true
 				}
-			},
-			representationActions: true
-		}
-	});
+			})
+		);
+	}
+
+	const publishableReps = await Promise.all(publishableRepsPromises);
+
+	return publishableReps.flat();
 };
 
 /**

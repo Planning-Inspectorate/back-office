@@ -10,7 +10,7 @@ exports[`publish-valid-representations GET /applications-service/:caseId/relevan
         <br>
         <br>Key dates are managed by the Case Team.</p>
         <form method=\\"post\\">
-            <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Publish representations</button>
+            <button data-prevent-double-click=\\"true\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Publish representations</button>
         </form>
 </main>"
 `;
