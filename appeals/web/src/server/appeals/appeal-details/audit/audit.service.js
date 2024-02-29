@@ -106,40 +106,40 @@ const tryMapDocument = async (appealId, log, docInfo, lpaqId) => {
 const tryMapStatus = async (log) => {
 	let result = log;
 	result = result.replace(
-		'ready_to_start',
-		'<strong class="govuk-tag govuk-tag--turquoise single-line govuk-!-margin-bottom-4">Ready to start</strong>'
+		'progressed to ready_to_start',
+		'progressed to <strong class="govuk-tag govuk-tag--turquoise single-line govuk-!-margin-bottom-4">Ready to start</strong>'
 	);
 	result = result.replace(
-		'lpa_questionnaire_due',
-		'<strong class="govuk-tag govuk-tag--yellow single-line govuk-!-margin-bottom-4">LPA questionnaire</strong>'
+		'progressed to lpa_questionnaire_due',
+		'progressed to <strong class="govuk-tag govuk-tag--yellow single-line govuk-!-margin-bottom-4">LPA questionnaire</strong>'
 	);
 	result = result.replace(
-		'withdrawn',
-		'<strong class="govuk-tag govuk-tag--yellow single-line govuk-!-margin-bottom-4">Withdrawn</strong>'
+		'progressed to withdrawn',
+		'progressed to <strong class="govuk-tag govuk-tag--yellow single-line govuk-!-margin-bottom-4">Withdrawn</strong>'
 	);
 	result = result.replace(
-		'awaiting_transfer',
-		'<strong class="govuk-tag govuk-tag--yellow single-line govuk-!-margin-bottom-4">Awaiting transfer</strong>'
+		'progressed to awaiting_transfer',
+		'progressed to <strong class="govuk-tag govuk-tag--red single-line govuk-!-margin-bottom-4">Awaiting transfer</strong>'
 	);
 	result = result.replace(
-		'transferred',
-		'<strong class="govuk-tag govuk-tag--yellow single-line govuk-!-margin-bottom-4">Transferred</strong>'
+		'progressed to transferred',
+		'progressed to <strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Transferred</strong>'
 	);
 	result = result.replace(
-		'closed',
-		'<strong class="govuk-tag govuk-tag--yellow single-line govuk-!-margin-bottom-4">Closed</strong>'
+		'progressed to closed',
+		'progressed to <strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Closed</strong>'
 	);
 	result = result.replace(
-		'invalid',
-		'<strong class="govuk-tag govuk-tag--yellow single-line govuk-!-margin-bottom-4">Invalid</strong>'
+		'progressed to invalid',
+		'progressed to <strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Invalid</strong>'
 	);
 	result = result.replace(
-		'issue_determination',
-		'<strong class="govuk-tag govuk-tag--pink single-line govuk-!-margin-bottom-4">Issue determination</strong>'
+		'progressed to issue_determination',
+		'progressed to <strong class="govuk-tag govuk-tag--pink single-line govuk-!-margin-bottom-4">Issue decision</strong>'
 	);
 	result = result.replace(
-		'complete',
-		'<strong class="govuk-tag govuk-tag--green single-line govuk-!-margin-bottom-4">Complete</strong>'
+		'progressed to complete',
+		'progressed to <strong class="govuk-tag govuk-tag--green single-line govuk-!-margin-bottom-4">Complete</strong>'
 	);
 
 	return result;
