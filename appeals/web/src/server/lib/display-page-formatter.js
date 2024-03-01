@@ -4,6 +4,7 @@ import { appealShortReference } from './nunjucks-filters/appeals.js';
 import { mapDocumentInfoVirusCheckStatus } from '#appeals/appeal-documents/appeal-documents.mapper.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 import { apiDateStringToDayMonthYear, dateIsInThePast } from '#lib/dates.js';
+import { appealSiteToMultilineAddressStringHtml } from './address-formatter.js';
 
 /**
  * @typedef {import('@pins/appeals.api').Schema.Folder} Folder
@@ -309,4 +310,21 @@ export function mapDocumentStatus(status, dueDate) {
 		default:
 			return '';
 	}
+}
+
+/**
+ *
+ * @param {{address: import('@pins/appeals.api').Appeals.AppealSite}[]} arrayOfAddresses
+ * @returns
+ */
+export function formatListOfAddresses(arrayOfAddresses) {
+	if (arrayOfAddresses.length > 0) {
+		let formattedList = ``;
+		for (let i = 0; i < arrayOfAddresses.length; i++) {
+			const address = arrayOfAddresses[i].address;
+			formattedList += `<li>${appealSiteToMultilineAddressStringHtml(address)}</li>`;
+		}
+		return `<ul class="govuk-list govuk-list--bullet">${formattedList}</ul>`;
+	}
+	return '<span>None</span>';
 }
