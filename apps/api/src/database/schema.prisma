@@ -282,7 +282,7 @@ model DocumentVersion {
   lastModified           DateTime?
   documentType           String?
   published              Boolean               @default(false)
-  sourceSystem           String                @default("back-office")
+  sourceSystem           String                @default("back-office-applications")
   origin                 String?
   originalFilename       String?
   fileName               String?

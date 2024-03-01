@@ -700,7 +700,7 @@ export const spec = {
 				sourceSystem: {
 					type: 'string',
 					description: 'Source system of the document',
-					example: 'back-office'
+					example: 'back-office-applications'
 				},
 				privateBlobContainer: {
 					type: 'string',
@@ -782,7 +782,7 @@ export const spec = {
 				sourceSystem: {
 					type: 'string',
 					description: 'Source system of the document',
-					example: 'back-office'
+					example: 'back-office-applications'
 				},
 				origin: { type: 'string', description: '', example: null },
 				originalFilename: {
@@ -954,7 +954,7 @@ export const spec = {
 				sourceSystem: {
 					type: 'string',
 					description: 'Source system of the document',
-					example: 'back-office'
+					example: 'back-office-applications'
 				},
 				origin: { type: 'string', description: '', example: null },
 				originalFilename: {
@@ -1203,7 +1203,7 @@ export const spec = {
 				sourceSystem: {
 					type: 'string',
 					description: 'Source system of the document',
-					example: 'back-office'
+					example: 'back-office-applications'
 				},
 				documentGuid: {
 					type: 'string',
