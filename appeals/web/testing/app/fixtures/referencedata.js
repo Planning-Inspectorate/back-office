@@ -154,6 +154,18 @@ export const appealData = {
 		],
 		isAffected: true
 	},
+	neighbouringSites: [
+		{
+			siteId: 1,
+			address: {
+				addressLine1: '1 Grove Cottage',
+				addressLine2: 'Shotesham Road',
+				town: 'Woodton',
+				county: 'Devon',
+				postCode: 'NR35 2ND'
+			}
+		}
+	],
 	otherAppeals: [],
 	planningApplicationReference: '48269/APP/2021/1482',
 	procedureType: 'Written',

@@ -16,6 +16,21 @@ export const addressToString = (address) => {
 };
 
 /**
+ * converts a multi part address to a multiline string
+ *
+ * @param {import('@pins/appeals').Address} address
+ * @returns {string}
+ */
+export const addressToMultilineStringHtml = (address) => {
+	return join(
+		map(pick(address, ['addressLine1', 'addressLine2', 'town', 'county', 'postCode']), (value) => {
+			return value?.trim();
+		}).filter((value) => value?.length),
+		', </br>'
+	);
+};
+
+/**
  * @param {import('@pins/appeals.api').Appeals.AppealSite} appealSite
  * @returns {import('@pins/appeals').Address}
  */
@@ -35,4 +50,12 @@ export const appealSiteToAddress = (appealSite) => {
  */
 export const appealSiteToAddressString = (appealSite) => {
 	return addressToString(appealSiteToAddress(appealSite));
+};
+
+/**
+ * @param {import('@pins/appeals.api').Appeals.AppealSite} appealSite
+ * @returns {string}
+ */
+export const appealSiteToMultilineAddressStringHtml = (appealSite) => {
+	return addressToMultilineStringHtml(appealSiteToAddress(appealSite));
 };
