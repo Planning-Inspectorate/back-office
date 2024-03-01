@@ -252,7 +252,7 @@ export function addLinkedAppealCheckAndConfirmPage(
 								text: 'Agent name'
 							},
 							value: {
-								text: linkCandidateSummary.appellantName
+								text: linkCandidateSummary.agentName
 							}
 						},
 						{

@@ -455,7 +455,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                                 <dd class="govuk-summary-list__value">Roger Simmons</dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                                <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                                <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                                 <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -535,7 +535,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -582,7 +582,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -630,7 +630,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -677,7 +677,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -720,7 +720,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -778,7 +778,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -836,7 +836,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -1028,7 +1028,7 @@ exports[`linked-appeals POST /linked-appeals/add/check-and-confirm should re-ren
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
