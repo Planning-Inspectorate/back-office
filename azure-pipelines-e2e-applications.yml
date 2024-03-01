@@ -6,17 +6,6 @@ parameters:
       - 'dev'
       - 'test'
 
-    displayName: test-suite
-  - name: regression
-    type: boolean
-    default: false
-  - name: smoke
-    type: boolean
-    default: false
-  - name: sanity
-    type: boolean
-    default: false
-
 variables:
   - name: APP
     value: 'applications'
