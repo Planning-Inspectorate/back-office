@@ -60,11 +60,24 @@ export const updatePublishedStatusMetadata = async (newStatus, documentGuid, cas
 				documents: [{ guid: documentGuid }]
 			}
 		});
-	} catch {
+	} catch (err) {
+		// @ts-ignore
+		const errors = err?.response?.body?.errors || [
+			{ msg: 'Something went wrong, please try again' }
+		];
 		response = {
-			errors: {
-				msg: 'You must fill in all mandatory document properties to publish a document.  Please go back to the document properties screen to make the changes.'
-			}
+			// @ts-ignore
+			errors: errors.map((error) => {
+				if (error.type === 'missing-properties') {
+					return {
+						...error,
+						msg:
+							error.msg + ' Please go back to the document properties screen to make the changes.'
+					};
+				} else {
+					return error;
+				}
+			})
 		};
 	}
 

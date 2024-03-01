@@ -485,7 +485,7 @@ exports[`Edit applications documentation metadata Edit publish status GET /case/
 </main>"
 `;
 
-exports[`Edit applications documentation metadata Edit publish status POST /case/123/project-documentation/18/document/90/edit/published-status should return an error if required properties are not defined 1`] = `
+exports[`Edit applications documentation metadata Edit publish status POST /case/123/project-documentation/18/document/90/edit/published-status should return an error if one is returned 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
@@ -494,7 +494,7 @@ exports[`Edit applications documentation metadata Edit publish status POST /case
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#msg\\">You must fill in all mandatory document properties to publish a document.  Please go back to the document properties screen to make the changes.</a>
+                            <li><a href=\\"#0\\">There is an error. Please go back to the document properties screen to make the changes.</a>
                             </li>
                         </ul>
                     </div>
