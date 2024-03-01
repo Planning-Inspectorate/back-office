@@ -7,6 +7,7 @@
 	"required": ["appeal"],
 	"properties": {
 		"appeal": {
+			"type": "object",
 			"$ref": "pins-root.schema.json#/definitions/AppellantCase",
 			"required": ["appellant"],
 			"properties": {
