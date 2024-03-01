@@ -137,8 +137,8 @@ data-module=\\"govuk-header\\">
             <div class=\\"pins-column--central\\">
                 <p>Planning Inspectorate</p>
             </div>
-            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"/auth/signout\\"
-                class=\\"govuk-link\\">Sign out</a>
+            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"https://forms.office.com/e/HUP5kTvb8D\\"
+                class=\\"govuk-link\\">Give feedback</a><a href=\\"/auth/signout\\" class=\\"govuk-link\\">Sign out</a>
             </div>
         </div>
     </div>
@@ -269,8 +269,8 @@ data-module=\\"govuk-header\\">
             <div class=\\"pins-column--central\\">
                 <p>Planning Inspectorate</p>
             </div>
-            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"/auth/signout\\"
-                class=\\"govuk-link\\">Sign out</a>
+            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"https://forms.office.com/e/HUP5kTvb8D\\"
+                class=\\"govuk-link\\">Give feedback</a><a href=\\"/auth/signout\\" class=\\"govuk-link\\">Sign out</a>
             </div>
         </div>
     </div>

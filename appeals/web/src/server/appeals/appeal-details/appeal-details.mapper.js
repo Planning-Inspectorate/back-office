@@ -171,6 +171,16 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		}
 	};
 
+	/** @type {PageComponent} */
+	const caseAudit = {
+		type: 'html',
+		parameters: {
+			html:
+				'<h2>Case history</h2>' +
+				`<p><a class="govuk-link" href="/appeals-service/appeal-details/${appealDetails.appealId}/audit">View changes</a> that have been made to this appeal.</p>`
+		}
+	};
+
 	const accordionComponents = [
 		caseSummary,
 		caseOverview,
@@ -309,7 +319,8 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		...notificationBanners,
 		...statusTagsComponentGroup,
 		caseSummary,
-		appealDetailsAccordion
+		appealDetailsAccordion,
+		caseAudit
 	];
 
 	preRenderPageComponents(pageComponents);

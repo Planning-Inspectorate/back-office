@@ -3,23 +3,24 @@
 
 import config from '#config/config.js';
 import { randomUUID } from 'node:crypto';
-import validateUuidParameter from '#common/validators/uuid-parameter.js';
+import { UUID_REGEX } from '#endpoints/constants.js';
 
 export const mapDocumentIn = (doc) => {
 	const { filename, ...metadata } = doc;
 	const { originalFilename, originalGuid } = mapDocumentUrl(metadata.documentURI, filename);
 
 	let documentGuid = originalGuid;
-	if (!validateUuidParameter(documentGuid)) {
+	const uuid = UUID_REGEX.exec(documentGuid);
+	if (!uuid) {
 		documentGuid = randomUUID();
 	}
 
 	metadata.blobStorageContainer = config.BO_BLOB_CONTAINER;
-	metadata.blobStoragePath = `${originalGuid}/v1/${originalFilename}`;
+	metadata.blobStoragePath = `${documentGuid}/v1/${originalFilename}`;
 
 	return {
 		...metadata,
-		documentGuid: originalGuid,
+		documentGuid,
 		fileName: originalFilename,
 		dateCreated: (doc.dateCreated ? new Date(doc.dateCreated) : new Date()).toISOString(),
 		lastModified: (doc.lastModified ? new Date(doc.lastModified) : new Date()).toISOString()

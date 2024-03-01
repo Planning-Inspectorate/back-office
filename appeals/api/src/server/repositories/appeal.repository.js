@@ -293,14 +293,6 @@ const getAppealById = async (id) => {
 			},
 			appealTimetable: true,
 			appealType: true,
-			auditTrail: {
-				include: {
-					user: true
-				},
-				orderBy: {
-					loggedAt: DATABASE_ORDER_BY_DESC
-				}
-			},
 			caseOfficer: true,
 			inspector: true,
 			inspectorDecision: true,

@@ -13,6 +13,7 @@ import {
 	getCaseTimetableItemTypeById
 } from './applications-timetable.service.js';
 import pino from '../../../lib/logger.js';
+import sanitizeHtml from 'sanitize-html';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
@@ -372,7 +373,7 @@ export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, re
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
 export async function postApplicationsCaseTimetableSave({ body }, response) {
-	const splitDescription = body.description.split('*');
+	const splitDescription = sanitizeHtml(body.description, {}).split('*');
 	const preText = splitDescription.shift();
 	const bulletPoints = splitDescription;
 
@@ -450,7 +451,7 @@ export async function viewApplicationsCaseTimetableSuccessBanner(request, respon
 /**
  *
  * @param {ApplicationsTimetableCreateBody} body
- * @returns {{key: {text: string}, value: {html: string}}[]}
+ * @returns {{key: {text: string}, value: {html?: string} | {text?: string}}[]}
  */
 const getCheckYourAnswersRows = (body) => {
 	const { description, name, itemTypeName, templateType } = body;
@@ -471,29 +472,28 @@ const getCheckYourAnswersRows = (body) => {
 		? `${body['endTime.hours']}:${body['endTime.minutes']}`
 		: null;
 
-	/** @type {{key: string, value: string}[]} */
+	/** @type {{key: string, text?: string, html?: string}[]} */
 	const rowsItems = [
-		{ key: 'Item type', value: itemTypeName },
-		{ key: 'Item name', value: name },
-		...(shouldShowField('date') ? [{ key: 'Date', value: date || '' }] : []),
-		...(shouldShowField('startDate') ? [{ key: 'Start date', value: startDate || '' }] : []),
-		...(shouldShowField('endDate') ? [{ key: 'End date', value: endDate || '' }] : []),
-		...(shouldShowField('startTime') ? [{ key: 'Start time', value: startTime || '' }] : []),
-		...(shouldShowField('endTime') ? [{ key: 'End time', value: endTime || '' }] : []),
+		{ key: 'Item type', text: itemTypeName },
+		{ key: 'Item name', text: name },
+		...(shouldShowField('date') ? [{ key: 'Date', text: date || '' }] : []),
+		...(shouldShowField('startDate') ? [{ key: 'Start date', text: startDate || '' }] : []),
+		...(shouldShowField('endDate') ? [{ key: 'End date', text: endDate || '' }] : []),
+		...(shouldShowField('startTime') ? [{ key: 'Start time', text: startTime || '' }] : []),
+		...(shouldShowField('endTime') ? [{ key: 'End time', text: endTime || '' }] : []),
 		{
 			key: 'Timetable item description',
-			value: (description || '').replace(/\*/g, '&middot;').replace(/\n/g, '<br />')
+			html: (sanitizeHtml(description, {}) || '')
+				.replace(/\*/g, '&middot;')
+				.replace(/\n/g, '<br />')
 		}
 	];
 
-	return rowsItems.map((rowItem) => ({
-		key: {
-			text: rowItem.key
-		},
-		value: {
-			html: rowItem.value
-		}
-	}));
+	return rowsItems.map((rowItem) => {
+		const key = { text: rowItem.key };
+		const value = rowItem.html ? { html: rowItem.html } : { text: rowItem.text };
+		return { key, value };
+	});
 };
 
 /**

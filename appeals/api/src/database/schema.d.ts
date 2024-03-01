@@ -326,4 +326,7 @@ export interface AppellantCaseInvalidReasonOnAppellantCase
 
 export interface AuditTrail extends schema.AuditTrail {
 	user: User;
+	doc?: {
+		document: Document;
+	} | null;
 }

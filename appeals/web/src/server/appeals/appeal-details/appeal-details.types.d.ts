@@ -2,6 +2,7 @@ import { Address } from '@pins/appeals';
 import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionnaire/lpa-questionnaire.types';
 import {
 	SingleAppealDetailsResponse,
+	GetAuditTrailsResponse,
 	AppealTimetable,
 	DocumentationSummaryEntry,
 	DocumentationSummary,
