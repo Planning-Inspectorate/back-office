@@ -19,7 +19,7 @@ const documentVersions = [
 		lastModified: null,
 		documentType: '',
 		published: false,
-		sourceSystem: 'back-office',
+		sourceSystem: 'back-office-applications',
 		stage: null,
 		origin: null,
 		originalFilename: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
@@ -113,7 +113,7 @@ describe('Published documents', () => {
 				redactedStatus: '',
 				representative: null,
 				size: 4375,
-				sourceSystem: 'back-office',
+				sourceSystem: 'back-office-applications',
 				stage: null,
 				version: 1
 			}
@@ -172,7 +172,7 @@ describe('Published documents', () => {
 				redactedStatus: '',
 				representative: null,
 				size: 4375,
-				sourceSystem: 'back-office',
+				sourceSystem: 'back-office-applications',
 				stage: null,
 				version: 1
 			}

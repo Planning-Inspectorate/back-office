@@ -28,7 +28,7 @@ const upsertedDocVersionResponse = {
 	lastModified: null,
 	documentType: null,
 	published: false,
-	sourceSystem: 'back-office',
+	sourceSystem: 'back-office-applications',
 	origin: null,
 	originalFilename: 'Small1.pdf',
 	fileName: 'Small1',
