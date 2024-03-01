@@ -10,7 +10,7 @@ export const mapDocumentIn = (doc) => {
 	const { originalFilename, originalGuid } = mapDocumentUrl(metadata.documentURI, filename);
 
 	let documentGuid = originalGuid;
-	if (!validateUuidParameter(documentGuid)) {
+	if (validateUuidParameter(documentGuid).isUUID()) {
 		documentGuid = randomUUID();
 	}
 
