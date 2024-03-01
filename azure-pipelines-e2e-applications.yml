@@ -6,7 +6,6 @@ parameters:
       - 'dev'
       - 'test'
 
-    displayName: test-suite
   - name: regression
     type: boolean
     default: false
