@@ -80,6 +80,9 @@ const mockDocumentVersionAndDocumentAfterUpdate = (
 	originalFilename: 'original_filename.pdf',
 	size: 23452,
 	publishedDocumentURI: 'https://127.0.0.1:10000/document-uploads/published/en010120-filename.pdf',
+	horizonDataID: null,
+	transcriptGuid: null,
+	path: 'EN0110001/Folder 1/Folder 2/filename.pdf',
 	Document: {
 		guid: docGuid,
 		caseId: 1,
@@ -104,8 +107,14 @@ const expectedEventPayload = {
 	dateCreated: dateDocCreated,
 	lastModified: dateDocLastModified,
 	author: '',
-	publishedDocumentURI: undefined,
-	sourceSystem: 'Back Office'
+	publishedDocumentURI: null,
+	sourceSystem: 'Back Office',
+	datePublished: null,
+	documentCaseStage: null,
+	horizonFolderId: null,
+	caseType: 'nsip',
+	transcriptId: null,
+	path: 'EN0110001/filename.pdf'
 };
 
 describe('store Document metadata', () => {
@@ -174,7 +183,8 @@ describe('store Document metadata', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[expectedEventPayload],
-			EventType.Update
+			EventType.Update,
+			{}
 		);
 	});
 

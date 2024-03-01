@@ -42,7 +42,7 @@ const documentVersions = [
 		isDeleted: false,
 		examinationRefNo: null,
 		filter2: null,
-		publishedStatus: 'published',
+		publishedStatus: 'unpublishing',
 		redactedStatus: null,
 		redacted: false
 	}

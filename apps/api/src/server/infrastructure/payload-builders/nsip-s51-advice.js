@@ -7,6 +7,7 @@ import { getById as getCaseById } from '#repositories/case.repository.js';
 
 /**
  * @typedef {import('pins-data-model').Schemas.S51Advice} NSIPS51AdviceSchema
+ * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: true}}>} S51AdviceWithS51AdviceDocuments
  * @typedef {'phone' | 'email' | 'meeting' | 'post'} Method
  * @typedef {'checked' | 'unchecked' | 'readytopublish' | 'published' | 'donotpublish'} Status
  * @typedef {'unredacted' | 'redacted'} RedactionStatus
@@ -15,7 +16,7 @@ import { getById as getCaseById } from '#repositories/case.repository.js';
 /**
  * Build schema message payload for nsip-s51-advice
  *
- * @param {import('@prisma/client').S51Advice |} s51Advice
+ * @param {S51AdviceWithS51AdviceDocuments} s51Advice
  * @returns {Promise<NSIPS51AdviceSchema>}
  * */
 export const buildNsipS51AdvicePayload = async (s51Advice) => {

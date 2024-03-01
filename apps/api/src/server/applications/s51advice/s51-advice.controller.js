@@ -23,10 +23,10 @@ import {
 import { broadcastNsipS51AdviceEvent } from '#infrastructure/event-broadcasters.js';
 import * as s51AdviceDocumentRepository from '#repositories/s51-advice-document.repository.js';
 import * as caseRepository from '#repositories/case.repository.js';
-import * as documentRepository from '#repositories/document.repository.js';
 import {
 	makeDocumentReference,
-	createDocuments
+	createDocuments,
+	deleteDocument
 } from './../application/documents/document.service.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
@@ -216,6 +216,9 @@ export const addDocuments = async ({ params, body }, response) => {
 	);
 
 	// broadcast s51 advice event
+	// need to pull the latest docs on the advice to add to payload
+	const adviceDocs = await s51AdviceDocumentRepository.getForAdvice(s51Advice.id);
+	s51Advice.S51AdviceDocument = adviceDocs ?? [];
 	await broadcastNsipS51AdviceEvent(s51Advice, EventType.Update);
 
 	response.status([...failedDocuments, ...duplicates, ...deleted].length > 0 ? 206 : 200).send({
@@ -513,13 +516,14 @@ export const deleteS51Advice = async ({ params: { adviceId } }, response) => {
 		s51Advice = await s51AdviceRepository.deleteSoftlyById(Number(adviceId));
 
 		// and need to mark any associated documents as deleted too
-		const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
-		const docGuids = attachments.map(({ documentGuid }) => documentGuid);
-		for (const guid of docGuids) {
-			await documentRepository.deleteDocument(guid);
-		}
-
-		if (!s51Advice) {
+		// and broadcast delete events for them as well
+		if (s51Advice) {
+			const attachments = await s51AdviceDocumentRepository.getForAdvice(Number(adviceId));
+			const docGuids = attachments.map(({ documentGuid }) => documentGuid);
+			for (const guid of docGuids) {
+				await deleteDocument(guid, s51Advice.caseId.toString());
+			}
+		} else {
 			response.send(s51Advice);
 			return;
 		}

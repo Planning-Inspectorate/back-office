@@ -3,13 +3,22 @@ import { jest } from '@jest/globals';
 
 const expectedNsipProjectPayload = {
 	caseId: 1,
+	projectName: undefined,
+	projectDescription: undefined,
 	sourceSystem: 'back-office-applications',
 	publishStatus: 'unpublished',
 	caseReference: 'BC01234',
 	applicantId: '1',
 	nsipOfficerIds: [],
 	nsipAdministrationOfficerIds: [],
-	inspectorIds: []
+	inspectorIds: [],
+	operationsLeadId: null,
+	operationsManagerId: null,
+	caseManagerId: null,
+	leadInspectorId: null,
+	environmentalServicesOfficerId: null,
+	legalOfficerId: null,
+	migrationStatus: null
 };
 
 const expectedApplicantPayload = {
@@ -17,7 +26,24 @@ const expectedApplicantPayload = {
 	sourceSuid: '1',
 	sourceSystem: 'back-office-applications',
 	caseReference: 'BC01234',
-	serviceUserType: 'Applicant'
+	serviceUserType: 'Applicant',
+	organisation: undefined,
+	organisationType: null,
+	salutation: null,
+	firstName: undefined,
+	lastName: undefined,
+	emailAddress: undefined,
+	webAddress: undefined,
+	telephoneNumber: undefined,
+	addressLine1: null,
+	addressLine2: null,
+	addressTown: null,
+	addressCounty: null,
+	postcode: null,
+	addressCountry: null,
+	role: undefined,
+	otherPhoneNumber: null,
+	faxNumber: null
 };
 
 const { request } = await import('../../../app-test.js');
