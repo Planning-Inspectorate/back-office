@@ -1,4 +1,4 @@
-import { addressToString } from '../address-formatter.js';
+import { addressToString, appealSiteToMultilineAddressStringHtml } from '../address-formatter.js';
 import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 import {
@@ -47,7 +47,7 @@ import { isInternalUrl } from '#lib/url-utilities.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
-		it('should converts a multi part address to a single string', () => {
+		it('addressToString should convert a multi part address to a single string', () => {
 			const address = {
 				postCode: 'postcode',
 				addressLine1: 'address 1',
@@ -59,6 +59,21 @@ describe('Libraries', () => {
 			const adressFormatted = addressToString(address);
 
 			expect(typeof adressFormatted).toBe('string');
+		});
+		it('appealSiteToMultilineAddressStringHtml should converts a multi part address to a single string', () => {
+			const address = {
+				postCode: 'postcode',
+				addressLine1: 'address 1',
+				addressLine2: 'address 2',
+				town: 'town',
+				county: 'county'
+			};
+
+			const adressFormatted = appealSiteToMultilineAddressStringHtml(address);
+
+			expect(adressFormatted).toEqual(
+				'address 1, </br>address 2, </br>town, </br>county, </br>postcode'
+			);
 		});
 	});
 
