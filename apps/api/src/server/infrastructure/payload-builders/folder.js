@@ -1,3 +1,5 @@
+import { folderCaseStageMapper } from '#utils/map-case-to-case-stage.js';
+
 /**
 @param {import('@pins/applications.api').Schema.Folder} folderEntity
 @param {string} caseReference
@@ -6,13 +8,14 @@
  */
 export const buildFolderPayload = (folderEntity, caseReference) => {
 	// TODO: displayNameCy needs to be in the folder db table, default to displayNameEn for now
-	const { id, displayNameEn, displayNameCy, parentFolderId } = folderEntity || {};
+	const { id, displayNameEn, displayNameCy, parentFolderId, stage } = folderEntity || {};
 	return {
 		id,
 		caseReference,
 		displayNameEnglish: displayNameEn,
 		displayNameWelsh: displayNameCy || displayNameEn,
-		parentFolderId
+		parentFolderId,
+		caseStage: folderCaseStageMapper(stage)
 	};
 };
 

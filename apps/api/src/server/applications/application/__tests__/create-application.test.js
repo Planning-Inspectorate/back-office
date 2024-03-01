@@ -1,19 +1,30 @@
 import { jest } from '@jest/globals';
-import { request } from '../../../app-test.js';
+import { request } from '#app-test';
+import { validateMessageToSchema } from '#utils/schema-test-utils.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 
+const NSIP_SCHEMA_NAME = 'nsip-project.schema.json';
 const createdCase = { id: 1, reference: 'TEST', applicant: { id: 4 } };
 
 const expectedNsipProjectPayload = {
 	caseId: 1,
+	projectName: undefined,
+	projectDescription: undefined,
 	caseReference: 'TEST',
 	sourceSystem: 'back-office-applications',
 	publishStatus: 'unpublished',
 	applicantId: '4',
 	nsipOfficerIds: [],
 	nsipAdministrationOfficerIds: [],
-	inspectorIds: []
+	inspectorIds: [],
+	operationsLeadId: null,
+	operationsManagerId: null,
+	caseManagerId: null,
+	leadInspectorId: null,
+	environmentalServicesOfficerId: null,
+	legalOfficerId: null,
+	migrationStatus: null
 };
 
 jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
@@ -62,6 +73,13 @@ test('creates new application with just title and first notified date', async ()
 		[expectedNsipProjectPayload],
 		'Create'
 	);
+
+	// validate payload to schema
+	const isValidToSchema = await validateMessageToSchema(
+		NSIP_SCHEMA_NAME,
+		expectedNsipProjectPayload
+	);
+	expect(isValidToSchema).toEqual(true);
 });
 
 test('creates new application with just easting and sub-sector name', async () => {

@@ -8,23 +8,27 @@ import { sourceSystem } from './constants.js';
  * @returns {import('pins-data-model').Schemas.ServiceUser} ServiceUser
  */
 export const buildServiceUserPayload = (entity, caseReference, caseRole) => ({
+	// TODO: Note Mar 2024: full fat schema validation - we do not have organisationType, salutation, otherPhoneNumber, or faxNumber - so nulls are sent
 	id: entity.id.toString(),
-	organisation: entity.organisationName ?? undefined,
-	firstName: entity.firstName ?? undefined,
-	lastName: entity.lastName ?? undefined,
-	emailAddress: entity.email ?? undefined,
-	webAddress: entity.website ?? undefined,
-	telephoneNumber: entity.phoneNumber ?? undefined,
-	...(entity.address && {
-		addressLine1: entity.address.addressLine1 ?? undefined,
-		addressLine2: entity.address.addressLine2 ?? undefined,
-		addressTown: entity.address.town ?? undefined,
-		addressCounty: entity.address.county ?? undefined,
-		postcode: entity.address.postcode ?? undefined,
-		addressCountry: entity.address.country ?? undefined
-	}),
+	organisation: entity.organisationName,
+	organisationType: null,
+	salutation: null,
+	firstName: entity.firstName,
+	lastName: entity.lastName,
+	emailAddress: entity.email,
+	webAddress: entity.website,
+	telephoneNumber: entity.phoneNumber,
+	addressLine1: entity.address?.addressLine1 ?? null,
+	addressLine2: entity.address?.addressLine2 ?? null,
+	addressTown: entity.address?.town ?? null,
+	addressCounty: entity.address?.county ?? null,
+	postcode: entity.address?.postcode ?? null,
+	addressCountry: entity.address?.country ?? null,
 	sourceSuid: entity.id.toString(),
 	caseReference: caseReference,
 	sourceSystem,
-	serviceUserType: caseRole
+	serviceUserType: caseRole,
+	role: entity.jobTitle,
+	otherPhoneNumber: null,
+	faxNumber: null
 });

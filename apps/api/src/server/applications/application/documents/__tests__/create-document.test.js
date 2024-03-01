@@ -3,7 +3,8 @@ import config from '#config/config.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 import { EventType } from '@pins/event-client';
 import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
-import { buildNsipDocumentPayload } from '../document.js';
+import { buildDocumentFolderPath } from '../document.service.js';
+import { buildNsipDocumentPayload } from '#infrastructure/payload-builders/nsip-document.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 
 const application = {
@@ -42,9 +43,9 @@ const upsertedDocVersionResponse = {
 	fileMD5: null,
 	virusCheckStatus: null,
 	size: 7945,
-	stage: 'Correspondence',
+	stage: 'pre-application',
 	filter1: null,
-	privateBlobContainer: null,
+	privateBlobContainer: 'private-blob',
 	privateBlobPath: '/application/BC0110001/a24f43d4-a3d1-4b38-8633-cb78fc5cc67c/1',
 	publishedBlobContainer: null,
 	publishedBlobPath: null,
@@ -53,14 +54,14 @@ const upsertedDocVersionResponse = {
 	isDeleted: false,
 	examinationRefNo: null,
 	filter2: null,
-	publishedStatus: 'awaiting_upload',
+	publishedStatus: 'not_checked',
 	publishedStatusPrev: null,
 	redactedStatus: null,
 	redacted: false,
 	transcriptGuid: null,
 	Document: {
 		guid: 'a24f43d4-a3d1-4b38-8633-cb78fc5cc67c',
-		reference: 'BC0110001-000017',
+		documentReference: 'BC0110001-000017',
 		folderId: 28,
 		createdAt: new Date('2024-01-31T18:17:12.673Z'),
 		isDeleted: false,
@@ -68,7 +69,19 @@ const upsertedDocVersionResponse = {
 		caseId: 100000000,
 		documentType: 'document',
 		fromFrontOffice: false,
-		folder: []
+		folder: {
+			id: 1,
+			case: {
+				reference: 'BC0110001',
+				id: 1,
+				title: 'BC0110001 - NI Case 3 Name',
+				description: 'test',
+				createdAt: '2022-01-01T11:59:38.129Z',
+				modifiedAt: '2023-03-10T13:49:09.666Z',
+				publishedAt: null,
+				CaseStatus: [{ id: 1, status: 'draft' }]
+			}
+		}
 	}
 };
 
@@ -122,8 +135,16 @@ describe('Create documents', () => {
 		]);
 
 		const blobPath = `/application/${application.reference}/${guid}/1`;
+
+		// get the folder path and file name, needed for payload
+		const filePath = await buildDocumentFolderPath(
+			upsertedDocVersionResponse.Document.folderId,
+			upsertedDocVersionResponse.Document.folder.case.reference,
+			upsertedDocVersionResponse.fileName
+		);
+
 		// @ts-ignore
-		const eventPayload = buildNsipDocumentPayload(upsertedDocVersionResponse);
+		const eventPayload = buildNsipDocumentPayload(upsertedDocVersionResponse, filePath);
 
 		// THEN
 		expect(response.status).toEqual(200);
@@ -204,11 +225,12 @@ describe('Create documents', () => {
 			}
 		});
 
-		// // EXPECT event broadcast
+		// EXPECT event broadcast
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[eventPayload],
-			EventType.Create
+			EventType.Create,
+			{}
 		);
 	});
 

@@ -1,16 +1,17 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { ServiceBusClient } from '@azure/service-bus';
+import { GenericEventClient } from './generic-event-client.js';
 
 /** @typedef {{body: any, contentType: string, applicationProperties: Object.<string,any>}} MessageObjectToSend */
 
-export class ServiceBusEventClient {
+export class ServiceBusEventClient extends GenericEventClient {
 	/**
 	 *
 	 * @param {import('./event-client').Logger} logger
 	 * @param {string} serviceBusHostname
 	 */
 	constructor(logger, serviceBusHostname) {
-		this.logger = logger;
+		super(logger);
 		this.client = new ServiceBusClient(serviceBusHostname, new DefaultAzureCredential(), {
 			retryOptions: { maxRetries: 3 }
 		});
@@ -63,21 +64,26 @@ export class ServiceBusEventClient {
 	 * @param {Object.<string,any>?} [additionalProperties={}]
 	 */
 	sendEvents = async (topic, events, eventType, additionalProperties = {}) => {
-		if (events?.length < 1) {
-			throw Error(`No events provided for type ${eventType} and topic ${topic}`);
+		const isValid = await this.validateEventsToSchema(
+			topic,
+			events,
+			eventType,
+			additionalProperties
+		);
+
+		if (isValid) {
+			const sender = this.#createSender(topic);
+
+			const traceId = this.#createTraceId();
+
+			this.logger.info(
+				`Publishing ${events.length} events to topic ${topic} with type ${eventType}, additional properties ${additionalProperties} and trace id ${traceId}`
+			);
+
+			await sender.sendMessages(
+				this.#transformMessagesToSend(events, traceId, eventType, additionalProperties)
+			);
 		}
-
-		const sender = this.#createSender(topic);
-
-		const traceId = this.#createTraceId();
-
-		this.logger.info(
-			`Publishing ${events.length} events to topic ${topic} with type ${eventType} and trace id ${traceId}`
-		);
-
-		await sender.sendMessages(
-			this.#transformMessagesToSend(events, traceId, eventType, additionalProperties)
-		);
 
 		return events;
 	};

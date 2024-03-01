@@ -3,6 +3,7 @@ import { request } from '../../../app-test.js';
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_EXAM_TIMETABLE, FOLDER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
+import { folderCaseStageMapper } from '#utils/map-case-to-case-stage.js';
 
 const { databaseConnector } = await import('../../../utils/database-connector.js');
 
@@ -275,7 +276,8 @@ const buildExpectedFolder = (folder) => {
 		caseReference: project.reference,
 		displayNameEnglish: folder.displayNameEn,
 		displayNameWelsh: folder.displayNameCy || folder.displayNameEn,
-		parentFolderId: folder.parentFolderId
+		parentFolderId: folder.parentFolderId,
+		caseStage: folderCaseStageMapper(folder.stage)
 	};
 };
 

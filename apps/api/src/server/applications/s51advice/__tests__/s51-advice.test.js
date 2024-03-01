@@ -2,8 +2,8 @@ import { jest } from '@jest/globals';
 import { request } from '#app-test';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 import { EventType } from '@pins/event-client';
-import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
-import { buildNsipS51AdvicePayload } from '#infrastructure/payload-builders/nsip-s51-advice.js';
+import { NSIP_DOCUMENT, NSIP_S51_ADVICE } from '#infrastructure/topics.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -72,8 +72,10 @@ const applicationBase = applicationFactoryForTests({
 	reference: 'BC0110001',
 	title: 'BC010001 - NI Case 1 Name',
 	description: 'BC010001 - NI Case 1 Name Description',
-	caseStatus: 'pre-application'
+	caseStatus: 'pre-application',
+	applicantId: 1
 });
+
 const application1 = {
 	...applicationBase,
 	ApplicationDetails: {
@@ -153,6 +155,79 @@ const s51AdvicesReadyToPublish = [
 	}
 ];
 
+const folderContainingDocumentToDelete = {
+	id: 10003,
+	displayNameEn: 'Project management',
+	displayOrder: 100,
+	parentFolderId: null,
+	caseId: 100000001,
+	stage: null,
+	case: {
+		id: 100000001,
+		reference: 'BC0110001'
+	}
+};
+
+const DocumentToDelete = {
+	guid: '458a2020-cafd-4885-a78c-1c13735e1aac',
+	documentReference: 'BC0110001-000003',
+	folderId: 1734,
+	createdAt: '2023-08-16T13:57:21.992Z',
+	isDeleted: false,
+	latestVersionId: 1,
+	caseId: 1,
+	fromFrontOffice: false,
+	latestDocumentVersion: {
+		fileName: '2048px-Pittsburgh_Steelers_logo.svg',
+		mime: 'application/pdf',
+		size: 207364,
+		dateCreated: '2023-08-16T13:57:22.022Z',
+		publishedStatus: 'awaiting_upload',
+		documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
+		version: 1
+	},
+	folder: folderContainingDocumentToDelete
+};
+
+const s51Document = {
+	documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
+	version: 1,
+	lastModified: null,
+	documentType: null,
+	published: false,
+	sourceSystem: 'back-office-applications',
+	origin: null,
+	originalFilename: 'Small1.pdf',
+	fileName: 'Small1',
+	representative: null,
+	description: null,
+	owner: 'Rodrick Shanahan',
+	author: null,
+	securityClassification: null,
+	mime: 'application/pdf',
+	horizonDataID: null,
+	fileMD5: null,
+	virusCheckStatus: null,
+	size: 7945,
+	stage: '0',
+	filter1: null,
+	privateBlobContainer: 'private-blob',
+	privateBlobPath: '/application/BC0110001/a24f43d4-a3d1-4b38-8633-cb78fc5cc67c/1',
+	publishedBlobContainer: null,
+	publishedBlobPath: null,
+	dateCreated: new Date('2024-01-31T18:17:12.692Z'),
+	datePublished: null,
+	isDeleted: false,
+	examinationRefNo: null,
+	filter2: null,
+	publishedStatus: 'not_checked',
+	publishedStatusPrev: null,
+	redactedStatus: null,
+	redacted: false,
+	transcriptGuid: null,
+	Document: DocumentToDelete
+};
+
 const s51AdviceDocuments = [
 	{
 		id: 1,
@@ -160,7 +235,7 @@ const s51AdviceDocuments = [
 		documentGuid: '458a2020-cafd-4885-a78c-1c13735e1aac',
 		Document: {
 			guid: '458a2020-cafd-4885-a78c-1c13735e1aac',
-			reference: 'EN0110002-000003',
+			reference: 'BC0110001-000003',
 			folderId: 1734,
 			createdAt: '2023-08-16T13:57:21.992Z',
 			isDeleted: false,
@@ -179,6 +254,84 @@ const s51AdviceDocuments = [
 		}
 	}
 ];
+
+const expectedDocumentDeleteMessagePayload = buildPayloadEventsForSchema(NSIP_DOCUMENT, {
+	documentId: '458a2020-cafd-4885-a78c-1c13735e1aac',
+	version: 1,
+	filename: 'Small1',
+	originalFilename: 'Small1.pdf',
+	fileMD5: null,
+	size: 7945,
+	documentURI:
+		'https://127.0.0.1:10000/private-blob/application/BC0110001/a24f43d4-a3d1-4b38-8633-cb78fc5cc67c/1',
+	publishedDocumentURI: null,
+	dateCreated: '2024-01-31T18:17:12.692Z',
+	datePublished: null,
+	caseId: 1,
+	caseRef: 'BC0110001',
+	caseType: 'nsip',
+	documentReference: 'BC0110001-000003',
+	mime: 'application/pdf',
+	publishedStatus: 'not_checked',
+	sourceSystem: 'back-office-applications',
+	owner: 'Rodrick Shanahan',
+	path: 'BC0110001/Project management/Small1',
+	author: null,
+	description: null,
+	documentCaseStage: '0',
+	documentType: null,
+	examinationRefNo: null,
+	filter1: null,
+	filter2: null,
+	horizonFolderId: null,
+	lastModified: null,
+	origin: null,
+	redactedStatus: null,
+	representative: null,
+	securityClassification: null,
+	transcriptId: null,
+	virusCheckStatus: null
+});
+
+const s51AdviceToDeletePayload = buildPayloadEventsForSchema(NSIP_S51_ADVICE, {
+	caseId: 100000000,
+	title: 'Advice 1',
+	enquiryDetails: 'detail',
+	adviceDetails: 'good advice',
+	enquiryDate: '2023-01-01T10:00:00.000Z',
+	adviceDate: '2023-01-01T10:00:00.000Z',
+	caseReference: 'BC0110001',
+	adviceId: 1,
+	adviceReference: 'BC0110001-Advice-00001',
+	from: 'New Power Company',
+	agent: 'David White',
+	method: 'email',
+	adviceGivenBy: 'PINS Staff',
+	status: 'unchecked',
+	redactionStatus: 'unredacted',
+	attachmentIds: []
+});
+
+const s51AdviceToBeReturnedPayload = buildPayloadEventsForSchema(NSIP_S51_ADVICE, {
+	caseId: 100000000,
+	title: 'Advice title 1',
+	enquiryDetails: 'enquiryDetails',
+	adviceDetails: 'adviceDetails',
+	enquiryDate: '2023-01-21T10:00:00.000Z',
+	adviceDate: '2023-01-21T10:00:00.000Z',
+	caseReference: 'BC0110001',
+	adviceId: 1,
+	adviceReference: 'BC0110001-Advice-00001',
+	from: 'enquirer orgname',
+	agent: 'William Wordsworth',
+	method: 'email',
+	adviceGivenBy: 'adviser',
+	status: 'unchecked',
+	redactionStatus: 'unredacted',
+	attachmentIds: []
+});
+
+// ******* TESTS **********
 
 describe('Test S51 advice API', () => {
 	afterEach(() => {
@@ -199,7 +352,7 @@ describe('Test S51 advice API', () => {
 		// EXPECT event broadcast
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(s51AdviceToBeReturned)],
+			s51AdviceToBeReturnedPayload,
 			EventType.Create
 		);
 	});
@@ -356,8 +509,8 @@ describe('Test S51 advice API', () => {
 	test('removePublishItemFromQueue remove an s51 advice item from the ready to publish queue', async () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdviceToBeReturned);
 		databaseConnector.s51Advice.update.mockResolvedValue(s51AdviceToBeReturned);
-		databaseConnector.case.findUnique.mockResolvedValue({ id: 100000000, reference: 'TEST' });
-		// databaseConnector.s51Advice.findUnique.mockResolvedValue(s51AdviceToBeReturned);
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
 		const resp = await request
 			.post('/applications/100000000/s51-advice/remove-queue-item')
 			.send({ adviceId: 1 });
@@ -365,6 +518,13 @@ describe('Test S51 advice API', () => {
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.s51Advice.findUnique).toHaveBeenCalledTimes(2);
 		expect(databaseConnector.s51Advice.update).toHaveBeenCalledTimes(1);
+
+		// EXPECT event broadcast
+		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+			NSIP_S51_ADVICE,
+			s51AdviceToBeReturnedPayload,
+			EventType.Update
+		);
 	});
 
 	// Tests for the title unique HEAD checks
@@ -409,16 +569,29 @@ describe('Test S51 advice API', () => {
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validBeforeDelete);
 		databaseConnector.s51Advice.update.mockResolvedValue(validDeletedResponse);
 		databaseConnector.s51AdviceDocument.findMany.mockResolvedValue(s51AdviceDocuments);
+		databaseConnector.folder.findUnique.mockResolvedValue(folderContainingDocumentToDelete);
+		databaseConnector.document.findUnique.mockResolvedValue(DocumentToDelete);
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(s51Document);
 
 		const response = await request.delete('/applications/100000000/s51-advice/1').send();
 
 		expect(response.status).toEqual(200);
 		expect(response.body.isDeleted).toEqual(true);
 
-		// EXPECT event broadcast
-		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+		// EXPECT event broadcast for the attached doc
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_DOCUMENT,
+			expectedDocumentDeleteMessagePayload,
+			EventType.Delete,
+			{}
+		);
+
+		// EXPECT event broadcast for the s51 advice
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
 			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(validDeletedResponse)],
+			s51AdviceToDeletePayload,
 			EventType.Delete
 		);
 	});

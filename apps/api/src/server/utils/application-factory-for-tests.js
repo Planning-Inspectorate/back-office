@@ -97,6 +97,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  *
  * @param {{
  *  id: number,
+ *  applicantId?: number | undefined,
  *  title: string | null,
  *  description: string | null,
  *  caseStatus: string,
@@ -108,6 +109,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  */
 export const applicationFactoryForTests = ({
 	id,
+	applicantId = 1,
 	title,
 	description,
 	caseStatus,

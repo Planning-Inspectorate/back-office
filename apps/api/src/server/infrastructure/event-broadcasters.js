@@ -5,7 +5,8 @@ import {
 	NSIP_PROJECT,
 	SERVICE_USER,
 	NSIP_S51_ADVICE,
-	NSIP_REPRESENTATION
+	NSIP_REPRESENTATION,
+	NSIP_DOCUMENT
 } from './topics.js';
 import {
 	isTrainingCase,
@@ -19,19 +20,24 @@ import { buildNsipProjectPayload } from '#infrastructure/payload-builders/nsip-p
 import { buildServiceUserPayload } from '#infrastructure/payload-builders/applicant.js';
 import { buildFoldersPayload } from '#infrastructure/payload-builders/folder.js';
 import { buildNsipS51AdvicePayload } from '#infrastructure/payload-builders/nsip-s51-advice.js';
-import { verifyNotTrainingS51 } from '../applications/s51advice/s51-advice.validators.js';
+import { buildNsipDocumentPayload } from '#infrastructure/payload-builders/nsip-document.js';
 import {
 	buildNsipRepresentationPayload,
 	buildNsipRepresentationPayloadForPublish,
 	buildRepresentationServiceUserPayload
-} from './payload-builders/nsip-representation.js';
+} from '#infrastructure/payload-builders/nsip-representation.js';
+
+import { verifyNotTrainingS51 } from '../applications/s51advice/s51-advice.validators.js';
 import { batchSendEvents } from './event-batch-broadcaster.js';
+import { buildDocumentFolderPath } from '../applications/application/documents/document.service.js';
 
 const applicant = 'Applicant';
 
 /**
  * @typedef {import('@pins/applications.api').Schema.S51Advice} S51Advice
  * @typedef {import('@prisma/client').Prisma.RepresentationGetPayload<{include: {case: true, user: true, represented: true, representative: true, attachments: true, representationActions: true} }>} RepresentationWithFullDetails
+ * @typedef {import('@prisma/client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
+ * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: true}}>} S51AdviceWithS51AdviceDocuments
  */
 
 /**
@@ -77,9 +83,56 @@ export const broadcastNsipProjectEvent = async (project, eventType, options = {}
 };
 
 /**
+ * Broadcast events for an NSIP Document, works for single events or an array of docs
+ *
+ * @param {DocumentVersionWithDocumentAndFolder | DocumentVersionWithDocumentAndFolder[]} documents
+ * @param {Object} additionalProperties
+ * @param {EventType} eventType
+ */
+export const broadcastNsipDocumentEvent = async (
+	documents,
+	eventType,
+	additionalProperties = {}
+) => {
+	// if a single event, make an array with that one in it
+	const allDocuments = Array.isArray(documents) ? documents : [documents];
+
+	// the events have already occurred, but we remove non-trainings from the list before broadcasting
+	const eventPayloads = await Promise.all(
+		(
+			await filterAsync(async (doc) => {
+				try {
+					// @ts-ignore
+					await verifyNotTraining(doc.Document.caseId);
+					return true;
+				} catch (/** @type {*} */ err) {
+					logger.info(
+						`Blocked sending event for document with guid ${doc.documentGuid}: `,
+						err.message
+					);
+					return false;
+				}
+			}, allDocuments)
+		).map(async (documentVersionWithDocumentFullInfo) => {
+			// get the folder path and file name, needed for payload
+			const filePath = await buildDocumentFolderPath(
+				documentVersionWithDocumentFullInfo.Document.folderId,
+				documentVersionWithDocumentFullInfo.Document.folder.case.reference,
+				documentVersionWithDocumentFullInfo.fileName ?? ''
+			);
+			return buildNsipDocumentPayload(documentVersionWithDocumentFullInfo, filePath);
+		})
+	);
+
+	if (eventPayloads.length) {
+		await eventClient.sendEvents(NSIP_DOCUMENT, eventPayloads, eventType, additionalProperties);
+	}
+};
+
+/**
  * Broadcast events for an NSIP S51 Advice entity, works for single events or an array
  *
- * @param {S51Advice | S51Advice[]} s51Advice
+ * @param {S51AdviceWithS51AdviceDocuments | S51AdviceWithS51AdviceDocuments[]} s51Advice
  * @param {EventType} eventType
  */
 export const broadcastNsipS51AdviceEvent = async (s51Advice, eventType) => {

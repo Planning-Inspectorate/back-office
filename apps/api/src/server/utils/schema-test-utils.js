@@ -1,6 +1,11 @@
 import Ajv from 'ajv';
 import addAjvFormats from 'ajv-formats';
 import { loadAllSchemas } from 'pins-data-model';
+import { buildPayloadEventsForSchema, getSchemaNameFromTopic } from '@pins/event-client';
+
+import chalk from 'chalk';
+import { allKeyDateNames } from '../applications/key-dates/key-dates.utils.js';
+import { getSchemaNameFromTopic } from '@pins/event-client/src/generic-event-client.js';
 
 const { schemas } = await loadAllSchemas();
 
@@ -25,6 +30,93 @@ export const validateNsipDocument = (/** @type {any} */ payload) => {
 	);
 };
 
-export const removeUndefined = (/** @type {any} */ payload) => {
-	return JSON.parse(JSON.stringify(payload));
+export const mockSendEvents = async (
+	/** @type {string} */ topic,
+	/** @type {any[]} */ events,
+	/** @type {import('@pins/event-client').EventType}*/ type,
+	// eslint-disable-next-line no-unused-vars
+	/** @type {Object} */ additionalProperties = {}
+) => {
+	if (events?.length < 1) {
+		throw new Error(`No events provided for type ${type} and topic ${topic}`);
+	}
+
+	// validate the payload against the schema
+	const schemaName = getSchemaNameFromTopic(topic);
+
+	const errorMessages = await validateMessageToSchema(
+		schemaName,
+		buildPayloadEventsForSchema(topic, events)
+	);
+
+	if (errorMessages?.length) {
+		const message =
+			`Message fails schema validation on ${topic} - no dummy events broadcast for ${JSON.stringify(
+				events
+			)} with type ${type} to topic ${topic}\n` + errorMessages.join('\n');
+		console.log(chalk.red(message));
+		// throw new Error(message);
+	} else {
+		console.info(
+			chalk.yellow(
+				`Dummy publishing events ${JSON.stringify(events)} with type ${type} to topic ${topic}`
+			)
+		);
+	}
+
+	return events;
 };
+
+/**
+ * validate that a service bus event message payload is valid to the matching schema in data-model repo
+ * copy of the real fn in the event-client package
+ *
+ * @param {string} schemaName
+ * @param {object} events
+ * @returns {Promise<string[] | boolean>}
+ */
+export const validateMessageToSchema = async (schemaName, events) => {
+	const { schemas } = await loadAllSchemas();
+	const ajv = new Ajv({ schemas, allErrors: true, verbose: true });
+
+	addAjvFormats(ajv);
+
+	const schema = schemas[schemaName];
+
+	if (!schema) {
+		return [chalk.yellowBright(`No valid schema found for '${schemaName}'`)];
+	}
+
+	const validator = ajv.compile(schema);
+
+	const errorMessages = [];
+	const eventsToValidate = events instanceof Array ? events : [events];
+
+	for (const eachEvent of eventsToValidate) {
+		const isValid = validator(eachEvent);
+		if (!isValid) {
+			errorMessages.push(
+				validator.errors
+					?.map(
+						({ instancePath = '/', keyword, message, params }) =>
+							`${chalk.yellowBright(
+								`${instancePath}: keyword:${keyword} - ${message} - params:${JSON.stringify(
+									params
+								)}`
+							)}`
+					)
+					.join('\n')
+			);
+		}
+	}
+
+	return errorMessages.length ? errorMessages : true;
+};
+
+export const allNullifiedKeyDates = allKeyDateNames.reduce(
+	(acc, next) => ({ ...acc, [next]: null }),
+	{}
+);
+
+export const buildInclusionsFromQuery = (query) =>
+	Object.keys(query?.include || {}).reduce((acc, next) => ({ ...acc, [next]: true }), {});

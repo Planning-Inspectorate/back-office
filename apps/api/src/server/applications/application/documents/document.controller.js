@@ -83,7 +83,7 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 		nextReferenceIndex++;
 	}
 
-	// Obtain URLs for documents from blob storage
+	// create document, documentVersion etc records for the array of docs
 	const { response: dbResponse, failedDocuments } = await createDocuments(
 		filteredToUpload,
 		params.id

@@ -4,6 +4,8 @@ import { applicationFactoryForTests } from '#utils/application-factory-for-tests
 import { EventType } from '@pins/event-client';
 import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
 import { buildNsipS51AdvicePayload } from '#infrastructure/payload-builders/nsip-s51-advice.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
+import { mapS51AdviceStatusToSchemaStatus } from '#utils/mapping/map-s51-advice-details.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -76,8 +78,10 @@ const applicationBase = applicationFactoryForTests({
 	reference: 'BC0110001',
 	title: 'BC010001 - NI Case 1 Name',
 	description: 'BC010001 - NI Case 1 Name Description',
-	caseStatus: 'pre-application'
+	caseStatus: 'pre-application',
+	applicantId: 1
 });
+
 const application1 = {
 	...applicationBase,
 	ApplicationDetails: {
@@ -105,6 +109,26 @@ const application1 = {
 	}
 };
 
+const validS51AdvicePayload = buildPayloadEventsForSchema(NSIP_S51_ADVICE, {
+	caseId: 1,
+	title: 'Advice 1',
+	enquiryDetails: 'enquiryDetails',
+	adviceDetails: 'adviceDetails',
+	enquiryDate: '2023-01-01T10:00:00.000Z',
+	adviceDate: '2023-01-01T10:00:00.000Z',
+	caseReference: 'BC0110001',
+	adviceId: 1,
+	adviceReference: 'BC0110001-Advice-00001',
+	from: 'New Power Company',
+	agent: 'John Keats',
+	method: 'email',
+	adviceGivenBy: 'adviser',
+	status: 'unchecked',
+	redactionStatus: 'redacted',
+	attachmentIds: []
+});
+
+// ============== TESTS ===========================
 describe('Test S51 advice update status and redacted status', () => {
 	afterEach(() => {
 		jest.resetAllMocks();
@@ -146,13 +170,16 @@ describe('Test S51 advice update status and redacted status', () => {
 			data: {
 				publishedStatus: 'not_checked',
 				redactedStatus: 'redacted'
+			},
+			include: {
+				S51AdviceDocument: true
 			}
 		});
 
 		// EXPECT event broadcast
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(validS51AdviceUpdated)],
+			validS51AdvicePayload,
 			EventType.Update
 		);
 	});
@@ -165,6 +192,10 @@ describe('Test S51 advice update status and redacted status', () => {
 			publishedStatus: 'ready_to_publish',
 			publishedStatusPrev: 'not_checked'
 		};
+
+		const payloadUpdated = validS51AdvicePayload;
+		payloadUpdated[0].redactionStatus = 'redacted';
+		payloadUpdated[0].status = mapS51AdviceStatusToSchemaStatus('ready_to_publish');
 
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		databaseConnector.s51Advice.findUnique.mockResolvedValue(validS51AdviceBody);
@@ -191,13 +222,16 @@ describe('Test S51 advice update status and redacted status', () => {
 			where: { id: 1 },
 			data: {
 				publishedStatus: 'ready_to_publish'
+			},
+			include: {
+				S51AdviceDocument: true
 			}
 		});
 
 		// EXPECT event broadcast
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(validS51AdviceUpdated)],
+			payloadUpdated,
 			EventType.Update
 		);
 	});
@@ -245,6 +279,9 @@ describe('Test S51 advice update status and redacted status', () => {
 				publishedStatus: 'ready_to_publish',
 				redactedStatus: undefined,
 				publishedStatusPrev: 'not_checked'
+			},
+			include: {
+				S51AdviceDocument: true
 			}
 		});
 
@@ -297,6 +334,9 @@ describe('Test S51 advice update status and redacted status', () => {
 				publishedStatus: 'ready_to_publish',
 				redactedStatus: undefined,
 				publishedStatusPrev: 'not_checked'
+			},
+			include: {
+				S51AdviceDocument: true
 			}
 		});
 

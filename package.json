@@ -36,7 +36,7 @@
 		"web:applications": "npm run dev --workspace=@pins/applications.web",
 		"api:applications": "npm run dev --workspace=@pins/applications.api",
 		"api:test:applications": "npm run start:test --workspace=@pins/applications.api-testing",
-		"e2e:smokeTests":"npm run cy:run --workspace=@pins/e2e -- --spec cypress/e2e/back-office-applications/smokeTests.spec.js"
+		"e2e:smokeTests": "npm run cy:run --workspace=@pins/e2e -- --spec cypress/e2e/back-office-applications/smokeTests.spec.js"
 	},
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "20.0.1",
@@ -44,7 +44,8 @@
 		"got": "^12.5.2",
 		"joi": "^17.7.0",
 		"node-cache": "^5.1.2",
-		"nodemon": "3.0.3"
+		"nodemon": "3.0.3",
+		"pins-data-model": "github:Planning-Inspectorate/data-model#1.0.1"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "17.0.1",

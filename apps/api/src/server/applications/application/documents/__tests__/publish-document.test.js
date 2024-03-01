@@ -16,7 +16,14 @@ const application1 = {
 	createdAt: '2022-01-01T11:59:38.129Z',
 	modifiedAt: '2023-03-10T13:49:09.666Z',
 	publishedAt: null,
-	CaseStatus: [{ id: 1, status: 'draft' }]
+	CaseStatus: [{ id: 1, status: 'draft' }],
+	ApplicationDetails: {
+		subSector: {
+			sector: {
+				name: 'office use'
+			}
+		}
+	}
 };
 
 const document1 = {
@@ -60,7 +67,9 @@ const documentVersion1 = {
 	filter1: 'Filter Category 1',
 	filter2: null,
 	stage: null,
-	representative: null
+	representative: null,
+	horizonDataID: null,
+	transcriptGuid: null
 };
 
 const documentWithDocumentVersionWithLatest = {
@@ -91,9 +100,17 @@ const expectedEventPayload = {
 	redactedStatus: 'redacted',
 	publishedDocumentURI: 'https://127.0.0.1:10000/test-container/test-path',
 	filter1: 'Filter Category 1',
+	filter2: null,
 	description: 'a test document',
 	documentType: 'Doc Category',
-	mime: 'image/png'
+	mime: 'image/png',
+	caseType: 'nsip',
+	datePublished: null,
+	documentCaseStage: null,
+	horizonFolderId: null,
+	path: 'EN0110001/undefined/test-filename',
+	representative: null,
+	transcriptId: null
 };
 
 // -------   TESTS   ---------------------------------------------------------------

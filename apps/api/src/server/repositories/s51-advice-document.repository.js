@@ -14,6 +14,7 @@ export const create = (s51AdviceDocument) => {
 };
 
 /**
+ * get the advice documents attached to an S51 Advice
  *
  * @param {number} adviceId
  * @returns {import('@prisma/client').PrismaPromise<S51AdviceDocumentWithLatestVersion [] >}

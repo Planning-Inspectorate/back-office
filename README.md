@@ -138,6 +138,22 @@ apps/api> npm run db:migrate
 ```shell
 apps/api> npm run db:seed
 ```
+
+#### Service Bus Schema from the data-model repo
+
+Back Office broadcasts Service Bus event messages to the Azure Service bus most CRUD actions.  The schemas are in the shared repo data-model.
+A normal npm i may not correctly pull the latest version of the schemas.  If you identify that the schemas held locally in the root node_modules/pins-data-model/schemas folder are out of date:
+
+1. Identify the latest tagged release name in the data-model repo - eg "#1.0.1" from here:
+
+[data-model tags](https://github.com/Planning-Inspectorate/data-model/tags)
+
+2. run the command to remove and update to latest, in a terminal at the root level:
+
+```shell
+npm uninstall pins-data-model && npm prune && npm install github:Planning-Inspectorate/data-model#1.0.1
+```
+
 ### Running Locally the Applications Stack
 
 > [!IMPORTANT]
