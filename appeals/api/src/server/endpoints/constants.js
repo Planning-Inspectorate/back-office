@@ -119,6 +119,9 @@ export const ERROR_LINKING_APPEALS =
 
 export const ERROR_INVALID_POSTCODE = 'needs to be a valid and include spaces';
 
+export const UUID_REGEX =
+	/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
+
 export const LENGTH_1 = 1;
 export const LENGTH_8 = 8;
 export const LENGTH_10 = 10;
