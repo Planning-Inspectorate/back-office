@@ -81,7 +81,7 @@ describe('linked-appeals', () => {
 		});
 		it('should render the decision page child', async () => {
 			nock('http://test/').get('/appeals/2').reply(200, childAppealDataWithLinkedAppeals);
-			const response = await request.get(`${baseUrl}/1${linkedAppealsPath}/${managePath}/100/2`);
+			const response = await request.get(`${baseUrl}/1${linkedAppealsPath}/${managePath}/3049/2`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
