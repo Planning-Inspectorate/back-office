@@ -197,7 +197,8 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[expectedEventPayload],
-			EventType.Update
+			EventType.Update,
+			{}
 		);
 	});
 
@@ -283,7 +284,8 @@ describe('Update document statuses and redacted statuses', () => {
 			expect(eventClient.sendEvents).toHaveBeenCalledWith(
 				NSIP_DOCUMENT,
 				[expectedEventPayloadAmended],
-				EventType.Update
+				EventType.Update,
+				{}
 			);
 		});
 
@@ -383,7 +385,8 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[expectedEventPayloadAmended],
-			EventType.Update
+			EventType.Update,
+			{}
 		);
 	});
 
@@ -461,7 +464,8 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[expectedEventPayloadAmended],
-			EventType.Update
+			EventType.Update,
+			{}
 		);
 	});
 
@@ -541,7 +545,8 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[expectedEventPayloadAmended],
-			EventType.Update
+			EventType.Update,
+			{}
 		);
 	});
 
@@ -594,7 +599,26 @@ describe('Update document statuses and redacted statuses', () => {
 				document: {},
 				documentVersion: {
 					publishedStatus: 'ready_to_publish',
-					publishedStatusPrev: 'checked'
+					publishedStatusPrev: 'checked',
+					fileName: 'test-filename',
+					originalFilename: 'test-original-filename',
+					privateBlobContainer: 'test-container',
+					privateBlobPath: 'test-path',
+					size: 23452,
+					dateCreated: new Date(dateDocCreated),
+					Document: {
+						folder: {
+							case: {
+								ApplicationDetails: {
+									subSector: {
+										sector: {
+											name: 'office use'
+										}
+									}
+								}
+							}
+						}
+					}
 				},
 				want: {
 					status: 200,
@@ -613,6 +637,7 @@ describe('Update document statuses and redacted statuses', () => {
 				databaseConnector.case.findUnique.mockResolvedValue(application1);
 				databaseConnector.document.findUnique.mockReset();
 				databaseConnector.documentVersion.findUnique.mockReset();
+				databaseConnector.documentVersion.update.mockReset();
 
 				if (document) {
 					databaseConnector.document.findUnique.mockResolvedValueOnce({
@@ -623,6 +648,7 @@ describe('Update document statuses and redacted statuses', () => {
 
 				if (documentVersion) {
 					databaseConnector.documentVersion.findUnique.mockResolvedValueOnce(documentVersion);
+					databaseConnector.documentVersion.update.mockResolvedValueOnce(documentVersion);
 				}
 
 				// action

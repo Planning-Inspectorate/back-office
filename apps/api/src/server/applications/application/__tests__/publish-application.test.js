@@ -5,6 +5,25 @@ const { databaseConnector } = await import('#utils/database-connector.js');
 
 const now = 1_649_319_144_000;
 const mockDate = new Date(now);
+const expectedNsipProjectPayload = {
+	caseId: 1,
+	caseReference: 'TEST',
+	projectName: undefined,
+	projectDescription: undefined,
+	sourceSystem: 'back-office-applications',
+	publishStatus: 'published',
+	applicantId: '1',
+	nsipOfficerIds: [],
+	nsipAdministrationOfficerIds: [],
+	inspectorIds: [],
+	operationsLeadId: null,
+	operationsManagerId: null,
+	caseManagerId: null,
+	leadInspectorId: null,
+	environmentalServicesOfficerId: null,
+	legalOfficerId: null,
+	migrationStatus: null
+};
 
 jest.useFakeTimers({ now });
 
@@ -20,6 +39,7 @@ describe('Publish application', () => {
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
 			reference: 'TEST',
+			applicant: { id: 1 },
 			CasePublishedState: [{ createdAt: mockDate, isPublished: true }]
 		});
 		databaseConnector.case.update.mockResolvedValue({
@@ -52,17 +72,7 @@ describe('Publish application', () => {
 
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-project',
-			[
-				{
-					caseId: 1,
-					caseReference: 'TEST',
-					sourceSystem: 'back-office-applications',
-					publishStatus: 'published',
-					nsipOfficerIds: [],
-					nsipAdministrationOfficerIds: [],
-					inspectorIds: []
-				}
-			],
+			[expectedNsipProjectPayload],
 			'Publish'
 		);
 	});

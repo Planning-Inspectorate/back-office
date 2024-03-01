@@ -64,6 +64,16 @@ const mapPreApplicationDates = (value, key) =>
 	key === 'submissionAtPublished' ? `${value || ''}` : mapDateToUnixTimestamp(value);
 
 /**
+ * @param {Date} value
+ * @param {string} key
+ *
+ * @returns {string|null}
+ */
+const mapDateToISOString = (value, key) =>
+	// 'submissionAtPublished' is a string not a date, so we don't convert to a UNIX Timestamp
+	key === 'submissionAtPublished' ? `${value || null}` : value ? value.toISOString() : null;
+
+/**
  * @param {import('@pins/applications.api').Schema.ApplicationDetails} keyDates
  *
  * @returns {Object<string,Object<string, any>>} keyDateResponse
@@ -79,4 +89,38 @@ export const mapKeyDatesToResponse = (keyDates) => {
 		postDecision: mapValues(pick(keyDates, postDecisionDateNames), mapDateToUnixTimestamp),
 		withdrawal: mapValues(pick(keyDates, withdrawalDateNames), mapDateToUnixTimestamp)
 	};
+};
+
+/**
+ * Convert all key dates into ISO Strings - eg for schema compatibility
+ *
+ * @param {import('@pins/applications.api').Schema.ApplicationDetails} keyDates
+ * @returns {*} keyDateResponse
+ */
+export const mapKeyDatesToISOStrings = (keyDates) => {
+	let allKeyDatesConverted = {};
+	const allDates = {
+		preApplication: mapValues(pick(keyDates, preApplicationDateNames), mapDateToISOString),
+		acceptance: mapValues(pick(keyDates, acceptanceDateNames), mapDateToISOString),
+		preExamination: mapValues(pick(keyDates, preExaminationDateNames), mapDateToISOString),
+		examination: mapValues(pick(keyDates, examinationDateNames), mapDateToISOString),
+		recommendation: mapValues(pick(keyDates, recommendationDateNames), mapDateToISOString),
+		decision: mapValues(pick(keyDates, decisionDateNames), mapDateToISOString),
+		postDecision: mapValues(pick(keyDates, postDecisionDateNames), mapDateToISOString),
+		withdrawal: mapValues(pick(keyDates, withdrawalDateNames), mapDateToISOString)
+	};
+
+	Object.assign(
+		allKeyDatesConverted,
+		allDates.preApplication,
+		allDates.acceptance,
+		allDates.preExamination,
+		allDates.examination,
+		allDates.recommendation,
+		allDates.decision,
+		allDates.postDecision,
+		allDates.withdrawal
+	);
+
+	return allKeyDatesConverted;
 };

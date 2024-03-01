@@ -87,13 +87,14 @@ export const getLatestRecordByCaseId = (caseId) => {
  *
  * @param {number} id
  * @param {*} s51AdviceDetails
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51Advice>}
+ * @returns {Promise<S51AdviceWithS51AdviceDocuments>}
  */
 
 export const update = (id, s51AdviceDetails) => {
 	return databaseConnector.s51Advice.update({
 		where: { id },
-		data: s51AdviceDetails
+		data: s51AdviceDetails,
+		include: { S51AdviceDocument: true }
 	});
 };
 
@@ -282,11 +283,12 @@ export const getS51AdviceManyByTitle = (caseId, title) => {
  * Soft Delete of an S51 Advice
  *
  * @param {number} id
- * @returns {Promise<import('@pins/applications.api').Schema.S51Advice | null>}
+ * @returns {Promise<S51AdviceWithS51AdviceDocuments | null>}
  */
 export const deleteSoftlyById = (id) => {
 	return databaseConnector.s51Advice.update({
 		where: { id },
-		data: { isDeleted: true }
+		data: { isDeleted: true },
+		include: { S51AdviceDocument: true }
 	});
 };

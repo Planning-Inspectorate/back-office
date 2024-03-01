@@ -205,7 +205,8 @@ describe('delete Document', () => {
 		expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
 			NSIP_DOCUMENT,
 			[expectedDeleteMessagePayload],
-			EventType.Delete
+			EventType.Delete,
+			{}
 		);
 	});
 
