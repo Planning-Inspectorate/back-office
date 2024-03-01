@@ -18,9 +18,11 @@ export const formatLinkableAppealSummary = (appeal) => {
 		},
 		localPlanningDepartment: appeal.lpa.name,
 		appellantName: `${appeal.appellant?.firstName} ${appeal.appellant?.lastName}`,
-		agentName: `${appeal.agent?.firstName} ${appeal.agent?.lastName} ${
-			appeal.agent?.organisationName ? '(' + appeal.agent?.organisationName + ')' : ''
-		}`,
+		agentName: appeal.agent
+			? `${appeal.agent?.firstName} ${appeal.agent?.lastName} ${
+					appeal.agent?.organisationName ? '(' + appeal.agent?.organisationName + ')' : ''
+			  }`
+			: 'No agent',
 		submissionDate: new Date(appeal.createdAt).toISOString(),
 		source: 'back-office'
 	};

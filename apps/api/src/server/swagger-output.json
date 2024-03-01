@@ -16,6 +16,50 @@
 	"schemes": [],
 	"securityDefinitions": {},
 	"paths": {
+		"/migration/{modelType}": {
+			"post": {
+				"tags": ["Migration"],
+				"description": "Updates document status from state machine",
+				"parameters": [
+					{
+						"name": "modelType",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "Model type to migrate"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Models",
+						"schema": {
+							"type": "array",
+							"example": [],
+							"items": {}
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Models successfully migrated"
+					}
+				}
+			}
+		},
 		"/applications/": {
 			"get": {
 				"tags": ["Applications"],
@@ -1444,7 +1488,7 @@
 		"/applications/{id}/documents": {
 			"post": {
 				"tags": ["Applications"],
-				"description": "Saves new documents to database and returns location in Blob Storage",
+				"description": "Saves new documents to database and returns document info and location in Blob Storage",
 				"parameters": [
 					{
 						"name": "id",
@@ -2134,7 +2178,7 @@
 		"/applications/documents/{guid}/path": {
 			"get": {
 				"tags": ["Applications"],
-				"description": "Gets the array of folders containing a document",
+				"description": "Gets the folder path of a document, as an array",
 				"parameters": [
 					{
 						"name": "guid",
