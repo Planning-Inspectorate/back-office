@@ -600,10 +600,10 @@ const linkAppeal = async (relation) => {
 /**
  *
  * @param {number} appealRelationshipId
- * @returns {Promise<void>}
+ * @returns {Promise<AppealRelationship>}
  */
 const unlinkAppeal = async (appealRelationshipId) => {
-	await databaseConnector.appealRelationship.delete({
+	return await databaseConnector.appealRelationship.delete({
 		where: {
 			id: appealRelationshipId
 		}
