@@ -245,7 +245,7 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 		})),
 		...incompleteDocuments.map((id) => ({
 			guid: id,
-			msg: 'You must fill in all mandatory document properties to publish a document.',
+			msg: 'You must fill in all mandatory document properties to publish a document',
 			type: 'missing-properties'
 		}))
 	];
