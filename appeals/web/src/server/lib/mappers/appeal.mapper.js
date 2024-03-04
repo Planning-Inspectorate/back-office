@@ -480,7 +480,7 @@ export async function initialiseAndMapAppealData(
 					text: 'LPA reference'
 				},
 				value: {
-					text: appealDetails.appealReference || 'No LPA reference for this appeal'
+					text: appealDetails.planningApplicationReference || 'No LPA reference for this appeal'
 				},
 				actions: {
 					items: [
