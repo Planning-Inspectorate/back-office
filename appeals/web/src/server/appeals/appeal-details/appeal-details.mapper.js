@@ -98,6 +98,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 				mappedData.appeal.appellantInspectorAccess.display.summaryListItem,
 				mappedData.appeal.neighbouringSiteIsAffected.display.summaryListItem,
 				...neighbouringSitesSummaryLists,
+				mappedData.appeal.inspectorNeighbouringSites.display.summaryListItem,
 				mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
 				mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
 				mappedData.appeal.visitType.display.summaryListItem

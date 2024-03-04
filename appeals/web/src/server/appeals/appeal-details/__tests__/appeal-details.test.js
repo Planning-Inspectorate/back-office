@@ -208,6 +208,49 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render a "Neighbouring site added" notification banner when the a neighbouring site was added', async () => {
+			const appealReference = '1';
+
+			nock.cleanAll();
+			nock('http://test/')
+				.post(`/appeals/${appealReference}/neighbouring-sites`)
+				.reply(200, {
+					siteId: 1,
+					address: {
+						addressLine1: '1 Grove Cottage',
+						addressLine2: 'Shotesham Road',
+						country: 'United Kingdom',
+						county: 'Devon',
+						postcode: 'NR35 2ND',
+						town: 'Woodton'
+					}
+				});
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData);
+
+			const addNeighbouringSiteResponse = await request
+				.post(`${baseUrl}/1/neighbouring-sites/add`)
+				.send({
+					addressLine1: '1 Grove Cottage',
+					addressLine2: null,
+					county: 'Devon',
+					postCode: 'NR35 2ND',
+					town: 'Woodton'
+				});
+
+			expect(addNeighbouringSiteResponse.statusCode).toBe(302);
+
+			const addLinkedAppealCheckAndConfirmPostResponse = await request.post(
+				`${baseUrl}/1/neighbouring-sites/add/check-and-confirm`
+			);
+
+			expect(addLinkedAppealCheckAndConfirmPostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is in the future', async () => {
 			const appealId = '2';
 
