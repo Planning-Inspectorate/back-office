@@ -1,4 +1,12 @@
 import appealRepository from '#repositories/appeal.repository.js';
+import { createAuditTrail } from '#endpoints/audit-trails/audit-trails.service.js';
+import { broadcastAppealState } from '#endpoints/integrations/integrations.service.js';
+import {
+	AUDIT_TRAIL_APPEAL_LINK_ADDED,
+	AUDIT_TRAIL_APPEAL_LINK_REMOVED,
+	AUDIT_TRAIL_APPEAL_RELATION_ADDED,
+	AUDIT_TRAIL_APPEAL_RELATION_REMOVED
+} from '#endpoints/constants.js';
 import { canLinkAppeals } from './link-appeals.service.js';
 import {
 	CASE_RELATIONSHIP_LINKED,
@@ -53,6 +61,13 @@ export const linkAppeal = async (req, res) => {
 			  };
 
 		const result = await appealRepository.linkAppeal(relationship);
+		await createAuditTrail({
+			appealId: currentAppeal.id,
+			azureAdUserId: req.get('azureAdUserId'),
+			details: AUDIT_TRAIL_APPEAL_LINK_ADDED
+		});
+
+		await broadcastAppealState(currentAppeal.id);
 		return res.send(result);
 	}
 
@@ -97,6 +112,13 @@ export const linkExternalAppeal = async (req, res) => {
 		  };
 
 	const result = await appealRepository.linkAppeal(relationship);
+	await createAuditTrail({
+		appealId: currentAppeal.id,
+		azureAdUserId: req.get('azureAdUserId'),
+		details: AUDIT_TRAIL_APPEAL_LINK_ADDED
+	});
+
+	await broadcastAppealState(currentAppeal.id);
 	return res.send(result);
 };
 
@@ -121,6 +143,13 @@ export const associateAppeal = async (req, res) => {
 		};
 
 		const result = await appealRepository.linkAppeal(relationship);
+		await createAuditTrail({
+			appealId: currentAppeal.id,
+			azureAdUserId: req.get('azureAdUserId'),
+			details: AUDIT_TRAIL_APPEAL_RELATION_ADDED
+		});
+
+		await broadcastAppealState(currentAppeal.id);
 		return res.send(result);
 	}
 
@@ -144,6 +173,13 @@ export const associateExternalAppeal = async (req, res) => {
 		externalSource: true
 	};
 	const result = await appealRepository.linkAppeal(relationship);
+	await createAuditTrail({
+		appealId: currentAppeal.id,
+		azureAdUserId: req.get('azureAdUserId'),
+		details: AUDIT_TRAIL_APPEAL_RELATION_ADDED
+	});
+
+	await broadcastAppealState(currentAppeal.id);
 	return res.send(result);
 };
 
@@ -154,7 +190,17 @@ export const associateExternalAppeal = async (req, res) => {
  */
 export const unlinkAppeal = async (req, res) => {
 	const { relationshipId } = req.body;
-	await appealRepository.unlinkAppeal(relationshipId);
+	const currentAppeal = req.appeal;
+	const linkDetails = await appealRepository.unlinkAppeal(relationshipId);
+	await createAuditTrail({
+		appealId: currentAppeal.id,
+		azureAdUserId: req.get('azureAdUserId'),
+		details:
+			linkDetails.type === CASE_RELATIONSHIP_LINKED
+				? AUDIT_TRAIL_APPEAL_LINK_REMOVED
+				: AUDIT_TRAIL_APPEAL_RELATION_REMOVED
+	});
 
+	await broadcastAppealState(currentAppeal.id);
 	return res.status(200).send(true);
 };
