@@ -3,13 +3,13 @@
 exports[`linked-appeals GET /change-appeal-type/appeal-type should render the decision page child 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 76215416</span>
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Manage linked appeals</h1>
         </div>
     </div>
     <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--grey single-line">Child</strong>
     </div>
-    <h2 class="govuk-!-margin-top-6">Lead appeal of 351062</h2>
+    <h2 class="govuk-!-margin-top-6">Lead appeal of 76215416</h2>
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -23,7 +23,7 @@ exports[`linked-appeals GET /change-appeal-type/appeal-type should render the de
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="Appeal 3 5 1 0 6 2">351062</a>
                 </td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/1/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/1/3049">Unlink</a>
                 </td>
             </tr>
         </tbody>
@@ -42,14 +42,14 @@ exports[`linked-appeals GET /change-appeal-type/appeal-type should render the de
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 7 2 5 2 8 4">725284</a>
                 </td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/2/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/2/3048">Unlink</a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/null" aria-label="Appeal 7 6 2 1 5 4 1 6">76215416</a>
                 </td>
                 <td class="govuk-table__cell">Unknown</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/null/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/null/3049">Unlink</a>
                 </td>
             </tr>
         </tbody>
@@ -80,14 +80,14 @@ exports[`linked-appeals GET /change-appeal-type/appeal-type should render the de
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 7 2 5 2 8 4">725284</a>
                 </td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/2/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/2/3046">Unlink</a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/null" aria-label="Appeal 7 6 2 1 5 4 1 6">76215416</a>
                 </td>
                 <td class="govuk-table__cell">Unknown</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/null/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/null/3047">Unlink</a>
                 </td>
             </tr>
         </tbody>

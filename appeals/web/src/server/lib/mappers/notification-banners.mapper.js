@@ -103,6 +103,11 @@ export const notificationBannerDefinitions = {
 	otherAppeal: {
 		pages: ['appealDetails'],
 		type: 'success'
+	},
+	neighbouringSiteAdded: {
+		type: 'success',
+		pages: ['appealDetails'],
+		html: `<p class="govuk-notification-banner__heading">Neighbouring site added.</p>`
 	}
 };
 

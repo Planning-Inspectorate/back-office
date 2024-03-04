@@ -1,0 +1,447 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`neighbouring-sites GET /add should render getAllNeighbouringSite page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Add neighbouring site</h1>
+                </div>
+            </div>
+            <form method="POST" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-1">Address line 1</label>
+                    <input class="govuk-input" id="address-line-1" name="addressLine1"
+                    type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-2">Address line 2 (optional)</label>
+                    <input class="govuk-input" id="address-line-2"
+                    name="addressLine2" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-town">Town or city</label>
+                    <input class="govuk-input" id="address-town" name="town"
+                    type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-county">County (optional)</label>
+                    <input class="govuk-input" id="address-county"
+                    name="county" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-postcode">Postcode</label>
+                    <input class="govuk-input govuk-input govuk-input--width-10"
+                    id="address-postcode" name="postCode" type="text">
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`neighbouring-sites GET /add/check-and-confirm should render the check your answers page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l">Check your answers</h1>
+                </div>
+            </div>
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Address</dt>
+                    <dd class="govuk-summary-list__value">123 Long Road, London, E1 8RU</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/neighbouring-sites/add"> Change</a>
+                    </dd>
+                </div>
+            </dl>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`neighbouring-sites POST /add should re-render getAllNeighbouringSite page if addressLine1 is an empty string 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#addressLine1">Enter the first line of the address</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Add neighbouring site</h1>
+                </div>
+            </div>
+            <form method="POST" novalidate="novalidate">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <label class="govuk-label" for="address-line-1">Address line 1</label>
+                    <p id="address-line-1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter address line 1,
+                        typically the building and street</p>
+                    <input class="govuk-input govuk-input--error"
+                    id="address-line-1" name="addressLine1" type="text" aria-describedby="address-line-1-error">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-2">Address line 2 (optional)</label>
+                    <input class="govuk-input" id="address-line-2"
+                    name="addressLine2" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-town">Town or city</label>
+                    <input class="govuk-input" id="address-town" name="town"
+                    type="text" value="London">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-county">County (optional)</label>
+                    <input class="govuk-input" id="address-county"
+                    name="county" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-postcode">Postcode</label>
+                    <input class="govuk-input govuk-input govuk-input--width-10"
+                    id="address-postcode" name="postCode" type="text" value="E1 8RU">
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`neighbouring-sites POST /add should re-render getAllNeighbouringSite page if addressLine1 is null 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#addressLine1">Enter the first line of the address</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Add neighbouring site</h1>
+                </div>
+            </div>
+            <form method="POST" novalidate="novalidate">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <label class="govuk-label" for="address-line-1">Address line 1</label>
+                    <p id="address-line-1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter address line 1,
+                        typically the building and street</p>
+                    <input class="govuk-input govuk-input--error"
+                    id="address-line-1" name="addressLine1" type="text" aria-describedby="address-line-1-error">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-2">Address line 2 (optional)</label>
+                    <input class="govuk-input" id="address-line-2"
+                    name="addressLine2" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-town">Town or city</label>
+                    <input class="govuk-input" id="address-town" name="town"
+                    type="text" value="London">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-county">County (optional)</label>
+                    <input class="govuk-input" id="address-county"
+                    name="county" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-postcode">Postcode</label>
+                    <input class="govuk-input govuk-input govuk-input--width-10"
+                    id="address-postcode" name="postCode" type="text" value="E1 8RU">
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`neighbouring-sites POST /add should re-render getAllNeighbouringSite page if the postcode is an empty string 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#postCode">Enter postcode</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Add neighbouring site</h1>
+                </div>
+            </div>
+            <form method="POST" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-1">Address line 1</label>
+                    <input class="govuk-input" id="address-line-1" name="addressLine1"
+                    type="text" value="123 Long Road">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-2">Address line 2 (optional)</label>
+                    <input class="govuk-input" id="address-line-2"
+                    name="addressLine2" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-town">Town or city</label>
+                    <input class="govuk-input" id="address-town" name="town"
+                    type="text" value="London">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-county">County (optional)</label>
+                    <input class="govuk-input" id="address-county"
+                    name="county" type="text">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error">
+                    <label class="govuk-label" for="address-postcode">Postcode</label>
+                    <p id="address-postcode-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a valid postcode</p>
+                    <input                     class="govuk-input govuk-input govuk-input--width-10 govuk-input--error"
+                    id="address-postcode" name="postCode" type="text" aria-describedby="address-postcode-error">
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`neighbouring-sites POST /add should re-render getAllNeighbouringSite page if the postcode is invalid 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#postCode">Invalid postcode</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Add neighbouring site</h1>
+                </div>
+            </div>
+            <form method="POST" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-1">Address line 1</label>
+                    <input class="govuk-input" id="address-line-1" name="addressLine1"
+                    type="text" value="123 Long Road">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-2">Address line 2 (optional)</label>
+                    <input class="govuk-input" id="address-line-2"
+                    name="addressLine2" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-town">Town or city</label>
+                    <input class="govuk-input" id="address-town" name="town"
+                    type="text" value="London">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-county">County (optional)</label>
+                    <input class="govuk-input" id="address-county"
+                    name="county" type="text">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error">
+                    <label class="govuk-label" for="address-postcode">Postcode</label>
+                    <p id="address-postcode-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a valid postcode</p>
+                    <input                     class="govuk-input govuk-input govuk-input--width-10 govuk-input--error"
+                    id="address-postcode" name="postCode" type="text" value="111" aria-describedby="address-postcode-error">
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`neighbouring-sites POST /add should re-render getAllNeighbouringSite page if the postcode is null 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#postCode">Enter postcode</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Add neighbouring site</h1>
+                </div>
+            </div>
+            <form method="POST" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-1">Address line 1</label>
+                    <input class="govuk-input" id="address-line-1" name="addressLine1"
+                    type="text" value="123 Long Road">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-2">Address line 2 (optional)</label>
+                    <input class="govuk-input" id="address-line-2"
+                    name="addressLine2" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-town">Town or city</label>
+                    <input class="govuk-input" id="address-town" name="town"
+                    type="text" value="London">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-county">County (optional)</label>
+                    <input class="govuk-input" id="address-county"
+                    name="county" type="text">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error">
+                    <label class="govuk-label" for="address-postcode">Postcode</label>
+                    <p id="address-postcode-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a valid postcode</p>
+                    <input                     class="govuk-input govuk-input govuk-input--width-10 govuk-input--error"
+                    id="address-postcode" name="postCode" type="text" aria-describedby="address-postcode-error">
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`neighbouring-sites POST /add should re-render getAllNeighbouringSite page if town is an empty string 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#town">Enter the town</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Add neighbouring site</h1>
+                </div>
+            </div>
+            <form method="POST" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-1">Address line 1</label>
+                    <input class="govuk-input" id="address-line-1" name="addressLine1"
+                    type="text" value="123 Long Road">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-2">Address line 2 (optional)</label>
+                    <input class="govuk-input" id="address-line-2"
+                    name="addressLine2" type="text">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error">
+                    <label class="govuk-label" for="address-town">Town or city</label>
+                    <p id="address-town-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter town or city</p>
+                    <input                     class="govuk-input govuk-input--error" id="address-town" name="town" type="text"
+                    aria-describedby="address-town-error">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-county">County (optional)</label>
+                    <input class="govuk-input" id="address-county"
+                    name="county" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-postcode">Postcode</label>
+                    <input class="govuk-input govuk-input govuk-input--width-10"
+                    id="address-postcode" name="postCode" type="text" value="E1 8RU">
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`neighbouring-sites POST /add should re-render getAllNeighbouringSite page if town is null 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#town">Enter the town</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-3">Add neighbouring site</h1>
+                </div>
+            </div>
+            <form method="POST" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-1">Address line 1</label>
+                    <input class="govuk-input" id="address-line-1" name="addressLine1"
+                    type="text" value="123 Long Road">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-line-2">Address line 2 (optional)</label>
+                    <input class="govuk-input" id="address-line-2"
+                    name="addressLine2" type="text">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error">
+                    <label class="govuk-label" for="address-town">Town or city</label>
+                    <p id="address-town-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter town or city</p>
+                    <input                     class="govuk-input govuk-input--error" id="address-town" name="town" type="text"
+                    aria-describedby="address-town-error">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-county">County (optional)</label>
+                    <input class="govuk-input" id="address-county"
+                    name="county" type="text">
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="address-postcode">Postcode</label>
+                    <input class="govuk-input govuk-input govuk-input--width-10"
+                    id="address-postcode" name="postCode" type="text" value="E1 8RU">
+                </div>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;

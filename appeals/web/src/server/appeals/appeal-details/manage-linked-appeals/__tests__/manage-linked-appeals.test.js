@@ -28,14 +28,16 @@ const leadAppealDataWithLinkedAppeals = {
 			appealReference: 'APP/Q9999/D/21/725284',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
-			appealType: 'Householder'
+			appealType: 'Householder',
+			relationshipId: 3046
 		},
 		{
 			appealId: null,
 			appealReference: '76215416',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
-			appealType: 'Unknown'
+			appealType: 'Unknown',
+			relationshipId: 3047
 		}
 	]
 };
@@ -49,14 +51,16 @@ const childAppealDataWithLinkedAppeals = {
 			appealReference: 'APP/Q9999/D/21/725284',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
-			appealType: 'Householder'
+			appealType: 'Householder',
+			relationshipId: 3048
 		},
 		{
 			appealId: null,
 			appealReference: '76215416',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
-			appealType: 'Unknown'
+			appealType: 'Unknown',
+			relationshipId: 3049
 		}
 	]
 };
@@ -77,7 +81,7 @@ describe('linked-appeals', () => {
 		});
 		it('should render the decision page child', async () => {
 			nock('http://test/').get('/appeals/2').reply(200, childAppealDataWithLinkedAppeals);
-			const response = await request.get(`${baseUrl}/1${linkedAppealsPath}/${managePath}/100/2`);
+			const response = await request.get(`${baseUrl}/1${linkedAppealsPath}/${managePath}/3049/2`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();

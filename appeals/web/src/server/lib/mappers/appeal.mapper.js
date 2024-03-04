@@ -801,6 +801,33 @@ export async function initialiseAndMapAppealData(
 	}
 
 	/** @type {Instructions} */
+	mappedData.appeal.inspectorNeighbouringSites = {
+		id: 'neighbouring-sites-inspector',
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Neighbouring sites (Inspector and/or third party request)'
+				},
+				value: {
+					html:
+						appealDetails.neighbouringSites && appealDetails.neighbouringSites.length > 0
+							? displayPageFormatter.formatListOfAddresses(appealDetails.neighbouringSites)
+							: 'None'
+				},
+				actions: {
+					items: [
+						{
+							text: 'Add',
+							href: `${currentRoute}/neighbouring-sites/add`,
+							visuallyHiddenText: 'Neighbouring sites (Inspector and/or third party request)'
+						}
+					]
+				}
+			}
+		}
+	};
+
+	/** @type {Instructions} */
 	mappedData.appeal.lpaHealthAndSafety = {
 		id: 'lpa-health-and-safety',
 		display: {

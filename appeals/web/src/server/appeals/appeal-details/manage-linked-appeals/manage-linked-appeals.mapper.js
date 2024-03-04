@@ -72,7 +72,7 @@ export function manageLinkedAppealsPage(appealData, relationshipId, appealId, pa
 							text: appealData.appealType
 						},
 						{
-							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${appealId}/${matchingLinkedAppeal?.relationshipId}">Unlink</a>`
+							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/unlink-appeal/${appealId}/${matchingLinkedAppeal?.relationshipId}">Unlink</a>`
 						}
 					]
 				]
@@ -98,7 +98,7 @@ export function manageLinkedAppealsPage(appealData, relationshipId, appealId, pa
 					text: linkedAppeal.appealType
 				},
 				{
-					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${linkedAppeal.appealId}/${linkedAppeal.relationshipId}">Unlink</a>`
+					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/unlink-appeal/${linkedAppeal.appealId}/${linkedAppeal.relationshipId}">Unlink</a>`
 				}
 			];
 		});
@@ -472,7 +472,7 @@ export function unlinkAppealPage(appealData, childRef) {
 	/** @type {PageContent} */
 	const pageContent = {
 		title: titleAndHeading,
-		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/linked-appeals`,
+		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/linked-appeals`,
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: titleAndHeading,
 		pageComponents: [selectAppealTypeRadiosComponent]
