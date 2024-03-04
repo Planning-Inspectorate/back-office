@@ -313,7 +313,18 @@ export function mapDocumentStatus(status, dueDate) {
 }
 
 /**
- *
+ * @param {string|null|undefined} freeText
+ * @returns {string}
+ */
+export function formatFreeTextForDisplay(freeText) {
+	if (!freeText || freeText.length === 0) {
+		return '';
+	}
+
+	return freeText.replaceAll(/\n/g, '<br>');
+}
+
+/**
  * @param {{address: import('@pins/appeals.api').Appeals.AppealSite}[]} arrayOfAddresses
  * @returns
  */
