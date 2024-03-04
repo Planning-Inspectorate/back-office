@@ -6523,7 +6523,7 @@
 				"sourceSystem": {
 					"type": "string",
 					"description": "Source system of the document",
-					"example": "back-office"
+					"example": "back-office-applications"
 				},
 				"privateBlobContainer": {
 					"type": "string",
@@ -6660,7 +6660,7 @@
 				"sourceSystem": {
 					"type": "string",
 					"description": "Source system of the document",
-					"example": "back-office"
+					"example": "back-office-applications"
 				},
 				"origin": {
 					"type": "string",
@@ -6919,7 +6919,7 @@
 				"sourceSystem": {
 					"type": "string",
 					"description": "Source system of the document",
-					"example": "back-office"
+					"example": "back-office-applications"
 				},
 				"origin": {
 					"type": "string",
@@ -7290,7 +7290,7 @@
 				"sourceSystem": {
 					"type": "string",
 					"description": "Source system of the document",
-					"example": "back-office"
+					"example": "back-office-applications"
 				},
 				"documentGuid": {
 					"type": "string",

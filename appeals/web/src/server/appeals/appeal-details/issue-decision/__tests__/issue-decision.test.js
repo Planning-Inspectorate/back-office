@@ -198,7 +198,7 @@ describe('issue-decision', () => {
 			const mockReason = 'Reasons!';
 			const response = await request
 				.post(`${baseUrl}/${mockAppealId}/issue-decision/invalid-reason`)
-				.send({ invalidReason: mockReason })
+				.send({ decisionInvalidReason: mockReason })
 				.expect(302);
 
 			expect(response.headers.location).toBe(
@@ -224,7 +224,7 @@ describe('issue-decision', () => {
 			const mockReason = 'Reasons!';
 			const invalidReasonResponse = await request
 				.post(`${baseUrl}/${mockAppealId}/issue-decision/invalid-reason`)
-				.send({ invalidReason: mockReason })
+				.send({ decisionInvalidReason: mockReason })
 				.expect(302);
 
 			expect(invalidReasonResponse.headers.location).toBe(

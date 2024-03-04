@@ -2,6 +2,7 @@ import { Router as createRouter } from 'express';
 import asyncRoute from '#lib/async-route.js';
 import * as controller from './issue-decision.controller.js';
 import * as validators from './issue-decision.validators.js';
+import { createTextAreaSanitizer } from '#lib/sanitizers/textarea-sanitizer.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -28,7 +29,11 @@ router
 router
 	.route('/invalid-reason')
 	.get(asyncRoute(controller.getInvalidReason))
-	.post(validators.validateTextArea, asyncRoute(controller.postInvalidReason));
+	.post(
+		createTextAreaSanitizer('decisionInvalidReason'),
+		validators.validateTextArea,
+		asyncRoute(controller.postInvalidReason)
+	);
 
 router
 	.route('/check-your-decision')

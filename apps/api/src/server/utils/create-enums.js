@@ -76,7 +76,7 @@ export const securityClassificationEnum = new Enum(['public', 'official', 'secre
 
 export const sourceSystemEnum = new Enum([
 	'appeals',
-	'back-office',
+	'back-office-applications',
 	'horizon',
 	'ni_file',
 	'sharepoint'

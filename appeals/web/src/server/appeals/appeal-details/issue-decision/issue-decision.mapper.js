@@ -302,6 +302,7 @@ export function invalidReasonPage(appealData, invalidReason) {
 		pageComponents: [invalidReasonComponent]
 	};
 }
+
 /**
  * @param {import('@pins/express/types/express.js').Request} request
  * @param {Appeal} appealData
@@ -337,7 +338,7 @@ export function checkAndConfirmInvalidPage(request, appealData, session) {
 						text: 'Why the appeal is invalid'
 					},
 					value: {
-						text: session.invalidReason
+						html: displayPageFormatter.formatFreeTextForDisplay(session.invalidReason)
 					},
 					actions: {
 						items: [
