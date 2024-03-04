@@ -33,6 +33,13 @@ export const AUDIT_TRAIL_REMOVED_INSPECTOR =
 	'The inspector {replacement0} was removed from the case';
 export const AUDIT_TRAIL_SITE_VISIT_ARRANGED = 'The site visit was arranged for {replacement0}';
 export const AUDIT_TRAIL_SITE_VISIT_TYPE_SELECTED = 'The site visit type was selected';
+export const AUDIT_TRAIL_APPEAL_LINK_ADDED = 'A linked appeal was added';
+export const AUDIT_TRAIL_APPEAL_LINK_REMOVED = 'A linked appeal was removed';
+export const AUDIT_TRAIL_APPEAL_RELATION_ADDED = 'A related appeal was added';
+export const AUDIT_TRAIL_APPEAL_RELATION_REMOVED = 'A related appeal was removed';
+export const AUDIT_TRAIL_ADDRESS_ADDED = 'A neighbouring address was added';
+export const AUDIT_TRAIL_ADDRESS_UPDATED = 'A neighbouring address was updated';
+export const AUDIT_TRAIL_ADDRESS_REMOVED = 'A neighbouring address was removed';
 export const AUDIT_TRAIL_SYSTEM_UUID = '00000000-0000-0000-0000-000000000000';
 
 export const BANK_HOLIDAY_FEED_DIVISION_ENGLAND = 'england-and-wales';
