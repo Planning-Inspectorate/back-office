@@ -147,13 +147,7 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.clickButtonByText('Save changes');
 
 	casePage.clickChangeLink('Address (Internal use only)');
-	cy.get(casePage.selectors.link)
-		.its('length')
-		.then((len) => {
-			if (len > 2) {
-				casePage.clickLinkByText('Change');
-			}
-		});
+	
 	casePage.fillInput(projectInformation.postcode2);
 	casePage.clickButtonByText('Find address');
 	casePage.chooseSelectItemByIndex(1);
