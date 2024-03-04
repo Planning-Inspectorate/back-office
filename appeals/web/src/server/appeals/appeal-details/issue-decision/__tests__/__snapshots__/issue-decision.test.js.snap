@@ -205,7 +205,7 @@ exports[`issue-decision GET /check-invalid-decision should render the check your
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Why the appeal is invalid</dt>
-                        <dd                         class="govuk-summary-list__value"></dd>
+                        <dd                         class="govuk-summary-list__value">Reasons!</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/issue-decision/invalid-reason"> Change</a>
                             </dd>
                     </div>
