@@ -13,15 +13,80 @@ import { buildErrorListItem, buildProgressMessage, buildRegularListItem } from '
  */
 const clientActions = (uploadForm) => {
 	/** @type {HTMLElement | null} */
-	const uploadButton = uploadForm.querySelector('.pins-file-upload--button');
+	const uploadButton = uploadForm.querySelector('.pins-file-upload__button');
 	/** @type {HTMLElement | null} */
-	const uploadCounter = uploadForm.querySelector('.pins-file-upload--counter');
+	const uploadCounter = uploadForm.querySelector('.pins-file-upload__counter');
 	/** @type {HTMLElement | null} */
-	const filesRows = uploadForm.querySelector('.pins-file-upload--files-rows');
+	const filesRows = uploadForm.querySelector('.pins-file-upload__files-rows');
 	/** @type {HTMLElement | null} */
 	const uploadInput = uploadForm.querySelector('input[name="files"]');
 	/** @type {HTMLElement | null} */
-	const submitButton = uploadForm.querySelector('.pins-file-upload--submit');
+	const submitButton = uploadForm.querySelector('.pins-file-upload__submit');
+	/** @type {HTMLElement | null} */
+	const uploadRow = uploadForm.querySelector('.pins-file-upload__upload');
+	/** @type {HTMLElement | null} */
+	let dropZone;
+
+	function setupDropzone() {
+		dropZone = document.createElement('div');
+		dropZone.className = 'pins-file-upload__dropzone';
+		uploadRow?.parentNode?.insertBefore(dropZone, uploadRow);
+
+		if (uploadRow) {
+			dropZone.appendChild(uploadRow);
+		}
+
+		dropZone.addEventListener('dragover', onDropZoneDragOver);
+		dropZone.addEventListener('dragleave', onDropZoneDragLeave);
+		dropZone.addEventListener('drop', onDropZoneDrop);
+	}
+
+	/**
+	 * @param {*} event
+	 */
+	function onDropZoneDragOver(event) {
+		event.preventDefault();
+		console.log('onDropZoneDragOver - event:');
+		console.log(event);
+		uploadForm
+			.querySelector('.pins-file-upload__dropzone')
+			?.classList.add('pins-file-upload__dropzone--dragover');
+	}
+
+	/**
+	 * @param {*} event
+	 */
+	function onDropZoneDragLeave(event) {
+		event.preventDefault();
+		console.log('onDropZoneDragLeave - event:');
+		console.log(event);
+		uploadForm
+			.querySelector('.pins-file-upload__dropzone')
+			?.classList.remove('pins-file-upload__dropzone--dragover');
+	}
+
+	/**
+	 * @param {*} event
+	 */
+	function onDropZoneDrop(event) {
+		event.preventDefault();
+		console.log('onDropZoneDrop - event:');
+		console.log(event);
+		uploadForm
+			.querySelector('.pins-file-upload__dropzone')
+			?.classList.remove('pins-file-upload__dropzone--dragover');
+
+		/** @type {HTMLInputElement | null} */
+		const fileInput = uploadForm.querySelector('input[type="file"]');
+		if (fileInput) {
+			fileInput.files = event.dataTransfer?.files;
+		}
+
+		updateFilesRows(fileInput);
+		updateButtonText();
+	}
+
+	setupDropzone();
 
 	if (!uploadButton || !uploadInput || !filesRows || !uploadCounter || !submitButton) return;
 
@@ -98,7 +163,7 @@ const clientActions = (uploadForm) => {
 				globalDataTransfer.items.add(selectedFile);
 				filesRows.append(buildRegularListItem(selectedFile));
 
-				const removeButton = [...filesRows.querySelectorAll(`.pins-file-upload--remove`)].pop();
+				const removeButton = [...filesRows.querySelectorAll(`.pins-file-upload__remove`)].pop();
 
 				if (removeButton) {
 					removeButton.addEventListener('click', removeFileRow);
