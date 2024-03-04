@@ -46,7 +46,7 @@ const renderSizeInMainUnit = (sizesInBytes) => {
 export const buildRegularListItem = (uploadedFile) => {
 	const li = document.createElement('li');
 
-	li.classList.add('pins-file-upload--file-row');
+	li.classList.add('pins-file-upload__file-row');
 	li.id = uploadedFile.fileRowId || '';
 	li.innerHTML = `<p class="govuk-heading-s">
 		<span class="govuk-visually-hidden">File name: </span>
@@ -54,7 +54,7 @@ export const buildRegularListItem = (uploadedFile) => {
 		</p>
 				<button
 				id="button-remove-${uploadedFile.fileRowId}"
-				type="button" class="govuk-link pins-file-upload--remove" aria-label="Remove added file from list">
+				type="button" class="govuk-link pins-file-upload__remove" aria-label="Remove added file from list">
 					Remove
 				</button>`;
 
@@ -66,7 +66,7 @@ export const buildRegularListItem = (uploadedFile) => {
  * @returns {string}
  */
 export const buildErrorListItem = (error) => {
-	return `<li class="pins-file-upload--file-row error-row" id="${error.fileRowId}">
+	return `<li class="pins-file-upload__file-row error-row" id="${error.fileRowId}">
 				<p class="govuk-heading-s colour--red">${errorMessage(error.message, error.name)}</p>
 				</li>`;
 };
@@ -79,12 +79,12 @@ export const buildErrorListItem = (error) => {
 export const buildProgressMessage = ({ show }, uploadForm) => {
 	const progressHook = uploadForm.querySelector('.progress-hook');
 	/** @type {HTMLButtonElement | null} */
-	const submitButton = uploadForm.querySelector('.pins-file-upload--submit');
+	const submitButton = uploadForm.querySelector('.pins-file-upload__submit');
 
 	if (progressHook && submitButton) {
 		submitButton.disabled = show;
 		progressHook.innerHTML = show
-			? '<p class="govuk-body pins-file-upload--progress" role="alert">Uploading files</p>'
+			? '<p class="govuk-body pins-file-upload__progress" role="alert">Uploading files</p>'
 			: '';
 	}
 };

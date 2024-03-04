@@ -7,7 +7,7 @@ import { buildProgressMessage, errorMessage } from './_html.js';
  * @returns {string}
  */
 const buildTopErrorsMarkup = (messages) => {
-	const errorsTopOpen = `<div class="govuk-error-summary pins-file-upload--errors-top" aria-labelledby="error-summary-title-{{ params.formId }}" role="alert" data-module="govuk-error-summary">
+	const errorsTopOpen = `<div class="govuk-error-summary pins-file-upload__errors-top" aria-labelledby="error-summary-title-{{ params.formId }}" role="alert" data-module="govuk-error-summary">
 		<h2 class="govuk-error-summary__title" id="error-summary-title-{{ params.formId }}">
 			There is a problem
 		</h2>
@@ -39,7 +39,7 @@ const buildMiddleErrorsMarkup = (message) => {
  * @param {Element} uploadForm
  */
 export const showErrors = (error, uploadForm) => {
-	const formContainer = uploadForm.querySelector('.pins-file-upload--container');
+	const formContainer = uploadForm.querySelector('.pins-file-upload__container');
 	const topHook = uploadForm.querySelector('.top-errors-hook');
 	const middleHook = uploadForm.querySelector('.middle-errors-hook');
 
@@ -83,10 +83,10 @@ export const showErrors = (error, uploadForm) => {
  * @param {HTMLElement} uploadForm
  */
 export const hideErrors = (uploadForm) => {
-	const formContainer = uploadForm.querySelector('.pins-file-upload--container');
+	const formContainer = uploadForm.querySelector('.pins-file-upload__container');
 	const topHook = uploadForm.querySelector('.top-errors-hook');
 	const middleHook = uploadForm.querySelector('.middle-errors-hook');
-	const filesRows = uploadForm.querySelector('.pins-file-upload--files-rows');
+	const filesRows = uploadForm.querySelector('.pins-file-upload__files-rows');
 
 	if (!formContainer || !topHook || !middleHook || !filesRows) return;
 
