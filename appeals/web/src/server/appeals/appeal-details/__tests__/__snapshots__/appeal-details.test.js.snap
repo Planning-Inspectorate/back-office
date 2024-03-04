@@ -71,7 +71,7 @@ exports[`appeal-details GET /:appealId should render a "Neighbouring site added"
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -332,7 +332,7 @@ exports[`appeal-details GET /:appealId should render a "horizon reference added"
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                                <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                                <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                             </div>
                             <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                                 <dd class="govuk-summary-list__value">dismissed</dd>
@@ -580,7 +580,7 @@ exports[`appeal-details GET /:appealId should render a Decision inset panel when
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -836,7 +836,7 @@ exports[`appeal-details GET /:appealId should render a Issue a decision action b
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -1090,7 +1090,7 @@ exports[`appeal-details GET /:appealId should render a child tag next to the app
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -1345,7 +1345,7 @@ exports[`appeal-details GET /:appealId should render a lead tag next to the appe
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -1592,7 +1592,7 @@ exports[`appeal-details GET /:appealId should render a notification banner with 
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -1816,7 +1816,7 @@ exports[`appeal-details GET /:appealId should render a notification banner with 
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -2085,7 +2085,7 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -2340,7 +2340,7 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -2595,7 +2595,7 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -2850,7 +2850,7 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -3108,7 +3108,7 @@ exports[`appeal-details GET /:appealId should render action links to the manage 
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -3350,7 +3350,7 @@ exports[`appeal-details GET /:appealId should render an action link to the add l
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -3592,7 +3592,7 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -3835,7 +3835,7 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -4078,7 +4078,7 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -4337,7 +4337,7 @@ exports[`appeal-details GET /:appealId should render the case reference for each
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -4737,7 +4737,7 @@ exports[`appeal-details GET /:appealId should render the lead or child status af
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -4979,7 +4979,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -5221,7 +5221,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -5483,7 +5483,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -5725,7 +5725,7 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
@@ -6094,7 +6094,7 @@ exports[`appeal-details should not render a back button 1`] = `
                                         </dd>
                                     </div>
                                     <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                                        <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                                        <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                                     </div>
                                     <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                                         <dd class="govuk-summary-list__value">dismissed</dd>

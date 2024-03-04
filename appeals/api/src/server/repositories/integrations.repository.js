@@ -5,6 +5,7 @@ import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js'
 import { mapBlobPath } from '#endpoints/documents/documents.mapper.js';
 import { getDefaultRedactionStatus } from './document-metadata.repository.js';
 import { STATE_TARGET_ASSIGN_CASE_OFFICER } from '#endpoints/constants.js';
+import { createAppealReference } from '#utils/appeal-reference.js';
 
 import config from '#config/config.js';
 
@@ -217,11 +218,6 @@ export const createOrUpdateLpaQuestionnaire = async (
 
 export const createDocument = async (data) => {
 	return data;
-};
-
-const createAppealReference = (/** @type {number} */ id) => {
-	const minref = 6000000;
-	return (minref + id).toString();
 };
 
 const getFolderIdFromDocumentType = (caseFolders, documentType, stage) => {
