@@ -86,7 +86,7 @@ export async function viewProjectTeamListPage({ session }, response) {
 /**
  * Page for choosing role of the project team member
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {userId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function viewProjectTeamChooseRolePage({ session }, response) {
 	const { caseId, userId } = response.locals;
@@ -104,8 +104,8 @@ export async function viewProjectTeamChooseRolePage({ session }, response) {
 /**
  * Page for removing team member from project
  *
- * @type {import('@pins/express').RenderHandler<{}>}
- */
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {userId: string}>}
+ *  */
 export async function viewProjectTeamRemovePage({ session }, response) {
 	const { caseId, userId } = response.locals;
 
