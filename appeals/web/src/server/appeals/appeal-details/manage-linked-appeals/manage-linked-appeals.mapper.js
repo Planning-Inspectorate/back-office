@@ -3,6 +3,7 @@ import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter
 import { appealSiteToAddressString } from '#lib/address-formatter.js';
 import { appealStatusToStatusTag } from '#lib/nunjucks-filters/status-tag.js';
 import { dateToDisplayDate } from '#lib/dates.js';
+import { generateLinkedAppealsManageLinkHref } from '#lib/mappers/appeal.mapper.js';
 
 /**
  * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
@@ -472,7 +473,7 @@ export function unlinkAppealPage(appealData, childRef) {
 	/** @type {PageContent} */
 	const pageContent = {
 		title: titleAndHeading,
-		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/linked-appeals`,
+		backLinkUrl: generateLinkedAppealsManageLinkHref(appealData),
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: titleAndHeading,
 		pageComponents: [selectAppealTypeRadiosComponent]

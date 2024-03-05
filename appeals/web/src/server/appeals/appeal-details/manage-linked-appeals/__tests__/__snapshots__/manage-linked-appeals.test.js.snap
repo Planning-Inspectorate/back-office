@@ -98,12 +98,31 @@ exports[`linked-appeals GET /change-appeal-type/appeal-type should render the de
 exports[`linked-appeals GET /change-appeal-type/unlink-appeal should render the unlink-appeal page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">Page not found</h1>
-            <p class="govuk-body">If you typed the web address, check it is correct.</p>
-            <p class="govuk-body">If you pasted the web address, check you copied the entire address.</p>
-            <p             class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists</p>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Do you want to unlink the appeal from appeal 351062?</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="unlinkAppeal" name="unlinkAppeal"
+                                type="radio" value="yes">
+                                <label class="govuk-label govuk-radios__label" for="unlinkAppeal">Yes</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="unlinkAppeal-2" name="unlinkAppeal"
+                                type="radio" value="no">
+                                <label class="govuk-label govuk-radios__label" for="unlinkAppeal-2">No</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
         </div>
     </div>
 </main>"

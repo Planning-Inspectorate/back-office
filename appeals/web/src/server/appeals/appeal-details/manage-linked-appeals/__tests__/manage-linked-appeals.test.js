@@ -737,7 +737,7 @@ describe('linked-appeals', () => {
 		it('should render the unlink-appeal page', async () => {
 			nock('http://test/').get('/appeals/1').reply(200, leadAppealDataWithLinkedAppeals);
 			const response = await request.get(
-				`${baseUrl}/1${linkedAppealsPath}/${unlinkAppealPath}/1/1/1`
+				`${baseUrl}/1${linkedAppealsPath}/${unlinkAppealPath}/1/1`
 			);
 			const element = parseHtml(response.text);
 
