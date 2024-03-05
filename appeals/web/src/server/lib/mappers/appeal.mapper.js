@@ -1287,7 +1287,7 @@ export async function initialiseAndMapAppealData(
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @returns {string}
  */
-function generateLinkedAppealsManageLinkHref(appealDetails) {
+export function generateLinkedAppealsManageLinkHref(appealDetails) {
 	const baseUrl = `/appeals-service/appeal-details/${appealDetails.appealId}/linked-appeals`;
 
 	if (appealDetails.linkedAppeals.length > 0) {
