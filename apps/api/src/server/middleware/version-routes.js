@@ -15,10 +15,12 @@ export default function versionRoutes(versionToControllerPairs) {
 	return function (request, response, next) {
 		const version = getVersion(request);
 
-		const controller = versionToControllerPairs[version];
+		if (!isNaN(Number(version))) {
+			const controller = versionToControllerPairs[version];
 
-		if (!isNaN(Number(version)) && controller && typeof controller === 'function') {
-			return controller(request, response, next);
+			if (controller && typeof controller === 'function') {
+				return controller(request, response, next);
+			}
 		}
 	};
 }
