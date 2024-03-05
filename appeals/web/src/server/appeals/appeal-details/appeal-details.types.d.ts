@@ -2,6 +2,7 @@ import { Address } from '@pins/appeals';
 import { LPAQuestionnaireValidationOutcomeResponse } from './lpa-questionnaire/lpa-questionnaire.types';
 import {
 	SingleAppealDetailsResponse,
+	GetAuditTrailsResponse,
 	AppealTimetable,
 	DocumentationSummaryEntry,
 	DocumentationSummary,
@@ -405,7 +406,15 @@ export interface WebDocumentationSummary extends DocumentationSummary {
 
 export interface WebAppeal extends SingleAppealDetailsResponse {
 	appealTimetable: WebAppealTimetable | null;
-	siteVisit: WebSiteVisit | null;
+	siteAddress?: Address;
 	startedAt: string | null;
 	documentationSummary: WebDocumentationSummary;
+	source?: string;
+	siteVisit: {
+		siteVisitId: number | null;
+		visitDate: string | null;
+		visitStartTime: string | null;
+		visitEndTime: string | null;
+		visitType: string | null;
+	};
 }

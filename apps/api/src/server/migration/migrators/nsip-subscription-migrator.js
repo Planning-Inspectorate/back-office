@@ -125,8 +125,7 @@ const mapSubscriptionsToSubscribers = (subscriptions) => {
 /**
  *
  * @param {NSIPSubscriber} m
- *
- * @returns {Promise<import('@prisma/client').Prisma.SubscriptionCreateInput & { id: number }>}} projectUpdate
+ * @returns {Promise<import('@prisma/client').Prisma.SubscriptionUncheckedCreateInput>}
  */
 const mapModelToEntity = async (m) => {
 	const caseId = await getOrCreateMinimalCaseId(m);
@@ -142,15 +141,13 @@ const mapModelToEntity = async (m) => {
 		throw Error('Missing subscription ID');
 	}
 
-	const entity = {
+	const entity = typesToSubscription(m.subscriptionTypes, {
 		id: m.subscriptionId,
 		caseReference: m.caseReference,
 		startDate: m.startDate ? new Date(m.startDate) : null,
 		caseId,
 		serviceUserId
-	};
-
-	typesToSubscription(m.subscriptionTypes, entity);
+	});
 
 	return entity;
 };

@@ -3,12 +3,14 @@ import { asyncHandler } from '@pins/express';
 import * as controller from './project-updates.controller.js';
 import * as validators from './project-updates.validators.js';
 import { registerCase } from '../applications-case.locals.js';
+import { registerProjectUpdateId } from './project-updates.locals.js';
+import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
 
 const projectUpdatesRouter = createRouter({ mergeParams: true });
 
 projectUpdatesRouter.use(registerCase);
 
-projectUpdatesRouter.route('/').get(asyncHandler(controller.projectUpdatesTable));
+projectUpdatesRouter.route('/').get(registerCaseId, asyncHandler(controller.projectUpdatesTable));
 
 export const projectUpdateRoutes = Object.freeze({
 	create: 'create',
@@ -30,34 +32,35 @@ projectUpdatesRouter
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.content}`)
-	.get(asyncHandler(controller.projectUpdatesContentGet))
+	.get(registerProjectUpdateId, asyncHandler(controller.projectUpdatesContentGet))
 	.post(
-		[validators.validateProjectUpdatesContent],
+		registerProjectUpdateId,
+		validators.validateProjectUpdatesContent,
 		asyncHandler(controller.projectUpdatesContentPost)
 	);
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.type}`)
-	.get(asyncHandler(controller.projectUpdatesTypeGet))
-	.post(asyncHandler(controller.projectUpdatesTypePost));
+	.get(registerProjectUpdateId, asyncHandler(controller.projectUpdatesTypeGet))
+	.post(registerProjectUpdateId, asyncHandler(controller.projectUpdatesTypePost));
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.status}`)
-	.get(asyncHandler(controller.projectUpdatesStatusGet))
-	.post(asyncHandler(controller.projectUpdatesStatusPost));
+	.get(registerProjectUpdateId, asyncHandler(controller.projectUpdatesStatusGet))
+	.post(registerProjectUpdateId, asyncHandler(controller.projectUpdatesStatusPost));
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.checkAnswers}`)
-	.get(asyncHandler(controller.projectUpdatesCheckAnswersGet))
-	.post(asyncHandler(controller.projectUpdatesCheckAnswersPost));
+	.get(registerProjectUpdateId, asyncHandler(controller.projectUpdatesCheckAnswersGet))
+	.post(registerProjectUpdateId, asyncHandler(controller.projectUpdatesCheckAnswersPost));
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.review}`)
-	.get(asyncHandler(controller.projectUpdatesReviewGet));
+	.get(registerProjectUpdateId, asyncHandler(controller.projectUpdatesReviewGet));
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.delete}`)
-	.get(asyncHandler(controller.projectUpdatesDeleteGet))
-	.post(asyncHandler(controller.projectUpdatesDeletePost));
+	.get(registerProjectUpdateId, asyncHandler(controller.projectUpdatesDeleteGet))
+	.post(registerProjectUpdateId, asyncHandler(controller.projectUpdatesDeletePost));
 
 export default projectUpdatesRouter;

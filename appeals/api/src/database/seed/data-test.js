@@ -1,6 +1,7 @@
 /**
  * Test data used for development and testing
  */
+import { randomUUID } from 'node:crypto';
 import { AUDIT_TRAIL_SYSTEM_UUID } from '#endpoints/constants.js';
 import {
 	addressesList,
@@ -30,6 +31,7 @@ import {
 
 import neighbouringSitesRepository from '#repositories/neighbouring-sites.repository.js';
 import { mapDefaultCaseFolders } from '#endpoints/documents/documents.mapper.js';
+import { createAppealReference } from '#utils/appeal-reference.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.AppealSite} AppealSite */
 
@@ -45,20 +47,22 @@ function getDateTwoWeeksAgo() {
 }
 
 /**
- * @returns {string}
- */
-function generateAppealReference() {
-	const number = Math.floor(Math.random() * 999_999 + 1);
-
-	return `TEST-${number}`;
-}
-
-/**
  *
  * @param {object[] | string[]} list
  * @returns {number}
  */
 const pickRandom = (list) => Math.floor(Math.random() * list.length);
+
+/**
+ * @returns {string}
+ */
+function generateLpaReference() {
+	const numberPrefix = Math.floor(Math.random() * 69_999 + 1);
+	const numberSuffix = Math.floor(Math.random() * 699_999 + 1);
+	const date = pickRandom(['2020', '2021', '2022', '2023']);
+
+	return `${numberPrefix}/APP/${date}/${numberSuffix}`;
+}
 
 /**
  *
@@ -73,7 +77,8 @@ const pickRandom = (list) => Math.floor(Math.random() * list.length);
  *  incompleteReviewQuestionnaire?: boolean,
  *  completeReviewQuestionnaire?: boolean,
  *  siteAddressList?: AppealSite[],
- *  assignCaseOfficer: boolean}} param0
+ *  assignCaseOfficer: boolean,
+ *  agent?: boolean }} param0
  * @returns {object}
  */
 const appealFactory = ({
@@ -87,31 +92,34 @@ const appealFactory = ({
 	incompleteReviewQuestionnaire = false,
 	completeReviewQuestionnaire = false,
 	siteAddressList = addressesList,
-	assignCaseOfficer = false
+	assignCaseOfficer = false,
+	agent = true
 }) => {
 	const appellantInput = appellantsList[pickRandom(appellantsList)];
 	const agentInput = agentsList[pickRandom(agentsList)];
 	const lpaInput = localPlanningDepartmentList[pickRandom(localPlanningDepartmentList)];
 
-	return {
+	const appeal = {
 		appealType: { connect: { shorthand: typeShorthand } },
-		reference: generateAppealReference(),
 		startedAt,
+		reference: randomUUID(),
 		appealStatus: { create: statuses },
 		appellantCase: { create: appellantCaseList[typeShorthand] },
 		appellant: {
 			create: appellantInput
 		},
-		agent: {
-			create: agentInput
-		},
+		...(agent && {
+			agent: {
+				create: agentInput
+			}
+		}),
 		lpa: {
 			connectOrCreate: {
 				where: { lpaCode: lpaInput.lpaCode },
 				create: lpaInput
 			}
 		},
-		planningApplicationReference: '48269/APP/2021/1482',
+		planningApplicationReference: generateLpaReference(),
 		address: { create: siteAddressList[pickRandom(siteAddressList)] },
 		...(assignCaseOfficer && {
 			caseOfficer: {
@@ -136,41 +144,34 @@ const appealFactory = ({
 		}),
 		...(completeReviewQuestionnaire && { reviewQuestionnaire: { create: { complete: true } } })
 	};
+
+	return appeal;
 };
 
 const newAppeals = [
 	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
-	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
+		assignCaseOfficer: false,
+		agent: false
 	}),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
+		assignCaseOfficer: false,
+		agent: false
 	}),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
+		assignCaseOfficer: false,
+		agent: false
 	}),
+	appealFactory({ typeShorthand: APPEAL_TYPE_SHORTHAND_HAS, assignCaseOfficer: false }),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		siteAddressList: addressListForTrainers,
-		assignCaseOfficer: false
+		assignCaseOfficer: false,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -180,12 +181,41 @@ const newAppeals = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false,
+		agent: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false,
+		agent: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
+		assignCaseOfficer: false,
+		agent: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		siteAddressList: addressListForTrainers,
 		assignCaseOfficer: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
+		assignCaseOfficer: true,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -195,7 +225,14 @@ const newAppeals = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
+		assignCaseOfficer: true,
+		agent: false
+	}),
+	appealFactory({
+		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
+		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
+		assignCaseOfficer: true,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -205,7 +242,8 @@ const newAppeals = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
+		assignCaseOfficer: true,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -215,12 +253,8 @@ const newAppeals = [
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
 		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
-	}),
-	appealFactory({
-		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
-		statuses: { status: 'ready_to_start', createdAt: getDateTwoWeeksAgo() },
-		assignCaseOfficer: true
+		assignCaseOfficer: true,
+		agent: false
 	}),
 	appealFactory({
 		typeShorthand: APPEAL_TYPE_SHORTHAND_HAS,
@@ -335,12 +369,22 @@ const appealsData = [...newAppeals, ...appealsLpaQuestionnaireDue];
 export async function seedTestData(databaseConnector) {
 	const appeals = [];
 
-	for (const appealData of appealsData) {
+	for (const appealData of appealsData.reverse()) {
 		// @ts-ignore
 		const appeal = await databaseConnector.appeal.create({ data: appealData });
 		await databaseConnector.folder.createMany({ data: mapDefaultCaseFolders(appeal.id) });
-		appeals.push(appeal);
+		const appealWithReference = await databaseConnector.appeal.update({
+			where: {
+				id: appeal.id
+			},
+			data: {
+				reference: createAppealReference(appeal.id)
+			}
+		});
+		appeals.push(appealWithReference);
 	}
+
+	appeals.reverse();
 
 	const lpaQuestionnaires = await databaseConnector.lPAQuestionnaire.findMany();
 	const designatedSites = await databaseConnector.designatedSite.findMany();

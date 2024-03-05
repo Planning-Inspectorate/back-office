@@ -730,7 +730,7 @@ export interface DocumentProperties {
 	caseRef?: string;
 	/**
 	 * Source system of the document
-	 * @example "back-office"
+	 * @example "back-office-applications"
 	 */
 	sourceSystem?: string;
 	/**
@@ -836,7 +836,7 @@ export interface DocumentPropertiesWithVersionWithCase {
 	published?: boolean;
 	/**
 	 * Source system of the document
-	 * @example "back-office"
+	 * @example "back-office-applications"
 	 */
 	sourceSystem?: string;
 	/** @example null */
@@ -1048,7 +1048,7 @@ export interface DocumentPropertiesWithAuditHistory {
 	published?: boolean;
 	/**
 	 * Source system of the document
-	 * @example "back-office"
+	 * @example "back-office-applications"
 	 */
 	sourceSystem?: string;
 	/** @example null */
@@ -1297,7 +1297,7 @@ export interface DocumentVersionUpsertRequestBody {
 	version?: number;
 	/**
 	 * Source system of the document
-	 * @example "back-office"
+	 * @example "back-office-applications"
 	 */
 	sourceSystem?: string;
 	/**

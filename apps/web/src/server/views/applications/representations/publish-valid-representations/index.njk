@@ -30,7 +30,8 @@
     {% if publishableRepsCount > 0 %}
         <form method="post">
             {{ govukButton({
-                text: "Publish representations"
+                text: "Publish representations",
+                preventDoubleClick: true
             }) }}
         </form>
     {% endif %}

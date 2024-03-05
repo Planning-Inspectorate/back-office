@@ -28,8 +28,12 @@ export const validatorsDispatcher = async (request, response, next) => {
 		'published-date': validateDocumentationMetaDatePublished
 	};
 
-	if (validators[metaDataName]) {
-		return validators[metaDataName](request, response, next);
+	if (Object.keys(validators).includes(metaDataName)) {
+		const validator = validators[metaDataName];
+
+		if (validator && typeof validator === 'function') {
+			return validator(request, response, next);
+		}
 	}
 
 	return next();

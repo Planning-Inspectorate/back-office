@@ -26,7 +26,7 @@
 
   {% set tableRows = [] %}
   {% for rowData in rowsData %}
-    {% set cols = [{text: rowData.title}, {html: rowData.value}] %}
+    {% set cols = [{text: rowData.title}, {text: rowData.value}] %}
 
     {% set tableRows = (tableRows.push(cols), tableRows) %}
   {% endfor %}

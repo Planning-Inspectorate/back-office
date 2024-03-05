@@ -3,13 +3,13 @@
 exports[`linked-appeals GET /change-appeal-type/appeal-type should render the decision page child 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 76215416</span>
             <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Manage linked appeals</h1>
         </div>
     </div>
     <div class="govuk-!-margin-bottom-2"><strong class="govuk-tag govuk-tag--grey single-line">Child</strong>
     </div>
-    <h2 class="govuk-!-margin-top-6">Lead appeal of 351062</h2>
+    <h2 class="govuk-!-margin-top-6">Lead appeal of 76215416</h2>
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -23,7 +23,7 @@ exports[`linked-appeals GET /change-appeal-type/appeal-type should render the de
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1" aria-label="Appeal 3 5 1 0 6 2">351062</a>
                 </td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/1/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/1/3049">Unlink</a>
                 </td>
             </tr>
         </tbody>
@@ -42,14 +42,14 @@ exports[`linked-appeals GET /change-appeal-type/appeal-type should render the de
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 7 2 5 2 8 4">725284</a>
                 </td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/2/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/2/3048">Unlink</a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/null" aria-label="Appeal 7 6 2 1 5 4 1 6">76215416</a>
                 </td>
                 <td class="govuk-table__cell">Unknown</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/null/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/null/3049">Unlink</a>
                 </td>
             </tr>
         </tbody>
@@ -80,14 +80,14 @@ exports[`linked-appeals GET /change-appeal-type/appeal-type should render the de
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/2" aria-label="Appeal 7 2 5 2 8 4">725284</a>
                 </td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/2/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/2/3046">Unlink</a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/null" aria-label="Appeal 7 6 2 1 5 4 1 6">76215416</a>
                 </td>
                 <td class="govuk-table__cell">Unknown</td>
-                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/manage-linked-appeals/unlink-appeal/null/undefined">Unlink</a>
+                <td class="govuk-table__cell"><a class="govuk-link" href="/appeals-service/appeal-details/1/linked-appeals/unlink-appeal/null/3047">Unlink</a>
                 </td>
             </tr>
         </tbody>
@@ -98,12 +98,31 @@ exports[`linked-appeals GET /change-appeal-type/appeal-type should render the de
 exports[`linked-appeals GET /change-appeal-type/unlink-appeal should render the unlink-appeal page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-xl">Page not found</h1>
-            <p class="govuk-body">If you typed the web address, check it is correct.</p>
-            <p class="govuk-body">If you pasted the web address, check you copied the entire address.</p>
-            <p             class="govuk-body"><a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists</p>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Do you want to unlink the appeal from appeal 351062?</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form action="" method="POST" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="unlinkAppeal" name="unlinkAppeal"
+                                type="radio" value="yes">
+                                <label class="govuk-label govuk-radios__label" for="unlinkAppeal">Yes</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="unlinkAppeal-2" name="unlinkAppeal"
+                                type="radio" value="no">
+                                <label class="govuk-label govuk-radios__label" for="unlinkAppeal-2">No</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </form>
         </div>
     </div>
 </main>"
@@ -455,7 +474,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                                 <dd class="govuk-summary-list__value">Roger Simmons</dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                                <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                                <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                                 <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -535,7 +554,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -582,7 +601,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -630,7 +649,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -677,7 +696,54 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
+                    <dd class="govuk-summary-list__value">21 February 2024</dd>
+                </div>
+            </dl>
+            <form method="post" novalidate="novalidate"><a href="/appeals-service/appeal-details/1/linked-appeals/add" role="button"
+                draggable="false" class="govuk-button" data-module="govuk-button"> Return to search</a>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render the check and confirm page with appropriate warning text, no radio options, and a button linking back to the add linked appeal reference page with label text of "return to search", if the target and candidate are the same appeal (trying to link appeal to itself) 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal 351062</span>
+                    <h1                     class="govuk-heading-l">Details of the appeal you&#39;re linking to</h1>
+                </div>
+            </div>
+            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> You cannot link
+                    an appeal to itself.</strong>
+            </div>
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal reference</dt>
+                    <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal status</dt>
+                    <dd class="govuk-summary-list__value">Assign case officer</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appeal type</dt>
+                    <dd class="govuk-summary-list__value">Householder</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
+                    <dd class="govuk-summary-list__value">96 The Avenue, Maidstone, Kent, MD21 5XY</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Local planning authority</dt>
+                    <dd                     class="govuk-summary-list__value">Wiltshire Council</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Appellant name</dt>
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -720,7 +786,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -778,7 +844,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -836,7 +902,7 @@ exports[`linked-appeals GET /linked-appeals/add/check-and-confirm should render 
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>
@@ -1028,7 +1094,7 @@ exports[`linked-appeals POST /linked-appeals/add/check-and-confirm should re-ren
                     <dd class="govuk-summary-list__value">Roger Simmons</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent name</dt>
-                    <dd class="govuk-summary-list__value">Roger Simmons</dd>
+                    <dd class="govuk-summary-list__value">Eva Sharma (Eva Sharma Ltd)</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Submission date</dt>
                     <dd class="govuk-summary-list__value">21 February 2024</dd>

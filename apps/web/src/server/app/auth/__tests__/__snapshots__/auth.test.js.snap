@@ -5,9 +5,9 @@ exports[`auth authentication should clear any pending authentication data if the
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-two-thirds\\">
             <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
-            <p class=\\"govuk-body\\">Try again later.</p>
-            <p class=\\"govuk-body\\"><a href=\\"https://has-appeal.herokuapp.com/help/contact\\" class=\\"govuk-link\\">Contact the Planning Inspectorate Customer Support</a> if
-                the problem persists.</p>
+            <p class=\\"govuk-body\\">If the problem persists, <a href=\\"https://intranet.planninginspectorate.gov.uk/task/report-it-problem/\\"
+                class=\\"govuk-link\\">report an IT problem or make an IT request.</a>
+            </p>
         </div>
     </div>
 </main>"
@@ -137,8 +137,8 @@ data-module=\\"govuk-header\\">
             <div class=\\"pins-column--central\\">
                 <p>Planning Inspectorate</p>
             </div>
-            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"/auth/signout\\"
-                class=\\"govuk-link\\">Sign out</a>
+            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"https://forms.office.com/e/HUP5kTvb8D\\"
+                class=\\"govuk-link\\">Give feedback</a><a href=\\"/auth/signout\\" class=\\"govuk-link\\">Sign out</a>
             </div>
         </div>
     </div>
@@ -269,8 +269,8 @@ data-module=\\"govuk-header\\">
             <div class=\\"pins-column--central\\">
                 <p>Planning Inspectorate</p>
             </div>
-            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"/auth/signout\\"
-                class=\\"govuk-link\\">Sign out</a>
+            <div class=\\"pins-column--right\\"><a href=\\"/applications-service/\\" class=\\"govuk-link\\">Home</a><a href=\\"https://forms.office.com/e/HUP5kTvb8D\\"
+                class=\\"govuk-link\\">Give feedback</a><a href=\\"/auth/signout\\" class=\\"govuk-link\\">Sign out</a>
             </div>
         </div>
     </div>

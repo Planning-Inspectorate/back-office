@@ -20,6 +20,9 @@ import {
 	postUploadDocumentVersion,
 	postProcessHTMLFile
 } from './components/file-uploader.component.js';
+import { registerAdviceId, registerDownloadParams } from './app.locals.js';
+import { registerCaseId } from '../applications/create-new-case/applications-create.locals.js';
+import { registerDocumentGuid } from '../applications/case/applications-case.locals.js';
 
 const router = createRouter();
 
@@ -55,16 +58,16 @@ router.use(assertGroupAccess(...groupIds));
 
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(asyncHandler(handleSignout));
-router.route('/documents/:caseId/upload').post(asyncHandler(postDocumentsUpload));
+router.route('/documents/:caseId/upload').post(registerCaseId, asyncHandler(postDocumentsUpload));
 router
 	.route('/documents/:caseId/s51-advice/:adviceId/upload')
-	.post(asyncHandler(postDocumentsUpload));
+	.post([registerCaseId, registerAdviceId], asyncHandler(postDocumentsUpload));
 router
 	.route('/documents/:caseId/upload/:documentId/add-version')
-	.post(asyncHandler(postUploadDocumentVersion));
+	.post([registerCaseId, registerDocumentGuid], asyncHandler(postUploadDocumentVersion));
 router
 	.route('/documents/:caseId/download/:guid/version/:version/:preview?')
-	.get(asyncHandler(getDocumentsDownload));
+	.get([registerDownloadParams], asyncHandler(getDocumentsDownload));
 router.route('/documents/process-html').post(asyncHandler(postProcessHTMLFile));
 router.use('/applications-service', applicationsRouter);
 

@@ -1,7 +1,6 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '../../middleware/async-handler.js';
 import { getAuditTrailById } from './audit-trails.controller.js';
-import { checkAppealExistsByIdAndAddToRequest } from '#middleware/check-appeal-exists-and-add-to-request.js';
 import { getAuditTrailValidator } from './audit-trails.validators.js';
 
 const router = createRouter();
@@ -25,7 +24,6 @@ router.get(
 		#swagger.responses[404] = {}
 	 */
 	getAuditTrailValidator,
-	checkAppealExistsByIdAndAddToRequest,
 	asyncHandler(getAuditTrailById)
 );
 

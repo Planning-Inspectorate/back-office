@@ -28,14 +28,16 @@ const leadAppealDataWithLinkedAppeals = {
 			appealReference: 'APP/Q9999/D/21/725284',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
-			appealType: 'Householder'
+			appealType: 'Householder',
+			relationshipId: 3046
 		},
 		{
 			appealId: null,
 			appealReference: '76215416',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
-			appealType: 'Unknown'
+			appealType: 'Unknown',
+			relationshipId: 3047
 		}
 	]
 };
@@ -49,14 +51,16 @@ const childAppealDataWithLinkedAppeals = {
 			appealReference: 'APP/Q9999/D/21/725284',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
-			appealType: 'Householder'
+			appealType: 'Householder',
+			relationshipId: 3048
 		},
 		{
 			appealId: null,
 			appealReference: '76215416',
 			isParentAppeal: false,
 			linkingDate: new Date('2024-02-09T09:41:13.611Z'),
-			appealType: 'Unknown'
+			appealType: 'Unknown',
+			relationshipId: 3049
 		}
 	]
 };
@@ -77,7 +81,7 @@ describe('linked-appeals', () => {
 		});
 		it('should render the decision page child', async () => {
 			nock('http://test/').get('/appeals/2').reply(200, childAppealDataWithLinkedAppeals);
-			const response = await request.get(`${baseUrl}/1${linkedAppealsPath}/${managePath}/100/2`);
+			const response = await request.get(`${baseUrl}/1${linkedAppealsPath}/${managePath}/3049/2`);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
@@ -175,6 +179,34 @@ describe('linked-appeals', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render the check and confirm page with appropriate warning text, no radio options, and a button linking back to the add linked appeal reference page with label text of "return to search", if the target and candidate are the same appeal (trying to link appeal to itself)', async () => {
+			nock.cleanAll();
+			nock('http://test/').get('/appeals/1').reply(200, appealData).persist();
+			nock('http://test/')
+				.get('/appeals/linkable-appeal/123')
+				.reply(200, {
+					...linkableAppealSummaryBackOffice,
+					appealId: appealData.appealId,
+					appealReference: appealData.appealReference
+				});
+
+			const addLinkedAppealReferenceResponse = await request
+				.post(`${baseUrl}/1${linkedAppealsPath}/add`)
+				.send({
+					'appeal-reference': '123'
+				});
+
+			expect(addLinkedAppealReferenceResponse.statusCode).toBe(302);
+			expect(addLinkedAppealReferenceResponse.text).toEqual(
+				'Found. Redirecting to /appeals-service/appeal-details/1/linked-appeals/add/check-and-confirm'
+			);
+
+			const response = await request.get(`${baseUrl}/1${linkedAppealsPath}/add/check-and-confirm`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should render the check and confirm page with appropriate warning text, no radio options, and a button linking back to the add linked appeal reference page with label text of "return to search", if the appeals are already linked', async () => {
 			nock.cleanAll();
 			nock('http://test/')
@@ -263,7 +295,10 @@ describe('linked-appeals', () => {
 				});
 			nock('http://test/')
 				.get(`/appeals/${linkableAppealSummaryBackOffice.appealId}`)
-				.reply(200, appealData);
+				.reply(200, {
+					...appealData,
+					appealReference: linkableAppealSummaryBackOffice.appealReference
+				});
 			nock('http://test/')
 				.get('/appeals/linkable-appeal/123')
 				.reply(200, linkableAppealSummaryBackOffice);
@@ -733,7 +768,7 @@ describe('linked-appeals', () => {
 		it('should render the unlink-appeal page', async () => {
 			nock('http://test/').get('/appeals/1').reply(200, leadAppealDataWithLinkedAppeals);
 			const response = await request.get(
-				`${baseUrl}/1${linkedAppealsPath}/${unlinkAppealPath}/1/1/1`
+				`${baseUrl}/1${linkedAppealsPath}/${unlinkAppealPath}/1/1`
 			);
 			const element = parseHtml(response.text);
 

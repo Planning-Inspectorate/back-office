@@ -13,7 +13,6 @@
   margin-bottom: 1rem;
 
   .pins-row--decentered {
-	width: calc(100% + 106px);
 	display: flex;
   }
 
@@ -22,7 +21,10 @@
 	  height: 5.5rem;
 	  border-left: 1.85px solid pins-colours.$pins-colours-green-200;
 	  padding-left: 1.68rem;
-	  width: 25%;
+	  width: 35%;
+	  @media (min-width: 50em) {
+		width: 27%;
+	  }
 
 	  span {
 		font-size: 1.125rem;
@@ -35,17 +37,29 @@
 	  font-weight: 700;
 	  font-size: 1.5rem;
 	  width: 35%;
+	  min-width: fit-content;
 	  text-align: center;
 	}
 
 	&--right {
-	  width: 40%;
-	  display: flex;
-	  align-items: center;
-	  justify-content: flex-end;
-
+	  width: 32%;
+	  display: block;
+	  align-self: center;
+	  text-align: right;
 	  > a {
-		margin-left: 3rem;
+		display: block;
+		margin-left: 1.5rem;
+		line-height: 1.5rem;
+	  }
+	  @media (min-width: 50em) {
+		width: 40%;
+	    display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		text-align: left;
+		> a {
+		  display: inline-flex;
+		}
 	  }
 	}
   }

@@ -78,6 +78,23 @@ export const registerFolder = async ({ params }, response, next) => {
 };
 
 /**
+ * Register and validate the documentGuid
+ *
+ * @type {import('@pins/express').RequestHandler<ApplicationCaseLocals>}
+ */
+export const registerDocumentGuid = async ({ params }, response, next) => {
+	const documentGuid = params.documentGuid || params.documentId;
+
+	if (!/^[A-Za-z0-9-]+$/.test(documentGuid)) {
+		pino.error(`[WEB] Document guid not valid: ${documentGuid}`);
+		return response.render(`app/500.njk`);
+	}
+
+	response.locals.documentGuid = documentGuid;
+	next();
+};
+
+/**
  * Returns a set of folder breadcrumbs for a particular folder in a case
  *
  * @param {number} caseId

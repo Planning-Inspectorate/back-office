@@ -4,6 +4,7 @@ import { appealShortReference } from './nunjucks-filters/appeals.js';
 import { mapDocumentInfoVirusCheckStatus } from '#appeals/appeal-documents/appeal-documents.mapper.js';
 import { numberToAccessibleDigitLabel } from '#lib/accessibility.js';
 import { apiDateStringToDayMonthYear, dateIsInThePast } from '#lib/dates.js';
+import { appealSiteToMultilineAddressStringHtml } from './address-formatter.js';
 
 /**
  * @typedef {import('@pins/appeals.api').Schema.Folder} Folder
@@ -63,7 +64,7 @@ export const formatAnswerAndDetails = (answer, details) => {
  * @param {import('@pins/appeals.api').Appeals.LinkedAppeal[]} listOfAppeals
  * @returns {string}
  */
-export const formatListOfAppeals = (listOfAppeals) => {
+export const formatListOfLinkedAppeals = (listOfAppeals) => {
 	if (listOfAppeals && listOfAppeals.length > 0) {
 		let formattedLinks = '';
 
@@ -76,6 +77,31 @@ export const formatListOfAppeals = (listOfAppeals) => {
 			const relationshipText = listOfAppeals[i].isParentAppeal ? ' (Lead)' : ' (Child)';
 
 			formattedLinks += `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a> ${relationshipText}</li>`;
+		}
+
+		return `<ul class="govuk-list">${formattedLinks}</ul>`;
+	}
+
+	return '<span>No appeals</span>';
+};
+
+/**
+ *
+ * @param {import('@pins/appeals.api').Appeals.RelatedAppeal[]} listOfAppeals
+ * @returns {string}
+ */
+export const formatListOfRelatedAppeals = (listOfAppeals) => {
+	if (listOfAppeals && listOfAppeals.length > 0) {
+		let formattedLinks = '';
+
+		for (let i = 0; i < listOfAppeals.length; i++) {
+			const shortAppealReference = appealShortReference(listOfAppeals[i].appealReference);
+			const linkUrl = listOfAppeals[i].externalSource
+				? `https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=${listOfAppeals[i].appealReference}`
+				: `/appeals-service/appeal-details/${listOfAppeals[i].appealId}`;
+			const linkAriaLabel = `Appeal ${numberToAccessibleDigitLabel(shortAppealReference || '')}`;
+
+			formattedLinks += `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a></li>`;
 		}
 
 		return `<ul class="govuk-list">${formattedLinks}</ul>`;
@@ -284,4 +310,32 @@ export function mapDocumentStatus(status, dueDate) {
 		default:
 			return '';
 	}
+}
+
+/**
+ * @param {string|null|undefined} freeText
+ * @returns {string}
+ */
+export function formatFreeTextForDisplay(freeText) {
+	if (!freeText || freeText.length === 0) {
+		return '';
+	}
+
+	return freeText.replaceAll(/\n/g, '<br>');
+}
+
+/**
+ * @param {{address: import('@pins/appeals.api').Appeals.AppealSite}[]} arrayOfAddresses
+ * @returns
+ */
+export function formatListOfAddresses(arrayOfAddresses) {
+	if (arrayOfAddresses.length > 0) {
+		let formattedList = ``;
+		for (let i = 0; i < arrayOfAddresses.length; i++) {
+			const address = arrayOfAddresses[i].address;
+			formattedList += `<li>${appealSiteToMultilineAddressStringHtml(address)}</li>`;
+		}
+		return `<ul class="govuk-list govuk-list--bullet">${formattedList}</ul>`;
+	}
+	return '<span>None</span>';
 }

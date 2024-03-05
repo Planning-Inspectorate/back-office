@@ -503,13 +503,15 @@ describe('Edit applications documentation metadata', () => {
 		});
 
 		describe('POST /case/123/project-documentation/18/document/90/edit/published-status', () => {
-			it('should return an error if required properties are not defined', async () => {
+			it('should return an error if one is returned', async () => {
+				const expectedErrorMsg = 'There is an error.';
 				nock('http://test/')
 					.patch('/applications/123/documents')
-					.reply(500, {
+					.reply(400, {
 						errors: [
 							{
-								guid: '90'
+								msg: expectedErrorMsg,
+								type: 'missing-properties'
 							}
 						]
 					});
@@ -520,9 +522,7 @@ describe('Edit applications documentation metadata', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('There is a problem');
-				expect(element.innerHTML).toContain(
-					'You must fill in all mandatory document properties to publish a document.  Please go back to the document properties screen to make the changes'
-				);
+				expect(element.innerHTML).toContain(expectedErrorMsg);
 			});
 		});
 

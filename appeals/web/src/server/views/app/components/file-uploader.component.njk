@@ -25,8 +25,8 @@
 			<h1 class="govuk-heading-m govuk-grid-column-full">{{ params.formTitle }}</h1>
 		{% endif %}
 		<form class="govuk-grid-column-two-thirds">
-			<div class="pins-file-upload--container">
-				<div class="govuk-body colour--secondary pins-file-upload--instructions">
+			<div class="pins-file-upload__container">
+				<div class="govuk-body colour--secondary pins-file-upload__instructions">
 					{% if params.multiple %}
 						<label for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
 					{% else %}
@@ -36,24 +36,23 @@
 					<span>The total of your uploaded files must be smaller than 1 GB.</span>
 					<div class="middle-errors-hook"></div>
 				</div>
-				<div class="display--flex">
+				<div class="pins-file-upload__upload display--flex">
 					<input class="display--none"
 						   id="upload-file-{{ params.formId }}"
 						   accept="{% for value in params.allowedTypes %}{{ value|MIME }}{% endfor %}"
 						   type="file" name="files" value="Choose file"
 						   aria-controls="file-list-{{ params.formId }}"
 						   {% if params.multiple %}multiple{% endif %}>
-					<button type='button' class="pins-file-upload--button govuk-button">
+					<button type='button' class="pins-file-upload__button govuk-button">
 						Choose file
 					</button>
-					<span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'>
+					<span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'>
 					No file chosen
 				</span>
 				</div>
 				<div id="file-list-{{ params.formId }}">
-
 					<h2 class="display--sr-only" id="file-list-title-{{ params.formId }}">List of files to upload</h2>
-					<ul class="pins-file-upload--files-rows"
+					<ul class="pins-file-upload__files-rows"
 						aria-describedby="file-list-title-{{ params.formId }}" aria-live="polite"></ul>
 				</div>
 			</div>
@@ -77,7 +76,7 @@
 				}) }}
 			{%- endif -%}
 			<div class="display--flex">
-				{{ govukButton({ text: params.text, classes: 'pins-file-upload--submit', attributes: { id: ["submit-button-", params.formId] | join } }) }}
+				{{ govukButton({ text: params.text, classes: 'pins-file-upload__submit', attributes: { id: ["submit-button-", params.formId] | join } }) }}
 				<div class="progress-hook"></div>
 			</div>
 		</form>

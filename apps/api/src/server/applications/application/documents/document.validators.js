@@ -240,11 +240,13 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 	const invalid = [
 		...msgDocuments.map((id) => ({
 			guid: id,
-			msg: "The file type .msg cannot be set to 'Ready for publish'"
+			msg: "The file type .msg cannot be set to 'Ready for publish'",
+			type: 'invalid-filetype'
 		})),
 		...incompleteDocuments.map((id) => ({
 			guid: id,
-			msg: 'You must fill in all mandatory document properties to publish a document'
+			msg: 'You must fill in all mandatory document properties to publish a document',
+			type: 'missing-properties'
 		}))
 	];
 

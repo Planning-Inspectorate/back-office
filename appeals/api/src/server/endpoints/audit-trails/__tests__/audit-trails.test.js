@@ -2,9 +2,9 @@ import supertest from 'supertest';
 import { jest } from '@jest/globals';
 import { app } from '../../../app-test.js';
 import { azureAdUserId } from '#tests/shared/mocks.js';
-import { householdAppeal } from '#tests/appeals/mocks.js';
+import { householdAppeal, auditTrails } from '#tests/appeals/mocks.js';
 
-const { databaseConnector } = await import('../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 const request = supertest(app);
 
 describe('audit trails routes', () => {
@@ -19,9 +19,9 @@ describe('audit trails routes', () => {
 		describe('GET', () => {
 			test('gets audit trail entries', async () => {
 				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				databaseConnector.auditTrail.findMany.mockResolvedValue(auditTrails);
 
-				const { auditTrail, id } = householdAppeal;
+				const { id } = householdAppeal;
 				const response = await request
 					.get(`/appeals/${id}/audit-trails`)
 					.set('azureAdUserId', azureAdUserId);
@@ -29,18 +29,16 @@ describe('audit trails routes', () => {
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual([
 					{
-						azureAdUserId: auditTrail[0].user.azureAdUserId,
-						details: auditTrail[0].details,
-						loggedDate: auditTrail[0].loggedAt
+						azureAdUserId: auditTrails[0].user.azureAdUserId,
+						details: auditTrails[0].details,
+						loggedDate: auditTrails[0].loggedAt
 					}
 				]);
 			});
 
 			test('returns an empty array if audit trail entries are not found', async () => {
-				householdAppeal.auditTrail = [];
-
 				// @ts-ignore
-				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
+				databaseConnector.auditTrail.findMany.mockResolvedValue([]);
 
 				const { id } = householdAppeal;
 				const response = await request

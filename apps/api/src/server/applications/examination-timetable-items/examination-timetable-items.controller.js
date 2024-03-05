@@ -1,5 +1,6 @@
 import * as examinationTimetableItemsRepository from '#repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
+import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import * as caseRepository from '#repositories/case.repository.js';
 import BackOfficeAppError from '#utils/app-error.js';
@@ -16,6 +17,7 @@ import { FOLDER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { buildFolderPayload } from '#infrastructure/payload-builders/folder.js';
 import { verifyNotTraining } from '../application/application.validators.js';
+import { folderDocumentCaseStageMappings } from '../constants.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
@@ -131,13 +133,20 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 		throw new BackOfficeAppError(uniqueErrorMsg, 400);
 	}
 
+	const examinationTimetableType = await examinationTimetableTypesRepository.getById(
+		body.examinationTypeId
+	);
+
 	const folderName = `${format(new Date(body.date), 'dd MMM yyyy')} - ${body.name}`;
 	const displayOrder = Number(format(new Date(body.date), 'yyyyMMdd'));
 	const folder = {
 		displayNameEn: folderName?.trim(),
 		caseId: body.caseId,
 		parentFolderId: examinationFolder.id,
-		stage: examinationFolder.stage,
+		stage:
+			examinationTimetableType?.templateType === 'procedural-deadline'
+				? folderDocumentCaseStageMappings.PRE_EXAMINATION
+				: examinationFolder.stage,
 		displayOrder
 	};
 

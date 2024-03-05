@@ -14,7 +14,9 @@ import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
  * @returns {Promise<Response>}
  */
 const getDocumentsDownload = async ({ params, session }, response) => {
-	const { guid: fileGuid, preview, caseId, version } = params;
+	const { preview } = params;
+	const { fileGuid, caseId, version } = response.locals;
+
 	const { blobStorageUrl } = config;
 
 	const accessToken = await getActiveDirectoryAccessToken(session);

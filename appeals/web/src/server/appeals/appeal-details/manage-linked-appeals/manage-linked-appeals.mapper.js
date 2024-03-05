@@ -3,6 +3,7 @@ import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter
 import { appealSiteToAddressString } from '#lib/address-formatter.js';
 import { appealStatusToStatusTag } from '#lib/nunjucks-filters/status-tag.js';
 import { dateToDisplayDate } from '#lib/dates.js';
+import { generateLinkedAppealsManageLinkHref } from '#lib/mappers/appeal.mapper.js';
 
 /**
  * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
@@ -72,7 +73,7 @@ export function manageLinkedAppealsPage(appealData, relationshipId, appealId, pa
 							text: appealData.appealType
 						},
 						{
-							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${appealId}/${matchingLinkedAppeal?.relationshipId}">Unlink</a>`
+							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/unlink-appeal/${appealId}/${matchingLinkedAppeal?.relationshipId}">Unlink</a>`
 						}
 					]
 				]
@@ -98,7 +99,7 @@ export function manageLinkedAppealsPage(appealData, relationshipId, appealId, pa
 					text: linkedAppeal.appealType
 				},
 				{
-					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/unlink-appeal/${linkedAppeal.appealId}/${linkedAppeal.relationshipId}">Unlink</a>`
+					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/unlink-appeal/${linkedAppeal.appealId}/${linkedAppeal.relationshipId}">Unlink</a>`
 				}
 			];
 		});
@@ -252,7 +253,7 @@ export function addLinkedAppealCheckAndConfirmPage(
 								text: 'Agent name'
 							},
 							value: {
-								text: linkCandidateSummary.appellantName
+								text: linkCandidateSummary.agentName
 							}
 						},
 						{
@@ -280,8 +281,21 @@ export function addLinkedAppealCheckAndConfirmPage(
 		}
 	};
 
-	// if candidate is already linked to target
-	if (
+	// candidate and target are the same appeal
+	if (appealData.appealReference === linkCandidateAppealData?.appealReference) {
+		pageContent.pageComponents?.unshift({
+			type: 'warning-text',
+			parameters: {
+				text: `You cannot link an appeal to itself.`
+			}
+		});
+		pageContent.submitButtonProperties = {
+			text: 'Return to search',
+			href: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`
+		};
+	}
+	// candidate is already linked to target
+	else if (
 		appealData.linkedAppeals.filter(
 			(linkedAppeal) => linkedAppeal.appealReference === linkCandidateSummary.appealReference
 		).length > 0
@@ -472,7 +486,7 @@ export function unlinkAppealPage(appealData, childRef) {
 	/** @type {PageContent} */
 	const pageContent = {
 		title: titleAndHeading,
-		backLinkUrl: `/appeals-service/appeal-details/${appealData.appealId}/manage-linked-appeals/linked-appeals`,
+		backLinkUrl: generateLinkedAppealsManageLinkHref(appealData),
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: titleAndHeading,
 		pageComponents: [selectAppealTypeRadiosComponent]

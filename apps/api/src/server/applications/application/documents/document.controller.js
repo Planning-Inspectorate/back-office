@@ -617,7 +617,9 @@ export const searchDocuments = async ({ params, query }, response) => {
 	const { id: caseId } = params;
 	const { page, pageSize, criteria } = query;
 
-	if (criteria.length < 3) {
+	// criteria must be at least 3 chars long
+	// making sure that criteria is not an array prevents injection attacks (CWE-843)
+	if (Array.isArray(criteria) || criteria.length < 3) {
 		response.send({
 			page: 1,
 			pageDefaultSize: pageSize,

@@ -154,6 +154,18 @@ export const appealData = {
 		],
 		isAffected: true
 	},
+	neighbouringSites: [
+		{
+			siteId: 1,
+			address: {
+				addressLine1: '1 Grove Cottage',
+				addressLine2: 'Shotesham Road',
+				town: 'Woodton',
+				county: 'Devon',
+				postCode: 'NR35 2ND'
+			}
+		}
+	],
 	otherAppeals: [],
 	planningApplicationReference: '48269/APP/2021/1482',
 	procedureType: 'Written',
@@ -1682,6 +1694,25 @@ export const linkedAppealHorizon = {
 	appealType: 'Unknown',
 	relationshipId: 3049,
 	externalSource: true
+};
+
+export const linkableAppeal = {
+	appealId: 3,
+	appealReference: '12345',
+	appealType: 'Planning Appeal (W)',
+	appealStatus: 'Decision Issued',
+	siteAddress: {
+		siteAddressLine1: '123 Main Street',
+		siteAddressLine2: 'Brentry',
+		siteAddressTown: 'Bristol',
+		siteAddressCounty: 'Bristol, city of',
+		siteAddressPostcode: 'BS1 1AA'
+	},
+	localPlanningDepartment: 'Bristol City Council',
+	appellantName: 'Mr John Wick',
+	agentName: 'Mr John Smith (Smith Planning Agency)',
+	submissionDate: '2014-11-14T00:00:00+00:00',
+	source: 'back-office'
 };
 
 export const baseSession = {

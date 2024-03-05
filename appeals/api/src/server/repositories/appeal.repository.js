@@ -5,8 +5,11 @@ import {
 	DATABASE_ORDER_BY_DESC,
 	STATE_TARGET_CLOSED,
 	STATE_TARGET_COMPLETE,
+	STATE_TARGET_TRANSFERRED,
 	CASE_RELATIONSHIP_LINKED,
-	CASE_RELATIONSHIP_RELATED
+	CASE_RELATIONSHIP_RELATED,
+	STATE_TARGET_INVALID,
+	STATE_TARGET_WITHDRAWN
 } from '#endpoints/constants.js';
 
 /** @typedef {import('@pins/appeals.api').Appeals.RepositoryGetAllResultItem} RepositoryGetAllResultItem */
@@ -82,6 +85,7 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm, status, hasInspector) =
 				appealType: true,
 				lpa: true
 			},
+			orderBy: { updatedAt: 'desc' },
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize
 		}),
@@ -109,7 +113,18 @@ const getUserAppeals = (userId, pageNumber, pageSize, status) => {
 		],
 		AND: {
 			appealStatus: {
-				some: { valid: true, status: { notIn: [STATE_TARGET_COMPLETE, STATE_TARGET_CLOSED] } }
+				some: {
+					valid: true,
+					status: {
+						notIn: [
+							STATE_TARGET_COMPLETE,
+							STATE_TARGET_CLOSED,
+							STATE_TARGET_TRANSFERRED,
+							STATE_TARGET_INVALID,
+							STATE_TARGET_WITHDRAWN
+						]
+					}
+				}
 			}
 		}
 	};
@@ -293,14 +308,6 @@ const getAppealById = async (id) => {
 			},
 			appealTimetable: true,
 			appealType: true,
-			auditTrail: {
-				include: {
-					user: true
-				},
-				orderBy: {
-					loggedAt: DATABASE_ORDER_BY_DESC
-				}
-			},
 			caseOfficer: true,
 			inspector: true,
 			inspectorDecision: true,
@@ -608,10 +615,10 @@ const linkAppeal = async (relation) => {
 /**
  *
  * @param {number} appealRelationshipId
- * @returns {Promise<void>}
+ * @returns {Promise<AppealRelationship>}
  */
 const unlinkAppeal = async (appealRelationshipId) => {
-	await databaseConnector.appealRelationship.delete({
+	return await databaseConnector.appealRelationship.delete({
 		where: {
 			id: appealRelationshipId
 		}

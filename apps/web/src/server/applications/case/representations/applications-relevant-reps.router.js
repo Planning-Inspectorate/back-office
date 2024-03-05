@@ -16,6 +16,7 @@ import publishValidRepresentationsRouter from './publish-valid-representations/p
 import { fileUploadController } from './file-upload/file-upload.controller.js';
 import { repRoutes } from './representation/utils/get-representation-page-urls.js';
 import { getRepDownloadController } from './download/download.controller.js';
+import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
 
 const relevantRepsRouter = createRouter({ mergeParams: true });
 
@@ -38,6 +39,6 @@ relevantRepsRouter.use('/', publishRepresentationsErrorRouter);
 
 relevantRepsRouter.route('/:repId/api/upload').post(fileUploadController);
 
-relevantRepsRouter.route('/api/download').get(getRepDownloadController);
+relevantRepsRouter.route('/api/download').get(registerCaseId, getRepDownloadController);
 
 export default relevantRepsRouter;

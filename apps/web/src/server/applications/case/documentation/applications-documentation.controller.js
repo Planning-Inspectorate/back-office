@@ -124,9 +124,8 @@ export async function viewApplicationsCaseDocumentationUpload(request, response)
  *
  * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile}, {}>}
  */
-export async function viewApplicationsCaseDocumentationVersionUpload({ params }, response) {
-	const { documentGuid } = params;
-	const { caseId } = response.locals;
+export async function viewApplicationsCaseDocumentationVersionUpload(_, response) {
+	const { caseId, documentGuid } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
@@ -182,16 +181,16 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {folderId: string, folderName: string, documentGuid: string}>}
  */
 export async function viewApplicationsCaseDocumentationUnpublishSinglePage(request, response) {
-	const caseId = parseInt(response.locals.caseId);
+	const { caseId, documentGuid } = response.locals;
 
-	const file = await getCaseDocumentationFileInfo(caseId, request.params.documentGuid);
+	const file = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
 	return response.render(`applications/case-documentation/documentation-unpublish`, {
 		documentationFiles: [file],
 		backLink: url('document', {
 			caseId,
 			folderId: parseInt(request.params.folderId),
-			documentGuid: request.params.documentGuid,
+			documentGuid: documentGuid,
 			step: 'properties'
 		})
 	});
@@ -202,9 +201,8 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
  *
  * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], showSuccessBanner: boolean|undefined}, {}>}
  */
-export async function viewApplicationsCaseDocumentationProperties({ params, session }, response) {
-	const { documentGuid } = params;
-	const { caseId } = response.locals;
+export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
+	const { caseId, documentGuid } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
@@ -224,8 +222,12 @@ export async function viewApplicationsCaseDocumentationProperties({ params, sess
  * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null}, {}>}
  */
 export async function viewApplicationsCaseDocumentationPages({ params }, response) {
-	const { documentGuid, action } = params;
-	const { caseId } = response.locals;
+	const { action } = params;
+	if (!['delete', 'edit', 'publish', 'unpublish', 'upload'].includes(action)) {
+		return response.render('apps/500.njk');
+	}
+
+	const { caseId, documentGuid } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
@@ -246,11 +248,10 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
  * @type {import('@pins/express').RenderHandler<{documentationFile?: DocumentationFile, errors?: ValidationErrors} | {serviceName?: string, successMessage?: string}, {}>}
  */
 export async function updateApplicationsCaseDocumentationDelete(
-	{ params, errors: validationErrors },
+	{ errors: validationErrors },
 	response
 ) {
-	const { documentGuid } = params;
-	const { caseId } = response.locals;
+	const { caseId, documentGuid } = response.locals;
 	const { title: caseName, reference: caseReference } = response.locals.case;
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
@@ -364,8 +365,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {documentGuid: string}>}
  */
 export async function removeApplicationsCaseDocumentationPublishingQueue(request, response) {
-	const { documentGuid } = request.params;
-	const { caseId } = response.locals;
+	const { caseId, documentGuid } = response.locals;
 
 	await removeCaseDocumentationPublishingQueue(caseId, documentGuid);
 
