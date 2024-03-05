@@ -401,7 +401,6 @@ function removeAccordionComponentsActions(accordionComponents) {
 				);
 				break;
 			default:
-				removeSummaryListActions(component);
 				break;
 		}
 	});
