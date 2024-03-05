@@ -15,12 +15,9 @@ export default function versionRoutes(versionToControllerPairs) {
 	return function (request, response, next) {
 		const version = getVersion(request);
 
-		const versionKey = Object.entries(versionToControllerPairs).find(
-			(entry) => entry[0] === version
-		);
-		if (versionKey && versionKey[1]) {
-			const controller = versionKey[1];
+		const controller = versionToControllerPairs[version];
 
+		if (controller && typeof controller === 'function') {
 			return controller(request, response, next);
 		}
 	};

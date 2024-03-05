@@ -104,7 +104,7 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName/unpublish')
-	.post(locals.registerFolder, asyncHandler(controller.postUnpublishDocuments));
+	.post([locals.registerFolder], asyncHandler(controller.postUnpublishDocuments));
 
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/:action')
