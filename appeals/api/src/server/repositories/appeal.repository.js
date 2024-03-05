@@ -82,6 +82,7 @@ const getAllAppeals = (pageNumber, pageSize, searchTerm, status, hasInspector) =
 				appealType: true,
 				lpa: true
 			},
+			orderBy: { updatedAt: 'desc' },
 			skip: getSkipValue(pageNumber, pageSize),
 			take: pageSize
 		}),

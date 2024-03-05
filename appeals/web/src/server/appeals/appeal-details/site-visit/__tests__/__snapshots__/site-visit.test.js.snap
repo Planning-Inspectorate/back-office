@@ -3899,7 +3899,7 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
-                            <dd class="govuk-summary-list__value">APP/Q9999/D/21/351062</dd>
+                            <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>

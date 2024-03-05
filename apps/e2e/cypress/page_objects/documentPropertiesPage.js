@@ -14,11 +14,11 @@ export class DocumentPropertiesPage extends Page {
 			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next()
 	};
 
-	fileName = () => faker.lorem.word();
-	description = () => faker.lorem.sentence();
-	from = () => faker.lorem.word();
-	agent = () => faker.lorem.word();
-	webfilter = () => faker.lorem.word();
+	fileName = () => 'Filename';
+	description = () => 'description';
+	from = () => 'From';
+	agent = () => "Agentname";
+	webfilter = () => 'Webfilter name';
 	getDate = (received) => {
 		const today = new Date();
 		const day = today.getDate().toString().padStart(2, '0');
