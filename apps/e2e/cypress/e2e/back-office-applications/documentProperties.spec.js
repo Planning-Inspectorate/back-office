@@ -18,11 +18,11 @@ const fileUploadPage = new FileUploadPage();
 const documentPropertiesPage = new DocumentPropertiesPage();
 const { applications: applicationsUsers } = users;
 
-const fileName = () => faker.lorem.word();
-const description = () => faker.lorem.sentence();
-const from = () => faker.lorem.word();
-const agent = () => faker.lorem.word();
-const webfilter = () => faker.lorem.word();
+const fileName = () => 'filename';
+const description = () => 'description';
+const from = () => 'from';
+const agent = () => 'agent';
+const webfilter = () => 'webfilter';
 
 describe('Document Properties', () => {
 	let projectInfo;
