@@ -281,8 +281,21 @@ export function addLinkedAppealCheckAndConfirmPage(
 		}
 	};
 
-	// if candidate is already linked to target
-	if (
+	// candidate and target are the same appeal
+	if (appealData.appealReference === linkCandidateAppealData?.appealReference) {
+		pageContent.pageComponents?.unshift({
+			type: 'warning-text',
+			parameters: {
+				text: `You cannot link an appeal to itself.`
+			}
+		});
+		pageContent.submitButtonProperties = {
+			text: 'Return to search',
+			href: `/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/add`
+		};
+	}
+	// candidate is already linked to target
+	else if (
 		appealData.linkedAppeals.filter(
 			(linkedAppeal) => linkedAppeal.appealReference === linkCandidateSummary.appealReference
 		).length > 0
