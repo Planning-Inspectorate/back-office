@@ -3,7 +3,7 @@ import config from '#environment/config.js';
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 import { isDefined } from '#lib/ts-utilities.js';
-import { removeActions } from '#lib/mappers/mapper-utilities.js';
+import { removeSummaryListActions } from '#lib/mappers/mapper-utilities.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import {
@@ -61,8 +61,8 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 		type: 'summary-list',
 		parameters: {
 			rows: [
-				removeActions(mappedData.appeal.siteAddress.display.summaryListItem),
-				removeActions(mappedData.appeal.localPlanningAuthority.display.summaryListItem)
+				removeSummaryListActions(mappedData.appeal.siteAddress.display.summaryListItem),
+				removeSummaryListActions(mappedData.appeal.localPlanningAuthority.display.summaryListItem)
 			].filter(isDefined),
 			classes: 'govuk-summary-list--no-border'
 		}
@@ -78,7 +78,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 				mappedData.appeal?.linkedAppeals?.display.summaryListItem,
 				mappedData.appeal?.otherAppeals?.display.summaryListItem,
 				mappedData.appeal?.allocationDetails?.display.summaryListItem,
-				removeActions(mappedData.appeal?.lpaReference?.display.summaryListItem),
+				removeSummaryListActions(mappedData.appeal?.lpaReference?.display.summaryListItem),
 				mappedData.appeal?.decision?.display.summaryListItem
 			].filter(isDefined)
 		}
@@ -388,7 +388,7 @@ function removeAccordionComponentsActions(accordionComponents) {
 		switch (component.type) {
 			case 'summary-list':
 				component.parameters.rows = component.parameters.rows.map(
-					(/** @type {SummaryListRowProperties} */ row) => removeActions(row)
+					(/** @type {SummaryListRowProperties} */ row) => removeSummaryListActions(row)
 				);
 				break;
 			case 'table':
@@ -401,7 +401,7 @@ function removeAccordionComponentsActions(accordionComponents) {
 				);
 				break;
 			default:
-				removeActions(component);
+				removeSummaryListActions(component);
 				break;
 		}
 	});

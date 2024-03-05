@@ -1,5 +1,5 @@
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
-import { removeActions } from '#lib/mappers/mapper-utilities.js';
+import { removeSummaryListActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { isDefined } from '#lib/ts-utilities.js';
@@ -126,7 +126,7 @@ export async function scheduleOrManageSiteVisitPage(
 							mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
 							mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
 							...neighbouringSitesSummaryLists
-						].map((row) => removeActions(row))
+						].map((row) => removeSummaryListActions(row))
 					}
 				}
 			]

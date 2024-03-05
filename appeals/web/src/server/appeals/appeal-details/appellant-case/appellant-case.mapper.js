@@ -13,7 +13,7 @@ import {
 	documentUploadUrlTemplate,
 	mapDocumentManageUrl
 } from '#lib/mappers/appellantCase.mapper.js';
-import { removeActions } from '#lib/mappers/mapper-utilities.js';
+import { removeSummaryListActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
@@ -75,7 +75,7 @@ export async function appellantCasePage(
 	};
 
 	appellantCaseSummary.parameters.rows = appellantCaseSummary.parameters.rows.map(
-		(/** @type {SummaryListRowProperties} */ row) => removeActions(row)
+		(/** @type {SummaryListRowProperties} */ row) => removeSummaryListActions(row)
 	);
 
 	/**
@@ -283,7 +283,9 @@ export async function appellantCasePage(
 	) {
 		pageContent.pageComponents?.forEach((component) => {
 			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map((row) => removeActions(row));
+				component.parameters.rows = component.parameters.rows.map((row) =>
+					removeSummaryListActions(row)
+				);
 			}
 		});
 	}
@@ -461,7 +463,9 @@ export function checkAndConfirmPage(
 	) {
 		pageContent.pageComponents?.forEach((component) => {
 			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map((row) => removeActions(row));
+				component.parameters.rows = component.parameters.rows.map((row) =>
+					removeSummaryListActions(row)
+				);
 			}
 		});
 	}
