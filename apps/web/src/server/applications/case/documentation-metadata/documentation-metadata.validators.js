@@ -28,10 +28,9 @@ export const validatorsDispatcher = async (request, response, next) => {
 		'published-date': validateDocumentationMetaDatePublished
 	};
 
-	const validatorKey = Object.entries(validators).find((entry) => entry[0] === metaDataName);
-	if (validatorKey && validatorKey[1]) {
-		const validator = validatorKey[1];
+	const validator = validators[metaDataName];
 
+	if (validator && typeof validator === 'function') {
 		return validator(request, response, next);
 	}
 

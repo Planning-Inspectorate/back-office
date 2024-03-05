@@ -119,7 +119,7 @@ export async function postDocumentsUpload({ body, session }, response) {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {*} request
+ * @param {{session: SessionWithAuth, body: DocumentUploadInfo}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */

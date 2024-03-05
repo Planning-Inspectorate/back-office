@@ -68,7 +68,7 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folders/upload')
-	.get([locals.registerFolder], asyncHandler(controller.viewApplicationsCaseDocumentationUpload));
+	.get(locals.registerFolder, asyncHandler(controller.viewApplicationsCaseDocumentationUpload));
 
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/remove-from-publishing-queue')
@@ -91,16 +91,14 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/new-version')
 	.get(
-		locals.registerFolder,
-		locals.registerDocumentGuid,
+		[locals.registerFolder, locals.registerDocumentGuid],
 		asyncHandler(controller.viewApplicationsCaseDocumentationVersionUpload)
 	);
 
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/properties')
 	.get(
-		locals.registerFolder,
-		locals.registerDocumentGuid,
+		[locals.registerFolder, locals.registerDocumentGuid],
 		asyncHandler(controller.viewApplicationsCaseDocumentationProperties)
 	);
 
@@ -111,8 +109,7 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/:action')
 	.get(
-		locals.registerFolder,
-		locals.registerDocumentGuid,
+		[locals.registerFolder, locals.registerDocumentGuid],
 		asyncHandler(controller.viewApplicationsCaseDocumentationPages)
 	);
 
