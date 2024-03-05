@@ -25,7 +25,6 @@ export default function versionRoutes(versionToControllerPairs) {
 		const version = getVersion(request);
 
 		if (
-			!isNaN(Number(version)) &&
 			versionToControllerPairs[version] &&
 			typeof versionToControllerPairs[version] === 'function'
 		) {
