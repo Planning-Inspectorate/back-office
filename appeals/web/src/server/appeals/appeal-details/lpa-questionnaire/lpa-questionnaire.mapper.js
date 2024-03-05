@@ -14,7 +14,7 @@ import {
 import { buildNotificationBanners } from '#lib/mappers/notification-banners.mapper.js';
 import { buildHtmUnorderedList } from '#lib/nunjucks-template-builders/tag-builders.js';
 import { isDefined, isFolderInfo } from '#lib/ts-utilities.js';
-import { removeActions } from '#lib/mappers/mapper-utilities.js';
+import { removeSummaryListActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
@@ -75,7 +75,7 @@ export async function lpaQuestionnairePage(
 		}
 	};
 	caseSummary.parameters.rows = caseSummary.parameters.rows.map(
-		(/** @type {SummaryListRowProperties} */ row) => removeActions(row)
+		(/** @type {SummaryListRowProperties} */ row) => removeSummaryListActions(row)
 	);
 
 	/** @type {PageComponent[]} */
@@ -219,7 +219,9 @@ export async function lpaQuestionnairePage(
 	) {
 		pageContent.pageComponents?.forEach((component) => {
 			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map((row) => removeActions(row));
+				component.parameters.rows = component.parameters.rows.map((row) =>
+					removeSummaryListActions(row)
+				);
 			}
 		});
 	}
@@ -378,7 +380,9 @@ export function checkAndConfirmPage(
 	) {
 		pageContent.pageComponents?.forEach((component) => {
 			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map((row) => removeActions(row));
+				component.parameters.rows = component.parameters.rows.map((row) =>
+					removeSummaryListActions(row)
+				);
 			}
 		});
 	}

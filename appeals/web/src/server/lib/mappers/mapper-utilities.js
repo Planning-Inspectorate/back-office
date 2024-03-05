@@ -3,7 +3,7 @@
  * @param {Object|null|undefined} value
  * @returns {any|undefined}
  */
-export function removeActions(value) {
+export function removeSummaryListActions(value) {
 	if (value === undefined || value === null) {
 		return;
 	}
