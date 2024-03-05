@@ -15,7 +15,7 @@ export default function versionRoutes(versionToControllerPairs) {
 	return function (request, response, next) {
 		const version = getVersion(request);
 
-		if (!isNaN(Number(version))) {
+		if (!isNaN(Number(version)) && Object.keys(versionToControllerPairs).includes(version)) {
 			const controller = versionToControllerPairs[version];
 
 			if (controller && typeof controller === 'function') {
