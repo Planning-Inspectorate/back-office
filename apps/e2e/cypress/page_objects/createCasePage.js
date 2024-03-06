@@ -57,7 +57,8 @@ export class CreateCasePage extends Page {
 			this.sections.applicantName.fillApplicantLastName(projectInformation.applicantLastName);
 			this.clickSaveAndContinue();
 			this.sections.applicantAddress.fillApplicantPostcode(projectInformation.postcode);
-			this.clickButtonByText('Find address');
+			cy.get('button.govuk-button:nth-child(4)').click();
+			cy.wait(2000);
 			this.chooseSelectItemByIndex(1);
 			this.clickSaveAndContinue();
 			this.sections.applicantWebsite.fillApplicantWebsite(projectInformation.applicantWebsite);
