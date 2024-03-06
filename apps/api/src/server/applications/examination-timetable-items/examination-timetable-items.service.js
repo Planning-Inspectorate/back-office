@@ -207,6 +207,7 @@ export const createDeadlineSubFolders = async (
 	// create Other sub folder
 	const otherFolder = {
 		displayNameEn: 'Other',
+		displayNameCy: 'Arall', // Hardcoded translation of 'Other' into Welsh
 		caseId,
 		parentFolderId: parentFolderId,
 		stage,
