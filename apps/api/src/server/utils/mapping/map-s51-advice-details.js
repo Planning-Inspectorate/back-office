@@ -10,6 +10,10 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
  */
 
 /**
+ * @typedef {'checked' | 'unchecked' | 'readytopublish' | 'published' | 'donotpublish'} S51AdviceSchemaStatus
+ */
+
+/**
  * returns a formatted S52 Advice ref
  * eg for case EN01001 and advice number 12, returns EN010001-Advice-00012
  *
@@ -94,4 +98,34 @@ export const mapS51DocumentToUI = (s51AdviceDoc) => {
  */
 export const mapS51DocumentsToUI = (documentsWithDocumentVersion) => {
 	return documentsWithDocumentVersion.map((s51Document) => mapS51DocumentToUI(s51Document));
+};
+
+/**
+ * Map the S51 Advice internal DB status to the schema status
+ *
+ * @param {string} status
+ * @returns {S51AdviceSchemaStatus}
+ */
+export const mapS51AdviceStatusToSchemaStatus = (status) => {
+	let schemaStatus = undefined;
+	switch (status) {
+		case 'checked':
+			schemaStatus = 'checked';
+			break;
+		case 'not_checked':
+			schemaStatus = 'unchecked';
+			break;
+		case 'ready_to_publish':
+			schemaStatus = 'readytopublish';
+			break;
+		case 'published':
+			schemaStatus = 'published';
+			break;
+		case 'donotpublish':
+			schemaStatus = 'donotpublish';
+			break;
+	}
+
+	// @ts-ignore
+	return schemaStatus;
 };
