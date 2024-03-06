@@ -1,5 +1,8 @@
 import { pick } from 'lodash-es';
-import { formatS51AdviceReferenceCode } from '#utils/mapping/map-s51-advice-details.js';
+import {
+	formatS51AdviceReferenceCode,
+	mapS51AdviceStatusToSchemaStatus
+} from '#utils/mapping/map-s51-advice-details.js';
 import { getById as getCaseById } from '#repositories/case.repository.js';
 
 /**
@@ -10,7 +13,9 @@ import { getById as getCaseById } from '#repositories/case.repository.js';
  * */
 
 /**
- * @param {import('@prisma/client').S51Advice} s51Advice
+ * Build schema message payload for nsip-s51-advice
+ *
+ * @param {import('@prisma/client').S51Advice |} s51Advice
  * @returns {Promise<NSIPS51AdviceSchema>}
  * */
 export const buildNsipS51AdvicePayload = async (s51Advice) => {
@@ -28,8 +33,11 @@ export const buildNsipS51AdvicePayload = async (s51Advice) => {
 		agent: `${s51Advice.firstName} ${s51Advice.lastName}`,
 		method: /** @type {Method} */ (s51Advice.enquiryMethod),
 		adviceGivenBy: s51Advice.adviser,
-		status: /** @type {Status} */ (s51Advice.publishedStatus),
-		redactionStatus: /** @type {RedactionStatus} */ (s51Advice.redactedStatus),
+		status: mapS51AdviceStatusToSchemaStatus(s51Advice.publishedStatus),
+		// Note: schema only allows redacted or unredacted
+		redactionStatus: /** @type {RedactionStatus} */ (
+			s51Advice.redactedStatus === 'redacted' ? 'redacted' : 'unredacted'
+		),
 		// @ts-ignore
 		attachmentIds: s51Advice.S51AdviceDocument
 			? // @ts-ignore
