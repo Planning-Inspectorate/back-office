@@ -3,6 +3,7 @@ import config from '#config/config.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 import { createDocumentVersion } from '../document.service.js';
+import { extractYouTubeURLFromHTML } from '../../../documents/documents.service.js';
 
 /**
  * @type {Object<string, any>}
@@ -253,5 +254,44 @@ describe('Document service test', () => {
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.document.update).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.documentActivityLog.create).toHaveBeenCalledTimes(1);
+	});
+
+	describe('extractYouTubeURLFromHTML', () => {
+		it('correctly extracts a valid youtube src from an iframe tag within an html document', () => {
+			const expectedSrc = 'https://www.youtube.com/embed/hHEvsjxSbU8?si=-eTnuGjPKCN8PRgI';
+			const html = `<html lang="en"><body><iframe class="dummy-class" src="${expectedSrc}" id="dummy-id"></iframe></body></html>`;
+			const src = extractYouTubeURLFromHTML(html);
+			expect(src).toEqual(expectedSrc);
+		});
+
+		it('correctly extracts a valid youtube src from an iframe tag within an html document when iframe is in capitals', () => {
+			const expectedSrc = 'https://www.youtube.com/embed/hHEvsjxSbU8?si=-eTnuGjPKCN8PRgI';
+			const html = `<HTML LANG='en'><BODY><IFRAME CLASS='dummy-class' SRC='${expectedSrc}' ID='dummy-id'></IFRAME></BODY></HTML>`;
+			const src = extractYouTubeURLFromHTML(html);
+			expect(src).toEqual(expectedSrc);
+		});
+
+		it('fails when there is no iframe in the html', () => {
+			const expectedSrc = 'https://www.youtube.com/embed/hHEvsjxSbU8?si=-eTnuGjPKCN8PRgI';
+			const html = `<HTML LANG='en'><BODY><IMG class='dummy-class' src='${expectedSrc}' id='dummy-id'></IMG></BODY></HTML>`;
+			expect(() => {
+				extractYouTubeURLFromHTML(html);
+			}).toThrow('No iframe found in the HTML');
+		});
+
+		it('fails when there is no src sttribute in the iframe in the html', () => {
+			const html = `<html lang="en"><body><iframe class="dummy-class" id="dummy-id"></iframe></body></html>`;
+			expect(() => {
+				extractYouTubeURLFromHTML(html);
+			}).toThrow('No iframe src found in the HTML');
+		});
+
+		it('fails when an invalid youtube url is found in the iframe', () => {
+			const invalidUrl = 'https://badurl.com';
+			const html = `<html lang="en"><body><iframe class="dummy-class" src='${invalidUrl}' id="dummy-id"></iframe></body></html>`;
+			expect(() => {
+				extractYouTubeURLFromHTML(html);
+			}).toThrow(`iframe src is not a YouTube URL: ${invalidUrl}`);
+		});
 	});
 });
