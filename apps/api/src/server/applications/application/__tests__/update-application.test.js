@@ -307,7 +307,7 @@ describe('Update application', () => {
 	});
 
 	test(`update-application with new applicant using first and last name,
-			address line, map zoom level`, async () => {
+			address line, map zoom level, blank case email`, async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
@@ -331,7 +331,8 @@ describe('Update application', () => {
 			},
 			geographicalInformation: {
 				mapZoomLevelName: 'some-known-map-zoom-level'
-			}
+			},
+			caseEmail: ''
 		});
 
 		// THEN
@@ -344,9 +345,11 @@ describe('Update application', () => {
 				ApplicationDetails: {
 					upsert: {
 						create: {
+							caseEmail: null,
 							zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
 						},
 						update: {
+							caseEmail: null,
 							zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
 						}
 					}
