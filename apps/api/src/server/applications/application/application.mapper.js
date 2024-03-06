@@ -22,6 +22,11 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		['locationDescription', 'submissionAtInternal', 'submissionAtPublished', 'caseEmail']
 	);
 
+	if (formattedApplicationDetails.caseEmail === '') {
+		// Make sure caseEmail is saved as a null if blank
+		formattedApplicationDetails.caseEmail = null;
+	}
+
 	const applicant = applicationDetails?.applicant;
 	const formattedApplicantDetails = pick(applicant, [
 		'organisationName',
