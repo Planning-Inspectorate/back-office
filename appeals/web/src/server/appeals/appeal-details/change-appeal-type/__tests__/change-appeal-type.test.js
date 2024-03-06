@@ -279,6 +279,20 @@ describe('change-appeal-type', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render a custom error page stating that there is a problem with Horizon, if the transferred-appeal endpoint returns a 500', async () => {
+			nock('http://test/').get('/appeals/transferred-appeal/123').reply(500);
+
+			const response = await request
+				.post(`${baseUrl}/1${changeAppealTypePath}${addHorizonReferencePath}`)
+				.send({
+					'horizon-reference': '123'
+				});
+
+			expect(response.statusCode).toBe(200);
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should redirect to the check transfer page if an appeal matching the provided horizon reference was found in horizon', async () => {
 			nock('http://test/').get('/appeals/transferred-appeal/123').reply(200, {
 				caseFound: true

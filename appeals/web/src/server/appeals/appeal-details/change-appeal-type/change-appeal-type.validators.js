@@ -45,16 +45,25 @@ export const validateHorizonReference = createValidator(
 				return Promise.reject();
 			}
 
-			const horizonReferenceValidationResult = await checkAppealReferenceExistsInHorizon(
-				req.apiClient,
-				bodyFields['horizon-reference']
-			);
+			try {
+				const horizonReferenceValidationResult = await checkAppealReferenceExistsInHorizon(
+					req.apiClient,
+					bodyFields['horizon-reference']
+				);
 
-			if (horizonReferenceValidationResult.caseFound === false) {
-				return Promise.reject();
+				if (horizonReferenceValidationResult.caseFound === false) {
+					return Promise.reject();
+				}
+
+				return horizonReferenceValidationResult.caseFound;
+			} catch (/** @type {any} */ error) {
+				if (error.response.statusCode === 500) {
+					req.body.problemWithHorizon = true;
+					return true; // avoids failing validation chain (scenario where Horizon is down is handled by rendering a special error page instead of a validation error)
+				}
 			}
 
-			return horizonReferenceValidationResult.caseFound;
+			return Promise.reject();
 		})
 		.withMessage('Enter a valid Horizon appeal reference')
 );
