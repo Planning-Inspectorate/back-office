@@ -63,7 +63,10 @@ const getAppeals = async (req, res) => {
 	const formattedAppeals = await Promise.all(
 		appeals.map(async (appeal) => {
 			const linkedAppeals = await appealRepository.getLinkedAppeals(appeal.reference);
-			return formatAppeals(appeal, linkedAppeals);
+			return formatAppeals(
+				appeal,
+				linkedAppeals.filter((linkedAppeal) => linkedAppeal.type === 'linked')
+			);
 		})
 	);
 
@@ -102,7 +105,10 @@ const getMyAppeals = async (req, res) => {
 		const formattedAppeals = await Promise.all(
 			appeals.map(async (appeal) => {
 				const linkedAppeals = await appealRepository.getLinkedAppeals(appeal.reference);
-				return formatMyAppeals(appeal, linkedAppeals);
+				return formatMyAppeals(
+					appeal,
+					linkedAppeals.filter((linkedAppeal) => linkedAppeal.type === 'linked')
+				);
 			})
 		);
 		const sortedAppeals = sortAppeals(formattedAppeals);
