@@ -1,5 +1,6 @@
 import { pick, omitBy, isNull } from 'lodash-es';
 import config from '#config/config.js';
+import logger from '#utils/logger.js';
 import { folderDocumentCaseStageMappings } from '../../constants.js';
 
 /**
@@ -77,9 +78,8 @@ export const buildNsipDocumentPayload = (version) => {
 		originalFilename: version.originalFilename,
 		size: version.size,
 		documentURI: buildBlobUri(version.privateBlobContainer, version.privateBlobPath),
-		publishedDocumentURI: version.publishedBlobPath
-			? buildBlobUri(version.publishedBlobContainer, version.publishedBlobPath)
-			: undefined,
+		publishedDocumentURI:
+			buildBlobUri(version.publishedBlobContainer, version.publishedBlobPath) ?? undefined,
 		dateCreated: version.dateCreated?.toISOString() ?? null,
 		...(version.lastModified ? { lastModified: version.lastModified.toISOString() } : {}),
 		...(version.datePublished ? { datePublished: version.datePublished.toISOString() } : {}),
@@ -119,17 +119,29 @@ export const buildNsipDocumentPayload = (version) => {
 /**
  * return the document blob uri, eg config.blobStorageUrl/containerName/path
  *
- * @param {string |null} containerName
- * @param {string |null} path
+ * @param {string | null} containerName
+ * @param {string | null} path
  *
- * @returns {string}
+ * @returns {string | null}
  */
-const buildBlobUri = (containerName, path) =>
-	[config.blobStorageUrl, containerName, path].map(trimSlashes).join('/');
+const buildBlobUri = (containerName, path) => {
+	if (!(config.blobStorageUrl && containerName && path)) {
+		logger.error(
+			`Failed to build blob URI. One of the required components was missing.\n${{
+				blobStorageUrl: config.blobStorageUrl,
+				containerName,
+				path
+			}}`
+		);
+		return null;
+	}
+
+	return [config.blobStorageUrl, containerName, path].map(trimSlashes).join('/');
+};
 
 /**
  *
  * @param {string} uri
- * @returns {string | undefined}
+ * @returns {string}
  */
-const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');
+const trimSlashes = (uri) => uri.replace(/^\/+|\/+$/g, '');
