@@ -10,10 +10,6 @@
 {% set serviceName = "Examination timetable" %}
 {% set pageTitle = 'Edit timetable item' if isEditing else 'Create new item' %}
 
-{% block pageTitle %}
-	{{ serviceName }} - {{ pageTitle | default('GOV.UK') }}
-{% endblock %}
-
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}

@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-  {{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
+  Casework Back Office System - {{ serviceName }} {{ '- '+pageTitle if pageTitle or '' }}
 {% endblock %}
 
 {% block header %}
