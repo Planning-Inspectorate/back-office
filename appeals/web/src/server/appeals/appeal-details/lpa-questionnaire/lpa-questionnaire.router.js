@@ -1,38 +1,38 @@
 import { Router as createRouter } from 'express';
+import config from '#environment/config.js';
+import asyncRoute from '#lib/async-route.js';
 import * as controller from './lpa-questionnaire.controller.js';
 import * as validators from './lpa-questionnaire.validators.js';
 import * as documentsValidators from '../../appeal-documents/appeal-documents.validators.js';
 import outcomeIncompleteRouter from './outcome-incomplete/outcome-incomplete.router.js';
-import config from '@pins/appeals.web/environment/config.js';
 import { assertGroupAccess } from '../../../app/auth/auth.guards.js';
 import {
 	validateCaseFolderId,
 	validateCaseDocumentId
 } from '../../appeal-documents/appeal-documents.middleware.js';
-import asyncRoute from '#lib/async-route.js';
 import changePageRouter from '../../change-page/change-page.router.js';
 
 const router = createRouter({ mergeParams: true });
 
 router
 	.route('/:lpaQuestionnaireId')
-	.get(controller.getLpaQuestionnaire)
+	.get(asyncRoute(controller.getLpaQuestionnaire))
 	.post(
 		validators.validateReviewOutcome,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
-		controller.postLpaQuestionnaire
+		asyncRoute(controller.postLpaQuestionnaire)
 	);
 
 router.use('/:lpaQuestionnaireId/incomplete', outcomeIncompleteRouter);
 router
 	.route('/:lpaQuestionnaireId/check-your-answers')
-	.get(controller.getCheckAndConfirm)
+	.get(asyncRoute(controller.getCheckAndConfirm))
 	.post(
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
-		controller.postCheckAndConfirm
+		asyncRoute(controller.postCheckAndConfirm)
 	);
 
-router.route('/:lpaQuestionnaireId/confirmation').get(controller.getConfirmation);
+router.route('/:lpaQuestionnaireId/confirmation').get(asyncRoute(controller.getConfirmation));
 router.use('/:lpaQuestionnaireId/change-lpa-questionnaire', changePageRouter);
 
 router
@@ -44,7 +44,7 @@ router
 
 router
 	.route('/:lpaQuestionnaireId/add-document-details/:folderId')
-	.get(validateCaseFolderId, controller.getAddDocumentDetails)
+	.get(validateCaseFolderId, asyncRoute(controller.getAddDocumentDetails))
 	.post(
 		validateCaseFolderId,
 		documentsValidators.validateDocumentDetailsBodyFormat,
@@ -52,12 +52,12 @@ router
 		documentsValidators.validateDocumentDetailsReceivedDateValid,
 		documentsValidators.validateDocumentDetailsRedactionStatuses,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
-		controller.postAddDocumentDetails
+		asyncRoute(controller.postAddDocumentDetails)
 	);
 
 router
 	.route('/:lpaQuestionnaireId/add-document-details/:folderId/:documentId')
-	.get(validateCaseFolderId, controller.getAddDocumentVersionDetails)
+	.get(validateCaseFolderId, asyncRoute(controller.getAddDocumentVersionDetails))
 	.post(
 		validateCaseFolderId,
 		documentsValidators.validateDocumentDetailsBodyFormat,
@@ -65,21 +65,25 @@ router
 		documentsValidators.validateDocumentDetailsReceivedDateValid,
 		documentsValidators.validateDocumentDetailsRedactionStatuses,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
-		controller.postDocumentVersionDetails
+		asyncRoute(controller.postDocumentVersionDetails)
 	);
 
 router
 	.route('/:lpaQuestionnaireId/manage-documents/:folderId/')
-	.get(validateCaseFolderId, controller.getManageFolder);
+	.get(validateCaseFolderId, asyncRoute(controller.getManageFolder));
 
 router
 	.route('/:lpaQuestionnaireId/manage-documents/:folderId/:documentId')
-	.get(validateCaseFolderId, validateCaseDocumentId, controller.getManageDocument)
-	.post(validateCaseFolderId, validateCaseDocumentId, controller.postAddDocumentDetails);
+	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getManageDocument))
+	.post(
+		validateCaseFolderId,
+		validateCaseDocumentId,
+		asyncRoute(controller.postAddDocumentDetails)
+	);
 
 router
 	.route('/:lpaQuestionnaireId/change-document-details/:folderId/:documentId')
-	.get(validateCaseFolderId, controller.getChangeDocumentVersionDetails)
+	.get(validateCaseFolderId, asyncRoute(controller.getChangeDocumentVersionDetails))
 	.post(
 		validateCaseFolderId,
 		documentsValidators.validateDocumentDetailsBodyFormat,
@@ -88,17 +92,17 @@ router
 		documentsValidators.validateDocumentDetailsReceivedDateIsNotFutureDate,
 		documentsValidators.validateDocumentDetailsRedactionStatuses,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
-		controller.postChangeDocumentVersionDetails
+		asyncRoute(controller.postChangeDocumentVersionDetails)
 	);
 
 router
 	.route('/:lpaQuestionnaireId/manage-documents/:folderId/:documentId/:versionId/delete')
-	.get(validateCaseFolderId, validateCaseDocumentId, controller.getDeleteDocument)
+	.get(validateCaseFolderId, validateCaseDocumentId, asyncRoute(controller.getDeleteDocument))
 	.post(
 		validateCaseFolderId,
 		validateCaseDocumentId,
 		documentsValidators.validateDocumentDeleteAnswer,
-		controller.postDeleteDocument
+		asyncRoute(controller.postDeleteDocument)
 	);
 
 export default router;

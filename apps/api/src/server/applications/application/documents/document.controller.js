@@ -13,7 +13,7 @@ import {
 } from '#utils/mapping/map-document-details.js';
 import {
 	getDocumentsInCase,
-	extractDuplicates,
+	extractDuplicatesAndDeleted,
 	getIndexFromReference,
 	handleUpdateDocuments,
 	makeDocumentReference,
@@ -72,7 +72,7 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 		: 1;
 	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
-	const { duplicates, remainder } = await extractDuplicates(documentsToUpload);
+	const { duplicates, deleted, remainder } = await extractDuplicatesAndDeleted(documentsToUpload);
 	const filteredToUpload = /** @type {DocumentToSaveExtended[]} */ (documentsToUpload).filter(
 		(doc) => remainder.includes(doc.documentName)
 	);
@@ -90,7 +90,7 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 	);
 
 	if (dbResponse === null) {
-		response.status(409).send({ failedDocuments, duplicates });
+		response.status(409).send({ failedDocuments, duplicates, deleted });
 		return;
 	}
 
@@ -102,12 +102,13 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 	});
 
 	// Send response with blob storage host, container, and documents with URLs
-	response.status([...failedDocuments, ...duplicates].length > 0 ? 206 : 200).send({
+	response.status([...failedDocuments, ...duplicates, ...deleted].length > 0 ? 206 : 200).send({
 		blobStorageHost,
 		privateBlobContainer,
 		documents: documentsWithUrls,
 		failedDocuments,
-		duplicates
+		duplicates,
+		deleted
 	});
 };
 
@@ -616,7 +617,9 @@ export const searchDocuments = async ({ params, query }, response) => {
 	const { id: caseId } = params;
 	const { page, pageSize, criteria } = query;
 
-	if (criteria.length < 3) {
+	// criteria must be at least 3 chars long
+	// making sure that criteria is not an array prevents injection attacks (CWE-843)
+	if (Array.isArray(criteria) || criteria.length < 3) {
 		response.send({
 			page: 1,
 			pageDefaultSize: pageSize,

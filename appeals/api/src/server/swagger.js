@@ -681,6 +681,34 @@ export const spec = {
 			postcode: 'NR35 2ND',
 			town: 'Woodton'
 		},
+		NeighbouringSiteCreateResponse: {
+			siteId: 1,
+			address: {
+				addressLine1: '1 Grove Cottage',
+				addressLine2: 'Shotesham Road',
+				country: 'United Kingdom',
+				county: 'Devon',
+				postcode: 'NR35 2ND',
+				town: 'Woodton'
+			}
+		},
+		NeighbouringSiteUpdateRequest: {
+			siteId: 1,
+			address: {
+				addressLine1: '1 Grove Cottage',
+				addressLine2: 'Shotesham Road',
+				country: 'United Kingdom',
+				county: 'Devon',
+				postcode: 'NR35 2ND',
+				town: 'Woodton'
+			}
+		},
+		NeighbouringSiteUpdateResponse: {
+			siteId: 1
+		},
+		NeighbouringSiteDeleteRequest: {
+			siteId: 1
+		},
 		UpdateAppealTimetableRequest: {
 			finalCommentReviewDate: '2023-08-09',
 			issueDeterminationDate: '2023-08-10',

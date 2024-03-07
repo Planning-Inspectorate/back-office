@@ -131,6 +131,12 @@ const formatAppeal = (
 			appealId: appeal.id,
 			appealReference: appeal.reference,
 			appealSite: formatAddress(appeal.address),
+			neighbouringSites: appeal.neighbouringSites?.map((site) => {
+				return {
+					siteId: site.id,
+					address: formatAddress(site.address)
+				};
+			}),
 			appealStatus: appeal.appealStatus[0].status,
 			...(transferAppealTypeInfo && {
 				transferStatus: {

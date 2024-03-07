@@ -21,6 +21,7 @@ export default baseSchema
 		appInsightsConnectionString: joi.string().optional(),
 		apiUrl: joi.string().uri(),
 		authDisabled: joi.boolean().optional(),
+		authDisabledUserId: joi.string().optional(),
 		authDisabledGroupIds: joi.array().optional(),
 		authRedirectPath: joi.string(),
 		blobStorageUrl: joi.string(),

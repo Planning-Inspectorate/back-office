@@ -136,6 +136,7 @@ const examinationSubFolders = [
 		id: 4,
 		caseId: 1,
 		displayNameEn: 'Other',
+		displayNameCy: 'Arall',
 		stage: 'Examination',
 		parentFolderId: 1,
 		displayOrder: 300
@@ -273,7 +274,7 @@ const buildExpectedFolder = (folder) => {
 		id: folder.id,
 		caseReference: project.reference,
 		displayNameEnglish: folder.displayNameEn,
-		displayNameWelsh: null,
+		displayNameWelsh: folder.displayNameCy || folder.displayNameEn,
 		parentFolderId: folder.parentFolderId
 	};
 };
@@ -347,6 +348,50 @@ describe('Test examination timetable items API', () => {
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.examinationTimetableItem.create).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+			data: {
+				caseId: 1,
+				displayNameEn: '27 Feb 2023 - Examination Timetable Item',
+				stage: 'Examination',
+				parentFolderId: 1,
+				displayOrder: 20230227
+			}
+		});
+		expect(databaseConnector.examinationTimetable.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.examinationTimetable.findUnique).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.examinationTimetableType.findUnique).toHaveBeenCalledWith({
+			where: { id: 3 }
+		});
+	});
+
+	test('creates examination timetable item and pre-examination sub folder', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(project);
+		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
+		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({
+			name: 'NODeadline',
+			templateType: 'procedural-deadline'
+		});
+		databaseConnector.examinationTimetableItem.create.mockResolvedValue(
+			examinationTimetableItemDeadline
+		);
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(null);
+		databaseConnector.examinationTimetable.create.mockResolvedValue(examinationTimetableData);
+		const resp = await request
+			.post('/applications/examination-timetable-items')
+			.send(examinationTimetableItemDeadline);
+		expect(resp.status).toEqual(200);
+		expect(databaseConnector.examinationTimetableItem.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+			data: {
+				caseId: 1,
+				displayNameEn: '27 Feb 2023 - Examination Timetable Item',
+				stage: 'Pre-examination',
+				parentFolderId: 1,
+				displayOrder: 20230227
+			}
+		});
 		expect(databaseConnector.examinationTimetable.create).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.examinationTimetable.findUnique).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.examinationTimetableType.findUnique).toHaveBeenCalledWith({
@@ -430,7 +475,7 @@ describe('Test examination timetable items API', () => {
 		};
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(2, {
-			data: { ...expectedCreatedSubFolder, displayNameEn: 'Other' }
+			data: { ...expectedCreatedSubFolder, displayNameEn: 'Other', displayNameCy: 'Arall' }
 		});
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(3, {
@@ -648,7 +693,7 @@ describe('Test examination timetable items API', () => {
 		};
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(1, {
-			data: { ...expectedCreatedSubFolder, displayNameEn: 'Other' }
+			data: { ...expectedCreatedSubFolder, displayNameEn: 'Other', displayNameCy: 'Arall' }
 		});
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(2, {

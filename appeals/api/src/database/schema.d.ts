@@ -14,6 +14,7 @@ export {
 	KnowledgeOfOtherLandowners,
 	LPA,
 	LPAQuestionnaire,
+	NeighbouringSite,
 	NeighbouringSiteContact,
 	ReviewQuestionnaire,
 	LPAQuestionnaireIncompleteReason,
@@ -151,6 +152,10 @@ export interface InvalidValidationDecision {
 	notAppealable: boolean;
 	lPADeemedInvalid: boolean;
 	otherReasons: string | null;
+}
+
+export interface NeighbouringSite extends schema.NeighbouringSite {
+	address: schema.Address;
 }
 
 export interface IncompleteValidationDecision {
@@ -321,4 +326,7 @@ export interface AppellantCaseInvalidReasonOnAppellantCase
 
 export interface AuditTrail extends schema.AuditTrail {
 	user: User;
+	doc?: {
+		document: Document;
+	} | null;
 }

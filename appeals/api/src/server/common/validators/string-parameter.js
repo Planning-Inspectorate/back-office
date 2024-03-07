@@ -24,4 +24,11 @@ const validateStringParameter = (parameterName, maxLength = LENGTH_300) =>
 		.isLength({ max: maxLength })
 		.withMessage(stringTokenReplacement(ERROR_MAX_LENGTH_CHARACTERS, [maxLength]));
 
+/**
+ * @param {string} parameterName
+ * @returns {ValidationChain}
+ */
+export const validateRequiredStringParameter = (parameterName) =>
+	body(parameterName).notEmpty().withMessage(ERROR_CANNOT_BE_EMPTY_STRING);
+
 export default validateStringParameter;

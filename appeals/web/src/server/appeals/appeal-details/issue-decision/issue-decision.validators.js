@@ -7,28 +7,16 @@ import {
 	createDateInputDateInPastOrTodayValidator
 } from '#lib/validators/date-input.validator.js';
 import { createTextareaValidator } from '#lib/validators/textarea-validator.js';
-// import { createCheckboxTextItemsValidator } from '../../../../lib/validators/checkbox-text-items.validator.js';
+import { textInputCharacterLimits } from '#appeals/appeal.constants.js';
 
-// export const validateIncompleteReason = createValidator(
-// 	body('incompleteReason')
-// 		.exists()
-// 		.withMessage('Please select one or more reasons why the appeal is incomplete')
-// 		.bail()
-// 		.notEmpty()
-// 		.withMessage('Please select one or more reasons why the appeal is incomplete')
-// );
-
-// export const validateIncompleteReasonTextItems = createCheckboxTextItemsValidator(
-// 	'incompleteReason',
-// 	'appellantCaseNotValidReason'
-// );
 export const validateDueDateFields = createDateInputFieldsValidator('due-date');
 export const validateDueDateValid = createDateInputDateValidityValidator('due-date');
 export const validateDueDateInFuture = createDateInputDateInFutureValidator('due-date');
 export const validateTextArea = createTextareaValidator(
-	'decision-invalid-reason',
-	'Text must not exceed {{maximumCharacters}} characters',
-	1000
+	'decisionInvalidReason',
+	'Enter invalid reason text',
+	textInputCharacterLimits.issueDecisionInvalidReason,
+	`Invalid reason text must be ${textInputCharacterLimits.issueDecisionInvalidReason} characters or less`
 );
 
 export const validateDecision = createValidator(

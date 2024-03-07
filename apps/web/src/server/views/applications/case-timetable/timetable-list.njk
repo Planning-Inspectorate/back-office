@@ -4,11 +4,13 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "./components/timetable-items-list.component.njk" import timetableItemsList %}
 
+{% set serviceName = 'Examination timetable' %}
+
 {% block sectionContent %}
     <div>
 		<div class='govuk-grid-row'>
 			<div class='govuk-grid-column-two-thirds'>
-				<h2 class="govuk-heading-l">Examination timetable</h2>
+				<h2 class="govuk-heading-l">{{serviceName}}</h2>
 			</div>
 			<div class='govuk-grid-column-one-third'>
 				{% if publishedStatus %}
@@ -57,6 +59,6 @@
 				Unpublish timetable
 			</a>
 		</div>
-	{% endif %}	
+	{% endif %}
 
 {% endblock %}

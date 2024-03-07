@@ -3,7 +3,7 @@ import { request } from '../../../app-test.js';
 import { databaseConnector } from '#utils/database-connector.js';
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
-import { buildNsipS51AdvicePayload } from '../s51-advice.js';
+import { buildNsipS51AdvicePayload } from '#infrastructure/payload-builders/nsip-s51-advice.js';
 import { EventType } from '@pins/event-client';
 
 const caseId = 1;
@@ -54,7 +54,7 @@ const caseObject = {
 
 describe('Test S51 advice publishing', () => {
 	beforeAll(() => {
-		jest.useFakeTimers().setSystemTime(new Date());
+		jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(new Date());
 	});
 	beforeEach(() => {
 		jest.resetAllMocks();

@@ -1096,7 +1096,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
@@ -1108,10 +1108,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted">
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-4" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required" checked>
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1157,7 +1158,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
@@ -1169,10 +1170,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-4" name="items[1][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1234,7 +1236,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
@@ -1246,10 +1248,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted">
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-4" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required" checked>
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1295,7 +1298,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
@@ -1307,10 +1310,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-4" name="items[1][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1372,7 +1376,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
@@ -1384,10 +1388,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted">
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-4" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required" checked>
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1433,7 +1438,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
@@ -1445,10 +1450,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-4" name="items[1][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1510,7 +1516,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
@@ -1522,10 +1528,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted">
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-4" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required" checked>
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1571,7 +1578,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
@@ -1583,10 +1590,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-4" name="items[1][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1648,7 +1656,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[0][redactionStatus]" name="items[0][redactionStatus]"
@@ -1660,10 +1668,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted">
                                     <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-3" name="items[0][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[0][redactionStatus]-4" name="items[0][redactionStatus]"
                                     type="radio" value="no redaction required" checked>
-                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[0][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1709,7 +1718,7 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                     </div>
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset">
-                            <legend class="govuk-fieldset__legend">Redaction</legend>
+                            <legend class="govuk-fieldset__legend">Redaction status</legend>
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="items[1][redactionStatus]" name="items[1][redactionStatus]"
@@ -1721,10 +1730,11 @@ exports[`appellant-case GET /appellant-case/add-document-details/:folderId/ shou
                                     type="radio" value="unredacted" checked>
                                     <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-2">Unredacted</label>
                                 </div>
+                                <div class="govuk-radios__divider">Or</div>
                                 <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-3" name="items[1][redactionStatus]"
+                                    <input class="govuk-radios__input" id="items[1][redactionStatus]-4" name="items[1][redactionStatus]"
                                     type="radio" value="no redaction required">
-                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-3">No redaction required</label>
+                                    <label class="govuk-label govuk-radios__label" for="items[1][redactionStatus]-4">No redaction required</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -1746,26 +1756,26 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
     data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1"
                 multiple>
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
     <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
     <div     class="display--flex">
-        <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+        <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
         id="submit-button-1">Save and continue</button>
         <div class="progress-hook"></div>
         </div>
@@ -1783,20 +1793,20 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
     data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1"
                 multiple>
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
@@ -1817,7 +1827,7 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
                 </div>
             </div>
             <div class="display--flex">
-                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
                 id="submit-button-1">Save and continue</button>
                 <div class="progress-hook"></div>
             </div>
@@ -1835,20 +1845,20 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
     data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1"
                 multiple>
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
@@ -1869,7 +1879,7 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
                 </div>
             </div>
             <div class="display--flex">
-                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
                 id="submit-button-1">Save and continue</button>
                 <div class="progress-hook"></div>
             </div>
@@ -1887,20 +1897,20 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
     data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1"
                 multiple>
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
@@ -1921,7 +1931,7 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
                 </div>
             </div>
             <div class="display--flex">
-                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
                 id="submit-button-1">Save and continue</button>
                 <div class="progress-hook"></div>
             </div>
@@ -1954,26 +1964,26 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/ should rend
     data-blob-storage-container="document-service-uploads" data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single or multiple files to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1"
                 multiple>
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
     <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
     <div     class="display--flex">
-        <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+        <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
         id="submit-button-1">Save and continue</button>
         <div class="progress-hook"></div>
         </div>
@@ -1992,25 +2002,25 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
     data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1">
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
     <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
     <div     class="display--flex">
-        <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+        <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
         id="submit-button-1">Save and continue</button>
         <div class="progress-hook"></div>
         </div>
@@ -2029,19 +2039,19 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
     data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1">
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
@@ -2062,7 +2072,7 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
                 </div>
             </div>
             <div class="display--flex">
-                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
                 id="submit-button-1">Save and continue</button>
                 <div class="progress-hook"></div>
             </div>
@@ -2081,19 +2091,19 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
     data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1">
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
@@ -2114,7 +2124,7 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
                 </div>
             </div>
             <div class="display--flex">
-                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
                 id="submit-button-1">Save and continue</button>
                 <div class="progress-hook"></div>
             </div>
@@ -2133,19 +2143,19 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
     data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1">
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
@@ -2166,7 +2176,7 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
                 </div>
             </div>
             <div class="display--flex">
-                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
                 id="submit-button-1">Save and continue</button>
                 <div class="progress-hook"></div>
             </div>
@@ -2200,25 +2210,25 @@ exports[`appellant-case GET /appellant-case/add-documents/:folderId/:documentId 
     data-allowed-types=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,">
         <div class="top-errors-hook"></div>
         <form class="govuk-grid-column-two-thirds">
-            <div class="pins-file-upload--container">
-                <div class="govuk-body colour--secondary pins-file-upload--instructions">
-                    <label for="upload-file-1">Choose a single file to upload.</label><span>Your file must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
+            <div class="pins-file-upload__container">
+                <div class="govuk-body colour--secondary pins-file-upload__instructions">
+                    <label for="upload-file-1">Choose a single file to upload.</label><span>Files must be PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, JPEG, MPEG, MP3, MP4, MOV, PNG, TIF, 	or TIFF.</span><span>The total of your uploaded files must be smaller than 1 GB.</span>
                     <div                     class="middle-errors-hook"></div>
             </div>
-            <div class="display--flex">
+            <div class="pins-file-upload__upload display--flex">
                 <input class="display--none" id="upload-file-1" accept=".pdf,application/pdf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.jpg,image/jpeg,.jpeg,image/jpeg,.mpeg,video/mpeg,.mp3,audio/mpeg,.mp4,video/mp4,.mov,video/quicktime,.png,image/png,.tif,image/tiff,.tiff,image/tiff,"
                 type="file" name="files" value="Choose file" aria-controls="file-list-1">
-                <button type='button' class="pins-file-upload--button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload--counter'> No file chosen</span>
+                <button type='button' class="pins-file-upload__button govuk-button">Choose file</button><span role="status" aria-live="assertive" class='govuk-body pins-file-upload__counter'> No file chosen</span>
             </div>
             <div id="file-list-1">
                 <h2 class="display--sr-only" id="file-list-title-1">List of files to upload</h2>
-                <ul class="pins-file-upload--files-rows" aria-describedby="file-list-title-1"
+                <ul class="pins-file-upload__files-rows" aria-describedby="file-list-title-1"
                 aria-live="polite"></ul>
             </div>
     </div>
     <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
     <div     class="display--flex">
-        <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+        <button class="govuk-button pins-file-upload__submit" data-module="govuk-button"
         id="submit-button-1">Save and continue</button>
         <div class="progress-hook"></div>
         </div>
@@ -2767,16 +2777,16 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
         </div>
     </div>
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage folder</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">New supporting documents</h1>
         </div>
     </div>
     <table class="govuk-table" id="documents-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Document information</th>
+                <th scope="col" class="govuk-table__header">Name</th>
                 <th scope="col" class="govuk-table__header">Date received</th>
-                <th scope="col" class="govuk-table__header">Redaction</th>
+                <th scope="col" class="govuk-table__header">Redaction status</th>
                 <th scope="col" class="govuk-table__header">Actions</th>
             </tr>
         </thead>
@@ -2794,7 +2804,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 <td class="govuk-table__cell">1 February 2023</td>
                 <td class="govuk-table__cell">Redacted</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
-                    class="govuk-link">Edit</a>
+                    class="govuk-link">Edit <span class="govuk-visually-hidden">test-pdf-documentFolderInfo.pdf</span></a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -2814,7 +2824,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">Unredacted</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/47d8f073-c837-4f07-9161-c1a5626eba56"
-                    class="govuk-link">Edit</a>
+                    class="govuk-link">Edit <span class="govuk-visually-hidden">sample-20s-documentFolderInfo.mp4</span></a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -2830,7 +2840,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 <td class="govuk-table__cell">3 April 2025</td>
                 <td class="govuk-table__cell">No redaction required</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa6"
-                    class="govuk-link">Edit or remove</a>
+                    class="govuk-link">Edit or remove <span class="govuk-visually-hidden">ph0-documentFolderInfo.jpeg</span></a>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -2848,7 +2858,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/ should r
                 </td>
                 <td class="govuk-table__cell">Unredacted</td>
                 <td class="govuk-table__cell"><a href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/97260151-4334-407f-a76a-0b5666cbcfa7"
-                    class="govuk-link">View and edit</a>
+                    class="govuk-link">View and edit <span class="govuk-visually-hidden">ph1-documentFolderInfo.jpeg</span></a>
                 </td>
             </tr>
         </tbody>
@@ -2887,14 +2897,14 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with late entry tag in the date received row if the latest version of the document is marked as late entry, and a document history item for each version, with late entry tag in the history item document name column for versions marked as late entry 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -2911,12 +2921,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                         <div class="govuk-!-margin-bottom-1"><strong class="govuk-tag govuk-tag--pink single-line">Late entry</strong>
                         </div>
                     </dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -2924,19 +2934,20 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -2982,14 +2993,14 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><a class="govuk-link" href="/documents/103/download/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/preview/">test-pdf-documentFileVersionsInfo.pdf</a>
                         </div>
@@ -3000,12 +3011,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -3014,27 +3025,28 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
-            data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
+            data-module="govuk-button" id="upload-updated-document"> Upload a new version</a>
             <a             href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
             role="button" draggable="false" class="govuk-button govuk-button--secondary"
-            data-module="govuk-button" id="remove-document">Remove this document</a>
+            data-module="govuk-button" id="remove-document">Remove current version</a>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -3056,7 +3068,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                         </tbody>
                     </table>
                 </div>
-                </details>
+            </details>
         </div>
     </div>
 </main>"
@@ -3080,14 +3092,14 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
         </div>
     </div>
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -3100,12 +3112,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -3114,27 +3126,28 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds"><a href="/appeals-service/appeal-details/1/appellant-case/add-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3"
             role="button" draggable="false" class="govuk-button govuk-!-margin-right-2"
-            data-module="govuk-button" id="upload-updated-document"> Upload an updated document</a>
+            data-module="govuk-button" id="upload-updated-document"> Upload a new version</a>
             <a             href="/appeals-service/appeal-details/1/appellant-case/manage-documents/2864/15d19184-155b-4b6c-bba6-2bd2a61ca9a3/1/delete"
             role="button" draggable="false" class="govuk-button govuk-button--secondary"
-            data-module="govuk-button" id="remove-document">Remove this document</a>
+            data-module="govuk-button" id="remove-document">Remove current version</a>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -3167,14 +3180,14 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is "not_checked" 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -3187,12 +3200,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -3200,19 +3213,20 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -3244,14 +3258,14 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page with the expected content if the folderId and documentId are both valid and the document virus check status is null 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -3264,12 +3278,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -3277,19 +3291,20 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -3321,14 +3336,14 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId should render the manage individual document page without late entry tag in the date received row if the latest version of the document is not marked as late entry 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
+        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage document</span>
             <h1             class="govuk-heading-l govuk-!-margin-bottom-9">test-pdf-documentFileVersionsInfo.pdf</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">
                         <div class="govuk-!-margin-bottom-2"><span class="govuk-body">test-pdf-documentFileVersionsInfo.pdf</span>
                         </div>
@@ -3341,12 +3356,12 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                     <dd class="govuk-summary-list__value">1 February 2023</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf date received</span></a>
                     </dd>
                 </div>
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction status</dt>
                     <dd class="govuk-summary-list__value">Redacted</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change</a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/appellant-case/change-document-details/1/1"> Change<span class="govuk-visually-hidden"> test-pdf-documentFileVersionsInfo.pdf redaction status</span></a>
                     </dd>
                 </div>
             </dl>
@@ -3354,19 +3369,20 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h2>Document history</h2>
-            <p class="govuk-body">See version history, a change log or remove old documents</p>
-            <details             class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Document history</span>
+            <h2>Document versions</h2>
+            <p class="govuk-body">View and remove versions of this document</p>
+            <details class="govuk-details"
+            data-module="govuk-details">
+                <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Version history</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table govuk-!-font-size-16">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
                                 <th scope="col" class="govuk-table__header">Version</th>
-                                <th scope="col" class="govuk-table__header">Document name</th>
+                                <th scope="col" class="govuk-table__header">Name</th>
                                 <th scope="col" class="govuk-table__header">Activity</th>
-                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Redaction status</th>
                                 <th scope="col" class="govuk-table__header">Action</th>
                             </tr>
                         </thead>
@@ -3398,14 +3414,14 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId/delete should render the delete document page with multiple document versons 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
+        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage versions</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this version?</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
@@ -3438,14 +3454,14 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
 exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:documentId/:versionId/delete should render the delete document page with single document verson 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage documents</span>
-            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this document?</h1>
+        <div class="govuk-grid-column-two-thirds"><span class="govuk-caption-l govuk-!-margin-bottom-3">Manage versions</span>
+            <h1             class="govuk-heading-l govuk-!-margin-bottom-9">Are you sure you want to remove this version?</h1>
         </div>
     </div>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File</dt>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Name</dt>
                     <dd class="govuk-summary-list__value">test-pdf-documentFileVersionsInfo.pdf</dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Version</dt>
@@ -3454,7 +3470,7 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
             </dl>
             <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Removing the
-                    only version will delete the document from the case</strong>
+                    only version of a document will delete the document from the case</strong>
             </div>
             <form method="POST">
                 <div class="govuk-form-group">
@@ -3466,8 +3482,8 @@ exports[`appellant-case GET /appellant-case/manage-documents/:folderId/:document
                         </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="delete-file-answer-2" name="delete-file-answer"
-                            type="radio" value="yes-and-upload-new-document">
-                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">Yes, and upload new document</label>
+                            type="radio" value="yes-and-upload-another-document">
+                            <label class="govuk-label govuk-radios__label" for="delete-file-answer-2">Yes, and upload another document</label>
                         </div>
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="delete-file-answer-3" name="delete-file-answer"

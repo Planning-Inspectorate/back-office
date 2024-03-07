@@ -28,7 +28,7 @@ const upsertedDocVersionResponse = {
 	lastModified: null,
 	documentType: null,
 	published: false,
-	sourceSystem: 'back-office',
+	sourceSystem: 'back-office-applications',
 	origin: null,
 	originalFilename: 'Small1.pdf',
 	fileName: 'Small1',
@@ -139,7 +139,8 @@ describe('Create documents', () => {
 				}
 			],
 			failedDocuments: [],
-			duplicates: []
+			duplicates: [],
+			deleted: []
 		});
 
 		const metadata = {
@@ -216,6 +217,9 @@ describe('Create documents', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+		databaseConnector.document.findFirst
+			.mockResolvedValueOnce({ isDeleted: false })
+			.mockResolvedValueOnce({ isDeleted: true });
 		databaseConnector.document.create.mockImplementation(() => {
 			throw new Error();
 		});
@@ -228,12 +232,22 @@ describe('Create documents', () => {
 				documentName: 'test doc',
 				documentType: 'application/pdf',
 				documentSize: 1024
+			},
+			{
+				folderId: 1,
+				documentName: 'test doc deleted',
+				documentType: 'application/pdf',
+				documentSize: 1024
 			}
 		]);
 
 		// THEN
 		expect(response.status).toEqual(409);
-		expect(response.body).toEqual({ failedDocuments: [], duplicates: ['test doc'] });
+		expect(response.body).toEqual({
+			failedDocuments: [],
+			duplicates: ['test doc'],
+			deleted: ['test doc deleted']
+		});
 	});
 
 	test('throws error if folder id does not belong to case', async () => {

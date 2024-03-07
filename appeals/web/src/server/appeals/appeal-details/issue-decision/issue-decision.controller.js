@@ -295,7 +295,8 @@ const renderInvalidReason = async (request, response) => {
 		return response.status(404).render('app/404');
 	}
 
-	let invalidReason = request.body['decision-invalid-reason'];
+	const invalidReason =
+		request.body['decisionInvalidReason'] || request.session.inspectorDecision?.invalidReason;
 
 	const mappedPageContent = invalidReasonPage(appealData, invalidReason);
 

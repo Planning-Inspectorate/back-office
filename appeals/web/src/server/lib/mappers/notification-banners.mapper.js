@@ -93,8 +93,21 @@ export const notificationBannerDefinitions = {
 	assignCaseOfficer: {
 		pages: ['appealDetails']
 	},
+	appealLinked: {
+		type: 'success',
+		pages: ['appealDetails']
+	},
 	appealUnlinked: {
 		pages: ['appealDetails']
+	},
+	otherAppeal: {
+		pages: ['appealDetails'],
+		type: 'success'
+	},
+	neighbouringSiteAdded: {
+		type: 'success',
+		pages: ['appealDetails'],
+		html: `<p class="govuk-notification-banner__heading">Neighbouring site added.</p>`
 	}
 };
 

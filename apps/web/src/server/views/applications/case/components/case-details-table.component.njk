@@ -17,18 +17,19 @@
 	{% endif %}
 
 	{% set rowsData = [
-		{title: 'Project name', value: case.title, url: 'name' },
-		{title: 'Project description', value: case.description, url: 'description' },
-		{title: 'Project email address', value: case.caseEmail, url: 'team-email' },
-		{title: 'Project location', value: case.geographicalInformation.locationDescription, url: 'project-location' },
-		{title: 'Grid references', value: gridReferences, url: 'grid-references' },
-		{title: 'Region(s)', value: regionNames, url: 'regions' },
-		{title: 'Map zoom level', value: case.geographicalInformation.mapZoomLevel.displayNameEn, url: 'zoom-level' }
+		{title: 'Project name', text: case.title, url: 'name' },
+		{title: 'Project description', html: case.description | sanitize, url: 'description' },
+		{title: 'Project email address', text: case.caseEmail, url: 'team-email' },
+		{title: 'Project location', html: case.geographicalInformation.locationDescription | sanitize, url: 'project-location' },
+		{title: 'Grid references', html: gridReferences, url: 'grid-references' },
+		{title: 'Region(s)', html: regionNames, url: 'regions' },
+		{title: 'Map zoom level', text: case.geographicalInformation.mapZoomLevel.displayNameEn, url: 'zoom-level' }
 	] %}
 
 	{% set tableRows = [] %}
 	{% for rowData in rowsData %}
-		{% set cols = [{text: rowData.title}, {html: rowData.value}] %}
+		{#  In the value column, rowData can be used because "title" and "url" are ignored	#}
+		{% set cols = [{text: rowData.title}, rowData] %}
 		{% set linkCol =  {
 			html: caseEditLink({editStepUrl:rowData.url, caseId: case.id}),
 			classes: 'text-align--right pins-table__cell--s'

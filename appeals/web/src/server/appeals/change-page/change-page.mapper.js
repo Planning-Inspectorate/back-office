@@ -16,7 +16,7 @@ import { initialiseAndMapLPAQData } from '#lib/mappers/lpaQuestionnaire.mapper.j
  * @returns {Promise<PageContent>}
  */
 export async function appealChangePage(question, appealData, currentRoute, session) {
-	const mappedData = await initialiseAndMapAppealData(appealData, currentRoute, session);
+	const mappedData = await initialiseAndMapAppealData(appealData, currentRoute, session, true);
 	const instructionsForQuestion = getInstructions(question, mappedData.appeal);
 
 	return mapInstructionsToChangePage(

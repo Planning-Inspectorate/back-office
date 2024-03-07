@@ -234,6 +234,7 @@ model ZoomLevel {
 model Folder {
   id                       Int                        @id @default(autoincrement())
   displayNameEn            String
+  displayNameCy            String?
   displayOrder             Int?
   parentFolderId           Int?
   caseId                   Int?
@@ -282,7 +283,7 @@ model DocumentVersion {
   lastModified           DateTime?
   documentType           String?
   published              Boolean               @default(false)
-  sourceSystem           String                @default("back-office")
+  sourceSystem           String                @default("back-office-applications")
   origin                 String?
   originalFilename       String?
   fileName               String?

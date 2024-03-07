@@ -38,7 +38,7 @@ describe('Update application', () => {
 		});
 
 		databaseConnector.case.update.mockResolvedValue({});
-		jest.useFakeTimers({ now: 1_649_319_144_000 });
+		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
 
 		// WHEN
 		const response = await request.patch('/applications/1').send({
@@ -98,7 +98,7 @@ describe('Update application', () => {
 
 		databaseConnector.case.update.mockResolvedValue({});
 		databaseConnector.subSector.findUnique.mockResolvedValue({});
-		jest.useFakeTimers({ now: 1_649_319_144_000 });
+		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
 
 		// WHEN
 		const response = await request.patch('/applications/1').send({
@@ -158,7 +158,7 @@ describe('Update application', () => {
 		databaseConnector.subSector.findUnique.mockResolvedValue({});
 		databaseConnector.zoomLevel.findUnique.mockResolvedValue({});
 		databaseConnector.region.findUnique({});
-		jest.useFakeTimers({ now: 1_649_319_144_000 });
+		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
 
 		// WHEN
 		const response = await request.patch('/applications/1').send({
@@ -307,7 +307,7 @@ describe('Update application', () => {
 	});
 
 	test(`update-application with new applicant using first and last name,
-			address line, map zoom level`, async () => {
+			address line, map zoom level, blank case email`, async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue({
 			id: 1,
@@ -318,7 +318,7 @@ describe('Update application', () => {
 		databaseConnector.zoomLevel.findUnique.mockResolvedValue({});
 		databaseConnector.case.update.mockResolvedValue({});
 
-		jest.useFakeTimers({ now: 1_649_319_144_000 });
+		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
 
 		// WHEN
 		const response = await request.patch('/applications/1').send({
@@ -331,7 +331,8 @@ describe('Update application', () => {
 			},
 			geographicalInformation: {
 				mapZoomLevelName: 'some-known-map-zoom-level'
-			}
+			},
+			caseEmail: ''
 		});
 
 		// THEN
@@ -344,9 +345,11 @@ describe('Update application', () => {
 				ApplicationDetails: {
 					upsert: {
 						create: {
+							caseEmail: null,
 							zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
 						},
 						update: {
+							caseEmail: null,
 							zoomLevel: { connect: { name: 'some-known-map-zoom-level' } }
 						}
 					}
@@ -392,7 +395,7 @@ describe('Update application', () => {
 		databaseConnector.subSector.findUnique.mockResolvedValue(null);
 		databaseConnector.case.update.mockResolvedValue({});
 
-		jest.useFakeTimers({ now: 1_649_319_144_000 });
+		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
 
 		// WHEN
 		const response = await request.patch('/applications/1').send({
@@ -504,7 +507,7 @@ describe('Update application', () => {
 		});
 
 		databaseConnector.case.update.mockResolvedValue({});
-		jest.useFakeTimers({ now: 1_649_319_144_000 });
+		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
 
 		// WHEN
 		const response = await request.patch('/applications/1').send({

@@ -21,8 +21,7 @@ const view = 'applications/representations/publish-updated-representations.njk';
  * @param {import("express").Response} res
  */
 const getPublishUpdatedRepresentationsController = async (req, res) => {
-	const { params } = req;
-	const { caseId } = params;
+	const { caseId } = res.locals;
 	const {
 		locals: { serviceUrl }
 	} = res;
@@ -47,8 +46,8 @@ const getPublishUpdatedRepresentationsController = async (req, res) => {
  */
 const postPublishUpdatedRepresentationsController = async (req, res) => {
 	try {
-		const { body, errors, params, session } = req;
-		const { caseId } = params;
+		const { body, errors, session } = req;
+		const { caseId } = res.locals;
 		const { representationId } = body;
 		const {
 			locals: { serviceUrl }

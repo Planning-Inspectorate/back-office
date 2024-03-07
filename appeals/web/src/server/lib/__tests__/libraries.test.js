@@ -1,4 +1,4 @@
-import { addressToString } from '../address-formatter.js';
+import { addressToString, appealSiteToMultilineAddressStringHtml } from '../address-formatter.js';
 import asyncRoute from '../async-route.js';
 import { bodyToPayload } from '../body-formatter.js';
 import {
@@ -42,10 +42,12 @@ import { addNotificationBannerToSession } from '#lib/session-utilities.js';
 import { paginationDefaultSettings } from '#appeals/appeal.constants.js';
 import { getPaginationParametersFromQuery } from '#lib/pagination-utilities.js';
 import { linkedAppealStatus } from '#lib/appeals-formatter.js';
+import httpMocks from 'node-mocks-http';
+import { isInternalUrl } from '#lib/url-utilities.js';
 
 describe('Libraries', () => {
 	describe('addressFormatter', () => {
-		it('should converts a multi part address to a single string', () => {
+		it('addressToString should convert a multi part address to a single string', () => {
 			const address = {
 				postCode: 'postcode',
 				addressLine1: 'address 1',
@@ -57,6 +59,21 @@ describe('Libraries', () => {
 			const adressFormatted = addressToString(address);
 
 			expect(typeof adressFormatted).toBe('string');
+		});
+		it('appealSiteToMultilineAddressStringHtml should converts a multi part address to a single string', () => {
+			const address = {
+				postCode: 'postcode',
+				addressLine1: 'address 1',
+				addressLine2: 'address 2',
+				town: 'town',
+				county: 'county'
+			};
+
+			const adressFormatted = appealSiteToMultilineAddressStringHtml(address);
+
+			expect(adressFormatted).toEqual(
+				'address 1, </br>address 2, </br>town, </br>county, </br>postcode'
+			);
 		});
 	});
 
@@ -1338,5 +1355,76 @@ describe('linkedAppealStatus', () => {
 
 	it('returns an empty string when both isParent and isChild are false', () => {
 		expect(linkedAppealStatus(false, false)).toBe('');
+	});
+});
+
+describe('isInternalUrl', () => {
+	test('should return true for fully qualified internal HTTP URL', () => {
+		const url = 'http://localhost/appeals-service/appeals-list';
+
+		const request = httpMocks.createRequest({
+			method: 'GET',
+			url: '/appeals-service/appeals-list',
+			secure: true,
+			headers: {
+				host: 'localhost'
+			}
+		});
+
+		expect(isInternalUrl(url, request)).toBe(true);
+	});
+
+	describe('isInternalUrl', () => {
+		test('should return true for fully qualified internal HTTPS URL', () => {
+			const url = 'https://localhost/appeals-service/appeals-list';
+			const request = httpMocks.createRequest({
+				method: 'GET',
+				url: '/appeals-service/appeals-list',
+				secure: true,
+				headers: {
+					host: 'localhost'
+				}
+			});
+			expect(isInternalUrl(url, request)).toBe(true);
+		});
+
+		test('should return false for external URL', () => {
+			const url = 'https://external-phishing-url.com';
+			const request = httpMocks.createRequest({
+				method: 'GET',
+				url: '/',
+				secure: true,
+				headers: {
+					host: 'localhost'
+				}
+			});
+			expect(isInternalUrl(url, request)).toBe(false);
+		});
+
+		test('should return false for an invalid URL', () => {
+			const url = '://bad.url';
+			const request = httpMocks.createRequest({
+				method: 'GET',
+				url: '/',
+				secure: false,
+				headers: {
+					host: 'localhost'
+				}
+			});
+			expect(isInternalUrl(url, request)).toBe(false);
+		});
+
+		test('should handle URLs without protocols', () => {
+			const url = '//localhost/appeals-service/appeals-list';
+			const request = httpMocks.createRequest({
+				method: 'GET',
+				url: '/appeals-service/appeals-list',
+				secure: false,
+				headers: {
+					host: 'localhost'
+				}
+			});
+			expect(isInternalUrl(url, request)).toBe(true);
+		});
 	});
 });

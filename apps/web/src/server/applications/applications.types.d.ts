@@ -183,6 +183,7 @@ export interface ProjectTeamMember {
 	givenName: string;
 	surname: string;
 	id: string;
+	role: string;
 	// userPrincipalName is the email
 	userPrincipalName: string;
 }

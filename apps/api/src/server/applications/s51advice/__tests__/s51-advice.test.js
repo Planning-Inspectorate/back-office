@@ -3,7 +3,7 @@ import { request } from '#app-test';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 import { EventType } from '@pins/event-client';
 import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
-import { buildNsipS51AdvicePayload } from '../s51-advice.js';
+import { buildNsipS51AdvicePayload } from '#infrastructure/payload-builders/nsip-s51-advice.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 

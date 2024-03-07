@@ -4,12 +4,12 @@
 {% macro timetableItemSummary(timetableItem) %}
 
 	{% set descriptionHtml %}
-		<p class="govuk-body">{{timetableItem.description.preText}}</p>
+		<p class="govuk-body">{{timetableItem.description.preText | sanitize}}</p>
 
 		{% if timetableItem.description.bulletPoints | length %}
 			<ul class='govuk-list govuk-list--bullet'>
 				{% for bulletPoint in timetableItem.description.bulletPoints %}
-					<li>{{bulletPoint}}</li>
+					<li>{{bulletPoint | sanitize}}</li>
 				{% endfor %}
 			</ul>
 		{% endif %}
@@ -18,46 +18,43 @@
 	{% set rowsData = [
 		{
 			key: 'Item Type',
-			value: timetableItem.itemTypeName
+			text: timetableItem.itemTypeName
 		}, {
 			key: 'Item Name',
-			value: timetableItem.name
+			text: timetableItem.name
 		}, {
 			key: "Date",
-			value: timetableItem.date
+			text: timetableItem.date
 		}, {
 			key: "Start Date",
-			value: timetableItem.startDate
+			text: timetableItem.startDate
 		}, {
 			key: "Start time",
-			value: timetableItem.startTime
+			text: timetableItem.startTime
 		}, {
 			key: "End Date",
-			value: timetableItem.endDate
+			text: timetableItem.endDate
 		}, {
 			key: "End Time",
-			value: timetableItem.endTime
+			text: timetableItem.endTime
 		}, {
 			key: "Description",
-			value: descriptionHtml
+			html: descriptionHtml
 		}
 
 	] %}
 
 	{% set tableRows = [] %}
 	{% for row in rowsData %}
-		{% if (row.value !== null) %}
+		{% if (row.text or row.html) %}
+			{#  In the value column, the row can be used because the "key" will be ignored	#}
 			{% set tableRows = tableRows.concat([
 				{
-					key: {
-						text: row.key
-					},
-
-					value: {
-						html: row.value
-					}
+					key: { text: row.key },
+					value: row
 				}
 			]) %}
+
 		{% endif %}
 	{% endfor %}
 

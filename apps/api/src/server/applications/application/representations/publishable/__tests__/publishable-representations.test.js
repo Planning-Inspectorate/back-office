@@ -88,7 +88,10 @@ describe('Get Publishable Representations', () => {
 
 		describe('when representations have not been published before', () => {
 			it('returns publishable representations', async () => {
-				databaseConnector.representation.count.mockResolvedValue(0);
+				//here we need to mock representation.count twice:
+				//first we mock the count being called in `publishableRepresentations` in the publishable controller
+				//second mock is for the `previouslyPublished` value in that happens right after
+				databaseConnector.representation.count.mockResolvedValueOnce(2).mockResolvedValueOnce(0);
 
 				const response = await request.get('/applications/1/representations/publishable');
 

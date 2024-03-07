@@ -35,6 +35,7 @@ model Appeal {
   specialisms                  AppealSpecialism[]
   appellantCase                AppellantCase?
   appealStatus                 AppealStatus[]
+  neighbouringSites            NeighbouringSite[]
   inspectorDecision            InspectorDecision?
   lpaQuestionnaire             LPAQuestionnaire?
   reviewQuestionnaire          ReviewQuestionnaire[]
@@ -214,11 +215,12 @@ model Address {
   postcode                String?
   addressCounty           String?
   addressTown             String?
-  addressCountry          String?
+  addressCountry          String?                   @default("United Kingdom")
   Appeal                  Appeal[]
   ServiceUser             ServiceUser[]
   RepresentationContact   RepresentationContact[]
   NeighbouringSiteContact NeighbouringSiteContact[]
+  NeighbouringSite        NeighbouringSite[]
 }
 
 /// ValidationDecision model
@@ -664,6 +666,14 @@ model LPAQuestionnaireIncompleteReasonOnLPAQuestionnaire {
   lpaQuestionnaireIncompleteReasonText LPAQuestionnaireIncompleteReasonText[]
 
   @@id([lpaQuestionnaireIncompleteReasonId, lpaQuestionnaireId])
+}
+
+model NeighbouringSite {
+  id        Int     @id @default(autoincrement())
+  appeal    Appeal  @relation(fields: [appealId], references: [id])
+  appealId  Int
+  address   Address @relation(fields: [addressId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  addressId Int
 }
 
 model NeighbouringSiteContact {

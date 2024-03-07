@@ -26,6 +26,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	apiUrl: string;
 	authDisabled: boolean;
 	authDisabledGroupIds: string[];
+	authDisabledUserId: string;
 	// redirect path for MSAL auth, defaults to /auth/redirect
 	authRedirectPath: string;
 	blobStorageUrl: string;

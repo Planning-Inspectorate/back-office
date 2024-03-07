@@ -4,7 +4,7 @@ import getActiveDirectoryAccessToken from '#lib/active-directory-token.js';
 import config from '#environment/config.js';
 import { prefixUrl } from '#lib/graph-request.js';
 
-/** @typedef {import('../../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
+/** @typedef {import('#app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 
 /**
  * Get all the users belonging to a specific group.

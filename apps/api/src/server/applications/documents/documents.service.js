@@ -60,18 +60,28 @@ export const updateStatus = async (guid, status) => {
  * @param {string} html
  * @returns {string}
  * */
-export const extractYouTubeURLFromHTML = (html) => {
-	const match = html.match(/<iframe.+?src=["|'](.+?)["|']/);
-	if (!match) {
+export const extractYouTubeURLFromHTML = (originalHtml) => {
+	// this could all be simplified with a regex, but it would expose the code to malicious exploits
+	const html = originalHtml.replaceAll('IFRAME', 'iframe');
+	if (!(html.includes('<iframe') && html.includes('</iframe>'))) {
 		throw new Error('No iframe found in the HTML');
 	}
 
-	const isYouTube = /^https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(match[1]);
-	if (!isYouTube) {
-		throw new Error(`iframe src is not a YouTube URL: ${match[1]}`);
+	const iframe = html.substring(html.indexOf('<iframe') + 7, html.indexOf('</iframe'));
+	const iframeAttributes = iframe.split(/["|']/);
+	const iframeSrcIndex =
+		iframeAttributes.findIndex((text) => text.toLowerCase().includes('src=')) + 1;
+	if (!iframeSrcIndex) {
+		throw new Error('No iframe src found in the HTML');
 	}
 
-	return match[1];
+	const iframeSrc = iframeAttributes[iframeSrcIndex];
+	const isYouTube = /^https?:\/\/(www\.)?(youtube.com|youtu.be).+$/.test(iframeSrc);
+	if (!isYouTube) {
+		throw new Error(`iframe src is not a YouTube URL: ${iframeSrc}`);
+	}
+
+	return iframeSrc;
 };
 
 /**

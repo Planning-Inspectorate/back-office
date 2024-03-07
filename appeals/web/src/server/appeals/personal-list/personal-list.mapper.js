@@ -1,5 +1,5 @@
 import config from '#environment/config.js';
-import { removeActions } from '#lib/mappers/mapper-utilities.js';
+import { removeSummaryListActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { dateToDisplayDate } from '#lib/dates.js';
@@ -37,6 +37,7 @@ export function personalListPage(
 			selected: appealStatusFilter === appealStatus
 		})
 	);
+
 	/** @type {PageComponent} */
 	const searchAllCasesButton = {
 		wrapperHtml: {
@@ -125,6 +126,11 @@ export function personalListPage(
 			],
 			rows: (appealsAssignedToCurrentUser?.items || []).map((appeal) => {
 				const shortReference = appealShortReference(appeal.appealReference);
+				const linkedAppealStatusText = linkedAppealStatus(
+					appeal.isParentAppeal,
+					appeal.isChildAppeal
+				);
+
 				return [
 					{
 						html: `<strong><a class="govuk-link" href="/appeals-service/appeal-details/${
@@ -135,14 +141,17 @@ export function personalListPage(
 					},
 					{
 						html: '',
-						pageComponents: [
-							{
-								type: 'status-tag',
-								parameters: {
-									status: linkedAppealStatus(appeal.isParentAppeal, appeal.isChildAppeal)
-								}
-							}
-						]
+						pageComponents:
+							linkedAppealStatusText === ''
+								? []
+								: [
+										{
+											type: 'status-tag',
+											parameters: {
+												status: linkedAppealStatusText
+											}
+										}
+								  ]
 					},
 					{
 						html: mapAppealStatusToActionRequiredHtml(
@@ -197,8 +206,14 @@ export function personalListPage(
 		!session.account.idTokenClaims.groups.includes(config.referenceData.appeals.caseOfficerGroupId)
 	) {
 		pageContent.pageComponents?.forEach((component) => {
-			if ('rows' in component.parameters && Array.isArray(component.parameters.rows)) {
-				component.parameters.rows = component.parameters.rows.map((row) => removeActions(row));
+			if (
+				'rows' in component.parameters &&
+				Array.isArray(component.parameters.rows) &&
+				component.type === 'summary-list'
+			) {
+				component.parameters.rows = component.parameters.rows.map((row) =>
+					removeSummaryListActions(row)
+				);
 			}
 		});
 	}

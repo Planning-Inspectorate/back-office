@@ -2,7 +2,12 @@ import { jest } from '@jest/globals';
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
-import { appealData } from '#testing/app/fixtures/referencedata.js';
+import {
+	appealData,
+	linkedAppeals,
+	linkableAppealSummaryBackOffice,
+	linkableAppealSummaryHorizon
+} from '#testing/app/fixtures/referencedata.js';
 import { createTestEnvironment } from '#testing/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
@@ -203,6 +208,49 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render a "Neighbouring site added" notification banner when the a neighbouring site was added', async () => {
+			const appealReference = '1';
+
+			nock.cleanAll();
+			nock('http://test/')
+				.post(`/appeals/${appealReference}/neighbouring-sites`)
+				.reply(200, {
+					siteId: 1,
+					address: {
+						addressLine1: '1 Grove Cottage',
+						addressLine2: 'Shotesham Road',
+						country: 'United Kingdom',
+						county: 'Devon',
+						postcode: 'NR35 2ND',
+						town: 'Woodton'
+					}
+				});
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData);
+
+			const addNeighbouringSiteResponse = await request
+				.post(`${baseUrl}/1/neighbouring-sites/add`)
+				.send({
+					addressLine1: '1 Grove Cottage',
+					addressLine2: null,
+					county: 'Devon',
+					postCode: 'NR35 2ND',
+					town: 'Woodton'
+				});
+
+			expect(addNeighbouringSiteResponse.statusCode).toBe(302);
+
+			const addLinkedAppealCheckAndConfirmPostResponse = await request.post(
+				`${baseUrl}/1/neighbouring-sites/add/check-and-confirm`
+			);
+
+			expect(addLinkedAppealCheckAndConfirmPostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is in the future', async () => {
 			const appealId = '2';
 
@@ -274,6 +322,268 @@ describe('appeal-details', () => {
 
 			expect(response.statusCode).toBe(200);
 			const element = parseHtml(response.text);
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render an action link to the add linked appeal page in the linked appeals row, if there are no linked appeals', async () => {
+			nock.cleanAll();
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData);
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render action links to the manage linked appeals page and the add linked appeal page in the linked appeals row, if there are linked appeals', async () => {
+			nock.cleanAll();
+			nock('http://test/')
+				.get(`/appeals/${appealData.appealId}`)
+				.reply(200, {
+					...appealData,
+					linkedAppeals
+				});
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the case reference for each linked appeal in the linked appeals row, each linking to the respective case details page, if there are linked appeals', async () => {
+			nock.cleanAll();
+			nock('http://test/')
+				.get(`/appeals/${appealData.appealId}`)
+				.reply(200, {
+					...appealData,
+					linkedAppeals
+				});
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render the lead or child status after the case reference link of each linked appeal in the linked appeals row, if there are linked appeals', async () => {
+			nock.cleanAll();
+			nock('http://test/')
+				.get(`/appeals/${appealData.appealId}`)
+				.reply(200, {
+					...appealData,
+					linkedAppeals
+				});
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a lead tag next to the appeal status tag if the appeal is a parent', async () => {
+			nock.cleanAll();
+			nock('http://test/')
+				.get(`/appeals/${appealData.appealId}`)
+				.reply(200, {
+					...appealData,
+					isParentAppeal: true,
+					isChildAppeal: false,
+					linkedAppeals: linkedAppeals.filter(
+						(linkedAppeal) => linkedAppeal.isParentAppeal === false
+					)
+				});
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a child tag next to the appeal status tag if the appeal is a child', async () => {
+			nock.cleanAll();
+			nock('http://test/')
+				.get(`/appeals/${appealData.appealId}`)
+				.reply(200, {
+					...appealData,
+					isParentAppeal: false,
+					isChildAppeal: true,
+					linkedAppeals: linkedAppeals.filter(
+						(linkedAppeal) => linkedAppeal.isParentAppeal === true
+					)
+				})
+				.persist();
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a success notification banner with appropriate content if the appeal was just linked as the lead of a back-office appeal', async () => {
+			const appealReference = '12345';
+
+			nock.cleanAll();
+			nock('http://test/')
+				.get(`/appeals/linkable-appeal/${appealReference}`)
+				.reply(200, linkableAppealSummaryBackOffice);
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData);
+			nock('http://test/').post(`/appeals/${appealData.appealId}/link-appeal`).reply(200, {
+				childId: linkableAppealSummaryBackOffice.appealId,
+				childRef: linkableAppealSummaryBackOffice.appealReference,
+				externaAppealType: null,
+				externalSource: false,
+				id: 1,
+				linkingDate: '2024-02-22T16:45:24.037Z',
+				parentId: appealData.appealId,
+				parentRef: appealData.appealReference,
+				type: 'linked'
+			});
+
+			const addLinkedAppealReferencePostResponse = await request
+				.post(`${baseUrl}/1/linked-appeals/add`)
+				.send({
+					'appeal-reference': appealReference
+				});
+
+			expect(addLinkedAppealReferencePostResponse.statusCode).toBe(302);
+
+			const addLinkedAppealCheckAndConfirmPostResponse = await request
+				.post(`${baseUrl}/1/linked-appeals/add/check-and-confirm`)
+				.send({
+					confirmation: 'child'
+				});
+
+			expect(addLinkedAppealCheckAndConfirmPostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a success notification banner with appropriate content if the appeal was just linked as the child of a back-office appeal', async () => {
+			const appealReference = '12345';
+
+			nock.cleanAll();
+			nock('http://test/')
+				.get(`/appeals/linkable-appeal/${appealReference}`)
+				.reply(200, linkableAppealSummaryBackOffice);
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData);
+			nock('http://test/').post(`/appeals/${appealData.appealId}/link-appeal`).reply(200, {
+				childId: appealData.appealId,
+				childRef: appealData.appealReference,
+				externaAppealType: null,
+				externalSource: false,
+				id: 1,
+				linkingDate: '2024-02-22T16:45:24.037Z',
+				parentId: linkableAppealSummaryBackOffice.appealId,
+				parentRef: linkableAppealSummaryBackOffice.appealReference,
+				type: 'linked'
+			});
+
+			const addLinkedAppealReferencePostResponse = await request
+				.post(`${baseUrl}/1/linked-appeals/add`)
+				.send({
+					'appeal-reference': appealReference
+				});
+
+			expect(addLinkedAppealReferencePostResponse.statusCode).toBe(302);
+
+			const addLinkedAppealCheckAndConfirmPostResponse = await request
+				.post(`${baseUrl}/1/linked-appeals/add/check-and-confirm`)
+				.send({
+					confirmation: 'lead'
+				});
+
+			expect(addLinkedAppealCheckAndConfirmPostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a success notification banner with appropriate content if the appeal was just linked as the lead of a legacy (Horizon) appeal', async () => {
+			const appealReference = '12345';
+
+			nock.cleanAll();
+			nock('http://test/')
+				.get(`/appeals/linkable-appeal/${appealReference}`)
+				.reply(200, linkableAppealSummaryHorizon);
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData);
+			nock('http://test/').post(`/appeals/${appealData.appealId}/link-legacy-appeal`).reply(200, {
+				childId: null,
+				childRef: '3171066',
+				externaAppealType: null,
+				externalSource: true,
+				id: 1,
+				linkingDate: '2024-02-22T16:58:09.276Z',
+				parentId: 5465,
+				parentRef: 'TEST-569815',
+				type: 'linked'
+			});
+
+			const addLinkedAppealReferencePostResponse = await request
+				.post(`${baseUrl}/1/linked-appeals/add`)
+				.send({
+					'appeal-reference': appealReference
+				});
+
+			expect(addLinkedAppealReferencePostResponse.statusCode).toBe(302);
+
+			const addLinkedAppealCheckAndConfirmPostResponse = await request
+				.post(`${baseUrl}/1/linked-appeals/add/check-and-confirm`)
+				.send({
+					confirmation: 'child'
+				});
+
+			expect(addLinkedAppealCheckAndConfirmPostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should render a success notification banner with appropriate content if the appeal was just linked as the child of a legacy (Horizon) appeal', async () => {
+			const appealReference = '12345';
+
+			nock.cleanAll();
+			nock('http://test/')
+				.get(`/appeals/linkable-appeal/${appealReference}`)
+				.reply(200, linkableAppealSummaryHorizon);
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData);
+			nock('http://test/').post(`/appeals/${appealData.appealId}/link-legacy-appeal`).reply(200, {
+				childId: 5466,
+				childRef: 'TEST-489773',
+				externaAppealType: null,
+				externalSource: true,
+				id: 1,
+				linkingDate: '2024-02-22T17:16:57.654Z',
+				parentId: null,
+				parentRef: '3171066',
+				type: 'linked'
+			});
+
+			const addLinkedAppealReferencePostResponse = await request
+				.post(`${baseUrl}/1/linked-appeals/add`)
+				.send({
+					'appeal-reference': appealReference
+				});
+
+			expect(addLinkedAppealReferencePostResponse.statusCode).toBe(302);
+
+			const addLinkedAppealCheckAndConfirmPostResponse = await request
+				.post(`${baseUrl}/1/linked-appeals/add/check-and-confirm`)
+				.send({
+					confirmation: 'lead'
+				});
+
+			expect(addLinkedAppealCheckAndConfirmPostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});

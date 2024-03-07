@@ -673,4 +673,55 @@ describe('Representation repository', () => {
 			expect(databaseConnector.representation.update).toHaveBeenCalledTimes(0);
 		});
 	});
+
+	describe('getPublishableRepresentations', () => {
+		it('should use the correct query', async () => {
+			const caseId = 1;
+			const totalPublishableRepsCount = 4;
+			const batchSize = 2000;
+
+			// Mock the count method
+			databaseConnector.representation.count.mockResolvedValue(totalPublishableRepsCount);
+
+			await representationRepository.getPublishableRepresentations(caseId);
+
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
+				select: {
+					id: true,
+					reference: true,
+					status: true,
+					redacted: true,
+					received: true,
+					represented: {
+						select: {
+							firstName: true,
+							lastName: true,
+							organisationName: true
+						}
+					}
+				},
+				where: {
+					caseId,
+					OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+				},
+				orderBy: [{ status: 'desc' }, { reference: 'asc' }],
+				take: batchSize,
+				skip: 0
+			});
+		});
+
+		it('should batch the query', async () => {
+			const caseId = 1;
+			const batchSize = 2000;
+			const totalPublishableRepsCount = 6000;
+
+			databaseConnector.representation.count.mockResolvedValue(totalPublishableRepsCount);
+
+			await representationRepository.getPublishableRepresentations(caseId);
+
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledTimes(
+				Math.ceil(totalPublishableRepsCount / batchSize)
+			);
+		});
+	});
 });

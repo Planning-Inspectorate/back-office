@@ -100,7 +100,7 @@ describe('Patch Application Representation Redact', () => {
 		databaseConnector.representation.update.mockResolvedValue();
 		databaseConnector.representationAction.create.mockResolvedValue();
 		databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
-		jest.useFakeTimers().setSystemTime(mockDate);
+		jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(mockDate);
 	});
 	afterEach(() => jest.clearAllMocks());
 

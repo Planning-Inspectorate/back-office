@@ -8,10 +8,6 @@
 {% set serviceName = "Project documentation" %}
 {% set pageTitle = "Search results" %}
 
-{% block pageTitle %}
-	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
-{% endblock %}
-
 {% block beforeContent %}
 	<aside>
 		{{ govukBackLink({
@@ -58,7 +54,7 @@
 			{% set rows = rows | concat([
 				[
 					{
-						html: searchItem.documentRef
+						text: searchItem.documentRef
 					}, {
 						html: '<strong>' + searchItem.fileName + '</strong>'
 					}, {

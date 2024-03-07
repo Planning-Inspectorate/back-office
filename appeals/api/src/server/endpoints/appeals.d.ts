@@ -42,6 +42,19 @@ interface LinkedAppeal {
 	externalAppealType?: string;
 }
 
+interface LinkableAppealSummary {
+	appealId: string | undefined;
+	appealReference: string | undefined;
+	appealType: string | undefined;
+	appealStatus: string;
+	siteAddress: AppealSite;
+	localPlanningDepartment: string;
+	appellantName: string | undefined;
+	agentName?: string | undefined | null;
+	submissionDate: string;
+	source: 'horizon' | 'back-office';
+}
+
 interface RelatedAppeal {
 	appealId: number | null;
 	appealReference: string;
@@ -53,9 +66,9 @@ interface RelatedAppeal {
 interface AppealSite {
 	addressId?: number;
 	addressLine1?: string;
-	addressLine2?: string;
+	addressLine2?: string | null;
 	town?: string;
-	county?: string;
+	county?: string | null;
 	postCode?: string | null;
 }
 
@@ -84,6 +97,7 @@ interface RepositoryGetAllResultItem {
 
 interface RepositoryGetByIdResultItem {
 	address: Schema.Address | null;
+	neighbouringSites?: Schema.NeighbouringSite[] | null;
 	allocation?: Schema.AppealAllocation | null;
 	appealStatus: Schema.AppealStatus[];
 	appealTimetable: Schema.AppealTimetable | null;
@@ -91,7 +105,6 @@ interface RepositoryGetByIdResultItem {
 	appellant: Schema.ServiceUser | null;
 	agent: Schema.ServiceUser | null;
 	appellantCase?: Schema.AppellantCase | null;
-	auditTrail: Schema.AuditTrail[] | null;
 	caseOfficer: User | null;
 	createdAt: Date;
 	dueDate: Date | null;
@@ -269,7 +282,7 @@ interface SingleAppealDetailsResponse {
 		contacts: NeighbouringSiteContactsResponse[] | null;
 		isAffected: boolean | null;
 	};
-	otherAppeals: LinkedAppeal[];
+	neighbouringSites: Schema.NeighbouringSite[] | null;
 	planningApplicationReference: string;
 	procedureType: string | null;
 	siteVisit: {
@@ -638,6 +651,14 @@ type GetAuditTrailsResponse = {
 	azureAdUserId: string;
 	details: string;
 	loggedDate: Date;
+	doc?:
+		| {
+				documentGuid: string;
+				stage: string;
+				name: string;
+				folderId: number;
+		  }
+		| undefined;
 }[];
 
 type UpdateDocumentsRequest = {
@@ -683,10 +704,10 @@ export {
 	IncompleteInvalidReasons,
 	IncompleteInvalidReasonsResponse,
 	LinkedAppeal,
+	LinkableAppealSummary,
 	RelatedAppeal,
 	ListedBuildingDetailsResponse,
 	LookupTables,
-	NeighbouringSiteContactsResponse,
 	NotifyClient,
 	NotifyTemplate,
 	RepositoryGetAllResultItem,

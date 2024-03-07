@@ -36,7 +36,7 @@ exports[`national-list GET / should render national list - 10 pages - all page i
                             <option value="all">All</option>
                             <option value="assign_case_officer">Assign case officer</option>
                             <option value="ready_to_start">Ready to start</option>
-                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire</option>
                             <option value="issue_determination">Issue decision</option>
                             <option value="complete">Complete</option>
                         </select>
@@ -74,7 +74,7 @@ exports[`national-list GET / should render national list - 10 pages - all page i
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -164,7 +164,7 @@ exports[`national-list GET / should render national list - 15 pages - pagination
                             <option value="all">All</option>
                             <option value="assign_case_officer">Assign case officer</option>
                             <option value="ready_to_start">Ready to start</option>
-                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire</option>
                             <option value="issue_determination">Issue decision</option>
                             <option value="complete">Complete</option>
                         </select>
@@ -202,7 +202,7 @@ exports[`national-list GET / should render national list - 15 pages - pagination
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -272,7 +272,7 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
                             <option value="all">All</option>
                             <option value="assign_case_officer">Assign case officer</option>
                             <option value="ready_to_start">Ready to start</option>
-                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire</option>
                             <option value="issue_determination">Issue decision</option>
                             <option value="complete">Complete</option>
                         </select>
@@ -310,7 +310,7 @@ exports[`national-list GET / should render national list - no pagination 1`] = `
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">
@@ -366,7 +366,7 @@ exports[`national-list GET / should render national list - no search term - filt
                             <option value="all">All</option>
                             <option value="assign_case_officer">Assign case officer</option>
                             <option value="ready_to_start">Ready to start</option>
-                            <option value="lpa_questionnaire_due" selected>LPA questionnaire due</option>
+                            <option value="lpa_questionnaire_due" selected>LPA questionnaire</option>
                             <option value="issue_determination">Issue decision</option>
                             <option value="complete">Complete</option>
                         </select>
@@ -404,7 +404,7 @@ exports[`national-list GET / should render national list - no search term - filt
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
         </tbody>
@@ -452,7 +452,7 @@ exports[`national-list GET / should render national list - search term - filter 
                             <option value="all">All</option>
                             <option value="assign_case_officer">Assign case officer</option>
                             <option value="ready_to_start">Ready to start</option>
-                            <option value="lpa_questionnaire_due" selected>LPA questionnaire due</option>
+                            <option value="lpa_questionnaire_due" selected>LPA questionnaire</option>
                             <option value="issue_determination">Issue decision</option>
                             <option value="complete">Complete</option>
                         </select>
@@ -490,7 +490,7 @@ exports[`national-list GET / should render national list - search term - filter 
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
         </tbody>
@@ -538,7 +538,7 @@ exports[`national-list GET / should render national list - search term - no resu
                             <option value="all">All</option>
                             <option value="assign_case_officer">Assign case officer</option>
                             <option value="ready_to_start">Ready to start</option>
-                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire</option>
                             <option value="issue_determination">Issue decision</option>
                             <option value="complete">Complete</option>
                         </select>
@@ -602,7 +602,7 @@ exports[`national-list GET / should render national list - search term 1`] = `
                             <option value="all">All</option>
                             <option value="assign_case_officer">Assign case officer</option>
                             <option value="ready_to_start">Ready to start</option>
-                            <option value="lpa_questionnaire_due">LPA questionnaire due</option>
+                            <option value="lpa_questionnaire_due">LPA questionnaire</option>
                             <option value="issue_determination">Issue decision</option>
                             <option value="complete">Complete</option>
                         </select>
@@ -640,7 +640,7 @@ exports[`national-list GET / should render national list - search term 1`] = `
                 <td class="govuk-table__cell">Copthalls, Clevedon Road, West Hill, BS48 1PN</td>
                 <td class="govuk-table__cell">Wiltshire Council</td>
                 <td class="govuk-table__cell">Householder</td>
-                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire due</strong>
+                <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--yellow single-line">LPA questionnaire</strong>
                 </td>
             </tr>
             <tr class="govuk-table__row">

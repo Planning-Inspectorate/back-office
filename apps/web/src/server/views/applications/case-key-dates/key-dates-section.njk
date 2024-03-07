@@ -7,10 +7,6 @@
 {% set serviceName = "Key dates" %}
 {% set pageTitle = sectionName | keyDatesProperty + " dates" %}
 
-{% block pageTitle %}
-	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
-{% endblock %}
-
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}

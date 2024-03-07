@@ -1,3 +1,4 @@
+import * as got from 'got';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import { post } from '../../lib/request.js';
 import { setSuccessBanner } from '../../applications/common/services/session.service.js';
@@ -74,21 +75,30 @@ export const documentName = (documentNameWithExtension) => {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string, adviceId: string}, session: SessionWithAuth, body: DocumentUploadInfo[]}} request
+ * @param {{session: SessionWithAuth, body: DocumentUploadInfo[]}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
-export async function postDocumentsUpload({ params, body, session }, response) {
-	const { caseId, adviceId } = params;
+export async function postDocumentsUpload({ body, session }, response) {
+	const { caseId, adviceId } = response.locals;
 
 	const payload = body.map((document) => {
 		document.username = session.account?.name;
 		return document;
 	});
 
-	const uploadInfo = adviceId
-		? await createS51AdviceDocuments(caseId, Number(adviceId), payload)
-		: await createNewDocument(caseId, payload);
+	let uploadInfo;
+	try {
+		// @ts-ignore
+		uploadInfo = adviceId
+			? await createS51AdviceDocuments(caseId, Number(adviceId), payload)
+			: await createNewDocument(caseId, payload);
+	} catch (err) {
+		if (err instanceof got.HTTPError && err.response.statusCode === 409) {
+			return response.status(409).send(err.response.body);
+		}
+		throw err;
+	}
 
 	const { documents } = uploadInfo;
 
@@ -109,15 +119,16 @@ export async function postDocumentsUpload({ params, body, session }, response) {
 /**
  * Generic controller for applications and appeals for files upload
  *
- * @param {{params: {caseId: string, documentId: string}, session: SessionWithAuth, body: DocumentUploadInfo}} request
+ * @param {{session: SessionWithAuth, body: DocumentUploadInfo}} request
  * @param {*} response
  * @returns {Promise<{}>}
  */
-export async function postUploadDocumentVersion({ params, body, session }, response) {
-	const { caseId, documentId } = params;
+export async function postUploadDocumentVersion(request, response) {
+	const { session, body } = request;
+	const { caseId, documentGuid } = response.locals;
 	body.username = session.account?.name;
 
-	const document = await createNewDocumentVersion(caseId, documentId, body);
+	const document = await createNewDocumentVersion(caseId, documentGuid, body);
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 

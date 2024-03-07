@@ -7,6 +7,9 @@
 {% from "./tab-history.component.njk" import documentationHistoryTab %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
+{% set pageTitle = case.title %}
+{% set serviceName = 'Project documentation' %}
+
 {% block beforeContent %}
 <aside>
     {{ govukBackLink({

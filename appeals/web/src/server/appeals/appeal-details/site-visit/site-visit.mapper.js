@@ -1,5 +1,5 @@
 import { initialiseAndMapAppealData } from '#lib/mappers/appeal.mapper.js';
-import { removeActions } from '#lib/mappers/mapper-utilities.js';
+import { removeSummaryListActions } from '#lib/mappers/mapper-utilities.js';
 import { appealShortReference } from '#lib/appeals-formatter.js';
 import { preRenderPageComponents } from '#lib/nunjucks-template-builders/page-component-rendering.js';
 import { isDefined } from '#lib/ts-utilities.js';
@@ -76,7 +76,7 @@ export async function scheduleOrManageSiteVisitPage(
 	visitEndTimeHour,
 	visitEndTimeMinute
 ) {
-	const mappedData = await initialiseAndMapAppealData(appealDetails, currentRoute, session);
+	const mappedData = await initialiseAndMapAppealData(appealDetails, currentRoute, session, true);
 	const titlePrefix = capitalize(pageType);
 
 	visitType ??= mapGetApiVisitTypeToWebVisitType(appealDetails.siteVisit?.visitType);
@@ -126,7 +126,7 @@ export async function scheduleOrManageSiteVisitPage(
 							mappedData.appeal.lpaHealthAndSafety.display.summaryListItem,
 							mappedData.appeal.appellantHealthAndSafety.display.summaryListItem,
 							...neighbouringSitesSummaryLists
-						].map((row) => removeActions(row))
+						].map((row) => removeSummaryListActions(row))
 					}
 				}
 			]
@@ -612,8 +612,12 @@ export function mapPostScheduleOrManageSiteVisitConfirmationPageType(
 	appealDetails,
 	updateOrCreateSiteVisitParameters
 ) {
+	const oldVisitDate = appealDetails.siteVisit?.visitDate;
+
+	// TODO: Tech debt (BOAT-981): align date conversion to use date-fns
+	const oldVisitDateString = String(oldVisitDate) && String(oldVisitDate).split('T')[0];
+
 	const oldApiVisitType = appealDetails.siteVisit?.visitType;
-	const oldVisitDate = appealDetails.siteVisit?.visitDate?.split('T')[0];
 	const oldVisitStartTime = appealDetails.siteVisit?.visitStartTime;
 	const oldVisitEndTime = appealDetails.siteVisit?.visitEndTime;
 	const visitTypeChanged =
@@ -621,7 +625,7 @@ export function mapPostScheduleOrManageSiteVisitConfirmationPageType(
 		updateOrCreateSiteVisitParameters.apiVisitType &&
 		oldApiVisitType.toLowerCase() !== updateOrCreateSiteVisitParameters.apiVisitType.toLowerCase();
 	const dateTimeChanged =
-		oldVisitDate !== updateOrCreateSiteVisitParameters.visitDate ||
+		oldVisitDateString !== updateOrCreateSiteVisitParameters.visitDate ||
 		oldVisitStartTime !== updateOrCreateSiteVisitParameters.visitStartTime ||
 		oldVisitEndTime !== updateOrCreateSiteVisitParameters.visitEndTime;
 

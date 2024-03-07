@@ -4,6 +4,7 @@ import supertest from 'supertest';
 import { createTestEnvironment } from '#testing/index.js';
 import { mapDecisionOutcome } from '../issue-decision.mapper.js';
 import { documentFileInfo, inspectorDecisionData } from '#testing/appeals/appeals.js';
+import { textInputCharacterLimits } from '#appeals/appeal.constants.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -193,12 +194,38 @@ describe('issue-decision', () => {
 	});
 
 	describe('POST /invalid-reason', () => {
+		it('should re-render the invalid reason page with the expected error message if no invalid reason text is provided', async () => {
+			const mockAppealId = '1';
+			const mockReason = '';
+			const response = await request
+				.post(`${baseUrl}/${mockAppealId}/issue-decision/invalid-reason`)
+				.send({ decisionInvalidReason: mockReason })
+				.expect(200);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
+		it('should re-render the invalid reason page with the expected error message if the provided invalid reason text exceeds the character limit', async () => {
+			const mockAppealId = '1';
+			const mockReason = 'a'.repeat(textInputCharacterLimits.appellantCaseNotValidReason + 1);
+			const response = await request
+				.post(`${baseUrl}/${mockAppealId}/issue-decision/invalid-reason`)
+				.send({ decisionInvalidReason: mockReason })
+				.expect(200);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should process the invalid reason page and redirect', async () => {
 			const mockAppealId = '1';
 			const mockReason = 'Reasons!';
 			const response = await request
 				.post(`${baseUrl}/${mockAppealId}/issue-decision/invalid-reason`)
-				.send({ invalidReason: mockReason })
+				.send({ decisionInvalidReason: mockReason })
 				.expect(302);
 
 			expect(response.headers.location).toBe(
@@ -224,7 +251,7 @@ describe('issue-decision', () => {
 			const mockReason = 'Reasons!';
 			const invalidReasonResponse = await request
 				.post(`${baseUrl}/${mockAppealId}/issue-decision/invalid-reason`)
-				.send({ invalidReason: mockReason })
+				.send({ decisionInvalidReason: mockReason })
 				.expect(302);
 
 			expect(invalidReasonResponse.headers.location).toBe(

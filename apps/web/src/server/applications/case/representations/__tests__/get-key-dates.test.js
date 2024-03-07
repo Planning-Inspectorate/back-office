@@ -21,20 +21,8 @@ jest
 
 describe('applications/case/representations/utils/get-key-dates', () => {
 	describe('#getKeyDates', () => {
-		beforeAll(() => {
-			// Define global performance as writeable to allow jest.useFakeTimers to work correctly in versions of node greater than 18.18
-			Object.defineProperty(global, 'performance', {
-				writable: true
-			});
-		});
-		afterAll(() => {
-			Object.defineProperty(global, 'performance', {
-				writable: false
-			});
-		});
-
 		beforeEach(() => {
-			jest.useFakeTimers();
+			jest.useFakeTimers({ doNotFake: ['performance'] });
 			jest.setSystemTime(new Date(mockDateToday));
 		});
 		afterEach(() => {

@@ -1,23 +1,18 @@
 import { pick } from 'lodash-es';
 import { EventType } from '@pins/event-client';
-import { eventClient } from '#infrastructure/event-client.js';
-import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
 import { mapS51Advice } from '#utils/mapping/map-s51-advice-details.js';
-import { filterAsync } from '#utils/async.js';
 import * as s51AdviceRepository from '#repositories/s51-advice.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import {
 	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
 	verifyAllS51DocumentsAreVirusChecked,
 	hasPublishedAdvice,
-	hasPublishedDocument,
-	verifyNotTrainingS51
+	hasPublishedDocument
 } from './s51-advice.validators.js';
 import { getCaseDetails } from '../application/application.service.js';
-import { verifyNotTraining } from '../application/application.validators.js';
 import {
 	checkCanPublish,
-	extractDuplicates,
+	extractDuplicatesAndDeleted,
 	formatS51AdviceUpdateResponseBody,
 	getManyS51AdviceOnCase,
 	getS51AdviceDocuments,
@@ -25,7 +20,7 @@ import {
 	publishS51Items,
 	unpublishS51
 } from './s51-advice.service.js';
-import { buildNsipS51AdvicePayload } from './s51-advice.js';
+import { broadcastNsipS51AdviceEvent } from '#infrastructure/event-broadcasters.js';
 import * as s51AdviceDocumentRepository from '#repositories/s51-advice-document.repository.js';
 import * as caseRepository from '#repositories/case.repository.js';
 import * as documentRepository from '#repositories/document.repository.js';
@@ -58,17 +53,8 @@ export const createS51Advice = async (_request, response) => {
 	const payload = { ...body, referenceNumber: newReferenceNumber };
 	const s51Advice = await s51AdviceRepository.create(payload);
 
-	try {
-		await verifyNotTraining(caseId);
-
-		await eventClient.sendEvents(
-			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(s51Advice)],
-			EventType.Create
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info(`Blocked sending event for S51 with id ${s51Advice.id}:`, err.message);
-	}
+	// broadcast s51 advice event
+	await broadcastNsipS51AdviceEvent(s51Advice, EventType.Create);
 
 	response.send(s51Advice);
 };
@@ -186,7 +172,7 @@ export const addDocuments = async ({ params, body }, response) => {
 		? existingS51ForCase.referenceNumber + 1
 		: 1;
 
-	const { duplicates, remainder } = await extractDuplicates(
+	const { duplicates, deleted, remainder } = await extractDuplicatesAndDeleted(
 		adviceId,
 		/** @type {DocumentToSaveExtended[]} */ (documentsToUpload).map((doc) => doc.documentName)
 	);
@@ -229,24 +215,16 @@ export const addDocuments = async ({ params, body }, response) => {
 		pick(doc, ['documentName', 'documentReference', 'blobStoreUrl', 'GUID'])
 	);
 
-	try {
-		await verifyNotTraining(caseId);
+	// broadcast s51 advice event
+	await broadcastNsipS51AdviceEvent(s51Advice, EventType.Update);
 
-		await eventClient.sendEvents(
-			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(s51Advice)],
-			EventType.Update
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info(`Blocked sending event for S51 ${s51Advice.id}:`, err.message);
-	}
-
-	response.status([...failedDocuments, ...duplicates].length > 0 ? 206 : 200).send({
+	response.status([...failedDocuments, ...duplicates, ...deleted].length > 0 ? 206 : 200).send({
 		blobStorageHost,
 		privateBlobContainer,
 		documents: documentsWithUrls,
 		failedDocuments,
-		duplicates
+		duplicates,
+		deleted
 	});
 };
 
@@ -280,17 +258,8 @@ export const updateS51Advice = async ({ body, params }, response) => {
 
 	const updatedS51Advice = await s51AdviceRepository.update(adviceId, payload);
 
-	try {
-		await verifyNotTrainingS51(params.adviceId);
-
-		await eventClient.sendEvents(
-			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(updatedS51Advice)],
-			EventType.Update
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for S51', err.message);
-	}
+	// broadcast s51 advice event
+	await broadcastNsipS51AdviceEvent(updatedS51Advice, EventType.Update);
 
 	response.send(updatedS51Advice);
 };
@@ -396,26 +365,17 @@ export const updateManyS51Advices = async ({ body }, response) => {
 			}
 		}
 
-		const updateResponseInTable = await s51AdviceRepository.update(advice.id, adviceUpdates);
+		const updatedS51Advice = await s51AdviceRepository.update(advice.id, adviceUpdates);
 		const formattedResponse = formatS51AdviceUpdateResponseBody(
-			updateResponseInTable.id.toString() ?? '',
-			updateResponseInTable.publishedStatus ?? '',
-			updateResponseInTable.redactedStatus ?? ''
+			updatedS51Advice.id.toString() ?? '',
+			updatedS51Advice.publishedStatus ?? '',
+			updatedS51Advice.redactedStatus ?? ''
 		);
 
 		formattedResponseList.push(formattedResponse);
 
-		try {
-			await verifyNotTrainingS51(advice.id);
-
-			await eventClient.sendEvents(
-				NSIP_S51_ADVICE,
-				[await buildNsipS51AdvicePayload(updateResponseInTable)],
-				EventType.Update
-			);
-		} catch (/** @type {*} */ err) {
-			logger.info('Blocked sending event for S51', err.message);
-		}
+		// broadcast s51 advice event
+		await broadcastNsipS51AdviceEvent(updatedS51Advice, EventType.Update);
 	}
 
 	response.send(formattedResponseList);
@@ -477,17 +437,8 @@ export const removePublishItemFromQueue = async ({ body }, response) => {
 		publishedStatus: s51Advice.publishedStatusPrev
 	});
 
-	try {
-		await verifyNotTrainingS51(adviceId);
-
-		await eventClient.sendEvents(
-			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(updatedS51Advice)],
-			EventType.Update
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for S51', err.message);
-	}
+	// broadcast s51 advice event
+	await broadcastNsipS51AdviceEvent(updatedS51Advice, EventType.Update);
 
 	response.send(updatedS51Advice);
 };
@@ -531,26 +482,14 @@ export const publishQueueItems = async ({ body }, response) => {
 		throw new BackOfficeAppError(`publishQueueItems failed with errors:\n${errors.join('\n')}`);
 	}
 
+	// ensure any docs are populated in in the payload
 	for (const f of fulfilled) {
 		const docs = await s51AdviceDocumentRepository.getForAdvice(f.id);
 		f.S51AdviceDocument = docs;
 	}
 
-	const eventPayloads = await Promise.all(
-		(
-			await filterAsync(async (advice) => {
-				try {
-					await verifyNotTrainingS51(advice.id);
-					return true;
-				} catch (/** @type {*} */ err) {
-					logger.info('Blocked sending event for S51', err.message);
-					return false;
-				}
-			}, fulfilled)
-		).map(buildNsipS51AdvicePayload)
-	);
-
-	await eventClient.sendEvents(NSIP_S51_ADVICE, eventPayloads, EventType.Publish);
+	// broadcast s51 advice event
+	await broadcastNsipS51AdviceEvent(fulfilled, EventType.Publish);
 
 	if (errors.length > 0) {
 		response.status(206).send({
@@ -585,17 +524,8 @@ export const deleteS51Advice = async ({ params: { adviceId } }, response) => {
 			return;
 		}
 
-		try {
-			await verifyNotTrainingS51(Number(adviceId));
-
-			await eventClient.sendEvents(
-				NSIP_S51_ADVICE,
-				[await buildNsipS51AdvicePayload(s51Advice)],
-				EventType.Delete
-			);
-		} catch (/** @type {*} */ err) {
-			logger.info('Blocked sending event for S51', err.message);
-		}
+		// broadcast s51 advice event
+		await broadcastNsipS51AdviceEvent(s51Advice, EventType.Delete);
 
 		response.send(s51Advice);
 	} catch (error) {
@@ -612,24 +542,15 @@ export const unpublishS51Advice = async ({ body, params }, response) => {
 	const adviceId = params.adviceId;
 	const payload = body[''];
 
-	const updatedS51 = await unpublishS51(adviceId);
+	const updatedS51Advice = await unpublishS51(adviceId);
 
 	const docs = await s51AdviceDocumentRepository.getForAdvice(adviceId);
 	// @ts-ignore
-	updatedS51.S51AdviceDocument = docs;
-	payload.publishedStatusPrev = updatedS51.publishedStatus;
+	updatedS51Advice.S51AdviceDocument = docs;
+	payload.publishedStatusPrev = updatedS51Advice.publishedStatus;
 
-	try {
-		await verifyNotTrainingS51(adviceId);
+	// broadcast s51 advice event
+	await broadcastNsipS51AdviceEvent(updatedS51Advice, EventType.Unpublish);
 
-		await eventClient.sendEvents(
-			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(updatedS51)],
-			EventType.Unpublish
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for S51', err.message);
-	}
-
-	response.send(updatedS51);
+	response.send(updatedS51Advice);
 };

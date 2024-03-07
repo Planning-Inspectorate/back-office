@@ -36,6 +36,7 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteLPAQuestionnaireIncompleteReasonOnLPAQuestionnaire =
 		databaseConnector.lPAQuestionnaireIncompleteReasonOnLPAQuestionnaire.deleteMany();
 	const deleteNeighbouringSiteContacts = databaseConnector.neighbouringSiteContact.deleteMany();
+	const deleteNeighbouringSites = databaseConnector.neighbouringSite.deleteMany();
 	const deleteAppellantCaseIncompleteReasonText =
 		databaseConnector.appellantCaseIncompleteReasonText.deleteMany();
 	const deleteAppellantCaseInvalidReasonText =
@@ -102,6 +103,7 @@ export async function deleteAllRecords(databaseConnector) {
 		deleteLPAQuestionnaireIncompleteReasonText,
 		deleteLPAQuestionnaireIncompleteReasonOnLPAQuestionnaire,
 		deleteNeighbouringSiteContacts,
+		deleteNeighbouringSites,
 		deleteLPAQuestionnaire,
 		deleteReviewQuestionnaire,
 		deleteSiteVisit,

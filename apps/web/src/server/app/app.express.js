@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import crypto from 'node:crypto';
 import express from 'express';
 import requestID from 'express-request-id';
 import helmet from 'helmet';
@@ -50,6 +51,22 @@ app.use((request, response, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Generate the nonce for each request.  The exception is in test to allow for snapshots.
+app.use((req, res, next) => {
+	if (!config.isTest) {
+		res.locals.cspNonce = crypto.randomBytes(16).toString('hex');
+	}
+	next();
+});
+
+/**
+ * Middleware to return current nonce
+ *
+ * @type {import('express').RequestHandler}
+ * @returns {string}
+ */
+const addCSPNonce = (req, res) => `'nonce-${res.locals.cspNonce}'`;
+
 // Parse Cookie header and populate req.cookies with an object keyed by the cookie names.
 app.use(cookieParser());
 
@@ -58,7 +75,8 @@ app.use(helmet());
 app.use(
 	helmet.contentSecurityPolicy({
 		directives: {
-			scriptSrc: ["'self'", () => `'nonce-${locals.cspNonce}'`],
+			// @ts-ignore
+			scriptSrc: ["'self'", addCSPNonce],
 			defaultSrc: ["'self'", config.blobStorageUrl],
 			'font-src': ["'self'"],
 			'img-src': ["'self'", config.blobStorageUrl],

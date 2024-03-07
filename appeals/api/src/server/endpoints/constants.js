@@ -33,6 +33,13 @@ export const AUDIT_TRAIL_REMOVED_INSPECTOR =
 	'The inspector {replacement0} was removed from the case';
 export const AUDIT_TRAIL_SITE_VISIT_ARRANGED = 'The site visit was arranged for {replacement0}';
 export const AUDIT_TRAIL_SITE_VISIT_TYPE_SELECTED = 'The site visit type was selected';
+export const AUDIT_TRAIL_APPEAL_LINK_ADDED = 'A linked appeal was added';
+export const AUDIT_TRAIL_APPEAL_LINK_REMOVED = 'A linked appeal was removed';
+export const AUDIT_TRAIL_APPEAL_RELATION_ADDED = 'A related appeal was added';
+export const AUDIT_TRAIL_APPEAL_RELATION_REMOVED = 'A related appeal was removed';
+export const AUDIT_TRAIL_ADDRESS_ADDED = 'A neighbouring address was added';
+export const AUDIT_TRAIL_ADDRESS_UPDATED = 'A neighbouring address was updated';
+export const AUDIT_TRAIL_ADDRESS_REMOVED = 'A neighbouring address was removed';
 export const AUDIT_TRAIL_SYSTEM_UUID = '00000000-0000-0000-0000-000000000000';
 
 export const BANK_HOLIDAY_FEED_DIVISION_ENGLAND = 'england-and-wales';
@@ -116,6 +123,11 @@ export const ERROR_INVALID_APPEAL_STATE = 'The action is invalid on the current 
 export const ERROR_CASE_OUTCOME_MUST_BE_ONE_OF = `The case outcome must be one of ${CASE_OUTCOME_ALLOWED}, ${CASE_OUTCOME_DISMISSED}, ${CASE_OUTCOME_SPLIT_DECISION}`;
 export const ERROR_LINKING_APPEALS =
 	'The appeals cannot be linked as the lead or child are already linked to other appeals.';
+
+export const ERROR_INVALID_POSTCODE = 'needs to be a valid and include spaces';
+
+export const UUID_REGEX =
+	/^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
 export const LENGTH_1 = 1;
 export const LENGTH_8 = 8;

@@ -11,14 +11,21 @@ import {
 	mapAddressInput
 } from './global-mapper-formatter.js';
 import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
+import { linkedAppealStatus } from '#lib/appeals-formatter.js';
 
 /**
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @param {string} currentRoute
  * @param {import('../../app/auth/auth-session.service').SessionWithAuth} session
+ * @param {boolean} [skipAssignedUsersData]
  * @returns {Promise<{appeal: MappedInstructions}>}
  */
-export async function initialiseAndMapAppealData(appealDetails, currentRoute, session) {
+export async function initialiseAndMapAppealData(
+	appealDetails,
+	currentRoute,
+	session,
+	skipAssignedUsersData = false
+) {
 	if (appealDetails === undefined) {
 		throw new Error('appealDetails is undefined');
 	}
@@ -29,6 +36,21 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	/** @type {{appeal: MappedInstructions}} */
 	let mappedData = {};
 	mappedData.appeal = {};
+
+	/** @type {Instructions} */
+	mappedData.appeal.appealReference = {
+		id: 'appeal-reference',
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Appeal reference'
+				},
+				value: {
+					text: appealDetails.appealReference
+				}
+			}
+		}
+	};
 
 	/** @type {Instructions} */
 	mappedData.appeal.appealType = {
@@ -45,7 +67,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-type/appeal-type`
+							href: `${currentRoute}/change-appeal-type/appeal-type`,
+							visuallyHiddenText: 'Appeal type'
 						}
 					]
 				}
@@ -89,7 +112,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/case-procedure`
+							href: `${currentRoute}/change-appeal-details/case-procedure`,
+							visuallyHiddenText: 'Case procedure'
 						}
 					]
 				}
@@ -146,7 +170,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/appellant`
+							href: `${currentRoute}/change-appeal-details/appellant`,
+							visuallyHiddenText: 'Appellant'
 						}
 					]
 				}
@@ -215,7 +240,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/agent`
+							href: `${currentRoute}/change-appeal-details/agent`,
+							visuallyHiddenText: 'Agent'
 						}
 					]
 				}
@@ -265,7 +291,6 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		submitApi: '#'
 	};
 
-	// TODO: Need a decision on how the linked appeals change page looks
 	/** @type {Instructions} */
 	mappedData.appeal.linkedAppeals = {
 		id: 'linked-appeals',
@@ -276,14 +301,24 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				},
 				value: {
 					html:
-						displayPageFormatter.formatListOfAppeals(appealDetails.linkedAppeals) ||
+						displayPageFormatter.formatListOfLinkedAppeals(appealDetails.linkedAppeals) ||
 						'No linked appeals'
 				},
 				actions: {
 					items: [
+						...(appealDetails.linkedAppeals.length > 0
+							? [
+									{
+										text: 'Manage',
+										href: generateLinkedAppealsManageLinkHref(appealDetails),
+										visuallyHiddenText: 'linked appeals'
+									}
+							  ]
+							: []),
 						{
-							text: 'Manage',
-							href: generateManageLinkedAppealsHref(currentRoute, appealDetails)
+							text: 'Add',
+							href: `/appeals-service/appeal-details/${appealDetails.appealId}/linked-appeals/add`,
+							visuallyHiddenText: 'linked appeals'
 						}
 					]
 				}
@@ -308,7 +343,25 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 		submitApi: '#'
 	};
 
-	// TODO: Need a decision on how the other appeals change page looks
+	mappedData.appeal.leadOrChild = {
+		id: 'lead-or-child',
+		display: mapLeadOrChildStatus(appealDetails)
+	};
+
+	const otherAppealsItems = [];
+
+	if (appealDetails.otherAppeals.length) {
+		otherAppealsItems.push({
+			text: 'Manage',
+			href: `${currentRoute}/change-appeal-details/other-appeals`
+		});
+	}
+
+	otherAppealsItems.push({
+		text: 'Add',
+		href: `${currentRoute}/other-appeals/add`
+	});
+
 	/** @type {Instructions} */
 	mappedData.appeal.otherAppeals = {
 		id: 'other-appeals',
@@ -318,15 +371,12 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					text: 'Related appeals'
 				},
 				value: {
-					html: displayPageFormatter.formatListOfAppeals([]) || '<span>No related appeals</span>'
+					html:
+						displayPageFormatter.formatListOfRelatedAppeals(appealDetails.otherAppeals || []) ||
+						'<span>No related appeals</span>'
 				},
 				actions: {
-					items: [
-						{
-							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/other-appeals`
-						}
-					]
+					items: otherAppealsItems
 				}
 			}
 		},
@@ -373,7 +423,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: appealDetails.allocationDetails ? 'Change' : 'Add',
-							href: `${currentRoute}/allocation-details/allocation-level`
+							href: `${currentRoute}/allocation-details/allocation-level`,
+							visuallyHiddenText: 'allocation level'
 						}
 					]
 				}
@@ -429,13 +480,14 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					text: 'LPA reference'
 				},
 				value: {
-					text: appealDetails.appealReference || 'No LPA reference for this appeal'
+					text: appealDetails.planningApplicationReference || 'No LPA reference for this appeal'
 				},
 				actions: {
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/lpa-reference`
+							href: `${currentRoute}/change-appeal-details/lpa-reference`,
+							visuallyHiddenText: 'L P A reference'
 						}
 					]
 				}
@@ -493,7 +545,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/site-address`
+							href: `${currentRoute}/change-appeal-details/site-address`,
+							visuallyHiddenText: 'site address'
 						}
 					]
 				}
@@ -519,7 +572,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/local-planning-authority`
+							href: `${currentRoute}/change-appeal-details/local-planning-authority`,
+							visuallyHiddenText: 'planning authority'
 						}
 					]
 				}
@@ -565,7 +619,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/lpa-inspector-access/`
+							href: `${currentRoute}/change-appeal-details/lpa-inspector-access/`,
+							visuallyHiddenText: 'inspection access (L P A answer)'
 						}
 					]
 				}
@@ -623,7 +678,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/appellant-case-inspector-access`
+							href: `${currentRoute}/change-appeal-details/appellant-case-inspector-access`,
+							visuallyHiddenText: 'inspection access (appellant answer)'
 						}
 					]
 				}
@@ -679,7 +735,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/neighbouring-site-is-affected`
+							href: `${currentRoute}/change-appeal-details/neighbouring-site-is-affected`,
+							visuallyHiddenText: 'could a neighbouring site be affected'
 						}
 					]
 				}
@@ -729,7 +786,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 							items: [
 								{
 									text: 'Change',
-									href: `${currentRoute}/change-appeal-details/neighbouring-site-address-${i}`
+									href: `${currentRoute}/change-appeal-details/neighbouring-site-address-${i}`,
+									visuallyHiddenText: `neighbour address ${i + 1}`
 								}
 							]
 						}
@@ -741,6 +799,33 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 			};
 		}
 	}
+
+	/** @type {Instructions} */
+	mappedData.appeal.inspectorNeighbouringSites = {
+		id: 'neighbouring-sites-inspector',
+		display: {
+			summaryListItem: {
+				key: {
+					text: 'Neighbouring sites (Inspector and/or third party request)'
+				},
+				value: {
+					html:
+						appealDetails.neighbouringSites && appealDetails.neighbouringSites.length > 0
+							? displayPageFormatter.formatListOfAddresses(appealDetails.neighbouringSites)
+							: 'None'
+				},
+				actions: {
+					items: [
+						{
+							text: 'Add',
+							href: `${currentRoute}/neighbouring-sites/add`,
+							visuallyHiddenText: 'Neighbouring sites (Inspector and/or third party request)'
+						}
+					]
+				}
+			}
+		}
+	};
 
 	/** @type {Instructions} */
 	mappedData.appeal.lpaHealthAndSafety = {
@@ -761,7 +846,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/lpa-health-and-safety`
+							href: `${currentRoute}/change-appeal-details/lpa-health-and-safety`,
+							visuallyHiddenText: 'potential safety risks (L P A answer)'
 						}
 					]
 				}
@@ -819,7 +905,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/change-appeal-details/appellant-case-health-and-safety`
+							href: `${currentRoute}/change-appeal-details/appellant-case-health-and-safety`,
+							visuallyHiddenText: 'potential safety risks (appellant answer)'
 						}
 					]
 				}
@@ -875,7 +962,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 							text: 'Change',
 							href: `${currentRoute}/site-visit/${
 								appealDetails.siteVisit?.visitType ? 'visit-booked' : 'schedule-visit'
-							}`
+							}`,
+							visuallyHiddenText: 'visit type'
 						}
 					]
 				}
@@ -918,7 +1006,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: 'Change',
-							href: `${currentRoute}/appeal-timetables/lpa-questionnaire`
+							href: `${currentRoute}/appeal-timetables/lpa-questionnaire`,
+							visuallyHiddenText: 'L P A questionnaire due'
 						}
 					]
 				}
@@ -943,7 +1032,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: appealDetails.appealTimetable?.statementReviewDate ? 'Change' : 'Schedule',
-							href: `${currentRoute}/appeal-timetables/statement-review`
+							href: `${currentRoute}/appeal-timetables/statement-review`,
+							visuallyHiddenText: 'statement review due date'
 						}
 					]
 				}
@@ -968,7 +1058,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: appealDetails.appealTimetable?.finalCommentReviewDate ? 'Change' : 'Schedule',
-							href: `${currentRoute}/appeal-timetables/final-comment-review`
+							href: `${currentRoute}/appeal-timetables/final-comment-review`,
+							visuallyHiddenText: 'final comment review due date'
 						}
 					]
 				}
@@ -998,7 +1089,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 							text: appealDetails.siteVisit?.visitDate ? 'Change' : 'Arrange',
 							href: `${currentRoute}/site-visit/${
 								appealDetails.siteVisit?.visitDate ? 'manage' : 'schedule'
-							}-visit`
+							}-visit`,
+							visuallyHiddenText: 'site visit'
 						}
 					]
 				}
@@ -1009,7 +1101,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	let caseOfficerRowValue = '';
 	let caseOfficerUser;
 
-	if (appealDetails.caseOfficer) {
+	if (appealDetails.caseOfficer && !skipAssignedUsersData) {
 		caseOfficerUser = await usersService.getUserByRoleAndId(
 			config.referenceData.appeals.caseOfficerGroupId,
 			session,
@@ -1037,7 +1129,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: appealDetails.caseOfficer ? 'Change' : 'Assign',
-							href: `${currentRoute}/assign-user/case-officer`
+							href: `${currentRoute}/assign-user/case-officer`,
+							visuallyHiddenText: 'case officer'
 						}
 					]
 				}
@@ -1048,7 +1141,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 	let inspectorRowValue = '';
 	let inspectorUser;
 
-	if (appealDetails.inspector) {
+	if (appealDetails.inspector && !skipAssignedUsersData) {
 		inspectorUser = await usersService.getUserByRoleAndId(
 			config.referenceData.appeals.inspectorGroupId,
 			session,
@@ -1076,7 +1169,8 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 					items: [
 						{
 							text: appealDetails.inspector ? 'Change' : 'Assign',
-							href: `${currentRoute}/assign-user/inspector`
+							href: `${currentRoute}/assign-user/inspector`,
+							visuallyHiddenText: 'inspector'
 						}
 					]
 				}
@@ -1104,7 +1198,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				{
 					html:
 						appealDetails?.documentationSummary?.appellantCase?.status !== 'not_received'
-							? `<a href="${currentRoute}/appellant-case" class="govuk-link">Review</a>`
+							? `<a href="${currentRoute}/appellant-case" class="govuk-link">Review <span class="govuk-visually-hidden">appellant case</span></a>`
 							: ''
 				}
 			]
@@ -1130,7 +1224,7 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 				{
 					html:
 						appealDetails?.documentationSummary?.lpaQuestionnaire?.status !== 'not_received'
-							? `<a href="${currentRoute}/lpa-questionnaire/${appealDetails?.lpaQuestionnaireId}" class="govuk-link">Review</a>`
+							? `<a href="${currentRoute}/lpa-questionnaire/${appealDetails?.lpaQuestionnaireId}" class="govuk-link">Review <span class="govuk-visually-hidden">L P A questionnaire</span></a>`
 							: ''
 				}
 			]
@@ -1190,20 +1284,43 @@ export async function initialiseAndMapAppealData(appealDetails, currentRoute, se
 }
 
 /**
- * @param {string} currentRoute
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
  * @returns {string}
  */
-function generateManageLinkedAppealsHref(currentRoute, appealDetails) {
-	let linkedAppealsHref = `${currentRoute}/manage-linked-appeals/linked-appeals`;
+export function generateLinkedAppealsManageLinkHref(appealDetails) {
+	const baseUrl = `/appeals-service/appeal-details/${appealDetails.appealId}/linked-appeals`;
 
-	if (appealDetails.isChildAppeal === true) {
-		const parentAppeal = appealDetails.linkedAppeals.find((link) => link.isParentAppeal === true);
+	if (appealDetails.linkedAppeals.length > 0) {
+		if (appealDetails.isChildAppeal === true) {
+			const parentAppeal = appealDetails.linkedAppeals.find((link) => link.isParentAppeal === true);
 
-		if (parentAppeal) {
-			linkedAppealsHref += `/${parentAppeal.relationshipId}/${parentAppeal.appealId}`;
+			if (parentAppeal) {
+				return `${baseUrl}/manage/${parentAppeal.relationshipId}/${parentAppeal.appealId}`;
+			}
 		}
+
+		return `${baseUrl}/manage`;
 	}
 
-	return linkedAppealsHref;
+	return `${baseUrl}/add`;
+}
+
+/**
+ * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
+ * @returns {DisplayInstructions}
+ */
+function mapLeadOrChildStatus(appealDetails) {
+	if (appealDetails.linkedAppeals.length > 0) {
+		return {
+			statusTag: {
+				status: linkedAppealStatus(
+					appealDetails.isParentAppeal || false,
+					appealDetails.isChildAppeal || false
+				),
+				classes: 'govuk-!-margin-left-1 govuk-!-margin-bottom-4'
+			}
+		};
+	}
+
+	return {};
 }
