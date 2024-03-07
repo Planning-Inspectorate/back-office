@@ -4,6 +4,8 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
+{% set serviceName = 'Project team' %}
+
 {% block sectionContent %}
 
 	{% if showSuccessBanner %}
@@ -19,7 +21,7 @@
 		}) }}
 	{% endif %}
 
-	<h3 class="govuk-heading-m">Project team</h3>
+	<h3 class="govuk-heading-m">{{serviceName}}</h3>
 
 	<p class="govuk-body">Add team members and their roles to the project. </p>
 
