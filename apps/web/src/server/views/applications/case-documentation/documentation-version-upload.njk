@@ -4,9 +4,6 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set serviceName = ["Upload new version of ", documentationFile.fileName] | join %}
-{% block pageTitle %}
-	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
-{% endblock %}
 
 {% block pageHeading %}{% endblock %}
 

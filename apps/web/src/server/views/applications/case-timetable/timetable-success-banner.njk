@@ -5,10 +5,6 @@
 {% set action = 'added' if action === 'created' else action %}
 {% set serviceName = ["Timetable item successfully ", action]|join  %}
 
-{% block pageTitle %}
-	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
-{% endblock %}
-
 {% block beforeContent %}{% endblock %}
 {% block pageHeading %}{% endblock %}
 

@@ -6,10 +6,6 @@
 {% set serviceName = "Project team" %}
 {% set pageTitle = ('Choose' if projectTeamMember.role == '' else 'Change') +" role" %}
 
-{% block pageTitle %}
-	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
-{% endblock %}
-
 {% block beforeContent %}
 	<aside>
 		{{ govukBackLink({

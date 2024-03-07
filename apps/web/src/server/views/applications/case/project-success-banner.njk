@@ -4,10 +4,6 @@
 
 {% set serviceName = "Project page successfully "+ ('unpublished' if isUnpublished else 'published') %}
 
-{% block pageTitle %}
-	{{ serviceName }} – {{ pageTitle | default('GOV.UK') }}
-{% endblock %}
-
 {% block beforeContent %}{% endblock %}
 {% block pageHeading %}{% endblock %}
 

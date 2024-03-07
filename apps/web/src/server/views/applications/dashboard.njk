@@ -6,7 +6,7 @@
 {% from "./search-results/application-search.component.njk" import applicationSearch %}
 {% from "./components/status-tag.component.njk" import statusTag %}
 
-{% set pageTitle = 'Applications' %}
+{% set pageHeading = 'Applications' %}
 
 {% set searchParameters = {query: "", searchApplicationsError: searchApplicationsError, csrfToken: csrfToken, label: "Enter keyword, case reference or case title"} %}
 {% block pageContent %}
