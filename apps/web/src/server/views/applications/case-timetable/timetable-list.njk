@@ -28,7 +28,7 @@
 		<div>
 			{% if timetableItems.length > 0 %}
 				<a class="govuk-link" href="{{'timetable'|url({caseId: caseId, step: 'preview'})}}">
-					{% if publishedStatus %}
+				{% if publishedStatus %}
 					Preview and republish timetable items
 				{% else %}
 					Preview and publish timetable items
@@ -38,17 +38,18 @@
 		</div>
 	</div>
 
-	{% if republishStatus %}
-		<div class="govuk-!-margin-top-6">
-			{% if timetableItems.length > 0 %}
-				<strong class="font-weight--700 colour--red">Republish the exam timetable to view changes on the website</strong>
-			{% else %}
-				<strong class="font-weight--700 colour--red">Create a timetable item and republish to view changes on the website</strong>
-			{% endif %}
-		</div>
-	{% endif %}
+  {% if republishStatus %}
+    <div class="govuk-!-margin-top-6">
+      {% if timetableItems.length > 0 %}
+        <strong class="font-weight--700 colour--red">Republish the exam timetable to view changes on the website</strong>
+      {% else %}
+        <strong class="font-weight--700 colour--red">Create a timetable item and republish to view changes on the website</strong>
+      {% endif %}
+    </div>
+  {% endif %}
 
 	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
 
 	{{ timetableItemsList(timetableItems, caseId) }}
 
