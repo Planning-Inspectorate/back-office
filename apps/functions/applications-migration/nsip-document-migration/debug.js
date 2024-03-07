@@ -1,7 +1,7 @@
-import { migrateNsipProjects } from '../common/migrators/nsip-project-migration.js';
+import { migrationNsipDocuments } from './src/nsip-document-migration.js';
 
 // @ts-ignore
-migrateNsipProjects(
+migrationNsipDocuments(
 	{
 		info: console.log,
 		error: console.error,
