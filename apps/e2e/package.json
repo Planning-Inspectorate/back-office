@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"cy:open": "npx cypress open --browser chrome --e2e",
-		"cy:run": "npx cypress run --env grepTags=@smoke",
+		"cy:run": "npx cypress run",
 		"cy:ci": "npx cypress run --env grepTags=@smoke isCI=true"
 	},
 	"author": "",
