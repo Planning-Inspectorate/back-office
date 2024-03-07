@@ -124,7 +124,12 @@ export const postAddNeighbouringSiteCheckAndConfirm = async (request, response) 
 	try {
 		await addNeighbouringSite(request.apiClient, appealId, request.session.neighbouringSite);
 
-		addNotificationBannerToSession(request.session, 'neighbouringSiteAdded', appealId);
+		addNotificationBannerToSession(
+			request.session,
+			'neighbouringSiteAdded',
+			appealId,
+			`<p class="govuk-notification-banner__heading">Inspector or third party neighbouring site added</p>`
+		);
 
 		delete request.session.neighbouringSite;
 

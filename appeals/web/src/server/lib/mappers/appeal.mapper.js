@@ -806,7 +806,7 @@ export async function initialiseAndMapAppealData(
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Neighbouring sites (Inspector and/or third party request)'
+					text: 'Neighbouring sites (inspector and/or third party request)'
 				},
 				value: {
 					html:
@@ -819,7 +819,7 @@ export async function initialiseAndMapAppealData(
 						{
 							text: 'Add',
 							href: `${currentRoute}/neighbouring-sites/add`,
-							visuallyHiddenText: 'Neighbouring sites (Inspector and/or third party request)'
+							visuallyHiddenText: 'Neighbouring sites (inspector and or third party request)'
 						}
 					]
 				}
