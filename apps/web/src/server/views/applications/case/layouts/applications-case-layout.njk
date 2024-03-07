@@ -8,6 +8,8 @@
 
 
 {% set pageTitle = case.title %}
+{# {% set serviceName = selectedPageType %} #}
+
 {% set isPageWithRepublishBanner = selectedPageType === 'overview' or selectedPageType === 'project-information' or selectedPageType === 'key-dates' %}
 
 {% block beforeContent %}
