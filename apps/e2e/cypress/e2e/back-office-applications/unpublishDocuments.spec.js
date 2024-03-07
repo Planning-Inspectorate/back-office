@@ -30,7 +30,7 @@ describe('Unpublish Documents', () => {
 	});
 
 
-	it('Case Team Admin user should be able to upload, publish and unpublish the document to a case', () => {
+	it('Case Team Admin user should be able to upload, publish and unpublish the document to a case', { tags: '@smoke' },() => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');

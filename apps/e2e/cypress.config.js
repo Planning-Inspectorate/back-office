@@ -46,6 +46,7 @@ module.exports = defineConfig({
 		experimentalModifyObstructiveThirdPartyCode: true,
 		chromeWebSecurity: false,
 		video: false,
+		grepFilterSpecs: true,
 		retries: 0
 	}
 });

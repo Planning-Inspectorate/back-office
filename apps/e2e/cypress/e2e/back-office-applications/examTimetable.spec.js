@@ -101,7 +101,7 @@ describe('Examination Timetable', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Should create timetable item - only start dates (StartTime Mandatory Template)', () => {
+	it('Should create timetable item - only start dates (StartTime Mandatory Template)', { tags: '@smoke' },() => {
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);

@@ -20,6 +20,8 @@
 import { users } from '../fixtures/users';
 import './commands';
 import { isCI } from './utils/isCI';
+import registerCypressGrep from '@cypress/grep'
+registerCypressGrep()
 
 after(() => {
 	cy.deleteUnwantedFixtures();

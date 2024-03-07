@@ -42,7 +42,7 @@ describe('Section 51 Advice', () => {
 		s51AdvicePage.clickButtonByText(texts.createS51AdviceButtonText);
 	});
 
-	it('S51 Advice - Enquirer Full Details', () => {
+	it('S51 Advice - Enquirer Full Details',{ tags: '@smoke' },() => {
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, {
 			organisation: details.organisation,

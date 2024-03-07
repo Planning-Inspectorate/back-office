@@ -71,7 +71,7 @@ describe('Upload different types of document and validate the transcript value',
 		enterDocRefandValidateTranscriptValue();
 	});
 
-	it('Case Team Admin user should be able to upload MP3 file to a case and validate the transcript value', () => {
+	it('Case Team Admin user should be able to upload MP3 file to a case and validate the transcript value',{ tags: '@smoke' },() => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
