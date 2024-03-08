@@ -89,6 +89,10 @@ export const getAppealFromHorizon = async (caseReference) => {
 					.post('/horizon', requestBody)
 					.reply(500, parseHorizonGetCaseResponse(horizonGetCaseNotPublishedResponse));
 				break;
+			// Horizon down
+			case '3000000':
+				nock(config.horizon.url).post('/horizon', requestBody).reply(500);
+				break;
 			//Case not found
 			default:
 				nock(config.horizon.url)

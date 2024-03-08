@@ -265,6 +265,19 @@ exports[`change-appeal-type POST /change-appeal-type/add-horizon-reference shoul
 </main>"
 `;
 
+exports[`change-appeal-type POST /change-appeal-type/add-horizon-reference should render a custom error page stating that there is a problem with Horizon, if the transferred-appeal endpoint returns a 500 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with Horizon</h1>
+            <p class="govuk-body">Try again later.</p>
+            <p class="govuk-body"><a href="/appeals-service/appeal-details/1" class="govuk-link">Go back to case overview</a>
+            </p>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`change-appeal-type POST /change-appeal-type/appeal-type should re-render the appeal type page with an error message if required field is missing 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">

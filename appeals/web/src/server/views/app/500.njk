@@ -1,12 +1,19 @@
 {% extends "app/layouts/app-two-column.layout.njk" %}
 
-{% set pageTitle = 'Sorry, there is a problem with the service' %}
+{% set pageTitle = titleCopy if titleCopy else 'Sorry, there is a problem with the service' %}
 
 {% block pageContent %}
-	<p class="govuk-body">Try again later.</p>
-	<p class="govuk-body">
-		<a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if the problem persists.
-	</p>
+	<p class="govuk-body">{{ bodyCopy if bodyCopy else 'Try again later.' }}</p>
+	{%- for additionalCta in additionalCtas -%}
+		<p class="govuk-body">
+			<a href="{{ additionalCta.href }}" class="govuk-link">{{ additionalCta.text }}</a>
+		</p>
+	{%- endfor -%}
+	{%- if not hideDefaultCta -%}
+		<p class="govuk-body">
+			<a href="https://has-appeal.herokuapp.com/help/contact" class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if the problem persists.
+		</p>
+	{%- endif -%}
 
 	{% if error and isDevelopment %}
 		<hr>

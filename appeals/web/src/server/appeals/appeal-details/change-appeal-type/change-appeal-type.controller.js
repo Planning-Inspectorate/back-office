@@ -275,6 +275,19 @@ export const postAddHorizonReference = async (request, response) => {
 			body: { 'horizon-reference': horizonReference }
 		} = request;
 
+		if (request.body.problemWithHorizon) {
+			return response.render('app/500.njk', {
+				titleCopy: 'Sorry, there is a problem with Horizon',
+				additionalCtas: [
+					{
+						href: `/appeals-service/appeal-details/${appealId}`,
+						text: 'Go back to case overview'
+					}
+				],
+				hideDefaultCta: true
+			});
+		}
+
 		if (errors) {
 			return renderAddHorizonReference(request, response);
 		}
