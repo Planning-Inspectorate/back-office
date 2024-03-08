@@ -160,7 +160,7 @@ const expectedNsipRepresentationPayload = [
 		representationType: null,
 		representativeId: undefined,
 		representedId: '10105',
-		status: 'PUBLISHED',
+		status: 'published',
 		registerFor: 'ORGANISATION',
 		representationFrom: 'ORGANISATION'
 	},
@@ -177,7 +177,7 @@ const expectedNsipRepresentationPayload = [
 		representationType: null,
 		representativeId: '10382',
 		representedId: '10381',
-		status: 'PUBLISHED',
+		status: 'published',
 		registerFor: undefined,
 		representationFrom: 'AGENT'
 	}
