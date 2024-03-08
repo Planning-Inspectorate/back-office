@@ -470,3 +470,11 @@ export function mapDecisionOutcome(outcome) {
 			return '';
 	}
 }
+
+/**
+ * @param {string|number} appealId
+ * @returns {string}
+ */
+export function generateIssueDecisionUrl(appealId) {
+	return `/appeals-service/appeal-details/${appealId}/issue-decision/decision`;
+}
