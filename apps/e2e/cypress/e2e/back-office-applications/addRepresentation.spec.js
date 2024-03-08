@@ -23,7 +23,7 @@ describe('Add representation scenarios', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Add a representation to the case',{ tags: '@smoke' }, () => {
+	it('Add a representation to the case', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
