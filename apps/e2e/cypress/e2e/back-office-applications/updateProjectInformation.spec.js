@@ -21,8 +21,8 @@ const searchResultsPage = new SearchResultsPage();
 const { applications: applicationsUsers } = users;
 
 describe('Update Project Information', () => {
-	
-	context('As Case Team Admin', () => {
+
+	context('As a user', () => {
 		let projectInfo = projectInformation();
 		let projectInfoNew = projectInformation();
 
@@ -31,7 +31,7 @@ describe('Update Project Information', () => {
 			createCasePage.createCase(projectInfo, true);
 		});
 
-		it('Should be able to update the case information', () => {
+		it('As a user able to update the case information', () => {
 			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
 			const caseRef = Cypress.env('currentCreatedCase');

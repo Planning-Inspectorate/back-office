@@ -23,7 +23,7 @@ describe('Add representation scenarios', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Add a representation to the case', () => {
+	it('As a user able to add a representation to the case', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -34,7 +34,7 @@ describe('Add representation scenarios', () => {
 		searchResultsPage.clickButtonByText('Add a representation');
 		representationPage.fillRepresentationDetails();
 	});
-	it('Search representation', () => {
+	it('As a user able to search representation', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
