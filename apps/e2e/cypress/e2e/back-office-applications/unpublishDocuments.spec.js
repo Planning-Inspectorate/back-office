@@ -30,7 +30,7 @@ describe('Unpublish Documents', () => {
 	});
 
 
-	it('Case Team Admin user should be able to upload, publish and unpublish the document to a case', () => {
+	it('As a user able to upload, publish and unpublish the document to a case', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -57,7 +57,7 @@ describe('Unpublish Documents', () => {
 		folderDocumentsPage.unpublishDocument();
 	});
 
-	it('Case Team Admin should not see the unpublish button after unpublishing the document', () => {
+	it('As a user should not see the unpublish button after unpublishing the document', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -70,7 +70,7 @@ describe('Unpublish Documents', () => {
 		documentPropertiesPage.verifyUnpublishButtonIsNotVisible();
 	});
 
-	it('Case Team Admin should see unpublish status in document history tab after unpublishing the document', () => {
+	it('As a user should see unpublish status in document history tab after unpublishing the document', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -82,7 +82,7 @@ describe('Unpublish Documents', () => {
 		fileUploadPage.clickLinkByText('View/Edit properties');
         documentPropertiesPage.verifyUnpublishStatus();
 	});
-	it('Case Team Admin should see delete button on document properties page after publishing the document', () => {
+	it('As a user should see delete button on document properties page after publishing the document', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -95,7 +95,7 @@ describe('Unpublish Documents', () => {
 		folderPage.verifyDeleteButtonIsVisible();
 	});
 
-	it('Case Team Admin trying to apply changes without selecting the document', () => {
+	it('As a user trying to apply changes without selecting the document', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -106,7 +106,7 @@ describe('Unpublish Documents', () => {
 		folderDocumentsPage.applyChangesWithoutSelectingDocument();
 		fileUploadPage.verifyDocumentSelectError();
 	});
-	it('Case Team Admin trying to click on publish document button without selecting the document', () => {
+	it('As a user trying to click on publish document button without selecting the document', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -119,7 +119,7 @@ describe('Unpublish Documents', () => {
 		folderDocumentsPage.clickOnPublishButton();
 	});
 
-	it('Case Team Admin able to navigate back from delete the document page', () => {
+	it('As a user able to navigate back from delete the document page', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -131,7 +131,7 @@ describe('Unpublish Documents', () => {
 		documentPropertiesPage.verifyNaviagtedBackToDocPropertiesPage();
 	});
 
-	it('Case Team Admin able to delete the document', () => {
+	it('As a user able to delete the document', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');

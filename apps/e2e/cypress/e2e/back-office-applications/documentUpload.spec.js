@@ -44,7 +44,7 @@ describe('Upload different types of document and validate the transcript value',
 		})
 	  }
 
-	it('Case Team Admin user should be able to upload a document to a case', () => {
+	it('As a user should be able to upload a document to a case', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -56,7 +56,7 @@ describe('Upload different types of document and validate the transcript value',
 		searchResultsPage.clickLinkByText('Project management');
 		fileUpload('sample-doc.pdf');
 	});
-	it('Case Team Admin user should be able to upload a html file to a case and validate the transcript value', () => {
+	it('As a user  able to upload a html file to a case and validate the transcript value', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -71,7 +71,7 @@ describe('Upload different types of document and validate the transcript value',
 		enterDocRefandValidateTranscriptValue();
 	});
 
-	it('Case Team Admin user should be able to upload MP3 file to a case and validate the transcript value', () => {
+	it('As a user able to upload MP3 file to a case and validate the transcript value', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -86,7 +86,7 @@ describe('Upload different types of document and validate the transcript value',
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		enterDocRefandValidateTranscriptValue();
 	});
-	it('Case Team Admin user should be able to upload a video file to a case and validate the transcript value', () => {
+	it('As a user able to upload a video file to a case and validate the transcript value', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -100,7 +100,7 @@ describe('Upload different types of document and validate the transcript value',
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		enterDocRefandValidateTranscriptValue();
 	});
-	it('Case Team Admin user enters incorrect document reference number then error will displayed ', () => {
+	it('As a user enters incorrect document reference number then error will displayed ', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');

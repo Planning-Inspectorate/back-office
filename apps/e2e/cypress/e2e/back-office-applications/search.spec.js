@@ -21,30 +21,30 @@ describe('Search', () => {
 	});
 
 
-	context('As Case Team Admin', () => {
+	context('As a user', () => {
 		beforeEach(() => {
 			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
 		});
 
-		it('Case Team Admin user should be able to use search using Case Reference', () => {
+		it('As a user able to use search using Case Reference', () => {
 			const caseRef = Cypress.env('currentCreatedCase');
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.verifySearchResultsCount(1);
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
 
-		it('Case Team Admin user should be able to use search using Case Name', () => {
+		it('As a user able to use search using Case Name', () => {
 			applicationsHomePage.searchFor(projectInfo.projectName);
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
 
-		it('Case Team Admin user should be able to use search using Case Description', () => {
+		it('As a user able to use search using Case Description', () => {
 			applicationsHomePage.searchFor(projectInfo.projectDescription);
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
 
-		it('Case Team Admin user should see an error when nothing is entered', () => {
+		it('As a user able to see an error when nothing is entered', () => {
 			applicationsHomePage.searchFor(' ');
 			searchResultsPage.verifySearchError('Enter a search term');
 		});

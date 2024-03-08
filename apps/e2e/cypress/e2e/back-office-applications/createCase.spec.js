@@ -14,15 +14,15 @@ const { applications: applicationsUsers } = users;
 describe('Create A Case', () => {
 
 
-	context('As a Case Team Admin User', () => {
-		it('Should successfully create a case as an admin', () => {
+	context('As a User', () => {
+		it('Should successfully create a case as a user', () => {
 			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
 			const projectInfo = projectInformation();
 			createCasePage.createCase(projectInfo);
 		});
 
-		it('Should validate that all input validation errors in the create case flow', () => {
+		it('As a user able to validate that all input validation errors in the create case flow', () => {
 			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
 			applicationsHomePage.clickCreateNewCaseButton();

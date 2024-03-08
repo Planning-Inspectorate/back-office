@@ -32,7 +32,7 @@ describe('Search Documents for various file types', () => {
 		fileUploadPage.verifyFileIsUploaded();
       }
 
-	it('Search and verify the documents count after uploading the .dbf file type to case', () => {
+	it('As a user able to search and verify the documents count after uploading the .dbf file type to case', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -48,7 +48,7 @@ describe('Search Documents for various file types', () => {
 
 	});
 
-	it('Search and verify the documents count after uploading the .shp file type to case', () => {
+	it('As a user able to search and verify the documents count after uploading the .shp file type to case', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -63,7 +63,7 @@ describe('Search Documents for various file types', () => {
 		searchResultsPage.verifyDocumentsCount();
 
 	});
-	it('Search and verify the documents count after uploading the .prj file type to case', () => {
+	it('As a user able to search and verify the documents count after uploading the .prj file type to case', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -78,7 +78,7 @@ describe('Search Documents for various file types', () => {
 		searchResultsPage.verifyDocumentsCount();
 	});
 
-	it('Verify documents search page contains view link next to document filename', () => {
+	it('As a user able to verify documents search page contains view link next to document filename', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -91,7 +91,7 @@ describe('Search Documents for various file types', () => {
 		documentPropertiesPage.verifyDocumentPropertiesHeading();
 	});
 
-	it('Verify invalid document search result count', () => {
+	it('As a user able to verify invalid document search result count', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
