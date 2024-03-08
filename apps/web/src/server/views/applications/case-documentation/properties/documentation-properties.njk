@@ -65,22 +65,46 @@
                     </a>
                 </div>
 				{% endif %}
-                <nav class="govuk-grid-row govuk-!-margin-top-0">
-					<h3 class="govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4">Document actions</h3>
+                <nav>
+					<h3 class="govuk-heading-m govuk-!-margin-bottom-4">Document actions</h3>
 
-          {% if isNotDisabled %}
-            <a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version, isPreviewActive: isPreviewActive}) }}">Open</a>
-            <a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version}) }}">Download</a>
-          {% endif %}
+					{% if documentationFile.publishedStatus === 'published' %}
+						<input type='hidden' value='{{documentationFile.documentGuid}}' name='selectedFilesIds[]'/>
+					{% endif %}
 
-          {% if documentationFile.publishedStatus === 'published' %}
-            <input type='hidden' value='{{documentationFile.documentGuid}}' name='selectedFilesIds[]'/>
-            <a href="./unpublish" class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2">Unpublish</a>
-          {% else %}
-                    <a class="govuk-button govuk-button--secondary govuk-!-margin-0 govuk-!-margin-left-2" href="{{ 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'delete'}) }}">Delete</a>
-                {% endif %}
+					<div class="govuk-button-group">
+						{% if isNotDisabled %}
+							{{ govukButton({
+								element: 'a',
+								text: "Open",
+								href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version, isPreviewActive: isPreviewActive}),
+								classes: "govuk-button--secondary"
+							}) }}
 
-					<div class="govuk-grid-column-one-third govuk-!-text-align-right">
+							{{ govukButton({
+								element: 'a',
+								text: "Download",
+								href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version}),
+								classes: "govuk-button--secondary"
+							}) }}
+						{% endif %}
+
+						{% if documentationFile.publishedStatus === 'published' %}
+							{{ govukButton({
+								element: 'a',
+								text: "Unpublish",
+								href: "./unpublish",
+								classes: "govuk-button--secondary"
+							}) }}
+						{% else %}
+							{{ govukButton({
+								element: 'a',
+								text: "Delete",
+								href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'delete'}),
+								classes: "govuk-button--secondary"
+							}) }}
+						{% endif %}
+
 						{% if documentationFile.publishedStatus == 'ready_to_publish' %}
 							<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'documents-queue'|url({caseId:caseId})}}">View publishing queue</a>
 						{% endif %}
