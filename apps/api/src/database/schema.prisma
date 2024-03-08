@@ -99,8 +99,8 @@ model CasePublishedState {
 /// ApplicationDetails model
 /// Contains general information about a case that pertains only to Applications
 model ApplicationDetails {
-  id                                                Int       @id @default(autoincrement())
-  caseId                                            Int       @unique
+  id                                                Int                           @id @default(autoincrement())
+  caseId                                            Int                           @unique
   subSectorId                                       Int?
   locationDescription                               String?
   zoomLevelId                                       Int?
@@ -142,11 +142,12 @@ model ApplicationDetails {
   stage5ExtensionToDecisionDeadline                 DateTime?
   jRPeriodEndDate                                   DateTime?
   dateProjectWithdrawn                              DateTime?
-
-  case      Case                          @relation(fields: [caseId], references: [id])
-  subSector SubSector?                    @relation(fields: [subSectorId], references: [id])
-  zoomLevel ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
-  regions   RegionsOnApplicationDetails[]
+  dateOfReOpenRelevantRepresentationStart           DateTime?
+  dateOfReOpenRelevantRepresentationClose           DateTime?
+  case                                              Case                          @relation(fields: [caseId], references: [id])
+  subSector                                         SubSector?                    @relation(fields: [subSectorId], references: [id])
+  zoomLevel                                         ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
+  regions                                           RegionsOnApplicationDetails[]
 }
 
 /// RegionsOnApplicationDetails model
