@@ -12,6 +12,7 @@ import {
 } from './global-mapper-formatter.js';
 import { convert24hTo12hTimeStringFormat } from '#lib/times.js';
 import { linkedAppealStatus } from '#lib/appeals-formatter.js';
+import { generateIssueDecisionUrl } from '#appeals/appeal-details/issue-decision/issue-decision.mapper.js';
 
 /**
  * @param {import('#appeals/appeal-details/appeal-details.types.js').WebAppeal} appealDetails
@@ -505,7 +506,18 @@ export async function initialiseAndMapAppealData(
 					text: 'Decision'
 				},
 				value: {
-					text: appealDetails.decision?.outcome || 'Not issued yet'
+					text: appealDetails.decision?.outcome || 'Not yet issued'
+				},
+				actions: {
+					items: appealDetails.decision?.outcome
+						? []
+						: [
+								{
+									text: 'Issue',
+									href: generateIssueDecisionUrl(appealDetails.appealId),
+									visuallyHiddenText: 'site address'
+								}
+						  ]
 				}
 			}
 		},

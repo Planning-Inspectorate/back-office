@@ -697,7 +697,7 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
                             <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
                         </div>
                     </dl>
@@ -1179,7 +1179,7 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
                             <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
                         </div>
                     </dl>
@@ -1518,7 +1518,7 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> LPA reference</dt>
                             <dd class="govuk-summary-list__value">48269/APP/2021/1482</dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Decision</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Decision</dt>
                             <dd class="govuk-summary-list__value">dismissed</dd>
                         </div>
                     </dl>
