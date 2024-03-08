@@ -44,7 +44,7 @@ describe('Document Properties', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Case Team Admin user should be able to upload a document to a case', () => {
+	it('As a user should be able to upload a document to a case', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
