@@ -60,15 +60,8 @@ describe('Publish Documents', () => {
 		folderPage.clickLinkByText('View publishing queue');
 		folderPage.validatePublishingQueueCase(projectInfo, caseRef);
 		publishingQueuePage.validateDocumentCountInList(1);
-	});
-
-	it('Case admin should be able to set "Ready to publish" after setting all mandatory properties for document', () => {
-		fileUploadPage.clickLinkByText('View/Edit properties');
-		documentPropertiesPage.updateAllProperties('Redacted');
-		folderPage.markAllReadyToPublish();
-		folderPage.clickLinkByText('View publishing queue');
-		folderPage.validatePublishingQueueCase(projectInfo, caseRef);
 		folderPage.publishAllDocumentsInList();
 		folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
 	});
+
 });
