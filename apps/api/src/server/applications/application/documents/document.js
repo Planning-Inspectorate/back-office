@@ -127,11 +127,11 @@ export const buildNsipDocumentPayload = (version) => {
 const buildBlobUri = (containerName, path) => {
 	if (!(config.blobStorageUrl && containerName && path)) {
 		logger.error(
-			`Failed to build blob URI. One of the required components was missing.\n${{
+			`Failed to build blob URI. One of the required components was missing.\n${JSON.stringify({
 				blobStorageUrl: config.blobStorageUrl,
 				containerName,
 				path
-			}}`
+			})}`
 		);
 		return null;
 	}
