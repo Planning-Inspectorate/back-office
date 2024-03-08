@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash-es';
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 
 /**
  * @typedef {{
@@ -264,8 +264,6 @@ export const createApplicationRepresentation = async ({
 			}
 		};
 	}
-
-	console.info('==== representation to create', representation.represented);
 
 	const createResponse = await databaseConnector.representation.create({
 		data: representation

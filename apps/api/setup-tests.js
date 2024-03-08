@@ -376,7 +376,7 @@ jest.unstable_mockModule('./src/server/infrastructure/event-client.js', () => ({
 	}
 }));
 
-jest.unstable_mockModule('./src/server/applications/_utils/batch-send-events.js', () => ({
+jest.unstable_mockModule('./src/server/infrastructure/event-batch-broadcaster.js', () => ({
 	batchSendEvents: jest.fn()
 }));
 

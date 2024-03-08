@@ -1,5 +1,5 @@
 import { request } from '#app-test';
-import { batchSendEvents } from '../../../../_utils/batch-send-events.js';
+import { batchSendEvents } from '#infrastructure/event-batch-broadcaster.js';
 import { jest } from '@jest/globals';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
