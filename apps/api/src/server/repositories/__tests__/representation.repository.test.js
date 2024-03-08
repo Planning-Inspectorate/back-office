@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 
-const { databaseConnector } = await import('../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 import * as representationRepository from '../representation.repository.js';
 
@@ -366,6 +366,7 @@ describe('Representation repository', () => {
 		const expectedSelect = {
 			id: true,
 			reference: true,
+			caseId: true,
 			status: true,
 			redacted: true,
 			received: true,

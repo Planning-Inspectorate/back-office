@@ -68,6 +68,7 @@ export const getById = async (id) =>
 		select: {
 			id: true,
 			reference: true,
+			caseId: true,
 			status: true,
 			redacted: true,
 			received: true,
