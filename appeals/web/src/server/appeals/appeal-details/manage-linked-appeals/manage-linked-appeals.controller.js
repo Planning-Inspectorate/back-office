@@ -8,7 +8,8 @@ import {
 	manageLinkedAppealsPage,
 	addLinkedAppealPage,
 	addLinkedAppealCheckAndConfirmPage,
-	unlinkAppealPage
+	unlinkAppealPage,
+	generateUnlinkAppealBackLinkUrl
 } from './manage-linked-appeals.mapper.js';
 import { getAppealDetailsFromId } from '../appeal-details.service.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
@@ -204,7 +205,7 @@ export const getUnlinkAppeal = async (request, response) => {
  */
 export const postUnlinkAppeal = async (request, response) => {
 	try {
-		const { appealId, relationshipId } = request.params;
+		const { appealId, relationshipId, backLinkAppealId } = request.params;
 		const { unlinkAppeal } = request.body;
 		const { errors } = request;
 
@@ -213,7 +214,12 @@ export const postUnlinkAppeal = async (request, response) => {
 		}
 
 		if (unlinkAppeal === 'no') {
-			return response.redirect(`/appeals-service/appeal-details/${appealId}/linked-appeals/manage`);
+			const backLinkUrl = generateUnlinkAppealBackLinkUrl(
+				appealId,
+				relationshipId,
+				backLinkAppealId
+			);
+			return response.redirect(backLinkUrl);
 		}
 		if (unlinkAppeal === 'yes') {
 			const appealRelationshipId = parseInt(relationshipId, 10);
@@ -227,11 +233,13 @@ export const postUnlinkAppeal = async (request, response) => {
 			addNotificationBannerToSession(
 				request.session,
 				'appealUnlinked',
-				appealId,
-				`<p class="govuk-notification-banner__heading">You have unlinked this appeal from appeal ${childRef}</p>`
+				backLinkAppealId,
+				`<p class="govuk-notification-banner__heading">You have unlinked this appeal from appeal ${
+					appealId === backLinkAppealId ? childRef : appealData.appealReference
+				}</p>`
 			);
 
-			return response.redirect(`/appeals-service/appeal-details/${appealId}`);
+			return response.redirect(`/appeals-service/appeal-details/${backLinkAppealId}`);
 		}
 
 		return response.redirect(
@@ -248,9 +256,10 @@ export const postUnlinkAppeal = async (request, response) => {
  * @param {import('@pins/express/types/express.js').RenderedResponse<any, any, Number>} response
  */
 const renderUnlinkAppeal = async (request, response) => {
-	const { errors } = request;
-
-	const { appealId, relationshipId } = request.params;
+	const {
+		errors,
+		params: { appealId, relationshipId, backLinkAppealId }
+	} = request;
 
 	const appealData = await getAppealDetailsFromId(request.apiClient, appealId);
 
@@ -259,7 +268,13 @@ const renderUnlinkAppeal = async (request, response) => {
 			(appeal) => appeal.relationshipId === parseInt(relationshipId, 10)
 		)?.appealReference || '';
 
-	const mappedPageContent = await unlinkAppealPage(appealData, childRef);
+	const mappedPageContent = await unlinkAppealPage(
+		appealData,
+		childRef,
+		appealId,
+		relationshipId,
+		backLinkAppealId
+	);
 
 	return response.render('patterns/display-page.pattern.njk', {
 		pageContent: mappedPageContent,
