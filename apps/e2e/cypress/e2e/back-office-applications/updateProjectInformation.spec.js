@@ -21,58 +21,7 @@ const searchResultsPage = new SearchResultsPage();
 const { applications: applicationsUsers } = users;
 
 describe('Update Project Information', () => {
-	context('As Inspector', () => {
-		let projectInfo = projectInformation();
-
-		before(() => {
-			cy.login(applicationsUsers.caseAdmin);
-			createCasePage.createCase(projectInfo);
-		});
-
-		it('Should not be able to update the case information', () => {
-			cy.login(applicationsUsers.inspector);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
-			validateProjectOverview(projectInfo);
-			searchResultsPage.clickLinkByText('Project information');
-			validateProjectInformation(projectInfo);
-		});
-	});
-
-	// Case team email, is not in use. Once after resetting the password, going to uncomment the code.
-
-	/*context('As Case Team', () => {
-		let projectInfo = projectInformation();
-		let projectInfoNew = projectInformation();
-
-		before(() => {
-			cy.login(applicationsUsers.caseTeam);
-			createCasePage.createCase(projectInfo, true);
-		});
-
-		it('Should be able to update the case information', () => {
-			cy.login(applicationsUsers.caseTeam);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
-			validateProjectOverview(projectInfo, true);
-			casePage.clickLinkByText('Update project information');
-			casePage.showAllSections();
-			validateProjectInformation(projectInfo, true);
-			updateProjectInformation(projectInfoNew);
-			validateProjectInformation(projectInfoNew, false, true);
-			casePage.clickLinkByText('Overview');
-			casePage.clickButtonByText('Preview and publish project');
-			validatePreviewAndPublishInfo(projectInfoNew);
-			casePage.clickButtonByText('Accept and publish project');
-			casePage.validatePublishBannerMessage('Project page successfully published');
-
-		});
-	});*/
-
+	
 	context('As Case Team Admin', () => {
 		let projectInfo = projectInformation();
 		let projectInfoNew = projectInformation();

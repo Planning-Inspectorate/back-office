@@ -13,26 +13,6 @@ const { applications: applicationsUsers } = users;
 
 describe('Create A Case', () => {
 
-	 // Commented below tests due to removal of permissions
-	/*context('As Inspector', () => {
-		beforeEach(() => {
-			cy.login(applicationsUsers.inspector);
-		});
-
-		it('Should not be able to create a case - button is not available', () => {
-			cy.visit('/');
-		applicationsHomePage.verifyInspectorIsSignedIn();
-		applicationsHomePage.verifyCreateCaseIsNotAvailable();
-		});
-
-		it('Should not be able to create a case - cannot navigate to URL', () => {
-			cy.visit('/');
-			cy.visit('/applications-service/create-new-case', {
-				failOnStatusCode: false
-			});
-			cy.contains('You are not permitted to access this URL.').should('exist');
-		});
-	});*/
 
 	context('As a Case Team Admin User', () => {
 		it('Should successfully create a case as an admin', () => {
@@ -98,15 +78,4 @@ describe('Create A Case', () => {
 		});
 	});
 
-	// Case team email, is not in use. Once after resetting the password, going to uncomment the code
-
-	/*context('As a Case Team User', () => {
-		it('Should successfully create a case when the logged in user is a case team user', () => {
-			cy.login(applicationsUsers.caseTeam);
-			cy.visit('/');
-			createCasePage.verifyCaseTeamIsSignedIn();
-			const projectInfo = projectInformation();
-			createCasePage.createCase(projectInfo);
-		});
-	});*/
 });
