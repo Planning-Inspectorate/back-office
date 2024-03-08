@@ -101,7 +101,7 @@ describe('Examination Timetable', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Should create timetable item - only start dates (StartTime Mandatory Template)', { tags: '@smoke' },() => {
+	it('As a user able to create timetable item - only start dates (StartTime Mandatory Template)', () => {
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
@@ -133,7 +133,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.toggleExaminationTimetableItem(options.itemName);
 	});
 
-	it('Should create timetable item - start and end dates (Deadline Template)', () => {
+	it('As a user able to create timetable item - start and end dates (Deadline Template)', () => {
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
@@ -169,7 +169,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.toggleExaminationTimetableItem(options.itemName);
 	});
 
-	it('Should create timetable item - (NoTimes Template)', () => {
+	it('As a user able to create timetable item - (NoTimes Template)', () => {
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
@@ -198,7 +198,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('Description', options.description);
 	});
 
-	it('Should create timetable item - (Deadline StartDate Template)', () => {
+	it('As a user able to create timetable item - (Deadline StartDate Template)', () => {
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);

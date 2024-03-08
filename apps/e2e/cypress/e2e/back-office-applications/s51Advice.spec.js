@@ -42,7 +42,7 @@ describe('Section 51 Advice', () => {
 		s51AdvicePage.clickButtonByText(texts.createS51AdviceButtonText);
 	});
 
-	it('S51 Advice - Enquirer Full Details',{ tags: '@smoke' },() => {
+	it('As a user able to create S51 Advice - Enquirer Full Details', () => {
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, {
 			organisation: details.organisation,
@@ -51,7 +51,7 @@ describe('Section 51 Advice', () => {
 		});
 	});
 
-	it('S51 Advice - Enquirer Name Only', () => {
+	it('As a user able to create S51 Advice - Enquirer Name Only', () => {
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, {
 			firstName: details.firstName,
@@ -59,7 +59,7 @@ describe('Section 51 Advice', () => {
 		});
 	});
 
-	it('S51 Advice - Enquirer Org Only', () => {
+	it('As a user able to create S51 Advice - Enquirer Org Only', () => {
 		const details = s51AdviceDetails();
 		s51AdvicePage.completeS51Advice(details, { organisation: details.organisation });
 	});
