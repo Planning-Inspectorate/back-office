@@ -62,6 +62,7 @@ export const sendRepresentationEventMessage = async (
 ) => {
 	const nsipRepresentationPayload = buildNsipRepresentationPayload(representation);
 	const serviceUsersPayload = buildRepresentationServiceUserPayload(representation);
+
 	await eventClient.sendEvents(NSIP_REPRESENTATION, [nsipRepresentationPayload], eventType);
 
 	// and service users
@@ -70,11 +71,18 @@ export const sendRepresentationEventMessage = async (
 	});
 };
 
+/*
+ * Build Representation message event payload
+ *
+ * param {Representation} representation
+ * returns {{representationType: *, attachments: *, representationId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, caseRef: *, dateReceived: string, caseId: *, representedType: *, represented: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), representative: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), status: *}|{caseRef: *, representationType: *, attachments: *, representationId: *, redacted, redactedRepresentation, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}|{redactedBy, redactedNotes, caseRef: *, representationType: *, attachments: *, representationId: *, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}}
+ */
+
 /**
  * Build Representation message event payload
  *
  * @param {Representation} representation
- * @returns {{representationType: *, attachments: *, representationId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, caseRef: *, dateReceived: *, caseId: *, representedType: *, represented: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), representative: ({}|{firstName: *, lastName: *, under18: *, organisationName: *, emailAddress: *, telephone: *, id: *, contactMethod: *}), status: *}|{caseRef: *, representationType: *, attachments: *, representationId: *, redacted, redactedRepresentation, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}|{redactedBy, redactedNotes, caseRef: *, representationType: *, attachments: *, representationId: *, dateReceived: *, caseId: *, originalRepresentation: *, examinationLibraryRef: string, referenceId: *, status: *}}
+ * @returns {import('pins-data-model').Schemas.Representation} NSIPRepresenationSchema
  */
 export const buildNsipRepresentationPayload = (representation) => {
 	const redacted = Boolean(representation.redacted);
@@ -85,10 +93,10 @@ export const buildNsipRepresentationPayload = (representation) => {
 		examinationLibraryRef: '',
 		caseRef: representation.case.reference,
 		caseId: representation.caseId,
-		status: representation.status,
+		status: mapRepresentationStatusToSchema(representation.status),
 		redacted,
 		originalRepresentation: representation.originalRepresentation,
-		representationType: representation.type,
+		representationType: mapRepresentationTypeToSchema(representation.type),
 		representedId: representation.represented?.id.toString(),
 		representativeId: representation.representative?.id.toString(),
 		representationFrom: representation.representative?.id
@@ -131,7 +139,8 @@ export const buildNsipRepresentationPayload = (representation) => {
  */
 export const buildNsipRepresentationPayloadForPublish = (representation) => {
 	let publishRepresentationPayload = buildNsipRepresentationPayload(representation);
-	publishRepresentationPayload.status = 'PUBLISHED';
+	publishRepresentationPayload.status = mapRepresentationStatusToSchema('PUBLISHED');
+
 	return publishRepresentationPayload;
 };
 
@@ -167,3 +176,46 @@ const mapRepresentationServiceUser = (entity) => ({
 	serviceUserType: 'RepresentationContact',
 	sourceSuid: entity.id.toString()
 });
+
+/**
+ * Convert BOAS rep status to the schema enum value
+ * currently upper case to lower, eg 'AWAITING_REVIEW' to 'awaiting_review'
+ *
+ * @param {string} status
+ */
+const mapRepresentationStatusToSchema = (status) => {
+	// TODO: Note at Mar 2024, we have 2 options not in schema: DRAFT, and WITHDRAWN
+	return status.toLowerCase();
+};
+
+/**
+ * Convert our DB Rep Type to schema enum value,
+ * mostly our Sentence case to schema Title Case
+ *
+ * @param {string} representationType
+ * @returns
+ */
+const mapRepresentationTypeToSchema = (representationType) => {
+	let schemaRepresentationType = null;
+
+	switch (representationType) {
+		case 'Local authorities':
+			schemaRepresentationType = 'Local authorities';
+			break;
+		case 'Members of the public/businesses':
+			schemaRepresentationType = 'Members of the Public/Businesses';
+			break;
+		case 'Non-statutory organisations':
+			schemaRepresentationType = 'Non-Statutory Organisations';
+			break;
+		case 'Parish councils':
+			schemaRepresentationType = 'Parish Councils';
+			break;
+		case 'Statutory consultees':
+			schemaRepresentationType = 'Statutory Consultees';
+			break;
+		// TODO: Note at Mar 2024, Schema has 2 options we do not have: Public & Businesses, and Another Individual
+	}
+
+	return schemaRepresentationType;
+};
