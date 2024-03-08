@@ -43,16 +43,16 @@ export class FolderDocumentsPage extends Page {
 		cy.contains(projectInfo.projectName).should('exist');
 		cy.contains(caseRef).should('exist');
 	}
-	navigateToProjectFolder(){
+	navigateToProjectFolder() {
 		this.goToFolderDocumentPage();
 	}
 	unpublishDocument() {
-		this.basePageElements.unpublishLink().click();
+		this.clickButtonByText('Unpublish');
 		this.clickButtonByText('Unpublish documents');
 		this.validateSuccessPanelTitle('Document/s successfully unpublished');
 	}
-	verifyDeleteButtonIsVisible(){
-		cy.get('a.govuk-button:nth-child(4)').should('exist');
+	verifyDeleteButtonIsVisible() {
+		this.basePageElements.buttonByLabelText('Delete').should('exist');
 	}
 	applyChangesWithoutSelectingDocument() {
 		this.setOverallStatus('Ready to publish');
@@ -66,7 +66,7 @@ export class FolderDocumentsPage extends Page {
 	clickOnPublishButton() {
 		this.clickButtonByText('Publish documents');
 	}
-	verifyDocumentSelectError(){
-         cy.get('li:nth-child(1) > a').contains('You must select documents to publish');
+	verifyDocumentSelectError() {
+		cy.get('li:nth-child(1) > a').contains('You must select documents to publish');
 	}
 }
