@@ -1,14 +1,7 @@
 import * as representationsRepository from '#repositories/representation.repository.js';
-import { batchSendEvents } from '../../../_utils/batch-send-events.js';
-import logger from '#utils/logger.js';
-import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
-import {
-	buildNsipRepresentationPayloadForPublish,
-	buildRepresentationServiceUserPayload
-} from '../representations.service.js';
 import { setRepresentationsAsPublished } from '#repositories/representation.repository.js';
-import { verifyNotTraining } from '../../application.validators.js';
+import { broadcastNsipRepresentationPublishEventBatch } from '#infrastructure/event-broadcasters.js';
 
 /**
  * @param {number} caseId
@@ -22,22 +15,7 @@ export const publishCaseRepresentations = async (caseId, representationIds, acti
 	);
 
 	if (representations.length > 0) {
-		const nsipRepresentationsPayload = representations.map(
-			buildNsipRepresentationPayloadForPublish
-		);
-		const serviceUsersPayload = representations.flatMap(buildRepresentationServiceUserPayload);
-
-		try {
-			await verifyNotTraining(caseId);
-
-			await batchSendEvents(NSIP_REPRESENTATION, nsipRepresentationsPayload, EventType.Publish);
-
-			await batchSendEvents(SERVICE_USER, serviceUsersPayload, EventType.Publish, {
-				entityType: 'RepresentationContact'
-			});
-		} catch (/** @type {*} */ err) {
-			logger.info(`Blocked sending event for representations: ${representationIds}`, err.message);
-		}
+		await broadcastNsipRepresentationPublishEventBatch(representations, EventType.Publish, caseId);
 
 		await setRepresentationsAsPublished(representations, actionBy);
 	}
