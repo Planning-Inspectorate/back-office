@@ -3,7 +3,6 @@ import { appealShortReference, linkedAppealStatus } from '#lib/appeals-formatter
 import { appealSiteToAddressString } from '#lib/address-formatter.js';
 import { appealStatusToStatusTag } from '#lib/nunjucks-filters/status-tag.js';
 import { dateToDisplayDate } from '#lib/dates.js';
-import { generateLinkedAppealsManageLinkHref } from '#lib/mappers/appeal.mapper.js';
 
 /**
  * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
@@ -73,7 +72,7 @@ export function manageLinkedAppealsPage(appealData, relationshipId, appealId, pa
 							text: appealData.appealType
 						},
 						{
-							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/unlink-appeal/${appealId}/${matchingLinkedAppeal?.relationshipId}">Unlink</a>`
+							html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/unlink-appeal/${appealId}/${matchingLinkedAppeal?.relationshipId}/${appealId}">Unlink</a>`
 						}
 					]
 				]
@@ -99,7 +98,7 @@ export function manageLinkedAppealsPage(appealData, relationshipId, appealId, pa
 					text: linkedAppeal.appealType
 				},
 				{
-					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/unlink-appeal/${linkedAppeal.appealId}/${linkedAppeal.relationshipId}">Unlink</a>`
+					html: `<a class="govuk-link" href="/appeals-service/appeal-details/${appealData.appealId}/linked-appeals/unlink-appeal/${linkedAppeal.appealId}/${linkedAppeal.relationshipId}/${appealId}">Unlink</a>`
 				}
 			];
 		});
@@ -453,9 +452,12 @@ export function addLinkedAppealCheckAndConfirmPage(
  *
  * @param {Appeal} appealData
  * @param {string} childRef
+ * @param {string} appealId
+ * @param {string} relationshipId
+ * @param {string} backLinkAppealId
  * @returns {PageContent}
  */
-export function unlinkAppealPage(appealData, childRef) {
+export function unlinkAppealPage(appealData, childRef, appealId, relationshipId, backLinkAppealId) {
 	/** @type {PageComponent} */
 	const selectAppealTypeRadiosComponent = {
 		type: 'radios',
@@ -486,11 +488,23 @@ export function unlinkAppealPage(appealData, childRef) {
 	/** @type {PageContent} */
 	const pageContent = {
 		title: titleAndHeading,
-		backLinkUrl: generateLinkedAppealsManageLinkHref(appealData),
+		backLinkUrl: generateUnlinkAppealBackLinkUrl(appealId, relationshipId, backLinkAppealId),
 		preHeading: `Appeal ${shortAppealReference}`,
 		heading: titleAndHeading,
 		pageComponents: [selectAppealTypeRadiosComponent]
 	};
 
 	return pageContent;
+}
+
+/**
+ * @param {string} appealId
+ * @param {string} relationshipId
+ * @param {string} backLinkAppealId
+ * @returns {string}
+ */
+export function generateUnlinkAppealBackLinkUrl(appealId, relationshipId, backLinkAppealId) {
+	return appealId === backLinkAppealId
+		? `/appeals-service/appeal-details/${backLinkAppealId}/linked-appeals/manage`
+		: `/appeals-service/appeal-details/${backLinkAppealId}/linked-appeals/manage/${relationshipId}/${appealId}`;
 }
