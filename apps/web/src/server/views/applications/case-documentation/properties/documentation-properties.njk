@@ -65,7 +65,7 @@
                     </a>
                 </div>
 				{% endif %}
-                <nav>
+                <nav class="pins-nav-button-group">
 					<h3 class="govuk-heading-m govuk-!-margin-bottom-4">Document actions</h3>
 
 					{% if documentationFile.publishedStatus === 'published' %}
@@ -104,11 +104,10 @@
 								classes: "govuk-button--secondary"
 							}) }}
 						{% endif %}
-
-						{% if documentationFile.publishedStatus == 'ready_to_publish' %}
-							<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'documents-queue'|url({caseId:caseId})}}">View publishing queue</a>
-						{% endif %}
 					</div>
+					{% if documentationFile.publishedStatus == 'ready_to_publish' %}
+						<a class="govuk-link govuk-body-m govuk-!-text-align-right pins-nav-right-aligned-link" href= "{{'documents-queue'|url({caseId:caseId})}}">View publishing queue</a>
+					{% endif %}
 				</nav>
                 <div class="govuk-!-margin-top-7">
                     {{ govukTabs({

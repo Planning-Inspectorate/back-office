@@ -1,0 +1,11 @@
+@media (min-width: 40.0625em) {
+	nav.pins-nav-button-group {
+		.govuk-button-group {
+			display: inline-flex;
+		}
+
+		.pins-nav-right-aligned-link {
+			float: inline-end;
+		}
+	}
+}
