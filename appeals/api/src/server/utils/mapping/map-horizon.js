@@ -37,12 +37,12 @@ export const parseHorizonGetCaseResponse = (data) => {
 
 /**
  * @param {import("#utils/horizon-gateway.js").HorizonGetCaseSuccessResponse} data
- * @returns {import("#endpoints/linkable-appeals/linkable-appeal.service.js").LinkableAppealSummary}
+ * @returns {import('@pins/appeals.api').Appeals.LinkableAppealSummary}
  */
 export const formatHorizonGetCaseData = (data) => {
 	const convertedData = convertSOAPKeyValuePairToJSON(data);
 	return {
-		appealId: data.Envelope.Body.GetCaseResponse.GetCaseResult.CaseId.value,
+		appealId: data.Envelope.Body.GetCaseResponse?.GetCaseResult?.CaseId?.value || undefined,
 		appealReference: data.Envelope.Body.GetCaseResponse.GetCaseResult.CaseReference.value
 			.split('/')
 			.pop(),

@@ -1,7 +1,8 @@
+import { streamToString } from '../malware-detected/src/util.js';
+import { YouTubeHTMLTemplate } from '../malware-detected/src/youtube-html-expectation.js';
 import { blobClient } from './blob-client.js';
 import config from './config.js';
-import { extractBlobNameFromUri, streamToString } from './util.js';
-import { YouTubeHTMLTemplate } from './youtube-html-expectation.js';
+import { extractBlobNameFromUri } from './util.js';
 
 /**
  * @param {string} blobUri

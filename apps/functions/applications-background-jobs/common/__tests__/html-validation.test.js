@@ -1,14 +1,14 @@
 import { jest } from '@jest/globals';
-import { blobClient } from '../src/blob-client.js';
 import {
 	TEST_BLOB_ACCOUNT,
 	TEST_BLOB_CONTAINER,
 	TEST_BLOB_GUID
 } from './test-utils/test-constants.js';
-import { isScannedFileHtml, isUploadedHtmlValid } from '../src/html-validation.js';
+import { isScannedFileHtml, isUploadedHtmlValid } from '../html-validation.js';
 import { Readable } from 'stream';
 import { INVALID_HTML_STRING, createTestYoutubeTemplate } from './test-utils/test-html.js';
 import { mockLogger } from '../../setup-tests.js';
+import { blobClient } from '../blob-client.js';
 
 const testBlobUri = `https://${TEST_BLOB_ACCOUNT}.blob.core.windows.net/${TEST_BLOB_CONTAINER}/path/to/blob/${TEST_BLOB_GUID}/1'`;
 describe('isScannedFileHtml', () => {
