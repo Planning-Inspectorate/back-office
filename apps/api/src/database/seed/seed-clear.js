@@ -69,20 +69,19 @@ export async function deleteAllRecords(databaseConnector) {
 	// delete before cases
 	await deleteProjectUpdates;
 
+	await databaseConnector.$transaction([deleteLowestFolders, deleteRegionsOnApplicationDetails]);
+
+	await databaseConnector.$transaction([deleteFolders, deleteServiceUsers]);
+
 	await databaseConnector.$transaction([
-		deleteLowestFolders,
-		deleteFolders,
-		deleteRegionsOnApplicationDetails,
 		deleteGridReference,
-		deleteServiceUsers,
 		deleteProjectTeam,
 		deleteApplicationDetails,
 		deleteCaseStatuses,
-		deleteCasePublishedStates,
-		deleteCases,
-		deleteUsers,
-		deleteAddresses
+		deleteCasePublishedStates
 	]);
+
+	await databaseConnector.$transaction([deleteCases, deleteUsers, deleteAddresses]);
 
 	// after deleting the case data, can delete the reference lookup tables
 	await deleteSubSector;
