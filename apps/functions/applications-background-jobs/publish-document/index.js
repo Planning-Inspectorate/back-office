@@ -1,6 +1,9 @@
-import config from './config.js';
-import { blobClient } from './blob-client.js';
 import { requestWithApiKey } from '../common/backend-api-request.js';
+import { buildPublishedFileName, parseBlobName } from './src/util.js';
+import { isScannedFileHtml, isUploadedHtmlValid } from '../common/html-validation.js';
+import { handleHtmlValidityFail } from './src/handle-html-validity-fail.js';
+import config from '../common/config.js';
+import { blobClient } from '../common/blob-client.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
@@ -14,6 +17,17 @@ export const index = async (
 	if (!caseId || !documentId || !version || !documentURI || !filename || !originalFilename) {
 		// TODO: Once we sort out documentReference, validate that too
 		throw Error('One or more required properties are missing.');
+	}
+
+	if (await isScannedFileHtml(documentURI)) {
+		context.log('Scanned file is HTML, performing validity check');
+		const isValidHtml = await isUploadedHtmlValid(documentURI, context.log);
+		if (!isValidHtml) {
+			await handleHtmlValidityFail(documentURI, context.log);
+			throw Error(
+				'Publishing failed due to HTML file failing validity check. File marked as malicious'
+			);
+		}
 	}
 
 	const sourceBlobName = parseBlobName(documentURI);
@@ -51,42 +65,3 @@ export const index = async (
 		})
 		.json();
 };
-
-/**
- *
- * @param {string} documentURI
- * @returns {string | undefined}
- */
-const parseBlobName = (documentURI) => {
-	const [storageAccountHost, blobName] = documentURI.split(config.BLOB_SOURCE_CONTAINER);
-
-	if (trimSlashes(storageAccountHost) != trimSlashes(config.BLOB_STORAGE_ACCOUNT_HOST)) {
-		throw Error(`Attempting to copy from unknown storage account host ${storageAccountHost}`);
-	}
-
-	return trimSlashes(blobName);
-};
-
-const fileExtensionRegex = /\.[0-9a-z]+$/i;
-
-/**
- *
- * @param {{documentReference: string, filename: string, originalFilename: string}} params
- * @returns {string}
- */
-const buildPublishedFileName = ({ documentReference, filename, originalFilename }) => {
-	const originalExtension = originalFilename.match(fileExtensionRegex)?.[0];
-	const newExtension = filename.match(fileExtensionRegex)?.[0];
-
-	const publishedFileName =
-		originalExtension === newExtension ? filename : `${filename}${originalExtension}`;
-
-	return `${documentReference}-${publishedFileName}`;
-};
-
-/**
- *
- * @param {string} uri
- * @returns {string | undefined}
- */
-const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');

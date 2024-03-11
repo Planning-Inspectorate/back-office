@@ -1,0 +1,13 @@
+{
+	"IsEncrypted": false,
+	"Values": {
+		"AzureWebJobsStorage": "<get-value-from-blob-store> || UseDevelopmentStorage=true",
+		"BLOB_PUBLISH_CONTAINER": "<replace-with-published-blob-container-name>",
+		"BLOB_STORAGE_ACCOUNT_HOST": "<replace-with-blob-account-name>",
+		"BLOB_SOURCE_CONTAINER": "<replace-with-source-blob-container-name>",
+		"FUNCTIONS_EXTENSION_VERSION": "~4",
+		"FUNCTIONS_WORKER_RUNTIME": "node",
+		"ServiceBusConnection": "<get-value-from-service-bus> || UseDevelopmentStorage=true",
+		"WEBSITE_NODE_DEFAULT_VERSION": "~18"
+	}
+}
