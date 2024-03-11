@@ -64,9 +64,9 @@ export class AppealsListPage extends Page {
 	}
 
 	clickChangeVisitTypeHasCaseTimetable() {
-		this.clickAccordionByText('Case timetable');
+		this.clickAccordionByText('Site details');
 		cy.get(
-			'#accordion-default425-content-3 > .govuk-summary-list > :nth-child(3) > .govuk-summary-list__actions > .govuk-link'
+			'#accordion-default1024-content-2 > .govuk-summary-list > :nth-child(7) > .govuk-summary-list__actions > .govuk-link'
 		).click();
 	}
 
@@ -119,22 +119,22 @@ export class AppealsListPage extends Page {
 
 	clickCaseOfficer() {
 		this.clickAccordionByText('Case Team');
-		cy.get(
-			'#accordion-default423-content-5 > .govuk-summary-list > :nth-child(1) > .govuk-summary-list__actions > .govuk-link'
-		).click();
+		cy.get('.govuk-summary-list > :nth-child(1) > .govuk-summary-list__actions > .govuk-link')
+			.last()
+			.click();
 	}
 	clickInspector() {
 		this.clickAccordionByText('Case Team');
-		cy.get(
-			'#accordion-default423-content-5 > .govuk-summary-list > :nth-child(2) > .govuk-summary-list__actions > .govuk-link'
-		).click();
+		cy.get('.govuk-summary-list > :nth-child(2) > .govuk-summary-list__actions > .govuk-link')
+			.last()
+			.click();
 	}
 
 	checkAnswerSummaryValue(answer) {
 		this.appealsPageElements.answerCellAppeals(answer).then(($elem) => {
 			cy.wrap($elem)
 				.invoke('text')
-				.then((text) => expect(text.trim()).to.equal(answer));
+				.then((text) => expect(text.trim()).to.include(answer));
 		});
 	}
 

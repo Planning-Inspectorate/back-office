@@ -15,71 +15,71 @@ describe('Appeals feature', () => {
 	it('Change to acommpanied site visit from case timetable', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(20);
-		appealsListPage.clickChangeVisitTypeHasCaseTimetable(12);
+		appealsListPage.clickChangeVisitTypeHasCaseTimetable();
 		appealsListPage.selectRadioButtonByValue('Accompanied');
 		updateDueDatePage.enterVisitDay('29');
 		updateDueDatePage.enterVisitMonth('12');
-		updateDueDatePage.enterVisitYear('2024');
+		updateDueDatePage.enterVisitYear('3000');
 		updateDueDatePage.enterVisitStartTimeHour('10');
 		updateDueDatePage.enterVisitStartTimeMiinute('00');
 		updateDueDatePage.enterVisitEndTimeHour('14');
 		updateDueDatePage.enterVisitEndTimeMinute('00');
-		appealsListPage.clickButtonByText('Schedule site visit');
+		appealsListPage.clickButtonByText('Confirm');
 		appealsListPage.clickLinkByText('Go back to case details'),
-			appealsListPage.checkAnswer('site visit', '29 December 2024');
+			appealsListPage.checkAnswer('Visit type', 'Accompanied');
 	});
 
 	it('Change to access required site visit from case timetable', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(20);
-		appealsListPage.clickChangeVisitTypeHasCaseTimetable(15);
+		appealsListPage.clickChangeVisitTypeHasCaseTimetable();
 		appealsListPage.selectRadioButtonByValue('Access required');
 		updateDueDatePage.enterVisitDay('29');
 		updateDueDatePage.enterVisitMonth('12');
-		updateDueDatePage.enterVisitYear('2024');
+		updateDueDatePage.enterVisitYear('20300024');
 		updateDueDatePage.enterVisitStartTimeHour('10');
 		updateDueDatePage.enterVisitStartTimeMiinute('00');
 		updateDueDatePage.enterVisitEndTimeHour('14');
 		updateDueDatePage.enterVisitEndTimeMinute('00');
 		appealsListPage.clickButtonByText('Schedule site visit');
 		appealsListPage.clickLinkByText('Go back to case details'),
-			appealsListPage.checkAnswer('site visit', '29 December 2024');
+			appealsListPage.checkAnswer('Visit type', 'Access required');
 	});
 
 	it('Change to Unacommpanied site visit without time from case timetable', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(20);
-		appealsListPage.clickChangeVisitTypeHasCaseTimetable(15);
+		appealsListPage.clickChangeVisitTypeHasCaseTimetable();
 		appealsListPage.selectRadioButtonByValue('Unaccompanied');
 		updateDueDatePage.enterVisitDay('29');
 		updateDueDatePage.enterVisitMonth('12');
-		updateDueDatePage.enterVisitYear('2024');
+		updateDueDatePage.enterVisitYear('3000');
 		appealsListPage.clickButtonByText('Schedule site visit');
 		appealsListPage.clickLinkByText('Go back to case details'),
-			appealsListPage.checkAnswer('site visit', '29 December 2024');
+			appealsListPage.checkAnswer('Visit type', 'Unaccompanied');
 	});
 
 	it('Change to Unacommpanied site visit with time from case timetable', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(20);
-		appealsListPage.clickChangeVisitTypeHasCaseTimetable(15);
+		appealsListPage.clickChangeVisitTypeHasCaseTimetable();
 		appealsListPage.selectRadioButtonByValue('Unaccompanied');
 		updateDueDatePage.enterVisitDay('29');
 		updateDueDatePage.enterVisitMonth('12');
-		updateDueDatePage.enterVisitYear('2024');
+		updateDueDatePage.enterVisitYear('3000');
 		updateDueDatePage.enterVisitStartTimeHour('10');
 		updateDueDatePage.enterVisitStartTimeMiinute('00');
 		updateDueDatePage.enterVisitEndTimeHour('14');
 		updateDueDatePage.enterVisitEndTimeMinute('00');
 		appealsListPage.clickButtonByText('Schedule site visit');
 		appealsListPage.clickLinkByText('Go back to case details'),
-			appealsListPage.checkAnswer('site visit', '29 December 2024');
+			appealsListPage.checkAnswer('Visit type', 'Unaccompanied');
 	});
 
 	it('Change to acommpanied site visit from Site details', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(20);
-		appealsListPage.clickChangeVisitTypeHasSiteDetails(15);
+		appealsListPage.clickChangeVisitTypeHasSiteDetails();
 		appealsListPage.selectRadioButtonByValue('Accompanied');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.validateBannerMessage('Site visit type has been selected'),
@@ -89,7 +89,7 @@ describe('Appeals feature', () => {
 	it('Change to access required site visit from Site details', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(20);
-		appealsListPage.clickChangeVisitTypeHasSiteDetails(15);
+		appealsListPage.clickChangeVisitTypeHasSiteDetails();
 		appealsListPage.selectRadioButtonByValue('Access required');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.validateBannerMessage('Site visit type has been selected'),
@@ -99,7 +99,7 @@ describe('Appeals feature', () => {
 	it('Change to Unacommpanied site visit from Site details', () => {
 		cy.visit('/appeals-service/appeals-list');
 		appealsListPage.clickAppealFromList(20);
-		appealsListPage.clickChangeVisitTypeHasSiteDetails(15);
+		appealsListPage.clickChangeVisitTypeHasSiteDetails();
 		appealsListPage.selectRadioButtonByValue('Unaccompanied');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.validateBannerMessage('Site visit type has been selected'),

@@ -52,7 +52,7 @@ export class Page {
 		xlHeader: '.govuk-heading-xl',
 		projectManagement: 'span.font-weight--700:nth-child(2)',
 		unpublish: 'a.govuk-button:nth-child(5)',
-		caseRefTraining :':nth-child(2) > .govuk-table__body > :nth-child(1) > :nth-child(2)'
+		caseRefTraining: ':nth-child(2) > .govuk-table__body > :nth-child(1) > :nth-child(2)'
 	};
 
 	// E L E M E N T S
@@ -96,7 +96,7 @@ export class Page {
 			cy.contains(`${this.selectors.rightCol} ${this.selectors.link}`, 'Sign Out', {
 				matchCase: false
 			}),
-		clearSearchResultsButton: () => cy.contains(this.selectors.caption, 'Clear search results'),
+		clearSearchResultsLink: () => cy.get('a.govuk-link').contains('Clear search'),
 		tabByText: (tabText) => cy.contains(this.selectors.tab, tabText, { matchCase: false }),
 		table: () => cy.get(this.selectors.table),
 		tableBody: () => cy.get(this.selectors.tableBody),
@@ -178,7 +178,7 @@ export class Page {
 	}
 
 	clearSearchResults() {
-		this.basePageElements.clearSearchResultsButton().click();
+		this.basePageElements.clearSearchResultsLink().click();
 	}
 
 	selectRadioButtonByValue(value) {
@@ -293,7 +293,7 @@ export class Page {
 	goToDashboard() {
 		this.basePageElements.goToDashboardLink().click();
 	}
-	goToFolderDocumentPage(){
+	goToFolderDocumentPage() {
 		this.basePageElements.projectManagement().click();
 	}
 }

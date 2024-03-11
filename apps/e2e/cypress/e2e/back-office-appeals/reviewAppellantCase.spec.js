@@ -18,7 +18,7 @@ describe('Appeals feature', () => {
 		appealsListPage.clickReviewAppellantCase(4);
 		appealsListPage.selectRadioButtonByValue('Valid');
 		appealsListPage.clickButtonByText('Continue');
-		appealsListPage.clickLinkByText('Go to case details');
+		appealsListPage.clickLinkByText('Go back to case details');
 		const status = 'Valid';
 		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
 		appealsListPage.verifyTableCellText(testData);
@@ -34,7 +34,7 @@ describe('Appeals feature', () => {
 		appealsListPage.fillInput('Hello here is some extra info, have a nice day 7384_+!£ =');
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.clickButtonByText('Confirm');
-		appealsListPage.clickLinkByText('Go to case details');
+		appealsListPage.clickLinkByText('Go back to case details');
 		const status = 'Invalid';
 		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
 		appealsListPage.verifyTableCellText(testData);
@@ -54,7 +54,7 @@ describe('Appeals feature', () => {
 		updateDueDatePage.enterDateYear('2024');
 		appealsListPage.clickButtonByText('Save and Continue');
 		appealsListPage.clickButtonByText('Confirm');
-		appealsListPage.clickLinkByText('Go to case details');
+		appealsListPage.clickLinkByText('Go back to case details');
 		const status = 'Incomplete';
 		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
 		appealsListPage.verifyTableCellText(testData);
@@ -76,7 +76,7 @@ describe('Appeals feature', () => {
 		updateDueDatePage.enterDateYear('2024');
 		appealsListPage.clickButtonByText('Save and Continue');
 		appealsListPage.clickButtonByText('Confirm');
-		appealsListPage.clickLinkByText('Go to case details');
+		appealsListPage.clickLinkByText('Go back to case details');
 		const status = 'Incomplete';
 		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
 		appealsListPage.verifyTableCellText(testData);
@@ -93,7 +93,7 @@ describe('Appeals feature', () => {
 		appealsListPage.clickButtonByText('Continue');
 		appealsListPage.clickButtonByText('Skip');
 		appealsListPage.clickButtonByText('Confirm');
-		appealsListPage.clickLinkByText('Go to case details');
+		appealsListPage.clickLinkByText('Go back to case details');
 		const status = 'Incomplete';
 		const testData = { rowIndex: 0, cellIndex: 0, textToMatch: status, strict: true };
 		appealsListPage.verifyTableCellText(testData);
