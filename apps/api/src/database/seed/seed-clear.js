@@ -43,7 +43,8 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteSector = databaseConnector.sector.deleteMany();
 	const deleteRegion = databaseConnector.region.deleteMany();
 	const deleteZoomLevel = databaseConnector.zoomLevel.deleteMany();
-	const deleteExaminationTimetableType = databaseConnector.examinationTimetableItem.deleteMany();
+	const deleteExaminationTimetableItem = databaseConnector.examinationTimetableItem.deleteMany();
+	const deleteExaminationTimetableType = databaseConnector.examinationTimetableType.deleteMany();
 
 	// start deleting ...
 	await deleteRepresentationAttachment;
@@ -64,6 +65,7 @@ export async function deleteAllRecords(databaseConnector) {
 	await truncateTable('RegionsOnApplicationDetails');
 	await truncateTable('ExaminationTimetableItem');
 	await truncateTable('Subscription');
+	await deleteExaminationTimetableItem;
 	await deleteExaminationTimetable;
 
 	// delete before cases
