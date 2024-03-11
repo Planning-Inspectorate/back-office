@@ -19,6 +19,8 @@ export const preExaminationDateNames = [
 	'dateOfRepresentationPeriodOpen',
 	'dateOfRelevantRepresentationClose',
 	'extensionToDateRelevantRepresentationsClose',
+	'dateOfReOpenRelevantRepresentationStart',
+	'dateOfReOpenRelevantRepresentationClose',
 	'dateRRepAppearOnWebsite',
 	'dateIAPIDue',
 	'rule6LetterPublishDate',

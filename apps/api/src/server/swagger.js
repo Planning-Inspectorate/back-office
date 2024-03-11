@@ -2852,6 +2852,16 @@ export const spec = {
 							description: 'Unix timestamp date',
 							example: 1_646_822_600
 						},
+						dateOfReOpenRelevantRepresentationStart: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
+						dateOfReOpenRelevantRepresentationClose: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
 						dateRRepAppearOnWebsite: {
 							type: 'number',
 							description: 'Unix timestamp date',
