@@ -10,12 +10,12 @@ import { blobClient } from '../common/blob-client.js';
  */
 export const index = async (
 	context,
-	{ caseId, documentId, version, documentURI, documentReference, filename, originalFilename }
+	{ caseId, documentId, version, documentURI, reference, filename, originalFilename }
 ) => {
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
 	if (!caseId || !documentId || !version || !documentURI || !filename || !originalFilename) {
-		// TODO: Once we sort out documentReference, validate that too
+		// TODO: Once we sort out reference, validate that too
 		throw Error('One or more required properties are missing.');
 	}
 
@@ -37,7 +37,7 @@ export const index = async (
 	}
 
 	const publishFileName = buildPublishedFileName({
-		documentReference,
+		reference,
 		filename,
 		originalFilename
 	});

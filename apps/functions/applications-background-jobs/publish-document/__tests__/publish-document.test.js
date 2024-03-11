@@ -32,7 +32,7 @@ describe('Publishing document', () => {
 				caseId: 1,
 				documentId: '6ef4b161-e930-4f5a-b789-c7a6352b7051',
 				version: 1,
-				documentReference: 'BC0110003-001',
+				reference: 'BC0110003-001',
 				filename: 'olive oil',
 				originalFilename: 'olive oil.jpeg',
 				documentURI:
@@ -47,7 +47,7 @@ describe('Publishing document', () => {
 				caseId: 1,
 				documentId: '6ef4b161-e930-4f5a-b789-c7a6352b7051',
 				version: 1,
-				documentReference: 'BC0110003-001',
+				reference: 'BC0110003-001',
 				filename: 'olive oil.jpeg',
 				originalFilename: 'olive oil.jpeg',
 				documentURI:
@@ -62,7 +62,7 @@ describe('Publishing document', () => {
 				caseId: 1,
 				documentId: '6ef4b161-e930-4f5a-b789-c7a6352b7051',
 				version: 1,
-				documentReference: 'BC0110003-001',
+				reference: 'BC0110003-001',
 				filename: 'olive oil.jpeg',
 				originalFilename: 'olive oil.png',
 				documentURI:

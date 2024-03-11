@@ -2,10 +2,10 @@ import config from '../../common/config.js';
 
 /**
  *
- * @param {{documentReference: string, filename: string, originalFilename: string}} params
+ * @param {{reference: string, filename: string, originalFilename: string}} params
  * @returns {string}
  */
-export const buildPublishedFileName = ({ documentReference, filename, originalFilename }) => {
+export const buildPublishedFileName = ({ reference, filename, originalFilename }) => {
 	const fileExtensionRegex = /\.[0-9a-z]+$/i;
 	const originalExtension = originalFilename.match(fileExtensionRegex)?.[0];
 	const newExtension = filename.match(fileExtensionRegex)?.[0];
@@ -13,7 +13,7 @@ export const buildPublishedFileName = ({ documentReference, filename, originalFi
 	const publishedFileName =
 		originalExtension === newExtension ? filename : `${filename}${originalExtension}`;
 
-	return `${documentReference}-${publishedFileName}`;
+	return `${reference}-${publishedFileName}`;
 };
 
 /**
