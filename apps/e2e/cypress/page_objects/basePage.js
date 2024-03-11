@@ -282,8 +282,8 @@ export class Page {
 		this.basePageElements.panelTitle().should(assertType(exactMatch), successMessage);
 	}
 
-	validateSuccessPanelBody(successMessage, exactMatch = false) {
-		this.basePageElements.panelBody().should(assertType(exactMatch), successMessage);
+	validateSuccessPanelBody(successMessage) {
+		this.basePageElements.panelBody().contains(successMessage);
 	}
 
 	navigateToAppealsService() {

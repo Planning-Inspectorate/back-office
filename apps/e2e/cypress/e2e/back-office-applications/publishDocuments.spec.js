@@ -41,7 +41,7 @@ describe('Publish Documents', () => {
 		searchResultsPage.clickLinkByText('Project management');
 	});
 
-	it('Case admin should not be able to set "Ready to publish" before setting all mandatory properties for document', () => {
+	it('As a user able to set "Ready to publish" before setting all mandatory properties for document', () => {
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.uploadFile('sample-doc.pdf');
 		searchResultsPage.clickButtonByText('Save and continue');
@@ -53,22 +53,15 @@ describe('Publish Documents', () => {
 		);
 	});
 
-	it('Case admin be able to set document for "Ready to publish" and see it in the publishing queue', () => {
+	it('As a user able to set document for "Ready to publish" and see it in the publishing queue', () => {
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.updateAllProperties('Redacted');
 		folderPage.markAllReadyToPublish();
 		folderPage.clickLinkByText('View publishing queue');
 		folderPage.validatePublishingQueueCase(projectInfo, caseRef);
 		publishingQueuePage.validateDocumentCountInList(1);
-	});
-
-	it('Case admin should be able to set "Ready to publish" after setting all mandatory properties for document', () => {
-		fileUploadPage.clickLinkByText('View/Edit properties');
-		documentPropertiesPage.updateAllProperties('Redacted');
-		folderPage.markAllReadyToPublish();
-		folderPage.clickLinkByText('View publishing queue');
-		folderPage.validatePublishingQueueCase(projectInfo, caseRef);
 		folderPage.publishAllDocumentsInList();
 		folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
 	});
+
 });

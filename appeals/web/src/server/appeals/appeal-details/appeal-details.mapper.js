@@ -11,6 +11,7 @@ import {
 	mapVirusCheckStatus
 } from '#appeals/appeal-documents/appeal-documents.mapper.js';
 import { addNotificationBannerToSession } from '#lib/session-utilities.js';
+import { generateIssueDecisionUrl } from '#appeals/appeal-details/issue-decision/issue-decision.mapper.js';
 
 export const pageHeading = 'Case details';
 
@@ -352,7 +353,9 @@ function mapStatusDependentNotifications(appealDetails, session, accordionCompon
 				session,
 				'readyForDecision',
 				appealDetails.appealId,
-				`<p class="govuk-notification-banner__heading">The appeal is ready for a decision.</p><p><a class="govuk-notification-banner__link" href="/appeals-service/appeal-details/${appealDetails.appealId}/issue-decision/decision">Issue a decision</a>.</p>`
+				`<p class="govuk-notification-banner__heading">Ready for decision</p><p><a class="govuk-notification-banner__link" href="${generateIssueDecisionUrl(
+					appealDetails.appealId
+				)}">Issue decision</a></p>`
 			);
 			break;
 		case 'awaiting_transfer':

@@ -29,7 +29,7 @@ describe('Update Key Dates', () => {
 			createCasePage.createCase(projectInfo, true);
 		});
 
-		it('Should be able to update the case information', () => {
+		it('As a  user able to update the case information', () => {
 			const expectedBefore = {
 				'Date first notified of project': '',
 				'Project published on website': '',

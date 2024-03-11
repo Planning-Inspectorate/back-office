@@ -28,7 +28,7 @@ describe('Document Download', () => {
 		cy.deleteDownloads();
 	});
 
-	it('Case Team Admin user should be able to download a document', () => {
+	it('As a user able to download a document', () => {
 		const fileName = 'sample-doc.pdf';
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
