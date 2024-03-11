@@ -16,7 +16,7 @@ const { applications: applicationsUsers } = users;
 
 describe('Create Case with sector as training', () => {
 
-	it('Create case with sector and sub-sector as training', () => {
+	it('As a user able to create case with sector and sub-sector as training', () => {
             cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
 			createCasePage.clickButtonByText('Create new case here');
@@ -47,7 +47,7 @@ describe('Create Case with sector as training', () => {
 
 
 	});
-	it('Verify the sector and sub sector names', () => {
+	it('As a user able to verify the sector and sub sector names', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		    const caseRef = Cypress.env('currentCreatedCase');

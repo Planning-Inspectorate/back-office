@@ -4,9 +4,7 @@
 {% from "applications/representations/representation/components/representation-details-heading.component.njk" import representationDetailsHeading %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% block pageHeading %}{% endblock %}
-{% block pageTitle %}
-  {{ pageTitle }}
-{% endblock %}
+
 {% block pageContent %}
   {% if depublishedRepresentation %}
     {% set depublishBannerHtml %}

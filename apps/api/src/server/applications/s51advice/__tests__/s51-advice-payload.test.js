@@ -1,4 +1,4 @@
-import { buildNsipS51AdvicePayload } from '../s51-advice.js';
+import { buildNsipS51AdvicePayload } from '#infrastructure/payload-builders/nsip-s51-advice.js';
 
 /** @type {*} */
 const s51Input = {

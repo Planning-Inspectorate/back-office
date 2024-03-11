@@ -24,7 +24,7 @@ describe('Project team related scenarios ', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('Add team member and verify the role is added to project team', () => {
+	it('As a user able to add team member and verify the role is added to project team', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.log(applicationUsers.caseAdmin);
 		cy.visit('/');
@@ -38,7 +38,7 @@ describe('Project team related scenarios ', () => {
 		projectTeamPage.verifyCaseManagerRoleAdded();
 	});
 
-	it('Verify team member is added', () => {
+	it('As a user able to verify team member is added', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -51,7 +51,7 @@ describe('Project team related scenarios ', () => {
         projectTeamPage.verifyTeamMemberIsAdded();
 	});
 
-	it('Enter valid input and verify multiple results count', () => {
+	it('As a user able to enter valid input and verify multiple results count', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -63,7 +63,7 @@ describe('Project team related scenarios ', () => {
 		projectTeamPage.validateMultipleSearchCount();
 	});
 
-	it('Enter invalid input and verify the error and count', () => {
+	it('As a user able to enter invalid input and verify the error and count', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -75,7 +75,7 @@ describe('Project team related scenarios ', () => {
 		projectTeamPage.verifyInvalidSearchResultsMessageAndCount();
 	});
 
-	it('Verify the error message without entering the search criteria', () => {
+	it('As a user able to verify the error message without entering the search criteria', () => {
 		cy.login(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');

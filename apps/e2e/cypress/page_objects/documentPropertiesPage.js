@@ -17,7 +17,7 @@ export class DocumentPropertiesPage extends Page {
 	fileName = () => 'Filename';
 	description = () => 'description';
 	from = () => 'From';
-	agent = () => "Agentname";
+	agent = () => 'Agentname';
 	webfilter = () => 'Webfilter name';
 	getDate = (received) => {
 		const today = new Date();
@@ -111,55 +111,56 @@ export class DocumentPropertiesPage extends Page {
 		this.clickTabByText('Document history');
 		cy.get(`${this.selectors.tableBody} > ${this.selectors.tableRow}`).should('have.length', count);
 	}
-	verifyUnpublishButtonIsNotVisible(){
-		cy.get('a.govuk-button:nth-child(5)').should('not.exist');
+	verifyUnpublishButtonIsNotVisible() {
+		this.basePageElements.buttonByLabelText('Unpublish').should('not.exist');
 	}
-	verifyUnpublishStatus(){
+	verifyUnpublishStatus() {
 		cy.get('#tab_document-history').click();
-	    cy.get('p:nth-child(3) strong').should('have.text','Unpublished:');
-
+		cy.get('p:nth-child(3) strong').should('have.text', 'Unpublished:');
 	}
-	verifyPublishStatus(){
+	verifyPublishStatus() {
 		cy.get('#tab_document-history').click();
-	    cy.get('p:nth-child(2) strong').should('have.text','Published:');
-
+		cy.get('p:nth-child(2) strong').should('have.text', 'Published:');
 	}
-	verifyDocumentIsDeleted(){
-		cy.get('a:nth-child(4)').click();
+	verifyDocumentIsDeleted() {
+		this.clickButtonByText('Delete');
 		cy.get('.govuk-button').click();
 		cy.get('.govuk-panel').contains('Document successfully deleted');
 	}
-	verifyNaviagtedBackToDocPropertiesPage(){
-		cy.get('a:nth-child(4)').click();
+	verifyNaviagtedBackToDocPropertiesPage() {
+		this.clickButtonByText('Delete');
 		cy.get('.govuk-back-link').click();
 		cy.get('#tab_document-history').should('exist');
 	}
-	getDocumentRefNumber(){
-		cy.get('li:nth-child(3)').then(($value)=>{
-		const getElementText = $value.text();
-		cy.log("printling the text value :-> "+getElementText);
-		Cypress.env('DocRef', getElementText);
+	getDocumentRefNumber() {
+		cy.get('li:nth-child(3)').then(($value) => {
+			const getElementText = $value.text();
+			cy.log('printling the text value :-> ' + getElementText);
+			Cypress.env('DocRef', getElementText);
 		});
-
 	}
-	enterDocumentRefNumber(docmentNumber){
-		cy.get('#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a').click();
+	enterDocumentRefNumber(docmentNumber) {
+		cy.get(
+			'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
+		).click();
 		cy.get('#transcript').type(docmentNumber);
 		cy.get('.govuk-button').click();
 	}
-	validateTranscriptValue(){
+	validateTranscriptValue() {
 		const caseRef = Cypress.env('currentCreatedCase');
 		cy.get('.govuk-summary-list__row:nth-child(8) > dd:nth-child(2)').contains(caseRef);
 	}
-	enterIncorrectDocumentRefNumber(docmentNumber){
-		cy.get('#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a').click();
+	enterIncorrectDocumentRefNumber(docmentNumber) {
+		cy.get(
+			'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
+		).click();
 		cy.get('#transcript').type(docmentNumber);
 		cy.get('.govuk-button').click();
 	}
-	validateDocumentErrorMessage(){
+	validateDocumentErrorMessage() {
 		cy.get('#transcript-error').contains('Please enter a valid document reference number.');
 	}
-	verifyDocumentPropertiesHeading(){
+	verifyDocumentPropertiesHeading() {
 		cy.get('.govuk-caption-xl').contains('Document properties');
 	}
 }

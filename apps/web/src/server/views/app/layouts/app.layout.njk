@@ -14,8 +14,13 @@
   <script defer="defer" src="{{ pathToJs | stripQueryParamsDev }}"></script>
 {% endblock %}
 
+{% set appName = 'Casework Back Office System' %}
+
 {% block pageTitle %}
-  {{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
+	{{appName}}
+	{{ '- '+pageTitle if pageTitle or '' }}
+	{{ '- '+serviceName if serviceName or '' }}
+
 {% endblock %}
 
 {% block header %}

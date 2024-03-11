@@ -136,6 +136,7 @@ const examinationSubFolders = [
 		id: 4,
 		caseId: 1,
 		displayNameEn: 'Other',
+		displayNameCy: 'Arall',
 		stage: 'Examination',
 		parentFolderId: 1,
 		displayOrder: 300
@@ -273,7 +274,7 @@ const buildExpectedFolder = (folder) => {
 		id: folder.id,
 		caseReference: project.reference,
 		displayNameEnglish: folder.displayNameEn,
-		displayNameWelsh: null,
+		displayNameWelsh: folder.displayNameCy || folder.displayNameEn,
 		parentFolderId: folder.parentFolderId
 	};
 };
@@ -474,7 +475,7 @@ describe('Test examination timetable items API', () => {
 		};
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(2, {
-			data: { ...expectedCreatedSubFolder, displayNameEn: 'Other' }
+			data: { ...expectedCreatedSubFolder, displayNameEn: 'Other', displayNameCy: 'Arall' }
 		});
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(3, {
@@ -692,7 +693,7 @@ describe('Test examination timetable items API', () => {
 		};
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(1, {
-			data: { ...expectedCreatedSubFolder, displayNameEn: 'Other' }
+			data: { ...expectedCreatedSubFolder, displayNameEn: 'Other', displayNameCy: 'Arall' }
 		});
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(2, {

@@ -234,6 +234,7 @@ model ZoomLevel {
 model Folder {
   id                       Int                        @id @default(autoincrement())
   displayNameEn            String
+  displayNameCy            String?
   displayOrder             Int?
   parentFolderId           Int?
   caseId                   Int?

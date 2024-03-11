@@ -56,29 +56,29 @@ const folders = [
 	{
 		id: 78671,
 		caseReference: 'EN01-1',
-		displayNameEnglish: 'Project management',
-		displayNameWelsh: null,
+		displayNameEn: 'Project management',
+		displayNameCy: null,
 		parentFolderId: null
 	},
 	{
 		id: 78672,
 		caseReference: 'EN01-1',
-		displayNameEnglish: 'Logistics',
-		displayNameWelsh: null,
+		displayNameEn: 'Logistics',
+		displayNameCy: null,
 		parentFolderId: 78671
 	},
 	{
 		id: 78673,
 		caseReference: 'EN01-1',
-		displayNameEnglish: 'Travel',
-		displayNameWelsh: null,
+		displayNameEn: 'Travel',
+		displayNameCy: 'Teithio',
 		parentFolderId: 78672
 	},
 	{
 		id: 78674,
 		caseReference: 'EN01-1',
-		displayNameEnglish: 'Welsh',
-		displayNameWelsh: null,
+		displayNameEn: 'Welsh',
+		displayNameCy: null,
 		parentFolderId: 78672
 	}
 ];
@@ -231,7 +231,7 @@ describe('Start case', () => {
 				id: folder.id,
 				caseReference: 'EN01-1',
 				displayNameEnglish: folder.displayNameEn,
-				displayNameWelsh: null,
+				displayNameWelsh: folder.displayNameCy || folder.displayNameEn,
 				parentFolderId: folder.parentFolderId
 			};
 		});

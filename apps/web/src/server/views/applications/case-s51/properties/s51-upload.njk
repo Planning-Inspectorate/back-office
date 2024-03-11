@@ -4,9 +4,6 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 {% set serviceName = ["Upload files in ", currentFolder.displayNameEn, " folder"] | join  %}
-{% block pageTitle %}
-	{{ pageTitle | default('GOV.UK') }} – {{ serviceName }}
-{% endblock %}
 
 {% block pageHeading %}{% endblock %}
 

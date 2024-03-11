@@ -27,7 +27,7 @@ import {
 	appellantCaseDataInvalidOutcome
 } from '#testing/app/fixtures/referencedata.js';
 import { cloneDeep } from 'lodash-es';
-import { textInputCharacterLimits } from '../../../appeal.constants.js';
+import { textInputCharacterLimits } from '#appeals/appeal.constants.js';
 import usersService from '#appeals/appeal-users/users-service.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();

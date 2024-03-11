@@ -7,14 +7,16 @@ import {
 	createDateInputDateInPastOrTodayValidator
 } from '#lib/validators/date-input.validator.js';
 import { createTextareaValidator } from '#lib/validators/textarea-validator.js';
+import { textInputCharacterLimits } from '#appeals/appeal.constants.js';
 
 export const validateDueDateFields = createDateInputFieldsValidator('due-date');
 export const validateDueDateValid = createDateInputDateValidityValidator('due-date');
 export const validateDueDateInFuture = createDateInputDateInFutureValidator('due-date');
 export const validateTextArea = createTextareaValidator(
 	'decisionInvalidReason',
-	'Text must not exceed {{maximumCharacters}} characters',
-	1000
+	'Enter invalid reason text',
+	textInputCharacterLimits.issueDecisionInvalidReason,
+	`Invalid reason text must be ${textInputCharacterLimits.issueDecisionInvalidReason} characters or less`
 );
 
 export const validateDecision = createValidator(

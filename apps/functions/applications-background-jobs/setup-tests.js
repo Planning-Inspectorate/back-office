@@ -50,3 +50,8 @@ jest.unstable_mockModule('@azure/storage-blob', () => ({
 	},
 	BlobServiceClient: MockBlobServiceClient
 }));
+
+export const mockLogger = {
+	info: jest.fn(),
+	warn: jest.fn()
+};

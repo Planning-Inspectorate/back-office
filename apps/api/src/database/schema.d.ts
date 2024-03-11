@@ -1,7 +1,6 @@
 import * as schema from '@prisma/client';
 import { ZoomLevel } from '@prisma/client';
 import { GridReference } from 'packages/applications';
-import { string_to_uuid } from 'rhea/typings/util';
 
 export {
 	Address,

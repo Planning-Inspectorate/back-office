@@ -9,7 +9,8 @@ export const paginationDefaultSettings = {
 
 export const textInputCharacterLimits = {
 	appellantCaseNotValidReason: 1000,
-	lpaQuestionnaireNotValidReason: 1000
+	lpaQuestionnaireNotValidReason: 1000,
+	issueDecisionInvalidReason: 1000
 };
 
 export const kilobyte = 1000;

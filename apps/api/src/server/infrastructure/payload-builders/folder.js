@@ -5,13 +5,13 @@
  * @returns {import('pins-data-model').Schemas.Folder} Folder
  */
 export const buildFolderPayload = (folderEntity, caseReference) => {
-	// TODO: displayNameCy needs to be in the folder db table
-	const { id, displayNameEn, displayNameCy = null, parentFolderId } = folderEntity || {};
+	// TODO: displayNameCy needs to be in the folder db table, default to displayNameEn for now
+	const { id, displayNameEn, displayNameCy, parentFolderId } = folderEntity || {};
 	return {
 		id,
 		caseReference,
 		displayNameEnglish: displayNameEn,
-		displayNameWelsh: displayNameCy,
+		displayNameWelsh: displayNameCy || displayNameEn,
 		parentFolderId
 	};
 };
