@@ -30,6 +30,7 @@ export class FileUploadPage extends Page {
 	verifyUploadIsComplete() {
 		cy.wait(7000);
 		cy.reload();
+		cy.wait(2000);
 		cy.contains('a', 'View/Edit properties').should('exist');
 		cy.contains('a', 'Download').should('exist');
 	}

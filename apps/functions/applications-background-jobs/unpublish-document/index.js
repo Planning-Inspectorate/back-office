@@ -1,7 +1,7 @@
-import config from './config.js';
-import { blobClient } from './blob-client.js';
 import { parseBlobName } from './utils.js';
 import { requestWithApiKey } from '../common/backend-api-request.js';
+import { blobClient } from '../common/blob-client.js';
+import config from '../common/config.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}

@@ -6818,7 +6818,7 @@ exports[`applications documentation Document properties page page should render 
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/new-version\\"> Upload new version</a>
             </div>
-            <nav>
+            <nav class=\\"pins-nav-button-group\\">
                 <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h3>
                 <input type='hidden' value='11' name='selectedFilesIds[]'>
                 <div class=\\"govuk-button-group\\"><a href=\\"/documents/123/download/11/version//\\" role=\\"button\\" draggable=\\"false\\"
@@ -6981,16 +6981,16 @@ exports[`applications documentation Document properties page should not show pub
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/new-version\\"> Upload new version</a>
             </div>
-            <nav>
+            <nav class=\\"pins-nav-button-group\\">
                 <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h3>
                 <div class=\\"govuk-button-group\\"><a href=\\"/documents/123/download/3/version//preview\\" role=\\"button\\" draggable=\\"false\\"
                     class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\"> Open</a>
                     <a                     href=\\"/documents/123/download/3/version//\\" role=\\"button\\" draggable=\\"false\\"
                     class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\">Download</a><a href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\"
                         role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
-                        data-module=\\"govuk-button\\"> Delete</a><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\"
-                        href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
-                </div>
+                        data-module=\\"govuk-button\\"> Delete</a>
+                </div><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right pins-nav-right-aligned-link\\"
+                href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
                 <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">
@@ -7141,7 +7141,7 @@ exports[`applications documentation Document properties page should not show pub
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/new-version\\"> Upload new version</a>
             </div>
-            <nav>
+            <nav class=\\"pins-nav-button-group\\">
                 <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h3>
                 <input type='hidden' value='11' name='selectedFilesIds[]'>
                 <div class=\\"govuk-button-group\\"><a href=\\"/documents/123/download/11/version//\\" role=\\"button\\" draggable=\\"false\\"
@@ -7304,16 +7304,16 @@ exports[`applications documentation Document properties page should show publish
             </ul>
             <div class=\\"display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7\\"><a class=\\"govuk-button govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/new-version\\"> Upload new version</a>
             </div>
-            <nav>
+            <nav class=\\"pins-nav-button-group\\">
                 <h3 class=\\"govuk-heading-m govuk-!-margin-bottom-4\\">Document actions</h3>
                 <div class=\\"govuk-button-group\\"><a href=\\"/documents/123/download/3/version//preview\\" role=\\"button\\" draggable=\\"false\\"
                     class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\"> Open</a>
                     <a                     href=\\"/documents/123/download/3/version//\\" role=\\"button\\" draggable=\\"false\\"
                     class=\\"govuk-button govuk-button--secondary\\" data-module=\\"govuk-button\\">Download</a><a href=\\"/applications-service/case/123/project-documentation/21/document/3/delete\\"
                         role=\\"button\\" draggable=\\"false\\" class=\\"govuk-button govuk-button--secondary\\"
-                        data-module=\\"govuk-button\\"> Delete</a><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\"
-                        href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
-                </div>
+                        data-module=\\"govuk-button\\"> Delete</a>
+                </div><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right pins-nav-right-aligned-link\\"
+                href=\\"/applications-service/case/123/project-documentation/publishing-queue\\">View publishing queue</a>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
                 <div class=\\"govuk-tabs\\" data-module=\\"govuk-tabs\\">

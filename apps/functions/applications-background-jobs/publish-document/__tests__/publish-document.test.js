@@ -3,7 +3,7 @@
 import { jest } from '@jest/globals';
 import { requestWithApiKey } from '../../common/backend-api-request.js';
 import { index } from '../index.js';
-import { blobClient } from '../blob-client.js';
+import { blobClient } from '../../common/blob-client.js';
 
 const mock200Response = { json: jest.fn().mockResolvedValue({}) };
 
@@ -77,6 +77,7 @@ describe('Publishing document', () => {
 		// Arrange
 		const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
 		const mockCopyFile = jest.spyOn(blobClient, 'copyFile');
+		jest.spyOn(blobClient, 'getBlobProperties').mockResolvedValue({ contentType: 'not html' });
 
 		mockGotPost.mockReturnValue(mock200Response);
 		mockCopyFile.mockImplementation();
