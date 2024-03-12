@@ -2,7 +2,7 @@ import { updateRepStatusRequestToRepository } from './status.mapper.js';
 import { updateStatusRepresentation } from './status.service.js';
 import { getById } from '#repositories/representation.repository.js';
 import { EventType } from '@pins/event-client';
-import { sendRepresentationEventMessage } from '../representations.service.js';
+import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
 
 /**
  *
@@ -17,7 +17,7 @@ export const patchRepresentationStatus = async ({ params, body }, response) => {
 
 		// broadcast update event message
 		const representationFullDetails = await getById(repId);
-		await sendRepresentationEventMessage(representationFullDetails, EventType.Update);
+		await broadcastNsipRepresentationEvent(representationFullDetails, EventType.Update);
 
 		return response.send({ repId: repId, status: data?.status });
 	} catch (error) {

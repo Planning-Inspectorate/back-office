@@ -1546,6 +1546,22 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                 <h2 class=\\"govuk-heading-l\\">S51 advice folder</h2>
                 <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             </div>
+            <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+                let clickEventListenerAdded = false
+                		window.addEventListener(\\"load\\", () => {
+                			document.querySelector(\\"#pins-subfolder-accordian .govuk-accordion__section-heading\\").addEventListener(\\"mouseenter\\", (event) => {
+                				if (clickEventListenerAdded) {
+                					return
+                				}
+                				event.target.getElementsByClassName(\\"govuk-accordion__section-button\\")[0].addEventListener(\\"click\\", (event) => {
+                					if (event.pointerType) {
+                						event.currentTarget.blur()
+                					}
+                				})
+                				clickEventListenerAdded = true
+                			})
+                		})
+            </script>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">

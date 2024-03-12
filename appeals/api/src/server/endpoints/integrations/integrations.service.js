@@ -1,4 +1,5 @@
 import pino from '#utils/logger.js';
+import config from '#config/config.js';
 import { producers } from '#infrastructure/topics.js';
 import { eventClient } from '#infrastructure/event-client.js';
 import { EventType } from '@pins/event-client';
@@ -75,6 +76,10 @@ export const produceAppealUpdate = async (
 	/** @type {any} */ appeal, // TODO: data and document types schema (PINS data model)
 	/** @type {string} */ updateType
 ) => {
+	if (!config.serviceBusEnabled) {
+		return false;
+	}
+
 	const validationResult = await validateFromSchema(schemas.appeal, appeal);
 	if (validationResult !== true && validationResult.errors) {
 		const errorDetails = validationResult.errors?.map(
@@ -94,6 +99,10 @@ export const produceAppealUpdate = async (
 };
 
 export const broadcastAppealState = async (/** @type {Number} */ id) => {
+	if (!config.serviceBusEnabled) {
+		return false;
+	}
+
 	const appeal = await loadAppeal(id);
 	if (appeal) {
 		const appealTopic = mapAppeal(appeal);
@@ -105,6 +114,10 @@ export const produceDocumentUpdate = async (
 	/** @type {any[]} */ documents, // TODO: data and document types schema (PINS data model)
 	/** @type {string} */ updateType
 ) => {
+	if (!config.serviceBusEnabled) {
+		return false;
+	}
+
 	if (documents.length > 0) {
 		const topic = producers.boDocument;
 		const res = await eventClient.sendEvents(topic, documents, updateType);
@@ -136,6 +149,9 @@ export const produceServiceUsersUpdate = async (
 	/** @type {string} */ updateType,
 	/** @type {string} */ roleName
 ) => {
+	if (!config.serviceBusEnabled) {
+		return false;
+	}
 	if (users.length > 0) {
 		const topic = producers.boServiceUser;
 		const res = await eventClient.sendEvents(topic, users, updateType, { entityType: roleName });
