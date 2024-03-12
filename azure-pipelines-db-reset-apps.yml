@@ -26,8 +26,8 @@ variables:
   - group: pipeline_secrets
 
 jobs:
-  - deployment: Seed_DB
-    displayName: Seed ${{ parameters.environment }} Database
+  - deployment: Reset_DB
+    displayName: Reset ${{ parameters.environment }} Database
     environment: ${{ parameters.environment }}
     strategy:
       runOnce:
