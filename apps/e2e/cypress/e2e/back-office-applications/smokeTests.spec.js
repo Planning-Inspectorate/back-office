@@ -11,6 +11,8 @@ import { DocumentPropertiesPage } from '../../page_objects/documentPropertiesPag
 import { ExaminationTimetablePage } from '../../page_objects/examinationTimetablePage';
 import { FolderDocumentsPage } from '../../page_objects/folderDocumentsPage';
 import { timetableItem } from '../../support/utils/createTimetableItemInfo';
+import { s51AdviceDetails } from '../../support/utils/createS51Advice.js';
+import { S51AdvicePage } from '../../page_objects/s51AdvicePage.js';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
@@ -20,6 +22,7 @@ const documentPropertiesPage = new DocumentPropertiesPage();
 const examTimetablePage = new ExaminationTimetablePage();
 const folderPage = new FolderDocumentsPage();
 const folderDocumentsPage = new FolderDocumentsPage();
+const s51AdvicePage = new S51AdvicePage();
 const { applications: applicationsUsers } = users;
 
 const texts = {
@@ -103,6 +106,18 @@ describe('Smoke tests', () => {
         folderPage.navigateToProjectFolder();
 		searchResultsPage.clickLinkByText('View/Edit properties');
 		folderDocumentsPage.unpublishDocument();
+
+	// Verify the create S51 Advice - Enquirer Full Details
+	    folderPage.navigateToProjectFolder();
+		documentPropertiesPage.goBackToPrjdocumentationPage();
+		searchResultsPage.clickLinkByText('S51 advice');
+		s51AdvicePage.clickButtonByText('Create new S51 advice');
+		const details = s51AdviceDetails();
+		s51AdvicePage.completeS51Advice(details, {
+			organisation: details.organisation,
+			firstName: details.firstName,
+			lastName: details.lastName
+		});
 
 	});
 
