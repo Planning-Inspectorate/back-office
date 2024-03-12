@@ -14,8 +14,15 @@ export const index = async (
 ) => {
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
-	if (!caseId || !documentId || !version || !documentURI || !filename || !originalFilename) {
-		// TODO: Once we sort out documentReference, validate that too
+	if (
+		!caseId ||
+		!documentId ||
+		!version ||
+		!documentURI ||
+		!filename ||
+		!originalFilename ||
+		!documentReference
+	) {
 		throw Error('One or more required properties are missing.');
 	}
 

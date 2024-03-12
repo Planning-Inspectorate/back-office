@@ -85,7 +85,7 @@ export const buildNsipDocumentPayload = (version) => {
 		...(version.datePublished ? { datePublished: version.datePublished.toISOString() } : {}),
 		...(version.horizonDataID ? { horizonFolderId: version.horizonDataID } : {}),
 		...(version.transcriptGuid ? { transcriptId: version.transcriptGuid } : {}),
-		...pick(document, ['caseId', 'reference']),
+		...pick(document, ['caseId', 'documentReference']),
 		...omitBy(
 			pick(version, [
 				'examinationRefNo',
