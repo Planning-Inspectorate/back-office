@@ -10,5 +10,4 @@ There is a sample `.env.sample` file which will show you all the required enviro
 
 
 ## Smoke tests can run via command line
-Navigate to back-office/apps/e2e folder 
-npm run cy:smoke
+From root run - npm run smokeTests
