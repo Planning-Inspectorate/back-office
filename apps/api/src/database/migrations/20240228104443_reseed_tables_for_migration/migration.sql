@@ -1,0 +1,22 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- Add the new seeds for the identity columns to 100 million
+DBCC CHECKIDENT ('dbo.ExaminationTimetableItem', RESEED, 100000000);
+DBCC CHECKIDENT ('dbo.Representation', RESEED, 100000000);
+DBCC CHECKIDENT ('dbo.S51Advice', RESEED, 100000000);
+DBCC CHECKIDENT ('dbo.Folder', RESEED, 100000000);
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
