@@ -9221,6 +9221,16 @@
 							"description": "Unix timestamp date",
 							"example": 1646822600
 						},
+						"dateOfReOpenRelevantRepresentationStart": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
+						"dateOfReOpenRelevantRepresentationClose": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
 						"dateRRepAppearOnWebsite": {
 							"type": "number",
 							"description": "Unix timestamp date",

@@ -9,6 +9,8 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteCases = databaseConnector.case.deleteMany();
 	const deleteCaseStatuses = databaseConnector.caseStatus.deleteMany();
 	const deleteCasePublishedStates = databaseConnector.casePublishedState.deleteMany();
+	const deleteRegionsOnApplicationDetails =
+		databaseConnector.regionsOnApplicationDetails.deleteMany();
 	const deleteApplicationDetails = databaseConnector.applicationDetails.deleteMany();
 	const deleteProjectTeam = databaseConnector.projectTeam.deleteMany();
 	const deleteUsers = databaseConnector.user.deleteMany();
@@ -21,6 +23,15 @@ export async function deleteAllRecords(databaseConnector) {
 	const deletes51Advice = databaseConnector.s51Advice.deleteMany();
 	const deletes51AdviceDocument = databaseConnector.s51AdviceDocument.deleteMany();
 	const deleteFolders = databaseConnector.folder.deleteMany();
+	const deleteLowestFolders = databaseConnector.folder.deleteMany({
+		where: {
+			childFolders: {
+				every: {
+					parentFolder: null
+				}
+			}
+		}
+	});
 	const deleteRepresentationAttachment = databaseConnector.representationAttachment.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 	const deleteRepresentationAction = databaseConnector.representationAction.deleteMany();
@@ -32,7 +43,8 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteSector = databaseConnector.sector.deleteMany();
 	const deleteRegion = databaseConnector.region.deleteMany();
 	const deleteZoomLevel = databaseConnector.zoomLevel.deleteMany();
-	const deleteExaminationTimetableType = databaseConnector.examinationTimetableItem.deleteMany();
+	const deleteExaminationTimetableItem = databaseConnector.examinationTimetableItem.deleteMany();
+	const deleteExaminationTimetableType = databaseConnector.examinationTimetableType.deleteMany();
 
 	// start deleting ...
 	await deleteRepresentationAttachment;
@@ -53,29 +65,25 @@ export async function deleteAllRecords(databaseConnector) {
 	await truncateTable('RegionsOnApplicationDetails');
 	await truncateTable('ExaminationTimetableItem');
 	await truncateTable('Subscription');
+	await deleteExaminationTimetableItem;
 	await deleteExaminationTimetable;
-
-	await deleteLowestFolders(databaseConnector);
-	await deleteLowestFolders(databaseConnector);
-	await deleteLowestFolders(databaseConnector);
-	await deleteLowestFolders(databaseConnector);
-	await deleteLowestFolders(databaseConnector);
 
 	// delete before cases
 	await deleteProjectUpdates;
 
+	await databaseConnector.$transaction([deleteLowestFolders, deleteRegionsOnApplicationDetails]);
+
+	await databaseConnector.$transaction([deleteFolders, deleteServiceUsers]);
+
 	await databaseConnector.$transaction([
 		deleteGridReference,
-		deleteServiceUsers,
 		deleteProjectTeam,
 		deleteApplicationDetails,
 		deleteCaseStatuses,
-		deleteCasePublishedStates,
-		deleteCases,
-		deleteUsers,
-		deleteAddresses,
-		deleteFolders
+		deleteCasePublishedStates
 	]);
+
+	await databaseConnector.$transaction([deleteCases, deleteUsers, deleteAddresses]);
 
 	// after deleting the case data, can delete the reference lookup tables
 	await deleteSubSector;
@@ -83,20 +91,4 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteRegion;
 	await deleteZoomLevel;
 	await deleteExaminationTimetableType;
-}
-
-/**
- *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
- */
-async function deleteLowestFolders(databaseConnector) {
-	await databaseConnector.folder.deleteMany({
-		where: {
-			childFolders: {
-				every: {
-					parentFolder: null
-				}
-			}
-		}
-	});
 }

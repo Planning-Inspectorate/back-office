@@ -2760,6 +2760,16 @@ export interface ApplicationKeyDates {
 		 * Unix timestamp date
 		 * @example 1646822600
 		 */
+		dateOfReOpenRelevantRepresentationStart?: number;
+		/**
+		 * Unix timestamp date
+		 * @example 1646822600
+		 */
+		dateOfReOpenRelevantRepresentationClose?: number;
+		/**
+		 * Unix timestamp date
+		 * @example 1646822600
+		 */
 		dateRRepAppearOnWebsite?: number;
 		/**
 		 * Unix timestamp date
