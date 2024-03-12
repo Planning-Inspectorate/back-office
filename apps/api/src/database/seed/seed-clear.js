@@ -22,6 +22,16 @@ export async function deleteAllRecords(databaseConnector) {
 	const deleteDocumentActivityLog = databaseConnector.documentActivityLog.deleteMany();
 	const deletes51Advice = databaseConnector.s51Advice.deleteMany();
 	const deletes51AdviceDocument = databaseConnector.s51AdviceDocument.deleteMany();
+	const deleteFolders = databaseConnector.folder.deleteMany();
+	const deleteLowestFolders = databaseConnector.folder.deleteMany({
+		where: {
+			childFolders: {
+				every: {
+					parentFolder: null
+				}
+			}
+		}
+	});
 	const deleteRepresentationAttachment = databaseConnector.representationAttachment.deleteMany();
 	const deleteRepresentation = databaseConnector.representation.deleteMany();
 	const deleteRepresentationAction = databaseConnector.representationAction.deleteMany();
@@ -61,10 +71,9 @@ export async function deleteAllRecords(databaseConnector) {
 	// delete before cases
 	await deleteProjectUpdates;
 
-	await databaseConnector.$transaction([deleteRegionsOnApplicationDetails]);
+	await databaseConnector.$transaction([deleteLowestFolders, deleteRegionsOnApplicationDetails]);
 
-	await databaseConnector.$transaction(deleteFolders);
-	await databaseConnector.$transaction([deleteServiceUsers]);
+	await databaseConnector.$transaction([deleteFolders, deleteServiceUsers]);
 
 	await databaseConnector.$transaction([
 		deleteGridReference,
@@ -82,37 +91,4 @@ export async function deleteAllRecords(databaseConnector) {
 	await deleteRegion;
 	await deleteZoomLevel;
 	await deleteExaminationTimetableType;
-}
-
-/**
- *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
- */
-async function deleteFolders(databaseConnector) {
-	let exists = true;
-	let lastError = null;
-	let remainingRetries = 10;
-	do {
-		try {
-			await databaseConnector.folder.deleteMany({
-				where: {
-					childFolders: {
-						every: {
-							parentFolder: null
-						}
-					}
-				}
-			});
-			exists = await databaseConnector.folder.findFirst({
-				where: { NOT: { parentFolderId: null } }
-			});
-		} catch (err) {
-			remainingRetries -= 1;
-			lastError = err;
-		}
-	} while (exists && remainingRetries);
-	if (exists) {
-		throw lastError;
-	}
-	return databaseConnector.folder.deleteMany();
 }
