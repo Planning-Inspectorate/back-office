@@ -15,7 +15,7 @@ export const horizonGetCaseSuccessResponse = `{
 						}
 					},
 					"CaseReference":	{
-						"value":	"APP/Q9999/W/17/3171066"
+						"value":	"APP/Q9999/W/17/1000000"
 					},
 					"CaseType":	{
 						"value":	"Planning Appeal (W)"

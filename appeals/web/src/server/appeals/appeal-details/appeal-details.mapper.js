@@ -306,7 +306,7 @@ export async function appealDetailsPage(appealDetails, currentRoute, session) {
 				type: 'inset-text',
 				parameters: {
 					html: `<p class="govuk-body">This appeal needed to change to a ${appealDetails.transferStatus.transferredAppealType}</p>
-						<p class="govuk-body">It has been transferred to Horizon with the reference <a target="_blank" class="govuk-link" href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=${appealDetails.transferStatus.transferredAppealReference}">${appealDetails.transferStatus.transferredAppealReference}</a></p>`,
+					<p class="govuk-body">It has been transferred to Horizon with the reference ${appealDetails.transferStatus.transferredAppealReference}</p>`,
 					classes: 'govuk-!-margin-top-0'
 				}
 			});

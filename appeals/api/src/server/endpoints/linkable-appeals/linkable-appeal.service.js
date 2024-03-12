@@ -1,3 +1,4 @@
+import logger from '#utils/logger.js';
 import appealRepository from '#repositories/appeal.repository.js';
 import { getAppealFromHorizon } from '#utils/horizon-gateway.js';
 import { formatLinkableAppealSummary } from './linkable-appeal.formatter.js';
@@ -11,6 +12,7 @@ import { formatHorizonGetCaseData } from '#utils//mapping/map-horizon.js';
 export const getLinkableAppealSummaryByCaseReference = async (appealReference) => {
 	let appeal = await appealRepository.getAppealByAppealReference(appealReference);
 	if (!appeal) {
+		logger.debug('Case not found in BO, now trying to query Horizon');
 		const horizonAppeal = await getAppealFromHorizon(appealReference).catch((error) => {
 			throw error;
 		});
