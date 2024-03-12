@@ -29,12 +29,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
                     <div class=\\"govuk-accordion__section\\">
                         <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"pins-subfolder-accordian-heading-1\\"></span></h2>
                         </div>
-                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <div id=\\"pins-subfolder-accordian-content-1\\" class=\\"govuk-accordion__section-content\\"
+                        aria-labelledby=\\"pins-subfolder-accordian-heading-1\\">
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
@@ -51,6 +52,22 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
+            <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+                let clickEventListenerAdded = false
+                		window.addEventListener(\\"load\\", () => {
+                			document.querySelector(\\"#pins-subfolder-accordian .govuk-accordion__section-heading\\").addEventListener(\\"mouseenter\\", (event) => {
+                				if (clickEventListenerAdded) {
+                					return
+                				}
+                				event.target.getElementsByClassName(\\"govuk-accordion__section-button\\")[0].addEventListener(\\"click\\", (event) => {
+                					if (event.pointerType) {
+                						event.currentTarget.blur()
+                					}
+                				})
+                				clickEventListenerAdded = true
+                			})
+                		})
+            </script>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
@@ -856,12 +873,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
                     <div class=\\"govuk-accordion__section\\">
                         <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"pins-subfolder-accordian-heading-1\\"></span></h2>
                         </div>
-                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <div id=\\"pins-subfolder-accordian-content-1\\" class=\\"govuk-accordion__section-content\\"
+                        aria-labelledby=\\"pins-subfolder-accordian-heading-1\\">
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
@@ -878,6 +896,22 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
+            <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+                let clickEventListenerAdded = false
+                		window.addEventListener(\\"load\\", () => {
+                			document.querySelector(\\"#pins-subfolder-accordian .govuk-accordion__section-heading\\").addEventListener(\\"mouseenter\\", (event) => {
+                				if (clickEventListenerAdded) {
+                					return
+                				}
+                				event.target.getElementsByClassName(\\"govuk-accordion__section-button\\")[0].addEventListener(\\"click\\", (event) => {
+                					if (event.pointerType) {
+                						event.currentTarget.blur()
+                					}
+                				})
+                				clickEventListenerAdded = true
+                			})
+                		})
+            </script>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
@@ -2087,12 +2121,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
                     <div class=\\"govuk-accordion__section\\">
                         <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"pins-subfolder-accordian-heading-1\\"></span></h2>
                         </div>
-                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <div id=\\"pins-subfolder-accordian-content-1\\" class=\\"govuk-accordion__section-content\\"
+                        aria-labelledby=\\"pins-subfolder-accordian-heading-1\\">
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
@@ -2109,6 +2144,22 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
+            <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+                let clickEventListenerAdded = false
+                		window.addEventListener(\\"load\\", () => {
+                			document.querySelector(\\"#pins-subfolder-accordian .govuk-accordion__section-heading\\").addEventListener(\\"mouseenter\\", (event) => {
+                				if (clickEventListenerAdded) {
+                					return
+                				}
+                				event.target.getElementsByClassName(\\"govuk-accordion__section-button\\")[0].addEventListener(\\"click\\", (event) => {
+                					if (event.pointerType) {
+                						event.currentTarget.blur()
+                					}
+                				})
+                				clickEventListenerAdded = true
+                			})
+                		})
+            </script>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
@@ -2157,12 +2208,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
                     <div class=\\"govuk-accordion__section\\">
                         <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"pins-subfolder-accordian-heading-1\\"></span></h2>
                         </div>
-                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <div id=\\"pins-subfolder-accordian-content-1\\" class=\\"govuk-accordion__section-content\\"
+                        aria-labelledby=\\"pins-subfolder-accordian-heading-1\\">
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
@@ -2179,6 +2231,22 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
+            <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+                let clickEventListenerAdded = false
+                		window.addEventListener(\\"load\\", () => {
+                			document.querySelector(\\"#pins-subfolder-accordian .govuk-accordion__section-heading\\").addEventListener(\\"mouseenter\\", (event) => {
+                				if (clickEventListenerAdded) {
+                					return
+                				}
+                				event.target.getElementsByClassName(\\"govuk-accordion__section-button\\")[0].addEventListener(\\"click\\", (event) => {
+                					if (event.pointerType) {
+                						event.currentTarget.blur()
+                					}
+                				})
+                				clickEventListenerAdded = true
+                			})
+                		})
+            </script>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
@@ -3006,12 +3074,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
                     <div class=\\"govuk-accordion__section\\">
                         <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"pins-subfolder-accordian-heading-1\\"></span></h2>
                         </div>
-                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <div id=\\"pins-subfolder-accordian-content-1\\" class=\\"govuk-accordion__section-content\\"
+                        aria-labelledby=\\"pins-subfolder-accordian-heading-1\\">
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
@@ -3028,6 +3097,22 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
+            <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+                let clickEventListenerAdded = false
+                		window.addEventListener(\\"load\\", () => {
+                			document.querySelector(\\"#pins-subfolder-accordian .govuk-accordion__section-heading\\").addEventListener(\\"mouseenter\\", (event) => {
+                				if (clickEventListenerAdded) {
+                					return
+                				}
+                				event.target.getElementsByClassName(\\"govuk-accordion__section-button\\")[0].addEventListener(\\"click\\", (event) => {
+                					if (event.pointerType) {
+                						event.currentTarget.blur()
+                					}
+                				})
+                				clickEventListenerAdded = true
+                			})
+                		})
+            </script>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
@@ -4254,12 +4339,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
                     <div class=\\"govuk-accordion__section\\">
                         <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"pins-subfolder-accordian-heading-1\\"></span></h2>
                         </div>
-                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <div id=\\"pins-subfolder-accordian-content-1\\" class=\\"govuk-accordion__section-content\\"
+                        aria-labelledby=\\"pins-subfolder-accordian-heading-1\\">
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
@@ -4276,6 +4362,22 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
+            <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+                let clickEventListenerAdded = false
+                		window.addEventListener(\\"load\\", () => {
+                			document.querySelector(\\"#pins-subfolder-accordian .govuk-accordion__section-heading\\").addEventListener(\\"mouseenter\\", (event) => {
+                				if (clickEventListenerAdded) {
+                					return
+                				}
+                				event.target.getElementsByClassName(\\"govuk-accordion__section-button\\")[0].addEventListener(\\"click\\", (event) => {
+                					if (event.pointerType) {
+                						event.currentTarget.blur()
+                					}
+                				})
+                				clickEventListenerAdded = true
+                			})
+                		})
+            </script>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
@@ -5500,12 +5602,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
-                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"\\">
+                <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
                     <div class=\\"govuk-accordion__section\\">
                         <div class=\\"govuk-accordion__section-header\\">
-                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-1\\"></span></h2>
+                            <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"pins-subfolder-accordian-heading-1\\"></span></h2>
                         </div>
-                        <div id=\\"-content-1\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-1\\">
+                        <div id=\\"pins-subfolder-accordian-content-1\\" class=\\"govuk-accordion__section-content\\"
+                        aria-labelledby=\\"pins-subfolder-accordian-heading-1\\">
                             <table class=\\"govuk-table\\">
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
@@ -5522,6 +5625,22 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </div>
             </div>
+            <script nonce=\\"EdcOUaJ8lczj9tIPO0lPow==\\">
+                let clickEventListenerAdded = false
+                		window.addEventListener(\\"load\\", () => {
+                			document.querySelector(\\"#pins-subfolder-accordian .govuk-accordion__section-heading\\").addEventListener(\\"mouseenter\\", (event) => {
+                				if (clickEventListenerAdded) {
+                					return
+                				}
+                				event.target.getElementsByClassName(\\"govuk-accordion__section-button\\")[0].addEventListener(\\"click\\", (event) => {
+                					if (event.pointerType) {
+                						event.currentTarget.blur()
+                					}
+                				})
+                				clickEventListenerAdded = true
+                			})
+                		})
+            </script>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                     <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\">
