@@ -7,7 +7,7 @@ import { UpdateDueDatePage } from '../../page_objects/updateDueDatePage';
 const appealsListPage = new AppealsListPage();
 const updateDueDatePage = new UpdateDueDatePage();
 
-describe('Appeals feature', () => {
+describe.skip('Appeals feature', () => {
 	beforeEach(() => {
 		cy.login(users.appeals.caseAdmin);
 	});

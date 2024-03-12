@@ -145,6 +145,9 @@ export class AppealsListPage extends Page {
 			.eq(position - 1)
 			.should('not.have.text');
 	}
+	verifySectionHeader(expectedText) {
+		this.basePageElements.sectionHeader().filter('h1').should('have.text', expectedText);
+	}
 }
 
 //ASSERTIONS
