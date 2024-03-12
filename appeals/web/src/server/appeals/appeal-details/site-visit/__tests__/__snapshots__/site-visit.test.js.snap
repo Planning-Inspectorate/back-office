@@ -3962,7 +3962,8 @@ exports[`site-visit POST /site-visit/set-visit-type should render the case detai
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>

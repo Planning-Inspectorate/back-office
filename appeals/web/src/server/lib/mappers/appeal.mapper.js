@@ -975,7 +975,8 @@ export async function initialiseAndMapAppealData(
 							href: `${currentRoute}/site-visit/${
 								appealDetails.siteVisit?.visitType ? 'visit-booked' : 'schedule-visit'
 							}`,
-							visuallyHiddenText: 'visit type'
+							visuallyHiddenText: 'visit type',
+							classes: 'govuk-appeal-details-site-details-accordion-visit-type-change-link'
 						}
 					]
 				}

@@ -758,7 +758,8 @@ exports[`assign-user POST /assign-user/case-officer/1/confirm should send a patc
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -1240,7 +1241,8 @@ exports[`assign-user POST /assign-user/inspector/1/confirm should send a patch r
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -1579,7 +1581,8 @@ exports[`assign-user POST /unassign-user/inspector/1/confirm should send a patch
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>

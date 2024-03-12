@@ -134,7 +134,8 @@ exports[`appeal-details GET /:appealId should render a "Neighbouring site added"
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -395,7 +396,8 @@ exports[`appeal-details GET /:appealId should render a "horizon reference added"
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                                 <dd class="govuk-summary-list__value">Accompanied</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                    href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                                 </dd>
                             </div>
                         </dl>
@@ -643,7 +645,8 @@ exports[`appeal-details GET /:appealId should render a Decision inset panel when
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -900,7 +903,8 @@ exports[`appeal-details GET /:appealId should render a Issue a decision action b
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -1154,7 +1158,8 @@ exports[`appeal-details GET /:appealId should render a child tag next to the app
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -1409,7 +1414,8 @@ exports[`appeal-details GET /:appealId should render a lead tag next to the appe
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -1880,7 +1886,8 @@ exports[`appeal-details GET /:appealId should render a notification banner with 
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -2149,7 +2156,8 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -2404,7 +2412,8 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -2659,7 +2668,8 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -2914,7 +2924,8 @@ exports[`appeal-details GET /:appealId should render a success notification bann
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -3172,7 +3183,8 @@ exports[`appeal-details GET /:appealId should render action links to the manage 
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -3414,7 +3426,8 @@ exports[`appeal-details GET /:appealId should render an action link to the add l
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -3656,7 +3669,8 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -3899,7 +3913,8 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -4142,7 +4157,8 @@ exports[`appeal-details GET /:appealId should render the appellant case status a
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -4401,7 +4417,8 @@ exports[`appeal-details GET /:appealId should render the case reference for each
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -4801,7 +4818,8 @@ exports[`appeal-details GET /:appealId should render the lead or child status af
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -5043,7 +5061,8 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/1/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -5285,7 +5304,8 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/3/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/3/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -5547,7 +5567,8 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -5789,7 +5810,8 @@ exports[`appeal-details GET /:appealId should render the received appeal details
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                             <dd class="govuk-summary-list__value">Accompanied</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -6158,7 +6180,8 @@ exports[`appeal-details should not render a back button 1`] = `
                                     </div>
                                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Visit type</dt>
                                         <dd class="govuk-summary-list__value">Accompanied</dd>
-                                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
+                                        <dd class="govuk-summary-list__actions"><a class="govuk-link govuk-appeal-details-site-details-accordion-visit-type-change-link"
+                                            href="/appeals-service/appeal-details/2/site-visit/visit-booked"> Change<span class="govuk-visually-hidden"> visit type</span></a>
                                         </dd>
                                     </div>
                                 </dl>
