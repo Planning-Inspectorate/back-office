@@ -119,7 +119,7 @@ export const getById = (documentGuid, version = 1) => {
 			},
 			transcript: {
 				select: {
-					reference: true
+					documentReference: true
 				}
 			}
 		}

@@ -7,7 +7,7 @@ import { EventType } from '@pins/event-client';
 
 const application1 = {
 	id: 100000000,
-	reference: 'BC0110001',
+	documentReference: 'BC0110001',
 	modifiedAt: '2024-01-17T14:32:37.530Z',
 	createdAt: '2024-01-16T16:44:26.710Z',
 	description:
@@ -41,7 +41,7 @@ const application1 = {
 };
 const DocumentToDelete = {
 	guid: '1111-2222-3333',
-	reference: 'BC0110001-000004',
+	documentReference: 'BC0110001-000004',
 	folderId: 10003,
 	createdAt: '2024-01-31T14:18:26.834Z',
 	isDeleted: true,
@@ -89,7 +89,7 @@ const documentVersionWithDocumentToDelete = {
 	transcriptGuid: null,
 	Document: {
 		guid: '1111-2222-3333',
-		reference: 'BC010001-000002',
+		documentReference: 'BC010001-000002',
 		folderId: 1,
 		createdAt: '2022-12-12 17:12:25.9610000',
 		isDeleted: false,
@@ -131,7 +131,7 @@ const expectedDeleteMessagePayload = {
 	dateCreated: '2023-02-27T10:00:00.000Z',
 	datePublished: '2023-02-27T10:00:00.000Z',
 	caseId: 100000001,
-	reference: 'BC010001-000002',
+	documentReference: 'BC010001-000002',
 	mime: 'application/pdf',
 	publishedStatus: 'not_checked',
 	sourceSystem: 'back-office-applications',
@@ -186,7 +186,7 @@ describe('delete Document', () => {
 				},
 				transcript: {
 					select: {
-						reference: true
+						documentReference: true
 					}
 				}
 			},

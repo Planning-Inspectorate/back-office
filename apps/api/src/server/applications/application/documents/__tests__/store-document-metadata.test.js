@@ -83,7 +83,7 @@ const mockDocumentVersionAndDocumentAfterUpdate = (
 	Document: {
 		guid: docGuid,
 		caseId: 1,
-		reference: null,
+		documentReference: null,
 		folder: {
 			case: application1
 		},
@@ -95,7 +95,7 @@ const expectedEventPayload = {
 	documentId: docGuid,
 	caseId: 1,
 	caseRef: 'EN0110001',
-	reference: null,
+	documentReference: null,
 	version: 1,
 	filename: 'filename.pdf',
 	originalFilename: 'original_filename.pdf',

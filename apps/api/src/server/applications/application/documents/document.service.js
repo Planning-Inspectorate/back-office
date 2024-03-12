@@ -85,7 +85,7 @@ const mapDocumentsToSendToDatabase = (caseId, documents) => {
 /**
  *
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, documentReference: string}} document
- * @returns {{documentName: string, folderId: number; documentType: string, documentSize: number, reference: string}}
+ * @returns {{documentName: string, folderId: number; documentType: string, documentSize: number, documentReference: string}}
  */
 const mapDocumentToSendToDatabase = (document) => {
 	// TODO: Why are we duplicating this, why are the parameters different and why aren't we setting the caseId??
@@ -94,7 +94,7 @@ const mapDocumentToSendToDatabase = (document) => {
 		folderId: document.folderId,
 		documentType: document.documentType,
 		documentSize: document.documentSize,
-		reference: document.documentReference
+		documentReference: document.documentReference
 	};
 };
 
@@ -138,7 +138,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 				document = await documentRepository.create({
 					caseId,
 					folderId: documentToDB.folderId,
-					reference: documentToDB.documentReference,
+					documentReference: documentToDB.documentReference,
 					fromFrontOffice: documentToDB.fromFrontOffice,
 					documentType: isS51 ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document
 				});
@@ -199,7 +199,7 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
 			caseReference,
 			GUID: document.guid,
 			documentName: document.documentName,
-			documentReference: document?.reference,
+			documentReference: document?.documentReference,
 			version: 1
 		};
 	});

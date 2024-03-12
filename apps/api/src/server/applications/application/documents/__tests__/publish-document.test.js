@@ -26,7 +26,7 @@ const document1 = {
 	privateBlobPath: 'test-path',
 	caseId: 1,
 	latestVersionNo: 1,
-	reference: null,
+	documentReference: null,
 	folder: {
 		id: 1,
 		displayNameEn: 'Project management',
@@ -78,7 +78,7 @@ const expectedEventPayload = {
 	documentId: docGuid,
 	caseId: 1,
 	caseRef: 'EN0110001',
-	reference: null,
+	documentReference: null,
 	version: 1,
 	filename: 'test-filename',
 	originalFilename: 'test-original-filename',

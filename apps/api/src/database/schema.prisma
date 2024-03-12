@@ -255,7 +255,7 @@ model Folder {
 /// versions and can store shared metadata.
 model Document {
   guid                     String                    @id @default(uuid())
-  reference                String?
+  documentReference        String?
   folderId                 Int
   createdAt                DateTime                  @default(now())
   isDeleted                Boolean                   @default(false)
