@@ -59,7 +59,7 @@ describe('/appeals/linkable-appeal/:appealReference', () => {
 			expect(response.status).toEqual(200);
 			expect(response.body).toEqual({
 				appealId: '20486402',
-				appealReference: '3171066',
+				appealReference: '1000000',
 				appealType: 'Planning Appeal (W)',
 				appealStatus: 'Closed - Opened in Error',
 				siteAddress: {
