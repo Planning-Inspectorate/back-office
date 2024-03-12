@@ -73,14 +73,16 @@
 					{% endif %}
 
 					<div class="govuk-button-group">
-						{% if isNotDisabled %}
+						{% if isPreviewActive %}
 							{{ govukButton({
 								element: 'a',
 								text: "Open",
 								href: 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version, isPreviewActive: isPreviewActive}),
 								classes: "govuk-button--secondary"
 							}) }}
+						{% endif %}
 
+						{% if isNotDisabled %}
 							{{ govukButton({
 								element: 'a',
 								text: "Download",
