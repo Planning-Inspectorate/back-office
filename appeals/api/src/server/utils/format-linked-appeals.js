@@ -45,17 +45,20 @@ const formatLinkedAppeals = (linkedAppeals, reference, formattedAppealWithLinked
 /**
  * @param {import('./db-client/index.js').AppealRelationship[]} relatedAppeals
  * @param { number } currentAppealId
+ * @param { RepositoryGetAllResultItem[] | null} formattedAppealWithLinkedTypes
  * @returns {RelatedAppeal[]}
  */
-const formatRelatedAppeals = (relatedAppeals, currentAppealId) => {
+const formatRelatedAppeals = (relatedAppeals, currentAppealId, formattedAppealWithLinkedTypes) => {
 	return relatedAppeals.map((rel) => {
 		const appealId = currentAppealId === rel.parentId ? rel.childId : rel.parentId;
 		const appealReference = currentAppealId === rel.parentId ? rel.childRef : rel.parentRef;
+
 		return {
 			appealId,
 			appealReference,
 			externalSource: rel.externalSource === true,
 			linkingDate: rel.linkingDate,
+			appealType: assignAppealType(formattedAppealWithLinkedTypes, appealId),
 			relationshipId: rel.id
 		};
 	});
@@ -71,7 +74,7 @@ const assignAppealType = (formattedAppealWithLinkedTypes, appealId) => {
 		const matchedAppeal = formattedAppealWithLinkedTypes.find((appeal) => appeal.id === appealId);
 
 		if (matchedAppeal && matchedAppeal.appealType) {
-			return matchedAppeal.appealType.type;
+			return `(${matchedAppeal.appealType.code}) ${matchedAppeal.appealType.type}`;
 		}
 	}
 
