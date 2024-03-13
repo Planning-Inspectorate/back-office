@@ -1,4 +1,4 @@
-import { migrateNsipProjects } from './src/nsip-project-migration.js';
+import { migrateNsipProjects } from '../common/migrators/nsip-project-migration.js';
 
 /**
  * @param {import('@azure/functions').Context} context

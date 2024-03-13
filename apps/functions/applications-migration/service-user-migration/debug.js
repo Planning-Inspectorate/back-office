@@ -1,4 +1,4 @@
-import { migrateServiceUsers } from './src/service-user-migration.js';
+import { migrateServiceUsers } from '../common/migrators/service-user-migration.js';
 
 // @ts-ignore
 await migrateServiceUsers(
