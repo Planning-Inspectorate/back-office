@@ -134,7 +134,7 @@ describe('appellant-case', () => {
 
 			const response = await request.get(`${baseUrl}/1${appellantCasePagePath}`);
 			const element = parseHtml(response.text);
-			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toMatchSnapshotWithoutError();
 		});
 	});
 
