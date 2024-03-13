@@ -1,6 +1,6 @@
-import { SynapseDB } from '../../common/synapse-db.js';
-import { makePostRequest } from '../../common/back-office-api-client.js';
-import { removeValues } from '../../common/utils.js';
+import { SynapseDB } from '../synapse-db.js';
+import { makePostRequest } from '../back-office-api-client.js';
+import { removeValues } from '../utils.js';
 import { pick } from 'lodash-es';
 
 const query = 'SELECT * FROM [odw_curated_db].[dbo].[nsip_s51_advice] WHERE caseReference = ?';

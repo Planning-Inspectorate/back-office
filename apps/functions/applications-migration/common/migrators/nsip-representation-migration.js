@@ -1,6 +1,6 @@
-import { SynapseDB } from '../../common/synapse-db.js';
-import { makePostRequest } from '../../common/back-office-api-client.js';
-import { removeValues } from '../../common/utils.js';
+import { SynapseDB } from '../synapse-db.js';
+import { makePostRequest } from '../back-office-api-client.js';
+import { removeValues } from '../utils.js';
 
 const representationProperties = [
 	'representationId',
