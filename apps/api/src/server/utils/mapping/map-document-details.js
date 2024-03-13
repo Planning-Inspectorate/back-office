@@ -21,7 +21,7 @@ export const mapSingleDocumentDetailsFromVersion = ({
 	return {
 		documentGuid: documentVersion.documentGuid,
 		documentId: documentVersion?.documentId ?? null,
-		documentRef: Document?.reference ?? null,
+		documentRef: Document?.documentReference ?? null,
 		folderId: Document?.folder?.id ?? null,
 		caseRef: Document?.folder?.case?.reference ?? null,
 		sourceSystem: documentVersion.sourceSystem ?? 'Back Office',
