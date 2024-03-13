@@ -61,7 +61,7 @@ export const mapSingleDocumentDetailsFromVersion = ({
 		filter2: documentVersion?.filter2 ?? null,
 		examinationRefNo: documentVersion.examinationRefNo ?? '',
 		fromFrontOffice: Document?.fromFrontOffice ?? false,
-		transcript: documentVersion?.transcript?.reference ?? ''
+		transcript: documentVersion?.transcript?.documentReference ?? ''
 	};
 };
 
