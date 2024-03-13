@@ -29,7 +29,7 @@ import {
 	formatAppeal,
 	formatAppeals,
 	formatMyAppeals,
-	getRelevantLinkedAppealIds
+	getIdsOfReferencedAppeals
 } from './appeals.formatter.js';
 import { assignUser, assignedUserType } from './appeals.service.js';
 import transitionState from '#state/transition-state.js';
@@ -162,9 +162,11 @@ const getAppeal = async (req, res) => {
 	}
 
 	let formattedAppealWithLinkedTypes;
-	if (appeal.linkedAppeals) {
-		const linkedAppealIds = getRelevantLinkedAppealIds(appeal.linkedAppeals, appeal.reference);
-		formattedAppealWithLinkedTypes = await appealRepository.getAppealsByIds(linkedAppealIds);
+	if (appeal.linkedAppeals || appeal.relatedAppeals) {
+		const relations = [...(appeal.linkedAppeals ?? []), ...(appeal.relatedAppeals ?? [])];
+
+		const referencedAppealIds = getIdsOfReferencedAppeals(relations, appeal.reference);
+		formattedAppealWithLinkedTypes = await appealRepository.getAppealsByIds(referencedAppealIds);
 	}
 
 	const formattedAppeal = formatAppeal(
