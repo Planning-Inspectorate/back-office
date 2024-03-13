@@ -2,7 +2,6 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import { applicationsRoutes } from './applications/applications.routes.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './middleware/error-handler.js';
 import versionRoutes from './middleware/version-routes.js';
@@ -11,6 +10,7 @@ import { databaseConnector } from './utils/database-connector.js';
 import { migrationRoutes } from './migration/migration.routes.js';
 import { authoriseRequest } from './middleware/authorise-request.js';
 import { asyncHandler } from '@pins/express';
+import { httpLogger } from '#utils/logger.js';
 
 // The purpose of this is to allow the jest environment to create an instance of the app without loading Swagger
 // We have to use a HOF (i.e. we can't just conditionally register swagger UI) because Jest doesn't care about our conditionals and loads all of the modules based on the top-level imports
@@ -51,7 +51,7 @@ const buildApp = (
 	app.use(bodyParser.json());
 
 	app.use(compression());
-	app.use(morgan('combined'));
+	app.use(httpLogger);
 	app.use(helmet());
 
 	app.use(
