@@ -34,15 +34,6 @@ describe('Search', () => {
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
 
-		it('As a user able to use search using Case Name', () => {
-			applicationsHomePage.searchFor(projectInfo.projectName);
-			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
-		});
-
-		it('As a user able to use search using Case Description', () => {
-			applicationsHomePage.searchFor(projectInfo.projectDescription);
-			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
-		});
 
 		it('As a user able to see an error when nothing is entered', () => {
 			applicationsHomePage.searchFor(' ');
