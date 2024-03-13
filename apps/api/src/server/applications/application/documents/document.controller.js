@@ -67,8 +67,8 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 		throw new BackOfficeAppError(`Received null when retrieving case with ID ${params.id}`, 404);
 	}
 
-	const lastReferenceIndex = lastDocument?.reference
-		? getIndexFromReference(lastDocument.reference)
+	const lastReferenceIndex = lastDocument?.documentReference
+		? getIndexFromReference(lastDocument.documentReference)
 		: 1;
 	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 

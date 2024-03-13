@@ -1,11 +1,15 @@
+// @ts-nocheck
 import { request } from '#tests/../app-test.js';
 import { jest } from '@jest/globals';
 import { azureAdUserId } from '#tests/shared/mocks.js';
 import { householdAppeal, linkedAppeals } from '#tests/appeals/mocks.js';
 import { linkedAppealRequest, linkedAppealLegacyRequest } from '#tests/linked-appeals/mocks.js';
 import { CASE_RELATIONSHIP_LINKED, CASE_RELATIONSHIP_RELATED } from '#endpoints/constants.js';
+import { horizonGetCaseSuccessResponse } from '#tests/horizon/mocks.js';
+import { parseHorizonGetCaseResponse } from '#utils/mapping/map-horizon.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
+const { default: got } = await import('got');
 
 describe('appeal linked appeals routes', () => {
 	afterEach(() => {
@@ -122,6 +126,11 @@ describe('appeal linked appeals routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
 				databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+				got.post.mockReturnValueOnce({
+					json: jest
+						.fn()
+						.mockResolvedValueOnce(parseHorizonGetCaseResponse(horizonGetCaseSuccessResponse))
+				});
 
 				const response = await request
 					.post(`/appeals/${householdAppeal.id}/link-legacy-appeal`)
@@ -135,8 +144,8 @@ describe('appeal linked appeals routes', () => {
 				expect(databaseConnector.appealRelationship.create).toHaveBeenCalledTimes(1);
 				expect(databaseConnector.appealRelationship.create).toHaveBeenCalledWith({
 					data: {
-						parentId: null,
-						parentRef: '123456',
+						parentId: 20486402,
+						parentRef: '1000000',
 						childRef: householdAppeal.reference,
 						childId: householdAppeal.id,
 						type: CASE_RELATIONSHIP_LINKED,
@@ -239,6 +248,11 @@ describe('appeal linked appeals routes', () => {
 				databaseConnector.appeal.findUnique.mockResolvedValue(householdAppeal);
 				// @ts-ignore
 				databaseConnector.appealRelationship.findMany.mockResolvedValue([]);
+				got.post.mockReturnValueOnce({
+					json: jest
+						.fn()
+						.mockResolvedValueOnce(parseHorizonGetCaseResponse(horizonGetCaseSuccessResponse))
+				});
 
 				const response = await request
 					.post(`/appeals/${householdAppeal.id}/associate-legacy-appeal`)
@@ -255,7 +269,7 @@ describe('appeal linked appeals routes', () => {
 						parentId: householdAppeal.id,
 						parentRef: householdAppeal.reference,
 						childRef: '123456',
-						childId: null,
+						childId: 20486402,
 						type: CASE_RELATIONSHIP_RELATED,
 						externalSource: true
 					}

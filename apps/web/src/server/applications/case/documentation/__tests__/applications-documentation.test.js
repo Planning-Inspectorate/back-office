@@ -6,7 +6,8 @@ import {
 	fixtureDocumentFileVersions,
 	fixturePaginatedDocumentationFiles,
 	fixturePublishedDocumentationFile,
-	fixtureReadyToPublishDocumentationFile
+	fixtureReadyToPublishDocumentationFile,
+	fixtureReadyToPublishDocumentationPdfFile
 } from '../../../../../../testing/applications/fixtures/documentation-files.js';
 import {
 	fixtureDocumentationFolderPath,
@@ -45,6 +46,16 @@ const nocks = () => {
 
 	nock('http://test/')
 		.get('/applications/document/100/versions')
+		.times(2)
+		.reply(200, fixtureDocumentFileVersions);
+
+	nock('http://test/')
+		.get('/applications/123/documents/95/properties')
+		.times(2)
+		.reply(200, fixtureReadyToPublishDocumentationPdfFile);
+
+	nock('http://test/')
+		.get('/applications/document/95/versions')
 		.times(2)
 		.reply(200, fixtureDocumentFileVersions);
 
@@ -241,7 +252,7 @@ describe('applications documentation', () => {
 			await request.get('/applications-service/');
 		});
 
-		it('page should render', async () => {
+		it('page should render without Open button', async () => {
 			const response = await request.get(
 				`${baseUrl}/project-documentation/21/document/100/properties`
 			);
@@ -251,6 +262,22 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Document properties');
 			expect(element.innerHTML).toContain('/edit/published-date');
+			expect(element.innerHTML).toContain('Download');
+			expect(element.innerHTML).not.toContain('Open');
+		});
+
+		it('page should render with Open button', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/95/properties`
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Document properties');
+			expect(element.innerHTML).toContain('/edit/receipt-date');
+			expect(element.innerHTML).toContain('Download');
+			expect(element.innerHTML).toContain('Open');
 		});
 
 		it('should not show publishedDate edit link if document is not published', async () => {

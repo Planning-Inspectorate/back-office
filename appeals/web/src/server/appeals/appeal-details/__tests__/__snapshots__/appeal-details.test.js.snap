@@ -277,9 +277,7 @@ exports[`appeal-details GET /:appealId should render a "horizon reference added"
     </div><strong class="govuk-tag govuk-tag--grey single-line govuk-!-margin-bottom-4">Transferred</strong>
     <div     class="govuk-inset-text govuk-!-margin-top-0">
         <p class="govuk-body">This appeal needed to change to a (C) Enforcement notice appeal</p>
-        <p         class="govuk-body">It has been transferred to Horizon with the reference <a target="_blank"
-            class="govuk-link" href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=12345">12345</a>
-            </p>
+        <p         class="govuk-body">It has been transferred to Horizon with the reference 12345</p>
             </div>
             <dl class="govuk-summary-list govuk-summary-list--no-border">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Site address</dt>
@@ -1059,8 +1057,7 @@ exports[`appeal-details GET /:appealId should render a child tag next to the app
                             <dd class="govuk-summary-list__value">
                                 <ul class="govuk-list">
                                     <li><a href="/appeals-service/appeal-details/5464" class="govuk-link" aria-label="Appeal 1 4 0 0 7 9">140079</a> (Lead)</li>
-                                    <li><a href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=76215416"
-                                        class="govuk-link" aria-label="Appeal 7 6 2 1 5 4 1 6">76215416</a> (Lead)</li>
+                                    <li><span class="govuk-body">76215416</span> (Lead)</li>
                                 </ul>
                             </dd>
                             <dd class="govuk-summary-list__actions">
@@ -1313,8 +1310,7 @@ exports[`appeal-details GET /:appealId should render a lead tag next to the appe
                             <dd class="govuk-summary-list__value">
                                 <ul class="govuk-list">
                                     <li><a href="/appeals-service/appeal-details/5449" class="govuk-link" aria-label="Appeal 7 8 4 7 0 6">784706</a> (Child)</li>
-                                    <li><a href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=87326527"
-                                        class="govuk-link" aria-label="Appeal 8 7 3 2 6 5 2 7">87326527</a> (Child)</li>
+                                    <li><span class="govuk-body">87326527</span> (Child)</li>
                                     <li><a href="/appeals-service/appeal-details/5451" class="govuk-link" aria-label="Appeal 7 2 1 0 8 6">721086</a> (Child)</li>
                                 </ul>
                             </dd>
@@ -3073,11 +3069,9 @@ exports[`appeal-details GET /:appealId should render action links to the manage 
                             <dd class="govuk-summary-list__value">
                                 <ul class="govuk-list">
                                     <li><a href="/appeals-service/appeal-details/5449" class="govuk-link" aria-label="Appeal 7 8 4 7 0 6">784706</a> (Child)</li>
-                                    <li><a href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=87326527"
-                                        class="govuk-link" aria-label="Appeal 8 7 3 2 6 5 2 7">87326527</a> (Child)</li>
+                                    <li><span class="govuk-body">87326527</span> (Child)</li>
                                     <li><a href="/appeals-service/appeal-details/5464" class="govuk-link" aria-label="Appeal 1 4 0 0 7 9">140079</a> (Lead)</li>
-                                    <li><a href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=76215416"
-                                        class="govuk-link" aria-label="Appeal 7 6 2 1 5 4 1 6">76215416</a> (Lead)</li>
+                                    <li><span class="govuk-body">76215416</span> (Lead)</li>
                                     <li><a href="/appeals-service/appeal-details/5451" class="govuk-link" aria-label="Appeal 7 2 1 0 8 6">721086</a> (Child)</li>
                                 </ul>
                             </dd>
@@ -4302,11 +4296,9 @@ exports[`appeal-details GET /:appealId should render the case reference for each
                             <dd class="govuk-summary-list__value">
                                 <ul class="govuk-list">
                                     <li><a href="/appeals-service/appeal-details/5449" class="govuk-link" aria-label="Appeal 7 8 4 7 0 6">784706</a> (Child)</li>
-                                    <li><a href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=87326527"
-                                        class="govuk-link" aria-label="Appeal 8 7 3 2 6 5 2 7">87326527</a> (Child)</li>
+                                    <li><span class="govuk-body">87326527</span> (Child)</li>
                                     <li><a href="/appeals-service/appeal-details/5464" class="govuk-link" aria-label="Appeal 1 4 0 0 7 9">140079</a> (Lead)</li>
-                                    <li><a href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=76215416"
-                                        class="govuk-link" aria-label="Appeal 7 6 2 1 5 4 1 6">76215416</a> (Lead)</li>
+                                    <li><span class="govuk-body">76215416</span> (Lead)</li>
                                     <li><a href="/appeals-service/appeal-details/5451" class="govuk-link" aria-label="Appeal 7 2 1 0 8 6">721086</a> (Child)</li>
                                 </ul>
                             </dd>
@@ -4702,11 +4694,9 @@ exports[`appeal-details GET /:appealId should render the lead or child status af
                             <dd class="govuk-summary-list__value">
                                 <ul class="govuk-list">
                                     <li><a href="/appeals-service/appeal-details/5449" class="govuk-link" aria-label="Appeal 7 8 4 7 0 6">784706</a> (Child)</li>
-                                    <li><a href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=87326527"
-                                        class="govuk-link" aria-label="Appeal 8 7 3 2 6 5 2 7">87326527</a> (Child)</li>
+                                    <li><span class="govuk-body">87326527</span> (Child)</li>
                                     <li><a href="/appeals-service/appeal-details/5464" class="govuk-link" aria-label="Appeal 1 4 0 0 7 9">140079</a> (Lead)</li>
-                                    <li><a href="https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=76215416"
-                                        class="govuk-link" aria-label="Appeal 7 6 2 1 5 4 1 6">76215416</a> (Lead)</li>
+                                    <li><span class="govuk-body">76215416</span> (Lead)</li>
                                     <li><a href="/appeals-service/appeal-details/5451" class="govuk-link" aria-label="Appeal 7 2 1 0 8 6">721086</a> (Child)</li>
                                 </ul>
                             </dd>

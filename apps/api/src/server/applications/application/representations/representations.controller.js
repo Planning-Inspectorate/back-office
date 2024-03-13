@@ -4,7 +4,6 @@ import {
 	getCaseRepresentation,
 	getCaseRepresentations,
 	getCaseRepresentationsStatusCount,
-	sendRepresentationEventMessage,
 	updateCaseRepresentation
 } from './representations.service.js';
 import {
@@ -16,6 +15,7 @@ import {
 } from './representation.mapper.js';
 import { getById } from '#repositories/representation.repository.js';
 import { EventType } from '@pins/event-client';
+import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
 
 /**
  *
@@ -120,7 +120,7 @@ export const patchRepresentation = async ({ params, body, method }, response) =>
 
 	// broadcast update event message
 	const representationFullDetails = await getById(representation.id);
-	await sendRepresentationEventMessage(representationFullDetails, EventType.Update);
+	await broadcastNsipRepresentationEvent(representationFullDetails, EventType.Update);
 
 	return response.send({ id: representation.id, status: representation.status });
 };
@@ -143,7 +143,7 @@ export const createRepresentation = async ({ params, body }, response) => {
 
 	// broadcast create event message
 	const representationFullDetails = await getById(representation.id);
-	await sendRepresentationEventMessage(representationFullDetails, EventType.Create);
+	await broadcastNsipRepresentationEvent(representationFullDetails, EventType.Create);
 
 	return response.send({ id: representation.id, status: representation.status });
 };

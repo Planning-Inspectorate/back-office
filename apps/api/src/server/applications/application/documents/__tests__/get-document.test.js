@@ -62,7 +62,7 @@ const document1_Version1 = {
 const documents = [
 	{
 		guid: '688fad5e-b41c-45d5-8fb3-dcad37d38092',
-		reference: 'EN0110003-000001',
+		documentReference: 'EN0110003-000001',
 		folderId: 1,
 		createdAt: '2023-03-13T16:54:09.282Z',
 		isDeleted: false,
@@ -139,14 +139,14 @@ describe('GET search for non S51 Advice documents in a case', () => {
 			take: DEFAULT_PAGE_SIZE,
 			orderBy: [
 				{
-					reference: 'asc'
+					documentReference: 'asc'
 				}
 			],
 			where: {
 				caseId: 1,
 				AND: {
 					OR: [
-						{ reference: { contains: 'testfile' } },
+						{ documentReference: { contains: 'testfile' } },
 						{
 							latestDocumentVersion: {
 								OR: [
