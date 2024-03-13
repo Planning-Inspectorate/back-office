@@ -2,8 +2,8 @@ import { isEmpty, pick } from 'lodash-es';
 import { mapValuesUsingObject } from '#utils/mapping/map-values-using-object.js';
 
 /**
- * @param {import('@pins/applications').CreateUpdateApplication} applicationDetails
- * @returns {import('../../repositories/case.repository').CreateApplicationParams}
+ * @param {import("@pins/applications").CreateUpdateApplication} applicationDetails
+ * @returns {import("../../repositories/case.repository").CreateApplicationParams}
  */
 export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 	const formattedCaseDetails = pick(applicationDetails, ['title', 'description']);
@@ -17,9 +17,17 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		{
 			...applicationDetails,
 			...applicationDetails.geographicalInformation,
-			...applicationDetails.keyDates?.preApplication
+			...applicationDetails.keyDates?.preApplication,
+			...applicationDetails.keyDates?.preExamination
 		},
-		['locationDescription', 'submissionAtInternal', 'submissionAtPublished', 'caseEmail']
+		[
+			'locationDescription',
+			'submissionAtInternal',
+			'submissionAtPublished',
+			'caseEmail',
+			'dateOfReOpenRelevantRepresentationStart',
+			'dateOfReOpenRelevantRepresentationClose'
+		]
 	);
 
 	if (formattedApplicationDetails.caseEmail === '') {
