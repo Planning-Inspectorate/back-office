@@ -16,3 +16,7 @@ export const validateAddNeighbouringSite = createValidator(
 		})
 		.withMessage('Invalid postcode')
 );
+
+export const validateNeighbouringSiteDeleteAnswer = createValidator(
+	body('remove-neighbouring-site').trim().notEmpty().withMessage('Answer must be provided')
+);

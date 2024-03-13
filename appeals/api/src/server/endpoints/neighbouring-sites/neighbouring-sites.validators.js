@@ -1,7 +1,8 @@
 import { composeMiddleware } from '@pins/express';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import validateStringParameter, {
-	validateRequiredStringParameter
+	validateRequiredStringParameter,
+	validateStringParameterAllowingEmpty
 } from '#common/validators/string-parameter.js';
 import validateRegex from '#common/validators/regex-parameter.js';
 import validateNumberParameter, {
@@ -28,8 +29,8 @@ const updateNeighbouringSiteValidator = composeMiddleware(
 	validateRequiredStringParameter('address.postcode'),
 	validateRequiredStringParameter('address.addressLine1'),
 	validateRequiredStringParameter('address.town'),
-	validateStringParameter('address.addressLine2'),
-	validateStringParameter('address.county'),
+	validateStringParameterAllowingEmpty('address.addressLine2'),
+	validateStringParameterAllowingEmpty('address.county'),
 	validateRegex('address.postcode', regexUkPostcode).withMessage(ERROR_INVALID_POSTCODE),
 	validationErrorHandler
 );
