@@ -830,6 +830,15 @@ export async function initialiseAndMapAppealData(
 				},
 				actions: {
 					items: [
+						...(appealDetails.neighbouringSites && appealDetails.neighbouringSites.length > 0
+							? [
+									{
+										text: 'Manage',
+										href: `${currentRoute}/neighbouring-sites/manage`,
+										visuallyHiddenText: 'Neighbouring sites (inspector and or third party request)'
+									}
+							  ]
+							: []),
 						{
 							text: 'Add',
 							href: `${currentRoute}/neighbouring-sites/add`,

@@ -106,8 +106,15 @@ export const notificationBannerDefinitions = {
 	},
 	neighbouringSiteAdded: {
 		type: 'success',
-		pages: ['appealDetails'],
-		html: `<p class="govuk-notification-banner__heading">Neighbouring site added.</p>`
+		pages: ['appealDetails']
+	},
+	neighbouringSiteUpdated: {
+		type: 'success',
+		pages: ['appealDetails']
+	},
+	neighbouringSiteRemoved: {
+		type: 'success',
+		pages: ['appealDetails']
 	}
 };
 

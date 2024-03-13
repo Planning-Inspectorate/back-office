@@ -251,6 +251,64 @@ describe('appeal-details', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should render a "Neighbouring site updated" notification banner when a neighbouring site was updated', async () => {
+			const appealReference = '1';
+
+			nock.cleanAll();
+			nock('http://test/').patch(`/appeals/${appealReference}/neighbouring-sites`).reply(200, {
+				siteId: 1
+			});
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData);
+
+			const addNeighbouringSiteResponse = await request
+				.post(`${baseUrl}/1/neighbouring-sites/change/1`)
+				.send({
+					addressLine1: '2 Grove Cottage',
+					addressLine2: null,
+					county: 'Devon',
+					postCode: 'NR35 2ND',
+					town: 'Woodton'
+				});
+
+			expect(addNeighbouringSiteResponse.statusCode).toBe(302);
+
+			const addLinkedAppealCheckAndConfirmPostResponse = await request.post(
+				`${baseUrl}/1/neighbouring-sites/change/1/check-and-confirm`
+			);
+
+			expect(addLinkedAppealCheckAndConfirmPostResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(response.text).toContain('Inspector or third party neighbouring site updated');
+		});
+
+		it('should render a "Neighbouring site removed" notification banner when a neighbouring site was removed', async () => {
+			const appealReference = '1';
+
+			nock.cleanAll();
+			nock('http://test/').delete(`/appeals/${appealReference}/neighbouring-sites`).reply(200, {
+				siteId: 1
+			});
+			nock('http://test/').get(`/appeals/${appealData.appealId}`).reply(200, appealData);
+
+			const addNeighbouringSiteResponse = await request
+				.post(`${baseUrl}/1/neighbouring-sites/remove/1`)
+				.send({
+					'remove-neighbouring-site': 'yes'
+				});
+
+			expect(addNeighbouringSiteResponse.statusCode).toBe(302);
+
+			const response = await request.get(`${baseUrl}/${appealData.appealId}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Inspector or third party neighbouring site removed');
+		});
+
 		it('should render the appellant case status as "Incomplete" if the appellant case validation status is incomplete, and the due date is in the future', async () => {
 			const appealId = '2';
 
