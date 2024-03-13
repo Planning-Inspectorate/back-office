@@ -478,10 +478,12 @@ export async function initialiseAndMapAppealData(
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'LPA reference'
+					text: 'LPA application reference'
 				},
 				value: {
-					text: appealDetails.planningApplicationReference || 'No LPA reference for this appeal'
+					text:
+						appealDetails.planningApplicationReference ||
+						'No LPA application reference for this appeal'
 				},
 				actions: {
 					items: [
