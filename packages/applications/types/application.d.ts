@@ -39,11 +39,17 @@ export interface Applicant {
 
 export interface KeyApplicationDates {
 	preApplication?: PreApplicationDates;
+	preExamination?: PreExaminationDates;
 }
 
 export interface PreApplicationDates {
 	firstNotifiedDate?: Date;
 	submissionDate?: Date;
+}
+
+export interface PreExaminationDates {
+	dateOfReOpenRelevantRepresentationStart?: Date;
+	dateOfReOpenRelevantRepresentationClose?: Date;
 }
 
 export type ApplicationStageType =
