@@ -1,4 +1,4 @@
-import { migrateExamTimetables } from './src/exam-timetable-migration.js';
+import { migrateExamTimetables } from '../common/migrators/exam-timetable-migration.js';
 
 /**
  * @param {import('@azure/functions').Context} context

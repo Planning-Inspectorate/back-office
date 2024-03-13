@@ -1,39 +1,48 @@
-import { removeNullValues } from '../../common/utils.js';
-import { makePostRequest } from '../../common/back-office-api-client.js';
-import { SynapseDB } from '../../common/synapse-db.js';
+import { removeNullValues } from '../utils.js';
+import { makePostRequest } from '../back-office-api-client.js';
+import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
 
 /**
-/**
- * Handle an HTTP trigger/request to run the migration
+ * Migrate a nsip-exam-timetables
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string[]} caseReferences
  */
-export const migrateExamTimetables = async (log, caseReferences) => {
+export async function migrateExamTimetables(log, caseReferences) {
 	log.info(`Migrating Timetables for ${caseReferences.length} Cases`);
 
 	for (const caseReference of caseReferences) {
-		try {
-			log.info(`Migrating Exam Timetable for case ${caseReference}`);
-
-			const examTimetable = await getExamTimetable(log, caseReference);
-
-			if (examTimetable) {
-				log.info(`Migrating Exam Timetable Items for case ${caseReference}`);
-
-				await makePostRequest(log, '/migration/nsip-exam-timetable', [examTimetable]);
-
-				log.info(`Successfully migrated Exam Timetable for case ${caseReference}`);
-			} else {
-				log.warn(`No Exam Timetable found for case ${caseReference}`);
-			}
-		} catch (e) {
-			log.error(`Failed to migrate Exam Timetable for case ${caseReference}`, e);
-			throw e;
-		}
+		await migrateExamTimetablesForCase(log, caseReference);
 	}
-};
+}
+
+/**
+ * Migrate a nsip-exam-timetables for a case
+ *
+ * @param {import('@azure/functions').Logger} log
+ * @param {string} caseReference
+ */
+export async function migrateExamTimetablesForCase(log, caseReference) {
+	try {
+		log.info(`Migrating Exam Timetable for case ${caseReference}`);
+
+		const examTimetable = await getExamTimetable(log, caseReference);
+
+		if (examTimetable) {
+			log.info(`Migrating Exam Timetable Items for case ${caseReference}`);
+
+			await makePostRequest(log, '/migration/nsip-exam-timetable', [examTimetable]);
+
+			log.info(`Successfully migrated Exam Timetable for case ${caseReference}`);
+		} else {
+			log.warn(`No Exam Timetable found for case ${caseReference}`);
+		}
+	} catch (e) {
+		log.error(`Failed to migrate Exam Timetable for case ${caseReference}`, e);
+		throw e;
+	}
+}
 
 /**
  * @param {import('@azure/functions').Logger} log

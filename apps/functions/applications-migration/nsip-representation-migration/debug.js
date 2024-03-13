@@ -1,4 +1,4 @@
-import { migrateRepresentations } from './src/nsip-representation-migration.js';
+import { migrateRepresentations } from '../common/migrators/nsip-representation-migration.js';
 
 // @ts-ignore
 await migrateRepresentations(
