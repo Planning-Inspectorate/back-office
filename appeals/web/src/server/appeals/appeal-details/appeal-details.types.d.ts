@@ -408,6 +408,7 @@ export interface WebAppeal extends SingleAppealDetailsResponse {
 	appealTimetable: WebAppealTimetable | null;
 	siteAddress?: Address;
 	startedAt: string | null;
+	validAt: string | null;
 	documentationSummary: WebDocumentationSummary;
 	source?: string;
 	siteVisit: {

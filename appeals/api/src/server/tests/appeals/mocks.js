@@ -49,6 +49,7 @@ export const householdAppeal = {
 		email: 'test@136s7.com'
 	},
 	startedAt: new Date(2022, 4, 18),
+	validAt: new Date(2022, 4, 20),
 	address: {
 		addressLine1: '96 The Avenue',
 		addressLine2: 'Leftfield',
