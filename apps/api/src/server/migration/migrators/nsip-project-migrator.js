@@ -81,10 +81,6 @@ const migrateCase = ({ caseId, caseReference, projectName, projectDescription })
  * @param {import('pins-data-model').Schemas.NSIPProject} model
  */
 const migrateApplicationDetails = async (model) => {
-	if (!model.mapZoomLevel) {
-		throw Error(`Cant't migrate case ${model.caseId} without a mapZoomLevel`);
-	}
-	// Retrieve zoomLevelId from mapZoomLevel
 	// @ts-ignore
 	const zoomLevelId = await getMapZoomLevelIdFromDisplayName(model.mapZoomLevel);
 
@@ -185,17 +181,17 @@ const migrateCasePublishedState = ({ caseId, publishStatus }) => {
  * @param {import('pins-data-model').Schemas.NSIPProject} m
  */
 const migrateGridReference = ({ caseId, easting, northing }) =>
-  databaseConnector.gridReference.upsert({
-    where: {
-      caseId
-    },
-    update: {
-      easting,
-      northing
-    },
-    create: {
-      caseId,
-      easting,
-      northing
-    }
-  });
+	databaseConnector.gridReference.upsert({
+		where: {
+			caseId
+		},
+		update: {
+			easting,
+			northing
+		},
+		create: {
+			caseId,
+			easting,
+			northing
+		}
+	});
