@@ -22,7 +22,7 @@ import { azureAdUserId } from '#tests/shared/mocks.js';
 import { householdAppeal, fullPlanningAppeal, linkedAppeals } from '#tests/appeals/mocks.js';
 import formatAddress from '#utils/format-address.js';
 import stringTokenReplacement from '#utils/string-token-replacement.js';
-import { getRelevantLinkedAppealIds, mapAppealToDueDate } from '../appeals.formatter.js';
+import { getIdsOfReferencedAppeals, mapAppealToDueDate } from '../appeals.formatter.js';
 import { mapAppealStatuses } from '../appeals.controller.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -1752,21 +1752,21 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 	test('should return correct child IDs when current appeal is a parent', () => {
 		const currentAppealRef = 'TEST-396994';
 		// @ts-ignore
-		const result = getRelevantLinkedAppealIds(moreLinkedAppeals, currentAppealRef);
+		const result = getIdsOfReferencedAppeals(moreLinkedAppeals, currentAppealRef);
 		expect(result).toEqual([1028, 1029, 1043]);
 	});
 
 	test('should return correct parent ID when current appeal is a child', () => {
 		const currentAppealRef = 'TEST-100071';
 		// @ts-ignore
-		const result = getRelevantLinkedAppealIds(moreLinkedAppeals, currentAppealRef);
+		const result = getIdsOfReferencedAppeals(moreLinkedAppeals, currentAppealRef);
 		expect(result).toEqual([1027]);
 	});
 
 	test('should return an empty array when there are no linked appeals', () => {
 		const currentAppealRef = 'TEST/999999';
 		// @ts-ignore
-		const result = getRelevantLinkedAppealIds(moreLinkedAppeals, currentAppealRef);
+		const result = getIdsOfReferencedAppeals(moreLinkedAppeals, currentAppealRef);
 		expect(result).toEqual([]);
 	});
 
@@ -1786,7 +1786,7 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 		];
 		const currentAppealRef = 'TEST-396994';
 		// @ts-ignore
-		const result = getRelevantLinkedAppealIds(linkedAppealsWithNullChildId, currentAppealRef);
+		const result = getIdsOfReferencedAppeals(linkedAppealsWithNullChildId, currentAppealRef);
 		expect(result).toEqual([1028, 1029, 1043]);
 	});
 
@@ -1806,7 +1806,7 @@ describe('getRelevantLinkedAppealIds Tests', () => {
 		];
 		const currentAppealRef = 'TEST-396994';
 		// @ts-ignore
-		const result = getRelevantLinkedAppealIds(linkedAppealsWithDuplucate, currentAppealRef);
+		const result = getIdsOfReferencedAppeals(linkedAppealsWithDuplucate, currentAppealRef);
 		expect(result).toEqual([1028, 1029, 1043]);
 	});
 });

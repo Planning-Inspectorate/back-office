@@ -478,10 +478,12 @@ export async function initialiseAndMapAppealData(
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'LPA reference'
+					text: 'LPA application reference'
 				},
 				value: {
-					text: appealDetails.planningApplicationReference || 'No LPA reference for this appeal'
+					text:
+						appealDetails.planningApplicationReference ||
+						'No LPA application reference for this appeal'
 				},
 				actions: {
 					items: [
@@ -828,6 +830,15 @@ export async function initialiseAndMapAppealData(
 				},
 				actions: {
 					items: [
+						...(appealDetails.neighbouringSites && appealDetails.neighbouringSites.length > 0
+							? [
+									{
+										text: 'Manage',
+										href: `${currentRoute}/neighbouring-sites/manage`,
+										visuallyHiddenText: 'Neighbouring sites (inspector and or third party request)'
+									}
+							  ]
+							: []),
 						{
 							text: 'Add',
 							href: `${currentRoute}/neighbouring-sites/add`,

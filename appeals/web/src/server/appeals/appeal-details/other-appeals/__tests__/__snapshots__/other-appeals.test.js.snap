@@ -3,51 +3,51 @@
 exports[`other-appeals GET /other-appeals/add should render the "Related appeal details" page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal APP/Q9999/D/21/351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Related appeal details</h1>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-            <table class="govuk-table">
-                <tbody class="govuk-table__body">
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Appeal reference</strong>
-                        </td>
-                        <td class="govuk-table__cell">12345</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Appeal type</strong>
-                        </td>
-                        <td class="govuk-table__cell">Planning Appeal (W)</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Site address</strong>
-                        </td>
-                        <td class="govuk-table__cell"></td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Local planning authority</strong>
-                        </td>
-                        <td class="govuk-table__cell">Bristol City Council</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Appellant name</strong>
-                        </td>
-                        <td class="govuk-table__cell">Mr John Wick</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Agent name</strong>
-                        </td>
-                        <td class="govuk-table__cell">Mr John Smith (Smith Planning Agency)</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <form action="" method="POST" novalidate>
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal APP/Q9999/D/21/351062</span>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">Related appeal details</h1>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+                    <table class="govuk-table">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Appeal reference</strong>
+                                </td>
+                                <td class="govuk-table__cell">12345</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Appeal type</strong>
+                                </td>
+                                <td class="govuk-table__cell">Planning Appeal (W)</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Site address</strong>
+                                </td>
+                                <td class="govuk-table__cell"></td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Local planning authority</strong>
+                                </td>
+                                <td class="govuk-table__cell">Bristol City Council</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Appellant name</strong>
+                                </td>
+                                <td class="govuk-table__cell">Mr John Wick</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Agent name</strong>
+                                </td>
+                                <td class="govuk-table__cell">Mr John Smith (Smith Planning Agency)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Do you want to relate these appeals?</legend>
@@ -88,54 +88,50 @@ exports[`other-appeals GET /other-appeals/add should render the "Related appeal 
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal APP/Q9999/D/21/351062</span>
-            <h1             class="govuk-heading-xl govuk-!-margin-bottom-3">Related appeal details</h1>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-            <table class="govuk-table">
-                <tbody class="govuk-table__body">
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Appeal reference</strong>
-                        </td>
-                        <td class="govuk-table__cell">12345</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Appeal type</strong>
-                        </td>
-                        <td class="govuk-table__cell">Planning Appeal (W)</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Site address</strong>
-                        </td>
-                        <td class="govuk-table__cell"></td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Local planning authority</strong>
-                        </td>
-                        <td class="govuk-table__cell">Bristol City Council</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Appellant name</strong>
-                        </td>
-                        <td class="govuk-table__cell">Mr John Wick</td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell"><strong>Agent name</strong>
-                        </td>
-                        <td class="govuk-table__cell">Mr John Smith (Smith Planning Agency)</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <form action="" method="POST" novalidate>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Appeal APP/Q9999/D/21/351062</span>
+                    <h1                     class="govuk-heading-xl govuk-!-margin-bottom-3">Related appeal details</h1>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-!-margin-top-5 govuk-!-margin-bottom-6">
+                    <table class="govuk-table">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Appeal reference</strong>
+                                </td>
+                                <td class="govuk-table__cell">12345</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Appeal type</strong>
+                                </td>
+                                <td class="govuk-table__cell">Planning Appeal (W)</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Site address</strong>
+                                </td>
+                                <td class="govuk-table__cell"></td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Local planning authority</strong>
+                                </td>
+                                <td class="govuk-table__cell">Bristol City Council</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Appellant name</strong>
+                                </td>
+                                <td class="govuk-table__cell">Mr John Wick</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell"><strong>Agent name</strong>
+                                </td>
+                                <td class="govuk-table__cell">Mr John Smith (Smith Planning Agency)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">Do you want to relate these appeals?</legend>

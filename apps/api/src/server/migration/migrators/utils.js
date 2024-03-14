@@ -146,9 +146,7 @@ let mapZoomLevels = [];
  * @returns {Promise<number | undefined>} zoomLevelId
  */
 export const getMapZoomLevelIdFromDisplayName = async (displayName) => {
-	if (!displayName) {
-		throw Error(`Missing required parameter mapZoomLevel`);
-	}
+	if (!displayName) return null;
 
 	if (!mapZoomLevels.length) {
 		mapZoomLevels = await databaseConnector.zoomLevel.findMany({

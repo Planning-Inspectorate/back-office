@@ -163,7 +163,7 @@ export function initialiseAndMapData(appellantCaseData, appealDetails, currentRo
 		display: {
 			summaryListItem: {
 				key: {
-					text: 'Application reference'
+					text: 'LPA application reference'
 				},
 				value: {
 					text: appellantCaseData.planningApplicationReference
@@ -172,7 +172,7 @@ export function initialiseAndMapData(appellantCaseData, appealDetails, currentRo
 					items: [
 						{
 							text: 'Change',
-							visuallyHiddenText: 'Application reference',
+							visuallyHiddenText: 'LPA application reference',
 							href: `${currentRoute}/change-appeal-details/application-reference`
 						}
 					]
@@ -180,7 +180,7 @@ export function initialiseAndMapData(appellantCaseData, appealDetails, currentRo
 			}
 		},
 		input: {
-			displayName: 'Application reference',
+			displayName: 'LPA application reference',
 			instructions: [
 				{
 					type: 'input',
