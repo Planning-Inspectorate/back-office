@@ -61,7 +61,7 @@ describe('notify-subscribers', () => {
 							projectName: 'My Project Name'
 						};
 					},
-					patchProjectUpdate(id) {
+					patchProjectUpdate() {
 						return this.getExtendedProjectUpdate();
 					},
 					async getSubscriptions(page, pageSize) {
