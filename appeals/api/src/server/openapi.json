@@ -4672,6 +4672,10 @@
 						"type": "string",
 						"example": "2022-05-17T23:00:00.000Z"
 					},
+					"validAt": {
+						"type": "string",
+						"example": "2022-05-17T23:00:00.000Z"
+					},
 					"documentationSummary": {
 						"type": "object",
 						"properties": {

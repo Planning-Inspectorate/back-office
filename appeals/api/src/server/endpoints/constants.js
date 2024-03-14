@@ -86,6 +86,7 @@ export const ERROR_MUST_BE_CORRECT_TIME_FORMAT = 'must be a valid time and in th
 export const ERROR_MUST_BE_GREATER_THAN_ZERO = 'must be greater than 0';
 export const ERROR_MUST_BE_IN_FUTURE = 'must be in the future';
 export const ERROR_MUST_BE_IN_PAST = 'must be in the past';
+export const ERROR_MUST_NOT_BE_IN_FUTURE = 'must not be in the future';
 export const ERROR_MUST_BE_INCOMPLETE_INVALID_REASON =
 	'must be an array of objects containing a required id number parameter and an optional text string array parameter containing 10 or less items';
 export const ERROR_MUST_BE_NUMBER = 'must be a number';

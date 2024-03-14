@@ -188,7 +188,7 @@ const updateAppealById = async (req, res) => {
 	const {
 		appeal,
 		body,
-		body: { caseOfficer, inspector, startedAt },
+		body: { caseOfficer, inspector, startedAt, validAt },
 		params
 	} = req;
 	const appealId = Number(params.appealId);
@@ -233,7 +233,8 @@ const updateAppealById = async (req, res) => {
 			}
 		} else {
 			await appealRepository.updateAppealById(appealId, {
-				startedAt
+				startedAt,
+				validAt
 			});
 		}
 

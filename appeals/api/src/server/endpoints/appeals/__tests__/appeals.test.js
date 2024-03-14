@@ -14,6 +14,7 @@ import {
 	ERROR_MUST_BE_SET_AS_HEADER,
 	ERROR_MUST_BE_UUID,
 	ERROR_MUST_BE_VALID_APPEAL_STATE,
+	ERROR_MUST_NOT_BE_IN_FUTURE,
 	ERROR_NOT_FOUND,
 	ERROR_PAGENUMBER_AND_PAGESIZE_ARE_REQUIRED
 } from '../../constants.js';
@@ -771,7 +772,8 @@ describe('appeals routes', () => {
 						visitEndTime: householdAppeal.siteVisit.visitEndTime,
 						visitType: householdAppeal.siteVisit.siteVisitType.name
 					},
-					startedAt: householdAppeal.startedAt.toISOString()
+					startedAt: householdAppeal.startedAt.toISOString(),
+					validAt: householdAppeal.validAt.toISOString()
 				});
 			});
 
@@ -876,7 +878,8 @@ describe('appeals routes', () => {
 						visitEndTime: fullPlanningAppeal.siteVisit.visitEndTime,
 						visitType: fullPlanningAppeal.siteVisit.siteVisitType.name
 					},
-					startedAt: fullPlanningAppeal.startedAt.toISOString()
+					startedAt: fullPlanningAppeal.startedAt.toISOString(),
+					validAt: householdAppeal.validAt.toISOString()
 				});
 			});
 
@@ -914,13 +917,15 @@ describe('appeals routes', () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}`)
 					.send({
-						startedAt: '2023-05-05'
+						startedAt: '2023-05-05',
+						validAt: '2023-05-25'
 					})
 					.set('azureAdUserId', azureAdUserId);
 
 				expect(databaseConnector.appeal.update).toHaveBeenCalledWith({
 					data: {
 						startedAt: '2023-05-05T01:00:00.000Z',
+						validAt: '2023-05-25T01:00:00.000Z',
 						updatedAt: expect.any(Date)
 					},
 					where: {
@@ -929,7 +934,8 @@ describe('appeals routes', () => {
 				});
 				expect(response.status).toEqual(200);
 				expect(response.body).toEqual({
-					startedAt: '2023-05-05T01:00:00.000Z'
+					startedAt: '2023-05-05T01:00:00.000Z',
+					validAt: '2023-05-25T01:00:00.000Z'
 				});
 			});
 
@@ -1162,6 +1168,70 @@ describe('appeals routes', () => {
 				});
 			});
 
+			test('returns an error if validAt is not in the correct format', async () => {
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						validAt: '05/05/2023'
+					})
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						validAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if validAt does not contain leading zeros', async () => {
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						validAt: '2023-5-5'
+					})
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						validAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if validAt is not a valid date', async () => {
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						validAt: '2023-02-30'
+					})
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						validAt: ERROR_MUST_BE_CORRECT_DATE_FORMAT
+					}
+				});
+			});
+
+			test('returns an error if validAt is in the future', async () => {
+				const response = await request
+					.patch(`/appeals/${householdAppeal.id}`)
+					.send({
+						validAt: '3000-02-02'
+					})
+					.set('azureAdUserId', azureAdUserId);
+
+				expect(response.status).toEqual(400);
+				expect(response.body).toEqual({
+					errors: {
+						validAt: ERROR_MUST_NOT_BE_IN_FUTURE
+					}
+				});
+			});
+
 			test('returns an error if caseOfficer is not a valid uuid', async () => {
 				const response = await request
 					.patch(`/appeals/${householdAppeal.id}`)
@@ -1344,7 +1414,8 @@ describe('appeals routes', () => {
 						visitEndTime: householdAppeal.siteVisit.visitEndTime,
 						visitType: householdAppeal.siteVisit.siteVisitType.name
 					},
-					startedAt: householdAppeal.startedAt.toISOString()
+					startedAt: householdAppeal.startedAt.toISOString(),
+					validAt: householdAppeal.validAt.toISOString()
 				});
 			});
 
@@ -1449,7 +1520,8 @@ describe('appeals routes', () => {
 						visitEndTime: fullPlanningAppeal.siteVisit.visitEndTime,
 						visitType: fullPlanningAppeal.siteVisit.siteVisitType.name
 					},
-					startedAt: fullPlanningAppeal.startedAt.toISOString()
+					startedAt: fullPlanningAppeal.startedAt.toISOString(),
+					validAt: fullPlanningAppeal.validAt.toISOString()
 				});
 			});
 			test('returns an error if appealId is not found', async () => {

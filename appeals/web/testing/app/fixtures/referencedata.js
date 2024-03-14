@@ -177,6 +177,7 @@ export const appealData = {
 		visitType: 'Accompanied'
 	},
 	startedAt: '2023-05-23T10:27:06.626Z',
+	validAt: '2023-05-23T10:27:06.626Z',
 	documentationSummary: {
 		appellantCase: {
 			status: 'received',

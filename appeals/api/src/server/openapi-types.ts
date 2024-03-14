@@ -657,6 +657,8 @@ export interface SingleAppealResponse {
 	};
 	/** @example "2022-05-17T23:00:00.000Z" */
 	startedAt?: string;
+	/** @example "2022-05-17T23:00:00.000Z" */
+	validAt?: string;
 	documentationSummary?: {
 		appellantCase?: {
 			/** @example "received" */
