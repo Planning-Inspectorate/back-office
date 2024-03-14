@@ -55,7 +55,7 @@ describe('notify-subscribers', () => {
 			return new NotifySubscribers({
 				apiClient: {
 					baseUrl: '',
-					async getProjectUpdate() {
+					async getExtendedProjectUpdate() {
 						return {
 							id: 1,
 							caseId: 2,
@@ -67,11 +67,12 @@ describe('notify-subscribers', () => {
 							title: null,
 							sentToSubscribers: false,
 							htmlContentWelsh: null,
-							type: 'general'
+							type: 'general',
+							projectName: 'My Project Name'
 						};
 					},
 					patchProjectUpdate(id) {
-						return this.getProjectUpdate(id);
+						return this.getExtendedProjectUpdate();
 					},
 					async getSubscriptions(page, pageSize) {
 						return { page, pageSize, pageCount: 1, items: subs, itemCount: subs.length };
