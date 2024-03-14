@@ -239,7 +239,7 @@ export class NotifySubscribers {
 	 * @returns {string}
 	 */
 	static htmlToMarkdown(content) {
-		const turndownService = new TurndownService();
+		const turndownService = new TurndownService({ strongDelimiter: '', emDelimiter: '' });
 		return turndownService.turndown(content);
 	}
 
