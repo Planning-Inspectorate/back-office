@@ -201,7 +201,7 @@ function neighbouringSiteTableRowFormatter(site) {
 			html: `${appealSiteToMultilineAddressStringHtml(site.address)}`
 		},
 		{
-			html: `<a href="change/${site.siteId}">Change</a> | <a href="remove/${site.siteId}">Remove</a>`
+			html: `<a href="change/${site.siteId}" class="govuk-link" >Change</a> | <a href="remove/${site.siteId}" class="govuk-link">Remove</a>`
 		}
 	];
 }
