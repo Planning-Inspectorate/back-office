@@ -1226,6 +1226,27 @@ describe('LPA Questionnaire review', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
+		it('should re-render the document details page with the expected error message if receivedDate is a date in the future', async () => {
+			const today = new Date();
+			const response = await request.post(`${baseUrl}/add-document-details/1`).send({
+				items: [
+					{
+						documentId: 'a6681be2-7cf8-4c9f-b223-f97f003577f3',
+						receivedDate: {
+							day: today.getDate() + 1,
+							month: today.getMonth() + 1,
+							year: today.getFullYear()
+						},
+						redactionStatus: 'unredacted'
+					}
+				]
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+		});
+
 		it('should send a patch request to the appeal documents endpoint and redirect to the lpa questionnaire page, if complete and valid document details were provided', async () => {
 			const response = await request.post(`${baseUrl}/add-document-details/1`).send({
 				items: [

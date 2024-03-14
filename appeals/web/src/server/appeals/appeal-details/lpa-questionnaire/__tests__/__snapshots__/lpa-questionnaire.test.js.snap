@@ -5940,6 +5940,34 @@ exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details
 </main>"
 `;
 
+exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate is a date in the future 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#">Received date cannot be a future date</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full"><span class="govuk-caption-l govuk-!-margin-bottom-3">Add document details</span>
+                    <h1                     class="govuk-heading-l govuk-!-margin-bottom-9">Conservation area map documents</h1>
+                </div>
+            </div>
+            <form method="post" novalidate="novalidate">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`LPA Questionnaire review POST /lpa-questionnaire/2/add-document-details/:folderId/ should re-render the document details page with the expected error message if receivedDate is not a valid date 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">

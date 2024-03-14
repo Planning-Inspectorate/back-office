@@ -50,6 +50,7 @@ router
 		documentsValidators.validateDocumentDetailsBodyFormat,
 		documentsValidators.validateDocumentDetailsReceivedDatesFields,
 		documentsValidators.validateDocumentDetailsReceivedDateValid,
+		documentsValidators.validateDocumentDetailsReceivedDateIsNotFutureDate,
 		documentsValidators.validateDocumentDetailsRedactionStatuses,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		asyncRoute(controller.postAddDocumentDetails)
@@ -63,6 +64,7 @@ router
 		documentsValidators.validateDocumentDetailsBodyFormat,
 		documentsValidators.validateDocumentDetailsReceivedDatesFields,
 		documentsValidators.validateDocumentDetailsReceivedDateValid,
+		documentsValidators.validateDocumentDetailsReceivedDateIsNotFutureDate,
 		documentsValidators.validateDocumentDetailsRedactionStatuses,
 		assertGroupAccess(config.referenceData.appeals.caseOfficerGroupId),
 		asyncRoute(controller.postDocumentVersionDetails)
