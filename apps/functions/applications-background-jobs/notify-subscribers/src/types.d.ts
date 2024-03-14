@@ -1,3 +1,5 @@
+import { ProjectUpdate } from '@pins/applications';
+
 export type Result<T> = IteratorResult<PageResponse<T>>;
 
 export type Request<T> = (page: number, pageSize: number) => Promise<PageResponse<T>>;
@@ -8,6 +10,10 @@ export interface PageResponse<T> {
 	pageCount: number;
 	itemCount: number;
 	items: T[];
+}
+
+export interface ExtendedProjectUpdate extends ProjectUpdate {
+    projectName: string;
 }
 
 export type GenerateProjectLink = (caseReference: string) => string;
