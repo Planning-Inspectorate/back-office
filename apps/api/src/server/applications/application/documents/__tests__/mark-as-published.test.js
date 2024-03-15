@@ -115,8 +115,25 @@ describe('Mark-as-published', () => {
 			}
 		};
 
+		const includeFullDocument = {
+			Document: {
+				include: {
+					folder: {
+						include: {
+							case: {
+								include: {
+									CaseStatus: true
+								}
+							}
+						}
+					}
+				}
+			}
+		};
+
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersions);
+		databaseConnector.folder.findUnique.mockResolvedValue(documentFolder);
 		databaseConnector.documentVersion.findUnique.mockResolvedValue(updatedDocument);
 		databaseConnector.documentVersion.update.mockResolvedValue(updatedDocument);
 
@@ -139,13 +156,7 @@ describe('Mark-as-published', () => {
 				publishedStatus: 'published',
 				publishedStatusPrev: 'publishing'
 			},
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
-				}
-			},
+			include: includeFullDocument,
 			where: {
 				documentGuid_version: {
 					documentGuid: documentGuid,

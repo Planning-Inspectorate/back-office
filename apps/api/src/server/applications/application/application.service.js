@@ -40,11 +40,15 @@ class StartApplicationError extends Error {
  */
 const verifyAllApplicationDetailsPresent = async (id) => {
 	const caseDetails = await caseRepository.getById(id, {
-		applicationDetails: true,
-		caseStatus: true,
-		regions: true,
 		subSector: true,
 		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		casePublishedState: true,
+		applicant: true,
+		projectTeam: true,
 		gridReference: true
 	});
 

@@ -1,6 +1,11 @@
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 import { buildNsipProjectPayload } from '#infrastructure/payload-builders/nsip-project.js';
-import { validateMessageToSchema, validateNsipProject } from '#utils/schema-test-utils.js';
+import {
+	buildPayloadEventsForSchema,
+	validateMessageToSchema,
+	validateNsipProject
+} from '#utils/schema-test-utils.js';
+import { NSIP_PROJECT } from '#infrastructure/topics.js';
 
 describe('Application', () => {
 	test('buildNsipProjectPayload maps NSIP Case with minimum data to NSIP Application Full Payload', async () => {
@@ -20,7 +25,7 @@ describe('Application', () => {
 				caseEmail: null,
 				datePINSFirstNotifiedOfProject: null,
 				dateProjectAppearsOnWebsite: null,
-				submissionAtPublished: '',
+				submissionAtPublished: null,
 				submissionAtInternal: null,
 				screeningOpinionSought: null,
 				screeningOpinionIssued: null,
@@ -95,7 +100,7 @@ describe('Application', () => {
 		const payloadResult = buildNsipProjectPayload(projectEntity);
 
 		// 3. Assert
-		const expectedPayload = {
+		const expectedPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
 			caseId: 1,
 			caseReference: 'TEST',
 			projectName: 'EN010003 - NI Case 3 Name',
@@ -104,68 +109,17 @@ describe('Application', () => {
 			sourceSystem: 'back-office-applications',
 			stage: 'draft',
 			projectLocation: 'loca',
-			projectEmailAddress: null,
 			regions: [],
 			easting: 123456,
 			northing: 654321,
 			welshLanguage: false,
 			mapZoomLevel: 'none',
-			secretaryOfState: null,
-			anticipatedDateOfSubmission: null,
-			anticipatedSubmissionDateNonSpecific: '',
-			datePINSFirstNotifiedOfProject: null,
-			dateProjectAppearsOnWebsite: null,
-			screeningOpinionSought: null,
-			screeningOpinionIssued: null,
-			scopingOpinionSought: null,
-			scopingOpinionIssued: null,
-			section46Notification: null,
-			dateOfDCOSubmission: null,
-			deadlineForAcceptanceDecision: null,
-			dateOfDCOAcceptance: null,
-			dateOfNonAcceptance: null,
-			dateOfRepresentationPeriodOpen: null,
-			dateOfRelevantRepresentationClose: null,
-			extensionToDateRelevantRepresentationsClose: null,
-			dateOfReOpenRelevantRepresentationStart: null,
-			dateOfReOpenRelevantRepresentationClose: null,
-			dateRRepAppearOnWebsite: null,
-			dateIAPIDue: null,
-			rule6LetterPublishDate: null,
-			preliminaryMeetingStartDate: null,
-			notificationDateForPMAndEventsDirectlyFollowingPM: null,
-			notificationDateForEventsApplicant: null,
-			dateSection58NoticeReceived: null,
-			confirmedStartOfExamination: null,
-			rule8LetterPublishDate: null,
-			deadlineForCloseOfExamination: null,
-			dateTimeExaminationEnds: null,
-			stage4ExtensionToExamCloseDate: null,
-			deadlineForSubmissionOfRecommendation: null,
-			dateOfRecommendations: null,
-			stage5ExtensionToRecommendationDeadline: null,
-			deadlineForDecision: null,
-			confirmedDateOfDecision: null,
-			stage5ExtensionToDecisionDeadline: null,
-			jRPeriodEndDate: null,
-			dateProjectWithdrawn: null,
-			notificationDateForEventsDeveloper: null,
-			transboundary: null,
-			decision: null,
 			sector: 'BC - Business and Commercial',
 			projectType: 'BC01 - Office Use',
-			applicantId: null,
-			operationsLeadId: null,
-			operationsManagerId: null,
-			caseManagerId: null,
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
-			leadInspectorId: null,
-			inspectorIds: [],
-			environmentalServicesOfficerId: null,
-			legalOfficerId: null,
-			migrationStatus: null
-		};
+			inspectorIds: []
+		})[0];
 
 		// Expect payload:
 		expect(expectedPayload).toEqual(payloadResult);
@@ -203,43 +157,7 @@ describe('Application', () => {
 			projectEntity.ApplicationDetails = {
 				...projectEntity.ApplicationDetails,
 				datePINSFirstNotifiedOfProject: new Date('2022-07-22T10:38:33.000Z'),
-				dateProjectAppearsOnWebsite: null,
-				submissionAtPublished: '',
-				submissionAtInternal: null,
-				screeningOpinionSought: null,
-				screeningOpinionIssued: null,
-				scopingOpinionSought: null,
-				scopingOpinionIssued: null,
-				section46Notification: null,
-				dateOfDCOSubmission: null,
-				deadlineForAcceptanceDecision: null,
-				dateOfDCOAcceptance: null,
-				dateOfNonAcceptance: null,
-				dateOfRepresentationPeriodOpen: null,
-				dateOfRelevantRepresentationClose: null,
-				extensionToDateRelevantRepresentationsClose: null,
-				dateRRepAppearOnWebsite: null,
-				dateIAPIDue: null,
-				rule6LetterPublishDate: null,
-				preliminaryMeetingStartDate: null,
-				notificationDateForPMAndEventsDirectlyFollowingPM: null,
-				notificationDateForEventsApplicant: null,
-				dateSection58NoticeReceived: null,
-				confirmedStartOfExamination: null,
-				rule8LetterPublishDate: null,
-				deadlineForCloseOfExamination: null,
-				dateTimeExaminationEnds: null,
-				stage4ExtensionToExamCloseDate: null,
-				deadlineForSubmissionOfRecommendation: null,
-				dateOfRecommendations: null,
-				stage5ExtensionToRecommendationDeadline: null,
-				deadlineForDecision: null,
-				confirmedDateOfDecision: null,
-				stage5ExtensionToDecisionDeadline: null,
-				jRPeriodEndDate: null,
-				dateProjectWithdrawn: null,
-				dateOfReOpenRelevantRepresentationStart: null,
-				dateOfReOpenRelevantRepresentationClose: null
+				submissionAtInternal: new Date('2022-07-22T10:38:33.000Z')
 			};
 		}
 
@@ -247,7 +165,7 @@ describe('Application', () => {
 		const payloadResult = buildNsipProjectPayload(projectEntity);
 
 		// 3. Assert
-		const expectedPayload = {
+		const expectedPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
 			caseId: 1,
 			caseReference: 'EN01-243058',
 			projectName: 'EN010003 - NI Case 3 Name',
@@ -262,62 +180,16 @@ describe('Application', () => {
 			northing: 654321,
 			welshLanguage: false,
 			mapZoomLevel: 'country',
-			secretaryOfState: null,
-			anticipatedDateOfSubmission: null,
-			anticipatedSubmissionDateNonSpecific: '',
 			datePINSFirstNotifiedOfProject: new Date('2022-07-22T10:38:33.000Z').toISOString(),
-			dateProjectAppearsOnWebsite: null,
-			screeningOpinionSought: null,
-			screeningOpinionIssued: null,
-			scopingOpinionSought: null,
-			scopingOpinionIssued: null,
-			section46Notification: null,
-			dateOfDCOSubmission: null,
-			deadlineForAcceptanceDecision: null,
-			dateOfDCOAcceptance: null,
-			dateOfNonAcceptance: null,
-			dateOfRepresentationPeriodOpen: null,
-			dateOfRelevantRepresentationClose: null,
-			extensionToDateRelevantRepresentationsClose: null,
-			dateOfReOpenRelevantRepresentationStart: null,
-			dateOfReOpenRelevantRepresentationClose: null,
-			dateRRepAppearOnWebsite: null,
-			dateIAPIDue: null,
-			rule6LetterPublishDate: null,
-			preliminaryMeetingStartDate: null,
-			notificationDateForPMAndEventsDirectlyFollowingPM: null,
-			notificationDateForEventsApplicant: null,
-			dateSection58NoticeReceived: null,
-			confirmedStartOfExamination: null,
-			rule8LetterPublishDate: null,
-			deadlineForCloseOfExamination: null,
-			dateTimeExaminationEnds: null,
-			stage4ExtensionToExamCloseDate: null,
-			deadlineForSubmissionOfRecommendation: null,
-			dateOfRecommendations: null,
-			stage5ExtensionToRecommendationDeadline: null,
-			deadlineForDecision: null,
-			confirmedDateOfDecision: null,
-			stage5ExtensionToDecisionDeadline: null,
-			jRPeriodEndDate: null,
-			dateProjectWithdrawn: null,
-			notificationDateForEventsDeveloper: null,
-			transboundary: null,
-			decision: null,
+			anticipatedDateOfSubmission: new Date('2022-07-22T10:38:33.000Z').toISOString(),
+			anticipatedSubmissionDateNonSpecific: 'Q1 2023',
 			sector: 'BC - Business and Commercial',
 			projectType: 'BC01 - Office Use',
 			applicantId: '1',
-			operationsLeadId: null,
-			operationsManagerId: null,
-			caseManagerId: null,
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
-			leadInspectorId: null,
-			inspectorIds: [],
-			environmentalServicesOfficerId: null,
-			legalOfficerId: null,
-			migrationStatus: null
-		};
+			inspectorIds: []
+		})[0];
 
 		// expect payload
 		expect(expectedPayload).toEqual(payloadResult);
