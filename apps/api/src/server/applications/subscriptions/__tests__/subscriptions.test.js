@@ -2,7 +2,7 @@ import { request } from '#app-test';
 import { databaseConnector } from '#utils/database-connector.js';
 import { prepareInput } from '../subscriptions.service.js';
 import { eventClient } from '#infrastructure/event-client.js';
-import { subscriptionToResponse } from '../subscriptions.js';
+import { subscriptionToResponse } from '#infrastructure/payload-builders/nsip-subscription.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../constants.js';
 import { ERROR_MUST_BE_NUMBER } from '#middleware/errors.js';
 import { typesError } from '../subscriptions.validators.js';
@@ -60,6 +60,9 @@ describe('subscriptions', () => {
 						id: 123,
 						caseReference: '1234',
 						emailAddress: 'hello.world@example.com',
+						endDate: null,
+						startDate: null,
+						language: null,
 						subscriptionTypes: ['allUpdates']
 					}
 				}
@@ -376,6 +379,9 @@ describe('subscriptions', () => {
 			if (createdId) {
 				const msgs = body.subscriptionTypes.map((t) => {
 					const msg = {
+						endDate: null,
+						startDate: null,
+						language: null,
 						...body,
 						subscriptionType: t,
 						subscriptionId: createdId
@@ -524,6 +530,9 @@ describe('subscriptions', () => {
 						'nsip-subscription',
 						subTypes.map((t) => {
 							const msg = {
+								startDate: null,
+								endDate: null,
+								language: null,
 								...body,
 								subscriptionType: t,
 								subscriptionId: existing.id
@@ -602,6 +611,8 @@ describe('subscriptions', () => {
 					body: {
 						id: 1,
 						endDate: '2023-06-15T09:27:00.000Z',
+						startDate: null,
+						language: null,
 						caseReference: '123',
 						emailAddress: 'user@example.com',
 						subscriptionTypes: ['allUpdates']
@@ -673,6 +684,7 @@ describe('subscriptions', () => {
 					subscribedToRegistrationOpen: false,
 					startDate: null,
 					endDate: null,
+					language: null,
 					serviceUser: {
 						connect: {
 							id: 123
@@ -695,6 +707,7 @@ describe('subscriptions', () => {
 					subscribedToRegistrationOpen: false,
 					startDate: null,
 					endDate: null,
+					language: null,
 					serviceUser: {
 						connect: {
 							id: 123
@@ -717,6 +730,7 @@ describe('subscriptions', () => {
 					subscribedToRegistrationOpen: true,
 					startDate: null,
 					endDate: null,
+					language: null,
 					serviceUser: {
 						connect: {
 							id: 123
@@ -741,6 +755,7 @@ describe('subscriptions', () => {
 					subscribedToRegistrationOpen: true,
 					startDate: new Date('2023-07-03T07:44:00Z'),
 					endDate: new Date('2023-07-15T07:44:00Z'),
+					language: null,
 					serviceUser: {
 						connect: {
 							id: 123

@@ -37,6 +37,7 @@ export const updateApplication = async ({ params, body }, response) => {
 		regions: true,
 		caseStatus: true,
 		applicant: true,
+		projectTeam: true,
 		gridReference: true
 	});
 

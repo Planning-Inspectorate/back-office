@@ -1,7 +1,6 @@
 import Ajv from 'ajv';
 import addAjvFormats from 'ajv-formats';
 import { loadAllSchemas } from 'pins-data-model';
-import { buildPayloadEventsForSchema, getSchemaNameFromTopic } from '@pins/event-client';
 
 import chalk from 'chalk';
 import { allKeyDateNames } from '../applications/key-dates/key-dates.utils.js';
@@ -58,7 +57,7 @@ export const mockSendEvents = async (
 		// throw new Error(message);
 	} else {
 		console.info(
-			chalk.yellow(
+			chalk.green(
 				`Dummy publishing events ${JSON.stringify(events)} with type ${type} to topic ${topic}`
 			)
 		);
@@ -120,3 +119,34 @@ export const allNullifiedKeyDates = allKeyDateNames.reduce(
 
 export const buildInclusionsFromQuery = (query) =>
 	Object.keys(query?.include || {}).reduce((acc, next) => ({ ...acc, [next]: true }), {});
+
+const removeUndefined = (/** @type {any} */ payload) => {
+	return JSON.parse(JSON.stringify(payload));
+};
+
+/**
+ * adds the next null value to the payload
+ *
+ * @param {object} payload
+ * @param {string} nextPropName
+ */
+const payloadReducer = (payload, nextPropName) => {
+	// @ts-ignore
+	payload[nextPropName] = null;
+	return payload;
+};
+
+/**
+ * build a null filled basePayload for the schema matching the topic
+ * and merge with the supplied events
+ *
+ * @param {string} topic
+ * @param {object | object[]} events
+ */
+export const buildPayloadEventsForSchema = (topic, events = {}) => {
+	const eventsArray = Array.isArray(events) ? events : [events];
+	const schemaName = getSchemaNameFromTopic(topic);
+	const schema = schemas[schemaName];
+	const basePayload = schema.required.reduce(payloadReducer, {});
+	return eventsArray.map((event) => ({ ...basePayload, ...removeUndefined(event) }));
+};

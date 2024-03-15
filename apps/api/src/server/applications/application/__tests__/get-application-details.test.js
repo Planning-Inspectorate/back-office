@@ -125,17 +125,60 @@ describe('Get Application details', () => {
 				]
 			},
 			keyDates: {
-				acceptance: {},
-				decision: {},
-				examination: {},
-				postDecision: {},
+				acceptance: {
+					dateOfDCOAcceptance: null,
+					dateOfDCOSubmission: null,
+					dateOfNonAcceptance: null,
+					deadlineForAcceptanceDecision: null
+				},
+				decision: {
+					confirmedDateOfDecision: null,
+					deadlineForDecision: null,
+					stage5ExtensionToDecisionDeadline: null
+				},
+				examination: {
+					confirmedStartOfExamination: null,
+					dateSection58NoticeReceived: null,
+					dateTimeExaminationEnds: null,
+					deadlineForCloseOfExamination: null,
+					rule8LetterPublishDate: null,
+					stage4ExtensionToExamCloseDate: null
+				},
+				postDecision: {
+					jRPeriodEndDate: null
+				},
 				preApplication: {
+					datePINSFirstNotifiedOfProject: null,
+					dateProjectAppearsOnWebsite: null,
+					scopingOpinionIssued: null,
+					scopingOpinionSought: null,
+					screeningOpinionIssued: null,
+					screeningOpinionSought: null,
+					section46Notification: null,
 					submissionAtPublished: 'Q1 2023',
 					submissionAtInternal: 1_658_486_313
 				},
-				preExamination: {},
-				recommendation: {},
-				withdrawal: {}
+				preExamination: {
+					dateIAPIDue: null,
+					dateOfReOpenRelevantRepresentationClose: null,
+					dateOfReOpenRelevantRepresentationStart: null,
+					dateOfRelevantRepresentationClose: null,
+					dateOfRepresentationPeriodOpen: null,
+					dateRRepAppearOnWebsite: null,
+					extensionToDateRelevantRepresentationsClose: null,
+					notificationDateForEventsApplicant: null,
+					notificationDateForPMAndEventsDirectlyFollowingPM: null,
+					preliminaryMeetingStartDate: null,
+					rule6LetterPublishDate: null
+				},
+				recommendation: {
+					dateOfRecommendations: null,
+					deadlineForSubmissionOfRecommendation: null,
+					stage5ExtensionToRecommendationDeadline: null
+				},
+				withdrawal: {
+					dateProjectWithdrawn: null
+				}
 			}
 		});
 	});

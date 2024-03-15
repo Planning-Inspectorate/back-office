@@ -23,7 +23,7 @@ export const buildNsipProjectPayload = (projectEntity) => {
 		sourceSystem,
 		...application,
 		...sectorAndType,
-		applicantId: projectEntity.applicant?.id?.toString() ?? null,
+		applicantId: projectEntity.applicantId?.toString() ?? null,
 		...projectTeam,
 
 		// null value fields added fo schema validation
@@ -31,9 +31,14 @@ export const buildNsipProjectPayload = (projectEntity) => {
 	};
 };
 
-// These two key dates have different names internally, as they were named before the PDM was defined
+// These three key dates have different names internally, as they were named before the PDM was defined
 const keyDateNames = allKeyDateNames.filter(
-	(name) => name !== 'submissionAtInternal' && name !== 'submissionAtPublished'
+	(name) =>
+		![
+			'submissionAtInternal',
+			'submissionAtPublished',
+			'notificationDateForEventsApplicant'
+		].includes(name)
 );
 
 /**
@@ -42,16 +47,10 @@ const keyDateNames = allKeyDateNames.filter(
  */
 const mapApplicationDetails = (projectEntity) => {
 	const appDetails = projectEntity?.ApplicationDetails;
-	if (!appDetails) {
-		return;
-	}
-
-	const stage = projectEntity?.CaseStatus?.[0]?.status;
-	const mapZoomLevel = appDetails.zoomLevel?.name;
-	const regions = appDetails.regions?.map((r) => r.region.name) || [];
-
-	const gridReference =
-		projectEntity?.gridReference && pick(projectEntity?.gridReference, ['easting', 'northing']);
+	const stage = projectEntity?.CaseStatus?.[0]?.status ?? 'draft';
+	const mapZoomLevel = appDetails.zoomLevel?.name ?? 'none';
+	const regions = appDetails.regions?.map((r) => r.region.name) ?? [];
+	const { easting = null, northing = null } = projectEntity?.gridReference ?? {};
 
 	const keyDates = projectEntity?.ApplicationDetails
 		? mapKeyDatesToISOStrings(projectEntity?.ApplicationDetails)
@@ -62,18 +61,17 @@ const mapApplicationDetails = (projectEntity) => {
 		projectLocation: appDetails?.locationDescription,
 		projectEmailAddress: appDetails?.caseEmail,
 		regions,
-		...gridReference,
+		easting,
+		northing,
 		// For MVP we're not supporting Welsh Language
 		welshLanguage: false,
 		mapZoomLevel,
 		secretaryOfState: null,
-		anticipatedDateOfSubmission: appDetails.submissionAtInternal
-			? appDetails.submissionAtInternal.toISOString()
-			: null,
-		anticipatedSubmissionDateNonSpecific: appDetails.submissionAtPublished,
 		...pick(keyDates, keyDateNames),
-		// TODO: Mar 2024 missing fields from Full Fat Schema
-		notificationDateForEventsDeveloper: null,
+		anticipatedDateOfSubmission: appDetails.submissionAtInternal?.toISOString() ?? null,
+		anticipatedSubmissionDateNonSpecific: appDetails.submissionAtPublished ?? null,
+		notificationDateForEventsDeveloper:
+			appDetails.notificationDateForEventsApplicant?.toISOString() ?? null,
 		transboundary: null,
 		decision: null
 	};

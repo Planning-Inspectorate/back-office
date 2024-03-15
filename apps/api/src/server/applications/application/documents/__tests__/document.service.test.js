@@ -167,15 +167,17 @@ const docVersionAfterUpdate = {
 		caseId: caseId,
 		documentType: 'document',
 		fromFrontOffice: false,
-		case: {
-			id: caseId,
-			reference: 'BC0110001',
-			modifiedAt: '2024-01-17T14:32:37.530Z',
-			createdAt: '2024-01-16T16:44:26.710Z',
-			description: 'A description of test case 1 which is a case of subsector type Office Use.',
-			title: 'Office Use Test Application 1',
-			hasUnpublishedChanges: true,
-			applicantId: 100000000
+		folder: {
+			case: {
+				id: caseId,
+				reference: 'BC0110001',
+				modifiedAt: '2024-01-17T14:32:37.530Z',
+				createdAt: '2024-01-16T16:44:26.710Z',
+				description: 'A description of test case 1 which is a case of subsector type Office Use.',
+				title: 'Office Use Test Application 1',
+				hasUnpublishedChanges: true,
+				applicantId: 100000000
+			}
 		}
 	}
 };

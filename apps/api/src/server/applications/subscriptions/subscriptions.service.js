@@ -5,12 +5,12 @@ import * as serviceUserRepository from '#repositories/service-user.repository.js
 import logger from '#utils/logger.js';
 import {
 	buildSubscriptionPayloads,
-	buildServiceUserPayload,
 	subscriptionTypeChanges,
 	typesToSubscription
-} from './subscriptions.js';
+} from '#infrastructure/payload-builders/nsip-subscription.js';
 import { EventType } from '@pins/event-client';
 import { verifyNotTraining } from '../application/application.validators.js';
+import { buildServiceUserPayload } from '#infrastructure/payload-builders/service-user.js';
 
 /**
  * Create or update a subscription, and publishes the corresponding event.
@@ -45,9 +45,14 @@ export async function createOrUpdateSubscription(request) {
 		}
 
 		if (!isExistingUser) {
-			await eventClient.sendEvents(SERVICE_USER, [buildServiceUserPayload(res)], EventType.Create, {
-				entityType: 'Subscriber'
-			});
+			await eventClient.sendEvents(
+				SERVICE_USER,
+				[buildServiceUserPayload(res.serviceUser, res.caseReference, 'Subscriber')],
+				EventType.Create,
+				{
+					entityType: 'Subscriber'
+				}
+			);
 		}
 
 		return { id: res.id, created: true };
@@ -88,12 +93,9 @@ export async function prepareInput(request) {
 			? { connect: { id: existingServiceUser.id } }
 			: { create: { email: emailAddress } },
 		startDate: request.startDate ? new Date(request.startDate) : null, // ensure updates remove previous values
-		endDate: request.endDate ? new Date(request.endDate) : null // ensure updates remove previous values
+		endDate: request.endDate ? new Date(request.endDate) : null, // ensure updates remove previous values
+		language: request.language ?? null
 	};
-
-	if (request.language) {
-		subscription.language = request.language;
-	}
 
 	subscription = typesToSubscription(request.subscriptionTypes, subscription);
 

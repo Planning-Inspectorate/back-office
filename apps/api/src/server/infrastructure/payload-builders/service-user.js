@@ -10,14 +10,14 @@ import { sourceSystem } from './constants.js';
 export const buildServiceUserPayload = (entity, caseReference, caseRole) => ({
 	// TODO: Note Mar 2024: full fat schema validation - we do not have organisationType, salutation, otherPhoneNumber, or faxNumber - so nulls are sent
 	id: entity.id.toString(),
-	organisation: entity.organisationName,
+	organisation: entity.organisationName ?? null,
 	organisationType: null,
 	salutation: null,
-	firstName: entity.firstName,
-	lastName: entity.lastName,
-	emailAddress: entity.email,
-	webAddress: entity.website,
-	telephoneNumber: entity.phoneNumber,
+	firstName: entity.firstName ?? null,
+	lastName: entity.lastName ?? null,
+	emailAddress: entity.email ?? null,
+	webAddress: entity.website ?? null,
+	telephoneNumber: entity.phoneNumber ?? null,
 	addressLine1: entity.address?.addressLine1 ?? null,
 	addressLine2: entity.address?.addressLine2 ?? null,
 	addressTown: entity.address?.town ?? null,
@@ -28,7 +28,7 @@ export const buildServiceUserPayload = (entity, caseReference, caseRole) => ({
 	caseReference: caseReference,
 	sourceSystem,
 	serviceUserType: caseRole,
-	role: entity.jobTitle,
+	role: entity.jobTitle ?? null,
 	otherPhoneNumber: null,
 	faxNumber: null
 });

@@ -1,18 +1,22 @@
-import { request } from '../../../../app-test.js';
-import { databaseConnector } from '../../../../utils/database-connector.js';
+import { request } from '#app-test';
+import { databaseConnector } from '#utils/database-connector.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../../constants.js';
-import { buildProjectUpdatePayload, mapProjectUpdate } from '../project-updates.mapper.js';
+import {
+	buildProjectUpdatePayload,
+	mapProjectUpdate
+} from '#infrastructure/payload-builders/nsip-project-update.js';
 import {
 	ERROR_INVALID_SORT_BY,
 	ERROR_INVALID_SORT_BY_OPTION,
 	ERROR_MUST_BE_NUMBER
-} from '../../../../middleware/errors.js';
-import { NSIP_PROJECT_UPDATE } from '../../../../infrastructure/topics.js';
+} from '#middleware/errors.js';
+import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
-import { eventClient } from '../../../../infrastructure/event-client.js';
+import { eventClient } from '#infrastructure/event-client.js';
 import { htmlContentError, statusError } from '../project-updates.validators.js';
 import { NotFound } from '#utils/api-errors.js';
 import { jest } from '@jest/globals';
+import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
 
 describe('project-updates', () => {
 	describe('get', () => {
@@ -1041,8 +1045,8 @@ describe('project-updates', () => {
 					// mock case
 					databaseConnector.case.findUnique.mockReset();
 					databaseConnector.case.findUnique
-						.mockResolvedValueOnce({ id: 1, reference: 'TEST' })
-						.mockResolvedValueOnce({ id: 1, reference: 'TEST' });
+						.mockImplementationOnce(mockApplicationGet({ id: 1, reference: 'TEST' }))
+						.mockImplementationOnce(mockApplicationGet({ id: 1, reference: 'TEST' }));
 
 					databaseConnector.projectUpdate.delete.mockReset();
 					databaseConnector.projectUpdate.findUnique.mockReset();

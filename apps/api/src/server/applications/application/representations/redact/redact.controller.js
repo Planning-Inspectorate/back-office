@@ -2,7 +2,6 @@ import { updateRepRedactRequestToRepository } from './redact.mapper.js';
 import { updateRedactedRepresentation } from './redact.service.js';
 import { EventType } from '@pins/event-client';
 import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
-import { getById } from '#repositories/representation.repository.js';
 
 /**
  *
@@ -20,8 +19,7 @@ export const patchRepresentationRedact = async ({ params, body }, response) => {
 	);
 
 	// broadcast update event message
-	const representationFullDetails = await getById(Number(representationId));
-	await broadcastNsipRepresentationEvent(representationFullDetails, EventType.Update);
+	await broadcastNsipRepresentationEvent(representation, EventType.Update);
 
 	if (!representation) {
 		return response

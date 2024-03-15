@@ -45,7 +45,17 @@ export const updateProjectTeamMemberRole = async ({ params, body }, response) =>
 	const { role } = body;
 
 	const projectTeamMember = await projectTeamRepository.upsert(userId, Number(id), role);
-	const project = await caseRepository.getById(id, { projectTeam: true });
+
+	const project = await caseRepository.getById(id, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		projectTeam: true,
+		gridReference: true
+	});
 
 	if (!projectTeamMember || !project) {
 		throw new BackOfficeAppError(
@@ -65,7 +75,16 @@ export const removeProjectTeamMember = async ({ params, body }, response) => {
 	const { id } = params;
 	const { userId } = body;
 
-	const project = await caseRepository.getById(id, { projectTeam: true });
+	const project = await caseRepository.getById(id, {
+		subSector: true,
+		sector: true,
+		applicationDetails: true,
+		zoomLevel: true,
+		regions: true,
+		caseStatus: true,
+		gridReference: true,
+		projectTeam: true
+	});
 
 	if (!project) {
 		throw new BackOfficeAppError(`Error while removing user ${userId} for the case ${id}`, 500);

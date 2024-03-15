@@ -13,7 +13,6 @@ import {
 	mapDocumentRepresentationAttachments,
 	mapRepresentationSummary
 } from './representation.mapper.js';
-import { getById } from '#repositories/representation.repository.js';
 import { EventType } from '@pins/event-client';
 import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
 
@@ -118,9 +117,13 @@ export const patchRepresentation = async ({ params, body, method }, response) =>
 			.json({ errors: { representation: `Error updating representation` } });
 	}
 
-	// broadcast update event message
-	const representationFullDetails = await getById(representation.id);
-	await broadcastNsipRepresentationEvent(representationFullDetails, EventType.Update);
+	// broadcast an event message when the representation status is not DRAFT
+	if (representation.status !== 'DRAFT') {
+		// when the status changes from DRAFT to AWAITING_REVIEW, the event type is CREATE, otherwise UPDATE
+		// note that the body.status being set indicates the status change
+		const eventType = body.status === 'AWAITING_REVIEW' ? EventType.Create : EventType.Update;
+		await broadcastNsipRepresentationEvent(representation, eventType);
+	}
 
 	return response.send({ id: representation.id, status: representation.status });
 };
@@ -140,10 +143,6 @@ export const createRepresentation = async ({ params, body }, response) => {
 			.status(400)
 			.json({ errors: { representation: `Error creating representation` } });
 	}
-
-	// broadcast create event message
-	const representationFullDetails = await getById(representation.id);
-	await broadcastNsipRepresentationEvent(representationFullDetails, EventType.Create);
 
 	return response.send({ id: representation.id, status: representation.status });
 };

@@ -2,7 +2,10 @@ import * as subscriptionRepository from '#repositories/subscription.respository.
 import { eventClient } from '#infrastructure/event-client.js';
 import { EventType } from '@pins/event-client';
 import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
-import { buildSubscriptionPayloads, subscriptionToResponse } from './subscriptions.js';
+import {
+	buildSubscriptionPayloads,
+	subscriptionToResponse
+} from '#infrastructure/payload-builders/nsip-subscription.js';
 import logger from '#utils/logger.js';
 import { createOrUpdateSubscription } from './subscriptions.service.js';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../constants.js';

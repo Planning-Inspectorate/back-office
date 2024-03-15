@@ -2,56 +2,45 @@ import { request } from '#app-test';
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
-const serviceUserCreatePayload = [
+const serviceUserCreatePayload = buildPayloadEventsForSchema(SERVICE_USER, [
 	{
 		id: '10381',
 		firstName: 'Joe',
 		lastName: 'Bloggs',
-		addressLine1: '',
-		addressLine2: null,
-		addressTown: null,
-		addressCounty: null,
-		addressCountry: null,
-		postcode: null,
-		organisation: null,
-		role: null,
-		telephoneNumber: null,
-		emailAddress: null,
-		serviceUserType: 'RepresentationContact',
-		sourceSuid: '10381'
+		sourceSuid: '10381',
+		caseReference: 'BC0110001',
+		sourceSystem: 'back-office-applications',
+		serviceUserType: 'RepresentationContact'
 	},
 	{
 		id: '10382',
 		firstName: 'John',
 		lastName: 'Smith',
 		addressLine1: 'TestAddress1',
-		addressLine2: null,
-		addressTown: null,
-		addressCounty: null,
-		addressCountry: null,
 		postcode: 'XX1 9XX',
-		organisation: null,
-		role: null,
-		telephoneNumber: null,
-		emailAddress: null,
-		serviceUserType: 'RepresentationContact',
-		sourceSuid: '10382'
+		sourceSuid: '10382',
+		caseReference: 'BC0110001',
+		sourceSystem: 'back-office-applications',
+		serviceUserType: 'RepresentationContact'
 	}
-];
+]);
 
 const createdRepresentation = {
 	id: 1,
-	reference: '',
+	reference: null,
 	caseId: 1,
+	represented: {
+		id: '100000001'
+	},
 	status: 'DRAFT',
 	originalRepresentation: 'the original representation',
-	redactedRepresentation: null,
 	redacted: false,
 	userId: null,
-	received: '2023-05-11T09:57:06.139Z'
+	received: new Date('2023-05-11T09:57:06.139Z')
 };
 
 const createdRepresentationFullDetails = {
@@ -61,9 +50,11 @@ const createdRepresentationFullDetails = {
 	attachments: []
 };
 
-const rep1CreateMsgPayload = {
+const rep1CreateMsgPayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
 	representationId: 1,
 	referenceId: 'B0000001',
+	registerFor: null,
+	representationFrom: 'AGENT',
 	examinationLibraryRef: '',
 	caseRef: 'BC0110001',
 	caseId: 1,
@@ -71,17 +62,16 @@ const rep1CreateMsgPayload = {
 	redacted: false,
 	originalRepresentation: 'the original representation',
 	representationType: null,
-	representedId: undefined,
-	representativeId: undefined,
-	representationFrom: undefined,
-	registerFor: undefined,
+	representativeId: '10382',
+	representedId: '10381',
 	dateReceived: '2023-05-11T09:57:06.139Z',
 	attachmentIds: []
-};
+})[0];
 
 const representedRec = {
 	id: 10381,
 	representationId: 6579,
+	representedId: '100000001',
 	firstName: 'Joe',
 	lastName: 'Bloggs',
 	jobTitle: null,
@@ -92,7 +82,7 @@ const representedRec = {
 	contactMethod: null,
 	address: {
 		id: 17059,
-		addressLine1: '',
+		addressLine1: null,
 		addressLine2: null,
 		postcode: null,
 		county: null,
@@ -100,6 +90,7 @@ const representedRec = {
 		country: null
 	}
 };
+
 const representativeRec = {
 	id: 10382,
 	representationId: 6579,
@@ -135,7 +126,7 @@ describe('Create Representation', () => {
 
 		// WHEN
 		const response = await request.post('/applications/1/representations').send({
-			received: '2023-05-11T09:57:06.139Z',
+			received: new Date('2023-05-11T09:57:06.139Z'),
 			represented: {
 				firstName: 'Joe',
 				lastName: 'Bloggs'
@@ -175,16 +166,7 @@ describe('Create Representation', () => {
 			}
 		});
 
-		// test event broadcasts
-		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
-			1,
-			NSIP_REPRESENTATION,
-			[rep1CreateMsgPayload],
-			EventType.Create
-		);
-		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(2, SERVICE_USER, [], EventType.Create, {
-			entityType: 'RepresentationContact'
-		});
+		expect(eventClient.sendEvents).not.toHaveBeenCalled();
 	});
 
 	it('creates a new representation with represented and representative', async () => {
@@ -193,12 +175,6 @@ describe('Create Representation', () => {
 			...createdRepresentationFullDetails,
 			representative: representativeRec,
 			represented: representedRec
-		};
-		const rep1CreateMsgPayloadWithUsers = {
-			...rep1CreateMsgPayload,
-			representationFrom: 'AGENT',
-			representativeId: '10382',
-			representedId: '10381'
 		};
 
 		databaseConnector.representation.create.mockResolvedValue(createdRepresentation);
@@ -213,10 +189,10 @@ describe('Create Representation', () => {
 
 		// WHEN
 		const response = await request.post('/applications/1/representations').send({
-			received: '2023-05-11T09:57:06.139Z',
+			received: new Date('2023-05-11T09:57:06.139Z'),
 			originalRepresentation: 'This is a rep',
 			represented: {
-				firstName: 'Joe',
+				firstName: 'Jim',
 				lastName: '',
 				under18: true,
 				address: {
@@ -241,13 +217,15 @@ describe('Create Representation', () => {
 			data: {
 				reference: '',
 				case: { connect: { id: 1 } },
+				representedType: undefined,
 				status: 'DRAFT',
+				type: undefined,
 				originalRepresentation: 'This is a rep',
 				redacted: false,
 				received: '2023-05-11T09:57:06.139Z',
 				represented: {
 					create: {
-						firstName: 'Joe',
+						firstName: 'Jim',
 						lastName: '',
 						under18: true,
 						address: {
@@ -279,17 +257,60 @@ describe('Create Representation', () => {
 			}
 		});
 
+		expect(eventClient.sendEvents).not.toHaveBeenCalled();
+	});
+
+	it('sends create event when status changes from DRAFT to AWAITING_REVIEW', async () => {
+		// GIVEN
+		const currentRepresentation = { ...createdRepresentation, reference: 'B0000001' };
+
+		const updatedRepresentation = { ...currentRepresentation, status: 'AWAITING_REVIEW' };
+
+		const createdRepresentationFullDetailsWithUsers = {
+			...createdRepresentationFullDetails,
+			representative: representativeRec,
+			represented: representedRec
+		};
+
+		databaseConnector.representation.findFirst
+			.mockResolvedValueOnce(currentRepresentation)
+			.mockResolvedValueOnce(updatedRepresentation);
+		databaseConnector.representation.update.mockResolvedValue(updatedRepresentation);
+
+		databaseConnector.representation.findUnique.mockResolvedValue(
+			createdRepresentationFullDetailsWithUsers
+		);
+
+		// WHEN
+		const response = await request.patch(`/applications/1/representations/10381`).send({
+			status: 'AWAITING_REVIEW'
+		});
+
+		// THEN
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({ id: 1, status: 'AWAITING_REVIEW' });
+
+		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+			data: {
+				status: 'AWAITING_REVIEW'
+			},
+			where: { id: 10381 }
+		});
+
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+
 		// test event broadcasts
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
-			3,
+			1,
 			NSIP_REPRESENTATION,
-			[rep1CreateMsgPayloadWithUsers],
+			[rep1CreateMsgPayload],
 			EventType.Create
 		);
+
 		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
-			4,
+			2,
 			SERVICE_USER,
-			serviceUserCreatePayload,
+			buildPayloadEventsForSchema(SERVICE_USER, serviceUserCreatePayload),
 			EventType.Create,
 			{
 				entityType: 'RepresentationContact'
@@ -302,7 +323,7 @@ describe('Create Representation', () => {
 
 		// WHEN
 		const response = await request.post('/applications/1/representations').send({
-			received: '2023-05-11T09:57:06.139Z',
+			received: new Date('2023-05-11T09:57:06.139Z'),
 			originalRepresentation: 'This is a rep',
 			represented: {
 				firstName: '',
@@ -320,7 +341,7 @@ describe('Create Representation', () => {
 
 		// WHEN
 		const response = await request.post('/applications/BAD_ID/representations').send({
-			received: '2023-05-11T09:57:06.139Z',
+			received: new Date('2023-05-11T09:57:06.139Z'),
 			originalRepresentation: 'This is a rep',
 			represented: {
 				firstName: 'Joe',

@@ -13,11 +13,11 @@ import {
 	verifyNotTraining
 } from '../applications/application/application.validators.js';
 import { EventType } from '@pins/event-client';
-import { getAllByCaseId } from '#repositories/folder.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
 import { filterAsync } from '#utils/async.js';
 
 import { buildNsipProjectPayload } from '#infrastructure/payload-builders/nsip-project.js';
-import { buildServiceUserPayload } from '#infrastructure/payload-builders/applicant.js';
+import { buildServiceUserPayload } from '#infrastructure/payload-builders/service-user.js';
 import { buildFoldersPayload } from '#infrastructure/payload-builders/folder.js';
 import { buildNsipS51AdvicePayload } from '#infrastructure/payload-builders/nsip-s51-advice.js';
 import { buildNsipDocumentPayload } from '#infrastructure/payload-builders/nsip-document.js';
@@ -30,6 +30,7 @@ import {
 import { verifyNotTrainingS51 } from '../applications/s51advice/s51-advice.validators.js';
 import { batchSendEvents } from './event-batch-broadcaster.js';
 import { buildDocumentFolderPath } from '../applications/application/documents/document.service.js';
+import * as representationRepository from '#repositories/representation.repository.js';
 
 const applicant = 'Applicant';
 
@@ -73,7 +74,7 @@ export const broadcastNsipProjectEvent = async (project, eventType, options = {}
 
 	if (options?.isCaseStart) {
 		// We can safely call get all by case as it will only be the folders we have created.
-		const caseFolders = await getAllByCaseId(project.id);
+		const caseFolders = await folderRepository.getAllByCaseId(project.id);
 		await eventClient.sendEvents(
 			FOLDER,
 			buildFoldersPayload(caseFolders, project.reference),
@@ -162,7 +163,7 @@ export const broadcastNsipS51AdviceEvent = async (s51Advice, eventType) => {
 /**
  * Broadcast a create / update event message to Service Bus, for a representation, and any service users (reps contact or agent)
  *
- * @param {RepresentationWithFullDetails} representation
+ * @param {Object} representation
  * @param {EventType} eventType
  * @returns
  */
@@ -170,10 +171,11 @@ export const broadcastNsipRepresentationEvent = async (
 	representation,
 	eventType = EventType.Update
 ) => {
+	const representationFullDetails = await representationRepository.getById(representation.id);
 	// dont send events for TRAINING cases
-	if (!isTrainingCase(representation.case.caseRef)) {
-		const nsipRepresentationPayload = buildNsipRepresentationPayload(representation);
-		const serviceUsersPayload = buildRepresentationServiceUserPayload(representation);
+	if (!isTrainingCase(representationFullDetails.case.reference)) {
+		const nsipRepresentationPayload = buildNsipRepresentationPayload(representationFullDetails);
+		const serviceUsersPayload = buildRepresentationServiceUserPayload(representationFullDetails);
 
 		await eventClient.sendEvents(NSIP_REPRESENTATION, [nsipRepresentationPayload], eventType);
 
