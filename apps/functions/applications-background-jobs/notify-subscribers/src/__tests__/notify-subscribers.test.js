@@ -35,8 +35,8 @@ describe('notify-subscribers', () => {
 			{
 				name: 'w/ link',
 				content:
-					'<p>My Important Update <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">some pdf</a></p>',
-				want: 'My Important Update [some pdf](https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf)'
+					'<p>My Important Update <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy%20%20version%202.pdf">some pdf</a></p>',
+				want: 'My Important Update [some pdf](https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy  version 2.pdf)'
 			},
 			{
 				name: 'w/ list',

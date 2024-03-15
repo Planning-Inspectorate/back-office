@@ -240,7 +240,7 @@ export class NotifySubscribers {
 	 */
 	static htmlToMarkdown(content) {
 		const turndownService = new TurndownService({ strongDelimiter: '', emDelimiter: '' });
-		return turndownService.turndown(content);
+		return decodeURIComponent(turndownService.turndown(content));
 	}
 
 	/**
