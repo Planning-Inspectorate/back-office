@@ -74,6 +74,7 @@ function generateLpaReference() {
  *  completeValidationDecision?: boolean,
  *  lpaQuestionnaire?: boolean,
  *  startedAt?: Date | null,
+ *  validAt?: Date | null,
  *  incompleteReviewQuestionnaire?: boolean,
  *  completeReviewQuestionnaire?: boolean,
  *  siteAddressList?: AppealSite[],
@@ -89,6 +90,7 @@ const appealFactory = ({
 	completeValidationDecision = false,
 	lpaQuestionnaire = false,
 	startedAt = null,
+	validAt = null,
 	incompleteReviewQuestionnaire = false,
 	completeReviewQuestionnaire = false,
 	siteAddressList = addressesList,
@@ -102,6 +104,7 @@ const appealFactory = ({
 	const appeal = {
 		appealType: { connect: { shorthand: typeShorthand } },
 		startedAt,
+		validAt,
 		reference: randomUUID(),
 		appealStatus: { create: statuses },
 		appellantCase: { create: appellantCaseList[typeShorthand] },

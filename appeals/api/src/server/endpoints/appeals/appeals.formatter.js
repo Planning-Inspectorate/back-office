@@ -228,6 +228,7 @@ const formatAppeal = (
 				visitType: appeal.siteVisit?.siteVisitType?.name || null
 			},
 			startedAt: appeal.startedAt,
+			validAt: appeal.validAt,
 			documentationSummary: {
 				appellantCase: {
 					status: formatAppellantCaseDocumentationStatus(appeal),

@@ -2,7 +2,7 @@ import logger from '#utils/logger.js';
 import appealRepository from '#repositories/appeal.repository.js';
 import { getAppealFromHorizon } from '#utils/horizon-gateway.js';
 import { formatLinkableAppealSummary } from './linkable-appeal.formatter.js';
-import { formatHorizonGetCaseData } from '#utils//mapping/map-horizon.js';
+import { formatHorizonGetCaseData } from '#utils/mapping/map-horizon.js';
 
 /**
  *

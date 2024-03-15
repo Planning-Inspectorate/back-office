@@ -242,6 +242,7 @@ export const spec = {
 				visitType: 'Accompanied'
 			},
 			startedAt: '2022-05-17T23:00:00.000Z',
+			validAt: '2022-05-17T23:00:00.000Z',
 			documentationSummary: {
 				appellantCase: {
 					status: 'received',

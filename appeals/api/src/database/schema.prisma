@@ -19,6 +19,7 @@ model Appeal {
   lpaId                        Int
   planningApplicationReference String
   startedAt                    DateTime?
+  validAt                      DateTime?
   appellantId                  Int?
   agentId                      Int?
   appealTypeId                 Int?

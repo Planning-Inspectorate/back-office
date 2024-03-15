@@ -14,7 +14,7 @@ import {
 	ERROR_LINKING_APPEALS
 } from '#endpoints/constants.js';
 import { getAppealFromHorizon } from '#utils/horizon-gateway.js';
-import { formatHorizonGetCaseData } from '#utils//mapping/map-horizon.js';
+import { formatHorizonGetCaseData } from '#utils/mapping/map-horizon.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
