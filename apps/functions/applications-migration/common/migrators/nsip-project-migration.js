@@ -1,6 +1,7 @@
 import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
 import { makePostRequest } from '../back-office-api-client.js';
+import { removeNullValues } from '../utils.js';
 
 /**
  * Migrate multiple nsip-projects
@@ -58,23 +59,11 @@ const getNsipProjects = async (log, caseReference) => {
 
 	log.info(`Retrieved projects ${JSON.stringify(projects)}`);
 
-	return projects.map((project) => ({
-		dateIAPIDue: null,
-		jRPeriodEndDate: null,
-		operationsLeadId: null,
-		operationsManagerId: null,
-		caseManagerId: null,
-		nsipOfficerIds: [],
-		nsipAdministrationOfficerIds: [],
-		leadInspectorId: null,
-		inspectorIds: [],
-		environmentalServicesOfficerId: null,
-		legalOfficerId: null,
-		applicantId: null,
-		migrationStatus: null,
-		dateOfReOpenRelevantRepresentationStart: null,
-		dateOfReOpenRelevantRepresentationClose: null,
-		...project,
-		regions: project.region ? [project.region] : [],
-	}));
+	projects.forEach((project) => {
+		// @ts-ignore
+		project.regions = [project.region];
+		removeNullValues(project);
+	});
+
+	return projects;
 };
