@@ -1,7 +1,9 @@
 import { jest } from '@jest/globals';
 import { request } from '#app-test';
 import { databaseConnector } from '#utils/database-connector.js';
-import { omit } from 'lodash-es';
+import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
+import { NSIP_PROJECT } from '#infrastructure/topics.js';
 
 const { eventClient } = await import('#infrastructure/event-client.js');
 
@@ -20,14 +22,32 @@ const projectTeamInDatabase = [
 	}
 ];
 
+const caseStatusInDatabase = [
+	{
+		status: 'draft'
+	}
+];
+
+const applicationDetailsInDatabase = {
+	locationDescription: 'Some Location',
+	caseEmail: 'test@test.com',
+	zoomLevel: {
+		name: 'country'
+	}
+};
+
 const projectInDatabase = {
 	id: 1,
 	reference: 'REF',
-	applicantId: undefined,
+	applicantId: null,
 	description: 'DESC',
 	title: 'NAME',
 	sourceSystem: 'back-office-applications',
-	ProjectTeam: projectTeamInDatabase
+	ProjectTeam: projectTeamInDatabase,
+	CaseStatus: caseStatusInDatabase,
+	ApplicationDetails: applicationDetailsInDatabase,
+	anticipatedDateOfSubmission: null,
+	anticipatedSubmissionDateNonSpecific: null
 };
 
 const teamMembers = {
@@ -39,32 +59,39 @@ const teamMembers = {
 	leadInspectorId: null,
 	inspectorIds: [],
 	environmentalServicesOfficerId: null,
-	legalOfficerId: null
+	legalOfficerId: null,
+	migrationStatus: null
 };
 
-const expectedNSIPProjectEvent = (() => {
-	const {
-		id: caseId,
-		reference: caseReference,
-		description: projectDescription,
-		title: projectName,
-		...rest
-	} = projectInDatabase;
-	return {
-		...omit(rest, 'ProjectTeam'),
-		caseId,
-		caseReference,
-		projectName,
-		projectDescription,
-		publishStatus: 'unpublished',
-		...teamMembers,
-		inspectorIds: ['hilmn6789']
-	};
-})();
+const expectedNSIPProjectEvent = buildPayloadEventsForSchema(NSIP_PROJECT, {
+	caseId: 1,
+	applicantId: '1',
+	caseReference: 'REF',
+	projectEmailAddress: 'test@test.com',
+	projectLocation: 'Some Location',
+	projectName: 'NAME',
+	projectType: 'BC01 - Office Use',
+	projectDescription: 'DESC',
+	publishStatus: 'unpublished',
+	mapZoomLevel: 'country',
+	regions: ['north_west', 'south_west'],
+	stage: 'draft',
+	welshLanguage: false,
+	...teamMembers,
+	inspectorIds: ['hilmn6789'],
+	easting: 123456,
+	northing: 654321,
+	anticipatedDateOfSubmission: '2022-07-22T10:38:33.000Z',
+	anticipatedSubmissionDateNonSpecific: 'Q1 2023',
+	sector: 'BC - Business and Commercial',
+	sourceSystem: 'back-office-applications'
+});
 
 describe('Test Project team members', () => {
 	beforeAll(() => {
-		databaseConnector.case.findUnique.mockResolvedValue(projectInDatabase);
+		databaseConnector.case.findUnique.mockImplementation(
+			mockApplicationGet(projectInDatabase, { ProjectTeam: projectTeamInDatabase })
+		);
 	});
 
 	afterAll(() => {
@@ -139,7 +166,7 @@ describe('Test Project team members', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-project',
-			[expectedNSIPProjectEvent],
+			expectedNSIPProjectEvent,
 			'Update'
 		);
 	});

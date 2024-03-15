@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
+import { mockSendEvents as sendEvents } from '#utils/schema-test-utils.js';
 
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
 const mockCaseUpdate = jest.fn().mockResolvedValue({});
@@ -368,7 +369,7 @@ jest.unstable_mockModule('@prisma/client', () => ({
 	}
 }));
 
-const mockSendEvents = jest.fn();
+const mockSendEvents = jest.fn().mockImplementation(sendEvents);
 
 jest.unstable_mockModule('./src/server/infrastructure/event-client.js', () => ({
 	eventClient: {

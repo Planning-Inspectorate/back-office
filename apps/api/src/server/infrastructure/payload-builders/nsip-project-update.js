@@ -1,5 +1,5 @@
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
-import { contentIsSafe } from './project-updates.validators.js';
+import { contentIsSafe } from '../../applications/application/project-updates/project-updates.validators.js';
 import BackOfficeAppError from '#utils/app-error.js';
 
 /**
@@ -59,22 +59,23 @@ export function buildProjectUpdatePayload(update, caseReference) {
 		throw newContentUnsafeError(update.id);
 	}
 
+	payload.updateContentWelsh = update.htmlContentWelsh ?? null;
 	if (update.htmlContentWelsh) {
-		payload.updateContentWelsh = update.htmlContentWelsh;
 		// check HTML content is safe
 		if (!contentIsSafe(payload.updateContentWelsh)) {
 			throw newContentUnsafeError(update.id, 'Welsh');
 		}
 	}
-	if (update.datePublished) {
-		payload.updateDate = update.datePublished.toISOString();
-	}
-	if (update.title) {
-		payload.updateName = update.title;
-	}
+
+	payload.updateDate = update.datePublished?.toISOString() ?? null;
+	payload.updateName = update.title ?? null;
 
 	return payload;
 }
+
+// : keyword:required - must have required property 'updateDate' - params:{"missingProperty":"updateDate"}
+// : keyword:required - must have required property 'updateName' - params:{"missingProperty":"updateName"}
+// : keyword:required - must have required property 'updateContentWelsh' - params:{"missingProperty":"updateContentWelsh"}
 
 /**
  * Map a request body to a create request object, and sanitise the HTML

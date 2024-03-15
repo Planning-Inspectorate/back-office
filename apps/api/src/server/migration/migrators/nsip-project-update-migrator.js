@@ -1,7 +1,7 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import sanitizeHtml from 'sanitize-html';
 import { allowedTags } from '../../applications/application/project-updates/project-updates.validators.js';
-import { buildProjectUpdatePayload } from '../../applications/application/project-updates/project-updates.mapper.js';
+import { buildProjectUpdatePayload } from '#infrastructure/payload-builders/nsip-project-update.js';
 import { getOrCreateMinimalCaseId, sendChunkedEvents } from './utils.js';
 import { buildUpsertForEntity } from './sql-tools.js';
 import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';

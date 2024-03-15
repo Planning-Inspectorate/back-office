@@ -1,6 +1,8 @@
 import { jest } from '@jest/globals';
 import { request } from '#app-test';
 import { eventClient } from '#infrastructure/event-client.js';
+import { NSIP_REPRESENTATION } from '#infrastructure/topics.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -11,7 +13,7 @@ const existingRepresentations = [
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
-		received: '2023-03-14T14:28:25.704Z',
+		received: new Date('2023-03-14T14:28:25.704Z'),
 		originalRepresentation: 'the original representation',
 		redactedRepresentation: 'redacted version',
 		case: { id: 1, reference: 'BC0110001' },
@@ -66,30 +68,26 @@ const existingRepresentations = [
 		reference: 'BC0110001-55',
 		status: 'PUBLISHED',
 		redacted: true,
-		received: '2023-08-11T10:52:56.516Z'
+		received: new Date('2023-08-11T10:52:56.516Z')
 	}
 ];
 
-const expectedRepresentationUpdatePayload = [
-	{
-		representationId: 1,
-		referenceId: 'BC0110001-2',
-		examinationLibraryRef: '',
-		caseRef: 'BC0110001',
-		caseId: 200,
-		status: 'valid',
-		redacted: true,
-		originalRepresentation: 'the original representation',
-		representationType: null,
-		representedId: '10381',
-		representativeId: '10382',
-		representationFrom: 'AGENT',
-		registerFor: undefined,
-		dateReceived: '2023-03-14T14:28:25.704Z',
-		attachmentIds: [],
-		redactedRepresentation: 'redacted version'
-	}
-];
+const expectedRepresentationUpdatePayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
+	representationId: 1,
+	referenceId: 'BC0110001-2',
+	examinationLibraryRef: '',
+	caseRef: 'BC0110001',
+	caseId: 200,
+	status: 'valid',
+	redacted: true,
+	originalRepresentation: 'the original representation',
+	representedId: '10381',
+	representativeId: '10382',
+	representationFrom: 'AGENT',
+	dateReceived: '2023-03-14T14:28:25.704Z',
+	attachmentIds: [],
+	redactedRepresentation: 'redacted version'
+});
 
 const mockDate = new Date('2023-01-02');
 
@@ -136,7 +134,7 @@ describe('Patch Application Representation Status', () => {
 
 		// check event broadcast
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'nsip-representation',
+			NSIP_REPRESENTATION,
 			expectedRepresentationUpdatePayload,
 			'Update'
 		);
@@ -249,7 +247,7 @@ describe('Patch Application Representation Status', () => {
 			}
 		});
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'nsip-representation',
+			NSIP_REPRESENTATION,
 			expectedRepresentationUpdatePayload,
 			'Update'
 		);

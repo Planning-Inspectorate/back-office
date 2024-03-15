@@ -1,6 +1,8 @@
 import { request } from '#app-test';
 import { batchSendEvents } from '#infrastructure/event-batch-broadcaster.js';
 import { jest } from '@jest/globals';
+import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -15,7 +17,7 @@ const representations = [
 		redactedRepresentation: 'the redacted rep',
 		redacted: true,
 		userId: null,
-		received: '2023-08-11T10:52:56.516Z',
+		received: new Date('2023-08-11T10:52:56.516Z'),
 		type: null,
 		user: null,
 		attachments: [
@@ -83,7 +85,7 @@ const representations = [
 		redactedRepresentation: null,
 		redacted: false,
 		userId: null,
-		received: '2023-08-11T10:52:56.516Z',
+		received: new Date('2023-08-11T10:52:56.516Z'),
 		type: null,
 		user: null,
 		attachments: [],
@@ -143,7 +145,7 @@ const representations = [
 	}
 ];
 
-const expectedNsipRepresentationPayload = [
+const expectedNsipRepresentationPayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, [
 	{
 		attachmentIds: ['8e706443-3404-4b89-9fda-280ab7fd6b68'],
 		caseRef: 'BC0110001',
@@ -157,8 +159,6 @@ const expectedNsipRepresentationPayload = [
 		redactedNotes: 'some redaction notes',
 		referenceId: 'BC0110001-55',
 		representationId: 6409,
-		representationType: null,
-		representativeId: undefined,
 		representedId: '10105',
 		status: 'published',
 		registerFor: 'ORGANISATION',
@@ -174,16 +174,14 @@ const expectedNsipRepresentationPayload = [
 		originalRepresentation: 'the original rep',
 		referenceId: 'BC0110001-1533',
 		representationId: 6579,
-		representationType: null,
 		representativeId: '10382',
 		representedId: '10381',
 		status: 'published',
-		registerFor: undefined,
 		representationFrom: 'AGENT'
 	}
-];
+]);
 
-const expectedServiceUserPayload = [
+const expectedServiceUserPayload = buildPayloadEventsForSchema(SERVICE_USER, [
 	{
 		id: '10105',
 		firstName: 'Joe',
@@ -194,12 +192,14 @@ const expectedServiceUserPayload = [
 		addressCounty: 'The County',
 		postcode: 'A1 9BB',
 		addressCountry: 'England',
+		caseReference: 'BC0110001',
 		organisation: 'Environment Agency',
 		role: 'Head of Communications',
 		telephoneNumber: '01234 567890',
 		emailAddress: 'test@example.com',
 		serviceUserType: 'RepresentationContact',
-		sourceSuid: '10105'
+		sourceSuid: '10105',
+		sourceSystem: 'back-office-applications'
 	},
 	{
 		id: '10381',
@@ -211,12 +211,12 @@ const expectedServiceUserPayload = [
 		addressCounty: 'A County',
 		postcode: 'B1 9BB',
 		addressCountry: 'England',
-		organisation: null,
-		role: null,
+		caseReference: 'BC0110001',
 		telephoneNumber: '01234 567890',
 		emailAddress: 'sue@example.com',
 		serviceUserType: 'RepresentationContact',
-		sourceSuid: '10381'
+		sourceSuid: '10381',
+		sourceSystem: 'back-office-applications'
 	},
 	{
 		id: '10382',
@@ -228,14 +228,14 @@ const expectedServiceUserPayload = [
 		addressCounty: 'A County',
 		postcode: 'P7 9LN',
 		addressCountry: 'England',
-		organisation: null,
-		role: null,
+		caseReference: 'BC0110001',
 		telephoneNumber: '01234 567890',
 		emailAddress: 'test-agent@example.com',
 		serviceUserType: 'RepresentationContact',
-		sourceSuid: '10382'
+		sourceSuid: '10382',
+		sourceSystem: 'back-office-applications'
 	}
-];
+]);
 
 describe('Publish Representations', () => {
 	jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
@@ -254,13 +254,15 @@ describe('Publish Representations', () => {
 		expect(response.status).toEqual(200);
 		expect(response.body).toEqual({ publishedRepIds: [6409, 6579] });
 
-		expect(batchSendEvents).toHaveBeenCalledWith(
-			'nsip-representation',
+		expect(batchSendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_REPRESENTATION,
 			expectedNsipRepresentationPayload,
 			'Publish'
 		);
-		expect(batchSendEvents).toHaveBeenCalledWith(
-			'service-user',
+		expect(batchSendEvents).toHaveBeenNthCalledWith(
+			2,
+			SERVICE_USER,
 			expectedServiceUserPayload,
 			'Publish',
 			{
