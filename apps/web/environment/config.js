@@ -51,7 +51,8 @@ export function loadConfig() {
 		SSL_KEY_FILE,
 		RETRY_MAX_ATTEMPTS,
 		RETRY_STATUS_CODES,
-		DUMMY_USER_DATA
+		DUMMY_USER_DATA,
+		FRONT_OFFICE_URL
 	} = environment;
 
 	const config = {
@@ -98,7 +99,8 @@ export function loadConfig() {
 		featureFlags: {
 			featureFlagBoas1TestFeature: FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 		},
-		dummyUserData: (AUTH_DISABLED && DUMMY_USER_DATA) || ''
+		dummyUserData: (AUTH_DISABLED && DUMMY_USER_DATA) || '',
+		frontOfficeURL: FRONT_OFFICE_URL
 	};
 
 	const { value: validatedConfig, error } = schema.validate(config);

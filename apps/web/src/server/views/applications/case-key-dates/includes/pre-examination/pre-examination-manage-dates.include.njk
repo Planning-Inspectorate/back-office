@@ -1,0 +1,154 @@
+<div class="govuk-grid-column-full">
+  <h2 class="govuk-heading-m">Relevant representations</h2>
+</div>
+
+{{ dateInput({
+  layout: {
+    fieldName: "dateOfRepresentationPeriodOpen",
+    label: "dateOfRepresentationPeriodOpen" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("dateOfRepresentationPeriodOpen")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+{{ dateInput({
+  layout: {
+    fieldName: "dateOfRelevantRepresentationClose",
+    label: "dateOfRelevantRepresentationClose" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("dateOfRelevantRepresentationClose")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+{{ dateInput({
+  layout: {
+    fieldName: "extensionToDateRelevantRepresentationsClose",
+    label: "extensionToDateRelevantRepresentationsClose" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("extensionToDateRelevantRepresentationsClose")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+{{ dateInput({
+  layout: {
+    fieldName: "dateRRepAppearOnWebsite",
+    label: "dateRRepAppearOnWebsite" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("dateRRepAppearOnWebsite")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+<div class="govuk-grid-column-full">
+  <h2 class="govuk-heading-m">Relevant representations re-open</h2>
+</div>
+
+{{ dateInput({
+  layout: {
+    fieldName: "dateOfReOpenRelevantRepresentationStart",
+    label: "Re-opens",
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("dateOfReOpenRelevantRepresentationStart")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+{{ dateInput({
+  layout: {
+    fieldName: "dateOfReOpenRelevantRepresentationClose",
+    label: "Re-opening closes",
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("dateOfReOpenRelevantRepresentationClose")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+<div class="govuk-grid-column-full">
+  <h2 class="govuk-heading-m">Other dates</h2>
+</div>
+
+{{ dateInput({
+  layout: {
+    fieldName: "dateIAPIDue",
+    label: "dateIAPIDue" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("dateIAPIDue")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+{{ dateInput({
+  layout: {
+    fieldName: "rule6LetterPublishDate",
+    label: "rule6LetterPublishDate" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("rule6LetterPublishDate")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+{{ dateInput({
+  layout: {
+    fieldName: "preliminaryMeetingStartDate",
+    label: "preliminaryMeetingStartDate" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("preliminaryMeetingStartDate")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+{{ dateInput({
+  layout: {
+    fieldName: "notificationDateForPMAndEventsDirectlyFollowingPM",
+    label: "notificationDateForPMAndEventsDirectlyFollowingPM" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("notificationDateForPMAndEventsDirectlyFollowingPM")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+{{ dateInput({
+  layout: {
+    fieldName: "notificationDateForEventsApplicant",
+    label: "notificationDateForEventsApplicant" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("notificationDateForEventsApplicant")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}

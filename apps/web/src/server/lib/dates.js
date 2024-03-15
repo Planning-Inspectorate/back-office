@@ -56,6 +56,13 @@ export function dateToDisplayDate(date, { condensed = false } = {}) {
 }
 
 /**
+ *
+ * @param {number} value
+ * @returns {Date}
+ */
+export const timestampToDate = (value) => new Date(value * 1000);
+
+/**
  * @param {Date} date
  * @returns {boolean}
  */
