@@ -8,8 +8,12 @@ import {
 
 /**
  * @typedef {import('../appeal-details.types.js').WebAppeal} Appeal
+ * @typedef {{ address: import("@pins/appeals.api/src/server/endpoints/appeals.js").AppealSite; siteId: string; }} NeighbouringSitesItem
+ */
+
+/**
  * @param {Appeal} appealData
- * @param {{addressLine1: any;addressLine2: any;town: any;county: any;postCode: any;}} currentAddress
+ * @param {import('@pins/appeals.api').Appeals.AppealSite} currentAddress
  * @param {import("@pins/express").ValidationErrors | undefined} errors
  * @returns {PageContent}
  */
@@ -193,7 +197,7 @@ export function manageNeighbouringSitesPage(appealData) {
 }
 
 /**
- * @param {{ address: import("@pins/appeals.api/src/server/endpoints/appeals.js").AppealSite; siteId: string; }} site
+ * @param {NeighbouringSitesItem} site
  */
 function neighbouringSiteTableRowFormatter(site) {
 	return [
@@ -215,7 +219,10 @@ export function removeNeighbouringSitePage(appealData, siteId) {
 	const shortAppealReference = appealShortReference(appealData.appealReference);
 
 	let siteAddress;
-	if (appealData.neighbouringSites) {
+	if (
+		appealData.neighbouringSites &&
+		appealData.neighbouringSites.findIndex((site) => site.siteId.toString() === siteId) > -1
+	) {
 		siteAddress =
 			appealData.neighbouringSites[
 				appealData.neighbouringSites.findIndex((site) => site.siteId.toString() === siteId)
@@ -277,7 +284,7 @@ export function removeNeighbouringSitePage(appealData, siteId) {
 
 /**
  * @param {Appeal} appealData
- * @param {{addressLine1: any;addressLine2: any;town: any;county: any;postCode: any;}} neighbouringSiteData
+ * @param {import('@pins/appeals.api').Appeals.AppealSite} neighbouringSiteData
  * @param {string} siteId
  * @param {import("@pins/express").ValidationErrors | undefined} errors
  * @returns {PageContent}

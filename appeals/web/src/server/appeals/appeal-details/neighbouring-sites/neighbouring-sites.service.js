@@ -30,7 +30,7 @@ export function addNeighbouringSite(apiClient, appealId, neighbouringSite) {
  */
 export function changeNeighbouringSite(apiClient, appealId, neighbouringSite, siteId) {
 	const formattedNeighbouringSite = {
-		siteId: parseInt(siteId),
+		siteId: siteId,
 		address: {
 			addressLine1: neighbouringSite.addressLine1,
 			addressLine2: neighbouringSite.addressLine2 ?? '',
