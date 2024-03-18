@@ -133,8 +133,11 @@ export class S51AdvicePage extends Page {
         this.elements.verifyTitleUpdated().then((text)=> {
             let actualTitle=text.text();
          expect(actualTitle).to.include("Title Updated");
-
-
     });
 }
+    verifyS51IsDeleted(){
+		cy.get('.govuk-button--secondary').click();
+		cy.get('.govuk-button').click();
+		cy.get('.govuk-panel__title').contains('S51 advice item successfully deleted');
+	}
 }
