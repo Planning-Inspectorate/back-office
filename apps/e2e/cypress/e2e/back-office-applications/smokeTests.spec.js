@@ -93,6 +93,11 @@ describe('Smoke tests', () => {
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.clickLinkByText('Go back to examination timetable');
 
+	// Verify timetable is deleted
+		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
+		examTimetablePage.deleteExaminationTimetableItem();
+		examTimetablePage.clickLinkByText('Go back to examination timetable');
+
 	// Publish and Unpublish document
         searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
@@ -118,7 +123,7 @@ describe('Smoke tests', () => {
 			firstName: details.firstName,
 			lastName: details.lastName
 		});
-
+        s51AdvicePage.verifyS51IsDeleted();
 	});
 
 });

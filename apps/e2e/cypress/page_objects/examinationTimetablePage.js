@@ -88,4 +88,9 @@ export class ExaminationTimetablePage extends Page {
 			}
 		});
 	}
+	deleteExaminationTimetableItem(){
+		cy.get(1000);
+		cy.get('#accordion-examination-content-1 > a').click();
+		cy.get('#main-content > div > div > form > button').click();
+	}
 }
