@@ -17,13 +17,13 @@
 	{% endif %}
 
 	{% set rowsData = [
-		{title: 'Project name', text: case.title, url: 'name' },
-		{title: 'Project description', html: case.description | sanitize, url: 'description' },
-		{title: 'Project email address', text: case.caseEmail, url: 'team-email' },
-		{title: 'Project location', html: case.geographicalInformation.locationDescription | sanitize, url: 'project-location' },
-		{title: 'Grid references', html: gridReferences, url: 'grid-references' },
-		{title: 'Region(s)', html: regionNames, url: 'regions' },
-		{title: 'Map zoom level', text: case.geographicalInformation.mapZoomLevel.displayNameEn, url: 'zoom-level' }
+		{title: 'Project name', text: case.title, url: 'name', classes: 'project-details__name' },
+		{title: 'Project description', html: case.description | sanitize, url: 'description', classes: 'project-details__project-description' },
+		{title: 'Project email address', text: case.caseEmail, url: 'team-email', classes: 'project-details__team-email' },
+		{title: 'Project location', html: case.geographicalInformation.locationDescription | sanitize, url: 'project-location', classes: 'project-details__project-location' },
+		{title: 'Grid references', html: gridReferences, url: 'grid-references', classes: 'project-details__grid-references' },
+		{title: 'Region(s)', html: regionNames, url: 'regions', classes: 'project-details__regions' },
+		{title: 'Map zoom level', text: case.geographicalInformation.mapZoomLevel.displayNameEn, url: 'zoom-level', classes: 'project-details__zoom-level' }
 	] %}
 
 	{% set tableRows = [] %}
@@ -43,7 +43,10 @@
 
 
 	{{ govukTable({
+		caption: 'Project details',
+		captionClasses: 'govuk-visually-hidden',
 		firstCellIsHeader: true,
+		classes: 'project-details',
 		rows: tableRows
 	}) }}
 {% endmacro %}
