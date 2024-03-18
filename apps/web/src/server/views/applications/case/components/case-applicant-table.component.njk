@@ -29,6 +29,8 @@
         {% endif %}
     {% endfor %}
     {{ govukTable({
+		caption: 'Applicant details',
+		captionClasses: 'govuk-visually-hidden',
 		firstCellIsHeader: true,
 		rows: tableRows
 	}) }}
