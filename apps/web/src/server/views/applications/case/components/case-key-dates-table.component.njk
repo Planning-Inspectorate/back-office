@@ -32,6 +32,8 @@
   {% endfor %}
 
   {{ govukTable({
+		caption: 'Key dates',
+		captionClasses: 'govuk-visually-hidden',
     firstCellIsHeader: true,
     rows: tableRows
   }) }}
