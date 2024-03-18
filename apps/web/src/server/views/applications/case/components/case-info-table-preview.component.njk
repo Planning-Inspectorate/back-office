@@ -29,6 +29,8 @@
 
 
 			{{ govukTable({
+				caption: 'Project details',
+				captionClasses: 'govuk-visually-hidden',
 				firstCellIsHeader: true,
 				rows: [
 					[{ text: "Case reference number" }, { text: case.reference }],
