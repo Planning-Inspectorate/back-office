@@ -32,7 +32,7 @@ export const addRepresentationToLocals = async (req, res, next) => {
 		const { repMode, repId: queryRepId, repType } = query;
 		const repId = representationId || queryRepId;
 
-		res.locals.caseId = caseId;
+		res.locals.caseId = caseId || null;
 
 		res.locals.case = getCaseViewModel(await getCase(res.locals.caseId));
 		res.locals.isRepresented = repType !== 'representative';
@@ -52,8 +52,8 @@ export const addRepresentationToLocals = async (req, res, next) => {
 			pageURLs
 		};
 
-		if (repId) {
-			const representationData = await getRepresentation(caseId, String(repId));
+		if (res.locals.caseId && repId) {
+			const representationData = await getRepresentation(res.locals.caseId, String(repId));
 
 			// These were originally initialised as empty objects when undefined, consequentially because of how pick works
 			representationData.represented = formatContactDetails(representationData.represented || {});
