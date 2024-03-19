@@ -46,8 +46,8 @@ representationDetailsRouter
 
 representationDetailsRouter
 	.route('/redact-representation')
-	.get(asyncHandler(getRedactRepresentationController))
-	.post(asyncHandler(postRedactRepresentationController));
+	.get(registerRepsParams, asyncHandler(getRedactRepresentationController))
+	.post(registerRepsParams, asyncHandler(postRedactRepresentationController));
 
 representationDetailsRouter
 	.route('/change-redaction')
@@ -60,12 +60,12 @@ representationDetailsRouter
 
 representationDetailsRouter
 	.route('/task-log')
-	.get(asyncHandler(getRepresentationDetailsTaskLogController));
+	.get(registerRepsParams, asyncHandler(getRepresentationDetailsTaskLogController));
 
 representationDetailsRouter
 	.route('/change-status')
-	.get(asyncHandler(getRepresentationStatusController))
-	.post(representationStatusValidation, asyncHandler(postRepresentationStatus));
+	.get(registerRepsParams, asyncHandler(getRepresentationStatusController))
+	.post(representationStatusValidation, registerRepsParams, asyncHandler(postRepresentationStatus));
 
 representationDetailsRouter
 	.route('/status-result')
