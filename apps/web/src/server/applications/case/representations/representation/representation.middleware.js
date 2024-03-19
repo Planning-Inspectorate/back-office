@@ -32,7 +32,9 @@ export const addRepresentationToLocals = async (req, res, next) => {
 		const { repMode, repId: queryRepId, repType } = query;
 		const repId = representationId || queryRepId;
 
-		res.locals.case = getCaseViewModel(await getCase(caseId));
+		res.locals.caseId = caseId;
+
+		res.locals.case = getCaseViewModel(await getCase(res.locals.caseId));
 		res.locals.isRepresented = repType !== 'representative';
 		res.locals.prefixBackLink = `/applications-service/case/${caseId}/relevant-representations`;
 
@@ -69,4 +71,19 @@ export const addRepresentationToLocals = async (req, res, next) => {
 	} catch (e) {
 		return next(e);
 	}
+};
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} response
+ * @param {import("express").NextFunction} next
+ */
+export const addQueryToLocals = async ({ query }, response, next) => {
+	const { repId, repType, repMode } = query;
+
+	response.locals.repId = repId || '';
+	response.locals.repType = repType || '';
+	response.locals.repMode = repMode || '';
+
+	next();
 };
