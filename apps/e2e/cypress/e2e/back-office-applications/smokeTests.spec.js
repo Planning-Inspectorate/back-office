@@ -13,8 +13,10 @@ import { FolderDocumentsPage } from '../../page_objects/folderDocumentsPage';
 import { timetableItem } from '../../support/utils/createTimetableItemInfo';
 import { s51AdviceDetails } from '../../support/utils/createS51Advice.js';
 import { S51AdvicePage } from '../../page_objects/s51AdvicePage.js';
+import { CasePage } from '../../page_objects/casePage';
 
 const createCasePage = new CreateCasePage();
+const casePage = new CasePage();
 const applicationsHomePage = new ApplicationsHomePage();
 const searchResultsPage = new SearchResultsPage();
 const fileUploadPage = new FileUploadPage();
@@ -93,10 +95,9 @@ describe('Smoke tests', () => {
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.clickLinkByText('Go back to examination timetable');
 
-	// Verify timetable is deleted
-		examTimetablePage.toggleExaminationTimetableItem(options.itemName, false);
-		examTimetablePage.deleteExaminationTimetableItem();
-		examTimetablePage.clickLinkByText('Go back to examination timetable');
+	// Verify Publish and Unpublish examtime table
+		examTimetablePage.verifyPublishAndUnpublishExamtimetable();
+
 
 	// Publish and Unpublish document
         searchResultsPage.clickLinkByText('Project documentation');
@@ -123,7 +124,12 @@ describe('Smoke tests', () => {
 			firstName: details.firstName,
 			lastName: details.lastName
 		});
-        s51AdvicePage.verifyS51IsDeleted();
+	// Verify S51 Advice - Publish/Unpublish
+       s51AdvicePage.verifyS51PubishandUnpublish();
+
+    // Verify Project - Publish/Unpublish
+	   casePage.publishUnpublishProject();
+
 	});
 
 });
