@@ -7,6 +7,8 @@ import { enquirerString } from '../support/utils/utils.js';
 export class S51AdvicePage extends Page {
 	elements = {
 		titleInput: () => cy.get('#title'),
+		redactionRadio: (redacted = false) => cy.get(redacted ? '#isRedacted-2' : '#isRedacted'),
+		statusRadio: (status) => this.basePageElements.radioButton().contains(status),
 		enquirerFirstNameInput: () => cy.get('#enquirerFirstName'),
 		enquirerLastNameInput: () => cy.get('#enquirerLastName'),
 		enquirerOrganisationInput: () => cy.get('#enquirerOrganisation'),
@@ -139,5 +141,24 @@ export class S51AdvicePage extends Page {
 		cy.get('.govuk-button--secondary').click();
 		cy.get('.govuk-button').click();
 		cy.get('.govuk-panel__title').contains('S51 advice item successfully deleted');
+	}
+	verifyS51PubishandUnpublish() {
+		cy.get('.govuk-back-link').click();
+		this.setOverallStatus('Ready to publish');
+		this.selectAllDocuments();
+		this.clickButtonByText('Apply changes');
+		cy.get('.govuk-body-m').click();
+		cy.get('#selectAll').click();
+		cy.get('.govuk-button').click();
+		cy.get('.govuk-panel__title').contains('S51 advice item successfully published');
+		cy.get('.display--flex > .govuk-link').click();
+		this.clickLinkByText('View/edit advice');
+		this.clickButtonByText('Unpublish');
+		this.clickButtonByText('Unpublish S51 advice');
+		cy.get('.govuk-panel__title').contains('S51 advice item successfully unpublished');
+		cy.get('.display--flex > .govuk-link').click();
+	}
+	setOverallStatus(status) {
+		this.elements.statusRadio(status).click({ force: true });
 	}
 }
