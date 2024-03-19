@@ -16,7 +16,7 @@ import publishValidRepresentationsRouter from './publish-valid-representations/p
 import { fileUploadController } from './file-upload/file-upload.controller.js';
 import { repRoutes } from './representation/utils/get-representation-page-urls.js';
 import { getRepDownloadController } from './download/download.controller.js';
-import { registerRepsParams } from '../../create-new-case/applications-create.locals.js';
+import { registerRepsParams } from './applications-relevant-reps.locals.js';
 
 const relevantRepsRouter = createRouter({ mergeParams: true });
 
