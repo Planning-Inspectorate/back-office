@@ -6,8 +6,7 @@ import {
 	s51ValidatorsDispatcher,
 	validateS51AdviceToChange,
 	validateS51AdviceActions,
-	validateS51AdviceToPublish,
-	validateS51UniqueTitle
+	validateS51AdviceToPublish
 } from './applications-s51.validators.js';
 
 const applicationsS51Router = createRouter({ mergeParams: true });
@@ -31,10 +30,7 @@ applicationsS51Router
 applicationsS51Router
 	.route('/create/:step')
 	.get(locals.registerFolder, asyncHandler(controller.viewApplicationsCaseS51CreatePage))
-	.post(
-		[s51ValidatorsDispatcher, validateS51UniqueTitle],
-		asyncHandler(controller.updateApplicationsCaseS51CreatePage)
-	);
+	.post(s51ValidatorsDispatcher, asyncHandler(controller.updateApplicationsCaseS51CreatePage));
 
 applicationsS51Router
 	.route('/:adviceId/delete')

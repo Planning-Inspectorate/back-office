@@ -160,14 +160,3 @@ export const validateS51AdviceActions = createValidator(
 		.custom((value, { req }) => !!value || !!req?.body?.status)
 		.withMessage('Select a status to apply a change')
 );
-
-/**
- * @param {import("express").Request} req
- * @param {import("express").Response} res
- * @param {import("express").NextFunction} next
- */
-export const validateS51UniqueTitle = (req, res, next) => {
-	res.locals.title = req.body.title?.toString() || '';
-
-	next();
-};
