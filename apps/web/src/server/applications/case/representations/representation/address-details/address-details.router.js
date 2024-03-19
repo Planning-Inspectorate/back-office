@@ -5,9 +5,9 @@ import {
 	postAddressDetailsController
 } from './address-details.controller.js';
 import { addressDetailsValidation } from './address-details.validators.js';
-import { addRepresentationToLocals } from '../representation.middleware.js';
+import { addQueryToLocals, addRepresentationToLocals } from '../representation.middleware.js';
 import { repRoutes } from '../utils/get-representation-page-urls.js';
-import { registerCaseId } from '../../../../create-new-case/applications-create.locals.js';
+import { registerCaseId } from '../../applications-relevant-reps.locals.js';
 
 const relevantRepAddressDetailsRouter = createRouter({ mergeParams: true });
 
@@ -18,6 +18,7 @@ relevantRepAddressDetailsRouter
 	.get(addRepresentationToLocals, asyncHandler(getAddressDetailsController))
 	.post(
 		addRepresentationToLocals,
+		addQueryToLocals,
 		addressDetailsValidation,
 		asyncHandler(postAddressDetailsController)
 	);

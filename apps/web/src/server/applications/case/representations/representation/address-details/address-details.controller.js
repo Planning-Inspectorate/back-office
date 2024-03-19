@@ -29,8 +29,7 @@ export const getAddressDetailsController = async (req, res) => {
  */
 export const postAddressDetailsController = async (req, res) => {
 	const { body, errors, query } = req;
-	const { caseId } = res.locals;
-	const { repId, repType, repMode } = query;
+	const { caseId, repId, repType, repMode } = res.locals;
 	const { lookupPostcode, setPostcode, stage } = body;
 	const { locals } = res;
 	const { representation } = locals;
