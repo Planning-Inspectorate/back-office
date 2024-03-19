@@ -69,7 +69,11 @@ representationDetailsRouter
 
 representationDetailsRouter
 	.route('/status-result')
-	.get(asyncHandler(getRepresentationStatusNotesController))
-	.post(representationStatusNotesValidation, asyncHandler(postRepresentationStatusNotesController));
+	.get(registerRepsParams, asyncHandler(getRepresentationStatusNotesController))
+	.post(
+		representationStatusNotesValidation,
+		registerRepsParams,
+		asyncHandler(postRepresentationStatusNotesController)
+	);
 
 export default representationDetailsRouter;

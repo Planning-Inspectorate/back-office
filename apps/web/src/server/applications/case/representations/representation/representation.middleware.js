@@ -32,30 +32,30 @@ export const addRepresentationToLocals = async (req, res, next) => {
 		const { repMode, repId: queryRepId, repType } = query;
 
 		res.locals.caseId = caseId || null;
-		res.locals.repId = representationId || queryRepId || null;
+		res.locals.representationId = representationId || queryRepId || null;
 
 		res.locals.case = getCaseViewModel(await getCase(res.locals.caseId));
 		res.locals.isRepresented = repType !== 'representative';
 		res.locals.prefixBackLink = `/applications-service/case/${caseId}/relevant-representations`;
 
-		const pageURLs = getRepresentationPageURLs(caseId, String(res.locals.repId));
+		const pageURLs = getRepresentationPageURLs(caseId, String(res.locals.representationId));
 
 		res.locals.representation = {
 			pageLinks: getPageLinks(
 				String(repMode),
 				path,
 				caseId,
-				String(res.locals.repId),
+				String(res.locals.representationId),
 				String(repType),
 				pageURLs
 			),
 			pageURLs
 		};
 
-		if (res.locals.caseId && res.locals.repId) {
+		if (res.locals.caseId && res.locals.representationId) {
 			const representationData = await getRepresentation(
 				res.locals.caseId,
-				String(res.locals.repId)
+				String(res.locals.representationId)
 			);
 
 			// These were originally initialised as empty objects when undefined, consequentially because of how pick works
@@ -84,7 +84,7 @@ export const addRepresentationToLocals = async (req, res, next) => {
 export const addQueryToLocals = async ({ query }, response, next) => {
 	const { repId, repType, repMode } = query;
 
-	response.locals.repId = repId || '';
+	response.locals.representationId = repId || '';
 	response.locals.repType = repType || '';
 	response.locals.repMode = repMode || '';
 
