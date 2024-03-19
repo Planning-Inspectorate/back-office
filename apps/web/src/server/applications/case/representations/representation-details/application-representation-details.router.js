@@ -30,6 +30,7 @@ import {
 	postRepresentationStatusNotesController
 } from './representation-status/representation-status-notes/representation-status-notes.controller.js';
 import { representationStatusNotesValidation } from './representation-status/representation-status-notes/representation-status-notes.validators.js';
+import { registerRepsParams } from '../applications-relevant-reps.locals.js';
 
 const representationDetailsRouter = createRouter({ mergeParams: true });
 
@@ -50,9 +51,10 @@ representationDetailsRouter
 
 representationDetailsRouter
 	.route('/change-redaction')
-	.get(asyncHandler(getRepresentationDetailsChangeRedactionController))
+	.get(registerRepsParams, asyncHandler(getRepresentationDetailsChangeRedactionController))
 	.post(
 		representationChangeRedactionValidation,
+		registerRepsParams,
 		asyncHandler(postRepresentationDetailsChangeRedactionController)
 	);
 
