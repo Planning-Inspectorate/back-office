@@ -20,7 +20,9 @@ import { registerCaseId } from '../../create-new-case/applications-create.locals
 
 const relevantRepsRouter = createRouter({ mergeParams: true });
 
-relevantRepsRouter.route('/').get(asyncHandler(controller.relevantRepsApplications));
+relevantRepsRouter
+	.route('/')
+	.get(registerCaseId, asyncHandler(controller.relevantRepsApplications));
 relevantRepsRouter.use('/', relevantRepContactDetailsRouter);
 relevantRepsRouter.use('/', relevantRepAddressDetailsRouter);
 relevantRepsRouter.use('/', relevantRepresentationTypeRouter);

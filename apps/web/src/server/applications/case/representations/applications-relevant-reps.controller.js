@@ -23,8 +23,8 @@ const view = 'applications/representations/representations.njk';
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function relevantRepsApplications({ params, query }, res) {
-	const { caseId } = params;
+export async function relevantRepsApplications({ query }, res) {
+	const { caseId } = res.locals;
 	const {
 		locals: { serviceUrl }
 	} = res;
