@@ -57,7 +57,7 @@ export const updateStatus = async (guid, status) => {
 /**
  * Extract YouTube URL from an iframe in a snippet of HTML
  *
- * @param {string} html
+ * @param {string} originalHtml
  * @returns {string}
  * */
 export const extractYouTubeURLFromHTML = (originalHtml) => {

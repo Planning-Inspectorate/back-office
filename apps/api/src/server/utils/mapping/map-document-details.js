@@ -21,7 +21,7 @@ export const mapSingleDocumentDetailsFromVersion = ({
 	return {
 		documentGuid: documentVersion.documentGuid,
 		documentId: documentVersion?.documentId ?? null,
-		documentRef: Document?.reference ?? null,
+		documentRef: Document?.documentReference ?? null,
 		folderId: Document?.folder?.id ?? null,
 		caseRef: Document?.folder?.case?.reference ?? null,
 		sourceSystem: documentVersion.sourceSystem ?? 'Back Office',
@@ -61,7 +61,7 @@ export const mapSingleDocumentDetailsFromVersion = ({
 		filter2: documentVersion?.filter2 ?? null,
 		examinationRefNo: documentVersion.examinationRefNo ?? '',
 		fromFrontOffice: Document?.fromFrontOffice ?? false,
-		transcript: documentVersion?.transcript?.reference ?? ''
+		transcript: documentVersion?.transcript?.documentReference ?? ''
 	};
 };
 

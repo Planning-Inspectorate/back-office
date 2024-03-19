@@ -49,6 +49,7 @@ export interface Appeal extends schema.Appeal {
 	reviewQuestionnaire?: schema.ReviewQuestionnaire[];
 	siteVisit?: SiteVisit;
 	startedAt: Date;
+	validAt: Date;
 	validationDecision?: ValidationDecision[];
 }
 

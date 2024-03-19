@@ -124,6 +124,7 @@ interface RepositoryGetByIdResultItem {
 	specialisms: Schema.AppealSpecialism[];
 	startedAt: Date | null;
 	updatedAt: Date | null;
+	validAt: Date | null;
 }
 
 interface BankHolidayFeedEvent {
@@ -293,6 +294,7 @@ interface SingleAppealDetailsResponse {
 		visitType: string | null;
 	};
 	startedAt: Date | null;
+	validAt: Date | null;
 }
 
 interface AppealAllocation {
@@ -588,6 +590,7 @@ interface UpdateTimetableRequest {
 interface UpdateAppealRequest {
 	dueDate?: string;
 	startedAt?: string;
+	validAt?: string;
 	caseOfficer?: number | null;
 	inspector?: number | null;
 }

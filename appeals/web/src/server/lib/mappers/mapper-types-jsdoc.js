@@ -287,10 +287,10 @@
 
 /**
  * @typedef {Object} PageContent
- * @property {string} [title]
- * @property {string} [backLinkUrl]
- * @property {string} [backLinkText]
- * @property {string} [preHeading]
+ * @property {string} [title] Title of the page
+ * @property {string} [backLinkUrl] Url of back button
+ * @property {string} [backLinkText] Back button text
+ * @property {string} [preHeading] Preheading (Usually 'Appeal ${shortAppealReference}')
  * @property {string} [heading]
  * @property {string} [headingClasses]
  * @property {ButtonProperties} [submitButtonProperties]

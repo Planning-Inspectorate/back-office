@@ -11,11 +11,11 @@
 	{% set applicantFirstWebsite = case.applicant.website %}
 	{% set applicantFirstWebsiteValue = '' %}
 	{% if applicantFirstWebsite %}
-		{% set applicantFirstWebsiteValue = '<a class="govuk-link" href="//' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
+		{% set applicantFirstWebsiteValue = '<a class="govuk-link" href="' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
 	{% endif %}
 
 	<h2 class="govuk-heading-m">{{serviceName}}</h2>
-	
+
 	{% set publishedTag %}
 	{% if case.publishedDate %}
 		<strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>

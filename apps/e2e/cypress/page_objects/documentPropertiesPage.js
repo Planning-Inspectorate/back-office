@@ -163,4 +163,13 @@ export class DocumentPropertiesPage extends Page {
 	verifyDocumentPropertiesHeading() {
 		cy.get('.govuk-caption-xl').contains('Document properties');
 	}
+
+	goBackToPrjdocumentationPage(){
+		cy.wait(2000);
+		cy.get('li.govuk-breadcrumbs__list-item:nth-child(1) > a:nth-child(1)').click();
+	}
+	goBackToOverviewPage(){
+		cy.wait(1000);
+		cy.get('.govuk-back-link').click();
+	}
 }

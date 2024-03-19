@@ -88,14 +88,14 @@ export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
 /**
  * Get a document by reference Number and caseId
  *
- * @param {string} reference
+ * @param {string} documentReference
  * @param {number} caseId
  * @returns {import('@prisma/client').PrismaPromise<Document |null>}
  */
-export const getByReferenceRelatedToCaseId = (reference, caseId) => {
+export const getByReferenceRelatedToCaseId = (documentReference, caseId) => {
 	return databaseConnector.document.findFirst({
 		where: {
-			reference,
+			documentReference,
 			latestVersionId: 1,
 			isDeleted: false,
 			folder: {
@@ -289,7 +289,7 @@ const buildWhereClause_AllDocsOnCaseWithoutS51Advice = (
 		AND: {
 			OR: [
 				{
-					reference: { contains: criteria }
+					documentReference: { contains: criteria }
 				},
 				{
 					latestDocumentVersion: {
@@ -357,7 +357,7 @@ export const getDocumentsInCase = (
 		take: Number(pageSize),
 		orderBy: [
 			{
-				reference: 'asc'
+				documentReference: 'asc'
 			}
 		],
 		where: whereClause

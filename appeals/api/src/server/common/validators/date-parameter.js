@@ -3,10 +3,11 @@ import joinDateAndTime from '#utils/join-date-and-time.js';
 import {
 	ERROR_MUST_BE_BUSINESS_DAY,
 	ERROR_MUST_BE_CORRECT_DATE_FORMAT,
-	ERROR_MUST_BE_IN_FUTURE
+	ERROR_MUST_BE_IN_FUTURE,
+	ERROR_MUST_NOT_BE_IN_FUTURE
 } from '#endpoints/constants.js';
 import { body } from 'express-validator';
-import { dateIsAfterDate } from '#utils/date-comparison.js';
+import { dateIsAfterDate, dateIsPastOrToday } from '#utils/date-comparison.js';
 import { recalculateDateIfNotBusinessDay } from '#utils/business-days.js';
 
 /** @typedef {import('express-validator').ValidationChain} ValidationChain */
@@ -15,6 +16,7 @@ import { recalculateDateIfNotBusinessDay } from '#utils/business-days.js';
  * @param {{
  * 	parameterName: string,
  *  mustBeFutureDate?: boolean,
+ *  mustBeNotBeFutureDate?: boolean,
  *  mustBeBusinessDay?: boolean,
  *  isRequired?: boolean,
  *  customFn?: (value: any, other: {req: any}) => Error | boolean
@@ -25,6 +27,7 @@ const validateDateParameter = ({
 	parameterName,
 	mustBeFutureDate = false,
 	mustBeBusinessDay = false,
+	mustBeNotBeFutureDate = false,
 	isRequired = false,
 	customFn = () => true
 }) => {
@@ -37,6 +40,10 @@ const validateDateParameter = ({
 		.withMessage(ERROR_MUST_BE_CORRECT_DATE_FORMAT)
 		.custom((value) => (mustBeFutureDate ? dateIsAfterDate(new Date(value), new Date()) : true))
 		.withMessage(ERROR_MUST_BE_IN_FUTURE)
+		.custom((value) =>
+			mustBeNotBeFutureDate ? dateIsPastOrToday(new Date(value), new Date()) : true
+		)
+		.withMessage(ERROR_MUST_NOT_BE_IN_FUTURE)
 		.custom(async (value) => {
 			if (mustBeBusinessDay) {
 				const originalDate = joinDateAndTime(value);

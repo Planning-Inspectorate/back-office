@@ -73,7 +73,7 @@ export function confirmOtherAppealsPage(currentAppeal, relatedAppeal) {
 			type: 'table',
 			wrapperHtml: {
 				opening:
-					'<div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds govuk-!-margin-top-5 govuk-!-margin-bottom-6">',
+					'<div class="govuk-grid-row"><div class="govuk-grid-column-full govuk-!-margin-top-5 govuk-!-margin-bottom-6">',
 				closing: '</div></div>'
 			},
 			parameters: {
@@ -131,8 +131,32 @@ export function confirmOtherAppealsPage(currentAppeal, relatedAppeal) {
 					]
 				]
 			}
-		},
-		{
+		}
+	];
+
+	const relatedAppealIsCurrentAppeal =
+		currentAppeal.appealReference === relatedAppeal.appealReference;
+	const appealsAlreadyRelated =
+		currentAppeal.otherAppeals.filter(
+			(otherAppeal) => otherAppeal.appealReference === relatedAppeal.appealReference
+		).length > 0;
+
+	if (relatedAppealIsCurrentAppeal) {
+		pageComponents.unshift({
+			type: 'warning-text',
+			parameters: {
+				text: 'You cannot relate an appeal to itself.'
+			}
+		});
+	} else if (appealsAlreadyRelated) {
+		pageComponents.unshift({
+			type: 'warning-text',
+			parameters: {
+				text: 'The appeals are already related.'
+			}
+		});
+	} else {
+		pageComponents.push({
 			type: 'radios',
 			parameters: {
 				name: 'relateAppealsAnswer',
@@ -155,15 +179,24 @@ export function confirmOtherAppealsPage(currentAppeal, relatedAppeal) {
 					}
 				]
 			}
-		}
-	];
+		});
+	}
 
 	/** @type {PageContent} */
 	const pageContent = {
 		title: `Related appeal details - ${currentAppeal.appealReference}`,
-		backLinkUrl: `/appeals-service/appeal-details/${currentAppeal.appealId}`,
+		backLinkUrl: `/appeals-service/appeal-details/${currentAppeal.appealId}/other-appeals/add`,
 		preHeading: `Appeal ${currentAppeal.appealReference}`,
 		heading: 'Related appeal details',
+		submitButtonProperties:
+			relatedAppealIsCurrentAppeal || appealsAlreadyRelated
+				? {
+						text: 'Return to search',
+						href: `/appeals-service/appeal-details/${currentAppeal.appealId}/other-appeals/add`
+				  }
+				: {
+						text: 'Continue'
+				  },
 		pageComponents
 	};
 

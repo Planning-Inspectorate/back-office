@@ -13,6 +13,8 @@ import {
 	CASE_RELATIONSHIP_RELATED,
 	ERROR_LINKING_APPEALS
 } from '#endpoints/constants.js';
+import { getAppealFromHorizon } from '#utils/horizon-gateway.js';
+import { formatHorizonGetCaseData } from '#utils/mapping/map-horizon.js';
 
 /** @typedef {import('express').Request} Request */
 /** @typedef {import('express').Response} Response */
@@ -91,19 +93,24 @@ export const linkExternalAppeal = async (req, res) => {
 		});
 	}
 
+	const linkedAppeal = await getAppealFromHorizon(linkedAppealReference);
+	const formattedLinkedAppeal = formatHorizonGetCaseData(linkedAppeal);
+	const linkedAppealId = formattedLinkedAppeal.appealId
+		? parseInt(formattedLinkedAppeal.appealId)
+		: undefined;
 	const relationship = isCurrentAppealParent
 		? {
 				parentId: currentAppeal.id,
 				parentRef: currentAppeal.reference,
-				childRef: linkedAppealReference,
-				childId: null,
+				childRef: formattedLinkedAppeal.appealReference || linkedAppealReference,
+				childId: linkedAppealId || null,
 				type: CASE_RELATIONSHIP_LINKED,
 				externalSource: true,
 				externalAppealType
 		  }
 		: {
-				parentId: null,
-				parentRef: linkedAppealReference,
+				parentId: linkedAppealId || null,
+				parentRef: formattedLinkedAppeal.appealReference || linkedAppealReference,
 				childRef: currentAppeal.reference,
 				childId: currentAppeal.id,
 				type: CASE_RELATIONSHIP_LINKED,
@@ -164,10 +171,17 @@ export const associateAppeal = async (req, res) => {
 export const associateExternalAppeal = async (req, res) => {
 	const { linkedAppealReference } = req.body;
 	const currentAppeal = req.appeal;
+
+	const linkedAppeal = await getAppealFromHorizon(linkedAppealReference);
+	const formattedLinkedAppeal = formatHorizonGetCaseData(linkedAppeal);
+	const linkedAppealId = formattedLinkedAppeal.appealId
+		? parseInt(formattedLinkedAppeal.appealId)
+		: undefined;
+
 	const relationship = {
 		parentId: currentAppeal.id,
 		parentRef: currentAppeal.reference,
-		childId: null,
+		childId: linkedAppealId || null,
 		childRef: linkedAppealReference,
 		type: CASE_RELATIONSHIP_RELATED,
 		externalSource: true

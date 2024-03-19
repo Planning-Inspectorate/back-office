@@ -246,8 +246,8 @@ export class NotifySubscribers {
 	 * @returns {string}
 	 */
 	static htmlToMarkdown(content) {
-		const turndownService = new TurndownService();
-		return turndownService.turndown(content);
+		const turndownService = new TurndownService({ strongDelimiter: '', emDelimiter: '' });
+		return decodeURIComponent(turndownService.turndown(content));
 	}
 
 	/**

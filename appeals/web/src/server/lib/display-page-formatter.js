@@ -71,12 +71,15 @@ export const formatListOfLinkedAppeals = (listOfAppeals) => {
 		for (let i = 0; i < listOfAppeals.length; i++) {
 			const shortAppealReference = appealShortReference(listOfAppeals[i].appealReference);
 			const linkUrl = listOfAppeals[i].externalSource
-				? `https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=${listOfAppeals[i].appealReference}`
+				? generateHorizonAppealUrl(listOfAppeals[i].appealId)
 				: `/appeals-service/appeal-details/${listOfAppeals[i].appealId}`;
 			const linkAriaLabel = `Appeal ${numberToAccessibleDigitLabel(shortAppealReference || '')}`;
 			const relationshipText = listOfAppeals[i].isParentAppeal ? ' (Lead)' : ' (Child)';
 
-			formattedLinks += `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a> ${relationshipText}</li>`;
+			formattedLinks +=
+				linkUrl.length > 0
+					? `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a> ${relationshipText}</li>`
+					: `<li><span class="govuk-body">${shortAppealReference}</span> ${relationshipText}</li>`;
 		}
 
 		return `<ul class="govuk-list">${formattedLinks}</ul>`;
@@ -97,11 +100,14 @@ export const formatListOfRelatedAppeals = (listOfAppeals) => {
 		for (let i = 0; i < listOfAppeals.length; i++) {
 			const shortAppealReference = appealShortReference(listOfAppeals[i].appealReference);
 			const linkUrl = listOfAppeals[i].externalSource
-				? `https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=${listOfAppeals[i].appealReference}`
+				? generateHorizonAppealUrl(listOfAppeals[i].appealId)
 				: `/appeals-service/appeal-details/${listOfAppeals[i].appealId}`;
 			const linkAriaLabel = `Appeal ${numberToAccessibleDigitLabel(shortAppealReference || '')}`;
 
-			formattedLinks += `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a></li>`;
+			formattedLinks +=
+				linkUrl.length > 0
+					? `<li><a href="${linkUrl}" class="govuk-link" aria-label="${linkAriaLabel}">${shortAppealReference}</a></li>`
+					: `<li><span class="govuk-body">${shortAppealReference}</span></li>`;
 		}
 
 		return `<ul class="govuk-list">${formattedLinks}</ul>`;
@@ -338,4 +344,16 @@ export function formatListOfAddresses(arrayOfAddresses) {
 		return `<ul class="govuk-list govuk-list--bullet">${formattedList}</ul>`;
 	}
 	return '<span>None</span>';
+}
+
+/**
+ * @param {string|number|null|undefined} appealId
+ * @returns {string}
+ */
+export function generateHorizonAppealUrl(appealId) {
+	if (appealId === null || appealId === undefined) {
+		return '';
+	}
+
+	return `https://horizonweb.planninginspectorate.gov.uk/otcs/llisapi.dll?func=ll&objId=${appealId}`;
 }

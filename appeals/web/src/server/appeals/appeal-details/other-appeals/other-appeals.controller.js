@@ -122,7 +122,9 @@ export const postConfirmOtherAppeals = async (request, response) => {
 	if (relateAppealsAnswer === 'no') {
 		delete request.session.appealId;
 		delete request.session.relatedAppealReference;
-		return response.redirect(`/appeals-service/appeal-details/${request.currentAppeal.appealId}`);
+		return response.redirect(
+			`/appeals-service/appeal-details/${request.currentAppeal.appealId}/other-appeals/add`
+		);
 	} else if (relateAppealsAnswer === 'yes') {
 		try {
 			const relatedAppealDetails = await getLinkableAppealSummaryFromReference(
@@ -199,7 +201,7 @@ const renderConfirmOtherAppeals = async (request, response, errors = undefined) 
 
 		const mappedPageContent = confirmOtherAppealsPage(request.currentAppeal, relatedAppealDetails);
 
-		return response.render('patterns/display-page.pattern.njk', {
+		return response.render('patterns/check-and-confirm-page.pattern.njk', {
 			pageContent: mappedPageContent,
 			errors: request.errors || errors
 		});

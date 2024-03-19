@@ -1,8 +1,8 @@
-import { migrateServiceUsers } from './src/service-user-migration.js';
+import { migrateServiceUsers } from '../common/migrators/service-user-migration.js';
 
 /**
  * @param {import('@azure/functions').Context} context
- * @param  {object} message
+ * @param {import('@azure/functions').HttpRequest} req
  */
 export default async function (context, { body: { caseReferences } }) {
 	console.info('Migrating Service Users for', JSON.stringify(caseReferences));

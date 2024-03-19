@@ -95,7 +95,7 @@ const formatMyAppeals = (appeal, linkedAppeals) => ({
  * @param {Folder[]} folders
  * @param {{ transferredAppealType: string, transferredAppealReference: string } | null} transferAppealTypeInfo
  * @param {{ letterDate: Date|null, virusCheckStatus: string|null } | null} decisionInfo
- * @param { RepositoryGetAllResultItem[] | null} formattedAppealWithLinkedTypes
+ * @param { RepositoryGetAllResultItem[] | null} referencedAppeals
  * @returns {SingleAppealDetailsResponse | void}}
  */
 const formatAppeal = (
@@ -103,7 +103,7 @@ const formatAppeal = (
 	folders,
 	transferAppealTypeInfo = null,
 	decisionInfo = null,
-	formattedAppealWithLinkedTypes = null
+	referencedAppeals = null
 ) => {
 	if (appeal) {
 		const formattedAppeal = {
@@ -195,11 +195,11 @@ const formatAppeal = (
 					isRequired: appeal.lpaQuestionnaire?.doesSiteRequireInspectorAccess || null
 				}
 			},
-			otherAppeals: formatRelatedAppeals(appeal.relatedAppeals || [], appeal.id),
+			otherAppeals: formatRelatedAppeals(appeal.relatedAppeals || [], appeal.id, referencedAppeals),
 			linkedAppeals: formatLinkedAppeals(
 				appeal.linkedAppeals || [],
 				appeal.reference,
-				formattedAppealWithLinkedTypes
+				referencedAppeals
 			),
 			isParentAppeal:
 				(appeal.linkedAppeals || []).filter((link) => link.parentRef === appeal.reference).length >
@@ -228,6 +228,7 @@ const formatAppeal = (
 				visitType: appeal.siteVisit?.siteVisitType?.name || null
 			},
 			startedAt: appeal.startedAt,
+			validAt: appeal.validAt,
 			documentationSummary: {
 				appellantCase: {
 					status: formatAppellantCaseDocumentationStatus(appeal),
@@ -306,25 +307,33 @@ export const mapAppealToDueDate = (appeal, appellantCaseStatus, appellantCaseDue
 };
 
 /**
- * @param {AppealRelationship[]} linkedAppeals
+ * @param {AppealRelationship[]} otherAppeals
  * @param {string} currentAppealRef
  * @returns {number[]}
  */
-const getRelevantLinkedAppealIds = (linkedAppeals, currentAppealRef) => {
-	const isParentAppeal = linkedAppeals.some((link) => link.parentRef === currentAppealRef);
+const getIdsOfReferencedAppeals = (otherAppeals, currentAppealRef) => {
+	/**
+	 * @type {number[]}
+	 */
+	const relevantIds = [];
+	otherAppeals.map((relation) => {
+		if (
+			relation.childRef === currentAppealRef &&
+			relation.parentId !== null &&
+			relevantIds.indexOf(relation.parentId) === -1
+		) {
+			relevantIds.push(relation.parentId);
+		}
+		if (
+			relation.parentRef === currentAppealRef &&
+			relation.childId !== null &&
+			relevantIds.indexOf(relation.childId) === -1
+		) {
+			relevantIds.push(relation.childId);
+		}
+	});
 
-	let relevantIds = linkedAppeals
-		.filter(
-			(linkedAppeal) =>
-				(isParentAppeal
-					? linkedAppeal.parentRef === currentAppealRef
-					: linkedAppeal.childRef === currentAppealRef) &&
-				linkedAppeal.childId !== null &&
-				linkedAppeal.parentId !== null
-		)
-		.map((linkedApp) => (isParentAppeal ? Number(linkedApp.childId) : Number(linkedApp.parentId)));
-
-	return relevantIds.filter((id, index, self) => self.indexOf(id) === index);
+	return relevantIds;
 };
 
-export { formatAppeal, formatAppeals, formatMyAppeals, getRelevantLinkedAppealIds };
+export { formatAppeal, formatAppeals, formatMyAppeals, getIdsOfReferencedAppeals };

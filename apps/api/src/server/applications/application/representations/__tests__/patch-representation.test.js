@@ -116,10 +116,10 @@ const rep1UpdatePayload = [
 		redacted: true,
 		referenceId: 'BC0110001-2',
 		representationId: 1,
-		status: 'VALID',
+		status: 'valid',
 		registerFor: undefined,
 		representationFrom: 'AGENT',
-		representationType: undefined,
+		representationType: null,
 		representativeId: '10382',
 		representedId: '10381'
 	}

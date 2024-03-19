@@ -213,6 +213,12 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.custom(validateFutureDate)
 		.withMessage('Submission date internal must be in the future')
 		.optional({ nullable: true }),
+	body('keyDates.preExamination.dateOfReOpenRelevantRepresentationStart')
+		.customSanitizer(timestampToDate)
+		.optional({ nullable: true }),
+	body('keyDates.preExamination.dateOfReOpenRelevantRepresentationClose')
+		.customSanitizer(timestampToDate)
+		.optional({ nullable: true }),
 	validationErrorHandler
 );
 

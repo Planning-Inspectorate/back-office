@@ -1,4 +1,4 @@
-import { migrateS51Advice } from './src/s51-advice-migration.js';
+import { migrateS51Advice } from '../common/migrators/s51-advice-migration.js';
 
 // @ts-ignore
 await migrateS51Advice(

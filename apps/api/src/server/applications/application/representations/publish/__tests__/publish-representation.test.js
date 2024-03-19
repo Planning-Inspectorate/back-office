@@ -1,5 +1,5 @@
 import { request } from '#app-test';
-import { batchSendEvents } from '../../../../_utils/batch-send-events.js';
+import { batchSendEvents } from '#infrastructure/event-batch-broadcaster.js';
 import { jest } from '@jest/globals';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -160,7 +160,7 @@ const expectedNsipRepresentationPayload = [
 		representationType: null,
 		representativeId: undefined,
 		representedId: '10105',
-		status: 'PUBLISHED',
+		status: 'published',
 		registerFor: 'ORGANISATION',
 		representationFrom: 'ORGANISATION'
 	},
@@ -177,7 +177,7 @@ const expectedNsipRepresentationPayload = [
 		representationType: null,
 		representativeId: '10382',
 		representedId: '10381',
-		status: 'PUBLISHED',
+		status: 'published',
 		registerFor: undefined,
 		representationFrom: 'AGENT'
 	}

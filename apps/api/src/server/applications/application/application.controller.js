@@ -16,7 +16,6 @@ import { getCaseDetails, getCaseByRef, startApplication } from './application.se
  */
 export const createApplication = async (request, response) => {
 	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(request.body);
-
 	const application = await caseRepository.createApplication(mappedApplicationDetails);
 
 	await broadcastNsipProjectEvent(application, EventType.Create);
