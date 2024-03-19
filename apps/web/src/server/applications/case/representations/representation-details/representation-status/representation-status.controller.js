@@ -16,8 +16,8 @@ const view =
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
-export const getRepresentationStatusController = async ({ params, query }, res) => {
-	const { caseId, representationId } = params;
+export const getRepresentationStatusController = async ({ query }, res) => {
+	const { caseId, representationId } = res.locals;
 	const { changeStatus } = query;
 
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
@@ -37,8 +37,8 @@ export const getRepresentationStatusController = async ({ params, query }, res) 
  * @param {import("express").Response} res
  */
 
-export const postRepresentationStatus = async ({ body, params, errors, session }, res) => {
-	const { caseId, representationId } = params;
+export const postRepresentationStatus = async ({ body, errors, session }, res) => {
+	const { caseId, representationId } = res.locals;
 
 	if (errors) {
 		const representationDetails = await getRepresentationDetails(caseId, representationId);

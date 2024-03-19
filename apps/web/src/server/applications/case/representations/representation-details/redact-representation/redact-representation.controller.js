@@ -13,7 +13,7 @@ import { patchRepresentationRedact } from './redact-represntation.service.js';
  * @param {import("express").Response} res
  */
 export const getRedactRepresentationController = async (req, res) => {
-	const { caseId, representationId } = req.params;
+	const { caseId, representationId } = res.locals;
 
 	const caseReference = await getCase(caseId);
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
@@ -35,11 +35,8 @@ export const getRedactRepresentationController = async (req, res) => {
  * @param {import("express").Response} res
  */
 export const postRedactRepresentationController = async (req, res) => {
-	const {
-		body,
-		params: { caseId, representationId },
-		session
-	} = req;
+	const { body, session } = req;
+	const { caseId, representationId } = res.locals;
 
 	body.actionBy = authSession.getAccount(session)?.name;
 

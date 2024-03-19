@@ -7,15 +7,19 @@ import * as authSession from '../../../../../app/auth/auth-session.service.js';
 const view = 'applications/representations/representation-details/change-redaction.njk';
 
 /**
- *  @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}, {repId: string, caseId: string}>}
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}, {representationId: string, caseId: string}>}
  */
 export const getRepresentationDetailsChangeRedactionController = async (req, res) => {
-	const { caseId, repId } = res.locals;
-	const representationDetails = await getRepresentationDetails(caseId, repId);
+	const { caseId, representationId } = res.locals;
+	const representationDetails = await getRepresentationDetails(caseId, representationId);
 
 	return res.render(
 		view,
-		getRepresentationDetailsChangeRedactionViewModel(representationDetails, caseId, repId)
+		getRepresentationDetailsChangeRedactionViewModel(
+			representationDetails,
+			caseId,
+			representationId
+		)
 	);
 };
 
@@ -24,23 +28,27 @@ export const getRepresentationDetailsChangeRedactionController = async (req, res
  */
 export const postRepresentationDetailsChangeRedactionController = async (req, res) => {
 	const { body, errors, session } = req;
-	const { caseId, repId } = res.locals;
+	const { caseId, representationId } = res.locals;
 
-	const representationDetails = await getRepresentationDetails(caseId, repId);
+	const representationDetails = await getRepresentationDetails(caseId, representationId);
 	if (errors) {
 		return res.render(view, {
-			...getRepresentationDetailsChangeRedactionViewModel(representationDetails, caseId, repId),
+			...getRepresentationDetailsChangeRedactionViewModel(
+				representationDetails,
+				caseId,
+				representationId
+			),
 			errors,
 			errorSummary: getFormattedErrorSummary(errors)
 		});
 	}
 
-	await patchRepresentationDetailsChangeRedaction(caseId, repId, {
+	await patchRepresentationDetailsChangeRedaction(caseId, representationId, {
 		redactStatus: body.changeRedaction === 'true',
 		actionBy: authSession.getAccount(session)?.name
 	});
 
 	return res.redirect(
-		`/applications-service/case/${caseId}/relevant-representations/${repId}/representation-details`
+		`/applications-service/case/${caseId}/relevant-representations/${representationId}/representation-details`
 	);
 };

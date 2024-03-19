@@ -5,10 +5,10 @@ import { formatContactDetails } from '../../representation/representation.utilit
 const view = 'applications/representations/representation-details/task-log.njk';
 
 /**
- *  @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {representationId: string, caseId: string}>}
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}, {caseId: string, representationId: string}>}
  */
 export const getRepresentationDetailsTaskLogController = async (req, res) => {
-	const { caseId, representationId } = req.params;
+	const { caseId, representationId } = res.locals;
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
 
 	return res.render(

@@ -5,6 +5,6 @@
  */
 export const registerRepsParams = ({ params }, response, next) => {
 	response.locals.caseId = params.caseId || '';
-	response.locals.repId = params.repId || params.representationId || '';
+	response.locals.representationId = params.repId || params.representationId || '';
 	next();
 };
