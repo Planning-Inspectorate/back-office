@@ -1,10 +1,10 @@
 /**
- * Register the caseId retrieved from the URL for the resumed step of the ApplicationsCreate process.
+ * Register and validate the caseId and the repId
  *
  * @type {import('express').RequestHandler<*, *, *, *, *>}
  */
-export const registerCaseId = ({ params }, response, next) => {
+export const registerRepsParams = ({ params }, response, next) => {
 	response.locals.caseId = params.caseId || '';
-	response.locals.caseId = params.caseId || '';
+	response.locals.repId = params.repId || '';
 	next();
 };
