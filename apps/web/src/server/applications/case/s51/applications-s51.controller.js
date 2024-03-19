@@ -147,7 +147,8 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
  */
 export async function postApplicationsCaseEditS51Item({ body, params }, response) {
 	const { adviceId, step } = params;
-	const { caseId, title } = response.locals;
+	const { caseId } = response.locals;
+
 	const payload = mapUpdateBodyToPayload(body);
 
 	if (step === 'title') {
@@ -206,15 +207,15 @@ export async function viewApplicationsCaseS51CreatePage(request, response) {
 /**
  * Save data for creating s51 advice
  *
- * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null, errors: ValidationErrors}, {}, Partial<S51AdviceForm>, {}, {step: string}, {caseId: object, title: string}>}
+ * @type {import('@pins/express').RenderHandler<{values: Partial<S51AdviceForm> | null, errors: ValidationErrors}, {}, Partial<S51AdviceForm>, {}, {step: string}, {caseId: object}>}
  */
 export async function updateApplicationsCaseS51CreatePage(request, response) {
 	const { errors: validationErrors, body, session, params } = request;
-	const { caseId, title } = response.locals;
+	const { caseId } = response.locals;
 
 	let apiErrors;
 	if (params.step === 'title' && body.title) {
-		const { errors } = await checkS51NameIsUnique(Number(caseId), title);
+		const { errors } = await checkS51NameIsUnique(Number(caseId), body.title);
 		apiErrors = errors;
 	}
 
