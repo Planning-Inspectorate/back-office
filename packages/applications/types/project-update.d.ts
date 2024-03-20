@@ -33,7 +33,7 @@ export type ProjectUpdateType =
 	| string;
 
 /**
- * Project update notificaiton log type returned by the API
+ * Project update notification log type returned by the API
  */
 export interface ProjectUpdateNotificationLog {
 	id: number;
