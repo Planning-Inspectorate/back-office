@@ -38,6 +38,39 @@ export class BackOfficeApiClient {
 	}
 
 	/**
+	 * Get project updates from the API and extend with additional application data, or null if not found
+	 *
+	 * @param {string} caseReference
+	 * @param {number} id
+	 * @returns {Promise<import('./types.js').ExtendedProjectUpdate|null>}
+	 */
+	async getExtendedProjectUpdate(caseReference, id) {
+		try {
+			const applicationDataPromise = requestWithApiKey
+				.get(`${this.baseUrl}/applications/${caseReference}`)
+				.json();
+
+			const updateDataPromise = requestWithApiKey
+				.get(`${this.baseUrl}/applications/project-updates/${id}`)
+				.json();
+
+			const [updateData, { title: projectName }] = await Promise.all([updateDataPromise, applicationDataPromise])
+
+			return {
+				...updateData,
+				projectName
+			}
+		} catch (e) {
+			if (e instanceof HTTPError) {
+				if (e.response.statusCode === 404) {
+					return null;
+				}
+			}
+			throw e;
+		}
+	}
+
+	/**
 	 * Patch a project update, to update sentToSubscribers
 	 *
 	 * @param {number} id
