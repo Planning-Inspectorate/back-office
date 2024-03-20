@@ -75,7 +75,7 @@ export class NotifySubscribers {
 		if (!this.messageIsValid()) {
 			return;
 		}
-		const update = await this.getUpdate();
+		const update = await this.getExtendedUpdate()
 
 		if (update === null) {
 			this.logger.error(`update (id ${this.msg.id}) doesn't exist with`);
@@ -113,7 +113,7 @@ export class NotifySubscribers {
 	 * Fetch all subscribers (a page at a time) and send an email to each one
 	 *
 	 * @param {Object} opts
-	 * @param {import('@pins/applications').ProjectUpdate} opts.update
+	 * @param {import('./types.js').ExtendedProjectUpdate} opts.update
 	 * @param {string} opts.content
 	 * @param {string} opts.subscriptionType
 	 * @param {string} opts.caseReference
@@ -138,7 +138,7 @@ export class NotifySubscribers {
 				`processing ${page.items.length} subscribers (running total: ${total}, page ${pageCount})`
 			);
 
-			// notify all subscribers (per page) in parrallel
+			// notify all subscribers (per page) in parallel
 			const logs = await Promise.all(
 				page.items.map((subscription) =>
 					this.notifySubscriber(update, subscription, content, caseReference)
@@ -158,7 +158,7 @@ export class NotifySubscribers {
 	/**
 	 * Send an email individual subscriber
 	 *
-	 * @param {import('@pins/applications').ProjectUpdate} update
+	 * @param {import('./types.js').ExtendedProjectUpdate} update
 	 * @param {import('@pins/applications').Subscription} subscription
 	 * @param {string} content
 	 * @param {string} caseReference
@@ -179,14 +179,14 @@ export class NotifySubscribers {
 			const reference = [caseReference, update.id, subscription.id].join('-');
 			const projectLink = this.generateProjectLink(caseReference);
 			const unsubscribeUrl = this.generateUnsubscribeLink(caseReference, subscription.emailAddress);
+			const projectName = update.projectName || caseReference;
+
 			await this.notifyClient.sendEmail(this.templateId, subscription.emailAddress, {
 				personalisation: {
-					// todo: project name & link ?
-					projectName: caseReference,
+					projectName,
 					projectLink,
-					// todo: what should these be?
-					title: `${caseReference} - Project Update`,
-					subject: `${caseReference} - Project Update Notification`,
+					title: `${projectName} - Project Update`,
+					subject: `${projectName} - Project Update Notification`,
 					content,
 					unsubscribeUrl
 				},
@@ -230,6 +230,13 @@ export class NotifySubscribers {
 	 */
 	getUpdate() {
 		return this.apiClient.getProjectUpdate(this.msg.id);
+	}
+
+	/**
+	 * @returns {Promise<import('./types.js').ExtendedProjectUpdate|null>}
+	 */
+	getExtendedUpdate() {
+		return this.apiClient.getExtendedProjectUpdate(this.msg.caseReference, this.msg.id);
 	}
 
 	/**
