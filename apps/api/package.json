@@ -30,7 +30,8 @@
     "db:seed:prod": "npm run prisma-generate && cross-env NODE_ENV=production node src/database/seed/seed-production.js",
     "prisma:format": "npx prisma format",
     "prisma-generate": "npx prisma generate",
-    "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
+    "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0",
+    "add-folders": "node ./src/server/utils/scripts/add-folders.js"
   },
   "dependencies": {
     "@azure/identity": "3.0.1",
