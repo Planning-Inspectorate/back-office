@@ -73,7 +73,7 @@ router.get(
 			}
 			#swagger.parameters['sortBy'] = {
 					in: 'query',
-					description: 'Sort by field. +field for ASC, -field for DESC',
+					description: 'Sort by field. +field for ASC, -field for DESC, or combine if required +field1-field2',
 					required: false,
 					type: 'string'
 			}

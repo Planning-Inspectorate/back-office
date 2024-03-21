@@ -2,33 +2,34 @@
  * Create a sortBy object suitable for use with a database query, from a sortBy query string.
  *
  * @param {string|any} [queryStr] - in the format `<+|-><field>`
- * @returns {Object<string, string>|undefined}
+ * @returns {Object<string, string>[]|undefined}
  */
 export function sortByFromQuery(queryStr) {
-	let orderBy;
-
-	if (typeof queryStr !== 'string' || queryStr === '') {
-		return orderBy;
+	if (typeof queryStr !== 'string' || queryStr.trim() === '') {
+		return undefined;
 	}
 
-	let field = queryStr;
+	const orderBy = [];
 	let direction = 'asc';
+	let fieldName = '';
 
-	switch (queryStr.slice(0, 1)) {
-		case '-':
-			direction = 'desc';
-			field = queryStr.slice(1);
-			break;
+	for (let i = 0; i < queryStr.length; i++) {
+		const currentChar = queryStr[i];
 
-		case '+':
-			direction = 'asc';
-			field = queryStr.slice(1);
-			break;
+		if (currentChar === '+' || currentChar === '-') {
+			direction = currentChar === '+' ? 'asc' : 'desc';
+			fieldName = '';
+		} else {
+			fieldName += currentChar;
+
+			const isLastChar = i === queryStr.length - 1;
+			const isNextCharOperator = queryStr[i + 1] === '+' || queryStr[i + 1] === '-';
+
+			if (isLastChar || isNextCharOperator) {
+				orderBy.push({ [fieldName]: direction });
+			}
+		}
 	}
 
-	orderBy = {
-		[field]: direction
-	};
-
-	return orderBy;
+	return orderBy.length > 0 ? orderBy : undefined;
 }
