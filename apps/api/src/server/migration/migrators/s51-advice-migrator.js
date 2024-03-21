@@ -73,7 +73,7 @@ const mapModelToS51AdviceEntity = async ({
 	caseReference,
 	title,
 	from,
-	// agent,
+	agent,
 	method,
 	enquiryDate,
 	enquiryDetails,
@@ -99,6 +99,7 @@ const mapModelToS51AdviceEntity = async ({
 		id: Number(adviceId),
 		caseId: caseId,
 		title: title || '',
+		enquirer: agent,
 		firstName,
 		lastName,
 		enquiryMethod: method || '',
@@ -118,6 +119,7 @@ const parseAdviceReference = (adviceReference) => {
 	return match ? Number(match[0]) : 1;
 };
 
+// data-model defines status in a different format to what is stored in BO db, so some mapping needed
 const mapStatus = (status) =>
 	({
 		checked: 'checked',
@@ -125,5 +127,8 @@ const mapStatus = (status) =>
 		readytopublish: 'ready_to_publish',
 		published: 'published',
 		donotpublish: 'do_not_publish',
-		depublished: 'not_checked'
-	}[status]);
+
+		// TODO remove these values below once ODW has mapped them in curated layer (ODW-1122)
+		depublished: 'not_checked',
+		notchecked: 'not_checked'
+	}[status?.replaceAll(' ', '')]);
