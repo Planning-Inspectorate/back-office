@@ -1,1 +1,3 @@
 data.js
+*.csv
+!example.csv

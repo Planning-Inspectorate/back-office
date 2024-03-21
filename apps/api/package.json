@@ -77,6 +77,7 @@
     "xstate": "4.32.1"
   },
   "devDependencies": {
+    "@fast-csv/parse": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/express-pino-logger": "^4.0.3",
     "@types/jest": "^29.4.0",
