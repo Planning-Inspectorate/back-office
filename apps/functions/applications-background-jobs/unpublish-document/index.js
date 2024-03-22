@@ -9,6 +9,12 @@ import config from '../common/config.js';
 export const index = async (context, { caseId, version, documentId, documentURI }) => {
 	context.log(`Unpublishing document ID ${documentId} at URI ${documentURI}`);
 
+	// replace PINs domain with primary blob domain to ensure operation works
+	documentURI = documentURI.replace(
+		config.BLOB_STORAGE_ACCOUNT_DOMAIN,
+		config.BLOB_STORAGE_ACCOUNT_HOST
+	);
+
 	const blobName = parseBlobName(documentURI);
 	if (!blobName) {
 		throw new Error(`could not parse blob name from document URI: ${documentURI}`);
