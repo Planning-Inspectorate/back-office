@@ -7,14 +7,6 @@ parameters:
     displayName: Build Applications BO Web
     type: boolean
     default: true
-  - name: buildAppealsBoApi
-    displayName: Build Appeals BO API
-    type: boolean
-    default: true
-  - name: buildAppealsBoWeb
-    displayName: Build Appeals BO Web
-    type: boolean
-    default: true
   - name: buildFunctions
     displayName: Build All Functions
     type: boolean
@@ -107,47 +99,6 @@ extends:
               dockerfilePath: $(Build.SourcesDirectory)/apps/web/Dockerfile
               repository: back-office/back-office-web
 
-      - name: Build Appeals BO API
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildAppealsBoApi }}, 'true')
-              ),
-              ne(variables['Build.Reason'], 'Manual')
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: ../steps/azure_web_app_docker_build_push.yml@templates
-            parameters:
-              azurecrName: $(azurecrName)
-              dockerfilePath: $(Build.SourcesDirectory)/appeals/api/Dockerfile
-              repository: back-office/back-office-appeals-api
-      - name: Build Appeals  BO Web
-        condition: >-
-          and(
-            succeeded(),
-            or(
-              and(
-                eq(variables['Build.Reason'], 'Manual'),
-                eq(${{ parameters.buildAppealsBoWeb }}, 'true')
-              ),
-              ne(variables['Build.Reason'], 'Manual')
-            )
-          )
-        dependsOn:
-          - Run Linting & Tests
-        steps:
-          - template: ../steps/azure_web_app_docker_build_push.yml@templates
-            parameters:
-              azurecrName: $(azurecrName)
-              dockerfilePath: $(Build.SourcesDirectory)/appeals/web/Dockerfile
-              repository: back-office/appeals-web
-
       - name: Build All Functions
         condition: >-
           and(
@@ -175,10 +126,6 @@ extends:
                 - 'applications-migration'
                 - 'applications-background-jobs'
                 - 'applications-command-handlers'
-              appealsFolderNames:
-                - 'casedata-import'
-                - 'user-import'
-                - 'document-processing'
 
           # package Applications BO migration function
           - template: azure-pipelines-package-function.yml@self
@@ -197,21 +144,3 @@ extends:
             parameters:
               root: 'apps'
               folderName: 'applications-command-handlers'
-
-          # package Appeals BO case data function
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'appeals'
-              folderName: 'casedata-import'
-          
-          # package Appeals BO user function
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'appeals'
-              folderName: 'user-import'
-
-          # package Appeals BO document function
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'appeals'
-              folderName: 'document-processing'
