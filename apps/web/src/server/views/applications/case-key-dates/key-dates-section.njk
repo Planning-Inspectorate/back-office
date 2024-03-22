@@ -10,12 +10,12 @@
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
-<aside>
-	{{ govukBackLink({
-		text: "Back",
-		href: 'key-dates'|url({caseId: caseId})
-	}) }}
-</aside>
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: 'key-dates'|url({caseId: caseId})
+		}) }}
+	</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}
@@ -27,44 +27,50 @@
 	</h1>
 
 	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
-
-		{% for key, values in sectionValues %}
-
-			{% if key === 'submissionAtPublished' %}
-				<div class="govuk-form-group govuk-grid-column-full">
-
-					{{ govukInput({
-					label: {
-						text: key|keyDatesProperty,
-						classes: 'font-weight--700'
-					},
-					hint: {
-						text: (key+'_label')|keyDatesProperty
-
-					},
-					id: key,
-					name: key,
-					value: values,
-					classes: "govuk-!-width-one-third"
-				}) }}
-				</div>
-			{% else %}
-				{% set datesHint = (key+'_label')|keyDatesProperty %}
-				{% set datesAdvisory = (key+'_advisory')|keyDatesProperty|bold %}
-				{{ dateInput({
-					layout: {
-						fieldName: key,
-						label: key|keyDatesProperty,
-						classes: 'govuk-grid-column-one-third',
+		{% if sectionName == "preExamination" %}
+			{% include "./includes/pre-examination/pre-examination-manage-dates.include.njk" %}
+		{% else %}
+			{% for key, values in sectionValues %}
+				{% if key === 'submissionAtPublished' %}
+					<div class="govuk-form-group govuk-grid-column-full">
+						{{ govukInput({
+						label: {
+							text: key|keyDatesProperty,
+							classes: 'font-weight--700'
+						},
 						hint: {
-							html: (datesHint + ' ' + datesAdvisory) | trim
-						}
-					},
-					errors: errors,
-					values: sectionValues
-				}) }}
-			{% endif %}
-		{% endfor %}
+							text: (key+'_label')|keyDatesProperty
+						},
+						id: key,
+						name: key,
+						value: values,
+						classes: "govuk-!-width-one-third"
+					}) }}
+					</div>
+				{% else %}
+					{{ dateInput({
+						layout: {
+						fieldName: key,
+						label: key | keyDatesProperty,
+						classes: 'govuk-grid-column-one-third',
+							hint: {
+								html: getDatesHint(key)
+							}
+						},
+						errors: errors,
+						values: sectionValues
+					}) }}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
 		{{ govukButton({ text: 'Save and return'}) }}
 	</form>
 {% endblock %}
+
+{% macro getDatesHint(key) %}
+	{% set datesHint = (key + '_label') | keyDatesProperty %}
+	{% set datesAdvisory = (key + '_advisory') | keyDatesProperty | bold %}
+
+	{{ (datesHint + ' ' + datesAdvisory) | trim | safe }}
+{% endmacro %}
