@@ -31,7 +31,11 @@ export const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');
 export const parseBlobName = (documentURI) => {
 	const [storageAccountHost, blobName] = documentURI.split(config.BLOB_SOURCE_CONTAINER);
 
-	if (trimSlashes(storageAccountHost) != trimSlashes(config.BLOB_STORAGE_ACCOUNT_HOST)) {
+	if (
+		![config.BLOB_STORAGE_ACCOUNT_HOST, config.BLOB_STORAGE_ACCOUNT_DOMAIN]
+			.map(trimSlashes)
+			.includes(trimSlashes(storageAccountHost))
+	) {
 		throw Error(`Attempting to copy from unknown storage account host ${storageAccountHost}`);
 	}
 
