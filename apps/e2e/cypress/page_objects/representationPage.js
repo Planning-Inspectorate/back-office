@@ -26,7 +26,7 @@ export class RepresentationPage extends Page {
 		searchRepresentationButton: () => cy.get('#main-content > form > div:nth-child(6) > div:nth-child(2) > button'),
 		searchResults: () => cy.get('#main-content > form > div:nth-child(7) > div:nth-child(1)'),
 		reviewLink:()=>cy.get('.govuk-table__row > :nth-child(6) > a'),
-		statusLink:()=>cy.get(':nth-child(10) S> :nth-child(2) > .govuk-summary-list__actions > .govuk-link'),
+		statusLink:()=>cy.get('#main-content > div > div > dl:nth-child(10) > div:nth-child(2) > dd.govuk-summary-list__actions > a'),
 		statusOption:()=>cy.get('#changeStatus-4'),
 		gobackLink:()=>cy.get('.govuk-back-link'),
 		keyDates:()=>cy.get('.gov-list > li:nth-child(3) > a'),
