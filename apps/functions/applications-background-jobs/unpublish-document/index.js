@@ -1,4 +1,4 @@
-import { parseBlobName } from './utils.js';
+import { parseBlobName } from '../publish-document/src/util.js';
 import { requestWithApiKey } from '../common/backend-api-request.js';
 import { blobClient } from '../common/blob-client.js';
 import config from '../common/config.js';
@@ -11,7 +11,7 @@ export const index = async (context, { caseId, version, documentId, documentURI 
 
 	// replace PINs domain with primary blob domain to ensure operation works
 	documentURI = documentURI.replace(
-		config.BLOB_STORAGE_ACCOUNT_DOMAIN,
+		config.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN,
 		config.BLOB_STORAGE_ACCOUNT_HOST
 	);
 

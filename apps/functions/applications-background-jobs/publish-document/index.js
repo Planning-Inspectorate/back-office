@@ -16,7 +16,7 @@ export const index = async (
 
 	// replace PINs domain with primary blob domain to ensure copy operation works
 	documentURI = documentURI.replace(
-		config.BLOB_STORAGE_ACCOUNT_DOMAIN,
+		config.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN,
 		config.BLOB_STORAGE_ACCOUNT_HOST
 	);
 
