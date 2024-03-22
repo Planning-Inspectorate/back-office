@@ -6,7 +6,7 @@ const schema = joi.object({
 	BLOB_PUBLISH_CONTAINER: joi.string(),
 	BLOB_SOURCE_CONTAINER: joi.string(),
 	BLOB_STORAGE_ACCOUNT_HOST: joi.string(),
-	BLOB_STORAGE_ACCOUNT_DOMAIN: joi.string(),
+	BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN: joi.string(),
 	log: joi.object({
 		levelStdOut: joi.string()
 	}),
@@ -20,7 +20,7 @@ const { value, error } = schema.validate({
 	BLOB_PUBLISH_CONTAINER: environment.BLOB_PUBLISH_CONTAINER,
 	BLOB_SOURCE_CONTAINER: environment.BLOB_SOURCE_CONTAINER,
 	BLOB_STORAGE_ACCOUNT_HOST: environment.BLOB_STORAGE_ACCOUNT_HOST,
-	BLOB_STORAGE_ACCOUNT_DOMAIN: environment.BLOB_STORAGE_ACCOUNT_DOMAIN,
+	BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN: environment.BLOB_STORAGE_ACCOUNT_DOMAIN,
 	log: {
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
 	},
