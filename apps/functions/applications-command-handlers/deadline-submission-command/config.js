@@ -16,7 +16,7 @@ const environment = loadEnvironment(process.env.NODE_ENV);
 const { value, error } = schema.validate({
 	NODE_ENV: environment.NODE_ENV,
 	apiHost: environment.API_HOST,
-	storageUrl: environment.BLOB_STORAGE_URL,
+	storageUrl: environment.BLOB_STORAGE_ACCOUNT_DOMAIN,
 	submissionsContainer: environment.SUBMISSIONS_BLOB_CONTAINER_NAME,
 	uploadsContainer: environment.UPLOADS_BLOB_CONTAINER_NAME,
 	serviceBusHost: environment.SERVICE_BUS_HOSTNAME,
