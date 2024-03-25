@@ -1,5 +1,9 @@
 import { requestWithApiKey } from '../common/backend-api-request.js';
-import { buildPublishedFileName, parseBlobName } from './src/util.js';
+import {
+	buildPublishedFileName,
+	parseBlobName,
+	replaceCustomDomainWithBlobDomain
+} from './src/util.js';
 import { isScannedFileHtml, isUploadedHtmlValid } from '../common/html-validation.js';
 import { handleHtmlValidityFail } from './src/handle-html-validity-fail.js';
 import config from '../common/config.js';
@@ -15,10 +19,7 @@ export const index = async (
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
 	// replace PINs domain with primary blob domain to ensure copy operation works
-	documentURI = documentURI.replace(
-		config.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN,
-		config.BLOB_STORAGE_ACCOUNT_HOST
-	);
+	documentURI = replaceCustomDomainWithBlobDomain(documentURI);
 
 	if (
 		!caseId ||
@@ -57,9 +58,8 @@ export const index = async (
 
 	context.log(`Deploying source blob ${sourceBlobName} to destination ${publishFileName}`);
 
-	await blobClient.copyFile({
-		sourceContainerName: config.BLOB_SOURCE_CONTAINER,
-		sourceBlobName,
+	await blobClient.copyFileFromUrl({
+		sourceUrl: documentURI,
 		destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
 		destinationBlobName: publishFileName
 	});
