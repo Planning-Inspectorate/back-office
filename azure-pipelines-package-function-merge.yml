@@ -13,7 +13,6 @@ steps:
       source ~/.bashrc
       shopt -s extglob
       appsFolders=(echo ${{ join(' ',parameters.appsFolderNames) }})
-      appealsFolders=(echo ${{ join(' ',parameters.appealsFolderNames) }})
 
       for folder in ${appsFolders[@]}; do
         echo $folder
