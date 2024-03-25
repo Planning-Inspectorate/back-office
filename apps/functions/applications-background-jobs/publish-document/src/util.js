@@ -1,4 +1,5 @@
 import config from '../../common/config.js';
+import { ensureTrailingSlash } from '../../common/util.js';
 
 /**
  *
@@ -40,4 +41,16 @@ export const parseBlobName = (documentURI) => {
 	}
 
 	return trimSlashes(blobName);
+};
+
+/**
+ *
+ * @param {string} documentURI
+ * @returns {string}
+ */
+export const replaceCustomDomainWithBlobDomain = (documentURI) => {
+	return documentURI.replace(
+		ensureTrailingSlash(config.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN),
+		ensureTrailingSlash(config.BLOB_STORAGE_ACCOUNT_HOST)
+	);
 };
