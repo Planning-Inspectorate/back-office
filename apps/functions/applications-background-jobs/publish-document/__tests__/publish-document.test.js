@@ -38,7 +38,6 @@ describe('Publishing document', () => {
 				documentURI:
 					'https://127.0.0.1:10000/document-service-uploads/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1'
 			},
-			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1',
 			expectedDestinationName: 'BC0110003-001-olive oil.jpeg'
 		},
 		{
@@ -53,7 +52,6 @@ describe('Publishing document', () => {
 				documentURI:
 					'https://127.0.0.1:10000/document-service-uploads/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1'
 			},
-			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1',
 			expectedDestinationName: 'BC0110003-001-olive oil.jpeg'
 		},
 		{
@@ -68,15 +66,14 @@ describe('Publishing document', () => {
 				documentURI:
 					'https://127.0.0.1:10000/document-service-uploads/application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1'
 			},
-			expectedSourceName: 'application/BC0110003/6ef4b161-e930-4f5a-b789-c7a6352b7051/1',
 			expectedDestinationName: 'BC0110003-001-olive oil.jpeg.png'
 		}
 	];
 
-	it.each(testCases)('$name', async ({ document, expectedSourceName, expectedDestinationName }) => {
+	it.each(testCases)('$name', async ({ document, expectedDestinationName }) => {
 		// Arrange
 		const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
-		const mockCopyFile = jest.spyOn(blobClient, 'copyFile');
+		const mockCopyFile = jest.spyOn(blobClient, 'copyFileFromUrl');
 		jest.spyOn(blobClient, 'getBlobProperties').mockResolvedValue({ contentType: 'not html' });
 
 		mockGotPost.mockReturnValue(mock200Response);
@@ -89,8 +86,7 @@ describe('Publishing document', () => {
 
 		// Assert
 		expect(mockCopyFile).toHaveBeenNthCalledWith(1, {
-			sourceContainerName: 'document-service-uploads',
-			sourceBlobName: expectedSourceName,
+			sourceUrl: document.documentURI,
 			destinationContainerName: 'published-documents',
 			destinationBlobName: expectedDestinationName
 		});
