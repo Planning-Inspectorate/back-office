@@ -60,6 +60,61 @@ describe('S51 Advice', () => {
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('S51 advice folder');
 			});
+
+			describe('Published dates', () => {
+				it('should display Not published status', async () => {
+					const mockS51s = fixturePaginatedS51Advice(1, 50);
+					mockS51s.items = [createS51Advice({ id: 123, publishedStatus: 'checked' })];
+
+					nock('http://test/')
+						.get('/applications/123/s51-advice?page=1&pageSize=50')
+						.reply(200, mockS51s);
+
+					const response = await request.get(
+						'/applications-service/case/123/project-documentation/21/s51-advice'
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toContain('Not published');
+				});
+
+				it('should display Published status and date if both available', async () => {
+					const mockS51s = fixturePaginatedS51Advice(1, 50);
+					mockS51s.items = [createS51Advice({ id: 123 })];
+					mockS51s.items[0].datePublished = 1711445797;
+					mockS51s.items[0].publishedStatus = 'published';
+					nock('http://test/')
+						.get('/applications/123/s51-advice?page=1&pageSize=50')
+						.reply(200, mockS51s);
+
+					const response = await request.get(
+						'/applications-service/case/123/project-documentation/21/s51-advice'
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).not.toContain('Not published');
+					expect(element.innerHTML).toContain('26 Mar 2024');
+				});
+
+				it('should display Published status and Updated date if pub date not available', async () => {
+					const mockS51s = fixturePaginatedS51Advice(1, 50);
+					mockS51s.items = [createS51Advice({ id: 123 })];
+					mockS51s.items[0].datePublished = null;
+					mockS51s.items[0].dateUpdated = 1708940197;
+					mockS51s.items[0].publishedStatus = 'published';
+					nock('http://test/')
+						.get('/applications/123/s51-advice?page=1&pageSize=50')
+						.reply(200, mockS51s);
+
+					const response = await request.get(
+						'/applications-service/case/123/project-documentation/21/s51-advice'
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).not.toContain('Not published');
+					expect(element.innerHTML).toContain('26 Feb 2024');
+				});
+			});
 		});
 	});
 
