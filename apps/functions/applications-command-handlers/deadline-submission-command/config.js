@@ -1,6 +1,10 @@
 import { loadEnvironment } from '@pins/platform';
 import joi from 'joi';
 
+/**
+ * @typedef {{ NODE_ENV: string, apiHost: string, storageHost: string, storageDomain: string, submissionsContainer: string, uploadsContainer: string, serviceBusHost: string, serviceBusTopic: string }} Config
+ * */
+
 const schema = joi.object({
 	NODE_ENV: joi.string().valid('development', 'production', 'test'),
 	apiHost: joi.string(),
@@ -14,6 +18,9 @@ const schema = joi.object({
 
 const environment = loadEnvironment(process.env.NODE_ENV);
 
+/**
+ * @type {import('joi').ValidationResult<Config>}
+ * */
 const { value, error } = schema.validate({
 	NODE_ENV: environment.NODE_ENV,
 	apiHost: environment.API_HOST,
@@ -29,4 +36,9 @@ if (error) {
 	throw error;
 }
 
+if (!value) {
+	throw new Error('joi returned undefined for the config object');
+}
+
+/** @type {Config} */
 export default value;
