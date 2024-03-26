@@ -78,8 +78,7 @@ export class NotifySubscribers {
 		const update = await this.getExtendedUpdate()
 
 		if (update === null) {
-			this.logger.error(`update (id ${this.msg.id}) doesn't exist with`);
-			return;
+			throw new Error(`update with id '${this.msg.id}' not found on case ${this.msg.caseReference}`);
 		}
 
 		if (!update.emailSubscribers) {

@@ -1,7 +1,7 @@
 import { requestWithApiKey } from '../common/backend-api-request.js';
 import {
 	buildPublishedFileName,
-	parseBlobName,
+	validateStorageAccount,
 	replaceCustomDomainWithBlobDomain
 } from './src/util.js';
 import { isScannedFileHtml, isUploadedHtmlValid } from '../common/html-validation.js';
@@ -44,11 +44,7 @@ export const index = async (
 		}
 	}
 
-	const sourceBlobName = parseBlobName(documentURI);
-
-	if (!sourceBlobName) {
-		throw Error('No blob name present in the documentURI');
-	}
+	validateStorageAccount(documentURI);
 
 	const publishFileName = buildPublishedFileName({
 		documentReference,
@@ -56,7 +52,7 @@ export const index = async (
 		originalFilename
 	});
 
-	context.log(`Deploying source blob ${sourceBlobName} to destination ${publishFileName}`);
+	context.log(`Deploying source blob ${documentURI} to destination ${publishFileName}`);
 
 	await blobClient.copyFileFromUrl({
 		sourceUrl: documentURI,
