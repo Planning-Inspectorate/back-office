@@ -5,10 +5,10 @@ import {
 	TEST_BLOB_GUID
 } from './test-utils/test-constants.js';
 import { isScannedFileHtml, isUploadedHtmlValid } from '../html-validation.js';
-import { Readable } from 'stream';
 import { INVALID_HTML_STRING, createTestYoutubeTemplate } from './test-utils/test-html.js';
 import { mockLogger } from '../../setup-tests.js';
 import { blobClient } from '../blob-client.js';
+import { stringToStream } from './test-utils/string-to-stream.js';
 
 const testBlobUri = `https://${TEST_BLOB_ACCOUNT}.blob.core.windows.net/${TEST_BLOB_CONTAINER}/path/to/blob/${TEST_BLOB_GUID}/1'`;
 describe('isScannedFileHtml', () => {
@@ -28,17 +28,6 @@ describe('isScannedFileHtml', () => {
 });
 
 describe('isUploadedHtmlValid', () => {
-	/**
-	 * @param {String} string
-	 * @returns {Readable}
-	 */
-	const stringToStream = (string) => {
-		const stream = new Readable();
-		stream.push(string);
-		stream.push(null);
-		return stream;
-	};
-
 	it.each([
 		{ youtubeLink: 'https://www.youtube.com/embed/VIDEO_ID', expectedResult: true },
 		{ youtubeLink: 'https://youtu.be/VIDEO_ID', expectedResult: true },
