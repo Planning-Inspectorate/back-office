@@ -2,14 +2,14 @@ import { BlobStorageClient } from '@pins/blob-storage-client';
 
 import config from './config.js';
 
-const { storageUrl, storageHost } = config;
+const { storageDomain, storageHost } = config;
 
 /**
  *
  * @typedef {{ containerName: string, blobName: string }} BlobLocation
  * */
 
-const client = () => BlobStorageClient.fromUrl(storageUrl);
+const client = () => BlobStorageClient.fromUrl(storageDomain);
 
 /**
  *
