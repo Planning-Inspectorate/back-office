@@ -1,4 +1,4 @@
-import { parseBlobName } from '../publish-document/src/util.js';
+import { parseBlobName, replaceCustomDomainWithBlobDomain } from '../publish-document/src/util.js';
 import { requestWithApiKey } from '../common/backend-api-request.js';
 import { blobClient } from '../common/blob-client.js';
 import config from '../common/config.js';
@@ -9,11 +9,8 @@ import config from '../common/config.js';
 export const index = async (context, { caseId, version, documentId, documentURI }) => {
 	context.log(`Unpublishing document ID ${documentId} at URI ${documentURI}`);
 
-	// replace PINs domain with primary blob domain to ensure operation works
-	documentURI = documentURI.replace(
-		config.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN,
-		config.BLOB_STORAGE_ACCOUNT_HOST
-	);
+	// replace PINs domain with primary blob domain to ensure copy operation works
+	documentURI = replaceCustomDomainWithBlobDomain(documentURI);
 
 	const blobName = parseBlobName(documentURI);
 	if (!blobName) {
