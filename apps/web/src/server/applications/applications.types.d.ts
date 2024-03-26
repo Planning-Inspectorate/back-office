@@ -171,6 +171,7 @@ export interface S51Advice {
 	redactedStatus: string;
 	dateCreated: number;
 	dateUpdated: number;
+	datePublished: number | null;
 	attachments: S51Attachment[];
 }
 
