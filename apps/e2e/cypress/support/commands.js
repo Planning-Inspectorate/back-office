@@ -31,12 +31,12 @@ Cypress.Commands.add('validateDownloadedFile', (fileName) => {
 
 Cypress.Commands.add('login', (user) => {
 	cy.task('CookiesFileExists', user.id).then((exists) => {
-		if (!exists) {
-			cy.log(`No cookies 🍪 found!\nLogging in as: ${user.id}`);
-			cy.loginWithPuppeteer(user);
-		} else {
+		if (exists || Cypress.env('AUTH_DISABLED')) {
 			cy.log(`Found some cookies! 🍪\nSetting cookies for: ${user.id}`);
 			setLocalCookies(user.id);
+		} else {
+			cy.log(`No cookies 🍪 found!\nLogging in as: ${user.id}`);
+			cy.loginWithPuppeteer(user);
 		}
 	});
 });

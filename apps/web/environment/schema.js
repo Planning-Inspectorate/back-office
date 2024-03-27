@@ -66,6 +66,7 @@ export default baseSchema
 			})
 			.options({ presence: 'required' }),
 		featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
-		dummyUserData: joi.optional()
+		dummyAddressData: joi.boolean().optional(),
+		dummyUserData: joi.boolean().optional()
 	})
 	.options({ presence: 'required' }); // all required by default

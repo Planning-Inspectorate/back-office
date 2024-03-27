@@ -1,5 +1,5 @@
-import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
 import { updateCase } from '../../services/case.service.js';
+import findAddressListByPostcode from '../../services/address.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../../applications.types').ApplicationsAddress} ApplicationsAddress */
