@@ -8,7 +8,6 @@ import { isScannedFileHtml, isUploadedHtmlValid } from '../common/html-validatio
 import { handleHtmlValidityFail } from './src/handle-html-validity-fail.js';
 import config from '../common/config.js';
 import { blobClient } from '../common/blob-client.js';
-import { getBlobPathType } from './src/get-blob-path-type.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
@@ -34,11 +33,9 @@ export const index = async (
 		throw Error('One or more required properties are missing.');
 	}
 
-	const blobPathType = getBlobPathType(documentURI);
-
-	if (await isScannedFileHtml(documentURI, blobPathType)) {
+	if (await isScannedFileHtml(documentURI)) {
 		context.log('Scanned file is HTML, performing validity check');
-		const isValidHtml = await isUploadedHtmlValid(documentURI, context.log, blobPathType);
+		const isValidHtml = await isUploadedHtmlValid(documentURI, context.log);
 		if (!isValidHtml) {
 			await handleHtmlValidityFail(documentURI, context.log);
 			throw Error(
@@ -48,7 +45,6 @@ export const index = async (
 	}
 
 	validateStorageAccount(documentURI);
-
 	const publishFileName = buildPublishedFileName({
 		documentReference,
 		filename,
