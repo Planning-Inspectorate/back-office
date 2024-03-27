@@ -17,16 +17,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
-                    </li>
-                </ol>
-            </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
@@ -861,16 +851,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
-                    </li>
-                </ol>
-            </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
@@ -2109,16 +2089,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
-                    </li>
-                </ol>
-            </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
@@ -2196,16 +2166,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
-                    </li>
-                </ol>
-            </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
@@ -3062,16 +3022,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
-                    </li>
-                </ol>
-            </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
@@ -4327,16 +4277,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
-                    </li>
-                </ol>
-            </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
@@ -5590,16 +5530,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
-                    </li>
-                </ol>
-            </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">Sub folder level 2 folder</h2>
                 <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"pins-subfolder-accordian\\">
