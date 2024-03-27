@@ -27,18 +27,17 @@
 	{% endif %}
 {% endblock %}
 
-{% block beforeContent %}{% endblock %}
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    classes: 'govuk-!-margin-top-0',
+    items: breadcrumbItems
+  }) }}
+{% endblock %}
 
 {% block pageContent %}
-
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{% block sectionContent %}
-				{{ govukBreadcrumbs({
-					classes: 'govuk-!-margin-top-0',
-					items: breadcrumbItems
-				}) }}
-
 				{{ folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce) }}
 
 				{{ folderStatus(currentFolder, items, caseId, isS51folder) }}
