@@ -3,6 +3,7 @@
 /failed-tests
 /cypress/videos
 /cypress/screenshots
+/cypress/downloads
 /cypress/support/browserAuthData
 cucumber-messages.ndjson
 /reports/report.html
