@@ -102,7 +102,7 @@ describe('Publishing document', () => {
 				...baseDocumentProperties,
 				documentURI:
 					// typical blob path for migration docs look like: /${caseference}/horizonweb:${guid}:${version}
-					`https://${TEST_BLOB_ACCOUNT}.blob.core.windows.net/${TEST_CASE_REFERENCE}/horizonweb:${TEST_BLOB_GUID}:${TEST_BLOB_VERSION}`
+					`https://${TEST_BLOB_ACCOUNT}.blob.core.windows.net/${TEST_BLOB_SOURCE_CONTAINER}/${TEST_CASE_REFERENCE}/horizonweb:${TEST_BLOB_GUID}:${TEST_BLOB_VERSION}`
 			},
 			...baseTestCaseProperties,
 			blobName: `${TEST_CASE_REFERENCE}/horizonweb:${TEST_BLOB_GUID}:${TEST_BLOB_VERSION}`,
@@ -134,7 +134,7 @@ describe('Publishing document', () => {
 			// Assert
 			expect(mockGetBlobProperties).toHaveBeenCalledTimes(1);
 			expect(mockGetBlobProperties).toHaveBeenCalledWith(TEST_BLOB_SOURCE_CONTAINER, blobName);
-			expect(mockDownloadStream).toHaveBeenCalledTimes(Number(isHtml));
+			expect(mockDownloadStream).toHaveBeenCalledTimes(Number(isHtml)); // true = 1 | false = 0
 			expect(mockCopyFile).toHaveBeenCalledTimes(1);
 			expect(mockCopyFile).toHaveBeenCalledWith({
 				sourceUrl: document.documentURI,

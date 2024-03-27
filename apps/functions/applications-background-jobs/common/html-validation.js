@@ -2,28 +2,25 @@ import { streamToString } from '../malware-detected/src/util.js';
 import { YouTubeHTMLTemplate } from '../malware-detected/src/youtube-html-expectation.js';
 import { blobClient } from './blob-client.js';
 import config from './config.js';
-import { STANDARD_BLOB_PATH_TYPE } from './constants.js';
 import { extractBlobNameFromUri } from './util.js';
 
 /**
  * @param {string} blobUri
- * @param {string} blobPathType
  * @returns {Promise<boolean>}
  * */
-export const isScannedFileHtml = async (blobUri, blobPathType = STANDARD_BLOB_PATH_TYPE) => {
-	const blobName = extractBlobNameFromUri(blobUri, blobPathType);
+export const isScannedFileHtml = async (blobUri) => {
+	const blobName = extractBlobNameFromUri(blobUri);
 	const blobProperties = await blobClient.getBlobProperties(config.BLOB_SOURCE_CONTAINER, blobName);
 	return blobProperties.contentType === 'text/html';
 };
 
 /**
  * @param {string} blobUri
- * @param {string} blobPathType
  * @param {import('@azure/functions').Logger} log
  * @returns {Promise<boolean>}
  * */
-export const isUploadedHtmlValid = async (blobUri, log, blobPathType = STANDARD_BLOB_PATH_TYPE) => {
-	const blobName = extractBlobNameFromUri(blobUri, blobPathType);
+export const isUploadedHtmlValid = async (blobUri, log) => {
+	const blobName = extractBlobNameFromUri(blobUri);
 	const downloadBlockBlobResponse = await blobClient.downloadStream(
 		config.BLOB_SOURCE_CONTAINER,
 		blobName
@@ -35,18 +32,18 @@ export const isUploadedHtmlValid = async (blobUri, log, blobPathType = STANDARD_
 	const htmlFileContentAsString = await streamToString(
 		downloadBlockBlobResponse.readableStreamBody
 	);
-	const stringComparisonResult = compareHtmlStringsIgnoringYoutubeUrl(
+	const areHtmlStringsEqual = compareHtmlStringsIgnoringYoutubeUrl(
 		htmlFileContentAsString,
 		YouTubeHTMLTemplate
 	);
 
-	if (stringComparisonResult) {
+	if (areHtmlStringsEqual) {
 		log.info('HTML validity check successful');
 	} else {
 		log.warn('HTML validity check failed');
 		log.warn(`Offending HTML as string:\n${htmlFileContentAsString}`);
 	}
-	return stringComparisonResult;
+	return areHtmlStringsEqual;
 };
 
 /**

@@ -1,14 +1,8 @@
-import { MIGRATION_BLOB_PATH_TYPE } from './constants.js';
-
 /**
  * @param {string} uri
- * @param {string} blobPathType
  * @returns {string}
  */
-export const extractBlobNameFromUri = (uri, blobPathType) => {
-	if (blobPathType === MIGRATION_BLOB_PATH_TYPE) {
-		return new URL(uri).pathname.split('/').slice(1).join('/');
-	}
+export const extractBlobNameFromUri = (uri) => {
 	return new URL(uri).pathname.split('/').slice(2).join('/');
 };
 
