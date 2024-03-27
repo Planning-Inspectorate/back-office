@@ -88,4 +88,20 @@ export class ExaminationTimetablePage extends Page {
 			}
 		});
 	}
-}
+	deleteExaminationTimetableItem(){
+		cy.get(1000);
+		cy.get('#accordion-examination-content-1 > a').click();
+		cy.get('#main-content > div > div > form > button').click();
+	}
+	verifyPublishAndUnpublishExamtimetable(){
+		cy.get('div.govuk-grid-column-full:nth-child(2) > div:nth-child(1) > div:nth-child(4) > a:nth-child(1)').click();
+		cy.get('.govuk-button').click();
+		cy.get('.govuk-panel__title').contains('Timetable item successfully published');
+        cy.get('div.govuk-body > a:nth-child(2)').click();
+		cy.get('a.colour--red:nth-child(1)').click();
+		cy.get('.govuk-button').click();
+		cy.get('.govuk-panel__title').contains('Timetable item successfully unpublished');
+		cy.get('div.govuk-body > a:nth-child(2)').click();
+	}
+	}
+

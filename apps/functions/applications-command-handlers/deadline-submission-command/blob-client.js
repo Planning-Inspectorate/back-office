@@ -2,14 +2,14 @@ import { BlobStorageClient } from '@pins/blob-storage-client';
 
 import config from './config.js';
 
-const { storageUrl } = config;
+const { storageDomain, storageHost } = config;
 
 /**
  *
  * @typedef {{ containerName: string, blobName: string }} BlobLocation
  * */
 
-const client = () => BlobStorageClient.fromUrl(storageUrl);
+const client = () => BlobStorageClient.fromUrl(storageDomain);
 
 /**
  *
@@ -42,10 +42,15 @@ async function getBlobProperties(container, blobName) {
  * @returns {Promise<boolean>}
  * */
 const copyFile = async (source, destination) => {
+	const sourceUrl = [
+		storageHost.replace(/\/$/, ''),
+		source.containerName,
+		source.blobName.replace(/^\//, '')
+	].join('/');
+
 	try {
-		const result = await client().copyFile({
-			sourceContainerName: source.containerName,
-			sourceBlobName: source.blobName,
+		const result = await client().copyFileFromUrl({
+			sourceUrl,
 			destinationContainerName: destination.containerName,
 			destinationBlobName: destination.blobName
 		});

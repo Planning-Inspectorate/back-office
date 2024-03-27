@@ -47,7 +47,7 @@ export class BackOfficeApiClient {
 	async getExtendedProjectUpdate(caseReference, id) {
 		try {
 			const applicationDataPromise = requestWithApiKey
-				.get(`${this.baseUrl}/applications/${caseReference}`)
+				.get(`${this.baseUrl}/applications/reference/${caseReference}`)
 				.json();
 
 			const updateDataPromise = requestWithApiKey

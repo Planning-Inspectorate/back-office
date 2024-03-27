@@ -1,4 +1,5 @@
 import config from '../../common/config.js';
+import { ensureTrailingSlash } from '../../common/util.js';
 
 /**
  *
@@ -18,7 +19,7 @@ export const buildPublishedFileName = ({ documentReference, filename, originalFi
 
 /**
  *
- * @param {string} uri
+ * @param {string} [uri]
  * @returns {string | undefined}
  */
 export const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');
@@ -26,14 +27,27 @@ export const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');
 /**
  *
  * @param {string} documentURI
- * @returns {string | undefined}
+ * @param {Object<string,string>} [conf]
+ * @returns {undefined}
  */
-export const parseBlobName = (documentURI) => {
-	const [storageAccountHost, blobName] = documentURI.split(config.BLOB_SOURCE_CONTAINER);
-
-	if (trimSlashes(storageAccountHost) != trimSlashes(config.BLOB_STORAGE_ACCOUNT_HOST)) {
-		throw Error(`Attempting to copy from unknown storage account host ${storageAccountHost}`);
+export const validateStorageAccount = (documentURI, conf = config) => {
+	// does the document URI start with either the custom domain or account host?
+	// if not, throw an error
+	if (![conf.BLOB_STORAGE_ACCOUNT_HOST, conf.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN]
+			.map(trimSlashes)
+			.some(host => documentURI.startsWith(host))) {
+		throw Error(`Attempting to copy from unknown storage account host ${documentURI}`);
 	}
+};
 
-	return trimSlashes(blobName);
+/**
+ *
+ * @param {string} documentURI
+ * @returns {string}
+ */
+export const replaceCustomDomainWithBlobDomain = (documentURI) => {
+	return documentURI.replace(
+		ensureTrailingSlash(config.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN),
+		ensureTrailingSlash(config.BLOB_STORAGE_ACCOUNT_HOST)
+	);
 };

@@ -1,7 +1,6 @@
 import BackOfficeAppError from '#utils/app-error.js';
 import { getCache, setCache } from '#utils/cache-data.js';
 import { fetchApiKey } from '#utils/fetch-api-key.js';
-import logger from '#utils/logger.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -17,7 +16,6 @@ export const authoriseRequest = async (request, _response, next) => {
 		throw new BackOfficeAppError(`No API key present on request from ${callingClient}`, 403);
 	}
 
-	logger.info(`Request received from ${callingClient}`);
 	const callingClientApiKeyName = 'backoffice-applications-api-key-' + callingClient;
 	if (!getCache(callingClientApiKeyName)) {
 		const callingClientApiKey = await fetchApiKey(callingClientApiKeyName);
@@ -26,7 +24,6 @@ export const authoriseRequest = async (request, _response, next) => {
 	}
 
 	if (isRequestApiKeyValid(incomingRequestApiKey, callingClientApiKeyName)) {
-		logger.info(`Request from ${callingClient} authenticated`);
 		next();
 	} else {
 		throw new BackOfficeAppError(

@@ -103,6 +103,8 @@ export function createS51Advice(options = {}) {
 		'published'
 	][createUniqueRandomNumberFromSeed(0, 5, uniqueSeed)];
 
+	const datePublished = publishedStatus === 'published' ? adviceDate : null;
+
 	/** @type {Array<'phone' | 'email' | 'meeting' | 'post'>} */
 	const methods = ['meeting', 'phone', 'post', 'email'];
 	const enquiryMethod = methods[createUniqueRandomNumberFromSeed(0, 3, uniqueSeed)];
@@ -129,6 +131,7 @@ export function createS51Advice(options = {}) {
 		redactedStatus,
 		dateCreated,
 		dateUpdated,
+		datePublished,
 		attachments: createS51Attachments(uniqueSeed)
 	};
 }
