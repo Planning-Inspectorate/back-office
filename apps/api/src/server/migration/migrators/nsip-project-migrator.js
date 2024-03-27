@@ -85,7 +85,7 @@ const migrateApplicationDetails = async (model) => {
 	const zoomLevelId = await getMapZoomLevelIdFromDisplayName(model.mapZoomLevel);
 
 	if (!model.caseReference) {
-		throw Error(`Cant't migrate case ${model.caseId} without a caseReference`);
+		throw Error(`Can't migrate case ${model.caseId} without a caseReference`);
 	}
 	// Retrieve subSectorId from caseReference
 	// @ts-ignore
