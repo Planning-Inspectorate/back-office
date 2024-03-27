@@ -45,7 +45,7 @@ run().catch(console.error);
 const folderMappings = new Map([
 	['01 - Project Management', 'Project management'],
 	['04 - Transboundary/01 - First Screening', 'First screening'],
-	['05 - Pre-App/02 - EIA/02 - Scoping', 'Screening'],
+	['05 - Pre-App/02 - EIA/02 - Scoping', 'Scoping'],
 	['05 - Pre-App/02 - EIA/02 - Scoping/01 - Responses/28 Day Responses', 'Responses'],
 	['05 - Pre-App/02 - EIA/02 - Scoping/01 - Responses/Late Responses', 'Responses'],
 	['05 - Pre-App/02 - EIA/02 - Scoping/consultation emails', 'Scoping'],
