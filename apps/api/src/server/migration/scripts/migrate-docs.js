@@ -60,7 +60,29 @@ const foldersToMap = [...folderMappings.keys()];
  * @param {*} document
  */
 async function migrateDoc(caseId, document) {
-	console.log('migrate', document.documentId, document.version, document.filename);
+
+	// some data clean up
+
+	for (const key of Object.keys(document)) {
+		if (document[key] === '#N/A') {
+			document[key] = null;
+		}
+	}
+
+	if (document.filename === null) {
+		document.filename = document.originalFilename;
+	}
+	if (document.documentURI.endsWith('.')) { 
+		document.documentURI = document.documentURI.substring(0, document.documentURI.length - 1);
+	}
+	if (!document.mime) {
+		document.mime = extractMime(document.documentURI);
+	}
+	if (document.mime) {
+		document.mime = MIMEs[document.mime];
+	}
+
+	console.log('migrate', document.documentId, document.version, document.filename, document.mime);
 
 	const folderSuffixes = foldersToMap.filter((f) => document.path.endsWith(f));
 	if (folderSuffixes.length === 0) {
@@ -118,7 +140,7 @@ async function migrateDoc(caseId, document) {
 		documentType: document.documentType,
 		sourceSystem: document.sourceSystem,
 		origin: document.origin,
-		originalFilename: document.filename, // document.originalFilename,
+		originalFilename: document.originalFilename,
 		representative: document.representative,
 		description: document.description,
 		owner: document.owner,
@@ -229,11 +251,14 @@ function isValidDate(d) {
 /**
  *
  * @param {string|null} str
- * @returns {Date|null}
+ * @returns {Date|null|undefined}
  */
 function toDate(str) {
 	if (str === null || str === '') {
-		return null;
+		return undefined;
+	}
+	if (str.includes('T')) {
+		return new Date(str);
 	}
 	const parts = str.split(' ');
 	let [d, m, y] = parts[0].split('/');
@@ -248,3 +273,48 @@ function toDate(str) {
 		parseInt(s) || 0
 	);
 }
+
+/**
+ * Extract basic mime type from blob name, with some special cases baked in
+ * @param {string} uri 
+ * @returns {string|undefined} 
+ */
+function extractMime(uri) {
+	const parts = uri.split('/');
+	const blobName = parts[parts.length - 1].toLowerCase();
+
+	if (blobName.includes('.')) {
+		const [,mime] = blobName.split('.');
+		return mime;
+	}
+	// some real data ends with :PDF
+	if (blobName.endsWith(':pdf')) {
+		return 'pdf';
+	}
+}
+
+/** @type {Record<string, string>} */
+const MIMEs = {
+	pdf: 'application/pdf',
+	doc: 'application/msword',
+	docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+	ppt: 'application/vnd.ms-powerpoint',
+	pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+	xls: 'application/vnd.ms-excel',
+	xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+	jpg: 'image/jpeg',
+	jpeg: 'image/jpeg',
+	msg: 'application/vnd.ms-outlook',
+	mpeg: 'video/mpeg',
+	mp3: 'audio/mpeg',
+	mp4: 'video/mp4',
+	mov: 'video/quicktime',
+	png: 'image/png',
+	tiff: 'image/tiff',
+	tif: 'image/tiff',
+	html: 'text/html',
+	prj: 'application/x-anjuta-project',
+	dbf: 'application/dbf',
+	shp: 'application/vnd.shp',
+	shx: 'application/vnd.shx'
+};
