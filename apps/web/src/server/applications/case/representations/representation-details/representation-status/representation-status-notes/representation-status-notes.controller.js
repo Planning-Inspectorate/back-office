@@ -16,7 +16,7 @@ const view =
  *  @type {import('@pins/express').RenderHandler<{}, {}, {}, { representationId: string, caseId: string, changeStatus: string }, { caseId: string, representationId: string}>}
  */
 export const getRepresentationStatusNotesController = async (req, res) => {
-	const { caseId, representationId } = req.params;
+	const { caseId, representationId } = res.locals;
 	const newStatus = req.query.changeStatus;
 
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
@@ -32,11 +32,11 @@ export const getRepresentationStatusNotesController = async (req, res) => {
 };
 
 /**
- *  @type {import('@pins/express').RenderHandler<{}, {}, {}, { representationId: string, caseId: string, changeStatus: string }, { caseId: string, representationId: string}>}
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {}, { representationId: string, caseId: string, changeStatus: string }, {}, { caseId: string, representationId: string}>}
  */
 export const postRepresentationStatusNotesController = async (req, res) => {
-	const { body, params, errors, session } = req;
-	const { caseId, representationId } = params;
+	const { body, errors, session } = req;
+	const { caseId, representationId } = res.locals;
 	const { changeStatus: newStatus } = req.query;
 
 	const representationDetails = await getRepresentationDetails(caseId, representationId);

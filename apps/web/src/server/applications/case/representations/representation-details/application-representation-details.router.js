@@ -30,6 +30,7 @@ import {
 	postRepresentationStatusNotesController
 } from './representation-status/representation-status-notes/representation-status-notes.controller.js';
 import { representationStatusNotesValidation } from './representation-status/representation-status-notes/representation-status-notes.validators.js';
+import { registerRepsParams } from '../applications-relevant-reps.locals.js';
 
 const representationDetailsRouter = createRouter({ mergeParams: true });
 
@@ -45,29 +46,34 @@ representationDetailsRouter
 
 representationDetailsRouter
 	.route('/redact-representation')
-	.get(asyncHandler(getRedactRepresentationController))
-	.post(asyncHandler(postRedactRepresentationController));
+	.get(registerRepsParams, asyncHandler(getRedactRepresentationController))
+	.post(registerRepsParams, asyncHandler(postRedactRepresentationController));
 
 representationDetailsRouter
 	.route('/change-redaction')
-	.get(asyncHandler(getRepresentationDetailsChangeRedactionController))
+	.get(registerRepsParams, asyncHandler(getRepresentationDetailsChangeRedactionController))
 	.post(
 		representationChangeRedactionValidation,
+		registerRepsParams,
 		asyncHandler(postRepresentationDetailsChangeRedactionController)
 	);
 
 representationDetailsRouter
 	.route('/task-log')
-	.get(asyncHandler(getRepresentationDetailsTaskLogController));
+	.get(registerRepsParams, asyncHandler(getRepresentationDetailsTaskLogController));
 
 representationDetailsRouter
 	.route('/change-status')
-	.get(asyncHandler(getRepresentationStatusController))
-	.post(representationStatusValidation, asyncHandler(postRepresentationStatus));
+	.get(registerRepsParams, asyncHandler(getRepresentationStatusController))
+	.post(representationStatusValidation, registerRepsParams, asyncHandler(postRepresentationStatus));
 
 representationDetailsRouter
 	.route('/status-result')
-	.get(asyncHandler(getRepresentationStatusNotesController))
-	.post(representationStatusNotesValidation, asyncHandler(postRepresentationStatusNotesController));
+	.get(registerRepsParams, asyncHandler(getRepresentationStatusNotesController))
+	.post(
+		representationStatusNotesValidation,
+		registerRepsParams,
+		asyncHandler(postRepresentationStatusNotesController)
+	);
 
 export default representationDetailsRouter;

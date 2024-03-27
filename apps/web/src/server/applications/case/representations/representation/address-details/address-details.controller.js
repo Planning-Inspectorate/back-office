@@ -29,11 +29,9 @@ export const getAddressDetailsController = async (req, res) => {
  */
 export const postAddressDetailsController = async (req, res) => {
 	const { body, errors, query } = req;
-	const { caseId } = res.locals;
-	const { repId, repType, repMode } = query;
 	const { lookupPostcode, setPostcode, stage } = body;
 	const { locals } = res;
-	const { representation } = locals;
+	const { caseId, representationId, repType, repMode, representation } = locals;
 
 	const postcode = stage === 'lookup' ? lookupPostcode : setPostcode;
 
@@ -74,7 +72,12 @@ export const postAddressDetailsController = async (req, res) => {
 
 	const address = stage === 'find' ? await getSelectedAddress(body, postcode) : body;
 
-	await patchRepresentation(caseId, String(repId), String(repType), formatAddress(address));
+	await patchRepresentation(
+		caseId,
+		String(representationId),
+		String(repType),
+		formatAddress(address)
+	);
 
 	res.redirect(representation.pageLinks.redirectUrl);
 };

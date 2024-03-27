@@ -6,7 +6,7 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
-/** @typedef {{caseId: number, folderId: number, documentMetaData: DocumentationFile}} ResponseLocals */
+/** @typedef {{caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
 
 /** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
 const layouts = {
@@ -149,8 +149,8 @@ export async function viewDocumentationMetaData({ params }, response) {
  */
 export async function updateDocumentationMetaData(request, response) {
 	const { errors: validationErrors, params, body } = request;
-	const { caseId } = response.locals;
-	const { documentGuid, metaDataName } = params;
+	const { caseId, documentGuid } = response.locals;
+	const { metaDataName } = params;
 
 	let newMetaData = body;
 
