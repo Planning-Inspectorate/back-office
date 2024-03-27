@@ -51,7 +51,7 @@ describe('Smoke tests', () => {
 		cy.deleteDownloads();
 	});
 
-	it('As a user able to upload file to the case, publish and unpublish the document', () => {
+	it('runs the smoke tests successfully', () => {
 		const fileName = 'sample-doc.pdf';
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
