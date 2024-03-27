@@ -43,9 +43,15 @@ const getStatus = ({ status }) => ({
  *
  * @param {object} arg
  * @param {string} arg.received
- * @returns {string}
+ * @returns {string | null}
  */
-const formatDate = ({ received }) => format(new Date(received), 'dd MMM yyyy');
+const formatDate = ({ received }) => {
+	if (!received) {
+		return null;
+	}
+
+	return format(new Date(received), 'dd MMM yyyy');
+};
 
 /**
  *
