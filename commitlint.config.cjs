@@ -1,9 +1,6 @@
 const { isRegExp } = require('lodash');
 
 const scopes = [
-	'appeals',
-	'appeals/api',
-	'appeals/web',
 	'applications',
 	'applications/api',
 	'applications/web',
@@ -16,10 +13,8 @@ const scopes = [
 
 	// to phase out
 	'api',
-	'api/appeals',
 	'api/applications',
 	'web',
-	'web/appeals',
 	'web/applications',
 	'api-testing',
 	'e2e'
