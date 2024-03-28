@@ -33,15 +33,6 @@ describe('Add representation scenarios', () => {
 		searchResultsPage.clickLinkByText('Relevant representations');
 		searchResultsPage.clickButtonByText('Add a representation');
 		representationPage.fillRepresentationDetails();
-	});
-	it('As a user able to search representation', () => {
-		cy.login(applicationsUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
-		searchResultsPage.clickLinkByText('Relevant representations');
-		representationPage.searchRepresenation();
+		representationPage.publishUnpublshRepresentations();
 	});
 });

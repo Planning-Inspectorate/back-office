@@ -172,4 +172,13 @@ export class DocumentPropertiesPage extends Page {
 		cy.wait(1000);
 		cy.get('.govuk-back-link').click();
 	}
+	enterDocRefandValidateTranscriptValue(){
+		cy.wrap(this.getDocumentRefNumber()).then(()=>{
+		cy.log("Printing the cypress env value: " + Cypress.env("DocRef"));
+		const docRefer=Cypress.env("DocRef")
+		var splitRef=docRefer.split(' ')[3]
+		this.enterDocumentRefNumber(splitRef);
+		this.validateTranscriptValue();
+		})
+	  }
 }
