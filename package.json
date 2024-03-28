@@ -2,8 +2,6 @@
 	"name": "back-office",
 	"private": true,
 	"workspaces": [
-		"appeals/*",
-		"appeals/functions/*",
 		"apps/*",
 		"apps/functions/*",
 		"packages/*"
