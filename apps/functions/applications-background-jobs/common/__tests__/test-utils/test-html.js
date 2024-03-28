@@ -16,7 +16,9 @@ export const INVALID_HTML_STRING = `
  * @param {String} youtubeUrlExample
  * @returns
  */
-export const createTestYoutubeTemplate = (youtubeUrlExample) => `
+export const createTestYoutubeTemplate = (
+	youtubeUrlExample = 'https://www.youtube.com/embed/VIDEO_ID'
+) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>

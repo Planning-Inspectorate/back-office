@@ -1,6 +1,12 @@
+export const TEST_API_HOST = 'test-api-host:3000';
 export const TEST_BLOB_ACCOUNT = 'test-blob-account';
 export const TEST_BLOB_CONTAINER = 'test-blob-container';
+export const TEST_BLOB_FILE_NAME = 'test file name';
 export const TEST_BLOB_GUID = 'a12b3d4a-a123-123a-1a2b-12345abc1abc';
+export const TEST_BLOB_PUBLISH_CONTAINER = 'test-blob-publish-container';
+export const TEST_BLOB_SOURCE_CONTAINER = 'test-blob-source-container';
+export const TEST_BLOB_VERSION = '1';
+export const TEST_CASE_REFERENCE = 'AB0123456';
 export const TEST_FUNCTION_DIRECTORY = '/path/to/function';
 export const TEST_FUNCTION_NAME = 'test-function';
 export const TEST_INVOCATION_ID = 'test-invocation-id';
