@@ -18,7 +18,7 @@ steps:
         echo $folder
         mkdir -p $(Build.Repository.LocalPath)/apps/functions/$folder/node_modules/@pins
         if [ -d $(Build.Repository.LocalPath)/node_modules/@pins ]; then
-          cp -r -n -L $(Build.Repository.LocalPath)/node_modules/@pins/!(functions-*|appeals.*|applications.*) $(Build.Repository.LocalPath)/apps/functions/$folder/node_modules/@pins
+          cp -r -n -L $(Build.Repository.LocalPath)/node_modules/@pins/!(functions-*|applications.*) $(Build.Repository.LocalPath)/apps/functions/$folder/node_modules/@pins
         fi
         cp -r -n -L $(Build.Repository.LocalPath)/node_modules/!(@pins) $(Build.Repository.LocalPath)/apps/functions/$folder/node_modules/
         if [ -d $(Build.Repository.LocalPath)/apps/functions/node_modules ]; then
