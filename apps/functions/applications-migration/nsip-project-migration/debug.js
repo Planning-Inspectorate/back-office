@@ -8,5 +8,5 @@ migrateNsipProjects(
 		warn: console.warn,
 		verbose: console.log
 	},
-	['EN010007']
+	['BC010006']
 );
