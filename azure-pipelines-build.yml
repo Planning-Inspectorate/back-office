@@ -118,7 +118,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 18
-              script: npm ci --only=prod --workspace=@pins/functions-applications-migration --workspace=@pins/functions-applications-background-jobs --workspace=@pins/functions-applications-command-handlers --workspace=@pins/functions-bo-appeals-casedata-import --workspace=@pins/functions-bo-appeals-user-import --workspace=@pins/functions-bo-appeals-document-processing
+              script: npm ci --only=prod --workspace=@pins/functions-applications-migration --workspace=@pins/functions-applications-background-jobs --workspace=@pins/functions-applications-command-handlers
           # merge node modules
           - template: azure-pipelines-package-function-merge.yml@self
             parameters:
