@@ -1,0 +1,1 @@
+Scripts used to aid migration before all the tooling and migration functions were ready
