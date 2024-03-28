@@ -45,7 +45,7 @@ export const migrateNsipDocuments = async (documents) => {
 		};
 		await createDocument(documentEntity);
 
-		const documentVersion = buildDocumentVersion(document);
+		const documentVersion = buildDocumentVersion(documentEntity.guid, document);
 		await createDocumentVersion(documentVersion);
 	}
 
@@ -96,17 +96,22 @@ export const migrateNsipDocuments = async (documents) => {
 	// }
 };
 
-const createDocument = async (documentEntity) =>
-	databaseConnector.document.upsert({
+const createDocument = async (documentEntity) => {
+	console.log(`Creating Document ${documentEntity.guid}`);
+	await databaseConnector.document.upsert({
 		where: {
 			guid: documentEntity.guid
 		},
 		create: documentEntity,
 		update: documentEntity
 	});
+};
 
-const createDocumentVersion = async (documentVersion) =>
-	databaseConnector.documentVersion.upsert({
+const createDocumentVersion = async (documentVersion) => {
+	console.log(
+		`Creating DocumentVersion ${documentVersion.documentGuid}, ${documentVersion.version}`
+	);
+	await databaseConnector.documentVersion.upsert({
 		where: {
 			documentGuid_version: {
 				documentGuid: documentVersion.documentGuid,
@@ -116,8 +121,9 @@ const createDocumentVersion = async (documentVersion) =>
 		create: documentVersion,
 		update: documentVersion
 	});
+};
 
-const buildDocumentVersion = (document) => {
+const buildDocumentVersion = (documentGuid, document) => {
 	const uri = new URL(document.documentURI);
 	const match = uri.pathname.match(/^\/document-service-uploads(\/.*)$/);
 	if (!match) {
@@ -150,7 +156,7 @@ const buildDocumentVersion = (document) => {
 		filter2: document.filter2,
 		publishedStatus: document.publishedStatus,
 		redactedStatus: document.redactedStatus,
-		documentGuid: document.documentId,
+		documentGuid,
 		published: isPublished,
 		fileName: document.filename,
 		horizonDataID: document.documentId,
