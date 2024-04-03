@@ -112,7 +112,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
         <div class=\\"govuk-grid-column-two-thirds\\">
             <div class=\\"govuk-form-group\\">
                 <dl class=\\"govuk-summary-list\\">
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"><h2 class=\\"govuk-heading-m govuk-!-margin-top-3\\">Content</h2></dt>
+                    <div class=\\"govuk-summary-list__row no-border\\"><dt class=\\"govuk-summary-list__key\\"><h2 class=\\"govuk-heading-m govuk-!-margin-top-3\\">Content</h2></dt>
                         <dd                         class=\\"govuk-summary-list__value\\"></dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/content\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
                             </dd>
@@ -198,7 +198,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
         <div class=\\"govuk-grid-column-two-thirds\\">
             <div class=\\"govuk-form-group\\">
                 <dl class=\\"govuk-summary-list\\">
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"><h2 class=\\"govuk-heading-m govuk-!-margin-top-3\\">Content</h2></dt>
+                    <div class=\\"govuk-summary-list__row no-border\\"><dt class=\\"govuk-summary-list__key\\"><h2 class=\\"govuk-heading-m govuk-!-margin-top-3\\">Content</h2></dt>
                         <dd                         class=\\"govuk-summary-list__value\\"></dd>
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/content\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
                             </dd>

@@ -208,6 +208,7 @@ export function createDetailsView({
 			rows: [
 				...rows,
 				{
+					classes: 'no-border',
 					key: {
 						html: '<h2 class="govuk-heading-m govuk-!-margin-top-3">Content</h2>'
 					},
