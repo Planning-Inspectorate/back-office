@@ -325,10 +325,10 @@ export async function deleteApplicationsCaseS51({ params }, response) {
 /**
  * View page for deleting S51 attachment
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {adviceId: string, attachmentId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {adviceId: string, attachmentId: string, folderId: string}>}
  */
 export async function viewApplicationsCaseS51AttachmentDelete({ params }, response) {
-	const { adviceId, attachmentId } = params;
+	const { adviceId, attachmentId, folderId } = params;
 	const { caseId } = response.locals;
 
 	const s51Advice = await getS51Advice(caseId, Number(adviceId));
@@ -338,7 +338,8 @@ export async function viewApplicationsCaseS51AttachmentDelete({ params }, respon
 
 	response.render('applications/case-s51/s51-delete-attachment.njk', {
 		attachment: attachmentToDelete,
-		adviceId: adviceId
+		adviceId: adviceId,
+		folderId: folderId
 	});
 }
 
