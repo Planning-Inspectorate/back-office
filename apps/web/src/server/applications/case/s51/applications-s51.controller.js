@@ -25,6 +25,7 @@ import {
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload
 } from './applications-s51.mapper.js';
+import { generalSection51CaseReference as gs51CaseReference } from '../general-s51/applications-general-s51.config.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -58,7 +59,7 @@ export async function viewApplicationsCaseS51Folder({ query }, response) {
 	const { caseId } = response.locals;
 	const { items, pagination } = await getS51FolderData(caseId, query);
 
-	response.render(`applications/components/folder/folder`, { items, pagination });
+	response.render(`applications/components/folder/folder`, { items, pagination, gs51CaseReference });
 }
 
 /**

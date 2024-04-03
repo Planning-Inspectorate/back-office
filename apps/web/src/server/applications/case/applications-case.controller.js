@@ -1,4 +1,5 @@
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
+import { generalSection51CaseReference } from './general-s51/applications-general-s51.config.js';
 import { allRoles } from './project-team/applications-project-team.controller.js';
 import {
 	getManyProjectTeamMembersInfo,
@@ -14,7 +15,12 @@ import {
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function viewApplicationsCaseOverview({ session }, response) {
-	const { caseId } = response.locals;
+	const { caseId, case: { reference} } = response.locals;
+
+	//hide the page when attempting to view general section 51 case
+	if (reference === generalSection51CaseReference) {
+		return response.render(`app/404`)
+	}
 
 	// query the internal database to retrieve roles and ids
 	const { projectTeamMembers } = await getProjectTeamMembers(caseId);
