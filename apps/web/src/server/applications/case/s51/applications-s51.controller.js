@@ -149,8 +149,8 @@ export async function postApplicationsCaseEditS51Item(
 	{ body, params, errors: validationErrors },
 	response
 ) {
-	const { adviceId, step, folderId } = params;
-	const { caseId, title } = response.locals;
+	const { adviceId, step } = params;
+	const { caseId, title, folderId } = response.locals;
 	const payload = mapUpdateBodyToPayload(body);
 
 	if (step === 'title') {

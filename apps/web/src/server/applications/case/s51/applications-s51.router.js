@@ -59,7 +59,7 @@ applicationsS51Router
 	.route('/:adviceId/edit/:step')
 	.get(locals.registerFolderId, asyncHandler(controller.viewApplicationsCaseEditS51Item))
 	.post(
-		[s51ValidatorsDispatcher, validateS51UniqueTitle],
+		[locals.registerFolderId, s51ValidatorsDispatcher, validateS51UniqueTitle],
 		asyncHandler(controller.postApplicationsCaseEditS51Item)
 	);
 
