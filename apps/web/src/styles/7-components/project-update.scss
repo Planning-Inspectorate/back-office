@@ -4,3 +4,12 @@
         margin-block-start: 0;
     }
 }
+
+dd.project-update {
+	@media (min-width: 40.0625em) {
+		p {
+			// span over action column
+			width: 150%
+		}
+	}
+}
