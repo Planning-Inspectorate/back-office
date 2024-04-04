@@ -1,31 +1,94 @@
 import { jest } from '@jest/globals';
-import { request } from '../../../app-test.js';
+import { request } from '#app-test';
+import { NSIP_PROJECT, SERVICE_USER } from '#infrastructure/topics.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
+import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 
-const createdCase = { id: 1, reference: 'TEST', applicant: { id: 4 } };
+const createdCase = {
+	id: 1,
+	applicantId: 4,
+	description: 'Project description',
+	reference: 'TEST',
+	title: 'BC010003 - NI Case 3 Name'
+};
 
-const expectedNsipProjectPayload = {
+const expectedNsipProjectPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
+	anticipatedDateOfSubmission: '2022-07-22T10:38:33.000Z',
+	anticipatedSubmissionDateNonSpecific: 'Q1 2023',
+	applicantId: '4',
 	caseId: 1,
+	caseManagerId: null,
 	caseReference: 'TEST',
+	decision: null,
+	easting: 123456,
+	environmentalServicesOfficerId: null,
+	inspectorIds: [],
+	leadInspectorId: null,
+	legalOfficerId: null,
+	mapZoomLevel: 'country',
+	migrationStatus: null,
+	northing: 654321,
+	notificationDateForEventsDeveloper: null,
+	nsipAdministrationOfficerIds: [],
+	nsipOfficerIds: [],
+	operationsLeadId: null,
+	operationsManagerId: null,
+	projectDescription: 'Project description',
+	projectEmailAddress: 'test@test.com',
+	projectLocation: 'Some Location',
+	projectName: 'BC010003 - NI Case 3 Name',
+	projectType: 'BC01 - Office Use',
 	sourceSystem: 'back-office-applications',
 	publishStatus: 'unpublished',
-	applicantId: '4',
-	nsipOfficerIds: [],
-	nsipAdministrationOfficerIds: [],
-	inspectorIds: []
-};
+	regions: ['north_west', 'south_west'],
+	secretaryOfState: null,
+	sector: 'BC - Business and Commercial',
+	stage: 'draft',
+	transboundary: null,
+	welshLanguage: false
+})[0];
+
+const expectedApplicantPayload = buildPayloadEventsForSchema(SERVICE_USER, {
+	addressCountry: null,
+	addressCounty: null,
+	addressLine1: null,
+	addressLine2: null,
+	addressTown: null,
+	caseReference: 'TEST',
+	emailAddress: null,
+	faxNumber: null,
+	firstName: null,
+	id: '4',
+	lastName: null,
+	organisation: null,
+	organisationType: null,
+	otherPhoneNumber: null,
+	postcode: null,
+	role: null,
+	salutation: null,
+	serviceUserType: 'Applicant',
+	sourceSuid: '4',
+	sourceSystem: 'back-office-applications',
+	telephoneNumber: null,
+	webAddress: null
+})[0];
 
 jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
 
-beforeEach(() => {
+beforeEach(async () => {
 	jest.clearAllMocks();
 });
 
 test('creates new application with just title and first notified date', async () => {
 	// GIVEN
-	databaseConnector.case.create.mockResolvedValue(createdCase);
-	databaseConnector.case.findUnique.mockResolvedValue(createdCase);
+	databaseConnector.case.create.mockImplementation(
+		mockApplicationGet(createdCase, { applicant: { id: 4 } })
+	);
+	databaseConnector.case.findUnique.mockImplementation(
+		mockApplicationGet(createdCase, { applicant: { id: 4 } })
+	);
 
 	// WHEN
 	const response = await request.post('/applications').send({
@@ -34,6 +97,9 @@ test('creates new application with just title and first notified date', async ()
 			preApplication: {
 				submissionAtInternal: 1_649_319_344_000
 			}
+		},
+		geographicalInformation: {
+			regionNames: ['east_midlands']
 		}
 	});
 
@@ -45,6 +111,9 @@ test('creates new application with just title and first notified date', async ()
 			title: 'some title',
 			ApplicationDetails: {
 				create: {
+					regions: {
+						create: [{ region: { connect: { name: 'east_midlands' } } }]
+					},
 					submissionAtInternal: new Date(1_649_319_344_000_000)
 				}
 			},
@@ -57,16 +126,27 @@ test('creates new application with just title and first notified date', async ()
 		include: expect.any(Object)
 	});
 
-	expect(eventClient.sendEvents).toHaveBeenCalledWith(
-		'nsip-project',
+	expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+		1,
+		NSIP_PROJECT,
 		[expectedNsipProjectPayload],
 		'Create'
+	);
+
+	expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+		2,
+		SERVICE_USER,
+		[expectedApplicantPayload],
+		'Create',
+		{ entityType: 'Applicant' }
 	);
 });
 
 test('creates new application with just easting and sub-sector name', async () => {
 	// GIVEN
-	databaseConnector.case.create.mockResolvedValue(createdCase);
+	databaseConnector.case.create.mockImplementation(
+		mockApplicationGet(createdCase, { applicant: { id: 4 } })
+	);
 
 	// WHEN
 	const response = await request.post('/applications').send({
@@ -107,7 +187,7 @@ test('creates new application with just easting and sub-sector name', async () =
 	});
 
 	expect(eventClient.sendEvents).toHaveBeenCalledWith(
-		'nsip-project',
+		NSIP_PROJECT,
 		[expectedNsipProjectPayload],
 		'Create'
 	);
@@ -141,7 +221,7 @@ test('creates new application when all possible details provided', async () => {
 		geographicalInformation: {
 			mapZoomLevelName: 'some-known-map-zoom-level',
 			locationDescription: 'location description',
-			regionNames: ['region1', 'region2'],
+			regionNames: ['east_midlands', 'london'],
 			gridReference: {
 				easting: '123456',
 				northing: '987654'
@@ -173,8 +253,8 @@ test('creates new application when all possible details provided', async () => {
 					subSector: { connect: { name: 'some_sub_sector' } },
 					regions: {
 						create: [
-							{ region: { connect: { name: 'region1' } } },
-							{ region: { connect: { name: 'region2' } } }
+							{ region: { connect: { name: 'east_midlands' } } },
+							{ region: { connect: { name: 'london' } } }
 						]
 					}
 				}
@@ -205,7 +285,7 @@ test('creates new application when all possible details provided', async () => {
 	});
 
 	expect(eventClient.sendEvents).toHaveBeenCalledWith(
-		'nsip-project',
+		NSIP_PROJECT,
 		[expectedNsipProjectPayload],
 		'Create'
 	);
@@ -259,7 +339,7 @@ test(`creates new application with application first and last name,
 		include: expect.any(Object)
 	});
 	expect(eventClient.sendEvents).toHaveBeenCalledWith(
-		'nsip-project',
+		NSIP_PROJECT,
 		[expectedNsipProjectPayload],
 		'Create'
 	);
@@ -318,8 +398,12 @@ test('returns error if any validated values are invalid', async () => {
 
 test('does not publish Service Bus events for training cases', async () => {
 	// GIVEN
-	databaseConnector.case.create.mockResolvedValue({ ...createdCase, reference: 'TRAIN' });
-	databaseConnector.case.findUnique.mockResolvedValue({ ...createdCase, reference: 'TRAIN' });
+	databaseConnector.case.create.mockImplementation(
+		mockApplicationGet({ ...createdCase, reference: 'TRAIN' })
+	);
+	databaseConnector.case.findUnique.mockImplementation(
+		mockApplicationGet({ ...createdCase, reference: 'TRAIN' })
+	);
 
 	// WHEN
 	const response = await request.post('/applications').send({

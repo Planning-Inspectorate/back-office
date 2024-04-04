@@ -1,8 +1,9 @@
 import { jest } from '@jest/globals';
 import { request } from '#app-test';
 import { eventClient } from '#infrastructure/event-client.js';
-import { NSIP_REPRESENTATION } from '#infrastructure/topics.js';
+import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -13,7 +14,7 @@ const existingRepresentations = [
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
-		received: '2023-03-14T14:28:25.704Z',
+		received: new Date('2023-03-14T14:28:25.704Z'),
 		originalRepresentation: 'the original representation',
 		redactedRepresentation: 'redacted version',
 		case: { id: 1, reference: 'BC0110001' },
@@ -68,12 +69,12 @@ const existingRepresentations = [
 		reference: 'BC0110001-3',
 		status: 'PUBLISHED',
 		redacted: true,
-		received: '2023-03-14T14:28:25.704Z',
+		received: new Date('2023-03-14T14:28:25.704Z'),
 		unpublishedUpdates: false
 	}
 ];
 
-const rep1UpdatePayload = {
+const rep1UpdatePayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
 	attachmentIds: [],
 	caseId: 200,
 	caseRef: 'BC0110001',
@@ -85,20 +86,20 @@ const rep1UpdatePayload = {
 	referenceId: 'BC0110001-2',
 	representationId: 1,
 	status: 'valid',
-	registerFor: undefined,
+	registerFor: null,
 	representationFrom: 'AGENT',
 	representationType: null,
 	representativeId: '10382',
 	representedId: '10381'
-};
+})[0];
 
 const mockDate = new Date('2023-01-02');
 
 describe('Patch Application Representation Redact', () => {
 	beforeAll(() => {
 		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[0]);
-		databaseConnector.representation.update.mockResolvedValue();
-		databaseConnector.representationAction.create.mockResolvedValue();
+		databaseConnector.representation.update.mockResolvedValue(existingRepresentations[0]);
+		databaseConnector.representationAction.create.mockResolvedValue(existingRepresentations[0]);
 		databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
 		jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(mockDate);
 	});
@@ -138,10 +139,68 @@ describe('Patch Application Representation Redact', () => {
 		});
 
 		// test event broadcasts
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
 			NSIP_REPRESENTATION,
 			[rep1UpdatePayload],
 			EventType.Update
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			SERVICE_USER,
+			[
+				{
+					addressCountry: 'England',
+					addressCounty: 'A County',
+					addressLine1: '123 Some Street',
+					addressLine2: 'Somewhere Else',
+					addressTown: 'Some Town',
+					caseReference: 'BC0110001',
+					emailAddress: 'sue@example.com',
+					faxNumber: null,
+					firstName: 'Mrs',
+					id: '10381',
+					lastName: 'Sue',
+					organisation: null,
+					organisationType: null,
+					otherPhoneNumber: null,
+					postcode: 'B1 9BB',
+					role: null,
+					salutation: null,
+					serviceUserType: 'RepresentationContact',
+					sourceSuid: '10381',
+					sourceSystem: 'back-office-applications',
+					telephoneNumber: '01234 567890',
+					webAddress: null
+				},
+				{
+					addressCountry: 'England',
+					addressCounty: 'A County',
+					addressLine1: '1 Long Road',
+					addressLine2: 'Smallville',
+					addressTown: 'Some Town',
+					caseReference: 'BC0110001',
+					emailAddress: 'test-agent@example.com',
+					faxNumber: null,
+					firstName: 'James',
+					id: '10382',
+					lastName: 'Bond',
+					organisation: null,
+					organisationType: null,
+					otherPhoneNumber: null,
+					postcode: 'P7 9LN',
+					role: null,
+					salutation: null,
+					serviceUserType: 'RepresentationContact',
+					sourceSuid: '10382',
+					sourceSystem: 'back-office-applications',
+					telephoneNumber: '01234 567890',
+					webAddress: null
+				}
+			],
+			EventType.Update,
+			{ entityType: 'RepresentationContact' }
 		);
 	});
 

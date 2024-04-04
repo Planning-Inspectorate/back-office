@@ -1,28 +1,63 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
+import { NSIP_PROJECT, SERVICE_USER } from '#infrastructure/topics.js';
+import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
+const { request } = await import('../../../app-test.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
+const { eventClient } = await import('#infrastructure/event-client.js');
 
-const expectedNsipProjectPayload = {
+const mockCase = {
+	id: 1,
+	reference: 'BC01234',
+	title: 'some title',
+	description: 'some description'
+};
+
+const expectedNsipProjectPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	caseId: 1,
+	projectName: 'some title',
+	projectDescription: 'some description',
+	projectType: 'BC01 - Office Use',
 	sourceSystem: 'back-office-applications',
 	publishStatus: 'unpublished',
 	caseReference: 'BC01234',
 	applicantId: '1',
 	nsipOfficerIds: [],
 	nsipAdministrationOfficerIds: [],
-	inspectorIds: []
-};
+	inspectorIds: [],
+	anticipatedDateOfSubmission: '2022-07-22T10:38:33.000Z',
+	anticipatedSubmissionDateNonSpecific: 'Q1 2023',
+	sector: 'BC - Business and Commercial',
+	mapZoomLevel: 'country',
+	easting: 123456,
+	northing: 654321,
+	projectEmailAddress: 'test@test.com',
+	projectLocation: 'Some Location',
+	regions: ['north_west', 'south_west'],
+	stage: 'draft',
+	welshLanguage: false
+});
 
-const expectedApplicantPayload = {
+const expectedApplicantPayload = buildPayloadEventsForSchema(SERVICE_USER, {
 	id: '1',
 	sourceSuid: '1',
 	sourceSystem: 'back-office-applications',
 	caseReference: 'BC01234',
-	serviceUserType: 'Applicant'
-};
-
-const { request } = await import('../../../app-test.js');
-const { databaseConnector } = await import('#utils/database-connector.js');
-const { eventClient } = await import('#infrastructure/event-client.js');
+	serviceUserType: 'Applicant',
+	organisation: 'Organisation',
+	firstName: 'Service Customer First Name',
+	lastName: 'Service Customer Last Name',
+	emailAddress: 'service.customer@email.com',
+	telephoneNumber: '01234567890',
+	webAddress: 'Service Customer Website',
+	addressCountry: 'Country',
+	addressCounty: 'County',
+	addressLine1: 'Addr Line 1',
+	addressLine2: 'Addr Line 2',
+	addressTown: 'Town',
+	postcode: 'Postcode'
+});
 
 describe('Update application', () => {
 	beforeEach(() => {
@@ -31,11 +66,7 @@ describe('Update application', () => {
 
 	test('update-application updates application with just title and first notified date', async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue({
-			id: 1,
-			reference: 'BC01234',
-			applicant: { id: 1 }
-		});
+		databaseConnector.case.findUnique.mockImplementation(mockApplicationGet(mockCase));
 
 		databaseConnector.case.update.mockResolvedValue({});
 		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
@@ -43,6 +74,7 @@ describe('Update application', () => {
 		// WHEN
 		const response = await request.patch('/applications/1').send({
 			title: 'some title',
+			description: 'some description',
 			keyDates: {
 				preApplication: {
 					submissionAtInternal: 1_649_319_344_000
@@ -58,6 +90,7 @@ describe('Update application', () => {
 			data: {
 				modifiedAt: new Date(1_649_319_144_000),
 				title: 'some title',
+				description: 'some description',
 				ApplicationDetails: {
 					upsert: {
 						create: {
@@ -74,15 +107,19 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'nsip-project',
-			[expectedNsipProjectPayload],
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_PROJECT,
+			expectedNsipProjectPayload,
 			'Update'
 		);
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'service-user',
-			[expectedApplicantPayload],
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			SERVICE_USER,
+			expectedApplicantPayload,
 			'Update',
 			{ entityType: 'Applicant' }
 		);
@@ -90,11 +127,7 @@ describe('Update application', () => {
 
 	test('update-application updates application with just easting and sub-sector name', async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue({
-			id: 1,
-			reference: 'BC01234',
-			applicant: { id: 1 }
-		});
+		databaseConnector.case.findUnique.mockImplementation(mockApplicationGet(mockCase));
 
 		databaseConnector.case.update.mockResolvedValue({});
 		databaseConnector.subSector.findUnique.mockResolvedValue({});
@@ -130,15 +163,19 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'nsip-project',
-			[expectedNsipProjectPayload],
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_PROJECT,
+			expectedNsipProjectPayload,
 			'Update'
 		);
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'service-user',
-			[expectedApplicantPayload],
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			SERVICE_USER,
+			expectedApplicantPayload,
 			'Update',
 			{ entityType: 'Applicant' }
 		);
@@ -146,11 +183,7 @@ describe('Update application', () => {
 
 	test('update-application updates application when all possible details provided', async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue({
-			id: 1,
-			reference: 'BC01234',
-			applicant: { id: 1 }
-		});
+		databaseConnector.case.findUnique.mockImplementation(mockApplicationGet(mockCase));
 
 		databaseConnector.applicationDetails.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 
@@ -292,15 +325,19 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'nsip-project',
-			[expectedNsipProjectPayload],
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_PROJECT,
+			expectedNsipProjectPayload,
 			'Update'
 		);
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'service-user',
-			[expectedApplicantPayload],
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			SERVICE_USER,
+			expectedApplicantPayload,
 			'Update',
 			{ entityType: 'Applicant' }
 		);
@@ -309,11 +346,7 @@ describe('Update application', () => {
 	test(`update-application with new applicant using first and last name,
 			address line, map zoom level, blank case email`, async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue({
-			id: 1,
-			reference: 'BC01234',
-			applicant: { id: 1 }
-		});
+		databaseConnector.case.findUnique.mockImplementation(mockApplicationGet(mockCase));
 
 		databaseConnector.zoomLevel.findUnique.mockResolvedValue({});
 		databaseConnector.case.update.mockResolvedValue({});
@@ -368,15 +401,19 @@ describe('Update application', () => {
 			}
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'nsip-project',
-			[expectedNsipProjectPayload],
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_PROJECT,
+			expectedNsipProjectPayload,
 			'Update'
 		);
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'service-user',
-			[expectedApplicantPayload],
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			SERVICE_USER,
+			expectedApplicantPayload,
 			'Update',
 			{ entityType: 'Applicant' }
 		);
@@ -384,11 +421,7 @@ describe('Update application', () => {
 
 	test('update-application returns error if any validated values are invalid', async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue({
-			id: 1,
-			reference: 'BC01234',
-			applicant: { id: 1 }
-		});
+		databaseConnector.case.findUnique.mockImplementation(mockApplicationGet(mockCase));
 
 		databaseConnector.zoomLevel.findUnique.mockResolvedValue(null);
 		databaseConnector.region.findUnique.mockResolvedValue(null);
@@ -460,11 +493,7 @@ describe('Update application', () => {
 
 	test('update-application throws error if unknown applicant id provided', async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue({
-			id: 1,
-			reference: 'BC01234',
-			applicant: { id: 1 }
-		});
+		databaseConnector.case.findUnique.mockImplementation(mockApplicationGet(mockCase));
 
 		// WHEN
 		const response = await request.patch('/applications/1').send({ applicant: { id: 3 } });
@@ -480,11 +509,9 @@ describe('Update application', () => {
 
 	test('update-application throws error if applicant id that doesnt belong to case provided', async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue({
-			id: 1,
-			reference: 'BC01234',
-			applicant: { id: 4 }
-		});
+		databaseConnector.case.findUnique.mockImplementation(
+			mockApplicationGet(mockCase, { applicant: { id: 4 } })
+		);
 
 		// WHEN
 		const response = await request.patch('/applications/1').send({ applicant: { id: 1 } });
@@ -500,11 +527,12 @@ describe('Update application', () => {
 
 	test('does not publish Service Bus events for training cases', async () => {
 		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue({
-			id: 1,
-			reference: 'TRAIN',
-			applicant: { id: 1 }
-		});
+		databaseConnector.case.findUnique.mockImplementation(
+			mockApplicationGet({
+				id: 1,
+				reference: 'TRAIN'
+			})
+		);
 
 		databaseConnector.case.update.mockResolvedValue({});
 		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
@@ -521,6 +549,6 @@ describe('Update application', () => {
 
 		// THEN
 		expect(response.status).toEqual(200);
-		expect(eventClient.sendEvents).not.toHaveBeenCalledWith('nsip-project');
+		expect(eventClient.sendEvents).not.toHaveBeenCalledWith(NSIP_PROJECT);
 	});
 });

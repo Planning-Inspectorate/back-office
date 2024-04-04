@@ -4,7 +4,7 @@ import { getOrCreateMinimalCaseId, getOrCreateServiceUserId } from './utils.js';
 import {
 	buildSubscriptionPayloads,
 	typesToSubscription
-} from '../../applications/subscriptions/subscriptions.js';
+} from '#infrastructure/payload-builders/nsip-subscription.js';
 import { NSIP_SUBSCRIPTION } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { buildUpsertForEntity } from './sql-tools.js';

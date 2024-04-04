@@ -32,18 +32,18 @@ export const isUploadedHtmlValid = async (blobUri, log) => {
 	const htmlFileContentAsString = await streamToString(
 		downloadBlockBlobResponse.readableStreamBody
 	);
-	const stringComparisonResult = compareHtmlStringsIgnoringYoutubeUrl(
+	const areHtmlStringsEqual = compareHtmlStringsIgnoringYoutubeUrl(
 		htmlFileContentAsString,
 		YouTubeHTMLTemplate
 	);
 
-	if (!stringComparisonResult) {
+	if (areHtmlStringsEqual) {
+		log.info('HTML validity check successful');
+	} else {
 		log.warn('HTML validity check failed');
 		log.warn(`Offending HTML as string:\n${htmlFileContentAsString}`);
-	} else {
-		log.info('HTML validity check successful');
 	}
-	return stringComparisonResult;
+	return areHtmlStringsEqual;
 };
 
 /**

@@ -1,10 +1,11 @@
 import { jest } from '@jest/globals';
-import { request } from '../../../app-test.js';
+import { request } from '#app-test';
 import { databaseConnector } from '#utils/database-connector.js';
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
 import { buildNsipS51AdvicePayload } from '#infrastructure/payload-builders/nsip-s51-advice.js';
 import { EventType } from '@pins/event-client';
+import { validateMessageToSchema } from '#utils/schema-test-utils.js';
 
 const caseId = 1;
 const validS51AdviceReturned = {
@@ -79,12 +80,28 @@ describe('Test S51 advice publishing', () => {
 			where: { id: caseId },
 			include: { S51AdviceDocument: true }
 		});
+
+		// expect event broadcast
+		const s51AdviceEvents = await buildNsipS51AdvicePayload(validS51AdvicePublished);
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_S51_ADVICE,
-			[await buildNsipS51AdvicePayload(validS51AdvicePublished)],
+			[s51AdviceEvents],
 			EventType.Publish
 		);
 		expect(response.status).toBe(200);
+
+		// expect payload to validate to schema
+		const isAllValid = await validateMessageToSchema('s51-advice.schema.json', s51AdviceEvents);
+		if (isAllValid) {
+			console.info(`Dummy publishing events ${JSON.stringify(s51AdviceEvents)}`);
+		} else {
+			console.info(
+				`Message fails schema validation on  - no dummy events broadcast for ${JSON.stringify(
+					s51AdviceEvents
+				)}`
+			);
+		}
+		expect(isAllValid).toEqual(true);
 	});
 
 	it('publishes a list of multiple given S51 advice items that are on the publish queue', async () => {

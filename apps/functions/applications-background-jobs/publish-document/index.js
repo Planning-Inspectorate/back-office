@@ -45,7 +45,6 @@ export const index = async (
 	}
 
 	validateStorageAccount(documentURI);
-
 	const publishFileName = buildPublishedFileName({
 		documentReference,
 		filename,

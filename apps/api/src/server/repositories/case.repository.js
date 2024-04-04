@@ -386,8 +386,10 @@ export const updateApplication = async ({
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
+		casePublishedState: true,
 		applicant: true,
-		gridReference: true
+		gridReference: true,
+		projectTeam: true
 	});
 };
 
@@ -589,8 +591,10 @@ export const updateApplicationStatusAndDataById = async (
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
+		casePublishedState: true,
 		applicant: true,
-		gridReference: true
+		gridReference: true,
+		projectTeam: true
 	});
 };
 

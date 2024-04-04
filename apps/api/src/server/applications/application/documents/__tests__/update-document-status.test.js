@@ -63,14 +63,34 @@ const documentVersionWithDocument = {
 	Document: document1
 };
 
+const includeFullDocument = {
+	Document: {
+		include: {
+			folder: {
+				include: {
+					case: {
+						include: {
+							CaseStatus: true
+						}
+					}
+				}
+			}
+		}
+	}
+};
+
 const expectedEventPayload = {
 	documentId: docGuid,
 	caseId: 1,
 	caseRef: 'EN0110001',
+	caseType: 'nsip',
+	datePublished: null,
+	documentCaseStage: null,
 	documentReference: null,
 	version: 1,
 	filename: 'test-filename',
 	originalFilename: 'test-original-filename',
+	path: 'EN0110001/undefined/test-filename',
 	size: 23452,
 	documentURI: 'https://127.0.0.1:10000/test-container/test-path',
 	dateCreated: dateDocCreated,
@@ -125,13 +145,7 @@ describe('Update document status when awaiting_virus_check', () => {
 			data: {
 				publishedStatus: 'awaiting_virus_check'
 			},
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
-				}
-			}
+			include: includeFullDocument
 		});
 	});
 });
@@ -178,13 +192,7 @@ describe('Update document statuses and redacted statuses', () => {
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: docGuid, version: 1 } },
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
-				}
-			},
+			include: includeFullDocument,
 			data: {
 				publishedStatus: 'not_checked',
 				publishedStatusPrev: 'awaiting_virus_check',
@@ -197,7 +205,8 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[expectedEventPayload],
-			EventType.Update
+			EventType.Update,
+			{}
 		);
 	});
 
@@ -247,13 +256,7 @@ describe('Update document statuses and redacted statuses', () => {
 			]);
 			expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 				where: { documentGuid_version: { documentGuid: docGuid, version: 1 } },
-				include: {
-					Document: {
-						include: {
-							case: true
-						}
-					}
-				},
+				include: includeFullDocument,
 				data: {
 					publishedStatus: 'ready_to_publish',
 					publishedStatusPrev: 'not_checked',
@@ -283,7 +286,8 @@ describe('Update document statuses and redacted statuses', () => {
 			expect(eventClient.sendEvents).toHaveBeenCalledWith(
 				NSIP_DOCUMENT,
 				[expectedEventPayloadAmended],
-				EventType.Update
+				EventType.Update,
+				{}
 			);
 		});
 
@@ -359,13 +363,7 @@ describe('Update document statuses and redacted statuses', () => {
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: docGuid, version: 1 } },
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
-				}
-			},
+			include: includeFullDocument,
 			data: {
 				publishedStatus: 'not_checked',
 				publishedStatusPrev: 'awaiting_virus_check',
@@ -383,7 +381,8 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[expectedEventPayloadAmended],
-			EventType.Update
+			EventType.Update,
+			{}
 		);
 	});
 
@@ -439,13 +438,7 @@ describe('Update document statuses and redacted statuses', () => {
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: docGuid, version: 1 } },
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
-				}
-			},
+			include: includeFullDocument,
 			data: {
 				redactedStatus: 'redacted'
 			}
@@ -461,7 +454,8 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[expectedEventPayloadAmended],
-			EventType.Update
+			EventType.Update,
+			{}
 		);
 	});
 
@@ -518,13 +512,7 @@ describe('Update document statuses and redacted statuses', () => {
 		]);
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: docGuid, version: 1 } },
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
-				}
-			},
+			include: includeFullDocument,
 			data: {
 				publishedStatus: 'ready_to_publish',
 				publishedStatusPrev: 'not_checked'
@@ -541,7 +529,8 @@ describe('Update document statuses and redacted statuses', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			NSIP_DOCUMENT,
 			[expectedEventPayloadAmended],
-			EventType.Update
+			EventType.Update,
+			{}
 		);
 	});
 
@@ -594,7 +583,26 @@ describe('Update document statuses and redacted statuses', () => {
 				document: {},
 				documentVersion: {
 					publishedStatus: 'ready_to_publish',
-					publishedStatusPrev: 'checked'
+					publishedStatusPrev: 'checked',
+					fileName: 'test-filename',
+					originalFilename: 'test-original-filename',
+					privateBlobContainer: 'test-container',
+					privateBlobPath: 'test-path',
+					size: 23452,
+					dateCreated: new Date(dateDocCreated),
+					Document: {
+						folder: {
+							case: {
+								ApplicationDetails: {
+									subSector: {
+										sector: {
+											name: 'office use'
+										}
+									}
+								}
+							}
+						}
+					}
 				},
 				want: {
 					status: 200,
@@ -613,6 +621,7 @@ describe('Update document statuses and redacted statuses', () => {
 				databaseConnector.case.findUnique.mockResolvedValue(application1);
 				databaseConnector.document.findUnique.mockReset();
 				databaseConnector.documentVersion.findUnique.mockReset();
+				databaseConnector.documentVersion.update.mockReset();
 
 				if (document) {
 					databaseConnector.document.findUnique.mockResolvedValueOnce({
@@ -623,6 +632,7 @@ describe('Update document statuses and redacted statuses', () => {
 
 				if (documentVersion) {
 					databaseConnector.documentVersion.findUnique.mockResolvedValueOnce(documentVersion);
+					databaseConnector.documentVersion.update.mockResolvedValueOnce(documentVersion);
 				}
 
 				// action
@@ -638,13 +648,7 @@ describe('Update document statuses and redacted statuses', () => {
 					// eslint-disable-next-line jest/no-conditional-expect
 					expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 						where: { documentGuid_version: { documentGuid: guid, version: 1 } },
-						include: {
-							Document: {
-								include: {
-									case: true
-								}
-							}
-						},
+						include: includeFullDocument,
 						data: want.update
 					});
 				}

@@ -1,10 +1,58 @@
 import { jest } from '@jest/globals';
-import { request } from '../../../app-test.js';
+import { request } from '#app-test';
+import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
+import { NSIP_PROJECT, SERVICE_USER } from '#infrastructure/topics.js';
+import { EventType } from '@pins/event-client';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
 const { eventClient } = await import('#infrastructure/event-client.js');
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 const now = 1_649_319_144_000;
 const mockDate = new Date(now);
+const expectedNsipProjectPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
+	caseId: 1,
+	caseReference: 'TEST',
+	projectName: 'Some title',
+	projectDescription: 'Some description',
+	sourceSystem: 'back-office-applications',
+	publishStatus: 'published',
+	applicantId: '1',
+	nsipOfficerIds: [],
+	nsipAdministrationOfficerIds: [],
+	inspectorIds: [],
+	anticipatedDateOfSubmission: '2022-07-22T10:38:33.000Z',
+	anticipatedSubmissionDateNonSpecific: 'Q1 2023',
+	easting: 123456,
+	mapZoomLevel: 'country',
+	northing: 654321,
+	projectEmailAddress: 'test@test.com',
+	projectLocation: 'Some Location',
+	projectType: 'BC01 - Office Use',
+	regions: ['north_west', 'south_west'],
+	sector: 'BC - Business and Commercial',
+	stage: 'draft',
+	welshLanguage: false
+});
+
+const expectedApplicantEventPayload = buildPayloadEventsForSchema(SERVICE_USER, {
+	addressCountry: 'Country',
+	addressCounty: 'County',
+	addressLine1: 'Addr Line 1',
+	addressLine2: 'Addr Line 2',
+	addressTown: 'Town',
+	caseReference: 'TEST',
+	emailAddress: 'service.customer@email.com',
+	firstName: 'Service Customer First Name',
+	id: '1',
+	lastName: 'Service Customer Last Name',
+	organisation: 'Organisation',
+	postcode: 'Postcode',
+	serviceUserType: 'Applicant',
+	sourceSuid: '1',
+	sourceSystem: 'back-office-applications',
+	telephoneNumber: '01234567890',
+	webAddress: 'Service Customer Website'
+});
 
 jest.useFakeTimers({ now });
 
@@ -17,11 +65,15 @@ describe('Publish application', () => {
 		// GIVEN
 		const caseId = 1;
 
-		databaseConnector.case.findUnique.mockResolvedValue({
-			id: 1,
-			reference: 'TEST',
-			CasePublishedState: [{ createdAt: mockDate, isPublished: true }]
-		});
+		databaseConnector.case.findUnique.mockImplementation(
+			mockApplicationGet({
+				id: 1,
+				title: 'Some title',
+				description: 'Some description',
+				reference: 'TEST',
+				dates: { publishedAt: mockDate }
+			})
+		);
 		databaseConnector.case.update.mockResolvedValue({
 			CasePublishedState: [{ createdAt: mockDate, isPublished: true }]
 		});
@@ -50,20 +102,19 @@ describe('Publish application', () => {
 			}
 		});
 
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			'nsip-project',
-			[
-				{
-					caseId: 1,
-					caseReference: 'TEST',
-					sourceSystem: 'back-office-applications',
-					publishStatus: 'published',
-					nsipOfficerIds: [],
-					nsipAdministrationOfficerIds: [],
-					inspectorIds: []
-				}
-			],
-			'Publish'
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_PROJECT,
+			expectedNsipProjectPayload,
+			EventType.Publish
+		);
+
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			SERVICE_USER,
+			expectedApplicantEventPayload,
+			EventType.Publish,
+			{ entityType: 'Applicant' }
 		);
 	});
 

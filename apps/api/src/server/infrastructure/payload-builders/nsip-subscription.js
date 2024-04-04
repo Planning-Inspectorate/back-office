@@ -41,7 +41,7 @@ export function buildSubscriptionPayloads(subscription) {
 /**
  * Base payload for a subscription event, without a subscription type.
  *
- * @param {import('@pins/applications.api').Schema.SubscriptionWithServiceUser} subscription
+ * @param {import('../../../../index.js').Schema.SubscriptionWithServiceUser} subscription
  * @returns {NSIPSubscription}
  * @throws {Error}
  */
@@ -56,20 +56,16 @@ export function buildSubscriptionBasePayload(subscription) {
 		emailAddress: subscription.serviceUser.email,
 		subscriptionType: '' // overwritten later with a real value
 	};
+
 	if (subscription.id) {
 		payload.subscriptionId = subscription.id;
 	}
-	if (subscription.startDate) {
-		payload.startDate = subscription.startDate.toISOString();
-	}
 
-	if (subscription.endDate) {
-		payload.endDate = subscription.endDate.toISOString();
-	}
+	payload.startDate = subscription.startDate?.toISOString() ?? null;
 
-	if (subscription.language) {
-		payload.language = subscription.language;
-	}
+	payload.endDate = subscription.endDate?.toISOString() ?? null;
+
+	payload.language = subscription.language ?? null;
 
 	return payload;
 }
@@ -176,30 +172,6 @@ export function subscriptionTypeChanges(existingSub, newSub) {
 
 	return byType;
 }
-
-/**
- * @param {import('@pins/applications.api').Schema.SubscriptionWithServiceUser} subscription
- * @return {ServiceUser}
- * */
-export const buildServiceUserPayload = (subscription) => ({
-	id: subscription.serviceUser.id.toString(),
-	firstName: subscription.serviceUser.firstName ?? undefined,
-	lastName: subscription.serviceUser.lastName ?? undefined,
-	addressLine1: subscription.serviceUser.address?.addressLine1 ?? undefined,
-	addressLine2: subscription.serviceUser.address?.addressLine2 ?? undefined,
-	addressTown: subscription.serviceUser.address?.town ?? undefined,
-	addressCounty: subscription.serviceUser.address?.county ?? undefined,
-	postcode: subscription.serviceUser.address?.postcode ?? undefined,
-	addressCountry: subscription.serviceUser.address?.country ?? undefined,
-	organisation: subscription.serviceUser.organisationName ?? undefined,
-	role: subscription.serviceUser.jobTitle ?? undefined,
-	telephoneNumber: subscription.serviceUser.phoneNumber ?? undefined,
-	emailAddress: subscription.serviceUser.email ?? undefined,
-	serviceUserType: 'Subscriber',
-	caseReference: subscription.caseReference,
-	sourceSuid: subscription.serviceUser.id.toString(),
-	sourceSystem: 'BO'
-});
 
 /**
  * Base payload for a subscription event, without a subscription type.

@@ -1,7 +1,10 @@
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE } from '../../constants.js';
 import * as repository from '../../../repositories/project-update.respository.js';
 import { getPageCount } from '../../../utils/database-pagination.js';
-import { UnsafeContentError, mapProjectUpdate } from './project-updates.mapper.js';
+import {
+	UnsafeContentError,
+	mapProjectUpdate
+} from '#infrastructure/payload-builders/nsip-project-update.js';
 import logger from '../../../utils/logger.js';
 import { sortByFromQuery } from '../../../utils/query/sort-by.js';
 import {

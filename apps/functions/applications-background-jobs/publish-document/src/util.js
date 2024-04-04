@@ -33,9 +33,11 @@ export const trimSlashes = (uri) => uri?.replace(/^\/+|\/+$/g, '');
 export const validateStorageAccount = (documentURI, conf = config) => {
 	// does the document URI start with either the custom domain or account host?
 	// if not, throw an error
-	if (![conf.BLOB_STORAGE_ACCOUNT_HOST, conf.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN]
+	if (
+		![conf.BLOB_STORAGE_ACCOUNT_HOST, conf.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN]
 			.map(trimSlashes)
-			.some(host => documentURI.startsWith(host))) {
+			.some((host) => documentURI.startsWith(String(host)))
+	) {
 		throw Error(`Attempting to copy from unknown storage account host ${documentURI}`);
 	}
 };
