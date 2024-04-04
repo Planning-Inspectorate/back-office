@@ -8,7 +8,12 @@
 dd.project-update {
 	@media (min-width: 40.0625em) {
 		p {
-			// span over action column
+			// Span the content over the action column.
+			// ----------------------------------------
+			// Please note that a width value of 150% was not my first choice.
+			// Many alternative solutions were tried including column-span.
+			// Removing the two-thirds class was another.
+			// This was the only solution that worked without breaking the original design.
 			width: 150%
 		}
 	}
