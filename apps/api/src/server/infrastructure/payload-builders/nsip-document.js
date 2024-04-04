@@ -51,7 +51,7 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 		caseReference = document.folder.case.reference;
 	}
 
-	let payload = {
+	return {
 		documentId: document.guid,
 		caseRef: caseReference,
 		documentReference: document.documentReference,
@@ -99,8 +99,6 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 		]),
 		documentCaseStage: mapDocumentCaseStageToSchema(docVersionWithFullDetails.stage)
 	};
-
-	return payload;
 };
 
 /**
@@ -111,25 +109,23 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
  */
 export const mapDocumentCaseStageToSchema = (stage) => {
 	// conversion is mostly just changing to all lower case
-	let schemaValue = null;
 
-	if (stage) {
-		switch (stage) {
-			case folderDocumentCaseStageMappings.DEVELOPERS_APPLICATION:
-				schemaValue = 'developers_application';
-				break;
-			case folderDocumentCaseStageMappings.POST_DECISION:
-				// note that post decision has inconsistent format in the schema, it uses underscore instead of hyphen
-				// our DB 'Post-decision' maps to 'post_decision'
-				schemaValue = stage.toLowerCase().replace('-', '_');
-				break;
-			default:
-				schemaValue = stage.toLowerCase();
-				break;
-		}
+	if (!stage) {
+		return null;
 	}
 
-	return schemaValue;
+	const { DEVELOPERS_APPLICATION, POST_DECISION } = folderDocumentCaseStageMappings;
+
+	switch (stage) {
+		case DEVELOPERS_APPLICATION:
+			return 'developers_application';
+		case POST_DECISION:
+			// note that post decision has inconsistent format in the schema, it uses underscore instead of hyphen
+			// our DB 'Post-decision' maps to 'post_decision'
+			return 'post_decision';
+		default:
+			return stage.toLowerCase();
+	}
 };
 
 /**
