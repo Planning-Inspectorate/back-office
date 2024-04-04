@@ -145,8 +145,11 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
-export async function postApplicationsCaseEditS51Item({ body, params }, response) {
-	const { adviceId, step } = params;
+export async function postApplicationsCaseEditS51Item(
+	{ body, params, errors: validationErrors },
+	response
+) {
+	const { adviceId, step, folderId } = params;
 	const { caseId, title } = response.locals;
 	const payload = mapUpdateBodyToPayload(body);
 
@@ -158,17 +161,19 @@ export async function postApplicationsCaseEditS51Item({ body, params }, response
 		if (titleErrors || errors) {
 			return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
 				adviceId,
-				errors: errors || titleErrors
+				folderId,
+				errors: titleErrors || errors
 			});
 		}
 	}
 
 	const { errors } = await updateS51Advice(caseId, Number(adviceId), payload);
 
-	if (errors) {
+	if (validationErrors || errors) {
 		return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
 			adviceId,
-			errors
+			folderId,
+			errors: validationErrors || errors
 		});
 	}
 
