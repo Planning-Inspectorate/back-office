@@ -51,7 +51,7 @@
 
 {% macro renderComponent(componentName) %}
     {% if(componentName === 'dateCreated' or componentName === 'datePublished') %}
-		{% set dateLayout = layout|setAttribute('classes', 'govuk-grid-column-one-third') %}
+		{% set dateLayout = layout|setAttribute('classes', 'govuk-grid-column-two-thirds') %}
 		{% set dateLayout = dateLayout|setAttribute('fieldName', layout.metaDataName) %}
 
 		<div class='govuk-grid-row'>
