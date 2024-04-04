@@ -1,34 +1,52 @@
 // @ts-nocheck
-import { jest } from '@jest/globals';
-import { viewGeneralSection51page } from '../applications-general-s51.controller.js';
-import { getGeneralSection51URL } from '../utils/get-general-section-51-URL.js';
-import { getGeneralSection51Data } from '../utils/get-general-section-51-data.js';
+import nock from 'nock';
+import supertest from 'supertest';
+import { createTestEnvironment } from '../../../../../../testing/index.js';
+import {
+	generalSection51CaseReference,
+	generalSection51FolderName
+} from '../applications-general-s51.config.js';
 
-jest.mock('../utils/get-general-section-51-data.js', () => ({
-  ...jest.requireActual('../utils/get-general-section-51-data.js'),
-  getGeneralSection51Data: jest.fn(),
-}));
+const { app, installMockApi, teardown } = createTestEnvironment();
+const request = supertest(app);
 
-jest.mock('../utils/get-general-section-51-URL.js', () => ({
-  ...jest.requireActual('../utils/get-general-section-51-URL.js'),
-  getGeneralSection51URL: jest.fn(),
-}));
+const nocks = () => {
+	nock('http://test/')
+		.persist()
+		.get(`/applications/reference/${generalSection51CaseReference}`)
+		.reply(200, { id: 111111111, reference: generalSection51CaseReference });
+
+	nock('http://test/')
+		.persist()
+		.get(`/applications/111111111/folders`)
+		.reply(200, [{ id: 222222222, displayNameEn: generalSection51FolderName }]);
+
+	nock('http://test/')
+		.persist()
+		.get(`/applications-service/case/111111111/project-documentation/222222222/s51-advice`)
+		.reply(200, {});
+};
 
 describe('General section 51 page', () => {
-  describe('#viewGeneralSection51page', () => {
-    it('should redirect to general section 51 folder page', async () => {
-      const req = {};
-      const res = {
-        redirect: jest.fn()
-      };
-      getGeneralSection51Data.mockResolvedValue({ caseId: 'mockCaseId', folderId: 'mockFolderId' });
-      getGeneralSection51URL.mockResolvedValue('/applications-service/case/mockCaseId/project-documentation/mockFolderId/s51-advice');
+	beforeEach(installMockApi);
 
-      await viewGeneralSection51page(req, res);
+	afterEach(() => {
+		nock.cleanAll();
+		teardown();
+	});
 
+	describe('#viewGeneralSection51page', () => {
+		beforeEach(async () => {
+			nocks();
+		});
 
-      expect(res.redirect).toHaveBeenCalledWith('/applications-service/case/mockCaseId/project-documentation/mockFolderId/s51-advice');
+		it('should redirect directly to general section 51 folder', async () => {
+			const response = await request.get(`/applications-service/general-section-51`);
 
-    });
-  });
+			expect(response.status).toEqual(302);
+			expect(response.header.location).toEqual(
+				'/applications-service/case/111111111/project-documentation/222222222/s51-advice'
+			);
+		});
+	});
 });
