@@ -14,12 +14,11 @@ import fs from 'node:fs/promises';
  * @returns {Promise<{addressList: address[]; errors?: AddressLookupValidationErrors}>}
  */
 export default async function (postcode, locals) {
-	if (config.dummyAddressData) {
-		const dummyAddressDataFile = path.join(process.cwd(), 'dummy_address_data.json');
-		const dummyAddressData = JSON.parse(await fs.readFile(dummyAddressDataFile, 'utf8'));
-		const matchingAddresses = { addressList: dummyAddressData[postcode] };
-		return Promise.resolve(matchingAddresses);
-	} else {
+	if (!config.dummyAddressData) {
 		return findAddressListByPostcode(postcode, locals);
 	}
+
+	const dummyAddressDataFile = path.join(process.cwd(), 'dummy_address_data.json');
+	const dummyAddressData = JSON.parse(await fs.readFile(dummyAddressDataFile, 'utf8'));
+	return { addressList: dummyAddressData[postcode] };
 }
