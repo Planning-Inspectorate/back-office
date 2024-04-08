@@ -62,6 +62,16 @@ exports[`applications create applicant Applicant address GET /applicant-address 
             <input class=\\"govuk-input govuk-!-width-one-half\\"
             id=\\"applicant.address.town\\" name=\\"applicant.address.town\\" type=\\"text\\">
         </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label\\" for=\\"applicant.address.county\\">County</label>
+            <input class=\\"govuk-input govuk-!-width-one-half\\" id=\\"applicant.address.county\\"
+            name=\\"applicant.address.county\\" type=\\"text\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label\\" for=\\"applicant.address.country\\">Country</label>
+            <input class=\\"govuk-input govuk-!-width-one-half\\" id=\\"applicant.address.country\\"
+            name=\\"applicant.address.country\\" type=\\"text\\">
+        </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
