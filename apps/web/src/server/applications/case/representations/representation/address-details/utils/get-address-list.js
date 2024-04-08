@@ -1,4 +1,4 @@
-import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
+import findAddressListByPostcode from '../../../../../common/services/address.service.js';
 
 /**
  * @typedef {object} AddressList

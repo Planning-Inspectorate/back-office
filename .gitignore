@@ -66,3 +66,4 @@ dump.rdb
 
 # Dummy data
 dummy_user_data.json
+dummy_address_data.json
