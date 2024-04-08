@@ -90,6 +90,7 @@ describe('Get Application details', () => {
 					addressLine1: 'Addr Line 1',
 					addressLine2: 'Addr Line 2',
 					county: 'County',
+					country: 'Country',
 					postCode: 'Postcode',
 					town: 'Town'
 				},

@@ -216,7 +216,9 @@ export async function applicantAddressDataUpdate({ errors: validationErrors, bod
 							postcode,
 							addressLine1: body['applicant.address.addressLine1'],
 							addressLine2: body['applicant.address.addressLine2'],
-							town: body['applicant.address.town']
+							town: body['applicant.address.town'],
+							county: body['applicant.address.county'],
+							country: body['applicant.address.country']
 						}
 					}
 				};
