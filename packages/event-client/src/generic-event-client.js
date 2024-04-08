@@ -92,20 +92,14 @@ export class GenericEventClient {
 /**
  * gets the name of the schema matching the topic
  *
- * @param {*} topic
+ * @param {string} topic
  * @returns {string}
  */
 export const getSchemaNameFromTopic = (topic) => {
-	let schemaName = '';
-
 	switch (topic) {
 		case NSIP_S51_ADVICE:
-			schemaName = 's51-advice.schema.json';
-			break;
+      return 's51-advice.schema.json';
 		default:
-			schemaName = topic + '.schema.json';
-			break;
+      return topic + '.schema.json';
 	}
-
-	return schemaName;
 };
