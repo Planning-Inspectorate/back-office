@@ -4,6 +4,7 @@ import addAjvFormats from 'ajv-formats';
 import { loadAllSchemas } from 'pins-data-model';
 
 const NSIP_S51_ADVICE = 'nsip-s51-advice';
+const DEADLINE_SUBMISSION_TOPIC = 'deadline-submission-topic';
 
 /**
  *
@@ -99,6 +100,8 @@ export const getSchemaNameFromTopic = (topic) => {
 	switch (topic) {
 		case NSIP_S51_ADVICE:
       return 's51-advice.schema.json';
+    case DEADLINE_SUBMISSION_TOPIC:
+      return 'new-deadline-submission.schema.json';
 		default:
       return topic + '.schema.json';
 	}
