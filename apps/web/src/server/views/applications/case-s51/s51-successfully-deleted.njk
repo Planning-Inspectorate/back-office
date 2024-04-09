@@ -2,17 +2,26 @@
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
+{% set isGeneralS51 = case.reference === gs51CaseReference %}
 {% set serviceName = ["S51 advice item successfully deleted ", action] | join %}
 
 {% block beforeContent %}{% endblock %}
 {% block pageHeading %}{% endblock %}
 
+
+{% if isGeneralS51 %}
+	{% set serviceName = ["General S51 advice item successfully deleted ", action] | join %}
+{% endif %}
+
+
 {% block pageContent %}
 	{% set bannerDetails%}
     <p class='govuk-!-font-size-19'>
-      Case: {{case.title}}
-      <br/>
-      Reference: {{case.reference}}
+	{% if not isGeneralS51 %}
+		Case: {{case.title}}
+		<br/>
+      	Reference: {{case.reference}}
+	{% endif %}
     </p>
 	{% endset %}
 	<div class="govuk-grid-row">
@@ -25,7 +34,7 @@
 			<div class='govuk-!-font-size-19 display--flex'>
 				<p class='govuk-!-margin-top-0 govuk-!-margin-right-2'>Return to folder: </p>
 				<a href="{{ breadcrumbItems[breadcrumbItems.length - 1].href }}" class="govuk-link">
-					Project documentation > <strong>S51 Advice</strong>
+					Project documentation > <strong>{% if isGeneralS51 %}General {% endif %}S51 Advice</strong>
 				</a>
 			</div>
 		</div>

@@ -51,6 +51,7 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		'addressLine2',
 		'town',
 		'county',
+		'country',
 		'postcode'
 	]);
 
