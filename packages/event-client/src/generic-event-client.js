@@ -70,7 +70,7 @@ export class GenericEventClient {
 
 		const schema = allSchemas[schemaName];
 		if (!schema) {
-			console.error(`No valid schema found for '${schemaName}'`);
+			this.logger.info(`No valid schema found for '${schemaName}'`);
 			return false;
 		}
 
@@ -78,9 +78,8 @@ export class GenericEventClient {
 		const eventsToValidate = events instanceof Array ? events : [events];
 
 		const isAllValid = eventsToValidate.every((e) => validator(e));
-
 		if (!isAllValid) {
-			console.error(
+			this.logger.info(
 				`Message fails schema validation ${schemaName}: `,
 				validator.errors?.map(
 					({ instancePath, keyword, message, params }) =>
