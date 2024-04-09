@@ -19,13 +19,16 @@
 				{{ applicationSearch(searchParameters) }}
 			</div>
 		</div>
-			<div class="govuk-grid-column-one-half">
-				<div class="pins-dashboard-box">
-					<h2 class="govuk-heading-l pins-dashboard-box--title">Create new case</h2>
-					<a class="govuk-button govuk-button--secondary pins-dashboard-box--btn"
-					   href="{{ 'base-url'|url }}/create-new-case">Create new case here</a>
-				</div>
+		<div class="govuk-grid-column-one-half">
+			<div class="pins-dashboard-box">
+				<h2 class="govuk-heading-l pins-dashboard-box--title">Actions</h2>
+				<a class="govuk-button govuk-button--secondary pins-dashboard-box--btn"
+					href="{{ 'base-url'|url }}/create-new-case">Create case</a>
+				<p>
+					<a href="{{ 'gs51' |url }}" class="govuk-link">Manage General S51 advice</a>
+				</p>
 			</div>
+		</div>
 	</div>
 	{% if draftCases.length > 0 %}
 		<div class="pins-dashboard-list--drafts">

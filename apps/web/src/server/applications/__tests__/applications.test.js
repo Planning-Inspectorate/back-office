@@ -32,13 +32,13 @@ describe('applications', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 
-		it('should render the `create new case` button', async () => {
+		it('should render the `create case` button', async () => {
 			nock('http://test/').get('/applications').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
-			const element = parseHtml(response.text);
+			const element = parseHtml(response.text, { rootElement: '.govuk-button.govuk-button--secondary.pins-dashboard-box--btn'});
 
-			expect(element.innerHTML).toContain('Create new case');
+			expect(element.innerHTML).toContain('Create case');
 		});
 	});
 });
