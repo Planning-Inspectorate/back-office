@@ -74,22 +74,19 @@ export class GenericEventClient {
 			return false;
 		}
 
-		let isAllValid = true;
 		const validator = ajv.compile(schema);
 		const eventsToValidate = events instanceof Array ? events : [events];
 
-		for (const eachEvent of eventsToValidate) {
-			const isValid = validator(eachEvent);
-			if (!isValid) {
-				isAllValid = false;
-				console.error(
-					`Message fails schema validation ${schemaName}: `,
-					validator.errors?.map(
-						({ instancePath, keyword, message, params }) =>
-							`${instancePath}: keyword:${keyword} - ${message} - params:${JSON.stringify(params)}`
-					)
-				);
-			}
+		const isAllValid = eventsToValidate.every((e) => validator(e));
+
+		if (!isAllValid) {
+			console.error(
+				`Message fails schema validation ${schemaName}: `,
+				validator.errors?.map(
+					({ instancePath, keyword, message, params }) =>
+						`${instancePath}: keyword:${keyword} - ${message} - params:${JSON.stringify(params)}`
+				)
+			);
 		}
 
 		return isAllValid;
