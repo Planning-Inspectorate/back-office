@@ -36,7 +36,7 @@ function pickRandom(list) {
  * @param {boolean} isValidStatus
  * @returns {any}
  */
-function createRepresentation(caseReference, index, isValidStatus = false) {
+export function createRepresentation(caseReference, index, isValidStatus = false) {
 	const { represented, representative, ...rep } = pickRandom(representations);
 
 	const statuses = [

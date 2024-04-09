@@ -1,20 +1,27 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from '../components/enquirer-string.njk' import enquirerString %}
 
+{% macro s51DetailsTab(s51Advice, caseId, folderId, isPublished, isGeneralS51) %}
 
-{% macro s51DetailsTab(s51Advice, caseId, folderId, isPublished) %}
+	{% set s51TitleLabel = "S51 title" %}
+	{% set s51AdvicePropertiesText = "S51 advice properties" %}
+
+	{% if isGeneralS51 %}
+		{% set s51TitleLabel = "General S51 title" %}
+		{% set s51AdvicePropertiesText = "General S51 advice properties" %}
+	{% endif %}
 
 	{% set properties = [
-						{label: 'S51 title', value: s51Advice.title, link: 'title'},
-						{label: 'Enquirer', value: enquirerString(s51Advice), link: 'enquirer'},
-						{label: 'Enquiry method', value: s51Advice.enquiryMethod|capitalize, link: 'method'},
-						{label: 'Enquiry date', value: (s51Advice.enquiryDate|datestamp({format: 'dd MMM yyyy'})), link: 'enquiry-date'},
-						{label: 'Enquiry details', value: s51Advice.enquiryDetails, link: 'enquiry-details'},
-						{label: 'Advice given by (internal use only)', value: s51Advice.adviser, link: 'adviser'},
-						{label: 'Date advice given', value: (s51Advice.adviceDate|datestamp({format: 'dd MMM yyyy'})), link: 'advice-date'},
-						{label: 'Advice given', value: s51Advice.adviceDetails, link: 'advice-detail'},
-						{label: 'Redaction', value: ('Redacted' if s51Advice.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
-						{label: 'Status', value: s51Advice.publishedStatus|statusName, link: 'status'}
+		{label: s51TitleLabel, value: s51Advice.title, link: 'title'},
+		{label: 'Enquirer', value: enquirerString(s51Advice), link: 'enquirer'},
+		{label: 'Enquiry method', value: s51Advice.enquiryMethod|capitalize, link: 'method'},
+		{label: 'Enquiry date', value: (s51Advice.enquiryDate|datestamp({format: 'dd MMM yyyy'})), link: 'enquiry-date'},
+		{label: 'Enquiry details', value: s51Advice.enquiryDetails, link: 'enquiry-details'},
+		{label: 'Advice given by (internal use only)', value: s51Advice.adviser, link: 'adviser'},
+		{label: 'Date advice given', value: (s51Advice.adviceDate|datestamp({format: 'dd MMM yyyy'})), link: 'advice-date'},
+		{label: 'Advice given', value: s51Advice.adviceDetails, link: 'advice-detail'},
+		{label: 'Redaction', value: ('Redacted' if s51Advice.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
+		{label: 'Status', value: s51Advice.publishedStatus|statusName, link: 'status'}
 	] %}
 
 	{% set propertiesRow = [] %}
@@ -23,7 +30,7 @@
 		{% set rowActions = {} %}
 
 		{% if property.link and not isPublished %}
-			{% set s51EditLink = ('s51-edit'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: property.link})) %}
+			{% set s51EditLink = ('s51-edit' | url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: property.link})) %}
 
 			{% set rowActions = {
 				href: s51EditLink,
@@ -47,10 +54,9 @@
 		{% set propertiesRow = propertiesRow.concat([row]) %}
 	{% endfor %}
 
-	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">S51 advice properties</h4>
+	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">{{ s51AdvicePropertiesText }}</h4>
 	{{ govukSummaryList({
         	rows: propertiesRow
         }) }}
 
 {% endmacro %}
-

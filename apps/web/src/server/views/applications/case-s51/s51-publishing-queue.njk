@@ -5,13 +5,21 @@
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 {% from './components/enquirer-string.njk' import enquirerString %}
 
+{% set isGeneralS51 = case.reference === gs51CaseReference %}
+{% set publishButtonText = 'Publish S51 advice' %}
+
+{% if isGeneralS51 %}
+	{% set publishButtonText = 'Publish general S51 advice' %}
+
+{% endif %}
+
 {% block beforeContent %}
-<aside>
-	{{ govukBackLink({
+	<aside>
+		{{ govukBackLink({
 		text: "Back",
 		href: 's51-list'|url({caseId: caseId, folderId: folderId })
 	}) }}
-</aside>
+	</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}
@@ -21,56 +29,58 @@
 		<div class="govuk-grid-column-full">
 			{% block sectionContent %}
 				<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-8">
-					<span class="govuk-caption-m">S51 advice publishing queue</span>
+					<span class="govuk-caption-m">
+						{% if isGeneralS51 %}General {% endif %}S51 advice publishing queue</span>
                     Select items for publishing
                 </h1>
-				<ul class="govuk-list">
-					<li>
-						<span class='font-weight--700'>Case name:</span>
-						{{ case.title }}
-					</li>
-					<li>
-						<span class='font-weight--700'>Case reference:</span>
-						{{ case.reference }}
-					</li>
-				</ul>
+				{% if not isGeneralS51 %}
+					<ul class="govuk-list">
+						<li>
+							<span class='font-weight--700'>Case name:</span>
+							{{ case.title }}
+						</li>
+						<li>
+							<span class='font-weight--700'>Case reference:</span>
+							{{ case.reference }}
+						</li>
+					</ul>
+				{% endif %}
 
 				<p class='govuk-body govuk-!-margin-top-6 govuk-!-margin-bottom-6'>
                     The queue contains {{ s51Advices.itemCount }} item(s).
 
                     {% if s51Advices.items.length == 0 %}
-                      Showing 0
+                    	Showing 0
                     {% else %}
                       Showing {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) + 1 }}
                       - {{ ((s51Advices.page - 1) * s51Advices.pageDefaultSize) +  s51Advices.items.length }}
-                    {% endif %}
-										item(s).
+					{% endif %}
+						item(s).
                 </p>
 
-<div class='pins-files-list__info'>
-<div class='pagination-info govuk-!-margin-bottom-4 govuk-!-font-size-19'>
-				<p class='govuk-body font-weight--700 govuk-!-margin-bottom-0'>
-					<span id="selectedFilesNumber">0</span> item(s) on this page are selected.
+				<div class='pins-files-list__info'>
+					<div class='pagination-info govuk-!-margin-bottom-4 govuk-!-font-size-19'>
+						<p class='govuk-body font-weight--700 govuk-!-margin-bottom-0'>
+							<span id="selectedFilesNumber">0</span> item(s) on this page are selected.
                 </p>
 
-				<div>
-					<span class='font-weight--700'>Results per page</span>
-					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=25'>25</a> |
-					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=50'>50</a> |
-					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=75'>75</a> |
-					<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=100'>100</a>
+						<div>
+							<span class='font-weight--700'>Results per page</span>
+							<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=25'>25</a> |
+							<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=50'>50</a> |
+							<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=75'>75</a> |
+							<a class='govuk-link govuk-!-margin-left-1 govuk-!-margin-right-1' href='?number=1&size=100'>100</a>
+						</div>
+					</div>
+
 				</div>
-</div>
-
-
-
-			</div>
 				<form class="pins-files-list govuk-!-margin-top-8" method="post">
 					<table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
 						<thead class="govuk-table__head govuk-body-s">
 							<tr class="govuk-table__row">
 								<th scope="col" class="govuk-table__header">Select</th>
-								<th scope="col" class="govuk-table__header">S51 advice item</th>
+								<th scope="col" class="govuk-table__header">
+									{% if isGeneralS51 %}General {% endif %}S51 advice item</th>
 								<th scope="col" class="govuk-table__header">Properties</th>
 								<th scope="col" class="govuk-table__header">Actions</th>
 								<th scope="col" class="govuk-table__header">Remove</th>
@@ -134,7 +144,7 @@
 							{% endfor %}
 						</tbody>
 					</table>
-					{{ govukButton({ text: 'Publish S51 advice' }) }}
+					{{ govukButton({ text: publishButtonText }) }}
 
 					{% if s51Advices.itemCount > s51Advices.pageDefaultSize %}
 						{{ govukPagination(paginationButtons) }}
@@ -144,4 +154,3 @@
 		</div>
 	</div>
 {% endblock %}
-

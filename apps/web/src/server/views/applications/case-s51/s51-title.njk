@@ -3,31 +3,38 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set isGeneralS51folder = case.reference === gs51CaseReference %}
 {% set serviceName = "S51 advice" %}
 {% set pageTitle = "Enter the S51 advice title" %}
+{% set labelText = "S51 title" %}
+
+{% if isGeneralS51folder %}
+	{% set pageTitle = "Enter the General S51 advice title" %}
+	{% set labelText = "General S51 title" %}
+{% endif %}
 
 {% block sectionMenu %}{% endblock %}
 
 {% block beforeContent %}
-<aside>
-    {{ govukBackLink({
+	<aside>
+		{{ govukBackLink({
 		text: "Back",
 		href: 'document-category'|url({caseId: caseId, documentationCategory: currentFolder })
 	}) }}
-</aside>
+	</aside>
 {% endblock %}
 
 {% block pageHeading %}{% endblock %}
 
 {% block pageContent %}
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-        {{ pageTitle }}
-    </h1>
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+		{{ pageTitle }}
+	</h1>
 
-    <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
-        {{ govukInput({
+	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
+		{{ govukInput({
 		label: {
-			text: "S51 title",
+			text: labelText,
 			classes: 'font-weight--700'
 		},
 		id: "title",
@@ -40,6 +47,6 @@
 		}
 	}) }}
 
-        {{ govukButton({ text: 'Continue'}) }}
-    </form>
+		{{ govukButton({ text: 'Continue'}) }}
+	</form>
 {% endblock %}

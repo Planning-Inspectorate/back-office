@@ -9,7 +9,7 @@
 
 {% set pageTitle = case.title %}
 {% set isPageWithRepublishBanner = selectedPageType === 'overview' or selectedPageType === 'project-information' or selectedPageType === 'key-dates' %}
-
+{% set isGeneralS51folder = case.reference === gs51CaseReference %}
 {% block beforeContent %}
 <aside>
 	{{ govukBackLink({
@@ -21,26 +21,28 @@
 
 {% block pageHeading %}
 	<div class="top-errors-hook" role="alert"></div>
-	<div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
-	<div class="govuk-grid-column-full">
-		<h4 class="govuk-heading-m"> {{ case.reference }} </h4>
-		<h1 class="govuk-heading-xl">
-		{% if pageCaption %}
-			<span class="govuk-caption-xl">{{ pageCaption }}</span>
-		{% endif %}{{ pageHeading or pageTitle }}
-		</h1>
+	{% if not isGeneralS51folder %}
+		<div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+			<div class="govuk-grid-column-full">
+				<h4 class="govuk-heading-m"> {{ case.reference }} </h4>
+				<h1 class="govuk-heading-xl">
+				{% if pageCaption %}
+					<span class="govuk-caption-xl">{{ pageCaption }}</span>
+				{% endif %}{{ pageHeading or pageTitle }}
+				</h1>
 
-		{% block pageHeadingData %}
-			<div class="govuk-grid-row">
-				<div class="govuk-grid-column-full govuk-body">
-					{{ case.sector.displayNameEn }}, {{ case.subSector.displayNameEn }}
-					<br><br>
-					{{ statusTag(case.status) }}
-				</div>
+				{% block pageHeadingData %}
+						<div class="govuk-grid-row">
+							<div class="govuk-grid-column-full govuk-body">
+								{{ case.sector.displayNameEn }}, {{ case.subSector.displayNameEn }}
+								<br><br>
+								{{ statusTag(case.status) }}
+							</div>
+						</div>
+				{% endblock %}
 			</div>
-		{% endblock %}
-	</div>
-	</div>
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block pageContent %}
