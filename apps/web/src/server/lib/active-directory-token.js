@@ -1,5 +1,6 @@
 import { acquireTokenSilent } from '../app/auth/auth.service.js';
 import { getAccount } from '../app/auth/auth-session.service.js';
+import config from '../../../environment/config.js';
 
 /** @typedef {import('../app/auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
@@ -16,6 +17,11 @@ const getActiveDirectoryAccessToken = async (
 	session,
 	customScopes = ['https://storage.azure.com/user_impersonation']
 ) => {
+	// Return a fake access token when auth is disabled so that uploads and downloads can skip blob storage functionality when developing locally
+	if (config.authDisabled) {
+		return { token: 'AUTH_DISABLED', expiresOnTimestamp: 0 };
+	}
+
 	const sessionAccount = getAccount(session);
 
 	if (!sessionAccount) {
