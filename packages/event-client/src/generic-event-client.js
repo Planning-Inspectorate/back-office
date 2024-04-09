@@ -57,20 +57,25 @@ export class GenericEventClient {
 	 * @returns {Promise<boolean>}
 	 */
 	validateMessageToSchema = async (schemaName, events) => {
-		const { schemas } = await loadAllSchemas();
-		const ajv = new Ajv({ schemas, allErrors: true, verbose: true });
+		const { schemas, commands } = await loadAllSchemas();
+		const allSchemas = { ...schemas, ...commands };
+
+		const ajv = new Ajv({
+			schemas: allSchemas,
+			allErrors: true,
+			verbose: true
+		});
 
 		addAjvFormats(ajv);
 
-		const schema = schemas[schemaName];
-
+		const schema = allSchemas[schemaName];
 		if (!schema) {
 			console.error(`No valid schema found for '${schemaName}'`);
 			return false;
 		}
-		const validator = ajv.compile(schema);
 
 		let isAllValid = true;
+		const validator = ajv.compile(schema);
 		const eventsToValidate = events instanceof Array ? events : [events];
 
 		for (const eachEvent of eventsToValidate) {
