@@ -37,8 +37,10 @@ exports[`applications GET / should render the open applications belonging to the
         </div>
         <div class=\\"govuk-grid-column-one-half\\">
             <div class=\\"pins-dashboard-box\\">
-                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Create new case</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
-                href=\\"/applications-service/create-new-case\\">Create new case here</a>
+                <h2 class=\\"govuk-heading-l pins-dashboard-box--title\\">Actions</h2><a class=\\"govuk-button govuk-button--secondary pins-dashboard-box--btn\\"
+                href=\\"/applications-service/create-new-case\\">Create case</a>
+                <p><a href=\\"/applications-service/general-section-51\\" class=\\"govuk-link\\">Manage General S51 advice</a>
+                </p>
             </div>
         </div>
     </div>
