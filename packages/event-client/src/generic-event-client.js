@@ -25,6 +25,7 @@ export class GenericEventClient {
 	 * @param {any[]} events
 	 * @param {import('./event-type.js').EventType} eventType
 	 * @param {Object.<string,any>?} [additionalProperties={}]
+	 * @returns {Promise<boolean>}
 	 */
 	validateEventsToSchema = async (topic, events, eventType, additionalProperties = {}) => {
 		if (events?.length < 1) {
@@ -99,10 +100,10 @@ export class GenericEventClient {
 export const getSchemaNameFromTopic = (topic) => {
 	switch (topic) {
 		case NSIP_S51_ADVICE:
-      return 's51-advice.schema.json';
-    case DEADLINE_SUBMISSION_TOPIC:
-      return 'new-deadline-submission.schema.json';
+			return 's51-advice.schema.json';
+		case DEADLINE_SUBMISSION_TOPIC:
+			return 'new-deadline-submission.schema.json';
 		default:
-      return topic + '.schema.json';
+			return topic + '.schema.json';
 	}
 };

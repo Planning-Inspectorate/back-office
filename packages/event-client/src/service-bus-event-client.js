@@ -71,19 +71,23 @@ export class ServiceBusEventClient extends GenericEventClient {
 			additionalProperties
 		);
 
-		if (isValid) {
-			const sender = this.#createSender(topic);
+		const traceId = this.#createTraceId();
 
-			const traceId = this.#createTraceId();
-
-			this.logger.info(
-				`Publishing ${events.length} events to topic ${topic} with type ${eventType}, additional properties ${additionalProperties} and trace id ${traceId}`
-			);
-
-			await sender.sendMessages(
-				this.#transformMessagesToSend(events, traceId, eventType, additionalProperties)
+		if (!isValid) {
+			throw new Error(
+				`Validation failed for ${events.length} events to topic ${topic} with type ${eventType}. Trace ID: ${traceId}`
 			);
 		}
+
+		const sender = this.#createSender(topic);
+
+		this.logger.info(
+			`Publishing ${events.length} events to topic ${topic} with type ${eventType}, additional properties ${additionalProperties} and trace id ${traceId}`
+		);
+
+		await sender.sendMessages(
+			this.#transformMessagesToSend(events, traceId, eventType, additionalProperties)
+		);
 
 		return events;
 	};
