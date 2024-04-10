@@ -29,6 +29,12 @@ It is now possible to run the e2e tests against your local branch running in htt
 
 #### apps/e2e/.env
 - AUTH_DISABLED=true
+- BASE_URL=http://localhost:8080/
+- CASE_TEAM_EMAIL=caseofficer.test@planninginspectorate.gov.uk
+- CASE_ADMIN_EMAIL=caseofficeradmin.test@planninginspectorate.gov.uk
+- INSPECTOR_EMAIL=inspector.test@planninginspectorate.gov.uk
+- APP=applications
+
 
 #### apps/web/.env
 - AUTH_DISABLED=true
