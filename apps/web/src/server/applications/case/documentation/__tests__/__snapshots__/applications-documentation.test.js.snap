@@ -6930,9 +6930,8 @@ exports[`applications documentation Document properties page page should render 
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
-                            <dd class=\\"govuk-summary-list__value\\"></dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                        <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
+                            <dd class=\\"govuk-summary-list__value\\"><a id=\\"publishedDate\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date\\">Enter published date</a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
@@ -7248,9 +7247,8 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
-                            <dd class=\\"govuk-summary-list__value\\"></dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                        <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
+                            <dd class=\\"govuk-summary-list__value\\"><a id=\\"publishedDate\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date\\">Enter published date</a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
@@ -7566,9 +7564,8 @@ exports[`applications documentation Document properties page should show publish
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date\\"> Change<span class=\\"govuk-visually-hidden\\"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
-                            <dd class=\\"govuk-summary-list__value\\"></dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a>
+                        <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> Published date</dt>
+                            <dd class=\\"govuk-summary-list__value\\"><a id=\\"publishedDate\\" class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date\\">Enter published date</a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Redaction</dt>
