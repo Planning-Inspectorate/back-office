@@ -101,21 +101,21 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
 /**
  * View the form step for the applicant organisation name
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, {edit?: string}>}
  */
 export async function viewApplicationsCreateApplicantOrganisationName(request, response) {
 	const properties = await applicantOrganisationNameData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
-		layout: organisationNameLayout
+		layout: { ...organisationNameLayout, isEdit: !!request.params.edit }
 	});
 }
 
 /**
  * Update the applicant organisation name
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, {edit?: string}>}
  */
 export async function updateApplicationsCreateApplicantOrganisationName(request, response) {
 	const { path, session } = request;
@@ -128,27 +128,33 @@ export async function updateApplicationsCreateApplicantOrganisationName(request,
 		return handleErrors(properties, organisationNameLayout, response);
 	}
 
+	if (request.params.edit) {
+		return response.redirect(
+			`/applications-service/create-new-case/${updatedCaseId}/check-your-answers`
+		);
+	}
+
 	goToNextStep(updatedCaseId, path, session, response);
 }
 
 /**
  * View the form step for the applicant's full name
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, {}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, {}, {}, {edit?: string}>}
  */
 export async function viewApplicationsCreateApplicantFullName(request, response) {
 	const properties = await applicantFullNameData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
-		layout: fullNameLayout
+		layout: { ...fullNameLayout, isEdit: !!request.params.edit }
 	});
 }
 
 /**
  * Update the applicant's full name
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, ApplicationsCreateApplicantFullNameBody, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantFullNameProps, {}, ApplicationsCreateApplicantFullNameBody, {}, {edit?: string}>}
  */
 export async function updateApplicationsCreateApplicantFullName(request, response) {
 	const { path, session } = request;
@@ -158,27 +164,33 @@ export async function updateApplicationsCreateApplicantFullName(request, respons
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
+	if (request.params.edit) {
+		return response.redirect(
+			`/applications-service/create-new-case/${updatedCaseId}/check-your-answers`
+		);
+	}
+
 	goToNextStep(updatedCaseId, path, session, response);
 }
 
 /**
  * View the form step for the applicant email address
  *
- *  @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, {}, {}, {}>}
+ *  @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, {}, {}, {edit?: string}>}
  */
 export async function viewApplicationsCreateApplicantEmail(request, response) {
 	const properties = await applicantEmailData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
-		layout: applicantEmailLayout
+		layout: { ...applicantEmailLayout, isEdit: !!request.params.edit }
 	});
 }
 
 /**
  * Update the applicant email address
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, ApplicationsCreateApplicantEmailBody, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantEmailProps, {}, ApplicationsCreateApplicantEmailBody, {}, {edit?: string}>}
  */
 export async function updateApplicationsCreateApplicantEmail(request, response) {
 	const { path, session } = request;
@@ -188,6 +200,12 @@ export async function updateApplicationsCreateApplicantEmail(request, response) 
 		return handleErrors(properties, applicantEmailLayout, response);
 	}
 
+	if (request.params.edit) {
+		return response.redirect(
+			`/applications-service/create-new-case/${updatedCaseId}/check-your-answers`
+		);
+	}
+
 	goToNextStep(updatedCaseId, path, session, response);
 }
 
@@ -195,14 +213,14 @@ export async function updateApplicationsCreateApplicantEmail(request, response) 
  * View the form step for the applicant address
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantAddressProps,
-  {}, {}, {postcode: string}, {}>}
+  {}, {}, {postcode: string}, {edit?: string}>}
  */
 export async function viewApplicationsCreateApplicantAddress(request, response) {
 	const properties = await applicantAddressData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
-		layout: addressLayout
+		layout: { ...addressLayout, isEdit: !!request.params.edit }
 	});
 }
 
@@ -210,7 +228,7 @@ export async function viewApplicationsCreateApplicantAddress(request, response) 
  * Update the applicant address
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantAddressProps,
- * {}, ApplicationsCreateApplicantAddressBody, {}, {}>}
+ * {}, ApplicationsCreateApplicantAddressBody, {}, {edit?: string}>}
  */
 export async function updateApplicationsCreateApplicantAddress(request, response) {
 	const { path, session } = request;
@@ -227,27 +245,31 @@ export async function updateApplicationsCreateApplicantAddress(request, response
 		}
 	}
 
+	if (request.params.edit) {
+		return response.redirect(`/applications-service/create-new-case/${caseId}/check-your-answers`);
+	}
+
 	goToNextStep(caseId, path, session, response);
 }
 
 /**
  * View the form step for the applicant website
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, {}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, {}, {}, {edit?: string}>}
  */
 export async function viewApplicationsCreateApplicantWebsite(request, response) {
 	const properties = await applicantWebsiteData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
-		layout: websiteLayout
+		layout: { ...websiteLayout, isEdit: !!request.params.edit }
 	});
 }
 
 /**
  * Update the applicant website
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, ApplicationsCreateApplicantWebsiteBody, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantWebsiteProps, {}, ApplicationsCreateApplicantWebsiteBody, {}, {edit?: string}>}
  */
 export async function updateApplicationsCreateApplicantWebsite(request, response) {
 	const { path, session } = request;
@@ -257,20 +279,26 @@ export async function updateApplicationsCreateApplicantWebsite(request, response
 		return handleErrors(properties, websiteLayout, response);
 	}
 
+	if (request.params.edit) {
+		return response.redirect(
+			`/applications-service/create-new-case/${updatedCaseId}/check-your-answers`
+		);
+	}
+
 	goToNextStep(updatedCaseId, path, session, response);
 }
 
 /**
  * View the form step for the applicant telephone number
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, {}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantTelephoneNumberProps, {}, {}, {}, {edit?: string}>}
  */
 export async function viewApplicationsCreateApplicantTelephoneNumber(request, response) {
 	const properties = await applicantTelephoneNumberData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
-		layout: telephoneNumberLayout
+		layout: { ...telephoneNumberLayout, isEdit: !!request.params.edit }
 	});
 }
 

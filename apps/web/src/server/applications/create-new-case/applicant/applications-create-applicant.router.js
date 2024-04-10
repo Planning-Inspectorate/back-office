@@ -16,7 +16,7 @@ applicationsCreateApplicantRouter
 	.post(asyncHandler(controller.updateApplicationsCreateApplicantTypes));
 
 applicationsCreateApplicantRouter
-	.route('/applicant-organisation-name')
+	.route('/applicant-organisation-name/:edit?')
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
@@ -25,7 +25,7 @@ applicationsCreateApplicantRouter
 	.post(asyncHandler(controller.updateApplicationsCreateApplicantOrganisationName));
 
 applicationsCreateApplicantRouter
-	.route('/applicant-full-name')
+	.route('/applicant-full-name/:edit?')
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
@@ -34,7 +34,7 @@ applicationsCreateApplicantRouter
 	.post(asyncHandler(controller.updateApplicationsCreateApplicantFullName));
 
 applicationsCreateApplicantRouter
-	.route('/applicant-address')
+	.route('/applicant-address/:edit?')
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
@@ -46,7 +46,7 @@ applicationsCreateApplicantRouter
 	);
 
 applicationsCreateApplicantRouter
-	.route('/applicant-website')
+	.route('/applicant-website/:edit?')
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
@@ -58,7 +58,7 @@ applicationsCreateApplicantRouter
 	);
 
 applicationsCreateApplicantRouter
-	.route('/applicant-email')
+	.route('/applicant-email/:edit?')
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
@@ -70,7 +70,7 @@ applicationsCreateApplicantRouter
 	);
 
 applicationsCreateApplicantRouter
-	.route('/applicant-telephone-number')
+	.route('/applicant-telephone-number/:edit?')
 	.get(
 		guards.assertStepIsAllowed,
 		registerCaseWithQuery(['applicant'], true),
