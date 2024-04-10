@@ -19,7 +19,7 @@ describe('Create Case with sector as training', () => {
 	it('As a user able to create case with sector and sub-sector as training', () => {
             cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
-			createCasePage.clickButtonByText('Create new case here');
+			createCasePage.clickButtonByText('Create case');
 		createCasePage.sections.nameAndDescription.fillCaseName(projectInfo.projectName);
 		createCasePage.sections.nameAndDescription.fillCaseDescription(
 			projectInfo.projectDescription

@@ -26,7 +26,7 @@ export class CreateCasePage extends Page {
 
 	createCase(projectInformation, mandatoryOnly = false) {
 		cy.visit('/');
-		this.clickButtonByText('Create new case here');
+		this.clickButtonByText('Create case');
 		this.sections.nameAndDescription.fillCaseName(projectInformation.projectName);
 		this.sections.nameAndDescription.fillCaseDescription(projectInformation.projectDescription);
 		this.clickSaveAndContinue();
