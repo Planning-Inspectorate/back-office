@@ -20,6 +20,7 @@ export { default as pluralize } from 'pluralize';
 export { collapse } from './collapse.js';
 export { default as className } from 'classnames';
 export * from './date.js';
+export { enterLabel } from './enter-label.js';
 export { endsWith } from './ends-with.js';
 export { errorMessage } from './error-message.js';
 export { json } from './json.js';
