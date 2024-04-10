@@ -24,15 +24,17 @@ const texts = {
 
 
 describe('Section 51 Advice', () => {
-	let projectInfo = projectInformation();
+	let projectInfo;
 	let caseRef;
 
 	before(() => {
+		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
 	beforeEach(() => {
+		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
@@ -44,23 +46,26 @@ describe('Section 51 Advice', () => {
 
 	it('As a user able to create S51 Advice - Enquirer Full Details', () => {
 		const details = s51AdviceDetails();
-		s51AdvicePage.completeS51Advice(details, {
+		const titlefirst='firsttitle';
+		s51AdvicePage.completeS51Advice(details,{
 			organisation: details.organisation,
 			firstName: details.firstName,
 			lastName: details.lastName
-		});
+		},titlefirst);
 	});
 
 	it('As a user able to create S51 Advice - Enquirer Name Only', () => {
 		const details = s51AdviceDetails();
+		const titlesecond='secondtitle';
 		s51AdvicePage.completeS51Advice(details, {
 			firstName: details.firstName,
 			lastName: details.lastName
-		});
+		},titlesecond);
 	});
 
 	it('As a user able to create S51 Advice - Enquirer Org Only', () => {
 		const details = s51AdviceDetails();
-		s51AdvicePage.completeS51Advice(details, { organisation: details.organisation });
+		const titlethird='thirdtitle';
+		s51AdvicePage.completeS51Advice(details,{ organisation: details.organisation },titlethird);
 	});
 });

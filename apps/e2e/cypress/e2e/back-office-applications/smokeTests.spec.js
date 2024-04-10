@@ -51,7 +51,7 @@ describe('Smoke tests', () => {
 		cy.deleteDownloads();
 	});
 
-	it('As a user able to upload file to the case, publish and unpublish the document', () => {
+	it('runs the smoke tests successfully', () => {
 		const fileName = 'sample-doc.pdf';
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
@@ -119,11 +119,12 @@ describe('Smoke tests', () => {
 		searchResultsPage.clickLinkByText('S51 advice');
 		s51AdvicePage.clickButtonByText('Create new S51 advice');
 		const details = s51AdviceDetails();
+		const titlefirst='firsttitle';
 		s51AdvicePage.completeS51Advice(details, {
 			organisation: details.organisation,
 			firstName: details.firstName,
 			lastName: details.lastName
-		});
+		},titlefirst);
 	// Verify S51 Advice - Publish/Unpublish
        s51AdvicePage.verifyS51PubishandUnpublish();
 
