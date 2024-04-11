@@ -5,7 +5,6 @@
 {% set serviceName = 'Key dates' %}
 
 {% block sectionContent %}
-
 	<h3 class="govuk-heading-m">{{serviceName}}</h3>
 
 	<p class="govuk-body">Provide details on dates and deadlines in this project. </p>
@@ -17,15 +16,26 @@
 	{% for key, values in sections %}
 
 		{% set heading %}
-		<p class='govuk-heading-s'>{{key|keyDatesProperty}}</p>
+		{{ key | keyDatesProperty }}
 		{% endset %}
 
-		{% set content %}
-		<div class='pins-key-dates-section'>
-			<a class='govuk-link offset-link' href='{{'key-dates'|url({caseId: caseId, step: key})}}'>Manage dates</a>
-			{{createSectionTable(values) }}
-		</div>
-		{% endset %}
+		{% if key === 'preExamination' %}
+			{% set content %}
+			<div class='pins-key-dates-section'>
+				<a class='govuk-link offset-link' href='{{'key-dates'|url({caseId: caseId, step: key})}}'>Manage dates</a>
+
+				{% include "./includes/pre-examination/pre-examination-key-dates.include.njk" %}
+			</div>
+			{% endset %}
+		{% else %}
+			{% set content %}
+			<div class='pins-key-dates-section'>
+				<a class='govuk-link offset-link' href='{{'key-dates'|url({caseId: caseId, step: key})}}'>Manage dates</a>
+
+				{{createSectionTable(values) }}
+			</div>
+			{% endset %}
+		{% endif %}
 
 		{% set items = items | concat({
 			heading: {
@@ -37,20 +47,20 @@
 		}) %}
 
 	{% endfor %}
+
 	{{ govukAccordion({
-  id: "accordion-key-dates",
-  items: items
-}) }}
+		id: "accordion-key-dates",
+		items: items
+	}) }}
 
 {% endblock %}
 
 {% macro createSectionTable(section)%}
-
 	{% set rows = [] %}
 
 	{% for key, values in section %}
 		{# There is one field whose value is not a date #}
-		{% set dateValue = values if key === 'submissionAtPublished' else
+		{% set dateValue = values if key === 'submissionAtPublished' else 
 			values | datestamp({format: 'dd MMM yyyy'}) %}
 
 		{% set rows = rows | concat([[
@@ -61,9 +71,13 @@
 	{% endfor %}
 
 	{{ govukTable({
-  		captionClasses: "govuk-table__caption--m",
-  		firstCellIsHeader: true,
+		captionClasses: "govuk-table__caption--m",
+		firstCellIsHeader: true,
 		rows: rows
 	}) }}
 
+{% endmacro %}
+
+{% macro formatSectionDate(date) %}
+	{{ date | datestamp({format: 'dd MMM yyyy'}) }}
 {% endmacro %}

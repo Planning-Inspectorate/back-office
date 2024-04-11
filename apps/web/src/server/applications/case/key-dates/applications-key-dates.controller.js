@@ -1,4 +1,8 @@
 import { getAllCaseKeyDates, updateKeyDates } from './applications-key-dates.service.js';
+import {
+	isRelevantRepresentationsReOpened,
+	getProjectFormLink
+} from './applications-key-dates.utils.js';
 
 /**
  * View the index of all the case key dates
@@ -6,13 +10,21 @@ import { getAllCaseKeyDates, updateKeyDates } from './applications-key-dates.ser
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
  */
 export async function viewKeyDatesIndex(request, response) {
-	const { caseId } = response.locals;
+	const { caseId, case: projectData } = response.locals;
 
 	const sections = await getAllCaseKeyDates(+caseId);
 
+	const {
+		preExamination: { dateOfReOpenRelevantRepresentationClose }
+	} = sections;
+
 	return response.render(`applications/case-key-dates/key-dates-index.njk`, {
 		sections,
-		selectedPageType: 'key-dates'
+		selectedPageType: 'key-dates',
+		isRelevantRepresentationsReOpened: isRelevantRepresentationsReOpened(
+			dateOfReOpenRelevantRepresentationClose
+		),
+		projectFormLink: getProjectFormLink(projectData)
 	});
 }
 

@@ -53,7 +53,8 @@ export function loadConfig() {
 		RETRY_STATUS_CODES,
 		OS_PLACES_API_KEY,
 		DUMMY_ADDRESS_DATA,
-		DUMMY_USER_DATA
+		DUMMY_USER_DATA,
+		FRONT_OFFICE_URL
 	} = environment;
 
 	const config = {
@@ -103,7 +104,8 @@ export function loadConfig() {
 		// Indicates the json file "dummy_address_data.json" will be used when true.
 		dummyAddressData: !OS_PLACES_API_KEY && DUMMY_ADDRESS_DATA,
 		// Indicates the json file "dummy_user_data.json" will be used when true.
-		dummyUserData: AUTH_DISABLED && DUMMY_USER_DATA
+		dummyUserData: AUTH_DISABLED && DUMMY_USER_DATA,
+		frontOfficeURL: FRONT_OFFICE_URL
 	};
 
 	const { value: validatedConfig, error } = schema.validate(config);

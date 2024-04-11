@@ -102,10 +102,9 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 			}
 		],
 		where: {
-			NOT: 
-                {
-                    reference: 'GS5110001'
-                },
+			NOT: {
+				reference: 'GS5110001'
+			},
 			OR: [
 				{
 					title: { contains: query }
@@ -144,8 +143,7 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 export const getApplicationsCountBySearchCriteria = (query) => {
 	return databaseConnector.case.count({
 		where: {
-			NOT: 
-			{
+			NOT: {
 				reference: 'GS5110001'
 			},
 			OR: [

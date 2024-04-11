@@ -48,10 +48,13 @@ import { generalSection51CaseReference } from '../general-s51/applications-gener
  * @type {import('@pins/express').RenderHandler<{documentationCategories: DocumentationCategory[]}, {}>}
  */
 export async function viewApplicationsCaseDocumentationCategories(_, response) {
-	const { caseId, case: { reference} } = response.locals;
+	const {
+		caseId,
+		case: { reference }
+	} = response.locals;
 	// hide the page when attempting to view general section 51 case documentation categories
 	if (reference === generalSection51CaseReference) {
-		return response.render(`app/404`)
+		return response.render(`app/404`);
 	}
 	const documentationCategories = await getCaseFolders(caseId);
 	const properties = { documentationCategories: sortBy(documentationCategories, ['displayOrder']) };

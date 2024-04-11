@@ -12,11 +12,8 @@ import {
 	generalSection51FolderName
 } from '../applications-general-s51.config.js';
 
-
-
 import { fixturePaginatedS51Advice } from '../../../../../../testing/applications/fixtures/s51-advice.js';
 import { createCase } from '../../../../../../testing/applications/factory/application.js';
-
 
 const fixtureGs51Case = createCase({
 	id: 1,
@@ -52,7 +49,6 @@ const fixtureDocumentationFolderPath = [
 	{ id: 222222222, displayNameEn: 'Sub folder level 2', parentFolderId: 1, caseId: 111111111 }
 ];
 
-
 const nocks = () => {
 	nock('http://test/')
 		.persist()
@@ -69,20 +65,21 @@ const nocks = () => {
 		.get(`/applications-service/case/111111111/project-documentation/222222222/s51-advice`)
 		.reply(200, {});
 
+	nock('http://test/').get('/applications').reply(200, []);
 
-			nock('http://test/').get('/applications').reply(200, []);
-		
-			nock('http://test/').get('/applications/111111111').times(2).reply(200, fixtureGs51Case);
-			nock('http://test/').get('/applications/111111111/folders/222222222').times(2).reply(200, fixtureS51Folder);
-			nock('http://test/')
-				.post('/applications/111111111/s51-advice')
-				.reply(200, fixturePaginatedS51Advice(1, 50));
+	nock('http://test/').get('/applications/111111111').times(2).reply(200, fixtureGs51Case);
+	nock('http://test/')
+		.get('/applications/111111111/folders/222222222')
+		.times(2)
+		.reply(200, fixtureS51Folder);
+	nock('http://test/')
+		.post('/applications/111111111/s51-advice')
+		.reply(200, fixturePaginatedS51Advice(1, 50));
 
-			nock('http://test/')
-				.get('/applications/111111111/folders/222222222/parent-folders')
-				.times(2)
-				.reply(200, fixtureDocumentationFolderPath);
-
+	nock('http://test/')
+		.get('/applications/111111111/folders/222222222/parent-folders')
+		.times(2)
+		.reply(200, fixtureDocumentationFolderPath);
 };
 
 describe('General section 51 page', () => {
@@ -108,12 +105,14 @@ describe('General section 51 page', () => {
 		});
 
 		it('should render the general section 51 version of the section 51 page', async () => {
-			const response = await request.get(`/applications-service/case/111111111/project-documentation/222222222/s51-advice`);
+			const response = await request.get(
+				`/applications-service/case/111111111/project-documentation/222222222/s51-advice`
+			);
 
 			const element = parseHtml(response.text, { rootElement: '#main-content' });
 
 			expect(response.status).toEqual(200);
-			expect(element.innerHTML).toContain( 'General S51 advice');
+			expect(element.innerHTML).toContain('General S51 advice');
 			expect(element.innerHTML).toMatchSnapshot();
 		});
 	});

@@ -37,27 +37,33 @@ const propertyToName = {
 	dateOfNonAcceptance_label: 'Date of decision not to accept.',
 
 	preExamination: 'Pre-examination',
-	dateOfRepresentationPeriodOpen: 'Date Relevant Representations open',
+	dateOfRepresentationPeriodOpen: 'Open',
 	dateOfRepresentationPeriodOpen_label:
 		'Start date of Relevant Representation (RR) period. The RR portal will open on this date on website.',
-	dateOfRelevantRepresentationClose: 'Date Relevant Representations close',
+	dateOfRelevantRepresentationClose: 'Close',
 	dateOfRelevantRepresentationClose_label: 'Date RR period will close.',
-	extensionToDateRelevantRepresentationsClose: 'Extension to date Relevant Representations close',
+	extensionToDateRelevantRepresentationsClose: 'Extension',
 	extensionToDateRelevantRepresentationsClose_label:
 		'Date RR period will close, if it has been extended.',
-	dateRRepAppearOnWebsite: 'Date Relevant Representations to appear on website',
+	dateRRepAppearOnWebsite: 'Relevant Representations appear on website',
 	dateRRepAppearOnWebsite_label: 'Date for RRs to appear on the website.',
-	dateIAPIDue: 'Date IAPI due',
+	dateOfReOpenRelevantRepresentationStart: 'Re-opens',
+	dateOfReOpenRelevantRepresentationStart_label:
+		'Date RR will open if a subsequent period is needed',
+	dateOfReOpenRelevantRepresentationClose: 'Re-opening closes',
+	dateOfReOpenRelevantRepresentationClose_label:
+		'Date RR period will close, if it has been re-opened',
+	dateIAPIDue: 'IAPI due',
 	dateIAPIDue_label: 'Date that the ExA must have completed their IAPI.',
-	rule6LetterPublishDate: 'Rule 6 letter publication date',
+	rule6LetterPublishDate: 'Rule 6 letter publication',
 	rule6LetterPublishDate_label: 'Date when Rule 6 letter is published on website.',
-	preliminaryMeetingStartDate: 'Preliminary Meeting start date',
+	preliminaryMeetingStartDate: 'Preliminary meeting',
 	preliminaryMeetingStartDate_label: 'Start date of the Preliminary Meeting.',
 	notificationDateForPMAndEventsDirectlyFollowingPM:
-		'Notification date for PM and any events directly following the PM',
+		'Preliminary meeting notification (including events following the PM)',
 	notificationDateForPMAndEventsDirectlyFollowingPM_label:
 		'28 days before PM. Rule 6 - 21 days + 7 days to allow for post.',
-	notificationDateForEventsApplicant: 'Notification date for events - Applicant',
+	notificationDateForEventsApplicant: 'Event Notification',
 	notificationDateForEventsApplicant_label: '21 days before the event - Rule 13.',
 
 	examination: 'Examination',

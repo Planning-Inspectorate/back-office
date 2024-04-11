@@ -59,7 +59,11 @@ export async function viewApplicationsCaseS51Folder({ query }, response) {
 	const { caseId } = response.locals;
 	const { items, pagination } = await getS51FolderData(caseId, query);
 
-	response.render(`applications/components/folder/folder`, { items, pagination, gs51CaseReference });
+	response.render(`applications/components/folder/folder`, {
+		items,
+		pagination,
+		gs51CaseReference
+	});
 }
 
 /**
@@ -328,7 +332,7 @@ export async function deleteApplicationsCaseS51({ params }, response) {
 			errors
 		});
 	}
-	return response.render('applications/case-s51/s51-successfully-deleted', { gs51CaseReference});
+	return response.render('applications/case-s51/s51-successfully-deleted', { gs51CaseReference });
 }
 
 /**
