@@ -74,7 +74,7 @@ applicationsCreateCaseRouter
 	);
 
 applicationsCreateCaseRouter
-	.route('/')
+	.route(['/', '/title/:edit'])
 	.get(
 		registerCaseWithQuery(['title', 'description'], true),
 		asyncHandler(controller.viewApplicationsCreateCaseName)
