@@ -15,11 +15,14 @@ import {
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function viewApplicationsCaseOverview({ session }, response) {
-	const { caseId, case: { reference} } = response.locals;
+	const {
+		caseId,
+		case: { reference }
+	} = response.locals;
 
 	//hide the page when attempting to view general section 51 case
 	if (reference === generalSection51CaseReference) {
-		return response.render(`app/404`)
+		return response.render(`app/404`);
 	}
 
 	// query the internal database to retrieve roles and ids

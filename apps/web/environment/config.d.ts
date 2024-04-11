@@ -66,6 +66,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	};
 	dummyAddressData: boolean;
 	dummyUserData: boolean;
+	frontOfficeURL: string;
 }
 
 export function loadConfig(): EnvironmentConfig;

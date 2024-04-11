@@ -36,7 +36,9 @@ describe('applications', () => {
 			nock('http://test/').get('/applications').reply(200, fixtureCases);
 
 			const response = await request.get(baseUrl);
-			const element = parseHtml(response.text, { rootElement: '.govuk-button.govuk-button--secondary.pins-dashboard-box--btn'});
+			const element = parseHtml(response.text, {
+				rootElement: '.govuk-button.govuk-button--secondary.pins-dashboard-box--btn'
+			});
 
 			expect(element.innerHTML).toContain('Create case');
 		});
