@@ -2,8 +2,8 @@
 import { faker } from '@faker-js/faker';
 import { getShortMonthName } from './utils.js';
 
-export const s51AdviceDetails = () => {
-	const title = 'title';
+export const s51AdviceDetails = (titleCount) => {
+	const title = titleCount ? 'title-' + titleCount : 'title';
 	const enquiryDetails = 'enquiry details';
 	const adviceDetails = 'Advice details';
 	const firstName = 'S51firstname';
@@ -16,8 +16,8 @@ export const s51AdviceDetails = () => {
 
 	const year = new Date().getFullYear();
 	var todaydate = new Date();
-    var mon = todaydate.getMonth();
-    var month=mon.toString().padStart(2,'0');
+	var mon = todaydate.getMonth();
+	var month = mon.toString().padStart(2, '0');
 	const day = new Date().getDay().toString().padStart(2, '0');
 
 	const dateFullFormatted = `${day} ${getShortMonthName(month)} ${year}`;
