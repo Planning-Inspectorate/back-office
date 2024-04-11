@@ -9,19 +9,51 @@ describe('Mark-as-published', () => {
 		const caseId = 1;
 		const documentGuid = '1111-2222-3333';
 
+		const documentFolder = {
+			displayNameEn: 'Project documentation',
+			case: {
+				id: 1,
+				reference: 'TR010001',
+				CaseStatus: [{ id: 1, status: 'pre-application' }]
+			}
+		};
+
 		const updatedDocument = {
 			Document: {
-				guid: documentGuid
+				guid: documentGuid,
+				documentReference: 'TR0110001-000017',
+				caseId: 1,
+				folderId: 1111,
+				folder: documentFolder
 			},
 			version: 1,
+			description: 'file to be published',
 			originalFilename: 'original_filename.pdf',
 			fileName: 'filename.pdf',
 			size: 23452,
+			mime: 'application/pdf',
+			fileMD5: 'b1946ac92492d2347c6235b4d2611184',
+			virusCheckStatus: 'scanned',
 			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
+			lastModified: null,
 			privateBlobContainer: 'document-uploads',
 			privateBlobPath: 'published/en010120-filename.pdf',
 			publishedBlobContainer: 'document-uploads',
-			publishedBlobPath: 'published/en010120-filename.pdf'
+			publishedBlobPath: 'published/en010120-filename.pdf',
+			publishedStatus: 'published',
+			redactedStatus: 'not_redacted',
+			horizonDataID: null,
+			transcriptGuid: null,
+			examinationRefNo: null,
+			documentType: 'Rule 8 letter',
+			securityClassification: 'public',
+			sourceSystem: 'back-office-applications',
+			origin: 'pins',
+			owner: 'owner1',
+			author: 'author1',
+			representative: 'ZZZ Agency',
+			filter1: 'Deadline 2',
+			filter2: 'Scoping Option Report'
 		};
 
 		const documentWithVersions = {
@@ -83,8 +115,25 @@ describe('Mark-as-published', () => {
 			}
 		};
 
+		const includeFullDocument = {
+			Document: {
+				include: {
+					folder: {
+						include: {
+							case: {
+								include: {
+									CaseStatus: true
+								}
+							}
+						}
+					}
+				}
+			}
+		};
+
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersions);
+		databaseConnector.folder.findUnique.mockResolvedValue(documentFolder);
 		databaseConnector.documentVersion.findUnique.mockResolvedValue(updatedDocument);
 		databaseConnector.documentVersion.update.mockResolvedValue(updatedDocument);
 
@@ -107,13 +156,7 @@ describe('Mark-as-published', () => {
 				publishedStatus: 'published',
 				publishedStatusPrev: 'publishing'
 			},
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
-				}
-			},
+			include: includeFullDocument,
 			where: {
 				documentGuid_version: {
 					documentGuid: documentGuid,
@@ -123,7 +166,11 @@ describe('Mark-as-published', () => {
 		});
 
 		const expectedEventPayload = {
+			caseRef: 'TR010001',
+			caseId: 1,
 			documentId: documentGuid,
+			documentReference: 'TR0110001-000017',
+			description: 'file to be published',
 			version: 1,
 			filename: 'filename.pdf',
 			originalFilename: 'original_filename.pdf',
@@ -131,7 +178,29 @@ describe('Mark-as-published', () => {
 			documentURI: 'https://127.0.0.1:10000/document-uploads/published/en010120-filename.pdf',
 			publishedDocumentURI:
 				'https://127.0.0.1:10000/document-uploads/published/en010120-filename.pdf',
-			dateCreated: '2023-03-26T00:00:00.000Z'
+			dateCreated: '2023-03-26T00:00:00.000Z',
+			path: 'TR010001/Project documentation/filename.pdf',
+			caseType: 'nsip',
+			datePublished: null,
+			lastModified: null,
+			documentCaseStage: null,
+			transcriptId: null,
+			horizonFolderId: null,
+			examinationRefNo: null,
+			documentType: 'Rule 8 letter',
+			securityClassification: 'public',
+			sourceSystem: 'back-office-applications',
+			origin: 'pins',
+			owner: 'owner1',
+			author: 'author1',
+			representative: 'ZZZ Agency',
+			filter1: 'Deadline 2',
+			filter2: 'Scoping Option Report',
+			mime: 'application/pdf',
+			fileMD5: 'b1946ac92492d2347c6235b4d2611184',
+			virusCheckStatus: 'scanned',
+			publishedStatus: 'published',
+			redactedStatus: 'not_redacted'
 		};
 
 		expect(response.status).toEqual(200);
@@ -139,7 +208,8 @@ describe('Mark-as-published', () => {
 		expect(eventClient.sendEvents).toHaveBeenCalledWith(
 			'nsip-document',
 			[expectedEventPayload],
-			'Publish'
+			'Publish',
+			{}
 		);
 	});
 });

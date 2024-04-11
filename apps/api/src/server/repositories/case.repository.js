@@ -102,6 +102,9 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 			}
 		],
 		where: {
+			NOT: {
+				reference: 'GS5110001'
+			},
 			OR: [
 				{
 					title: { contains: query }
@@ -140,6 +143,9 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 export const getApplicationsCountBySearchCriteria = (query) => {
 	return databaseConnector.case.count({
 		where: {
+			NOT: {
+				reference: 'GS5110001'
+			},
 			OR: [
 				{
 					title: { contains: query }
@@ -378,8 +384,10 @@ export const updateApplication = async ({
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
+		casePublishedState: true,
 		applicant: true,
-		gridReference: true
+		gridReference: true,
+		projectTeam: true
 	});
 };
 
@@ -581,8 +589,10 @@ export const updateApplicationStatusAndDataById = async (
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
+		casePublishedState: true,
 		applicant: true,
-		gridReference: true
+		gridReference: true,
+		projectTeam: true
 	});
 };
 

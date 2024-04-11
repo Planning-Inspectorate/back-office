@@ -28,6 +28,7 @@ import {
 } from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
+import { generalSection51CaseReference } from '../general-s51/applications-general-s51.config.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -47,7 +48,14 @@ import { getPaginationLinks } from '../../common/components/pagination/paginatio
  * @type {import('@pins/express').RenderHandler<{documentationCategories: DocumentationCategory[]}, {}>}
  */
 export async function viewApplicationsCaseDocumentationCategories(_, response) {
-	const { caseId } = response.locals;
+	const {
+		caseId,
+		case: { reference }
+	} = response.locals;
+	// hide the page when attempting to view general section 51 case documentation categories
+	if (reference === generalSection51CaseReference) {
+		return response.render(`app/404`);
+	}
 	const documentationCategories = await getCaseFolders(caseId);
 	const properties = { documentationCategories: sortBy(documentationCategories, ['displayOrder']) };
 

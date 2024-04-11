@@ -24,6 +24,11 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 	const { privateBlobContainer, privateBlobPath, fileName, originalFilename } =
 		await getCaseDocumentationVersionFileInfo(caseId, fileGuid, version);
 
+	// perform simulated download if auth disabled
+	if (accessToken?.token === 'AUTH_DISABLED') {
+		return getSimulatedDocumentsDownload(response, preview, fileName, originalFilename);
+	}
+
 	if (!privateBlobContainer || !privateBlobPath) {
 		throw new Error('Blob storage container or Document UR not found');
 	}
@@ -68,6 +73,30 @@ const buildFileName = ({ fileName, originalFilename }) => {
 	const newExtension = fileName.match(fileExtensionRegex)?.[0];
 
 	return originalExtension === newExtension ? fileName : `${fileName}${originalExtension}`;
+};
+
+/**
+ * Simulate download when auth is disabled
+ *
+ * This is useful both when developing and running e2e locally to skip having to set up any blob storage configuration
+ *
+ * @param {Response} response
+ * @param {string | undefined} preview
+ * @param {string} fileName
+ * @param {string} originalFilename
+ * @returns {*}
+ */
+const getSimulatedDocumentsDownload = (response, preview, fileName, originalFilename) => {
+	if (preview) {
+		response.setHeader('Content-type', 'text/plain');
+	} else {
+		const downloadFileName = buildFileName({ fileName, originalFilename });
+		response.setHeader('content-disposition', `attachment; filename=${downloadFileName}`);
+	}
+	response.charset = 'UTF-8';
+	response.write('DUMMY DATA');
+	response.end();
+	return response.status(200);
 };
 
 export default getDocumentsDownload;

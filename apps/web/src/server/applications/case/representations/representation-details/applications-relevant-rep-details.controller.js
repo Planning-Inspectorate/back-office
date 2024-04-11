@@ -23,7 +23,7 @@ export const getRepresentationDetailsController = async (req, res) => {
 export const postRepresentationDetailsController = async (req, res) => {
 	const { errors, params, query } = req;
 	const { locals } = res;
-	const { caseId, representationId } = params;
+	const { caseId, representationId } = locals;
 
 	const checkAnswersErrors = errors ? getCheckAnswerErrors(locals, errors) : null;
 

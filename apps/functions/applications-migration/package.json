@@ -19,7 +19,7 @@
     "joi": "*",
     "lodash-es": "^4.17.21",
     "mysql2": "^3.6.1",
-    "pins-data-model": "github:Planning-Inspectorate/data-model#draft-05",
+    "pins-data-model": "github:Planning-Inspectorate/data-model#1.0.2",
     "sequelize": "^6.33.0",
     "tedious": "^16.6.0"
   },

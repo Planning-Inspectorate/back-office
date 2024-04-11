@@ -64,7 +64,9 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	featureFlags: {
 		[key: string]: boolean;
 	};
-	dummyUserData: string;
+	dummyAddressData: boolean;
+	dummyUserData: boolean;
+	frontOfficeURL: string;
 }
 
 export function loadConfig(): EnvironmentConfig;

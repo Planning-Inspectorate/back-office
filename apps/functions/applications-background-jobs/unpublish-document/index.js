@@ -1,24 +1,35 @@
-import { parseBlobName, replaceCustomDomainWithBlobDomain } from '../publish-document/src/util.js';
+import { validateStorageAccount, replaceCustomDomainWithBlobDomain } from '../publish-document/src/util.js';
 import { requestWithApiKey } from '../common/backend-api-request.js';
 import { blobClient } from '../common/blob-client.js';
 import config from '../common/config.js';
+import { extractPublishedBlobName } from './src/util.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
  */
-export const index = async (context, { caseId, version, documentId, documentURI }) => {
-	context.log(`Unpublishing document ID ${documentId} at URI ${documentURI}`);
+export const index = async (context, { caseId, documentId, version, publishedDocumentURI }) => {
+	context.log(`Unpublishing document ID ${documentId} at URI ${publishedDocumentURI}`);
 
-	// replace PINs domain with primary blob domain to ensure copy operation works
-	documentURI = replaceCustomDomainWithBlobDomain(documentURI);
-
-	const blobName = parseBlobName(documentURI);
-	if (!blobName) {
-		throw new Error(`could not parse blob name from document URI: ${documentURI}`);
+	if (
+		!caseId ||
+		!documentId ||
+		!version ||
+		!publishedDocumentURI
+	) {
+		throw Error('One or more required properties are missing.');
 	}
 
+	// replace PINs domain with primary blob domain to ensure copy operation works
+	publishedDocumentURI = replaceCustomDomainWithBlobDomain(publishedDocumentURI);
+
+	validateStorageAccount(publishedDocumentURI);
+
+	// extract the published file name
+	const publishedBlobName = extractPublishedBlobName(publishedDocumentURI);
+
 	try {
-		await blobClient.deleteBlobIfExists(config.BLOB_PUBLISH_CONTAINER, blobName);
+		context.log(`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}"`);
+		await blobClient.deleteBlobIfExists(config.BLOB_PUBLISH_CONTAINER, publishedBlobName);
 	} catch (err) {
 		const errMsg = `encountered error while unpublishing document ID ${documentId}: ${err}`;
 		context.log.error(errMsg);

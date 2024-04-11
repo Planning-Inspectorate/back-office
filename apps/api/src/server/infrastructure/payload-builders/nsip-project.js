@@ -1,6 +1,7 @@
 import { pick } from 'lodash-es';
 import { allKeyDateNames } from '../../applications/key-dates/key-dates.utils.js';
 import { sourceSystem } from './constants.js';
+import { mapKeyDatesToISOStrings } from '#utils/mapping/map-key-dates.js';
 
 /**
  * @param {import('@pins/applications.api').Schema.Case} projectEntity
@@ -9,29 +10,35 @@ import { sourceSystem } from './constants.js';
  */
 export const buildNsipProjectPayload = (projectEntity) => {
 	const application = mapApplicationDetails(projectEntity);
-
 	const sectorAndType = mapSectorAndType(projectEntity);
-
 	const projectTeam = mapProjectTeam(projectEntity);
 
 	// @ts-ignore
 	return {
 		caseId: projectEntity.id,
-		caseReference: projectEntity.reference ?? undefined,
-		projectName: projectEntity.title ?? undefined,
-		projectDescription: projectEntity.description ?? undefined,
+		caseReference: projectEntity.reference,
+		projectName: projectEntity.title,
+		projectDescription: projectEntity.description,
 		publishStatus: projectEntity.CasePublishedState?.[0]?.isPublished ? 'published' : 'unpublished',
 		sourceSystem,
 		...application,
 		...sectorAndType,
-		applicantId: projectEntity.applicant?.id?.toString(),
-		...projectTeam
+		applicantId: projectEntity.applicantId?.toString() ?? null,
+		...projectTeam,
+
+		// null value fields added fo schema validation
+		migrationStatus: null
 	};
 };
 
-// These two key dates have different names internally, as they were named before the PDM was defined
+// These three key dates have different names internally, as they were named before the PDM was defined
 const keyDateNames = allKeyDateNames.filter(
-	(name) => name !== 'submissionAtInternal' && name !== 'submissionAtPublished'
+	(name) =>
+		![
+			'submissionAtInternal',
+			'submissionAtPublished',
+			'notificationDateForEventsApplicant'
+		].includes(name)
 );
 
 /**
@@ -40,31 +47,33 @@ const keyDateNames = allKeyDateNames.filter(
  */
 const mapApplicationDetails = (projectEntity) => {
 	const appDetails = projectEntity?.ApplicationDetails;
-	if (!appDetails) {
-		return;
-	}
+	const stage = projectEntity?.CaseStatus?.[0]?.status ?? 'draft';
+	const mapZoomLevel = appDetails.zoomLevel?.name ?? 'none';
+	const regions = appDetails.regions?.map((r) => r.region.name) ?? [];
+	const { easting = null, northing = null } = projectEntity?.gridReference ?? {};
 
-	const stage = projectEntity?.CaseStatus?.[0]?.status;
-	const mapZoomLevel = appDetails.zoomLevel?.name;
-	const regions = appDetails.regions?.map((r) => r.region.name) || [];
-
-	const gridReference =
-		projectEntity?.gridReference && pick(projectEntity?.gridReference, ['easting', 'northing']);
+	const keyDates = projectEntity?.ApplicationDetails
+		? mapKeyDatesToISOStrings(projectEntity?.ApplicationDetails)
+		: {};
 
 	return {
 		stage,
 		projectLocation: appDetails?.locationDescription,
 		projectEmailAddress: appDetails?.caseEmail,
 		regions,
-		// TODO: transboundary
-		...gridReference,
+		easting,
+		northing,
 		// For MVP we're not supporting Welsh Language
 		welshLanguage: false,
 		mapZoomLevel,
-		// TODO: secretaryOfState
-		anticipatedDateOfSubmission: appDetails.submissionAtInternal,
-		anticipatedSubmissionDateNonSpecific: appDetails.submissionAtPublished,
-		...pick(appDetails, keyDateNames)
+		secretaryOfState: null,
+		...pick(keyDates, keyDateNames),
+		anticipatedDateOfSubmission: appDetails.submissionAtInternal?.toISOString() ?? null,
+		anticipatedSubmissionDateNonSpecific: appDetails.submissionAtPublished ?? null,
+		notificationDateForEventsDeveloper:
+			appDetails.notificationDateForEventsApplicant?.toISOString() ?? null,
+		transboundary: null,
+		decision: null
 	};
 };
 
@@ -105,22 +114,10 @@ const mapSectorAndType = (projectEntity) => {
  * leadInspectorId: number | null,
  * inspectorIds: number[],
  * environmentalServicesOfficerId: number | null,
- * legalOfficerId: number | null } | {
- * nsipOfficerIds: number[],
- * nsipAdministrationOfficerIds: number[],
- * inspectorIds: number[],
- * }}
+ * legalOfficerId: number | null } }
  */
 const mapProjectTeam = (projectEntity) => {
 	const projectTeam = projectEntity?.ProjectTeam;
-
-	if (!projectTeam) {
-		return {
-			nsipOfficerIds: [],
-			nsipAdministrationOfficerIds: [],
-			inspectorIds: []
-		};
-	}
 
 	const teamMembers = {
 		operationsLeadId: null,
@@ -134,37 +131,39 @@ const mapProjectTeam = (projectEntity) => {
 		legalOfficerId: null
 	};
 
-	projectTeam.forEach((member) => {
-		switch (member.role) {
-			case 'operations_lead':
-				teamMembers.operationsLeadId = member.userId;
-				break;
-			case 'operations_manager':
-				teamMembers.operationsManagerId = member.userId;
-				break;
-			case 'case_manager':
-				teamMembers.caseManagerId = member.userId;
-				break;
-			case 'NSIP_officer':
-				teamMembers.nsipOfficerIds.push(member.userId);
-				break;
-			case 'NSIP_administration_officer':
-				teamMembers.nsipAdministrationOfficerIds.push(member.userId);
-				break;
-			case 'lead_inspector':
-				teamMembers.leadInspectorId = member.userId;
-				break;
-			case 'inspector':
-				teamMembers.inspectorIds.push(member.userId);
-				break;
-			case 'environmental_services':
-				teamMembers.environmentalServicesOfficerId = member.userId;
-				break;
-			case 'legal_officer':
-				teamMembers.legalOfficerId = member.userId;
-				break;
-		}
-	});
+	if (projectTeam) {
+		projectTeam.forEach((member) => {
+			switch (member.role) {
+				case 'operations_lead':
+					teamMembers.operationsLeadId = member.userId;
+					break;
+				case 'operations_manager':
+					teamMembers.operationsManagerId = member.userId;
+					break;
+				case 'case_manager':
+					teamMembers.caseManagerId = member.userId;
+					break;
+				case 'NSIP_officer':
+					teamMembers.nsipOfficerIds.push(member.userId);
+					break;
+				case 'NSIP_administration_officer':
+					teamMembers.nsipAdministrationOfficerIds.push(member.userId);
+					break;
+				case 'lead_inspector':
+					teamMembers.leadInspectorId = member.userId;
+					break;
+				case 'inspector':
+					teamMembers.inspectorIds.push(member.userId);
+					break;
+				case 'environmental_services':
+					teamMembers.environmentalServicesOfficerId = member.userId;
+					break;
+				case 'legal_officer':
+					teamMembers.legalOfficerId = member.userId;
+					break;
+			}
+		});
+	}
 
 	return teamMembers;
 };

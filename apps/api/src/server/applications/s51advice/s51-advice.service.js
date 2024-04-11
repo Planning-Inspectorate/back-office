@@ -20,6 +20,7 @@ import {
  * @typedef {import('@pins/applications').S51AdviceDetails} S51AdviceDetails
  * @typedef {import('@pins/applications.api').Schema.S51Advice} S51Advice
  * @typedef {import('@pins/applications.api').Schema.S51AdviceDocument} S51AdviceDocument
+ * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: true}}>} S51AdviceWithS51AdviceDocuments
  * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
  * @typedef {{ page: number, pageDefaultSize: number, pageCount: number, itemCount: number, items: S51AdviceDetails[]}} S51AdvicePaginatedDetails
  */
@@ -199,7 +200,7 @@ export const publishS51Items = async (ids) => {
  * Unpublish S51 advice item and associated documents
  *
  * @param {number} id
- * @returns {Promise<S51Advice>}
+ * @returns {Promise<S51AdviceWithS51AdviceDocuments>}
  * */
 export const unpublishS51 = async (id) => {
 	const advice = await s51AdviceRepository.get(id);

@@ -199,6 +199,11 @@ const serverActions = (uploadForm) => {
 	const uploadFiles = async (fileList, uploadInfo) => {
 		const { documents, blobStorageHost, privateBlobContainer, accessToken } = uploadInfo;
 
+		// Do not attempt to upload to blob storage when auth is disabled
+		if (accessToken?.token === 'AUTH_DISABLED') {
+			return failedUploads;
+		}
+
 		const blobStorageClient = BlobStorageClient.fromUrlAndToken(blobStorageHost, accessToken);
 
 		for (const documentUploadInfo of documents) {
@@ -246,6 +251,11 @@ const serverActions = (uploadForm) => {
 	 */
 	const uploadFile = async (fileList, uploadInfo) => {
 		const { fileRowId, blobStorageHost, privateBlobContainer, accessToken } = uploadInfo;
+
+		// Do not attempt to upload to blob storage when auth is disabled
+		if (accessToken?.token === 'AUTH_DISABLED') {
+			return failedUploads;
+		}
 
 		const { blobStoreUrl } = uploadInfo.document;
 

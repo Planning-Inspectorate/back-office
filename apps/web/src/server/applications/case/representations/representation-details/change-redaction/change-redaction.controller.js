@@ -7,10 +7,10 @@ import * as authSession from '../../../../../app/auth/auth-session.service.js';
 const view = 'applications/representations/representation-details/change-redaction.njk';
 
 /**
- *  @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {representationId: string, caseId: string}>}
+ *  @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}, {representationId: string, caseId: string}>}
  */
 export const getRepresentationDetailsChangeRedactionController = async (req, res) => {
-	const { caseId, representationId } = req.params;
+	const { caseId, representationId } = res.locals;
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
 
 	return res.render(
@@ -28,7 +28,7 @@ export const getRepresentationDetailsChangeRedactionController = async (req, res
  */
 export const postRepresentationDetailsChangeRedactionController = async (req, res) => {
 	const { body, errors, session } = req;
-	const { caseId, representationId } = req.params;
+	const { caseId, representationId } = res.locals;
 
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
 	if (errors) {

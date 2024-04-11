@@ -60,6 +60,61 @@ describe('S51 Advice', () => {
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('S51 advice folder');
 			});
+
+			describe('Published dates', () => {
+				it('should display Not published status', async () => {
+					const mockS51s = fixturePaginatedS51Advice(1, 50);
+					mockS51s.items = [createS51Advice({ id: 123, publishedStatus: 'checked' })];
+
+					nock('http://test/')
+						.get('/applications/123/s51-advice?page=1&pageSize=50')
+						.reply(200, mockS51s);
+
+					const response = await request.get(
+						'/applications-service/case/123/project-documentation/21/s51-advice'
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toContain('Not published');
+				});
+
+				it('should display Published status and date if both available', async () => {
+					const mockS51s = fixturePaginatedS51Advice(1, 50);
+					mockS51s.items = [createS51Advice({ id: 123 })];
+					mockS51s.items[0].datePublished = 1711445797;
+					mockS51s.items[0].publishedStatus = 'published';
+					nock('http://test/')
+						.get('/applications/123/s51-advice?page=1&pageSize=50')
+						.reply(200, mockS51s);
+
+					const response = await request.get(
+						'/applications-service/case/123/project-documentation/21/s51-advice'
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).not.toContain('Not published');
+					expect(element.innerHTML).toContain('26 Mar 2024');
+				});
+
+				it('should display Published status and Updated date if pub date not available', async () => {
+					const mockS51s = fixturePaginatedS51Advice(1, 50);
+					mockS51s.items = [createS51Advice({ id: 123 })];
+					mockS51s.items[0].datePublished = null;
+					mockS51s.items[0].dateUpdated = 1708940197;
+					mockS51s.items[0].publishedStatus = 'published';
+					nock('http://test/')
+						.get('/applications/123/s51-advice?page=1&pageSize=50')
+						.reply(200, mockS51s);
+
+					const response = await request.get(
+						'/applications-service/case/123/project-documentation/21/s51-advice'
+					);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).not.toContain('Not published');
+					expect(element.innerHTML).toContain('26 Feb 2024');
+				});
+			});
 		});
 	});
 
@@ -74,6 +129,9 @@ describe('S51 Advice', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter the S51 advice title');
+
+					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+					expect(backElement.innerHTML).toContain(baseUrl);
 				});
 			});
 
@@ -139,6 +197,9 @@ describe('S51 Advice', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter who the enquiry was from');
+
+					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+					expect(backElement.innerHTML).toContain(`"${baseUrl}/create/title"`);
 				});
 			});
 
@@ -202,6 +263,9 @@ describe('S51 Advice', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('How was the enquiry made?');
+
+					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+					expect(backElement.innerHTML).toContain(`"${baseUrl}/create/enquirer"`);
 				});
 			});
 
@@ -239,6 +303,9 @@ describe('S51 Advice', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enquiry details');
+
+					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+					expect(backElement.innerHTML).toContain(`"${baseUrl}/create/method"`);
 				});
 			});
 
@@ -308,6 +375,9 @@ describe('S51 Advice', () => {
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter the name of the person who gave the advice');
+
+					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+					expect(backElement.innerHTML).toContain(`"${baseUrl}/create/enquiry-details"`);
 				});
 			});
 
@@ -341,10 +411,14 @@ describe('S51 Advice', () => {
 			describe('GET /case/123/project-documentation/21/s51-advice/create/advice-details', () => {
 				it('should render the page', async () => {
 					const response = await request.get(`${baseUrl}/create/advice-details`);
+
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Advice details');
+
+					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+					expect(backElement.innerHTML).toContain(`"${baseUrl}/create/person"`);
 				});
 			});
 
@@ -465,6 +539,9 @@ describe('S51 Advice', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('S51 advice properties');
+
+				const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+				expect(backElement.innerHTML).toContain(baseUrl);
 			});
 
 			it('should display the attachments list', async () => {
@@ -489,6 +566,9 @@ describe('S51 Advice', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Delete selected S51 advice');
+
+				const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+				expect(backElement.innerHTML).toContain(`"${baseUrl}/1/properties"`);
 			});
 		});
 	});
@@ -506,6 +586,9 @@ describe('S51 Advice', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Delete selected attachment');
+
+				const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+				expect(backElement.innerHTML).toContain(`"${baseUrl}/1/properties#s51-attachments"`);
 			});
 		});
 
@@ -564,6 +647,9 @@ describe('S51 Advice', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Select items for publishing');
+
+				const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+				expect(backElement.innerHTML).toContain(baseUrl);
 			});
 		});
 

@@ -6,14 +6,17 @@
  * @typedef {import('@pins/applications.api').Schema.ServiceUser} ServiceUser
  */
 
+import { buildServiceUserPayload } from '#infrastructure/payload-builders/service-user.js';
+
 /**
  * Build Representation message event payload
  *
- * @param {RepresentationWithFullDetails} representation
+ * @param {function(RepresentationModel): Representation} representation
  * @returns {NSIPRepresentationSchema}
  */
 export const buildNsipRepresentationPayload = (representation) => {
 	const redacted = Boolean(representation.redacted);
+	const lastRepresentativeAction = redacted && representation.representationActions[0];
 
 	let nsipRepresentation = {
 		representationId: representation.id,
@@ -23,15 +26,18 @@ export const buildNsipRepresentationPayload = (representation) => {
 		caseId: representation.caseId,
 		status: mapRepresentationStatusToSchema(representation.status),
 		redacted,
+		redactedBy: lastRepresentativeAction?.actionBy ?? null,
+		redactedNotes: lastRepresentativeAction?.notes ?? null,
+		redactedRepresentation: representation.redactedRepresentation ?? null,
 		originalRepresentation: representation.originalRepresentation,
 		representationType: mapRepresentationTypeToSchema(representation.type),
-		representedId: representation.represented?.id.toString(),
-		representativeId: representation.representative?.id.toString(),
+		representedId: representation.represented?.id.toString() ?? null,
+		representativeId: representation.representative?.id.toString() ?? null,
 		representationFrom: representation.representative?.id
 			? 'AGENT'
-			: representation.representedType,
-		registerFor: representation.representedType,
-		dateReceived: representation.received,
+			: representation.representedType ?? null,
+		registerFor: representation.representedType ?? null,
+		dateReceived: representation.received?.toISOString() ?? '',
 		attachmentIds: representation.attachments?.map((attachment) => attachment.documentGuid)
 	};
 
@@ -82,34 +88,23 @@ export const buildNsipRepresentationPayloadForPublish = (representation) => {
 export const buildRepresentationServiceUserPayload = (representation) => {
 	const serviceUserPayloads = [];
 	if (representation.represented)
-		serviceUserPayloads.push(mapRepresentationServiceUser(representation.represented));
+		serviceUserPayloads.push(
+			buildServiceUserPayload(
+				representation.represented,
+				representation.case?.reference,
+				'RepresentationContact'
+			)
+		);
 	if (representation.representative)
-		serviceUserPayloads.push(mapRepresentationServiceUser(representation.representative));
+		serviceUserPayloads.push(
+			buildServiceUserPayload(
+				representation.representative,
+				representation.case?.reference,
+				'RepresentationContact'
+			)
+		);
 	return serviceUserPayloads;
 };
-
-/**
- *
- * @param {ServiceUser} entity
- * @returns {ServiceUserSchema}
- */
-const mapRepresentationServiceUser = (entity) => ({
-	id: entity.id.toString(),
-	firstName: entity.firstName,
-	lastName: entity.lastName,
-	addressLine1: entity.address?.addressLine1,
-	addressLine2: entity.address?.addressLine2,
-	addressTown: entity.address?.town,
-	addressCounty: entity.address?.county,
-	addressCountry: entity.address?.country,
-	postcode: entity.address?.postcode,
-	organisation: entity.organisationName,
-	role: entity.jobTitle,
-	telephoneNumber: entity.phoneNumber,
-	emailAddress: entity.email,
-	serviceUserType: 'RepresentationContact',
-	sourceSuid: entity.id.toString()
-});
 
 /**
  * Convert BOAS rep status to the schema enum value
@@ -134,7 +129,7 @@ const mapRepresentationTypeToSchema = (representationType) => {
 
 	switch (representationType) {
 		case 'Local authorities':
-			schemaRepresentationType = 'Local authorities';
+			schemaRepresentationType = 'Local Authorities';
 			break;
 		case 'Members of the public/businesses':
 			schemaRepresentationType = 'Members of the Public/Businesses';

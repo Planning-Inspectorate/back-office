@@ -30,28 +30,33 @@ export const addRepresentationToLocals = async (req, res, next) => {
 		const { caseId, representationId } = params;
 		const { path } = route;
 		const { repMode, repId: queryRepId, repType } = query;
-		const repId = representationId || queryRepId;
 
-		res.locals.case = getCaseViewModel(await getCase(caseId));
+		res.locals.caseId = caseId || null;
+		res.locals.representationId = representationId || queryRepId || null;
+
+		res.locals.case = getCaseViewModel(await getCase(res.locals.caseId));
 		res.locals.isRepresented = repType !== 'representative';
 		res.locals.prefixBackLink = `/applications-service/case/${caseId}/relevant-representations`;
 
-		const pageURLs = getRepresentationPageURLs(caseId, String(repId));
+		const pageURLs = getRepresentationPageURLs(caseId, String(res.locals.representationId));
 
 		res.locals.representation = {
 			pageLinks: getPageLinks(
 				String(repMode),
 				path,
 				caseId,
-				String(repId),
+				String(res.locals.representationId),
 				String(repType),
 				pageURLs
 			),
 			pageURLs
 		};
 
-		if (repId) {
-			const representationData = await getRepresentation(caseId, String(repId));
+		if (res.locals.caseId && res.locals.representationId) {
+			const representationData = await getRepresentation(
+				res.locals.caseId,
+				String(res.locals.representationId)
+			);
 
 			// These were originally initialised as empty objects when undefined, consequentially because of how pick works
 			representationData.represented = formatContactDetails(representationData.represented || {});
@@ -69,4 +74,19 @@ export const addRepresentationToLocals = async (req, res, next) => {
 	} catch (e) {
 		return next(e);
 	}
+};
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} response
+ * @param {import("express").NextFunction} next
+ */
+export const addQueryToLocals = async ({ query }, response, next) => {
+	const { repId, repType, repMode } = query;
+
+	response.locals.representationId = repId || '';
+	response.locals.repType = repType || '';
+	response.locals.repMode = repMode || '';
+
+	next();
 };

@@ -1,6 +1,6 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% macro folderS51Table(items, pagination, caseId, folderId) %}
+{% macro folderS51Table(items, pagination, caseId, folderId, isGeneralS51folder) %}
 
 	<div class="pins-files-list__info govuk-body">
 		<h3 class="govuk-heading-s">Select items to make changes to statuses</h3>
@@ -29,7 +29,11 @@
 		<thead class="govuk-table__head govuk-body-s">
 			<tr class="govuk-table__row">
 				<th scope="col" class="govuk-table__header">Select</th>
+			{% if isGeneralS51folder %}
+				<th scope="col" class="govuk-table__header">General S51 advice item</th>
+			{% else %}
 				<th scope="col" class="govuk-table__header">S51 advice item</th>
+			{% endif %}
 				<th scope="col" class="govuk-table__header">Dates</th>
 				<th scope="col" class="govuk-table__header">Redaction</th>
 				<th scope="col" class="govuk-table__header">Status</th>
@@ -54,6 +58,14 @@
 			</tr>
 			{% for item in items.items %}
 
+
+				{% set displayDatePublished = 'Not published' %}
+				{% if item.datePublished and item.publishedStatus == 'published' %}
+					{% set displayDatePublished = item.datePublished|datestamp({format: 'dd MMM yyyy'}) %},
+				{% elif item.datePublished == NULL and item.publishedStatus == 'published' and item.dateUpdated %}
+					{% set displayDatePublished = item.dateUpdated|datestamp({format: 'dd MMM yyyy'}) %},
+				{% endif %}
+
 				<tr class="govuk-table__row">
 					<td class="govuk-table__cell">
 						{{ govukCheckboxes({
@@ -74,12 +86,8 @@
 					</td>
 					<td class="govuk-table__cell">
 						<span class='display--block govuk-!-margin-bottom-2'>
-							<strong>Published:</strong> 
-							{% if item.datePublished and item.publishedStatus == 'published' %}
-								{{ item.datePublished|datestamp({format: 'dd MMM yyyy'}) }},
-							{% else %}
-								Not published
-							{% endif %}
+							<strong>Published:</strong>
+							{{displayDatePublished}}
 						</span>
 						<span>
 							<strong>Enquiry date:</strong>

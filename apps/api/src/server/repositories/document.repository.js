@@ -243,7 +243,7 @@ export const deleteDocument = (documentGuid) => {
  * @param {{folderId: number, skipValue: number, pageSize: number, documentVersion?: number}} folderId
  * @returns {import('@prisma/client').PrismaPromise<Document[]>}
  */
-export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVersion = 1 }) => {
+export const getDocumentsInFolder = ({ folderId, skipValue, pageSize }) => {
 	return databaseConnector.document.findMany({
 		include: {
 			documentVersion: true,
@@ -259,11 +259,6 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize, documentVe
 		],
 		where: {
 			folderId,
-			documentVersion: {
-				some: {
-					version: documentVersion
-				}
-			},
 			isDeleted: false
 		}
 	});

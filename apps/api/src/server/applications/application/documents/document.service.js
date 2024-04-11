@@ -7,33 +7,27 @@ import {
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import * as caseRepository from '#repositories/case.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
-import { filterAsync } from '#utils/async.js';
 import { mapDocumentVersionDetails } from '#utils/mapping/map-document-details.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
-import { getS51AdviceFolder } from '#repositories/folder.repository.js';
+import { getFolderWithParents, getS51AdviceFolder } from '#repositories/folder.repository.js';
 import { getStorageLocation } from '#utils/document-storage.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '#utils/mapping/map-document-details.js';
-import { eventClient } from '#infrastructure/event-client.js';
-import { buildNsipDocumentPayload } from './document.js';
-import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { getFolder } from '../file-folders/folders.service.js';
 import config from '#config/config.js';
-import {
-	verifyAllDocumentsHaveRequiredPropertiesForPublishing,
-	verifyNotTrainingAttachment
-} from './document.validators.js';
+import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
-import { isTrainingCase } from '../application.validators.js';
+import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
  * @typedef {import('@prisma/client').Document} Document
  * @typedef {import('@prisma/client').Document & {documentName: string}} DocumentWithDocumentName
+ * @typedef {import('@prisma/client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
  * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
@@ -210,7 +204,7 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
  *
  * @param {DocumentAndBlobStorageDetail[]} blobStorageDocuments - Array of documents containing metadata to upsert.
  * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
- * @returns {Promise<DocumentVersionWithDocument[]>}
+ * @returns {Promise<DocumentVersionWithDocumentAndFolder[]>}
  */
 const upsertDocumentVersionsMetadataToDatabase = async (
 	blobStorageDocuments,
@@ -322,15 +316,7 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 	await Promise.all(documentActivityLogs);
 
 	// now send broadcast events for doc creations - ignoring docs on training cases.
-	if (
-		!isTrainingCase(
-			caseForDocuments.reference,
-			caseForDocuments.ApplicationDetails?.subSector?.sector?.name
-		)
-	) {
-		const events = upsertedDocuments.map(buildNsipDocumentPayload);
-		await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Create);
-	}
+	await broadcastNsipDocumentEvent(upsertedDocuments, EventType.Create);
 
 	// Step 8: Return information about the uploaded documents and their storage location
 	logger.info(`Returning created and failed documents with blob storage properties...`);
@@ -425,6 +411,7 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 	let createdVersionWithDocInfo = await documentVersionRepository.update(documentId, {
 		privateBlobContainer: documentWithBlobStorageInfo.privateBlobContainer,
 		version,
+		// @ts-ignore
 		privateBlobPath: documentWithBlobStorageInfo.documents[0].blobStoreUrl
 	});
 
@@ -433,22 +420,12 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 		latestVersionId: thisVersionId
 	});
 
+	// 1st fix the doc latestversionId in the payload to match (saves having to get the whole doc+version again after the doc update)
+	// @ts-ignore
+	createdVersionWithDocInfo.Document.latestVersionId = thisVersionId;
+
 	// broadcast event - ignoring if doc is on non Training cases
-	if (
-		!isTrainingCase(
-			caseForDocuments.reference,
-			caseForDocuments.ApplicationDetails?.subSector?.sector?.name
-		)
-	) {
-		// 1st fix the doc latestversionId in the payload to match (saves having to get the whole doc+version again after the doc update)
-		// @ts-ignore
-		createdVersionWithDocInfo.Document.latestVersionId = thisVersionId;
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(createdVersionWithDocInfo)],
-			EventType.Update
-		);
-	}
+	await broadcastNsipDocumentEvent(createdVersionWithDocInfo, EventType.Update);
 
 	// Step 8: Return information about the uploaded document version and its storage location
 	logger.info(`Returning updated document with blob storage properties...`);
@@ -477,21 +454,9 @@ export const upsertDocumentVersionAndReturnDetails = async (
 	});
 
 	// broadcast event - ignoring if doc is on non Training cases
-	const caseWithThisDocument = await caseRepository.getById(Number(caseId), { sector: true });
-	if (
-		caseWithThisDocument &&
-		!isTrainingCase(
-			caseWithThisDocument.reference ?? '',
-			caseWithThisDocument.ApplicationDetails?.subSector?.sector?.name
-		)
-	) {
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(documentVersion)],
-			EventType.Update
-		);
-	}
+	await broadcastNsipDocumentEvent(documentVersion, EventType.Update);
 
+	// @ts-ignore
 	return mapSingleDocumentDetailsFromVersion(documentVersion);
 };
 
@@ -588,7 +553,6 @@ export const publishDocumentVersions = async (documentVersionIds) => {
 	}, /** @type {string[]} */ ([]));
 
 	const currentlyPublished = await getCurrentlyPublished(documentGuids);
-
 	const publishedDocuments = await documentVersionRepository.publishMany(documentVersionIds);
 
 	const unpublishedDocuments = await documentVersionRepository.updateAll(
@@ -614,31 +578,11 @@ export const publishDocumentVersions = async (documentVersionIds) => {
 		)
 	);
 
-	const events = (
-		await filterAsync(async (doc) => {
-			try {
-				await verifyNotTrainingAttachment(doc.documentGuid);
-				return true;
-			} catch (/** @type {*} */ err) {
-				logger.info('Blocked sending event for document:', err.message);
-				return false;
-			}
-		}, publishedDocuments)
-	).map(buildNsipDocumentPayload);
-
-	if (events.length) {
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			events,
-			EventType.Update,
-			// This is an additional flag which triggers the Azure Function that publishes documents.
-			// It essentially means we can create a subscription to this topic with a filter, and saves us from managing a distinct publishing queue
-			// It has to be a string because the Terraform module for configuring subscription filters only seems to support string value
-			{
-				publishing: 'true'
-			}
-		);
-	}
+	// broadcast event - ignoring if doc is on non Training cases
+	// There is an additional flag which triggers the Azure Function that publishes documents.
+	// It essentially means we can create a subscription to this topic with a filter, and saves us from managing a distinct publishing queue
+	// It has to be a string because the Terraform module for configuring subscription filters only seems to support string value
+	await broadcastNsipDocumentEvent(publishedDocuments, EventType.Update, { publishing: 'true' });
 
 	return publishedDocuments;
 };
@@ -707,17 +651,8 @@ export const markDocumentVersionAsPublished = async ({
 		publishedStatusPrev: 'publishing'
 	});
 
-	try {
-		await verifyNotTrainingAttachment(guid);
-
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(publishedDocument)],
-			EventType.Publish
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for document:', err.message);
-	}
+	// broadcast event - ignoring if doc is on non Training cases
+	await broadcastNsipDocumentEvent(publishedDocument, EventType.Publish);
 
 	return publishedDocument;
 };
@@ -734,17 +669,8 @@ export const markDocumentVersionAsUnpublished = async ({ guid, version }) => {
 		publishedStatusPrev: 'unpublishing'
 	});
 
-	try {
-		await verifyNotTrainingAttachment(guid);
-
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(publishedDocument)],
-			EventType.Unpublish
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for document:', err.message);
-	}
+	// broadcast event - ignoring if doc is on non Training cases
+	await broadcastNsipDocumentEvent(publishedDocument, EventType.Unpublish);
 
 	return publishedDocument;
 };
@@ -795,7 +721,6 @@ export const separatePublishableDocuments = async (guids) => {
 		false
 	);
 
-	console.log(707079, 'dservice', invalid);
 	return {
 		publishableIds: publishable.map((p) => p.documentGuid),
 		errors: invalid
@@ -879,22 +804,8 @@ export const handleUpdateDocuments = async (guids, publishedStatus, redactedStat
 		results.push(formattedResponse);
 	}
 
-	// broadcast an update event for each of the updated documents
-	const events = (
-		await filterAsync(async (doc) => {
-			try {
-				await verifyNotTrainingAttachment(doc.documentGuid);
-				return true;
-			} catch (/** @type {*} */ err) {
-				logger.info('Blocked sending event for document:', err.message);
-				return false;
-			}
-		}, updatedDocuments)
-	).map(buildNsipDocumentPayload);
-
-	if (events.length) {
-		await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Update);
-	}
+	// broadcast event for each of the updated documents - ignoring if doc is on non Training cases
+	await broadcastNsipDocumentEvent(updatedDocuments, EventType.Update);
 
 	return { errors, results };
 };
@@ -928,7 +839,7 @@ export const separateNonPublishedDocuments = async (guids) => {
  * Unpublish a list of documents
  *
  * @param {string[]} guids
- * @returns {Promise<string[]>}
+ * @returns {Promise<string[]>} // array of unpublished doc guids
  * */
 export const unpublishDocuments = async (guids) => {
 	const versionPromises = guids.map(documentVersionRepository.getPublished);
@@ -954,23 +865,10 @@ export const unpublishDocuments = async (guids) => {
 		)
 	);
 
-	const events = (
-		await filterAsync(async (doc) => {
-			try {
-				await verifyNotTrainingAttachment(doc.documentGuid);
-				return true;
-			} catch (/** @type {*} */ err) {
-				logger.info('Blocked sending event for document:', err.message);
-				return false;
-			}
-		}, unpublishedDocuments)
-	).map(buildNsipDocumentPayload);
-
-	if (events.length) {
-		await eventClient.sendEvents(NSIP_DOCUMENT, events, EventType.Update, {
-			unpublishing: 'true'
-		});
-	}
+	// broadcast event for each of the unpublished documents - ignoring if doc is on non Training cases
+	await broadcastNsipDocumentEvent(unpublishedDocuments, EventType.Update, {
+		unpublishing: 'true'
+	});
 
 	return unpublishedDocuments.map((doc) => doc.documentGuid);
 };
@@ -1056,17 +954,7 @@ export const deleteDocument = async (guid, caseId) => {
 	const deletedDocument = await documentRepository.deleteDocument(guid);
 
 	// Step 4: broadcast event message - ignoring training cases
-	try {
-		await verifyNotTrainingAttachment(guid);
-
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(documentToDelete)],
-			EventType.Delete
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for document:', err.message);
-	}
+	await broadcastNsipDocumentEvent(documentToDelete, EventType.Delete);
 
 	return deletedDocument;
 };
@@ -1090,17 +978,30 @@ export const revertDocumentStatusToPrevious = async (
 	});
 
 	// broadcast event message - ignore training cases
-	try {
-		await verifyNotTrainingAttachment(guid);
-
-		await eventClient.sendEvents(
-			NSIP_DOCUMENT,
-			[buildNsipDocumentPayload(updatedDocument)],
-			EventType.Update
-		);
-	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for document:', err.message);
-	}
+	await broadcastNsipDocumentEvent(updatedDocument, EventType.Update);
 
 	return updatedDocument;
+};
+
+/**
+ *
+ * @param {number} folderId
+ * @param {string |null} caseRef
+ * @param {string} filename
+ * @returns {Promise<string>}
+ */
+export const buildDocumentFolderPath = async (folderId, caseRef, filename) => {
+	let parentFolders = await getFolderWithParents(folderId);
+	let folderPath = `${caseRef}`;
+
+	// tree is traversed in order, we want it reversed
+	if (parentFolders) {
+		parentFolders = parentFolders.reverse();
+	}
+	for (const aFolder of parentFolders) {
+		folderPath = folderPath + '/' + aFolder.displayNameEn;
+	}
+	folderPath = `${folderPath}/${filename}`;
+
+	return folderPath;
 };

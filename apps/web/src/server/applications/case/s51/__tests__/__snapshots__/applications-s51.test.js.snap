@@ -101,9 +101,9 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">S51 advice actions</h4>
-                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/delete\\">Delete</a>
+                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/delete\\">Delete</a>
                 </div>
-                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue\\">View S51 publishing queue</a>
+                <div class=\\"govuk-grid-column-one-half govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue\\">View S51 publishing queue</a>
                 </div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
@@ -536,9 +536,9 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
             <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">
             <nav class=\\"govuk-grid-row govuk-!-margin-top-0\\">
                 <h4 class=\\"govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4\\">S51 advice actions</h4>
-                <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/delete\\">Delete</a>
+                <div class=\\"govuk-grid-column-one-half govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/delete\\">Delete</a>
                 </div>
-                <div class=\\"govuk-grid-column-one-third govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue\\">View S51 publishing queue</a>
+                <div class=\\"govuk-grid-column-one-half govuk-!-text-align-right\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue\\">View S51 publishing queue</a>
                 </div>
             </nav>
             <div class=\\"govuk-!-margin-top-7\\">
@@ -1532,16 +1532,6 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
     </div>
     <div class=\\"govuk-grid-row\\">
         <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-breadcrumbs govuk-!-margin-top-0\\">
-                <ol class=\\"govuk-breadcrumbs__list\\">
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation\\">Project documentation</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/1/project-management/\\">Project management</a>
-                    </li>
-                    <li class=\\"govuk-breadcrumbs__list-item\\"><a class=\\"govuk-breadcrumbs__link\\" href=\\"/applications-service/case/123/project-documentation/21/sub-folder-level-2/\\">Sub folder level 2</a>
-                    </li>
-                </ol>
-            </div>
             <div class=\\"pins-dashboard-list--hide-controls\\">
                 <h2 class=\\"govuk-heading-l\\">S51 advice folder</h2>
                 <hr class=\\"govuk-section-break govuk-section-break--l govuk-section-break--visible\\">

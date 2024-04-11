@@ -1,23 +1,50 @@
-export class LocalEventClient {
+import { GenericEventClient } from './generic-event-client.js';
+import chalk from 'chalk';
+
+/**
+ * @property {import('ajv/dist/types/index.js').AnyValidateFunction<unknown>} validator
+ */
+
+// @ts-ignore
+export class LocalEventClient extends GenericEventClient {
 	/**
 	 *
-	 * @param {import("./event-client").Logger} logger
+	 * @param {import('./event-client').Logger} logger
 	 */
 	constructor(logger) {
-		this.logger = logger;
+		super(logger);
+		this.logger = {
+			info: (/** @type {any} */ ...args) => console.log(chalk.yellow(...args))
+		};
 	}
 
-	sendEvents = async (
-		/** @type {string} */ topic,
-		/** @type {any[]} */ events,
-		/** @type {import('./event-type.js').EventType}*/ type
-	) => {
-		if (events?.length < 1) {
-			throw Error(`No events provided for type ${type} and topic ${topic}`);
-		}
-		this.logger.info(
-			`Dummy publishing events ${JSON.stringify(events)} with type ${type} to topic ${topic}`
+	/**
+	 * validate and send dummy publishing events
+	 *
+	 * @param {string} topic
+	 * @param {any[]} events
+	 * @param {import('./event-type.js').EventType} eventType
+	 * @param {Object.<string,any>?} [additionalProperties={}]
+	 */
+	sendEvents = async (topic, events, eventType, additionalProperties = {}) => {
+		const isValid = await this.validateEventsToSchema(
+			topic,
+			events,
+			eventType,
+			additionalProperties
 		);
+
+		if (isValid) {
+			console.info(
+				chalk.green(
+					`Dummy publishing events ${JSON.stringify(
+						events
+					)} with type ${eventType}, additional properties ${JSON.stringify(
+						additionalProperties
+					)} to topic ${topic}`
+				)
+			);
+		}
 
 		return events;
 	};

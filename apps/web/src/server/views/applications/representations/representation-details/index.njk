@@ -32,9 +32,7 @@
       {% endif %}
       {% if representation.status == 'DRAFT' %}
         {% include "./includes/check/representation.include.njk" %}
-        {% if representation.attachments | length > 0 %}
-          {% include "./includes/check/attachments.include.njk" %}
-        {% endif %}
+        {% include "./includes/check/attachments.include.njk" %}
         <form method="post">
           {{ govukButton({
             text: "Submit for review",

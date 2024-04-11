@@ -16,11 +16,13 @@ import publishValidRepresentationsRouter from './publish-valid-representations/p
 import { fileUploadController } from './file-upload/file-upload.controller.js';
 import { repRoutes } from './representation/utils/get-representation-page-urls.js';
 import { getRepDownloadController } from './download/download.controller.js';
-import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
+import { registerRepsParams } from './applications-relevant-reps.locals.js';
 
 const relevantRepsRouter = createRouter({ mergeParams: true });
 
-relevantRepsRouter.route('/').get(asyncHandler(controller.relevantRepsApplications));
+relevantRepsRouter
+	.route('/')
+	.get(registerRepsParams, asyncHandler(controller.relevantRepsApplications));
 relevantRepsRouter.use('/', relevantRepContactDetailsRouter);
 relevantRepsRouter.use('/', relevantRepAddressDetailsRouter);
 relevantRepsRouter.use('/', relevantRepresentationTypeRouter);
@@ -37,8 +39,8 @@ relevantRepsRouter.use('/', publishValidRepresentationsRouter);
 relevantRepsRouter.use('/', publishUpdatedRepresentationsRouter);
 relevantRepsRouter.use('/', publishRepresentationsErrorRouter);
 
-relevantRepsRouter.route('/:repId/api/upload').post(fileUploadController);
+relevantRepsRouter.route('/:repId/api/upload').post(registerRepsParams, fileUploadController);
 
-relevantRepsRouter.route('/api/download').get(registerCaseId, getRepDownloadController);
+relevantRepsRouter.route('/api/download').get(registerRepsParams, getRepDownloadController);
 
 export default relevantRepsRouter;

@@ -8,14 +8,30 @@
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
+{% set isGeneralS51 = case.reference === gs51CaseReference %}
+{% set bannerText = "New S51 advice item created" %}
+{% set headingCaptionText = "S51 advice properties" %}
+{% set adviceActionsText = "S51 advice actions" %}
+{% set publishingQueueLinkText = "View S51 publishing queue" %}
+{% set s51TabLabelText = "S51 advice properties" %}
+{% set backLinkText = "Back to S51 advice folder" %}
+
+{% if isGeneralS51 %}
+	{% set bannerText = "New general S51 advice item created" %}
+	{% set headingCaptionText = "General S51 advice properties" %}
+	{% set adviceActionsText = "General S51 advice actions" %}
+	{% set publishingQueueLinkText = "View general S51 publishing queue" %}
+	{% set s51TabLabelText = "General S51 advice properties" %}
+	{% set backLinkText = "Back to General S51 advice folder" %}
+{% endif %}
 
 {% block beforeContent %}
-<aside>
-	{{ govukBackLink({
-		text: "Back to S51 advice folder",
+	<aside>
+		{{ govukBackLink({
+		text: backLinkText,
 		href: 's51-list'|url({caseId: caseId, folderId: folderId})
 	}) }}
-</aside>
+	</aside>
 {% endblock %}
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
@@ -25,8 +41,8 @@
 
 				{% set html %}
 				<h3 class="govuk-notification-banner__heading">
-						New S51 advice item created
-					</h3>
+					{{ bannerText }}
+				</h3>
 				{% endset %}
 
 				{% if showSuccessBanner %}
@@ -37,17 +53,20 @@
 				{% endif %}
 
 				<h1 class="govuk-heading-xl govuk-!-margin-top-4">
-					<span class="govuk-caption-xl">S51 advice properties</span>
+					<span class="govuk-caption-xl">{{ headingCaptionText }}</span>
 					{{ s51Advice.title }}
 				</h1>
 				<ul class="govuk-list">
-					<li class="govuk-!-margin-top-4">
-						<strong>Case reference:</strong>
-						{{ case.reference }}</li>
+					{% if not isGeneralS51 %}
+						<li class="govuk-!-margin-top-4">
+							<strong>Case reference:</strong>
+							{{ case.reference }}
+						</li>
+					{% endif %}
 					<li class="govuk-!-margin-top-4">
 						<strong>Advice reference:</strong>
-						{{ s51Advice.referenceCode }}</li>
-
+						{{ s51Advice.referenceCode }}
+					</li>
 				</ul>
 				{% set isPublished = (s51Advice.publishedStatus === 'published') %}
 				<div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7">
@@ -62,15 +81,15 @@
 				<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
 				<nav class="govuk-grid-row govuk-!-margin-top-0">
-					<h4 class="govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4">S51 advice actions</h4>
-					<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
+					<h4 class="govuk-heading-m govuk-!-margin-left-3 govuk-!-margin-bottom-4">{{ adviceActionsText }}</h4>
+					<div class="govuk-grid-column-one-half govuk-!-margin-top-0">
 						<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'delete'})}}">Delete</a>
 						{% if isPublished %}
 							<a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="{{'s51-unpublish'|url({caseId:caseId, folderId: folderId, adviceId: s51Advice.id })}}">Unpublish</a>
 						{% endif %}
 					</div>
-					<div class="govuk-grid-column-one-third govuk-!-text-align-right">
-						<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'s51-list'|url({caseId:caseId, folderId: folderId, step: 'publishing-queue'})}}">View S51 publishing queue</a>
+					<div class="govuk-grid-column-one-half govuk-!-text-align-right">
+						<a class="govuk-link govuk-body-m govuk-!-text-align-right" href= "{{'s51-list'|url({caseId:caseId, folderId: folderId, step: 'publishing-queue'})}}">{{ publishingQueueLinkText }}</a>
 					</div>
 				</nav>
 
@@ -84,9 +103,9 @@
 					{{ govukTabs({
 						items: [
 							{
-								label: "S51 advice properties",
+								label: s51TabLabelText,
 								id: "advice-properties",
-								panel: { html: s51DetailsTab(s51Advice, caseId, folderId, isPublished)}
+								panel: { html: s51DetailsTab(s51Advice, caseId, folderId, isPublished, isGeneralS51)}
 							},
 							{
 								label: "Attachments",
