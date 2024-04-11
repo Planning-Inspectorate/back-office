@@ -4,7 +4,6 @@ import path from 'node:path';
 import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
-import { generalSection51CaseReference } from '../../../../web/src/server/applications/case/general-s51/applications-general-s51.config.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
@@ -104,7 +103,7 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 		],
 		where: {
 			NOT: {
-				reference: generalSection51CaseReference
+				reference: 'GS5110001'
 			},
 			OR: [
 				{
