@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { Page } from './basePage';
 import { faker } from '@faker-js/faker';
+import { upperFirst } from 'lodash-es';
 import { S51AdvicePropertiesPage } from './s51AdviceProperties.js';
 import { enquirerString } from '../support/utils/utils.js';
 
@@ -24,11 +25,11 @@ export class S51AdvicePage extends Page {
 		answerCell: (question) => cy.contains(this.selectors.tableCell, new RegExp(question)).next(),
 		changeLink: (question) =>
 			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a'),
-		changetitleLink: () => cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a'),
-        saveAndReturnTile: () => cy.get('#main-content > form > button'),
-        verifyTitleUpdated: () => cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__value')
-
-
+		changetitleLink: () =>
+			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a'),
+		saveAndReturnTile: () => cy.get('#main-content > form > button'),
+		verifyTitleUpdated: () =>
+			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__value')
 	};
 
 	checkAnswer(question, answer, strict = true) {
@@ -124,20 +125,20 @@ export class S51AdvicePage extends Page {
 
 		const propertiesPage = new S51AdvicePropertiesPage();
 		propertiesPage.checkAllProperties(mainDetails, enquirerDetails);
-		this.verifyTitleIsUpdated();
+		this.verifyTitleIsUpdated(upperFirst(title + ' Updated'));
 	}
-	verifyTitleIsUpdated(){
-        this.elements.changetitleLink().click();
-        this.elements.titleInput().clear();
-        this.elements.titleInput().type("Title Updated");
-        this.elements.saveAndReturnTile().click();
+	verifyTitleIsUpdated(newTitle) {
+		this.elements.changetitleLink().click();
+		this.elements.titleInput().clear();
+		this.elements.titleInput().type(newTitle);
+		this.elements.saveAndReturnTile().click();
 		cy.wait(3000);
-        this.elements.verifyTitleUpdated().then((text)=> {
-            let actualTitle=text.text();
-         expect(actualTitle).to.include("Title Updated");
-    });
-}
-    verifyS51IsDeleted(){
+		this.elements.verifyTitleUpdated().then((text) => {
+			let actualTitle = text.text();
+			expect(actualTitle).to.include(newTitle);
+		});
+	}
+	verifyS51IsDeleted() {
 		cy.get('.govuk-button--secondary').click();
 		cy.get('.govuk-button').click();
 		cy.get('.govuk-panel__title').contains('S51 advice item successfully deleted');
