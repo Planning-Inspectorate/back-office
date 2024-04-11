@@ -14,12 +14,12 @@
     {% set row = [] %}
     {% set row = row | concat({ text: 'Project name', classes: 'font-weight--700 pins-table__cell--s' }) %}
     {% set row = row | concat({ text: values['case.title'], classes: 'pins-table__cell--s' }) %}
-    {% set row = row | concat({ html: '<a id="name" class="govuk-link" href="' + ('case-create'|url({caseId: caseId})) + 'edit">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="name" class="govuk-link" href="' + ('case-create'|url({caseId: caseId})) + 'title/edit">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
     {% set rows = rows | concat([row]) %}
     {% set row = [] %}
     {% set row = row | concat({ text: 'Project description', classes: 'font-weight--700 pins-table__cell--s' }) %}
     {% set row = row | concat({ text: values['case.description'], classes: 'pins-table__cell--s' }) %}
-    {% set row = row | concat({ html: '<a id="description" class="govuk-link" href="' + baseUrl + 'edit">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+    {% set row = row | concat({ html: '<a id="description" class="govuk-link" href="' + baseUrl + 'title/edit">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
     {% set rows = rows | concat([row]) %}
     {% set row = [] %}
     {% set row = row | concat({ text: 'Sector', classes: 'font-weight--700 pins-table__cell--s' }) %}

@@ -101,6 +101,7 @@ export async function updateApplicationsCreateCaseName(request, response) {
 		return handleErrors(properties, nameLayout, response);
 	}
 
+	console.log(101010, request.params.edit);
 	if (request.params.edit) {
 		return response.redirect(
 			`/applications-service/create-new-case/${updatedCaseId}/check-your-answers`

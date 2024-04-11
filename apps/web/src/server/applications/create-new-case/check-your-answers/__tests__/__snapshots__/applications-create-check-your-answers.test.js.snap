@@ -35,7 +35,7 @@ exports[`applications create: check your answers Check your answers GET /check-y
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Title CASE/01</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"name\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"name\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/title/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -43,55 +43,55 @@ exports[`applications create: check your answers Check your answers GET /check-y
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor
                                 incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis
                                 nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
-                            <td                             class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"description\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/\\">Change</a>
+                            <td                             class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"description\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/title/edit\\">Change</a>
                                 </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Sector</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Transport EN</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"sector\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/sector\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"sector\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/sector/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Subsector</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Highways EN</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"subSector\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/sub-sector\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"subSector\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/sub-sector/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project location</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">London</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"projectLocation\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"projectLocation\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Grid reference Easting</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">123456</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceEasting\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceEasting\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Grid reference Northing</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">987654</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceNorthing\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceNorthing\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Region(s)</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">London EN,Yorkshire EN</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"regions\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/regions\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"regions\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/regions/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Map zoom level</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">City EN</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/zoom-level\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/zoom-level/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project email</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">some@ema.il</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/team-email\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/team-email/edit\\">Change</a>
                             </td>
                         </tr>
                     </tbody>
@@ -107,37 +107,37 @@ exports[`applications create: check your answers Check your answers GET /check-y
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Organisation name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Org name</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-organisation-name\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-organisation-name/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Contact name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">John Smith</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-full-name\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-full-name/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Address</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Applicant address, London, ABC123</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-address\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-address/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Website</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">website.web</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-website\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-website/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Email address</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">email@email.co</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-email\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-email/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Telephone number</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">001</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-telephone-number\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-telephone-number/edit\\">Change</a>
                             </td>
                         </tr>
                     </tbody>
@@ -222,7 +222,7 @@ exports[`applications create: check your answers Check your answers POST /check-
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Title CASE/01</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"name\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"name\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/title/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
@@ -230,55 +230,55 @@ exports[`applications create: check your answers Check your answers POST /check-
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor
                                 incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis
                                 nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
-                            <td                             class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"description\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/\\">Change</a>
+                            <td                             class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"description\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/title/edit\\">Change</a>
                                 </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Sector</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Transport EN</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"sector\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/sector\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"sector\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/sector/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Subsector</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Highways EN</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"subSector\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/sub-sector\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"subSector\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/sub-sector/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project location</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">London</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"projectLocation\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"projectLocation\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Grid reference Easting</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">123456</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceEasting\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceEasting\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Grid reference Northing</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">987654</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceNorthing\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"gridReferenceNorthing\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/geographical-information/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Region(s)</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">London EN,Yorkshire EN</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"regions\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/regions\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"regions\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/regions/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Map zoom level</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">City EN</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/zoom-level\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/zoom-level/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Project email</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">some@ema.il</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/team-email\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/team-email/edit\\">Change</a>
                             </td>
                         </tr>
                     </tbody>
@@ -294,37 +294,37 @@ exports[`applications create: check your answers Check your answers POST /check-
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Organisation name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Org name</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-organisation-name\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-organisation-name/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Contact name</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">John Smith</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-full-name\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-full-name/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Address</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">Applicant address, London, ABC123</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-address\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-address/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Website</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">website.web</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-website\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-website/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Email address</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">email@email.co</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-email\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-email/edit\\">Change</a>
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
                             <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Telephone number</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">001</td>
-                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-telephone-number\\">Change</a>
+                            <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/applicant-telephone-number/edit\\">Change</a>
                             </td>
                         </tr>
                     </tbody>
