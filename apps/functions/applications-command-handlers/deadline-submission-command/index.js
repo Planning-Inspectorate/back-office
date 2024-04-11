@@ -83,19 +83,19 @@ export default async function (context, msg) {
 	try {
 		blobStoreUrl = await run(context, msg);
 	} catch (err) {
-		context.log(err);
-
 		await events.publishFailureEvent(context, {
 			deadline: msg.deadline,
 			submissionType: msg.submissionType,
 			blobGuid: msg.blobGuid,
 			documentName: msg.documentName
 		});
+
+		context.log(`Failed to copy blob ${msg.blobGuid} from submissions to uploads store`);
+
+		throw err;
 	}
 
 	context.log(
-		blobStoreUrl
-			? `Successfully copied blob ${msg.blobGuid} from submissions to uploads store with name ${blobStoreUrl}`
-			: `Failed to copy blob ${msg.blobGuid} from submissions to uploads store`
+		`Successfully copied blob ${msg.blobGuid} from submissions to uploads store with name ${blobStoreUrl}`
 	);
 }
