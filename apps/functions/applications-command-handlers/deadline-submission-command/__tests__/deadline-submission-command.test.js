@@ -64,7 +64,16 @@ describe('deadline-submission-command', () => {
 		});
 		blobClient.copyFile = jest.fn().mockResolvedValueOnce(false);
 
-		await run(mockContext, mockMsg);
+		const success = await (async () => {
+			try {
+				await run(mockContext, mockMsg);
+				return true;
+			} catch (err) {
+				return false;
+			}
+		})();
+
+		expect(success).toBe(false);
 
 		expect(mockSendEvents).toHaveBeenCalledWith(
 			expect.anything(),
