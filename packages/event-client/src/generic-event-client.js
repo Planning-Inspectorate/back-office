@@ -5,6 +5,7 @@ import { loadAllSchemas } from 'pins-data-model';
 
 const NSIP_S51_ADVICE = 'nsip-s51-advice';
 const DEADLINE_SUBMISSION_TOPIC = 'deadline-submission-topic';
+const DEADLINE_RESULT = 'deadline-submission-result';
 
 /**
  *
@@ -104,6 +105,8 @@ export const getSchemaNameFromTopic = (topic) => {
 			return 's51-advice.schema.json';
 		case DEADLINE_SUBMISSION_TOPIC:
 			return 'new-deadline-submission.schema.json';
+		case DEADLINE_RESULT:
+			return 'nsip-exam-timetable-submission.schema.json';
 		default:
 			return topic + '.schema.json';
 	}

@@ -118,6 +118,27 @@ describe('Publish application', () => {
 		);
 	});
 
+	test('returns 403 error if the reference is not authorised', async () => {
+		// GIVEN
+		const caseId = 1;
+
+		databaseConnector.case.findUnique.mockImplementation(
+			mockApplicationGet({
+				reference: 'GS5110001'
+			})
+		);
+
+		// WHEN
+		const response = await request.patch(`/applications/${caseId}/publish`);
+
+		// THEN
+		expect(response.status).toEqual(403);
+
+		expect(response.body).toEqual({
+			errors: 'case reference: GS5110001 is not authorised for publishing'
+		});
+	});
+
 	test('returns 404 error if a caseId does not exist', async () => {
 		// GIVEN
 		const caseId = 134;

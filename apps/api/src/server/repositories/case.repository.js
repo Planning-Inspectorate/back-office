@@ -4,6 +4,7 @@ import path from 'node:path';
 import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
+import { generalSection51CaseReference } from '../applications/application/application.config.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
@@ -103,7 +104,7 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 		],
 		where: {
 			NOT: {
-				reference: 'GS5110001'
+				reference: generalSection51CaseReference
 			},
 			OR: [
 				{
@@ -144,7 +145,7 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 	return databaseConnector.case.count({
 		where: {
 			NOT: {
-				reference: 'GS5110001'
+				reference: generalSection51CaseReference
 			},
 			OR: [
 				{
