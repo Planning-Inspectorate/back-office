@@ -1,4 +1,5 @@
 import { databaseConnector } from '#utils/database-connector.js';
+import config from '#config/config.js';
 
 /**
  * @typedef {import('@prisma/client').Document} Document
@@ -257,7 +258,7 @@ export const publishMany = async (documentVersionIds) => {
 		const result = await databaseConnector.documentVersion.update({
 			where: { documentGuid_version },
 			data: {
-				publishedStatus: isTraining ? 'published' : 'publishing',
+				publishedStatus: isTraining || config.authDisabled ? 'published' : 'publishing',
 				publishedStatusPrev: current?.publishedStatus
 			},
 			include: includeClauseDocVersionFull
@@ -308,7 +309,7 @@ export const unpublishMany = async (documentVersionIds) => {
 		const result = await databaseConnector.documentVersion.update({
 			where: { documentGuid_version },
 			data: {
-				publishedStatus: isTraining ? 'unpublished' : 'unpublishing',
+				publishedStatus: isTraining || config.authDisabled ? 'unpublished' : 'unpublishing',
 				publishedStatusPrev: current?.publishedStatus
 			},
 			include: includeClauseDocVersionFull
