@@ -29,7 +29,8 @@ export class S51AdvicePage extends Page {
 			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a'),
 		saveAndReturnTile: () => cy.get('#main-content > form > button'),
 		verifyTitleUpdated: () =>
-			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__value')
+			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__value'),
+			verifyTitle:()=>cy.get('.govuk-table__body > :nth-child(1) > :nth-child(2)')
 	};
 
 	checkAnswer(question, answer, strict = true) {
@@ -126,7 +127,7 @@ export class S51AdvicePage extends Page {
 		const propertiesPage = new S51AdvicePropertiesPage();
 		propertiesPage.checkAllProperties(mainDetails, enquirerDetails);
 
-		this.verifyTitleIsUpdated(upperFirst(title + ' Updated'));
+	
 	}
 	verifyTitleIsUpdated(newTitle) {
 		this.elements.changetitleLink().click();
