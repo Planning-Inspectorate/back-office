@@ -28,6 +28,7 @@
     "db:reset": "npx prisma migrate reset --force",
     "db:seed": "npm run prisma-generate && npx prisma db seed",
     "db:seed:prod": "npm run prisma-generate && cross-env NODE_ENV=production node src/database/seed/seed-production.js",
+    "db:create:gs51": "npm run prisma-generate && node src/database/seed/seed-gs51.js",
     "prisma:format": "npx prisma format",
     "prisma-generate": "npx prisma generate",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"

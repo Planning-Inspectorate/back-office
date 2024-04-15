@@ -110,7 +110,7 @@ export const createGeneralS51Application = async (databaseConnector) => {
 			}
 		});
 
-		Promise.all(createFolders(GS51_case.id)); //TODO: create just s51 folder?
+		await Promise.all(createFolders(GS51_case.id)); //TODO: create just s51 folder?
 	} catch (error) {
 		console.log(error);
 		throw error;

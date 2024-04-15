@@ -206,7 +206,7 @@ const createApplication = async (databaseConnector, subSector, index) => {
 
 	// create folders if case is not in draft state
 	if (caseStatus !== 'draft') {
-		Promise.all(createFolders(newCase.id));
+		await Promise.all(createFolders(newCase.id));
 	}
 	await createProjectUpdates(databaseConnector, newCase.id);
 
