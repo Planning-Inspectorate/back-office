@@ -26,7 +26,7 @@ exports[`applications create applicant GET edit/applicant-address should render 
     <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <p class=\\"govuk-body\\">Applicant address, London, ABC123,</p>
+            <p class=\\"govuk-body\\">Applicant address, London, ABC123</p>
         </div>
         <input type=\\"hidden\\" name=\\"postcode\\" value=\\"ABC123\\">
         <div class=\\"govuk-form-group\\">
