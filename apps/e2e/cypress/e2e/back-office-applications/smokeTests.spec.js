@@ -37,7 +37,7 @@ const itemOptions = [
 	'Compulsory Acquisition Hearing',
 ];
 
-describe('Smoke tests', () => {
+describe('Smoke tests', {browser:"!electron"},() => {
 	let projectInfo;
 
 

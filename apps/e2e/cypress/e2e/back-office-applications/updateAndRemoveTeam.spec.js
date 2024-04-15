@@ -26,7 +26,6 @@ describe('Update and remove team related scenarios ', () => {
 
 	it('As a user able to verify inspector role is added to project team', () => {
 		cy.login(applicationUsers.caseAdmin);
-		cy.log(applicationUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);

@@ -13,7 +13,6 @@ const { applications: applicationsUsers } = users;
 
 describe('Create A Case', () => {
 
-
 	context('As a User', () => {
 		it('Should successfully create a case as a user', () => {
 			cy.login(applicationsUsers.caseAdmin);

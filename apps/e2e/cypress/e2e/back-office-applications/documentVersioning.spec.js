@@ -25,6 +25,10 @@ describe('Document Versioning', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
+	
+	after(() => {
+		cy.deleteDownloads();
+	});
 
 	it('As a user should be able to upload a new version of a document to a case', () => {
 		cy.login(applicationsUsers.caseAdmin);
@@ -43,6 +47,7 @@ describe('Document Versioning', () => {
 		fileUploadPage.verifyDocumentUploaded('sample-doc');
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
+		fileUploadPage.clickDownloadFile();
 		fileUploadPage.uploadFile('test.pdf', true);
 		fileUploadPage.clickButtonByText('Upload');
 		documentPropertiesPage.validateVersionCount(2);
