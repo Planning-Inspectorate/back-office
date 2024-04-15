@@ -158,7 +158,15 @@ export async function applicantAddressData({ query }, locals) {
 		}
 
 		const { address } = currentCase.applicant;
-		return [address.addressLine1, address.addressLine2, address.town, address.postCode]
+		return [
+			address.addressLine1,
+			address.addressLine2,
+			address.town,
+			address.county,
+			address.postCode,
+			address.country
+		]
+			.filter(Boolean)
 			.map((part) => part.trim())
 			.join(', ');
 	})();
