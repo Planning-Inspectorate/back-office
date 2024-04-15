@@ -223,15 +223,16 @@ const mapFolderTemplateWithCaseId = (caseId, folder) => {
  * Returns an array of promises
  *
  * @param {number} caseId
+ * @param {FolderTemplate[]} folders
  * @returns {Promise<Folder>[]}
  */
-export const createFolders = (caseId) => {
+export const createFolders = (caseId, folders = defaultCaseFolders) => {
 	const foldersCreated = [];
 
 	// Prisma many to nested many does not work, so we cannot create the top folders and all subfolders nested using createMany.
 	// so we loop through the top folders, using create to create the folder and all its subfolders, correctly assigning caseId, parentFolderId etc
 	// and we return an array of these promises
-	for (const topLevelFolder of defaultCaseFolders) {
+	for (const topLevelFolder of folders) {
 		const newFolders = {
 			data: mapFolderTemplateWithCaseId(caseId, topLevelFolder)
 		};

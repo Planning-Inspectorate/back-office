@@ -8,6 +8,7 @@ import { setCaseUnpublishedChangesIfTrue } from '#utils/published-case-fields-ch
 import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';
+import { generalSection51CaseReference } from './application.config.js';
 
 /**
  * Express request handler for creating application
@@ -37,6 +38,7 @@ export const updateApplication = async ({ params, body }, response) => {
 		regions: true,
 		caseStatus: true,
 		applicant: true,
+		projectTeam: true,
 		gridReference: true
 	});
 
@@ -104,6 +106,15 @@ export const queryApplications = async ({ params }, response) => {
  */
 export const publishCase = async ({ params: { id } }, response) => {
 	logger.info(`attempting to publish a case with id ${id}`);
+
+	const caseDetails = await caseRepository.getById(id, {});
+
+	if (caseDetails && caseDetails.reference === generalSection51CaseReference) {
+		throw new BackOfficeAppError(
+			`case reference: ${caseDetails.reference} is not authorised for publishing`,
+			403
+		);
+	}
 
 	const publishedCase = await caseRepository.publishCase({
 		caseId: id

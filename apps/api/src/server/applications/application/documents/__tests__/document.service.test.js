@@ -69,7 +69,7 @@ const document = {
 
 const documentWithVersions = {
 	guid: documentGuid,
-	reference: 'BC0110001-000003',
+	documentReference: 'BC0110001-000003',
 	documentName: 'test',
 	folderId: 1111,
 	caseId: caseId,
@@ -143,7 +143,7 @@ const docVersionAfterUpdate = {
 	size: 7945,
 	stage: null,
 	filter1: null,
-	privateBlobContainer: null,
+	privateBlobContainer: 'private-blob',
 	privateBlobPath: '/application/BC0110001/5d4826de-40f5-4b01-a72b-fa507c818799/2',
 	publishedBlobContainer: null,
 	publishedBlobPath: null,
@@ -159,7 +159,7 @@ const docVersionAfterUpdate = {
 	transcriptGuid: null,
 	Document: {
 		guid: documentGuid,
-		reference: 'BC0110001-000004',
+		documentReference: 'BC0110001-000004',
 		folderId: 8,
 		createdAt: '2024-01-31T14:18:26.834Z',
 		isDeleted: false,
@@ -167,15 +167,17 @@ const docVersionAfterUpdate = {
 		caseId: caseId,
 		documentType: 'document',
 		fromFrontOffice: false,
-		case: {
-			id: caseId,
-			reference: 'BC0110001',
-			modifiedAt: '2024-01-17T14:32:37.530Z',
-			createdAt: '2024-01-16T16:44:26.710Z',
-			description: 'A description of test case 1 which is a case of subsector type Office Use.',
-			title: 'Office Use Test Application 1',
-			hasUnpublishedChanges: true,
-			applicantId: 100000000
+		folder: {
+			case: {
+				id: caseId,
+				reference: 'BC0110001',
+				modifiedAt: '2024-01-17T14:32:37.530Z',
+				createdAt: '2024-01-16T16:44:26.710Z',
+				description: 'A description of test case 1 which is a case of subsector type Office Use.',
+				title: 'Office Use Test Application 1',
+				hasUnpublishedChanges: true,
+				applicantId: 100000000
+			}
 		}
 	}
 };
@@ -235,11 +237,11 @@ describe('Document service test', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersionsUnpublished);
 
-		const ressponse = await createDocumentVersion(document, caseId, documentGuid);
+		const response = await createDocumentVersion(document, caseId, documentGuid);
 
-		expect(ressponse.blobStorageHost).toEqual('blob-store-host');
-		expect(ressponse.privateBlobContainer).toEqual('blob-store-container');
-		expect(ressponse.documents).toEqual([
+		expect(response.blobStorageHost).toEqual('blob-store-host');
+		expect(response.privateBlobContainer).toEqual('blob-store-container');
+		expect(response.documents).toEqual([
 			{
 				GUID: documentGuid,
 				blobStoreUrl: `/application/${application.reference}/${documentGuid}/2`,

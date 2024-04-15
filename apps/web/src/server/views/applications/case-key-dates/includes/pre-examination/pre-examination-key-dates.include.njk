@@ -1,0 +1,61 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{%
+  set reOpenRows = [
+    [ { text: "Re-opens" }, { text: formatSectionDate(values.dateOfReOpenRelevantRepresentationStart) } ],
+    [
+      { text: "Re-opening closes" },
+      { text: formatSectionDate(values.dateOfReOpenRelevantRepresentationClose) }
+    ]
+  ]
+%}
+
+{% if isRelevantRepresentationsReOpened %}
+  {%
+    set reOpenRows = reOpenRows | concat([[
+			{ text: "The register to have your say form is now open. It will not be visible in the site menu. You can share the form in email and project updates by copying the link." },
+      { text: govukButton({ attributes: { id: "copy-form-link-button" }, classes: "govuk-button--secondary", text: "Copy form link" }) }
+		]])
+  %}
+{% endif %}
+
+{{ govukTable({
+  caption: "Relevant representations",
+  captionClasses: "govuk-table__caption--m",
+  rows: [
+    [ { text: "dateOfRepresentationPeriodOpen" | keyDatesProperty }, { text: formatSectionDate(values.dateOfRepresentationPeriodOpen) } ],
+    [ { text: "dateOfRelevantRepresentationClose" | keyDatesProperty }, { text: formatSectionDate(values.dateOfRelevantRepresentationClose) } ],
+    [ { text: "extensionToDateRelevantRepresentationsClose" | keyDatesProperty }, { text: formatSectionDate(values.extensionToDateRelevantRepresentationsClose) } ],
+    [ { text: "dateRRepAppearOnWebsite" | keyDatesProperty }, { text: formatSectionDate(values.dateRRepAppearOnWebsite) } ]
+  ]
+}) }}
+
+{{ govukTable({
+  caption: "Relevant representations re-open",
+  captionClasses: "govuk-table__caption--m",
+  rows: reOpenRows
+}) }}
+
+{{ govukTable({
+  caption: "Other dates",
+  captionClasses: "govuk-table__caption--m",
+  rows: [
+    [ { text: "dateIAPIDue" | keyDatesProperty }, { text: formatSectionDate(values.dateIAPIDue) } ],
+    [ { text: "rule6LetterPublishDate" | keyDatesProperty }, { text: formatSectionDate(values.rule6LetterPublishDate) } ],
+    [ { text: "preliminaryMeetingStartDate" | keyDatesProperty }, { text: formatSectionDate(values.preliminaryMeetingStartDate) } ],
+    [ { text: "notificationDateForPMAndEventsDirectlyFollowingPM" | keyDatesProperty }, { text: formatSectionDate(values.notificationDateForPMAndEventsDirectlyFollowingPM) } ],
+    [ { text: "notificationDateForEventsApplicant" | keyDatesProperty }, { text: formatSectionDate(values.notificationDateForEventsApplicant) } ]
+  ]
+}) }}
+
+{% if isRelevantRepresentationsReOpened %}
+  <script nonce="{{ cspNonce }}">
+    document
+      .getElementById('copy-form-link-button')
+      .addEventListener('click', () => {
+        navigator
+          .clipboard
+          .writeText('{{ projectFormLink }}')
+      })
+  </script>
+{% endif %}

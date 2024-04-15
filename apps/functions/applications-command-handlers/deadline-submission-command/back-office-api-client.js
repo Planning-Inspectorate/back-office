@@ -112,16 +112,15 @@ async function lineItemExists(caseID, timetableItemName, lineItem) {
 		}
 	})();
 
-	const timetableItem = results.items.find((item) => item.name === timetableItemName);
+	const timetableItem = results?.items?.find((item) => item.name === timetableItemName);
 	if (!timetableItem) {
 		return false;
 	}
 
 	/** @type {{ bulletPoints: string[] }} */
 	const { bulletPoints } = JSON.parse(timetableItem.description);
-	const _lineItem = bulletPoints.find((bp) => bp.trim() === lineItem);
 
-	return _lineItem !== null;
+	return bulletPoints.find((bp) => bp.trim() === lineItem) !== null;
 }
 
 /**

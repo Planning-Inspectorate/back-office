@@ -1,16 +1,66 @@
 import { databaseConnector } from '#utils/database-connector.js';
+import config from '#config/config.js';
 
 /**
  * @typedef {import('@prisma/client').Document} Document
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
  * @typedef {import('@pins/applications.api').Schema.DocumentUpdateInput} DocumentUpdateInput
+ * @typedef {import('@prisma/client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
+ *
  */
 
 /**
+ * shared include clause for a DocumentVersion with Document with folder with Case with CaseStatus
+ */
+const includeClauseDocVersionFull = {
+	Document: {
+		include: {
+			folder: {
+				include: {
+					case: {
+						include: {
+							CaseStatus: true
+						}
+					}
+				}
+			}
+		}
+	}
+};
 
+/**
+ * shared include clause for a DocumentVersion with Document with folder with Case with CaseStatus
+ * and also ApplicationDetails
+ */
+const includeClauseDocVersionFullWithSector = {
+	Document: {
+		include: {
+			folder: {
+				include: {
+					case: {
+						include: {
+							CaseStatus: true,
+							ApplicationDetails: {
+								include: {
+									subSector: {
+										include: {
+											sector: true
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+
+/**
  * @param {DocumentVersion} metadata
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersion>}
+ * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const upsert = ({ documentGuid, version = 1, transcriptGuid, ...metadata }) => {
 	return databaseConnector.documentVersion.upsert({
@@ -29,60 +79,33 @@ export const upsert = ({ documentGuid, version = 1, transcriptGuid, ...metadata 
 			version
 		},
 
-		include: {
-			Document: {
-				include: {
-					folder: {
-						include: {
-							// TODO: This will never work for nested folders, need to refactor to use new denormalised Case
-							case: {
-								include: {
-									CaseStatus: true
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		include: includeClauseDocVersionFull
 	});
 };
 
 /**
-
+ *
  * @param {{guid: string, status: string, version?: number }} documentStatusUpdate
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersion>}
+ * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
 	return databaseConnector.documentVersion.update({
 		where: { documentGuid_version: { documentGuid: guid, version } },
 		data: { publishedStatus: status },
-		include: {
-			Document: {
-				include: {
-					case: true
-				}
-			}
-		}
+		include: includeClauseDocVersionFull
 	});
 };
 
 /**
 
  * @param {{guid: string, status: string, version?: number, datePublished?: Date }} documentStatusUpdate
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersion>}
+ * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const updateDocumentPublishedStatus = ({ guid, status, version = 1, datePublished }) => {
 	return databaseConnector.documentVersion.update({
 		where: { documentGuid_version: { documentGuid: guid, version } },
 		data: { publishedStatus: status, datePublished },
-		include: {
-			Document: {
-				include: {
-					case: true
-				}
-			}
-		}
+		include: includeClauseDocVersionFull
 	});
 };
 
@@ -99,19 +122,7 @@ export const getById = (documentGuid, version = 1) => {
 		where: { documentGuid_version: { documentGuid, version } },
 
 		include: {
-			Document: {
-				include: {
-					folder: {
-						include: {
-							case: {
-								include: {
-									CaseStatus: true
-								}
-							}
-						}
-					}
-				}
-			},
+			...includeClauseDocVersionFull,
 			DocumentActivityLog: {
 				orderBy: {
 					createdAt: 'desc'
@@ -186,24 +197,15 @@ export const getAllByDocumentGuid = (guid) => {
  *
  * @param {string} documentGuid
  * @param {import('@pins/applications.api').Schema.DocumentVersionUpdateInput} documentDetails
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocument>}
+ * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const update = (documentGuid, { version = 1, ...documentDetails }) => {
 	return databaseConnector.documentVersion.update({
 		where: { documentGuid_version: { documentGuid, version } },
-		include: {
-			Document: {
-				include: {
-					case: true
-				}
-			}
-		},
+		include: includeClauseDocVersionFull,
 		data: documentDetails
 	});
 };
-
-// update DocumentVersion
-// join Document on document.latestVersionId =
 
 /**
  * TODO: Might be worth having an identifier for DocumentVersion that isn't a composite of the documentId and versionNo.
@@ -239,7 +241,7 @@ export const updateAll = async (documentVersionIds, documentDetails) => {
  * Set publishedStatus of training cases to 'published', and non-training cases to 'publishing'.
  *
  * @param {{documentGuid: string, version: number}[]} documentVersionIds
- * @returns {Promise<DocumentVersionWithDocument[]>}
+ * @returns {Promise<DocumentVersionWithDocumentAndFolder[]>}
  */
 export const publishMany = async (documentVersionIds) => {
 	const results = [];
@@ -247,43 +249,19 @@ export const publishMany = async (documentVersionIds) => {
 	for (const documentGuid_version of documentVersionIds) {
 		const current = await databaseConnector.documentVersion.findUnique({
 			where: { documentGuid_version },
-			include: {
-				Document: {
-					include: {
-						case: {
-							include: {
-								ApplicationDetails: {
-									include: {
-										subSector: {
-											include: {
-												sector: true
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+			include: includeClauseDocVersionFullWithSector
 		});
 
 		const isTraining =
-			current?.Document?.case?.ApplicationDetails?.subSector?.sector.name === 'training';
+			current?.Document?.folder.case?.ApplicationDetails?.subSector?.sector.name === 'training';
 
 		const result = await databaseConnector.documentVersion.update({
 			where: { documentGuid_version },
 			data: {
-				publishedStatus: isTraining ? 'published' : 'publishing',
+				publishedStatus: isTraining || config.authDisabled ? 'published' : 'publishing',
 				publishedStatusPrev: current?.publishedStatus
 			},
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
-				}
-			}
+			include: includeClauseDocVersionFull
 		});
 
 		results.push(result);
@@ -296,7 +274,7 @@ export const publishMany = async (documentVersionIds) => {
  * Set publishedStatus of training cases to 'unpublished', and non-training cases to 'unpublishing'.
  *
  * @param {{documentGuid: string, version: number}[]} documentVersionIds
- * @returns {Promise<DocumentVersionWithDocument[]>}
+ * @returns {Promise<DocumentVersionWithDocumentAndFolder[]>}
  */
 export const unpublishMany = async (documentVersionIds) => {
 	const results = [];
@@ -331,16 +309,10 @@ export const unpublishMany = async (documentVersionIds) => {
 		const result = await databaseConnector.documentVersion.update({
 			where: { documentGuid_version },
 			data: {
-				publishedStatus: isTraining ? 'unpublished' : 'unpublishing',
+				publishedStatus: isTraining || config.authDisabled ? 'unpublished' : 'unpublishing',
 				publishedStatusPrev: current?.publishedStatus
 			},
-			include: {
-				Document: {
-					include: {
-						case: true
-					}
-				}
-			}
+			include: includeClauseDocVersionFull
 		});
 
 		results.push(result);

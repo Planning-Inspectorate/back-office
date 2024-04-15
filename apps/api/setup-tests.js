@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
+import { mockSendEvents as sendEvents } from '#utils/schema-test-utils.js';
 
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
 const mockCaseUpdate = jest.fn().mockResolvedValue({});
@@ -7,6 +8,7 @@ const mockCaseCreate = jest.fn().mockResolvedValue({});
 const mockCaseUpdateMany = jest.fn().mockResolvedValue({});
 const mockCaseStatusUpdateMany = jest.fn().mockResolvedValue({});
 const mockCaseStatusCreate = jest.fn().mockResolvedValue({});
+const mockCaseFindFirst = jest.fn().mockResolvedValue({});
 const mockCaseFindMany = jest.fn().mockResolvedValue({});
 const mockCaseCount = jest.fn().mockResolvedValue({});
 
@@ -123,6 +125,7 @@ class MockPrismaClient {
 
 	get case() {
 		return {
+			findFirst: mockCaseFindFirst,
 			findMany: mockCaseFindMany,
 			findUnique: mockCaseFindUnique,
 			update: mockCaseUpdate,
@@ -368,7 +371,7 @@ jest.unstable_mockModule('@prisma/client', () => ({
 	}
 }));
 
-const mockSendEvents = jest.fn();
+const mockSendEvents = jest.fn().mockImplementation(sendEvents);
 
 jest.unstable_mockModule('./src/server/infrastructure/event-client.js', () => ({
 	eventClient: {

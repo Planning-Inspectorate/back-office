@@ -10,4 +10,5 @@ Designs follow the [GDS Design System](https://design-system.service.gov.uk/) in
 
 - [JS Styleguide](../apps/web/src/client/README.md)
 - [Sass / CSS Styleguide](../apps/web/src/styles/README.md)
+- [Simulating AD and OS places lookups](../apps/web/environment/README.md)
 - [Server docs](../apps/web/src/server/README.md)

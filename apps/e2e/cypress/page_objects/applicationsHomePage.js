@@ -3,7 +3,7 @@ import { Page } from './basePage';
 
 export class ApplicationsHomePage extends Page {
 	elements = {
-		createNewCaseButton: () => this.basePageElements.buttonByLabelText('Create New Case Here'),
+		createNewCaseButton: () => this.basePageElements.buttonByLabelText('Create case'),
 		createNewCaseHeader: () => cy.get(':nth-child(2) > .pins-dashboard-box > .govuk-heading-l'),
 		searchApplicationsBtn: () => this.basePageElements.buttonByLabelText('Search'),
 		searchApplicationsInput: () => cy.get('#searchApplications'),

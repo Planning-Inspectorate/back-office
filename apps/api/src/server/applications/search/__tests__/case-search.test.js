@@ -33,6 +33,9 @@ const expectedSearchParameters = (skip, take, query) => {
 			}
 		],
 		where: {
+			NOT: {
+				reference: 'GS5110001'
+			},
 			OR: [
 				{
 					title: { contains: query }

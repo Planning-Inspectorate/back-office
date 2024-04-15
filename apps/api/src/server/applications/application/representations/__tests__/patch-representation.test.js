@@ -3,6 +3,7 @@ import { jest } from '@jest/globals';
 import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_REPRESENTATION, SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -13,16 +14,17 @@ const existingRepresentations = [
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
-		received: '2023-03-14T14:28:25.704Z',
+		type: 'Parish councils',
+		received: new Date('2023-03-14T14:28:25.704Z'),
 		originalRepresentation: 'the original representation',
 		redactedRepresentation: 'redacted version',
 		case: { id: 1, reference: 'BC0110001' },
 		representationActions: [
 			{
-				actionBy: '',
+				actionBy: 'Bill Baily',
 				actionDate: '2022-03-31T23:00:00.000Z',
 				invalidReason: '',
-				notes: '',
+				notes: 'Please ignore',
 				previousRedactStatus: false,
 				previousStatus: 'AWAITING_REVIEW',
 				redactStatus: true,
@@ -82,7 +84,7 @@ const existingRepresentations = [
 		status: 'PUBLISHED',
 		redacted: true,
 		unpublishedUpdates: false,
-		received: '2023-03-14T14:28:25.704Z',
+		received: new Date('2023-03-14T14:28:25.704Z'),
 		originalRepresentation: 'the original representation',
 		redactedRepresentation: 'redacted version',
 		case: { id: 1, reference: 'BC0110001' },
@@ -104,28 +106,27 @@ const existingRepresentations = [
 	}
 ];
 
-const rep1UpdatePayload = [
-	{
-		attachmentIds: [],
-		caseId: 200,
-		caseRef: 'BC0110001',
-		dateReceived: '2023-03-14T14:28:25.704Z',
-		examinationLibraryRef: '',
-		originalRepresentation: 'the original representation',
-		redactedRepresentation: 'redacted version',
-		redacted: true,
-		referenceId: 'BC0110001-2',
-		representationId: 1,
-		status: 'valid',
-		registerFor: undefined,
-		representationFrom: 'AGENT',
-		representationType: null,
-		representativeId: '10382',
-		representedId: '10381'
-	}
-];
+const rep1UpdatePayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
+	attachmentIds: [],
+	caseId: 200,
+	caseRef: 'BC0110001',
+	dateReceived: '2023-03-14T14:28:25.704Z',
+	examinationLibraryRef: '',
+	originalRepresentation: 'the original representation',
+	redactedRepresentation: 'redacted version',
+	redacted: true,
+	redactedBy: 'Bill Baily',
+	redactedNotes: 'Please ignore',
+	referenceId: 'BC0110001-2',
+	representationType: 'Parish Councils',
+	representationId: 1,
+	status: 'valid',
+	representationFrom: 'AGENT',
+	representativeId: '10382',
+	representedId: '10381'
+});
 
-const serviceUserUpdatePayload = [
+const serviceUserUpdatePayload = buildPayloadEventsForSchema(SERVICE_USER, [
 	{
 		id: '10381',
 		firstName: 'Mrs',
@@ -136,12 +137,12 @@ const serviceUserUpdatePayload = [
 		addressCounty: 'A County',
 		addressCountry: 'England',
 		postcode: 'B1 9BB',
-		organisation: null,
-		role: null,
+		caseReference: 'BC0110001',
 		telephoneNumber: '01234 567890',
 		emailAddress: 'sue@example.com',
 		serviceUserType: 'RepresentationContact',
-		sourceSuid: '10381'
+		sourceSuid: '10381',
+		sourceSystem: 'back-office-applications'
 	},
 	{
 		id: '10382',
@@ -153,14 +154,14 @@ const serviceUserUpdatePayload = [
 		addressCounty: 'A County',
 		addressCountry: 'England',
 		postcode: 'P7 9LN',
-		organisation: null,
-		role: null,
+		caseReference: 'BC0110001',
 		telephoneNumber: '01234 567890',
 		emailAddress: 'test-agent@example.com',
 		serviceUserType: 'RepresentationContact',
-		sourceSuid: '10382'
+		sourceSuid: '10382',
+		sourceSystem: 'back-office-applications'
 	}
-];
+]);
 
 describe('Patch Application Representation', () => {
 	beforeAll(() => {

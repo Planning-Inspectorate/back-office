@@ -1,6 +1,7 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { seedStaticData } from './data-static.js';
 import { seedTestData } from './data-test.js';
+import { createGeneralS51Application } from './data-gs51.js';
 import { deleteAllRecords } from './seed-clear.js';
 
 /**
@@ -14,6 +15,7 @@ const seedDevelopment = async () => {
 		await deleteAllRecords(databaseConnector);
 		await seedStaticData(databaseConnector);
 		await seedTestData(databaseConnector);
+		await createGeneralS51Application(databaseConnector);
 	} catch (error) {
 		console.error(error);
 		throw error;

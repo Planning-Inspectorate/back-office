@@ -7,21 +7,7 @@ import * as validators from './applications-create-case.validators.js';
 const applicationsCreateCaseRouter = createRouter();
 
 applicationsCreateCaseRouter
-	.route('/')
-	.get(
-		registerCaseWithQuery(['title', 'description'], true),
-		asyncHandler(controller.viewApplicationsCreateCaseName)
-	)
-	.post(
-		[
-			validators.validateApplicationsCreateCaseName,
-			validators.validateApplicationsCreateCaseDescription
-		],
-		asyncHandler(controller.updateApplicationsCreateCaseName)
-	);
-
-applicationsCreateCaseRouter
-	.route('/sector')
+	.route('/sector/:edit?')
 	.get(
 		registerCaseWithQuery(['sector'], true),
 		asyncHandler(controller.viewApplicationsCreateCaseSector)
@@ -32,7 +18,7 @@ applicationsCreateCaseRouter
 	);
 
 applicationsCreateCaseRouter
-	.route('/sub-sector')
+	.route('/sub-sector/:edit?')
 	.get(
 		registerCaseWithQuery(['subSector', 'sector'], true),
 		asyncHandler(controller.viewApplicationsCreateCaseSubSector)
@@ -43,7 +29,7 @@ applicationsCreateCaseRouter
 	);
 
 applicationsCreateCaseRouter
-	.route('/geographical-information')
+	.route('/geographical-information/:edit?')
 	.get(
 		registerCaseWithQuery(['geographicalInformation'], true),
 		asyncHandler(controller.viewApplicationsCreateCaseGeographicalInformation)
@@ -58,7 +44,7 @@ applicationsCreateCaseRouter
 	);
 
 applicationsCreateCaseRouter
-	.route('/regions')
+	.route('/regions/:edit?')
 	.get(
 		registerCaseWithQuery(['geographicalInformation'], true),
 		asyncHandler(controller.viewApplicationsCreateCaseRegions)
@@ -69,7 +55,7 @@ applicationsCreateCaseRouter
 	);
 
 applicationsCreateCaseRouter
-	.route('/zoom-level')
+	.route('/zoom-level/:edit?')
 	.get(
 		registerCaseWithQuery(['geographicalInformation'], true),
 		asyncHandler(controller.viewApplicationsCreateCaseZoomLevel)
@@ -77,7 +63,7 @@ applicationsCreateCaseRouter
 	.post(asyncHandler(controller.updateApplicationsCreateCaseZoomLevel));
 
 applicationsCreateCaseRouter
-	.route('/team-email')
+	.route('/team-email/:edit?')
 	.get(
 		registerCaseWithQuery(['caseEmail'], true),
 		asyncHandler(controller.viewApplicationsCreateCaseTeamEmail)
@@ -85,6 +71,20 @@ applicationsCreateCaseRouter
 	.post(
 		validators.validateApplicationsTeamEmail,
 		asyncHandler(controller.updateApplicationsCreateCaseTeamEmail)
+	);
+
+applicationsCreateCaseRouter
+	.route(['/', '/title/:edit'])
+	.get(
+		registerCaseWithQuery(['title', 'description'], true),
+		asyncHandler(controller.viewApplicationsCreateCaseName)
+	)
+	.post(
+		[
+			validators.validateApplicationsCreateCaseName,
+			validators.validateApplicationsCreateCaseDescription
+		],
+		asyncHandler(controller.updateApplicationsCreateCaseName)
 	);
 
 export default applicationsCreateCaseRouter;

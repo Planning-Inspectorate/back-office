@@ -2,7 +2,12 @@
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
+{% set isGeneralS51 = case.reference === gs51CaseReference %}
 {% set serviceName = ["S51 advice item successfully unpublished ", action] | join %}
+
+{% if isGeneralS51 %}
+	{% set serviceName = ["General S51 advice item successfully unpublished ", action] | join %}
+{% endif %}
 
 {% block beforeContent %}{% endblock %}
 {% block pageHeading %}{% endblock %}
@@ -11,9 +16,11 @@
 
 	{% set bannerDetails%}
 	<p class='govuk-!-font-size-19'>
+		{% if not isGeneralS51 %}
 		Case: {{case.title}}
 		<br/>
 		Reference: {{case.reference}}
+		{% endif %}
 	</p>
 	{% endset %}
 	<div class="govuk-grid-row">
@@ -23,13 +30,14 @@
 				html: bannerDetails
 			}) }}
 
-            <div class='govuk-!-font-size-19'>
-                <p class='govuk-!-margin-top-0 govuk-!-margin-right-2'>The S51 advice will be removed from the NI website within the hour.</p>
-            </div>
+			<div class='govuk-!-font-size-19'>
+				<p class='govuk-!-margin-top-0 govuk-!-margin-right-2'>The {% if isGeneralS51 %}General{% endif %} S51 advice will be removed from the NI website within the hour.</p>
+			</div>
 			<div class='govuk-!-font-size-19 display--flex'>
 				<p class='govuk-!-margin-top-0 govuk-!-margin-right-2'>Return to folder: </p>
-				<a href='{{'s51-list'|url({caseId: caseId, folderId: folderId })}}'' class="govuk-link">
-					Project documentation > <strong>S51 Advice</strong>
+				<a href='{{'s51-list'|url({caseId: caseId, folderId: folderId })}}''' class="govuk-link">
+					Project documentation > <strong>
+						{% if isGeneralS51 %}General {% endif %}S51 Advice</strong>
 				</a>
 			</div>
 		</div>

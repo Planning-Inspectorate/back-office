@@ -1,3 +1,5 @@
+import { buildInclusionsFromQuery } from '#utils/schema-test-utils.js';
+
 /**
  * @returns {string}
  */
@@ -39,8 +41,6 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
 		id: 1,
 		caseId: 1,
 		caseEmail: 'test@test.com',
-		submissionAtInternal: new Date(1_658_486_313_000),
-		submissionAtPublished: 'Q1 2023',
 		locationDescription: 'Some Location',
 		...(regions && {
 			regions: [
@@ -89,7 +89,45 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
 					displayNameCy: 'Business and Commercial'
 				}
 			}
-		})
+		}),
+		datePINSFirstNotifiedOfProject: null,
+		dateProjectAppearsOnWebsite: null,
+		submissionAtInternal: new Date(1_658_486_313_000),
+		submissionAtPublished: 'Q1 2023',
+		screeningOpinionSought: null,
+		screeningOpinionIssued: null,
+		scopingOpinionSought: null,
+		scopingOpinionIssued: null,
+		section46Notification: null,
+		dateOfDCOSubmission: null,
+		deadlineForAcceptanceDecision: null,
+		dateOfDCOAcceptance: null,
+		dateOfNonAcceptance: null,
+		dateOfRepresentationPeriodOpen: null,
+		dateOfRelevantRepresentationClose: null,
+		extensionToDateRelevantRepresentationsClose: null,
+		dateOfReOpenRelevantRepresentationStart: null,
+		dateOfReOpenRelevantRepresentationClose: null,
+		dateRRepAppearOnWebsite: null,
+		dateIAPIDue: null,
+		rule6LetterPublishDate: null,
+		preliminaryMeetingStartDate: null,
+		notificationDateForPMAndEventsDirectlyFollowingPM: null,
+		notificationDateForEventsApplicant: null,
+		dateSection58NoticeReceived: null,
+		confirmedStartOfExamination: null,
+		rule8LetterPublishDate: null,
+		deadlineForCloseOfExamination: null,
+		dateTimeExaminationEnds: null,
+		stage4ExtensionToExamCloseDate: null,
+		deadlineForSubmissionOfRecommendation: null,
+		dateOfRecommendations: null,
+		stage5ExtensionToRecommendationDeadline: null,
+		deadlineForDecision: null,
+		confirmedDateOfDecision: null,
+		stage5ExtensionToDecisionDeadline: null,
+		jRPeriodEndDate: null,
+		dateProjectWithdrawn: null
 	};
 };
 
@@ -97,6 +135,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  *
  * @param {{
  *  id: number,
+ *  applicantId?: number | undefined,
  *  title: string | null,
  *  description: string | null,
  *  caseStatus: string,
@@ -108,6 +147,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
  */
 export const applicationFactoryForTests = ({
 	id,
+	applicantId = 1,
 	title,
 	description,
 	caseStatus,
@@ -117,6 +157,7 @@ export const applicationFactoryForTests = ({
 }) => {
 	return {
 		id,
+		applicantId: applicantId ?? applicant?.id ?? null,
 		reference: reference || generateApplicationReference(),
 		title,
 		description,
@@ -141,8 +182,8 @@ export const applicationFactoryForTests = ({
 		...(inclusions.gridReference && {
 			gridReference: {
 				id: 1,
-				easting: 123_456,
-				northing: 654_321
+				easting: 123456,
+				northing: 654321
 			}
 		}),
 		...(inclusions.applicant && { applicant: applicant }),
@@ -153,5 +194,15 @@ export const applicationFactoryForTests = ({
 				subSector: inclusions.subSector
 			})
 		})
+	};
+};
+
+export const mockApplicationGet = (factoryOptions = {}, otherOptions = {}) => {
+	return (query) => {
+		const result = applicationFactoryForTests({
+			inclusions: buildInclusionsFromQuery(query),
+			...factoryOptions
+		});
+		return { ...result, ...otherOptions };
 	};
 };

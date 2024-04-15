@@ -4,6 +4,7 @@ import path from 'node:path';
 import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
+import { generalSection51CaseReference } from '../applications/application/application.config.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
@@ -102,6 +103,9 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 			}
 		],
 		where: {
+			NOT: {
+				reference: generalSection51CaseReference
+			},
 			OR: [
 				{
 					title: { contains: query }
@@ -140,6 +144,9 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 export const getApplicationsCountBySearchCriteria = (query) => {
 	return databaseConnector.case.count({
 		where: {
+			NOT: {
+				reference: generalSection51CaseReference
+			},
 			OR: [
 				{
 					title: { contains: query }
@@ -378,8 +385,10 @@ export const updateApplication = async ({
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
+		casePublishedState: true,
 		applicant: true,
-		gridReference: true
+		gridReference: true,
+		projectTeam: true
 	});
 };
 
@@ -581,8 +590,10 @@ export const updateApplicationStatusAndDataById = async (
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
+		casePublishedState: true,
 		applicant: true,
-		gridReference: true
+		gridReference: true,
+		projectTeam: true
 	});
 };
 
