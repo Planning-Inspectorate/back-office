@@ -25,7 +25,7 @@ It is now possible to run the e2e tests against your local branch running in htt
 - Simulate looking up users required in the tests
 - Simulate looking up addresses required in the tests
 
-### Set up your local .env files as follows:
+### Make sure your local .env files have the following:
 
 #### apps/e2e/.env
 - AUTH_DISABLED=true
@@ -44,7 +44,8 @@ It is now possible to run the e2e tests against your local branch running in htt
 - DUMMY_ADDRESS_DATA=true
 
 #### apps/api/.env
-- VIRUS_SCANNER_DISABLED=true
+- AUTH_DISABLED=true
+- VIRUS_SCANNING_DISABLED=true
 - AZURE_BLOB_STORE_HOST=blob-store-host
 - AZURE_BLOB_STORE_CONTAINER=blob-store-container
 

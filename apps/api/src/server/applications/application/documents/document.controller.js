@@ -4,6 +4,7 @@ import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import BackOfficeAppError from '#utils/app-error.js';
+import config from '#config/config.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
@@ -572,7 +573,7 @@ export const publishDocuments = async ({ body }, response) => {
 	response.send(
 		successful.map((/** @type {string} */ guid) => ({
 			guid,
-			publishedStatus: 'publishing'
+			publishedStatus: config.authDisabled ? 'published' : 'publishing'
 		}))
 	);
 };
