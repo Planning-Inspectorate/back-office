@@ -148,22 +148,20 @@ export async function applicantAddressData({ query }, locals) {
 	const { postcode: queryPostcode } = query;
 	const { currentCase } = locals;
 
-	const singlePostcode = queryPostcode ? `${queryPostcode}` : null;
-	const trimAddressPart = (/** @type {string | undefined} */ addressPart) =>
-		addressPart ? `${addressPart.trim()}, ` : '';
-
-	let applicantAddress = '';
-
-	if (currentCase?.applicant?.address) {
-		const { address } = currentCase.applicant;
-
-		applicantAddress = `${trimAddressPart(address.addressLine1)}${trimAddressPart(
-			address.addressLine2
-		)}${trimAddressPart(address.town)}${trimAddressPart(address.postCode)}`;
-	}
-
+	const singlePostcode = queryPostcode ? String(queryPostcode) : null;
 	const postcode = singlePostcode || currentCase?.applicant?.address?.postCode;
 	const formStage = queryPostcode ? 'manualAddress' : 'searchPostcode';
+
+	const applicantAddress = (() => {
+		if (!currentCase?.applicant?.address) {
+			return '';
+		}
+
+		const { address } = currentCase.applicant;
+		return [address.addressLine1, address.addressLine2, address.town, address.postCode]
+			.map((part) => part.trim())
+			.join(', ');
+	})();
 
 	return { formStage, postcode, applicantAddress };
 }
