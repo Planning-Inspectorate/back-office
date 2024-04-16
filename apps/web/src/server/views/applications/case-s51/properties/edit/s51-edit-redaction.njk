@@ -20,12 +20,15 @@
   ]
   %}
 
+
+	{% set defaultValue = values.redactedStatus if values.redactedStatus !== '' else 'unredacted' %}
+
   {{ govukRadios({
     name: 'redactedStatus',
     id: 'redactedStatus',
     items: statusItems,
     errorMessage: errors.redactedStatus,
-    items: statusItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.redactedStatus})
+    items: statusItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: defaultValue})
 
   }) }}
 {% endblock %}

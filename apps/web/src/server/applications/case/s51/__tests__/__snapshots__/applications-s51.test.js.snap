@@ -141,12 +141,12 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry details</dt>
                             <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                 ex ea commodo consequat</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-details\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-detail\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advice given by (internal use only)</dt>
                             <dd                             class=\\"govuk-summary-list__value\\">Do</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/adviser\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/person\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date advice given</dt>
@@ -575,12 +575,12 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Enquiry details</dt>
                             <dd class=\\"govuk-summary-list__value\\">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                 ex ea commodo consequat</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-details\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
+                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-detail\\"> Change<span class=\\"govuk-visually-hidden\\"> Enquiry details</span></a>
                             </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Advice given by (internal use only)</dt>
                             <dd                             class=\\"govuk-summary-list__value\\">Do</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/adviser\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/s51-advice/1/edit/person\\"> Change<span class=\\"govuk-visually-hidden\\"> Advice given by (internal use only)</span></a>
                                 </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Date advice given</dt>
