@@ -69,7 +69,7 @@ export const validateS51Enquirer = (request, response, next) => {
 	const checkNotNull = body('all')
 		.custom((_, { req }) => {
 			const body = req.body;
-			// creation name fields are slightly different than update name fields
+			// input fields in the creation flow are different than updating flow
 			// important to check both scenarios
 			const allEmpty = !(
 				!body.enquirerFirstName &&
@@ -87,7 +87,9 @@ export const validateS51Enquirer = (request, response, next) => {
 	const checkLastNameIfFirstName = body('enquirerLastName')
 		.custom((_, { req }) => {
 			const body = req.body;
-			const lastNameNotDefined = !(!!body.enquirerFirstName && !body.enquirerLastName);
+			const firstName = body.enquirerFirstName || body.firstName;
+			const lastName = body.enquirerLastName || body.lastName;
+			const lastNameNotDefined = !(!!firstName && !lastName);
 
 			return lastNameNotDefined;
 		})
@@ -96,7 +98,9 @@ export const validateS51Enquirer = (request, response, next) => {
 	const checkFirstNameIfLastName = body('enquirerFirstName')
 		.custom((_, { req }) => {
 			const body = req.body;
-			const firstNameNotDefined = !(!body.enquirerFirstName && !!body.enquirerLastName);
+			const firstName = body.enquirerFirstName || body.firstName;
+			const lastName = body.enquirerLastName || body.lastName;
+			const firstNameNotDefined = !(!firstName && !!lastName);
 
 			return firstNameNotDefined;
 		})

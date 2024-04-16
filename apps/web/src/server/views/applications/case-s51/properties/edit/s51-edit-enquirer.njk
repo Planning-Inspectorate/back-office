@@ -17,7 +17,7 @@
     id: 'firstName',
     name: 'firstName',
     classes: 'govuk-!-width-one-third',
-    errorMessage: errors.firstName | errorMessage,
+    errorMessage: errors.enquirerFirstName | errorMessage,
     value: values.firstName
   }) }}
   {{ govukInput({
@@ -28,7 +28,7 @@
     id: 'lastName',
     name: 'lastName',
     classes: 'govuk-!-width-one-third',
-    errorMessage: errors.lastName | errorMessage,
+    errorMessage: errors.enquirerLastName | errorMessage,
     value: values.lastName
   }) }}
   {{ govukInput({
@@ -39,7 +39,7 @@
     id: 'enquirer',
     name: 'enquirer',
     classes: 'govuk-!-width-one-third',
-    errorMessage: errors.enquirer | errorMessage,
+    errorMessage: errors.organisation | errorMessage,
     value: values.enquirer
   }) }}
 {% endblock %}
