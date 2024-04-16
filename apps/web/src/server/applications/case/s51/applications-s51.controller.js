@@ -152,34 +152,35 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function postApplicationsCaseEditS51Item(
-	{ body, params, errors: validationErrors },
+	{ body: values, params, errors: validationErrors },
 	response
 ) {
 	const { adviceId, step } = params;
 	const { caseId, title, folderId } = response.locals;
-	const payload = mapUpdateBodyToPayload(body);
+	const payload = mapUpdateBodyToPayload(values);
 
+	let titleErrors;
 	if (step === 'title') {
-		const titleErrors = title ? null : 'Title not valid';
+		titleErrors = title ? null : 'Title not valid';
 
-		const { errors } = await checkS51NameIsUnique(caseId, title);
-
-		if (titleErrors || errors) {
-			return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
-				adviceId,
-				folderId,
-				errors: titleErrors || errors
-			});
+		if (!titleErrors) {
+			const { errors } = await checkS51NameIsUnique(caseId, title);
+			titleErrors = errors;
 		}
 	}
 
-	const { errors } = await updateS51Advice(caseId, Number(adviceId), payload);
+	let apiErrors;
+	if (!titleErrors && !validationErrors) {
+		const { errors } = await updateS51Advice(caseId, Number(adviceId), payload);
+		apiErrors = errors;
+	}
 
-	if (validationErrors || errors) {
+	if (titleErrors || validationErrors || apiErrors) {
 		return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
 			adviceId,
 			folderId,
-			errors: validationErrors || errors
+			values,
+			errors: titleErrors || validationErrors || apiErrors
 		});
 	}
 
