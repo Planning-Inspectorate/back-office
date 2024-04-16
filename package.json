@@ -36,7 +36,7 @@
 		"web:applications": "npm run dev --workspace=@pins/applications.web",
 		"api:applications": "npm run dev --workspace=@pins/applications.api",
 		"api:test:applications": "npm run start:test --workspace=@pins/applications.api-testing",
-		"e2e:smokeTests": "npm run cy:run --workspace=@pins/e2e -- --spec cypress/e2e/back-office-applications/smokeTests.spec.js"
+		"e2e:smokeTests": "npm run cy:run --workspace=@pins/e2e -- --browser chrome  --spec cypress/e2e/back-office-applications/smokeTests.spec.js"
 	},
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "20.0.1",

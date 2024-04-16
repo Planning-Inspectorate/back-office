@@ -53,6 +53,7 @@ export class Page {
 		projectManagement: 'span.font-weight--700:nth-child(2)',
 		unpublish: 'a.govuk-button:nth-child(5)',
 		caseRefTraining :':nth-child(2) > .govuk-table__body > :nth-child(1) > :nth-child(2)',
+		projectDocumentation:':nth-child(1) > .govuk-breadcrumbs__link',
 		backToOverview:'.govuk-grid-column-two-thirds > a:nth-child(3)',
 		backToProjectOverview:'.govuk-back-link',
 		unpublishProject:'.colour--red'
@@ -110,6 +111,7 @@ export class Page {
 		genericText: () => cy.get(this.selectors.body),
 		projectManagement: () => cy.get(this.selectors.projectManagement),
 		unpublishLink: () => cy.get(this.selectors.unpublish),
+		projectDocumentationLink: () => cy.get(this.selectors.projectDocumentation),
 		backToOverviewPage:()=>cy.get(this.selectors.backToOverview),
 		backToProjectPage:()=>cy.get(this.selectors.backToProjectOverview),
 		clickOnUnpublishProjectLink:()=>cy.get(this.selectors.unpublishProject)
@@ -301,6 +303,12 @@ export class Page {
 	}
 	goToFolderDocumentPage(){
 		this.basePageElements.projectManagement().click();
+	}
+	clickonProjectDocumentation(){
+		this.basePageElements.projectDocumentationLink().click();
+	}
+	gotoProjectOverviewpage(){
+		this.basePageElements.backLink().click();
 	}
 	publishUnpublishProject(){
 		cy.get(':nth-child(1) > .govuk-breadcrumbs__link').click();
