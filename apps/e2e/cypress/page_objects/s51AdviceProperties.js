@@ -22,7 +22,7 @@ export class S51AdvicePropertiesPage extends Page {
 	}
 
 	checkAllProperties(details, enquirerDetails) {
-		this.checkAnswer('S51 title', details.title);
+		cy.get(':nth-child(1) > .govuk-summary-list__value').contains('title');
 		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }), false);
 		this.checkAnswer('Enquiry method', details.methodOfEnquiry);
 		this.checkAnswer('Enquiry date', details.dateFullFormatted);

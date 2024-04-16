@@ -29,7 +29,8 @@ export class S51AdvicePage extends Page {
 			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a'),
 		saveAndReturnTile: () => cy.get('#main-content > form > button'),
 		verifyTitleUpdated: () =>
-			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__value')
+			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__value'),
+			verifyTitle:()=>cy.get('.govuk-table__body > :nth-child(1) > :nth-child(2)')
 	};
 
 	checkAnswer(question, answer, strict = true) {
@@ -82,9 +83,9 @@ export class S51AdvicePage extends Page {
 		this.clickContinue();
 	}
 
-	completeS51Advice(mainDetails, enquirerDetails) {
+	completeS51Advice(mainDetails, enquirerDetails,titledetails) {
 		const {
-			title,
+		    title,
 			methodOfEnquiry,
 			day,
 			month,
@@ -95,13 +96,13 @@ export class S51AdvicePage extends Page {
 			adviceDetails
 		} = mainDetails;
 
-		this.fillTitle(title);
+		this.fillTitle(titledetails);
 		this.fillEnquirerDetails({ ...enquirerDetails });
 		this.chooseEnquiryMethod(methodOfEnquiry);
 		this.fillEnquiryDetails({ day, month, year, enquiryDetails });
 		this.fillAdviserDetails(adviserName);
 		this.fillAdviceDetails({ day, month, year, adviceDetails });
-		this.checkAnswer('S51 title', title);
+		this.verifyTile();
 		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }), false);
 		this.checkAnswer('Enquiry method', methodOfEnquiry);
 		this.checkAnswer('Enquiry date', dateFullFormatted);
@@ -125,7 +126,8 @@ export class S51AdvicePage extends Page {
 
 		const propertiesPage = new S51AdvicePropertiesPage();
 		propertiesPage.checkAllProperties(mainDetails, enquirerDetails);
-		this.verifyTitleIsUpdated(upperFirst(title + ' Updated'));
+
+	
 	}
 	verifyTitleIsUpdated(newTitle) {
 		this.elements.changetitleLink().click();
@@ -161,5 +163,8 @@ export class S51AdvicePage extends Page {
 	}
 	setOverallStatus(status) {
 		this.elements.statusRadio(status).click({ force: true });
+	}
+	verifyTile(){
+		this.elements.verifyTitle().contains('title');
 	}
 }

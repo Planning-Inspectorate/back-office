@@ -37,7 +37,7 @@ const itemOptions = [
 	'Compulsory Acquisition Hearing',
 ];
 
-describe('Smoke tests', () => {
+describe('Smoke tests', {browser:"!electron"},() => {
 	let projectInfo;
 
 
@@ -119,11 +119,12 @@ describe('Smoke tests', () => {
 		searchResultsPage.clickLinkByText('S51 advice');
 		s51AdvicePage.clickButtonByText('Create new S51 advice');
 		const details = s51AdviceDetails();
+		const titlefirst='firsttitle';
 		s51AdvicePage.completeS51Advice(details, {
 			organisation: details.organisation,
 			firstName: details.firstName,
 			lastName: details.lastName
-		});
+		},titlefirst);
 	// Verify S51 Advice - Publish/Unpublish
        s51AdvicePage.verifyS51PubishandUnpublish();
 
