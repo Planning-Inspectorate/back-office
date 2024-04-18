@@ -16,7 +16,7 @@ export default async function (
 		await migrateSelectGeneralS51Advice(context.log, adviceIdList);
 	} else if (migrationType === 'all') {
 		context.log('Migrating all General S51 Advice: ');
-		await migrateGeneralS51Advice(context.log, offset);
+		await migrateGeneralS51Advice(context.log, Number(offset));
 	} else {
 		throw Error('Request body did not contain expected parameters');
 	}
