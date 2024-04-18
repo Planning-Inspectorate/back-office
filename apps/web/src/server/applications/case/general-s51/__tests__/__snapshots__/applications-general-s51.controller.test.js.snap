@@ -25,7 +25,7 @@ exports[`General section 51 page #viewGeneralSection51page should render the gen
             </script>
             <div class=\\"govuk-width-container\\">
                 <div class=\\"govuk-grid-row govuk-!-margin-top-0\\">
-                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/111111111/project-documentation/21/s51-advice/create/title\\"> Create new general S51 advice</a>
+                    <div class=\\"govuk-grid-column-two-thirds govuk-!-margin-top-0\\"><a class=\\"govuk-button govuk-button--secondary govuk-!-margin-0\\" href=\\"/applications-service/case/111111111/project-documentation/21/s51-advice/create/title\\"> Create new</a>
                     </div>
                     <div class=\\"govuk-grid-column-one-third\\"><a class=\\"govuk-link govuk-body-m govuk-!-text-align-right\\" href=\\"/applications-service/case/111111111/project-documentation/21/s51-advice/publishing-queue\\"> General S51 publishing queue</a>
                     </div>

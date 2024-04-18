@@ -15,7 +15,7 @@
 	{% if isS51folder %}
 		{% set buttonHref = 's51-create' | url({caseId: caseId, documentationCategory: currentFolder, step: 'title'}) %}
 			{% if isGeneralS51folder %}
-				{% set buttonText = "Create new general S51 advice"%}
+				{% set buttonText = "Create new"%}
 			{% else %}
 				{% set buttonText = "Create new S51 advice"%}
 			{% endif %}
