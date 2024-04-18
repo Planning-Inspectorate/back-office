@@ -1,7 +1,7 @@
 import { SynapseDB } from '../synapse-db.js';
 import { makePostRequest } from '../back-office-api-client.js';
 import { pick } from 'lodash-es';
-import { BO_GENERAL_CASE_REF, ODW_GENERAL_CASE_REF } from '../constants.js';
+import { BO_GENERAL_S51_CASE_REF, ODW_GENERAL_S51_CASE_REF } from '@pins/applications';
 
 const query = 'SELECT * FROM [odw_curated_db].[dbo].[nsip_s51_advice] WHERE caseReference = ?';
 
@@ -51,8 +51,12 @@ export async function migrateS51AdviceForCase(log, caseReference, synapseQuery =
 		});
 
 		const s51AdviceEntities = s51AdviceRows.map((row) => {
-			if (caseReference === ODW_GENERAL_CASE_REF) {
-				mapGeneralToBoCaseRef(row);
+			if (caseReference === ODW_GENERAL_S51_CASE_REF) {
+				row.adviceReference = row.adviceReference.replace(
+					ODW_GENERAL_S51_CASE_REF,
+					BO_GENERAL_S51_CASE_REF
+				);
+				row.caseReference = BO_GENERAL_S51_CASE_REF;
 			}
 			return {
 				...pick(row, s51AdviceProperties),
@@ -90,8 +94,3 @@ const mapStatus = (status) =>
 		'do not publish': 'donotpublish',
 		depublished: 'unchecked'
 	}[status]);
-
-const mapGeneralToBoCaseRef = (row) => {
-	row.adviceReference = row.adviceReference.replace(ODW_GENERAL_CASE_REF, BO_GENERAL_CASE_REF);
-	row.caseReference = BO_GENERAL_CASE_REF;
-};
