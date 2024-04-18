@@ -19,30 +19,13 @@ const { applications: applicationsUsers } = users;
 
 describe('Upload different types of document and validate the transcript value', () => {
 	let projectInfo;
-
-	beforeEach(() => {
+	before(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
-	 function fileUpload(filename) {
-		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile(filename);
-		searchResultsPage.clickButtonByText('Save and continue');
-		fileUploadPage.verifyFolderDocuments(1);
-		fileUploadPage.verifyUploadIsComplete();
-      }
 
-	  function enterDocRefandValidateTranscriptValue(){
-		cy.wrap(documentPropertiesPage.getDocumentRefNumber()).then(()=>{
-		cy.log("Printing the cypress env value: " + Cypress.env("DocRef"));
-		const docRefer=Cypress.env("DocRef")
-		var splitRef=docRefer.split(' ')[3]
-		documentPropertiesPage.enterDocumentRefNumber(splitRef);
-		documentPropertiesPage.validateTranscriptValue();
-		})
-	  }
 
 	it('As a user should be able to upload a document to a case', () => {
 		cy.login(applicationsUsers.caseAdmin);
@@ -54,7 +37,7 @@ describe('Upload different types of document and validate the transcript value',
 		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUpload('sample-doc.pdf');
+		fileUploadPage.fileUpload('sample-doc.pdf',1);
 	});
 	it('As a user  able to upload a html file to a case and validate the transcript value', () => {
 		cy.login(applicationsUsers.caseAdmin);
@@ -66,9 +49,9 @@ describe('Upload different types of document and validate the transcript value',
 		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUpload('NI_Video_Template_2.html');
+		fileUploadPage.fileUpload('NI_Video_Template_2.html',2);
 		fileUploadPage.clickLinkByText('View/Edit properties');
-		enterDocRefandValidateTranscriptValue();
+		documentPropertiesPage.enterDocRefandValidateTranscriptValue();
 	});
 
 	it('As a user able to upload MP3 file to a case and validate the transcript value', () => {
@@ -82,9 +65,9 @@ describe('Upload different types of document and validate the transcript value',
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUpload('Sample.mp3');
+		fileUploadPage.fileUpload('Sample.mp3',3);
 		fileUploadPage.clickLinkByText('View/Edit properties');
-		enterDocRefandValidateTranscriptValue();
+		documentPropertiesPage.enterDocRefandValidateTranscriptValue();
 	});
 	it('As a user able to upload a video file to a case and validate the transcript value', () => {
 		cy.login(applicationsUsers.caseAdmin);
@@ -96,9 +79,9 @@ describe('Upload different types of document and validate the transcript value',
 		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUpload('sample-video.mp4');
+		fileUploadPage.fileUpload('sample-video.mp4',4);
 		fileUploadPage.clickLinkByText('View/Edit properties');
-		enterDocRefandValidateTranscriptValue();
+		documentPropertiesPage.enterDocRefandValidateTranscriptValue();
 	});
 	it('As a user enters incorrect document reference number then error will displayed ', () => {
 		cy.login(applicationsUsers.caseAdmin);
@@ -110,10 +93,9 @@ describe('Upload different types of document and validate the transcript value',
 		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUpload('NI_Template_2.html');
+		fileUploadPage.fileUpload('NI_Template_2.html',5);
 		fileUploadPage.clickLinkByText('View/Edit properties')
 		documentPropertiesPage.enterIncorrectDocumentRefNumber(caseRef);
 		documentPropertiesPage.validateDocumentErrorMessage();
 	});
-
 });

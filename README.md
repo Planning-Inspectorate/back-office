@@ -2,7 +2,7 @@
 
 This is the Planning Inspectorate Back Office monorepo that contains all the apps for running the back office. 
 
-The back office system contains individual stacks for appeal and applications back office features. Each includes a JSON API, which retrieves data from a database, and a web front-end (utilising [server-side rendering](https://web.dev/rendering-on-the-web/#server-rendering)). There are also some [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview) for background tasks (such as virus scans), [Azure Blob Storage](https://azure.microsoft.com/en-gb/products/storage/blobs) is used for documents, and [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) for integration.
+The back office system contains the applications back office features, including a JSON API which retrieves data from a database, and a web front-end (utilising [server-side rendering](https://web.dev/rendering-on-the-web/#server-rendering)). There are also some [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview) for background tasks (such as virus scans), [Azure Blob Storage](https://azure.microsoft.com/en-gb/products/storage/blobs) is used for documents, and [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) for integration.
 
 Most of the apps are built with [Express.js](https://expressjs.com/), and the front-end uses the [Nunjucks templating language](https://mozilla.github.io/nunjucks/templating.html) and the [GOV.UK Design System](https://design-system.service.gov.uk/).
 
@@ -73,7 +73,7 @@ exit
 ```
 
 > [!IMPORTANT]
-> If setting up both Applications and Appeals back offices locally, it is recommended to create 2 separate databases, so they can be referenced independently from `apps/api` and `appeals/api` configurations.
+> If setting up both Applications and Appeals back offices locally, it is recommended to create 2 separate databases, so they can be referenced independently.
 
 **Notes for M1 Macs**
 
@@ -107,7 +107,7 @@ Install Azure Data Studio, and after setting up the database in Docker as descri
 
 #### Environment Setup
 > [!IMPORTANT]
-> The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please note that the following operations need to be executed in the `appeals/api` folder instead.
+> The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please refer to the separate appeals repository.
 
 The `api` app needs to know how to connect to the database. Copy the `.env.example` to `.env` in `apps/api` and replace `<YourStrong@Passw0rd>` in `DATABASE_URL`.
 
@@ -115,17 +115,9 @@ The `api` app needs to know how to connect to the database. Copy the `.env.examp
 DATABASE_URL="sqlserver://0.0.0.0:1433;database=pins_development;user=sa;password=<YourStrong@Passw0rd>;trustServerCertificate=true"
 ```
 
-##### Appeals API
-
-Add the following env var to the `.env` file in `appeals/api`
-
-```
-TEST_MAILBOX=test@example.com
-```
-
 #### Schema & Seed Data
 > [!IMPORTANT]
-> The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please note that the following operations need to be executed in the `appeals/api` folder instead.
+> The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please refer to the separate appeals repository.
 
 1. First setup the database schema
 
@@ -156,10 +148,7 @@ npm uninstall pins-data-model && npm prune && npm install github:Planning-Inspec
 
 ### Running Locally the Applications Stack
 
-> [!IMPORTANT]
-> If running the Appeal Back Office instead of the Applications Back Office, apply the below to the `appeals` folder instead.
-
-Ensure a database is running and setup, then:
+Ensure a database is running and set up, then:
 
 1. `apps/api` requires an `.env` file, copying `.env.example` gives a good starting point (see also [Database Environment Setup](#environment-setup))
 2. `apps/web` requires a `.env` file, copying `.env.example` gives a good starting point and should work [env var values must be requested to the DevOps team in order to run the application locally]
@@ -174,25 +163,15 @@ npm run api:applications
 npm run web:applications
 ```
 
-For appeals:
-```shell
-# terminal 1
-npm run api:appeals
-# terminal 2
-npm run web:appeals
-```
-
 You can also run the dev script in all apps via [Turbo](https://turbo.build/repo/docs), from root (although this sometimes fails due to an [npm bug](https://github.com/npm/cli/issues/5066)):
 
 ```shell
 npm run dev:applications
-# or
-npm run dev:appeals
 ```
 
 ## Structure
 
-The main folders are `apps` (which contains the deployable services, such as the API and web front-end for the Application stack), `appeals` (which contains the deployable services, such as the API and web front-end for the Appeal stack) and `packages` which contains libraries, as well as shared code and configuration. The whole setup is using [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
+The main folders are `apps` (which contains the deployable services, such as the API and web front-end for the Application stack) and `packages` which contains libraries, as well as shared code and configuration. The whole setup is using [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 
 ## Building
 
@@ -221,7 +200,7 @@ npm run test
 
 ## API Documentation
 > [!IMPORTANT]
-> The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please note that the following operations need to be executed in the `appeals/api` folder instead.
+> The following guide is specific to the development of the Applications Back Office. If setting-up the Appeals Back Office, please refer to the separate appeals repository.
 
 The API is documented using an [OpenAPI (previously Swagger) spec](https://swagger.io/specification/v2/). The spec is generated from code comments in the Express route definitions.
 

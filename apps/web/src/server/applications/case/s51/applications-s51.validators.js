@@ -21,9 +21,13 @@ export const s51ValidatorsDispatcher = async (request, response, next) => {
 		title: validateS51Title,
 		enquirer: validateS51Enquirer,
 		method: validateS51Method,
-		'enquiry-details': validateS51Details('enquiry', 'enquiry details'),
+		'enquiry-date': validateS51Details('enquiry', 'enquiry details', ['date']),
+		'enquiry-detail': validateS51Details('enquiry', 'enquiry details', ['details']),
+		'enquiry-details': validateS51Details('enquiry', 'enquiry details', ['date', 'details']),
 		person: validateS51Person,
-		'advice-details': validateS51Details('advice', 'advice given')
+		'advice-date': validateS51Details('advice', 'advice given', ['date']),
+		'advice-detail': validateS51Details('advice', 'advice given', ['details']),
+		'advice-details': validateS51Details('advice', 'advice given', ['date', 'details'])
 	};
 
 	if (Object.keys(validators).includes(step)) {
@@ -65,10 +69,15 @@ export const validateS51Enquirer = (request, response, next) => {
 	const checkNotNull = body('all')
 		.custom((_, { req }) => {
 			const body = req.body;
+			// input fields in the creation flow are different than updating flow
+			// important to check both scenarios
 			const allEmpty = !(
 				!body.enquirerFirstName &&
+				!body.firstName &&
 				!body.enquirerLastName &&
-				!body.enquirerOrganisation
+				!body.lastName &&
+				!body.enquirerOrganisation &&
+				!body.enquirer
 			);
 
 			return allEmpty;
@@ -78,7 +87,9 @@ export const validateS51Enquirer = (request, response, next) => {
 	const checkLastNameIfFirstName = body('enquirerLastName')
 		.custom((_, { req }) => {
 			const body = req.body;
-			const lastNameNotDefined = !(!!body.enquirerFirstName && !body.enquirerLastName);
+			const firstName = body.enquirerFirstName || body.firstName;
+			const lastName = body.enquirerLastName || body.lastName;
+			const lastNameNotDefined = !(!!firstName && !lastName);
 
 			return lastNameNotDefined;
 		})
@@ -87,7 +98,9 @@ export const validateS51Enquirer = (request, response, next) => {
 	const checkFirstNameIfLastName = body('enquirerFirstName')
 		.custom((_, { req }) => {
 			const body = req.body;
-			const firstNameNotDefined = !(!body.enquirerFirstName && !!body.enquirerLastName);
+			const firstName = body.enquirerFirstName || body.firstName;
+			const lastName = body.enquirerLastName || body.lastName;
+			const firstNameNotDefined = !(!firstName && !!lastName);
 
 			return firstNameNotDefined;
 		})
@@ -105,10 +118,11 @@ export const validateS51Enquirer = (request, response, next) => {
  *
  * @param {string} fieldName
  * @param {string} extendedDetailsFieldName
+ * @param {string[]} paramsToValidate
  * @returns {RequestHandler}
  */
 export const validateS51Details =
-	(fieldName, extendedDetailsFieldName) => (request, response, next) => {
+	(fieldName, extendedDetailsFieldName, paramsToValidate) => (request, response, next) => {
 		const dateFieldName = `${fieldName}Date`;
 
 		const detailsFieldName = `${fieldName}Details`;
@@ -130,6 +144,8 @@ export const validateS51Details =
 			false
 		);
 
+		const checkEnquiryDate = [checkMandatoryDate, checkValidDate, checkPastDate];
+
 		const checkEnquiryDetails = createValidator(
 			body(detailsFieldName)
 				.trim()
@@ -138,10 +154,8 @@ export const validateS51Details =
 		);
 
 		return createValidator([
-			checkMandatoryDate,
-			checkValidDate,
-			checkPastDate,
-			checkEnquiryDetails
+			...(paramsToValidate.includes('date') ? checkEnquiryDate : []),
+			...(paramsToValidate.includes('details') ? [checkEnquiryDetails] : [])
 		])(request, response, next);
 	};
 

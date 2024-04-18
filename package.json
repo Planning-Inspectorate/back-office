@@ -2,8 +2,6 @@
 	"name": "back-office",
 	"private": true,
 	"workspaces": [
-		"appeals/*",
-		"appeals/functions/*",
 		"apps/*",
 		"apps/functions/*",
 		"packages/*"
@@ -26,17 +24,13 @@
 		"prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
 		"storage": "npm run dev --workspace=@pins/applications.document-storage",
 		"test": "dotenv turbo run test -- --concurrency=2",
-		"tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --parallel --filter=!@pins/applications.api --filter=!@pins/appeals.api",
-		"dev:appeals": "turbo run dev --filter=./appeals/* --no-cache --parallel --continue",
-		"test:appeals": "turbo run test --filter=./appeals/*",
-		"web:appeals": "npm run dev --workspace=@pins/appeals.web",
-		"api:appeals": "npm run dev --workspace=@pins/appeals.api",
+		"tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --parallel --filter=!@pins/applications.api",
 		"dev:applications": "turbo run dev --filter=./apps/* --no-cache --parallel --continue",
 		"test:applications": "turbo run test --filter=./apps/*",
 		"web:applications": "npm run dev --workspace=@pins/applications.web",
 		"api:applications": "npm run dev --workspace=@pins/applications.api",
 		"api:test:applications": "npm run start:test --workspace=@pins/applications.api-testing",
-		"e2e:smokeTests": "npm run cy:run --workspace=@pins/e2e -- --spec cypress/e2e/back-office-applications/smokeTests.spec.js"
+		"e2e:smokeTests": "npm run cy:run --workspace=@pins/e2e -- --browser chrome  --spec cypress/e2e/back-office-applications/smokeTests.spec.js"
 	},
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "20.0.1",

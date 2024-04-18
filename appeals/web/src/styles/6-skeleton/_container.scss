@@ -1,5 +1,0 @@
-@use "../govuk-frontend/govuk/objects/_width-container" as mixins;
-
-.pins-width-container {
-	@include mixins.govuk-width-container(1200px);
-}

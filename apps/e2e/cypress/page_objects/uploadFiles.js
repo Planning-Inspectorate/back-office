@@ -1,5 +1,7 @@
 // @ts-nocheck
 import { Page } from './basePage';
+import { SearchResultsPage } from '../page_objects/searchResultsPage';
+const searchResultsPage = new SearchResultsPage();
 
 export class FileUploadPage extends Page {
 	elements = {
@@ -75,5 +77,12 @@ export class FileUploadPage extends Page {
 	}
 	clickDownloadFile() {
 		this.clickButtonByText('Download');
+	}
+	fileUpload(filename, count) {
+		this.verifyUploadButtonIsVisible();
+		this.uploadFile(filename);
+		searchResultsPage.clickButtonByText('Save and continue');
+		this.verifyFolderDocuments(count);
+		this.verifyUploadIsComplete();
 	}
 }

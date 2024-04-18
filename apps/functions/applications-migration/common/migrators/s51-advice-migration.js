@@ -1,7 +1,7 @@
 import { SynapseDB } from '../synapse-db.js';
 import { makePostRequest } from '../back-office-api-client.js';
-import { removeValues } from '../utils.js';
 import { pick } from 'lodash-es';
+import { BO_GENERAL_S51_CASE_REF, ODW_GENERAL_S51_CASE_REF } from '@pins/applications';
 
 const query = 'SELECT * FROM [odw_curated_db].[dbo].[nsip_s51_advice] WHERE caseReference = ?';
 
@@ -42,21 +42,26 @@ export const migrateS51Advice = async (logger, caseReferences) => {
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-export async function migrateS51AdviceForCase(log, caseReference) {
+export async function migrateS51AdviceForCase(log, caseReference, synapseQuery = query) {
 	try {
 		log.info(`reading S51 Advice with caseReference ${caseReference}`);
 
-		const [s51AdviceRows, count] = await SynapseDB.query(query, {
+		const [s51AdviceRows, count] = await SynapseDB.query(synapseQuery, {
 			replacements: [caseReference]
 		});
 
 		const s51AdviceEntities = s51AdviceRows.map((row) => {
-			removeValues(row, [null, 'None']);
-
+			if (caseReference === ODW_GENERAL_S51_CASE_REF) {
+				row.adviceReference = row.adviceReference.replace(
+					ODW_GENERAL_S51_CASE_REF,
+					BO_GENERAL_S51_CASE_REF
+				);
+				row.caseReference = BO_GENERAL_S51_CASE_REF;
+			}
 			return {
 				...pick(row, s51AdviceProperties),
 				status: mapStatus(row.status),
-				attachmentIds: row.attachmentIds?.split(',')
+				attachmentIds: row.attachmentIds ? row.attachmentIds?.split(',') : []
 			};
 		});
 
@@ -81,9 +86,11 @@ export async function migrateS51AdviceForCase(log, caseReference) {
 const mapStatus = (status) =>
 	({
 		checked: 'checked',
+		unchecked: 'unchecked',
 		'not checked': 'unchecked',
 		'ready to publish': 'readytopublish',
 		published: 'published',
+		donotpublish: 'donotpublish',
 		'do not publish': 'donotpublish',
 		depublished: 'unchecked'
 	}[status]);
