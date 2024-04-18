@@ -1,5 +1,5 @@
 import { getMigratorForModel } from './migrator.service.js';
-import { migrateFolders } from "./migrators/folder-migrator.js";
+import { migrateFolders } from './migrators/folder-migrator.js';
 
 /**
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
