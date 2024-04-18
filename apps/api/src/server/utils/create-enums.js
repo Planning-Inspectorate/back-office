@@ -84,7 +84,7 @@ export const sourceSystemEnum = new Enum([
 
 export const originEnum = new Enum(['pins', 'citizen', 'lpa', 'ogd']);
 
-export const stageEnum = new Enum([
+export const documentStageEnum = new Enum([
 	'draft',
 	'pre-application',
 	'acceptance',
