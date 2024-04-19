@@ -1,4 +1,4 @@
-import { migrateFolder } from './src/folder-migration.js';
+import { migrateFolders } from '../common/migrators/folder-migration.js';
 
 /**
  * @param {import('@azure/functions').Context} context
@@ -7,5 +7,5 @@ import { migrateFolder } from './src/folder-migration.js';
 export default async function (context, { body: { caseReferences } }) {
 	console.info('Migrating Folders for', JSON.stringify(caseReferences));
 
-	await migrateFolder(context.log, caseReferences);
+	await migrateFolders(context.log, caseReferences);
 }

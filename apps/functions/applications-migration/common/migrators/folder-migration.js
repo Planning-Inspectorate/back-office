@@ -1,4 +1,4 @@
-import { makePostRequest } from '../../common/back-office-api-client.js';
+import { makePostRequest } from '../back-office-api-client.js';
 
 /**
  * Handle an HTTP trigger/request to run the migration
@@ -6,7 +6,7 @@ import { makePostRequest } from '../../common/back-office-api-client.js';
  * @param {import('@azure/functions').Logger} logger
  * @param {string[]} caseReferences
  */
-export const migrateFolder = async (logger, caseReferences) => {
+export const migrateFolders = async (logger, caseReferences) => {
 	for (const caseReference of caseReferences) {
 		try {
 			logger.info(`migrating Folders with caseReference ${caseReference}`);

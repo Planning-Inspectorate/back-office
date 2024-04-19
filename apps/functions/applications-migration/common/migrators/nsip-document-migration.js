@@ -1,6 +1,6 @@
-import { SynapseDB } from '../../common/synapse-db.js';
+import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
-import { makePostRequest } from '../../common/back-office-api-client.js';
+import { makePostRequest } from '../back-office-api-client.js';
 
 /**
 /**
@@ -10,25 +10,31 @@ import { makePostRequest } from '../../common/back-office-api-client.js';
  * @param {string[]} caseReferences
  */
 export const migrationNsipDocuments = async (log, caseReferences) => {
+	log.info(`Migrating Documents for ${caseReferences.length} Cases`);
+
 	for (const caseReference of caseReferences) {
-		try {
-			log.info(`Migrating NSIP Documents for case ${caseReference}`);
+		await migrationNsipDocumentsByReference(log, caseReference);
+	}
+};
 
-			const documents = await getNsipDocuments(log, caseReference);
+export const migrationNsipDocumentsByReference = async (log, caseReference) => {
+	try {
+		log.info(`Migrating NSIP Documents for case ${caseReference}`);
 
-			if (documents.length > 0) {
-				log.info(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
+		const documents = await getNsipDocuments(log, caseReference);
 
-				await makePostRequest(log, '/migration/nsip-document', documents);
+		if (documents.length > 0) {
+			log.info(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
 
-				log.info('Successfully migrated NSIP Document');
-			} else {
-				log.warn(`No NSIP Document found for case ${caseReference}`);
-			}
-		} catch (e) {
-			log.error(`Failed to migrate NSIP Document for case ${caseReference}`, e);
-			throw e;
+			await makePostRequest(log, '/migration/nsip-document', documents);
+
+			log.info('Successfully migrated NSIP Document');
+		} else {
+			log.warn(`No NSIP Document found for case ${caseReference}`);
 		}
+	} catch (e) {
+		log.error(`Failed to migrate NSIP Document for case ${caseReference}`, e);
+		throw e;
 	}
 };
 
