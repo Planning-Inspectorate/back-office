@@ -5,7 +5,7 @@ import { migrationNsipDocuments } from '../common/migrators/nsip-document-migrat
  * @param {import('@azure/functions').HttpRequest} req
  */
 export default async function (context, { body: { caseReferences } }) {
-	console.info('Migrating NSIP Projects for', JSON.stringify(caseReferences));
+	context.log('Migrating NSIP Projects for', JSON.stringify(caseReferences));
 
 	await migrationNsipDocuments(context.log, caseReferences);
 }
