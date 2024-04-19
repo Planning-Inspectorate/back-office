@@ -6,26 +6,26 @@
 
 /**
  * @param {{ debug: Logger, error: Logger }} logger
- * @param {string} [endpoint]
+ * @param {string} [connectionString]
  * @returns {(featureFlagName: string) => Promise<boolean>}
  * */
-export const isFeatureActive = (logger, endpoint) => {
+export const isFeatureActive = (logger, connectionString) => {
 	if (process.env.FEATURE_FLAGS_SETTING === 'ALL_ON') {
 		return async () => true;
 	}
 
-	if (endpoint === undefined) {
-		logger.debug('Returning false for all feature flags because no endpoint provided.');
+	if (connectionString === undefined) {
+		logger.debug('Returning false for all feature flags because no connection string provided.');
 		return async () => false;
 	}
 
-	if (endpoint.length <= 1) {
-		logger.error(`Endpoint value ${endpoint} is invalid.`);
+	if (connectionString.length <= 1) {
+		logger.error(`Connection string is invalid.`);
 		return async () => false;
 	}
 
 	const { AppConfigurationClient } = require('@azure/app-configuration');
-	const appConfigClient = new AppConfigurationClient(endpoint);
+	const appConfigClient = new AppConfigurationClient(connectionString);
 
 	return async (featureFlagName) => {
 		const flagName = featureFlagName.trim();
