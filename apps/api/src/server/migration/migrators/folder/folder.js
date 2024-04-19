@@ -4,6 +4,7 @@ import { memoize } from 'lodash-es';
 
 import { folderDocumentCaseStageMappings } from '../../../applications/constants.js';
 import { databaseConnector } from '#utils/database-connector.js';
+import logger from '#utils/logger.js';
 
 /**
  * Folders to be created for cases which are being migrated. Includes all the default Back Office folders that
@@ -1069,11 +1070,10 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 	if (folders.length === 0) throw `unexpected path format: ${path}`;
 	const documentPath = folders.join(' > ');
 
-	console.log(`path: ${documentPath}`);
-	console.log(`documentCaseStage: ${documentCaseStage}`);
+	logger.info(`path: ${documentPath}, documentCaseStage: ${documentCaseStage}`);
 
 	if (folders[0] === '02 - Section 51 Advice') {
-		console.log('s51 advice folder');
+		logger.info('Path is S51 advice folder');
 		return getS51AdviceFolderId(caseId);
 	}
 
@@ -1082,13 +1082,13 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 	const folderMap = folderMapping[documentPath];
 	const stageFolderMap = stageMap[documentPath];
 	if (folderMap) {
-		console.log(`direct folder mapping found: ${folderMap}`);
+		logger.info(`Mapping found for path: ${folderMap}`);
 		folderId = folderIdMap[folderMap];
 	} else if (stageFolderMap && stageFolderMap[documentCaseStage]) {
-		console.log(`stage folder mapping found: ${stageFolderMap[documentCaseStage]}`);
+		logger.info(`Mapping found for path + stage: ${stageFolderMap[documentCaseStage]}`);
 		folderId = folderIdMap[stageFolderMap[documentCaseStage]];
 	} else {
-		console.log(`creating archived folders: ${documentPath}`);
+		logger.info(`Creating folders within Archive folder: ${documentPath}`);
 		folderId = await createArchivedFolders(folders, caseId);
 	}
 

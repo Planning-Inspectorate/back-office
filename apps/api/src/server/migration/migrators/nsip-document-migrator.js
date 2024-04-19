@@ -3,6 +3,7 @@ import { databaseConnector } from '#utils/database-connector.js';
 import { getCaseIdFromRef } from './utils.js';
 import { map, uniq } from 'lodash-es';
 import { getDocumentFolderId } from './folder/folder.js';
+import logger from '#utils/logger.js';
 
 /**
  * Handle an HTTP trigger/request to run the migration
@@ -60,7 +61,7 @@ export const migrateNsipDocuments = async (documents) => {
 };
 
 const createDocument = async (documentEntity) => {
-	console.log(`Creating Document ${documentEntity.guid}`);
+	logger.info(`Creating Document ${documentEntity.guid}`);
 	await databaseConnector.document.upsert({
 		where: {
 			guid: documentEntity.guid
@@ -71,7 +72,7 @@ const createDocument = async (documentEntity) => {
 };
 
 const createDocumentVersion = async (documentVersion) => {
-	console.log(
+	logger.info(
 		`Creating DocumentVersion ${documentVersion.documentGuid}, ${documentVersion.version}`
 	);
 	await databaseConnector.documentVersion.upsert({
@@ -104,21 +105,21 @@ const createDocumentActivityLog = async ({ documentGuid, version, dateCreated })
 		}
 	});
 	if (existingActivityLog === null) {
-		console.log(`Creating DocumentActivityLog ${documentGuid}, ${version}`);
+		logger.info(`Creating DocumentActivityLog ${documentGuid}, ${version}`);
 		await databaseConnector.documentActivityLog.create({
 			data: activityLog
 		});
 	} else {
-		console.log(`Updating DocumentActivityLog ${documentGuid}, ${version}`);
+		logger.info(`Updating DocumentActivityLog ${documentGuid}, ${version}`);
 		await databaseConnector.documentActivityLog.update({
 			where: { id: existingActivityLog.id },
 			data: activityLog
 		});
 	}
-}
+};
 
 const updateLatestVersionId = async (caseId) => {
-	console.log('Setting latestVersionId for all Documents');
+	logger.info('Setting latestVersionId for all Documents');
 	const statement = `UPDATE Document
 					   SET Document.latestVersionId = (SELECT MAX(DocumentVersion.version)
 													   FROM DocumentVersion
