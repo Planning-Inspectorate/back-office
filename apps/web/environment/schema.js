@@ -66,7 +66,7 @@ export default baseSchema
 			})
 			.options({ presence: 'required' }),
 		featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
-		featureFlagEndpoint: joi.string().optional(),
+		featureFlagConnectionString: joi.string().optional(),
 		dummyAddressData: joi.boolean().optional(),
 		dummyUserData: joi.boolean().optional(),
 		frontOfficeURL: joi.string().optional()

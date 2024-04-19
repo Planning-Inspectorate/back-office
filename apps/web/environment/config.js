@@ -39,7 +39,7 @@ export function loadConfig() {
 		AUTH_TENANT_ID = '*',
 		AZURE_BLOB_STORE_HOST,
 		FEATURE_FLAG_BOAS_1_TEST_FEATURE,
-		FEATURE_FLAG_AZURE_ENDPOINT,
+		PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING,
 		HTTP_PORT = 8080,
 		HTTPS_ENABLED,
 		HTTPS_PORT,
@@ -102,7 +102,7 @@ export function loadConfig() {
 		featureFlags: {
 			featureFlagBoas1TestFeature: FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
 		},
-		featureFlagEndpoint: FEATURE_FLAG_AZURE_ENDPOINT,
+		featureFlagConnectionString: PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING,
 		// Indicates the json file "dummy_address_data.json" will be used when true.
 		dummyAddressData: !OS_PLACES_API_KEY && DUMMY_ADDRESS_DATA,
 		// Indicates the json file "dummy_user_data.json" will be used when true.
