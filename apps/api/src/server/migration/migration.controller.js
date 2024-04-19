@@ -1,5 +1,6 @@
 import { getMigratorForModel } from './migrator.service.js';
 import { migrateFolders } from './migrators/folder-migrator.js';
+import logger from '#utils/logger.js';
 
 /**
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
@@ -28,7 +29,7 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
  */
 export const postMigrateFolders = async ({ body }, response) => {
-	await migrateFolders(body);
+	await migrateFolders(logger, body.caseReference);
 
 	response.sendStatus(200);
 };
