@@ -58,6 +58,9 @@ export const getByStatus = (statusArray) => {
 	return databaseConnector.case.findMany({
 		orderBy: [{ ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
 		where: {
+			NOT: {
+				reference: generalSection51CaseReference
+			},
 			CaseStatus: {
 				some: {
 					status: {
