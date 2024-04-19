@@ -122,6 +122,8 @@ const getProjectSubscriptions = async (log, caseReference) => {
 };
 
 /**
+ * Maps the NSIP Website stage id to our internal CBOS DB string value
+ *
  * @param {number} caseStageId
  *
  * @returns {string} caseStage
@@ -140,14 +142,14 @@ const getCaseStageFromId = (caseStageId) => {
 };
 
 const projectStages = {
-	1: 'Pre-application',
-	2: 'Acceptance (review of the application)',
-	3: 'Pre-examination',
-	4: 'Examination',
-	5: 'Recommendation',
-	6: 'Decision',
-	7: 'Decided',
-	8: 'Withdrawn'
+	1: 'pre_application',
+	2: 'acceptance',
+	3: 'pre_examination',
+	4: 'examination',
+	5: 'recommendation',
+	6: 'decision',
+	7: 'post_decision',
+	8: 'withdrawn'
 };
 
 const subscriptionTypes = {
