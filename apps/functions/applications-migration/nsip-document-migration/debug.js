@@ -1,4 +1,4 @@
-import { migrationNsipDocuments } from './src/nsip-document-migration.js';
+import { migrationNsipDocuments } from '../common/migrators/nsip-document-migration.js';
 
 // @ts-ignore
 migrationNsipDocuments(
