@@ -11,7 +11,7 @@ import logger from '#utils/logger.js';
  * @param {import('pins-data-model').Schemas.NSIPDocument[]} documents
  */
 export const migrateNsipDocuments = async (documents) => {
-	console.info(`Migrating ${documents.length} documents`);
+	logger.info(`Migrating ${documents.length} documents`);
 
 	const caseRefs = uniq(map(documents, 'caseRef'));
 	if (caseRefs.length !== 1) throw 'Expected only documents for single caseRef';
