@@ -81,7 +81,7 @@ export const defaultCaseFoldersForMigration = [
 					}
 				},
 				{
-					displayNameEn: 'Mail merge spreadsheet',
+					displayNameEn: 'Mail merges',
 					displayOrder: 200,
 					stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
 				},
