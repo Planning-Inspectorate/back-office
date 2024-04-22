@@ -1,3 +1,5 @@
+import { AppConfigurationClient } from '@azure/app-configuration';
+
 /**
  * @typedef {Function} Logger
  * @param {...string} args
@@ -24,7 +26,6 @@ export const isFeatureActive = (logger, connectionString) => {
 		return async () => false;
 	}
 
-	const { AppConfigurationClient } = require('@azure/app-configuration');
 	const appConfigClient = new AppConfigurationClient(connectionString);
 
 	return async (featureFlagName) => {
