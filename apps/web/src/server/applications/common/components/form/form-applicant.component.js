@@ -1,5 +1,6 @@
 import findAddressListByPostcode from '../../services/address.service.js';
 import { updateCase } from '../../services/case.service.js';
+import { addressToString } from '../../../../lib/address-formatter.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../../../applications.types').ApplicationsAddress} ApplicationsAddress */
@@ -152,24 +153,7 @@ export async function applicantAddressData({ query }, locals) {
 	const postcode = singlePostcode || currentCase?.applicant?.address?.postCode;
 	const formStage = queryPostcode ? 'manualAddress' : 'searchPostcode';
 
-	const applicantAddress = (() => {
-		if (!currentCase?.applicant?.address) {
-			return '';
-		}
-
-		const { address } = currentCase.applicant;
-		return [
-			address.addressLine1,
-			address.addressLine2,
-			address.town,
-			address.county,
-			address.postCode,
-			address.country
-		]
-			.filter(Boolean)
-			.map((part) => part.trim())
-			.join(', ');
-	})();
+	const applicantAddress = addressToString(currentCase?.applicant?.address);
 
 	return { formStage, postcode, applicantAddress };
 }
