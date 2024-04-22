@@ -53,6 +53,7 @@ export const registerCaseWithQuery = (query, shouldBeDraft = false) => {
 		}
 
 		response.locals.currentCase = currentCase;
+		response.locals.isDraft = isDraft;
 		next();
 	};
 };
