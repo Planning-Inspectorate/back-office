@@ -28,9 +28,9 @@ export const projectInformation = () => {
 	let applicantFullName = 'Applicantfirstname Applicantsecondname';
 	const postcode = 'BS1 6PN';
 	const postcode2 = 'SW1P 4DF';
-	let applicantFullAddress = `2 Temple Quay,        Planning Inspectorate,        Bristol,        ${postcode}`;
+	let applicantFullAddress = `2 Temple Quay, Planning Inspectorate, Bristol, ${postcode}`;
 	let applicantFullAddress1 = `2 Temple Quay, Planning Inspectorate, Bristol, ${postcode}`;
-	let applicantFullAddress2 = `2 Marsham Street,        Home Office,        London,        ${postcode2}`;
+	let applicantFullAddress2 = `2 Marsham Street, Home Office, London, ${postcode2}`;
 	const applicantWebsite = 'https://www.google.com';
 	const applicantEmail = `${applicantFirstName}.${applicantLastName}@email.com`;
 	const applicantPhoneNumber = faker.phone.number('+4479########');
