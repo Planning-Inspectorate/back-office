@@ -1,5 +1,5 @@
-import './src/index';
+import './src/is-feature-active';
 
 declare module '@pins/feature-flags' {
-	export * from './src/index';
+	export * from './src/is-feature-active';
 }
