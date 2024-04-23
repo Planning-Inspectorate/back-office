@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { loadConfig } from './config.js';
+import { JSDOM } from 'jsdom';
 
 /**
  * Returns a promise that waits for the given time before resolving.
@@ -50,4 +51,50 @@ export function encrypt(value) {
 	const encrypted = Buffer.concat([cipher.update(value), cipher.final()]);
 
 	return `${iv.toString('hex')}${encrypted.toString('hex')}`;
+}
+
+/**
+ * Extract the links from the html and replace with placeholders
+ *
+ * @param {string} htmlString
+ * @returns {[string, string[]]}
+ */
+function retrieveLinks(htmlString) {
+	// Create a virtual DOM
+	const dom = new JSDOM(htmlString);
+	const domLinks = dom.window.document.querySelectorAll('a'); // Select all anchor elements
+	const links = [];
+	domLinks.forEach((link, index) => {
+		links.push(link.href);
+		link.href = `##${index}##`;
+	});
+	return [dom.serialize(), links];
+}
+
+/**
+ * Inserts the links back into the html and replacing the placeholders
+ *
+ * @param {string} htmlString
+ * @param {string[]} links
+ * @returns {string}
+ */
+function restoreLinks(htmlString, links) {
+	// Create a virtual DOM
+	const dom = new JSDOM(htmlString);
+	const domLinks = dom.window.document.querySelectorAll('a'); // Select all anchor elements
+	domLinks.forEach((link, index) => {
+		link.href = links[index];
+	});
+	return dom.serialize();
+}
+
+/**
+ * Decode the Html without decoding the links
+ *
+ * @param {string} htmlString
+ * @returns {string}
+ */
+export function decodeHTML(htmlString) {
+	const [resultHtml, links] = retrieveLinks(htmlString);
+	return restoreLinks(decodeURIComponent(resultHtml), links);
 }

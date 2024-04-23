@@ -6,7 +6,7 @@ import { ProjectUpdate } from '@pins/applications/lib/application/project-update
 import { Subscription } from '@pins/applications/lib/application/subscription.js';
 import TurndownService from 'turndown';
 import { PagedRequest } from './paged-request.js';
-import { sleep } from './util.js';
+import { decodeHTML, sleep } from './util.js';
 
 export class NotifySubscribers {
 	/** @type {import('./back-office-api-client.js').BackOfficeApiClient} */
@@ -75,10 +75,12 @@ export class NotifySubscribers {
 		if (!this.messageIsValid()) {
 			return;
 		}
-		const update = await this.getExtendedUpdate()
+		const update = await this.getExtendedUpdate();
 
 		if (update === null) {
-			throw new Error(`update with id '${this.msg.id}' not found on case ${this.msg.caseReference}`);
+			throw new Error(
+				`update with id '${this.msg.id}' not found on case ${this.msg.caseReference}`
+			);
 		}
 
 		if (!update.emailSubscribers) {
@@ -246,7 +248,8 @@ export class NotifySubscribers {
 	 */
 	static htmlToMarkdown(content) {
 		const turndownService = new TurndownService({ strongDelimiter: '', emDelimiter: '' });
-		return decodeURIComponent(turndownService.turndown(content));
+		const decodedContent = decodeHTML(content).replaceAll(`'`, '%27');
+		return turndownService.turndown(decodedContent);
 	}
 
 	/**
