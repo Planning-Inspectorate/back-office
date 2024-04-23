@@ -1,17 +1,11 @@
 import { AppConfigurationClient } from '@azure/app-configuration';
 
 /**
- * @typedef {Function} Logger
- * @param {...string} args
- * @returns {void}
- * */
-
-/**
- * @param {{ debug: Logger, error: Logger }} logger
+ * @param {import('./feature-flag-client.js').Logger} logger
  * @param {string} [connectionString]
  * @returns {(featureFlagName: string) => Promise<boolean>}
  * */
-export const isFeatureActive = (logger, connectionString) => {
+export const makeIsFeatureActive = (logger, connectionString) => {
 	if (process.env.FEATURE_FLAGS_SETTING === 'ALL_ON') {
 		return async () => true;
 	}
