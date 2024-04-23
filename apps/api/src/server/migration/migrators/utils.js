@@ -250,3 +250,27 @@ export const sendChunkedEvents = async (topic, events, eventType, additionalProp
 	}
 };
 
+/**
+ * Groups an array of objects by a specified property.
+ *
+ * @param {Array<any>} list
+ * @param {string} groupName
+ * @param {string} propertyToGroupBy
+ */
+export const groupBy = (list, groupName, propertyToGroupBy) => {
+	const group = list.reduce((accumulator, object) => {
+		const key = object[propertyToGroupBy];
+
+		if (!accumulator[key]) {
+			accumulator[key] = {
+				[groupName]: [],
+				[propertyToGroupBy]: key
+			};
+		}
+		accumulator[key][groupName].push(object);
+
+		return accumulator;
+	}, {});
+
+	return Object.values(group);
+};
