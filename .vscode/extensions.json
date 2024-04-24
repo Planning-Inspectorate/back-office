@@ -5,9 +5,10 @@
     "wayou.vscode-todo-highlight",
     "esbenp.prettier-vscode",
     "mikestead.dotenv",
-	"Syler.sass-indented",
+    "Syler.sass-indented",
     "stylelint.vscode-stylelint",
-	"dbaeumer.vscode-eslint",
-	"eseom.nunjucks-template"
+    "dbaeumer.vscode-eslint",
+    "eseom.nunjucks-template",
+    "firsttris.vscode-jest-runner"
   ]
 }
