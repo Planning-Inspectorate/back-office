@@ -41,6 +41,7 @@ const mockDocumentActivityLog = jest.fn().mockResolvedValue({});
 const mockFolderCreate = jest.fn().mockResolvedValue({});
 const mockFolderUpdate = jest.fn().mockResolvedValue({});
 const mockFolderUpdateMany = jest.fn().mockResolvedValue({});
+const mockFolderUpsert = jest.fn().mockResolvedValue({});
 const mockFolderFindUnique = jest.fn().mockResolvedValue({});
 const mockFolderFindFirst = jest.fn().mockResolvedValue({});
 const mockFolderFindMany = jest.fn().mockResolvedValue({});
@@ -178,6 +179,7 @@ class MockPrismaClient {
 			create: mockFolderCreate,
 			update: mockFolderUpdate,
 			updateMany: mockFolderUpdateMany,
+			upsert: mockFolderUpsert,
 			findFirst: mockFolderFindFirst,
 			deleteMany: mockFolderDeleteMany,
 			delete: mockFolderDelete

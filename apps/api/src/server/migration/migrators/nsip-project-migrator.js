@@ -28,6 +28,7 @@ export const migrateNsipProjects = async (models) => {
 		await migrateCase(model);
 		await migrateApplicationDetails(model);
 		await migrateRegions(model);
+		await invalidateCaseStatuses(model);
 		await migrateCaseStatus(model);
 		await migrateCasePublishedState(model);
 		await migrateGridReference(model);
@@ -145,16 +146,33 @@ const migrateRegions = async ({ caseId, regions }) => {
 };
 
 /**
+ * create a new, valid CaseStatus record for the case.
+ * the invalidateCaseStatuses fn should be called before this
+ *
  * @param {import('pins-data-model').Schemas.NSIPProject} m
  */
 const migrateCaseStatus = ({ caseId, stage }) => {
 	// We can't really predict the ID here, but it's fine to have multiples - it will just appear as if the case transitioned from the same stage and the end result is the same
+	// - as long as all prev statuses have been invalidated
 	return databaseConnector.caseStatus.create({
 		data: {
 			caseId,
 			// @ts-ignore
 			status: stage
 		}
+	});
+};
+
+/**
+ * Invalidate all previous CaseStatus records for a case.
+ * This should be called before the migrateCaseStatus call, to ensure only 1 valid record per case
+ *
+ * @param {import('pins-data-model').Schemas.NSIPProject} m
+ */
+const invalidateCaseStatuses = ({ caseId }) => {
+	return databaseConnector.caseStatus.updateMany({
+		where: { caseId },
+		data: { valid: false }
 	});
 };
 

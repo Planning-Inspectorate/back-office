@@ -8,6 +8,7 @@ import { migrateServiceUsers } from './migrators/service-user-migrator.js';
 import { migrateExamTimetables } from './migrators/nsip-exam-timetable-migrator.js';
 import { migrateS51Advice } from './migrators/s51-advice-migrator.js';
 import { migrateRepresentations } from './migrators/nsip-representation-migrator.js';
+import { migrateNsipDocuments } from './migrators/nsip-document-migrator.js'
 
 /**
  * @callback Migrator
@@ -82,5 +83,10 @@ const initializeMapping = async () => {
 	migrationMap.set('nsip-representation', {
 		validator: ajv.getSchema('nsip-representation.schema.json'),
 		migrator: migrateRepresentations
+	});
+
+	migrationMap.set('nsip-document', {
+		validator: ajv.getSchema('nsip-document.schema.json'),
+		migrator: migrateNsipDocuments
 	});
 };

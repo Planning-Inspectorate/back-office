@@ -3,6 +3,8 @@ import { migrateNsipProjectByReference } from '../common/migrators/nsip-project-
 import { migrationRepresentationsForCase } from '../common/migrators/nsip-representation-migration.js';
 import { migrateS51AdviceForCase } from '../common/migrators/s51-advice-migration.js';
 import { migrateServiceUsersForCase } from '../common/migrators/service-user-migration.js';
+import { migrateFolders } from '@pins/applications.api/src/server/migration/migrators/folder-migrator.js';
+import { migrationNsipDocumentsByReference } from '../common/migrators/nsip-document-migration.js';
 
 /**
  * @param {import('@azure/functions').Context} context
@@ -28,8 +30,8 @@ async function migrateCase(log, caseReference) {
 
 	await migrateServiceUsersForCase(log, caseReference);
 
-	// todo: folders
-	// todo: documents
+	await migrateFolders(log, caseReference);
+	await migrationNsipDocumentsByReference(log, caseReference);
 
 	// todo: s51-advice attachments, once we have docs
 	await migrateS51AdviceForCase(log, caseReference);

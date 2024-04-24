@@ -8,7 +8,7 @@
     {% set rowsData = [
 		{title: 'Organisation name', text: applicantFirstOrganisationName, url: 'applicant-organisation-name' },
 		{title: 'Contact name (Internal use only)', text: writeFullName([case.applicant.firstName, case.applicant.middleName, case.applicant.lastName] ), url: 'applicant-full-name', isProjectInfoOnly: 1 },
-		{title: 'Address (Internal use only)', html: writeFullAddress(case.applicant.address), url: 'applicant-address', isProjectInfoOnly: 1 },
+		{title: 'Address (Internal use only)', text: case.applicant.address | formatAddress, url: 'applicant-address', isProjectInfoOnly: 1 },
 		{title: 'Website', text: applicantFirstWebsite, url: 'applicant-website' },
 		{title: 'Email address', text: applicantFirstEmail, url: 'applicant-email' },
 		{title: 'Telephone number (Internal use only)', text: applicantFirstPhoneNumber, url: 'applicant-telephone-number', isProjectInfoOnly: 1 }
@@ -39,12 +39,5 @@
     {% set spacer = joiner(' ') %}
     {% for namePart in params -%}
         {{ spacer() }}{{ namePart }}
-    {%- endfor %}
-{% endmacro %}
-{% macro writeFullAddress(params) %}
-    {% set comma = joiner() %}
-    {% for key, value in params -%}
-        {{ comma() }}
-        {{ value | sanitize | trim }}
     {%- endfor %}
 {% endmacro %}

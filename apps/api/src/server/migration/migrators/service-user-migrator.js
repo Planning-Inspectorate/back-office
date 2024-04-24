@@ -3,14 +3,10 @@ import { buildUpsertForEntity } from './sql-tools.js';
 import { databaseConnector } from '#utils/database-connector.js';
 import { SERVICE_USER } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
-import { sendChunkedEvents } from './utils.js';
+import { groupBy, sendChunkedEvents } from './utils.js';
 
 /**
- * @typedef import('pins-data-model').Schemas.ServiceUser ServiceUser
- */
-
-/**
- * @param {ServiceUser[]} serviceUsers
+ * @param {import('pins-data-model').Schemas.ServiceUser[]} serviceUsers
  */
 export const migrateServiceUsers = async (serviceUsers) => {
 	console.info(`Migrating ${serviceUsers.length} Service Users`);
@@ -60,12 +56,19 @@ export const migrateServiceUsers = async (serviceUsers) => {
 		});
 	}
 
-	console.info(`Broadcasting ${serviceUsers.length} Service User PUBLISH events`);
-	await sendChunkedEvents(SERVICE_USER, serviceUsers, EventType.Publish);
+	const serviceUsersGroupedByType = groupServiceUsersByType(serviceUsers);
+	await Promise.all(
+		serviceUsersGroupedByType.map((groupedServiceUsers) => {
+			return sendChunkedEvents(SERVICE_USER, groupedServiceUsers.serviceUsers, EventType.Publish, {
+				entityType: groupedServiceUsers.serviceUserType
+			});
+		})
+	);
+	console.info(`Broadcasted ${serviceUsers.length} Service User PUBLISH events`);
 };
 
 /**
- * @param {ServiceUser} serviceUser
+ * @param {import('pins-data-model').Schemas.ServiceUser} serviceUsers
  */
 const mapModelToServiceUserEntity = ({
 	id,
@@ -93,7 +96,7 @@ const mapModelToServiceUserEntity = ({
 };
 
 /**
- * @param {ServiceUser} serviceUser
+ * @param {import('pins-data-model').Schemas.ServiceUser} serviceUsers
  */
 const mapModelToAddressEntity = ({
 	addressLine1,
@@ -110,3 +113,12 @@ const mapModelToAddressEntity = ({
 	postcode,
 	country: addressCountry
 });
+
+/**
+ *
+ * @param {import('pins-data-model').Schemas.ServiceUser[]} serviceUserList
+ * @returns {Array<{serviceUsers: import('pins-data-model').Schemas.ServiceUser[], serviceUserType: string}>} - An array of objects, each containing a group of service users and the value of the serviceUserType they were grouped by.
+ */
+const groupServiceUsersByType = (serviceUserList) => {
+	return groupBy(serviceUserList, 'serviceUsers', 'serviceUserType');
+};
