@@ -157,7 +157,7 @@ describe('Start case', () => {
 							}
 						},
 						{
-							displayNameEn: 'Mail merge spreadsheet',
+							displayNameEn: 'Mail merges',
 							displayOrder: 200,
 							caseId: 1,
 							stage: null

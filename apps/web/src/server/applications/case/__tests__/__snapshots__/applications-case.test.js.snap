@@ -548,7 +548,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
+                                    <td class=\\"govuk-table__cell\\">Applicant address, London, ABC123</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"> Change</a>
                                     </td>
                                 </tr>
@@ -728,7 +728,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
+                                    <td class=\\"govuk-table__cell\\">Applicant address, London, ABC123</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/applicant-address\\"> Change</a>
                                     </td>
                                 </tr>
@@ -908,7 +908,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">Applicant address, ABC123, London</td>
+                                    <td class=\\"govuk-table__cell\\">Applicant address, London, ABC123</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/applicant-address\\"> Change</a>
                                     </td>
                                 </tr>

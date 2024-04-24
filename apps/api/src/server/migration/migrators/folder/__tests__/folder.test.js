@@ -544,7 +544,7 @@ const folders = [
 	},
 	{
 		id: 100011464,
-		displayNameEn: 'Mail merge spreadsheet',
+		displayNameEn: 'Mail merges',
 		displayOrder: 200,
 		parentFolderId: 100011415,
 		caseId: 15360347,
