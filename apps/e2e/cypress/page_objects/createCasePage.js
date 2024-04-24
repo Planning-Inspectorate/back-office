@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Page } from './basePage';
-import { CheckYourAnswersSection } from './createCaseSections/checkYourAnswers';
+import { CheckYourAnswersSection } from './createCaseSections';
 import * as sections from './createCaseSections/index';
 
 export class CreateCasePage extends Page {
@@ -58,7 +58,6 @@ export class CreateCasePage extends Page {
 			this.clickSaveAndContinue();
 			this.sections.applicantAddress.fillApplicantPostcode(projectInformation.postcode);
 			cy.get('button.govuk-button:nth-child(4)').click();
-			cy.wait(4000);
 			this.chooseSelectItemByIndex(1);
 			this.clickSaveAndContinue();
 			this.sections.applicantWebsite.fillApplicantWebsite(projectInformation.applicantWebsite);

@@ -164,21 +164,21 @@ export class DocumentPropertiesPage extends Page {
 		cy.get('.govuk-caption-xl').contains('Document properties');
 	}
 
-	goBackToPrjdocumentationPage(){
-		cy.wait(2000);
-		cy.get('li.govuk-breadcrumbs__list-item:nth-child(1) > a:nth-child(1)').click();
+	goBackToPrjdocumentationPage() {
+		cy.get('li.govuk-breadcrumbs__list-item:nth-child(1) > a:nth-child(1)', {
+			timeout: 2000
+		}).click();
 	}
-	goBackToOverviewPage(){
-		cy.wait(1000);
-		cy.get('.govuk-back-link').click();
+	goBackToOverviewPage() {
+		cy.get('.govuk-back-link', { timeout: 1000 }).click();
 	}
-	enterDocRefandValidateTranscriptValue(){
-		cy.wrap(this.getDocumentRefNumber()).then(()=>{
-		cy.log("Printing the cypress env value: " + Cypress.env("DocRef"));
-		const docRefer=Cypress.env("DocRef")
-		var splitRef=docRefer.split(' ')[3]
-		this.enterDocumentRefNumber(splitRef);
-		this.validateTranscriptValue();
-		})
-	  }
+	enterDocRefandValidateTranscriptValue() {
+		cy.wrap(this.getDocumentRefNumber()).then(() => {
+			cy.log('Printing the cypress env value: ' + Cypress.env('DocRef'));
+			const docRefer = Cypress.env('DocRef');
+			var splitRef = docRefer.split(' ')[3];
+			this.enterDocumentRefNumber(splitRef);
+			this.validateTranscriptValue();
+		});
+	}
 }
