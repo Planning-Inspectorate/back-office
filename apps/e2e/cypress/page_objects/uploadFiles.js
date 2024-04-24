@@ -1,4 +1,5 @@
 // @ts-nocheck
+import 'cypress-wait-until';
 import { Page } from './basePage';
 import { SearchResultsPage } from '../page_objects/searchResultsPage';
 const searchResultsPage = new SearchResultsPage();
@@ -30,11 +31,15 @@ export class FileUploadPage extends Page {
 	}
 
 	verifyUploadIsComplete() {
-		cy.wait(7000);
-		cy.reload();
-		cy.wait(2000);
-		cy.contains('a', 'View/Edit properties').should('exist');
-		cy.contains('a', 'Download').should('exist');
+		cy.waitUntil(
+			async () => {
+				cy.reload();
+				cy.contains('a', 'View/Edit properties', { timeout: 2000 }).should('exist');
+				const $downloadLink = cy.$$(`a:contains('Download')`);
+				return !!$downloadLink.length;
+			},
+			{ timeout: 10000 }
+		);
 	}
 
 	downloadFile(fileNumber, button = false) {
