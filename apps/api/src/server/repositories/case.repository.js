@@ -58,9 +58,16 @@ export const getByStatus = (statusArray) => {
 	return databaseConnector.case.findMany({
 		orderBy: [{ ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
 		where: {
-			NOT: {
-				reference: generalSection51CaseReference
-			},
+			OR: [
+				{
+					reference: {
+						not: generalSection51CaseReference
+					}
+				},
+				{
+					reference: null
+				}
+			],
 			CaseStatus: {
 				some: {
 					status: {
@@ -106,18 +113,31 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 			}
 		],
 		where: {
-			NOT: {
-				reference: generalSection51CaseReference
-			},
-			OR: [
+			AND: [
 				{
-					title: { contains: query }
+					OR: [
+						{
+							reference: {
+								not: generalSection51CaseReference
+							}
+						},
+						{
+							reference: null
+						}
+					]
 				},
 				{
-					reference: { contains: query }
-				},
-				{
-					description: { contains: query }
+					OR: [
+						{
+							title: { contains: query }
+						},
+						{
+							reference: { contains: query }
+						},
+						{
+							description: { contains: query }
+						}
+					]
 				}
 			]
 		},
@@ -147,18 +167,31 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 export const getApplicationsCountBySearchCriteria = (query) => {
 	return databaseConnector.case.count({
 		where: {
-			NOT: {
-				reference: generalSection51CaseReference
-			},
-			OR: [
+			AND: [
 				{
-					title: { contains: query }
+					OR: [
+						{
+							reference: {
+								not: generalSection51CaseReference
+							}
+						},
+						{
+							reference: null
+						}
+					]
 				},
 				{
-					reference: { contains: query }
-				},
-				{
-					description: { contains: query }
+					OR: [
+						{
+							title: { contains: query }
+						},
+						{
+							reference: { contains: query }
+						},
+						{
+							description: { contains: query }
+						}
+					]
 				}
 			]
 		}
