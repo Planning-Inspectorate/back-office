@@ -29,8 +29,10 @@ export class S51AdvicePage extends Page {
 			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__actions > a'),
 		saveAndReturnTile: () => cy.get('#main-content > form > button'),
 		verifyTitleUpdated: () =>
-			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__value'),
-			verifyTitle:()=>cy.get('.govuk-table__body > :nth-child(1) > :nth-child(2)')
+			cy.get('#advice-properties > dl > div:nth-child(1) > dd.govuk-summary-list__value', {
+				timeout: 3000
+			}),
+		verifyTitle: () => cy.get('.govuk-table__body > :nth-child(1) > :nth-child(2)')
 	};
 
 	checkAnswer(question, answer, strict = true) {
@@ -83,9 +85,9 @@ export class S51AdvicePage extends Page {
 		this.clickContinue();
 	}
 
-	completeS51Advice(mainDetails, enquirerDetails,titledetails) {
+	completeS51Advice(mainDetails, enquirerDetails, titledetails) {
 		const {
-		    title,
+			title,
 			methodOfEnquiry,
 			day,
 			month,
@@ -126,8 +128,6 @@ export class S51AdvicePage extends Page {
 
 		const propertiesPage = new S51AdvicePropertiesPage();
 		propertiesPage.checkAllProperties(mainDetails, enquirerDetails);
-
-	
 	}
 	verifyTitleIsUpdated(newTitle) {
 		this.elements.changetitleLink().click();
@@ -164,7 +164,7 @@ export class S51AdvicePage extends Page {
 	setOverallStatus(status) {
 		this.elements.statusRadio(status).click({ force: true });
 	}
-	verifyTile(){
+	verifyTile() {
 		this.elements.verifyTitle().contains('title');
 	}
 }
