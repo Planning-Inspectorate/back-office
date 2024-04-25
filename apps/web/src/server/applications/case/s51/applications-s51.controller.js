@@ -1,3 +1,4 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import {
 	checkS51NameIsUnique,
@@ -25,7 +26,6 @@ import {
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload
 } from './applications-s51.mapper.js';
-import { generalSection51CaseReference as gs51CaseReference } from '../general-s51/applications-general-s51.config.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -62,7 +62,7 @@ export async function viewApplicationsCaseS51Folder({ query }, response) {
 	response.render(`applications/components/folder/folder`, {
 		items,
 		pagination,
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -125,7 +125,7 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
 		showSuccessBanner,
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -212,7 +212,10 @@ export async function viewApplicationsCaseS51CreatePage(request, response) {
 	const { session, params } = request;
 	const values = getSessionS51(session);
 
-	response.render(`applications/case-s51/s51-${params.step}`, { values, gs51CaseReference });
+	response.render(`applications/case-s51/s51-${params.step}`, {
+		values,
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
+	});
 }
 
 /**
@@ -258,7 +261,7 @@ export async function viewApplicationsCaseS51CheckYourAnswers(request, response)
 			id: params.folderId,
 			displayNameEn: 's51-advice'
 		},
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -310,7 +313,7 @@ export async function viewApplicationsCaseS51Delete({ params }, response) {
 
 	response.render('applications/case-s51/s51-delete.njk', {
 		s51Advice,
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -333,7 +336,9 @@ export async function deleteApplicationsCaseS51({ params }, response) {
 			errors
 		});
 	}
-	return response.render('applications/case-s51/s51-successfully-deleted', { gs51CaseReference });
+	return response.render('applications/case-s51/s51-successfully-deleted', {
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
+	});
 }
 
 /**
@@ -396,7 +401,7 @@ export async function viewApplicationsCaseS51PublishingQueue({ query }, response
 	response.render(`applications/case-s51/s51-publishing-queue`, {
 		s51Advices,
 		paginationButtons,
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -433,7 +438,7 @@ export async function publishApplicationsCaseS51Items(request, response) {
 
 	return response.render('applications/case-s51/s51-successfully-published', {
 		items: body.selectedFilesIds.length,
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -534,5 +539,7 @@ export async function postUnpublishAdvice({ params }, response) {
 	}
 
 	await unpublishS51Advice(Number(caseId), Number(adviceId));
-	response.render('applications/case-s51/s51-successfully-unpublished', { gs51CaseReference });
+	response.render('applications/case-s51/s51-successfully-unpublished', {
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
+	});
 }

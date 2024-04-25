@@ -1,5 +1,5 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
-import { generalSection51CaseReference } from './general-s51/applications-general-s51.config.js';
 import { allRoles } from './project-team/applications-project-team.controller.js';
 import {
 	getManyProjectTeamMembersInfo,
@@ -21,7 +21,7 @@ export async function viewApplicationsCaseOverview({ session }, response) {
 	} = response.locals;
 
 	//hide the page when attempting to view general section 51 case
-	if (reference === generalSection51CaseReference) {
+	if (reference === BO_GENERAL_S51_CASE_REF) {
 		return response.render(`app/404`);
 	}
 

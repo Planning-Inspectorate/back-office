@@ -1,3 +1,4 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { sortBy } from 'lodash-es';
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import {
@@ -28,7 +29,6 @@ import {
 } from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
-import { generalSection51CaseReference } from '../general-s51/applications-general-s51.config.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -53,7 +53,7 @@ export async function viewApplicationsCaseDocumentationCategories(_, response) {
 		case: { reference }
 	} = response.locals;
 	// hide the page when attempting to view general section 51 case documentation categories
-	if (reference === generalSection51CaseReference) {
+	if (reference === BO_GENERAL_S51_CASE_REF) {
 		return response.render(`app/404`);
 	}
 	const documentationCategories = await getCaseFolders(caseId);
