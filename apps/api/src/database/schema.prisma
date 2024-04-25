@@ -17,7 +17,9 @@ model Case {
   modifiedAt            DateTime              @default(now())
   createdAt             DateTime              @default(now())
   description           String?               @db.VarChar(2000)
+  descriptionWelsh      String?               @db.VarChar(2000)
   title                 String?
+  titleWelsh            String?
   hasUnpublishedChanges Boolean               @default(false)
   applicantId           Int?
   ApplicationDetails    ApplicationDetails?
@@ -103,6 +105,7 @@ model ApplicationDetails {
   caseId                                            Int                           @unique
   subSectorId                                       Int?
   locationDescription                               String?
+  locationDescriptionWelsh                          String?
   zoomLevelId                                       Int?
   caseEmail                                         String?
   // Key Dates
@@ -290,8 +293,10 @@ model DocumentVersion {
   fileName               String?
   representative         String?
   description            String?
+  descriptionWelsh       String?
   owner                  String?
   author                 String?
+  authorWelsh            String?
   securityClassification String?
   mime                   String?
   horizonDataID          String?
@@ -300,6 +305,7 @@ model DocumentVersion {
   size                   Int?
   stage                  String?
   filter1                String?
+  filter1Welsh           String?
   privateBlobContainer   String?
   privateBlobPath        String?
   publishedBlobContainer String?
@@ -390,7 +396,9 @@ model ExaminationTimetableItem {
   examinationTimetableId   Int
   examinationTypeId        Int
   name                     String
+  nameWelsh                String?
   description              String?                  @db.NText
+  descriptionWelsh         String?                  @db.NText
   date                     DateTime
   startDate                DateTime?
   startTime                String?
@@ -508,15 +516,18 @@ model S51Advice {
   id                  Int                 @id @default(autoincrement())
   caseId              Int
   title               String
+  titleWelsh          String?
   firstName           String?
   lastName            String?
   enquirer            String?
   enquiryMethod       String
   enquiryDate         DateTime
   enquiryDetails      String              @db.NText
+  enquiryDetailsWelsh String?             @db.NText
   adviser             String
   adviceDate          DateTime
   adviceDetails       String              @db.NText
+  adviceDetailsWelsh  String?             @db.NText
   referenceNumber     Int                 @default(00001)
   redactedStatus      String?
   publishedStatus     String              @default("not_checked")
