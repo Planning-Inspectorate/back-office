@@ -1,5 +1,6 @@
 import { request } from '../../../app-test.js';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
+import { generalSection51CaseReference } from '../../application/application.config.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 const searchString = 'EN010003 - NI Case 3 Name';
@@ -33,18 +34,31 @@ const expectedSearchParameters = (skip, take, query) => {
 			}
 		],
 		where: {
-			NOT: {
-				reference: 'GS5110001'
-			},
-			OR: [
+			AND: [
 				{
-					title: { contains: query }
+					OR: [
+						{
+							reference: {
+								not: generalSection51CaseReference
+							}
+						},
+						{
+							reference: null
+						}
+					]
 				},
 				{
-					reference: { contains: query }
-				},
-				{
-					description: { contains: query }
+					OR: [
+						{
+							title: { contains: query }
+						},
+						{
+							reference: { contains: query }
+						},
+						{
+							description: { contains: query }
+						}
+					]
 				}
 			]
 		},
