@@ -1,7 +1,6 @@
-import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
+import { BO_GENERAL_S51_CASE_REF, GENERAL_S51_FOLDER_NAME } from '@pins/applications';
 import { findCaseByCaseReference } from '../../../applications.service.js';
 import { getCaseFolders } from '../../documentation/applications-documentation.service.js';
-import { generalSection51FolderName } from '../applications-general-s51.config.js';
 
 /**
  * 
@@ -14,7 +13,7 @@ export const getGeneralSection51Data = async () => {
 		const gs51CaseFolders = await getCaseFolders(gs51Case.id);
 
 		const gs51Folder = gs51CaseFolders.find(
-			(folder) => folder.displayNameEn.toLowerCase() === generalSection51FolderName.toLowerCase()
+			(folder) => folder.displayNameEn.toLowerCase() === GENERAL_S51_FOLDER_NAME.toLowerCase()
 		);
 
 		return {

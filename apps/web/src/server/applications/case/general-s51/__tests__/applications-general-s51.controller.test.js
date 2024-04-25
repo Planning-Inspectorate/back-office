@@ -2,13 +2,11 @@
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
-import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
+import { BO_GENERAL_S51_CASE_REF, GENERAL_S51_FOLDER_NAME } from '@pins/applications';
 import { parseHtml } from '@pins/platform';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
-
-import { generalSection51FolderName } from '../applications-general-s51.config.js';
 
 import { fixturePaginatedS51Advice } from '../../../../../../testing/applications/fixtures/s51-advice.js';
 import { createCase } from '../../../../../../testing/applications/factory/application.js';
@@ -56,7 +54,7 @@ const nocks = () => {
 	nock('http://test/')
 		.persist()
 		.get(`/applications/111111111/folders`)
-		.reply(200, [{ id: 222222222, displayNameEn: generalSection51FolderName }]);
+		.reply(200, [{ id: 222222222, displayNameEn: GENERAL_S51_FOLDER_NAME }]);
 
 	nock('http://test/')
 		.persist()
