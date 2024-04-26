@@ -1,7 +1,11 @@
 /**
+ * @typedef {(featureFlagName: string) => Promise<boolean>} IsFeatureActiveFn
+ * */
+
+/**
  * @param {import('./feature-flag-client.js').Logger} logger
  * @param {import('@azure/app-configuration').AppConfigurationClient} [client]
- * @returns {(featureFlagName: string) => Promise<boolean>}
+ * @returns {IsFeatureActiveFn}
  * */
 export const makeIsFeatureActive = (logger, client) => {
 	if (process.env.FEATURE_FLAGS_SETTING === 'ALL_ON') {
