@@ -16,6 +16,7 @@
 		"nodemon": "3.0.3"
 	},
 	"devDependencies": {
+    "@azure/app-configuration": "^1.6.0",
 		"@badeball/cypress-cucumber-preprocessor": "^20.0.1",
 		"@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
 		"@cypress/webpack-preprocessor": "^5.16.1",
