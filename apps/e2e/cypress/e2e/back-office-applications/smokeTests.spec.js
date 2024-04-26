@@ -1,12 +1,10 @@
 // @ts-nocheck
 /// <reference types="cypress"/>
 import { users } from '../../fixtures/users';
-import { getFeatureFlag } from '../../fixtures/feature-flags';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import { projectInformation } from '../../support/utils/createProjectInformation';
-import { itif } from '../../support/utils/itif';
 import { validateProjectOverview } from '../../support/utils/utils';
 import { FileUploadPage } from '../../page_objects/uploadFiles';
 import { DocumentPropertiesPage } from '../../page_objects/documentPropertiesPage.js';
@@ -49,7 +47,7 @@ describe('Smoke tests', { browser: '!electron' }, () => {
 		cy.deleteDownloads();
 	});
 
-	itif(getFeatureFlag('boas-1-test-feature'))('runs the smoke tests successfully', () => {
+	it('runs the smoke tests successfully', () => {
 		const fileName = 'sample-doc.pdf';
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
