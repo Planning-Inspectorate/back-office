@@ -18,5 +18,6 @@ import { makeIsFeatureActive } from './is-feature-active.js';
 export function FeatureFlagClient(logger, connectionString) {
 	this.client = connectionString ? new AppConfigurationClient(connectionString) : undefined;
 
+	/** @type {import('./is-feature-active.js').IsFeatureActiveFn} */
 	this.isFeatureActive = makeIsFeatureActive(logger, this.client);
 }
