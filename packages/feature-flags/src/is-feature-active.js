@@ -1,26 +1,19 @@
-import { AppConfigurationClient } from '@azure/app-configuration';
-
 /**
  * @param {import('./feature-flag-client.js').Logger} logger
- * @param {string} [connectionString]
+ * @param {import('@azure/app-configuration').AppConfigurationClient} [client]
  * @returns {(featureFlagName: string) => Promise<boolean>}
  * */
-export const makeIsFeatureActive = (logger, connectionString) => {
+export const makeIsFeatureActive = (logger, client) => {
 	if (process.env.FEATURE_FLAGS_SETTING === 'ALL_ON') {
 		return async () => true;
 	}
 
-	if (connectionString === undefined) {
-		logger.debug('Returning false for all feature flags because no connection string provided.');
+	if (!client) {
+		logger.debug(
+			'Returning false for all feature flags because no Azure App Config client exists.'
+		);
 		return async () => false;
 	}
-
-	if (connectionString.length <= 1) {
-		logger.error(`Connection string is invalid.`);
-		return async () => false;
-	}
-
-	const appConfigClient = new AppConfigurationClient(connectionString);
 
 	return async (featureFlagName) => {
 		const flagName = featureFlagName.trim();
@@ -32,7 +25,7 @@ export const makeIsFeatureActive = (logger, connectionString) => {
 
 		const flagConfiguration = await (async () => {
 			try {
-				return await appConfigClient.getConfigurationSetting({
+				return await client.getConfigurationSetting({
 					key: `.appconfig.featureflag/${flagName}`
 				});
 			} catch (err) {
