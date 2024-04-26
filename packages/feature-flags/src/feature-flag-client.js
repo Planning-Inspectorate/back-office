@@ -1,3 +1,4 @@
+import { AppConfigurationClient } from '@azure/app-configuration';
 import { makeIsFeatureActive } from './is-feature-active.js';
 
 /**
@@ -15,5 +16,7 @@ import { makeIsFeatureActive } from './is-feature-active.js';
  * @param {string} [connectionString]
  * */
 export function FeatureFlagClient(logger, connectionString) {
-	this.isFeatureActive = makeIsFeatureActive(logger, connectionString);
+	this.client = connectionString ? new AppConfigurationClient(connectionString) : undefined;
+
+	this.isFeatureActive = makeIsFeatureActive(logger, this.client);
 }
