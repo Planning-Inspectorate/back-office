@@ -203,3 +203,16 @@ exports[`applications GET / should render the open applications belonging to the
     </div>
 </main>"
 `;
+
+exports[`applications GET / should render there is a problem with the service 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
+            <p class=\\"govuk-body\\">If the problem persists, <a href=\\"https://intranet.planninginspectorate.gov.uk/task/report-it-problem/\\"
+                class=\\"govuk-link\\">report an IT problem or make an IT request.</a>
+            </p>
+        </div>
+    </div>
+</main>"
+`;
