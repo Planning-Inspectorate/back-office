@@ -6,7 +6,7 @@ import { ProjectUpdate } from '@pins/applications/lib/application/project-update
 import { Subscription } from '@pins/applications/lib/application/subscription.js';
 import TurndownService from 'turndown';
 import { PagedRequest } from './paged-request.js';
-import { decodeHTML, sleep } from './util.js';
+import { sleep } from './util.js';
 
 export class NotifySubscribers {
 	/** @type {import('./back-office-api-client.js').BackOfficeApiClient} */
@@ -75,12 +75,11 @@ export class NotifySubscribers {
 		if (!this.messageIsValid()) {
 			return;
 		}
-		const update = await this.getExtendedUpdate();
+		const update = await this.getUpdate();
 
 		if (update === null) {
-			throw new Error(
-				`update with id '${this.msg.id}' not found on case ${this.msg.caseReference}`
-			);
+			this.logger.error(`update (id ${this.msg.id}) doesn't exist with`);
+			return;
 		}
 
 		if (!update.emailSubscribers) {
@@ -114,7 +113,7 @@ export class NotifySubscribers {
 	 * Fetch all subscribers (a page at a time) and send an email to each one
 	 *
 	 * @param {Object} opts
-	 * @param {import('./types.js').ExtendedProjectUpdate} opts.update
+	 * @param {import('@pins/applications').ProjectUpdate} opts.update
 	 * @param {string} opts.content
 	 * @param {string} opts.subscriptionType
 	 * @param {string} opts.caseReference
@@ -139,7 +138,7 @@ export class NotifySubscribers {
 				`processing ${page.items.length} subscribers (running total: ${total}, page ${pageCount})`
 			);
 
-			// notify all subscribers (per page) in parallel
+			// notify all subscribers (per page) in parrallel
 			const logs = await Promise.all(
 				page.items.map((subscription) =>
 					this.notifySubscriber(update, subscription, content, caseReference)
@@ -159,7 +158,7 @@ export class NotifySubscribers {
 	/**
 	 * Send an email individual subscriber
 	 *
-	 * @param {import('./types.js').ExtendedProjectUpdate} update
+	 * @param {import('@pins/applications').ProjectUpdate} update
 	 * @param {import('@pins/applications').Subscription} subscription
 	 * @param {string} content
 	 * @param {string} caseReference
@@ -180,14 +179,14 @@ export class NotifySubscribers {
 			const reference = [caseReference, update.id, subscription.id].join('-');
 			const projectLink = this.generateProjectLink(caseReference);
 			const unsubscribeUrl = this.generateUnsubscribeLink(caseReference, subscription.emailAddress);
-			const projectName = update.projectName || caseReference;
-
 			await this.notifyClient.sendEmail(this.templateId, subscription.emailAddress, {
 				personalisation: {
-					projectName,
+					// todo: project name & link ?
+					projectName: caseReference,
 					projectLink,
-					title: `${projectName} - Project Update`,
-					subject: `${projectName} - Project Update Notification`,
+					// todo: what should these be?
+					title: `${caseReference} - Project Update`,
+					subject: `${caseReference} - Project Update Notification`,
 					content,
 					unsubscribeUrl
 				},
@@ -234,22 +233,18 @@ export class NotifySubscribers {
 	}
 
 	/**
-	 * @returns {Promise<import('./types.js').ExtendedProjectUpdate|null>}
-	 */
-	getExtendedUpdate() {
-		return this.apiClient.getExtendedProjectUpdate(this.msg.caseReference, this.msg.id);
-	}
-
-	/**
 	 * Format the HTML as markdown, for GovNotify
 	 *
 	 * @param {string} content
 	 * @returns {string}
 	 */
 	static htmlToMarkdown(content) {
+		const parsedContent = content
+			.replaceAll("'", '%27')
+			.replaceAll('(', '%28')
+			.replaceAll(')', '%29');
 		const turndownService = new TurndownService({ strongDelimiter: '', emDelimiter: '' });
-		const decodedContent = decodeHTML(content).replaceAll(`'`, '%27');
-		return turndownService.turndown(decodedContent);
+		return turndownService.turndown(parsedContent);
 	}
 
 	/**
