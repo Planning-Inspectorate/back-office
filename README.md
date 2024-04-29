@@ -10,6 +10,7 @@ Most of the apps are built with [Express.js](https://expressjs.com/), and the fr
 - [Tests](#tests)
 - [API Documentation](#api-documentation)
 - [Style Guide](#style-guide)
+- [Architechture diagrams](#architecture)
 
 ## Getting Started
 
@@ -172,6 +173,14 @@ npm run dev:applications
 ## Structure
 
 The main folders are `apps` (which contains the deployable services, such as the API and web front-end for the Application stack) and `packages` which contains libraries, as well as shared code and configuration. The whole setup is using [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
+
+## Architecture
+
+The architecture of the applications service and it's relationships with other systems can be viewed through interactive [C4 Model diagrams](https://c4model.com) held as [Structizier](https://docs.structurizr.com) code in the `workspace.dsl` file
+
+This can be viewed locally through an interactive web interface by running `npm run c4`
+
+Finally open your web browser to view [http://localhost:8080](http://localhost:8080)
 
 ## Building
 
