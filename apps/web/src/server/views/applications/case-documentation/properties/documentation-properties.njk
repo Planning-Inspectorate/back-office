@@ -106,6 +106,22 @@
 								classes: "govuk-button--secondary"
 							}) }}
 						{% endif %}
+
+						{% set oneVersionIsPublished = false %}
+						{%for documentVersion in documentVersions %}
+							{% if documentVersion.publishedStatus === 'published'%}
+								{% set oneVersionIsPublished = true %}
+							{% endif %}
+						{% endfor %}
+						{% if documentationFile.publishedStatus !== 'published' and oneVersionIsPublished === true %}
+							{{ govukButton({
+								element: 'a',
+								text: "Unpublish previous version",
+								href: "./unpublish",
+								classes: "govuk-button--secondary"
+							}) }}
+						{% endif %}
+
 					</div>
 					{% if documentationFile.publishedStatus == 'ready_to_publish' %}
 						<a class="govuk-link govuk-body-m govuk-!-text-align-right pins-nav-right-aligned-link" href= "{{'documents-queue'|url({caseId:caseId})}}">View publishing queue</a>

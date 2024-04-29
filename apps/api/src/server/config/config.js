@@ -33,7 +33,7 @@ const { value, error } = schema.validate({
 	authDisabled: environment.AUTH_DISABLED === 'true',
 	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true',
 	azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED && environment.KEY_VAULT_ENABLED === 'true',
-	featureFlagEndpoint: environment.FEATURE_FLAG_AZURE_ENDPOINT
+	featureFlagConnectionString: environment.PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING
 });
 
 if (error) {

@@ -52,11 +52,11 @@ export class Page {
 		xlHeader: '.govuk-heading-xl',
 		projectManagement: 'span.font-weight--700:nth-child(2)',
 		unpublish: 'a.govuk-button:nth-child(5)',
-		caseRefTraining :':nth-child(2) > .govuk-table__body > :nth-child(1) > :nth-child(2)',
-		projectDocumentation:':nth-child(1) > .govuk-breadcrumbs__link',
-		backToOverview:'.govuk-grid-column-two-thirds > a:nth-child(3)',
-		backToProjectOverview:'.govuk-back-link',
-		unpublishProject:'.colour--red'
+		caseRefTraining: ':nth-child(2) > .govuk-table__body > :nth-child(1) > :nth-child(2)',
+		projectDocumentation: ':nth-child(1) > .govuk-breadcrumbs__link',
+		backToOverview: '.govuk-grid-column-two-thirds > a:nth-child(3)',
+		backToProjectOverview: '.govuk-back-link',
+		unpublishProject: '.colour--red'
 	};
 
 	// E L E M E N T S
@@ -91,7 +91,7 @@ export class Page {
 		radioButton: () => cy.get(this.selectors.radio),
 		sectionHeader: () => cy.get(this.selectors.headingLeft),
 		selectAllCheckboxes: () => cy.get('#selectAll'),
-		selectElem: () => cy.get(this.selectors.select),
+		selectElem: () => cy.get(this.selectors.select, { timeout: 4000 }).should('be.visible'),
 		saveAndContinue: () => this.clickButtonByText('Save and Continue'),
 		successBanner: () => cy.get(this.selectors.successBanner),
 		summaryListActions: () => cy.get(this.selectors.summaryListActions),
@@ -112,9 +112,10 @@ export class Page {
 		projectManagement: () => cy.get(this.selectors.projectManagement),
 		unpublishLink: () => cy.get(this.selectors.unpublish),
 		projectDocumentationLink: () => cy.get(this.selectors.projectDocumentation),
-		backToOverviewPage:()=>cy.get(this.selectors.backToOverview),
-		backToProjectPage:()=>cy.get(this.selectors.backToProjectOverview),
-		clickOnUnpublishProjectLink:()=>cy.get(this.selectors.unpublishProject)
+		backToOverviewPage: () => cy.get(this.selectors.backToOverview),
+		backToProjectPage: () =>
+			cy.get(this.selectors.backToProjectOverview, { timeout: 4000 }).should('be.visible'),
+		clickOnUnpublishProjectLink: () => cy.get(this.selectors.unpublishProject)
 	};
 
 	// A C T I O N S
@@ -262,8 +263,7 @@ export class Page {
 	}
 
 	verifyFolderDocuments(fileCount) {
-		cy.wait(6000);
-		cy.get('.pins-files-list > .govuk-table .govuk-table__row').should(
+		cy.get('.pins-files-list > .govuk-table .govuk-table__row', { timeout: 6000 }).should(
 			'have.length',
 			2 + fileCount
 		);
@@ -301,19 +301,19 @@ export class Page {
 	goToDashboard() {
 		this.basePageElements.goToDashboardLink().click();
 	}
-	goToFolderDocumentPage(){
+	goToFolderDocumentPage() {
 		this.basePageElements.projectManagement().click();
 	}
-	clickonProjectDocumentation(){
+	clickonProjectDocumentation() {
 		this.basePageElements.projectDocumentationLink().click();
 	}
-	gotoProjectOverviewpage(){
+	gotoProjectOverviewpage() {
 		this.basePageElements.backLink().click();
 	}
-	publishUnpublishProject(){
+	publishUnpublishProject() {
 		cy.get(':nth-child(1) > .govuk-breadcrumbs__link').click();
 		cy.wait(2000);
-        this.basePageElements.backToProjectPage().click();
+		this.basePageElements.backToProjectPage().click();
 		this.clickButtonByText('Preview and publish project');
 		this.clickButtonByText('Accept and publish project');
 		this.validateSuccessPanelTitle('Project page successfully published');
