@@ -1,3 +1,4 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { EventType } from '@pins/event-client';
 import * as caseRepository from '#repositories/case.repository.js';
 import logger from '#utils/logger.js';
@@ -8,7 +9,6 @@ import { setCaseUnpublishedChangesIfTrue } from '#utils/published-case-fields-ch
 import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
 import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
 import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';
-import { generalSection51CaseReference } from './application.config.js';
 
 /**
  * Express request handler for creating application
@@ -109,7 +109,7 @@ export const publishCase = async ({ params: { id } }, response) => {
 
 	const caseDetails = await caseRepository.getById(id, {});
 
-	if (caseDetails && caseDetails.reference === generalSection51CaseReference) {
+	if (caseDetails && caseDetails.reference === BO_GENERAL_S51_CASE_REF) {
 		throw new BackOfficeAppError(
 			`case reference: ${caseDetails.reference} is not authorised for publishing`,
 			403

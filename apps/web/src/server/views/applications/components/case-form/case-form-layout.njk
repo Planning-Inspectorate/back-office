@@ -36,7 +36,7 @@
 		{{ govukBackLink({
 		classes: 'govuk-!-margin-top-3',
 		text: "Back",
-		href: 'case-create'|url({caseId:caseId, step:'check-your-answers'}) if layout.isEdit else computedBackLink
+		href: 'case-create'|url({caseId:caseId, step:'check-your-answers'}) if layout.isEdit and isDraft else computedBackLink
 	}) }}
 	</aside>
 {% endblock %}

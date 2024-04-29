@@ -25,6 +25,7 @@ export default joi
 		featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
 		authDisabled: joi.boolean().optional(),
 		serviceBusEnabled: joi.boolean().optional(),
-		azureKeyVaultEnabled: joi.boolean().optional()
+		azureKeyVaultEnabled: joi.boolean().optional(),
+		featureFlagConnectionString: joi.string().optional()
 	})
 	.options({ presence: 'required' }); // required by default

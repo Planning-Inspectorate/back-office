@@ -1,3 +1,4 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { request } from '../../../app-test.js';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -33,18 +34,31 @@ const expectedSearchParameters = (skip, take, query) => {
 			}
 		],
 		where: {
-			NOT: {
-				reference: 'GS5110001'
-			},
-			OR: [
+			AND: [
 				{
-					title: { contains: query }
+					OR: [
+						{
+							reference: {
+								not: BO_GENERAL_S51_CASE_REF
+							}
+						},
+						{
+							reference: null
+						}
+					]
 				},
 				{
-					reference: { contains: query }
-				},
-				{
-					description: { contains: query }
+					OR: [
+						{
+							title: { contains: query }
+						},
+						{
+							reference: { contains: query }
+						},
+						{
+							description: { contains: query }
+						}
+					]
 				}
 			]
 		},

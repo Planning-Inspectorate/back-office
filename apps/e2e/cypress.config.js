@@ -36,7 +36,8 @@ module.exports = defineConfig({
 			CASE_ADMIN_EMAIL: process.env.CASE_ADMIN_EMAIL,
 			INSPECTOR_EMAIL: process.env.INSPECTOR_EMAIL,
 			VALIDATION_OFFICER_EMAIL: process.env.VALIDATION_OFFICER_EMAIL,
-			AUTH_DISABLED: process.env.AUTH_DISABLED
+			AUTH_DISABLED: process.env.AUTH_DISABLED,
+			FEATURE_FLAG_CONNECTION_STRING: process.env.FEATURE_FLAG_CONNECTION_STRING
 		},
 		specPattern: getSpecPattern(app),
 		supportFile: './cypress/support/e2e.js',

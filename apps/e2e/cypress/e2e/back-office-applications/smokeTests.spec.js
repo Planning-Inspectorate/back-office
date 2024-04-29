@@ -32,14 +32,10 @@ const texts = {
 	createTimetableButtonText: 'Create new timetable item',
 	successMessageText: 'Timetable item successfully added'
 };
-const itemOptions = [
-	'Accompanied Site Inspection',
-	'Compulsory Acquisition Hearing',
-];
+const itemOptions = ['Accompanied Site Inspection', 'Compulsory Acquisition Hearing'];
 
-describe('Smoke tests', {browser:"!electron"},() => {
+describe('Smoke tests', { browser: '!electron' }, () => {
 	let projectInfo;
-
 
 	before(() => {
 		projectInfo = projectInformation();
@@ -66,16 +62,16 @@ describe('Smoke tests', {browser:"!electron"},() => {
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();
-    // Verify the document is downloaded from properties page
+		// Verify the document is downloaded from properties page
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		fileUploadPage.clickDownloadFile();
 
-	// Verify the document version
-	    fileUploadPage.uploadFile('test.pdf', true);
+		// Verify the document version
+		fileUploadPage.uploadFile('test.pdf', true);
 		fileUploadPage.clickButtonByText('Upload');
 		documentPropertiesPage.validateVersionCount(2);
 
-	// Verify exam timetable is created
+		// Verify exam timetable is created
 		documentPropertiesPage.goBackToPrjdocumentationPage();
 		documentPropertiesPage.goBackToOverviewPage();
 		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
@@ -95,12 +91,11 @@ describe('Smoke tests', {browser:"!electron"},() => {
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.clickLinkByText('Go back to examination timetable');
 
-	// Verify Publish and Unpublish examtime table
+		// Verify Publish and Unpublish examtime table
 		examTimetablePage.verifyPublishAndUnpublishExamtimetable();
 
-
-	// Publish and Unpublish document
-        searchResultsPage.clickLinkByText('Project documentation');
+		// Publish and Unpublish document
+		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.updateAllProperties('Redacted');
@@ -109,28 +104,30 @@ describe('Smoke tests', {browser:"!electron"},() => {
 		folderPage.validatePublishingQueueCase(projectInfo, caseRef);
 		folderPage.publishAllDocumentsInList();
 		folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
-        folderPage.navigateToProjectFolder();
+		folderPage.navigateToProjectFolder();
 		searchResultsPage.clickLinkByText('View/Edit properties');
 		folderDocumentsPage.unpublishDocument();
 
-	// Verify the create S51 Advice - Enquirer Full Details
-	    folderPage.navigateToProjectFolder();
+		// Verify the create S51 Advice - Enquirer Full Details
+		folderPage.navigateToProjectFolder();
 		documentPropertiesPage.goBackToPrjdocumentationPage();
 		searchResultsPage.clickLinkByText('S51 advice');
 		s51AdvicePage.clickButtonByText('Create new S51 advice');
 		const details = s51AdviceDetails();
-		const titlefirst='firsttitle';
-		s51AdvicePage.completeS51Advice(details, {
-			organisation: details.organisation,
-			firstName: details.firstName,
-			lastName: details.lastName
-		},titlefirst);
-	// Verify S51 Advice - Publish/Unpublish
-       s51AdvicePage.verifyS51PubishandUnpublish();
+		const titlefirst = 'firsttitle';
+		s51AdvicePage.completeS51Advice(
+			details,
+			{
+				organisation: details.organisation,
+				firstName: details.firstName,
+				lastName: details.lastName
+			},
+			titlefirst
+		);
+		// Verify S51 Advice - Publish/Unpublish
+		s51AdvicePage.verifyS51PubishandUnpublish();
 
-    // Verify Project - Publish/Unpublish
-	   casePage.publishUnpublishProject();
-
+		// Verify Project - Publish/Unpublish
+		casePage.publishUnpublishProject();
 	});
-
 });

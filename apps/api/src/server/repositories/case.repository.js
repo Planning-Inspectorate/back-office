@@ -1,10 +1,10 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { forEach, isEmpty, isString, map } from 'lodash-es';
 import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
-import { generalSection51CaseReference } from '../applications/application/application.config.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
@@ -58,6 +58,16 @@ export const getByStatus = (statusArray) => {
 	return databaseConnector.case.findMany({
 		orderBy: [{ ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
 		where: {
+			OR: [
+				{
+					reference: {
+						not: BO_GENERAL_S51_CASE_REF
+					}
+				},
+				{
+					reference: null
+				}
+			],
 			CaseStatus: {
 				some: {
 					status: {
@@ -103,18 +113,31 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 			}
 		],
 		where: {
-			NOT: {
-				reference: generalSection51CaseReference
-			},
-			OR: [
+			AND: [
 				{
-					title: { contains: query }
+					OR: [
+						{
+							reference: {
+								not: BO_GENERAL_S51_CASE_REF
+							}
+						},
+						{
+							reference: null
+						}
+					]
 				},
 				{
-					reference: { contains: query }
-				},
-				{
-					description: { contains: query }
+					OR: [
+						{
+							title: { contains: query }
+						},
+						{
+							reference: { contains: query }
+						},
+						{
+							description: { contains: query }
+						}
+					]
 				}
 			]
 		},
@@ -144,18 +167,31 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 export const getApplicationsCountBySearchCriteria = (query) => {
 	return databaseConnector.case.count({
 		where: {
-			NOT: {
-				reference: generalSection51CaseReference
-			},
-			OR: [
+			AND: [
 				{
-					title: { contains: query }
+					OR: [
+						{
+							reference: {
+								not: BO_GENERAL_S51_CASE_REF
+							}
+						},
+						{
+							reference: null
+						}
+					]
 				},
 				{
-					reference: { contains: query }
-				},
-				{
-					description: { contains: query }
+					OR: [
+						{
+							title: { contains: query }
+						},
+						{
+							reference: { contains: query }
+						},
+						{
+							description: { contains: query }
+						}
+					]
 				}
 			]
 		}

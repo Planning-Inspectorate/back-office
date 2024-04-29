@@ -1,7 +1,7 @@
-import { migrateFolder } from './src/folder-migration.js';
+import { migrateFolders } from '../common/migrators/folder-migration.js';
 
 // @ts-ignore
-await migrateFolder(
+await migrateFolders(
 	{
 		info: console.log,
 		error: console.error,
