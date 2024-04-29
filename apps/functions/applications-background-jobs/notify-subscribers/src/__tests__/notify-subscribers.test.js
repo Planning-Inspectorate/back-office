@@ -1,6 +1,5 @@
 import { jest } from '@jest/globals';
 import { NotifySubscribers } from '../notify-subscribers.js';
-import { decodeHTML } from '../util.js';
 
 describe('notify-subscribers', () => {
 	function contextLog() {
@@ -10,45 +9,6 @@ describe('notify-subscribers', () => {
 		log.error = jest.fn();
 		return log;
 	}
-
-	describe('decodeHTML', () => {
-		const originalHtml = `
-			<!DOCTYPE html>
-			<html lang="en">
-				<head></head>
-				<body>
-					<ul>
-						<li>
-							<a href="http://govuk-test-1.gov.uk/static/fred's%20file%20(version%E2%80%931).pdf">Link%201</a>
-						</li>
-						<li>
-							<a href="http://govuk-test-2.gov.uk/static/simple%E2%80%93filename.jpg">Link%202</a>
-						</li>
-						<li>
-							<a href="http://govuk-test-3.gov.uk/static/my.doc">Link%203</a>
-						</li>
-					</ul>
-				</body></html>`;
-
-		const expectedHtml = `<!DOCTYPE html><html lang="en"><head></head>
-				<body>
-					<ul>
-						<li>
-							<a href="http://govuk-test-1.gov.uk/static/fred's%20file%20(version%E2%80%931).pdf">Link 1</a>
-						</li>
-						<li>
-							<a href="http://govuk-test-2.gov.uk/static/simple%E2%80%93filename.jpg">Link 2</a>
-						</li>
-						<li>
-							<a href="http://govuk-test-3.gov.uk/static/my.doc">Link 3</a>
-						</li>
-					</ul>
-				</body></html>`;
-		it('retrieves links correctly', () => {
-			const resultHtml = decodeHTML(originalHtml);
-			expect(resultHtml).toEqual(expectedHtml);
-		});
-	});
 
 	describe('htmlToMarkdown', () => {
 		const tests = [
@@ -81,7 +41,7 @@ describe('notify-subscribers', () => {
 			{
 				name: 'w/ complex link',
 				content: `<p>My Important Update <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/fred's%20%20(version%E2%80%932).pdf">some pdf</a></p>`,
-				want: `My Important Update [some pdf](https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/fred%27s%20%20(version%E2%80%932).pdf)`
+				want: `My Important Update [some pdf](https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/fred%27s%20%20%28version%E2%80%932%29.pdf)`
 			},
 			{
 				name: 'w/ list',
@@ -100,7 +60,7 @@ describe('notify-subscribers', () => {
 			return new NotifySubscribers({
 				apiClient: {
 					baseUrl: '',
-					async getExtendedProjectUpdate() {
+					async getProjectUpdate() {
 						return {
 							id: 1,
 							caseId: 2,
@@ -112,12 +72,11 @@ describe('notify-subscribers', () => {
 							title: null,
 							sentToSubscribers: false,
 							htmlContentWelsh: null,
-							type: 'general',
-							projectName: 'My Project Name'
+							type: 'general'
 						};
 					},
-					patchProjectUpdate() {
-						return this.getExtendedProjectUpdate();
+					patchProjectUpdate(id) {
+						return this.getProjectUpdate(id);
 					},
 					async getSubscriptions(page, pageSize) {
 						return { page, pageSize, pageCount: 1, items: subs, itemCount: subs.length };
