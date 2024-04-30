@@ -97,9 +97,12 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 			'origin',
 			'owner',
 			'author',
+			'authorWelsh',
 			'representative',
 			'description',
+			'descriptionWelsh',
 			'filter1',
+			'filter1Welsh',
 			'filter2'
 		]),
 		documentCaseStage: mapDocumentCaseStageToSchema(docVersionWithFullDetails.stage)
