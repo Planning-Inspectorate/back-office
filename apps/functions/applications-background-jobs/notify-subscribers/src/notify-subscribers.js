@@ -6,7 +6,7 @@ import { ProjectUpdate } from '@pins/applications/lib/application/project-update
 import { Subscription } from '@pins/applications/lib/application/subscription.js';
 import TurndownService from 'turndown';
 import { PagedRequest } from './paged-request.js';
-import { sleep } from './util.js';
+import { encodeLinksForMarkdown, sleep } from './util.js';
 
 export class NotifySubscribers {
 	/** @type {import('./back-office-api-client.js').BackOfficeApiClient} */
@@ -247,12 +247,8 @@ export class NotifySubscribers {
 	 * @returns {string}
 	 */
 	static htmlToMarkdown(content) {
-		const parsedContent = content
-			.replaceAll("'", '%27')
-			.replaceAll('(', '%28')
-			.replaceAll(')', '%29');
 		const turndownService = new TurndownService({ strongDelimiter: '', emDelimiter: '' });
-		return turndownService.turndown(parsedContent);
+		return turndownService.turndown(encodeLinksForMarkdown(content));
 	}
 
 	/**

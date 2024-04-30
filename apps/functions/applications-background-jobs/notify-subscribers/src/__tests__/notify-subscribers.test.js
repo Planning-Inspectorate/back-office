@@ -40,8 +40,8 @@ describe('notify-subscribers', () => {
 			},
 			{
 				name: 'w/ complex link',
-				content: `<p>My Important Update <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/fred's%20%20(version%E2%80%932).pdf">some pdf</a></p>`,
-				want: `My Important Update [some pdf](https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/fred%27s%20%20%28version%E2%80%932%29.pdf)`
+				content: `<p>My Important Update <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/fred's%20%20(version%E2%80%932).pdf">some pdf (with a complex filename)</a></p>`,
+				want: `My Important Update [some pdf (with a complex filename)](https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/fred%27s%20%20%28version%E2%80%932%29.pdf)`
 			},
 			{
 				name: 'w/ list',
