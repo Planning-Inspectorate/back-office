@@ -71,7 +71,7 @@
     "pino": "^8.1.0",
     "pino-http": "^8.1.0",
     "pino-pretty": "^8.1.0",
-    "pins-data-model": "github:Planning-Inspectorate/data-model#1.0.2",
+    "pins-data-model": "github:Planning-Inspectorate/data-model#1.1.0",
     "sanitize-html": "^2.12.1",
     "swagger-ui-express": "^4.4.0",
     "xstate": "4.32.1"
