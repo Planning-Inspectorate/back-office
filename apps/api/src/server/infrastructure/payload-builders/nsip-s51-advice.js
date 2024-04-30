@@ -24,7 +24,15 @@ export const buildNsipS51AdvicePayload = async (s51Advice) => {
 	const caseReference = c?.reference ?? '';
 
 	return {
-		...pick(s51Advice, ['caseId', 'title', 'enquiryDetails', 'adviceDetails']),
+		...pick(s51Advice, [
+			'caseId',
+			'title',
+			'titleWelsh',
+			'enquiryDetails',
+			'enquiryDetailsWelsh',
+			'adviceDetails',
+			'adviceDetailsWelsh'
+		]),
 		enquiryDate: s51Advice.enquiryDate.toISOString(),
 		adviceDate: s51Advice.adviceDate.toISOString(),
 		caseReference,
