@@ -21,4 +21,12 @@ describe('#buildQueryString', () => {
 			'param1=value1&param2=value2-1&param2=value2-2&param2=value2-3&param3=value3';
 		expect(buildQueryString(query)).toEqual(expectedQueryString);
 	});
+
+	test('should encode values as expected', () => {
+		const query = {
+			sortBy: '+value1,-value2,value3'
+		};
+		const expectedQueryString = 'sortBy=%2Bvalue1&sortBy=-value2&sortBy=value3';
+		expect(buildQueryString(query)).toEqual(expectedQueryString);
+	});
 });
