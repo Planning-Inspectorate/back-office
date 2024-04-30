@@ -44,12 +44,17 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 		);
 	}
 
-	let caseReference = null;
-	if (document.case?.reference) {
-		caseReference = document.case.reference;
-	} else if (document.folder?.case?.reference) {
-		caseReference = document.folder.case.reference;
-	}
+	const caseReference = (() => {
+		if (document.case?.reference) {
+			return document.case.reference;
+		}
+
+		if (document.folder?.case?.reference) {
+			return document.folder.case.reference;
+		}
+
+		return null;
+	})();
 
 	return {
 		documentId: document.guid,
