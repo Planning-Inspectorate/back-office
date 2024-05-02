@@ -24,7 +24,9 @@
       [
         { text: "Case stage" },
         { text: case.status },
-        { html: caseEditLink({ editStepUrl: "stage", caseId: case.id }) }
+        { html: caseEditLink({ editStepUrl: "stage", caseId: case.id }),
+          classes: 'text-align--right'
+        }
       ]
     ]
   }) }}
