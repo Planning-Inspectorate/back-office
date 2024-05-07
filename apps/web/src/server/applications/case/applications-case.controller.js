@@ -1,5 +1,6 @@
 import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
+import { featureFlagClient } from '../../../common/feature-flags.js';
 import { allRoles } from './project-team/applications-project-team.controller.js';
 import {
 	getManyProjectTeamMembersInfo,
@@ -63,13 +64,20 @@ export async function viewApplicationsCaseOverview({ session }, response) {
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function viewApplicationsCaseInformation(_, response) {
-	const caseIsWelsh = Boolean(
-		response.locals.case?.geographicalInformation?.regions?.find(
-			(/** @type {{name: string}} */ r) => r.name === 'wales'
-		)
-	);
+	/** @type {boolean} */
+	const caseIsWelsh = await (async () => {
+		if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+			return false;
+		}
 
-	response.render(`applications/case/project-information`, {
+		return Boolean(
+			response.locals.case?.geographicalInformation?.regions?.find(
+				(/** @type {{name: string}} */ r) => r.name === 'wales'
+			)
+		);
+	})();
+
+	response.render('applications/case/project-information', {
 		selectedPageType: 'project-information',
 		caseIsWelsh
 	});
