@@ -6,7 +6,12 @@ import { mapValuesUsingObject } from '#utils/mapping/map-values-using-object.js'
  * @returns {import("../../repositories/case.repository").CreateApplicationParams}
  */
 export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
-	const formattedCaseDetails = pick(applicationDetails, ['title', 'description']);
+	const formattedCaseDetails = pick(applicationDetails, [
+		'title',
+		'titleWelsh',
+		'description',
+		'descriptionWelsh'
+	]);
 
 	const formattedGridReferenceDetails = mapValuesUsingObject(
 		pick(applicationDetails.geographicalInformation?.gridReference, ['easting', 'northing']),

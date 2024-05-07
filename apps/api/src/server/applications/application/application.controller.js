@@ -46,7 +46,7 @@ export const updateApplication = async ({ params, body }, response) => {
 		throw new BackOfficeAppError(`Application not found with id ${params.id}`, 404);
 	}
 
-	let updateResponse = await caseRepository.updateApplication({
+	const updateResponse = await caseRepository.updateApplication({
 		caseId: params.id,
 		applicantId: body?.applicant?.id,
 		...mappedApplicationDetails
