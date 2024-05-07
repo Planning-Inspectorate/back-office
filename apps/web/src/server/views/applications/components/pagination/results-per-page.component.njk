@@ -48,10 +48,6 @@
 		<input type="hidden" name="pageSize" value="{{ size }}">
 		{{ size }}
 	{% else %}
-		<a class="govuk-link" href="{{ link }}">
-			<span class="govuk-visually-hidden">View </span>
-			{{ size }}
-			<span class="govuk-visually-hidden"> results per page</span>
-		</a>
+		<a class="govuk-link" href="{{ link }}"><span class="govuk-visually-hidden">View </span>{{ size }}<span class="govuk-visually-hidden"> results per page</span></a>
 	{% endif %}
 {% endmacro %}
