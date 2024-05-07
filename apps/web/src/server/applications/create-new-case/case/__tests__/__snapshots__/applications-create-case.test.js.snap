@@ -1124,7 +1124,7 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
+            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" aria-describedby=\\"caseEmail-hint\\">
         </div>
@@ -1143,7 +1143,7 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
+            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" value=\\"some@ema.il\\" aria-describedby=\\"caseEmail-hint\\">
         </div>
@@ -1177,7 +1177,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
+            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
             <p id=\\"caseEmail-error\\"
             class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
             <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
@@ -1210,7 +1210,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
+            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" value=\\"valid@ema.il\\" aria-describedby=\\"caseEmail-hint\\">
         </div>
@@ -1244,7 +1244,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
+            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
             <p id=\\"caseEmail-error\\"
             class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid email address</p>
             <input             class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\" id=\\"caseEmail\\"
