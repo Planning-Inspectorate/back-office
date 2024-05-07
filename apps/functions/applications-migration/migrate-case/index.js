@@ -10,11 +10,11 @@ import { migrationNsipDocumentsByReference } from '../common/migrators/nsip-docu
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
-export default async function (context, { body: { caseReferences } }) {
+export default async function (context, { body: { caseReferences, dryRun } }) {
 	console.info('Migrating cases:', JSON.stringify(caseReferences));
 	for (const caseReference of caseReferences) {
 		// migrate one at a time
-		await migrateCase(context.log, caseReference);
+		await migrateCase(context.log, caseReference, dryRun);
 	}
 }
 
@@ -23,10 +23,11 @@ export default async function (context, { body: { caseReferences } }) {
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} dryRun
  */
-async function migrateCase(log, caseReference) {
+export async function migrateCase(log, caseReference, dryRun = true) {
 	// start with the nsip-project
-	await migrateNsipProjectByReference(log, caseReference);
+	await migrateNsipProjectByReference(log, caseReference, false);
 
 	await migrateServiceUsersForCase(log, caseReference);
 
@@ -40,5 +41,8 @@ async function migrateCase(log, caseReference) {
 
 	await migrateExamTimetablesForCase(log, caseReference);
 
-	// todo: mark case migrated on success
+	// re-run the nsip-project migration to update the status and broadcast
+	if (!dryRun) {
+		await migrateNsipProjectByReference(log, caseReference, true);
+	}
 }

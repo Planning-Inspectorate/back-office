@@ -21,12 +21,13 @@ export const migrateNsipProjects = async (log, caseReferences) => {
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} overrideMigrationStatus
  */
-export async function migrateNsipProjectByReference(log, caseReference) {
+export async function migrateNsipProjectByReference(log, caseReference, overrideMigrationStatus) {
 	try {
 		log.info(`Migrating NSIP Project for case ${caseReference}`);
 
-		const projects = await getNsipProjects(log, caseReference);
+		const projects = await getNsipProjects(log, caseReference, overrideMigrationStatus);
 
 		if (projects.length > 0) {
 			log.info(`Migrating ${projects.length} NSIP Projects for case ${caseReference}`);
@@ -46,8 +47,9 @@ export async function migrateNsipProjectByReference(log, caseReference) {
 /**
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} overrideMigrationStatus
  */
-const getNsipProjects = async (log, caseReference) => {
+const getNsipProjects = async (log, caseReference, overrideMigrationStatus) => {
 	const projects = await SynapseDB.query(
 		'SELECT * FROM [odw_curated_db].[dbo].[nsip_data] WHERE caseReference = ?;',
 		{
@@ -63,7 +65,7 @@ const getNsipProjects = async (log, caseReference) => {
 		nsipOfficerIds: valueToArray(project.nsipOfficerIds),
 		nsipAdministrationOfficerIds: valueToArray(project.nsipAdministrationOfficerIds),
 		inspectorIds: valueToArray(project.inspectorIds),
-		migrationStatus: Boolean(project.migrationStatus),
+		migrationStatus: overrideMigrationStatus ? true : Boolean(project.migrationStatus),
 		regions: valueToArray(project.region)
 	}));
 };
