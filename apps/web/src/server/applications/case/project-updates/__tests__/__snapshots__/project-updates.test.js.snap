@@ -29,11 +29,11 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                     </div>
                     <div class=\\"govuk-grid-column-one-half text-align--right\\">
                         <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
+                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
+                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
                                 <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
                                     </a>
-                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span> 100
+                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
                                     <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
                                         </a>
                                         </span>
@@ -412,11 +412,11 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                     </div>
                     <div class=\\"govuk-grid-column-one-half text-align--right\\">
                         <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
+                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
+                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
                                 <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
                                     </a>
-                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span> 100
+                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
                                     <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
                                         </a>
                                         </span>
@@ -515,11 +515,11 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                     </div>
                     <div class=\\"govuk-grid-column-one-half text-align--right\\">
                         <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
+                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
+                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
                                 <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
                                     </a>
-                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span> 100
+                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
                                     <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
                                         </a>
                                         </span>
@@ -618,11 +618,11 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                     </div>
                     <div class=\\"govuk-grid-column-one-half text-align--right\\">
                         <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
+                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
+                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
                                 <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
                                     </a>
-                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span> 100
+                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
                                     <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
                                         </a>
                                         </span>
