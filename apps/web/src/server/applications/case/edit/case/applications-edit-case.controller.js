@@ -1,4 +1,5 @@
 import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
+import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import {
 	caseGeographicalInformationData,
 	caseGeographicalInformationDataUpdate,
@@ -117,6 +118,12 @@ export async function viewApplicationsEditCaseDescription(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  * */
 export async function viewApplicationsEditCaseDescriptionWelsh(request, response) {
+	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		return response.redirect(
+			`/applications-service/case/${response.locals.caseId}/project-information`
+		);
+	}
+
 	const properties = caseNameAndDescriptionData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
@@ -145,6 +152,12 @@ export async function viewApplicationsEditCaseName(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  * */
 export async function viewApplicationsEditCaseNameWelsh(request, response) {
+	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		return response.redirect(
+			`/applications-service/case/${response.locals.caseId}/project-information`
+		);
+	}
+
 	const properties = caseNameAndDescriptionData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
@@ -260,6 +273,12 @@ export async function viewApplicationsCreateCaseLocation(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps, {}, {}, {}, {}>}
  * */
 export async function viewApplicationsCreateCaseLocationWelsh(request, response) {
+	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		return response.redirect(
+			`/applications-service/case/${response.locals.caseId}/project-information`
+		);
+	}
+
 	const properties = await caseGeographicalInformationData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
