@@ -50,12 +50,12 @@
   {% set rowsData = (rowsData.push({title: 'Project location', html: case.geographicalInformation.locationDescription | sanitize, url: 'project-location', classes: 'project-details__project-location' }), rowsData) %}
 
   {% if isWelsh %}
-    {% set rowHtml = case.geographicalInformation.locationDescriptionWelsh if case.geographicalInformation.locationDescriptionWelsh else caseEditWelshLink({editStepUrl: 'location-welsh', caseId: case.id, field: 'project location'}) %}
+    {% set rowHtml = case.geographicalInformation.locationDescriptionWelsh if case.geographicalInformation.locationDescriptionWelsh else caseEditWelshLink({editStepUrl: 'project-location-welsh', caseId: case.id, field: 'project location'}) %}
     {% set hideChange = not case.geographicalInformation.locationDescriptionWelsh %}
 
     {% set rowsData = (rowsData.push({
       title: 'Project location in Welsh',
-      url: 'location-welsh',
+      url: 'project-location-welsh',
       html: rowHtml,
       hideChange: hideChange
     }), rowsData) %}

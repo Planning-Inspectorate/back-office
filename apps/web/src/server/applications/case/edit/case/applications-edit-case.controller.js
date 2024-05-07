@@ -56,6 +56,12 @@ const caseLocationLayout = {
 	isEdit: true
 };
 
+const caseLocationWelshLayout = {
+	pageTitle: 'Project location in Welsh',
+	components: ['project-location-welsh'],
+	isEdit: true
+};
+
 const gridReferencesLayout = {
 	pageTitle: 'Enter grid references',
 	components: ['grid-references'],
@@ -249,6 +255,20 @@ export async function viewApplicationsCreateCaseLocation(request, response) {
 }
 
 /**
+ * View the form step for editing the Welsh case location
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps, {}, {}, {}, {}>}
+ * */
+export async function viewApplicationsCreateCaseLocationWelsh(request, response) {
+	const properties = await caseGeographicalInformationData(request, response.locals);
+
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: caseLocationWelshLayout
+	});
+}
+
+/**
  * View the form step for editing the grid references
  *
  *
@@ -276,10 +296,16 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		response.locals
 	);
 
-	const isCaseLocationPage = Object.prototype.hasOwnProperty.call(
-		request.body,
-		'geographicalInformation.locationDescription'
-	);
+	const isCaseLocationPage =
+		Object.prototype.hasOwnProperty.call(
+			request.body,
+			'geographicalInformation.locationDescription'
+		) ||
+		Object.prototype.hasOwnProperty.call(
+			request.body,
+			'geographicalInformation.locationDescriptionWelsh'
+		);
+
 	const layout = isCaseLocationPage ? caseLocationLayout : gridReferencesLayout;
 
 	if (properties.errors || !updatedCaseId) {
