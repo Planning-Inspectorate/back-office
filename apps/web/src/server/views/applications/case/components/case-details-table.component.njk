@@ -1,7 +1,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "./case-edit-link.component.njk" import caseEditLink %}
 
-{% macro caseDetailsTable(case, isPublishPage) %}
+{% macro caseDetailsTable(case, isPublishPage, isWelsh) %}
 	{% set regionNames = [] %}
 	{% for item in case.geographicalInformation.regions %}
 		{% set regionNames = (regionNames.push(item.displayNameEn), regionNames) %}
@@ -16,20 +16,62 @@
 		{% set gridReferences = gridReferences + case.geographicalInformation.gridReference.northing + ' (Northing)' %}
 	{% endif %}
 
-	{% set rowsData = [
-		{title: 'Project name', text: case.title, url: 'name', classes: 'project-details__name' },
-		{title: 'Project description', html: case.description | sanitize, url: 'description', classes: 'project-details__project-description' },
-		{title: 'Project email address', text: case.caseEmail, url: 'team-email', classes: 'project-details__team-email' },
-		{title: 'Project location', html: case.geographicalInformation.locationDescription | sanitize, url: 'project-location', classes: 'project-details__project-location' },
-		{title: 'Grid references', html: gridReferences, url: 'grid-references', classes: 'project-details__grid-references' },
-		{title: 'Region(s)', html: regionNames, url: 'regions', classes: 'project-details__regions' },
-		{title: 'Map zoom level', text: case.geographicalInformation.mapZoomLevel.displayNameEn, url: 'zoom-level', classes: 'project-details__zoom-level' }
-	] %}
+  {# No way to insert at index, so have to push each row into the array #}
+  {% set rowsData = [] %}
+  {% set rowsData = (rowsData.push({title: 'Project name', text: case.title, url: 'name', classes: 'project-details__name' }), rowsData) %}
+
+  {% if isWelsh %}
+    {% set rowHtml = case.titleWelsh if case.titleWelsh else caseEditWelshLink({editStepUrl: 'name-welsh', caseId: case.id, field: 'project-name'}) %}
+    {% set hideChange = not case.titleWelsh %}
+
+    {% set rowsData = (rowsData.push({
+      title: 'Project name in Welsh',
+      url: 'name-welsh',
+      classes: 'project-details__name',
+      html: rowHtml,
+      hideChange: hideChange
+    }), rowsData) %}
+  {% endif %}
+
+  {% set rowsData = (rowsData.push({title: 'Project description', html: case.description | sanitize, url: 'description', classes: 'project-details__project-description' }), rowsData) %}
+
+  {% if isWelsh %}
+    {% set rowHtml = case.descriptionWelsh if case.descriptionWelsh else caseEditWelshLink({editStepUrl: 'description-welsh', caseId: case.id, field: 'project description'}) %}
+    {% set hideChange = not case.descriptionWelsh %}
+
+    {% set rowsData = (rowsData.push({
+      title: 'Project description in Welsh',
+      url: 'description-welsh',
+      html: rowHtml,
+      hideChange: hideChange
+    }), rowsData) %}
+  {% endif %}
+
+  {% set rowsData = (rowsData.push({title: 'Project location', html: case.geographicalInformation.locationDescription | sanitize, url: 'project-location', classes: 'project-details__project-location' }), rowsData) %}
+
+  {% if isWelsh %}
+    {% set rowHtml = case.geographicalInformation.locationDescriptionWelsh if case.geographicalInformation.locationDescriptionWelsh else caseEditWelshLink({editStepUrl: 'location-welsh', caseId: case.id, field: 'project location'}) %}
+    {% set hideChange = not case.geographicalInformation.locationDescriptionWelsh %}
+
+    {% set rowsData = (rowsData.push({
+      title: 'Project location in Welsh',
+      url: 'location-welsh',
+      html: rowHtml,
+      hideChange: hideChange
+    }), rowsData) %}
+  {% endif %}
+
+  {% set rowsData = (rowsData.push({title: 'Project email address', text: case.caseEmail, url: 'team-email', classes: 'project-details__team-email' }), rowsData) %}
+
+  {% set rowsData = (rowsData.push({title: 'Grid references', html: gridReferences, url: 'grid-references', classes: 'project-details__grid-references' }), rowsData) %}
+  {% set rowsData = (rowsData.push({title: 'Region(s)', html: regionNames, url: 'regions', classes: 'project-details__regions' }), rowsData) %}
+  {% set rowsData = (rowsData.push({title: 'Map zoom level', text: case.geographicalInformation.mapZoomLevel.displayNameEn, url: 'zoom-level', classes: 'project-details__zoom-level' }), rowsData) %}
 
 	{% set tableRows = [] %}
 	{% for rowData in rowsData %}
 		{#  In the value column, rowData can be used because "title" and "url" are ignored	#}
 		{% set cols = [{text: rowData.title}, rowData] %}
+
 		{% set linkCol =  {
 			html: caseEditLink({editStepUrl:rowData.url, caseId: case.id}),
 			classes: 'text-align--right pins-table__cell--s'
