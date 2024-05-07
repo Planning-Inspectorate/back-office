@@ -35,6 +35,7 @@ model Case {
   ProjectUpdate         ProjectUpdate[]
   S51Advice             S51Advice[]
   ProjectTeam           ProjectTeam[]
+  migrationStatus       Boolean?
 }
 
 // ServiceUser model which represents a person or oranisation who can have some role in a case
