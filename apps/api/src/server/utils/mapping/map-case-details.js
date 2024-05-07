@@ -92,6 +92,7 @@ export const mapApplicationDetails = (caseDetails) => {
 		geographicalInformation: {
 			mapZoomLevel: zoomLevelFormatted,
 			locationDescription: caseDetails?.ApplicationDetails?.locationDescription,
+			locationDescriptionWelsh: caseDetails?.ApplicationDetails?.locationDescriptionWelsh,
 			gridReference: gridReferenceFormatted,
 			regions: regionsFormatted
 		},

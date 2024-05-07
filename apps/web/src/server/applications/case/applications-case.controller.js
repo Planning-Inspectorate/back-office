@@ -63,8 +63,15 @@ export async function viewApplicationsCaseOverview({ session }, response) {
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function viewApplicationsCaseInformation(_, response) {
+	const caseIsWelsh = Boolean(
+		response.locals.case?.geographicalInformation?.regions?.find(
+			(/** @type {{name: string}} */ r) => r.name === 'wales'
+		)
+	);
+
 	response.render(`applications/case/project-information`, {
-		selectedPageType: 'project-information'
+		selectedPageType: 'project-information',
+		caseIsWelsh
 	});
 }
 
