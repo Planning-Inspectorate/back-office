@@ -56,13 +56,13 @@ const applicantEmailLayout = {
 	isEdit: true
 };
 const addressLayout = {
-	pageTitle: 'Enter the Applicant’s address',
+	pageTitle: 'Enter the Applicant’s address (optional)',
 	components: ['address'],
 	isEdit: true
 };
 
 const addressReadOnlyLayout = {
-	pageTitle: 'Enter the Applicant’s address',
+	pageTitle: 'Enter the Applicant’s address (optional)',
 	components: ['address-view'],
 	isEdit: true
 };
