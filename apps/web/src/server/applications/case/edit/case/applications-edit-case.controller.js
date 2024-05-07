@@ -85,7 +85,7 @@ const zoomLevelLayout = {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditCaseDescription(request, response) {
-	const properties = await caseNameAndDescriptionData(request, response.locals);
+	const properties = caseNameAndDescriptionData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
@@ -99,7 +99,7 @@ export async function viewApplicationsEditCaseDescription(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditCaseName(request, response) {
-	const properties = await caseNameAndDescriptionData(request, response.locals);
+	const properties = caseNameAndDescriptionData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
@@ -135,7 +135,7 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditCaseTeamEmail(request, response) {
-	const properties = await caseTeamEmailData(request, response.locals);
+	const properties = caseTeamEmailData(request, response.locals);
 
 	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,

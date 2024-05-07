@@ -25,9 +25,9 @@ import { camelToSnake } from '../../../../lib/camel-to-snake.js';
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<ApplicationsCreateCaseNameProps>}
+ * @returns {ApplicationsCreateCaseNameProps}
  */
-export async function caseNameAndDescriptionData(request, locals) {
+export function caseNameAndDescriptionData(request, locals) {
 	const { currentCase } = locals || {};
 	const { title, description } = currentCase;
 
@@ -392,9 +392,9 @@ export async function caseZoomLevelDataUpdate({ body }, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<ApplicationsCreateCaseTeamEmailProps>}
+ * @returns {ApplicationsCreateCaseTeamEmailProps}
  */
-export async function caseTeamEmailData(request, locals) {
+export function caseTeamEmailData(request, locals) {
 	const { currentCase } = locals;
 	const { caseEmail } = currentCase;
 

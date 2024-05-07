@@ -77,7 +77,7 @@ const teamEmailLayout = {
  * {}, {}, {}, {edit?: string}>}
  */
 export async function viewApplicationsCreateCaseName(req, response) {
-	const properties = await caseNameAndDescriptionData(req, response.locals);
+	const properties = caseNameAndDescriptionData(req, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
@@ -315,7 +315,7 @@ export async function updateApplicationsCreateCaseZoomLevel(request, response) {
  * {}, {}, {}, {edit?: string}>}
  */
 export async function viewApplicationsCreateCaseTeamEmail(request, response) {
-	const properties = await caseTeamEmailData(request, response.locals);
+	const properties = caseTeamEmailData(request, response.locals);
 
 	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,
