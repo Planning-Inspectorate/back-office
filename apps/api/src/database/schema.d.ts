@@ -19,6 +19,7 @@ export {
 	Region,
 	RegionsOnApplicationDetails,
 	Representation,
+	RepresentationAttachment,
 	Sector,
 	SubSector,
 	ZoomLevel,

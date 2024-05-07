@@ -14,6 +14,7 @@ const representationProperties = [
 	'redactedRepresentation',
 	'redactedBy',
 	'redactedNotes',
+	'registerFor',
 	'representationFrom',
 	'representedId',
 	'representativeId',
@@ -56,8 +57,8 @@ export async function migrationRepresentationsForCase(log, caseReference) {
 
 			return {
 				...row,
-				originalRepresentation: row.originalRepresentation || ''
-				// attachmentIds: row.attachmentIds?.split(',')
+				originalRepresentation: row.originalRepresentation || '',
+				attachmentIds: row.attachmentIds?.split(',') ?? []
 			};
 		});
 
