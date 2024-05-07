@@ -492,15 +492,15 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
-                                    <td class=\\"govuk-table__cell project-details__team-email\\">some@ema.il</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/team-email\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
                                     <td class=\\"govuk-table__cell project-details__project-location\\">London</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/project-location\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                                    <td class=\\"govuk-table__cell project-details__team-email\\">some@ema.il</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/team-email\\"> Change</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
@@ -672,15 +672,15 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
-                                    <td class=\\"govuk-table__cell project-details__team-email\\"></td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/team-email\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
                                     <td class=\\"govuk-table__cell project-details__project-location\\">London</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/project-location\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                                    <td class=\\"govuk-table__cell project-details__team-email\\"></td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/6/edit/team-email\\"> Change</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
@@ -852,15 +852,15 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
-                                    <td class=\\"govuk-table__cell project-details__team-email\\"></td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/team-email\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
                                     <td class=\\"govuk-table__cell project-details__project-location\\">London</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/project-location\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
+                                    <td class=\\"govuk-table__cell project-details__team-email\\"></td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/7/edit/team-email\\"> Change</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
