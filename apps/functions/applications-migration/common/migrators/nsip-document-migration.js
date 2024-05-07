@@ -3,9 +3,7 @@ import { QueryTypes } from 'sequelize';
 import { makePostRequest } from '../back-office-api-client.js';
 
 /**
-/**
  * Handle an HTTP trigger/request to run the migration
- *
  * @param {import('@azure/functions').Logger} log
  * @param {string[]} caseReferences
  */
@@ -17,6 +15,10 @@ export const migrationNsipDocuments = async (log, caseReferences) => {
 	}
 };
 
+/**
+ * @param {import('@azure/functions').Logger} log
+ * @param {string} caseReference
+ */
 export const migrationNsipDocumentsByReference = async (log, caseReference) => {
 	try {
 		log.info(`Migrating NSIP Documents for case ${caseReference}`);
