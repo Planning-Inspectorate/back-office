@@ -27,6 +27,7 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		},
 		[
 			'locationDescription',
+			'locationDescriptionWelsh',
 			'submissionAtInternal',
 			'submissionAtPublished',
 			'caseEmail',
