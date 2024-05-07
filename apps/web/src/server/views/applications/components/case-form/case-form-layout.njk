@@ -76,7 +76,9 @@
   {% elif componentName == 'titleWelsh' %}
     {{ title('titleWelsh', values, errors) }}
 	{% elif componentName == 'description' %}
-		{{ description(values, errors) }}
+		{{ description('description', values, errors) }}
+  {% elif componentName == 'descriptionWelsh' %}
+    {{ description('descriptionWelsh', values, errors) }}
 	{% elif componentName == 'grid-references' %}
 		{{ gridReferences(values, errors) }}
 	{% elif componentName == 'project-location' %}
