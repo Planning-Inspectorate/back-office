@@ -72,7 +72,9 @@
 
 {% macro renderComponent(componentName, layout) %}
 	{% if componentName == 'title' %}
-		{{ title(values, errors) }}
+		{{ title('title', values, errors) }}
+  {% elif componentName == 'titleWelsh' %}
+    {{ title('titleWelsh', values, errors) }}
 	{% elif componentName == 'description' %}
 		{{ description(values, errors) }}
 	{% elif componentName == 'grid-references' %}

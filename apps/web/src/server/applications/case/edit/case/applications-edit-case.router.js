@@ -15,6 +15,17 @@ applicationsEditCaseRouter
 	);
 
 applicationsEditCaseRouter
+	.route('/name-welsh')
+	.get(
+		registerCaseWithQuery(['titleWelsh']),
+		asyncHandler(controller.viewApplicationsEditCaseNameWelsh)
+	)
+	.post(
+		[validators.validateApplicationsCreateCaseNameWelsh],
+		asyncHandler(controller.updateApplicationsEditCaseNameAndDescription)
+	);
+
+applicationsEditCaseRouter
 	.route('/description')
 	.get(
 		registerCaseWithQuery(['description']),
