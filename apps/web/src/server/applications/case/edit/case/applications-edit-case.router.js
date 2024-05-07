@@ -70,6 +70,17 @@ applicationsEditCaseRouter
 	);
 
 applicationsEditCaseRouter
+	.route('/project-location-welsh')
+	.get(
+		registerCaseWithQuery(['geographicalInformation']),
+		asyncHandler(controller.viewApplicationsCreateCaseLocationWelsh)
+	)
+	.post(
+		validators.validateApplicationsCreateCaseLocationWelsh,
+		asyncHandler(controller.updateApplicationsEditCaseGeographicalInformation)
+	);
+
+applicationsEditCaseRouter
 	.route('/grid-references')
 	.get(
 		registerCaseWithQuery(['geographicalInformation']),

@@ -64,6 +64,15 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 		.withMessage('The project location must be 500 characters or fewer')
 );
 
+export const validateApplicationsCreateCaseLocationWelsh = createValidator(
+	body('geographicalInformation.locationDescriptionWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage(getErrorMessageCaseCreate('projectLocationWelsh'))
+		.isLength({ max: 500 })
+		.withMessage('The project location must be 500 characters or fewer')
+);
+
 export const validateApplicationsCreateCaseEasting = createValidator(
 	body('geographicalInformation.gridReference.easting')
 		.trim()

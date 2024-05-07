@@ -1,16 +1,18 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
-{% macro projectLocation(values, errors, isEdit) %}
+{% macro projectLocation(values, errors, isEdit, isWelsh) %}
+  {% set name = "geographicalInformation.locationDescriptionWelsh" if isWelsh else "geographicalInformation.locationDescription" %}
+
 	{{ govukTextarea({
 		label: {
 			text: "" if isEdit else "Project location" ,
 			classes: 'font-weight--700'
 		},
-		id: "geographicalInformation.locationDescription",
-		name: "geographicalInformation.locationDescription",
+		id: name,
+		name: name,
 		classes: "govuk-!-width-three-quarters",
-		value: values['geographicalInformation.locationDescription'],
-		errorMessage: errors['geographicalInformation.locationDescription'] | errorMessage,
+		value: values[name],
+		errorMessage: errors[name] | errorMessage,
 		hint: {
 			classes: "govuk-!-width-three-quarters",
 			text: "for example, approximately 8km off the coast of Kent, in areas surrounding Thanet Offshore Wind Farm"

@@ -82,7 +82,9 @@
 	{% elif componentName == 'grid-references' %}
 		{{ gridReferences(values, errors) }}
 	{% elif componentName == 'project-location' %}
-		{{ projectLocation(values, errors, layout.isEdit) }}
+		{{ projectLocation(values, errors, layout.isEdit, false) }}
+	{% elif componentName == 'project-location-welsh' %}
+		{{ projectLocation(values, errors, layout.isEdit, true) }}
 	{% elif componentName == 'sector' %}
 		{{ sector(values, errors, sectors) }}
 	{% elif componentName == 'sub-sector' %}

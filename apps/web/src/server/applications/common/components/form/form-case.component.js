@@ -176,10 +176,12 @@ export async function caseSectorDataUpdate({ errors, body }) {
 export function caseGeographicalInformationData(request, locals) {
 	const { currentCase } = locals;
 	const { geographicalInformation } = currentCase;
-	const { locationDescription, gridReference } = geographicalInformation || {};
+	const { locationDescription, locationDescriptionWelsh, gridReference } =
+		geographicalInformation || {};
 
 	const values = {
 		'geographicalInformation.locationDescription': locationDescription,
+		'geographicalInformation.locationDescriptionWelsh': locationDescriptionWelsh,
 		'geographicalInformation.gridReference.easting': gridReference?.easting,
 		'geographicalInformation.gridReference.northing': gridReference?.northing
 	};
@@ -204,6 +206,8 @@ export async function caseGeographicalInformationDataUpdate(
 	const values = {
 		'geographicalInformation.locationDescription':
 			body['geographicalInformation.locationDescription'],
+		'geographicalInformation.locationDescriptionWelsh':
+			body['geographicalInformation.locationDescriptionWelsh'],
 		'geographicalInformation.gridReference.easting':
 			body['geographicalInformation.gridReference.easting'],
 		'geographicalInformation.gridReference.northing':
