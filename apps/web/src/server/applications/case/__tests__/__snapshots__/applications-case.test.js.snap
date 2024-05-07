@@ -415,7 +415,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row display--flex\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
         <div class=\\"pins-list-menu-container\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
@@ -595,7 +595,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row display--flex\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
         <div class=\\"pins-list-menu-container\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
@@ -775,7 +775,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row display--flex\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
         <div class=\\"pins-list-menu-container\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
@@ -955,7 +955,7 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row display--flex\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
         <div class=\\"pins-list-menu-container\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
@@ -1035,7 +1035,7 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row display--flex\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
         <div class=\\"pins-list-menu-container\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
@@ -1113,7 +1113,7 @@ exports[`Applications case pages Project overview page GET /case/123 should rend
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row display--flex\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
         <div class=\\"pins-list-menu-container\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>

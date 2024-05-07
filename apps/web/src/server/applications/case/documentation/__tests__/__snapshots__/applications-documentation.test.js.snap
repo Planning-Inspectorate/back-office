@@ -76,7 +76,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -910,7 +910,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -2225,7 +2225,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -3081,7 +3081,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -4336,7 +4336,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -5589,7 +5589,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -22115,7 +22115,7 @@ exports[`applications documentation GET /case/123/project-documentation should r
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row display--flex\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
         <div class=\\"govuk-grid-column-full\\">
             <h2 class=\\"govuk-heading-m\\">Project documentation</h2>
             <p class=\\"govuk-body-s colour--secondary\\">All documents relating to the project</p>
