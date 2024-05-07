@@ -37,6 +37,17 @@ applicationsEditCaseRouter
 	);
 
 applicationsEditCaseRouter
+	.route('/description-welsh')
+	.get(
+		registerCaseWithQuery(['descriptionWelsh']),
+		asyncHandler(controller.viewApplicationsEditCaseDescriptionWelsh)
+	)
+	.post(
+		[validators.validateApplicationsCreateCaseDescriptionWelsh],
+		asyncHandler(controller.updateApplicationsEditCaseNameAndDescription)
+	);
+
+applicationsEditCaseRouter
 	.route('/team-email')
 	.get(
 		registerCaseWithQuery(['caseEmail']),

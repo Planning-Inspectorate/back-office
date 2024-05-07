@@ -15,7 +15,7 @@ export const validateApplicationsCreateCaseNameWelsh = createValidator(
 	body('titleWelsh')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Enter the name of the project')
+		.withMessage('Enter the name of the project in Welsh')
 		.isLength({ max: 500 })
 		.withMessage('The name must be 500 characters or fewer')
 );
@@ -25,6 +25,15 @@ export const validateApplicationsCreateCaseDescription = createValidator(
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter the description of the project')
+		.isLength({ max: 2000 })
+		.withMessage('The description of the project must be 2000 characters or fewer')
+);
+
+export const validateApplicationsCreateCaseDescriptionWelsh = createValidator(
+	body('descriptionWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the description of the project in Welsh')
 		.isLength({ max: 2000 })
 		.withMessage('The description of the project must be 2000 characters or fewer')
 );

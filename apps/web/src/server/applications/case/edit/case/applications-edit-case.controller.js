@@ -32,6 +32,12 @@ const descriptionLayout = {
 	isEdit: true
 };
 
+const welshDescriptionLayout = {
+	pageTitle: 'Project description in Welsh',
+	components: ['descriptionWelsh'],
+	isEdit: true
+};
+
 const stageLayout = {
 	pageTitle: 'Select a case stage',
 	components: ['stage'],
@@ -96,6 +102,20 @@ export async function viewApplicationsEditCaseDescription(request, response) {
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: descriptionLayout
+	});
+}
+
+/**
+ * View the form step for editing the Welsh case description
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
+ * */
+export async function viewApplicationsEditCaseDescriptionWelsh(request, response) {
+	const properties = caseNameAndDescriptionData(request, response.locals);
+
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: welshDescriptionLayout
 	});
 }
 
