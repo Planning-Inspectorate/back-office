@@ -20,6 +20,12 @@ const nameLayout = {
 	isEdit: true
 };
 
+const welshNameLayout = {
+	pageTitle: 'Project name in Welsh',
+	components: ['titleWelsh'],
+	isEdit: true
+};
+
 const descriptionLayout = {
 	pageTitle: 'Enter project description',
 	components: ['description'],
@@ -108,6 +114,20 @@ export async function viewApplicationsEditCaseName(request, response) {
 }
 
 /**
+ * View the form step for editing the Welsh case name
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
+ * */
+export async function viewApplicationsEditCaseNameWelsh(request, response) {
+	const properties = caseNameAndDescriptionData(request, response.locals);
+
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: welshNameLayout
+	});
+}
+
+/**
  * Edit the casedescription
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, ApplicationsCreateCaseNameBody, {}, {}>}
@@ -117,7 +137,9 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		request,
 		response.locals
 	);
-	const isNamePage = Object.prototype.hasOwnProperty.call(request.body, 'title');
+	const isNamePage =
+		Object.prototype.hasOwnProperty.call(request.body, 'title') ||
+		Object.prototype.hasOwnProperty.call(request.body, 'titleWelsh');
 	const layout = isNamePage ? nameLayout : descriptionLayout;
 
 	if (properties.errors || !updatedCaseId) {

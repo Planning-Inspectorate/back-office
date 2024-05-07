@@ -29,9 +29,9 @@ import { camelToSnake } from '../../../../lib/camel-to-snake.js';
  */
 export function caseNameAndDescriptionData(request, locals) {
 	const { currentCase } = locals || {};
-	const { title, description } = currentCase;
+	const { title, description, titleWelsh, descriptionWelsh } = currentCase;
 
-	return { values: { title, description } };
+	return { values: { title, description, titleWelsh, descriptionWelsh } };
 }
 
 /**
@@ -107,7 +107,7 @@ export async function caseNameAndDescriptionDataUpdate(
 	locals
 ) {
 	const { caseId } = locals;
-	const { description, title } = body;
+	const { title, titleWelsh, description, descriptionWelsh } = body;
 	const payload = bodyToPayload(body);
 	const action = caseId ? () => updateCase(caseId, payload) : () => createCase(payload, session);
 
@@ -115,7 +115,10 @@ export async function caseNameAndDescriptionDataUpdate(
 		? { id: null, errors: validationErrors }
 		: await action();
 
-	const properties = { values: { description, title }, errors: validationErrors || apiErrors };
+	const properties = {
+		values: { title, titleWelsh, description, descriptionWelsh },
+		errors: validationErrors || apiErrors
+	};
 
 	return { properties, updatedCaseId };
 }
