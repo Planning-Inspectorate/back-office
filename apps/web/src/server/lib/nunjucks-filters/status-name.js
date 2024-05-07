@@ -12,7 +12,7 @@ export const statusName = (key) => {
 		case 'failed_virus_check':
 			return 'Failed virus check';
 		case 'not_checked':
-			return 'Unchecked';
+			return 'Not checked';
 		case 'checked':
 			return 'Checked';
 		case 'ready_to_publish':
