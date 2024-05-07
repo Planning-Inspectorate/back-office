@@ -2,7 +2,7 @@
 
 exports[`applications create applicant GET edit/applicant-address should render the form page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <input type=\\"hidden\\" name='currentFormStage' value=\\"searchPostcode\\">
         <div class=\\"govuk-form-group\\">
@@ -23,7 +23,7 @@ exports[`applications create applicant GET edit/applicant-address should render 
 
 exports[`applications create applicant GET edit/applicant-address should render the read only page with the address 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <p class=\\"govuk-body\\">Applicant address, London, ABC123</p>
@@ -51,7 +51,7 @@ exports[`applications create applicant GET edit/applicant-address should render 
 
 exports[`applications create applicant GET edit/applicant-address should render the read only page without the address 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address</h1>
+    <h1 class=\\"govuk-heading-l\\"> Enter the Applicant’s address (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <input type=\\"hidden\\" name='currentFormStage' value=\\"searchPostcode\\">
         <div class=\\"govuk-form-group\\">
