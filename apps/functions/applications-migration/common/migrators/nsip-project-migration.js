@@ -51,9 +51,9 @@ export async function migrateNsipProjectByReference(log, caseReference, override
  */
 const getNsipProjects = async (log, caseReference, overrideMigrationStatus) => {
 	const projects = await SynapseDB.query(
-		'SELECT * FROM [odw_curated_db].[dbo].[nsip_data] WHERE caseReference = ?;',
+		'SELECT * FROM [odw_curated_db].[dbo].[nsip_data] WHERE caseReference = ? AND sourceSystem = ?;',
 		{
-			replacements: [caseReference],
+			replacements: [caseReference, 'horizon'],
 			type: QueryTypes.SELECT
 		}
 	);
