@@ -39,7 +39,7 @@ export async function migrateNsipProjectByReference(log, caseReference, override
 			log.warn(`No NSIP Project found for case ${caseReference}`);
 		}
 	} catch (e) {
-		log.error(`Failed to migrate NSIP Project for case ${caseReference}`, e);
+		log.error(`Failed to migrate NSIP Project for case ${caseReference}`, e?.response?.body, e);
 		throw e;
 	}
 }
