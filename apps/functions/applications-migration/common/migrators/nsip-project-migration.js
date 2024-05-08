@@ -66,8 +66,17 @@ const getNsipProjects = async (log, caseReference, overrideMigrationStatus) => {
 		nsipAdministrationOfficerIds: valueToArray(project.nsipAdministrationOfficerIds),
 		inspectorIds: valueToArray(project.inspectorIds),
 		migrationStatus: overrideMigrationStatus ? true : Boolean(project.migrationStatus),
-		regions: valueToArray(project.region)
+		regions: valueToArray(project.region),
+		projectType: mapProjectType(project.projectType)
 	}));
 };
 
 const valueToArray = (value) => (value ? [value] : []);
+
+/**
+ * temporary workaround to fix casing issue
+ * TODO: remove once ODW-1184 resolved
+ */
+const mapProjectType = (projectType) =>
+	({ 'WW01 - Waste Water treatment Plants': 'WW01 - Waste Water Treatment Plants' }[projectType] ||
+	projectType);
