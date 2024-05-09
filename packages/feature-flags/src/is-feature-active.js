@@ -34,7 +34,7 @@ export const makeIsFeatureActive = (logger, client) => {
 				});
 			} catch (err) {
 				logger.error(err);
-				throw err;
+				return null;
 			}
 		})();
 
