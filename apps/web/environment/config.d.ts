@@ -61,13 +61,11 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 			inspectorGroupId: string;
 		};
 	};
-	featureFlags: {
-		[key: string]: boolean;
-	};
 	dummyAddressData: boolean;
 	dummyUserData: boolean;
 	frontOfficeURL: string;
 	featureFlagConnectionString: string;
+	featureFlagsStatic: string;
 }
 
 export function loadConfig(): EnvironmentConfig;

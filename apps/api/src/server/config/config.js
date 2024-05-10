@@ -23,17 +23,11 @@ const { value, error } = schema.validate({
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
 	},
 	cwd: url.fileURLToPath(new URL('..', import.meta.url)),
-	// flag name convention: featureFlag[ jira number ][ferature shoret description]
-	// set Feature Flag default val here [default: false] - will be overwritted by values cming from the .env file
-	featureFlags: {
-		featureFlagBoas1TestFeature: !environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE
-			? false
-			: environment.FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
-	},
 	authDisabled: environment.AUTH_DISABLED === 'true',
 	serviceBusEnabled: environment.SERVICE_BUS_ENABLED && environment.SERVICE_BUS_ENABLED === 'true',
 	azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED && environment.KEY_VAULT_ENABLED === 'true',
-	featureFlagConnectionString: environment.PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING
+	featureFlagConnectionString: environment.PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING,
+	featureFlagsStatic: environment.STATIC_FEATURE_FLAGS_ENABLED === 'true'
 });
 
 if (error) {

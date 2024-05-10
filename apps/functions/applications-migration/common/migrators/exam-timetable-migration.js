@@ -71,12 +71,14 @@ const getExamTimetable = async (log, caseReference) => {
 
 /**
  * @typedef {Object} ExamTimetableItemRow
- * @property {string} eventID
- * @property {'Accompanied Site Inspection' | 'Compulsory Acquisition Hearing' | 'Deadline' | 'Deadline For Close Of Examination' | 'Issued By' | 'Issue Specific Hearing' | 'Open Floor Hearing' | 'Other Meeting' | 'Preliminary Meeting' | 'Procedural Deadline (Pre-Examination)' | 'Procedural Decision' | 'Publication Of'} eventType
- * @property {string} eventTitle
+ * @property {string} eventId
+ * @property {'Accompanied Site Inspection' | 'Compulsory Acquisition Hearing' | 'Deadline' | 'Deadline For Close Of Examination' | 'Issued By' | 'Issue Specific Hearing' | 'Open Floor Hearing' | 'Other Meeting' | 'Preliminary Meeting' | 'Procedural Deadline (Pre-Examination)' | 'Procedural Decision' | 'Publication Of'} type
  * @property {string} eventDeadlineStartDate
- * @property {string} eventDate
- * @property {string} eventLineItemDescription
+ * @property {string} eventTitle
+ * @property {string} date
+ * @property {string} description
+ * @property {string[]} eventLineItems
+ * @pr
  */
 
 /**
@@ -95,23 +97,18 @@ const mapTimetableFromItems = (caseReference, timetableItems) => {
 	return timetableItems.reduce(
 		(
 			timetable,
-			{
-				eventID,
-				eventType,
-				eventTitle,
-				eventDate,
-				eventDeadlineStartDate,
-				eventLineItemDescription
-			}
+			{ eventId, type, eventTitle, date, eventDeadlineStartDate, description, eventLineItems }
 		) => {
 			timetable.events.push(
 				removeNullValues({
-					eventId: Number(eventID),
-					type: eventType,
+					eventId: Number(eventId),
+					type,
 					eventTitle,
-					description: eventLineItemDescription,
-					date: eventDate,
-					eventDeadlineStartDate
+					description,
+					date,
+					eventDeadlineStartDate,
+					// seem to be all null in ODW and we need an array to pass validation
+					eventLineItems: eventLineItems?.length > 0 ? eventLineItems : []
 				})
 			);
 
