@@ -1,3 +1,5 @@
+import staticFeatureFlags from './static-feature-flags.js';
+
 /**
  * @typedef {(featureFlagName: string) => Promise<boolean>} IsFeatureActiveFn
  * */
@@ -8,6 +10,13 @@
  * @returns {IsFeatureActiveFn}
  * */
 export const makeIsFeatureActive = (logger, client) => {
+	if (process.env.STATIC_FEATURE_FLAGS_ENABLED === 'true') {
+		return async (featureFlagName) => {
+			const flagName = featureFlagName.trim();
+			return staticFeatureFlags[flagName] || false;
+		};
+	}
+
 	if (process.env.FEATURE_FLAGS_SETTING === 'ALL_ON') {
 		return async () => true;
 	}
