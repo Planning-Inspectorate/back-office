@@ -32,29 +32,22 @@ export const moveStateToPreApplication = async (id) => {
  * @returns {string}
  */
 export const getErrorMessageCaseCreate = (fieldName, existingError = null) => {
-	let errorMessage = 'Unknown Error';
-
 	switch (fieldName) {
 		case 'gridReferenceEasting':
-			errorMessage = 'Enter the Grid reference Easting';
-			break;
+			return 'Enter the Grid reference Easting';
 		case 'gridReferenceNorthing':
-			errorMessage = 'Enter the Grid reference Northing';
-			break;
+			return 'Enter the Grid reference Northing';
 		case 'projectLocation':
-			errorMessage = 'Enter the project location';
-			break;
+			return 'Enter the project location';
+		case 'projectLocationWelsh':
+			return 'Enter the project location in Welsh';
 		case 'regions':
-			errorMessage = 'Choose at least one region';
-			break;
+			return 'Choose at least one region';
 		case 'sector':
-			errorMessage = 'Choose the sector of the project';
-			break;
+			return 'Choose the sector of the project';
 		case 'subSector':
-			errorMessage = 'Choose the subsector of the project';
-			break;
+			return 'Choose the subsector of the project';
 		default:
-			errorMessage = existingError ? existingError.toString() : 'Unknown Error';
+			return existingError ? existingError.toString() : 'Unknown Error';
 	}
-	return errorMessage;
 };

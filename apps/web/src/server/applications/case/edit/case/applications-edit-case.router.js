@@ -15,6 +15,17 @@ applicationsEditCaseRouter
 	);
 
 applicationsEditCaseRouter
+	.route('/name-welsh')
+	.get(
+		registerCaseWithQuery(['titleWelsh']),
+		asyncHandler(controller.viewApplicationsEditCaseNameWelsh)
+	)
+	.post(
+		[validators.validateApplicationsCreateCaseNameWelsh],
+		asyncHandler(controller.updateApplicationsEditCaseNameAndDescription)
+	);
+
+applicationsEditCaseRouter
 	.route('/description')
 	.get(
 		registerCaseWithQuery(['description']),
@@ -22,6 +33,17 @@ applicationsEditCaseRouter
 	)
 	.post(
 		[validators.validateApplicationsCreateCaseDescription],
+		asyncHandler(controller.updateApplicationsEditCaseNameAndDescription)
+	);
+
+applicationsEditCaseRouter
+	.route('/description-welsh')
+	.get(
+		registerCaseWithQuery(['descriptionWelsh']),
+		asyncHandler(controller.viewApplicationsEditCaseDescriptionWelsh)
+	)
+	.post(
+		[validators.validateApplicationsCreateCaseDescriptionWelsh],
 		asyncHandler(controller.updateApplicationsEditCaseNameAndDescription)
 	);
 
@@ -44,6 +66,17 @@ applicationsEditCaseRouter
 	)
 	.post(
 		validators.validateApplicationsCreateCaseLocation,
+		asyncHandler(controller.updateApplicationsEditCaseGeographicalInformation)
+	);
+
+applicationsEditCaseRouter
+	.route('/project-location-welsh')
+	.get(
+		registerCaseWithQuery(['geographicalInformation']),
+		asyncHandler(controller.viewApplicationsCreateCaseLocationWelsh)
+	)
+	.post(
+		validators.validateApplicationsCreateCaseLocationWelsh,
 		asyncHandler(controller.updateApplicationsEditCaseGeographicalInformation)
 	);
 

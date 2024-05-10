@@ -39,7 +39,7 @@ export async function migrateExamTimetablesForCase(log, caseReference) {
 			log.warn(`No Exam Timetable found for case ${caseReference}`);
 		}
 	} catch (e) {
-		log.error(`Failed to migrate Exam Timetable for case ${caseReference}`, e);
+		log.error(`Failed to migrate Exam Timetable for case ${caseReference}`, e?.response?.body, e);
 		throw e;
 	}
 }

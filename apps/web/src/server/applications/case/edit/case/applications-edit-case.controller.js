@@ -1,4 +1,5 @@
 import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
+import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import {
 	caseGeographicalInformationData,
 	caseGeographicalInformationDataUpdate,
@@ -20,9 +21,21 @@ const nameLayout = {
 	isEdit: true
 };
 
+const welshNameLayout = {
+	pageTitle: 'Project name in Welsh',
+	components: ['titleWelsh'],
+	isEdit: true
+};
+
 const descriptionLayout = {
 	pageTitle: 'Enter project description',
 	components: ['description'],
+	isEdit: true
+};
+
+const welshDescriptionLayout = {
+	pageTitle: 'Project description in Welsh',
+	components: ['descriptionWelsh'],
 	isEdit: true
 };
 
@@ -41,6 +54,12 @@ const teamEmailLayout = {
 const caseLocationLayout = {
 	pageTitle: 'Enter project location',
 	components: ['project-location'],
+	isEdit: true
+};
+
+const caseLocationWelshLayout = {
+	pageTitle: 'Project location in Welsh',
+	components: ['project-location-welsh'],
 	isEdit: true
 };
 
@@ -85,11 +104,31 @@ const zoomLevelLayout = {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditCaseDescription(request, response) {
-	const properties = await caseNameAndDescriptionData(request, response.locals);
+	const properties = caseNameAndDescriptionData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: descriptionLayout
+	});
+}
+
+/**
+ * View the form step for editing the Welsh case description
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
+ * */
+export async function viewApplicationsEditCaseDescriptionWelsh(request, response) {
+	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		return response.redirect(
+			`/applications-service/case/${response.locals.caseId}/project-information`
+		);
+	}
+
+	const properties = caseNameAndDescriptionData(request, response.locals);
+
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: welshDescriptionLayout
 	});
 }
 
@@ -99,11 +138,31 @@ export async function viewApplicationsEditCaseDescription(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditCaseName(request, response) {
-	const properties = await caseNameAndDescriptionData(request, response.locals);
+	const properties = caseNameAndDescriptionData(request, response.locals);
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
 		layout: nameLayout
+	});
+}
+
+/**
+ * View the form step for editing the Welsh case name
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
+ * */
+export async function viewApplicationsEditCaseNameWelsh(request, response) {
+	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		return response.redirect(
+			`/applications-service/case/${response.locals.caseId}/project-information`
+		);
+	}
+
+	const properties = caseNameAndDescriptionData(request, response.locals);
+
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: welshNameLayout
 	});
 }
 
@@ -117,7 +176,9 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		request,
 		response.locals
 	);
-	const isNamePage = Object.prototype.hasOwnProperty.call(request.body, 'title');
+	const isNamePage =
+		Object.prototype.hasOwnProperty.call(request.body, 'title') ||
+		Object.prototype.hasOwnProperty.call(request.body, 'titleWelsh');
 	const layout = isNamePage ? nameLayout : descriptionLayout;
 
 	if (properties.errors || !updatedCaseId) {
@@ -135,7 +196,7 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditCaseTeamEmail(request, response) {
-	const properties = await caseTeamEmailData(request, response.locals);
+	const properties = caseTeamEmailData(request, response.locals);
 
 	return response.render('applications/components/case-form/case-form-layout', {
 		...properties,
@@ -207,6 +268,26 @@ export async function viewApplicationsCreateCaseLocation(request, response) {
 }
 
 /**
+ * View the form step for editing the Welsh case location
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps, {}, {}, {}, {}>}
+ * */
+export async function viewApplicationsCreateCaseLocationWelsh(request, response) {
+	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		return response.redirect(
+			`/applications-service/case/${response.locals.caseId}/project-information`
+		);
+	}
+
+	const properties = await caseGeographicalInformationData(request, response.locals);
+
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: caseLocationWelshLayout
+	});
+}
+
+/**
  * View the form step for editing the grid references
  *
  *
@@ -234,10 +315,16 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		response.locals
 	);
 
-	const isCaseLocationPage = Object.prototype.hasOwnProperty.call(
-		request.body,
-		'geographicalInformation.locationDescription'
-	);
+	const isCaseLocationPage =
+		Object.prototype.hasOwnProperty.call(
+			request.body,
+			'geographicalInformation.locationDescription'
+		) ||
+		Object.prototype.hasOwnProperty.call(
+			request.body,
+			'geographicalInformation.locationDescriptionWelsh'
+		);
+
 	const layout = isCaseLocationPage ? caseLocationLayout : gridReferencesLayout;
 
 	if (properties.errors || !updatedCaseId) {

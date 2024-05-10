@@ -39,7 +39,7 @@ export async function migrateNsipProjectByReference(log, caseReference, override
 			log.warn(`No NSIP Project found for case ${caseReference}`);
 		}
 	} catch (e) {
-		log.error(`Failed to migrate NSIP Project for case ${caseReference}`, e);
+		log.error(`Failed to migrate NSIP Project for case ${caseReference}`, e?.response?.body, e);
 		throw e;
 	}
 }
@@ -51,9 +51,9 @@ export async function migrateNsipProjectByReference(log, caseReference, override
  */
 const getNsipProjects = async (log, caseReference, overrideMigrationStatus) => {
 	const projects = await SynapseDB.query(
-		'SELECT * FROM [odw_curated_db].[dbo].[nsip_data] WHERE caseReference = ?;',
+		'SELECT * FROM [odw_curated_db].[dbo].[nsip_data] WHERE caseReference = ? AND sourceSystem = ?;',
 		{
-			replacements: [caseReference],
+			replacements: [caseReference, 'horizon'],
 			type: QueryTypes.SELECT
 		}
 	);
@@ -66,8 +66,17 @@ const getNsipProjects = async (log, caseReference, overrideMigrationStatus) => {
 		nsipAdministrationOfficerIds: valueToArray(project.nsipAdministrationOfficerIds),
 		inspectorIds: valueToArray(project.inspectorIds),
 		migrationStatus: overrideMigrationStatus ? true : Boolean(project.migrationStatus),
-		regions: valueToArray(project.region)
+		regions: valueToArray(project.region),
+		projectType: mapProjectType(project.projectType)
 	}));
 };
 
 const valueToArray = (value) => (value ? [value] : []);
+
+/**
+ * temporary workaround to fix casing issue
+ * TODO: remove once ODW-1184 resolved
+ */
+const mapProjectType = (projectType) =>
+	({ 'WW01 - Waste Water treatment Plants': 'WW01 - Waste Water Treatment Plants' }[projectType] ||
+	projectType);

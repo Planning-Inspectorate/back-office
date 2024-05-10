@@ -25,13 +25,13 @@ import { camelToSnake } from '../../../../lib/camel-to-snake.js';
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<ApplicationsCreateCaseNameProps>}
+ * @returns {ApplicationsCreateCaseNameProps}
  */
-export async function caseNameAndDescriptionData(request, locals) {
+export function caseNameAndDescriptionData(request, locals) {
 	const { currentCase } = locals || {};
-	const { title, description } = currentCase;
+	const { title, description, titleWelsh, descriptionWelsh } = currentCase;
 
-	return { values: { title, description } };
+	return { values: { title, description, titleWelsh, descriptionWelsh } };
 }
 
 /**
@@ -107,7 +107,7 @@ export async function caseNameAndDescriptionDataUpdate(
 	locals
 ) {
 	const { caseId } = locals;
-	const { description, title } = body;
+	const { title, titleWelsh, description, descriptionWelsh } = body;
 	const payload = bodyToPayload(body);
 	const action = caseId ? () => updateCase(caseId, payload) : () => createCase(payload, session);
 
@@ -115,7 +115,10 @@ export async function caseNameAndDescriptionDataUpdate(
 		? { id: null, errors: validationErrors }
 		: await action();
 
-	const properties = { values: { description, title }, errors: validationErrors || apiErrors };
+	const properties = {
+		values: { title, titleWelsh, description, descriptionWelsh },
+		errors: validationErrors || apiErrors
+	};
 
 	return { properties, updatedCaseId };
 }
@@ -173,10 +176,12 @@ export async function caseSectorDataUpdate({ errors, body }) {
 export function caseGeographicalInformationData(request, locals) {
 	const { currentCase } = locals;
 	const { geographicalInformation } = currentCase;
-	const { locationDescription, gridReference } = geographicalInformation || {};
+	const { locationDescription, locationDescriptionWelsh, gridReference } =
+		geographicalInformation || {};
 
 	const values = {
 		'geographicalInformation.locationDescription': locationDescription,
+		'geographicalInformation.locationDescriptionWelsh': locationDescriptionWelsh,
 		'geographicalInformation.gridReference.easting': gridReference?.easting,
 		'geographicalInformation.gridReference.northing': gridReference?.northing
 	};
@@ -201,6 +206,8 @@ export async function caseGeographicalInformationDataUpdate(
 	const values = {
 		'geographicalInformation.locationDescription':
 			body['geographicalInformation.locationDescription'],
+		'geographicalInformation.locationDescriptionWelsh':
+			body['geographicalInformation.locationDescriptionWelsh'],
 		'geographicalInformation.gridReference.easting':
 			body['geographicalInformation.gridReference.easting'],
 		'geographicalInformation.gridReference.northing':
@@ -392,9 +399,9 @@ export async function caseZoomLevelDataUpdate({ body }, locals) {
  *
  * @param {import('express').Request} request
  * @param {Record<string, any>} locals
- * @returns {Promise<ApplicationsCreateCaseTeamEmailProps>}
+ * @returns {ApplicationsCreateCaseTeamEmailProps}
  */
-export async function caseTeamEmailData(request, locals) {
+export function caseTeamEmailData(request, locals) {
 	const { currentCase } = locals;
 	const { caseEmail } = currentCase;
 

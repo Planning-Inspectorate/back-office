@@ -27,16 +27,14 @@ export const makeIsFeatureActive = (logger, client) => {
 			return false;
 		}
 
-		const flagConfiguration = await (async () => {
-			try {
-				return await client.getConfigurationSetting({
-					key: `.appconfig.featureflag/${flagName}`
-				});
-			} catch (err) {
+		const flagConfiguration = await client
+			.getConfigurationSetting({
+				key: `.appconfig.featureflag/${flagName}`
+			})
+			.catch((err) => {
 				logger.error(err);
-				throw err;
-			}
-		})();
+				return null;
+			});
 
 		if (!(flagConfiguration && typeof flagConfiguration === 'object' && flagConfiguration.value)) {
 			logger.debug(`Retrieved invalid feature flag configuration; retrieved value follows...`);
