@@ -19,12 +19,11 @@
 			<div class="govuk-body">
 				{% if action === 'published' %}
 					<p class="govuk-body">
-						The examination timetable will show on the NI website within the hour
+						The examination timetable will show on the NI website within the hour.
 					</p>
 				{% elseif action === 'unpublished' %}
 					<p class="govuk-body">
-						The examination timetable will be unpublished from the NI website within the hour
-					z</p>
+						The examination timetable will be unpublished from the NI website within the hour.</p>
 				{% endif %}
 				<a href="{{'timetable'|url({caseId: caseId})}}" class="govuk-link">
 					Go back to examination timetable
