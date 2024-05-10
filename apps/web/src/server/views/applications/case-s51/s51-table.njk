@@ -61,9 +61,9 @@
 
 				{% set displayDatePublished = 'Not published' %}
 				{% if item.datePublished and item.publishedStatus == 'published' %}
-					{% set displayDatePublished = item.datePublished|datestamp({format: 'dd MMM yyyy'}) %},
+					{% set displayDatePublished = item.datePublished|datestamp({format: 'dd MMM yyyy'}) %}
 				{% elif item.datePublished == NULL and item.publishedStatus == 'published' and item.dateUpdated %}
-					{% set displayDatePublished = item.dateUpdated|datestamp({format: 'dd MMM yyyy'}) %},
+					{% set displayDatePublished = item.dateUpdated|datestamp({format: 'dd MMM yyyy'}) %}
 				{% endif %}
 
 				<tr class="govuk-table__row">
