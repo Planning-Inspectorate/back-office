@@ -22,10 +22,10 @@ export default joi
 			levelStdOut: joi.string()
 		}),
 		cwd: joi.string(),
-		featureFlags: joi.object().pattern(/featureFlagBoas\d+[A-Za-z]+/, joi.boolean()),
 		authDisabled: joi.boolean().optional(),
 		serviceBusEnabled: joi.boolean().optional(),
 		azureKeyVaultEnabled: joi.boolean().optional(),
-		featureFlagConnectionString: joi.string().optional()
+		featureFlagConnectionString: joi.string().optional(),
+		featureFlagsStatic: joi.boolean().optional()
 	})
 	.options({ presence: 'required' }); // required by default

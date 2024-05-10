@@ -1,4 +1,5 @@
 import { isFeatureFlag, parseFeatureFlag } from '@azure/app-configuration';
+import staticFeatureFlags from './static-feature-flags.js';
 
 /**
  * @typedef {() => Promise<Record<string, boolean>>} ListFlagsFn
@@ -10,6 +11,10 @@ import { isFeatureFlag, parseFeatureFlag } from '@azure/app-configuration';
  * @returns {ListFlagsFn}
  * */
 export const makeListFlags = (logger, client) => async () => {
+	if (process.env.STATIC_FEATURE_FLAGS_ENABLED === 'true') {
+		return staticFeatureFlags;
+	}
+
 	const aacResult = await client.listConfigurationSettings();
 
 	/** @type {Record<string, boolean>} */
