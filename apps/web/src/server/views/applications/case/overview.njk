@@ -1,6 +1,8 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "./components/case-details-table.component.njk" import caseDetailsTable %}
+{% from "./components/case-applicant-table.component.njk" import caseApplicantTable %}
 
 {% set serviceName = 'Overview'%}
 
@@ -15,6 +17,18 @@
 	{% endif %}
 
 	<h2 class="govuk-heading-m">{{serviceName}}</h2>
+
+	<div class="govuk-!-margin-top-6">
+		{{ govukButton({
+      text: 'Preview and publish project',
+      href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}) }) }}
+		{% if case.publishedDate %}
+			<a
+        href="../{{ caseId }}/unpublish"
+        class="govuk-link colour--red govuk-body-m govuk-!-display-inline-block govuk-!-padding-1 govuk-!-margin-left-2">
+      Unpublish project</a>
+		{% endif %}
+	</div>
 
 	{% set publishedTag %}
 	{% if case.publishedDate %}
@@ -31,79 +45,8 @@
 		{% endif %}
 	{% endif %}
 	{% endset %}
-	{{ govukSummaryList({
-    rows: [
-      {
-        key: { text: "Case reference" },
-        value: { text: case.reference }
-      },
-      {
-        key: { text: "Applicant information" },
-        value: { html: [applicantFirstOrganisationName, applicantFirstEmail, applicantFirstPhoneNumber] | collapse() }
-      },
-      {
-        key: { text: "Applicant website" },
-        value: { html: applicantFirstWebsiteValue }
-      },
-      {
-        key: { text: "Project email" },
-        value: { text: case.caseEmail }
-      },
-      {
-        key: { text: "Project page" },
-        value: { html: publishedTag }
-      }
-    ]
-  }) }}
-		<div class="govuk-!-margin-bottom-8">
-			<a class="govuk-link" href="{{ 'case-view'|url({caseId: caseId, step: 'project-information' }) }}">Update project information</a>
-		</div>
-	<h2 class="govuk-heading-m">Project team</h2>
-	{% if displayableMembers.length > 0 or notDisplayableMembersExist%}
+  {{ caseDetailsTable(case, false, caseIsWelsh) }}
 
-		<div>
-
-			{% if notDisplayableMembersExist %}
-				<p class="govuk-body">Some team members have been added, but only Case Managers and NSIP Officers will be visible here.</p>
-			{% else %}
-
-				{% set rows = [] %}
-
-				{% for projectTeamMember in displayableMembers %}
-
-					{% set row = {
-						key: {
-							text: projectTeamMember.role
-						},
-						value: {
-							text: projectTeamMember.givenName + ' ' + projectTeamMember.surname
-						}
-					}
- %}
-					{% set rows = rows.concat([row]) %}
-				{% endfor %}
-
-				{{ govukSummaryList({
-    				rows: rows })
-					}}
-			{% endif %}
-
-			<a href="{{'project-team'|url({caseId: caseId })}}" class='govuk-link'>Update project team</a>
-
-		</div>
-	{% else %}
-		<p class="govuk-body">No project members have been added yet</p>
-	{% endif %}
-
-	<div class="govuk-!-margin-top-9">
-		{{ govukButton({
-      text: 'Preview and publish project',
-      href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}) }) }}
-		{% if case.publishedDate %}
-			<a
-        href="../{{ caseId }}/unpublish"
-        class="govuk-link colour--red govuk-body-m govuk-!-display-inline-block govuk-!-padding-1 govuk-!-margin-left-2">
-      Unpublish project</a>
-		{% endif %}
-	</div>
+  <h2 class="govuk-heading-m govuk-!-margin-top-9">Applicant information</h2>
+  {{ caseApplicantTable(case) }}
 {% endblock %}
