@@ -1,28 +1,7 @@
 import { SynapseDB } from '../synapse-db.js';
 import { makePostRequest } from '../back-office-api-client.js';
-import { removeValues } from '../utils.js';
 
-const representationProperties = [
-	'representationId',
-	'referenceId',
-	'examinationLibraryRef',
-	'caseRef',
-	'caseId',
-	'status',
-	'originalRepresentation',
-	'redacted',
-	'redactedRepresentation',
-	'redactedBy',
-	'redactedNotes',
-	'registerFor',
-	'representationFrom',
-	'representedId',
-	'representativeId',
-	'representationType',
-	'dateReceived'
-];
-
-const query = `SELECT ${representationProperties.join(', ')}
+const query = `SELECT *
 			   FROM [odw_curated_db].[dbo].[relevant_representation]
 			   WHERE caseRef = ?`;
 
@@ -53,8 +32,6 @@ export async function migrationRepresentationsForCase(log, caseReference) {
 		});
 
 		const representationEntities = representationRows.map((row) => {
-			removeValues(row, [null, '']);
-
 			return {
 				...row,
 				originalRepresentation: row.originalRepresentation || '',

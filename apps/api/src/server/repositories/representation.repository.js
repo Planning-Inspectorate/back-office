@@ -487,6 +487,28 @@ export const addApplicationRepresentationAttachment = async (representationId, d
 
 /**
  *
+ * @param {number} representationId
+ * @param {string} documentId
+ * @returns {Promise<*>}
+ */
+export const upsertApplicationRepresentationAttachment = async (representationId, documentId) => {
+	const transactionItems = [
+		databaseConnector.representationAttachment.upsert({
+			where: { documentGuid: documentId },
+			update: { representationId },
+			create: {
+				documentGuid: documentId,
+				representationId
+			}
+		})
+	];
+
+	const [upsertResult] = await databaseConnector.$transaction(transactionItems);
+	return upsertResult;
+};
+
+/**
+ *
  * @param {number} repId
  * @param {number} attachmentId
  * @returns {Promise<*>}
