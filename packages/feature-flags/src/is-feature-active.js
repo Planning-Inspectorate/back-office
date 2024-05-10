@@ -16,7 +16,7 @@ export const makeIsFeatureActive = (logger, client) => {
 			const staticflags = await getStaticFlags();
 			logger.debug(`flags loaded: ${JSON.stringify(staticflags)}`);
 
-			return staticflags && staticflags[flagName] ? staticflags[flagName] : false;
+			return staticflags?.[flagName] ?? false;
 		};
 	}
 
