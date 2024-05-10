@@ -12,7 +12,7 @@ import getStaticFlags from './get-static-flags.js';
  * */
 export const makeListFlags = (logger, client) => async () => {
 	if (process.env.STATIC_FEATURE_FLAGS_ENABLED === 'true') {
-		const staticflags = await getStaticFlags();
+		const staticflags = getStaticFlags();
 		logger.debug(`flags loaded: ${JSON.stringify(staticflags)}`);
 
 		return staticflags;
