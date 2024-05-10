@@ -11,9 +11,9 @@ import getStaticFlags from './get-static-flags.js';
  * */
 export const makeIsFeatureActive = (logger, client) => {
 	if (process.env.STATIC_FEATURE_FLAGS_ENABLED === 'true') {
-		return async (featureFlagName) => {
+		return (featureFlagName) => {
 			const flagName = featureFlagName.trim();
-			const staticflags = await getStaticFlags();
+			const staticflags = getStaticFlags();
 			logger.debug(`flags loaded: ${JSON.stringify(staticflags)}`);
 
 			return staticflags?.[flagName] ?? false;
