@@ -44,7 +44,6 @@ export const migrateRepresentations = async (representations) => {
 				await databaseConnector.representationAction.create({ data: redaction });
 			}
 		}
-
 		await Promise.all(
 			representation.attachmentIds.map(async (attachmentId) => {
 				return documentRepository.getById(attachmentId).then((documentRow) => {
@@ -52,8 +51,8 @@ export const migrateRepresentations = async (representations) => {
 						return Promise.reject(new Error(`Failed to get document with ID ${attachmentId}`));
 					}
 
-					return representationAttachmentRepository.addApplicationRepresentationAttachment(
-						representationEntity.representationId,
+					return representationAttachmentRepository.upsertApplicationRepresentationAttachment(
+						representationEntity.id,
 						documentRow.guid
 					);
 				});
@@ -94,7 +93,7 @@ const mapModelToRepresentationEntity = async ({
 		received: dateReceived,
 		type: representationType,
 		unpublishedUpdates: false,
-		representativeId,
+		representativeId: representativeId ? parseInt(representativeId) : null,
 		representedId,
 		representedType: representationFrom
 	};
