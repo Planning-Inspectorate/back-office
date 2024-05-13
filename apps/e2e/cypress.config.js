@@ -37,7 +37,8 @@ module.exports = defineConfig({
 			INSPECTOR_EMAIL: process.env.INSPECTOR_EMAIL,
 			VALIDATION_OFFICER_EMAIL: process.env.VALIDATION_OFFICER_EMAIL,
 			AUTH_DISABLED: process.env.AUTH_DISABLED,
-			FEATURE_FLAG_CONNECTION_STRING: process.env.FEATURE_FLAG_CONNECTION_STRING
+			FEATURE_FLAG_CONNECTION_STRING: process.env.FEATURE_FLAG_CONNECTION_STRING,
+			STATIC_FEATURE_FLAGS_ENABLED: process.env.STATIC_FEATURE_FLAGS_ENABLED
 		},
 		specPattern: getSpecPattern(app),
 		supportFile: './cypress/support/e2e.js',
