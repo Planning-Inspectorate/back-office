@@ -34,6 +34,7 @@
 	},
 	"dependencies": {
 		"@badeball/cypress-cucumber-preprocessor": "20.0.1",
+		"@prisma/client": "^5.13.0",
 		"cypress": "13.6.4",
 		"got": "^12.5.2",
 		"joi": "^17.7.0",
@@ -55,9 +56,10 @@
 		"lodash": "^4.17.21",
 		"prettier": "^2.6.2",
 		"prettier-plugin-prisma": "^4.13.0",
+		"prisma": "^5.13.0",
 		"rimraf": "^3.0.2",
 		"turbo": "1.2.14",
-		"typescript": "^4.6.4"
+		"typescript": "^4.7.4"
 	},
 	"packageManager": "npm@8.5.1",
 	"lint-staged": {
