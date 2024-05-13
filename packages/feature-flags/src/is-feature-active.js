@@ -13,7 +13,7 @@ export const makeIsFeatureActive = (logger, client) => {
 	if (process.env.STATIC_FEATURE_FLAGS_ENABLED === 'true') {
 		return (featureFlagName) => {
 			const flagName = featureFlagName.trim();
-			const staticflags = getStaticFlags();
+			const staticflags = getStaticFlags(logger);
 			logger.debug(`flags loaded: ${JSON.stringify(staticflags)}`);
 
 			return staticflags?.[flagName] ?? false;
