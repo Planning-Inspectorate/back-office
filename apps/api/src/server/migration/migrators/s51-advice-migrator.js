@@ -71,7 +71,6 @@ const mapModelToS51AdviceEntity = async ({
 	adviceReference,
 	// caseId,
 	caseReference,
-	title,
 	from,
 	agent,
 	method,
@@ -98,7 +97,7 @@ const mapModelToS51AdviceEntity = async ({
 	return {
 		id: Number(adviceId),
 		caseId: caseId,
-		title: title || '',
+		title: generateAdviceTitleForFo({ method, agent, firstName, lastName }),
 		enquirer: agent,
 		firstName,
 		lastName,
@@ -132,3 +131,20 @@ const mapStatus = (status) =>
 		depublished: 'not_checked',
 		notchecked: 'not_checked'
 	}[status?.replaceAll(' ', '')]);
+
+const generateAdviceTitleForFo = ({ enquiryMethod, enquirer, firstName, lastName }) => {
+	const adviceNameParams = { enquirer, firstName, lastName };
+	return enquiryMethod === 'meeting'
+		? `Meeting with ${generateAdviceName(adviceNameParams)}`
+		: `Advice to ${generateAdviceName(adviceNameParams)}`;
+};
+
+const generateAdviceName = ({ enquirer, firstName, lastName }) => {
+	if (enquirer) {
+		return enquirer;
+	} else if (firstName && lastName) {
+		return `${firstName} ${lastName}`;
+	} else {
+		return 'Anonymous';
+	}
+};
