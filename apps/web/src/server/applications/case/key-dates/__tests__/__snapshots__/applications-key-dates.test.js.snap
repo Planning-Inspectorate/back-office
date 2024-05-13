@@ -23,8 +23,6 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <ul class=\\"gov-list pins-list-menu\\">
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/\\"> Overview</a>
                         </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-information\\"> Project information</a>
-                        </li>
                         <li><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
                         </li>
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-team\\"> Project team</a>
