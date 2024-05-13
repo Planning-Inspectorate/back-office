@@ -1,5 +1,5 @@
 import { isFeatureFlag, parseFeatureFlag } from '@azure/app-configuration';
-import getStaticFlags from './get-static-flags.js';
+import staticFlags from './static-feature-flags.js';
 
 /**
  * @typedef {() => Promise<Record<string, boolean>>} ListFlagsFn
@@ -12,10 +12,8 @@ import getStaticFlags from './get-static-flags.js';
  * */
 export const makeListFlags = (logger, client) => async () => {
 	if (process.env.STATIC_FEATURE_FLAGS_ENABLED === 'true') {
-		const staticflags = getStaticFlags(logger);
-		logger.debug(`flags loaded: ${JSON.stringify(staticflags)}`);
-
-		return staticflags;
+		logger.debug('returning static feature flags (STATIC_FEATURE_FLAGS_ENABLED=true)');
+		return staticFlags;
 	}
 
 	const aacResult = await client.listConfigurationSettings();

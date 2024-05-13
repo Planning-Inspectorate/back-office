@@ -1,4 +1,4 @@
-import getStaticFlags from './get-static-flags.js';
+import staticFlags from './static-feature-flags.js';
 
 /**
  * @typedef {(featureFlagName: string) => Promise<boolean>} IsFeatureActiveFn
@@ -11,13 +11,8 @@ import getStaticFlags from './get-static-flags.js';
  * */
 export const makeIsFeatureActive = (logger, client) => {
 	if (process.env.STATIC_FEATURE_FLAGS_ENABLED === 'true') {
-		return (featureFlagName) => {
-			const flagName = featureFlagName.trim();
-			const staticflags = getStaticFlags(logger);
-			logger.debug(`flags loaded: ${JSON.stringify(staticflags)}`);
-
-			return staticflags?.[flagName] ?? false;
-		};
+		logger.debug('will use static feature flags (STATIC_FEATURE_FLAGS_ENABLED=true)');
+		return async (flagName) => staticFlags[/** @type {keyof staticFlags} */ (flagName)] ?? false;
 	}
 
 	if (process.env.FEATURE_FLAGS_SETTING === 'ALL_ON') {
