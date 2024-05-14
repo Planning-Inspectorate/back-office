@@ -49,7 +49,7 @@ const validateProjectDetailsSection = (projectInformation, mandatoryOnly = false
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	if ('applic-55-welsh-translation') {
+	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 		casePage.checkProjectAnswer('Region(s)', 'Wales');
 	} else {
 		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
@@ -101,9 +101,10 @@ const validatePreviewAndPublishInfo = (projectInformation) => {
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	if ('applic-55-welsh-translation') {
+	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 		casePage.checkProjectAnswer('Region(s)', 'Wales');
 	} else {
+		cy.log(Cypress.env('featureFlags')['applic-55-welsh-translation']);
 		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
 	}
 	casePage.checkProjectAnswer('Map zoom level', projectInformation.zoomLevel);
@@ -119,8 +120,16 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillInput(projectInformation.projectName);
 	casePage.clickButtonByText('Save changes');
 
+	casePage.clickChangeLink('Project name in Welsh');
+	casePage.fillInput('Project name in Welsh');
+	casePage.clickButtonByText('Save changes');
+
 	casePage.clickChangeLink('Project description');
 	casePage.fillTextArea(projectInformation.projectDescription);
+	casePage.clickButtonByText('Save changes');
+
+	casePage.clickChangeLink('Project description in Welsh');
+	casePage.fillTextArea('Project description in Welsh');
 	casePage.clickButtonByText('Save changes');
 
 	casePage.clickChangeLink('Project email address');
@@ -131,11 +140,15 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillTextArea(projectInformation.projectLocation);
 	casePage.clickButtonByText('Save changes');
 
+	casePage.clickChangeLink('Project location in Welsh');
+	casePage.fillTextArea('Welsh location');
+	casePage.clickButtonByText('Save changes');
+
 	casePage.clickChangeLink('Grid references');
 	casePage.fillInput(projectInformation.gridRefEasting);
 	casePage.fillInput(projectInformation.gridRefNorthing, 1);
 	casePage.clickButtonByText('Save changes');
-	if ('applic-55-welsh-translation') {
+	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 		casePage.clickChangeLink('Region(s)');
 		casePage.clearAllCheckboxes();
 		cy.get(
