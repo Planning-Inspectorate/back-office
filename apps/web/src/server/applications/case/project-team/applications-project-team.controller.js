@@ -1,11 +1,13 @@
-import projectTeamADService from './application-project-team.azure-service.js';
+import {
+	getManyProjectTeamMembersInfo,
+	getAllCachedUsers
+} from '../../common/services/project-team.service.js';
 import {
 	destroySuccessBanner,
 	getSuccessBanner,
 	setSuccessBanner
 } from '../../../applications/common/services/session.service.js';
 import {
-	getManyProjectTeamMembersInfo,
 	getProjectTeamMemberById,
 	getProjectTeamMembers,
 	removeProjectTeamMember,
@@ -196,7 +198,7 @@ export async function viewProjectTeamSearchPage(
 	}
 
 	// checkpoint 2: retrieve all azure users from cache or return 401
-	const allAzureUsers = await projectTeamADService.getAllCachedUsers(session);
+	const allAzureUsers = await getAllCachedUsers(session);
 
 	// checkpoint 3: search member and render paginated list of results
 	const searchResults = await searchProjectTeamMembersData(
