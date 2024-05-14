@@ -3,6 +3,7 @@ import { buildCaseInformation } from '../build-case-information.js';
 const fullParams = {
 	case: {
 		id: 1,
+		reference: 'TEST_REFERENCE',
 		title: 'Test case title',
 		titleWelsh: 'Test Welsh case title',
 		description: 'Test case description',
@@ -14,13 +15,34 @@ const fullParams = {
 				displayNameEn: 'Test zoom level'
 			}
 		},
-		caseEmail: 'Test case email'
+		caseEmail: 'Test case email',
+		sector: {
+			displayNameEn: 'Test sector'
+		},
+		subSector: {
+			displayNameEn: 'Test subsector'
+		}
 	},
 	gridReferences: 'Test grid reference',
-	regionNames: ['Test region 1']
+	regionNames: ['Test region 1'],
+	keyMembers: {
+		caseManager: 'Test case manager',
+		nsipOfficers: ['NSIP Officer 1', 'NSIP Officer 2']
+	}
 };
 
 const fullResult = [
+	{ title: 'Reference number', text: 'TEST_REFERENCE' },
+	{ title: 'Case manager', text: 'Test case manager' },
+	{ title: 'NSIP officers', text: 'NSIP Officer 1, NSIP Officer 2' },
+	{ title: 'Sector', text: 'Test sector' },
+	{ title: 'Subsector', text: 'Test subsector' },
+	{
+		title: 'Regions',
+		html: ['Test region 1'],
+		url: 'regions',
+		classes: 'project-details__regions'
+	},
 	{ title: 'Project name', text: 'Test case title', url: 'name', classes: 'project-details__name' },
 	{
 		title: 'Project name in Welsh',
@@ -63,12 +85,6 @@ const fullResult = [
 		classes: 'project-details__grid-references'
 	},
 	{
-		title: 'Region(s)',
-		html: ['Test region 1'],
-		url: 'regions',
-		classes: 'project-details__regions'
-	},
-	{
 		title: 'Map zoom level',
 		text: 'Test zoom level',
 		url: 'zoom-level',
@@ -83,7 +99,7 @@ describe('buildCaseInformation Nunjucks global', () => {
 
 	it('Should return only non-Welsh results when isWelsh is false', () => {
 		expect(buildCaseInformation(fullParams, false)).toStrictEqual(
-			fullResult.filter((row) => !row.url.includes('welsh'))
+			fullResult.filter((row) => !row.url?.includes('welsh'))
 		);
 	});
 });

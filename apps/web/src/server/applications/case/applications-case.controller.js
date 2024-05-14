@@ -26,9 +26,25 @@ export async function viewApplicationsCaseOverview(request, response) {
 
 	const projectTeam = await getProjectTeam(caseId);
 	const teamMembers = await getManyProjectTeamMembersInfo(projectTeam, request.session);
+
+	/** @type {string | null} */
+	const caseManager = (() => {
+		const userInfo = teamMembers.find((m) => m.role === 'case_manager');
+		if (!userInfo) {
+			return null;
+		}
+
+		return `${userInfo.givenName} ${userInfo.surname}`;
+	})();
+
+	/** @type {string[]} */
+	const nsipOfficers = teamMembers
+		.filter((m) => m.role === 'NSIP_officer')
+		.map((m) => `${m.givenName} ${m.surname}`);
+
 	const keyMembers = {
-		caseManager: teamMembers.find((m) => m.role === 'case_manager'),
-		nsipOfficers: teamMembers.filter((m) => m.role === 'NSIP_officer')
+		caseManager,
+		nsipOfficers
 	};
 
 	/** @type {boolean} */

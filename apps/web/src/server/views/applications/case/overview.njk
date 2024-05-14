@@ -45,7 +45,7 @@
 		{% endif %}
 	{% endif %}
 	{% endset %}
-  {{ caseDetailsTable(case, false, caseIsWelsh) }}
+  {{ caseDetailsTable({ case: case, keyMembers: keyMembers }, false, caseIsWelsh) }}
 
   <h2 class="govuk-heading-m govuk-!-margin-top-9">Applicant information</h2>
   {{ caseApplicantTable(case) }}
