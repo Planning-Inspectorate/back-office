@@ -85,6 +85,7 @@ const mapModelToS51AdviceEntity = async ({
 }) => {
 	let firstName, lastName;
 	if (from) {
+		from = removeUnnecessarySpaces(from);
 		let otherNames;
 		[firstName, ...otherNames] = from.split(' ');
 		lastName = otherNames.join(' ');
@@ -97,7 +98,12 @@ const mapModelToS51AdviceEntity = async ({
 	return {
 		id: Number(adviceId),
 		caseId: caseId,
-		title: generateAdviceTitleForFo({ method, agent, firstName, lastName }),
+		title: generateAdviceTitleForFo({
+			enquiryMethod: method,
+			enquirer: agent,
+			firstName,
+			lastName
+		}),
 		enquirer: agent,
 		firstName,
 		lastName,
@@ -111,6 +117,10 @@ const mapModelToS51AdviceEntity = async ({
 		redactedStatus: redactionStatus,
 		referenceNumber
 	};
+};
+
+const removeUnnecessarySpaces = (string) => {
+	return string.replace(/\s+/g, ' ').trim();
 };
 
 const parseAdviceReference = (adviceReference) => {
@@ -144,6 +154,8 @@ const generateAdviceName = ({ enquirer, firstName, lastName }) => {
 		return enquirer;
 	} else if (firstName && lastName) {
 		return `${firstName} ${lastName}`;
+	} else if (firstName) {
+		return `${firstName}`;
 	} else {
 		return 'Anonymous';
 	}
