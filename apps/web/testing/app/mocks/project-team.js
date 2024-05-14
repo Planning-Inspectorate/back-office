@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import * as projectTeamADService from '../../../src/server/applications/common/services/project-team.service.js';
+import projectTeamADService from '../../../src/server/applications/common/services/azure-project-team.js';
 import { omit } from 'lodash-es';
 
 /** @typedef {import('../../../src/server/applications/applications.types').ProjectTeamMember} ProjectTeamMember */
