@@ -8,10 +8,11 @@ import staticFlags from './static-feature-flags.js';
 /**
  * @param {import('./feature-flag-client.js').Logger} logger
  * @param {import('@azure/app-configuration').AppConfigurationClient} [client]
+ * @param {boolean} [useStaticFlags]
  * @returns {ListFlagsFn}
  * */
-export const makeListFlags = (logger, client) => async () => {
-	if (process.env.STATIC_FEATURE_FLAGS_ENABLED === 'true') {
+export const makeListFlags = (logger, client, useStaticFlags) => async () => {
+	if (useStaticFlags) {
 		logger.debug('returning static feature flags (STATIC_FEATURE_FLAGS_ENABLED=true)');
 		return staticFlags;
 	}
