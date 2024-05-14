@@ -94,7 +94,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -230,7 +230,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -366,7 +366,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -538,7 +538,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                     on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
-                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <p id=\\"description-error\\"
                     class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the timetable
                         item description</p>
@@ -710,7 +710,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -846,7 +846,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -942,7 +942,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -1078,7 +1078,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -1214,7 +1214,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -1358,7 +1358,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -1528,7 +1528,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class=\\"govuk-form-group govuk-form-group--error govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
-                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <p id=\\"description-error\\"
                     class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the timetable
                         item description</p>
@@ -1667,7 +1667,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -1763,7 +1763,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description (optional)</label>
                     <div id=\\"description-hint\\"
-                    class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\"></textarea>
                 </div>
@@ -1925,7 +1925,7 @@ exports[`Create examination timetable page should display errors if start date a
                     on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
-                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\">Some text with * one point * another point</textarea>
                 </div>
@@ -2085,7 +2085,7 @@ exports[`Create examination timetable page should display errors if start time a
                     on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
-                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\">Some text with * one point * another point</textarea>
                 </div>
@@ -2332,7 +2332,7 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                     on your chosen start and end dates.</div>
                 <div class=\\"govuk-form-group govuk-grid-column-full govuk-!-margin-top-4\\">
                     <label class=\\"govuk-label font-weight--700 govuk-!-margin-bottom-4\\" for=\\"description\\">Timetable item description</label>
-                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterix (*) to denote a new bullet point</div>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">Use an asterisk (*) to denote a new bullet point</div>
                     <textarea class=\\"govuk-textarea\\"
                     id=\\"description\\" name=\\"description\\" rows=\\"20\\" aria-describedby=\\"description-hint\\">test*ponintone*pointtwo</textarea>
                 </div>

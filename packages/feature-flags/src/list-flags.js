@@ -7,13 +7,20 @@ import staticFlags from './static-feature-flags.js';
 
 /**
  * @param {import('./feature-flag-client.js').Logger} logger
- * @param {import('@azure/app-configuration').AppConfigurationClient} client
+ * @param {import('@azure/app-configuration').AppConfigurationClient} [client]
  * @returns {ListFlagsFn}
  * */
 export const makeListFlags = (logger, client) => async () => {
 	if (process.env.STATIC_FEATURE_FLAGS_ENABLED === 'true') {
 		logger.debug('returning static feature flags (STATIC_FEATURE_FLAGS_ENABLED=true)');
 		return staticFlags;
+	}
+
+	if (!client) {
+		logger.debug(
+			'Cannot list flags because no Azure App Config client exists. Returning an empty object.'
+		);
+		return {};
 	}
 
 	const aacResult = await client.listConfigurationSettings();

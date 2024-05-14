@@ -23,12 +23,5 @@ export function FeatureFlagClient(logger, connectionString) {
 	this.isFeatureActive = makeIsFeatureActive(logger, this.client);
 
 	/** @type {import('./list-flags.js').ListFlagsFn} */
-	this.listFlags = (() => {
-		if (!this.client) {
-			logger.debug('Cannot list flags because no Azure App Config client exists.');
-			return async () => ({});
-		}
-
-		return makeListFlags(logger, this.client);
-	})();
+	this.listFlags = makeListFlags(logger, this.client);
 }
