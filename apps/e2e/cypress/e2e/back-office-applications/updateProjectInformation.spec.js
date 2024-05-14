@@ -21,7 +21,6 @@ const searchResultsPage = new SearchResultsPage();
 const { applications: applicationsUsers } = users;
 
 describe('Update Project Information', () => {
-
 	context('As a user', () => {
 		let projectInfo = projectInformation();
 		let projectInfoNew = projectInformation();
@@ -48,7 +47,6 @@ describe('Update Project Information', () => {
 			validatePreviewAndPublishInfo(projectInfoNew);
 			casePage.clickButtonByText('Accept and publish project');
 			casePage.validatePublishBannerMessage('Project page successfully published');
-
 		});
 	});
 });

@@ -49,7 +49,12 @@ const validateProjectDetailsSection = (projectInformation, mandatoryOnly = false
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+	if ('applic-55-welsh-translation') {
+		casePage.checkProjectAnswer('Region(s)', 'Wales');
+	} else {
+		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+	}
+
 	casePage.checkProjectAnswer(
 		'Map zoom level',
 		mandatoryOnly ? 'None' : projectInformation.zoomLevel
@@ -96,7 +101,11 @@ const validatePreviewAndPublishInfo = (projectInformation) => {
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+	if ('applic-55-welsh-translation') {
+		casePage.checkProjectAnswer('Region(s)', 'Wales');
+	} else {
+		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+	}
 	casePage.checkProjectAnswer('Map zoom level', projectInformation.zoomLevel);
 
 	// A P P L I C A T I O N  I N F O R M A T I O N
@@ -126,12 +135,19 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillInput(projectInformation.gridRefEasting);
 	casePage.fillInput(projectInformation.gridRefNorthing, 1);
 	casePage.clickButtonByText('Save changes');
-
-	casePage.clickChangeLink('Region(s)');
-	casePage.clearAllCheckboxes();
-	createCasePage.sections.regions.chooseRegions(projectInformation.regions);
-	casePage.clickButtonByText('Save changes');
-
+	if ('applic-55-welsh-translation') {
+		casePage.clickChangeLink('Region(s)');
+		casePage.clearAllCheckboxes();
+		cy.get(
+			'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(8) > input:nth-child(1)'
+		).click();
+		casePage.clickButtonByText('Save changes');
+	} else {
+		casePage.clickChangeLink('Region(s)');
+		casePage.clearAllCheckboxes();
+		createCasePage.sections.regions.chooseRegions(projectInformation.regions);
+		casePage.clickButtonByText('Save changes');
+	}
 	casePage.clickChangeLink('Map zoom level');
 	createCasePage.sections.zoomLevel.chooseZoomLevel(projectInformation.zoomLevel);
 	casePage.clickButtonByText('Save changes');
@@ -147,7 +163,7 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.clickButtonByText('Save changes');
 
 	casePage.clickChangeLink('Address (Internal use only)');
-	
+
 	casePage.fillInput(projectInformation.postcode2);
 	casePage.clickButtonByText('Find address');
 	casePage.chooseSelectItemByIndex(1);
@@ -169,14 +185,13 @@ const updateProjectInformation = (projectInformation) => {
 const getShortMonthName = (monthNumber) => {
 	const date = new Date();
 	date.setMonth(monthNumber - 1);
-	return date.toLocaleString('default', { month: 'short' }).substring(0,3);
+	return date.toLocaleString('default', { month: 'short' }).substring(0, 3);
 };
 const getShortMonthNameExamTimeTable = (monthNumber) => {
 	const date = new Date();
 	date.setMonth(monthNumber - 2);
-	return date.toLocaleString('default', { month: 'short' }).substring(0,3);
+	return date.toLocaleString('default', { month: 'short' }).substring(0, 3);
 };
-
 
 const enquirerString = (details) => {
 	const hasName = details.firstName && details.lastName;
