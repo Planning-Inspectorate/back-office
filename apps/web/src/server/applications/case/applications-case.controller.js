@@ -1,5 +1,9 @@
 import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
+import {
+	getProjectTeam,
+	getManyProjectTeamMembersInfo
+} from '../common/services/project-team.service.js';
 import { featureFlagClient } from '../../../common/feature-flags.js';
 
 /** @typedef {import('../applications.types').Case} Case */
@@ -12,13 +16,20 @@ import { featureFlagClient } from '../../../common/feature-flags.js';
  */
 export async function viewApplicationsCaseOverview(request, response) {
 	const {
-		case: { reference }
+		case: { id: caseId, reference }
 	} = response.locals;
 
 	//hide the page when attempting to view general section 51 case
 	if (reference === BO_GENERAL_S51_CASE_REF) {
 		return response.render(`app/404`);
 	}
+
+	const projectTeam = await getProjectTeam(caseId);
+	const teamMembers = await getManyProjectTeamMembersInfo(projectTeam, request.session);
+	const keyMembers = {
+		caseManager: teamMembers.find((m) => m.role === 'case_manager'),
+		nsipOfficers: teamMembers.filter((m) => m.role === 'NSIP_officer')
+	};
 
 	/** @type {boolean} */
 	const caseIsWelsh = await (async () => {
@@ -35,7 +46,8 @@ export async function viewApplicationsCaseOverview(request, response) {
 
 	response.render(`applications/case/overview`, {
 		selectedPageType: 'overview',
-		caseIsWelsh
+		caseIsWelsh,
+		keyMembers
 	});
 }
 /**
