@@ -5,20 +5,21 @@
  * @param {Function} migrationFunction
  * @param {string} entityName
  */
-export const migrationFunctionWrapper = async (
+export const handleMigrationWithResponse = async (
 	context,
 	caseReferences,
 	migrationFunction,
 	entityName
 ) => {
-	if (!caseReferences) {
+	if (!caseReferences || caseReferences.length === 0) {
 		context.res = {
 			status: 400,
-			body: { message: 'CaseReferences are required' }
+			body: { message: 'caseReferences are required' }
 		};
 		return;
 	}
-	console.info(`Migrating ${entityName}s:`, JSON.stringify(caseReferences));
+	console.info(`Starting migration for ${entityName}s:`, JSON.stringify(caseReferences));
+
 	try {
 		await migrationFunction();
 		context.res = {
@@ -29,7 +30,9 @@ export const migrationFunctionWrapper = async (
 		console.error(`Failed to run migration for ${entityName}`, error);
 		context.res = {
 			status: 500,
-			body: { message: `Failed to run migration for ${entityName} with error: ${error.message}` }
+			body: {
+				message: `Failed to run migration for ${entityName} with error: ${error.message}`
+			}
 		};
 	}
 };

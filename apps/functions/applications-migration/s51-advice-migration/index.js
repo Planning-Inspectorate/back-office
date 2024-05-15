@@ -1,11 +1,15 @@
 import { migrateS51Advice } from '../common/migrators/s51-advice-migration.js';
+import { handleMigrationWithResponse } from '../common/handle-migration-with-response.js';
 
 /**
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
 export default async function (context, { body: { caseReferences } }) {
-	console.info('Migrating S51 Advice for', JSON.stringify(caseReferences));
-
-	await migrateS51Advice(context.log, caseReferences);
+	await handleMigrationWithResponse(
+		context,
+		caseReferences,
+		() => migrateS51Advice(context.log, caseReferences),
+		'S51 advice'
+	);
 }
