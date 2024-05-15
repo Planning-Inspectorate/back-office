@@ -5,17 +5,19 @@ import { migrateS51AdviceForCase } from '../common/migrators/s51-advice-migratio
 import { migrateServiceUsersForCase } from '../common/migrators/service-user-migration.js';
 import { migrateFolders } from '@pins/applications.api/src/server/migration/migrators/folder-migrator.js';
 import { migrationNsipDocumentsByReference } from '../common/migrators/nsip-document-migration.js';
+import { handleMigrationWithResponse } from '../common/handle-migration-with-response.js';
 
 /**
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
 export default async function (context, { body: { caseReferences, dryRun } }) {
-	console.info('Migrating cases:', JSON.stringify(caseReferences));
-	for (const caseReference of caseReferences) {
-		// migrate one at a time
-		await migrateCase(context.log, caseReference, dryRun);
-	}
+	const migrationFunction = async () => {
+		for (const caseReference of caseReferences) {
+			await migrateCase(context.log, caseReference, dryRun);
+		}
+	};
+	await handleMigrationWithResponse(context, caseReferences, migrationFunction, 'case');
 }
 
 /**
