@@ -1,0 +1,156 @@
+parameters:
+  - name: deployAPI
+    displayName: Deploy API
+    type: boolean
+    default: true
+  - name: deployWeb
+    displayName: Deploy Web
+    type: boolean
+    default: true
+  - name: deployFunctionApplicationsMigration
+    displayName: Deploy Function - Applications Migration
+    type: boolean
+    default: true
+  - name: deployFunctionApplicationsBackgroundJobs
+    displayName: Deploy Function - Applications Background Jobs
+    type: boolean
+    default: true
+  - name: deployFunctionApplicationsCommandHandlers
+    displayName: Deploy Function - Applications Command Handlers
+    type: boolean
+    default: true
+  - name: region
+    displayName: Region
+    type: string
+    values:
+      - UK West
+      - UK South
+    default: UK West
+  - name: schemaMigration
+    displayName: Run Database Migration
+    type: boolean
+    default: true
+
+pr: none
+trigger: none
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.4.0
+  pipelines:
+    - pipeline: build
+      source: Back Office Build
+      trigger:
+        branches:
+          include:
+            - main
+
+# Stage
+# - Deploy API to staging slot
+# - Deploy WEB to staging slot
+# Deploy
+# - Run database migration
+# - Swap API slots
+# - Swap WEB slots
+# - Deploy Functions
+
+extends:
+  template: stages/wrapper_cd.yml@templates
+  parameters:
+    environments:
+      - name: Prod
+    deploymentStages:
+      - name: Stage
+        deploymentJobs:
+          - name: Stage API
+            condition: eq(${{ parameters.deployAPI }}, 'true')
+            steps:
+              - template: ../steps/azure_web_app_deploy.yml
+                parameters:
+                  appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  appSlotName: staging
+                  azurecrName: $(azurecrName)
+                  repository: back-office/back-office-api
+          - name: Stage Web
+            condition: eq(${{ parameters.deployWeb }}, 'true')
+            steps:
+              - template: ../steps/azure_web_app_deploy.yml
+                parameters:
+                  appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  appSlotName: staging
+                  azurecrName: $(azurecrName)
+                  repository: back-office/back-office-web
+      - name: Deploy
+        dependsOn:
+          - Stage
+        deploymentJobs:
+          - ${{ if eq(parameters.schemaMigration, true) }}:
+            - name: Database Migration
+              steps:
+                - checkout: self
+                - template: ../steps/azure_get_secrets.yml
+                  parameters:
+                    secrets:
+                      - name: back-office-sql-server-connection-string
+                        variable: DATABASE_URL
+                - template: ../steps/node_script.yml
+                  parameters:
+                    nodeVersion: 18
+                    environmentVariables:
+                      DATABASE_URL: $(DATABASE_URL)
+                    script: npm run db:migrate:prod
+                    workingDirectory: $(Build.Repository.LocalPath)/apps/api
+          - name: Deploy API
+            steps:
+              - template: ../steps/azure_web_app_slot_swap.yml
+                parameters:
+                  appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  appStagingSlotName: staging
+                  appTargetSlotName: production
+          - name: Deploy Web
+            steps:
+              - template: ../steps/azure_web_app_slot_swap.yml
+                parameters:
+                  appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  appStagingSlotName: staging
+                  appTargetSlotName: production
+          - name: Deploy Function - Applications Migration
+            artifact:
+              name: function-apps-applications-migration
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployFunctionApplicationsMigration }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-apps-migration-apps-migration-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Applications Background Jobs
+            artifact:
+              name: function-apps-applications-background-jobs
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployFunctionApplicationsBackgroundJobs }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-back-office-apps-background-jobs-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+          - name: Deploy Function - Applications Command Handlers
+            artifact:
+              name: function-apps-applications-command-handlers
+              sourcePipeline: Back Office Build
+            condition: eq(${{ parameters.deployFunctionApplicationsCommandHandlers }}, 'true')
+            steps:
+              - template: ../steps/function_app_deploy.yml
+                parameters:
+                  appName: pins-func-back-office-apps-command-handlers-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  resourceGroup: $(resourceGroup)
+    globalVariables:
+      - template: azure-pipelines-variables.yml@self
