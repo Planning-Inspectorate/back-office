@@ -103,6 +103,7 @@ extends:
                     script: npm run db:migrate:prod
                     workingDirectory: $(Build.Repository.LocalPath)/apps/api
           - name: Deploy API
+            condition: eq(${{ parameters.deployAPI }}, 'true')
             steps:
               - template: ../steps/azure_web_app_slot_swap.yml
                 parameters:
@@ -111,6 +112,7 @@ extends:
                   appStagingSlotName: staging
                   appTargetSlotName: production
           - name: Deploy Web
+            condition: eq(${{ parameters.deployWeb }}, 'true')
             steps:
               - template: ../steps/azure_web_app_slot_swap.yml
                 parameters:
