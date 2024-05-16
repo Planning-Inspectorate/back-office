@@ -40,11 +40,11 @@ exports[`applications create applicant GET edit/applicant-address should render 
                     </div>
                 </div>
             </div>
-        </div><a href=\\"/applications-service/case/123\\" role=\\"button\\" draggable=\\"false\\"
-        class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Save changes</a>
-        <div class=\\"govuk-grid-row\\">
+        </div><a href=\\"/applications-service/case/123/project-information\\" role=\\"button\\"
+        draggable=\\"false\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Save changes</a>
+        <div         class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"></div>
-        </div>
+            </div>
     </form>
 </main>"
 `;
@@ -58,8 +58,8 @@ exports[`applications create applicant GET edit/applicant-address should render 
             <label class=\\"govuk-label font-weight--700\\" for=\\"postcode\\">Postcode</label>
             <input class=\\"govuk-input govuk-!-width-one-third\\" id=\\"postcode\\"
             name=\\"postcode\\" type=\\"text\\" value=\\"\\">
-        </div><a href=\\"/applications-service/case/456\\" role=\\"button\\" draggable=\\"false\\"
-        class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Save changes</a>
+        </div><a href=\\"/applications-service/case/456/project-information\\" role=\\"button\\"
+        draggable=\\"false\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Save changes</a>
         <button         class=\\"govuk-button govuk-button--secondary govuk-!-margin-left-2\\" data-module=\\"govuk-button\\">Find address</button>
             <div class=\\"govuk-grid-row\\">
                 <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\"></div>
