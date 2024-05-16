@@ -13,15 +13,11 @@ export const migrateFolders = async (log, caseReference) => {
 	if (!caseId) throw Error(`Case does not exist for caseReference ${caseReference}`);
 
 	const existingFolders = await folderRepository.getAllByCaseId(caseId);
-	const foldersToCreate = await removeAlreadyExistingFolders(existingFolders);
+	const foldersToCreate = filterOutExistingFolders(existingFolders);
 	await Promise.all(folderRepository.createFolders(caseId, foldersToCreate));
 };
 
-const removeAlreadyExistingFolders = async (existingFolders) => {
-	return defaultCaseFoldersForMigration.filter(
-		(mandatoryFolder) =>
-			!existingFolders.some(
-				(existingFolder) => existingFolder.displayNameEn === mandatoryFolder.displayNameEn
-			)
+const filterOutExistingFolders = (existingFolders) =>
+	defaultCaseFoldersForMigration.filter(
+		(folder) => !existingFolders.some((existingFolder) => existingFolder.name === folder.name)
 	);
-};
