@@ -71,7 +71,6 @@ const mapModelToS51AdviceEntity = async ({
 	adviceReference,
 	// caseId,
 	caseReference,
-	title,
 	from,
 	agent,
 	method,
@@ -86,6 +85,7 @@ const mapModelToS51AdviceEntity = async ({
 }) => {
 	let firstName, lastName;
 	if (from) {
+		from = removeUnnecessarySpaces(from);
 		let otherNames;
 		[firstName, ...otherNames] = from.split(' ');
 		lastName = otherNames.join(' ');
@@ -98,7 +98,12 @@ const mapModelToS51AdviceEntity = async ({
 	return {
 		id: Number(adviceId),
 		caseId: caseId,
-		title: title || '',
+		title: generateAdviceTitleForFo({
+			enquiryMethod: method,
+			enquirer: agent,
+			firstName,
+			lastName
+		}),
 		enquirer: agent,
 		firstName,
 		lastName,
@@ -112,6 +117,10 @@ const mapModelToS51AdviceEntity = async ({
 		redactedStatus: redactionStatus,
 		referenceNumber
 	};
+};
+
+const removeUnnecessarySpaces = (string) => {
+	return string.replace(/\s+/g, ' ').trim();
 };
 
 const parseAdviceReference = (adviceReference) => {
@@ -132,3 +141,22 @@ const mapStatus = (status) =>
 		depublished: 'not_checked',
 		notchecked: 'not_checked'
 	}[status?.replaceAll(' ', '')]);
+
+const generateAdviceTitleForFo = ({ enquiryMethod, enquirer, firstName, lastName }) => {
+	const adviceNameParams = { enquirer, firstName, lastName };
+	return enquiryMethod === 'meeting'
+		? `Meeting with ${generateAdviceName(adviceNameParams)}`
+		: `Advice to ${generateAdviceName(adviceNameParams)}`;
+};
+
+const generateAdviceName = ({ enquirer, firstName, lastName }) => {
+	if (enquirer) {
+		return enquirer;
+	} else if (firstName && lastName) {
+		return `${firstName} ${lastName}`;
+	} else if (firstName) {
+		return `${firstName}`;
+	} else {
+		return 'Anonymous';
+	}
+};
