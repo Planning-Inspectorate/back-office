@@ -44,10 +44,6 @@ resources:
   pipelines:
     - pipeline: build
       source: Back Office Build
-      trigger:
-        branches:
-          include:
-            - main
 
 # Stage
 # - Deploy API to staging slot
