@@ -28,7 +28,7 @@ import { sanitize } from '../nunjucks-filters/sanitize.js';
  * */
 
 /**
- * @param {{ case: Case, keyMembers: KeyTeamMembers, gridReferences: string, regionNames: string[] }} params
+ * @param {{ case: Case, keyMembers?: KeyTeamMembers, gridReferences: string, regionNames: string[] }} params
  * @param {boolean} isWelsh
  * @returns {Row[]}
  * */
@@ -37,7 +37,7 @@ export const buildCaseInformation = (params, isWelsh) => [
 		title: 'Reference number',
 		text: params.case.reference
 	},
-	...(params.keyMembers.caseManager
+	...(params.keyMembers?.caseManager
 		? [
 				{
 					title: 'Case manager',
@@ -45,11 +45,11 @@ export const buildCaseInformation = (params, isWelsh) => [
 				}
 		  ]
 		: []),
-	...(params.keyMembers.nsipOfficers.length > 0
+	...((params.keyMembers?.nsipOfficers ?? []).length > 0
 		? [
 				{
 					title: 'NSIP officers',
-					text: params.keyMembers.nsipOfficers.join(', ')
+					text: params.keyMembers?.nsipOfficers.join(', ')
 				}
 		  ]
 		: []),

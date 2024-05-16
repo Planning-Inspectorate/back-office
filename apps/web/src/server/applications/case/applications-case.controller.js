@@ -72,22 +72,9 @@ export async function viewApplicationsCaseOverview(request, response) {
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function viewApplicationsCaseInformation(_, response) {
-	/** @type {boolean} */
-	const caseIsWelsh = await (async () => {
-		if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
-			return false;
-		}
-
-		return Boolean(
-			response.locals.case?.geographicalInformation?.regions?.find(
-				(/** @type {{name: string}} */ r) => r.name === 'wales'
-			)
-		);
-	})();
-
 	response.render('applications/case/project-information', {
 		selectedPageType: 'project-information',
-		caseIsWelsh
+		caseIsWelsh: false
 	});
 }
 
