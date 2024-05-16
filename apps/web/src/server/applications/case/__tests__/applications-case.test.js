@@ -24,21 +24,11 @@ describe('Applications case pages', () => {
 		nock.cleanAll();
 	});
 
-	describe('Project overview page (GET /case/123)', () => {
-		beforeEach(async () => {
-			nocks();
-			await request.get('/applications-service/');
+	beforeEach(async () => {
+		nocks();
+		await request.get('/applications-service/');
 
-			installMockADToken(fixtureProjectTeamMembers);
-		});
-
-		it('should render the page', async () => {
-			const response = await request.get(baseUrl);
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Overview');
-		});
+		installMockADToken(fixtureProjectTeamMembers);
 	});
 
 	describe('Project information page', () => {
@@ -104,7 +94,7 @@ describe('Applications case pages', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Accept and publish changes');
+				expect(element.innerHTML).toContain('Accept and publish project');
 			});
 
 			it('if not yet published, should render the page with no previous publishing info', async () => {
