@@ -28,13 +28,14 @@
 		{#  In the value column, rowData can be used because "title" and "url" are ignored	#}
 		{% set cols = [{text: rowData.title}, rowData] %}
 
-		{% set linkCol =  {
-			html: caseEditLink({editStepUrl:rowData.url, caseId: params.case.id}),
-			classes: 'text-align--right pins-table__cell--s'
-		} %}
-		{% if not isPublishPage %}
-			{% set cols = (cols.push(linkCol), cols) %}
-		{% endif %}
+    {% if not isPublishPage %}
+      {% set linkCol = {
+        html: caseEditLink({editStepUrl:rowData.url, caseId: params.case.id}),
+        classes: 'text-align--right pins-table__cell--s'
+      } if rowData.url else '&nbsp;' %}
+
+      {% set cols = (cols.push(linkCol), cols) %}
+    {% endif %}
 
 		{% set tableRows = (tableRows.push(cols), tableRows) %}
 	{% endfor %}
