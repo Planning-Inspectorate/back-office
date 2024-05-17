@@ -4,6 +4,8 @@ import { getCaseIdFromRef } from './utils.js';
 import { map, uniq } from 'lodash-es';
 import { getDocumentFolderId } from './folder/folder.js';
 import logger from '#utils/logger.js';
+import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
+import { EventType } from '@pins/event-client/src/event-type.js';
 
 /**
  * Handle an HTTP trigger/request to run the migration
@@ -52,9 +54,13 @@ export const migrateNsipDocuments = async (documents) => {
 		await createDocument(documentEntity);
 
 		const documentVersion = buildDocumentVersion(documentEntity.guid, document);
-		await createDocumentVersion(documentVersion);
+		const documentForServiceBus = await createDocumentVersion(documentVersion);
 
 		await createDocumentActivityLog(documentVersion);
+
+		if (documentForServiceBus.publishedStatus === 'published') {
+			await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Publish);
+		}
 	}
 
 	await updateLatestVersionId(caseId);
@@ -75,7 +81,7 @@ const createDocumentVersion = async (documentVersion) => {
 	logger.info(
 		`Creating DocumentVersion ${documentVersion.documentGuid}, ${documentVersion.version}`
 	);
-	await databaseConnector.documentVersion.upsert({
+	return await databaseConnector.documentVersion.upsert({
 		where: {
 			documentGuid_version: {
 				documentGuid: documentVersion.documentGuid,
@@ -83,7 +89,22 @@ const createDocumentVersion = async (documentVersion) => {
 			}
 		},
 		create: documentVersion,
-		update: documentVersion
+		update: documentVersion,
+		include: {
+			Document: {
+				include: {
+					folder: {
+						include: {
+							case: {
+								include: {
+									CaseStatus: true
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	});
 };
 
