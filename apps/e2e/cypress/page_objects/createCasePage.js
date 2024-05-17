@@ -79,4 +79,63 @@ export class CreateCasePage extends Page {
 		this.clickButtonByText('I accept - confirm creation of a new case');
 		this.sections.caseCreated.validateCaseCreated();
 	}
+	createCaseWithWelshAsRegion(projectInformation, mandatoryOnly = false) {
+		cy.visit('/');
+		this.clickButtonByText('Create case');
+		this.sections.nameAndDescription.fillCaseName(projectInformation.projectName);
+		this.sections.nameAndDescription.fillCaseDescription(projectInformation.projectDescription);
+		this.clickSaveAndContinue();
+		this.sections.sector.chooseSector(projectInformation.sector);
+		this.clickSaveAndContinue();
+		this.sections.subSector.chooseSubsector(
+			projectInformation.sector,
+			projectInformation.subsector
+		);
+		this.clickSaveAndContinue();
+		this.sections.geographicalInformation.fillLocation(projectInformation.projectLocation);
+		this.sections.geographicalInformation.fillEastingGridRef(projectInformation.gridRefEasting);
+		this.sections.geographicalInformation.fillNorthingGridRef(projectInformation.gridRefNorthing);
+		this.clickSaveAndContinue();
+		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+			cy.get(
+				'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(8) > input:nth-child(1)'
+			).click();
+			this.clickSaveAndContinue();
+		}
+		this.sections.zoomLevel.chooseZoomLevel(mandatoryOnly ? 'None' : projectInformation.zoomLevel);
+		this.clickSaveAndContinue();
+
+		if (!mandatoryOnly) {
+			this.sections.projectEmail.fillCaseEmail(projectInformation.projectEmail);
+			this.clickSaveAndContinue();
+			this.sections.applicantInformationAvailable.chooseAll();
+			this.clickSaveAndContinue();
+			this.sections.applicantOrganisation.fillOrganisationName(projectInformation.orgName);
+			this.clickSaveAndContinue();
+			this.sections.applicantName.fillApplicantFirstName(projectInformation.applicantFirstName);
+			this.sections.applicantName.fillApplicantLastName(projectInformation.applicantLastName);
+			this.clickSaveAndContinue();
+			this.sections.applicantAddress.fillApplicantPostcode(projectInformation.postcode);
+			cy.get('button.govuk-button:nth-child(4)').click();
+			this.chooseSelectItemByIndex(1);
+			this.clickSaveAndContinue();
+			this.sections.applicantWebsite.fillApplicantWebsite(projectInformation.applicantWebsite);
+			this.clickSaveAndContinue();
+			this.sections.applicantEmail.fillApplicantEmail(projectInformation.applicantEmail);
+			this.clickSaveAndContinue();
+			this.sections.applicantPhoneNumber.fillPhoneNumber(projectInformation.applicantPhoneNumber);
+			this.clickSaveAndContinue();
+		} else {
+			this.clickSaveAndContinue();
+			this.clickSaveAndContinue();
+		}
+		this.sections.keyDates.fillSumbissionPublishedDate(projectInformation.publishedDate);
+		this.sections.keyDates.fillInternalAnticipatedDay(projectInformation.internalDateDay);
+		this.sections.keyDates.fillInternalAnticipatedMonth(projectInformation.internalDateMonth);
+		this.sections.keyDates.fillInternalAnticipatedYear(projectInformation.internalDateYear);
+		this.clickSaveAndContinue();
+		this.sections.checkYourAnswers.checkAllAnswersForWelsh(projectInformation, mandatoryOnly);
+		this.clickButtonByText('I accept - confirm creation of a new case');
+		this.sections.caseCreated.validateCaseCreated();
+	}
 }
