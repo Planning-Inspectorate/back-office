@@ -1,6 +1,5 @@
-import { AppConfigurationClient } from '@azure/app-configuration';
-import { makeIsFeatureActive } from './is-feature-active.js';
-import { makeListFlags } from './list-flags.js';
+import { AppConfigurationClient, isFeatureFlag, parseFeatureFlag } from '@azure/app-configuration';
+import staticFlags from './static-feature-flags.js';
 
 /**
  * @typedef {Function} LoggerFn
@@ -34,9 +33,53 @@ export function FeatureFlagClient(logger, connectionString, useStaticFlags) {
 		}
 	})();
 
-	/** @type {import('./is-feature-active.js').IsFeatureActiveFn} */
-	this.isFeatureActive = makeIsFeatureActive(logger, this.client, useStaticFlags);
+	/** @type {Record<string, boolean>} */
+	this.featureFlags = {};
 
-	/** @type {import('./list-flags.js').ListFlagsFn} */
-	this.listFlags = makeListFlags(logger, this.client, useStaticFlags);
+	/** @type {() => Promise<void>} */
+	this.loadFlags = async () => {
+		if (useStaticFlags) {
+			logger.debug('returning static feature flags (STATIC_FEATURE_FLAGS_ENABLED=true)');
+			this.featureFlags = staticFlags;
+			return;
+		}
+
+		if (!this.client) {
+			logger.debug(
+				'Cannot load flags because no Azure App Config client exists. Returning an empty object.'
+			);
+			this.featureFlags = {};
+			return;
+		}
+
+		const aacResult = await this.client.listConfigurationSettings();
+
+		/** @type {Record<string, boolean>} */
+		let flags = {};
+
+		for await (const setting of aacResult) {
+			if (!isFeatureFlag(setting)) {
+				continue;
+			}
+
+			const flag = parseFeatureFlag(setting);
+			if (!flag.value.id) {
+				continue;
+			}
+
+			const { id, enabled } = flag.value;
+
+			if (process.env.FEATURE_FLAGS_SETTING === 'ALL_ON') {
+				flags[id] = true;
+				continue;
+			}
+
+			flags[id] = enabled;
+		}
+
+		this.featureFlags = flags;
+	};
+
+	/** @type {(flagName: string) => boolean} */
+	this.isFeatureActive = (flagName) => this.featureFlags[flagName] ?? false;
 }

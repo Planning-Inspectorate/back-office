@@ -118,7 +118,7 @@ export async function viewApplicationsEditCaseDescription(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  * */
 export async function viewApplicationsEditCaseDescriptionWelsh(request, response) {
-	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+	if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
 		return response.redirect(
 			`/applications-service/case/${response.locals.caseId}/project-information`
 		);
@@ -152,7 +152,7 @@ export async function viewApplicationsEditCaseName(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  * */
 export async function viewApplicationsEditCaseNameWelsh(request, response) {
-	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+	if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
 		return response.redirect(
 			`/applications-service/case/${response.locals.caseId}/project-information`
 		);
@@ -273,7 +273,7 @@ export async function viewApplicationsCreateCaseLocation(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps, {}, {}, {}, {}>}
  * */
 export async function viewApplicationsCreateCaseLocationWelsh(request, response) {
-	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+	if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
 		return response.redirect(
 			`/applications-service/case/${response.locals.caseId}/project-information`
 		);

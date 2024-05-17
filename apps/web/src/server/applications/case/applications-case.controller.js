@@ -49,7 +49,7 @@ export async function viewApplicationsCaseOverview(request, response) {
 
 	/** @type {boolean} */
 	const caseIsWelsh = await (async () => {
-		if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
 			return false;
 		}
 

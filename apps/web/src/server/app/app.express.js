@@ -11,6 +11,7 @@ import helmet from 'helmet';
 import responseTime from 'response-time';
 import serveStatic from 'serve-static';
 import pino from '../lib/logger.js';
+import { featureFlagClient } from '../../common/feature-flags.js';
 import { msalMiddleware } from '../lib/msal.js';
 import appRouter from './app.router.js';
 import locals from './config/locals.js';
@@ -95,6 +96,10 @@ app.use(
 		}
 	})
 );
+
+app.use((req, res, next) => {
+	featureFlagClient.loadFlags().then(next);
+});
 
 // Enable CORS - Cross Origin Resource Sharing
 app.use(cors());
