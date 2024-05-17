@@ -58,7 +58,7 @@ extends:
   template: stages/wrapper_cd.yml@templates
   parameters:
     environments:
-      - name: Test # temporary - for testing!
+      - name: Prod
     deploymentStages:
       - name: Stage
         deploymentJobs:
