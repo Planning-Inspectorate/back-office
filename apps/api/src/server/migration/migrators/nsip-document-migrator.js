@@ -59,7 +59,9 @@ export const migrateNsipDocuments = async (documents) => {
 		await createDocumentActivityLog(documentVersion);
 
 		if (documentForServiceBus.publishedStatus === 'published') {
-			await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Publish);
+			await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
+				publishing: 'true'
+			});
 		}
 	}
 
