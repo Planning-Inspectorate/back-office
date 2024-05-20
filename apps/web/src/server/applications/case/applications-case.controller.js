@@ -1,5 +1,6 @@
 import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
+import { allRoles } from './project-team/applications-project-team.controller.js';
 import {
 	getProjectTeam,
 	getManyProjectTeamMembersInfo
@@ -8,6 +9,55 @@ import { featureFlagClient } from '../../../common/feature-flags.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+
+/**
+ * View the overview for a single case (legacy)
+ *
+ * @type {import('@pins/express').RenderHandler<{}>}
+ */
+export async function viewApplicationsCaseOverviewLegacy({ session }, response) {
+	const {
+		caseId,
+		case: { reference }
+	} = response.locals;
+
+	//hide the page when attempting to view general section 51 case
+	if (reference === BO_GENERAL_S51_CASE_REF) {
+		return response.render(`app/404`);
+	}
+
+	// query the internal database to retrieve roles and ids
+	const projectTeamMembers = await getProjectTeam(caseId);
+
+	const displayableMembers = (projectTeamMembers || [])
+		// filter NSIP Officer and Case Manager role
+		.filter(
+			(teamMember) => teamMember.role === 'case_manager' || teamMember.role === 'NSIP_officer'
+		)
+		// replace role vale with its displayName
+		.map((teamMember) => ({
+			...teamMember,
+			role: allRoles.find((role) => role.value === teamMember.role)?.text || ''
+		}))
+		// make sure case_manager members come before nsip officers members
+		.sort((usr1, usr2) => (usr1.role > usr2.role ? 1 : -1));
+
+	const notDisplayableMembersExist =
+		displayableMembers.length === 0 &&
+		displayableMembers.length !== (projectTeamMembers || []).length;
+
+	// add users info from the cache containing the results of ms graph api query
+	const displayableMembersInfo = await getManyProjectTeamMembersInfo(
+		displayableMembers || [],
+		session
+	);
+
+	response.render(`applications/case/overview-legacy`, {
+		selectedPageType: 'overview',
+		displayableMembers: displayableMembersInfo,
+		notDisplayableMembersExist
+	});
+}
 
 /**
  * View the overview for a single case
