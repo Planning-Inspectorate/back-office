@@ -121,9 +121,11 @@ export const mapS51AdviceStatusToSchemaStatus = (status) => {
 		case 'published':
 			schemaStatus = 'published';
 			break;
-		case 'donotpublish':
+		case 'do_not_publish':
 			schemaStatus = 'donotpublish';
 			break;
+		default:
+			throw new Error(`Unknown S51 Advice Status: "${status}"`);
 	}
 
 	// @ts-ignore
