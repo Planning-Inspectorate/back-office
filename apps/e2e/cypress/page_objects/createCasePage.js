@@ -96,12 +96,8 @@ export class CreateCasePage extends Page {
 		this.sections.geographicalInformation.fillEastingGridRef(projectInformation.gridRefEasting);
 		this.sections.geographicalInformation.fillNorthingGridRef(projectInformation.gridRefNorthing);
 		this.clickSaveAndContinue();
-		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-			cy.get(
-				'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(8) > input:nth-child(1)'
-			).click();
-			this.clickSaveAndContinue();
-		}
+		this.sections.regions.chooseRegions(['Wales']);
+		this.clickSaveAndContinue();
 		this.sections.zoomLevel.chooseZoomLevel(mandatoryOnly ? 'None' : projectInformation.zoomLevel);
 		this.clickSaveAndContinue();
 

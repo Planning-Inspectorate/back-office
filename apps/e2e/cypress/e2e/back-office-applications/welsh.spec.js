@@ -27,27 +27,31 @@ describe('Enable and update Project Information with Welsh fields', () => {
 		let projectInfoNew = projectInformation();
 
 		before(() => {
-			cy.login(applicationsUsers.caseAdmin);
-			createCasePage.createCaseWithWelshAsRegion(projectInfo, true);
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.login(applicationsUsers.caseAdmin);
+				createCasePage.createCaseWithWelshAsRegion(projectInfo, true);
+			}
 		});
 
 		it('As a user able to update the case information with welsh fields', () => {
-			cy.login(applicationsUsers.caseAdmin);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
-			validateProjectOverview(projectInfo, true);
-			casePage.clickLinkByText('Update project information');
-			casePage.showAllSections();
-			validateWelshProjectInformation(projectInfo, true);
-			updateProjectInformation(projectInfoNew);
-			validateProjectInformation(projectInfoNew, false, true);
-			casePage.clickLinkByText('Overview');
-			casePage.clickButtonByText('Preview and publish project');
-			validatePreviewAndPublishInfo(projectInfoNew);
-			casePage.clickButtonByText('Accept and publish project');
-			casePage.validatePublishBannerMessage('Project page successfully published');
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.login(applicationsUsers.caseAdmin);
+				cy.visit('/');
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.clickTopSearchResult();
+				validateProjectOverview(projectInfo, true);
+				casePage.clickLinkByText('Update project information');
+				casePage.showAllSections();
+				validateWelshProjectInformation(projectInfo, true);
+				updateProjectInformation(projectInfoNew);
+				validateProjectInformation(projectInfoNew, false, true);
+				casePage.clickLinkByText('Overview');
+				casePage.clickButtonByText('Preview and publish project');
+				validatePreviewAndPublishInfo(projectInfoNew);
+				casePage.clickButtonByText('Accept and publish project');
+				casePage.validatePublishBannerMessage('Project page successfully published');
+			}
 		});
 	});
 });
