@@ -1,5 +1,5 @@
 /**
- * @typedef {import('@pins/applications.api/src/message-schemas/commands/register-nsip-subscription').RegisterNSIPSubscription} RegisterNSIPSubscription
+ * @typedef {import('pins-data-model').Schemas.RegisterNSIPSubscription} RegisterNSIPSubscription
  */
 
 /**
