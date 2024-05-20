@@ -110,9 +110,27 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillInput(projectInformation.projectName);
 	casePage.clickButtonByText('Save changes');
 
+	cy.get('#-content-1 > table > tbody > tr:nth-child(2) > th').then(($elem) => {
+		const text = $elem.text().trim();
+		if (text === 'Project name in Welsh') {
+			casePage.clickChangeLink('Project name in Welsh');
+			casePage.fillInput('Project name in Welsh');
+			casePage.clickButtonByText('Save changes');
+		}
+	});
+
 	casePage.clickChangeLink('Project description');
 	casePage.fillTextArea(projectInformation.projectDescription);
 	casePage.clickButtonByText('Save changes');
+
+	cy.get('#-content-1 > table > tbody > tr:nth-child(4) > th').then(($elem) => {
+		const text = $elem.text().trim();
+		if (text === 'Project description in Welsh') {
+			casePage.clickChangeLink('Project description in Welsh');
+			casePage.fillTextArea('Project description in Welsh');
+			casePage.clickButtonByText('Save changes');
+		}
+	});
 
 	casePage.clickChangeLink('Project email address');
 	casePage.fillInput(projectInformation.projectEmail);
@@ -122,16 +140,23 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillTextArea(projectInformation.projectLocation);
 	casePage.clickButtonByText('Save changes');
 
+	cy.get('#-content-1 > table > tbody > tr:nth-child(6) > th').then(($elem) => {
+		const text = $elem.text().trim();
+		if (text === 'Project location in Welsh') {
+			casePage.clickChangeLink('Project location in Welsh');
+			casePage.fillTextArea('Welsh location');
+			casePage.clickButtonByText('Save changes');
+		}
+	});
+
 	casePage.clickChangeLink('Grid references');
 	casePage.fillInput(projectInformation.gridRefEasting);
 	casePage.fillInput(projectInformation.gridRefNorthing, 1);
 	casePage.clickButtonByText('Save changes');
-
 	casePage.clickChangeLink('Region(s)');
 	casePage.clearAllCheckboxes();
 	createCasePage.sections.regions.chooseRegions(projectInformation.regions);
 	casePage.clickButtonByText('Save changes');
-
 	casePage.clickChangeLink('Map zoom level');
 	createCasePage.sections.zoomLevel.chooseZoomLevel(projectInformation.zoomLevel);
 	casePage.clickButtonByText('Save changes');
@@ -147,7 +172,7 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.clickButtonByText('Save changes');
 
 	casePage.clickChangeLink('Address (Internal use only)');
-	
+
 	casePage.fillInput(projectInformation.postcode2);
 	casePage.clickButtonByText('Find address');
 	casePage.chooseSelectItemByIndex(1);
@@ -169,14 +194,13 @@ const updateProjectInformation = (projectInformation) => {
 const getShortMonthName = (monthNumber) => {
 	const date = new Date();
 	date.setMonth(monthNumber - 1);
-	return date.toLocaleString('default', { month: 'short' }).substring(0,3);
+	return date.toLocaleString('default', { month: 'short' }).substring(0, 3);
 };
 const getShortMonthNameExamTimeTable = (monthNumber) => {
 	const date = new Date();
 	date.setMonth(monthNumber - 2);
-	return date.toLocaleString('default', { month: 'short' }).substring(0,3);
+	return date.toLocaleString('default', { month: 'short' }).substring(0, 3);
 };
-
 
 const enquirerString = (details) => {
 	const hasName = details.firstName && details.lastName;
@@ -235,6 +259,33 @@ const validateSectorSubsectorValues = () => {
 	casePage.checkProjectAnswer('Case stage', 'Pre-Application');
 };
 
+const validateWelshProjectInformation = (
+	projectInformation,
+	mandatoryOnly = false,
+	updated = false
+) => {
+	validateProjectInformationSection(projectInformation);
+	validateProjectDetailsSectionForWelshFields(projectInformation, mandatoryOnly);
+	validateApplicantInfoSection(projectInformation, mandatoryOnly, updated);
+};
+const validateProjectDetailsSectionForWelshFields = (projectInformation, mandatoryOnly = false) => {
+	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription);
+	casePage.checkProjectAnswer(
+		/^Project email address$/,
+		mandatoryOnly ? '' : projectInformation.projectEmail
+	);
+	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation);
+	casePage.checkProjectAnswer(
+		'Grid references',
+		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
+	);
+	casePage.checkProjectAnswer('Region(s)', 'Wales');
+	casePage.checkProjectAnswer(
+		'Map zoom level',
+		mandatoryOnly ? 'None' : projectInformation.zoomLevel
+	);
+};
+
 module.exports = {
 	validateProjectOverview,
 	validateProjectInformation,
@@ -245,5 +296,6 @@ module.exports = {
 	getRandomQuarterDate,
 	validatePreviewAndPublishInfo,
 	getShortMonthNameExamTimeTable,
-	validateSectorSubsectorValues
+	validateSectorSubsectorValues,
+	validateWelshProjectInformation
 };
