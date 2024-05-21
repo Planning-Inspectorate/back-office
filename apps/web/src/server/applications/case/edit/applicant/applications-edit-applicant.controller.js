@@ -1,4 +1,5 @@
 import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
+import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import {
 	applicantAddressData,
 	applicantAddressDataUpdate,
@@ -96,7 +97,11 @@ export async function updateApplicationsEditApplicantOrganisationName(request, r
 		return handleErrors(properties, organisationNameLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -125,7 +130,11 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -154,7 +163,11 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 		return handleErrors(properties, applicantEmailLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -203,7 +216,12 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 	if (shouldShowErrors) {
 		return handleErrors(properties, addressLayout, response);
 	}
-	response.redirect(`/applications-service/case/${caseId}/project-information`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${caseId}`
+			: `/applications-service/case/${caseId}/project-information`
+	);
 }
 
 /**
@@ -232,7 +250,11 @@ export async function updateApplicationsEditApplicantWebsite(request, response) 
 		return handleErrors(properties, websiteLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -264,5 +286,9 @@ export async function updateApplicationsEditApplicantTelephoneNumber(request, re
 		return handleErrors(properties, telephoneNumberLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
