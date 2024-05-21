@@ -1,3 +1,4 @@
+import { featureFlagClient } from '../../../../common/feature-flags.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
 
 /**
@@ -10,7 +11,9 @@ export const registerBackPath = (request, response, next) => {
 
 	response.locals.backPath = url('case-view', {
 		caseId,
-		step: 'project-information'
+		step: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? undefined
+			: 'project-information'
 	});
 
 	next();
