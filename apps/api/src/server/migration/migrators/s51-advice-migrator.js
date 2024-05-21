@@ -9,6 +9,8 @@ import { buildUpsertForEntity } from './sql-tools.js';
 import { databaseConnector } from '#utils/database-connector.js';
 import { EventType } from '@pins/event-client';
 import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as s51AdviceDocumentRepository from '#repositories/s51-advice-document.repository.js';
 
 /**
  * @param {S51AdviceModel[]} s51AdviceList
@@ -35,10 +37,20 @@ export const migrateS51Advice = async (s51AdviceList) => {
 			databaseConnector.$executeRawUnsafe(s51AdviceStatement, ...s51AdviceParameters)
 		]);
 
-		// TODO attachments
-		// for (const attachmentId in s51AdviceEntity.attachmentIds) {
-		// 	// create attachment/document
-		// }
+		await Promise.all(
+			s51Advice.attachmentIds.map(async (attachmentId) => {
+				return documentRepository.getById(attachmentId).then((documentRow) => {
+					if (!documentRow || !documentRow.guid) {
+						throw Error(`Failed to get document with ID ${attachmentId}`);
+					}
+
+					return s51AdviceDocumentRepository.upsertS51AdviceDocument(
+						s51AdviceEntity.id,
+						documentRow.guid
+					);
+				});
+			})
+		);
 	}
 
 	const { publishEvents, updateEvents } = s51AdviceList.reduce(
@@ -81,7 +93,6 @@ const mapModelToS51AdviceEntity = async ({
 	adviceDetails,
 	status,
 	redactionStatus
-	// attachmentIds
 }) => {
 	let firstName, lastName;
 	if (from) {
