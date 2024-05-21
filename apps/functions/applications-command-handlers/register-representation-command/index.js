@@ -1,6 +1,11 @@
 import api from './back-office-api-client.js';
 import { isEmpty, pick } from 'lodash-es';
 
+/**
+ * @typedef {import('@pins/applications.api/src/message-schemas/commands/register-subscription').RegisterRepresentation} PrevRegisterRepresentation
+ * @typedef {import('pins-data-model').Schemas.RegisterRepresentation} RegisterRepresentation
+ */
+
 const mapContactDetails = (entity) => {
 	if (isEmpty(entity)) return {};
 
@@ -34,7 +39,7 @@ const mapContactDetails = (entity) => {
 /**
  *
  * @param {import('@azure/functions').Context} context
- * @param {import('pins-data-model').Schemas.RegisterRepresentation} msg
+ * @param {RegisterRepresentation | PrevRegisterRepresentation} msg
  */
 export default async function (context, msg) {
 	context.log('Handle register-representation event');
