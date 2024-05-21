@@ -19,7 +19,9 @@ export class CasePage extends Page {
 			cy.contains(this.selectors.fullColumn, `${sector}, ${subector}`),
 		summaryValue: (keyText) =>
 			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next(),
-			caseRefTRAIN:()=>cy.get(this.selectors.caseRefTraining)
+		summaryTableValue: (keyText) =>
+			cy.contains(this.selectors.tableHeader, keyText, { matchCase: false }).next(),
+		caseRefTRAIN: () => cy.get(this.selectors.caseRefTraining)
 	};
 
 	checkProjectAnswer(question, answer) {
@@ -27,13 +29,23 @@ export class CasePage extends Page {
 			.answerCell(question)
 			.scrollIntoView()
 			.then(($elem) => {
-				expect($elem.text().trim().replaceAll("\n", "")).to.eq(answer);
+				expect($elem.text().trim().replaceAll('\n', '')).to.eq(answer);
 			});
 	}
 
 	validateSummaryItem(keyText, valueText) {
 		this.elements
 			.summaryValue(keyText)
+			.scrollIntoView()
+			.invoke('text')
+			.then((text) => {
+				expect(text.trim()).to.equal(valueText);
+			});
+	}
+
+	validateSummaryTableItem(keyText, valueText) {
+		this.elements
+			.summaryTableValue(keyText)
 			.scrollIntoView()
 			.invoke('text')
 			.then((text) => {
