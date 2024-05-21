@@ -3,12 +3,17 @@ import api from './back-office-api-client.js';
 import blob from './blob-client.js';
 import events from './event-client.js';
 
+/**
+ * @typedef {import('@pins/applications.api/src/message-schemas/commands/new-deadline-submission').DeadlineSubmission} PrevDeadlineSubmission
+ * @typedef {import('pins-data-model').Schemas.NewDeadlineSubmission} NewDeadlineSubmission
+ */
+
 const { submissionsContainer } = config;
 
 /**
  *
  * @param {import('@azure/functions').Context} context
- * @param {import('pins-data-model').Schemas.DeadlineSubmission} msg
+ * @param {NewDeadlineSubmission | PrevDeadlineSubmission} msg
  * @returns {Promise<string | null>}
  */
 async function run(context, msg) {
@@ -74,7 +79,7 @@ async function run(context, msg) {
 /**
  *
  * @param {import('@azure/functions').Context} context
- * @param {import('pins-data-model').Schemas.DeadlineSubmission} msg
+ * @param {NewDeadlineSubmission | PrevDeadlineSubmission} msg
  */
 export default async function (context, msg) {
 	context.log('Handle new deadline submission', msg);
