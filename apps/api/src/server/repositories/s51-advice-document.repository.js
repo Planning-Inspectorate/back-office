@@ -74,3 +74,20 @@ export const getPublishedDocumentsByAdviceIds = (s51AdviceIds) => {
 		}
 	});
 };
+
+/**
+ *
+ * @param {number} adviceId
+ * @param {string} documentGuid
+ * @returns {Promise<*>}
+ */
+export const upsertS51AdviceDocument = async (adviceId, documentGuid) => {
+	return databaseConnector.s51AdviceDocument.upsert({
+		where: { documentGuid },
+		update: { adviceId },
+		create: {
+			documentGuid,
+			adviceId
+		}
+	});
+};

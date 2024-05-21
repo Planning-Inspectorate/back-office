@@ -48,7 +48,7 @@ export const migrateRepresentations = async (representations) => {
 			representation.attachmentIds.map(async (attachmentId) => {
 				return documentRepository.getById(attachmentId).then((documentRow) => {
 					if (!documentRow || !documentRow.guid) {
-						return Promise.reject(new Error(`Failed to get document with ID ${attachmentId}`));
+						throw Error(`Failed to get document with ID ${attachmentId}`);
 					}
 
 					return representationAttachmentRepository.upsertApplicationRepresentationAttachment(
