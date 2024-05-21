@@ -7,22 +7,40 @@ const casePage = new CasePage();
 const createCasePage = new CreateCasePage();
 
 const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
-	casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
-	casePage.validateSummaryItem(
-		'Applicant information',
-		mandatoryOnly
-			? ''
-			: `${projectInformation.orgName}${projectInformation.applicantEmail}${projectInformation.applicantPhoneNumber}`
-	);
-	casePage.validateSummaryItem(
-		'Applicant website',
-		mandatoryOnly ? '' : projectInformation.applicantWebsite
-	);
-	casePage.validateSummaryItem(
-		'Project email',
-		mandatoryOnly ? '' : projectInformation.projectEmail
-	);
-	casePage.validateSummaryItem('Project page', projectInformation.defaultPublishedStatus);
+	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+		casePage.validateSummaryTableItem('Reference number', Cypress.env('currentCreatedCase'));
+		casePage.validateSummaryTableItem(
+			'Organisation name',
+			mandatoryOnly ? '' : projectInformation.orgName
+		);
+		casePage.validateSummaryTableItem(
+			'Website',
+			mandatoryOnly ? '' : projectInformation.applicantWebsite
+		);
+		casePage.validateSummaryTableItem(
+			'Project email address',
+			mandatoryOnly ? '' : projectInformation.projectEmail
+		);
+	} else {
+		casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
+		casePage.validateSummaryItem(
+			'Applicant information',
+			mandatoryOnly
+				? ''
+				: `${projectInformation.orgName}${projectInformation.applicantEmail}${projectInformation.applicantPhoneNumber}`
+		);
+		casePage.validateSummaryItem(
+			'Applicant website',
+			mandatoryOnly ? '' : projectInformation.applicantWebsite
+		);
+		casePage.validateSummaryItem(
+			'Project email',
+			mandatoryOnly ? '' : projectInformation.projectEmail
+		);
+		casePage.validateSummaryItem('Project page', projectInformation.defaultPublishedStatus);
+
+		casePage.clickLinkByText('Update project information');
+	}
 };
 
 const validateProjectInformation = (projectInformation, mandatoryOnly = false, updated = false) => {

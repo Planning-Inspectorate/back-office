@@ -41,17 +41,15 @@ describe('Enable and update Project Information with Welsh fields', () => {
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
 				validateProjectOverview(projectInfo, true);
-				casePage.clickLinkByText('Update project information');
 				casePage.showAllSections();
-				validateWelshProjectInformation(projectInfo, true);
-				updateProjectInformation(projectInfoNew);
-				validateProjectInformation(projectInfoNew, false, true);
-				casePage.clickLinkByText('Overview');
-				casePage.clickButtonByText('Preview and publish project');
-				validatePreviewAndPublishInfo(projectInfoNew);
-				casePage.clickButtonByText('Accept and publish project');
-				casePage.validatePublishBannerMessage('Project page successfully published');
-			}
+			validateWelshProjectInformation(projectInfo, true);
+			updateProjectInformation(projectInfoNew);
+			validateProjectInformation(projectInfoNew, false, true);
+			casePage.clickLinkByText('Overview');
+			casePage.clickButtonByText('Preview and publish project');
+			validatePreviewAndPublishInfo(projectInfoNew);
+			casePage.clickButtonByText('Accept and publish project');
+			casePage.validatePublishBannerMessage('Project page successfully published');}
 		});
 	});
 });
