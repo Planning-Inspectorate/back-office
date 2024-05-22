@@ -21,7 +21,12 @@ export class CasePage extends Page {
 			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next(),
 		summaryTableValue: (keyText) =>
 			cy.contains(this.selectors.tableHeader, keyText, { matchCase: false }).next(),
-		caseRefTRAIN: () => cy.get(this.selectors.caseRefTraining)
+		caseRefTRAIN: () =>
+			cy.get('table.govuk-table:nth-child(3) > tbody:nth-child(2) > tr:nth-child(1) > td'),
+		caseTrain: () =>
+			cy.get(
+				'table.govuk-table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2)'
+			)
 	};
 
 	checkProjectAnswer(question, answer) {
