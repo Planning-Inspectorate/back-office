@@ -178,7 +178,11 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillInput(projectInformation.gridRefEasting);
 	casePage.fillInput(projectInformation.gridRefNorthing, 1);
 	casePage.clickButtonByText('Save changes');
-	casePage.clickChangeLink('Regions');
+	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+		casePage.clickChangeLink('Regions');
+	} else {
+		casePage.clickChangeLink('Region(s)');
+	}
 	casePage.clearAllCheckboxes();
 	createCasePage.sections.regions.chooseRegions(projectInformation.regions);
 	casePage.clickButtonByText('Save changes');
@@ -276,12 +280,16 @@ const getRandomQuarterDate = (direction = 'future') => {
 };
 
 const validateSectorSubsectorValues = () => {
-	casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
-	casePage.clickLinkByText('Update project information');
-	casePage.elements.caseRefTRAIN().contains(/^TRAIN[0-9]*$/);
+	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+		casePage.validateSummaryTableItem('Reference number', Cypress.env('currentCreatedCase'));
+		casePage.elements.caseRefTRAIN().contains(/^TRAIN[0-9]*$/);
+	} else {
+		casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
+		casePage.clickLinkByText('Update project information');
+		casePage.elements.caseTrain().contains(/^TRAIN[0-9]*$/);
+	}
 	casePage.checkProjectAnswer('Sector', 'Training');
 	casePage.checkProjectAnswer('Subsector', 'Training');
-	casePage.checkProjectAnswer('Case stage', 'Pre-Application');
 };
 
 const validateWelshProjectInformation = (
