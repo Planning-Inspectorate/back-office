@@ -135,27 +135,29 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillInput(projectInformation.projectName);
 	casePage.clickButtonByText('Save changes');
 
-	/*cy.get('#-content-1 > table > tbody > tr:nth-child(2) > th').then(($elem) => {
+	cy.get(
+		'table.govuk-table:nth-child(3) > tbody:nth-child(2) > tr:nth-child(6) > th:nth-child(1)'
+	).then(($elem) => {
 		const text = $elem.text().trim();
 		if (text === 'Project name in Welsh') {
 			casePage.clickChangeLink('Project name in Welsh');
 			casePage.fillInput('Project name in Welsh');
 			casePage.clickButtonByText('Save changes');
 		}
-	});*/
+	});
 
 	casePage.clickChangeLink('Project description');
 	casePage.fillTextArea(projectInformation.projectDescription);
 	casePage.clickButtonByText('Save changes');
 
-	/*cy.get('#-content-1 > table > tbody > tr:nth-child(4) > th').then(($elem) => {
+	cy.get('tr.govuk-table__row:nth-child(8) > th:nth-child(1)').then(($elem) => {
 		const text = $elem.text().trim();
 		if (text === 'Project description in Welsh') {
 			casePage.clickChangeLink('Project description in Welsh');
 			casePage.fillTextArea('Project description in Welsh');
 			casePage.clickButtonByText('Save changes');
 		}
-	});*/
+	});
 
 	casePage.clickChangeLink('Project email address');
 	casePage.fillInput(projectInformation.projectEmail);
@@ -165,14 +167,14 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillTextArea(projectInformation.projectLocation);
 	casePage.clickButtonByText('Save changes');
 
-	/*cy.get('#-content-1 > table > tbody > tr:nth-child(6) > th').then(($elem) => {
+	cy.get('tr.govuk-table__row:nth-child(10) > th:nth-child(1)').then(($elem) => {
 		const text = $elem.text().trim();
 		if (text === 'Project location in Welsh') {
 			casePage.clickChangeLink('Project location in Welsh');
 			casePage.fillTextArea('Welsh location');
 			casePage.clickButtonByText('Save changes');
 		}
-	});*/
+	});
 
 	casePage.clickChangeLink('Grid references');
 	casePage.fillInput(projectInformation.gridRefEasting);
