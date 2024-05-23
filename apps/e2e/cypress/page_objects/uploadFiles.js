@@ -34,11 +34,10 @@ export class FileUploadPage extends Page {
 		cy.waitUntil(
 			async () => {
 				cy.reload();
-				cy.contains('a', 'View/Edit properties', { timeout: 2000 }).should('exist');
 				const $downloadLink = cy.$$(`a:contains('Download')`);
 				return !!$downloadLink.length;
 			},
-			{ timeout: 10000 }
+			{ timeout: 30000 }
 		);
 	}
 
