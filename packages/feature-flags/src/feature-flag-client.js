@@ -18,7 +18,21 @@ import { makeListFlags } from './list-flags.js';
  * @param {boolean} [useStaticFlags]
  * */
 export function FeatureFlagClient(logger, connectionString, useStaticFlags) {
-	this.client = connectionString ? new AppConfigurationClient(connectionString) : undefined;
+	/** @type {import('@azure/app-configuration').AppConfigurationClient | undefined} */
+	this.client = (() => {
+		if (!connectionString) {
+			return;
+		}
+
+		try {
+			return new AppConfigurationClient(connectionString);
+		} catch (err) {
+			logger.debug('Failed to create AppConfigurationClient due to error:');
+			logger.debug(err);
+
+			return;
+		}
+	})();
 
 	/** @type {import('./is-feature-active.js').IsFeatureActiveFn} */
 	this.isFeatureActive = makeIsFeatureActive(logger, this.client, useStaticFlags);
