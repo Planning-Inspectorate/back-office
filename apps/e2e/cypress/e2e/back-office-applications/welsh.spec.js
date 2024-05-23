@@ -28,6 +28,8 @@ describe('Enable and update Project Information with Welsh fields', () => {
 
 		before(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				projectInfo.caseIsWelsh = true;
+				projectInfoNew.caseIsWelsh = true;
 				cy.login(applicationsUsers.caseAdmin);
 				createCasePage.createCaseWithWelshAsRegion(projectInfo, true);
 			}

@@ -1,4 +1,5 @@
 import { buildCaseInformation } from '../build-case-information.js';
+import { featureFlagClient } from '../../../../common/feature-flags.js';
 
 const fullParams = {
 	case: {
@@ -38,7 +39,9 @@ const fullResult = [
 	{ title: 'Sector', text: 'Test sector' },
 	{ title: 'Subsector', text: 'Test subsector' },
 	{
-		title: 'Regions',
+		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? 'Regions'
+			: 'Region(s)',
 		html: ['Test region 1'],
 		url: 'regions',
 		classes: 'project-details__regions'

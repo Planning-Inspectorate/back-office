@@ -27,14 +27,13 @@
 	{% endif %}
 	{% endset %}
 
-
 			{{ govukTable({
 				caption: 'Project details',
 				captionClasses: 'govuk-visually-hidden',
 				firstCellIsHeader: true,
 				rows: [
 					[{ text: "Case reference number" }, { text: case.reference }],
-          [{ text: "Project name" }, { text: case.title }],
+          			[{ text: "Project name" }, { text: case.title }],
 					[{ text: "Sector" }, { text: case.sector.displayNameEn }],
 					[{ text: "Subsector" }, { text: case.subSector.displayNameEn }],
 					[{ text: "Case stage" },{ text: case.status }],
@@ -42,7 +41,7 @@
 					[{ text: 'Project email address' }, { html: case.caseEmail }],
 					[{ text: 'Project location' }, { html: case.geographicalInformation.locationDescription }],
 					[{ text: 'Grid references' }, { html: gridReferences }],
-					[{ text: 'Region(s)' }, { html: regionNames }],
+					[{ text: 'Regions' if ('applic-55-welsh-translation' | isFeatureActive) else 'Region(s)'}, { html: regionNames }],
 					[{ text: 'Map zoom level' }, { text: case.geographicalInformation.mapZoomLevel.displayNameEn }]
 				]
 			}) }}
