@@ -27,7 +27,11 @@ export class CheckYourAnswersSection extends SectionBase {
 		this.checkAnswer('Project location', projectInfo.projectLocation);
 		this.checkAnswer('Grid reference Easting', projectInfo.gridRefEasting);
 		this.checkAnswer('Grid reference Northing', projectInfo.gridRefNorthing);
-		this.checkAnswer('Region(s)', projectInfo.regions.sort().join(','));
+		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+			this.checkAnswer('Region', projectInfo.regions.sort().join(','));
+		} else {
+			this.checkAnswer('Region(s)', projectInfo.regions.sort().join(','));
+		}
 		this.checkAnswer('Map zoom level', mandatoryOnly ? 'None' : projectInfo.zoomLevel);
 
 		if (!mandatoryOnly) {
@@ -54,7 +58,9 @@ export class CheckYourAnswersSection extends SectionBase {
 		this.checkAnswer('Grid reference Easting', projectInfo.gridRefEasting);
 		this.checkAnswer('Grid reference Northing', projectInfo.gridRefNorthing);
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-			this.checkAnswer('Region(s)', 'Wales');
+			this.checkAnswer('Regions', 'Wales');
+		} else {
+			this.checkAnswer('Regions(s)', projectInfo.regions.sort().join(','));
 		}
 		this.checkAnswer('Map zoom level', mandatoryOnly ? 'None' : projectInfo.zoomLevel);
 

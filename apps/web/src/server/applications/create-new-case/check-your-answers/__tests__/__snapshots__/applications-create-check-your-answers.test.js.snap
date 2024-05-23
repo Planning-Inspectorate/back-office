@@ -77,7 +77,7 @@ exports[`applications create: check your answers Check your answers GET /check-y
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Region(s)</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Regions</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">London EN,Yorkshire EN</td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"regions\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/regions/edit\\">Change</a>
                             </td>
@@ -264,7 +264,7 @@ exports[`applications create: check your answers Check your answers POST /check-
                             </td>
                         </tr>
                         <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Region(s)</td>
+                            <td class=\\"govuk-table__cell font-weight--700 pins-table__cell--s\\">Regions</td>
                             <td class=\\"govuk-table__cell pins-table__cell--s\\">London EN,Yorkshire EN</td>
                             <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a id=\\"regions\\" class=\\"govuk-link\\" href=\\"/applications-service/create-new-case/1/regions/edit\\">Change</a>
                             </td>

@@ -1,4 +1,5 @@
 import { sanitize } from '../nunjucks-filters/sanitize.js';
+import { featureFlagClient } from '../../../common/feature-flags.js';
 
 /**
  * @typedef {Object} Row
@@ -62,7 +63,9 @@ export const buildCaseInformation = (params, isWelsh) => [
 		text: params.case.subSector.displayNameEn
 	},
 	{
-		title: 'Regions',
+		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? 'Regions'
+			: 'Region(s)',
 		html: params.regionNames,
 		url: 'regions',
 		classes: 'project-details__regions'
