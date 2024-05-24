@@ -1,9 +1,10 @@
 import { sanitize } from '../nunjucks-filters/sanitize.js';
+import { featureFlagClient } from '../../../common/feature-flags.js';
 
 /**
  * @typedef {Object} Row
  * @property {string} title
- * @property {string} url
+ * @property {string} [url]
  * @property {string | null} [text]
  * @property {*} [html]
  * @property {string} [classes]
@@ -12,6 +13,9 @@ import { sanitize } from '../nunjucks-filters/sanitize.js';
 /**
  * @typedef {Object} Case
  * @property {number} id
+ * @property {string} reference
+ * @property {{ displayNameEn: string }} sector
+ * @property {{ displayNameEn: string }} subSector
  * @property {string | null} title
  * @property {string | null} description
  * @property {string | null} titleWelsh
@@ -21,11 +25,51 @@ import { sanitize } from '../nunjucks-filters/sanitize.js';
  * */
 
 /**
- * @param {{ case: Case, gridReferences: string, regionNames: string[] }} params
+ * @typedef {{ caseManager: string | null, nsipOfficers: string[] }} KeyTeamMembers
+ * */
+
+/**
+ * @param {{ case: Case, keyMembers?: KeyTeamMembers, gridReferences: string, regionNames: string[] }} params
  * @param {boolean} isWelsh
  * @returns {Row[]}
  * */
 export const buildCaseInformation = (params, isWelsh) => [
+	{
+		title: 'Reference number',
+		text: params.case.reference
+	},
+	...(params.keyMembers?.caseManager
+		? [
+				{
+					title: 'Case manager',
+					text: params.keyMembers.caseManager
+				}
+		  ]
+		: []),
+	...((params.keyMembers?.nsipOfficers ?? []).length > 0
+		? [
+				{
+					title: 'NSIP officers',
+					text: params.keyMembers?.nsipOfficers.join(', ')
+				}
+		  ]
+		: []),
+	{
+		title: 'Sector',
+		text: params.case.sector.displayNameEn
+	},
+	{
+		title: 'Subsector',
+		text: params.case.subSector.displayNameEn
+	},
+	{
+		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? 'Regions'
+			: 'Region(s)',
+		html: params.regionNames,
+		url: 'regions',
+		classes: 'project-details__regions'
+	},
 	{
 		title: 'Project name',
 		text: params.case.title,
@@ -83,12 +127,6 @@ export const buildCaseInformation = (params, isWelsh) => [
 		html: params.gridReferences,
 		url: 'grid-references',
 		classes: 'project-details__grid-references'
-	},
-	{
-		title: 'Region(s)',
-		html: params.regionNames,
-		url: 'regions',
-		classes: 'project-details__regions'
 	},
 	{
 		title: 'Map zoom level',

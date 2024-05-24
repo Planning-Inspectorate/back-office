@@ -118,7 +118,7 @@ export async function viewApplicationsEditCaseDescription(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  * */
 export async function viewApplicationsEditCaseDescriptionWelsh(request, response) {
-	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+	if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
 		return response.redirect(
 			`/applications-service/case/${response.locals.caseId}/project-information`
 		);
@@ -152,7 +152,7 @@ export async function viewApplicationsEditCaseName(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  * */
 export async function viewApplicationsEditCaseNameWelsh(request, response) {
-	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+	if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
 		return response.redirect(
 			`/applications-service/case/${response.locals.caseId}/project-information`
 		);
@@ -185,7 +185,11 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -217,7 +221,11 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 		return handleErrors(properties, teamEmailLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -248,7 +256,11 @@ export async function updateApplicationsEditCaseStage(request, response) {
 		return handleErrors(properties, stageLayout, response);
 	}
 
-	return response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	return response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -273,7 +285,7 @@ export async function viewApplicationsCreateCaseLocation(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps, {}, {}, {}, {}>}
  * */
 export async function viewApplicationsCreateCaseLocationWelsh(request, response) {
-	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+	if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
 		return response.redirect(
 			`/applications-service/case/${response.locals.caseId}/project-information`
 		);
@@ -331,7 +343,11 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -363,7 +379,11 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 		return handleErrors(properties, regionsLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -395,5 +415,9 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
 		return handleErrors(properties, zoomLevelLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }

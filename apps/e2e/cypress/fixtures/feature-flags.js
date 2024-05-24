@@ -7,5 +7,6 @@ export async function loadFlags() {
 		Cypress.env('STATIC_FEATURE_FLAGS_ENABLED') === 'true'
 	);
 
-	return await featureFlagClient.listFlags();
+	await featureFlagClient.loadFlags();
+	return featureFlagClient.featureFlags;
 }

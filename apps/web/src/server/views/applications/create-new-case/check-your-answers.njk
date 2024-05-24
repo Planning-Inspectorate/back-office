@@ -47,7 +47,7 @@
     {% set row = row | concat({ html: '<a id="gridReferenceNorthing" class="govuk-link" href="' + baseUrl + 'geographical-information/edit">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
     {% set rows = rows | concat([row]) %}
     {% set row = [] %}
-    {% set row = row | concat({ text: 'Region(s)', classes: 'font-weight--700 pins-table__cell--s' }) %}
+    {% set row = row | concat({ text: 'Regions' if ('applic-55-welsh-translation' | isFeatureActive) else 'Region(s)', classes: 'font-weight--700 pins-table__cell--s' }) %}
     {% set row = row | concat({ text: values['case.regions'], classes: 'pins-table__cell--s' }) %}
     {% set row = row | concat({ html: '<a id="regions" class="govuk-link" href="' + baseUrl + 'regions/edit">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
     {% set rows = rows | concat([row]) %}

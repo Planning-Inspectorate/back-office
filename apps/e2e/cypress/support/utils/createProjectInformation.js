@@ -19,7 +19,7 @@ export const projectInformation = () => {
 	const gridRefNorthing = faker.random.numeric(6);
 	const regions = faker.helpers.arrayElements(REGIONS).sort();
 	const zoomLevel = faker.helpers.arrayElement(ZOOM_LEVELS);
-	const projectEmail = faker.internet.email();
+	const projectEmail = 'test@projectemail.com';
 
 	// A P P L I C A N T  I N F O R M A T I O N
 	let orgName = `Automation_Test_Org_${now}`;

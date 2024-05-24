@@ -36,7 +36,6 @@ describe('Publish Documents', () => {
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 	});
@@ -63,5 +62,4 @@ describe('Publish Documents', () => {
 		folderPage.publishAllDocumentsInList();
 		folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
 	});
-
 });

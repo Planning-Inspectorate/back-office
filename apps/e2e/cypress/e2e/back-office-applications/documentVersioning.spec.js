@@ -37,7 +37,6 @@ describe('Document Versioning', () => {
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		validateProjectOverview(projectInfo);
-		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();

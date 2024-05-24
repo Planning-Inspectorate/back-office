@@ -1,14 +1,15 @@
-import getActiveDirectoryAccessToken from '../../../lib/active-directory-token.js';
-import { fetchFromCache, storeInCache } from '../../../lib/cache-handler.js';
-import HttpError from '../../../lib/http-error.js';
-import { msGraphGet } from '../../../lib/msGraphRequest.js';
-import config from '@pins/applications.web/environment/config.js';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import config from '@pins/applications.web/environment/config.js';
+import { msGraphGet } from '../../../lib/msGraphRequest.js';
+import { fetchFromCache, storeInCache } from '../../../lib/cache-handler.js';
+import getActiveDirectoryAccessToken from '../../../lib/active-directory-token.js';
+import HttpError from '../../../lib/http-error.js';
 
-/** @typedef {import('../../applications.types.js').ProjectTeamMember} ProjectTeamMember */
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {import("../../../app/auth/auth-session.service.js").SessionWithAuth} SessionWithAuth */
+/**
+ * @typedef {import('../../applications.types').ProjectTeamMember} ProjectTeamMember
+ * @typedef {import("../../../app/auth/auth-session.service.js").SessionWithAuth} SessionWithAuth
+ * /
 
 /**
  * Get Active Directory token from session auth data
@@ -25,6 +26,26 @@ const getTokenOrFail = async (session) => {
 	} catch {
 		throw new HttpError('Error retrieving the Active Directory token', 500);
 	}
+};
+
+/**
+ * Retrieve Azure Directory Users via the execution of a ms graph api request unless the environment is development and dummy user data is available
+ *
+ * @param {SessionWithAuth} session
+ * @returns {Promise<Partial<ProjectTeamMember>[]>}
+ */
+const getAzureDirectoryUsers = async (session) => {
+	if (config.dummyUserData) {
+		const dummyUserDataFile = path.join(process.cwd(), 'dummy_user_data.json');
+		return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
+	}
+
+	if (config.authDisabled) {
+		return [];
+	}
+
+	const token = await getTokenOrFail(session);
+	return (await getAllADUsers(token)) || [];
 };
 
 /**
@@ -81,26 +102,6 @@ export const getAllADUsers = async (ADToken) => {
 };
 
 /**
- * Retrieve Azure Directory Users via the execution of a ms graph api request unless the environment is development and dummy user data is available
- *
- * @param {SessionWithAuth} session
- * @returns {Promise<Partial<ProjectTeamMember>[]>}
- */
-const getAzureDirectoryUsers = async (session) => {
-	if (config.authDisabled) {
-		// In development only, do not trigger any Azure request
-		if (config.dummyUserData) {
-			// In development only, use dummy user data if available
-			const dummyUserDataFile = path.join(process.cwd(), 'dummy_user_data.json');
-			return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
-		}
-		return [];
-	}
-	const token = await getTokenOrFail(session);
-	return (await getAllADUsers(token)) || [];
-};
-
-/**
  * Retrieve all Azure Directory Users from cache or execute ms graph api request if cache empty
  *
  * @param {SessionWithAuth} session
@@ -108,28 +109,29 @@ const getAzureDirectoryUsers = async (session) => {
  */
 const getAllCachedUsers = async (session) => {
 	const cacheName = `cache_applications_users`;
-
-	let cachedUsers = await fetchFromCache(cacheName);
-
-	if (!cachedUsers) {
-		try {
-			cachedUsers = await getAzureDirectoryUsers(session);
-		} catch (/** @type {*} */ error) {
-			throw new HttpError(
-				`[GRAPH MICROSOFT API] ${error?.response?.body?.error?.code || 'Unknown error'}`,
-				500
-			);
-		}
-		if (!config.authDisabled) {
-			// store all users in the cache for 2h
-			storeInCache(cacheName, cachedUsers, 7200);
-		}
+	const cachedUsers = await fetchFromCache(cacheName);
+	if (cachedUsers) {
+		return cachedUsers;
 	}
 
-	return cachedUsers;
+	try {
+		const users = await getAzureDirectoryUsers(session);
+
+		if (!config.authDisabled) {
+			// store all users in the cache for 2h
+			storeInCache(cacheName, users, 7200);
+		}
+
+		return users;
+	} catch (/** @type {*} */ error) {
+		throw new HttpError(
+			`[GRAPH MICROSOFT API] ${error?.response?.body?.error?.code || 'Unknown error'}`,
+			500
+		);
+	}
 };
 
 export default {
-	getAllCachedUsers,
-	getAllADUsers
+	getAllADUsers,
+	getAllCachedUsers
 };

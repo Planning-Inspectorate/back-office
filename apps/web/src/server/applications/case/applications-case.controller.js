@@ -1,21 +1,21 @@
 import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
-import { featureFlagClient } from '../../../common/feature-flags.js';
 import { allRoles } from './project-team/applications-project-team.controller.js';
 import {
-	getManyProjectTeamMembersInfo,
-	getProjectTeamMembers
-} from './project-team/applications-project-team.service.js';
+	getProjectTeam,
+	getManyProjectTeamMembersInfo
+} from '../common/services/project-team.service.js';
+import { featureFlagClient } from '../../../common/feature-flags.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 /**
- * View the overview for a single case
+ * View the overview for a single case (legacy)
  *
  * @type {import('@pins/express').RenderHandler<{}>}
  */
-export async function viewApplicationsCaseOverview({ session }, response) {
+export async function viewApplicationsCaseOverviewLegacy({ session }, response) {
 	const {
 		caseId,
 		case: { reference }
@@ -27,7 +27,7 @@ export async function viewApplicationsCaseOverview({ session }, response) {
 	}
 
 	// query the internal database to retrieve roles and ids
-	const { projectTeamMembers } = await getProjectTeamMembers(caseId);
+	const projectTeamMembers = await getProjectTeam(caseId);
 
 	const displayableMembers = (projectTeamMembers || [])
 		// filter NSIP Officer and Case Manager role
@@ -52,21 +52,54 @@ export async function viewApplicationsCaseOverview({ session }, response) {
 		session
 	);
 
-	response.render(`applications/case/overview`, {
+	response.render(`applications/case/overview-legacy`, {
 		selectedPageType: 'overview',
 		displayableMembers: displayableMembersInfo,
 		notDisplayableMembersExist
 	});
 }
+
 /**
- * View the project information page for a single case
+ * View the overview for a single case
  *
  * @type {import('@pins/express').RenderHandler<{}>}
  */
-export async function viewApplicationsCaseInformation(_, response) {
+export async function viewApplicationsCaseOverview(request, response) {
+	const {
+		case: { id: caseId, reference }
+	} = response.locals;
+
+	//hide the page when attempting to view general section 51 case
+	if (reference === BO_GENERAL_S51_CASE_REF) {
+		return response.render(`app/404`);
+	}
+
+	const projectTeam = await getProjectTeam(caseId);
+	const teamMembers = await getManyProjectTeamMembersInfo(projectTeam, request.session);
+
+	/** @type {string | null} */
+	const caseManager = (() => {
+		const userInfo = teamMembers.find((m) => m.role === 'case_manager');
+		if (!userInfo) {
+			return null;
+		}
+
+		return `${userInfo.givenName} ${userInfo.surname}`;
+	})();
+
+	/** @type {string[]} */
+	const nsipOfficers = teamMembers
+		.filter((m) => m.role === 'NSIP_officer')
+		.map((m) => `${m.givenName} ${m.surname}`);
+
+	const keyMembers = {
+		caseManager,
+		nsipOfficers
+	};
+
 	/** @type {boolean} */
 	const caseIsWelsh = await (async () => {
-		if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
 			return false;
 		}
 
@@ -77,9 +110,21 @@ export async function viewApplicationsCaseInformation(_, response) {
 		);
 	})();
 
+	response.render(`applications/case/overview`, {
+		selectedPageType: 'overview',
+		caseIsWelsh,
+		keyMembers
+	});
+}
+/**
+ * View the project information page for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{}>}
+ */
+export async function viewApplicationsCaseInformation(_, response) {
 	response.render('applications/case/project-information', {
 		selectedPageType: 'project-information',
-		caseIsWelsh
+		caseIsWelsh: false
 	});
 }
 

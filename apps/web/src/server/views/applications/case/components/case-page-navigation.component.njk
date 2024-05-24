@@ -8,8 +8,12 @@
 			<ul class="gov-list pins-list-menu">
 				<li>{{ writeMenuLink({ pageTitle: 'Overview', pageType: '', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
-				<li>{{ writeMenuLink({ pageTitle: 'Project information', pageType: 'project-information', selectedPageType: selectedPageType,
-						caseId: case.id }) }}</li>
+
+        {% if not ('applic-55-welsh-translation' | isFeatureActive) %}
+          <li>{{ writeMenuLink({ pageTitle: 'Project information', pageType: 'project-information', selectedPageType: selectedPageType,
+              caseId: case.id }) }}</li>
+        {% endif %}
+
 				<li>{{ writeMenuLink({ pageTitle: 'Key dates', pageType: 'key-dates', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
 				<li>{{ writeMenuLink({ pageTitle: 'Project team', pageType: 'project-team', selectedPageType: selectedPageType,
