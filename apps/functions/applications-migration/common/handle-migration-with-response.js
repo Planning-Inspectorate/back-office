@@ -1,3 +1,5 @@
+import { validateMigration } from './validate-migration.js';
+
 /**
  * Wrapper function for migration functions that handles error handling and sends useful responses
  * @param {import('@azure/functions').Context} context
@@ -24,7 +26,11 @@ export const handleMigrationWithResponse = async (
 		await migrationFunction();
 		context.res = {
 			status: 200,
-			body: { message: `Successfully ran migration for ${entityName}` }
+			body: {
+				migration: `Successfully ran migration for ${entityName}`,
+				validation:
+					entityName === 'case' ? await validateMigration(context.log, caseReferences) : null
+			}
 		};
 	} catch (error) {
 		console.error(`Failed to run migration for ${entityName}`, error);
