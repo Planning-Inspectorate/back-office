@@ -1345,7 +1345,7 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1584,7 +1584,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 2`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1713,7 +1713,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 3`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -2032,7 +2032,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 4`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -2214,7 +2214,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 5`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -2318,7 +2318,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 6`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -2419,7 +2419,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 7`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
