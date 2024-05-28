@@ -225,15 +225,12 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 	if (await featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
 		// remove documents of Welsh cases with incomplete Welsh fields
 		completeDocuments = completeDocuments.filter((doc) => {
-			const caseRegions =
-				doc.latestDocumentVersion.Document?.case?.ApplicationDetails?.regions || [];
+			const { Document, filter1Welsh, authorWelsh, descriptionWelsh } = doc.latestDocumentVersion;
+			const caseRegions = Document?.case?.ApplicationDetails?.regions || [];
 			const caseIsWelsh = caseRegions.find((r) => r.region?.name === 'wales');
 
 			return (
-				!caseIsWelsh ||
-				(doc.latestDocumentVersion?.filter1Welsh !== null &&
-					doc.latestDocumentVersion?.authorWelsh !== null &&
-					doc.latestDocumentVersion?.descriptionWelsh !== null)
+				!caseIsWelsh || (filter1Welsh !== null && authorWelsh !== null && descriptionWelsh !== null)
 			);
 		});
 	}
