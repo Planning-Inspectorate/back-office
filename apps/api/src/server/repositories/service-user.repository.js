@@ -15,3 +15,45 @@ export function findByEmail(email) {
 		}
 	});
 }
+
+/**
+ *
+ * @param {number} caseId
+ */
+export async function getByCaseId(caseId) {
+	const caseData = await databaseConnector.case.findUnique({
+		where: {
+			id: caseId
+		},
+		include: {
+			applicant: true,
+			Representation: {
+				include: {
+					represented: true,
+					representative: true
+				}
+			}
+		}
+	});
+
+	if (!caseData) {
+		return [];
+	}
+
+	const serviceUsers = new Set();
+
+	if (caseData.applicant) {
+		serviceUsers.add(caseData.applicant);
+	}
+
+	caseData.Representation.forEach((representation) => {
+		if (representation.represented) {
+			serviceUsers.add(representation.represented);
+		}
+		if (representation.representative) {
+			serviceUsers.add(representation.representative);
+		}
+	});
+
+	return Array.from(serviceUsers);
+}
