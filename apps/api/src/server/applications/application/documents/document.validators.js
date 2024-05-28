@@ -13,6 +13,7 @@ import {
 } from '#utils/create-enums.js';
 import logger from '#utils/logger.js';
 import { verifyNotTraining } from '../application.validators.js';
+import { featureFlagClient } from '#utils/feature-flags.js';
 
 /** @typedef {{ guid: string}} documentGuid */
 
@@ -218,6 +219,23 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 			await DocumentRepository.getPublishableDocumentsWithoutRequiredPropertiesCheck(documentIds);
 	} else {
 		completeDocuments = await DocumentRepository.getPublishableDocuments(documentIds);
+	}
+
+	// if welsh feature is active
+	if (await featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
+		// remove documents of Welsh cases with incomplete Welsh fields
+		completeDocuments = completeDocuments.filter((doc) => {
+			const caseRegions =
+				doc.latestDocumentVersion.Document?.case?.ApplicationDetails?.regions || [];
+			const caseIsWelsh = caseRegions.find((r) => r.region?.name === 'wales');
+
+			return (
+				!caseIsWelsh ||
+				(doc.latestDocumentVersion?.filter1Welsh !== null &&
+					doc.latestDocumentVersion?.authorWelsh !== null &&
+					doc.latestDocumentVersion?.descriptionWelsh !== null)
+			);
+		});
 	}
 
 	const completeDocumentsIds = new Set(completeDocuments.map((pDoc) => pDoc.guid));

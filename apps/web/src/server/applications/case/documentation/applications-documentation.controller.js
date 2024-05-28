@@ -7,7 +7,7 @@ import {
 	getSuccessBanner,
 	destroySuccessBanner
 } from '../../common/services/session.service.js';
-import { buildBreadcrumbItems } from '../applications-case.locals.js';
+import { buildBreadcrumbItems, caseInLocalsIsWelsh } from '../applications-case.locals.js';
 import {
 	deleteCaseDocumentationFile,
 	getCaseDocumentationFileInfo,
@@ -207,7 +207,7 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
 /**
  * View the documentation properties page
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], showSuccessBanner: boolean|undefined}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], showSuccessBanner: boolean|undefined, caseIsWelsh: boolean}, {}>}
  */
 export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
 	const { caseId, documentGuid } = response.locals;
@@ -217,10 +217,15 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	const showSuccessBanner = getSuccessBanner(session);
 	destroySuccessBanner(session);
 
+	const caseIsWelsh = await caseInLocalsIsWelsh(response.locals.case);
+
+	console.log(223, documentationFile);
+
 	response.render(`applications/case-documentation/properties/documentation-properties`, {
 		documentationFile,
 		documentVersions,
-		showSuccessBanner
+		showSuccessBanner,
+		caseIsWelsh
 	});
 }
 

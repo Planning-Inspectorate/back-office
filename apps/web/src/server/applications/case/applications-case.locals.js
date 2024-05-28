@@ -1,6 +1,7 @@
 import pino from '../../lib/logger.js';
 import { url } from '../../lib/nunjucks-filters/index.js';
 import { getCase } from '../common/services/case.service.js';
+import { featureFlagClient } from '../../../common/feature-flags.js';
 import {
 	getCaseDocumentationFolderPath,
 	getCaseFolder
@@ -114,4 +115,22 @@ export const buildBreadcrumbItems = async (caseId, folderId) => {
 		text: 'Project documentation'
 	});
 	return breadcrumbItems;
+};
+
+/**
+ * Returns true if the local stored Case is welsh
+ *
+ * @param {import('../applications.types').Case} localCase
+ * @returns {Promise<boolean>}
+ */
+export const caseInLocalsIsWelsh = async (localCase) => {
+	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		return false;
+	}
+
+	return Boolean(
+		localCase?.geographicalInformation?.regions?.find(
+			(/** @type {{name: string}} */ r) => r.name === 'wales'
+		)
+	);
 };
