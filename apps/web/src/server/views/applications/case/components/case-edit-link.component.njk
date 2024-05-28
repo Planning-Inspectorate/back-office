@@ -1,6 +1,6 @@
 {% macro caseEditLink(params) %}
 	<a class="govuk-link"
-		   href="{{ 'case-edit'|url({caseId: params.caseId, step: params.editStepUrl }) }}">
+		   href="{{ 'case-edit'|url({caseId: params.caseId, step: params.editStepUrl }) }}" id="{{ params.id }}">
 			Change
 		</a>
 {% endmacro %}

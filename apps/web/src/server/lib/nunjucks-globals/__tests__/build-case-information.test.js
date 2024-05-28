@@ -56,6 +56,7 @@ const fullResult = [
 	{
 		title: 'Project name in Welsh',
 		url: 'name-welsh',
+		id: 'titleWelsh',
 		classes: 'project-details__name',
 		html: 'Test Welsh case title'
 	},
@@ -68,6 +69,7 @@ const fullResult = [
 	{
 		title: 'Project description in Welsh',
 		url: 'description-welsh',
+		id: 'descriptionWelsh',
 		html: 'Test Welsh case description'
 	},
 	{
@@ -79,6 +81,7 @@ const fullResult = [
 	{
 		title: 'Project location in Welsh',
 		url: 'project-location-welsh',
+		id: 'geographicalInformation.locationDescriptionWelsh',
 		html: 'Test Welsh location description'
 	},
 	{
