@@ -5,6 +5,7 @@ const fullParams = {
 	case: {
 		id: 1,
 		reference: 'TEST_REFERENCE',
+		status: 'Pre-acceptance',
 		title: 'Test case title',
 		titleWelsh: 'Test Welsh case title',
 		description: 'Test case description',
@@ -45,6 +46,11 @@ const fullResult = [
 		html: ['Test region 1'],
 		url: 'regions',
 		classes: 'project-details__regions'
+	},
+	{
+		title: 'Case stage',
+		text: 'Pre-acceptance',
+		url: 'stage'
 	},
 	{ title: 'Project name', text: 'Test case title', url: 'name', classes: 'project-details__name' },
 	{

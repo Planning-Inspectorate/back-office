@@ -22,6 +22,7 @@ import { featureFlagClient } from '../../../common/feature-flags.js';
  * @property {string | null} descriptionWelsh
  * @property {{ locationDescription: string, locationDescriptionWelsh: string, mapZoomLevel: { displayNameEn: string } } | null} geographicalInformation
  * @property {string | null} caseEmail
+ * @property {string} status
  * */
 
 /**
@@ -69,6 +70,11 @@ export const buildCaseInformation = (params, isWelsh) => [
 		html: params.regionNames,
 		url: 'regions',
 		classes: 'project-details__regions'
+	},
+	{
+		title: 'Case stage',
+		text: params.case.status,
+		url: 'stage'
 	},
 	{
 		title: 'Project name',
