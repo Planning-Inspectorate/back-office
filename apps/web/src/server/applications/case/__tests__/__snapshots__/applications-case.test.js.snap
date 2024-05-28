@@ -497,6 +497,12 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                                    <td class=\\"govuk-table__cell\\">Pre-Application</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/stage\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
                                     <td class=\\"govuk-table__cell project-details__name\\">Title CASE/04</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/name\\"> Change</a>
@@ -690,6 +696,12 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                                    <td class=\\"govuk-table__cell\\">Pre-Application</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/stage\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
                                     <td class=\\"govuk-table__cell project-details__name\\">Title CASE/04</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/name\\"> Change</a>
@@ -880,6 +892,12 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Regions</th>
                                     <td class=\\"govuk-table__cell project-details__regions\\">London EN,Yorkshire EN</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/regions\\"> Change</a>
+                                    </td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
+                                    <td class=\\"govuk-table__cell\\">Pre-Application</td>
+                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/stage\\"> Change</a>
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
