@@ -8,6 +8,8 @@
 {% set pageTitle = case.title %}
 {% set serviceName = 'Preview and publish project' %}
 {% set isPublishPage = 1 %}
+{% set overviewLink = 'case-view'|url({caseId: case.id, step: 'overview' if ('applic-55-welsh-translation' | isFeatureActive) else 'project-information'}) %}
+
 
 {% block pageHeading %}{% endblock %}
 
@@ -15,7 +17,7 @@
 <aside>
 	{{ govukBackLink({
 		text: "Back to Overview",
-		href: 'case-view'|url({caseId: case.id, step: 'project-information'})
+		href: overviewLink
 	}) }}
 </aside>
 {% endblock %}
@@ -31,7 +33,7 @@
 			<div class='pins-preview-table'>
 				<div class='pins-preview-table__header govuk-!-margin-bottom-2'>
 					<h2>Project information</h2>
-					<a href='{{'case-view'|url({caseId: case.id, step: 'project-information'})}}' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
+					<a href='{{overviewLink}}' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
 				</div>
 				<div>
 					{{ caseInfoTablePreview(case) }}
@@ -41,7 +43,7 @@
 			<div class='pins-preview-table govuk-!-margin-top-9'>
 				<div class='pins-preview-table__header govuk-!-margin-bottom-2'>
 					<h2>Applicant information</h2>
-					<a href='{{'case-view'|url({caseId: case.id, step: 'project-information'})}}' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
+					<a href='{{overviewLink}}' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
 				</div>
 				<div>
 					{{ caseApplicantTable(case, isPublishPage) }}

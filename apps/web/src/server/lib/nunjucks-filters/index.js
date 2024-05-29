@@ -15,6 +15,7 @@ export {
 } from 'lodash-es';
 export { bold } from './bold.js';
 export { booleanAnswer } from './boolean-answer.js';
+export { buildTableRows } from './build-table-rows.js';
 export { default as pluralize } from 'pluralize';
 export { collapse } from './collapse.js';
 export { default as className } from 'classnames';
