@@ -48,7 +48,7 @@ export class Page {
 		summaryListActions: '.govuk-summary-list__actions',
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
-		summaryErrorMessages: '.govuk-list.govuk-error-summary__list',
+		summaryErrorMessages: '.govuk-list.govuk-error-summary__list > li',
 		xlHeader: '.govuk-heading-xl',
 		projectManagement: 'span.font-weight--700:nth-child(2)',
 		unpublish: 'a.govuk-button:nth-child(5)',
@@ -240,6 +240,10 @@ export class Page {
 
 	validateErrorMessageCountOnPage(numberOfErrors) {
 		this.basePageElements.errorMessage().should('have.length', numberOfErrors);
+	}
+
+	validateErrorMessageCountInSummary(numberOfErrors) {
+		this.basePageElements.summaryErrorMessages().should('have.length', numberOfErrors);
 	}
 
 	validateNumberOfCheckboxes(checkboxCount) {

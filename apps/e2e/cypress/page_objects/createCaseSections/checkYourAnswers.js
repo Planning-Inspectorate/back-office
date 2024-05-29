@@ -58,7 +58,7 @@ export class CheckYourAnswersSection extends SectionBase {
 		this.checkAnswer('Grid reference Easting', projectInfo.gridRefEasting);
 		this.checkAnswer('Grid reference Northing', projectInfo.gridRefNorthing);
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-			this.checkAnswer('Regions', 'Wales');
+			this.checkAnswer('Regions', projectInfo.regions.sort().join(','));
 		} else {
 			this.checkAnswer('Regions(s)', projectInfo.regions.sort().join(','));
 		}
