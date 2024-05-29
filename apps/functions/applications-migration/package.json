@@ -18,6 +18,7 @@
     "dotenv": "*",
     "got": "^13.0.0",
     "joi": "*",
+    "json-diff": "^1.0.6",
     "lodash-es": "^4.17.21",
     "mysql2": "^3.9.4",
     "pins-data-model": "github:Planning-Inspectorate/data-model#1.0.2",

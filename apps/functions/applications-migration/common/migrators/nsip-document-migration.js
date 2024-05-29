@@ -44,7 +44,7 @@ export const migrationNsipDocumentsByReference = async (log, caseReference) => {
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-const getNsipDocuments = async (log, caseReference) => {
+export const getNsipDocuments = async (log, caseReference) => {
 	return await SynapseDB.query(
 		'SELECT * FROM [odw_curated_db].[dbo].[document_meta_data] WHERE caseRef = ?;',
 		{

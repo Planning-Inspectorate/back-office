@@ -50,7 +50,7 @@ export async function migrateExamTimetablesForCase(log, caseReference) {
  *
  * @returns {Promise<import('pins-data-model').Schemas.ExaminationTimetable | null>} timetable
  */
-const getExamTimetable = async (log, caseReference) => {
+export const getExamTimetable = async (log, caseReference) => {
 	/** @type {ExamTimetableItemRow[]}} */
 	const timetableItems = await SynapseDB.query(
 		'SELECT * FROM [odw_curated_db].[dbo].[examination_timetable] WHERE caseReference = ?;',

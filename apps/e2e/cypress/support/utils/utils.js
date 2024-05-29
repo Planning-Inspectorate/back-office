@@ -121,10 +121,13 @@ const validatePreviewAndPublishInfo = (projectInformation) => {
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.checkProjectAnswer('Regions', projectInformation.regions.join(','));
+	if (
+		Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
+		projectInformation.caseIsWelsh
+	) {
+		casePage.checkProjectAnswer('Regions', 'Wales');
 	} else {
-		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+		casePage.checkProjectAnswer('Regions', projectInformation.regions.join(','));
 	}
 
 	casePage.checkProjectAnswer('Map zoom level', projectInformation.zoomLevel);
@@ -183,13 +186,20 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillInput(projectInformation.gridRefEasting);
 	casePage.fillInput(projectInformation.gridRefNorthing, 1);
 	casePage.clickButtonByText('Save changes');
-	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+	if (
+		Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
+		projectInformation.caseIsWelsh
+	) {
 		casePage.clickChangeLink('Regions');
+		casePage.clearAllCheckboxes();
+		cy.get(
+			'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(8) > input:nth-child(1)'
+		).click();
 	} else {
-		casePage.clickChangeLink('Region(s)');
+		casePage.clickChangeLink('Regions');
+		casePage.clearAllCheckboxes();
+		createCasePage.sections.regions.chooseRegions(projectInformation.regions);
 	}
-	casePage.clearAllCheckboxes();
-	createCasePage.sections.regions.chooseRegions(projectInformation.regions);
 	casePage.clickButtonByText('Save changes');
 	casePage.clickChangeLink('Map zoom level');
 	createCasePage.sections.zoomLevel.chooseZoomLevel(projectInformation.zoomLevel);
