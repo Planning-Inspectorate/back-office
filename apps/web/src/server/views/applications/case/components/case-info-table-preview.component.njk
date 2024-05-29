@@ -27,24 +27,28 @@
 	{% endif %}
 	{% endset %}
 
-			{{ govukTable({
-				caption: 'Project details',
-				captionClasses: 'govuk-visually-hidden',
-				firstCellIsHeader: true,
-				rows: [
-					[{ text: "Case reference number" }, { text: case.reference }],
-          			[{ text: "Project name" }, { text: case.title }],
-					[{ text: "Sector" }, { text: case.sector.displayNameEn }],
-					[{ text: "Subsector" }, { text: case.subSector.displayNameEn }],
-					[{ text: "Case stage" },{ text: case.status }],
-					[{ text: 'Project description' }, { html: case.description }],
-					[{ text: 'Project email address' }, { html: case.caseEmail }],
-					[{ text: 'Project location' }, { html: case.geographicalInformation.locationDescription }],
-					[{ text: 'Grid references' }, { html: gridReferences }],
-					[{ text: 'Regions' if ('applic-55-welsh-translation' | isFeatureActive) else 'Region(s)'}, { html: regionNames }],
-					[{ text: 'Map zoom level' }, { text: case.geographicalInformation.mapZoomLevel.displayNameEn }]
-				]
-			}) }}
 
+	{% set items = [
+		{ label: 'Case reference number', text: case.reference },
+		{ label: 'Project name', text: case.title },
+		{ label: 'Project name in Welsh' , text: case.titleWelsh, omitted: not 'applic-55-welsh-translation' | isFeatureActive },
+		{ label: 'Sector', text: case.sector.displayNameEn },
+		{ label: 'Subsector', text: case.subSector.displayNameEn },
+		{ label: 'Case stage', text: case.status },
+		{ label: 'Project description', html: case.description },
+		{ label: 'Project description in Welsh', html: case.descriptionWelsh, omitted: not ('applic-55-welsh-translation' | isFeatureActive) },
+		{ label: 'Project email address', html: case.caseEmail },
+		{ label: 'Project location', html: case.geographicalInformation.locationDescription },
+		{ label: 'Project location in Welsh', html: case.geographicalInformation.locationDescriptionWelsh, omitted: not ('applic-55-welsh-translation' | isFeatureActive) },
+		{ label: 'Grid references', html: gridReferences },
+		{ label: 'Regions' if ('applic-55-welsh-translation' | isFeatureActive) else 'Region(s)', html: regionNames },
+		{ label: 'Map zoom level' , text: case.geographicalInformation.mapZoomLevel.displayNameEn }
+	] %}
 
+	{{ govukTable({
+		caption: 'Project details',
+		captionClasses: 'govuk-visually-hidden',
+		firstCellIsHeader: true,
+		rows: items | buildTableRows
+	}) }}
 {% endmacro %}
