@@ -9,7 +9,7 @@
 
 {% block sectionContent %}
   {% if banner %}
-    {{ govukNotificationBanner({ type: 'success', html: banner }) }}
+    {{ govukNotificationBanner({ type: 'success', html: '<strong>' + banner + '</strong>' }) }}
   {% endif %}
 
 	{% set applicantFirstOrganisationName = case.applicant.organisationName %}
