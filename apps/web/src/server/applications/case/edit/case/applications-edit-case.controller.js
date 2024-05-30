@@ -1,5 +1,5 @@
 import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
-import { setSuccessBanner } from '../../../common/services/session.service.js';
+import { setSessionBanner } from '../../../common/services/session.service.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import {
 	caseGeographicalInformationData,
@@ -15,6 +15,7 @@ import {
 	caseZoomLevelData,
 	caseZoomLevelDataUpdate
 } from '../../../common/components/form/form-case.component.js';
+import { getUpdatedField } from '../applications-edit.service.js';
 
 const nameLayout = {
 	pageTitle: 'Enter project name',
@@ -80,6 +81,22 @@ const zoomLevelLayout = {
 	pageTitle: 'Choose map zoom level',
 	components: ['zoom-level'],
 	isEdit: true
+};
+
+/** @type {Record<string, string>} */
+const fullFieldNames = {
+	title: 'Project name',
+	titleWelsh: 'Project name in Welsh',
+	description: 'Project description',
+	descriptionWelsh: 'Project description in Welsh',
+	caseEmail: 'Project email address',
+	stage: 'Case stage',
+	'geographicalInformation.locationDescription': 'Project location',
+	'geographicalInformation.locationDescriptionWelsh': 'Project location in Welsh',
+	'geographicalInformation.gridReference.easting': 'Grid references',
+	'geographicalInformation.gridReference.northing': 'Grid references',
+	'geographicalInformation.regions': 'Regions',
+	'geographicalInformation.mapZoomLevelName': 'Map zoom level'
 };
 
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -177,16 +194,22 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		request,
 		response.locals
 	);
-	const isNamePage =
-		Object.prototype.hasOwnProperty.call(request.body, 'title') ||
-		Object.prototype.hasOwnProperty.call(request.body, 'titleWelsh');
+
+	const updatedField = getUpdatedField(request.body, [
+		'title',
+		'titleWelsh',
+		'description',
+		'descriptionWelsh'
+	]);
+
+	const isNamePage = ['title', 'titleWelsh'].includes(updatedField);
 	const layout = isNamePage ? nameLayout : descriptionLayout;
 
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, layout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(request.session, `${fullFieldNames[updatedField]} updated.`);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -224,7 +247,7 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 		return handleErrors(properties, teamEmailLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(request.session, `${fullFieldNames.caseEmail} updated.`);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -261,7 +284,7 @@ export async function updateApplicationsEditCaseStage(request, response) {
 		return handleErrors(properties, stageLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(request.session, `${fullFieldNames.stage} updated.`);
 
 	return response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -334,15 +357,17 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		response.locals
 	);
 
-	const isCaseLocationPage =
-		Object.prototype.hasOwnProperty.call(
-			request.body,
-			'geographicalInformation.locationDescription'
-		) ||
-		Object.prototype.hasOwnProperty.call(
-			request.body,
-			'geographicalInformation.locationDescriptionWelsh'
-		);
+	const updatedField = getUpdatedField(request.body, [
+		'geographicalInformation.locationDescription',
+		'geographicalInformation.locationDescriptionWelsh',
+		'geographicalInformation.gridReference.easting',
+		'geographicalInformation.gridReference.northing'
+	]);
+
+	const isCaseLocationPage = [
+		'geographicalInformation.locationDescription',
+		'geographicalInformation.locationDescriptionWelsh'
+	].includes(updatedField);
 
 	const layout = isCaseLocationPage ? caseLocationLayout : gridReferencesLayout;
 
@@ -350,7 +375,7 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		return handleErrors(properties, layout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(request.session, `${fullFieldNames[updatedField]} updated.`);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -388,7 +413,10 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 		return handleErrors(properties, regionsLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(
+		request.session,
+		`${fullFieldNames['geographicalInformation.regions']} updated.`
+	);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -426,7 +454,10 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
 		return handleErrors(properties, zoomLevelLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(
+		request.session,
+		`${fullFieldNames['geographicalInformation.mapZoomLevelName']} updated.`
+	);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')

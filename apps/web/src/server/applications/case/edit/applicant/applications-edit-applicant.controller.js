@@ -1,5 +1,5 @@
 import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
-import { setSuccessBanner } from '../../../common/services/session.service.js';
+import { setSessionBanner } from '../../../common/services/session.service.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import {
 	applicantAddressData,
@@ -15,6 +15,7 @@ import {
 	applicantWebsiteData,
 	applicantWebsiteDataUpdate
 } from '../../../common/components/form/form-applicant.component.js';
+import { getUpdatedField } from '../applications-edit.service.js';
 
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
@@ -69,6 +70,17 @@ const addressReadOnlyLayout = {
 	isEdit: true
 };
 
+/** @type {Record<string, string>} */
+const fullFieldNames = {
+	'applicant.organisationName': 'Organisation name',
+	'applicant.phoneNumber': 'Telephone number',
+	'applicant.firstName': 'Contact name',
+	'applicant.lastName': 'Contact name',
+	'applicant.email': 'Email address',
+	'applicant.postcode': 'Address',
+	'applicant.website': 'Website'
+};
+
 /**
  * View the form step for the applicant organisation name
  *
@@ -98,7 +110,7 @@ export async function updateApplicationsEditApplicantOrganisationName(request, r
 		return handleErrors(properties, organisationNameLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(request.session, `${fullFieldNames['applicant.organisationName']} updated.`);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -133,7 +145,12 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	const updatedField = getUpdatedField(request.body, [
+		'applicant.firstName',
+		'applicant.lastName'
+	]);
+
+	setSessionBanner(request.session, `${fullFieldNames[updatedField]} updated.`);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -168,7 +185,7 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 		return handleErrors(properties, applicantEmailLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(request.session, `${fullFieldNames['applicant.email']} updated.`);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -224,7 +241,7 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 		return handleErrors(properties, addressLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(request.session, `${fullFieldNames['applicant.postcode']} updated.`);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -259,7 +276,7 @@ export async function updateApplicationsEditApplicantWebsite(request, response) 
 		return handleErrors(properties, websiteLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(request.session, `${fullFieldNames['applicant.website']} updated.`);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -297,7 +314,7 @@ export async function updateApplicationsEditApplicantTelephoneNumber(request, re
 		return handleErrors(properties, telephoneNumberLayout, response);
 	}
 
-	setSuccessBanner(request.session);
+	setSessionBanner(request.session, `${fullFieldNames['applicant.phoneNumber']} updated.`);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')

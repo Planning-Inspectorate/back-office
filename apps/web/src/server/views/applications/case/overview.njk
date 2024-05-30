@@ -8,8 +8,8 @@
 {% set serviceName = 'Overview'%}
 
 {% block sectionContent %}
-  {% if showSuccessBanner %}
-    {{ govukNotificationBanner({ type: 'success', html: 'Test' }) }}
+  {% if banner %}
+    {{ govukNotificationBanner({ type: 'success', html: banner }) }}
   {% endif %}
 
 	{% set applicantFirstOrganisationName = case.applicant.organisationName %}
