@@ -1,4 +1,5 @@
 import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
+import { setSuccessBanner } from '../../../common/services/session.service.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import {
 	caseGeographicalInformationData,
@@ -185,6 +186,8 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		return handleErrors(properties, layout, response);
 	}
 
+	setSuccessBanner(request.session);
+
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? `/applications-service/case/${updatedCaseId}`
@@ -221,6 +224,8 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 		return handleErrors(properties, teamEmailLayout, response);
 	}
 
+	setSuccessBanner(request.session);
+
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? `/applications-service/case/${updatedCaseId}`
@@ -255,6 +260,8 @@ export async function updateApplicationsEditCaseStage(request, response) {
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, stageLayout, response);
 	}
+
+	setSuccessBanner(request.session);
 
 	return response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -343,6 +350,8 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		return handleErrors(properties, layout, response);
 	}
 
+	setSuccessBanner(request.session);
+
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? `/applications-service/case/${updatedCaseId}`
@@ -379,6 +388,8 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 		return handleErrors(properties, regionsLayout, response);
 	}
 
+	setSuccessBanner(request.session);
+
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? `/applications-service/case/${updatedCaseId}`
@@ -414,6 +425,8 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, zoomLevelLayout, response);
 	}
+
+	setSuccessBanner(request.session);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
