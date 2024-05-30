@@ -190,6 +190,7 @@ export class BlobStorageClient {
 			await destinationBlob.setHTTPHeaders({
 				blobContentType: newContentType
 			});
+			console.log(`Updated content type for ${destinationBlobName} to ${newContentType}`);
 		}
 
 		return result.copyStatus;
