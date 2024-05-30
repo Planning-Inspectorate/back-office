@@ -1,12 +1,17 @@
 {% extends "./layouts/applications-case-layout.njk" %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "./components/case-details-table.component.njk" import caseDetailsTable %}
 {% from "./components/case-applicant-table.component.njk" import caseApplicantTable %}
 
 {% set serviceName = 'Overview'%}
 
 {% block sectionContent %}
+  {% if banner %}
+    {{ govukNotificationBanner({ type: 'success', html: '<strong>' + banner + '</strong>' }) }}
+  {% endif %}
+
 	{% set applicantFirstOrganisationName = case.applicant.organisationName %}
 	{% set applicantFirstEmail = case.applicant.email %}
 	{% set applicantFirstPhoneNumber = case.applicant.phoneNumber %}

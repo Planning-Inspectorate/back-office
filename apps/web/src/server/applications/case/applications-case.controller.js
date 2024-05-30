@@ -1,5 +1,6 @@
 import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
+import { deleteSessionBanner, getSessionBanner } from '../common/services/session.service.js';
 import { allRoles } from './project-team/applications-project-team.controller.js';
 import {
 	getProjectTeam,
@@ -100,10 +101,14 @@ export async function viewApplicationsCaseOverview(request, response) {
 	/** @type {boolean} */
 	const caseIsWelsh = await caseInLocalsIsWelsh(response.locals.case);
 
+	const banner = getSessionBanner(request.session);
+	deleteSessionBanner(request.session);
+
 	response.render(`applications/case/overview`, {
 		selectedPageType: 'overview',
 		caseIsWelsh,
-		keyMembers
+		keyMembers,
+		banner
 	});
 }
 /**
