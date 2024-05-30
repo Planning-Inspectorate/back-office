@@ -171,15 +171,26 @@ export class BlobStorageClient {
 
 	/**
 	 *
-	 * @param {{sourceUrl: string, destinationContainerName: string, destinationBlobName: string}} blobStorageHost
+	 * @param {{sourceUrl: string, destinationContainerName: string, destinationBlobName: string, newContentType?: string}} blobStorageHost
 	 * @returns {Promise<import('@azure/storage-blob').CopyStatusType | undefined>}
 	 */
-	copyFileFromUrl = async ({ sourceUrl, destinationContainerName, destinationBlobName }) => {
+	copyFileFromUrl = async ({
+		sourceUrl,
+		destinationContainerName,
+		destinationBlobName,
+		newContentType
+	}) => {
 		const destinationBlob = this.#getBlockBlobClient(destinationContainerName, destinationBlobName);
 
 		const copyJob = await destinationBlob.beginCopyFromURL(sourceUrl);
 
 		const result = await copyJob.pollUntilDone();
+
+		if (result.copyStatus === 'success' && newContentType) {
+			await destinationBlob.setHTTPHeaders({
+				blobContentType: newContentType
+			});
+		}
 
 		return result.copyStatus;
 	};
