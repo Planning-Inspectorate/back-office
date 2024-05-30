@@ -1,4 +1,5 @@
 import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
+import { setSuccessBanner } from '../../../common/services/session.service.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import {
 	applicantAddressData,
@@ -97,6 +98,8 @@ export async function updateApplicationsEditApplicantOrganisationName(request, r
 		return handleErrors(properties, organisationNameLayout, response);
 	}
 
+	setSuccessBanner(request.session);
+
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? `/applications-service/case/${updatedCaseId}`
@@ -130,6 +133,8 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
+	setSuccessBanner(request.session);
+
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? `/applications-service/case/${updatedCaseId}`
@@ -162,6 +167,8 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, applicantEmailLayout, response);
 	}
+
+	setSuccessBanner(request.session);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -217,6 +224,8 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 		return handleErrors(properties, addressLayout, response);
 	}
 
+	setSuccessBanner(request.session);
+
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? `/applications-service/case/${caseId}`
@@ -249,6 +258,8 @@ export async function updateApplicationsEditApplicantWebsite(request, response) 
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, websiteLayout, response);
 	}
+
+	setSuccessBanner(request.session);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
@@ -285,6 +296,8 @@ export async function updateApplicationsEditApplicantTelephoneNumber(request, re
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, telephoneNumberLayout, response);
 	}
+
+	setSuccessBanner(request.session);
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
