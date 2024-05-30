@@ -45,7 +45,8 @@ describe('Publishing document', () => {
 		documentReference: `${TEST_CASE_REFERENCE}-001`,
 		filename: TEST_BLOB_FILE_NAME,
 		originalFilename: `${TEST_BLOB_FILE_NAME}.jpeg`,
-		documentURI: `https://${TEST_BLOB_ACCOUNT}.blob.core.windows.net/${TEST_BLOB_SOURCE_CONTAINER}/application/${TEST_CASE_REFERENCE}/${TEST_BLOB_GUID}/${TEST_BLOB_VERSION}`
+		documentURI: `https://${TEST_BLOB_ACCOUNT}.blob.core.windows.net/${TEST_BLOB_SOURCE_CONTAINER}/application/${TEST_CASE_REFERENCE}/${TEST_BLOB_GUID}/${TEST_BLOB_VERSION}`,
+		mime: 'image/jpeg'
 	};
 	const baseTestCaseProperties = {
 		blobName: `application/${TEST_CASE_REFERENCE}/${TEST_BLOB_GUID}/${TEST_BLOB_VERSION}`,
@@ -139,7 +140,8 @@ describe('Publishing document', () => {
 			expect(mockCopyFile).toHaveBeenCalledWith({
 				sourceUrl: document.documentURI,
 				destinationContainerName: TEST_BLOB_PUBLISH_CONTAINER,
-				destinationBlobName: expectedDestinationName
+				destinationBlobName: expectedDestinationName,
+				newContentType: baseDocumentProperties.mime
 			});
 			expect(mockGotPost).toHaveBeenCalledTimes(1);
 			expect(mockGotPost).toHaveBeenCalledWith(
