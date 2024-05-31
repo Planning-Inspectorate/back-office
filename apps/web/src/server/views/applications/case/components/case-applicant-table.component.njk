@@ -4,12 +4,16 @@
     {% set applicantFirstOrganisationName = case.applicant.organisationName %}
     {% set applicantFirstEmail = case.applicant.email %}
     {% set applicantFirstPhoneNumber = case.applicant.phoneNumber %}
-    {% set applicantFirstWebsite = case.applicant.website %}
+	{% set applicantFirstWebsite = case.applicant.website %}
+	{% set applicantFirstWebsiteValue = '' %}
+	{% if applicantFirstWebsite %}
+		{% set applicantFirstWebsiteValue = '<a class="govuk-link" href="' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
+	{% endif %}
     {% set rowsData = [
 		{title: 'Organisation name', text: applicantFirstOrganisationName, url: 'applicant-organisation-name' },
 		{title: 'Contact name (Internal use only)', text: writeFullName([case.applicant.firstName, case.applicant.middleName, case.applicant.lastName] ), url: 'applicant-full-name', isProjectInfoOnly: 1 },
 		{title: 'Address (Internal use only)', text: case.applicant.address | formatAddress, url: 'applicant-address', isProjectInfoOnly: 1 },
-    {title: 'Website', html: '<a href="' + applicantFirstWebsite + '" target="_blank">' + applicantFirstWebsite + '</a>', url: 'applicant-website' },
+		{title: 'Website', html: applicantFirstWebsiteValue, url: 'applicant-website' },
 		{title: 'Email address', text: applicantFirstEmail, url: 'applicant-email' },
 		{title: 'Telephone number (Internal use only)', text: applicantFirstPhoneNumber, url: 'applicant-telephone-number', isProjectInfoOnly: 1 }
 	] %}
