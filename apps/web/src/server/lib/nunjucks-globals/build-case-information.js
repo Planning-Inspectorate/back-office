@@ -6,6 +6,7 @@ import { featureFlagClient } from '../../../common/feature-flags.js';
  * @property {string} title
  * @property {string} [url]
  * @property {string | null} [text]
+ * @property {string | null} [id]
  * @property {*} [html]
  * @property {string} [classes]
  * */
@@ -87,6 +88,7 @@ export const buildCaseInformation = (params, isWelsh) => [
 				{
 					title: 'Project name in Welsh',
 					url: 'name-welsh',
+					id: 'titleWelsh',
 					classes: 'project-details__name',
 					html: params.case.titleWelsh
 				}
@@ -103,6 +105,7 @@ export const buildCaseInformation = (params, isWelsh) => [
 				{
 					title: 'Project description in Welsh',
 					url: 'description-welsh',
+					id: 'descriptionWelsh',
 					html: params.case.descriptionWelsh
 				}
 		  ]
@@ -118,6 +121,7 @@ export const buildCaseInformation = (params, isWelsh) => [
 				{
 					title: 'Project location in Welsh',
 					url: 'project-location-welsh',
+					id: 'geographicalInformation.locationDescriptionWelsh',
 					html: params.case.geographicalInformation?.locationDescriptionWelsh
 				}
 		  ]
