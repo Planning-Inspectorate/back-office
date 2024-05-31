@@ -16,11 +16,28 @@
 		{% set gridReferences = gridReferences + params.case.geographicalInformation.gridReference.northing + ' (Northing)' %}
 	{% endif %}
 
+	{% set publishedTag %}
+	{% if case.publishedDate %}
+		<strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>
+    &nbsp;
+    <span class="govuk-body-s colour--secondary">Last updated
+    {{ case.publishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
+	{% else %}
+		<strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>
+		{% if case.unpublishedDate %}
+      &nbsp;
+      <span class="govuk-body-s colour--secondary">Last updated
+      {{ case.unpublishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
+		{% endif %}
+	{% endif %}
+	{% endset %}
+
   {% set rowsData = buildCaseInformation({
     case: params.case,
     keyMembers: params.keyMembers,
     gridReferences: gridReferences,
-    regionNames: regionNames
+    regionNames: regionNames,
+    publishedTag: publishedTag
   }, isWelsh) %}
 
 	{% set tableRows = [] %}
