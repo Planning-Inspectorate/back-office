@@ -83,12 +83,12 @@ export class CasePage extends Page {
 	}
 
 	publishUnpublishProject() {
-		this.clickLinkByText('Project documentation');
+		this.clickBreadcrumbLinkByText('Project documentation');
 		this.basePageElements.backToProjectPage().click();
 		this.clickPublishProjectButton();
 		this.clickButtonByText('Accept and publish project');
 		this.validateSuccessPanelTitle('Project page successfully published');
-		cy.get('#main-content > div > div > a').click();
+		this.clickLinkByText('Go back to Overview');
 		this.basePageElements.clickOnUnpublishProjectLink().click();
 		this.basePageElements.buttonByLabelText('Unpublish project').click();
 		this.validateSuccessPanelTitle('Project page successfully unpublished');

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { faker } from '@faker-js/faker';
-import { getShortMonthName } from './utils.js';
+import { getShortFormattedDate } from './utils.js';
 
 export const s51AdviceDetails = (titleCount) => {
 	const title = titleCount ? 'title-' + titleCount : 'title';
@@ -16,11 +16,11 @@ export const s51AdviceDetails = (titleCount) => {
 
 	const year = new Date().getFullYear();
 	var todaydate = new Date();
-	var mon = todaydate.getMonth();
+	var mon = todaydate.getMonth() + 1; // getMonth returns 0 to 11 so add 1 to get actual month
 	var month = mon.toString().padStart(2, '0');
-	const day = new Date().getDay().toString().padStart(2, '0');
+	const day = new Date().getDate().toString().padStart(2, '0');
 
-	const dateFullFormatted = `${day} ${getShortMonthName(month)} ${year}`;
+	const dateFullFormatted = getShortFormattedDate(todaydate);
 
 	return {
 		title,

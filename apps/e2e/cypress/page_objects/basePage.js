@@ -13,6 +13,7 @@ export class Page {
 		accordionSectionExpanded: 'govuk-accordion__section.govuk-accordion__section--expanded',
 		backLink: '.govuk-back-link',
 		bannerHeader: '.govuk-notification-banner__heading',
+		breadcrumbLink: '.govuk-breadcrumbs__link',
 		publish_bannerHeader: '#main-content > div > div > div > h1',
 		button: '.govuk-button',
 		body: '.govuk-body',
@@ -69,6 +70,8 @@ export class Page {
 		applicationHeaderCentral: () => cy.get(`${this.selectors.centralCol} > p`),
 		backLink: () => cy.get(this.selectors.backLink),
 		bannerHeader: () => cy.get(this.selectors.bannerHeader),
+		breadcrumbLinkByText: (text) =>
+			cy.contains(this.selectors.breadcrumbLink, text, { matchCase: true }),
 		publishBannerHeader: () => cy.get(this.selectors.publish_bannerHeader),
 		button: () => cy.get(this.selectors.button),
 		buttonByLabelText: (buttonText) =>
@@ -148,6 +151,10 @@ export class Page {
 
 	clickBackLink(buttonText) {
 		this.basePageElements.backLink().click();
+	}
+
+	clickBreadcrumbLinkByText(linkText) {
+		this.basePageElements.breadcrumbLinkByText(linkText).click();
 	}
 
 	clickButtonByText(buttonText) {

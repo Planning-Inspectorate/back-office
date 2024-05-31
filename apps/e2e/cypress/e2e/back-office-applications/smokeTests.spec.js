@@ -38,7 +38,7 @@ describe('Smoke tests', { browser: '!electron' }, () => {
 	let projectInfo;
 
 	before(() => {
-		projectInfo = projectInformation();
+		projectInfo = projectInformation({ excludeWales: true });
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
