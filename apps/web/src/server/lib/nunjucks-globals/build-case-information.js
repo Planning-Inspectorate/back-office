@@ -31,7 +31,7 @@ import { featureFlagClient } from '../../../common/feature-flags.js';
  * */
 
 /**
- * @param {{ case: Case, keyMembers?: KeyTeamMembers, gridReferences: string, regionNames: string[] }} params
+ * @param {{ case: Case, keyMembers?: KeyTeamMembers, gridReferences: string, regionNames: string[], publishedTag: string }} params
  * @param {boolean} isWelsh
  * @returns {Row[]}
  * */
@@ -76,6 +76,10 @@ export const buildCaseInformation = (params, isWelsh) => [
 		title: 'Case stage',
 		text: params.case.status,
 		url: 'stage'
+	},
+	{
+		title: 'Project page',
+		html: params.publishedTag
 	},
 	{
 		title: 'Project name',

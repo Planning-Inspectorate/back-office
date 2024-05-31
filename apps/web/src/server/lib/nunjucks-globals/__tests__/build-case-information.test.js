@@ -30,7 +30,8 @@ const fullParams = {
 	keyMembers: {
 		caseManager: 'Test case manager',
 		nsipOfficers: ['NSIP Officer 1', 'NSIP Officer 2']
-	}
+	},
+	publishedTag: '<strong>Test</strong>'
 };
 
 const fullResult = [
@@ -51,6 +52,10 @@ const fullResult = [
 		title: 'Case stage',
 		text: 'Pre-acceptance',
 		url: 'stage'
+	},
+	{
+		title: 'Project page',
+		html: '<strong>Test</strong>'
 	},
 	{ title: 'Project name', text: 'Test case title', url: 'name', classes: 'project-details__name' },
 	{
