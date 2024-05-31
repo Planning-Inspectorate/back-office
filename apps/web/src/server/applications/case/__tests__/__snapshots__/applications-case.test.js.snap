@@ -93,7 +93,8 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                             </tr>
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                <td class=\\"govuk-table__cell\\">website.web</td>
+                                <td class=\\"govuk-table__cell\\"><a href=\\"website.web\\" target=\\"_blank\\">website.web</a>
+                                </td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
@@ -296,7 +297,8 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                             </tr>
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                <td class=\\"govuk-table__cell\\">website.web</td>
+                                <td class=\\"govuk-table__cell\\"><a href=\\"website.web\\" target=\\"_blank\\">website.web</a>
+                                </td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
@@ -528,6 +530,11 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project page</th>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
                                     <td class=\\"govuk-table__cell project-details__name\\">Title CASE/04</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/name\\" id=\\"\\"> Change</a>
@@ -606,7 +613,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                    <td class=\\"govuk-table__cell\\">website.web</td>
+                                    <td class=\\"govuk-table__cell\\"><a href=\\"website.web\\" target=\\"_blank\\">website.web</a>
+                                    </td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
                                         id=\\"\\"> Change</a>
                                     </td>
@@ -739,6 +747,11 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project page</th>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
                                     <td class=\\"govuk-table__cell project-details__name\\">Title CASE/04</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/name\\" id=\\"\\"> Change</a>
@@ -817,7 +830,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                    <td class=\\"govuk-table__cell\\">website.web</td>
+                                    <td class=\\"govuk-table__cell\\"><a href=\\"website.web\\" target=\\"_blank\\">website.web</a>
+                                    </td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
                                         id=\\"\\"> Change</a>
                                     </td>
@@ -950,6 +964,11 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     </td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
+                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Project page</th>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell\\"></td>
+                                </tr>
+                                <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
                                     <td class=\\"govuk-table__cell project-details__name\\">Title CASE/04</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/name\\" id=\\"\\"> Change</a>
@@ -1028,7 +1047,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                    <td class=\\"govuk-table__cell\\">website.web</td>
+                                    <td class=\\"govuk-table__cell\\"><a href=\\"website.web\\" target=\\"_blank\\">website.web</a>
+                                    </td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
                                         id=\\"\\"> Change</a>
                                     </td>
