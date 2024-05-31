@@ -6,6 +6,10 @@ const { faker } = require('@faker-js/faker');
 const casePage = new CasePage();
 const createCasePage = new CreateCasePage();
 
+const caseIsWelsh = (projectInformation) => {
+	return projectInformation.regions.includes('Wales');
+};
+
 const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 		casePage.validateSummaryTableItem('Reference number', Cypress.env('currentCreatedCase'));
@@ -71,16 +75,7 @@ const validateProjectDetailsSection = (projectInformation, mandatoryOnly = false
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	if (
-		Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
-		projectInformation.caseIsWelsh
-	) {
-		casePage.checkProjectAnswer('Regions', 'Wales');
-	} else if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.checkProjectAnswer('Regions', projectInformation.regions.join(','));
-	} else {
-		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
-	}
+	//casePage.checkProjectAnswer('Regions', projectInformation.regions.join(','));
 	casePage.checkProjectAnswer(
 		'Map zoom level',
 		mandatoryOnly ? 'None' : projectInformation.zoomLevel
@@ -130,12 +125,7 @@ const validatePreviewAndPublishInfo = (projectInformation) => {
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	if (
-		Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
-		projectInformation.caseIsWelsh
-	) {
-		casePage.checkProjectAnswer('Regions', 'Wales');
-	} else if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 		casePage.checkProjectAnswer('Regions', projectInformation.regions.join(','));
 	} else {
 		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
@@ -149,6 +139,35 @@ const validatePreviewAndPublishInfo = (projectInformation) => {
 	casePage.checkProjectAnswer(/^Email address$/, projectInformation.applicantEmail);
 };
 
+const updateProjectNameInWelsh = (projectNameInWelsh) => {
+	casePage.clickChangeLink('Project name in Welsh');
+	casePage.fillInput(projectNameInWelsh);
+	casePage.clickButtonByText('Save changes');
+};
+
+const updateProjectDescriptionInWelsh = (projectDescriptionInWelsh) => {
+	casePage.clickChangeLink('Project description in Welsh');
+	casePage.fillTextArea(projectDescriptionInWelsh);
+	casePage.clickButtonByText('Save changes');
+};
+
+const updateProjectLocationInWelsh = (projectLocationInWelsh) => {
+	casePage.clickChangeLink('Project location in Welsh');
+	casePage.fillTextArea(projectLocationInWelsh);
+	casePage.clickButtonByText('Save changes');
+};
+
+const updateProjectRegions = (projectRegions) => {
+	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+		casePage.clickChangeLink('Regions');
+	} else {
+		casePage.clickChangeLink('Region(s)');
+	}
+	casePage.clearAllCheckboxes();
+	createCasePage.sections.regions.chooseRegions(projectRegions);
+	casePage.clickButtonByText('Save changes');
+};
+
 const updateProjectInformation = (projectInformation) => {
 	casePage.clickChangeLink('Project name');
 	casePage.fillInput(projectInformation.projectName);
@@ -156,11 +175,9 @@ const updateProjectInformation = (projectInformation) => {
 
 	if (
 		Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
-		projectInformation.caseIsWelsh
+		caseIsWelsh(projectInformation)
 	) {
-		casePage.clickChangeLink('Project name in Welsh');
-		casePage.fillInput('Project name in Welsh');
-		casePage.clickButtonByText('Save changes');
+		updateProjectNameInWelsh(projectInformation.projectNameInWelsh);
 	}
 
 	casePage.clickChangeLink('Project description');
@@ -169,11 +186,9 @@ const updateProjectInformation = (projectInformation) => {
 
 	if (
 		Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
-		projectInformation.caseIsWelsh
+		caseIsWelsh(projectInformation)
 	) {
-		casePage.clickChangeLink('Project description in Welsh');
-		casePage.fillTextArea('Project description in Welsh');
-		casePage.clickButtonByText('Save changes');
+		updateProjectDescriptionInWelsh(projectInformation.projectDescriptionInWelsh);
 	}
 
 	casePage.clickChangeLink('Project email address');
@@ -186,36 +201,16 @@ const updateProjectInformation = (projectInformation) => {
 
 	if (
 		Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
-		projectInformation.caseIsWelsh
+		caseIsWelsh(projectInformation)
 	) {
-		casePage.clickChangeLink('Project location in Welsh');
-		casePage.fillTextArea('Welsh location');
-		casePage.clickButtonByText('Save changes');
+		updateProjectLocationInWelsh(projectInformation.projectLocationInWelsh);
 	}
 
 	casePage.clickChangeLink('Grid references');
 	casePage.fillInput(projectInformation.gridRefEasting);
 	casePage.fillInput(projectInformation.gridRefNorthing, 1);
 	casePage.clickButtonByText('Save changes');
-	if (
-		Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
-		projectInformation.caseIsWelsh
-	) {
-		casePage.clickChangeLink('Regions');
-		casePage.clearAllCheckboxes();
-		cy.get(
-			'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(8) > input:nth-child(1)'
-		).click();
-	} else if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.clickChangeLink('Regions');
-		casePage.clearAllCheckboxes();
-		createCasePage.sections.regions.chooseRegions(projectInformation.regions);
-	} else {
-		casePage.clickChangeLink('Region(s)');
-		casePage.clearAllCheckboxes();
-		createCasePage.sections.regions.chooseRegions(projectInformation.regions);
-	}
-	casePage.clickButtonByText('Save changes');
+	updateProjectRegions(projectInformation.regions);
 	casePage.clickChangeLink('Map zoom level');
 	createCasePage.sections.zoomLevel.chooseZoomLevel(projectInformation.zoomLevel);
 	casePage.clickButtonByText('Save changes');
@@ -342,7 +337,7 @@ const validateProjectDetailsSectionForWelshFields = (projectInformation, mandato
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	casePage.checkProjectAnswer('Regions', 'Wales');
+	casePage.checkProjectAnswer('Regions', projectInformation.regions.sort().join(','));
 	casePage.checkProjectAnswer(
 		'Map zoom level',
 		mandatoryOnly ? 'None' : projectInformation.zoomLevel
@@ -352,6 +347,10 @@ const validateProjectDetailsSectionForWelshFields = (projectInformation, mandato
 module.exports = {
 	validateProjectOverview,
 	validateProjectInformation,
+	updateProjectNameInWelsh,
+	updateProjectDescriptionInWelsh,
+	updateProjectLocationInWelsh,
+	updateProjectRegions,
 	updateProjectInformation,
 	getShortMonthName,
 	enquirerString,

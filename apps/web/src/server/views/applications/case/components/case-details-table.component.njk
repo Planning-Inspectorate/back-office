@@ -30,7 +30,7 @@
 
     {% if not isPublishPage %}
       {% set linkCol = {
-        html: caseEditLink({editStepUrl:rowData.url, caseId: params.case.id}),
+        html: caseEditLink({editStepUrl:rowData.url, caseId: params.case.id, id: rowData.id}),
         classes: 'text-align--right pins-table__cell--s'
       } if rowData.url else '&nbsp;' %}
 

@@ -105,12 +105,27 @@ export async function viewApplicationsCaseOverview(request, response) {
 	deleteSessionBanner(request.session);
 
 	response.render(`applications/case/overview`, {
+		errors: request.errors,
 		selectedPageType: 'overview',
 		caseIsWelsh,
 		keyMembers,
 		banner
 	});
 }
+
+/**
+ * Validate applications case overview
+ *
+ * @type {import('@pins/express').RenderHandler<{}>}
+ */
+export async function validateApplicationsCaseOverview(request, response) {
+	if (request.errors) {
+		viewApplicationsCaseOverview(request, response);
+	} else {
+		response.redirect(`${request.baseUrl}/preview-and-publish`);
+	}
+}
+
 /**
  * View the project information page for a single case
  *

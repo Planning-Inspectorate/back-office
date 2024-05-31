@@ -7,6 +7,10 @@ import { CreateCasePage } from '../../page_objects/createCasePage';
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import {
 	updateProjectInformation,
+	updateProjectNameInWelsh,
+	updateProjectDescriptionInWelsh,
+	updateProjectLocationInWelsh,
+	updateProjectRegions,
 	validateProjectInformation,
 	validateProjectOverview,
 	validatePreviewAndPublishInfo,
@@ -29,7 +33,7 @@ function clickonWelshProjectName() {
 function clickonWelshProjectDesc() {
 	casePage.clickChangeLink('Project description in Welsh');
 	cy.get('#descriptionWelsh').clear();
-	casePage.fillInput('êŵŵîôôôôôûêŵŵîôôôôôûêŵŵîôôôôôûêŵŵîôôôôôûvvêŵŵîôôôôôûvêŵŵîôôôôôû');
+	casePage.fillTextArea('êŵŵîôôôôôûêŵŵîôôôôôûêŵŵîôôôôôûêŵŵîôôôôôûvvêŵŵîôôôôôûvêŵŵîôôôôôû');
 	casePage.clickButtonByText('Save changes');
 }
 
@@ -62,15 +66,13 @@ function validateErrorMessageForProjectlocation() {
 
 describe('Enable and update Project Information with Welsh fields', () => {
 	context('As a user', () => {
-		let projectInfo = projectInformation();
-		let projectInfoNew = projectInformation();
+		let projectInfo = projectInformation({ includeWales: true });
+		let projectInfoNew = projectInformation({ includeWales: true });
 
 		before(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				projectInfo.caseIsWelsh = true;
-				projectInfoNew.caseIsWelsh = true;
 				cy.login(applicationsUsers.caseAdmin);
-				createCasePage.createCaseWithWelshAsRegion(projectInfo, true);
+				createCasePage.createCase(projectInfo, true);
 			}
 		});
 
@@ -123,7 +125,7 @@ describe('Enable and update Project Information with Welsh fields', () => {
 				const caseRef = Cypress.env('currentCreatedCase');
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
-				clickonWelshProjectDesc;
+				clickonWelshProjectDesc();
 			}
 		});
 		it('Able to validate the error message for project desc welsh field', () => {
@@ -144,6 +146,54 @@ describe('Enable and update Project Information with Welsh fields', () => {
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
 				validateErrorMessageForProjectlocation();
+			}
+		});
+	});
+});
+
+describe('Update project information to add a Welsh region', () => {
+	context('As a user', () => {
+		let projectInfo;
+
+		before(() => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				projectInfo = projectInformation({ excludeWales: true });
+				cy.login(applicationsUsers.caseAdmin);
+				createCasePage.createCase(projectInfo);
+			}
+		});
+
+		it('Publish fails when Welsh fields are not populated', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.visit('/');
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.clickTopSearchResult();
+				updateProjectRegions(['Wales']);
+				casePage.clickButtonByText('Preview and publish project');
+				casePage.validateErrorMessageCountInSummary(3);
+				casePage.validateErrorMessageIsInSummary('Enter the name of the project in Welsh');
+				casePage.validateErrorMessageIsInSummary('Enter the description of the project in Welsh');
+				casePage.validateErrorMessageIsInSummary('Enter the project location in Welsh');
+			}
+		});
+
+		it('Publish passes when Welsh fields are populated', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.visit('/');
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.clickTopSearchResult();
+				if (!projectInfo.regions.includes('Wales')) {
+					projectInfo.regions = [...projectInfo.regions, 'Wales'].sort();
+				}
+				updateProjectRegions(projectInfo.regions);
+				updateProjectNameInWelsh(projectInfo.projectNameInWelsh);
+				updateProjectDescriptionInWelsh(projectInfo.projectDescriptionInWelsh);
+				updateProjectLocationInWelsh(projectInfo.projectLocationInWelsh);
+				casePage.clickButtonByText('Preview and publish project');
+				casePage.validateErrorMessageCountInSummary(0);
+				validatePreviewAndPublishInfo(projectInfo);
 			}
 		});
 	});

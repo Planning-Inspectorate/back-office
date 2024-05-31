@@ -110,7 +110,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: accompanied-site-inspection should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -246,7 +246,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: compulsory-acquisition-hearing should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -382,7 +382,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: deadline should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -557,7 +557,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: deadline-for-close-of-examination should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -726,7 +726,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: issue-specific-hearing should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -862,7 +862,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: issued-by should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -958,7 +958,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: open-floor-hearing should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1094,7 +1094,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: other-meeting should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1230,7 +1230,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: preliminary-meeting should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1374,7 +1374,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: procedural-deadline should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1547,7 +1547,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: procedural-decision should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1683,7 +1683,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: publication-of should display errors if mandatory fields are missing 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1779,7 +1779,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 exports[`Create examination timetable page should display errors if start date are after end date 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1941,7 +1941,7 @@ exports[`Create examination timetable page should display errors if start date a
 exports[`Create examination timetable page should display errors if start time are after end time 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -2141,7 +2141,7 @@ exports[`Delete examination timetable GET /case/123/examination-timetable/item/d
 exports[`Delete examination timetable POST /case/123/examination-timetable/item/delete/1 should show errors if api fails 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>

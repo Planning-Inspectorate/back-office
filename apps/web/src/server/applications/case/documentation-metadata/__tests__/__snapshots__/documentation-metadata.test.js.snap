@@ -27,7 +27,7 @@ exports[`Edit applications documentation metadata Edit agent (representative) GE
 exports[`Edit applications documentation metadata Edit agent (representative) POST /case/123/project-documentation/18/document/456/edit/agent should return an error if value length > 150 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -92,7 +92,7 @@ exports[`Edit applications documentation metadata Edit author GET /case/123/proj
 exports[`Edit applications documentation metadata Edit author POST /case/123/project-documentation/18/document/456/edit/author should return an error if value is not defined 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -133,7 +133,7 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
 exports[`Edit applications documentation metadata Edit author POST /case/123/project-documentation/18/document/456/edit/author should return an error if value length > 100 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -198,7 +198,7 @@ exports[`Edit applications documentation metadata Edit description GET /case/123
 exports[`Edit applications documentation metadata Edit description POST /case/123/project-documentation/18/document/456/edit/description should return an error if value is not defined 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -239,7 +239,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
 exports[`Edit applications documentation metadata Edit description POST /case/123/project-documentation/18/document/456/edit/description should return an error if value length > 800 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -365,7 +365,7 @@ exports[`Edit applications documentation metadata Edit name GET /case/123/projec
 exports[`Edit applications documentation metadata Edit name POST /case/123/project-documentation/18/document/456/edit/name should return an error if value is not defined 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -406,7 +406,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
 exports[`Edit applications documentation metadata Edit name POST /case/123/project-documentation/18/document/456/edit/name should return an error if value length > 255 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -488,7 +488,7 @@ exports[`Edit applications documentation metadata Edit publish status GET /case/
 exports[`Edit applications documentation metadata Edit publish status POST /case/123/project-documentation/18/document/90/edit/published-status should return an error if one is returned 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -588,7 +588,7 @@ exports[`Edit applications documentation metadata Edit published date GET /case/
 exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the date fields are empty 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -655,7 +655,7 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the date is in the future 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -722,7 +722,7 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the day is not valid 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -789,7 +789,7 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the month is not valid 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -856,7 +856,7 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 exports[`Edit applications documentation metadata Edit published date POST /case/123/project-documentation/18/document/456/edit/published-date should return an error if the year is not valid 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -967,7 +967,7 @@ exports[`Edit applications documentation metadata Edit receipt date GET /case/12
 exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the date fields are empty 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1034,7 +1034,7 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
 exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the date is in the future 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1101,7 +1101,7 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
 exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the day is not valid 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1168,7 +1168,7 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
 exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the month is not valid 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1235,7 +1235,7 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
 exports[`Edit applications documentation metadata Edit receipt date POST /case/123/project-documentation/18/document/456/edit/receipt-date should return an error if the year is not valid 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1333,7 +1333,7 @@ exports[`Edit applications documentation metadata Edit redaction status GET /cas
 exports[`Edit applications documentation metadata Edit redaction status POST /case/123/project-documentation/18/document/456/edit/redaction should return an error if value is not defined 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1405,7 +1405,7 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) GET /
 exports[`Edit applications documentation metadata Edit webfilter (filter1) POST /case/123/project-documentation/18/document/456/edit/webfilter should return an error if value is not defined 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1444,7 +1444,7 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
 exports[`Edit applications documentation metadata Edit webfilter (filter1) POST /case/123/project-documentation/18/document/456/edit/webfilter should return an error if value length > 100 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>

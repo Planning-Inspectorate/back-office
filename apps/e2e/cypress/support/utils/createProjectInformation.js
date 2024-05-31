@@ -7,7 +7,19 @@ import { ZOOM_LEVELS } from './options';
 let sector = faker.helpers.arrayElement(SECTORS);
 let subsector = faker.helpers.arrayElement(SUBSECTORS[sector]);
 
-export const projectInformation = () => {
+const populateRegions = (options) => {
+	let regions = faker.helpers.arrayElements(REGIONS);
+	const includesWales = regions.includes('Wales');
+	if (options.excludeWales) {
+		regions = regions.filter((region) => region !== 'Wales');
+	}
+	if (options.includeWales && !includesWales) {
+		regions.push('Wales');
+	}
+	return regions.sort();
+};
+
+export const projectInformation = (options = {}) => {
 	const now = Date.now();
 	const currentYear = new Date().getFullYear();
 
@@ -15,9 +27,12 @@ export const projectInformation = () => {
 	let projectName = `AutoTest_${now}`;
 	let projectDescription = 'This is project description';
 	const projectLocation = 'test location';
+	const projectNameInWelsh = `AutoTest_${now} in Welsh`;
+	const projectDescriptionInWelsh = 'This is project description in Welsh';
+	const projectLocationInWelsh = 'test location in Welsh';
 	const gridRefEasting = faker.random.numeric(6);
 	const gridRefNorthing = faker.random.numeric(6);
-	const regions = faker.helpers.arrayElements(REGIONS).sort();
+	const regions = populateRegions(options);
 	const zoomLevel = faker.helpers.arrayElement(ZOOM_LEVELS);
 	const projectEmail = 'test@projectemail.com';
 
@@ -110,9 +125,12 @@ export const projectInformation = () => {
 		postcode,
 		postcode2,
 		projectDescription,
+		projectDescriptionInWelsh,
 		projectEmail,
 		projectLocation,
+		projectLocationInWelsh,
 		projectName,
+		projectNameInWelsh,
 		publishedDate,
 		regions,
 		sector,

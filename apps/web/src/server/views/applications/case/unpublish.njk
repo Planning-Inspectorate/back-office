@@ -13,7 +13,7 @@
 <aside>
 	{{ govukBackLink({
 		text: "Back",
-		href: 'case-view'|url({caseId: case.id, step: 'project-information'})
+		href: 'case-view'|url({caseId: case.id, step: 'overview' if ('applic-55-welsh-translation' | isFeatureActive) else 'project-information'})
 	}) }}
 </aside>
 {% endblock %}

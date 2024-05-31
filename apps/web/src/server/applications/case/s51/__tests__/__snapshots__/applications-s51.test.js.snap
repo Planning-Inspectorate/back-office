@@ -29,7 +29,7 @@ exports[`S51 Advice S51 Attachment delete GET /case/123/project-documentation/21
 exports[`S51 Advice S51 Attachment delete POST /case/123/project-documentation/21/s51-advice/1/attachments/:documentGuid/delete should render error if delete is NOT successful 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1091,7 +1091,7 @@ exports[`S51 Advice S51 creation journey Check your answers GET /case/123/projec
 exports[`S51 Advice S51 creation journey Check your answers POST /case/123/project-documentation/21/s51-advice/create/check-your-answers should display an error if data is not complete 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1222,7 +1222,7 @@ exports[`S51 Advice S51 creation journey Enquirer GET /case/123/project-document
 exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documentation/21/s51-advice/create/enquirer Should return error if last name is provided with no name 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1265,7 +1265,7 @@ exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documen
 exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documentation/21/s51-advice/create/enquirer Should return error if name is provided with no lastname 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1308,7 +1308,7 @@ exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documen
 exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documentation/21/s51-advice/create/enquirer Should return error if no data is provided 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1457,7 +1457,7 @@ exports[`S51 Advice S51 creation journey Title GET /case/123/project-documentati
 exports[`S51 Advice S51 creation journey Title POST /case/123/project-documentation/21/s51-advice/create/title Should return error if title is not provided 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -3000,7 +3000,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
 exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/s51-advice/s51-queue/remove/:adviceId should display an error if the API returned an error 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
