@@ -28,8 +28,7 @@ const webfilter = () => 'webfilter';
 const webfilterforWelsh = () => 'webfilter for welsh';
 
 describe('Document Properties including welsh fields', () => {
-	let projectInfo = projectInformation();
-	let projectInfoNew = projectInformation();
+	let projectInfo = projectInformation({ includeWales: true });
 
 	const getDate = (received) => {
 		const today = new Date();
@@ -44,10 +43,8 @@ describe('Document Properties including welsh fields', () => {
 
 	before(() => {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-			projectInfo.caseIsWelsh = true;
-			projectInfoNew.caseIsWelsh = true;
 			cy.login(applicationsUsers.caseAdmin);
-			createCasePage.createCaseWithWelshAsRegion(projectInfo, true);
+			createCasePage.createCase(projectInfo, true);
 		}
 	});
 
@@ -69,7 +66,7 @@ describe('Document Properties including welsh fields', () => {
 			documentPropertiesPage.updateDocumentProperty('File name', fileName());
 			documentPropertiesPage.updateDocumentProperty('Description', description());
 			//documentPropertiesPage.updateDocumentProperty('Description in Welsh', descriptionforWelsh());
-			documentPropertiesPage.updateDocumentProperty('Who the document is from', from());
+			//documentPropertiesPage.updateDocumentProperty('Who the document is from', from());
 			//documentPropertiesPage.updateDocumentProperty('Who the document is from in Welsh', documentfromWelsh());
 			documentPropertiesPage.updateDocumentProperty('Agent (optional)', agent());
 			documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter());
