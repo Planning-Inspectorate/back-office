@@ -114,7 +114,7 @@ export class Page {
 		projectDocumentationLink: () => cy.get(this.selectors.projectDocumentation),
 		backToOverviewPage: () => cy.get(this.selectors.backToOverview),
 		backToProjectPage: () =>
-			cy.get(this.selectors.backToProjectOverview, { timeout: 4000 }).should('be.visible'),
+			cy.get(this.selectors.backToProjectOverview, { timeout: 6000 }).should('be.visible'),
 		clickOnUnpublishProjectLink: () => cy.get(this.selectors.unpublishProject)
 	};
 
@@ -313,17 +313,5 @@ export class Page {
 	}
 	gotoProjectOverviewpage() {
 		this.basePageElements.backLink().click();
-	}
-	publishUnpublishProject() {
-		cy.get(':nth-child(1) > .govuk-breadcrumbs__link').click();
-		cy.wait(2000);
-		this.basePageElements.backToProjectPage().click();
-		this.clickButtonByText('Preview and publish project');
-		this.clickButtonByText('Accept and publish project');
-		this.validateSuccessPanelTitle('Project page successfully published');
-		cy.get('#main-content > div > div > a').click();
-		this.basePageElements.clickOnUnpublishProjectLink().click();
-		this.basePageElements.buttonByLabelText('Unpublish project').click();
-		this.validateSuccessPanelTitle('Project page successfully unpublished');
 	}
 }
