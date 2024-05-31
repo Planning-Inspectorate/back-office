@@ -65,7 +65,11 @@ applicationsS51Router
 
 applicationsS51Router
 	.route('/:adviceId/:step')
-	.get(locals.registerFolderId, asyncHandler(controller.viewApplicationsCaseS51Item));
+	.get(
+		locals.registerCase,
+		locals.registerFolderId,
+		asyncHandler(controller.viewApplicationsCaseS51Item)
+	);
 
 applicationsS51Router
 	.route('/publishing-queue')

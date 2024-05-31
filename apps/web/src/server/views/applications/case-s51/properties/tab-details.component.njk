@@ -1,7 +1,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from '../components/enquirer-string.njk' import enquirerString %}
 
-{% macro s51DetailsTab(s51Advice, caseId, folderId, isPublished, isGeneralS51) %}
+{% macro s51DetailsTab(s51Advice, caseId, folderId, isPublished, isGeneralS51, caseIsWelsh) %}
 
 	{% set s51TitleLabel = "S51 title" %}
 	{% set s51AdvicePropertiesText = "S51 advice properties" %}
@@ -11,15 +11,20 @@
 		{% set s51AdvicePropertiesText = "General S51 advice properties" %}
 	{% endif %}
 
+	{% set s51TitleInWelshLabel = [s51TitleLabel, " in Welsh"] | join %}
+
 	{% set properties = [
 		{label: s51TitleLabel, value: s51Advice.title, link: 'title'},
+		{label: s51TitleInWelshLabel, value: s51Advice.titleWelsh, link: 'title-in-welsh', omitted: not caseIsWelsh},
 		{label: 'Enquirer', value: enquirerString(s51Advice), link: 'enquirer'},
 		{label: 'Enquiry method', value: s51Advice.enquiryMethod|capitalize, link: 'method'},
 		{label: 'Enquiry date', value: (s51Advice.enquiryDate|datestamp({format: 'dd MMM yyyy'})), link: 'enquiry-date'},
 		{label: 'Enquiry details', value: s51Advice.enquiryDetails, link: 'enquiry-detail'},
+		{label: 'Enquiry details in Welsh', value: s51Advice.enquiryDetailsWelsh, link: 'enquiry-detail-in-welsh', omitted: not caseIsWelsh},
 		{label: 'Advice given by (internal use only)', value: s51Advice.adviser, link: 'person'},
 		{label: 'Date advice given', value: (s51Advice.adviceDate|datestamp({format: 'dd MMM yyyy'})), link: 'advice-date'},
 		{label: 'Advice given', value: s51Advice.adviceDetails, link: 'advice-detail'},
+		{label: 'Advice given in Welsh', value: s51Advice.adviceDetailsWelsh, link: 'advice-detail-in-welsh', omitted: not caseIsWelsh},
 		{label: 'Redaction', value: ('Redacted' if s51Advice.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
 		{label: 'Status', value: s51Advice.publishedStatus|statusName, link: 'status'}
 	] %}
@@ -27,6 +32,7 @@
 	{% set propertiesRow = [] %}
 
 	{% for property in properties %}
+		{% if not property.omitted %}
 		{% set rowActions = {} %}
 
 		{% if property.link and not isPublished %}
@@ -52,6 +58,7 @@
 		} %}
 
 		{% set propertiesRow = propertiesRow.concat([row]) %}
+		{% endif %}
 	{% endfor %}
 
 	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">{{ s51AdvicePropertiesText }}</h4>
