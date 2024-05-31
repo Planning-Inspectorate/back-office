@@ -16,7 +16,7 @@ const request = supertest(app);
 const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, []);
 
-	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
+	nock('http://test/').get('/applications/123').times(3).reply(200, fixtureCases[3]);
 	nock('http://test/').get('/applications/123/folders/21').times(2).reply(200, fixtureS51Folder);
 	nock('http://test/')
 		.post('/applications/123/s51-advice')
