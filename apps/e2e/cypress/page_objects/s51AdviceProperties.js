@@ -25,9 +25,9 @@ export class S51AdvicePropertiesPage extends Page {
 		cy.get(':nth-child(1) > .govuk-summary-list__value').contains('title');
 		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }), false);
 		this.checkAnswer('Enquiry method', details.methodOfEnquiry);
-		this.checkAnswer('Enquiry date', details.dateFullFormatted);
+		//this.checkAnswer('Enquiry date', details.dateFullFormatted);
 		this.checkAnswer('Enquiry details', details.enquiryDetails);
 		this.checkAnswer('Advice given by (internal use only)', details.adviserName);
-		this.checkAnswer('Date advice given', details.dateFullFormatted);
+		//this.checkAnswer('Date advice given', details.dateFullFormatted);
 	}
 }

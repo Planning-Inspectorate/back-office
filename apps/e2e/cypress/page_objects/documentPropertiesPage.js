@@ -140,22 +140,47 @@ export class DocumentPropertiesPage extends Page {
 		});
 	}
 	enterDocumentRefNumber(docmentNumber) {
-		cy.get(
-			'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
-		).click();
-		cy.get('#transcript').type(docmentNumber);
-		cy.get('.govuk-button').click();
+		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
+			const text = $elem.text().trim();
+			if (text === 'Description in Welsh') {
+				cy.get('div.govuk-summary-list__row:nth-child(11) > dd:nth-child(3) > a').click();
+				cy.get('#transcript').type(docmentNumber);
+				cy.get('.govuk-button').click();
+			} else {
+				cy.get(
+					'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
+				).click();
+				cy.get('#transcript').type(docmentNumber);
+				cy.get('.govuk-button').click();
+			}
+		});
 	}
 	validateTranscriptValue() {
 		const caseRef = Cypress.env('currentCreatedCase');
-		cy.get('.govuk-summary-list__row:nth-child(8) > dd:nth-child(2)').contains(caseRef);
+		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
+			const text = $elem.text().trim();
+			if (text === 'Description in Welsh') {
+				cy.get('.govuk-summary-list__row:nth-child(11) > dd').contains(caseRef);
+			} else {
+				cy.get('.govuk-summary-list__row:nth-child(8) > dd').contains(caseRef);
+			}
+		});
 	}
 	enterIncorrectDocumentRefNumber(docmentNumber) {
-		cy.get(
-			'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
-		).click();
-		cy.get('#transcript').type(docmentNumber);
-		cy.get('.govuk-button').click();
+		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
+			const text = $elem.text().trim();
+			if (text === 'Description in Welsh') {
+				cy.get('div.govuk-summary-list__row:nth-child(11) > dd:nth-child(3) > a').click();
+				cy.get('#transcript').type(docmentNumber);
+				cy.get('.govuk-button').click();
+			} else {
+				cy.get(
+					'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
+				).click();
+				cy.get('#transcript').type(docmentNumber);
+				cy.get('.govuk-button').click();
+			}
+		});
 	}
 	validateDocumentErrorMessage() {
 		cy.get('#transcript-error').contains('Please enter a valid document reference number.');

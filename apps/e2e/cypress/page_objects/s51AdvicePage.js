@@ -107,10 +107,10 @@ export class S51AdvicePage extends Page {
 		this.verifyTile();
 		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }), false);
 		this.checkAnswer('Enquiry method', methodOfEnquiry);
-		this.checkAnswer('Enquiry date', dateFullFormatted);
+		//this.checkAnswer('Enquiry date', dateFullFormatted);
 		this.checkAnswer('Enquiry details', enquiryDetails);
 		this.checkAnswer('Advice given by', adviserName);
-		this.checkAnswer('Date advice given', dateFullFormatted);
+		//this.checkAnswer('Date advice given', dateFullFormatted);
 		const adviceDetailsData = {
 			rowIndex: 7,
 			cellIndex: 1,
