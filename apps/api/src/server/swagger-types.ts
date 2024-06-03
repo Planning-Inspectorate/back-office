@@ -187,6 +187,8 @@ export interface DocumentDetails {
 	privateBlobContainer?: string;
 	/** @example "John Smith" */
 	author?: string;
+	/** @example "John Smith (Welsh)" */
+	authorWelsh?: string;
 	/** @example 1646822400 */
 	dateCreated?: number;
 	/** @example "published" */
