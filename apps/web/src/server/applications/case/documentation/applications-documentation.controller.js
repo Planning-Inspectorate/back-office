@@ -217,8 +217,6 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	const showSuccessBanner = getSuccessBanner(session);
 	destroySuccessBanner(session);
 
-	console.log(223, documentationFile);
-
 	response.render(`applications/case-documentation/properties/documentation-properties`, {
 		documentationFile,
 		documentVersions,
