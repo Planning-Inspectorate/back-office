@@ -89,7 +89,7 @@ describe('Enable and update Project Information with Welsh fields', () => {
 				updateProjectInformation(projectInfoNew);
 				validateProjectInformation(projectInfoNew, false, true);
 				casePage.clickLinkByText('Overview');
-				casePage.clickButtonByText('Preview and publish project');
+				casePage.clickPublishProjectButton();
 				validatePreviewAndPublishInfo(projectInfoNew);
 				casePage.clickButtonByText('Accept and publish project');
 				casePage.validatePublishBannerMessage('Project page successfully published');
@@ -170,7 +170,7 @@ describe('Update project information to add a Welsh region', () => {
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
 				updateProjectRegions(['Wales']);
-				casePage.clickButtonByText('Preview and publish project');
+				casePage.clickPublishProjectButton();
 				casePage.validateErrorMessageCountInSummary(3);
 				casePage.validateErrorMessageIsInSummary('Enter the name of the project in Welsh');
 				casePage.validateErrorMessageIsInSummary('Enter the description of the project in Welsh');
@@ -191,7 +191,7 @@ describe('Update project information to add a Welsh region', () => {
 				updateProjectNameInWelsh(projectInfo.projectNameInWelsh);
 				updateProjectDescriptionInWelsh(projectInfo.projectDescriptionInWelsh);
 				updateProjectLocationInWelsh(projectInfo.projectLocationInWelsh);
-				casePage.clickButtonByText('Preview and publish project');
+				casePage.clickPublishProjectButton();
 				casePage.validateErrorMessageCountInSummary(0);
 				validatePreviewAndPublishInfo(projectInfo);
 			}

@@ -159,8 +159,8 @@ describe('Examination Timetable', () => {
 		examTimetablePage.clickButtonByText('Continue');
 		examTimetablePage.checkAnswer('Item type', 'Deadline');
 		examTimetablePage.checkAnswer('Item name', options.itemName);
-		//examTimetablePage.checkAnswer('Start date', options.startDateFullDeadLine);
-		//examTimetablePage.checkAnswer('End date', options.endDateFulldeadLine);
+		examTimetablePage.checkAnswer('Start date', options.startDateFullDeadLine);
+		examTimetablePage.checkAnswer('End date', options.endDateFullDeadLine);
 		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
 		examTimetablePage.checkAnswer('Timetable item description', options.description);
@@ -185,7 +185,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.clickButtonByText('Continue');
 		examTimetablePage.checkAnswer('Item type', 'Issued By');
 		examTimetablePage.checkAnswer('Item name', options.itemName);
-		//examTimetablePage.checkAnswer('Date', options.startDateFullDeadLine);
+		examTimetablePage.checkAnswer('Date', options.startDateFullDeadLine);
 		examTimetablePage.checkAnswer('Timetable item description', options.description);
 		examTimetablePage.clickButtonByText('Save item');
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
@@ -208,7 +208,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.clickButtonByText('Continue');
 		examTimetablePage.checkAnswer('Item type', 'Procedural Deadline (Pre-Examination)');
 		examTimetablePage.checkAnswer('Item name', options.itemName);
-		//examTimetablePage.checkAnswer('Date', options.startDateFullDeadLine);
+		examTimetablePage.checkAnswer('Date', options.startDateFullDeadLine);
 		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
 		examTimetablePage.checkAnswer('Timetable item description', options.description);

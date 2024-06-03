@@ -12,15 +12,6 @@
     {{ govukNotificationBanner({ type: 'success', html: '<strong>' + banner + '</strong>' }) }}
   {% endif %}
 
-	{% set applicantFirstOrganisationName = case.applicant.organisationName %}
-	{% set applicantFirstEmail = case.applicant.email %}
-	{% set applicantFirstPhoneNumber = case.applicant.phoneNumber %}
-	{% set applicantFirstWebsite = case.applicant.website %}
-	{% set applicantFirstWebsiteValue = '' %}
-	{% if applicantFirstWebsite %}
-		{% set applicantFirstWebsiteValue = '<a class="govuk-link" href="' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
-	{% endif %}
-
 	<h2 class="govuk-heading-m">{{serviceName}}</h2>
 	<div class="govuk-!-margin-top-6">
 		<form method="post">

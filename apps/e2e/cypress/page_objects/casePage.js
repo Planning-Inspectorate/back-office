@@ -73,4 +73,24 @@ export class CasePage extends Page {
 	validateUserIsUnableToEdit() {
 		this.elements.changeLink('Project name').should('not.exist');
 	}
+
+	clickPublishProjectButton() {
+		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+			this.clickButtonByText('Publish project');
+		} else {
+			this.clickButtonByText('Preview and publish project');
+		}
+	}
+
+	publishUnpublishProject() {
+		this.clickBreadcrumbLinkByText('Project documentation');
+		this.basePageElements.backToProjectPage().click();
+		this.clickPublishProjectButton();
+		this.clickButtonByText('Accept and publish project');
+		this.validateSuccessPanelTitle('Project page successfully published');
+		this.clickLinkByText('Go back to Overview');
+		this.basePageElements.clickOnUnpublishProjectLink().click();
+		this.basePageElements.buttonByLabelText('Unpublish project').click();
+		this.validateSuccessPanelTitle('Project page successfully unpublished');
+	}
 }
