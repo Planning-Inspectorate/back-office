@@ -25,10 +25,6 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                                 <td class=\\"govuk-table__cell\\">Title CASE/04</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name in Welsh</th>
-                                <td class=\\"govuk-table__cell\\"></td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
                                 <td class=\\"govuk-table__cell\\">Transport EN</td>
                             </tr>
@@ -47,20 +43,12 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                                     ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description in Welsh</th>
-                                <td class=\\"govuk-table__cell\\"></td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
                                 <td class=\\"govuk-table__cell\\">some@ema.il</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
                                 <td class=\\"govuk-table__cell\\">London</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location in Welsh</th>
-                                <td class=\\"govuk-table__cell\\"></td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
@@ -229,10 +217,6 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                                 <td class=\\"govuk-table__cell\\">Title CASE/04</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name in Welsh</th>
-                                <td class=\\"govuk-table__cell\\"></td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
                                 <td class=\\"govuk-table__cell\\">Transport EN</td>
                             </tr>
@@ -251,20 +235,12 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                                     ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description in Welsh</th>
-                                <td class=\\"govuk-table__cell\\"></td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
                                 <td class=\\"govuk-table__cell\\">some@ema.il</td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
                                 <td class=\\"govuk-table__cell\\">London</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location in Welsh</th>
-                                <td class=\\"govuk-table__cell\\"></td>
                             </tr>
                             <tr class=\\"govuk-table__row\\">
                                 <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>

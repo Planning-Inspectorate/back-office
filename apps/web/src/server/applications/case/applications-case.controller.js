@@ -6,7 +6,6 @@ import {
 	getProjectTeam,
 	getManyProjectTeamMembersInfo
 } from '../common/services/project-team.service.js';
-import { caseInLocalsIsWelsh } from './applications-case.locals.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -98,16 +97,12 @@ export async function viewApplicationsCaseOverview(request, response) {
 		nsipOfficers
 	};
 
-	/** @type {boolean} */
-	const caseIsWelsh = await caseInLocalsIsWelsh(response.locals.case);
-
 	const banner = getSessionBanner(request.session);
 	deleteSessionBanner(request.session);
 
 	response.render(`applications/case/overview`, {
 		errors: request.errors,
 		selectedPageType: 'overview',
-		caseIsWelsh,
 		keyMembers,
 		banner
 	});

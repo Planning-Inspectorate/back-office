@@ -1,11 +1,11 @@
 import pino from '../../lib/logger.js';
 import { url } from '../../lib/nunjucks-filters/index.js';
 import { getCase } from '../common/services/case.service.js';
-import { featureFlagClient } from '../../../common/feature-flags.js';
 import {
 	getCaseDocumentationFolderPath,
 	getCaseFolder
 } from './documentation/applications-documentation.service.js';
+import { featureFlagClient } from '../../../common/feature-flags.js';
 
 /**
  * @typedef {object} ApplicationCaseLocals
@@ -33,6 +33,11 @@ export const registerCase = async (request, response, next) => {
 
 	try {
 		response.locals.case = await getCase(response.locals.caseId);
+		response.locals.caseIsWelsh =
+			(await featureFlagClient.isFeatureActive('applic-55-welsh-translation')) &&
+			response.locals.case?.geographicalInformation?.regions?.some(
+				(/** @type {{name: string}} */ r) => r.name === 'wales'
+			);
 	} catch (/** @type {*} */ error) {
 		return response.render(`app/${error.message === '404' ? 404 : 500}.njk`, { error });
 	}
@@ -115,22 +120,4 @@ export const buildBreadcrumbItems = async (caseId, folderId) => {
 		text: 'Project documentation'
 	});
 	return breadcrumbItems;
-};
-
-/**
- * Returns true if the local stored Case is welsh
- *
- * @param {import('../applications.types').Case} localCase
- * @returns {Promise<boolean>}
- */
-export const caseInLocalsIsWelsh = async (localCase) => {
-	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
-		return false;
-	}
-
-	return Boolean(
-		localCase?.geographicalInformation?.regions?.find(
-			(/** @type {{name: string}} */ r) => r.name === 'wales'
-		)
-	);
 };
