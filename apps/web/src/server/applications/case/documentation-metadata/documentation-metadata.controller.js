@@ -2,7 +2,7 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author"| "transcript"} MetaDataNames */
+/** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author" | "authorWelsh" | "transcript"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
@@ -43,6 +43,13 @@ const layouts = {
 		hint: 'There is a limit of 150 characters',
 		pageTitle: 'Enter who the document is from',
 		metaDataName: 'author',
+		maxLength: 150
+	},
+	authorWelsh: {
+		label: 'Document from',
+		hint: 'There is a limit of 150 characters',
+		pageTitle: 'Enter who the document is from in Welsh',
+		metaDataName: 'authorWelsh',
 		maxLength: 150
 	},
 	'published-date': {
