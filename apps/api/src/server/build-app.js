@@ -11,6 +11,7 @@ import { migrationRoutes } from './migration/migration.routes.js';
 import { authoriseRequest } from './middleware/authorise-request.js';
 import { asyncHandler } from '@pins/express';
 import { httpLogger } from '#utils/logger.js';
+import { featureFlagClient } from '#utils/feature-flags.js';
 
 // The purpose of this is to allow the jest environment to create an instance of the app without loading Swagger
 // We have to use a HOF (i.e. we can't just conditionally register swagger UI) because Jest doesn't care about our conditionals and loads all of the modules based on the top-level imports
@@ -53,6 +54,10 @@ const buildApp = (
 	app.use(compression());
 	app.use(httpLogger);
 	app.use(helmet());
+
+	app.use((req, res, next) => {
+		featureFlagClient.loadFlags().then(next);
+	});
 
 	app.use(
 		'/applications',

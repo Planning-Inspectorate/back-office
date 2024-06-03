@@ -28,6 +28,7 @@ export const mapSingleDocumentDetailsFromVersion = ({
 		privateBlobContainer: documentVersion?.privateBlobContainer ?? '',
 		privateBlobPath: documentVersion?.privateBlobPath ?? '',
 		author: documentVersion?.author ?? '',
+		authorWelsh: documentVersion?.authorWelsh ?? '',
 
 		fileName: documentVersion.fileName ?? '',
 
@@ -50,6 +51,7 @@ export const mapSingleDocumentDetailsFromVersion = ({
 			: null,
 
 		description: documentVersion?.description,
+		descriptionWelsh: documentVersion?.descriptionWelsh ?? null,
 		version: documentVersion?.version,
 		representative: documentVersion?.representative,
 		stage: documentVersion?.stage,
@@ -58,6 +60,8 @@ export const mapSingleDocumentDetailsFromVersion = ({
 
 		filter1: documentVersion?.filter1 ?? null,
 		filter2: documentVersion?.filter2 ?? null,
+		filter1Welsh: documentVersion?.filter1Welsh ?? null,
+
 		examinationRefNo: documentVersion.examinationRefNo ?? '',
 		fromFrontOffice: Document?.fromFrontOffice ?? false,
 		transcript: documentVersion?.transcript?.documentReference ?? ''
