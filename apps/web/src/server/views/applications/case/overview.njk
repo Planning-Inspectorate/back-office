@@ -12,32 +12,33 @@
     {{ govukNotificationBanner({ type: 'success', html: '<strong>' + banner + '</strong>' }) }}
   {% endif %}
 
-	{% set applicantFirstOrganisationName = case.applicant.organisationName %}
-	{% set applicantFirstEmail = case.applicant.email %}
-	{% set applicantFirstPhoneNumber = case.applicant.phoneNumber %}
-	{% set applicantFirstWebsite = case.applicant.website %}
-	{% set applicantFirstWebsiteValue = '' %}
-	{% if applicantFirstWebsite %}
-		{% set applicantFirstWebsiteValue = '<a class="govuk-link" href="' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
-	{% endif %}
-
 	<h2 class="govuk-heading-m">{{serviceName}}</h2>
 	<div class="govuk-!-margin-top-6">
 		<form method="post">
-			{% if ('applic-55-welsh-translation' | isFeatureActive) and caseIsWelsh %}
-				<input type="hidden" value="{{ case.titleWelsh }}" name="titleWelsh" />
-				<input type="hidden" value="{{ case.descriptionWelsh }}" name="descriptionWelsh" />
-				<input type="hidden" value="{{ case.geographicalInformation.locationDescriptionWelsh }}" name="geographicalInformation.locationDescriptionWelsh" />
-				{{ govukButton({
-					text: 'Preview and publish project',
-					attributes: { formaction: 'case-view'| url({caseId:case.id, step: 'overview'})}
-				}) }}
-			{% else %}
+      {% if ('applic-55-welsh-translation' | isFeatureActive) %}
+        {% set buttonText = 'Publish latest changes' if case.publishedDate else 'Publish project' %}
+
+        {% if caseIsWelsh %}
+          <input type="hidden" value="{{ case.titleWelsh }}" name="titleWelsh" />
+          <input type="hidden" value="{{ case.descriptionWelsh }}" name="descriptionWelsh" />
+          <input type="hidden" value="{{ case.geographicalInformation.locationDescriptionWelsh }}" name="geographicalInformation.locationDescriptionWelsh" />
+          {{ govukButton({
+            text: buttonText,
+            attributes: { formaction: 'case-view'| url({caseId:case.id, step: 'overview'})}
+          }) }}
+        {% else %}
+          {{ govukButton({
+            text: buttonText,
+            href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'})
+          }) }}
+        {% endif %}
+      {% else %}
 				{{ govukButton({
 					text: 'Preview and publish project',
 					href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'})
 				}) }}
-			{% endif %}
+      {% endif %}
+
 			{% if case.publishedDate %}
 				<a
 					href="../{{ caseId }}/unpublish"
@@ -47,21 +48,6 @@
 		</form>
 	</div>
 
-	{% set publishedTag %}
-	{% if case.publishedDate %}
-		<strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>
-    &nbsp;
-    <span class="govuk-body-s colour--secondary">Last updated
-    {{ case.publishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
-	{% else %}
-		<strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>
-		{% if case.unpublishedDate %}
-      &nbsp;
-      <span class="govuk-body-s colour--secondary">Last updated
-      {{ case.unpublishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
-		{% endif %}
-	{% endif %}
-	{% endset %}
   {{ caseDetailsTable({ case: case, keyMembers: keyMembers }, false, caseIsWelsh) }}
 
   <h2 class="govuk-heading-m govuk-!-margin-top-9">Applicant information</h2>

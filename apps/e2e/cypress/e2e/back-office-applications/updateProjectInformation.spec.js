@@ -42,7 +42,7 @@ describe('Update Project Information', () => {
 			updateProjectInformation(projectInfoNew);
 			validateProjectInformation(projectInfoNew, false, true);
 			casePage.clickLinkByText('Overview');
-			casePage.clickButtonByText('Preview and publish project');
+			casePage.clickPublishProjectButton();
 			validatePreviewAndPublishInfo(projectInfoNew);
 			casePage.clickButtonByText('Accept and publish project');
 			casePage.validatePublishBannerMessage('Project page successfully published');

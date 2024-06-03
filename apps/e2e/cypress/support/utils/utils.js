@@ -245,15 +245,11 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.clickButtonByText('Save changes');
 };
 
-const getShortMonthName = (monthNumber) => {
-	const date = new Date();
-	date.setMonth(monthNumber - 1);
-	return date.toLocaleString('default', { month: 'short' }).substring(0, 3);
-};
-const getShortMonthNameExamTimeTable = (monthNumber) => {
-	const date = new Date();
-	date.setMonth(monthNumber - 2);
-	return date.toLocaleString('default', { month: 'short' }).substring(0, 3);
+const getShortFormattedDate = (date) => {
+	const day = date.getDate();
+	const month = date.toLocaleString('default', { month: 'short' }).substring(0, 3);
+	const year = date.getFullYear();
+	return `${day.toString().padStart(2, '0')} ${month} ${year}`;
 };
 
 const enquirerString = (details) => {
@@ -352,12 +348,11 @@ module.exports = {
 	updateProjectLocationInWelsh,
 	updateProjectRegions,
 	updateProjectInformation,
-	getShortMonthName,
+	getShortFormattedDate,
 	enquirerString,
 	getRandomFormattedDate,
 	getRandomQuarterDate,
 	validatePreviewAndPublishInfo,
-	getShortMonthNameExamTimeTable,
 	validateSectorSubsectorValues,
 	validateWelshProjectInformation
 };
