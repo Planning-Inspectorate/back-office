@@ -5,8 +5,16 @@ import { databaseConnector } from '#utils/database-connector.js';
  * @typedef {import('@prisma/client').Prisma.DocumentGetPayload<{include: {documentVersion: true }}>} DocumentWithDocumentVersion
  */
 
+/** @typedef {Object} LatestDocumentVersion
+ * @property {string} mime
+ * @property {string=} filter1Welsh
+ * @property {string=} authorWelsh
+ * @property {string=} descriptionWelsh
+ * @property {{case: {ApplicationDetails: {regions: [{region: {name: string}}]}}}} Document
+
 /**
- * Create a new Document record
+
+* Create a new Document record
  *
  * @param {import('@prisma/client').Prisma.DocumentUncheckedCreateInput} document
  * @returns {import('@prisma/client').PrismaPromise<Document>}
@@ -109,7 +117,7 @@ export const getByReferenceRelatedToCaseId = (documentReference, caseId) => {
  * From a given list of document ids, retrieve the ones which are publishable
  *
  * @param {string[]} documentIds
- * @returns {Promise<{guid: string, latestVersionId: number, latestDocumentVersion: {mime: string}}[]>}
+ * @returns {Promise<{guid: string, latestVersionId: number, latestDocumentVersion: LatestDocumentVersion}[]>}
  */
 export const getPublishableDocuments = (documentIds) => {
 	// @ts-ignore - if there is a latestDocumentVersion, there will be a latestVerionid
@@ -159,7 +167,31 @@ export const getPublishableDocuments = (documentIds) => {
 			latestVersionId: true,
 			latestDocumentVersion: {
 				select: {
-					mime: true
+					mime: true,
+					filter1Welsh: true,
+					authorWelsh: true,
+					descriptionWelsh: true,
+					Document: {
+						select: {
+							case: {
+								select: {
+									ApplicationDetails: {
+										select: {
+											regions: {
+												select: {
+													region: {
+														select: {
+															name: true
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -172,7 +204,7 @@ export const getPublishableDocuments = (documentIds) => {
  * This is used for S51 Advice documents
  *
  * @param {string[]} documentIds
- * @returns {Promise<{guid: string, latestVersionId: number, latestDocumentVersion: {mime: string}}[]>}
+ * @returns {Promise<{guid: string, latestVersionId: number, latestDocumentVersion: LatestDocumentVersion}[]>}
  */
 export const getPublishableDocumentsWithoutRequiredPropertiesCheck = (documentIds) => {
 	// @ts-ignore - if there is a latestDocumentVersion, there will be a latestVerionid

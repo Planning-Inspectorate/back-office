@@ -160,10 +160,12 @@ describe('Unpublishing documents', () => {
 		expect(response.body).toEqual([
 			{
 				author: 'Billy B',
+				authorWelsh: '',
 				caseRef: null,
 				dateCreated: 1678726449,
 				datePublished: null,
 				description: 'a test document',
+				descriptionWelsh: null,
 				documentGuid: docGuid,
 				documentId: null,
 				documentRef: null,
@@ -172,6 +174,7 @@ describe('Unpublishing documents', () => {
 				transcript: '',
 				fileName: 'test-filename',
 				filter1: 'Filter Category 1',
+				filter1Welsh: null,
 				filter2: null,
 				folderId: null,
 				fromFrontOffice: false,
@@ -219,10 +222,12 @@ describe('Unpublishing documents', () => {
 		expect(response.body).toEqual([
 			{
 				author: 'Billy B',
+				authorWelsh: '',
 				caseRef: null,
 				dateCreated: 1678726449,
 				datePublished: null,
 				description: 'a test document',
+				descriptionWelsh: null,
 				documentGuid: docGuid,
 				documentId: null,
 				documentRef: null,
@@ -231,6 +236,7 @@ describe('Unpublishing documents', () => {
 				examinationRefNo: '',
 				fileName: 'test-filename',
 				filter1: 'Filter Category 1',
+				filter1Welsh: null,
 				filter2: null,
 				folderId: null,
 				fromFrontOffice: false,

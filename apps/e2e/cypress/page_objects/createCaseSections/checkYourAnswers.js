@@ -60,7 +60,7 @@ export class CheckYourAnswersSection extends SectionBase {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 			this.checkAnswer('Regions', projectInfo.regions.sort().join(','));
 		} else {
-			this.checkAnswer('Regions(s)', projectInfo.regions.sort().join(','));
+			this.checkAnswer('Region(s)', projectInfo.regions.join(','));
 		}
 		this.checkAnswer('Map zoom level', mandatoryOnly ? 'None' : projectInfo.zoomLevel);
 

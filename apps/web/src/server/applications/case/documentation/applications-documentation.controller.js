@@ -207,20 +207,23 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
 /**
  * View the documentation properties page
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], showSuccessBanner: boolean|undefined}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], showSuccessBanner: boolean|undefined, caseIsWelsh: boolean}, {}>}
  */
 export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
-	const { caseId, documentGuid } = response.locals;
+	const { caseId, caseIsWelsh, documentGuid } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
 	const showSuccessBanner = getSuccessBanner(session);
 	destroySuccessBanner(session);
 
+	console.log(223, documentationFile);
+
 	response.render(`applications/case-documentation/properties/documentation-properties`, {
 		documentationFile,
 		documentVersions,
-		showSuccessBanner
+		showSuccessBanner,
+		caseIsWelsh
 	});
 }
 
