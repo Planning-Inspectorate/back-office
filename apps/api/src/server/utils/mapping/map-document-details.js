@@ -28,7 +28,7 @@ export const mapSingleDocumentDetailsFromVersion = ({
 		privateBlobContainer: documentVersion?.privateBlobContainer ?? '',
 		privateBlobPath: documentVersion?.privateBlobPath ?? '',
 		author: documentVersion?.author ?? '',
-		authorWelsh: documentVersion?.authorWelsh ?? '',
+		authorWelsh: documentVersion?.authorWelsh,
 
 		fileName: documentVersion.fileName ?? '',
 
