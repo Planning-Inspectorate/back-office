@@ -92,6 +92,7 @@ export const validateDocumentVersionMetadataBody = (documentVersionEventBody) =>
 		documentGuid: joi.string().optional(),
 		owner: joi.string().optional(),
 		author: joi.string().optional(),
+		authorWelsh: joi.string().optional(),
 		securityClassification: joi
 			.string()
 			.valid(...securityClassificationEnum.values())
