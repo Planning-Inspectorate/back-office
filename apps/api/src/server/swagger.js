@@ -181,6 +181,7 @@ export const spec = {
 			privateBlobPath: '/documents/123.pdf',
 			privateBlobContainer: 'my-blob-storage',
 			author: 'John Smith',
+			authorWelsh: 'John Smith (Welsh)',
 			dateCreated: 1_646_822_400,
 			publishedStatus: 'published',
 			redactedStatus: 'not redacted',
