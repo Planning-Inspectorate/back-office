@@ -2,7 +2,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "./case-edit-link.component.njk" import caseEditLink %}
 
-{% macro caseInfoTablePreview(case) %}
+{% macro caseInfoTablePreview(case, caseIsWelsh) %}
 
 	{% set regionNames = [] %}
 	{% for item in case.geographicalInformation.regions %}
@@ -31,15 +31,15 @@
 	{% set items = [
 		{ label: 'Case reference number', text: case.reference },
 		{ label: 'Project name', text: case.title },
-		{ label: 'Project name in Welsh' , text: case.titleWelsh, omitted: not 'applic-55-welsh-translation' | isFeatureActive },
+		{ label: 'Project name in Welsh' , text: case.titleWelsh, omitted: not caseIsWelsh },
 		{ label: 'Sector', text: case.sector.displayNameEn },
 		{ label: 'Subsector', text: case.subSector.displayNameEn },
 		{ label: 'Case stage', text: case.status },
 		{ label: 'Project description', html: case.description },
-		{ label: 'Project description in Welsh', html: case.descriptionWelsh, omitted: not ('applic-55-welsh-translation' | isFeatureActive) },
+		{ label: 'Project description in Welsh', html: case.descriptionWelsh, omitted: not caseIsWelsh },
 		{ label: 'Project email address', html: case.caseEmail },
 		{ label: 'Project location', html: case.geographicalInformation.locationDescription },
-		{ label: 'Project location in Welsh', html: case.geographicalInformation.locationDescriptionWelsh, omitted: not ('applic-55-welsh-translation' | isFeatureActive) },
+		{ label: 'Project location in Welsh', html: case.geographicalInformation.locationDescriptionWelsh, omitted: not caseIsWelsh },
 		{ label: 'Grid references', html: gridReferences },
 		{ label: 'Regions' if ('applic-55-welsh-translation' | isFeatureActive) else 'Region(s)', html: regionNames },
 		{ label: 'Map zoom level' , text: case.geographicalInformation.mapZoomLevel.displayNameEn }

@@ -57,7 +57,6 @@ applicationsCaseSummaryRouter
 		)
 	)
 	.post(
-		[locals.registerCase],
 		[validators.validateApplicationsCreateCaseNameWelsh],
 		[validators.validateApplicationsCreateCaseDescriptionWelsh],
 		[validators.validateApplicationsCreateCaseLocationWelsh],

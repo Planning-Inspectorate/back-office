@@ -6,7 +6,6 @@ import {
 	getProjectTeam,
 	getManyProjectTeamMembersInfo
 } from '../common/services/project-team.service.js';
-import { featureFlagClient } from '../../../common/feature-flags.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -98,26 +97,12 @@ export async function viewApplicationsCaseOverview(request, response) {
 		nsipOfficers
 	};
 
-	/** @type {boolean} */
-	const caseIsWelsh = await (async () => {
-		if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
-			return false;
-		}
-
-		return Boolean(
-			response.locals.case?.geographicalInformation?.regions?.find(
-				(/** @type {{name: string}} */ r) => r.name === 'wales'
-			)
-		);
-	})();
-
 	const banner = getSessionBanner(request.session);
 	deleteSessionBanner(request.session);
 
 	response.render(`applications/case/overview`, {
 		errors: request.errors,
 		selectedPageType: 'overview',
-		caseIsWelsh,
 		keyMembers,
 		banner
 	});
