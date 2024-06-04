@@ -1,7 +1,20 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% macro projectLocation(values, errors, isEdit, isWelsh) %}
-  {% set name = "geographicalInformation.locationDescriptionWelsh" if isWelsh else "geographicalInformation.locationDescription" %}
+
+	{% set name = "geographicalInformation.locationDescriptionWelsh" if isWelsh else
+		"geographicalInformation.locationDescription" %}
+
+	{% if name == 'geographicalInformation.locationDescriptionWelsh' and values['geographicalInformation.locationDescription'] != null%}
+
+		<p class='govuk-body govuk-!-margin-bottom-0'>Project location in English:</p>
+
+		{{ govukInsetText({
+  			text: values['geographicalInformation.locationDescription'],
+			classes: 'govuk-!-margin-top-4'
+		}) }}
+	{% endif %}
 
 	{{ govukTextarea({
 		label: {
