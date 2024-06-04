@@ -2,7 +2,7 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author" | "authorWelsh" | "transcript"} MetaDataNames */
+/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author" | "authorWelsh" | "transcript"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
@@ -22,6 +22,13 @@ const layouts = {
 		hint: 'There is a limit of 800 characters',
 		pageTitle: 'Enter document description',
 		metaDataName: 'description',
+		maxLength: 800
+	},
+	descriptionWelsh: {
+		label: 'Description of the document in Welsh',
+		hint: 'There is a limit of 800 characters',
+		pageTitle: 'Enter document description',
+		metaDataName: 'descriptionWelsh',
 		maxLength: 800
 	},
 	webfilter: {
