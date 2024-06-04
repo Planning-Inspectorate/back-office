@@ -78,7 +78,7 @@ export const getExamTimetable = async (log, caseReference) => {
  * @property {string} date
  * @property {string} description
  * @property {string[]} eventLineItems
- * @pr
+ * @property {string} published
  */
 
 /**
@@ -97,7 +97,16 @@ const mapTimetableFromItems = (caseReference, timetableItems) => {
 	return timetableItems.reduce(
 		(
 			timetable,
-			{ eventId, type, eventTitle, date, eventDeadlineStartDate, description, eventLineItems }
+			{
+				eventId,
+				type,
+				eventTitle,
+				date,
+				eventDeadlineStartDate,
+				description,
+				eventLineItems,
+				published
+			}
 		) => {
 			timetable.events.push(
 				removeNullValues({
@@ -108,7 +117,9 @@ const mapTimetableFromItems = (caseReference, timetableItems) => {
 					date,
 					eventDeadlineStartDate,
 					// seem to be all null in ODW and we need an array to pass validation
-					eventLineItems: eventLineItems?.length > 0 ? eventLineItems : []
+					eventLineItems: eventLineItems?.length > 0 ? eventLineItems : [],
+					// published is a string '1' or '0' or null in ODW
+					published: published === '1'
 				})
 			);
 

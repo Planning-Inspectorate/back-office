@@ -16,6 +16,7 @@ export const migrateExamTimetables = async (examTimetables) => {
 		const { caseId } = await mapModelToTimetableEntity(timetableModel);
 
 		const examTimetableFolderId = await getExamTimetableFolderId(caseId);
+		const published = timetableModel.published || false;
 
 		// Timetable ID isn't important to preserve as it's not used as a FK anywhere - so we can just use any ID and upsert the entity
 		const { id } = await databaseConnector.examinationTimetable.upsert({
@@ -23,10 +24,12 @@ export const migrateExamTimetables = async (examTimetables) => {
 				caseId
 			},
 			update: {
-				caseId
+				caseId,
+				published
 			},
 			create: {
-				caseId
+				caseId,
+				published
 			}
 		});
 
@@ -87,7 +90,6 @@ const mapModelToTimetableEntity = async ({ caseReference }) => {
 	}
 
 	return {
-		// TODO: published is missing
 		caseId
 	};
 };

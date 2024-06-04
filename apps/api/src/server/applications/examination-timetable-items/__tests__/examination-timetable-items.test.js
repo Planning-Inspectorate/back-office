@@ -710,6 +710,7 @@ describe('Test examination timetable items API', () => {
 
 		const expectedUpdateExaminationTimetablePayload = {
 			caseReference: 'REF-ID-1',
+			published: true,
 			events: [
 				{
 					type: 'Deadline',
