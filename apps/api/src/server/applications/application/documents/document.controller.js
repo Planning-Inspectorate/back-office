@@ -458,15 +458,12 @@ export const deleteDocumentSoftly = async ({ params: { id: caseId, guid } }, res
  * @returns {Promise<void>} A Promise that resolves when the metadata has been successfully stored in the database.
  */
 export const storeDocumentVersion = async (request, response) => {
-	// Extract caseId and guid from the request parameters
 	const { guid, id: caseId } = request.params;
 
-	// Validate the request body and extract the document version metadata
 	const { documentVersion, transcriptReference } = validateDocumentVersionMetadataBody(
 		request.body
 	);
 
-	// Retrieve the document from the database using the provided guid and caseId
 	const document = await documentRepository.getById(guid);
 	if (!document) {
 		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
@@ -490,7 +487,6 @@ export const storeDocumentVersion = async (request, response) => {
 		documentVersion.transcriptGuid = transcriptDocument.guid;
 	}
 
-	// Upsert the document version metadata to the database and get the updated document details
 	const documentDetails = await upsertDocumentVersionAndReturnDetails(
 		caseId,
 		document.guid,
@@ -498,7 +494,6 @@ export const storeDocumentVersion = async (request, response) => {
 		document.latestVersionId ?? 1
 	);
 
-	// Send the document details back in the response
 	response.status(200).send(documentDetails);
 };
 
