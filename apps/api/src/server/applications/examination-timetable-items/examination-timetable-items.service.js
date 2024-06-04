@@ -73,7 +73,8 @@ async function buildExamTimetableItemsPayload(examinationTimetableId) {
 		events:
 			examinationTimetable.ExaminationTimetableItem?.map(
 				buildSingleExaminationTimetableItemPayload
-			) ?? []
+			) ?? [],
+		published: examinationTimetable.published
 	};
 }
 
