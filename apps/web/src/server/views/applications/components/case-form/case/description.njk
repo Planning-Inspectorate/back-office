@@ -1,11 +1,29 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% macro description(name, values, errors) %}
+
+	{% set labelText = 'Description of the project' %}
+	{% if name == 'descriptionWelsh'%}
+		{% set labelText = 'Description of the project in Welsh' %}
+	{% endif %}
+
+
+	{% if name == 'descriptionWelsh' and values['description'] != null %}
+
+		<p class='govuk-body govuk-!-margin-bottom-0'>Description of the project in English:</p>
+
+		{{ govukInsetText({
+  			text: values['description'],
+			classes: 'govuk-!-margin-top-4'
+		}) }}
+	{% endif %}
+
 	{{ govukTextarea({
 		name: name,
 		id: name,
 		label: {
-			text: "Description of the project",
+			text: labelText,
 			classes: 'font-weight--700'
 		},
 		errorMessage: errors[name] | errorMessage,

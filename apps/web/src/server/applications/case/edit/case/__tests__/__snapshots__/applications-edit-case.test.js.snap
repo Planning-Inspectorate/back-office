@@ -1,6 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications edit Description GET edit/description should render page with resumed data 1`] = `
+exports[`applications edit Grid references GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Enter grid references</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
+            <div id=\\"geographicalInformation.gridReference.easting-hint\\"
+            class=\\"govuk-hint\\">for example, 345678</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"geographicalInformation.gridReference.easting\\" name=\\"geographicalInformation.gridReference.easting\\"
+            type=\\"text\\" value=\\"123456\\" aria-describedby=\\"geographicalInformation.gridReference.easting-hint\\">
+        </div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.northing\\">Grid reference Northing</label>
+            <div id=\\"geographicalInformation.gridReference.northing-hint\\"
+            class=\\"govuk-hint\\">for example, 345678</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"geographicalInformation.gridReference.northing\\" name=\\"geographicalInformation.gridReference.northing\\"
+            type=\\"text\\" value=\\"987654\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications edit Name Description GET edit/description should render page with resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter project description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -22,25 +51,21 @@ exports[`applications edit Description GET edit/description should render page w
 </main>"
 `;
 
-exports[`applications edit Grid references GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
+exports[`applications edit Name Description GET edit/description-welsh When feature flag is active should render page with english inset 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter grid references</h1>
+    <h1 class=\\"govuk-heading-l\\"> Project description in Welsh</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <p class='govuk-body govuk-!-margin-bottom-0'>Description of the project in English:</p>
+        <div class=\\"govuk-inset-text govuk-!-margin-top-4\\">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim
+            ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
+            ex ea commodo consequat</div>
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
-            <div id=\\"geographicalInformation.gridReference.easting-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"geographicalInformation.gridReference.easting\\" name=\\"geographicalInformation.gridReference.easting\\"
-            type=\\"text\\" value=\\"123456\\" aria-describedby=\\"geographicalInformation.gridReference.easting-hint\\">
-        </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.northing\\">Grid reference Northing</label>
-            <div id=\\"geographicalInformation.gridReference.northing-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"geographicalInformation.gridReference.northing\\" name=\\"geographicalInformation.gridReference.northing\\"
-            type=\\"text\\" value=\\"987654\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"descriptionWelsh\\">Description of the project in Welsh</label>
+            <div id=\\"descriptionWelsh-hint\\"
+            class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+                MW</div>
+            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"descriptionWelsh\\"
+            name=\\"descriptionWelsh\\" rows=\\"5\\" aria-describedby=\\"descriptionWelsh-hint\\"></textarea>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -102,7 +127,28 @@ exports[`applications edit Name GET /edit/name should render form 1`] = `
 </main>"
 `;
 
-exports[`applications edit Project location GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
+exports[`applications edit Name GET edit/name-welsh When feature flag is active should render page with english inset 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Project name in Welsh</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <p class='govuk-body govuk-!-margin-bottom-0'>Name of the project in English:</p>
+        <div class=\\"govuk-inset-text govuk-!-margin-top-4\\">Title CASE/08</div>
+        <div class=\\"govuk-form-group\\">
+            <label class=\\"govuk-label font-weight--700\\" for=\\"titleWelsh\\">Name of the project in Welsh</label>
+            <div id=\\"titleWelsh-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
+            <input class=\\"govuk-input govuk-!-width-one-third\\"
+            id=\\"titleWelsh\\" name=\\"titleWelsh\\" type=\\"text\\" aria-describedby=\\"titleWelsh-hint\\">
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications edit Name Project location GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <h1 class=\\"govuk-heading-l\\"> Enter project location</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
@@ -112,6 +158,28 @@ exports[`applications edit Project location GET /edit/:caseId/project-location s
             <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
             id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
             rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint\\">London</textarea>
+        </div>
+        <div class=\\"govuk-grid-row\\">
+            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications edit Name Project location GET edit/:caseId/project-location-welsh When feature flag is active should render page with english inset 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <h1 class=\\"govuk-heading-l\\"> Project location in Welsh</h1>
+    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <p class='govuk-body govuk-!-margin-bottom-0'>Project location in English:</p>
+        <div class=\\"govuk-inset-text govuk-!-margin-top-4\\">London</div>
+        <div class=\\"govuk-form-group\\">
+            <div id=\\"geographicalInformation.locationDescriptionWelsh-hint\\" class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
+                Thanet Offshore Wind Farm</div>
+            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
+            id=\\"geographicalInformation.locationDescriptionWelsh\\" name=\\"geographicalInformation.locationDescriptionWelsh\\"
+            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescriptionWelsh-hint\\"></textarea>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">

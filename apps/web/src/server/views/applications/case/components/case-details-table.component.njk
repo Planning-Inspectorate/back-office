@@ -16,6 +16,7 @@
 		{% set gridReferences = gridReferences + params.case.geographicalInformation.gridReference.northing + ' (Northing)' %}
 	{% endif %}
 
+{{caseId}}
 	{% set publishedTag %}
 	{% if params.case.publishedDate %}
 		<strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>

@@ -9,6 +9,7 @@ import {
 	fixtureZoomLevels
 } from '../../../../../../../testing/applications/fixtures/options-item.js';
 import { createTestEnvironment } from '../../../../../../../testing/index.js';
+import { installMockFeatureFlags } from '../../../../../../../testing/app/mocks/featureFlags';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -22,6 +23,10 @@ const nocks = () => {
 	nock('http://test/')
 		.get(/\/applications\/4(.*)/g)
 		.reply(200, fixtureCases[4]);
+	// welsh case
+	nock('http://test/')
+		.get(/\/applications\/7(.*)/g)
+		.reply(200, fixtureCases[7]);
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
 		.reply(200, fixtureSubSectors);
@@ -78,42 +83,162 @@ describe('applications edit', () => {
 				});
 			});
 		});
-	});
 
-	describe('Description', () => {
-		describe('GET edit/description', () => {
-			const baseUrl = '/applications-service/case/3/edit/description';
+		describe('GET edit/name-welsh', () => {
+			const baseUrl = '/applications-service/case/7/edit/name-welsh';
+			describe('When feature flag is NOT active', () => {
+				beforeEach(async () => {
+					// disable all feature flags
+					installMockFeatureFlags(false);
+
+					await request.get('/applications-service/');
+					nocks();
+				});
+
+				it('should redirect to project info page', async () => {
+					const response = await request.get(baseUrl);
+
+					expect(response?.headers?.location).toEqual(
+						'/applications-service/case/7/project-information'
+					);
+				});
+			});
+
+			describe('When feature flag is active', () => {
+				beforeEach(async () => {
+					// enable all feature flags
+					installMockFeatureFlags(true);
+
+					await request.get('/applications-service/');
+					nocks();
+				});
+
+				it('should render page with english inset', async () => {
+					const response = await request.get(baseUrl);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Name of the project in English');
+					expect(element.innerHTML).toContain('Welsh');
+				});
+			});
+		});
+
+		describe('Description', () => {
+			describe('GET edit/description', () => {
+				const baseUrl = '/applications-service/case/3/edit/description';
+
+				beforeEach(async () => {
+					await request.get('/applications-service/');
+					nocks();
+				});
+
+				it('should render page with resumed data', async () => {
+					const response = await request.get(baseUrl);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain(fixtureCases[3].description.slice(0, 20));
+				});
+			});
+
+			describe('GET edit/description-welsh', () => {
+				const baseUrl = '/applications-service/case/7/edit/description-welsh';
+				describe('When feature flag is NOT active', () => {
+					beforeEach(async () => {
+						// disable all feature flags
+						installMockFeatureFlags(false);
+
+						await request.get('/applications-service/');
+						nocks();
+					});
+
+					it('should redirect to project info page', async () => {
+						const response = await request.get(baseUrl);
+
+						expect(response?.headers?.location).toEqual(
+							'/applications-service/case/7/project-information'
+						);
+					});
+				});
+
+				describe('When feature flag is active', () => {
+					beforeEach(async () => {
+						// enable all feature flags
+						installMockFeatureFlags(true);
+
+						await request.get('/applications-service/');
+						nocks();
+					});
+
+					it('should render page with english inset', async () => {
+						const response = await request.get(baseUrl);
+						const element = parseHtml(response.text);
+
+						expect(element.innerHTML).toMatchSnapshot();
+						expect(element.innerHTML).toContain('Description of the project in English');
+						expect(element.innerHTML).toContain('Welsh');
+					});
+				});
+			});
+		});
+
+		describe('Project location', () => {
+			const baseUrl = `/applications-service/case/3/edit/project-location`;
 
 			beforeEach(async () => {
 				await request.get('/applications-service/');
 				nocks();
 			});
 
-			it('should render page with resumed data', async () => {
-				const response = await request.get(baseUrl);
-				const element = parseHtml(response.text);
+			describe('GET /edit/:caseId/project-location', () => {
+				it('should display resumed data if the API returns something', async () => {
+					const response = await request.get(baseUrl);
+					const element = parseHtml(response.text);
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(fixtureCases[3].description.slice(0, 20));
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('London');
+				});
 			});
-		});
-	});
 
-	describe('Project location', () => {
-		const baseUrl = `/applications-service/case/3/edit/project-location`;
+			describe('GET edit/:caseId/project-location-welsh', () => {
+				const baseUrl = '/applications-service/case/7/edit/project-location-welsh';
+				describe('When feature flag is NOT active', () => {
+					beforeEach(async () => {
+						// disable all feature flags
+						installMockFeatureFlags(false);
 
-		beforeEach(async () => {
-			await request.get('/applications-service/');
-			nocks();
-		});
+						await request.get('/applications-service/');
+						nocks();
+					});
 
-		describe('GET /edit/:caseId/project-location', () => {
-			it('should display resumed data if the API returns something', async () => {
-				const response = await request.get(baseUrl);
-				const element = parseHtml(response.text);
+					it('should redirect to project info page', async () => {
+						const response = await request.get(baseUrl);
 
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('London');
+						expect(response?.headers?.location).toEqual(
+							'/applications-service/case/7/project-information'
+						);
+					});
+				});
+
+				describe('When feature flag is active', () => {
+					beforeEach(async () => {
+						// enable all feature flags
+						installMockFeatureFlags(true);
+
+						await request.get('/applications-service/');
+						nocks();
+					});
+
+					it('should render page with english inset', async () => {
+						const response = await request.get(baseUrl);
+						const element = parseHtml(response.text);
+
+						expect(element.innerHTML).toMatchSnapshot();
+						expect(element.innerHTML).toContain('Project location in English');
+						expect(element.innerHTML).toContain('Welsh');
+					});
+				});
 			});
 		});
 	});

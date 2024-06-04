@@ -17,7 +17,7 @@ applicationsEditCaseRouter
 applicationsEditCaseRouter
 	.route('/name-welsh')
 	.get(
-		registerCaseWithQuery(['titleWelsh']),
+		registerCaseWithQuery(['title', 'titleWelsh']),
 		asyncHandler(controller.viewApplicationsEditCaseNameWelsh)
 	)
 	.post(
@@ -39,7 +39,7 @@ applicationsEditCaseRouter
 applicationsEditCaseRouter
 	.route('/description-welsh')
 	.get(
-		registerCaseWithQuery(['descriptionWelsh']),
+		registerCaseWithQuery(['description', 'descriptionWelsh']),
 		asyncHandler(controller.viewApplicationsEditCaseDescriptionWelsh)
 	)
 	.post(
