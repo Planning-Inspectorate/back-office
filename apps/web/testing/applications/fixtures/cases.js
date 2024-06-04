@@ -3,6 +3,21 @@ import { fixtureSectors, fixtureSubSectors } from './options-item.js';
 
 /** @typedef {import('../../../src/server/applications/applications.types').Case} Case */
 
+const welshCase = createCase({
+	id: 8,
+	modifiedDate: `${new Date(2022, 0, 31).getTime() / 1000}`,
+	publishedDate: `${new Date(2023, 0, 31).getTime() / 1000}`,
+	title: 'Welsh Case',
+	reference: 'CASE/08',
+	status: 'Pre-application'
+});
+welshCase.geographicalInformation?.regions.push({
+	id: 999,
+	name: 'wales',
+	displayNameCy: 'wales',
+	displayNameEn: 'wales'
+});
+
 /** @type {Case[]} */
 export const fixtureCases = [
 	createCase({
@@ -64,5 +79,6 @@ export const fixtureCases = [
 		title: 'Published case with unpublished changes',
 		reference: 'CASE/07',
 		status: 'Pre-application'
-	})
+	}),
+	welshCase
 ];

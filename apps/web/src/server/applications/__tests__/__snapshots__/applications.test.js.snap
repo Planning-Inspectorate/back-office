@@ -141,12 +141,12 @@ exports[`applications GET / should render the open applications belonging to the
             </div>
             <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 21</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-2\\"> Item EN 23</span></h2>
                 </div>
                 <div id=\\"cases-list-content-2\\" class=\\"govuk-accordion__section-content\\"
                 aria-labelledby=\\"cases-list-heading-2\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM22 Item EN 22</span>
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM24 Item EN 24</span>
                         </summary>
                         <div class=\\"govuk-details__text\\">
                             <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -171,12 +171,12 @@ exports[`applications GET / should render the open applications belonging to the
             </div>
             <div class=\\"govuk-accordion__section\\">
                 <div class=\\"govuk-accordion__section-header\\">
-                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 23</span></h2>
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-3\\"> Item EN 25</span></h2>
                 </div>
                 <div id=\\"cases-list-content-3\\" class=\\"govuk-accordion__section-content\\"
                 aria-labelledby=\\"cases-list-heading-3\\">
                     <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
-                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM24 Item EN 24</span>
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM26 Item EN 26</span>
                         </summary>
                         <div class=\\"govuk-details__text\\">
                             <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
@@ -189,6 +189,36 @@ exports[`applications GET / should render the open applications belonging to the
                                 <tbody class=\\"govuk-table__body\\">
                                     <tr class=\\"govuk-table__row\\">
                                         <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/7/\\"> CASE/07 - Title CASE/07</a>
+                                        </td>
+                                        <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <div class=\\"govuk-accordion__section\\">
+                <div class=\\"govuk-accordion__section-header\\">
+                    <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"cases-list-heading-4\\"> Item EN 21</span></h2>
+                </div>
+                <div id=\\"cases-list-content-4\\" class=\\"govuk-accordion__section-content\\"
+                aria-labelledby=\\"cases-list-heading-4\\">
+                    <details class=\\"govuk-details\\" data-module=\\"govuk-details\\">
+                        <summary class=\\"govuk-details__summary\\"><span class=\\"govuk-details__summary-text\\"> ITEM22 Item EN 22</span>
+                        </summary>
+                        <div class=\\"govuk-details__text\\">
+                            <table class=\\"govuk-table pins-table--fixed pins-table--bordered\\">
+                                <thead class=\\"govuk-table__head\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <th scope=\\"col\\" class=\\"govuk-table__header\\">Name</th>
+                                        <th scope=\\"col\\" class=\\"govuk-table__header govuk-!-width-one-quarter text-align--right\\">Stage</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=\\"govuk-table__body\\">
+                                    <tr class=\\"govuk-table__row\\">
+                                        <td class=\\"govuk-table__cell\\"><a class=\\"govuk-body\\" href=\\"/applications-service/case/8/\\"> CASE/08 - Title CASE/08</a>
                                         </td>
                                         <td class=\\"govuk-table__cell govuk-!-width-one-quarter text-align--right\\"><strong class=\\"govuk-tag govuk-tag--\\">Pre-application</strong>
                                         </td>

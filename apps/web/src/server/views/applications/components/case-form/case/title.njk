@@ -1,9 +1,27 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% macro title(name, values, errors) %}
+
+	{% set labelText = 'Name of the project' %}
+	{% if name == 'titleWelsh'%}
+		{% set labelText = 'Name of the project in Welsh' %}
+	{% endif %}
+
+
+	{% if name == 'titleWelsh' and values['title'] != null%}
+
+		<p class='govuk-body govuk-!-margin-bottom-0'>Name of the project in English:</p>
+
+		{{ govukInsetText({
+  			text: values['title'],
+			classes: 'govuk-!-margin-top-4'
+		}) }}
+	{% endif %}
+
 	{{ govukInput({
 		label: {
-			text: "Name of the project",
+			text: labelText,
 			classes: 'font-weight--700'
 		},
 		id: name,
