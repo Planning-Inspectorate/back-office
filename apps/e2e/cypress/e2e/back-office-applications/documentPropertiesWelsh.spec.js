@@ -21,8 +21,8 @@ const { applications: applicationsUsers } = users;
 const fileName = () => 'filename';
 const description = () => 'description';
 const descriptionforWelsh = () => 'description for welsh';
-const from = () => 'from';
-const documentfromWelsh = () => 'document from welsh';
+const documentFrom = () => 'from';
+const documentFromWelsh = () => 'document from welsh';
 const agent = () => 'agent';
 const webfilter = () => 'webfilter';
 const webfilterforWelsh = () => 'webfilter for welsh';
@@ -66,8 +66,11 @@ describe('Document Properties including welsh fields', () => {
 			documentPropertiesPage.updateDocumentProperty('File name', fileName());
 			documentPropertiesPage.updateDocumentProperty('Description', description());
 			//documentPropertiesPage.updateDocumentProperty('Description in Welsh', descriptionforWelsh());
-			//documentPropertiesPage.updateDocumentProperty('Who the document is from', from());
-			//documentPropertiesPage.updateDocumentProperty('Who the document is from in Welsh', documentfromWelsh());
+			documentPropertiesPage.updateDocumentProperty('Who the document is from', documentFrom());
+			documentPropertiesPage.updateDocumentProperty(
+				'Who the document is from in Welsh',
+				documentFromWelsh()
+			);
 			documentPropertiesPage.updateDocumentProperty('Agent (optional)', agent());
 			documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter());
 			//documentPropertiesPage.updateDocumentProperty('Webfilter in Welsh', webfilter());
