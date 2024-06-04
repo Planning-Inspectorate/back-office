@@ -154,7 +154,8 @@ describe('GET search for non S51 Advice documents in a case', () => {
 									{ fileName: { contains: 'testfile' } },
 									{ description: { contains: 'testfile' } },
 									{ representative: { contains: 'testfile' } },
-									{ author: { contains: 'testfile' } }
+									{ author: { contains: 'testfile' } },
+									{ mime: { contains: 'testfile' } }
 								]
 							}
 						}

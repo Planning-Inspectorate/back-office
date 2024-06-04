@@ -332,6 +332,9 @@ const buildWhereClause_AllDocsOnCaseWithoutS51Advice = (
 							},
 							{
 								author: { contains: criteria }
+							},
+							{
+								mime: { contains: criteria }
 							}
 						]
 					}

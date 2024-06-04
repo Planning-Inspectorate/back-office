@@ -9,3 +9,13 @@ We're going to have an issue with legacy IDs when carrying out migrations. ODW w
 Some potential solutions
 1. Change types of all IDs to string, and use GUID IDs for all new entities. This is definitely not ideal.
 2. Look at the Horizon IDs, figure out the max for each entity, and set a new sensible seed base for all new auto-incrementing IDs. INT type is 32 bit (signed) so we have plenty to play with.
+
+## Scattered migration code in the API
+There are cases when some additions need to be made to the API code for migration development (data mapping tweaks etc).
+These have been marked with a comment prior to the change prefixed with `MigrationAddition:`. This will allow us to globally search for any occurrences and clean up tech debt at a later stage once the migration piece has been completed.
+
+e.g.
+```js
+// MigrationAddition: can remove after
+someMigrationCodeInTheApi()
+```
