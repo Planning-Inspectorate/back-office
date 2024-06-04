@@ -89,6 +89,7 @@ export const validateDocumentVersionMetadataBody = (documentVersionEventBody) =>
 			.optional(),
 		representative: joi.string().allow('').optional(),
 		description: joi.string().optional(),
+		descriptionWelsh: joi.string().optional(),
 		documentGuid: joi.string().optional(),
 		owner: joi.string().optional(),
 		author: joi.string().optional(),
