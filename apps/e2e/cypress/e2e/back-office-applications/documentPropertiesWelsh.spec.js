@@ -65,7 +65,7 @@ describe('Document Properties including welsh fields', () => {
 			fileUploadPage.clickLinkByText('View/Edit properties');
 			documentPropertiesPage.updateDocumentProperty('File name', fileName());
 			documentPropertiesPage.updateDocumentProperty('Description', description());
-			//documentPropertiesPage.updateDocumentProperty('Description in Welsh', descriptionforWelsh());
+			documentPropertiesPage.updateDocumentProperty('Description in Welsh', descriptionforWelsh());
 			documentPropertiesPage.updateDocumentProperty('Who the document is from', documentFrom());
 			documentPropertiesPage.updateDocumentProperty(
 				'Who the document is from in Welsh',
