@@ -2,7 +2,7 @@ import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author" | "authorWelsh" | "transcript"} MetaDataNames */
+/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
@@ -36,6 +36,13 @@ const layouts = {
 		hint: 'There is a limit of 100 characters',
 		pageTitle: 'Enter the webfilter',
 		metaDataName: 'filter1',
+		maxLength: 100
+	},
+	webfilterWelsh: {
+		label: 'Webfilter in Welsh',
+		hint: 'There is a limit of 100 characters',
+		pageTitle: 'Enter the webfilter',
+		metaDataName: 'filter1Welsh',
 		maxLength: 100
 	},
 	agent: {
