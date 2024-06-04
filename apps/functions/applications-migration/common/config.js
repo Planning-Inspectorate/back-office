@@ -40,12 +40,16 @@ const validate = (schema, config) => {
 const loadApiConfig = memoize(() => {
 	const schema = {
 		apiHost: joi.string(),
-		azureKeyVaultEnabled: joi.boolean()
+		azureKeyVaultEnabled: joi.boolean(),
+		blobStorageAccountDomain: joi.string(),
+		privateBlobContainer: joi.string()
 	};
 
 	const config = {
 		apiHost: environment.API_HOST,
-		azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED === 'true'
+		azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED === 'true',
+		blobStorageAccountDomain: environment.BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN,
+		privateBlobContainer: 'document-service-uploads'
 	};
 
 	validate(schema, config);

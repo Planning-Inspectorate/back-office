@@ -412,7 +412,9 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 		privateBlobContainer: documentWithBlobStorageInfo.privateBlobContainer,
 		version,
 		// @ts-ignore
-		privateBlobPath: documentWithBlobStorageInfo.documents[0].blobStoreUrl
+		// MigrationAddition: this null check is for the transformation of migrated html documents,
+		privateBlobPath:
+			documentToUpload.privateBlobPath ?? documentWithBlobStorageInfo.documents[0].blobStoreUrl
 	});
 
 	const thisVersionId = (documentFromDatabase.latestVersionId ?? 0) + 1;

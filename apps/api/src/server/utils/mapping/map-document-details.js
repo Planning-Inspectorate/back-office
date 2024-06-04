@@ -29,7 +29,8 @@ export const mapSingleDocumentDetailsFromVersion = ({
 		privateBlobPath: documentVersion?.privateBlobPath ?? '',
 		author: documentVersion?.author ?? '',
 		authorWelsh: documentVersion?.authorWelsh,
-
+		// MigrationAddition: can remove after
+		...(documentVersion.owner && { owner: documentVersion.owner }),
 		fileName: documentVersion.fileName ?? '',
 
 		originalFilename: documentVersion?.originalFilename ?? '',
