@@ -1,0 +1,30 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% macro textareaFormComponent(options) %}
+			{% if options.englishValue != null %}
+				<h1 class="govuk-heading-l">
+					{{ options.label }}
+				</h1>
+			{% endif %}
+
+			{% if options.englishValue != null %}
+				<p class='govuk-body govuk-!-margin-bottom-0'>{{ options.englishLabel }}:</p>
+
+				{{ govukInsetText({
+					text: options.englishValue
+				}) }}
+			{% endif %}
+
+				{{ govukTextarea({
+					id: options.name,
+					name: options.name,
+					label: {
+						text: options.label,
+						classes: "govuk-label--l" if options.englishValue == null else "govuk-label--m",
+						isPageHeading: true if options.englishValue == null
+					},
+					errorMessage: options.errorMessage | errorMessage,
+					value: options.value
+				}) }}
+{% endmacro %}

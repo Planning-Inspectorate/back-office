@@ -19,15 +19,18 @@ export const s51ValidatorsDispatcher = async (request, response, next) => {
 	/** @type {Record<string, RequestHandler>} */
 	const validators = {
 		title: validateS51Title,
+		'title-in-welsh': validateS51TitleWelsh,
 		enquirer: validateS51Enquirer,
 		method: validateS51Method,
 		'enquiry-date': validateS51Details('enquiry', 'enquiry details', ['date']),
 		'enquiry-detail': validateS51Details('enquiry', 'enquiry details', ['details']),
 		'enquiry-details': validateS51Details('enquiry', 'enquiry details', ['date', 'details']),
+		'enquiry-detail-in-welsh': validateS1EnquiryDetailsWelsh,
 		person: validateS51Person,
 		'advice-date': validateS51Details('advice', 'advice given', ['date']),
 		'advice-detail': validateS51Details('advice', 'advice given', ['details']),
-		'advice-details': validateS51Details('advice', 'advice given', ['date', 'details'])
+		'advice-details': validateS51Details('advice', 'advice given', ['date', 'details']),
+		'advice-detail-in-welsh': validateS1AdviceDetailsWelsh
 	};
 
 	if (Object.keys(validators).includes(step)) {
@@ -47,6 +50,15 @@ export const validateS51Title = createValidator(
 		.withMessage('You must enter a S51 advice title')
 		.isLength({ max: 255 })
 		.withMessage('The name must be 255 characters or fewer')
+);
+
+export const validateS51TitleWelsh = createValidator(
+	body('titleWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the S51 title in Welsh')
+		.isLength({ max: 255 })
+		.withMessage('The S51 title in Welsh must be 255 characters or fewer')
 );
 
 export const validateS51Method = createValidator(
@@ -158,6 +170,24 @@ export const validateS51Details =
 			...(paramsToValidate.includes('details') ? [checkEnquiryDetails] : [])
 		])(request, response, next);
 	};
+
+export const validateS1EnquiryDetailsWelsh = createValidator(
+	body('enquiryDetailsWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the S51 Enquiry details in Welsh')
+		.isLength({ max: 255 })
+		.withMessage('The S51 Enquiry details in Welsh must be 255 characters or fewer')
+);
+
+export const validateS1AdviceDetailsWelsh = createValidator(
+	body('adviceDetailsWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the S51 Advice given in Welsh')
+		.isLength({ max: 255 })
+		.withMessage('The S51 Advice given in Welsh must be 255 characters or fewer')
+);
 
 export const validateS51AdviceToChange = createValidator(
 	body('selectedFilesIds')

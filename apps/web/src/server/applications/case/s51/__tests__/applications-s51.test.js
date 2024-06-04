@@ -671,6 +671,141 @@ describe('S51 Advice', () => {
 			});
 		});
 	});
+
+	describe('S51 edit Welsh properties', () => {
+		describe('S51 title in Welsh', () => {
+			describe('GET /case/123/project-documentation/21/s51-advice/222/edit/title-in-welsh', () => {
+				it('should render the page', async () => {
+					await request.get('/applications-service/');
+
+					const response = await request.get(`${baseUrl}/222/edit/title-in-welsh`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('S51 title in Welsh');
+
+					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+					expect(backElement.innerHTML).toContain(baseUrl);
+				});
+			});
+
+			describe('POST /case/123/project-documentation/21/s51-advice/edit/title-in-welsh', () => {
+				beforeEach(async () => {
+					await request.get('/applications-service/');
+				});
+
+				it('Should return error if title in Welsh is not provided', async () => {
+					const response = await request.post(`${baseUrl}/222/edit/title-in-welsh`).send({});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Enter the S51 title in Welsh');
+				});
+
+				it('Should return error if title in Welsh has more than 250 characters', async () => {
+					const response = await request.post(`${baseUrl}/222/edit/title-in-welsh`).send({
+						titleWelsh: 'X'.repeat(300)
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain(
+						'The S51 title in Welsh must be 255 characters or fewer'
+					);
+				});
+			});
+		});
+
+		describe('S51 enquiry details in Welsh', () => {
+			describe('GET /case/123/project-documentation/21/s51-advice/222/edit/enquiry-detail-in-welsh', () => {
+				it('should render the page', async () => {
+					await request.get('/applications-service/');
+
+					const response = await request.get(`${baseUrl}/222/edit/enquiry-detail-in-welsh`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Enquiry details in Welsh');
+
+					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+					expect(backElement.innerHTML).toContain(baseUrl);
+				});
+			});
+
+			describe('POST /case/123/project-documentation/21/s51-advice/edit/enquiry-detail-in-welsh', () => {
+				beforeEach(async () => {
+					await request.get('/applications-service/');
+				});
+
+				it('Should return error if enquiry details in Welsh is not provided', async () => {
+					const response = await request
+						.post(`${baseUrl}/222/edit/enquiry-detail-in-welsh`)
+						.send({});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Enter the S51 Enquiry details in Welsh');
+				});
+
+				it('Should return error if enquiry details in Welsh has more than 250 characters', async () => {
+					const response = await request.post(`${baseUrl}/222/edit/enquiry-detail-in-welsh`).send({
+						enquiryDetailsWelsh: 'X'.repeat(300)
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain(
+						'The S51 Enquiry details in Welsh must be 255 characters or fewer'
+					);
+				});
+			});
+		});
+
+		describe('S51 advice given in Welsh', () => {
+			describe('GET /case/123/project-documentation/21/s51-advice/222/edit/advice-detail-in-welsh', () => {
+				it('should render the page', async () => {
+					await request.get('/applications-service/');
+
+					const response = await request.get(`${baseUrl}/222/edit/advice-detail-in-welsh`);
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Advice given in Welsh');
+
+					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+					expect(backElement.innerHTML).toContain(baseUrl);
+				});
+			});
+
+			describe('POST /case/123/project-documentation/21/s51-advice/edit/advice-detail-in-welsh', () => {
+				beforeEach(async () => {
+					await request.get('/applications-service/');
+				});
+
+				it('Should return error if advice given in Welsh is not provided', async () => {
+					const response = await request
+						.post(`${baseUrl}/222/edit/advice-detail-in-welsh`)
+						.send({});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('Enter the S51 Advice given in Welsh');
+				});
+
+				it('Should return error if advice given in Welsh has more than 250 characters', async () => {
+					const response = await request.post(`${baseUrl}/222/edit/advice-detail-in-welsh`).send({
+						adviceDetailsWelsh: 'X'.repeat(300)
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain(
+						'The S51 Advice given in Welsh must be 255 characters or fewer'
+					);
+				});
+			});
+		});
+	});
 });
 
 const {

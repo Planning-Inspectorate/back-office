@@ -15,8 +15,11 @@ import {
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import {
+	deleteSessionBanner,
 	destroySuccessBanner,
+	getSessionBanner,
 	getSuccessBanner,
+	setSessionBanner,
 	setSuccessBanner
 } from '../../common/services/session.service.js';
 import { deleteCaseDocumentationFile } from '../documentation/applications-documentation.service.js';
@@ -40,14 +43,31 @@ import {
 /** @typedef {import('express-session').Session & { s51?: Partial<S51Advice> }} SessionWithS51 */
 /** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
 
-/** @type {Record<any, {nextPage: string}>} */
-const createS51Journey = {
-	title: { nextPage: 'enquirer' },
-	enquirer: { nextPage: 'method' },
-	method: { nextPage: 'enquiry-details' },
-	'enquiry-details': { nextPage: 'person' },
-	person: { nextPage: 'advice-details' },
-	'advice-details': { nextPage: 'check-your-answers' }
+/** @type {Record<any, any>} */
+const s51Steps = {
+	title: { name: 'S51 title', nextPage: 'enquirer' },
+	'title-in-welsh': { name: 'S51 title in Welsh' },
+	enquirer: { name: 'Enquirer', nextPage: 'method' },
+	method: { name: 'Enquiry method', nextPage: 'enquiry-details' },
+	'enquiry-date': { name: 'Enquiry date' },
+	'enquiry-details': {
+		name: 'Enquiry details',
+		nextPage: 'person'
+	},
+	'enquiry-detail-in-welsh': {
+		name: 'Enquiry details in Welsh'
+	},
+	person: { name: 'Advice given by', nextPage: 'advice-details' },
+	'advice-date': { name: 'Date advice given' },
+	'advice-details': {
+		name: 'Advice given',
+		nextPage: 'check-your-answers'
+	},
+	'advice-detail-in-welsh': {
+		name: 'Advice given in Welsh'
+	},
+	redaction: { name: 'Redaction' },
+	status: { name: 'Status' }
 };
 
 /**
@@ -119,12 +139,16 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 
 	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
-	const showSuccessBanner = getSuccessBanner(session);
+	const updateBannerText = getSessionBanner(session);
+	const showSuccessBanner = !!updateBannerText || getSuccessBanner(session);
+
+	deleteSessionBanner(session);
 	destroySuccessBanner(session);
 
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
 		showSuccessBanner,
+		updateBannerText,
 		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
@@ -152,12 +176,20 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function postApplicationsCaseEditS51Item(
-	{ body: values, params, errors: validationErrors },
+	{ body: values, params, errors: validationErrors, session },
 	response
 ) {
 	const { adviceId, step } = params;
-	const { caseId, title, folderId } = response.locals;
-	const payload = mapUpdateBodyToPayload(values);
+	const { caseId, title, folderId, caseIsWelsh } = response.locals;
+	const payload = mapUpdateBodyToPayload(values, caseIsWelsh);
+
+	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+	// @ts-ignore
+	const valueHasChanged = Object.keys(values).some((key) => values[key] !== s51Advice[key]);
+
+	if (!valueHasChanged) {
+		return response.redirect('../properties');
+	}
 
 	let titleErrors;
 	if (step === 'title') {
@@ -179,10 +211,13 @@ export async function postApplicationsCaseEditS51Item(
 		return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
 			adviceId,
 			folderId,
-			values,
+			values: { ...s51Advice, ...values },
 			errors: titleErrors || validationErrors || apiErrors
 		});
 	}
+
+	const { name } = s51Steps[step];
+	setSessionBanner(session, `${name} updated`);
 
 	return response.redirect('../properties');
 }
@@ -241,7 +276,7 @@ export async function updateApplicationsCaseS51CreatePage(request, response) {
 	}
 
 	setSessionS51(session, body);
-	const { nextPage } = createS51Journey[params.step];
+	const { nextPage } = s51Steps[params.step];
 	response.redirect(`../create/${nextPage}`);
 }
 

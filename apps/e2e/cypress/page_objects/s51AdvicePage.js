@@ -8,6 +8,7 @@ import { enquirerString } from '../support/utils/utils.js';
 export class S51AdvicePage extends Page {
 	elements = {
 		titleInput: () => cy.get('#title'),
+		titleWelshInput: () => cy.get('#titleWelsh'),
 		redactionRadio: (redacted = false) => cy.get(redacted ? '#isRedacted-2' : '#isRedacted'),
 		statusRadio: (status) => this.basePageElements.radioButton().contains(status),
 		enquirerFirstNameInput: () => cy.get('#enquirerFirstName'),
@@ -17,12 +18,17 @@ export class S51AdvicePage extends Page {
 		enquiryMonthInput: () => cy.get('#enquiryDate\\.month'),
 		enquiryYearInput: () => cy.get('#enquiryDate\\.year'),
 		enquiryDetailsInput: () => cy.get('#enquiryDetails'),
+		enquiryDetailsWelshInput: () => cy.get('#enquiryDetailsWelsh'),
 		adviserInput: () => cy.get('#adviser'),
 		adviceDateDayInput: () => cy.get('#adviceDate\\.day'),
 		adviceDateMonthInput: () => cy.get('#adviceDate\\.month'),
 		adviceDateYearInput: () => cy.get('#adviceDate\\.year'),
 		adviceDetailsInput: () => cy.get('#adviceDetails'),
-		answerCell: (question) => cy.contains(this.selectors.tableCell, new RegExp(question)).next(),
+		adviceDetailsWelshInput: () => cy.get('#adviceDetailsWelsh'),
+		answerCell: (question, exact = false) => {
+			const regEx = exact ? new RegExp(`^${question}$`, 'g') : new RegExp(question);
+			return cy.contains(this.selectors.tableCell, regEx).next();
+		},
 		changeLink: (question) =>
 			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a'),
 		changetitleLink: () =>
@@ -35,9 +41,10 @@ export class S51AdvicePage extends Page {
 		verifyTitle: () => cy.get('.govuk-table__body > :nth-child(1) > :nth-child(2)')
 	};
 
-	checkAnswer(question, answer, strict = true) {
-		this.elements.answerCell(question).then(($elem) => {
-			const assertion = strict ? 'equal' : 'include';
+	checkAnswer(question, answer, options) {
+		const { assertStrict = true, questionExactText = false } = options || {};
+		this.elements.answerCell(question, questionExactText).then(($elem) => {
+			const assertion = assertStrict ? 'equal' : 'include';
 			cy.wrap($elem.text().trim()).should(assertion, answer.trim());
 		});
 	}
@@ -49,6 +56,11 @@ export class S51AdvicePage extends Page {
 	fillTitle(title) {
 		this.elements.titleInput().type(title);
 		this.clickContinue();
+	}
+
+	fillTitleWelsh(titleWelsh, isEdit) {
+		this.elements.titleWelshInput().clear().type(titleWelsh);
+		this.clickSaveAndReturn();
 	}
 
 	fillEnquirerDetails(opts) {
@@ -66,6 +78,10 @@ export class S51AdvicePage extends Page {
 		this.elements.enquiryDetailsInput().type(opts.enquiryDetails);
 		this.clickContinue();
 	}
+	fillEnquiryDetailsWelsh(enquiryDetailsWelsh, isEdit) {
+		this.elements.enquiryDetailsWelshInput().clear().type(enquiryDetailsWelsh);
+		this.clickSaveAndReturn();
+	}
 
 	fillAdviserDetails(adviserName) {
 		this.elements.adviserInput().type(adviserName);
@@ -80,6 +96,11 @@ export class S51AdvicePage extends Page {
 		this.clickContinue();
 	}
 
+	fillAdviceDetailsWelsh(adviceDetailsWelsh, isEdit) {
+		this.elements.adviceDetailsWelshInput().clear().type(adviceDetailsWelsh);
+		this.clickSaveAndReturn();
+	}
+
 	chooseEnquiryMethod(method) {
 		cy.contains(method).click();
 		this.clickContinue();
@@ -87,7 +108,6 @@ export class S51AdvicePage extends Page {
 
 	completeS51Advice(mainDetails, enquirerDetails, titledetails) {
 		const {
-			title,
 			methodOfEnquiry,
 			day,
 			month,
@@ -104,20 +124,17 @@ export class S51AdvicePage extends Page {
 		this.fillEnquiryDetails({ day, month, year, enquiryDetails });
 		this.fillAdviserDetails(adviserName);
 		this.fillAdviceDetails({ day, month, year, adviceDetails });
-		this.verifyTile();
-		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }), false);
+		this.checkAnswer('S51 title', titledetails);
+		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }), {
+			assertStrict: true
+		});
 		this.checkAnswer('Enquiry method', methodOfEnquiry);
 		this.checkAnswer('Enquiry date', dateFullFormatted);
 		this.checkAnswer('Enquiry details', enquiryDetails);
 		this.checkAnswer('Advice given by', adviserName);
 		this.checkAnswer('Date advice given', dateFullFormatted);
-		const adviceDetailsData = {
-			rowIndex: 7,
-			cellIndex: 1,
-			textToMatch: adviceDetails,
-			strict: true
-		};
-		this.verifyTableCellText(adviceDetailsData);
+		this.checkAnswer('Advice given', adviceDetails, { questionExactText: true });
+
 		this.clickButtonByText('Create S51 advice item');
 		this.basePageElements.successBanner().then(($banner) => {
 			const text = $banner.text().trim();
@@ -127,7 +144,7 @@ export class S51AdvicePage extends Page {
 		this.basePageElements.successBanner().should('not.exist');
 
 		const propertiesPage = new S51AdvicePropertiesPage();
-		propertiesPage.checkAllProperties(mainDetails, enquirerDetails);
+		propertiesPage.checkAllProperties(mainDetails, enquirerDetails, titledetails);
 	}
 	verifyTitleIsUpdated(newTitle) {
 		this.elements.changetitleLink().click();
@@ -164,7 +181,7 @@ export class S51AdvicePage extends Page {
 	setOverallStatus(status) {
 		this.elements.statusRadio(status).click({ force: true });
 	}
-	verifyTile() {
-		this.elements.verifyTitle().contains('title');
+	verifyTile(title) {
+		this.elements.verifyTitle().contains(title);
 	}
 }

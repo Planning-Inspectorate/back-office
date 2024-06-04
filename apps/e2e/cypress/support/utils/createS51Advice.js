@@ -4,8 +4,11 @@ import { getShortFormattedDate } from './utils.js';
 
 export const s51AdviceDetails = (titleCount) => {
 	const title = titleCount ? 'title-' + titleCount : 'title';
+	const titleWelsh = 'title in Welsh';
 	const enquiryDetails = 'enquiry details';
+	const enquiryDetailsWelsh = 'enquiry details in Welsh';
 	const adviceDetails = 'Advice details';
+	const adviceDetailsWelsh = 'Advice details in Welsh';
 	const firstName = 'S51firstname';
 	const lastName = 'S51secondname';
 	const organisation = 'Organisation name';
@@ -24,8 +27,11 @@ export const s51AdviceDetails = (titleCount) => {
 
 	return {
 		title,
+		titleWelsh,
 		adviceDetails,
+		adviceDetailsWelsh,
 		enquiryDetails,
+		enquiryDetailsWelsh,
 		enquirerFull,
 		adviserName,
 		day,

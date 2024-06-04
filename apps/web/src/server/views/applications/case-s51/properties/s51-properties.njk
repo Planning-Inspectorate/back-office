@@ -25,6 +25,10 @@
 	{% set backLinkText = "Back to General S51 advice folder" %}
 {% endif %}
 
+{% if updateBannerText %}
+	{% set bannerText = updateBannerText %}
+{% endif %}
+
 {% block beforeContent %}
 	<aside>
 		{{ govukBackLink({
