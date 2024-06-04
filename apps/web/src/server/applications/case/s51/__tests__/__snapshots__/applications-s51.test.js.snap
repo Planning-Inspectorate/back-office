@@ -1513,6 +1513,260 @@ exports[`S51 Advice S51 delete GET /case/123/project-documentation/21/s51-advice
 </main>"
 `;
 
+exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh GET /case/123/project-documentation/21/s51-advice/222/edit/advice-detail-in-welsh should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"adviceDetailsWelsh\\"> Advice given in Welsh</label></h1>
+                    <textarea class=\\"govuk-textarea\\" id=\\"adviceDetailsWelsh\\" name=\\"adviceDetailsWelsh\\"
+                    rows=\\"5\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh POST /case/123/project-documentation/21/s51-advice/edit/advice-detail-in-welsh Should return error if advice given in Welsh has more than 250 characters 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#adviceDetailsWelsh\\">The S51 Advice given in Welsh must be 255 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"adviceDetailsWelsh\\"> Advice given in Welsh</label></h1>
+                    <p id=\\"adviceDetailsWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The S51 Advice given
+                        in Welsh must be 255 characters or fewer</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"adviceDetailsWelsh\\" name=\\"adviceDetailsWelsh\\" rows=\\"5\\" aria-describedby=\\"adviceDetailsWelsh-error\\">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh POST /case/123/project-documentation/21/s51-advice/edit/advice-detail-in-welsh Should return error if advice given in Welsh is not provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#adviceDetailsWelsh\\">Enter the S51 Advice given in Welsh</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"adviceDetailsWelsh\\"> Advice given in Welsh</label></h1>
+                    <p id=\\"adviceDetailsWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the S51 Advice
+                        given in Welsh</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"adviceDetailsWelsh\\" name=\\"adviceDetailsWelsh\\" rows=\\"5\\" aria-describedby=\\"adviceDetailsWelsh-error\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh GET /case/123/project-documentation/21/s51-advice/222/edit/enquiry-detail-in-welsh should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"enquiryDetailsWelsh\\"> Enquiry details in Welsh</label></h1>
+                    <textarea class=\\"govuk-textarea\\" id=\\"enquiryDetailsWelsh\\" name=\\"enquiryDetailsWelsh\\"
+                    rows=\\"5\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh POST /case/123/project-documentation/21/s51-advice/edit/enquiry-detail-in-welsh Should return error if enquiry details in Welsh has more than 250 characters 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#enquiryDetailsWelsh\\">The S51 Enquiry details in Welsh must be 255 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"enquiryDetailsWelsh\\"> Enquiry details in Welsh</label></h1>
+                    <p id=\\"enquiryDetailsWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The S51 Enquiry details
+                        in Welsh must be 255 characters or fewer</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"enquiryDetailsWelsh\\" name=\\"enquiryDetailsWelsh\\" rows=\\"5\\" aria-describedby=\\"enquiryDetailsWelsh-error\\">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh POST /case/123/project-documentation/21/s51-advice/edit/enquiry-detail-in-welsh Should return error if enquiry details in Welsh is not provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#enquiryDetailsWelsh\\">Enter the S51 Enquiry details in Welsh</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"enquiryDetailsWelsh\\"> Enquiry details in Welsh</label></h1>
+                    <p id=\\"enquiryDetailsWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the S51 Enquiry
+                        details in Welsh</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"enquiryDetailsWelsh\\" name=\\"enquiryDetailsWelsh\\" rows=\\"5\\" aria-describedby=\\"enquiryDetailsWelsh-error\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh GET /case/123/project-documentation/21/s51-advice/222/edit/title-in-welsh should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"titleWelsh\\"> S51 title in Welsh</label></h1>
+                    <textarea class=\\"govuk-textarea\\" id=\\"titleWelsh\\" name=\\"titleWelsh\\" rows=\\"5\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh POST /case/123/project-documentation/21/s51-advice/edit/title-in-welsh Should return error if title in Welsh has more than 250 characters 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#titleWelsh\\">The S51 title in Welsh must be 255 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"titleWelsh\\"> S51 title in Welsh</label></h1>
+                    <p id=\\"titleWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The S51 title in Welsh
+                        must be 255 characters or fewer</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"titleWelsh\\" name=\\"titleWelsh\\" rows=\\"5\\" aria-describedby=\\"titleWelsh-error\\">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh POST /case/123/project-documentation/21/s51-advice/edit/title-in-welsh Should return error if title in Welsh is not provided 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#titleWelsh\\">Enter the S51 title in Welsh</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"titleWelsh\\"> S51 title in Welsh</label></h1>
+                    <p id=\\"titleWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the S51 title in
+                        Welsh</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\" id=\\"titleWelsh\\"
+                    name=\\"titleWelsh\\" rows=\\"5\\" aria-describedby=\\"titleWelsh-error\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-advice/ should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>

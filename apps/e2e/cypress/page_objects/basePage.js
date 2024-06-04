@@ -169,6 +169,10 @@ export class Page {
 		this.clickButtonByText('Save And Continue');
 	}
 
+	clickSaveAndReturn() {
+		this.clickButtonByText('Save And Return');
+	}
+
 	clickLinkByText(linkText) {
 		this.basePageElements.linkByText(linkText).click();
 	}

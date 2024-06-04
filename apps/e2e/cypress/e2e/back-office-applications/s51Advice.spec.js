@@ -25,10 +25,9 @@ const texts = {
 
 describe('Section 51 Advice', () => {
 	let projectInfo;
-	let caseRef;
 
 	before(() => {
-		projectInfo = projectInformation({ excludeWelsh: true });
+		projectInfo = projectInformation({ excludeWales: true });
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
@@ -37,8 +36,7 @@ describe('Section 51 Advice', () => {
 		beforeEach(() => {
 			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
-			caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
+			applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
 			searchResultsPage.clickTopSearchResult();
 			s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
 			s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
@@ -84,8 +82,7 @@ describe('Section 51 Advice', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 				cy.login(applicationsUsers.caseAdmin);
 				cy.visit('/');
-				caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
+				applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
 				searchResultsPage.clickTopSearchResult();
 				updateProjectRegions(['Wales']);
 				s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
@@ -96,6 +93,82 @@ describe('Section 51 Advice', () => {
 		it('As a user able to view an existing S51 Advice with Welsh fields included', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 				s51AdvicePage.clickLinkByText('View/edit advice');
+				s51AdvicePage.basePageElements.linkByText('S51 title in Welsh');
+				s51AdvicePage.basePageElements.linkByText('Enquiry details in Welsh');
+				s51AdvicePage.basePageElements.linkByText('Advice given in Welsh');
+			}
+		});
+
+		it('As a user able to edit the title in welsh for an existing S51 Advice', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				const details = s51AdviceDetails();
+				s51AdvicePage.clickLinkByText('View/edit advice');
+				s51AdvicePage.clickLinkByText('S51 title in Welsh');
+				s51AdvicePage.clickButtonByText('Save and return');
+				s51AdvicePage.validateErrorMessage('Enter the S51 title in Welsh');
+				s51AdvicePage.fillTitleWelsh('X'.repeat(300), true);
+				s51AdvicePage.validateErrorMessage(
+					'The S51 title in Welsh must be 255 characters or fewer'
+				);
+				s51AdvicePage.fillTitleWelsh(details.titleWelsh, true);
+				s51AdvicePage.validateBannerMessage('S51 title in Welsh updated');
+			}
+		});
+
+		it('As a user able to edit the enquiry details in welsh for an existing S51 Advice', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				const details = s51AdviceDetails();
+				s51AdvicePage.clickLinkByText('View/edit advice');
+				s51AdvicePage.clickLinkByText('Enquiry details in Welsh');
+				s51AdvicePage.clickButtonByText('Save and return');
+				s51AdvicePage.validateErrorMessage('Enter the S51 Enquiry details in Welsh');
+				s51AdvicePage.fillEnquiryDetailsWelsh('X'.repeat(300), true);
+				s51AdvicePage.validateErrorMessage(
+					'The S51 Enquiry details in Welsh must be 255 characters or fewer'
+				);
+				s51AdvicePage.fillEnquiryDetailsWelsh(details.enquiryDetailsWelsh, true);
+				s51AdvicePage.validateBannerMessage('Enquiry details in Welsh updated');
+			}
+		});
+
+		it('As a user able to edit the advice details in welsh for an existing S51 Advice', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				const details = s51AdviceDetails();
+				s51AdvicePage.clickLinkByText('View/edit advice');
+				s51AdvicePage.clickLinkByText('Advice given in Welsh');
+				s51AdvicePage.clickButtonByText('Save and return');
+				s51AdvicePage.validateErrorMessage('Enter the S51 Advice given in Welsh');
+				s51AdvicePage.fillAdviceDetailsWelsh('X'.repeat(300), true);
+				s51AdvicePage.validateErrorMessage(
+					'The S51 Advice given in Welsh must be 255 characters or fewer'
+				);
+				s51AdvicePage.fillAdviceDetailsWelsh(details.adviceDetailsWelsh, true);
+				s51AdvicePage.validateBannerMessage('Advice given in Welsh updated');
+			}
+		});
+	});
+
+	describe('in a Welsh region', () => {
+		beforeEach(() => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.login(applicationsUsers.caseAdmin);
+				cy.visit('/');
+				applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
+				searchResultsPage.clickTopSearchResult();
+				s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
+				s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
+				s51AdvicePage.clickButtonByText(texts.createS51AdviceButtonText);
+			}
+		});
+
+		it('As a user able to create S51 Advice - Enquirer Full Details', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				const details = s51AdviceDetails();
+				s51AdvicePage.completeS51Advice(
+					details,
+					{ organisation: details.organisation },
+					'Welsh Advice'
+				);
 				s51AdvicePage.basePageElements.linkByText('S51 title in Welsh');
 				s51AdvicePage.basePageElements.linkByText('Enquiry details in Welsh');
 				s51AdvicePage.basePageElements.linkByText('Advice given in Welsh');
