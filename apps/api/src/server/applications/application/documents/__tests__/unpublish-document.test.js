@@ -37,6 +37,7 @@ const documentVersions = [
 		description: 'a test document',
 		owner: null,
 		author: 'Billy B',
+		authorWelsh: 'Billy B (Welsh)',
 		securityClassification: null,
 		mime: 'image/png',
 		horizonDataID: null,
@@ -105,6 +106,7 @@ const expectedEventPayload = buildPayloadEventsForSchema(NSIP_DOCUMENT, {
 	dateCreated: dateDocCreated,
 	lastModified: dateDocLastModified,
 	author: 'Billy B',
+	authorWelsh: 'Billy B (Welsh)',
 	publishedStatus: 'unpublishing',
 	redactedStatus: 'redacted',
 	publishedDocumentURI: 'https://127.0.0.1:10000/published-blob/published-path',
@@ -160,7 +162,7 @@ describe('Unpublishing documents', () => {
 		expect(response.body).toEqual([
 			{
 				author: 'Billy B',
-				authorWelsh: '',
+				authorWelsh: 'Billy B (Welsh)',
 				caseRef: null,
 				dateCreated: 1678726449,
 				datePublished: null,
@@ -222,7 +224,7 @@ describe('Unpublishing documents', () => {
 		expect(response.body).toEqual([
 			{
 				author: 'Billy B',
-				authorWelsh: '',
+				authorWelsh: 'Billy B (Welsh)',
 				caseRef: null,
 				dateCreated: 1678726449,
 				datePublished: null,
