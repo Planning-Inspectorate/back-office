@@ -11,13 +11,8 @@ variables:
     value: 'applications'
   - group: e2e-${{ parameters.Environment }}
 
-pr:
-  branches:
-    include:
-      - main
-  paths:
-    include:
-      - apps/e2e/cypress/e2e/back-office-applications
+pr: none
+
 trigger: none
 
 jobs:
