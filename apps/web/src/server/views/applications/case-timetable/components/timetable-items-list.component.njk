@@ -2,7 +2,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "./timetable-item-summary.component.njk" import timetableItemSummary %}
 
-{% macro timetableItemsList(timetableItems, caseId) %}
+{% macro timetableItemsList(timetableItems, caseId, isCaseWelsh) %}
 	<div class='timetable-table'>
 		{% set accordionItemsExamination = [] %}
 		{% set accordionItemsPreExamination = [] %}
@@ -16,17 +16,15 @@
 
 			{% set content %}
 				{% if not timetableItem.submissions %}
-					<div class='top-right-link'>
-						<a class='govuk-link' href="{{'timetable-item'|url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'})}}">Edit timetable item</a>
+					<div class="top-right-link">
+						<a class="govuk-link" href="{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}">Delete timetable item</a>
 					</div>
 				{% endif %}
 
-				{{timetableItemSummary(timetableItem)}}
+				{{timetableItemSummary(timetableItem, isCaseWelsh, caseId)}}
 
-				{% if not timetableItem.submissions %}
-					<a class='govuk-link colour--red' href='{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}'>Delete timetable item</a>
-				{% else %}
-					<p class='govuk-body-s font-weight--700'>
+				{% if timetableItem.submissions %}
+					<p class="govuk-body-s font-weight--700">
 						There are already submissions in a folder associated with this timetable item. You cannot edit or delete items with existing submissions.
 					</p>
 				{% endif %}
@@ -53,7 +51,7 @@
 		<h3 class="govuk-heading-m">Pre-examination</h3>
 
 		{% if accordionItemsPreExamination.length === 0 %}
-			<p class='govuk-body'>No timetable items</p>
+			<p class="govuk-body">No timetable items</p>
 		{% endif %}
 
 		{{ govukAccordion({
@@ -61,11 +59,11 @@
 				items: accordionItemsPreExamination
 		}) }}
 
-		<div class='govuk-!-margin-top-8'>
+		<div class="govuk-!-margin-top-8">
 			<h3 class="govuk-heading-m">Examination</h3>
 
 			{% if accordionItemsExamination.length === 0 %}
-				<p class='govuk-body'>No timetable items</p>
+				<p class="govuk-body">No timetable items</p>
 			{% endif %}
 
 			{{ govukAccordion({

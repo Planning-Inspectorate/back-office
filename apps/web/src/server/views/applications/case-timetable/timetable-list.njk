@@ -23,15 +23,15 @@
 
 		<p class="govuk-body">Create or manage an examination timetable</p>
 
-		<a class='govuk-button govuk-!-margin-top-5' href="{{'timetable-item'|url({caseId: caseId, step: 'new'})}}">Create new timetable item</a>
+		<div class="govuk-!-margin-top-7">
+			<a class='govuk-button govuk-!-margin-right-2' href="{{'timetable-item'|url({caseId: caseId, step: 'new'})}}">Create timetable item</a>
 
-		<div>
 			{% if timetableItems.length > 0 %}
-				<a class="govuk-link" href="{{'timetable'|url({caseId: caseId, step: 'preview'})}}">
+				<a class="govuk-button" href="{{'timetable'|url({caseId: caseId, step: 'preview'})}}">
 				{% if publishedStatus %}
-					Preview and republish timetable items
+					Preview and republish
 				{% else %}
-					Preview and publish timetable items
+					Preview and publish
 				{% endif %}
 				</a>
 			{% endif %}
@@ -50,8 +50,7 @@
 
 	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-
-	{{ timetableItemsList(timetableItems, caseId) }}
+	{{ timetableItemsList(timetableItems, caseId, isCaseWelsh) }}
 
 	{% if publishedStatus %}
 		<div>

@@ -49,18 +49,18 @@ applicationsTimetableRouter
 // Timetable preview for publishing
 applicationsTimetableRouter
 	.route('/preview')
-	.get(asyncHandler(controller.viewApplicationsCaseTimetablesPreview))
+	.get(registerCase, asyncHandler(controller.viewApplicationsCaseTimetablesPreview))
 	.post(asyncHandler(controller.publishApplicationsCaseTimetables));
 
 // Timetable preview for unpublishing
 applicationsTimetableRouter
 	.route('/unpublish-preview')
-	.get(asyncHandler(controller.viewApplicationsCaseTimetablesUnpublishPreview))
+	.get(registerCase, asyncHandler(controller.viewApplicationsCaseTimetablesUnpublishPreview))
 	.post(asyncHandler(controller.unpublishApplicationsCaseTimetables));
 
 applicationsTimetableRouter
 	.route('/item/delete/:timetableId')
-	.get(asyncHandler(controller.viewApplicationsCaseTimetableDelete))
+	.get(registerCase, asyncHandler(controller.viewApplicationsCaseTimetableDelete))
 	.post(asyncHandler(controller.deleteApplicationsCaseTimetable));
 
 applicationsTimetableRouter

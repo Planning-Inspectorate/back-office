@@ -5,7 +5,8 @@ import { fixtureCases } from '../../../../../../testing/applications/fixtures/ca
 import {
 	fixtureTimetableTypes,
 	fixtureTimetableItems,
-	fixtureTimetable
+	fixtureTimetable,
+	fixtureTimetableWelshCase
 } from '../../../../../../testing/applications/fixtures/timetable-types.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 
@@ -16,6 +17,15 @@ const nocks = () => {
 	nock('http://test/').get('/applications').times(2).reply(200, {});
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/')
+		.get('/applications/1234')
+		.reply(200, {
+			...fixtureCases[3],
+			geographicalInformation: {
+				locationDescription: 'Wales',
+				regions: [{ name: 'wales' }]
+			}
+		});
+	nock('http://test/')
 		.get('/applications/examination-timetable-type')
 		.times(2)
 		.reply(200, fixtureTimetableTypes);
@@ -23,6 +33,9 @@ const nocks = () => {
 		.get('/applications/examination-timetable-items/case/123')
 		.times(3)
 		.reply(200, fixtureTimetable);
+	nock('http://test/')
+		.get('/applications/examination-timetable-items/case/1234')
+		.reply(200, fixtureTimetableWelshCase);
 	nock('http://test/').post('/applications/examination-timetable-items').reply(200, []);
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/1')
@@ -48,6 +61,20 @@ describe('Examination timetable page', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Examination timetable');
+		});
+	});
+	describe('GET /case/1234/examination-timetable', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/');
+			nocks();
+		});
+
+		it('should render welsh fields for welsh cases', async () => {
+			const response = await request.get(`/applications-service/case/1234/examination-timetable`);
+			const element = parseHtml(response.text, { rootElement: '.timetable-table' });
+
+			expect(element.innerHTML).toContain('Item name in Welsh');
+			expect(element.innerHTML).toContain('Item description in Welsh');
 		});
 	});
 });
