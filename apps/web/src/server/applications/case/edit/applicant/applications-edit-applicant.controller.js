@@ -145,10 +145,7 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
-	const updatedField = getUpdatedField(request.body, [
-		'applicant.firstName',
-		'applicant.lastName'
-	]);
+	const updatedField = getUpdatedField(request.body, ['applicant.firstName', 'applicant.lastName']);
 
 	setSessionBanner(request.session, `${fullFieldNames[updatedField]} updated.`);
 

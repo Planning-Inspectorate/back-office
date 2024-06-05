@@ -53,6 +53,27 @@ export const fixtureTimetableItems = [
 		}
 	}
 ];
+export const fixtureTimetableItemsWelshCase = [
+	{
+		id: 1,
+		examinationTypeId: 2,
+		name: 'name in english',
+		description: '{"preText":"english description","bulletPoints":["ponintone", "pointtwo"]}',
+		nameWelsh: 'name in welsh',
+		descriptionWelsh: '{"preText":"welsh description","bulletPoints":["ponintone", "pointtwo"]}',
+		date: '2023-10-10T00:00:00.000Z',
+		startDate: null,
+		startTime: '10:10',
+		endDate: null,
+		endTime: '10:10',
+		examinationTimetableId: 1,
+		ExaminationTimetableType: {
+			id: 2,
+			name: 'Deadline',
+			templateType: 'deadline'
+		}
+	}
+];
 
 export const fixtureTimetable = {
 	id: 1,
@@ -62,4 +83,14 @@ export const fixtureTimetable = {
 	updatedAt: '2023-10-11T00:00:00.000Z',
 	createdAt: '2023-10-11T00:00:00.000Z',
 	items: fixtureTimetableItems
+};
+
+export const fixtureTimetableWelshCase = {
+	id: 1,
+	caseId: 1,
+	published: true,
+	publishedAt: '2023-10-10T00:00:00.000Z',
+	updatedAt: '2023-10-11T00:00:00.000Z',
+	createdAt: '2023-10-11T00:00:00.000Z',
+	items: fixtureTimetableItemsWelshCase
 };

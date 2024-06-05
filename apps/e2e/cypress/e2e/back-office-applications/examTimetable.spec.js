@@ -32,7 +32,7 @@ const itemOptions = [
 
 const texts = {
 	examTimetableLinkText: 'Examination timetable',
-	createTimetableButtonText: 'Create new timetable item',
+	createTimetableButtonText: 'Create timetable item',
 	successMessageText: 'Timetable item successfully added'
 };
 

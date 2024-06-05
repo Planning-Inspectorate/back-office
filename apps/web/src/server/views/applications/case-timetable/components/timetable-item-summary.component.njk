@@ -1,9 +1,9 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% macro timetableItemSummary(timetableItem) %}
+{% macro timetableItemSummary(timetableItem, isCaseWelsh='', caseId='') %}
 
-	{% set descriptionHtml %}
+	{% set descriptionHtmlEn %}
 		<p class="govuk-body">{{timetableItem.description.preText | sanitize}}</p>
 
 		{% if timetableItem.description.bulletPoints | length %}
@@ -15,34 +15,78 @@
 		{% endif %}
 	{% endset %}
 
-	{% set rowsData = [
+	{% set rowsDataEn = [
 		{
 			key: 'Item Type',
 			text: timetableItem.itemTypeName
-		}, {
+		},
+		{
 			key: 'Item Name',
 			text: timetableItem.name
-		}, {
+		},
+		{
 			key: "Date",
 			text: timetableItem.date
-		}, {
+		},
+		{
 			key: "Start Date",
 			text: timetableItem.startDate
-		}, {
+		},
+		{
 			key: "Start time",
 			text: timetableItem.startTime
-		}, {
+		},
+		{
 			key: "End Date",
 			text: timetableItem.endDate
-		}, {
+		},
+		{
 			key: "End Time",
 			text: timetableItem.endTime
-		}, {
-			key: "Description",
-			html: descriptionHtml
+		},
+		{
+			key: "Item description",
+			html: descriptionHtmlEn
 		}
-
 	] %}
+
+	{# for welsh cases, include welsh fields #}
+	{% set rowsDataCy = [] %}
+
+	{% for row in rowsDataEn %}
+		{% if loop.index0 == 2 %}
+			{% set rowsDataCy = (rowsDataCy.push({
+				key: 'Item name in Welsh',
+				text: timetableItem.nameWelsh
+			}), rowsDataCy) %}
+		{% endif %}
+		{% set rowsDataCy = (rowsDataCy.push(row), rowsDataCy) %}
+	{% endfor %}
+
+
+	{# set/display cy description only if en version is present #}
+	{% if timetableItem.description.preText | trim and timetableItem.descriptionWelsh.preText %}
+		{% set descriptionHtmlCy %}
+			<p class="govuk-body">{{timetableItem.descriptionWelsh.preText | sanitize}}</p>
+
+			{% if timetableItem.description.bulletPoints | length %}
+				<ul class='govuk-list govuk-list--bullet'>
+					{% for bulletPoint in timetableItem.descriptionWelsh.bulletPoints %}
+						<li>{{bulletPoint | sanitize}}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endset %}
+
+		{% set rowsDataCy = (rowsDataCy.push({
+			key: "Item description in Welsh",
+			html: descriptionHtmlCy
+		}), rowsDataCy) %}
+	{% endif %}
+
+
+	{% set rowsData = [] %}
+	{% set rowsData = rowsDataCy if isCaseWelsh else rowsDataEn %}
 
 	{% set tableRows = [] %}
 	{% for row in rowsData %}
@@ -51,7 +95,16 @@
 			{% set tableRows = tableRows.concat([
 				{
 					key: { text: row.key },
-					value: row
+					value: row,
+					actions: caseId and {
+							items: [
+							{
+								href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}),
+								text: "Change",
+								visuallyHiddenText: row.key
+							}
+						]
+					}
 				}
 			]) %}
 

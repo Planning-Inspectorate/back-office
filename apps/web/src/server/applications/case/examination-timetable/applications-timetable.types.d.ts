@@ -31,7 +31,9 @@ export interface ApplicationExaminationTimetableItem {
 	examinationTimetableId: number;
 	examinationTypeId: number;
 	name: string;
+	nameWelsh: string;
 	description: string;
+	descriptionWelsh: string;
 	date: Date;
 	startDate: Date | null;
 	startTime: string | null;
