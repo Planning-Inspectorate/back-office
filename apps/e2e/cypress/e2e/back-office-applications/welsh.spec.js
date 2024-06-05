@@ -56,7 +56,7 @@ function validateErrorMessageForProjectdesc() {
 function validateErrorMessageForProjectlocation() {
 	casePage.clickChangeLink('Project location in Welsh');
 	cy.get(
-		'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(1) > textarea'
+		'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(3) > textarea'
 	).clear();
 	casePage.clickButtonByText('Save changes');
 	cy.get('#main-content > div > div > div > div > div > ul > li > a').contains(
