@@ -25,7 +25,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.4.0
+      ref: refs/tags/release/3.16.1
 
 extends:
   template: stages/wrapper_ci.yml@templates
@@ -37,22 +37,22 @@ extends:
         steps:
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm ci
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm run tscheck
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)
                 TURBO_API: $(TURBO_API)
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm run lint:js
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm run test
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)
@@ -117,7 +117,7 @@ extends:
           # install only function deps
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm ci --only=prod --workspace=@pins/functions-applications-migration --workspace=@pins/functions-applications-background-jobs --workspace=@pins/functions-applications-command-handlers
           # merge node modules
           - template: azure-pipelines-package-function-merge.yml@self
@@ -132,7 +132,7 @@ extends:
             parameters:
               root: 'apps'
               folderName: 'applications-migration'
-          
+
           # package Applications BO background jobs function
           - template: azure-pipelines-package-function.yml@self
             parameters:

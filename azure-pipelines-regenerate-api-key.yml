@@ -32,7 +32,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.4.0
+      ref: refs/tags/release/3.16.1
 
 jobs:
   - deployment: RegenerateApiKeys
@@ -45,11 +45,11 @@ jobs:
             - checkout: self
             - template: steps/node_script.yml@templates
               parameters:
-                nodeVersion: 18
+                nodeVersion: 20
                 script: npm ci --workspaces=@pins/packages.scripts
             - template: steps/node_script.yml@templates
               parameters:
-                nodeVersion: 18
+                nodeVersion: 20
                 environmentVariables:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
                   AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
@@ -59,7 +59,7 @@ jobs:
                 workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
             - template: steps/node_script.yml@templates
               parameters:
-                nodeVersion: 18
+                nodeVersion: 20
                 environmentVariables:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
                   AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
@@ -69,7 +69,7 @@ jobs:
                 workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
             - template: steps/node_script.yml@templates
               parameters:
-                nodeVersion: 18
+                nodeVersion: 20
                 environmentVariables:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
                   AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
