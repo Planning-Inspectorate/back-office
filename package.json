@@ -7,13 +7,13 @@
 		"packages/*"
 	],
 	"engines": {
-		"node": ">=18.0.0 <19.0.0"
+		"node": ">=20.0.0 <21.0.0"
 	},
 	"scripts": {
 		"build": "turbo run build",
 		"build:release": "turbo run build:release",
 		"commit": "cz",
-		"commitlint": "commitlint --from=$(git rev-parse $(git cherry origin/main | head -n 1 | cut -c 3-)^1)",
+		"commitlint": "commitlint --from=$(git rev-parse $(git cherry main | head -n 1 | cut -c 3-)^1)",
 		"clean": "turbo run clean && rimraf node_modules",
 		"e2e": "npm run cy:run --workspace=@pins/e2e",
 		"e2e:open": "npm run cy:open --workspace=@pins/e2e",

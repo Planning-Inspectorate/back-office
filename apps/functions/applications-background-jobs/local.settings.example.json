@@ -8,6 +8,6 @@
 		"FUNCTIONS_EXTENSION_VERSION": "~4",
 		"FUNCTIONS_WORKER_RUNTIME": "node",
 		"ServiceBusConnection": "<get-value-from-service-bus> || UseDevelopmentStorage=true",
-		"WEBSITE_NODE_DEFAULT_VERSION": "~18"
+		"WEBSITE_NODE_DEFAULT_VERSION": "~20"
 	}
 }
