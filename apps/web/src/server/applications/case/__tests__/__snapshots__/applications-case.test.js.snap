@@ -507,7 +507,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project page</th>
-                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell\\" colspan=\\"2\\"></td>
                                     <td class=\\"govuk-table__cell\\"></td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
@@ -724,7 +724,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project page</th>
-                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell\\" colspan=\\"2\\"></td>
                                     <td class=\\"govuk-table__cell\\"></td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
@@ -941,7 +941,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project page</th>
-                                    <td class=\\"govuk-table__cell\\"></td>
+                                    <td class=\\"govuk-table__cell\\" colspan=\\"2\\"></td>
                                     <td class=\\"govuk-table__cell\\"></td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">

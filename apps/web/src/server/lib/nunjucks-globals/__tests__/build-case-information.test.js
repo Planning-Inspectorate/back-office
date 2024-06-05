@@ -55,7 +55,8 @@ const fullResult = [
 	},
 	{
 		title: 'Project page',
-		html: '<strong>Test</strong>'
+		html: '<strong>Test</strong>',
+		colspan: 2
 	},
 	{ title: 'Project name', text: 'Test case title', url: 'name', classes: 'project-details__name' },
 	{

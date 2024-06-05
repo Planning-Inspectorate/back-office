@@ -9,6 +9,7 @@ import { featureFlagClient } from '../../../common/feature-flags.js';
  * @property {string | null} [id]
  * @property {*} [html]
  * @property {string} [classes]
+ * @property {number} [colspan]
  * */
 
 /**
@@ -79,7 +80,8 @@ export const buildCaseInformation = (params, isWelsh) => [
 	},
 	{
 		title: 'Project page',
-		html: params.publishedTag
+		html: params.publishedTag,
+		colspan: 2
 	},
 	{
 		title: 'Project name',
