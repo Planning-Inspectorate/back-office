@@ -16,9 +16,12 @@ export class DocumentPropertiesPage extends Page {
 
 	fileName = () => 'Filename';
 	description = () => 'description';
+	descriptionWelsh = () => 'description Welsh';
 	from = () => 'From';
+	fromWelsh = () => 'From Welsh';
 	agent = () => 'Agentname';
 	webfilter = () => 'Webfilter name';
+	webfilterWelsh = () => 'Welsh filter';
 	getDate = (received) => {
 		const today = new Date();
 		const day = today.getDate().toString().padStart(2, '0');
@@ -97,9 +100,23 @@ export class DocumentPropertiesPage extends Page {
 	updateAllProperties(status) {
 		this.updateDocumentProperty('File name', this.fileName());
 		this.updateDocumentProperty('Description', this.description());
-		this.updateDocumentProperty('From', this.from());
+		this.updateDocumentProperty('Who the document is from', this.from());
 		this.updateDocumentProperty('Agent (optional)', this.agent());
 		this.updateDocumentProperty('Webfilter', this.webfilter());
+		this.updateDocumentType('No document type');
+		this.updateDate('Date received', this.getDate(true));
+		this.updateRedactionStatus(status);
+		this.clickBackLink();
+	}
+	updateAllPropertiesIncludingWelsh(status) {
+		this.updateDocumentProperty('File name', this.fileName());
+		this.updateDocumentProperty('Description', this.description());
+		this.updateDocumentProperty('Description in Welsh', this.descriptionWelsh());
+		this.updateDocumentProperty('Who the document is from', this.from());
+		this.updateDocumentProperty('Who the document is from in Welsh', this.fromWelsh());
+		this.updateDocumentProperty('Agent (optional)', this.agent());
+		this.updateDocumentProperty('Webfilter', this.webfilter());
+		this.updateDocumentProperty('Webfilter in Welsh', this.webfilterWelsh());
 		this.updateDocumentType('No document type');
 		this.updateDate('Date received', this.getDate(true));
 		this.updateRedactionStatus(status);

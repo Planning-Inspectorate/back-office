@@ -57,13 +57,19 @@ describe('Publish Documents', () => {
 		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
 			const text = $elem.text().trim();
 			if (text === 'Description in Welsh') {
-				cy.log('waiting for dev code');
+				documentPropertiesPage.updateAllPropertiesIncludingWelsh('Redacted');
+				folderPage.markAllReadyToPublish();
+				folderPage.clickLinkByText('View publishing queue');
+				folderPage.validatePublishingQueueCase(projectInfo, caseRef);
+				publishingQueuePage.validateDocumentCountList(1);
+				folderPage.publishAllDocumentsInList();
+				folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
 			} else {
 				documentPropertiesPage.updateAllProperties('Redacted');
 				folderPage.markAllReadyToPublish();
 				folderPage.clickLinkByText('View publishing queue');
 				folderPage.validatePublishingQueueCase(projectInfo, caseRef);
-				publishingQueuePage.validateDocumentCountInList(1);
+				publishingQueuePage.validateDocumentCountList(1);
 				folderPage.publishAllDocumentsInList();
 				folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
 			}
