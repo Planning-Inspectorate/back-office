@@ -52,3 +52,5 @@ export const stringToStream = (string) => {
 	});
 	return readable;
 };
+
+export const valueToArray = (value) => (value ? JSON.parse(value) : []);

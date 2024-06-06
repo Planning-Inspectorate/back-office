@@ -1,5 +1,6 @@
 import { SynapseDB } from '../synapse-db.js';
 import { makePostRequest } from '../back-office-api-client.js';
+import { valueToArray } from '../utils.js';
 
 const query = `SELECT *
 			   FROM [odw_curated_db].[dbo].[relevant_representation]
@@ -59,7 +60,7 @@ export const getRepresentationsForCase = async (log, caseReference) => {
 		return {
 			...row,
 			originalRepresentation: row.originalRepresentation || '',
-			attachmentIds: row.attachmentIds?.split(',') ?? []
+			attachmentIds: valueToArray(row.attachmentIds)
 		};
 	});
 
