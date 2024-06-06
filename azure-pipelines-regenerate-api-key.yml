@@ -2,10 +2,11 @@ parameters:
   - name: environment
     displayName: Environment
     type: string
-    default: Dev
+    default: '*'
     values:
       - Dev
       - Test
+      - Training
       - Prod
 
 pool: pins-odt-agent-pool
@@ -36,7 +37,7 @@ resources:
 
 jobs:
   - deployment: RegenerateApiKeys
-    environment: ${{ parameters.environment }}
+    environment: Dev
     strategy:
       runOnce:
         deploy:
@@ -49,6 +50,7 @@ jobs:
                 script: npm ci --workspaces=@pins/packages.scripts
             - template: steps/node_script.yml@templates
               parameters:
+                condition: or(eq('${{ parameters.environment }}', '*'), eq('${{ parameters.environment }}', 'Dev'))
                 nodeVersion: 20
                 environmentVariables:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
@@ -59,6 +61,7 @@ jobs:
                 workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
             - template: steps/node_script.yml@templates
               parameters:
+                condition: or(eq('${{ parameters.environment }}', '*'), eq('${{ parameters.environment }}', 'Test'))
                 nodeVersion: 20
                 environmentVariables:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
@@ -69,6 +72,18 @@ jobs:
                 workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
             - template: steps/node_script.yml@templates
               parameters:
+                condition: or(eq('${{ parameters.environment }}', '*'), eq('${{ parameters.environment }}', 'Training'))
+                nodeVersion: 18
+                environmentVariables:
+                  AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+                  AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+                  AZURE_TENANT_ID: $(AZURE_TENANT_ID)
+                  KEY_VAULT_NAME: $(KEY_VAULT_NAME_TRAINING)
+                script: npm run applications:regenerate-api-keys
+                workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
+            - template: steps/node_script.yml@templates
+              parameters:
+                condition: or(eq('${{ parameters.environment }}', '*'), eq('${{ parameters.environment }}', 'Prod'))
                 nodeVersion: 20
                 environmentVariables:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
