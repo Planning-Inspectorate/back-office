@@ -5,11 +5,9 @@ import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
-import { validateProjectOverview } from '../../support/utils/utils';
 import { FileUploadPage } from '../../page_objects/uploadFiles';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 import { DocumentPropertiesPage } from '../../page_objects/documentPropertiesPage';
-import { faker } from '@faker-js/faker';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
@@ -28,8 +26,6 @@ const webfilter = () => 'webfilter';
 const webfilterforWelsh = () => 'webfilter for welsh';
 
 describe('Document Properties including welsh fields', () => {
-	let projectInfo = projectInformation({ includeWales: true });
-
 	const getDate = (received) => {
 		const today = new Date();
 		let day = today.getDate().toString().padStart(2, '0');
@@ -40,6 +36,8 @@ describe('Document Properties including welsh fields', () => {
 		const year = today.getFullYear();
 		return `${day}/${month}/${received ? year - 1 : year}`;
 	};
+
+	let projectInfo = projectInformation({ includeWales: true });
 
 	before(() => {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
@@ -73,7 +71,7 @@ describe('Document Properties including welsh fields', () => {
 			);
 			documentPropertiesPage.updateDocumentProperty('Agent (optional)', agent());
 			documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter());
-			documentPropertiesPage.updateDocumentProperty('Webfilter in Welsh', webfilter());
+			documentPropertiesPage.updateDocumentProperty('Webfilter in Welsh', webfilterforWelsh());
 			documentPropertiesPage.updateDocumentType('No document type');
 			documentPropertiesPage.updateDate('Date received', getDate(true));
 			documentPropertiesPage.updateRedactionStatus('Redacted');

@@ -61,7 +61,7 @@ describe('Document Properties', () => {
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.updateDocumentProperty('File name', fileName());
 		documentPropertiesPage.updateDocumentProperty('Description', description());
-		documentPropertiesPage.updateDocumentProperty('From', from());
+		documentPropertiesPage.updateDocumentProperty('Who the document is from', from());
 		documentPropertiesPage.updateDocumentProperty('Agent (optional)', agent());
 		documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter());
 		documentPropertiesPage.updateDocumentType('No document type');
