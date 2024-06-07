@@ -6,7 +6,7 @@ parameters:
     values:
       - Dev
       - Test
-			- Training
+      - Training
 
 pool: pins-odt-agent-pool
 
