@@ -269,21 +269,22 @@ which should create and run a container at `http://0.0.0.0:3001` on your machine
 
 #### Feature Flags
 
-To start working with Feature Flags add the following env variables below to the the `.env` files in `apps/api`, `apps/web` and `apps/e2e` and replace `<connection string>` in `PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING`
+To start working with Feature Flags add the env variables below to the the `.env` files in `apps/api`, `apps/web` and `apps/e2e` and replace `<connection string>` in `PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING`
 
 ```shell
 PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING="<connection string>"
 STATIC_FEATURE_FLAGS_ENABLED="true"
 ```
+
 `STATIC_FEATURE_FLAGS_ENABLED` is set to `true` by default. This tells the apps to use the local flags here `apps/packages/feature-flags/src/static-feature-flags.js`, if set to `false` the flags will be retrieved from `Azure Configuration` for the `DEV` environment.
 
 > [!IMPORTANT]
-> Feature Flags are crwated via `Terraform` and deployed to the relevant environments as needed. the engineer that sets new flags should also update the `static-feature-flags.js` so that the local environment is in sync with `Azure Configuration` for the `DEV` environment.
+> Feature Flags are created via `Terraform` and deployed to the relevant environments as needed. The engineer that sets new flags should also update the `static-feature-flags.js` so that the local environment is in sync with `Azure Configuration` for the `DEV` environment.
 
 To use Feature Flags once the setup is complete you can import the `Feature Flag Client` in your code and use it to check a flag status by passing it's `Name`
 
 ```shell
-import { featureFlagClient } from '../../../common/feature-flags.js';
+import { featureFlagClient } from '<path>/<to>/common/feature-flags.js';
 
 if (featureFlagClient.isFeatureActive('<feature-flag-name>')) {
 	// code executes if flag is ON
@@ -291,7 +292,6 @@ if (featureFlagClient.isFeatureActive('<feature-flag-name>')) {
 	// code executes if flag is OFF or it doesn't exist
 }
 ```
-
 
 ## Licensing
 
