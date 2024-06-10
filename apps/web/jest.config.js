@@ -19,3 +19,8 @@ export default {
 	},
 	testTimeout: 30000
 };
+
+process.env = {
+	...process.env,
+	AUTH_DISABLED: 'true'
+};
