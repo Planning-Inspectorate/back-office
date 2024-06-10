@@ -247,7 +247,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('You must enter a webfilter');
+				expect(element.innerHTML).toContain('You must enter a webfilter in Welsh');
 			});
 
 			it('should return an error if value length > 100', async () => {
