@@ -252,7 +252,7 @@ describe('Edit applications documentation metadata', () => {
 
 			it('should return an error if value length > 100', async () => {
 				const response = await request.post(`${baseUrl}/webfilterWelsh`).send({
-					filter1: 'x'.repeat(101)
+					filter1Welsh: 'x'.repeat(101)
 				});
 				const element = parseHtml(response.text);
 
@@ -261,8 +261,8 @@ describe('Edit applications documentation metadata', () => {
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
-				const response = await request.post(`${baseUrl}/webfilter`).send({
-					filter1: 'a valid filter'
+				const response = await request.post(`${baseUrl}/webfilterWelsh`).send({
+					filter1Welsh: 'a valid filter'
 				});
 
 				expect(response?.headers?.location).toEqual('../properties');
