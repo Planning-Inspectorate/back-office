@@ -11,7 +11,7 @@ const require = createRequire(import.meta.url);
 const toastUiRequirePath = require.resolve('@toast-ui/editor');
 
 export default {
-	setupFiles: ['<rootDir>/setup-tests.js'],
+	setupFilesAfterEnv: ['<rootDir>/setup-tests.js'],
 	transform: {},
 	moduleNameMapper: {
 		'^uuid$': 'uuid',

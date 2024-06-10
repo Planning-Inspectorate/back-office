@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "@azure/functions": "^1.2.2",
-        "@azure/identity": "3.0.1",
+        "@azure/identity": "4.2.0",
         "@pins/add-auth-headers-for-backend": "^0.0.0",
         "@pins/applications": "^0.0.0",
         "@pins/blob-storage-client": "^0.0.0",
