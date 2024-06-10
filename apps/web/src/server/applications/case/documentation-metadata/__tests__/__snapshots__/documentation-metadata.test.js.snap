@@ -1,5 +1,115 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1Welsh) GET /case/123/project-documentation/18/document/456/edit/webfilterWelsh should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-l\\"> Webfilter in Welsh</h1>
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+                <p class='govuk-body'>Webfilter in English:</p>
+                <div class=\\"govuk-inset-text\\">Ut</div>
+                <div class=\\"govuk-form-group \\">
+                    <label class=\\"govuk-label font-weight--700\\" for=\\"filter1Welsh\\">Webfilter in Welsh</label>
+                    <div id=\\"filter1Welsh-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
+                    <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
+                    id=\\"filter1Welsh\\" name=\\"filter1Welsh\\" type=\\"text\\" value=\\"Ut\\" aria-describedby=\\"filter1Welsh-hint\\"
+                    maxlength=\\"100\\">
+                </div>
+                <div class=\\"govuk-grid-row\\">
+                    <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1Welsh) POST /case/123/project-documentation/18/document/456/edit/webfilterWelsh should return an error if value is not defined 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#filter1Welsh\\">You must enter a webfilter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-l\\"> Webfilter in Welsh</h1>
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+                <p class='govuk-body'>Webfilter in English:</p>
+                <div class=\\"govuk-inset-text\\">Ut</div>
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <label class=\\"govuk-label font-weight--700\\" for=\\"filter1Welsh\\">Webfilter in Welsh</label>
+                    <div id=\\"filter1Welsh-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
+                    <p id=\\"filter1Welsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a webfilter</p>
+                    <input                     class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"filter1Welsh\\"
+                    name=\\"filter1Welsh\\" type=\\"text\\" value=\\"Ut\\" aria-describedby=\\"filter1Welsh-hint\\"
+                    maxlength=\\"100\\">
+                </div>
+                <div class=\\"govuk-grid-row\\">
+                    <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1Welsh) POST /case/123/project-documentation/18/document/456/edit/webfilterWelsh should return an error if value length > 100 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#filter1Welsh\\">You must enter a webfilter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds\\">
+            <h1 class=\\"govuk-heading-l\\"> Webfilter in Welsh</h1>
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+                <p class='govuk-body'>Webfilter in English:</p>
+                <div class=\\"govuk-inset-text\\">Ut</div>
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <label class=\\"govuk-label font-weight--700\\" for=\\"filter1Welsh\\">Webfilter in Welsh</label>
+                    <div id=\\"filter1Welsh-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
+                    <p id=\\"filter1Welsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a webfilter</p>
+                    <input                     class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"filter1Welsh\\"
+                    name=\\"filter1Welsh\\" type=\\"text\\" value=\\"Ut\\" aria-describedby=\\"filter1Welsh-hint\\"
+                    maxlength=\\"100\\">
+                </div>
+                <div class=\\"govuk-grid-row\\">
+                    <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+                        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`Edit applications documentation metadata Edit agent (representative) GET /case/123/project-documentation/18/document/456/edit/agent should render the page with values 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">

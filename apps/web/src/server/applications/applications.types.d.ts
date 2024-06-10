@@ -110,6 +110,7 @@ export interface DocumentationFile {
 	privateBlobContainer?: string;
 	privateBlobPath?: string;
 	filter1: string;
+	filter1Welsh?: string;
 	author: string;
 	representative: string;
 	stage: string;

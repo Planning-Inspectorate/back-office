@@ -39,6 +39,11 @@ export function createDocumentationFile(options = {}) {
 		startOffset: createUniqueRandomNumberFromSeed(2, 15, uniqueSeed)
 	})}`;
 
+	const filter1Welsh = `${createRandomDescription({
+		wordsNumber: createUniqueRandomNumberFromSeed(1, 2, uniqueSeed),
+		startOffset: createUniqueRandomNumberFromSeed(2, 15, uniqueSeed)
+	})}`;
+
 	const stage = [
 		'pre-application',
 		'acceptance',
@@ -83,6 +88,7 @@ export function createDocumentationFile(options = {}) {
 		documentGuid,
 		caseRef,
 		filter1,
+		filter1Welsh,
 		originalFilename: fileName,
 		fileName,
 		author,
