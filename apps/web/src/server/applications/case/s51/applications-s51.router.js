@@ -7,7 +7,8 @@ import {
 	validateS51AdviceToChange,
 	validateS51AdviceActions,
 	validateS51AdviceToPublish,
-	validateS51UniqueTitle
+	validateS51UniqueTitle,
+	validateS51AdviceReadyToPublish
 } from './applications-s51.validators.js';
 
 const applicationsS51Router = createRouter({ mergeParams: true });
@@ -19,7 +20,12 @@ applicationsS51Router
 applicationsS51Router
 	.route('/change-status')
 	.post(
-		[validateS51AdviceToChange, validateS51AdviceActions, locals.registerFolder],
+		[
+			validateS51AdviceToChange,
+			validateS51AdviceActions,
+			validateS51AdviceReadyToPublish,
+			locals.registerFolder
+		],
 		asyncHandler(controller.updateApplicationsCaseS51ItemStatus)
 	);
 

@@ -29,6 +29,10 @@ export class S51AdvicePage extends Page {
 			const regEx = exact ? new RegExp(`^${question}$`, 'g') : new RegExp(question);
 			return cy.contains(this.selectors.tableCell, regEx).next();
 		},
+		answerListItem: (question, exact = false) => {
+			const regEx = exact ? new RegExp(`^${question}$`, 'g') : new RegExp(question);
+			return cy.contains(this.selectors.summaryListKey, regEx).next();
+		},
 		changeLink: (question) =>
 			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a'),
 		changetitleLink: () =>
@@ -44,6 +48,14 @@ export class S51AdvicePage extends Page {
 	checkAnswer(question, answer, options) {
 		const { assertStrict = true, questionExactText = false } = options || {};
 		this.elements.answerCell(question, questionExactText).then(($elem) => {
+			const assertion = assertStrict ? 'equal' : 'include';
+			cy.wrap($elem.text().trim()).should(assertion, answer.trim());
+		});
+	}
+
+	checkAdviceProperty(question, answer, options) {
+		const { assertStrict = true, questionExactText = false } = options || {};
+		this.elements.answerListItem(question, questionExactText).then(($elem) => {
 			const assertion = assertStrict ? 'equal' : 'include';
 			cy.wrap($elem.text().trim()).should(assertion, answer.trim());
 		});
