@@ -5,6 +5,7 @@ import {
 	validationDateMandatory,
 	validationDateValid
 } from '../../common/validators/dates.validators.js';
+import { getS51Advice } from './applications-s51.service.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -204,6 +205,45 @@ export const validateS51AdviceActions = createValidator(
 		.custom((value, { req }) => !!value || !!req?.body?.status)
 		.withMessage('Select a status to apply a change')
 );
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
+export const validateS51AdviceReadyToPublish = async (req, res, next) => {
+	// @ts-ignore
+	const { status = '', /** @type {{selectedFilesIds: string[]}} */ selectedFilesIds = [] } =
+		req.body || {};
+	const { caseIsWelsh = false, caseId } = res.locals || {};
+
+	if (!caseIsWelsh || status !== 'ready_to_publish') {
+		return next();
+	}
+
+	const s51AdviceItems = await Promise.all(
+		selectedFilesIds.map((/** @type {{adviceId: string}} */ adviceId) =>
+			getS51Advice(caseId, Number(adviceId))
+		)
+	);
+
+	const incompleteS51AdviceItems = s51AdviceItems.filter(
+		(adviceItem) =>
+			!adviceItem.titleWelsh || !adviceItem.enquiryDetailsWelsh || !adviceItem.adviceDetailsWelsh
+	);
+
+	if (incompleteS51AdviceItems.length === 0) {
+		return next();
+	}
+
+	return createValidator(
+		incompleteS51AdviceItems.map((adviceItem) =>
+			body('edit-id-' + Number(adviceItem.id))
+				.custom(() => false)
+				.withMessage('You must fill in all mandatory S51 Advice properties to publish S51 Advice')
+		)
+	)(req, res, next);
+};
 
 /**
  * @param {import("express").Request} req

@@ -1,6 +1,6 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% macro folderS51Table(items, pagination, caseId, folderId, isGeneralS51folder) %}
+{% macro folderS51Table(items, pagination, caseId, folderId, isGeneralS51folder, errors) %}
 
 	<div class="pins-files-list__info govuk-body">
 		<h3 class="govuk-heading-s">Select items to make changes to statuses</h3>
@@ -60,6 +60,7 @@
 
 
 				{% set displayDatePublished = 'Not published' %}
+				{% set editLinkId = 'edit-id-' + item.id %}
 				{% if item.datePublished and item.publishedStatus == 'published' %}
 					{% set displayDatePublished = item.datePublished|datestamp({format: 'dd MMM yyyy'}) %}
 				{% elif item.datePublished == NULL and item.publishedStatus == 'published' and item.dateUpdated %}
@@ -67,7 +68,10 @@
 				{% endif %}
 
 				<tr class="govuk-table__row">
-					<td class="govuk-table__cell">
+					<td class="govuk-table__cell {{ 'pins-files-list--error' if (errors[editLinkId]) }}">
+						{% if (errors[editLinkId]) %}
+						<div class="pins-files-list-border"></div>
+						{% endif %}
 						{{ govukCheckboxes({
 													name: "selectedFilesIds[]",
 													items: [
@@ -80,6 +84,11 @@
 												}) }}
 					</td>
 					<td class="govuk-table__cell">
+						{% if (errors[editLinkId]) %}
+						<p id="selectedFilesIds[]-error" class="govuk-error-message">
+							<span class="govuk-visually-hidden">Error:</span> {{ errors[editLinkId].msg }}
+						</p>
+						{% endif %}
 						<span class='font-weight--700'>
 							{{item.referenceNumber}} - {{item.title}}
 						</span>
@@ -99,7 +108,7 @@
 						{{ item.publishedStatus|statusName }}
 					</td>
 					<td class="govuk-table__cell">
-						<a href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: item.id, step: 'properties'})}}' class='govuk-link'>View/edit advice</a>
+						<a href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: item.id, step: 'properties'})}}' id='{{ editLinkId }}' class='govuk-link'>View/edit advice</a>
 					</td>
 				</tr>
 			{% endfor %}
