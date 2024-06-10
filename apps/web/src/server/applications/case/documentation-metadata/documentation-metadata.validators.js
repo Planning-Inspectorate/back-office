@@ -80,7 +80,7 @@ export const validateDocumentationMetaFilter1Welsh = createValidator(
 	body('filter1Welsh')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter a webfilter')
+		.withMessage('You must enter a webfilter in Welsh')
 		.isLength({ max: 100 })
 		.withMessage('The webfilter must be 100 characters or fewer')
 );
