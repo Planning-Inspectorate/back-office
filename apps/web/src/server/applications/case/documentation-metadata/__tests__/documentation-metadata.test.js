@@ -229,6 +229,47 @@ describe('Edit applications documentation metadata', () => {
 		});
 	});
 
+	describe('Edit Welsh webfilter (filter1Welsh)', () => {
+		describe('GET /case/123/project-documentation/18/document/456/edit/webfilterWelsh', () => {
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/webfilterWelsh`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Webfilter in Welsh');
+				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.filter1Welsh);
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/webfilterWelsh', () => {
+			it('should return an error if value is not defined', async () => {
+				const response = await request.post(`${baseUrl}/webfilterWelsh`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('You must enter a webfilter');
+			});
+
+			it('should return an error if value length > 100', async () => {
+				const response = await request.post(`${baseUrl}/webfilterWelsh`).send({
+					filter1: 'x'.repeat(101)
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a limit of 100 characters');
+			});
+
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/webfilter`).send({
+					filter1: 'a valid filter'
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
 	describe('Edit author', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/author', () => {
 			it('should render the page with values', async () => {

@@ -41,7 +41,7 @@ const layouts = {
 	webfilterWelsh: {
 		label: 'Webfilter in Welsh',
 		hint: 'There is a limit of 100 characters',
-		pageTitle: 'Enter the webfilter',
+		pageTitle: 'Webfilter in Welsh',
 		metaDataName: 'filter1Welsh',
 		maxLength: 100
 	},
