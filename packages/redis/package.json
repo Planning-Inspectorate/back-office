@@ -17,6 +17,6 @@
     "connect-redis": "^7.1.0",
     "redis": "^4.6.10",
     "@pins/platform": "^0.0.0",
-    "@azure/msal-node": "^1.14.6"
+    "@azure/msal-node": "^2.9.2"
   }
 }
