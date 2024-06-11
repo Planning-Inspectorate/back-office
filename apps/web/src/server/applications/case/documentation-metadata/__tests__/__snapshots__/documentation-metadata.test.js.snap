@@ -180,21 +180,13 @@ exports[`Edit applications documentation metadata Edit agent (representative) PO
 exports[`Edit applications documentation metadata Edit author GET /case/123/project-documentation/18/document/456/edit/author should render the page with values 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter who the document is from</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-                <div class=\\"govuk-form-group \\">
-                    <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
-                    <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
-                    <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-                    id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"author-hint\\"
-                    maxlength=\\"150\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"author\\"> Who the document is from</label></h1>
+                    <textarea class=\\"govuk-textarea\\" id=\\"author\\" name=\\"author\\" rows=\\"5\\">Tempor incididunt</textarea>
                 </div>
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
-                    </div>
-                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
             </form>
         </div>
     </div>
@@ -219,23 +211,16 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter who the document is from</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
-                    <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"author\\"> Who the document is from</label></h1>
                     <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter who the
                         document is from</p>
-                    <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"author-hint\\"
-                    maxlength=\\"150\\">
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"author\\" name=\\"author\\" rows=\\"5\\" aria-describedby=\\"author-error\\">Tempor incididunt</textarea>
                 </div>
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
-                    </div>
-                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
             </form>
         </div>
     </div>
@@ -260,23 +245,16 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter who the document is from</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
-                    <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"author\\"> Who the document is from</label></h1>
                     <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The value must be 150
                         characters or fewer</p>
-                    <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"author-hint\\"
-                    maxlength=\\"150\\">
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"author\\" name=\\"author\\" rows=\\"5\\" aria-describedby=\\"author-error\\">Tempor incididunt</textarea>
                 </div>
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
-                    </div>
-                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
             </form>
         </div>
     </div>
