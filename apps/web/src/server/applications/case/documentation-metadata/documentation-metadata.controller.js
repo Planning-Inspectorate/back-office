@@ -3,7 +3,7 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript"} MetaDataNames */
-/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
+/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
 /** @typedef {{caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
@@ -53,18 +53,22 @@ const layouts = {
 		maxLength: 150
 	},
 	author: {
-		label: 'Document from',
+		label: 'Who the document is from',
 		hint: 'There is a limit of 150 characters',
-		pageTitle: 'Enter who the document is from',
+		pageTitle: 'Who the document is from',
 		metaDataName: 'author',
-		maxLength: 150
+		maxLength: 150,
+		template: 'documentation-edit-textarea.njk'
 	},
 	authorWelsh: {
-		label: 'Document from',
+		label: 'Who the document is from in Welsh',
 		hint: 'There is a limit of 150 characters',
-		pageTitle: 'Enter who the document is from in Welsh',
+		englishLabel: 'Who the document is from in English',
+		pageTitle: 'Who the document is from in Welsh',
 		metaDataName: 'authorWelsh',
-		maxLength: 150
+		metaDataEnglishName: 'author',
+		maxLength: 150,
+		template: 'documentation-edit-textarea.njk'
 	},
 	'published-date': {
 		label: 'Date document published',
@@ -159,7 +163,9 @@ export async function viewDocumentationMetaData({ params }, response) {
 		return response.status(403).redirect('/app/403');
 	}
 
-	response.render(`applications/case-documentation/documentation-edit.njk`, { layout, noPublish });
+	const template = layout.template ?? 'documentation-edit.njk';
+
+	response.render(`applications/case-documentation/${template}`, { layout, noPublish });
 }
 
 /**
@@ -195,10 +201,19 @@ export async function updateDocumentationMetaData(request, response) {
 	if (validationErrors || apiErrors) {
 		const layout = getLayoutParameters(params, response.locals);
 
-		return response.render(`applications/case-documentation/documentation-edit.njk`, {
-			errors: validationErrors || apiErrors,
-			layout
-		});
+		// @ts-ignore
+		const errors = Object.entries(validationErrors || apiErrors).reduce((result, [key, value]) => {
+			if (typeof value === 'string') {
+				return { ...result, [key]: { msg: value } };
+			} else {
+				return { ...result, [key]: value };
+			}
+		}, {});
+
+		return response.render(
+			`applications/case-documentation/${layout.template ?? 'documentation-edit.njk'}`,
+			{ errors, layout }
+		);
 	}
 	response.redirect('../properties');
 }
