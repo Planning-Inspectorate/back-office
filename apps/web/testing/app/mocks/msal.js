@@ -57,5 +57,11 @@ const mock = {
 
 ConfidentialClientApplication.getMock = () => mock;
 
-// This does not work after msal-node v2
-// msal.ConfidentialClientApplication = ConfidentialClientApplication;
+const mockMsal = {
+	...msal,
+	ConfidentialClientApplication // override default implementation for testing
+};
+
+jest.unstable_mockModule('@azure/msal-node', () => {
+	return mockMsal;
+});

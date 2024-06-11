@@ -13,7 +13,7 @@ const azureMsalMock = ConfidentialClientApplication.getMock();
 
 // Disabled as msal-node v2 cannot be mocked how we were mocking previously - tests refactor required
 // eslint-disable-next-line jest/no-disabled-tests
-describe.skip('auth', () => {
+describe('auth', () => {
 	afterEach(teardown);
 
 	describe('authentication', () => {
