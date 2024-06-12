@@ -138,7 +138,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Description of the document in Welsh');
+				expect(element.innerHTML).toContain('Document description in Welsh');
 				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.description);
 			});
 		});
@@ -161,7 +161,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('There is a limit of 800 characters');
+				expect(element.innerHTML).toContain('The description must be 800 characters or fewer');
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
