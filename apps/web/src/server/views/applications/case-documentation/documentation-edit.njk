@@ -39,13 +39,6 @@
 					}) }}
 				{% endif %}
 
-				{% if layout.metaDataName === 'descriptionWelsh' and documentMetaData.description != null %}
-					<p class='govuk-body'>Document description in English:</p>
-					{{ govukInsetText({
-  						text: documentMetaData.description
-					}) }}
-				{% endif %}
-
 				{{ renderComponent(layout.metaDataName) }}
 
 				{% if layout.metaDataName === 'transcript' %}
