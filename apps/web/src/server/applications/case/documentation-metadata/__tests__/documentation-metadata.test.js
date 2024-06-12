@@ -277,7 +277,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter who the document is from');
+				expect(element.innerHTML).toContain('Who the document is from');
 				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.author);
 			});
 		});
@@ -298,7 +298,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('There is a limit of 150 characters');
+				expect(element.innerHTML).toContain('The value must be 150 characters or fewer');
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {

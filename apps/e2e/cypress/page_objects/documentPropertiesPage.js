@@ -37,11 +37,16 @@ export class DocumentPropertiesPage extends Page {
 	/**
 	 * @param {string} property - Label text of the property. i.e `File name`
 	 * @param {string} newValue - this is the new value for this property
+	 * @param {string} type - this is the type of control in the page
 	 * @returns {void}
 	 */
-	updateDocumentProperty(property, newValue) {
+	updateDocumentProperty(property, newValue, type = 'input') {
 		this.elements.changeLink(property).click();
-		this.fillInput(newValue);
+		if (type === 'textarea') {
+			this.fillTextArea(newValue);
+		} else {
+			this.fillInput(newValue);
+		}
 		this.#save();
 		this.elements.propertyValue(property).then((elem) => {
 			expect(elem.text().trim()).to.eq(newValue);
@@ -112,8 +117,8 @@ export class DocumentPropertiesPage extends Page {
 		this.updateDocumentProperty('File name', this.fileName());
 		this.updateDocumentProperty('Description', this.description());
 		this.updateDocumentProperty('Description in Welsh', this.descriptionWelsh());
-		this.updateDocumentProperty('Who the document is from', this.from());
-		this.updateDocumentProperty('Who the document is from in Welsh', this.fromWelsh());
+		this.updateDocumentProperty('Who the document is from', this.from(), 'textarea');
+		this.updateDocumentProperty('Who the document is from in Welsh', this.fromWelsh(), 'textarea');
 		this.updateDocumentProperty('Agent (optional)', this.agent());
 		this.updateDocumentProperty('Webfilter', this.webfilter());
 		this.updateDocumentProperty('Webfilter in Welsh', this.webfilterWelsh());
