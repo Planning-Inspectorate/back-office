@@ -27,7 +27,7 @@ const layouts = {
 	descriptionWelsh: {
 		label: 'Description of the document in Welsh',
 		hint: 'There is a limit of 800 characters',
-		pageTitle: 'Enter document description',
+		pageTitle: 'Document description in Welsh',
 		metaDataName: 'descriptionWelsh',
 		maxLength: 800
 	},
