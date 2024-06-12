@@ -267,7 +267,7 @@ docker container run -dp 3001:3001 -t pins-back-office-document-storage
 
 which should create and run a container at `http://0.0.0.0:3001` on your machine.
 
-#### Feature Flags
+## Feature Flags
 
 To start working with Feature Flags add the env variables below to the the `.env` files in `apps/api`, `apps/web` and `apps/e2e` and replace `<connection string>` in `PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING`
 
