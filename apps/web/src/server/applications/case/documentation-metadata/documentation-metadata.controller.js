@@ -186,11 +186,16 @@ export async function updateDocumentationMetaData(request, response) {
 
 	if (metaDataName === 'published-date' || metaDataName === 'receipt-date') {
 		const fieldName = layouts[metaDataName].metaDataName;
-		const newValue = `${body[`${fieldName}.year`]}-${body[`${fieldName}.month`]}-${
-			body[`${fieldName}.day`]
-		}`;
 
-		newMetaData = { [fieldName]: new Date(newValue) };
+		const day = body[`${fieldName}.day`];
+		const month = body[`${fieldName}.month`];
+		const year = body[`${fieldName}.year`];
+
+		if (validationErrors && validationErrors[fieldName]) {
+			validationErrors[fieldName].value = { year, month, day };
+		} else {
+			newMetaData = { [fieldName]: new Date(`${year}-${month}-${day}`) };
+		}
 	}
 	// special case for documentType "No document type" - we need to send null to the api
 	if (metaDataName === 'type' && newMetaData.documentType === '') {
