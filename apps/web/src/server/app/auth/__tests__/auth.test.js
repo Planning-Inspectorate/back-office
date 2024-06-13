@@ -11,8 +11,6 @@ const { app, teardown } = createTestEnvironment({ authenticated: false });
 const request = supertest(app);
 const azureMsalMock = ConfidentialClientApplication.getMock();
 
-// Disabled as msal-node v2 cannot be mocked how we were mocking previously - tests refactor required
-// eslint-disable-next-line jest/no-disabled-tests
 describe('auth', () => {
 	afterEach(teardown);
 
