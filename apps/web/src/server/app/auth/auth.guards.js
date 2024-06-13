@@ -21,9 +21,6 @@ import * as authSession from './auth-session.service.js';
  * @type {import('express').RequestHandler}
  */
 export async function assertIsAuthenticated(request, response, next) {
-	if (process.env.AUTH_DISABLED === 'true') {
-		return next();
-	}
 	const sessionAccount = authSession.getAccount(request.session);
 
 	if (!sessionAccount) {
