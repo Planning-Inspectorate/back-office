@@ -25,11 +25,14 @@ const layouts = {
 		maxLength: 800
 	},
 	descriptionWelsh: {
-		label: 'Description of the document in Welsh',
+		label: 'Document description in Welsh',
 		hint: 'There is a limit of 800 characters',
-		pageTitle: 'Enter document description',
+		pageTitle: 'Document description in Welsh',
+		englishLabel: 'Document description in English',
+		metaDataEnglishName: 'description',
 		metaDataName: 'descriptionWelsh',
-		maxLength: 800
+		maxLength: 800,
+		template: 'documentation-edit-textarea.njk'
 	},
 	webfilter: {
 		label: 'Webfilter',

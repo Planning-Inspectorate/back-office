@@ -1,5 +1,5 @@
 // @ts-nocheck
-import msal from '@azure/msal-node';
+import * as msal from '@azure/msal-node';
 import { jest } from '@jest/globals';
 import { last } from 'lodash-es';
 import { createAccountInfo } from '../factory/account-info.js';
@@ -57,4 +57,11 @@ const mock = {
 
 ConfidentialClientApplication.getMock = () => mock;
 
-msal.ConfidentialClientApplication = ConfidentialClientApplication;
+const mockMsal = {
+	...msal,
+	ConfidentialClientApplication // override default implementation for testing
+};
+
+jest.unstable_mockModule('@azure/msal-node', () => {
+	return mockMsal;
+});

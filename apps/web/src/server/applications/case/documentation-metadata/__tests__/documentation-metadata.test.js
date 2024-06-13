@@ -131,6 +131,49 @@ describe('Edit applications documentation metadata', () => {
 		});
 	});
 
+	describe('Edit description in Welsh', () => {
+		describe('GET /case/123/project-documentation/18/document/456/edit/descriptionWelsh', () => {
+			it('should render the page with values', async () => {
+				const response = await request.get(`${baseUrl}/descriptionWelsh`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Document description in Welsh');
+				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.description);
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/descriptionWelsh', () => {
+			it('should return an error if value is not defined', async () => {
+				const response = await request.post(`${baseUrl}/descriptionWelsh`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain(
+					'You must enter a description of the document in Welsh'
+				);
+			});
+
+			it('should return an error if value length > 800', async () => {
+				const response = await request.post(`${baseUrl}/descriptionWelsh`).send({
+					descriptionWelsh: 'x'.repeat(801)
+				});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('The description must be 800 characters or fewer');
+			});
+
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/descriptionWelsh`).send({
+					descriptionWelsh: 'a valid description'
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
 	describe('Edit agent (representative)', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/agent', () => {
 			it('should render the page with values', async () => {

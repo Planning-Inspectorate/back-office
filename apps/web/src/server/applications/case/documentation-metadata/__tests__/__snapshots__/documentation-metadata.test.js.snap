@@ -367,6 +367,100 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
 </main>"
 `;
 
+exports[`Edit applications documentation metadata Edit description in Welsh GET /case/123/project-documentation/18/document/456/edit/descriptionWelsh should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Document description in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Document description in English:</p>
+                <div class=\\"govuk-inset-text\\">Ullamco laboris nisi ut aliquip ex ea commodo consequat</div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"descriptionWelsh\\">Document description in Welsh</label>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"descriptionWelsh\\" name=\\"descriptionWelsh\\" rows=\\"5\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit description in Welsh POST /case/123/project-documentation/18/document/456/edit/descriptionWelsh should return an error if value is not defined 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#descriptionWelsh\\">You must enter a description of the document in Welsh</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Document description in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Document description in English:</p>
+                <div class=\\"govuk-inset-text\\">Ullamco laboris nisi ut aliquip ex ea commodo consequat</div>
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"descriptionWelsh\\">Document description in Welsh</label>
+                    <p id=\\"descriptionWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a description
+                        of the document in Welsh</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"descriptionWelsh\\" name=\\"descriptionWelsh\\" rows=\\"5\\" aria-describedby=\\"descriptionWelsh-error\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit description in Welsh POST /case/123/project-documentation/18/document/456/edit/descriptionWelsh should return an error if value length > 800 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#descriptionWelsh\\">The description must be 800 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Document description in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Document description in English:</p>
+                <div class=\\"govuk-inset-text\\">Ullamco laboris nisi ut aliquip ex ea commodo consequat</div>
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"descriptionWelsh\\">Document description in Welsh</label>
+                    <p id=\\"descriptionWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The description must
+                        be 800 characters or fewer</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"descriptionWelsh\\" name=\\"descriptionWelsh\\" rows=\\"5\\" aria-describedby=\\"descriptionWelsh-error\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`Edit applications documentation metadata Edit document type GET /case/123/project-documentation/18/document/456/edit/type should render the page with values 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
