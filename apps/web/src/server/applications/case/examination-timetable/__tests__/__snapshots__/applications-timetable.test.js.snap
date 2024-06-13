@@ -1836,21 +1836,21 @@ exports[`Create examination timetable page should display errors if start date a
                                     <p id=\\"startDate.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                     </p>
                                     <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.day\\" name=\\"startDate.day\\"
-                                    type=\\"text\\" value=\\"01\\" aria-describedby=\\"startDate.day-error\\">
+                                    type=\\"text\\" aria-describedby=\\"startDate.day-error\\">
                                 </div>
                                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                                     <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.month\\">Month</label>
                                     <p id=\\"startDate.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                     </p>
                                     <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.month\\" name=\\"startDate.month\\"
-                                    type=\\"text\\" value=\\"02\\" aria-describedby=\\"startDate.month-error\\">
+                                    type=\\"text\\" aria-describedby=\\"startDate.month-error\\">
                                 </div>
                                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                                     <label class=\\"govuk-label govuk-hint\\" for=\\"startDate.year\\">Year</label>
                                     <p id=\\"startDate.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                     </p>
                                     <input class=\\"govuk-input govuk-input--error\\" id=\\"startDate.year\\" name=\\"startDate.year\\"
-                                    type=\\"text\\" value=\\"2001\\" aria-describedby=\\"startDate.year-error\\">
+                                    type=\\"text\\" aria-describedby=\\"startDate.year-error\\">
                                 </div>
                             </div>
                         </div>
