@@ -3,7 +3,7 @@
 
 {% block formContent %}
 	{{ textareaFormComponent({
-		value: documentMetaData[layout.metaDataName],
+		value: errors[layout.metaDataName].value if errors[layout.metaDataName] else documentMetaData[layout.metaDataName],
 		name: layout.metaDataName,
 		label: layout.label,
 		englishValue: documentMetaData[layout.metaDataEnglishName] if documentMetaData[layout.metaDataEnglishName] else null,
