@@ -33,7 +33,7 @@
 		"e2e:smokeTests": "npm run cy:run --workspace=@pins/e2e -- --browser chrome  --spec cypress/e2e/back-office-applications/smokeTests.spec.js"
 	},
 	"dependencies": {
-		"@azure/identity": "^4.2.0",
+		"@azure/identity": "^4.2.1",
 		"@badeball/cypress-cucumber-preprocessor": "20.0.1",
 		"@prisma/client": "^5.13.0",
 		"cypress": "13.6.4",
