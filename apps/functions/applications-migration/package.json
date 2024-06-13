@@ -23,7 +23,7 @@
     "mysql2": "^3.9.8",
     "pins-data-model": "github:Planning-Inspectorate/data-model#1.4.1",
     "sequelize": "^6.33.0",
-    "tedious": "^11.0.8"
+    "tedious": "^18.2.0"
   },
   "devDependencies": {
     "azure-functions-core-tools": "^4.x",
