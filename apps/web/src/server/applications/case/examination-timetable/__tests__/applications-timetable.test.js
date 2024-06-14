@@ -39,6 +39,7 @@ const nocks = () => {
 	nock('http://test/').post('/applications/examination-timetable-items').reply(200, []);
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/1')
+		.times(2)
 		.reply(200, fixtureTimetableItems[0]);
 	nock('http://test/')
 		.patch('/applications/examination-timetable-items/publish/123')
@@ -292,6 +293,77 @@ describe('Edit examination timetable', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Edit timetable item');
+		});
+	});
+	describe('Edit welsh fields', () => {
+		describe('GET /case/123/examination-timetable/item/edit/1/name-welsh', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+				nocks();
+			});
+
+			it('should render the page', async () => {
+				const response = await request.get(
+					`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`
+				);
+
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Item name in Welsh');
+			});
+		});
+
+		describe('POST /case/123/examination-timetable/item/edit/1/name-welsh', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+				nocks();
+			});
+			describe('when the form is submitted with valid welsh name', () => {
+				describe('and there are validation errors', () => {
+					it('should show error when submitted welsh name is empty', async () => {
+						const response = await request
+							.post(`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`)
+							.send({
+								id: 1,
+								nameWelsh: ''
+							});
+
+						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
+
+						expect(element.innerHTML).toContain('Enter item name in Welsh');
+					});
+					it('should show error when submitted welsh name is too long', async () => {
+						const response = await request
+							.post(`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`)
+							.send({
+								id: 1,
+								nameWelsh: 'mock welsh name'.repeat(100)
+							});
+
+						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
+
+						expect(element.innerHTML).toContain(
+							'Item name in Welsh must be 200 characters or less'
+						);
+					});
+				});
+
+				describe('and there are no validation errors', () => {
+					it('redirect to /examination-timetable and show success banner', async () => {
+						const response = await request
+							.post(`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`)
+							.send({
+								id: 1,
+								nameWelsh: 'mock welsh name'
+							});
+
+						expect(response?.headers?.location).toContain(
+							'/applications-service/case/123/examination-timetable'
+						);
+					});
+				});
+			});
 		});
 	});
 });

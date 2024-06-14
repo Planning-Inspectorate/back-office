@@ -45,15 +45,16 @@ export interface ApplicationExaminationTimetableItem {
 
 export interface ApplicationsTimetablePayload {
 	id?: number;
-	examinationTypeId: number;
-	name: string;
-	description: string;
-	date: Date;
-	startDate: Date | null;
-	startTime: string | null;
-	endTime: string | null;
+	examinationTypeId?: number;
+	name?: string;
+	nameWelsh?: string;
+	description?: string;
+	date?: Date;
+	startDate?: Date | null;
+	startTime?: string | null;
+	endTime?: string | null;
 	submissions?: boolean;
-	caseId: number;
+	caseId?: number;
 }
 export interface ApplicationsTimetable extends ApplicationsTimetablePayload {
 	ExaminationTimetableType: ExaminationTimetableType;

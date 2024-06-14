@@ -50,6 +50,19 @@
 		}
 	] %}
 
+	{# add actions for each row, we need the same link for all fields except the welsh variants #}
+	{% for row in rowsDataEn %}
+		{% set row = row | assign(row, { actions: caseId and {
+				items: [
+					{
+						href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}),
+						text: "Change",
+						visuallyHiddenText: row.key
+					}
+				]
+			} } ) %}
+	{% endfor %}
+
 	{# for welsh cases, include welsh fields #}
 	{% set rowsDataCy = [] %}
 
@@ -57,7 +70,17 @@
 		{% if loop.index0 == 2 %}
 			{% set rowsDataCy = (rowsDataCy.push({
 				key: 'Item name in Welsh',
-				text: timetableItem.nameWelsh
+				text: timetableItem.nameWelsh,
+				actions: caseId and {
+					items: [
+						{
+							href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}) + "/name-welsh",
+							text: "Change",
+							visuallyHiddenText: row.key
+						}
+					]
+			}
+				
 			}), rowsDataCy) %}
 		{% endif %}
 		{% set rowsDataCy = (rowsDataCy.push(row), rowsDataCy) %}
@@ -65,7 +88,7 @@
 
 
 	{# set/display cy description only if en version is present #}
-	{% if timetableItem.description.preText | trim and timetableItem.descriptionWelsh.preText %}
+	{% if timetableItem.description.preText | trim %}
 		{% set descriptionHtmlCy %}
 			<p class="govuk-body">{{timetableItem.descriptionWelsh.preText | sanitize}}</p>
 
@@ -80,7 +103,16 @@
 
 		{% set rowsDataCy = (rowsDataCy.push({
 			key: "Item description in Welsh",
-			html: descriptionHtmlCy
+			html: descriptionHtmlCy,
+			actions: caseId and {
+				items: [
+					{
+						href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}) + "/description-welsh",
+						text: "Change",
+						visuallyHiddenText: row.key
+					}
+				]
+			}
 		}), rowsDataCy) %}
 	{% endif %}
 
@@ -90,21 +122,13 @@
 
 	{% set tableRows = [] %}
 	{% for row in rowsData %}
-		{% if (row.text or row.html) %}
+		{% if (row.text or row.html or row.key == 'Item name in Welsh' or row.key == 'Item description in Welsh') %}
 			{#  In the value column, the row can be used because the "key" will be ignored	#}
 			{% set tableRows = tableRows.concat([
 				{
 					key: { text: row.key },
 					value: row,
-					actions: caseId and {
-							items: [
-							{
-								href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}),
-								text: "Change",
-								visuallyHiddenText: row.key
-							}
-						]
-					}
+					actions: row.actions
 				}
 			]) %}
 

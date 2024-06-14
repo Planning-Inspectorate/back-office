@@ -7,6 +7,14 @@
 {% set serviceName = 'Examination timetable' %}
 
 {% block sectionContent %}
+	{% if successBannerText %}
+		{{ govukNotificationBanner({ 
+			type: 'success', 
+			html: '<strong>' + successBannerText + '</strong>'
+		}) }}
+	{% endif %}
+
+
     <div>
 		<div class='govuk-grid-row'>
 			<div class='govuk-grid-column-two-thirds'>

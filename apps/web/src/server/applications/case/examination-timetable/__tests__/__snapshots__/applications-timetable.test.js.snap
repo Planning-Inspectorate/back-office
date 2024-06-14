@@ -2211,6 +2211,28 @@ exports[`Delete examination timetable POST /case/123/examination-timetable/item/
 </main>"
 `;
 
+exports[`Edit examination timetable Edit welsh fields GET /case/123/examination-timetable/item/edit/1/name-welsh should render the page 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-5\\"> Item name in Welsh</h1>
+                <p class=\\"govuk-body\\">Item name in English:</p>
+                <div class=\\"govuk-inset-text\\">Test</div>
+            </div>
+            <form method=\\"post\\" novalidate>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"nameWelsh\\">Item name in Welsh</label>
+                    <input class=\\"govuk-input\\" id=\\"nameWelsh\\" name=\\"nameWelsh\\"
+                    type=\\"text\\">
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/edit should show the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class='govuk-grid-row'>
