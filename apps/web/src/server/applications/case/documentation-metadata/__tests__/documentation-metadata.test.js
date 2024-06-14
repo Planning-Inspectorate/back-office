@@ -331,7 +331,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('You must enter who the document is from');
+				expect(element.innerHTML).toContain('Enter who the document is from');
 			});
 
 			it('should return an error if value length > 100', async () => {
@@ -341,7 +341,9 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('The value must be 150 characters or fewer');
+				expect(element.innerHTML).toContain(
+					'Who the document is from must be 150 characters or less'
+				);
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
