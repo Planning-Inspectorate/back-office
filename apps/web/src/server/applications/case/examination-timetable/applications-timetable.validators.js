@@ -111,3 +111,12 @@ export const validatorsDispatcher = async (request, response, next) => {
 
 	return next();
 };
+
+export const nameWelshValidator = createValidator(
+	body('nameWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter item name in Welsh')
+		.isLength({ max: 200 })
+		.withMessage('Item name in Welsh must be 200 characters or less')
+);

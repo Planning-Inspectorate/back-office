@@ -15,6 +15,11 @@ import {
 import pino from '../../../lib/logger.js';
 import sanitizeHtml from 'sanitize-html';
 import { isCaseRegionWales } from '../../common/isCaseWelsh.js';
+import {
+	deleteSessionBanner,
+	getSessionBanner,
+	setSessionBanner
+} from '../../common/services/session.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
@@ -111,9 +116,9 @@ export const timetableTemplatesSchema = {
 /**
  * View the list of examination timetables for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean, selectedPageType: string, republishStatus: boolean, isCaseWelsh: boolean}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean, selectedPageType: string, republishStatus: boolean, isCaseWelsh: boolean, successBannerText: string | undefined}>}
  */
-export async function viewApplicationsCaseTimetableList(_, response) {
+export async function viewApplicationsCaseTimetableList({ session }, response) {
 	const examinationTimetable = await getCaseTimetableItems(response.locals.caseId);
 	const timetableItemsViewData = examinationTimetable?.items?.map(getTimetableRows) ?? [];
 	const republishStatus =
@@ -121,13 +126,16 @@ export async function viewApplicationsCaseTimetableList(_, response) {
 		examinationTimetable.items?.some((item) => item.createdAt > examinationTimetable.publishedAt);
 
 	const isCaseWelsh = isCaseRegionWales(response.locals.case?.geographicalInformation?.regions);
+	const successBannerText = getSessionBanner(session);
+	deleteSessionBanner(session);
 
 	response.render(`applications/case-timetable/timetable-list`, {
 		timetableItems: timetableItemsViewData,
 		publishedStatus: examinationTimetable?.published,
 		selectedPageType: 'examination-timetable',
 		republishStatus,
-		isCaseWelsh
+		isCaseWelsh,
+		successBannerText
 	});
 }
 
@@ -443,6 +451,66 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 	}
 
 	response.redirect(`../../${payload.id ? 'edited' : 'created'}/success`);
+}
+/**
+ * view examination timetable item-welsh name
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
+ */
+export async function viewApplicationsCaseTimetableItemNameWelsh({ params }, response) {
+	const { name, nameWelsh, submissions } = await getCaseTimetableItemById(+params.timetableId);
+
+	// if there are submissions against timetable item, we shouldn't edit it
+	if (submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${params.timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
+
+	return response.render('applications/case-timetable/timetable-item-name-welsh.njk', {
+		itemName: name,
+		itemNameWelsh: nameWelsh,
+		pageTitle: 'Item name in Welsh'
+	});
+}
+
+/**
+ * create/edit examination timetable item-welsh name
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
+ */
+export async function postApplicationsCaseTimetableItemNameWelsh(
+	{ params, body, baseUrl, errors, session },
+	response
+) {
+	const { timetableId } = params;
+	const { name, submissions } = await getCaseTimetableItemById(+params.timetableId);
+
+	// if there are submissions, we shouldn't edit the item
+	if (submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
+
+	if (errors) {
+		return response.render('applications/case-timetable/timetable-item-name-welsh.njk', {
+			itemName: name,
+			itemNameWelsh: errors.nameWelsh.value,
+			pageTitle: 'Item name in Welsh',
+			errors
+		});
+	}
+
+	/** @type {ApplicationsTimetablePayload} */
+	const payload = {
+		id: +timetableId,
+		nameWelsh: body.nameWelsh
+	};
+
+	await updateCaseTimetableItem(payload);
+
+	//on update, return to examination timetable and display success banner
+	setSessionBanner(session, 'Item name in Welsh updated');
+	return response.redirect(`${baseUrl}`);
 }
 
 /**
