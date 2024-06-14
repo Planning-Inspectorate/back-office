@@ -1,0 +1,61 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set serviceName = "Examination timetable" %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: 'timetable'|url({caseId: caseId})
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<div class='govuk-grid-row'>
+		<div class='govuk-grid-column-two-thirds'>
+
+			<div>
+				<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+					{{ pageTitle }}
+				</h1>
+				<p class="govuk-body">
+					Item name in English: 
+				</p>
+
+				{{ govukInsetText({
+					text: itemName
+				}) }}
+			</div>
+
+			<form method="post" novalidate>
+
+				{{ govukInput({
+					label: {
+						text: "Item name in Welsh",
+						classes: "govuk-label--m"
+					},
+					id: "nameWelsh",
+					name: "nameWelsh",
+					value: itemNameWelsh,
+					errorMessage: errors and {
+						text: errors.nameWelsh.msg
+					}
+				}) }}
+
+				{{ govukButton({
+					text: "Save and return"
+				}) }}
+
+			</form>
+		</div>
+	</div>
+{% endblock %}

@@ -24,6 +24,14 @@ applicationsTimetableRouter
 	// click on change from "check-your-answers" page
 	.post(asyncHandler(controller.viewApplicationsCaseTimetableDetailsNew));
 
+applicationsTimetableRouter
+	.route('/item/edit/:timetableId/name-welsh')
+	.get(asyncHandler(controller.viewApplicationsCaseTimetableItemNameWelsh))
+	.post(
+		validators.nameWelshValidator,
+		asyncHandler(controller.postApplicationsCaseTimetableItemNameWelsh)
+	);
+
 // click on "Continue" button from details-form
 // works for edit and new
 applicationsTimetableRouter
