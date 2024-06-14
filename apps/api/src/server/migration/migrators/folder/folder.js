@@ -1059,6 +1059,12 @@ const getS51AdviceFolderId = memoize(async (caseId) => {
 	return s51AdviceFolder?.id;
 });
 
+const getExamTimetableFolderId = memoize(async (caseId) => {
+	const examTimetableFolder = await getFolderByNameAndCaseId(caseId, 'Examination timetable');
+	if (!examTimetableFolder) throw `Examination timetable folder not found for caseId ${caseId}`;
+	return examTimetableFolder?.id;
+});
+
 /**
  * look up path in maps, or create it if not found
  * @param documentPath
@@ -1072,9 +1078,14 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 
 	logger.info(`path: ${documentPath}, documentCaseStage: ${documentCaseStage}`);
 
-	if (folders[0] === '02 - Section 51 Advice') {
+	if (isS51AdviceFolder(path)) {
 		logger.info('Path is S51 advice folder');
 		return getS51AdviceFolderId(caseId);
+	}
+
+	if (isExamTimetableSubfolder(path)) {
+		logger.info('Creating Exam Timetable subfolder');
+		return createExamTimetableSubfolder(folders, caseId);
 	}
 
 	let folderId;
@@ -1095,6 +1106,19 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 	if (!folderId) throw `folderId not found`;
 
 	return folderId;
+};
+
+const isExamTimetableSubfolder = (documentPath) => /Exam Timetable\/(.*)/.test(documentPath);
+
+const isS51AdviceFolder = (documentPath) => /02 - Section 51 Advice/.test(documentPath);
+
+const createExamTimetableSubfolder = async (folders, caseId) => {
+	const parentFolderId = await getExamTimetableFolderId(caseId);
+
+	const folderIndex = folders.findIndex((folderName) => /Exam Timetable$/.test(folderName));
+	const subFolders = folders.slice(folderIndex + 1);
+
+	return createFolders(subFolders, caseId, parentFolderId);
 };
 
 /**

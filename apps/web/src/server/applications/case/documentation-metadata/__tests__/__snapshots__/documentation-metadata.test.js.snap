@@ -55,7 +55,7 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
                     <p id=\\"filter1Welsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a webfilter
                         in Welsh</p>
                     <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"filter1Welsh\\" name=\\"filter1Welsh\\" type=\\"text\\" value=\\"Ut\\" aria-describedby=\\"filter1Welsh-hint\\"
+                    id=\\"filter1Welsh\\" name=\\"filter1Welsh\\" type=\\"text\\" value=\\"\\" aria-describedby=\\"filter1Welsh-hint\\"
                     maxlength=\\"100\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
@@ -98,8 +98,8 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
                     <p id=\\"filter1Welsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The webfilter must be
                         100 characters or fewer</p>
                     <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"filter1Welsh\\" name=\\"filter1Welsh\\" type=\\"text\\" value=\\"Ut\\" aria-describedby=\\"filter1Welsh-hint\\"
-                    maxlength=\\"100\\">
+                    id=\\"filter1Welsh\\" name=\\"filter1Welsh\\" type=\\"text\\" value=\\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\"
+                    aria-describedby=\\"filter1Welsh-hint\\" maxlength=\\"100\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -163,7 +163,7 @@ exports[`Edit applications documentation metadata Edit agent (representative) PO
                     <p id=\\"representative-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The agent name be 150
                         characters or fewer</p>
                     <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"representative\\" name=\\"representative\\" type=\\"text\\" value=\\"Ullamco Aliqua\\"
+                    id=\\"representative\\" name=\\"representative\\" type=\\"text\\" value=\\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\"
                     aria-describedby=\\"representative-hint\\" maxlength=\\"150\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
@@ -180,21 +180,13 @@ exports[`Edit applications documentation metadata Edit agent (representative) PO
 exports[`Edit applications documentation metadata Edit author GET /case/123/project-documentation/18/document/456/edit/author should render the page with values 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter who the document is from</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-                <div class=\\"govuk-form-group \\">
-                    <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
-                    <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
-                    <input class=\\"govuk-input govuk-!-width-two-thirds  \\"
-                    id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"author-hint\\"
-                    maxlength=\\"150\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"author\\"> Who the document is from</label></h1>
+                    <textarea class=\\"govuk-textarea\\" id=\\"author\\" name=\\"author\\" rows=\\"5\\">Tempor incididunt</textarea>
                 </div>
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
-                    </div>
-                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
             </form>
         </div>
     </div>
@@ -219,23 +211,16 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter who the document is from</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
-                    <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"author\\"> Who the document is from</label></h1>
                     <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter who the
                         document is from</p>
-                    <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"author-hint\\"
-                    maxlength=\\"150\\">
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"author\\" name=\\"author\\" rows=\\"5\\" aria-describedby=\\"author-error\\"></textarea>
                 </div>
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
-                    </div>
-                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
             </form>
         </div>
     </div>
@@ -260,23 +245,16 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
         </div>
     </div>
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter who the document is from</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <label class=\\"govuk-label font-weight--700\\" for=\\"author\\">Document from</label>
-                    <div id=\\"author-hint\\" class=\\"govuk-hint\\">There is a limit of 150 characters</div>
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"author\\"> Who the document is from</label></h1>
                     <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The value must be 150
                         characters or fewer</p>
-                    <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"author\\" name=\\"author\\" type=\\"text\\" value=\\"Tempor incididunt\\" aria-describedby=\\"author-hint\\"
-                    maxlength=\\"150\\">
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"author\\" name=\\"author\\" rows=\\"5\\" aria-describedby=\\"author-error\\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
                 </div>
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                        <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
-                    </div>
-                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
             </form>
         </div>
     </div>
@@ -334,8 +312,8 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
                     <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a description
                         of the document</p>
                     <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ullamco laboris nisi ut aliquip ex ea commodo consequat\\"
-                    aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
+                    id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"\\" aria-describedby=\\"description-hint\\"
+                    maxlength=\\"800\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -375,7 +353,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
                     <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The description must
                         be 800 characters or fewer</p>
                     <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"Ullamco laboris nisi ut aliquip ex ea commodo consequat\\"
+                    id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\"
                     aria-describedby=\\"description-hint\\" maxlength=\\"800\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
@@ -383,6 +361,100 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
                         <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
                     </div>
                 </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit description in Welsh GET /case/123/project-documentation/18/document/456/edit/descriptionWelsh should render the page with values 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Document description in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Document description in English:</p>
+                <div class=\\"govuk-inset-text\\">Ullamco laboris nisi ut aliquip ex ea commodo consequat</div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"descriptionWelsh\\">Document description in Welsh</label>
+                    <textarea class=\\"govuk-textarea\\"
+                    id=\\"descriptionWelsh\\" name=\\"descriptionWelsh\\" rows=\\"5\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit description in Welsh POST /case/123/project-documentation/18/document/456/edit/descriptionWelsh should return an error if value is not defined 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#descriptionWelsh\\">You must enter a description of the document in Welsh</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Document description in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Document description in English:</p>
+                <div class=\\"govuk-inset-text\\">Ullamco laboris nisi ut aliquip ex ea commodo consequat</div>
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"descriptionWelsh\\">Document description in Welsh</label>
+                    <p id=\\"descriptionWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a description
+                        of the document in Welsh</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"descriptionWelsh\\" name=\\"descriptionWelsh\\" rows=\\"5\\" aria-describedby=\\"descriptionWelsh-error\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit description in Welsh POST /case/123/project-documentation/18/document/456/edit/descriptionWelsh should return an error if value length > 800 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-full\\">
+            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
+                <div role=\\"alert\\">
+                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
+                    <div class=\\"govuk-error-summary__body\\">
+                        <ul class=\\"govuk-list govuk-error-summary__list\\">
+                            <li><a href=\\"#descriptionWelsh\\">The description must be 800 characters or fewer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Document description in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Document description in English:</p>
+                <div class=\\"govuk-inset-text\\">Ullamco laboris nisi ut aliquip ex ea commodo consequat</div>
+                <div class=\\"govuk-form-group govuk-form-group--error\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"descriptionWelsh\\">Document description in Welsh</label>
+                    <p id=\\"descriptionWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The description must
+                        be 800 characters or fewer</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
+                    id=\\"descriptionWelsh\\" name=\\"descriptionWelsh\\" rows=\\"5\\" aria-describedby=\\"descriptionWelsh-error\\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
             </form>
         </div>
     </div>
@@ -501,8 +573,8 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
                     <p id=\\"fileName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a file
                         name</p>
                     <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"12 Ullamco laboris nisi ut\\"
-                    aria-describedby=\\"fileName-hint\\" maxlength=\\"255\\">
+                    id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"\\" aria-describedby=\\"fileName-hint\\"
+                    maxlength=\\"255\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -542,7 +614,7 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
                     <p id=\\"fileName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The name must be 255
                         characters or fewer</p>
                     <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"12 Ullamco laboris nisi ut\\"
+                    id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\"
                     aria-describedby=\\"fileName-hint\\" maxlength=\\"255\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
@@ -1540,7 +1612,7 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
                     <div id=\\"filter1-hint\\" class=\\"govuk-hint\\">There is a limit of 100 characters</div>
                     <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a webfilter</p>
                     <input                     class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"filter1\\"
-                    name=\\"filter1\\" type=\\"text\\" value=\\"Ut\\" aria-describedby=\\"filter1-hint\\" maxlength=\\"100\\">
+                    name=\\"filter1\\" type=\\"text\\" value=\\"\\" aria-describedby=\\"filter1-hint\\" maxlength=\\"100\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
@@ -1580,8 +1652,8 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
                     <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The webfilter must be
                         100 characters or fewer</p>
                     <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"Ut\\" aria-describedby=\\"filter1-hint\\"
-                    maxlength=\\"100\\">
+                    id=\\"filter1\\" name=\\"filter1\\" type=\\"text\\" value=\\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\"
+                    aria-describedby=\\"filter1-hint\\" maxlength=\\"100\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
                     <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">

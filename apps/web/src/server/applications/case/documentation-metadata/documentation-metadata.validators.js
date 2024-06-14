@@ -20,10 +20,12 @@ export const validatorsDispatcher = async (request, response, next) => {
 	const validators = {
 		name: validateDocumentationMetaName,
 		description: validateDocumentationMetaDescription,
+		descriptionWelsh: validateDocumentationMetaDescriptionWelsh,
 		webfilter: validateDocumentationMetaFilter1,
 		webfilterWelsh: validateDocumentationMetaFilter1Welsh,
 		agent: validateDocumentationMetaRepresentative,
 		author: validateDocumentationMetaAuthor,
+		authorWelsh: validateDocumentationMetaAuthorWelsh,
 		redaction: validateDocumentationMetaRedacted,
 		'receipt-date': validateDocumentationMetaDateCreated,
 		'published-date': validateDocumentationMetaDatePublished
@@ -58,11 +60,29 @@ export const validateDocumentationMetaDescription = createValidator(
 		.withMessage('The description must be 800 characters or fewer')
 );
 
+export const validateDocumentationMetaDescriptionWelsh = createValidator(
+	body('descriptionWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('You must enter a description of the document in Welsh')
+		.isLength({ max: 800 })
+		.withMessage('The description must be 800 characters or fewer')
+);
+
 export const validateDocumentationMetaAuthor = createValidator(
 	body('author')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('You must enter who the document is from')
+		.isLength({ max: 150 })
+		.withMessage('The value must be 150 characters or fewer')
+);
+
+export const validateDocumentationMetaAuthorWelsh = createValidator(
+	body('authorWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('You must enter who the document is from in Welsh')
 		.isLength({ max: 150 })
 		.withMessage('The value must be 150 characters or fewer')
 );
