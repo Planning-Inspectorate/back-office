@@ -10,6 +10,8 @@
 {% set pageTitle = case.title %}
 {% set serviceName = 'Project documentation' %}
 
+{% set bannerText = updateBannerText if updateBannerText else 'New version uploaded' %}
+
 {% block beforeContent %}
 <aside>
     {{ govukBackLink({
@@ -27,9 +29,10 @@
 					classes: 'govuk-!-margin-top-0',
 					items: breadcrumbItems
 				}) }}
+
 				{% set html %}
 					<h3 class="govuk-notification-banner__heading">
-						New version uploaded
+						{{ bannerText }}
 					</h3>
 				{% endset %}
 
