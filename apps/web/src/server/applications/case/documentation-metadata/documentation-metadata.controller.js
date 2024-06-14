@@ -1,5 +1,6 @@
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
+import { setSessionBanner } from '../../common/services/session.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript"} MetaDataNames */
@@ -178,7 +179,7 @@ export async function viewDocumentationMetaData({ params }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, Partial<Record<string, any>>, {}, RequestParams, ResponseLocals>}
  */
 export async function updateDocumentationMetaData(request, response) {
-	const { errors: validationErrors, params, body } = request;
+	const { errors: validationErrors, params, body, session } = request;
 	const { caseId, documentGuid } = response.locals;
 	const { metaDataName } = params;
 
@@ -223,6 +224,9 @@ export async function updateDocumentationMetaData(request, response) {
 			{ errors, layout }
 		);
 	}
+
+	setSessionBanner(session, `${layouts[metaDataName].label} updated`);
+
 	response.redirect('../properties');
 }
 

@@ -73,18 +73,18 @@ export const validateDocumentationMetaAuthor = createValidator(
 	body('author')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter who the document is from')
+		.withMessage('Enter who the document is from')
 		.isLength({ max: 150 })
-		.withMessage('The value must be 150 characters or fewer')
+		.withMessage('Who the document is from must be 150 characters or less')
 );
 
 export const validateDocumentationMetaAuthorWelsh = createValidator(
 	body('authorWelsh')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter who the document is from in Welsh')
+		.withMessage('Enter who the document is from in Welsh')
 		.isLength({ max: 150 })
-		.withMessage('The value must be 150 characters or fewer')
+		.withMessage('Who the document is from in Welsh must be 150 characters or less')
 );
 
 export const validateDocumentationMetaFilter1 = createValidator(

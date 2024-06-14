@@ -202,7 +202,7 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#author\\">You must enter who the document is from</a>
+                            <li><a href=\\"#author\\">Enter who the document is from</a>
                             </li>
                         </ul>
                     </div>
@@ -215,10 +215,10 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
             <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                     <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"author\\"> Who the document is from</label></h1>
-                    <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter who the
-                        document is from</p>
-                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
-                    id=\\"author\\" name=\\"author\\" rows=\\"5\\" aria-describedby=\\"author-error\\"></textarea>
+                    <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter who the document
+                        is from</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\" id=\\"author\\"
+                    name=\\"author\\" rows=\\"5\\" aria-describedby=\\"author-error\\"></textarea>
                 </div>
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
             </form>
@@ -236,7 +236,7 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#author\\">The value must be 150 characters or fewer</a>
+                            <li><a href=\\"#author\\">Who the document is from must be 150 characters or less</a>
                             </li>
                         </ul>
                     </div>
@@ -249,8 +249,8 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
             <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                     <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"author\\"> Who the document is from</label></h1>
-                    <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The value must be 150
-                        characters or fewer</p>
+                    <p id=\\"author-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Who the document is from
+                        must be 150 characters or less</p>
                     <textarea class=\\"govuk-textarea govuk-textarea--error\\"
                     id=\\"author\\" name=\\"author\\" rows=\\"5\\" aria-describedby=\\"author-error\\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
                 </div>
