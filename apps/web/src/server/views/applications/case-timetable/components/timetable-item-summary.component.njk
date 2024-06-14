@@ -57,7 +57,8 @@
 		{% if loop.index0 == 2 %}
 			{% set rowsDataCy = (rowsDataCy.push({
 				key: 'Item name in Welsh',
-				text: timetableItem.nameWelsh
+        text: timetableItem.nameWelsh,
+        isWelsh: true
 			}), rowsDataCy) %}
 		{% endif %}
 		{% set rowsDataCy = (rowsDataCy.push(row), rowsDataCy) %}
@@ -80,7 +81,8 @@
 
 		{% set rowsDataCy = (rowsDataCy.push({
 			key: "Item description in Welsh",
-			html: descriptionHtmlCy
+      html: descriptionHtmlCy,
+      isWelsh: true
 		}), rowsDataCy) %}
 	{% endif %}
 
@@ -90,7 +92,7 @@
 
 	{% set tableRows = [] %}
 	{% for row in rowsData %}
-		{% if (row.text or row.html) %}
+		{% if (row.text or row.html or row.isWelsh) %}
 			{#  In the value column, the row can be used because the "key" will be ignored	#}
 			{% set tableRows = tableRows.concat([
 				{
