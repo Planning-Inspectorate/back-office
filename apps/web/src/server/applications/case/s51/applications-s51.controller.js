@@ -29,6 +29,7 @@ import {
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload
 } from './applications-s51.mapper.js';
+import addEnteredDateToValidationErrors from '../../../lib/add-entered-date-to-validation-errors.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -201,7 +202,14 @@ export async function postApplicationsCaseEditS51Item(
 		}
 	}
 
+	if (validationErrors) {
+		// Make sure any date errors have the value populated with the entered data
+		// @ts-ignore
+		addEnteredDateToValidationErrors(validationErrors, values);
+	}
+
 	let apiErrors;
+
 	if (!titleErrors && !validationErrors) {
 		const { errors } = await updateS51Advice(caseId, Number(adviceId), payload);
 		apiErrors = errors;
@@ -263,9 +271,13 @@ export async function updateApplicationsCaseS51CreatePage(request, response) {
 	const { caseId, title } = response.locals;
 
 	let apiErrors;
-	if (params.step === 'title' && body.title) {
+
+	if (!validationErrors && params.step === 'title' && body.title) {
 		const { errors } = await checkS51NameIsUnique(Number(caseId), title);
 		apiErrors = errors;
+	} else if (validationErrors) {
+		// Make sure any date errors have the value populated with the entered data
+		addEnteredDateToValidationErrors(validationErrors, body);
 	}
 
 	if (validationErrors || apiErrors) {
