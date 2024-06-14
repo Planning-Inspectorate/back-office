@@ -804,21 +804,21 @@ exports[`Edit applications documentation metadata Edit published date POST /case
                                         <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                                        type=\\"text\\" aria-describedby=\\"datePublished.day-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
                                         <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                                        name=\\"datePublished.month\\" type=\\"text\\" aria-describedby=\\"datePublished.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
                                         <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                                        name=\\"datePublished.year\\" type=\\"text\\" aria-describedby=\\"datePublished.year-error\\">
                                     </div>
                                 </div>
                             </div>
@@ -871,21 +871,21 @@ exports[`Edit applications documentation metadata Edit published date POST /case
                                         <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"datePublished.day-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
                                         <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"01\\" aria-describedby=\\"datePublished.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
                                         <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2100\\" aria-describedby=\\"datePublished.year-error\\">
                                     </div>
                                 </div>
                             </div>
@@ -938,21 +938,21 @@ exports[`Edit applications documentation metadata Edit published date POST /case
                                         <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                                        type=\\"text\\" value=\\"99\\" aria-describedby=\\"datePublished.day-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
                                         <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"01\\" aria-describedby=\\"datePublished.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
                                         <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2000\\" aria-describedby=\\"datePublished.year-error\\">
                                     </div>
                                 </div>
                             </div>
@@ -1005,21 +1005,21 @@ exports[`Edit applications documentation metadata Edit published date POST /case
                                         <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"datePublished.day-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
                                         <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"99\\" aria-describedby=\\"datePublished.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
                                         <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2000\\" aria-describedby=\\"datePublished.year-error\\">
                                     </div>
                                 </div>
                             </div>
@@ -1072,21 +1072,21 @@ exports[`Edit applications documentation metadata Edit published date POST /case
                                         <p id=\\"datePublished.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.day\\" name=\\"datePublished.day\\"
-                                        type=\\"text\\" value=\\"07\\" aria-describedby=\\"datePublished.day-error\\">
+                                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"datePublished.day-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.month\\">Month</label>
                                         <p id=\\"datePublished.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.month\\"
-                                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"03\\" aria-describedby=\\"datePublished.month-error\\">
+                                        name=\\"datePublished.month\\" type=\\"text\\" value=\\"01\\" aria-describedby=\\"datePublished.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"datePublished.year\\">Year</label>
                                         <p id=\\"datePublished.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"datePublished.year\\"
-                                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"2023\\" aria-describedby=\\"datePublished.year-error\\">
+                                        name=\\"datePublished.year\\" type=\\"text\\" value=\\"200\\" aria-describedby=\\"datePublished.year-error\\">
                                     </div>
                                 </div>
                             </div>
@@ -1183,21 +1183,21 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
                                         <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
-                                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                                        type=\\"text\\" aria-describedby=\\"dateCreated.day-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
                                         <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                                        type=\\"text\\" aria-describedby=\\"dateCreated.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
                                         <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                                        type=\\"text\\" aria-describedby=\\"dateCreated.year-error\\">
                                     </div>
                                 </div>
                             </div>
@@ -1257,14 +1257,14 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
                                         <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
                                         <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                                        type=\\"text\\" value=\\"2100\\" aria-describedby=\\"dateCreated.year-error\\">
                                     </div>
                                 </div>
                             </div>
@@ -1317,21 +1317,21 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
                                         <p id=\\"dateCreated.day-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
-                                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.day-error\\">
+                                        type=\\"text\\" value=\\"99\\" aria-describedby=\\"dateCreated.day-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.month\\">Month</label>
                                         <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
                                         <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                                        type=\\"text\\" value=\\"2000\\" aria-describedby=\\"dateCreated.year-error\\">
                                     </div>
                                 </div>
                             </div>
@@ -1391,14 +1391,14 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
                                         <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                                        type=\\"text\\" value=\\"99\\" aria-describedby=\\"dateCreated.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
                                         <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                                        type=\\"text\\" value=\\"2000\\" aria-describedby=\\"dateCreated.year-error\\">
                                     </div>
                                 </div>
                             </div>
@@ -1458,14 +1458,14 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
                                         <p id=\\"dateCreated.month-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.month\\" name=\\"dateCreated.month\\"
-                                        type=\\"text\\" value=\\"12\\" aria-describedby=\\"dateCreated.month-error\\">
+                                        type=\\"text\\" value=\\"01\\" aria-describedby=\\"dateCreated.month-error\\">
                                     </div>
                                     <div class=\\"govuk-form-group govuk-form-group--error\\">
                                         <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.year\\">Year</label>
                                         <p id=\\"dateCreated.year-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
                                         </p>
                                         <input class=\\"govuk-input govuk-input--error\\" id=\\"dateCreated.year\\" name=\\"dateCreated.year\\"
-                                        type=\\"text\\" value=\\"2022\\" aria-describedby=\\"dateCreated.year-error\\">
+                                        type=\\"text\\" value=\\"200\\" aria-describedby=\\"dateCreated.year-error\\">
                                     </div>
                                 </div>
                             </div>

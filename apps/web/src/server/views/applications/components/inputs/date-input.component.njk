@@ -41,16 +41,21 @@
 				<div class="govuk-grid-row pins-date-form-group">
 
 					{% set fieldNameDay = [fieldName, '.day'] | join %}
-					{% set valueDay = values[fieldName] | datestamp({format: 'dd'})if values[fieldName] else
-						values[fieldNameDay] %}
-
 					{% set fieldNameMonth = [fieldName, '.month'] | join %}
-					{% set valueMonth = values[fieldName] | datestamp({format: 'MM'})if values[fieldName] else
-						values[fieldNameMonth] %}
-
 					{% set fieldNameYear = [fieldName, '.year'] | join %}
-					{% set valueYear = values[fieldName] | datestamp({format: 'yyyy'})if values[fieldName] else
-						values[fieldNameYear] %}
+
+					{% if errors[fieldName] %}
+						{% set valueDay = errors[fieldName].value.day %}
+						{% set valueMonth = errors[fieldName].value.month %}
+						{% set valueYear = errors[fieldName].value.year %}
+					{% else %}
+						{% set valueDay = values[fieldName] | datestamp({format: 'dd'})if values[fieldName] else
+							values[fieldNameDay] %}
+						{% set valueMonth = values[fieldName] | datestamp({format: 'MM'})if values[fieldName] else
+							values[fieldNameMonth] %}
+						{% set valueYear = values[fieldName] | datestamp({format: 'yyyy'})if values[fieldName] else
+							values[fieldNameYear] %}
+					{% endif %}
 
 					{{ govukInput({
 						label: {
