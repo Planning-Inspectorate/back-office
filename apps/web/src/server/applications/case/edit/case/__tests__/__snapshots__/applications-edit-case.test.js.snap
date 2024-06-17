@@ -150,43 +150,40 @@ exports[`applications edit Name GET edit/name-welsh When feature flag is active 
 
 exports[`applications edit Name Project location GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter project location</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div id=\\"geographicalInformation.locationDescription-hint\\" class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
-                Thanet Offshore Wind Farm</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
-            id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
-            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint\\">London</textarea>
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"geographicalInformation.locationDescription\\"> Project location</label></h1>
+                    <div id=\\"geographicalInformation.locationDescription-hint\\" class=\\"govuk-hint\\">for example, approximately 8km off the coast of Kent, in areas surrounding
+                        Thanet Offshore Wind Farm</div>
+                    <textarea class=\\"govuk-textarea\\" id=\\"geographicalInformation.locationDescription\\"
+                    name=\\"geographicalInformation.locationDescription\\" rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint\\">London</textarea>
+                </div>
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </main>"
 `;
 
 exports[`applications edit Name Project location GET edit/:caseId/project-location-welsh When feature flag is active should render page with english inset 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Project location in Welsh</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <p class='govuk-body govuk-!-margin-bottom-0'>Project location in English:</p>
-        <div class=\\"govuk-inset-text govuk-!-margin-top-4\\">London</div>
-        <div class=\\"govuk-form-group\\">
-            <div id=\\"geographicalInformation.locationDescriptionWelsh-hint\\" class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
-                Thanet Offshore Wind Farm</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
-            id=\\"geographicalInformation.locationDescriptionWelsh\\" name=\\"geographicalInformation.locationDescriptionWelsh\\"
-            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescriptionWelsh-hint\\"></textarea>
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Project location in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Project location in English:</p>
+                <div class=\\"govuk-inset-text\\">London</div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"geographicalInformation.locationDescriptionWelsh\\">Project location in Welsh</label>
+                    <textarea class=\\"govuk-textarea\\" id=\\"geographicalInformation.locationDescriptionWelsh\\"
+                    name=\\"geographicalInformation.locationDescriptionWelsh\\" rows=\\"5\\"></textarea>
+                </div>
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </main>"
 `;
 

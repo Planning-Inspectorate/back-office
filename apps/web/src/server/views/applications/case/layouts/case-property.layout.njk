@@ -1,0 +1,27 @@
+{% extends "../../layouts/applications.layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+	{% set breadcrumbBackLink = 'dashboard'|url if layout.backLink == 'dashboard' else 'case-create'|url({caseId:caseId, step: layout.backLink}) %}
+	{% set computedBackLink = backPath if backPath else breadcrumbBackLink %}
+	{{ govukBackLink({
+		classes: 'govuk-!-margin-top-3',
+		text: "Back",
+		href: 'case-create'|url({caseId:caseId, step:'check-your-answers'}) if layout.isEdit and isDraft else computedBackLink
+	}) }}
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds-from-desktop">
+			<form method="post" action="" novalidate="novalidate">
+				{% block formContent %}{% endblock %}
+				{% block formSubmitButton %}
+					{{ govukButton({ text: 'Save changes' }) }}
+				{% endblock %}
+			</form>
+		</div>
+	</div>
+{% endblock %}

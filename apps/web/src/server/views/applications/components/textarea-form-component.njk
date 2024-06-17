@@ -24,6 +24,7 @@
 						classes: "govuk-label--l" if options.englishValue == null else "govuk-label--m",
 						isPageHeading: true if options.englishValue == null
 					},
+					hint: { text: options.hint } if options.hint,
 					errorMessage: options.errorMessage | errorMessage,
 					value: options.value
 				}) }}

@@ -56,12 +56,21 @@ const teamEmailLayout = {
 const caseLocationLayout = {
 	pageTitle: 'Enter project location',
 	components: ['project-location'],
+	label: 'Project location',
+	name: 'geographicalInformation.locationDescription',
+	hint: 'for example, approximately 8km off the coast of Kent, in areas surrounding Thanet Offshore Wind Farm',
+	template: 'case-edit-textarea.njk',
 	isEdit: true
 };
 
 const caseLocationWelshLayout = {
 	pageTitle: 'Project location in Welsh',
 	components: ['project-location-welsh'],
+	label: 'Project location in Welsh',
+	englishLabel: 'Project location in English',
+	name: 'geographicalInformation.locationDescriptionWelsh',
+	englishName: 'geographicalInformation.locationDescription',
+	template: 'case-edit-textarea.njk',
 	isEdit: true
 };
 
@@ -124,10 +133,24 @@ const fullFieldNames = {
 export async function viewApplicationsEditCaseDescription(request, response) {
 	const properties = caseNameAndDescriptionData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(descriptionLayout), {
 		...properties,
 		layout: descriptionLayout
 	});
+}
+
+/**
+ * Resolves the expected template to render
+ *
+ * @param {import('../../../applications.types.js').FormCaseLayout} layout
+ * @returns {string}
+ */
+function resolveTemplate(layout) {
+	const { template } = layout || {};
+	if (template) {
+		return `applications/case/case-form/${template}`;
+	}
+	return `applications/components/case-form/case-form-layout`;
 }
 
 /**
@@ -144,7 +167,7 @@ export async function viewApplicationsEditCaseDescriptionWelsh(request, response
 
 	const properties = caseNameAndDescriptionData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(welshDescriptionLayout), {
 		...properties,
 		layout: welshDescriptionLayout
 	});
@@ -158,7 +181,7 @@ export async function viewApplicationsEditCaseDescriptionWelsh(request, response
 export async function viewApplicationsEditCaseName(request, response) {
 	const properties = caseNameAndDescriptionData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(nameLayout), {
 		...properties,
 		layout: nameLayout
 	});
@@ -178,7 +201,7 @@ export async function viewApplicationsEditCaseNameWelsh(request, response) {
 
 	const properties = caseNameAndDescriptionData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(welshNameLayout), {
 		...properties,
 		layout: welshNameLayout
 	});
@@ -228,7 +251,7 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 export async function viewApplicationsEditCaseTeamEmail(request, response) {
 	const properties = caseTeamEmailData(request, response.locals);
 
-	return response.render('applications/components/case-form/case-form-layout', {
+	return response.render(resolveTemplate(teamEmailLayout), {
 		...properties,
 		layout: teamEmailLayout
 	});
@@ -265,7 +288,7 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 export async function viewApplicationsEditCaseStage(request, response) {
 	const properties = await caseStageData(request, response.locals);
 
-	return response.render('applications/components/case-form/case-form-layout', {
+	return response.render(resolveTemplate(stageLayout), {
 		...properties,
 		layout: stageLayout
 	});
@@ -303,7 +326,7 @@ export async function updateApplicationsEditCaseStage(request, response) {
 export async function viewApplicationsCreateCaseLocation(request, response) {
 	const properties = await caseGeographicalInformationData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(caseLocationLayout), {
 		...properties,
 		layout: caseLocationLayout
 	});
@@ -323,7 +346,7 @@ export async function viewApplicationsCreateCaseLocationWelsh(request, response)
 
 	const properties = await caseGeographicalInformationData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(caseLocationWelshLayout), {
 		...properties,
 		layout: caseLocationWelshLayout
 	});
@@ -339,7 +362,7 @@ export async function viewApplicationsCreateCaseLocationWelsh(request, response)
 export async function viewApplicationsCreateCaseGridReferences(request, response) {
 	const properties = await caseGeographicalInformationData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(gridReferencesLayout), {
 		...properties,
 		layout: gridReferencesLayout
 	});
@@ -364,12 +387,25 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		'geographicalInformation.gridReference.northing'
 	]);
 
-	const isCaseLocationPage = [
-		'geographicalInformation.locationDescription',
-		'geographicalInformation.locationDescriptionWelsh'
-	].includes(updatedField);
+	let layout;
 
-	const layout = isCaseLocationPage ? caseLocationLayout : gridReferencesLayout;
+	switch (updatedField) {
+		case 'geographicalInformation.locationDescription':
+			layout = caseLocationLayout;
+			break;
+		case 'geographicalInformation.locationDescriptionWelsh': {
+			layout = caseLocationWelshLayout;
+			// Include english equivalent if entered
+			const { locationDescription } = response.locals.currentCase?.geographicalInformation || {};
+			if (locationDescription) {
+				properties.values['geographicalInformation.locationDescription'] = locationDescription;
+			}
+			break;
+		}
+		default:
+			layout = gridReferencesLayout;
+			break;
+	}
 
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, layout, response);
@@ -394,7 +430,7 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 export async function viewApplicationsEditCaseRegions(request, response) {
 	const properties = await caseRegionsData(request, response.locals);
 
-	return response.render('applications/components/case-form/case-form-layout', {
+	return response.render(resolveTemplate(regionsLayout), {
 		...properties,
 		layout: regionsLayout
 	});
@@ -435,7 +471,7 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 export async function viewApplicationsEditCaseZoomLevel(request, response) {
 	const properties = await caseZoomLevelData(request, response.locals);
 
-	return response.render('applications/components/case-form/case-form-layout', {
+	return response.render(resolveTemplate(zoomLevelLayout), {
 		...properties,
 		layout: zoomLevelLayout
 	});
