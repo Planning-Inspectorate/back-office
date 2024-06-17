@@ -32,12 +32,21 @@ const welshNameLayout = {
 const descriptionLayout = {
 	pageTitle: 'Enter project description',
 	components: ['description'],
+	label: 'Project description',
+	name: 'description',
+	hint: 'for example, An offshore wind generating station of capacity up to 285 MW',
+	template: 'case-edit-textarea.njk',
 	isEdit: true
 };
 
 const welshDescriptionLayout = {
 	pageTitle: 'Project description in Welsh',
 	components: ['descriptionWelsh'],
+	label: 'Project description in Welsh',
+	englishLabel: 'Project description in English',
+	name: 'descriptionWelsh',
+	englishName: 'description',
+	template: 'case-edit-textarea.njk',
 	isEdit: true
 };
 
@@ -225,8 +234,34 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		'descriptionWelsh'
 	]);
 
-	const isNamePage = ['title', 'titleWelsh'].includes(updatedField);
-	const layout = isNamePage ? nameLayout : descriptionLayout;
+	let layout;
+
+	switch (updatedField) {
+		case 'title':
+			layout = nameLayout;
+			break;
+		case 'titleWelsh': {
+			layout = welshNameLayout;
+			// Include english equivalent if entered
+			const { title } = response.locals.currentCase || {};
+			if (title) {
+				properties.values.title = title;
+			}
+			break;
+		}
+		case 'description':
+			layout = descriptionLayout;
+			break;
+		default: {
+			layout = welshDescriptionLayout;
+			// Include english equivalent if entered
+			const { description } = response.locals.currentCase || {};
+			if (description) {
+				properties.values.description = description;
+			}
+			break;
+		}
+	}
 
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, layout, response);

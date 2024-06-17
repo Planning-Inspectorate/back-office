@@ -176,7 +176,7 @@ describe('applications edit', () => {
 						const element = parseHtml(response.text);
 
 						expect(element.innerHTML).toMatchSnapshot();
-						expect(element.innerHTML).toContain('Description of the project in English');
+						expect(element.innerHTML).toContain('Project description in English');
 						expect(element.innerHTML).toContain('Welsh');
 					});
 				});
