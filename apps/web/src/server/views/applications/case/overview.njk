@@ -7,11 +7,13 @@
 
 {% set serviceName = 'Overview'%}
 
-{% block sectionContent %}
-  {% if banner %}
-    {{ govukNotificationBanner({ type: 'success', html: '<strong>' + banner + '</strong>' }) }}
-  {% endif %}
+{% block pageSuccessBanner %}
+	{% if banner %}
+		{{ govukNotificationBanner({ type: 'success', html: '<strong>' + banner + '</strong>' }) }}
+	{% endif %}
+{% endblock %}
 
+{% block sectionContent %}
 	<h2 class="govuk-heading-m">{{serviceName}}</h2>
 	<div class="govuk-!-margin-top-6">
 		<form method="post">

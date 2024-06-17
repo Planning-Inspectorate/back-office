@@ -20,6 +20,11 @@ export type FormCaseLayout = {
 	pageTitle: string;
 	components: string[];
 	isEdit?: boolean;
+	label?: string;
+	englishLabel?: string;
+	name?: string;
+	englishName?: string;
+	template?: string;
 	backLink?: string;
 };
 

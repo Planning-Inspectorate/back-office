@@ -61,7 +61,7 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 		.isLength({ min: 1 })
 		.withMessage(getErrorMessageCaseCreate('projectLocation'))
 		.isLength({ max: 500 })
-		.withMessage('The project location must be 500 characters or fewer')
+		.withMessage('Project location must be 500 characters or less')
 );
 
 export const validateApplicationsCreateCaseLocationWelsh = createValidator(
@@ -70,7 +70,7 @@ export const validateApplicationsCreateCaseLocationWelsh = createValidator(
 		.isLength({ min: 1 })
 		.withMessage(getErrorMessageCaseCreate('projectLocationWelsh'))
 		.isLength({ max: 500 })
-		.withMessage('The project location must be 500 characters or fewer')
+		.withMessage('Project location in Welsh must be 500 characters or less')
 );
 
 export const validateApplicationsCreateCaseEasting = createValidator(

@@ -9,7 +9,11 @@
  * @returns {*}
  */
 export const handleErrors = (properties, layout, response) => {
-	return response.render('applications/components/case-form/case-form-layout', {
+	const { template } = layout || {};
+	const fullTemplate = template
+		? `applications/case/case-form/${template}`
+		: `applications/components/case-form/case-form-layout`;
+	return response.render(fullTemplate, {
 		...properties,
 		layout
 	});

@@ -38,9 +38,9 @@ export const getErrorMessageCaseCreate = (fieldName, existingError = null) => {
 		case 'gridReferenceNorthing':
 			return 'Enter the Grid reference Northing';
 		case 'projectLocation':
-			return 'Enter the project location';
+			return 'Enter project location';
 		case 'projectLocationWelsh':
-			return 'Enter the project location in Welsh';
+			return 'Enter project location in Welsh';
 		case 'regions':
 			return 'Choose at least one region';
 		case 'sector':

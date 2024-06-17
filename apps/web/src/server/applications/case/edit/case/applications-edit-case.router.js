@@ -77,6 +77,7 @@ applicationsEditCaseRouter
 	)
 	.post(
 		validators.validateApplicationsCreateCaseLocationWelsh,
+		registerCaseWithQuery(['geographicalInformation']),
 		asyncHandler(controller.updateApplicationsEditCaseGeographicalInformation)
 	);
 

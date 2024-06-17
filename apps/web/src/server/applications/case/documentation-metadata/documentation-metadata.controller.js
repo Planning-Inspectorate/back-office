@@ -27,7 +27,6 @@ const layouts = {
 	},
 	descriptionWelsh: {
 		label: 'Document description in Welsh',
-		hint: 'There is a limit of 800 characters',
 		pageTitle: 'Document description in Welsh',
 		englishLabel: 'Document description in English',
 		metaDataEnglishName: 'description',
@@ -66,7 +65,6 @@ const layouts = {
 	},
 	authorWelsh: {
 		label: 'Who the document is from in Welsh',
-		hint: 'There is a limit of 150 characters',
 		englishLabel: 'Who the document is from in English',
 		pageTitle: 'Who the document is from in Welsh',
 		metaDataName: 'authorWelsh',
