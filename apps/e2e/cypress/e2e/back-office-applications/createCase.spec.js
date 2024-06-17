@@ -27,7 +27,7 @@ describe('Create A Case', () => {
 			createCasePage.clickSaveAndContinue();
 			createCasePage.validateErrorMessageCountOnPage(2);
 			createCasePage.validateErrorMessage('Enter the name of the project');
-			createCasePage.validateErrorMessage('Enter the description of the project');
+			createCasePage.validateErrorMessage('Enter project description');
 			createCasePage.sections.nameAndDescription.fillCaseName(projectInfo.projectName);
 			createCasePage.sections.nameAndDescription.fillCaseDescription(
 				projectInfo.projectDescription

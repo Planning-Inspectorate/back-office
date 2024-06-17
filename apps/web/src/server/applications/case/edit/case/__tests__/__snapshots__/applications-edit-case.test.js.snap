@@ -31,48 +31,44 @@ exports[`applications edit Grid references GET /edit/:caseId/project-location sh
 
 exports[`applications edit Name Description GET edit/description should render page with resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter project description</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
-            <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
-                MW</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"description\\"
-            name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
-                et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
-                ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"description\\"> Project description</label></h1>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+                        MW</div>
+                    <textarea class=\\"govuk-textarea\\" id=\\"description\\" name=\\"description\\"
+                    rows=\\"5\\" aria-describedby=\\"description-hint\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                        et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
+                </div>
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </main>"
 `;
 
 exports[`applications edit Name Description GET edit/description-welsh When feature flag is active should render page with english inset 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Project description in Welsh</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <p class='govuk-body govuk-!-margin-bottom-0'>Description of the project in English:</p>
-        <div class=\\"govuk-inset-text govuk-!-margin-top-4\\">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim
-            ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat</div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"descriptionWelsh\\">Description of the project in Welsh</label>
-            <div id=\\"descriptionWelsh-hint\\"
-            class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
-                MW</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"descriptionWelsh\\"
-            name=\\"descriptionWelsh\\" rows=\\"5\\" aria-describedby=\\"descriptionWelsh-hint\\"></textarea>
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Project description in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Project description in English:</p>
+                <div class=\\"govuk-inset-text\\">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim
+                    ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    ex ea commodo consequat</div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"descriptionWelsh\\">Project description in Welsh</label>
+                    <textarea class=\\"govuk-textarea\\" id=\\"descriptionWelsh\\"
+                    name=\\"descriptionWelsh\\" rows=\\"5\\"></textarea>
+                </div>
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </main>"
 `;
 
