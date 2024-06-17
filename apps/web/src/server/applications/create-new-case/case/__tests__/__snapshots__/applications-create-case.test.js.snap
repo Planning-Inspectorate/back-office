@@ -451,7 +451,7 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
                             <li><a href=\\"#title\\">Enter the name of the project</a>
                             </li>
-                            <li><a href=\\"#description\\">Enter the description of the project</a>
+                            <li><a href=\\"#description\\">Enter project description</a>
                             </li>
                         </ul>
                     </div>
@@ -473,9 +473,8 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
-            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the description
-                of the project</p>
-            <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
+            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter project description</p>
+            <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
             id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint description-error\\"></textarea>
         </div>
         <div class=\\"govuk-grid-row\\">
