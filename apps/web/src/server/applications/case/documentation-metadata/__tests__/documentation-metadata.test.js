@@ -161,7 +161,9 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('The description must be 800 characters or fewer');
+				expect(element.innerHTML).toContain(
+					'Document description in Welsh must be 800 characters or less'
+				);
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
