@@ -90,6 +90,7 @@ const layouts = {
 			{ value: 'not_redacted', text: 'Unredacted' }
 		],
 		pageTitle: 'Select the redaction status',
+		label: 'Redaction',
 		metaDataName: 'redactedStatus'
 	},
 	'published-status': {
@@ -100,6 +101,7 @@ const layouts = {
 			{ value: 'do_not_publish', text: 'Do not publish' }
 		],
 		pageTitle: 'Select the document status',
+		label: 'Status',
 		metaDataName: 'publishedStatus'
 	},
 	transcript: {
