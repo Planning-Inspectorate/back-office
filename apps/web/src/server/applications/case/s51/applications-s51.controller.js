@@ -51,6 +51,7 @@ const s51Steps = {
 	enquirer: { name: 'Enquirer', nextPage: 'method' },
 	method: { name: 'Enquiry method', nextPage: 'enquiry-details' },
 	'enquiry-date': { name: 'Enquiry date' },
+	'enquiry-detail': { name: 'Enquiry details' },
 	'enquiry-details': {
 		name: 'Enquiry details',
 		nextPage: 'person'
@@ -60,6 +61,7 @@ const s51Steps = {
 	},
 	person: { name: 'Advice given by', nextPage: 'advice-details' },
 	'advice-date': { name: 'Date advice given' },
+	'advice-detail': { name: 'Advice given' },
 	'advice-details': {
 		name: 'Advice given',
 		nextPage: 'check-your-answers'
