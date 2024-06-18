@@ -12,18 +12,8 @@ const config = loadApiConfig();
  * @returns {Promise<any>}
  */
 export const makeGetRequest = async (logger, path, params = {}) => {
-	const reqParams = new URLSearchParams();
-
-	Object.keys(params).forEach((key) => {
-		const value = params[key];
-		if (Array.isArray(value)) {
-			value.forEach((v) => reqParams.append(key, v));
-		} else {
-			reqParams.append(key, value);
-		}
-	});
 	const request = constructAuthenticatedRequest();
-	const requestUri = constructUri(path);
+	const requestUri = constructUri(path, params);
 
 	logger.info(`Making GET request to ${requestUri}`);
 	const response = await request.get(requestUri, { responseType: 'json' });
@@ -68,9 +58,23 @@ const constructAuthenticatedRequest = () => {
 /**
  *
  * @param {string} path
+ * @param {Record<string, string>} params
  * @returns {string}
  */
-const constructUri = (path) => {
+const constructUri = (path, params) => {
+	const reqParams = new URLSearchParams();
 	const scheme = config.apiHost?.match(/localhost/) ? 'http' : 'https';
-	return `${scheme}://${config.apiHost}${path}`;
+	Object.keys(params).forEach((key) => {
+		const value = params[key];
+		if (Array.isArray(value)) {
+			value.forEach((v) => reqParams.append(key, v));
+		} else {
+			reqParams.append(key, value);
+		}
+	});
+	let uri = `${scheme}://${config.apiHost}${path}`;
+	if (reqParams.toString()) {
+		uri += `?${reqParams.toString()}`;
+	}
+	return uri;
 };
