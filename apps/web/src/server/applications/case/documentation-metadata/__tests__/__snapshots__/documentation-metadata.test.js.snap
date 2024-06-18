@@ -294,7 +294,7 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#description\\">You must enter a description of the document</a>
+                            <li><a href=\\"#description\\">Enter document description</a>
                             </li>
                         </ul>
                     </div>
@@ -309,10 +309,9 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                     <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the document</label>
                     <div id=\\"description-hint\\" class=\\"govuk-hint\\">There is a limit of 800 characters</div>
-                    <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a description
-                        of the document</p>
-                    <input class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\"
-                    id=\\"description\\" name=\\"description\\" type=\\"text\\" value=\\"\\" aria-describedby=\\"description-hint\\"
+                    <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter document description</p>
+                    <input                     class=\\"govuk-input govuk-!-width-two-thirds govuk-input--error\\" id=\\"description\\"
+                    name=\\"description\\" type=\\"text\\" value=\\"\\" aria-describedby=\\"description-hint\\"
                     maxlength=\\"800\\">
                 </div>
                 <div class=\\"govuk-grid-row\\">
@@ -396,7 +395,7 @@ exports[`Edit applications documentation metadata Edit description in Welsh POST
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#descriptionWelsh\\">You must enter a description of the document in Welsh</a>
+                            <li><a href=\\"#descriptionWelsh\\">Enter document description in Welsh</a>
                             </li>
                         </ul>
                     </div>
@@ -412,10 +411,10 @@ exports[`Edit applications documentation metadata Edit description in Welsh POST
                 <div class=\\"govuk-inset-text\\">Ullamco laboris nisi ut aliquip ex ea commodo consequat</div>
                 <div class=\\"govuk-form-group govuk-form-group--error\\">
                     <label class=\\"govuk-label govuk-label--m\\" for=\\"descriptionWelsh\\">Document description in Welsh</label>
-                    <p id=\\"descriptionWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter a description
-                        of the document in Welsh</p>
-                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
-                    id=\\"descriptionWelsh\\" name=\\"descriptionWelsh\\" rows=\\"5\\" aria-describedby=\\"descriptionWelsh-error\\"></textarea>
+                    <p id=\\"descriptionWelsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter document description
+                        in Welsh</p>
+                    <textarea class=\\"govuk-textarea govuk-textarea--error\\" id=\\"descriptionWelsh\\"
+                    name=\\"descriptionWelsh\\" rows=\\"5\\" aria-describedby=\\"descriptionWelsh-error\\"></textarea>
                 </div>
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
             </form>
