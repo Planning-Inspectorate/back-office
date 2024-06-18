@@ -214,8 +214,10 @@ export async function caseGeographicalInformationDataUpdate(
 			body['geographicalInformation.gridReference.northing']
 	};
 
-	const { errors: apiErrors, id: updatedCaseId } = await updateCase(caseId, payload);
-	const properties = { errors: validationErrors || apiErrors, values };
+	const { errors, id: updatedCaseId } = validationErrors
+		? { errors: validationErrors, id: caseId }
+		: await updateCase(caseId, payload);
+	const properties = { errors, values };
 
 	return { properties, updatedCaseId };
 }
