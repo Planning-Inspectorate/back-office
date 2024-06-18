@@ -35,7 +35,7 @@ export const validateApplicationsCreateCaseDescriptionWelsh = createValidator(
 		.isLength({ min: 1 })
 		.withMessage('Enter project description in Welsh')
 		.isLength({ max: 2000 })
-		.withMessage('Project description must be 2000 characters or less')
+		.withMessage('Project description in Welsh must be 2000 characters or less')
 );
 
 export const validateApplicationsCreateCaseSector = createValidator(
