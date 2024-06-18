@@ -77,6 +77,24 @@ describe('Section 51 Advice', () => {
 		});
 	});
 
+	describe('updating English fields', () => {
+		beforeEach(() => {
+			cy.login(applicationsUsers.caseAdmin);
+			cy.visit('/');
+			applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
+			searchResultsPage.clickTopSearchResult();
+			s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
+			s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
+		});
+
+		it('As a user able to update the enquiry details', () => {
+			s51AdvicePage.clickLinkByText('View/edit advice');
+			s51AdvicePage.clickLinkByText('Enquiry details');
+			s51AdvicePage.fillEnquiryDetail('enquiry details updated');
+			s51AdvicePage.validateBannerMessage('Enquiry details updated');
+		});
+	});
+
 	describe('updating region to be Wales', () => {
 		beforeEach(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
