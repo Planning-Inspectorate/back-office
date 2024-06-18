@@ -1,6 +1,6 @@
 import * as representationsRepository from '#repositories/representation.repository.js';
 import { EventType } from '@pins/event-client';
-import { setRepresentationsAsPublished } from '#repositories/representation.repository.js';
+import { setRepresentationsAsPublishedBatch } from '#repositories/representation.repository.js';
 import { broadcastNsipRepresentationPublishEventBatch } from '#infrastructure/event-broadcasters.js';
 
 /**
@@ -17,7 +17,7 @@ export const publishCaseRepresentations = async (caseId, representationIds, acti
 	if (representations.length > 0) {
 		await broadcastNsipRepresentationPublishEventBatch(representations, EventType.Publish, caseId);
 
-		await setRepresentationsAsPublished(representations, actionBy);
+		await setRepresentationsAsPublishedBatch(representations, actionBy);
 	}
 
 	return representations;
