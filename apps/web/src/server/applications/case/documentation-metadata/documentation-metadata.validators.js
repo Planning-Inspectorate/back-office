@@ -55,7 +55,7 @@ export const validateDocumentationMetaDescription = createValidator(
 	body('description')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter a description of the document')
+		.withMessage('Enter document description')
 		.isLength({ max: 800 })
 		.withMessage('Document description must be 800 characters or less')
 );
@@ -64,7 +64,7 @@ export const validateDocumentationMetaDescriptionWelsh = createValidator(
 	body('descriptionWelsh')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter a description of the document in Welsh')
+		.withMessage('Enter document description in Welsh')
 		.isLength({ max: 800 })
 		.withMessage('Document description in Welsh must be 800 characters or less')
 );

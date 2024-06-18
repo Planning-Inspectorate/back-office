@@ -108,7 +108,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('You must enter a description of the document');
+				expect(element.innerHTML).toContain('Enter document description');
 			});
 
 			it('should return an error if value length > 800', async () => {
@@ -149,9 +149,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(
-					'You must enter a description of the document in Welsh'
-				);
+				expect(element.innerHTML).toContain('Enter document description in Welsh');
 			});
 
 			it('should return an error if value length > 800', async () => {
