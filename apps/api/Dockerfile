@@ -6,7 +6,7 @@ COPY packages ./packages
 
 COPY apps/api apps/api
 ENV NODE_ENV=production
-RUN npm ci
+RUN npm ci --workspaces --if-present
 
 # relative to cwd
 ENV SWAGGER_JSON_DIR=./src/server/swagger-output.json
