@@ -14,7 +14,7 @@
         "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
 	},
 	"dependencies": {
-		"@pins/key-vault-secrets-client": "^0.0.0",
-		"node-cache": "^5.1.2"
+		"@pins/key-vault-secrets-client": "*",
+		"node-cache": "*"
 	}
 }
