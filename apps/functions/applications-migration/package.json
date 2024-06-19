@@ -8,27 +8,27 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "@azure/identity": "^4.2.1",
-    "@pins/add-auth-headers-for-backend": "^0.0.0",
-    "@pins/applications": "^0.0.0",
-    "@pins/blob-storage-client": "^0.0.0",
-    "@pins/platform": "^0.0.0",
-    "ajv": "^8.12.0",
-    "ajv-formats": "^2.1.1",
+    "@azure/identity": "*",
+    "@pins/add-auth-headers-for-backend": "*",
+    "@pins/applications": "*",
+    "@pins/blob-storage-client": "*",
+    "@pins/platform": "*",
+    "ajv": "*",
+    "ajv-formats": "*",
     "dotenv": "*",
-    "got": "^12.5.3",
+    "got": "*",
     "joi": "*",
-    "json-diff": "^1.0.6",
-    "lodash-es": "^4.17.21",
-    "mysql2": "^3.9.8",
-    "pins-data-model": "github:Planning-Inspectorate/data-model#1.4.1",
-    "sequelize": "^6.33.0",
-    "tedious": "^18.2.0"
+    "json-diff": "*",
+    "lodash-es": "*",
+    "mysql2": "*",
+    "pins-data-model": "*",
+    "sequelize": "*",
+    "tedious": "*"
   },
   "devDependencies": {
-    "azure-functions-core-tools": "^4.x",
+    "azure-functions-core-tools": "*",
     "cross-env": "*",
     "jest": "*",
-    "prisma": "4.16.1"
+    "prisma": "*"
   }
 }

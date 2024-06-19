@@ -14,7 +14,7 @@
         "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
 	},
 	"dependencies": {
-		"@azure/identity": "^4.2.1",
-		"@azure/keyvault-secrets": "^4.7.0"
+		"@azure/identity": "*",
+		"@azure/keyvault-secrets": "*"
 	}
 }

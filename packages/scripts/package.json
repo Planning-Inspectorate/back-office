@@ -14,7 +14,7 @@
 		"applications:regenerate-api-keys": "node ./run/regenerate-api-keys-entry.js"
 	},
 	"dependencies": {
-		"@azure/identity": "^4.2.1",
-		"@azure/keyvault-secrets": "^4.7.0"
+		"@azure/identity": "*",
+		"@azure/keyvault-secrets": "*"
 	}
 }
