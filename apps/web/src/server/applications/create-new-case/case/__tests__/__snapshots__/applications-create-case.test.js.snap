@@ -1,37 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications create Geographical Information GET /create-new-case/:caseId/geographical-information should display resumed data if the API returns something 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter geographical information</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
-            <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Enter geographical information</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.locationDescription">Project location</label>
+            <div id="geographicalInformation.locationDescription-hint"
+            class="govuk-hint govuk-!-width-three-quarters">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
-            id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
-            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint\\">London</textarea>
+            <textarea class="govuk-textarea govuk-!-width-three-quarters"
+            id="geographicalInformation.locationDescription" name="geographicalInformation.locationDescription"
+            rows="5" aria-describedby="geographicalInformation.locationDescription-hint">London</textarea>
         </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
-            <div id=\\"geographicalInformation.gridReference.easting-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"geographicalInformation.gridReference.easting\\" name=\\"geographicalInformation.gridReference.easting\\"
-            type=\\"text\\" value=\\"123456\\" aria-describedby=\\"geographicalInformation.gridReference.easting-hint\\">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.easting">Grid reference Easting</label>
+            <div id="geographicalInformation.gridReference.easting-hint"
+            class="govuk-hint">for example, 345678</div>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="geographicalInformation.gridReference.easting" name="geographicalInformation.gridReference.easting"
+            type="text" value="123456" aria-describedby="geographicalInformation.gridReference.easting-hint">
         </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.northing\\">Grid reference Northing</label>
-            <div id=\\"geographicalInformation.gridReference.northing-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"geographicalInformation.gridReference.northing\\" name=\\"geographicalInformation.gridReference.northing\\"
-            type=\\"text\\" value=\\"987654\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint\\">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.northing">Grid reference Northing</label>
+            <div id="geographicalInformation.gridReference.northing-hint"
+            class="govuk-hint">for example, 345678</div>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="geographicalInformation.gridReference.northing" name="geographicalInformation.gridReference.northing"
+            type="text" value="987654" aria-describedby="geographicalInformation.gridReference.northing-hint">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -39,19 +39,19 @@ exports[`applications create Geographical Information GET /create-new-case/:case
 `;
 
 exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information API-side validation: should show validation errors if API returns error 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#geographicalInformation.locationDescription\\">Error msg</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#geographicalInformation.locationDescription">Error msg</a>
                             </li>
-                            <li><a href=\\"#geographicalInformation.gridReference.easting\\">Error msg</a>
+                            <li><a href="#geographicalInformation.gridReference.easting">Error msg</a>
                             </li>
-                            <li><a href=\\"#geographicalInformation.gridReference.northing\\">Error msg</a>
+                            <li><a href="#geographicalInformation.gridReference.northing">Error msg</a>
                             </li>
                         </ul>
                     </div>
@@ -59,42 +59,42 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter geographical information</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
-            <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
+    <h1 class="govuk-heading-l"> Enter geographical information</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.locationDescription">Project location</label>
+            <div id="geographicalInformation.locationDescription-hint"
+            class="govuk-hint govuk-!-width-three-quarters">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
-            <p id=\\"geographicalInformation.locationDescription-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
-            <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
-            id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
-            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error\\">Location desc</textarea>
+            <p id="geographicalInformation.locationDescription-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
+            <textarea             class="govuk-textarea govuk-textarea--error govuk-!-width-three-quarters"
+            id="geographicalInformation.locationDescription" name="geographicalInformation.locationDescription"
+            rows="5" aria-describedby="geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error">Location desc</textarea>
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
-            <div id=\\"geographicalInformation.gridReference.easting-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <p id=\\"geographicalInformation.gridReference.easting-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
-            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
-            id=\\"geographicalInformation.gridReference.easting\\" name=\\"geographicalInformation.gridReference.easting\\"
-            type=\\"text\\" value=\\"123456\\" aria-describedby=\\"geographicalInformation.gridReference.easting-hint geographicalInformation.gridReference.easting-error\\">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.easting">Grid reference Easting</label>
+            <div id="geographicalInformation.gridReference.easting-hint"
+            class="govuk-hint">for example, 345678</div>
+            <p id="geographicalInformation.gridReference.easting-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="geographicalInformation.gridReference.easting" name="geographicalInformation.gridReference.easting"
+            type="text" value="123456" aria-describedby="geographicalInformation.gridReference.easting-hint geographicalInformation.gridReference.easting-error">
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.northing\\">Grid reference Northing</label>
-            <div id=\\"geographicalInformation.gridReference.northing-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <p id=\\"geographicalInformation.gridReference.northing-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
-            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
-            id=\\"geographicalInformation.gridReference.northing\\" name=\\"geographicalInformation.gridReference.northing\\"
-            type=\\"text\\" value=\\"789123\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error\\">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.northing">Grid reference Northing</label>
+            <div id="geographicalInformation.gridReference.northing-hint"
+            class="govuk-hint">for example, 345678</div>
+            <p id="geographicalInformation.gridReference.northing-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="geographicalInformation.gridReference.northing" name="geographicalInformation.gridReference.northing"
+            type="text" value="789123" aria-describedby="geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -102,49 +102,49 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 `;
 
 exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information Web-side validation should not render validation error if nothing missing 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\"></ul>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list"></ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter geographical information</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
-            <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
+    <h1 class="govuk-heading-l"> Enter geographical information</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.locationDescription">Project location</label>
+            <div id="geographicalInformation.locationDescription-hint"
+            class="govuk-hint govuk-!-width-three-quarters">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
-            id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
-            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint\\">Location desc</textarea>
+            <textarea class="govuk-textarea govuk-!-width-three-quarters"
+            id="geographicalInformation.locationDescription" name="geographicalInformation.locationDescription"
+            rows="5" aria-describedby="geographicalInformation.locationDescription-hint">Location desc</textarea>
         </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
-            <div id=\\"geographicalInformation.gridReference.easting-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"geographicalInformation.gridReference.easting\\" name=\\"geographicalInformation.gridReference.easting\\"
-            type=\\"text\\" value=\\"123456\\" aria-describedby=\\"geographicalInformation.gridReference.easting-hint\\">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.easting">Grid reference Easting</label>
+            <div id="geographicalInformation.gridReference.easting-hint"
+            class="govuk-hint">for example, 345678</div>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="geographicalInformation.gridReference.easting" name="geographicalInformation.gridReference.easting"
+            type="text" value="123456" aria-describedby="geographicalInformation.gridReference.easting-hint">
         </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.northing\\">Grid reference Northing</label>
-            <div id=\\"geographicalInformation.gridReference.northing-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"geographicalInformation.gridReference.northing\\" name=\\"geographicalInformation.gridReference.northing\\"
-            type=\\"text\\" value=\\"789123\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint\\">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.northing">Grid reference Northing</label>
+            <div id="geographicalInformation.gridReference.northing-hint"
+            class="govuk-hint">for example, 345678</div>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="geographicalInformation.gridReference.northing" name="geographicalInformation.gridReference.northing"
+            type="text" value="789123" aria-describedby="geographicalInformation.gridReference.northing-hint">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -152,19 +152,19 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 `;
 
 exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information Web-side validation should render validation error if easting and northing are not valid 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#geographicalInformation.locationDescription\\">Enter project location</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#geographicalInformation.locationDescription">Enter project location</a>
                             </li>
-                            <li><a href=\\"#geographicalInformation.gridReference.easting\\">Enter 6 digits for the Grid reference Easting</a>
+                            <li><a href="#geographicalInformation.gridReference.easting">Enter 6 digits for the Grid reference Easting</a>
                             </li>
-                            <li><a href=\\"#geographicalInformation.gridReference.northing\\">Enter 6 digits for the Grid reference Northing</a>
+                            <li><a href="#geographicalInformation.gridReference.northing">Enter 6 digits for the Grid reference Northing</a>
                             </li>
                         </ul>
                     </div>
@@ -172,44 +172,44 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter geographical information</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
-            <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
+    <h1 class="govuk-heading-l"> Enter geographical information</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.locationDescription">Project location</label>
+            <div id="geographicalInformation.locationDescription-hint"
+            class="govuk-hint govuk-!-width-three-quarters">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
-            <p id=\\"geographicalInformation.locationDescription-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter project location</p>
-            <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
-            id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
-            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error\\"></textarea>
+            <p id="geographicalInformation.locationDescription-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter project location</p>
+            <textarea             class="govuk-textarea govuk-textarea--error govuk-!-width-three-quarters"
+            id="geographicalInformation.locationDescription" name="geographicalInformation.locationDescription"
+            rows="5" aria-describedby="geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error"></textarea>
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
-            <div id=\\"geographicalInformation.gridReference.easting-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <p id=\\"geographicalInformation.gridReference.easting-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter 6 digits for the
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.easting">Grid reference Easting</label>
+            <div id="geographicalInformation.gridReference.easting-hint"
+            class="govuk-hint">for example, 345678</div>
+            <p id="geographicalInformation.gridReference.easting-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter 6 digits for the
                 Grid reference Easting</p>
-            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
-            id=\\"geographicalInformation.gridReference.easting\\" name=\\"geographicalInformation.gridReference.easting\\"
-            type=\\"text\\" value=\\"1234\\" aria-describedby=\\"geographicalInformation.gridReference.easting-hint geographicalInformation.gridReference.easting-error\\">
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="geographicalInformation.gridReference.easting" name="geographicalInformation.gridReference.easting"
+            type="text" value="1234" aria-describedby="geographicalInformation.gridReference.easting-hint geographicalInformation.gridReference.easting-error">
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.northing\\">Grid reference Northing</label>
-            <div id=\\"geographicalInformation.gridReference.northing-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <p id=\\"geographicalInformation.gridReference.northing-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter 6 digits for the
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.northing">Grid reference Northing</label>
+            <div id="geographicalInformation.gridReference.northing-hint"
+            class="govuk-hint">for example, 345678</div>
+            <p id="geographicalInformation.gridReference.northing-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter 6 digits for the
                 Grid reference Northing</p>
-            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
-            id=\\"geographicalInformation.gridReference.northing\\" name=\\"geographicalInformation.gridReference.northing\\"
-            type=\\"text\\" value=\\"123\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error\\">
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="geographicalInformation.gridReference.northing" name="geographicalInformation.gridReference.northing"
+            type="text" value="123" aria-describedby="geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -217,19 +217,19 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 `;
 
 exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information Web-side validation should render validation error if something missing 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#geographicalInformation.locationDescription\\">Enter project location</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#geographicalInformation.locationDescription">Enter project location</a>
                             </li>
-                            <li><a href=\\"#geographicalInformation.gridReference.easting\\">Enter the Grid reference Easting</a>
+                            <li><a href="#geographicalInformation.gridReference.easting">Enter the Grid reference Easting</a>
                             </li>
-                            <li><a href=\\"#geographicalInformation.gridReference.northing\\">Enter the Grid reference Northing</a>
+                            <li><a href="#geographicalInformation.gridReference.northing">Enter the Grid reference Northing</a>
                             </li>
                         </ul>
                     </div>
@@ -237,44 +237,44 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter geographical information</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.locationDescription\\">Project location</label>
-            <div id=\\"geographicalInformation.locationDescription-hint\\"
-            class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
+    <h1 class="govuk-heading-l"> Enter geographical information</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.locationDescription">Project location</label>
+            <div id="geographicalInformation.locationDescription-hint"
+            class="govuk-hint govuk-!-width-three-quarters">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
-            <p id=\\"geographicalInformation.locationDescription-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter project location</p>
-            <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
-            id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
-            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error\\"></textarea>
+            <p id="geographicalInformation.locationDescription-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter project location</p>
+            <textarea             class="govuk-textarea govuk-textarea--error govuk-!-width-three-quarters"
+            id="geographicalInformation.locationDescription" name="geographicalInformation.locationDescription"
+            rows="5" aria-describedby="geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error"></textarea>
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
-            <div id=\\"geographicalInformation.gridReference.easting-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <p id=\\"geographicalInformation.gridReference.easting-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the Grid reference
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.easting">Grid reference Easting</label>
+            <div id="geographicalInformation.gridReference.easting-hint"
+            class="govuk-hint">for example, 345678</div>
+            <p id="geographicalInformation.gridReference.easting-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the Grid reference
                 Easting</p>
-            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
-            id=\\"geographicalInformation.gridReference.easting\\" name=\\"geographicalInformation.gridReference.easting\\"
-            type=\\"text\\" aria-describedby=\\"geographicalInformation.gridReference.easting-hint geographicalInformation.gridReference.easting-error\\">
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="geographicalInformation.gridReference.easting" name="geographicalInformation.gridReference.easting"
+            type="text" aria-describedby="geographicalInformation.gridReference.easting-hint geographicalInformation.gridReference.easting-error">
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.northing\\">Grid reference Northing</label>
-            <div id=\\"geographicalInformation.gridReference.northing-hint\\"
-            class=\\"govuk-hint\\">for example, 345678</div>
-            <p id=\\"geographicalInformation.gridReference.northing-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the Grid reference
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="geographicalInformation.gridReference.northing">Grid reference Northing</label>
+            <div id="geographicalInformation.gridReference.northing-hint"
+            class="govuk-hint">for example, 345678</div>
+            <p id="geographicalInformation.gridReference.northing-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the Grid reference
                 Northing</p>
-            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
-            id=\\"geographicalInformation.gridReference.northing\\" name=\\"geographicalInformation.gridReference.northing\\"
-            type=\\"text\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error\\">
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="geographicalInformation.gridReference.northing" name="geographicalInformation.gridReference.northing"
+            type="text" aria-describedby="geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -282,23 +282,25 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 `;
 
 exports[`applications create Name and description GET /create-new-case should render form 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\" name=\\"title\\"
-            rows=\\"5\\"></textarea>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Enter name and description</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="title">Name of the project</label>
+            <div id="title-hint" class="govuk-hint">for example, Bridge over a very long canyon</div>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="title" name="title" type="text" aria-describedby="title-hint">
         </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
-            <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="description">Description of the project</label>
+            <div id="description-hint" class="govuk-hint">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"description\\"
-            name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\"></textarea>
+            <textarea class="govuk-textarea govuk-!-width-three-quarters" id="description"
+            name="description" rows="5" aria-describedby="description-hint"></textarea>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -306,12 +308,12 @@ exports[`applications create Name and description GET /create-new-case should re
 `;
 
 exports[`applications create Name and description GET /create-new-case/1 should not render the page when case is not Draft 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
-            <p class=\\"govuk-body\\">If the problem persists, <a href=\\"https://intranet.planninginspectorate.gov.uk/task/report-it-problem/\\"
-                class=\\"govuk-link\\">report an IT problem or make an IT request.</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">If the problem persists, <a href="https://intranet.planninginspectorate.gov.uk/task/report-it-problem/"
+                class="govuk-link">report an IT problem or make an IT request.</a>
             </p>
         </div>
     </div>
@@ -319,25 +321,27 @@ exports[`applications create Name and description GET /create-new-case/1 should 
 `;
 
 exports[`applications create Name and description GET /create-new-case/1 should render page with resumed data 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\" name=\\"title\\"
-            rows=\\"5\\">Title CASE/01</textarea>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Enter name and description</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="title">Name of the project</label>
+            <div id="title-hint" class="govuk-hint">for example, Bridge over a very long canyon</div>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="title" name="title" type="text" value="Title CASE/01" aria-describedby="title-hint">
         </div>
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
-            <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="description">Description of the project</label>
+            <div id="description-hint" class="govuk-hint">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"description\\"
-            name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\">Ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor
+            <textarea class="govuk-textarea govuk-!-width-three-quarters" id="description"
+            name="description" rows="5" aria-describedby="description-hint">Ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis
                 nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -345,17 +349,17 @@ exports[`applications create Name and description GET /create-new-case/1 should 
 `;
 
 exports[`applications create Name and description POST /create-new-case/:id Api-side validation: When creating new case should show validation errors if API returns error 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#title\\">Some error message from API</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#title">Some error message from API</a>
                             </li>
-                            <li><a href=\\"#description\\">Same</a>
+                            <li><a href="#description">Same</a>
                             </li>
                         </ul>
                     </div>
@@ -363,25 +367,27 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Some error message from
+    <h1 class="govuk-heading-l"> Enter name and description</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="title">Name of the project</label>
+            <div id="title-hint" class="govuk-hint">for example, Bridge over a very long canyon</div>
+            <p id="title-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Some error message from
                 API</p>
-            <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-two-thirds\\"
-            id=\\"title\\" name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-error\\">A title</textarea>
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="title" name="title" type="text" value="A title" aria-describedby="title-hint title-error">
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
-            <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="description">Description of the project</label>
+            <div id="description-hint" class="govuk-hint">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
-            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Same</p>
-            <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
-            id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint description-error\\">A description</textarea>
+            <p id="description-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Same</p>
+            <textarea class="govuk-textarea govuk-textarea--error govuk-!-width-three-quarters"
+            id="description" name="description" rows="5" aria-describedby="description-hint description-error">A description</textarea>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -389,17 +395,17 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
 `;
 
 exports[`applications create Name and description POST /create-new-case/:id Api-side validation: When updating resumed case should show validation errors if API returns error 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#title\\">Some error message from API</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#title">Some error message from API</a>
                             </li>
-                            <li><a href=\\"#description\\">Same</a>
+                            <li><a href="#description">Same</a>
                             </li>
                         </ul>
                     </div>
@@ -407,25 +413,27 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Some error message from
+    <h1 class="govuk-heading-l"> Enter name and description</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="title">Name of the project</label>
+            <div id="title-hint" class="govuk-hint">for example, Bridge over a very long canyon</div>
+            <p id="title-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Some error message from
                 API</p>
-            <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-two-thirds\\"
-            id=\\"title\\" name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-error\\">A title</textarea>
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="title" name="title" type="text" value="A title" aria-describedby="title-hint title-error">
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
-            <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="description">Description of the project</label>
+            <div id="description-hint" class="govuk-hint">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
-            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Same</p>
-            <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
-            id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint description-error\\">A description</textarea>
+            <p id="description-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Same</p>
+            <textarea class="govuk-textarea govuk-textarea--error govuk-!-width-three-quarters"
+            id="description" name="description" rows="5" aria-describedby="description-hint description-error">A description</textarea>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -433,17 +441,17 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
 `;
 
 exports[`applications create Name and description POST /create-new-case/:id Web-side validation: should show validation errors if something missing 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#title\\">Enter project name</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#title">Enter the name of the project</a>
                             </li>
-                            <li><a href=\\"#description\\">Enter project description</a>
+                            <li><a href="#description">Enter project description</a>
                             </li>
                         </ul>
                     </div>
@@ -451,24 +459,27 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter project name</p>
-            <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-two-thirds\\" id=\\"title\\"
-            name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-error\\"></textarea>
+    <h1 class="govuk-heading-l"> Enter name and description</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="title">Name of the project</label>
+            <div id="title-hint" class="govuk-hint">for example, Bridge over a very long canyon</div>
+            <p id="title-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the name of the
+                project</p>
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="title" name="title" type="text" aria-describedby="title-hint title-error">
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
-            <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="description">Description of the project</label>
+            <div id="description-hint" class="govuk-hint">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
-            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter project description</p>
-            <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
-            id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint description-error\\"></textarea>
+            <p id="description-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter project description</p>
+            <textarea             class="govuk-textarea govuk-textarea--error govuk-!-width-three-quarters"
+            id="description" name="description" rows="5" aria-describedby="description-hint description-error"></textarea>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -476,48 +487,48 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
 `;
 
 exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page with checked options if the api returns something 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose one or multiple regions</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"london\\"
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Choose one or multiple regions</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="london"
                     checked>
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames\\">London EN</label>
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-2\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"yorkshire\\"
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire"
                     checked>
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-2\\">Yorkshire EN</label>
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-3\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"east\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-3\\">East EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="east">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-4\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"north\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-4\\">North EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="north">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-5\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"south\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-5\\">South EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="south">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-6\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"west\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-6\\">West EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="west">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -525,46 +536,46 @@ exports[`applications create Regions GET /create-new-case/:caseId/regions should
 `;
 
 exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page without checked options 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose one or multiple regions</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"london\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames\\">London EN</label>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Choose one or multiple regions</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="london">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-2\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"yorkshire\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-2\\">Yorkshire EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-3\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"east\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-3\\">East EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="east">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-4\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"north\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-4\\">North EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="north">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-5\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"south\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-5\\">South EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="south">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-6\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"west\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-6\\">West EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="west">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -572,15 +583,15 @@ exports[`applications create Regions GET /create-new-case/:caseId/regions should
 `;
 
 exports[`applications create Regions POST /create-new-case/:caseId/regions Api validation should show validation errors if API returns error 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#geographicalInformation.regionNames\\">Error msg</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#geographicalInformation.regionNames">Error msg</a>
                             </li>
                         </ul>
                     </div>
@@ -588,53 +599,53 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Api v
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose one or multiple regions</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"geographicalInformation.regionNames-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
-            <div class=\\"govuk-checkboxes\\"
-            data-module=\\"govuk-checkboxes\\">
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"london\\"
-                    checked aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames\\">London EN</label>
+    <h1 class="govuk-heading-l"> Choose one or multiple regions</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <p id="geographicalInformation.regionNames-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
+            <div class="govuk-checkboxes"
+            data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="london"
+                    checked aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-2\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"yorkshire\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-2\\">Yorkshire EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-3\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"east\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-3\\">East EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="east"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-4\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"north\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-4\\">North EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="north"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-5\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"south\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-5\\">South EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="south"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-6\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"west\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-6\\">West EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="west"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -642,59 +653,59 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Api v
 `;
 
 exports[`applications create Regions POST /create-new-case/:caseId/regions Web-validation should not render validation error if nothing missing 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\"></ul>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list"></ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose one or multiple regions</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"london\\"
+    <h1 class="govuk-heading-l"> Choose one or multiple regions</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="london"
                     checked>
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames\\">London EN</label>
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-2\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"yorkshire\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-2\\">Yorkshire EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-3\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"east\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-3\\">East EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="east">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-4\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"north\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-4\\">North EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="north">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-5\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"south\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-5\\">South EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="south">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-6\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"west\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-6\\">West EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="west">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -702,15 +713,15 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
 `;
 
 exports[`applications create Regions POST /create-new-case/:caseId/regions Web-validation should render validation error if something missing 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#geographicalInformation.regionNames\\">Choose at least one region</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#geographicalInformation.regionNames">Choose at least one region</a>
                             </li>
                         </ul>
                     </div>
@@ -718,52 +729,52 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose one or multiple regions</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"geographicalInformation.regionNames-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Choose at least one region</p>
-            <div             class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"london\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames\\">London EN</label>
+    <h1 class="govuk-heading-l"> Choose one or multiple regions</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <p id="geographicalInformation.regionNames-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose at least one region</p>
+            <div             class="govuk-checkboxes" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="london"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-2\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"yorkshire\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-2\\">Yorkshire EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-3\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"east\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-3\\">East EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="east"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-4\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"north\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-4\\">North EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="north"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-5\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"south\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-5\\">South EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="south"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
                 </div>
-                <div class=\\"govuk-checkboxes__item\\">
-                    <input class=\\"govuk-checkboxes__input\\" id=\\"geographicalInformation.regionNames-6\\"
-                    name=\\"geographicalInformation.regionNames[]\\" type=\\"checkbox\\" value=\\"west\\"
-                    aria-describedby=\\"geographicalInformation.regionNames-error\\">
-                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"geographicalInformation.regionNames-6\\">West EN</label>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                    name="geographicalInformation.regionNames[]" type="checkbox" value="west"
+                    aria-describedby="geographicalInformation.regionNames-error">
+                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
                 </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -771,41 +782,41 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
 `;
 
 exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should display an option as _checked_ if the API returns a resumed value 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose a sector</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName\\" name=\\"sectorName\\" type=\\"radio\\"
-                    value=\\"transport\\" checked>
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName\\">Transport EN</label>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Choose a sector</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName" name="sectorName" type="radio"
+                    value="transport" checked>
+                    <label class="govuk-label govuk-radios__label" for="sectorName">Transport EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-2\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-2\\">Water EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-2" name="sectorName"
+                    type="radio" value="water">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-2">Water EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-3\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"waste\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-3\\">Waste EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-3" name="sectorName"
+                    type="radio" value="waste">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-3">Waste EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-4\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"energy\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-4\\">Energy EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-4" name="sectorName"
+                    type="radio" value="energy">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-4">Energy EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-5\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"waste_water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-5\\">Waste_water EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-5" name="sectorName"
+                    type="radio" value="waste_water">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-5">Waste_water EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -813,41 +824,41 @@ exports[`applications create Sector GET /create-new-case/:caseId/sector When cas
 `;
 
 exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose a sector</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName\\" name=\\"sectorName\\" type=\\"radio\\"
-                    value=\\"transport\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName\\">Transport EN</label>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Choose a sector</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName" name="sectorName" type="radio"
+                    value="transport">
+                    <label class="govuk-label govuk-radios__label" for="sectorName">Transport EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-2\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-2\\">Water EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-2" name="sectorName"
+                    type="radio" value="water">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-2">Water EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-3\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"waste\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-3\\">Waste EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-3" name="sectorName"
+                    type="radio" value="waste">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-3">Waste EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-4\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"energy\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-4\\">Energy EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-4" name="sectorName"
+                    type="radio" value="energy">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-4">Energy EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-5\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"waste_water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-5\\">Waste_water EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-5" name="sectorName"
+                    type="radio" value="waste_water">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-5">Waste_water EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -855,15 +866,15 @@ exports[`applications create Sector GET /create-new-case/:caseId/sector When cas
 `;
 
 exports[`applications create Sector POST /create-new-case/:caseId/sector Web-side validation: should show validation error if nothing was selected 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#sectorName\\">Choose the sector of the project</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#sectorName">Choose the sector of the project</a>
                             </li>
                         </ul>
                     </div>
@@ -871,42 +882,42 @@ exports[`applications create Sector POST /create-new-case/:caseId/sector Web-sid
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose a sector</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"sectorName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Choose the sector of
+    <h1 class="govuk-heading-l"> Choose a sector</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <p id="sectorName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose the sector of
                 the project</p>
-            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName\\" name=\\"sectorName\\" type=\\"radio\\"
-                    value=\\"transport\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName\\">Transport EN</label>
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName" name="sectorName" type="radio"
+                    value="transport">
+                    <label class="govuk-label govuk-radios__label" for="sectorName">Transport EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-2\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-2\\">Water EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-2" name="sectorName"
+                    type="radio" value="water">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-2">Water EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-3\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"waste\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-3\\">Waste EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-3" name="sectorName"
+                    type="radio" value="waste">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-3">Waste EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-4\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"energy\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-4\\">Energy EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-4" name="sectorName"
+                    type="radio" value="energy">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-4">Energy EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"sectorName-5\\" name=\\"sectorName\\"
-                    type=\\"radio\\" value=\\"waste_water\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"sectorName-5\\">Waste_water EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="sectorName-5" name="sectorName"
+                    type="radio" value="waste_water">
+                    <label class="govuk-label govuk-radios__label" for="sectorName-5">Waste_water EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -914,31 +925,31 @@ exports[`applications create Sector POST /create-new-case/:caseId/sector Web-sid
 `;
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should display an option as _checked_ if the API returns a resumed value 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose a subsector</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"highways\\" checked>
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName\\">Highways EN</label>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Choose a subsector</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                    type="radio" value="highways" checked>
+                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-2\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"airports\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-2\\">Airports EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                    type="radio" value="airports">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-3\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"railways\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-3\\">Railways EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                    type="radio" value="railways">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -946,31 +957,31 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 `;
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose a subsector</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"highways\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName\\">Highways EN</label>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Choose a subsector</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                    type="radio" value="highways">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-2\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"airports\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-2\\">Airports EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                    type="radio" value="airports">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-3\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"railways\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-3\\">Railways EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                    type="radio" value="railways">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -978,31 +989,31 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 `;
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should render subsectors matching with the sectorName in the session 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose a subsector</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"highways\\" checked>
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName\\">Highways EN</label>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Choose a subsector</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                    type="radio" value="highways" checked>
+                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-2\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"airports\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-2\\">Airports EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                    type="radio" value="airports">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-3\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"railways\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-3\\">Railways EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                    type="radio" value="railways">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1010,15 +1021,15 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 `;
 
 exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector API-side validation: should show validation errors if API returns error 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#subSectorName\\">Must be existing sub-sector</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#subSectorName">Must be existing sub-sector</a>
                             </li>
                         </ul>
                     </div>
@@ -1026,31 +1037,31 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose a subsector</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"subSectorName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Must be existing sub-sector</p>
-            <div             class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"highways\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName\\">Highways EN</label>
+    <h1 class="govuk-heading-l"> Choose a subsector</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <p id="subSectorName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Must be existing sub-sector</p>
+            <div             class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                    type="radio" value="highways">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-2\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"airports\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-2\\">Airports EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                    type="radio" value="airports">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-3\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"railways\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-3\\">Railways EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                    type="radio" value="railways">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
                 </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1058,15 +1069,15 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
 `;
 
 exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector Web-side validation: should show validation error if nothing was selected 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#subSectorName\\">Choose the subsector of the project</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#subSectorName">Choose the subsector of the project</a>
                             </li>
                         </ul>
                     </div>
@@ -1074,32 +1085,32 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose a subsector</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"subSectorName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Choose the subsector
+    <h1 class="govuk-heading-l"> Choose a subsector</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <p id="subSectorName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose the subsector
                 of the project</p>
-            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"highways\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName\\">Highways EN</label>
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                    type="radio" value="highways">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-2\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"airports\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-2\\">Airports EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                    type="radio" value="airports">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"subSectorName-3\\" name=\\"subSectorName\\"
-                    type=\\"radio\\" value=\\"railways\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"subSectorName-3\\">Railways EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                    type="radio" value="railways">
+                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1107,18 +1118,18 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
 `;
 
 exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the project email (optional)</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" aria-describedby=\\"caseEmail-hint\\">
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Enter the project email (optional)</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-visually-hidden" for="caseEmail">Team mail address</label>
+            <div id="caseEmail-hint" class="govuk-hint">for example, NIEnquiries@planninginspectorate.gov.uk</div>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="caseEmail" name="caseEmail" type="text" aria-describedby="caseEmail-hint">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1126,18 +1137,18 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
 `;
 
 exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with the resumed data if the api returns something 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the project email (optional)</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" value=\\"some@ema.il\\" aria-describedby=\\"caseEmail-hint\\">
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Enter the project email (optional)</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-visually-hidden" for="caseEmail">Team mail address</label>
+            <div id="caseEmail-hint" class="govuk-hint">for example, NIEnquiries@planninginspectorate.gov.uk</div>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="caseEmail" name="caseEmail" type="text" value="some@ema.il" aria-describedby="caseEmail-hint">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1145,15 +1156,15 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
 `;
 
 exports[`applications create Team email POST /create-new-case/:caseId/team-email Api validation should show validation errors if API returns error 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#caseEmail\\">Error msg</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#caseEmail">Error msg</a>
                             </li>
                         </ul>
                     </div>
@@ -1161,19 +1172,19 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the project email (optional)</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
-            <p id=\\"caseEmail-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
-            <input class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\"
-            id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" value=\\"valid@ema.il\\" aria-describedby=\\"caseEmail-hint caseEmail-error\\">
+    <h1 class="govuk-heading-l"> Enter the project email (optional)</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label govuk-visually-hidden" for="caseEmail">Team mail address</label>
+            <div id="caseEmail-hint" class="govuk-hint">for example, NIEnquiries@planninginspectorate.gov.uk</div>
+            <p id="caseEmail-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="caseEmail" name="caseEmail" type="text" value="valid@ema.il" aria-describedby="caseEmail-hint caseEmail-error">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1181,30 +1192,30 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
 `;
 
 exports[`applications create Team email POST /create-new-case/:caseId/team-email Web-validation should not render validation error if nothing missing 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\"></ul>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list"></ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the project email (optional)</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" value=\\"valid@ema.il\\" aria-describedby=\\"caseEmail-hint\\">
+    <h1 class="govuk-heading-l"> Enter the project email (optional)</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-visually-hidden" for="caseEmail">Team mail address</label>
+            <div id="caseEmail-hint" class="govuk-hint">for example, NIEnquiries@planninginspectorate.gov.uk</div>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="caseEmail" name="caseEmail" type="text" value="valid@ema.il" aria-describedby="caseEmail-hint">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1212,15 +1223,15 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
 `;
 
 exports[`applications create Team email POST /create-new-case/:caseId/team-email Web-validation should render validation error if email is not valid 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#caseEmail\\">Enter a valid email address</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#caseEmail">Enter a valid email address</a>
                             </li>
                         </ul>
                     </div>
@@ -1228,19 +1239,19 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the project email (optional)</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
-            <p id=\\"caseEmail-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid email address</p>
-            <input             class=\\"govuk-input govuk-!-width-one-third govuk-input--error\\" id=\\"caseEmail\\"
-            name=\\"caseEmail\\" type=\\"text\\" value=\\"notvalidemail\\" aria-describedby=\\"caseEmail-hint caseEmail-error\\">
+    <h1 class="govuk-heading-l"> Enter the project email (optional)</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label govuk-visually-hidden" for="caseEmail">Team mail address</label>
+            <div id="caseEmail-hint" class="govuk-hint">for example, NIEnquiries@planninginspectorate.gov.uk</div>
+            <p id="caseEmail-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a valid email address</p>
+            <input             class="govuk-input govuk-!-width-one-third govuk-input--error" id="caseEmail"
+            name="caseEmail" type="text" value="notvalidemail" aria-describedby="caseEmail-hint caseEmail-error">
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1248,47 +1259,47 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
 `;
 
 exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with None checked if the api does not return resumed data 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose map zoom level</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"none\\"
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Choose map zoom level</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="none"
                     checked>
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName\\">None EN</label>
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">None EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-2\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"region\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-2\\">Region EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">Region EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-3\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"country\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-3\\">Country EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Country EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-4\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"junction\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-4\\">Junction EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Junction EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-5\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"county\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-5\\">County EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">County EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-6\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"city\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-6\\">City EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="city">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">City EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1296,47 +1307,47 @@ exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level 
 `;
 
 exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with the checked option from the resumed data 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose map zoom level</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"none\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName\\">None EN</label>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Choose map zoom level</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="none">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">None EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-2\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"region\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-2\\">Region EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">Region EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-3\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"country\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-3\\">Country EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Country EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-4\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"junction\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-4\\">Junction EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Junction EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-5\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"county\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-5\\">County EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">County EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-6\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"city\\"
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="city"
                     checked>
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-6\\">City EN</label>
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">City EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1344,15 +1355,15 @@ exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level 
 `;
 
 exports[`applications create Zoom Level POST /create-new-case/:caseId/zoom-level Api validation should show validation errors if API returns error 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#geographicalInformation.mapZoomLevelName\\">Error msg</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#geographicalInformation.mapZoomLevelName">Error msg</a>
                             </li>
                         </ul>
                     </div>
@@ -1360,47 +1371,47 @@ exports[`applications create Zoom Level POST /create-new-case/:caseId/zoom-level
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose map zoom level</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <p id=\\"geographicalInformation.mapZoomLevelName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Error msg</p>
-            <div class=\\"govuk-radios\\"
-            data-module=\\"govuk-radios\\">
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"city\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName\\">City EN</label>
+    <h1 class="govuk-heading-l"> Choose map zoom level</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <p id="geographicalInformation.mapZoomLevelName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
+            <div class="govuk-radios"
+            data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="city">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">City EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-2\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"county\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-2\\">County EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">County EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-3\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"junction\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-3\\">Junction EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Junction EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-4\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"country\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-4\\">Country EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Country EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-5\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"region\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-5\\">Region EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">Region EN</label>
                 </div>
-                <div class=\\"govuk-radios__item\\">
-                    <input class=\\"govuk-radios__input\\" id=\\"geographicalInformation.mapZoomLevelName-6\\"
-                    name=\\"geographicalInformation.mapZoomLevelName\\" type=\\"radio\\" value=\\"none\\">
-                    <label class=\\"govuk-label govuk-radios__label\\" for=\\"geographicalInformation.mapZoomLevelName-6\\">None EN</label>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
+                    name="geographicalInformation.mapZoomLevelName" type="radio" value="none">
+                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">None EN</label>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
