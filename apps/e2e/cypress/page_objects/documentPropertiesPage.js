@@ -104,7 +104,7 @@ export class DocumentPropertiesPage extends Page {
 	 */
 	updateAllProperties(status) {
 		this.updateDocumentProperty('File name', this.fileName());
-		this.updateDocumentProperty('Description', this.description());
+		this.updateDocumentProperty('Description', this.description(), 'textarea');
 		this.updateDocumentProperty('Who the document is from', this.from(), 'textarea');
 		this.updateDocumentProperty('Agent (optional)', this.agent());
 		this.updateDocumentProperty('Webfilter', this.webfilter());
@@ -115,7 +115,7 @@ export class DocumentPropertiesPage extends Page {
 	}
 	updateAllPropertiesIncludingWelsh(status) {
 		this.updateDocumentProperty('File name', this.fileName());
-		this.updateDocumentProperty('Description', this.description());
+		this.updateDocumentProperty('Description', this.description(), 'textarea');
 		this.updateDocumentProperty('Description in Welsh', this.descriptionWelsh(), 'textarea');
 		this.updateDocumentProperty('Who the document is from', this.from(), 'textarea');
 		this.updateDocumentProperty('Who the document is from in Welsh', this.fromWelsh(), 'textarea');
