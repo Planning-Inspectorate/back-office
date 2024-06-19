@@ -1,44 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Applications create key dates GET /key-dates should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the key dates of the project</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.preApplication.submissionAtPublished\\">Anticipated submission date published (optional)</label>
-            <div id=\\"keyDates.preApplication.submissionAtPublished-hint\\"
-            class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l"> Enter the key dates of the project</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="keyDates.preApplication.submissionAtPublished">Anticipated submission date published (optional)</label>
+            <div id="keyDates.preApplication.submissionAtPublished-hint"
+            class="govuk-hint">Date the Planning Inspectorate expects the application to be submitted.
                 For example, ‘between April and June 2024&#39; or &#39;in September 2025’.</div>
-            <input             class=\\"govuk-input govuk-!-width-one-third\\" id=\\"keyDates.preApplication.submissionAtPublished\\"
-            name=\\"keyDates.preApplication.submissionAtPublished\\" type=\\"text\\" aria-describedby=\\"keyDates.preApplication.submissionAtPublished-hint\\">
+            <input             class="govuk-input govuk-!-width-one-third" id="keyDates.preApplication.submissionAtPublished"
+            name="keyDates.preApplication.submissionAtPublished" type="text" aria-describedby="keyDates.preApplication.submissionAtPublished-hint">
         </div>
-        <div class=\\"govuk-form-group \\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtInternal\\">Anticipated submission date internal (optional)</label>
-            <div id=\\"submissionAtInternal-hint\\"
-            class=\\"govuk-hint\\">for example, 27 03 2023</div>
-            <div class=\\"govuk-grid-column-one-third\\">
-                <div class=\\"govuk-grid-row pins-date-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.preApplication.submissionAtInternal.day\\">Day</label>
-                        <input class=\\"govuk-input\\" id=\\"keyDates.preApplication.submissionAtInternal.day\\"
-                        name=\\"keyDates.preApplication.submissionAtInternal.day\\" type=\\"text\\">
+        <div class="govuk-form-group ">
+            <label class="govuk-label font-weight--700" for="submissionAtInternal">Anticipated submission date internal (optional)</label>
+            <div id="submissionAtInternal-hint"
+            class="govuk-hint">for example, 27 03 2023</div>
+            <div class="govuk-grid-column-one-third">
+                <div class="govuk-grid-row pins-date-form-group">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-hint" for="keyDates.preApplication.submissionAtInternal.day">Day</label>
+                        <input class="govuk-input" id="keyDates.preApplication.submissionAtInternal.day"
+                        name="keyDates.preApplication.submissionAtInternal.day" type="text">
                     </div>
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.preApplication.submissionAtInternal.month\\">Month</label>
-                        <input class=\\"govuk-input\\" id=\\"keyDates.preApplication.submissionAtInternal.month\\"
-                        name=\\"keyDates.preApplication.submissionAtInternal.month\\" type=\\"text\\">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-hint" for="keyDates.preApplication.submissionAtInternal.month">Month</label>
+                        <input class="govuk-input" id="keyDates.preApplication.submissionAtInternal.month"
+                        name="keyDates.preApplication.submissionAtInternal.month" type="text">
                     </div>
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.preApplication.submissionAtInternal.year\\">Year</label>
-                        <input class=\\"govuk-input\\" id=\\"keyDates.preApplication.submissionAtInternal.year\\"
-                        name=\\"keyDates.preApplication.submissionAtInternal.year\\" type=\\"text\\">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-hint" for="keyDates.preApplication.submissionAtInternal.year">Year</label>
+                        <input class="govuk-input" id="keyDates.preApplication.submissionAtInternal.year"
+                        name="keyDates.preApplication.submissionAtInternal.year" type="text">
                     </div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -46,15 +46,15 @@ exports[`Applications create key dates GET /key-dates should render the page 1`]
 `;
 
 exports[`Applications create key dates POST /key-dates Web-side validation: should show validation errors if dates are not valid 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#keyDates.preApplication.submissionAtInternal\\">Enter a valid day for the anticipated submission date internal</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#keyDates.preApplication.submissionAtInternal">Enter a valid day for the anticipated submission date internal</a>
                             </li>
                         </ul>
                     </div>
@@ -62,57 +62,57 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the key dates of the project</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.preApplication.submissionAtPublished\\">Anticipated submission date published (optional)</label>
-            <div id=\\"keyDates.preApplication.submissionAtPublished-hint\\"
-            class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.
+    <h1 class="govuk-heading-l"> Enter the key dates of the project</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="keyDates.preApplication.submissionAtPublished">Anticipated submission date published (optional)</label>
+            <div id="keyDates.preApplication.submissionAtPublished-hint"
+            class="govuk-hint">Date the Planning Inspectorate expects the application to be submitted.
                 For example, ‘between April and June 2024&#39; or &#39;in September 2025’.</div>
-            <input             class=\\"govuk-input govuk-!-width-one-third\\" id=\\"keyDates.preApplication.submissionAtPublished\\"
-            name=\\"keyDates.preApplication.submissionAtPublished\\" type=\\"text\\" aria-describedby=\\"keyDates.preApplication.submissionAtPublished-hint\\">
+            <input             class="govuk-input govuk-!-width-one-third" id="keyDates.preApplication.submissionAtPublished"
+            name="keyDates.preApplication.submissionAtPublished" type="text" aria-describedby="keyDates.preApplication.submissionAtPublished-hint">
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtInternal\\">Anticipated submission date internal (optional)</label>
-            <div id=\\"submissionAtInternal-hint\\"
-            class=\\"govuk-hint\\">for example, 27 03 2023</div>
-            <p id=\\"submissionAtInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="submissionAtInternal">Anticipated submission date internal (optional)</label>
+            <div id="submissionAtInternal-hint"
+            class="govuk-hint">for example, 27 03 2023</div>
+            <p id="submissionAtInternal-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a valid day for
                 the anticipated submission date internal</p>
-            <div class=\\"govuk-grid-column-one-third\\">
-                <div class=\\"govuk-grid-row pins-date-form-group\\">
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.preApplication.submissionAtInternal.day\\">Day</label>
-                        <p id=\\"keyDates.preApplication.submissionAtInternal.day-error\\"
-                        class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+            <div class="govuk-grid-column-one-third">
+                <div class="govuk-grid-row pins-date-form-group">
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-hint" for="keyDates.preApplication.submissionAtInternal.day">Day</label>
+                        <p id="keyDates.preApplication.submissionAtInternal.day-error"
+                        class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.preApplication.submissionAtInternal.day\\"
-                        name=\\"keyDates.preApplication.submissionAtInternal.day\\" type=\\"text\\" value=\\"01\\"
-                        aria-describedby=\\"keyDates.preApplication.submissionAtInternal.day-error\\">
+                        <input class="govuk-input govuk-input--error" id="keyDates.preApplication.submissionAtInternal.day"
+                        name="keyDates.preApplication.submissionAtInternal.day" type="text" value="01"
+                        aria-describedby="keyDates.preApplication.submissionAtInternal.day-error">
                     </div>
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.preApplication.submissionAtInternal.month\\">Month</label>
-                        <p id=\\"keyDates.preApplication.submissionAtInternal.month-error\\"
-                        class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-hint" for="keyDates.preApplication.submissionAtInternal.month">Month</label>
+                        <p id="keyDates.preApplication.submissionAtInternal.month-error"
+                        class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.preApplication.submissionAtInternal.month\\"
-                        name=\\"keyDates.preApplication.submissionAtInternal.month\\" type=\\"text\\" value=\\"01\\"
-                        aria-describedby=\\"keyDates.preApplication.submissionAtInternal.month-error\\">
+                        <input class="govuk-input govuk-input--error" id="keyDates.preApplication.submissionAtInternal.month"
+                        name="keyDates.preApplication.submissionAtInternal.month" type="text" value="01"
+                        aria-describedby="keyDates.preApplication.submissionAtInternal.month-error">
                     </div>
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.preApplication.submissionAtInternal.year\\">Year</label>
-                        <p id=\\"keyDates.preApplication.submissionAtInternal.year-error\\"
-                        class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-hint" for="keyDates.preApplication.submissionAtInternal.year">Year</label>
+                        <p id="keyDates.preApplication.submissionAtInternal.year-error"
+                        class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.preApplication.submissionAtInternal.year\\"
-                        name=\\"keyDates.preApplication.submissionAtInternal.year\\" type=\\"text\\" value=\\"2032\\"
-                        aria-describedby=\\"keyDates.preApplication.submissionAtInternal.year-error\\">
+                        <input class="govuk-input govuk-input--error" id="keyDates.preApplication.submissionAtInternal.year"
+                        name="keyDates.preApplication.submissionAtInternal.year" type="text" value="2032"
+                        aria-describedby="keyDates.preApplication.submissionAtInternal.year-error">
                     </div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -120,15 +120,15 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
 `;
 
 exports[`Applications create key dates POST /key-dates Web-side validation: should show validation errors if submission date is not in the future 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#keyDates.preApplication.submissionAtInternal\\">The anticipated submission date internal must be in the future</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#keyDates.preApplication.submissionAtInternal">The anticipated submission date internal must be in the future</a>
                             </li>
                         </ul>
                     </div>
@@ -136,57 +136,57 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the key dates of the project</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.preApplication.submissionAtPublished\\">Anticipated submission date published (optional)</label>
-            <div id=\\"keyDates.preApplication.submissionAtPublished-hint\\"
-            class=\\"govuk-hint\\">Date the Planning Inspectorate expects the application to be submitted.
+    <h1 class="govuk-heading-l"> Enter the key dates of the project</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="keyDates.preApplication.submissionAtPublished">Anticipated submission date published (optional)</label>
+            <div id="keyDates.preApplication.submissionAtPublished-hint"
+            class="govuk-hint">Date the Planning Inspectorate expects the application to be submitted.
                 For example, ‘between April and June 2024&#39; or &#39;in September 2025’.</div>
-            <input             class=\\"govuk-input govuk-!-width-one-third\\" id=\\"keyDates.preApplication.submissionAtPublished\\"
-            name=\\"keyDates.preApplication.submissionAtPublished\\" type=\\"text\\" aria-describedby=\\"keyDates.preApplication.submissionAtPublished-hint\\">
+            <input             class="govuk-input govuk-!-width-one-third" id="keyDates.preApplication.submissionAtPublished"
+            name="keyDates.preApplication.submissionAtPublished" type="text" aria-describedby="keyDates.preApplication.submissionAtPublished-hint">
         </div>
-        <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"submissionAtInternal\\">Anticipated submission date internal (optional)</label>
-            <div id=\\"submissionAtInternal-hint\\"
-            class=\\"govuk-hint\\">for example, 27 03 2023</div>
-            <p id=\\"submissionAtInternal-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The anticipated submission
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label font-weight--700" for="submissionAtInternal">Anticipated submission date internal (optional)</label>
+            <div id="submissionAtInternal-hint"
+            class="govuk-hint">for example, 27 03 2023</div>
+            <p id="submissionAtInternal-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> The anticipated submission
                 date internal must be in the future</p>
-            <div class=\\"govuk-grid-column-one-third\\">
-                <div class=\\"govuk-grid-row pins-date-form-group\\">
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.preApplication.submissionAtInternal.day\\">Day</label>
-                        <p id=\\"keyDates.preApplication.submissionAtInternal.day-error\\"
-                        class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+            <div class="govuk-grid-column-one-third">
+                <div class="govuk-grid-row pins-date-form-group">
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-hint" for="keyDates.preApplication.submissionAtInternal.day">Day</label>
+                        <p id="keyDates.preApplication.submissionAtInternal.day-error"
+                        class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.preApplication.submissionAtInternal.day\\"
-                        name=\\"keyDates.preApplication.submissionAtInternal.day\\" type=\\"text\\" value=\\"14\\"
-                        aria-describedby=\\"keyDates.preApplication.submissionAtInternal.day-error\\">
+                        <input class="govuk-input govuk-input--error" id="keyDates.preApplication.submissionAtInternal.day"
+                        name="keyDates.preApplication.submissionAtInternal.day" type="text" value="14"
+                        aria-describedby="keyDates.preApplication.submissionAtInternal.day-error">
                     </div>
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.preApplication.submissionAtInternal.month\\">Month</label>
-                        <p id=\\"keyDates.preApplication.submissionAtInternal.month-error\\"
-                        class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-hint" for="keyDates.preApplication.submissionAtInternal.month">Month</label>
+                        <p id="keyDates.preApplication.submissionAtInternal.month-error"
+                        class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.preApplication.submissionAtInternal.month\\"
-                        name=\\"keyDates.preApplication.submissionAtInternal.month\\" type=\\"text\\" value=\\"07\\"
-                        aria-describedby=\\"keyDates.preApplication.submissionAtInternal.month-error\\">
+                        <input class="govuk-input govuk-input--error" id="keyDates.preApplication.submissionAtInternal.month"
+                        name="keyDates.preApplication.submissionAtInternal.month" type="text" value="07"
+                        aria-describedby="keyDates.preApplication.submissionAtInternal.month-error">
                     </div>
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-hint\\" for=\\"keyDates.preApplication.submissionAtInternal.year\\">Year</label>
-                        <p id=\\"keyDates.preApplication.submissionAtInternal.year-error\\"
-                        class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-hint" for="keyDates.preApplication.submissionAtInternal.year">Year</label>
+                        <p id="keyDates.preApplication.submissionAtInternal.year-error"
+                        class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
                         </p>
-                        <input class=\\"govuk-input govuk-input--error\\" id=\\"keyDates.preApplication.submissionAtInternal.year\\"
-                        name=\\"keyDates.preApplication.submissionAtInternal.year\\" type=\\"text\\" value=\\"1789\\"
-                        aria-describedby=\\"keyDates.preApplication.submissionAtInternal.year-error\\">
+                        <input class="govuk-input govuk-input--error" id="keyDates.preApplication.submissionAtInternal.year"
+                        name="keyDates.preApplication.submissionAtInternal.year" type="text" value="1789"
+                        aria-describedby="keyDates.preApplication.submissionAtInternal.year-error">
                     </div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
