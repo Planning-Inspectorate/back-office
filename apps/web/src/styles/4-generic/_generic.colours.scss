@@ -11,3 +11,7 @@ $colours-attrs: (
 	color: #{$val};
   }
 }
+
+.app-link-warning:link, .app-link-warning:visited {
+  color: colors.govuk-colour("red")
+}
