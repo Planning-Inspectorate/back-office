@@ -18,7 +18,7 @@
 	<div class="govuk-!-margin-top-6">
 		<form method="post">
       {% if ('applic-55-welsh-translation' | isFeatureActive) %}
-        {% set buttonText = 'Publish latest changes' if case.publishedDate else 'Publish project' %}
+        {% set buttonText = 'Publish latest changes' if case.publishedDate and case.hasUnpublishedChanges else 'Publish project' %}
 
         {% if caseIsWelsh %}
           <input type="hidden" value="{{ case.titleWelsh }}" name="titleWelsh" />
