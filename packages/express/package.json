@@ -14,10 +14,10 @@
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "express-session": "1.17.2",
-    "express-validator": "^6.14.0",
-    "kleur": "4.1.4",
-    "lodash-es": "^4.17.21"
+    "express": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "kleur": "*",
+    "lodash-es": "*"
   }
 }

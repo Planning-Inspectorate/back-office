@@ -13,28 +13,28 @@
         "run-local": "node notify-subscribers/run-local.js"
     },
     "dependencies": {
-        "@azure/functions": "^1.2.2",
-        "@azure/identity": "^4.2.1",
-        "@pins/add-auth-headers-for-backend": "^0.0.0",
-        "@pins/applications": "^0.0.0",
-        "@pins/blob-storage-client": "^0.0.0",
-        "@pins/event-client": "^0.0.0",
-        "@pins/platform": "^0.0.0",
-        "azure-functions-core-tools": "3",
-        "docopt": "^0.6.2",
-        "dotenv": "16.0.3",
-        "got": "^12.5.2",
+        "@azure/functions": "*",
+        "@azure/identity": "*",
+        "@pins/add-auth-headers-for-backend": "*",
+        "@pins/applications": "*",
+        "@pins/blob-storage-client": "*",
+        "@pins/event-client": "*",
+        "@pins/platform": "*",
+        "azure-functions-core-tools": "*",
+        "docopt": "*",
+        "dotenv": "*",
+        "got": "*",
         "joi": "*",
-        "jsdom": "^24.0.0",
-        "lodash-es": "^4.17.21",
-        "notifications-node-client": "^7.0.3",
-        "pino": "7.11.0",
-        "stub-azure-function-context": "^2.0.0-alpha.4",
-        "turndown": "^7.1.2"
+        "jsdom": "*",
+        "lodash-es": "*",
+        "notifications-node-client": "*",
+        "pino": "*",
+        "stub-azure-function-context": "*",
+        "turndown": "*"
     },
     "devDependencies": {
-        "cross-env": "^7.0.3",
-        "eslint": "8.14.0",
-        "jest": "^29.4.1"
+        "cross-env": "*",
+        "eslint": "*",
+        "jest": "*"
     }
 }

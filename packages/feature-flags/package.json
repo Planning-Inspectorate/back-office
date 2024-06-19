@@ -8,5 +8,8 @@
     "engines": {
         "node": ">=20.0.0 <21.0.0"
 	},
-    "scripts": {}
+    "scripts": {},
+	"dependencies": {
+		"@azure/app-configuration": "*"
+	}
 }
