@@ -1,5 +1,4 @@
 {
-	"npmClient": "npm",
 	"pipeline": {
 		"build": {
 			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],

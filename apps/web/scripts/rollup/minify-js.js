@@ -24,6 +24,8 @@ async function minifySource(generated, directory) {
 		inputSize += raw.length;
 
 		try {
+			if (fileName.endsWith('.map')) continue;
+
 			const result = await minify(raw, {
 				sourceMap: {
 					content: await fs.readFile(`${target}.map`, 'utf8'),
