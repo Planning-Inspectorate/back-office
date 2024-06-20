@@ -62,7 +62,7 @@ describe('Document Properties including welsh fields', () => {
 			fileUploadPage.verifyUploadIsComplete();
 			fileUploadPage.clickLinkByText('View/Edit properties');
 			documentPropertiesPage.updateDocumentProperty('File name', fileName());
-			documentPropertiesPage.updateDocumentProperty('Description', description());
+			documentPropertiesPage.updateDocumentProperty('Description', description(), 'textarea');
 			documentPropertiesPage.updateDocumentProperty(
 				'Description in Welsh',
 				descriptionforWelsh(),
