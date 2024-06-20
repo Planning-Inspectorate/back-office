@@ -1,17 +1,17 @@
-{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% macro title(name, values, errors) %}
+	{% if name == 'titleWelsh' and values['title'] != null %}
 
-	{% set labelText = 'Name of the project' %}
-	{% if name == 'titleWelsh'%}
-		{% set labelText = 'Name of the project in Welsh' %}
-	{% endif %}
+    {% set labelText = 'Name of the project' %}
+    {% if name == 'titleWelsh'%}
+      {% set labelText = 'Project name in Welsh' %}
+    {% endif %}
 
+    {% set hintText = "for example, Bridge over a very long canyon" %}
 
-	{% if name == 'titleWelsh' and values['title'] != null%}
-
-		<p class='govuk-body govuk-!-margin-bottom-0'>Name of the project in English:</p>
+		<p class='govuk-body govuk-!-margin-bottom-0'>Project name in English:</p>
 
 		{{ govukInsetText({
   			text: values['title'],
@@ -19,18 +19,18 @@
 		}) }}
 	{% endif %}
 
-	{{ govukInput({
+	{{ govukTextarea({
 		label: {
 			text: labelText,
 			classes: 'font-weight--700'
 		},
 		id: name,
 		name: name,
-		classes: "govuk-!-width-one-third",
+		classes: "govuk-!-width-two-thirds",
 		value: values[name],
 		errorMessage: errors[name] | errorMessage,
 		hint: {
-			text: "for example, Bridge over a very long canyon"
+			text: hintText
 		}
 	}) }}
 {% endmacro %}
