@@ -293,6 +293,20 @@ if (featureFlagClient.isFeatureActive('<feature-flag-name>')) {
 }
 ```
 
+## Dependencies
+The repo is currently utilising the [NPM Workspaces feature](https://docs.npmjs.com/cli/v8/using-npm/workspaces). This allows us to have a single root node_modules that holds all the project dependencies and a root package.json + package-lock.json that has every dependency + version that's used in the repository listed in it. 
+Every app/function/package (known as workspaces) in the repo also has a package.json file where their dependency list has only the dependencies that the app/function/package in question requires and their versions are denoted as `*` which implies that they're relying on the root package.json for their versioning - this helps us keep versioning consistent across the repo. 
+
+**First time installing dependencies**:
+- run `npm ci` from the root of the project (this will use the project's package-lock.json file to sort your local node_modules directory and will avoid creating package-lock.json diffs where they're not expected).
+
+**To add a dependency**:
+- Add the name and desired version of the dependency to the root package.json (preferably prefixed with a `^` to ensure the most recent minor version is used)
+- Add the name of the dependency with the version marked as a `*` to the app/function/package's package.json file that you want your dependency to be imported to
+- Run `npm install`
+
+*Note that on build, your dependency will not be available to any app/function/package in the repo that does not have the dependency listed in their respective package.json file (the code build process ensures that only the necessary dependencies are included in the build - see the Dockerfile inside apps/api and apps/web where `npm ci --workspaces --if-present` is ran)*
+
 ## Licensing
 
 [MIT](https://opensource.org/licenses/mit) © Planning Inspectorate
