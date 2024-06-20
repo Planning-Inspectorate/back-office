@@ -288,10 +288,9 @@ export const updateManyS51Advices = async ({ body }, response) => {
 
 	// special case - for Ready to Publish, need to check that required metadata is set on all the advice - else error
 	if (publishedStatus === 'ready_to_publish') {
-		try {
-			await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
-		} catch (error) {
-			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${error}`);
+		const err = await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
+		if (err) {
+			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${err}`);
 			throw new BackOfficeAppError(
 				// @ts-ignore
 				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.',
