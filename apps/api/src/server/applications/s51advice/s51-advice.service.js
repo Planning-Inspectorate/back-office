@@ -231,10 +231,7 @@ export const checkCanPublish = async (adviceId) => {
 	const err = await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId]);
 	if (err) {
 		logger.info(`received error from verifyAllS51AdviceHasRequiredPropertiesForPublishing: ${err}`);
-		throw new BackOfficeAppError(
-			`All mandatory fields must be completed.\nReturn to the S51 advice properties screen to make changes.`,
-			400
-		);
+		throw new BackOfficeAppError('Enter missing information about the S51 advice', 400);
 	}
 
 	try {

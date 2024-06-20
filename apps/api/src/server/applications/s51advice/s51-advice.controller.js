@@ -291,11 +291,7 @@ export const updateManyS51Advices = async ({ body }, response) => {
 		const err = await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
 		if (err) {
 			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${err}`);
-			throw new BackOfficeAppError(
-				// @ts-ignore
-				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.',
-				400
-			);
+			throw new BackOfficeAppError('Enter missing information about the S51 advice', 400);
 		}
 
 		try {
