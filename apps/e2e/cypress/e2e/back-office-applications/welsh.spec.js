@@ -45,7 +45,7 @@ function validateErrorMessageForProjectname() {
 	cy.get('#titleWelsh').clear();
 	casePage.clickButtonByText('Save changes');
 	cy.get('#main-content > div > div > div > div > div > ul > li > a').contains(
-		'Enter the name of the project in Welsh'
+		'Enter project name in Welsh'
 	);
 }
 function validateErrorMessageForProjectdesc() {
@@ -171,7 +171,7 @@ describe('Update project information to add a Welsh region', () => {
 				updateProjectRegions(['Wales']);
 				casePage.clickPublishProjectButton();
 				casePage.validateErrorMessageCountInSummary(3);
-				casePage.validateErrorMessageIsInSummary('Enter the name of the project in Welsh');
+				casePage.validateErrorMessageIsInSummary('Enter project name in Welsh');
 				casePage.validateErrorMessageIsInSummary('Enter project description in Welsh');
 				casePage.validateErrorMessageIsInSummary('Enter project location in Welsh');
 			}
