@@ -123,11 +123,9 @@ describe('Section 51 Advice', () => {
 				s51AdvicePage.chooseCheckboxByIndex(1);
 				s51AdvicePage.clickButtonByText('Apply changes');
 				s51AdvicePage.validateErrorMessageIsInSummary(
-					'You must fill in all mandatory S51 Advice properties to publish S51 Advice'
+					'Enter missing information about the S51 advice'
 				);
-				s51AdvicePage.validateErrorMessage(
-					'You must fill in all mandatory S51 Advice properties to publish S51 Advice'
-				);
+				s51AdvicePage.validateErrorMessage('Enter missing information about the S51 advice');
 				s51AdvicePage.clickLinkByText('View/edit advice');
 				s51AdvicePage.checkAdviceProperty('Status', 'Not checked');
 			}

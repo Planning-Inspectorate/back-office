@@ -240,7 +240,7 @@ export const validateS51AdviceReadyToPublish = async (req, res, next) => {
 		incompleteS51AdviceItems.map((adviceItem) =>
 			body('edit-id-' + Number(adviceItem.id))
 				.custom(() => false)
-				.withMessage('You must fill in all mandatory S51 Advice properties to publish S51 Advice')
+				.withMessage('Enter missing information about the S51 advice')
 		)
 	)(req, res, next);
 };
