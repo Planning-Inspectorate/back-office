@@ -1,0 +1,15 @@
+{% extends "../layouts/case-property.layout.njk" %}
+{% from "../../components/textinput-form-component.njk" import textinputFormComponent %}
+
+{% block formContent %}
+	{{ textinputFormComponent({
+		value: errors[layout.name].value if errors[layout.name] else values[layout.name],
+		name: layout.name,
+		label: layout.label,
+		hint: layout.hint,
+		englishValue: values[layout.englishName] if values[layout.englishName] else null,
+		englishLabel: layout.englishLabel,
+		errorMessage: errors[layout.name]
+	}) }}
+{% endblock %}
+
