@@ -147,6 +147,15 @@ export const getPublishableS51Advice = (s51AdviceIds) => {
 								]
 							}
 						]
+					},
+					{
+						titleWelsh: null
+					},
+					{
+						adviceDetailsWelsh: null
+					},
+					{
+						enquiryDetailsWelsh: null
 					}
 				]
 			}
