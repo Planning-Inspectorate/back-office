@@ -17,7 +17,7 @@ export type SelectItem = {
 };
 
 export type FormCaseLayout = {
-	pageTitle: string;
+	pageTitle?: string;
 	components: string[];
 	isEdit?: boolean;
 	label?: string;

@@ -18,29 +18,32 @@ import {
 import { getUpdatedField } from '../applications-edit.service.js';
 
 const nameLayout = {
-	pageTitle: 'Project name',
 	components: ['title'],
+	label: 'Project name',
+	name: 'title',
+	template: 'case-edit-textinput.njk',
 	isEdit: true
 };
 
 const welshNameLayout = {
-	pageTitle: 'Project name in Welsh',
 	components: ['titleWelsh'],
+	label: 'Project name in Welsh',
+	englishLabel: 'Project name in English',
+	name: 'titleWelsh',
+	englishName: 'title',
+	template: 'case-edit-textinput.njk',
 	isEdit: true
 };
 
 const descriptionLayout = {
-	pageTitle: 'Enter project description',
 	components: ['description'],
 	label: 'Project description',
 	name: 'description',
-	hint: 'for example, An offshore wind generating station of capacity up to 285 MW',
 	template: 'case-edit-textarea.njk',
 	isEdit: true
 };
 
 const welshDescriptionLayout = {
-	pageTitle: 'Project description in Welsh',
 	components: ['descriptionWelsh'],
 	label: 'Project description in Welsh',
 	englishLabel: 'Project description in English',
@@ -59,21 +62,21 @@ const stageLayout = {
 const teamEmailLayout = {
 	pageTitle: 'Enter the project email (optional)',
 	components: ['team-email'],
+	label: 'Project email address (optional)',
+	name: 'caseEmail',
+	template: 'case-edit-textinput.njk',
 	isEdit: true
 };
 
 const caseLocationLayout = {
-	pageTitle: 'Enter project location',
 	components: ['project-location'],
 	label: 'Project location',
 	name: 'geographicalInformation.locationDescription',
-	hint: 'for example, approximately 8km off the coast of Kent, in areas surrounding Thanet Offshore Wind Farm',
 	template: 'case-edit-textarea.njk',
 	isEdit: true
 };
 
 const caseLocationWelshLayout = {
-	pageTitle: 'Project location in Welsh',
 	components: ['project-location-welsh'],
 	label: 'Project location in Welsh',
 	englishLabel: 'Project location in English',
@@ -135,20 +138,6 @@ const fullFieldNames = {
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
 
 /**
- * View the form step for editing the case description
- *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
- */
-export async function viewApplicationsEditCaseDescription(request, response) {
-	const properties = caseNameAndDescriptionData(request, response.locals);
-
-	response.render(resolveTemplate(descriptionLayout), {
-		...properties,
-		layout: descriptionLayout
-	});
-}
-
-/**
  * Resolves the expected template to render
  *
  * @param {import('../../../applications.types.js').FormCaseLayout} layout
@@ -160,6 +149,20 @@ function resolveTemplate(layout) {
 		return `applications/case/case-form/${template}`;
 	}
 	return `applications/components/case-form/case-form-layout`;
+}
+
+/**
+ * View the form step for editing the case description
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
+ */
+export async function viewApplicationsEditCaseDescription(request, response) {
+	const properties = caseNameAndDescriptionData(request, response.locals);
+
+	response.render(resolveTemplate(descriptionLayout), {
+		...properties,
+		layout: descriptionLayout
+	});
 }
 
 /**

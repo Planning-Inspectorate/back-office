@@ -82,6 +82,20 @@ const fullFieldNames = {
 };
 
 /**
+ * Resolves the expected template to render
+ *
+ * @param {import('../../../applications.types.js').FormCaseLayout} layout
+ * @returns {string}
+ */
+function resolveTemplate(layout) {
+	const { template } = layout || {};
+	if (template) {
+		return `applications/case/case-form/${template}`;
+	}
+	return `applications/components/case-form/case-form-layout`;
+}
+
+/**
  * View the form step for the applicant organisation name
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, {}>}
@@ -89,7 +103,7 @@ const fullFieldNames = {
 export async function viewApplicationsEditApplicantOrganisationName(request, response) {
 	const properties = await applicantOrganisationNameData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(organisationNameLayout), {
 		...properties,
 		layout: organisationNameLayout
 	});
@@ -127,7 +141,7 @@ export async function updateApplicationsEditApplicantOrganisationName(request, r
 export async function viewApplicationsEditApplicantFullName(request, response) {
 	const properties = await applicantFullNameData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(fullNameLayout), {
 		...properties,
 		layout: fullNameLayout
 	});
@@ -164,7 +178,7 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 export async function viewApplicationsEditApplicantEmail(request, response) {
 	const properties = await applicantEmailData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(applicantEmailLayout), {
 		...properties,
 		layout: applicantEmailLayout
 	});
@@ -200,7 +214,7 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 export async function viewApplicationsEditApplicantAddressReadyOnly(request, response) {
 	const properties = await applicantAddressData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(addressReadOnlyLayout), {
 		...properties,
 		layout: addressReadOnlyLayout
 	});
@@ -215,7 +229,7 @@ export async function viewApplicationsEditApplicantAddressReadyOnly(request, res
 export async function viewApplicationsEditApplicantAddress(request, response) {
 	const properties = await applicantAddressData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(addressLayout), {
 		...properties,
 		layout: addressLayout
 	});
@@ -255,7 +269,7 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 export async function viewApplicationsEditApplicantWebsite(request, response) {
 	const properties = await applicantWebsiteData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(websiteLayout), {
 		...properties,
 		layout: websiteLayout
 	});
@@ -290,7 +304,7 @@ export async function updateApplicationsEditApplicantWebsite(request, response) 
 export async function viewApplicationsEditApplicantTelephoneNumber(request, response) {
 	const properties = await applicantTelephoneNumberData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(telephoneNumberLayout), {
 		...properties,
 		layout: telephoneNumberLayout
 	});
