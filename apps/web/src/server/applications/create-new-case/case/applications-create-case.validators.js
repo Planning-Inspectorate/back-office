@@ -6,7 +6,7 @@ export const validateApplicationsCreateCaseName = createValidator(
 	body('title')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Enter the name of the project')
+		.withMessage('Enter project name')
 		.isLength({ max: 500 })
 		.withMessage('The name must be 500 characters or fewer')
 );

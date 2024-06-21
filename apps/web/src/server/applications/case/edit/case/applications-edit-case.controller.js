@@ -18,7 +18,7 @@ import {
 import { getUpdatedField } from '../applications-edit.service.js';
 
 const nameLayout = {
-	pageTitle: 'Enter project name',
+	pageTitle: 'Project name',
 	components: ['title'],
 	isEdit: true
 };

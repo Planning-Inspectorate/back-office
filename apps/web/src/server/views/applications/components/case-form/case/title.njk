@@ -4,11 +4,7 @@
 {% macro title(name, values, errors) %}
 	{% if name == 'titleWelsh' and values['title'] != null %}
 
-    {% set labelText = 'Name of the project' %}
-    {% if name == 'titleWelsh'%}
-      {% set labelText = 'Project name in Welsh' %}
-    {% endif %}
-
+    {% set labelText = 'Project name in Welsh' if name == 'titleWelsh' else 'Project name' %}
     {% set hintText = "for example, Bridge over a very long canyon" %}
 
 		<p class='govuk-body govuk-!-margin-bottom-0'>Project name in English:</p>
