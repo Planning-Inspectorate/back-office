@@ -2,7 +2,7 @@
 
 exports[`Applications create key dates GET /key-dates should render the page 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the key dates of the project</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the key dates of the project</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.preApplication.submissionAtPublished\\">Anticipated submission date published (optional)</label>
@@ -37,7 +37,7 @@ exports[`Applications create key dates GET /key-dates should render the page 1`]
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
@@ -62,7 +62,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the key dates of the project</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the key dates of the project</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.preApplication.submissionAtPublished\\">Anticipated submission date published (optional)</label>
@@ -111,7 +111,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
@@ -136,7 +136,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             </div>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\"> Enter the key dates of the project</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the key dates of the project</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"keyDates.preApplication.submissionAtPublished\\">Anticipated submission date published (optional)</label>
@@ -185,7 +185,7 @@ exports[`Applications create key dates POST /key-dates Web-side validation: shou
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
             </div>
         </div>
