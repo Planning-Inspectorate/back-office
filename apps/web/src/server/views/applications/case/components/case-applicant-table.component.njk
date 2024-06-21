@@ -1,44 +1,57 @@
-{% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "./case-edit-link.component.njk" import caseEditLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
 {% macro caseApplicantTable(case, isPublishPage) %}
     {% set applicantFirstOrganisationName = case.applicant.organisationName %}
     {% set applicantFirstEmail = case.applicant.email %}
     {% set applicantFirstPhoneNumber = case.applicant.phoneNumber %}
-	{% set applicantFirstWebsite = case.applicant.website %}
-	{% set applicantFirstWebsiteValue = '' %}
-	{% if applicantFirstWebsite %}
-		{% set applicantFirstWebsiteValue = '<a class="govuk-link" href="' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
-	{% endif %}
+    {% set applicantFirstWebsite = case.applicant.website %}
+    {% set applicantFirstWebsiteValue = '' %}
+
+    {% if applicantFirstWebsite %}
+      {% set applicantFirstWebsiteValue = '<a class="govuk-link" href="' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
+    {% endif %}
+
     {% set rowsData = [
-		{title: 'Organisation name', text: applicantFirstOrganisationName, url: 'applicant-organisation-name' },
-		{title: 'Contact name (Internal use only)', text: writeFullName([case.applicant.firstName, case.applicant.middleName, case.applicant.lastName] ), url: 'applicant-full-name', isProjectInfoOnly: 1 },
-		{title: 'Address (Internal use only)', text: case.applicant.address | formatAddress, url: 'applicant-address', isProjectInfoOnly: 1 },
-		{title: 'Website', html: applicantFirstWebsiteValue, url: 'applicant-website' },
-		{title: 'Email address', text: applicantFirstEmail, url: 'applicant-email' },
-		{title: 'Telephone number (Internal use only)', text: applicantFirstPhoneNumber, url: 'applicant-telephone-number', isProjectInfoOnly: 1 }
-	] %}
+      {title: 'Organisation name', text: applicantFirstOrganisationName, url: 'applicant-organisation-name' },
+      {title: 'Contact name (Internal use only)', text: writeFullName([case.applicant.firstName, case.applicant.middleName, case.applicant.lastName] ), url: 'applicant-full-name', isProjectInfoOnly: 1 },
+      {title: 'Address (Internal use only)', text: case.applicant.address | formatAddress, url: 'applicant-address', isProjectInfoOnly: 1 },
+      {title: 'Website', html: applicantFirstWebsiteValue, url: 'applicant-website' },
+      {title: 'Email address', text: applicantFirstEmail, url: 'applicant-email' },
+      {title: 'Telephone number (Internal use only)', text: applicantFirstPhoneNumber, url: 'applicant-telephone-number', isProjectInfoOnly: 1 }
+    ] %}
+
     {% set tableRows = [] %}
     {% for rowData in rowsData %}
         {% if not rowData.isProjectInfoOnly or (rowData.isProjectInfoOnly and not isPublishPage) %}
-			{#  In the value column, rowData can be used because "title" and "url" are ignored	#}
-            {% set cols = [{text: rowData.title}, rowData] %}
-            {% set linkCol =  {
-				html: caseEditLink({editStepUrl:rowData.url, caseId: case.id}),
-				classes: 'text-align--right pins-table__cell--s'
-			} %}
-            {% if not isPublishPage %}
-                {% set cols = (cols.push(linkCol), cols) %}
-            {% endif %}
-            {% set tableRows = (tableRows.push(cols), tableRows) %}
+        {#  In the value column, rowData can be used because "title" and "url" are ignored	#}
+            {% set row = {
+              key: {
+                text: rowData.title
+              },
+              value: rowData,
+              actions: {
+                items: [
+                  {
+                    href: 'case-edit' | url({ caseId: case.id, step: rowData.url }),
+                    text: 'Change',
+                    id: rowData.id
+                  }
+                ] if not isPublishPage else []
+              }
+            } %}
+
+            {% set tableRows = (tableRows.push(row), tableRows) %}
         {% endif %}
     {% endfor %}
-    {{ govukTable({
-		caption: 'Applicant details',
-		captionClasses: 'govuk-visually-hidden',
-		firstCellIsHeader: true,
-		rows: tableRows
-	}) }}
+
+    {{ govukSummaryList({
+      caption: 'Applicant details',
+      captionClasses: 'govuk-visually-hidden',
+      firstCellIsHeader: true,
+      rows: tableRows
+    }) }}
 {% endmacro %}
+
 {% macro writeFullName(params) %}
     {% set spacer = joiner(' ') %}
     {% for namePart in params -%}

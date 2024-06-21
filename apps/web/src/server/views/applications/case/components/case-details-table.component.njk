@@ -1,5 +1,4 @@
-{% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "./case-edit-link.component.njk" import caseEditLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% macro caseDetailsTable(params, isPublishPage, isWelsh) %}
 	{% set regionNames = [] %}
@@ -43,22 +42,27 @@
 	{% set tableRows = [] %}
 	{% for rowData in rowsData %}
 		{#  In the value column, rowData can be used because "title" and "url" are ignored	#}
-		{% set cols = [{text: rowData.title}, rowData] %}
+    {% set row = {
+      key: {
+        text: rowData.title
+      },
+      value: rowData,
+      actions: {
+        items: [
+          {
+            href: 'case-edit' | url({ caseId: params.case.id, step: rowData.url }),
+            text: 'Change',
+            id: rowData.id
+          }
+        ] if rowData.url and not isPublishPage else []
+      }
+    } %}
 
-    {% if not isPublishPage %}
-      {% set linkCol = {
-        html: caseEditLink({editStepUrl:rowData.url, caseId: params.case.id, id: rowData.id}),
-        classes: 'text-align--right pins-table__cell--s'
-      } if rowData.url else '&nbsp;' %}
-
-      {% set cols = (cols.push(linkCol), cols) %}
-    {% endif %}
-
-		{% set tableRows = (tableRows.push(cols), tableRows) %}
+		{% set tableRows = (tableRows.push(row), tableRows) %}
 	{% endfor %}
 
 
-	{{ govukTable({
+	{{ govukSummaryList({
 		caption: 'Project details',
 		captionClasses: 'govuk-visually-hidden',
 		firstCellIsHeader: true,
