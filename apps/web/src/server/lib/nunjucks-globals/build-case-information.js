@@ -69,7 +69,7 @@ export const buildCaseInformation = (params, isWelsh) => [
 		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? 'Regions'
 			: 'Region(s)',
-		html: params.regionNames,
+		html: params.regionNames.join(', '),
 		url: 'regions',
 		classes: 'project-details__regions'
 	},
@@ -81,7 +81,7 @@ export const buildCaseInformation = (params, isWelsh) => [
 	{
 		title: 'Project page',
 		html: params.publishedTag,
-		colspan: 2
+		classes: 'project-details__project-page'
 	},
 	{
 		title: 'Project name',
