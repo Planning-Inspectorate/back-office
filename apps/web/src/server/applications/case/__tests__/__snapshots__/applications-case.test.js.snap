@@ -72,24 +72,18 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                     <h2>Applicant information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
                 </div>
                 <div>
-                    <table class=\\"govuk-table\\">
-                        <caption class=\\"govuk-table__caption govuk-visually-hidden\\">Applicant details</caption>
-                        <tbody class=\\"govuk-table__body\\">
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
-                                <td class=\\"govuk-table__cell\\">Org name</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
-                                </td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
-                                <td class=\\"govuk-table__cell\\">email@email.co</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <dl class=\\"govuk-summary-list\\">
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Org name</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Website</dt>
+                            <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
+                            </dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
+                            <dd class=\\"govuk-summary-list__value\\">email@email.co</dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
             <div class='pins-preview-table govuk-!-margin-top-9'>
@@ -264,24 +258,18 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                     <h2>Applicant information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
                 </div>
                 <div>
-                    <table class=\\"govuk-table\\">
-                        <caption class=\\"govuk-table__caption govuk-visually-hidden\\">Applicant details</caption>
-                        <tbody class=\\"govuk-table__body\\">
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
-                                <td class=\\"govuk-table__cell\\">Org name</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
-                                </td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
-                                <td class=\\"govuk-table__cell\\">email@email.co</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <dl class=\\"govuk-summary-list\\">
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Org name</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Website</dt>
+                            <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
+                            </dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
+                            <dd class=\\"govuk-summary-list__value\\">email@email.co</dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
             <div class='pins-preview-table govuk-!-margin-top-9'>
@@ -494,7 +482,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Regions</th>
-                                    <td class=\\"govuk-table__cell project-details__regions\\">London EN,Yorkshire EN</td>
+                                    <td class=\\"govuk-table__cell project-details__regions\\">London EN, Yorkshire EN</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/regions\\"
                                         id=\\"\\"> Change</a>
                                     </td>
@@ -507,7 +495,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project page</th>
-                                    <td class=\\"govuk-table__cell\\" colspan=\\"2\\"></td>
+                                    <td class=\\"govuk-table__cell project-details__project-page\\"></td>
                                     <td class=\\"govuk-table__cell\\"></td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
@@ -563,54 +551,45 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
                     </div>
                     <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
-                        <table class=\\"govuk-table\\">
-                            <caption class=\\"govuk-table__caption govuk-visually-hidden\\">Applicant details</caption>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
-                                    <td class=\\"govuk-table__cell\\">Org name</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Org name</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"
+                                    id=\\"\\"> Change</a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Contact name (Internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">John Smith</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"
                                         id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">John Smith</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address (Internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">Applicant address, London, ABC123</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"
                                         id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">Applicant address, London, ABC123</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Website</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
+                                    id=\\"\\"> Change</a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
+                                <dd class=\\"govuk-summary-list__value\\">email@email.co</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"
+                                    id=\\"\\"> Change</a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number (Internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">001</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"
                                         id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
-                                        id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
-                                    <td class=\\"govuk-table__cell\\">email@email.co</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"
-                                        id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">001</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"
-                                        id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </dd>
+                            </div>
+                        </dl>
                     </div>
                 </div>
             </div>
@@ -711,7 +690,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Regions</th>
-                                    <td class=\\"govuk-table__cell project-details__regions\\">London EN,Yorkshire EN</td>
+                                    <td class=\\"govuk-table__cell project-details__regions\\">London EN, Yorkshire EN</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/regions\\"
                                         id=\\"\\"> Change</a>
                                     </td>
@@ -724,7 +703,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project page</th>
-                                    <td class=\\"govuk-table__cell\\" colspan=\\"2\\"></td>
+                                    <td class=\\"govuk-table__cell project-details__project-page\\"></td>
                                     <td class=\\"govuk-table__cell\\"></td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
@@ -780,54 +759,45 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
                     </div>
                     <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
-                        <table class=\\"govuk-table\\">
-                            <caption class=\\"govuk-table__caption govuk-visually-hidden\\">Applicant details</caption>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
-                                    <td class=\\"govuk-table__cell\\">Org name</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Org name</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"
+                                    id=\\"\\"> Change</a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Contact name (Internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">John Smith</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"
                                         id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">John Smith</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address (Internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">Applicant address, London, ABC123</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"
                                         id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">Applicant address, London, ABC123</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Website</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
+                                    id=\\"\\"> Change</a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
+                                <dd class=\\"govuk-summary-list__value\\">email@email.co</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"
+                                    id=\\"\\"> Change</a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number (Internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">001</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"
                                         id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
-                                        id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
-                                    <td class=\\"govuk-table__cell\\">email@email.co</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"
-                                        id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">001</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"
-                                        id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </dd>
+                            </div>
+                        </dl>
                     </div>
                 </div>
             </div>
@@ -928,7 +898,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Regions</th>
-                                    <td class=\\"govuk-table__cell project-details__regions\\">London EN,Yorkshire EN</td>
+                                    <td class=\\"govuk-table__cell project-details__regions\\">London EN, Yorkshire EN</td>
                                     <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/regions\\"
                                         id=\\"\\"> Change</a>
                                     </td>
@@ -941,7 +911,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
                                     <th scope=\\"row\\" class=\\"govuk-table__header\\">Project page</th>
-                                    <td class=\\"govuk-table__cell\\" colspan=\\"2\\"></td>
+                                    <td class=\\"govuk-table__cell project-details__project-page\\"></td>
                                     <td class=\\"govuk-table__cell\\"></td>
                                 </tr>
                                 <tr class=\\"govuk-table__row\\">
@@ -997,54 +967,45 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <h2 class=\\"govuk-accordion__section-heading\\"><span class=\\"govuk-accordion__section-button\\" id=\\"-heading-2\\"> Applicant information</span></h2>
                     </div>
                     <div id=\\"-content-2\\" class=\\"govuk-accordion__section-content\\" aria-labelledby=\\"-heading-2\\">
-                        <table class=\\"govuk-table\\">
-                            <caption class=\\"govuk-table__caption govuk-visually-hidden\\">Applicant details</caption>
-                            <tbody class=\\"govuk-table__body\\">
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Organisation name</th>
-                                    <td class=\\"govuk-table__cell\\">Org name</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"
+                        <dl class=\\"govuk-summary-list\\">
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
+                                <dd class=\\"govuk-summary-list__value\\">Org name</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"
+                                    id=\\"\\"> Change</a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Contact name (Internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">John Smith</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"
                                         id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Contact name (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">John Smith</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address (Internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">Applicant address, London, ABC123</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"
                                         id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Address (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">Applicant address, London, ABC123</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"
+                                    </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Website</dt>
+                                <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
+                                </dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
+                                    id=\\"\\"> Change</a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
+                                <dd class=\\"govuk-summary-list__value\\">email@email.co</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"
+                                    id=\\"\\"> Change</a>
+                                </dd>
+                            </div>
+                            <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number (Internal use only)</dt>
+                                <dd                                 class=\\"govuk-summary-list__value\\">001</dd>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"
                                         id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Website</th>
-                                    <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
-                                    </td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
-                                        id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Email address</th>
-                                    <td class=\\"govuk-table__cell\\">email@email.co</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"
-                                        id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                                <tr class=\\"govuk-table__row\\">
-                                    <th scope=\\"row\\" class=\\"govuk-table__header\\">Telephone number (Internal use only)</th>
-                                    <td class=\\"govuk-table__cell\\">001</td>
-                                    <td class=\\"govuk-table__cell text-align--right pins-table__cell--s\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"
-                                        id=\\"\\"> Change</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </dd>
+                            </div>
+                        </dl>
                     </div>
                 </div>
             </div>

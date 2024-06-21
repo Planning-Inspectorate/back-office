@@ -118,7 +118,7 @@ describe('applications edit', () => {
 					const element = parseHtml(response.text);
 
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('Name of the project in English');
+					expect(element.innerHTML).toContain('Project name in English');
 					expect(element.innerHTML).toContain('Welsh');
 				});
 			});

@@ -44,7 +44,7 @@ const fullResult = [
 		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? 'Regions'
 			: 'Region(s)',
-		html: ['Test region 1'],
+		html: 'Test region 1',
 		url: 'regions',
 		classes: 'project-details__regions'
 	},
@@ -56,7 +56,7 @@ const fullResult = [
 	{
 		title: 'Project page',
 		html: '<strong>Test</strong>',
-		colspan: 2
+		classes: 'project-details__project-page'
 	},
 	{ title: 'Project name', text: 'Test case title', url: 'name', classes: 'project-details__name' },
 	{
