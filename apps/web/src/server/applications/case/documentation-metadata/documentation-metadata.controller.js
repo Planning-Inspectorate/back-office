@@ -31,14 +31,14 @@ const layouts = {
 	webfilter: {
 		label: 'Webfilter',
 		metaDataName: 'filter1',
-		template: 'documentation-edit-textinput.njk'
+		template: 'documentation-edit-textarea.njk'
 	},
 	webfilterWelsh: {
 		label: 'Webfilter in Welsh',
 		metaDataName: 'filter1Welsh',
 		englishLabel: 'Webfilter in English',
 		metaDataEnglishName: 'filter1',
-		template: 'documentation-edit-textinput.njk'
+		template: 'documentation-edit-textarea.njk'
 	},
 	agent: {
 		label: 'Agent name (optional)',
