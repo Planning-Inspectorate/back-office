@@ -307,7 +307,7 @@ describe('Edit examination timetable', () => {
 					`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`
 				);
 
-				const element = parseHtml(response.text);
+				const element = parseHtml(response.text, { rootElement: 'h1' });
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Item name in Welsh');
@@ -319,9 +319,9 @@ describe('Edit examination timetable', () => {
 				await request.get('/applications-service/');
 				nocks();
 			});
-			describe('when the form is submitted with valid welsh name', () => {
+			describe('when the form is submitted with a welsh name', () => {
 				describe('and there are validation errors', () => {
-					it('should show error when submitted welsh name is empty', async () => {
+					it('should show an error when submitted welsh name is empty', async () => {
 						const response = await request
 							.post(`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`)
 							.send({
@@ -333,7 +333,7 @@ describe('Edit examination timetable', () => {
 
 						expect(element.innerHTML).toContain('Enter item name in Welsh');
 					});
-					it('should show error when submitted welsh name is too long', async () => {
+					it('should show an error when submitted welsh name is too long', async () => {
 						const response = await request
 							.post(`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`)
 							.send({
@@ -350,7 +350,7 @@ describe('Edit examination timetable', () => {
 				});
 
 				describe('and there are no validation errors', () => {
-					it('redirect to /examination-timetable and show success banner', async () => {
+					it('redirect to /examination-timetable', async () => {
 						const response = await request
 							.post(`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`)
 							.send({
@@ -358,7 +358,83 @@ describe('Edit examination timetable', () => {
 								nameWelsh: 'mock welsh name'
 							});
 
-						expect(response?.headers?.location).toContain(
+						expect(response?.headers?.location).toBe(
+							'/applications-service/case/123/examination-timetable'
+						);
+					});
+				});
+			});
+		});
+
+		describe('GET /case/123/examination-timetable/item/edit/1/description-welsh', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+				nocks();
+			});
+
+			it('should render the page', async () => {
+				const response = await request.get(
+					`/applications-service/case/123/examination-timetable/item/edit/1/description-welsh`
+				);
+
+				const element = parseHtml(response.text, { rootElement: 'h1' });
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Item description in Welsh');
+			});
+		});
+
+		describe('POST /case/123/examination-timetable/item/edit/1/description-welsh', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+				nocks();
+			});
+			describe('when the form is submitted with a welsh description', () => {
+				describe('and there are validation errors', () => {
+					it('should show an error when submitted welsh description is empty', async () => {
+						const response = await request
+							.post(
+								`/applications-service/case/123/examination-timetable/item/edit/1/description-welsh`
+							)
+							.send({
+								id: 1,
+								descriptionWelsh: ''
+							});
+
+						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
+
+						expect(element.innerHTML).toContain('Enter item description in Welsh');
+					});
+					it('should show an error when submitted welsh description bulletpoint number doesnt match english counterpart', async () => {
+						const response = await request
+							.post(
+								`/applications-service/case/123/examination-timetable/item/edit/1/description-welsh`
+							)
+							.send({
+								id: 1,
+								descriptionWelsh: 'mock welsh description without bulletpoints'
+							});
+
+						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
+
+						expect(element.innerHTML).toContain(
+							'Item description in Welsh must contain the same number of bullets as the item description in English'
+						);
+					});
+				});
+
+				describe('and there are no validation errors', () => {
+					it('redirects to /examination-timetable', async () => {
+						const response = await request
+							.post(
+								`/applications-service/case/123/examination-timetable/item/edit/1/description-welsh`
+							)
+							.send({
+								id: 1,
+								descriptionWelsh: 'mock welsh description \n *bulletpoint \n*bulletpoint'
+							});
+
+						expect(response?.headers?.location).toBe(
 							'/applications-service/case/123/examination-timetable'
 						);
 					});

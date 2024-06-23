@@ -32,6 +32,14 @@ applicationsTimetableRouter
 		asyncHandler(controller.postApplicationsCaseTimetableItemNameWelsh)
 	);
 
+applicationsTimetableRouter
+	.route('/item/edit/:timetableId/description-welsh')
+	.get(asyncHandler(controller.viewApplicationsCaseTimetableItemDescriptionWelsh))
+	.post(
+		validators.descriptionWelshValidator,
+		asyncHandler(controller.postApplicationsCaseTimetableItemDescriptionWelsh)
+	);
+
 // click on "Continue" button from details-form
 // works for edit and new
 applicationsTimetableRouter

@@ -52,7 +52,10 @@ export const getExaminationTimetableItems = async ({ params }, response) => {
 							resolve({
 								...item,
 								submissions,
-								description: mapExaminationTimetableItemDescriptionToView(item.description)
+								description: mapExaminationTimetableItemDescriptionToView(item.description),
+								descriptionWelsh: item.descriptionWelsh
+									? mapExaminationTimetableItemDescriptionToView(item.descriptionWelsh)
+									: null
 							})
 						)
 						.catch(reject);
@@ -87,8 +90,11 @@ export const getExaminationTimetableItem = async (_request, response) => {
 	const description = mapExaminationTimetableItemDescriptionToView(
 		examinationTimetableItem.description
 	);
+	const descriptionWelsh = examinationTimetableItem.descriptionWelsh
+		? mapExaminationTimetableItemDescriptionToView(examinationTimetableItem.descriptionWelsh)
+		: null;
 
-	response.send({ ...examinationTimetableItem, submissions, description });
+	response.send({ ...examinationTimetableItem, submissions, description, descriptionWelsh });
 };
 
 /**
@@ -309,6 +315,10 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 	if (body.description) {
 		body.description = mapExaminationTimetableItemDescriptionToSave(body.description);
 	}
+	if (body.descriptionWelsh) {
+		body.descriptionWelsh = mapExaminationTimetableItemDescriptionToSave(body.descriptionWelsh);
+	}
+
 	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
 
 	// if changing the name, check the new timetable item name is unique
