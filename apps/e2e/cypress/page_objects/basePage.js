@@ -189,11 +189,15 @@ export class Page {
 		this.basePageElements.selectElem().select(optionNumber);
 	}
 
+	clearTextArea(index = 0) {
+		this.basePageElements.textArea().eq(index).clear();
+	}
+
 	fillInput(text, index = 0) {
 		this.basePageElements.input().eq(index).clear().type(text);
 	}
 
-	fillTextArea(text, index = 0) {
+	fillTextArea(text = '', index = 0) {
 		this.basePageElements.textArea().eq(index).clear().type(text);
 	}
 

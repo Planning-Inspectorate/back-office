@@ -12,7 +12,6 @@ const projectInfo = projectInformation();
 const { applications: applicationsUsers } = users;
 
 describe('Create A Case', () => {
-
 	context('As a User', () => {
 		it('Should successfully create a case as a user', () => {
 			cy.login(applicationsUsers.caseAdmin);
@@ -28,7 +27,7 @@ describe('Create A Case', () => {
 			createCasePage.clickSaveAndContinue();
 			createCasePage.validateErrorMessageCountOnPage(2);
 			createCasePage.validateErrorMessage('Enter the name of the project');
-			createCasePage.validateErrorMessage('Enter the description of the project');
+			createCasePage.validateErrorMessage('Enter project description');
 			createCasePage.sections.nameAndDescription.fillCaseName(projectInfo.projectName);
 			createCasePage.sections.nameAndDescription.fillCaseDescription(
 				projectInfo.projectDescription
@@ -49,7 +48,7 @@ describe('Create A Case', () => {
 
 			createCasePage.clickSaveAndContinue();
 			createCasePage.validateErrorMessageCountOnPage(3);
-			createCasePage.validateErrorMessage('Enter the project location');
+			createCasePage.validateErrorMessage('Enter project location');
 			createCasePage.validateErrorMessage('Enter the Grid reference Easting');
 			createCasePage.validateErrorMessage('Enter the Grid reference Northing');
 			createCasePage.sections.geographicalInformation.fillLocation(projectInfo.projectLocation);
@@ -76,5 +75,4 @@ describe('Create A Case', () => {
 			createCasePage.sections.caseCreated.validateCaseCreated();
 		});
 	});
-
 });

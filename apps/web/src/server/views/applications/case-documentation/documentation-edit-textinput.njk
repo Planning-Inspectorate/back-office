@@ -1,8 +1,8 @@
 {% extends "../layouts/document-edit-property.layout.njk" %}
-{% from "../components/textarea-form-component.njk" import textareaFormComponent %}
+{% from "../components/textinput-form-component.njk" import textinputFormComponent %}
 
 {% block formContent %}
-	{{ textareaFormComponent({
+	{{ textinputFormComponent({
 		pageTitle: layout.pageTitle,
 		value: errors[layout.metaDataName].value if errors[layout.metaDataName] else documentMetaData[layout.metaDataName],
 		name: layout.metaDataName,

@@ -22,6 +22,7 @@ applicationsEditCaseRouter
 	)
 	.post(
 		[validators.validateApplicationsCreateCaseNameWelsh],
+		registerCaseWithQuery(['title', 'titleWelsh']),
 		asyncHandler(controller.updateApplicationsEditCaseNameAndDescription)
 	);
 
@@ -44,6 +45,7 @@ applicationsEditCaseRouter
 	)
 	.post(
 		[validators.validateApplicationsCreateCaseDescriptionWelsh],
+		registerCaseWithQuery(['description', 'descriptionWelsh']),
 		asyncHandler(controller.updateApplicationsEditCaseNameAndDescription)
 	);
 
@@ -77,6 +79,7 @@ applicationsEditCaseRouter
 	)
 	.post(
 		validators.validateApplicationsCreateCaseLocationWelsh,
+		registerCaseWithQuery(['geographicalInformation']),
 		asyncHandler(controller.updateApplicationsEditCaseGeographicalInformation)
 	);
 

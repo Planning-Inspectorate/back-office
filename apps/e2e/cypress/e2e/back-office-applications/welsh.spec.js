@@ -53,18 +53,14 @@ function validateErrorMessageForProjectdesc() {
 	cy.get('#descriptionWelsh').clear();
 	casePage.clickButtonByText('Save changes');
 	cy.get('#main-content > div > div > div > div > div > ul > li > a').contains(
-		'Enter the description of the project in Welsh'
+		'Enter project description in Welsh'
 	);
 }
 function validateErrorMessageForProjectlocation() {
 	casePage.clickChangeLink('Project location in Welsh');
-	cy.get(
-		'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(3) > textarea'
-	).clear();
+	casePage.clearTextArea();
 	casePage.clickButtonByText('Save changes');
-	cy.get('#main-content > div > div > div > div > div > ul > li > a').contains(
-		'Enter the project location in Welsh'
-	);
+	casePage.validateErrorMessage('Enter project location in Welsh');
 }
 
 describe('Enable and update Project Information with Welsh fields', () => {
@@ -176,8 +172,8 @@ describe('Update project information to add a Welsh region', () => {
 				casePage.clickPublishProjectButton();
 				casePage.validateErrorMessageCountInSummary(3);
 				casePage.validateErrorMessageIsInSummary('Enter the name of the project in Welsh');
-				casePage.validateErrorMessageIsInSummary('Enter the description of the project in Welsh');
-				casePage.validateErrorMessageIsInSummary('Enter the project location in Welsh');
+				casePage.validateErrorMessageIsInSummary('Enter project description in Welsh');
+				casePage.validateErrorMessageIsInSummary('Enter project location in Welsh');
 			}
 		});
 

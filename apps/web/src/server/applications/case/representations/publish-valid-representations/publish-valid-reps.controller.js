@@ -44,17 +44,22 @@ export const postPublishValidRepsController = async (req, res) => {
 
 		const representationIds = items.map((/** @type {{ id: number; }} */ rep) => rep.id);
 
-		const publishRepresentationsPayload = getPublishRepresentationsPayload(
-			session,
-			representationIds
-		);
-		const publishRepresentationsResponse = await publishRepresentations(
-			caseId,
-			publishRepresentationsPayload
-		);
-		const numberOfRepresentationsPublished = getNumberOfRepresentationsPublished(
-			publishRepresentationsResponse
-		);
+		// Publish in batches of 1000 to avoid timeout from slow API response for large quantity of representations
+		const batchSize = 1000;
+		let numberOfRepresentationsPublished = 0;
+		for (let i = 0; i < representationIds.length; i += batchSize) {
+			const batch = representationIds.slice(i, i + batchSize);
+
+			const publishRepresentationsPayload = getPublishRepresentationsPayload(session, batch);
+			const publishRepresentationsResponse = await publishRepresentations(
+				caseId,
+				publishRepresentationsPayload
+			);
+			numberOfRepresentationsPublished += getNumberOfRepresentationsPublished(
+				publishRepresentationsResponse
+			);
+			logger.info(`publishing representations from range ${i} - ${i + batch.length}`);
+		}
 		const redirectURL = getPublishedRepresentationsRedirectURL(
 			serviceUrl,
 			caseId,
@@ -63,7 +68,7 @@ export const postPublishValidRepsController = async (req, res) => {
 
 		return res.redirect(redirectURL);
 	} catch {
-		logger.info('No representations were published');
+		logger.error('Failed to publish all representations');
 		return res.redirect(publishRepresentationsErrorUrl);
 	}
 };

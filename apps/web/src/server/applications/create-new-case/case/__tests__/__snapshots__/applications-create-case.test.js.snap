@@ -160,7 +160,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#geographicalInformation.locationDescription\\">Enter the project location</a>
+                            <li><a href=\\"#geographicalInformation.locationDescription\\">Enter project location</a>
                             </li>
                             <li><a href=\\"#geographicalInformation.gridReference.easting\\">Enter 6 digits for the Grid reference Easting</a>
                             </li>
@@ -180,7 +180,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
             class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
             <p id=\\"geographicalInformation.locationDescription-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the project location</p>
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter project location</p>
             <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
             id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
             rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error\\"></textarea>
@@ -225,7 +225,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#geographicalInformation.locationDescription\\">Enter the project location</a>
+                            <li><a href=\\"#geographicalInformation.locationDescription\\">Enter project location</a>
                             </li>
                             <li><a href=\\"#geographicalInformation.gridReference.easting\\">Enter the Grid reference Easting</a>
                             </li>
@@ -245,7 +245,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
             class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
                 Thanet Offshore Wind Farm</div>
             <p id=\\"geographicalInformation.locationDescription-error\\"
-            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the project location</p>
+            class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter project location</p>
             <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
             id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
             rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint geographicalInformation.locationDescription-error\\"></textarea>
@@ -451,7 +451,7 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
                             <li><a href=\\"#title\\">Enter the name of the project</a>
                             </li>
-                            <li><a href=\\"#description\\">Enter the description of the project</a>
+                            <li><a href=\\"#description\\">Enter project description</a>
                             </li>
                         </ul>
                     </div>
@@ -473,9 +473,8 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
             <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
                 MW</div>
-            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter the description
-                of the project</p>
-            <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
+            <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter project description</p>
+            <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-three-quarters\\"
             id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint description-error\\"></textarea>
         </div>
         <div class=\\"govuk-grid-row\\">

@@ -46,70 +46,70 @@ export const validateDocumentationMetaName = createValidator(
 	body('fileName')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter a file name')
+		.withMessage('Enter file name')
 		.isLength({ max: 255 })
-		.withMessage('The name must be 255 characters or fewer')
+		.withMessage('File name must be 255 characters or less')
 );
 
 export const validateDocumentationMetaDescription = createValidator(
 	body('description')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter a description of the document')
+		.withMessage('Enter document description')
 		.isLength({ max: 800 })
-		.withMessage('The description must be 800 characters or fewer')
+		.withMessage('Document description must be 800 characters or less')
 );
 
 export const validateDocumentationMetaDescriptionWelsh = createValidator(
 	body('descriptionWelsh')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter a description of the document in Welsh')
+		.withMessage('Enter document description in Welsh')
 		.isLength({ max: 800 })
-		.withMessage('The description must be 800 characters or fewer')
+		.withMessage('Document description in Welsh must be 800 characters or less')
 );
 
 export const validateDocumentationMetaAuthor = createValidator(
 	body('author')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter who the document is from')
+		.withMessage('Enter who the document is from')
 		.isLength({ max: 150 })
-		.withMessage('The value must be 150 characters or fewer')
+		.withMessage('Who the document is from must be 150 characters or less')
 );
 
 export const validateDocumentationMetaAuthorWelsh = createValidator(
 	body('authorWelsh')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter who the document is from in Welsh')
+		.withMessage('Enter who the document is from in Welsh')
 		.isLength({ max: 150 })
-		.withMessage('The value must be 150 characters or fewer')
+		.withMessage('Who the document is from in Welsh must be 150 characters or less')
 );
 
 export const validateDocumentationMetaFilter1 = createValidator(
 	body('filter1')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter a webfilter')
+		.withMessage('Enter webfilter')
 		.isLength({ max: 100 })
-		.withMessage('The webfilter must be 100 characters or fewer')
+		.withMessage('Webfilter must be 100 characters or less')
 );
 
 export const validateDocumentationMetaFilter1Welsh = createValidator(
 	body('filter1Welsh')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('You must enter a webfilter in Welsh')
+		.withMessage('Enter webfilter in Welsh')
 		.isLength({ max: 100 })
-		.withMessage('The webfilter must be 100 characters or fewer')
+		.withMessage('Webfilter must be 100 characters or less')
 );
 
 export const validateDocumentationMetaRepresentative = createValidator(
 	body('representative')
 		.trim()
 		.isLength({ max: 150 })
-		.withMessage('The agent name be 150 characters or fewer')
+		.withMessage('Agent name must be 150 characters or less')
 );
 
 export const validateDocumentationMetaRedacted = createValidator(

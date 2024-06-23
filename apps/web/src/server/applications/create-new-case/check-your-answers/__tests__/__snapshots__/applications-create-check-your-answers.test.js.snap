@@ -189,7 +189,7 @@ exports[`applications create: check your answers Check your answers POST /check-
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
                     <div class=\\"govuk-error-summary__body\\">
                         <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#projectLocation\\">Enter the project location</a>
+                            <li><a href=\\"#projectLocation\\">Enter project location</a>
                             </li>
                             <li><a href=\\"#subSector\\">Choose the subsector of the project</a>
                             </li>

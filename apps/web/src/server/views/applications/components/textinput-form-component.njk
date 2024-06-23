@@ -1,10 +1,10 @@
-{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "./english-value-component.njk" import englishValueComponent %}
 
-{% macro textareaFormComponent(options) %}
+{% macro textinputFormComponent(options) %}
 	{{ englishValueComponent(options) }}
 
-	{{ govukTextarea({
+	{{ govukInput({
 		id: options.name,
 		pageTitle: options.pageTitle if options.pageTitle else options.layout,
 		name: options.name,

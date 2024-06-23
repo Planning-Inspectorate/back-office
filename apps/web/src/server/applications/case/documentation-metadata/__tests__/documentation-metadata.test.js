@@ -54,7 +54,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter file name');
+				expect(element.innerHTML).toContain('Document file name');
 				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.fileName);
 			});
 		});
@@ -67,7 +67,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('You must enter a file name');
+				expect(element.innerHTML).toContain('Enter file name');
 			});
 
 			it('should return an error if value length > 255', async () => {
@@ -77,7 +77,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('There is a limit of 255 characters');
+				expect(element.innerHTML).toContain('File name must be 255 characters or less');
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
@@ -97,7 +97,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Description of the document');
+				expect(element.innerHTML).toContain('Document description');
 				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.description);
 			});
 		});
@@ -108,7 +108,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('You must enter a description of the document');
+				expect(element.innerHTML).toContain('Enter document description');
 			});
 
 			it('should return an error if value length > 800', async () => {
@@ -118,7 +118,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('There is a limit of 800 characters');
+				expect(element.innerHTML).toContain('Document description must be 800 characters or less');
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
@@ -149,9 +149,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(
-					'You must enter a description of the document in Welsh'
-				);
+				expect(element.innerHTML).toContain('Enter document description in Welsh');
 			});
 
 			it('should return an error if value length > 800', async () => {
@@ -161,7 +159,9 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('The description must be 800 characters or fewer');
+				expect(element.innerHTML).toContain(
+					'Document description in Welsh must be 800 characters or less'
+				);
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
@@ -181,7 +181,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter the name of the agent');
+				expect(element.innerHTML).toContain('Agent name (optional)');
 				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.representative);
 			});
 		});
@@ -194,7 +194,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('There is a limit of 150 characters');
+				expect(element.innerHTML).toContain('Agent name must be 150 characters or less');
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
@@ -214,9 +214,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain(
-					'Enter the document reference number of the associated transcript'
-				);
+				expect(element.innerHTML).toContain('Transcript (optional)');
 			});
 		});
 
@@ -238,7 +236,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter the webfilter');
+				expect(element.innerHTML).toContain('Webfilter');
 				expect(element.innerHTML).toContain(fixturePublishedDocumentationFile.filter1);
 			});
 		});
@@ -249,7 +247,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('You must enter a webfilter');
+				expect(element.innerHTML).toContain('Enter webfilter');
 			});
 
 			it('should return an error if value length > 100', async () => {
@@ -259,7 +257,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('There is a limit of 100 characters');
+				expect(element.innerHTML).toContain('Webfilter must be 100 characters or less');
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
@@ -290,7 +288,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('You must enter a webfilter in Welsh');
+				expect(element.innerHTML).toContain('Enter webfilter in Welsh');
 			});
 
 			it('should return an error if value length > 100', async () => {
@@ -300,7 +298,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('There is a limit of 100 characters');
+				expect(element.innerHTML).toContain('Webfilter must be 100 characters or less');
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
@@ -331,7 +329,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('You must enter who the document is from');
+				expect(element.innerHTML).toContain('Enter who the document is from');
 			});
 
 			it('should return an error if value length > 100', async () => {
@@ -341,7 +339,9 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('The value must be 150 characters or fewer');
+				expect(element.innerHTML).toContain(
+					'Who the document is from must be 150 characters or less'
+				);
 			});
 
 			it('should redirect to document properties page if there is no error', async () => {
@@ -415,7 +415,7 @@ describe('Edit applications documentation metadata', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter the document receipt date');
+				expect(element.innerHTML).toContain('Enter date received');
 				expect(element.innerHTML).toContain('value="01"');
 				expect(element.innerHTML).toContain('value="12"');
 				expect(element.innerHTML).toContain('value="2022"');

@@ -83,6 +83,11 @@ export class S51AdvicePage extends Page {
 		this.clickContinue();
 	}
 
+	fillEnquiryDetail(enquiryDetails) {
+		this.elements.enquiryDetailsInput().clear().type(enquiryDetails);
+		this.clickSaveAndReturn();
+	}
+
 	fillEnquiryDetails(opts) {
 		this.elements.enquiryDayInput().type(opts.day);
 		this.elements.enquiryMonthInput().type(opts.month);
@@ -90,6 +95,7 @@ export class S51AdvicePage extends Page {
 		this.elements.enquiryDetailsInput().type(opts.enquiryDetails);
 		this.clickContinue();
 	}
+
 	fillEnquiryDetailsWelsh(enquiryDetailsWelsh, isEdit) {
 		this.elements.enquiryDetailsWelshInput().clear().type(enquiryDetailsWelsh);
 		this.clickSaveAndReturn();
@@ -98,6 +104,11 @@ export class S51AdvicePage extends Page {
 	fillAdviserDetails(adviserName) {
 		this.elements.adviserInput().type(adviserName);
 		this.clickContinue();
+	}
+
+	fillAdviceDetail(adviceDetails) {
+		this.elements.adviceDetailsInput().clear().type(adviceDetails);
+		this.clickSaveAndReturn();
 	}
 
 	fillAdviceDetails(opts) {

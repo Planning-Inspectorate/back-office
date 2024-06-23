@@ -28,7 +28,8 @@ export const getPublishRepresentationsPayload = (session, representationIds) => 
 export const getNumberOfRepresentationsPublished = ({ publishedRepIds }) => {
 	const numberOfRepresentationsPublished = publishedRepIds.length;
 
-	if (!numberOfRepresentationsPublished) throw new Error('No representations were published');
+	if (!numberOfRepresentationsPublished)
+		throw new Error('No representations in batch were published');
 
 	return numberOfRepresentationsPublished;
 };
