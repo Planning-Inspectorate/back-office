@@ -18,11 +18,14 @@ import {
 } from '../../support/utils/utils';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 import { CasePage } from '../../page_objects/casePage';
+import { ExaminationTimetablePage } from '../../page_objects/examinationTimetablePage';
+import { timetableItem } from '../../support/utils/createTimetableItemInfo.js';
 
 const applicationsHomePage = new ApplicationsHomePage();
 const casePage = new CasePage();
 const createCasePage = new CreateCasePage();
 const searchResultsPage = new SearchResultsPage();
+const examTimetablePage = new ExaminationTimetablePage();
 const { applications: applicationsUsers } = users;
 
 function clickonWelshProjectName() {
@@ -194,6 +197,141 @@ describe('Update project information to add a Welsh region', () => {
 				casePage.clickPublishProjectButton();
 				casePage.validateErrorMessageCountInSummary(0);
 				validatePreviewAndPublishInfo(projectInfo);
+			}
+		});
+	});
+});
+
+describe('Display and edit welsh fields in Examination Timetable', () => {
+	context('As a user', () => {
+		function openAccordion() {
+			cy.get('.govuk-accordion__section-button').click();
+		}
+
+		function goToEditItemNameWelsh() {
+			cy.get(':nth-child(3) > .govuk-summary-list__actions > .govuk-link').click();
+		}
+		function goToEditItemDescriptionWelsh() {
+			cy.get(':nth-child(9) > .govuk-summary-list__actions > .govuk-link').click();
+		}
+
+		function enterText(inputId, textValue) {
+			cy.get(inputId).clear().type(textValue);
+		}
+
+		function saveAndReturnClick() {
+			cy.contains('Save and return').click();
+		}
+
+		function validateBannerMessage(bannerText) {
+			cy.get('.govuk-notification-banner__content')
+				.invoke('text')
+				.then((text) => {
+					expect(text.trim()).to.equal(bannerText);
+				});
+		}
+
+		let projectInfo;
+
+		before(() => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				projectInfo = projectInformation({ excludeWales: true });
+				cy.login(applicationsUsers.caseAdmin);
+				createCasePage.createCase(projectInfo);
+			}
+		});
+
+		it('Welsh fields are present on the examination timetable item', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.visit('/');
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.clickTopSearchResult();
+				updateProjectRegions(['Wales']);
+				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickButtonByText('Create timetable item');
+				const options = timetableItem();
+				examTimetablePage.selectTimetableItem('Deadline');
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.fillItemDetailsStartAndEnd(options);
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.clickButtonByText('Save item');
+				cy.contains('a', 'Go back to examination timetable').click();
+				cy.get('.govuk-accordion__section-button').click();
+				examTimetablePage.checkAnswer('Item name in Welsh', '');
+				examTimetablePage.checkAnswer('Item description in Welsh', '');
+			}
+		});
+
+		it('Can edit examination timetable item name in welsh and it is validated', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.visit('/');
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.clickTopSearchResult();
+				updateProjectRegions(['Wales']);
+				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickButtonByText('Create timetable item');
+				const options = timetableItem();
+				examTimetablePage.selectTimetableItem('Deadline');
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.fillItemDetailsStartAndEnd(options);
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.clickButtonByText('Save item');
+				cy.contains('a', 'Go back to examination timetable').click();
+
+				openAccordion();
+				goToEditItemNameWelsh();
+				saveAndReturnClick();
+				examTimetablePage.validateErrorMessage('Enter item name in Welsh');
+
+				enterText('#nameWelsh', 'Name that is too long'.repeat(10));
+				saveAndReturnClick();
+				examTimetablePage.validateErrorMessage('Item name in Welsh must be 200 characters or less');
+
+				enterText('#nameWelsh', 'Valid welsh name');
+				saveAndReturnClick();
+				validateBannerMessage('Item name in Welsh updated');
+			}
+		});
+
+		it.only('Can edit examination timetable item description in welsh and it is validated', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.visit('/');
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.clickTopSearchResult();
+				updateProjectRegions(['Wales']);
+				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickButtonByText('Create timetable item');
+				const options = {
+					...timetableItem(),
+					description: 'English description \n*bullet1'
+				};
+				examTimetablePage.selectTimetableItem('Deadline');
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.fillItemDetailsStartAndEnd(options);
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.clickButtonByText('Save item');
+				cy.contains('a', 'Go back to examination timetable').click();
+
+				openAccordion();
+				goToEditItemDescriptionWelsh();
+				saveAndReturnClick();
+				examTimetablePage.validateErrorMessage('Enter item description in Welsh');
+
+				enterText(
+					'#descriptionWelsh',
+					'Description that has more bulletpoints than the english counterpart \n*bullet1\n*bullet2\n*bullet3'
+				);
+				saveAndReturnClick();
+				examTimetablePage.validateErrorMessage(
+					'Item description in Welsh must contain the same number of bullets as the item description in English'
+				);
+
+				enterText('#descriptionWelsh', 'Valid welsh description \n*bullet1');
+				saveAndReturnClick();
+				validateBannerMessage('Item description in Welsh updated');
 			}
 		});
 	});
