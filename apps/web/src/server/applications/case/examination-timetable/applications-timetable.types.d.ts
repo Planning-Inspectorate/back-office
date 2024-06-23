@@ -49,6 +49,7 @@ export interface ApplicationsTimetablePayload {
 	name?: string;
 	nameWelsh?: string;
 	description?: string;
+	descriptionWelsh?: string;
 	date?: Date;
 	startDate?: Date | null;
 	startTime?: string | null;

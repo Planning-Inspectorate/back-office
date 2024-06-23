@@ -18,6 +18,7 @@ export const mapUpdateExaminationTimetableItemRequest = (examinationTimetableIte
 				'nameWelsh',
 				'examinationTypeId',
 				'description',
+				'descriptionWelsh',
 				'date',
 				'startDate',
 				'startTime',

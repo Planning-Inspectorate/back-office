@@ -1,0 +1,76 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set serviceName = "Examination timetable" %}
+
+{% set englishDescriptionHtml %}
+	<p class="govuk-body">{{ itemDescription.preText}}</p>
+
+	{% if itemDescription.bulletPoints | length %}
+		<ul class='govuk-list govuk-list--bullet'>
+			{% for bulletPoint in itemDescription.bulletPoints %}
+				<li>{{bulletPoint | sanitize}}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endset %}
+
+{% block sectionMenu %}{% endblock %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: 'timetable'|url({caseId: caseId})
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<div class='govuk-grid-row'>
+		<div class='govuk-grid-column-two-thirds'>
+
+			<div>
+				<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
+					{{ pageTitle }}
+				</h1>
+				<p class="govuk-body">
+					Item description in English: 
+				</p>
+
+				{{ govukInsetText({
+					html: englishDescriptionHtml
+				}) }}
+			</div>
+
+			<form method="post" novalidate>
+
+				{{ govukTextarea({
+					label: {
+						text: "Item description in Welsh",
+						classes: "govuk-label--m"
+					},
+					hint: {
+						text: "Use an asterisk (*) for a bullet"
+					},
+					id: "descriptionWelsh",
+					name: "descriptionWelsh",
+					value: itemDescriptionWelsh,
+					errorMessage: errors and {
+						text: errors.descriptionWelsh.msg
+					}
+				}) }}
+
+				{{ govukButton({
+					text: "Save and return"
+				}) }}
+
+			</form>
+		</div>
+	</div>
+{% endblock %}
