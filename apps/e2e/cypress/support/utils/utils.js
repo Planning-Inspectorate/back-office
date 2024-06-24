@@ -2,6 +2,7 @@
 const { CasePage } = require('../../page_objects/casePage');
 const { CreateCasePage } = require('../../page_objects/createCasePage');
 const { faker } = require('@faker-js/faker');
+const { fullStringWithWhitespace } = require('./string');
 
 const casePage = new CasePage();
 const createCasePage = new CreateCasePage();
@@ -12,16 +13,16 @@ const caseIsWelsh = (projectInformation) => {
 
 const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.validateSummaryTableItem('Reference number', Cypress.env('currentCreatedCase'));
-		casePage.validateSummaryTableItem(
+		casePage.validateSummaryItem('Reference number', Cypress.env('currentCreatedCase'));
+		casePage.validateSummaryItem(
 			'Organisation name',
 			mandatoryOnly ? '' : projectInformation.orgName
 		);
-		casePage.validateSummaryTableItem(
+		casePage.validateSummaryItem(
 			'Website',
 			mandatoryOnly ? '' : projectInformation.applicantWebsite
 		);
-		casePage.validateSummaryTableItem(
+		casePage.validateSummaryItem(
 			'Project email address',
 			mandatoryOnly ? '' : projectInformation.projectEmail
 		);
@@ -67,7 +68,7 @@ const validateProjectInformationSection = (projectInformation) => {
 const validateProjectDetailsSection = (projectInformation, mandatoryOnly = false) => {
 	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription);
 	casePage.checkProjectAnswer(
-		/^Project email address$/,
+		fullStringWithWhitespace('Project email address'),
 		mandatoryOnly ? '' : projectInformation.projectEmail
 	);
 	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation);
@@ -90,7 +91,7 @@ const validateApplicantInfoSection = (
 	casePage.checkProjectAnswer('Organisation name', mandatoryOnly ? '' : projectInformation.orgName);
 	casePage.checkProjectAnswer('Website', mandatoryOnly ? '' : projectInformation.applicantWebsite);
 	casePage.checkProjectAnswer(
-		/^Email address$/,
+		fullStringWithWhitespace('Email address'),
 		mandatoryOnly ? '' : projectInformation.applicantEmail
 	);
 	casePage.checkProjectAnswer(
@@ -126,9 +127,9 @@ const validatePreviewAndPublishInfo = (projectInformation) => {
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.checkProjectAnswer('Regions', projectInformation.regions.join(','));
+		casePage.checkProjectAnswer('Regions', projectInformation.regions.join(', '));
 	} else {
-		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(','));
+		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(', '));
 	}
 
 	casePage.checkProjectAnswer('Map zoom level', projectInformation.zoomLevel);
@@ -136,12 +137,15 @@ const validatePreviewAndPublishInfo = (projectInformation) => {
 	// A P P L I C A T I O N  I N F O R M A T I O N
 	casePage.checkProjectAnswer('Organisation name', projectInformation.orgName);
 	casePage.checkProjectAnswer('Website', projectInformation.applicantWebsite);
-	casePage.checkProjectAnswer(/^Email address$/, projectInformation.applicantEmail);
+	casePage.checkProjectAnswer(
+		fullStringWithWhitespace('Email address'),
+		projectInformation.applicantEmail
+	);
 };
 
 const updateProjectNameInWelsh = (projectNameInWelsh) => {
 	casePage.clickChangeLink('Project name in Welsh');
-	casePage.fillInput(projectNameInWelsh);
+	casePage.fillTextArea(projectNameInWelsh);
 	casePage.clickButtonByText('Save changes');
 };
 
@@ -170,7 +174,7 @@ const updateProjectRegions = (projectRegions) => {
 
 const updateProjectInformation = (projectInformation) => {
 	casePage.clickChangeLink('Project name');
-	casePage.fillInput(projectInformation.projectName);
+	casePage.fillTextArea(projectInformation.projectName);
 	casePage.clickButtonByText('Save changes');
 
 	if (
@@ -236,7 +240,7 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.fillInput(projectInformation.applicantWebsite);
 	casePage.clickButtonByText('Save changes');
 
-	casePage.clickChangeLink(/^Email address$/);
+	casePage.clickChangeLink(fullStringWithWhitespace('Email address'));
 	casePage.fillInput(projectInformation.applicantEmail);
 	casePage.clickButtonByText('Save changes');
 
@@ -303,11 +307,10 @@ const getRandomQuarterDate = (direction = 'future') => {
 const validateSectorSubsectorValues = () => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 		casePage.validateSummaryTableItem('Reference number', Cypress.env('currentCreatedCase'));
-		casePage.elements.caseRefTRAIN().contains(/^TRAIN[0-9]*$/);
 	} else {
 		casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
 		casePage.clickLinkByText('Update project information');
-		casePage.elements.caseTrain().contains(/^TRAIN[0-9]*$/);
+		casePage.elements.caseReference().contains(fullStringWithWhitespace('TRAIN[0-9]*'));
 	}
 	casePage.checkProjectAnswer('Sector', 'Training');
 	casePage.checkProjectAnswer('Subsector', 'Training');
@@ -325,7 +328,7 @@ const validateWelshProjectInformation = (
 const validateProjectDetailsSectionForWelshFields = (projectInformation, mandatoryOnly = false) => {
 	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription);
 	casePage.checkProjectAnswer(
-		/^Project email address$/,
+		fullStringWithWhitespace('Project email address'),
 		mandatoryOnly ? '' : projectInformation.projectEmail
 	);
 	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation);
@@ -333,7 +336,7 @@ const validateProjectDetailsSectionForWelshFields = (projectInformation, mandato
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	casePage.checkProjectAnswer('Regions', projectInformation.regions.sort().join(','));
+	casePage.checkProjectAnswer('Regions', projectInformation.regions.sort().join(', '));
 	casePage.checkProjectAnswer(
 		'Map zoom level',
 		mandatoryOnly ? 'None' : projectInformation.zoomLevel

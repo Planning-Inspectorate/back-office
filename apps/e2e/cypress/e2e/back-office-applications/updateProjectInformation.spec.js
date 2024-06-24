@@ -22,8 +22,8 @@ const { applications: applicationsUsers } = users;
 
 describe('Update Project Information', () => {
 	context('As a user', () => {
-		let projectInfo = projectInformation({ excludeWales: true });
-		let projectInfoNew = projectInformation({ excludeWales: true });
+		const projectInfo = projectInformation({ excludeWales: true });
+		const projectInfoNew = projectInformation({ excludeWales: true });
 
 		before(() => {
 			cy.login(applicationsUsers.caseAdmin);

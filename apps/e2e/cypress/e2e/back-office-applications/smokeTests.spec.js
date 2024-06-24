@@ -29,7 +29,7 @@ const { applications: applicationsUsers } = users;
 
 const texts = {
 	examTimetableLinkText: 'Examination timetable',
-	createTimetableButtonText: 'Create new timetable item',
+	createTimetableButtonText: 'Create timetable item',
 	successMessageText: 'Timetable item successfully added'
 };
 const itemOptions = ['Accompanied Site Inspection', 'Compulsory Acquisition Hearing'];

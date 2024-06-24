@@ -4,10 +4,10 @@ import { Page } from './basePage';
 export class CasePage extends Page {
 	elements = {
 		answerCell: (question) =>
-			cy.contains(this.selectors.tableHeader, question, { matchCase: false }).next(),
+			cy.contains(this.selectors.summaryListKey, question, { matchCase: false }).next(),
 		changeLink: (question) =>
 			cy
-				.contains(this.selectors.tableHeader, question, { matchCase: false })
+				.contains(this.selectors.summaryListKey, question, { matchCase: false })
 				.siblings()
 				.last()
 				.find('a'),
@@ -20,13 +20,7 @@ export class CasePage extends Page {
 		summaryValue: (keyText) =>
 			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next(),
 		summaryTableValue: (keyText) =>
-			cy.contains(this.selectors.tableHeader, keyText, { matchCase: false }).next(),
-		caseRefTRAIN: () =>
-			cy.get('table.govuk-table:nth-child(3) > tbody:nth-child(2) > tr:nth-child(1) > td'),
-		caseTrain: () =>
-			cy.get(
-				'table.govuk-table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2)'
-			)
+			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next()
 	};
 
 	checkProjectAnswer(question, answer) {

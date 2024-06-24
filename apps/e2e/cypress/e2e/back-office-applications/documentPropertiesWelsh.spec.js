@@ -79,8 +79,12 @@ describe('Document Properties including welsh fields', () => {
 				'textarea'
 			);
 			documentPropertiesPage.updateDocumentProperty('Agent (optional)', agent());
-			documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter());
-			documentPropertiesPage.updateDocumentProperty('Webfilter in Welsh', webfilterforWelsh());
+			documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter(), 'textarea');
+			documentPropertiesPage.updateDocumentProperty(
+				'Webfilter in Welsh',
+				webfilterforWelsh(),
+				'textarea'
+			);
 			documentPropertiesPage.updateDocumentType('No document type');
 			documentPropertiesPage.updateDate('Date received', getDate(true));
 			documentPropertiesPage.updateRedactionStatus('Redacted');
