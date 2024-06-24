@@ -17,11 +17,11 @@
 
 	{% set rowsDataEn = [
 		{
-			key: 'Item Type',
+			key: 'Item type',
 			text: timetableItem.itemTypeName
 		},
 		{
-			key: 'Item Name',
+			key: 'Item name',
 			text: timetableItem.name
 		},
 		{
@@ -29,7 +29,7 @@
 			text: timetableItem.date
 		},
 		{
-			key: "Start Date",
+			key: "Start date",
 			text: timetableItem.startDate
 		},
 		{
@@ -37,11 +37,11 @@
 			text: timetableItem.startTime
 		},
 		{
-			key: "End Date",
+			key: "End date",
 			text: timetableItem.endDate
 		},
 		{
-			key: "End Time",
+			key: "End time",
 			text: timetableItem.endTime
 		},
 		{
@@ -76,7 +76,7 @@
 						{
 							href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}) + "/name-welsh",
 							text: "Change",
-							visuallyHiddenText: row.key
+							visuallyHiddenText: 'Item name in Welsh'
 						}
 					]
 			}
@@ -109,7 +109,7 @@
 					{
 						href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}) + "/description-welsh",
 						text: "Change",
-						visuallyHiddenText: row.key
+						visuallyHiddenText: 'Item description in Welsh'
 					}
 				]
 			}

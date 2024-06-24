@@ -1,5 +1,8 @@
 import { dateString, displayDate } from '../../../lib/nunjucks-filters/date.js';
-import { mapExaminationTimetableToFormBody } from './applications-timetable.mappers.js';
+import {
+	convertExamDescriptionToInputText,
+	mapExaminationTimetableToFormBody
+} from './applications-timetable.mappers.js';
 import {
 	createCaseTimetableItem,
 	getCaseTimetableItemTypes,
@@ -391,10 +394,6 @@ export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, re
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
 export async function postApplicationsCaseTimetableSave({ body }, response) {
-	const splitDescription = sanitizeHtml(body.description, {}).split('*');
-	const preText = splitDescription.shift();
-	const bulletPoints = splitDescription;
-
 	const startDate = body['startDate.year']
 		? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
 		: null;
@@ -408,7 +407,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		caseId: response.locals.caseId,
 		examinationTypeId: Number.parseInt(body['timetableTypeId'], 10),
 		name: body.name,
-		description: JSON.stringify({ preText, bulletPoints }),
+		description: prepareDescriptionPayload(body.description),
 		date,
 		startDate,
 		startTime: body['startTime.hours']
@@ -458,7 +457,8 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
  */
 export async function viewApplicationsCaseTimetableItemNameWelsh({ params }, response) {
-	const { name, nameWelsh, submissions } = await getCaseTimetableItemById(+params.timetableId);
+	const { timetableId } = params;
+	const { name, nameWelsh, submissions } = await getCaseTimetableItemById(+timetableId);
 
 	// if there are submissions against timetable item, we shouldn't edit it
 	if (submissions) {
@@ -483,7 +483,7 @@ export async function postApplicationsCaseTimetableItemNameWelsh(
 	response
 ) {
 	const { timetableId } = params;
-	const { name, submissions } = await getCaseTimetableItemById(+params.timetableId);
+	const { name, submissions } = await getCaseTimetableItemById(+timetableId);
 
 	// if there are submissions, we shouldn't edit the item
 	if (submissions) {
@@ -510,6 +510,82 @@ export async function postApplicationsCaseTimetableItemNameWelsh(
 
 	//on update, return to examination timetable and display success banner
 	setSessionBanner(session, 'Item name in Welsh updated');
+	return response.redirect(`${baseUrl}`);
+}
+
+/**
+ * view examination timetable item- welsh description
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
+ */
+export async function viewApplicationsCaseTimetableItemDescriptionWelsh({ params }, response) {
+	const { timetableId } = params;
+	const { description, descriptionWelsh, submissions } = await getCaseTimetableItemById(
+		+timetableId
+	);
+
+	// if there are submissions against timetable item, we shouldn't edit it
+	if (submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
+
+	return response.render('applications/case-timetable/timetable-item-description-welsh.njk', {
+		itemDescription: JSON.parse(description),
+		itemDescriptionWelsh: convertExamDescriptionToInputText(descriptionWelsh),
+		pageTitle: 'Item description in Welsh'
+	});
+}
+
+/**
+ * create/edit examination timetable item-welsh description
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
+ */
+export async function postApplicationsCaseTimetableItemDescriptionWelsh(
+	{ params, body, baseUrl, errors, session },
+	response
+) {
+	const { timetableId } = params;
+	const { description, submissions } = await getCaseTimetableItemById(+params.timetableId);
+
+	// if there are submissions against timetable item, we shouldn't edit it
+	if (submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
+
+	if (!validateWelshItemDescriptionBulletPoints(description, body.descriptionWelsh)) {
+		errors = {
+			descriptionWelsh: {
+				value: body.descriptionWelsh,
+				msg: 'Item description in Welsh must contain the same number of bullets as the item description in English',
+				param: 'descriptionWelsh',
+				location: 'body'
+			},
+			...errors //errors from validator should supersede bullet point error
+		};
+	}
+
+	if (errors) {
+		return response.render('applications/case-timetable/timetable-item-description-welsh.njk', {
+			itemDescription: JSON.parse(description),
+			itemDescriptionWelsh: body.descriptionWelsh,
+			pageTitle: 'Item description in Welsh',
+			errors
+		});
+	}
+
+	/** @type {ApplicationsTimetablePayload} */
+	const payload = {
+		id: +timetableId,
+		descriptionWelsh: prepareDescriptionPayload(body.descriptionWelsh)
+	};
+
+	await updateCaseTimetableItem(payload);
+
+	//on update, return to examination timetable and display success banner
+	setSessionBanner(session, 'Item description in Welsh updated');
 	return response.redirect(`${baseUrl}`);
 }
 
@@ -631,4 +707,35 @@ const getTimetableRows = (timetableItem) => {
 		description: description ? JSON.parse(description) : null,
 		descriptionWelsh: descriptionWelsh ? JSON.parse(descriptionWelsh) : null
 	};
+};
+
+/**
+ * Prepare the payload for the description
+ * @param {string|undefined} descriptionBody
+ * @returns {string}
+ */
+const prepareDescriptionPayload = (descriptionBody) => {
+	if (typeof descriptionBody !== 'string') {
+		throw new Error('Description body must be a string');
+	}
+	const splitDescription = sanitizeHtml(descriptionBody, {}).split('*');
+	const preText = splitDescription.shift();
+	const bulletPoints = splitDescription;
+
+	return JSON.stringify({ preText, bulletPoints });
+};
+
+/**
+ * Validate the welsh and english timetable item descriptions to both have the same number of bulletpoints
+ * @param {string} englishDescription
+ * @param {string|undefined} welshDescriptionBody
+ * @returns {boolean}
+ */
+const validateWelshItemDescriptionBulletPoints = (englishDescription, welshDescriptionBody) => {
+	const { bulletPoints: englishBulletPointsArr } = JSON.parse(englishDescription);
+
+	const welshDescription = prepareDescriptionPayload(welshDescriptionBody);
+	const { bulletPoints: welshBulletPointsArr } = JSON.parse(welshDescription);
+
+	return englishBulletPointsArr.length === welshBulletPointsArr.length;
 };

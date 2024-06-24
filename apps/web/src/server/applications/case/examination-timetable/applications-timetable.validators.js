@@ -120,3 +120,10 @@ export const nameWelshValidator = createValidator(
 		.isLength({ max: 200 })
 		.withMessage('Item name in Welsh must be 200 characters or less')
 );
+
+export const descriptionWelshValidator = createValidator(
+	body('descriptionWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter item description in Welsh')
+);
