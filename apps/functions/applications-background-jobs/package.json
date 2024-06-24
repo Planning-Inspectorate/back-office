@@ -20,7 +20,6 @@
         "@pins/blob-storage-client": "*",
         "@pins/event-client": "*",
         "@pins/platform": "*",
-        "azure-functions-core-tools": "*",
         "docopt": "*",
         "dotenv": "*",
         "got": "*",
@@ -33,6 +32,7 @@
         "turndown": "*"
     },
     "devDependencies": {
+        "azure-functions-core-tools": "*",
         "cross-env": "*",
         "eslint": "*",
         "jest": "*"

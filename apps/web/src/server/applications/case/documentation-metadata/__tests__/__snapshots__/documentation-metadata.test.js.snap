@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1Welsh) GET /case/123/project-documentation/18/document/456/edit/webfilterWelsh should render the page with values 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <h1 class=\\"govuk-heading-l\\"> Webfilter in Welsh</h1>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <h1 class="govuk-heading-l"> Webfilter in Welsh</h1>
                 <p class='govuk-body govuk-!-margin-bottom-0'>Webfilter in English:</p>
-                <div class=\\"govuk-inset-text\\">Ut</div>
-                <div class=\\"govuk-form-group\\">
-                    <label class=\\"govuk-label govuk-label--m\\" for=\\"filter1Welsh\\">Webfilter in Welsh</label>
-                    <textarea class=\\"govuk-textarea\\" id=\\"filter1Welsh\\"
-                    name=\\"filter1Welsh\\" rows=\\"5\\">Ut</textarea>
+                <div class="govuk-inset-text">Ut</div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-label--m" for="filter1Welsh">Webfilter in Welsh</label>
+                    <input class="govuk-input" id="filter1Welsh"
+                    name="filter1Welsh" type="text" value="Ut">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -21,15 +21,15 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
 `;
 
 exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1Welsh) POST /case/123/project-documentation/18/document/456/edit/webfilterWelsh should return an error if value is not defined 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#filter1Welsh\\">Enter webfilter in Welsh</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#filter1Welsh">Enter webfilter in Welsh</a>
                             </li>
                         </ul>
                     </div>
@@ -37,19 +37,19 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <h1 class=\\"govuk-heading-l\\"> Webfilter in Welsh</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <h1 class="govuk-heading-l"> Webfilter in Welsh</h1>
                 <p class='govuk-body govuk-!-margin-bottom-0'>Webfilter in English:</p>
-                <div class=\\"govuk-inset-text\\">Ut</div>
-                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <label class=\\"govuk-label govuk-label--m\\" for=\\"filter1Welsh\\">Webfilter in Welsh</label>
-                    <p id=\\"filter1Welsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter webfilter in Welsh</p>
-                    <textarea                     class=\\"govuk-textarea govuk-textarea--error\\" id=\\"filter1Welsh\\" name=\\"filter1Welsh\\"
-                    rows=\\"5\\" aria-describedby=\\"filter1Welsh-error\\"></textarea>
+                <div class="govuk-inset-text">Ut</div>
+                <div class="govuk-form-group govuk-form-group--error">
+                    <label class="govuk-label govuk-label--m" for="filter1Welsh">Webfilter in Welsh</label>
+                    <p id="filter1Welsh-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter webfilter in Welsh</p>
+                    <input                     class="govuk-input govuk-input--error" id="filter1Welsh" name="filter1Welsh"
+                    type="text" aria-describedby="filter1Welsh-error">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -57,15 +57,15 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
 `;
 
 exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1Welsh) POST /case/123/project-documentation/18/document/456/edit/webfilterWelsh should return an error if value length > 100 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#filter1Welsh\\">Webfilter must be 100 characters or less</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#filter1Welsh">Webfilter must be 100 characters or less</a>
                             </li>
                         </ul>
                     </div>
@@ -73,20 +73,21 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <h1 class=\\"govuk-heading-l\\"> Webfilter in Welsh</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <h1 class="govuk-heading-l"> Webfilter in Welsh</h1>
                 <p class='govuk-body govuk-!-margin-bottom-0'>Webfilter in English:</p>
-                <div class=\\"govuk-inset-text\\">Ut</div>
-                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <label class=\\"govuk-label govuk-label--m\\" for=\\"filter1Welsh\\">Webfilter in Welsh</label>
-                    <p id=\\"filter1Welsh-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Webfilter must be 100
+                <div class="govuk-inset-text">Ut</div>
+                <div class="govuk-form-group govuk-form-group--error">
+                    <label class="govuk-label govuk-label--m" for="filter1Welsh">Webfilter in Welsh</label>
+                    <p id="filter1Welsh-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Webfilter must be 100
                         characters or less</p>
-                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
-                    id=\\"filter1Welsh\\" name=\\"filter1Welsh\\" rows=\\"5\\" aria-describedby=\\"filter1Welsh-error\\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
+                    <input class="govuk-input govuk-input--error" id="filter1Welsh"
+                    name="filter1Welsh" type="text" value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    aria-describedby="filter1Welsh-error">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -94,16 +95,16 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
 `;
 
 exports[`Edit applications documentation metadata Edit agent (representative) GET /case/123/project-documentation/18/document/456/edit/agent should render the page with values 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"representative\\"> Agent name (optional)</label></h1>
-                    <input class=\\"govuk-input\\" id=\\"representative\\" name=\\"representative\\" type=\\"text\\"
-                    value=\\"Ullamco Aliqua\\">
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="representative"> Agent name (optional)</label></h1>
+                    <input class="govuk-input" id="representative" name="representative" type="text"
+                    value="Ullamco Aliqua">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -111,15 +112,15 @@ exports[`Edit applications documentation metadata Edit agent (representative) GE
 `;
 
 exports[`Edit applications documentation metadata Edit agent (representative) POST /case/123/project-documentation/18/document/456/edit/agent should return an error if value length > 150 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#representative\\">Agent name must be 150 characters or less</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#representative">Agent name must be 150 characters or less</a>
                             </li>
                         </ul>
                     </div>
@@ -127,18 +128,18 @@ exports[`Edit applications documentation metadata Edit agent (representative) PO
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"representative\\"> Agent name (optional)</label></h1>
-                    <p id=\\"representative-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Agent name must be 150
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="representative"> Agent name (optional)</label></h1>
+                    <p id="representative-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Agent name must be 150
                         characters or less</p>
-                    <input class=\\"govuk-input govuk-input--error\\" id=\\"representative\\"
-                    name=\\"representative\\" type=\\"text\\" value=\\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\"
-                    aria-describedby=\\"representative-error\\">
+                    <input class="govuk-input govuk-input--error" id="representative"
+                    name="representative" type="text" value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    aria-describedby="representative-error">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -230,15 +231,15 @@ exports[`Edit applications documentation metadata Edit author POST /case/123/pro
 `;
 
 exports[`Edit applications documentation metadata Edit description GET /case/123/project-documentation/18/document/456/edit/description should render the page with values 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"description\\"> Document description</label></h1>
-                    <textarea class=\\"govuk-textarea\\" id=\\"description\\" name=\\"description\\" rows=\\"5\\">Ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="description"> Document description</label></h1>
+                    <textarea class="govuk-textarea" id="description" name="description" rows="5">Ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -262,16 +263,16 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"description\\"> Document description</label></h1>
-                    <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter document description</p>
-                    <textarea                     class=\\"govuk-textarea govuk-textarea--error\\" id=\\"description\\" name=\\"description\\"
-                    rows=\\"5\\" aria-describedby=\\"description-error\\"></textarea>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="description"> Document description</label></h1>
+                    <p id="description-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter document description</p>
+                    <textarea                     class="govuk-textarea govuk-textarea--error" id="description" name="description"
+                    rows="5" aria-describedby="description-error"></textarea>
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -295,17 +296,17 @@ exports[`Edit applications documentation metadata Edit description POST /case/12
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"description\\"> Document description</label></h1>
-                    <p id=\\"description-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Document description
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="description"> Document description</label></h1>
+                    <p id="description-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Document description
                         must be 800 characters or less</p>
-                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
-                    id=\\"description\\" name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-error\\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
+                    <textarea class="govuk-textarea govuk-textarea--error"
+                    id="description" name="description" rows="5" aria-describedby="description-error">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -468,15 +469,15 @@ exports[`Edit applications documentation metadata Edit document type GET /case/1
 `;
 
 exports[`Edit applications documentation metadata Edit name GET /case/123/project-documentation/18/document/456/edit/name should render the page with values 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"fileName\\"> Document file name</label></h1>
-                    <input class=\\"govuk-input\\" id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\" value=\\"12 Ullamco laboris nisi ut\\">
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="fileName"> Document file name</label></h1>
+                    <input class="govuk-input" id="fileName" name="fileName" type="text" value="12 Ullamco laboris nisi ut">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -484,15 +485,15 @@ exports[`Edit applications documentation metadata Edit name GET /case/123/projec
 `;
 
 exports[`Edit applications documentation metadata Edit name POST /case/123/project-documentation/18/document/456/edit/name should return an error if value is not defined 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#fileName\\">Enter file name</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#fileName">Enter file name</a>
                             </li>
                         </ul>
                     </div>
@@ -500,16 +501,16 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"fileName\\"> Document file name</label></h1>
-                    <p id=\\"fileName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter file name</p>
-                    <input                     class=\\"govuk-input govuk-input--error\\" id=\\"fileName\\" name=\\"fileName\\" type=\\"text\\"
-                    aria-describedby=\\"fileName-error\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="fileName"> Document file name</label></h1>
+                    <p id="fileName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter file name</p>
+                    <input                     class="govuk-input govuk-input--error" id="fileName" name="fileName" type="text"
+                    aria-describedby="fileName-error">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -517,15 +518,15 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
 `;
 
 exports[`Edit applications documentation metadata Edit name POST /case/123/project-documentation/18/document/456/edit/name should return an error if value length > 255 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#fileName\\">File name must be 255 characters or less</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#fileName">File name must be 255 characters or less</a>
                             </li>
                         </ul>
                     </div>
@@ -533,18 +534,18 @@ exports[`Edit applications documentation metadata Edit name POST /case/123/proje
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"fileName\\"> Document file name</label></h1>
-                    <p id=\\"fileName-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> File name must be 255
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="fileName"> Document file name</label></h1>
+                    <p id="fileName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> File name must be 255
                         characters or less</p>
-                    <input class=\\"govuk-input govuk-input--error\\" id=\\"fileName\\"
-                    name=\\"fileName\\" type=\\"text\\" value=\\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\"
-                    aria-describedby=\\"fileName-error\\">
+                    <input class="govuk-input govuk-input--error" id="fileName"
+                    name="fileName" type="text" value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    aria-describedby="fileName-error">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1028,22 +1029,22 @@ exports[`Edit applications documentation metadata Edit published date POST /case
 `;
 
 exports[`Edit applications documentation metadata Edit receipt date GET /case/123/project-documentation/18/document/456/edit/receipt-date should render the page with values 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter date received</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l"> Enter date received</h1>
+            <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
                 <div class='govuk-grid-row'>
-                    <div class=\\"govuk-form-group govuk-grid-column-full \\">
-                        <fieldset class=\\"govuk-fieldset\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date received</legend>
-                            <div id=\\"dateCreated-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                            <div class=\\"govuk-grid-column-two-thirds\\">
-                                <div class=\\"govuk-grid-row pins-date-form-group\\">
-                                    <div class=\\"govuk-form-group\\">
-                                        <label class=\\"govuk-label govuk-hint\\" for=\\"dateCreated.day\\">Day</label>
-                                        <input class=\\"govuk-input\\" id=\\"dateCreated.day\\" name=\\"dateCreated.day\\"
-                                        type=\\"text\\" value=\\"01\\">
+                    <div class="govuk-form-group govuk-grid-column-full ">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date received</legend>
+                            <div id="dateCreated-hint" class="govuk-hint">for example, 27 03 2023</div>
+                            <div class="govuk-grid-column-two-thirds">
+                                <div class="govuk-grid-row pins-date-form-group">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-hint" for="dateCreated.day">Day</label>
+                                        <input class="govuk-input" id="dateCreated.day" name="dateCreated.day"
+                                        type="text" value="01">
                                     </div>
                                     <div class="govuk-form-group">
                                         <label class="govuk-label govuk-hint" for="dateCreated.month">Month</label>
@@ -1088,16 +1089,16 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter date received</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l"> Enter date received</h1>
+            <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
                 <div class='govuk-grid-row'>
-                    <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                        <fieldset class=\\"govuk-fieldset\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date received</legend>
-                            <div id=\\"dateCreated-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                            <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> You must enter the receipt
+                    <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date received</legend>
+                            <div id="dateCreated-hint" class="govuk-hint">for example, 27 03 2023</div>
+                            <p id="dateCreated-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the receipt
                                 date</p>
                             <div class="govuk-grid-column-two-thirds">
                                 <div class="govuk-grid-row pins-date-form-group">
@@ -1155,16 +1156,16 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter date received</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l"> Enter date received</h1>
+            <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
                 <div class='govuk-grid-row'>
-                    <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                        <fieldset class=\\"govuk-fieldset\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date received</legend>
-                            <div id=\\"dateCreated-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                            <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> The receipt date cannot
+                    <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date received</legend>
+                            <div id="dateCreated-hint" class="govuk-hint">for example, 27 03 2023</div>
+                            <p id="dateCreated-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> The receipt date cannot
                                 be in the future</p>
                             <div class="govuk-grid-column-two-thirds">
                                 <div class="govuk-grid-row pins-date-form-group">
@@ -1222,16 +1223,16 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter date received</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l"> Enter date received</h1>
+            <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
                 <div class='govuk-grid-row'>
-                    <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                        <fieldset class=\\"govuk-fieldset\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date received</legend>
-                            <div id=\\"dateCreated-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                            <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid day for
+                    <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date received</legend>
+                            <div id="dateCreated-hint" class="govuk-hint">for example, 27 03 2023</div>
+                            <p id="dateCreated-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a valid day for
                                 the receipt date</p>
                             <div class="govuk-grid-column-two-thirds">
                                 <div class="govuk-grid-row pins-date-form-group">
@@ -1289,16 +1290,16 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter date received</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l"> Enter date received</h1>
+            <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
                 <div class='govuk-grid-row'>
-                    <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                        <fieldset class=\\"govuk-fieldset\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date received</legend>
-                            <div id=\\"dateCreated-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                            <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid month for
+                    <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date received</legend>
+                            <div id="dateCreated-hint" class="govuk-hint">for example, 27 03 2023</div>
+                            <p id="dateCreated-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a valid month for
                                 the receipt date</p>
                             <div class="govuk-grid-column-two-thirds">
                                 <div class="govuk-grid-row pins-date-form-group">
@@ -1356,16 +1357,16 @@ exports[`Edit applications documentation metadata Edit receipt date POST /case/1
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-l\\"> Enter date received</h1>
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l"> Enter date received</h1>
+            <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
                 <div class='govuk-grid-row'>
-                    <div class=\\"govuk-form-group govuk-grid-column-full govuk-form-group--error\\">
-                        <fieldset class=\\"govuk-fieldset\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4\\">Date received</legend>
-                            <div id=\\"dateCreated-hint\\" class=\\"govuk-hint\\">for example, 27 03 2023</div>
-                            <p id=\\"dateCreated-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter a valid year for
+                    <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date received</legend>
+                            <div id="dateCreated-hint" class="govuk-hint">for example, 27 03 2023</div>
+                            <p id="dateCreated-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a valid year for
                                 the receipt date</p>
                             <div class="govuk-grid-column-two-thirds">
                                 <div class="govuk-grid-row pins-date-form-group">
@@ -1486,15 +1487,15 @@ exports[`Edit applications documentation metadata Edit redaction status POST /ca
 `;
 
 exports[`Edit applications documentation metadata Edit webfilter (filter1) GET /case/123/project-documentation/18/document/456/edit/webfilter should render the page with values 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"filter1\\"> Webfilter</label></h1>
-                    <textarea class=\\"govuk-textarea\\" id=\\"filter1\\" name=\\"filter1\\" rows=\\"5\\">Ut</textarea>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="filter1"> Webfilter</label></h1>
+                    <input class="govuk-input" id="filter1" name="filter1" type="text" value="Ut">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1502,15 +1503,15 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) GET /
 `;
 
 exports[`Edit applications documentation metadata Edit webfilter (filter1) POST /case/123/project-documentation/18/document/456/edit/webfilter should return an error if value is not defined 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#filter1\\">Enter webfilter</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#filter1">Enter webfilter</a>
                             </li>
                         </ul>
                     </div>
@@ -1518,16 +1519,16 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"filter1\\"> Webfilter</label></h1>
-                    <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter webfilter</p>
-                    <textarea                     class=\\"govuk-textarea govuk-textarea--error\\" id=\\"filter1\\" name=\\"filter1\\"
-                    rows=\\"5\\" aria-describedby=\\"filter1-error\\"></textarea>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="filter1"> Webfilter</label></h1>
+                    <p id="filter1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter webfilter</p>
+                    <input                     class="govuk-input govuk-input--error" id="filter1" name="filter1" type="text"
+                    aria-describedby="filter1-error">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1535,15 +1536,15 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
 `;
 
 exports[`Edit applications documentation metadata Edit webfilter (filter1) POST /case/123/project-documentation/18/document/456/edit/webfilter should return an error if value length > 100 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#filter1\\">Webfilter must be 100 characters or less</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#filter1">Webfilter must be 100 characters or less</a>
                             </li>
                         </ul>
                     </div>
@@ -1551,17 +1552,18 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group govuk-form-group--error\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"filter1\\"> Webfilter</label></h1>
-                    <p id=\\"filter1-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Webfilter must be 100
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="filter1"> Webfilter</label></h1>
+                    <p id="filter1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Webfilter must be 100
                         characters or less</p>
-                    <textarea class=\\"govuk-textarea govuk-textarea--error\\"
-                    id=\\"filter1\\" name=\\"filter1\\" rows=\\"5\\" aria-describedby=\\"filter1-error\\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
+                    <input class="govuk-input govuk-input--error" id="filter1"
+                    name="filter1" type="text" value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    aria-describedby="filter1-error">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1569,17 +1571,17 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
 `;
 
 exports[`Edit applications documentation metadata Transcript GET /case/123/project-documentation/18/document/456/edit/transcript should render the page with values 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
-            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-                <div class=\\"govuk-form-group\\">
-                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"transcript\\"> Transcript (optional)</label></h1>
-                    <div id=\\"transcript-hint\\" class=\\"govuk-hint\\">E.g. TR010060-000110</div>
-                    <input class=\\"govuk-input\\" id=\\"transcript\\" name=\\"transcript\\"
-                    type=\\"text\\" aria-describedby=\\"transcript-hint\\">
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+            <form method="post" action="" novalidate="novalidate">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="transcript"> Transcript (optional)</label></h1>
+                    <div id="transcript-hint" class="govuk-hint">E.g. TR010060-000110</div>
+                    <input class="govuk-input" id="transcript" name="transcript"
+                    type="text" aria-describedby="transcript-hint">
                 </div>
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and return</button>
+                <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
