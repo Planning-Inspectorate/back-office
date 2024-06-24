@@ -2752,7 +2752,7 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
         </div>
     </div>
     <h1 class=\\"govuk-heading-l\\">Publish examination timetable</h1>
-    <p class=\\"govuk-body\\">Check before publishing</p>
+    <p class=\\"govuk-body\\">Check details and publish examination timetable.</p>
     <div class='timetable-table'>
         <h3 class=\\"govuk-heading-m\\">Pre-examination</h3>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-pre-examination\\">
@@ -2922,7 +2922,7 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
         </div>
     </div>
     <h1 class=\\"govuk-heading-l\\">Unpublish examination timetable</h1>
-    <p class=\\"govuk-body\\">Check before unpublishing</p>
+    <p class=\\"govuk-body\\">Check details and unpublish examination timetable.</p>
     <div class='timetable-table'>
         <h3 class=\\"govuk-heading-m\\">Pre-examination</h3>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-pre-examination\\">
