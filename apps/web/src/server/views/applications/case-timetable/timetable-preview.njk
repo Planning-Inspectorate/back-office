@@ -11,7 +11,7 @@
 
 {% block pageContent %}
     <h1 class="govuk-heading-l">{{ 'Publish' if stage == 'publish' else 'Unpublish' }} examination timetable</h1>
-    <p class="govuk-body">Check before {{ 'publishing' if stage == 'publish' else 'unpublishing' }}</p>
+    <p class="govuk-body">Check details and {{ 'publish' if stage == 'publish' else 'unpublish' }} examination timetable.</p>
     {{ timetableItemsList(timetableItems, caseId, isCaseWelsh) }}
     <form method="post">
         <button class='govuk-button govuk-!-margin-top-5'>{{ 'Publish' if stage == 'publish' else 'Unpublish' }} exam timetable</button>
