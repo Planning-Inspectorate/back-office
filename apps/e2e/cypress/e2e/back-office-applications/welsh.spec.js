@@ -291,7 +291,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 			}
 		});
 
-		it.only('Can edit examination timetable item description in welsh and it is validated', () => {
+		it('Can edit examination timetable item description in welsh and it is validated', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 				cy.visit('/');
 				const caseRef = Cypress.env('currentCreatedCase');
