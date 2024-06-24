@@ -107,7 +107,7 @@ export class DocumentPropertiesPage extends Page {
 		this.updateDocumentProperty('Description', this.description(), 'textarea');
 		this.updateDocumentProperty('Who the document is from', this.from(), 'textarea');
 		this.updateDocumentProperty('Agent (optional)', this.agent());
-		this.updateDocumentProperty('Webfilter', this.webfilter());
+		this.updateDocumentProperty('Webfilter', this.webfilter(), 'textarea');
 		this.updateDocumentType('No document type');
 		this.updateDate('Date received', this.getDate(true));
 		this.updateRedactionStatus(status);
@@ -120,8 +120,8 @@ export class DocumentPropertiesPage extends Page {
 		this.updateDocumentProperty('Who the document is from', this.from(), 'textarea');
 		this.updateDocumentProperty('Who the document is from in Welsh', this.fromWelsh(), 'textarea');
 		this.updateDocumentProperty('Agent (optional)', this.agent());
-		this.updateDocumentProperty('Webfilter', this.webfilter());
-		this.updateDocumentProperty('Webfilter in Welsh', this.webfilterWelsh());
+		this.updateDocumentProperty('Webfilter', this.webfilter(), 'textarea');
+		this.updateDocumentProperty('Webfilter in Welsh', this.webfilterWelsh(), 'textarea');
 		this.updateDocumentType('No document type');
 		this.updateDate('Date received', this.getDate(true));
 		this.updateRedactionStatus(status);

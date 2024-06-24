@@ -13,58 +13,44 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                     <h2>Project information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
                 </div>
                 <div>
-                    <table class=\\"govuk-table\\">
-                        <caption class=\\"govuk-table__caption govuk-visually-hidden\\">Project details</caption>
-                        <tbody class=\\"govuk-table__body\\">
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
-                                <td class=\\"govuk-table__cell\\">CASE/04</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
-                                <td class=\\"govuk-table__cell\\">Title CASE/04</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
-                                <td class=\\"govuk-table__cell\\">Transport EN</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
-                                <td class=\\"govuk-table__cell\\">Highways EN</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
-                                <td class=\\"govuk-table__cell\\">Pre-Application</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
-                                <td class=\\"govuk-table__cell\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
-                                    et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
-                                    ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
-                                <td class=\\"govuk-table__cell\\">some@ema.il</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
-                                <td class=\\"govuk-table__cell\\">London</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
-                                <td class=\\"govuk-table__cell\\">123456 (Easting)
-                                    <br>987654 (Northing)</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Regions</th>
-                                <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
-                                <td class=\\"govuk-table__cell\\">City EN</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <dl class=\\"govuk-summary-list\\">
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                            <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project name</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Title CASE/04</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Transport EN</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Highways EN</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case stage</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Pre-Application</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project description</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                                et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
+                                ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project email address</dt>
+                            <dd class=\\"govuk-summary-list__value\\">some@ema.il</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project location</dt>
+                            <dd class=\\"govuk-summary-list__value\\">London</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Grid references</dt>
+                            <dd class=\\"govuk-summary-list__value\\">123456 (Easting)
+                                <br>987654 (Northing)</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Regions</dt>
+                            <dd class=\\"govuk-summary-list__value\\">London EN, Yorkshire EN</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Map zoom level</dt>
+                            <dd class=\\"govuk-summary-list__value\\">City EN</dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
             <div class='pins-preview-table govuk-!-margin-top-9'>
@@ -199,58 +185,44 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                     <h2>Project information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
                 </div>
                 <div>
-                    <table class=\\"govuk-table\\">
-                        <caption class=\\"govuk-table__caption govuk-visually-hidden\\">Project details</caption>
-                        <tbody class=\\"govuk-table__body\\">
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Case reference number</th>
-                                <td class=\\"govuk-table__cell\\">CASE/04</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project name</th>
-                                <td class=\\"govuk-table__cell\\">Title CASE/04</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Sector</th>
-                                <td class=\\"govuk-table__cell\\">Transport EN</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Subsector</th>
-                                <td class=\\"govuk-table__cell\\">Highways EN</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Case stage</th>
-                                <td class=\\"govuk-table__cell\\">Pre-Application</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project description</th>
-                                <td class=\\"govuk-table__cell\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
-                                    et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
-                                    ullamco laboris nisi ut aliquip ex ea commodo consequat</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project email address</th>
-                                <td class=\\"govuk-table__cell\\">some@ema.il</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Project location</th>
-                                <td class=\\"govuk-table__cell\\">London</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Grid references</th>
-                                <td class=\\"govuk-table__cell\\">123456 (Easting)
-                                    <br>987654 (Northing)</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Regions</th>
-                                <td class=\\"govuk-table__cell\\">London EN,Yorkshire EN</td>
-                            </tr>
-                            <tr class=\\"govuk-table__row\\">
-                                <th scope=\\"row\\" class=\\"govuk-table__header\\">Map zoom level</th>
-                                <td class=\\"govuk-table__cell\\">City EN</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <dl class=\\"govuk-summary-list\\">
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case reference number</dt>
+                            <dd class=\\"govuk-summary-list__value\\">CASE/04</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project name</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Title CASE/04</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Sector</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Transport EN</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Subsector</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Highways EN</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Case stage</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Pre-Application</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project description</dt>
+                            <dd class=\\"govuk-summary-list__value\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                                et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
+                                ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project email address</dt>
+                            <dd class=\\"govuk-summary-list__value\\">some@ema.il</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Project location</dt>
+                            <dd class=\\"govuk-summary-list__value\\">London</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Grid references</dt>
+                            <dd class=\\"govuk-summary-list__value\\">123456 (Easting)
+                                <br>987654 (Northing)</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Regions</dt>
+                            <dd class=\\"govuk-summary-list__value\\">London EN, Yorkshire EN</dd>
+                        </div>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Map zoom level</dt>
+                            <dd class=\\"govuk-summary-list__value\\">City EN</dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
             <div class='pins-preview-table govuk-!-margin-top-9'>
@@ -554,39 +526,33 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <dl class=\\"govuk-summary-list\\">
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Org name</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"
-                                    id=\\"\\"> Change</a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"> Change</a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Contact name (Internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">John Smith</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"
-                                        id=\\"\\"> Change</a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"> Change</a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address (Internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">Applicant address, London, ABC123</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"
-                                        id=\\"\\"> Change</a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"> Change</a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Website</dt>
                                 <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
                                 </dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
-                                    id=\\"\\"> Change</a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"> Change</a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
                                 <dd class=\\"govuk-summary-list__value\\">email@email.co</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"
-                                    id=\\"\\"> Change</a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"> Change</a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number (Internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">001</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"
-                                        id=\\"\\"> Change</a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"> Change</a>
                                     </dd>
                             </div>
                         </dl>
@@ -762,39 +728,33 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <dl class=\\"govuk-summary-list\\">
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Org name</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"
-                                    id=\\"\\"> Change</a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"> Change</a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Contact name (Internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">John Smith</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"
-                                        id=\\"\\"> Change</a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"> Change</a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address (Internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">Applicant address, London, ABC123</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"
-                                        id=\\"\\"> Change</a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"> Change</a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Website</dt>
                                 <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
                                 </dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
-                                    id=\\"\\"> Change</a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"> Change</a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
                                 <dd class=\\"govuk-summary-list__value\\">email@email.co</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"
-                                    id=\\"\\"> Change</a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"> Change</a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number (Internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">001</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"
-                                        id=\\"\\"> Change</a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"> Change</a>
                                     </dd>
                             </div>
                         </dl>
@@ -970,39 +930,33 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <dl class=\\"govuk-summary-list\\">
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Organisation name</dt>
                                 <dd class=\\"govuk-summary-list__value\\">Org name</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"
-                                    id=\\"\\"> Change</a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-organisation-name\\"> Change</a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Contact name (Internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">John Smith</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"
-                                        id=\\"\\"> Change</a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-full-name\\"> Change</a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Address (Internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">Applicant address, London, ABC123</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"
-                                        id=\\"\\"> Change</a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-address\\"> Change</a>
                                     </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Website</dt>
                                 <dd class=\\"govuk-summary-list__value\\"><a class=\\"govuk-link\\" href=\\"website.web\\">website.web</a>
                                 </dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"
-                                    id=\\"\\"> Change</a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-website\\"> Change</a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Email address</dt>
                                 <dd class=\\"govuk-summary-list__value\\">email@email.co</dd>
-                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"
-                                    id=\\"\\"> Change</a>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-email\\"> Change</a>
                                 </dd>
                             </div>
                             <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Telephone number (Internal use only)</dt>
                                 <dd                                 class=\\"govuk-summary-list__value\\">001</dd>
-                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"\\"></a><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"
-                                        id=\\"\\"> Change</a>
+                                    <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/4/edit/applicant-telephone-number\\"> Change</a>
                                     </dd>
                             </div>
                         </dl>

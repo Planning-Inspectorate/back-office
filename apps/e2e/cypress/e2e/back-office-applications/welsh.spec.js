@@ -30,7 +30,7 @@ const { applications: applicationsUsers } = users;
 
 function clickonWelshProjectName() {
 	casePage.clickChangeLink('Project name in Welsh');
-	casePage.fillInput('êŵŵîôôôôôû');
+	casePage.fillTextArea('êŵŵîôôôôôû');
 	casePage.clickButtonByText('Save changes');
 }
 function clickonWelshProjectDesc() {

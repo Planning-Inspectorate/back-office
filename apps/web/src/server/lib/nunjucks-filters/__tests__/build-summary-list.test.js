@@ -1,4 +1,4 @@
-import { buildTableRows } from '../build-table-rows.js';
+import { buildSummaryList } from '../build-summary-list.js';
 
 const items = [
 	{ label: 'label-1', text: 'value-1', omitted: true },
@@ -8,12 +8,20 @@ const items = [
 ];
 
 const expectedRows = [
-	[{ text: 'label-2' }, { text: 'value-2' }],
-	[{ text: 'label-4' }, { html: 'value-4' }]
+	{
+		key: { text: 'label-2' },
+		value: { text: 'value-2', html: undefined },
+		actions: { items: [] }
+	},
+	{
+		key: { text: 'label-4' },
+		value: { html: 'value-4', text: undefined },
+		actions: { items: [] }
+	}
 ];
 
 describe('buildTableRow Nunjucks filter', () => {
 	it('builds table rows correctly omitting those not required', () => {
-		expect(buildTableRows(items)).toEqual(expectedRows);
+		expect(buildSummaryList(items)).toEqual(expectedRows);
 	});
 });
