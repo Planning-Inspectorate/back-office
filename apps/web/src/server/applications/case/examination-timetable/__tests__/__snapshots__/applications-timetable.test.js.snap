@@ -2751,8 +2751,7 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
             <h1 class=\\"govuk-heading-xl\\"></h1>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\">Publish examination timetable</h1>
-    <p class=\\"govuk-body\\">Check details and publish examination timetable.</p>
+    <h1 class=\\"govuk-heading-l\\">Check details and publish examination timetable</h1>
     <div class='timetable-table'>
         <h3 class=\\"govuk-heading-m\\">Pre-examination</h3>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-pre-examination\\">
@@ -2860,7 +2859,7 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
         </div>
     </div>
     <form method=\\"post\\">
-        <button class='govuk-button govuk-!-margin-top-5'>Publish exam timetable</button>
+        <button class='govuk-button govuk-!-margin-top-5'>Publish examination timetable</button>
     </form>
 </main>"
 `;
@@ -2921,8 +2920,7 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
             <h1 class=\\"govuk-heading-xl\\"></h1>
         </div>
     </div>
-    <h1 class=\\"govuk-heading-l\\">Unpublish examination timetable</h1>
-    <p class=\\"govuk-body\\">Check details and unpublish examination timetable.</p>
+    <h1 class=\\"govuk-heading-l\\">Check details and unpublish examination timetable</h1>
     <div class='timetable-table'>
         <h3 class=\\"govuk-heading-m\\">Pre-examination</h3>
         <div class=\\"govuk-accordion\\" data-module=\\"govuk-accordion\\" id=\\"accordion-pre-examination\\">
@@ -3030,7 +3028,7 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
         </div>
     </div>
     <form method=\\"post\\">
-        <button class='govuk-button govuk-!-margin-top-5'>Unpublish exam timetable</button>
+        <button class='govuk-button govuk-!-margin-top-5'>Unpublish examination timetable</button>
     </form>
 </main>"
 `;
