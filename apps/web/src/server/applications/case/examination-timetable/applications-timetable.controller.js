@@ -190,11 +190,25 @@ export async function viewApplicationsCaseTimetablesUnpublishPreview(_, response
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function publishApplicationsCaseTimetables(_, response) {
-	const { errors } = await publishCaseTimetableItems(response.locals.caseId);
+	const {
+		locals: { caseIsWelsh, caseId }
+	} = response;
+	const timetableItems = await getCaseTimetableItems(caseId);
 
-	if (errors) {
-		const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+	let errors = {};
+	if (caseIsWelsh) {
+		//we shouldn't publish a timetable for a welsh case without welsh name
+		errors = validateWelshNameBeforePublish(timetableItems.items)
+			? { ...generateExamTimetablePublishingErrors(timetableItems.items) }
+			: {};
+	}
 
+	errors = {
+		...errors,
+		...(await publishCaseTimetableItems(response.locals.caseId)).errors
+	};
+
+	if (Object.keys(errors).length) {
 		const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
 			getTimetableRows(timetableItem)
 		);
@@ -202,7 +216,9 @@ export async function publishApplicationsCaseTimetables(_, response) {
 		return response.render(`applications/case-timetable/timetable-preview.njk`, {
 			timetableItems: timetableItemsViewData,
 			errors,
-			backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`
+			stage: 'publish',
+			backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`,
+			isCaseWelsh: caseIsWelsh
 		});
 	}
 
@@ -738,4 +754,29 @@ const validateWelshItemDescriptionBulletPoints = (englishDescription, welshDescr
 	const { bulletPoints: welshBulletPointsArr } = JSON.parse(welshDescription);
 
 	return englishBulletPointsArr.length === welshBulletPointsArr.length;
+};
+
+/**
+ * Validate the welsh timetable item names to have a value before publishing
+ * @param {Array<ApplicationExaminationTimetableItem>} timetableItems
+ * @returns {boolean}
+ */
+const validateWelshNameBeforePublish = (timetableItems) =>
+	timetableItems.some((item) => !item.nameWelsh || item.nameWelsh.trim() === '');
+
+/**
+ * Create errors object to be passed to the template
+ * @param {Array<ApplicationExaminationTimetableItem>} timetableItems
+ */
+const generateExamTimetablePublishingErrors = (timetableItems) => {
+	/** @type {Record<string, {msg: string}>}*/
+	const errors = {};
+	timetableItems.forEach((item) => {
+		if (!item.nameWelsh || item.nameWelsh.trim() === '') {
+			errors[`nameWelsh-${item.id}`] = {
+				msg: `Enter examination timetable item name in welsh - ${item.name}`
+			};
+		}
+	});
+	return errors;
 };
