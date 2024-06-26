@@ -61,7 +61,7 @@ const constructAuthenticatedRequest = () => {
  * @param {Record<string, string>} params
  * @returns {string}
  */
-const constructUri = (path, params) => {
+const constructUri = (path, params = {}) => {
 	const reqParams = new URLSearchParams();
 	const scheme = config.apiHost?.match(/localhost/) ? 'http' : 'https';
 	Object.keys(params).forEach((key) => {
