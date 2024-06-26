@@ -1,0 +1,19 @@
+parameters:
+- name: nodeVersion
+  type: number
+- name: appsFolderNames
+  type: object
+
+steps:
+  - script: |
+      source ~/.bashrc
+      nvm use ${{ parameters.nodeVersion }} || nvm install ${{ parameters.nodeVersion }}
+      appsFolders=(${{ join(' ',parameters.appsFolderNames) }})
+
+      for folder in ${appsFolders[@]}; do
+        echo $folder
+        ln $(Build.Repository.LocalPath)/package-lock.json $(Build.Repository.LocalPath)/apps/functions/$folder/package-lock.json
+        npm ci --omit=dev --prefix $(Build.Repository.LocalPath)/apps/functions/$folder
+        rm $(Build.Repository.LocalPath)/apps/functions/$folder/package-lock.json
+      done
+    displayName: import function node_modules
