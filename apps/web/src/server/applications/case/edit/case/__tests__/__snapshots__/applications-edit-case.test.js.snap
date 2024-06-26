@@ -90,9 +90,8 @@ exports[`applications edit Name GET /edit/name When status is Non-draft: should 
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Project name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\"></div>
-            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\"
-            name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-hint\\">Title CASE/04</textarea>
+            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\" name=\\"title\\"
+            rows=\\"5\\">Title CASE/04</textarea>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
@@ -108,9 +107,8 @@ exports[`applications edit Name GET /edit/name should render form 1`] = `
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Project name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\"></div>
-            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\"
-            name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-hint\\">Title CASE/04</textarea>
+            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\" name=\\"title\\"
+            rows=\\"5\\">Title CASE/04</textarea>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
@@ -129,9 +127,8 @@ exports[`applications edit Name GET edit/name-welsh When feature flag is active 
         <div class=\\"govuk-inset-text govuk-!-margin-top-4\\">Title CASE/08</div>
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"titleWelsh\\">Project name in Welsh</label>
-            <div id=\\"titleWelsh-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
             <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\"
-            id=\\"titleWelsh\\" name=\\"titleWelsh\\" rows=\\"5\\" aria-describedby=\\"titleWelsh-hint\\"></textarea>
+            id=\\"titleWelsh\\" name=\\"titleWelsh\\" rows=\\"5\\"></textarea>
         </div>
         <div class=\\"govuk-grid-row\\">
             <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
