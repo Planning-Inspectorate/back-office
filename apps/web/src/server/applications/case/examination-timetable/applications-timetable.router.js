@@ -66,7 +66,7 @@ applicationsTimetableRouter
 applicationsTimetableRouter
 	.route('/preview')
 	.get(registerCase, asyncHandler(controller.viewApplicationsCaseTimetablesPreview))
-	.post(asyncHandler(controller.publishApplicationsCaseTimetables));
+	.post(registerCase, asyncHandler(controller.publishApplicationsCaseTimetables));
 
 // Timetable preview for unpublishing
 applicationsTimetableRouter

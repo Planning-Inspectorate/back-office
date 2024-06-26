@@ -76,7 +76,10 @@
 						{
 							href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}) + "/name-welsh",
 							text: "Change",
-							visuallyHiddenText: 'Item name in Welsh'
+							visuallyHiddenText: 'Item name in Welsh',
+							attributes: {
+							id: "nameWelsh-" ~ timetableItem.id
+						}
 						}
 					]
 			}
