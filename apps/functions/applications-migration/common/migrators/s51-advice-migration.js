@@ -83,6 +83,7 @@ export const getNsipS51Advice = async (log, caseReference, synapseQuery = query)
 		}
 		return {
 			...pick(row, s51AdviceProperties),
+			caseId: Number(row.caseId), // TODO: remove after ODW-1307 is completed
 			status: mapStatus(row.status),
 			attachmentIds: row.attachmentIds ? row.attachmentIds?.split(',') : []
 		};
