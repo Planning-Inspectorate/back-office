@@ -281,18 +281,18 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				updateProjectRegions(['Wales']);
 				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.clickButtonByText('Create timetable item');
-				const options = {
-					...timetableItem(),
-					description: 'English description \n*bullet1'
-				};
 				examTimetablePage.selectTimetableItem('Deadline');
 				examTimetablePage.clickButtonByText('Continue');
-				examTimetablePage.fillItemDetailsStartAndEnd(options);
+				examTimetablePage.fillItemDetailsStartAndEnd(timetableItem());
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.clickButtonByText('Save item');
+				examTimetablePage.clickLinkByText('Go back to examination timetable');
+				examTimetablePage.clickChangeLink('Item description');
+				examTimetablePage.fillTextArea('Valid english description \n*bullet1');
 				examTimetablePage.clickButtonByText('Continue');
 				examTimetablePage.clickButtonByText('Save item');
 				examTimetablePage.clickLinkByText('Go back to examination timetable');
 
-				openAccordion(Cypress.env('currentCreatedItem'));
 				examTimetablePage.clickChangeLink('Item description in Welsh');
 				examTimetablePage.clickSaveAndReturn();
 				examTimetablePage.validateErrorMessage('Enter item description in Welsh');
