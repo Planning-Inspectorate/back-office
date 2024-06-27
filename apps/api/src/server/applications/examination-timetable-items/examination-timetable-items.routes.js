@@ -11,6 +11,7 @@ import {
 } from './examination-timetable-items.controller.js';
 import {
 	validateCreateExaminationTimetableItem,
+	validatePublishExamTimetable,
 	validateExistingExaminationTimetableItemId,
 	validateUpdateExaminationTimetableItem
 } from './examination-timetable-items.validators.js';
@@ -149,6 +150,7 @@ router.patch(
 		}
     */
 	validateApplicationId,
+	validatePublishExamTimetable,
 	asyncHandler(publishExaminationTimetable)
 );
 

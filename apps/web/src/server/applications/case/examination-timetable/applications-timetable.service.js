@@ -153,10 +153,16 @@ export const publishCaseTimetableItems = async (caseId) => {
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 
+		let resolveBody = {
+			errors: { msg: 'There was an issue and the timetable could not be published, try again' }
+		};
+
+		if (Object.keys(error?.response?.body?.errors).length) {
+			resolveBody = error?.response?.body;
+		}
+
 		response = new Promise((resolve) => {
-			resolve({
-				errors: { msg: 'There was an issue and the timetable could not be published, try again' }
-			});
+			resolve(resolveBody);
 		});
 	}
 
