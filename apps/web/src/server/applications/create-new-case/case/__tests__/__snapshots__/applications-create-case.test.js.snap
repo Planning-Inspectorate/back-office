@@ -286,9 +286,8 @@ exports[`applications create Name and description GET /create-new-case should re
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\"></div>
-            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\"
-            name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-hint\\"></textarea>
+            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\" name=\\"title\\"
+            rows=\\"5\\"></textarea>
         </div>
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
@@ -324,9 +323,8 @@ exports[`applications create Name and description GET /create-new-case/1 should 
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\"></div>
-            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\"
-            name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-hint\\">Title CASE/01</textarea>
+            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\" name=\\"title\\"
+            rows=\\"5\\">Title CASE/01</textarea>
         </div>
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
@@ -368,11 +366,10 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\"></div>
             <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Some error message from
                 API</p>
             <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-two-thirds\\"
-            id=\\"title\\" name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-hint title-error\\">A title</textarea>
+            id=\\"title\\" name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-error\\">A title</textarea>
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
@@ -413,11 +410,10 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\"></div>
             <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Some error message from
                 API</p>
             <textarea class=\\"govuk-textarea govuk-textarea--error govuk-!-width-two-thirds\\"
-            id=\\"title\\" name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-hint title-error\\">A title</textarea>
+            id=\\"title\\" name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-error\\">A title</textarea>
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
@@ -458,10 +454,9 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
     <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter name and description</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group govuk-form-group--error\\">
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\"></div>
             <p id=\\"title-error\\" class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter project name</p>
             <textarea             class=\\"govuk-textarea govuk-textarea--error govuk-!-width-two-thirds\\" id=\\"title\\"
-            name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-hint title-error\\"></textarea>
+            name=\\"title\\" rows=\\"5\\" aria-describedby=\\"title-error\\"></textarea>
         </div>
         <div class=\\"govuk-form-group govuk-form-group--error\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
