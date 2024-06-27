@@ -10,8 +10,8 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
                 <div class="govuk-inset-text">Ut</div>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-label--m" for="filter1Welsh">Webfilter in Welsh</label>
-                    <input class="govuk-input" id="filter1Welsh"
-                    name="filter1Welsh" type="text" value="Ut">
+                    <textarea class="govuk-textarea" id="filter1Welsh"
+                    name="filter1Welsh" rows="5">Ut</textarea>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
@@ -46,8 +46,8 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
                 <div class="govuk-form-group govuk-form-group--error">
                     <label class="govuk-label govuk-label--m" for="filter1Welsh">Webfilter in Welsh</label>
                     <p id="filter1Welsh-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter webfilter in Welsh</p>
-                    <input                     class="govuk-input govuk-input--error" id="filter1Welsh" name="filter1Welsh"
-                    type="text" aria-describedby="filter1Welsh-error">
+                    <textarea                     class="govuk-textarea govuk-textarea--error" id="filter1Welsh" name="filter1Welsh"
+                    rows="5" aria-describedby="filter1Welsh-error"></textarea>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
@@ -83,9 +83,8 @@ exports[`Edit applications documentation metadata Edit Welsh webfilter (filter1W
                     <label class="govuk-label govuk-label--m" for="filter1Welsh">Webfilter in Welsh</label>
                     <p id="filter1Welsh-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Webfilter must be 100
                         characters or less</p>
-                    <input class="govuk-input govuk-input--error" id="filter1Welsh"
-                    name="filter1Welsh" type="text" value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    aria-describedby="filter1Welsh-error">
+                    <textarea class="govuk-textarea govuk-textarea--error"
+                    id="filter1Welsh" name="filter1Welsh" rows="5" aria-describedby="filter1Welsh-error">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
@@ -1493,7 +1492,7 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) GET /
             <form method="post" action="" novalidate="novalidate">
                 <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="filter1"> Webfilter</label></h1>
-                    <input class="govuk-input" id="filter1" name="filter1" type="text" value="Ut">
+                    <textarea class="govuk-textarea" id="filter1" name="filter1" rows="5">Ut</textarea>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
@@ -1525,8 +1524,8 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
                 <div class="govuk-form-group govuk-form-group--error">
                     <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="filter1"> Webfilter</label></h1>
                     <p id="filter1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter webfilter</p>
-                    <input                     class="govuk-input govuk-input--error" id="filter1" name="filter1" type="text"
-                    aria-describedby="filter1-error">
+                    <textarea                     class="govuk-textarea govuk-textarea--error" id="filter1" name="filter1"
+                    rows="5" aria-describedby="filter1-error"></textarea>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
@@ -1559,9 +1558,8 @@ exports[`Edit applications documentation metadata Edit webfilter (filter1) POST 
                     <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="filter1"> Webfilter</label></h1>
                     <p id="filter1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Webfilter must be 100
                         characters or less</p>
-                    <input class="govuk-input govuk-input--error" id="filter1"
-                    name="filter1" type="text" value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                    aria-describedby="filter1-error">
+                    <textarea class="govuk-textarea govuk-textarea--error"
+                    id="filter1" name="filter1" rows="5" aria-describedby="filter1-error">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
