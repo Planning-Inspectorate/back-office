@@ -44,17 +44,13 @@ function validateErrorMessageForProjectname() {
 	casePage.clickChangeLink('Project name in Welsh');
 	cy.get('#titleWelsh').clear();
 	casePage.clickButtonByText('Save changes');
-	cy.get('#main-content > div > div > div > div > div > ul > li > a').contains(
-		'Enter project name in Welsh'
-	);
+	casePage.validateErrorMessageIsInSummary('Enter project name in Welsh');
 }
 function validateErrorMessageForProjectdesc() {
 	casePage.clickChangeLink('Project description in Welsh');
 	cy.get('#descriptionWelsh').clear();
 	casePage.clickButtonByText('Save changes');
-	cy.get('#main-content > div > div > div > div > div > ul > li > a').contains(
-		'Enter project description in Welsh'
-	);
+	casePage.validateErrorMessageIsInSummary('Enter project description in Welsh');
 }
 function validateErrorMessageForProjectlocation() {
 	casePage.clickChangeLink('Project location in Welsh');
@@ -200,23 +196,8 @@ describe('Update project information to add a Welsh region', () => {
 
 describe('Display and edit welsh fields in Examination Timetable', () => {
 	context('As a user', () => {
-		function openAccordion() {
-			cy.get('.govuk-accordion__section-button').click();
-		}
-
-		function goToEditItemNameWelsh() {
-			cy.get(':nth-child(3) > .govuk-summary-list__actions > .govuk-link').click();
-		}
-		function goToEditItemDescriptionWelsh() {
-			cy.get(':nth-child(9) > .govuk-summary-list__actions > .govuk-link').click();
-		}
-
-		function enterText(inputId, textValue) {
-			cy.get(inputId).clear().type(textValue);
-		}
-
-		function saveAndReturnClick() {
-			cy.contains('Save and return').click();
+		function openAccordion(text) {
+			cy.contains(text).find('.govuk-accordion__section-toggle-text').scrollIntoView().click();
 		}
 
 		function validateBannerMessage(bannerText) {
@@ -244,7 +225,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
 				updateProjectRegions(['Wales']);
-				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
 				examTimetablePage.selectTimetableItem('Deadline');
@@ -252,7 +233,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.fillItemDetailsStartAndEnd(options);
 				examTimetablePage.clickButtonByText('Continue');
 				examTimetablePage.clickButtonByText('Save item');
-				cy.contains('a', 'Go back to examination timetable').click();
+				examTimetablePage.clickLinkByText('Go back to examination timetable');
 				cy.get('.govuk-accordion__section-button').click();
 				examTimetablePage.checkAnswer('Item name in Welsh', '');
 				examTimetablePage.checkAnswer('Item description in Welsh', '');
@@ -266,7 +247,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
 				updateProjectRegions(['Wales']);
-				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
 				examTimetablePage.selectTimetableItem('Deadline');
@@ -274,19 +255,19 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.fillItemDetailsStartAndEnd(options);
 				examTimetablePage.clickButtonByText('Continue');
 				examTimetablePage.clickButtonByText('Save item');
-				cy.contains('a', 'Go back to examination timetable').click();
+				examTimetablePage.clickLinkByText('Go back to examination timetable');
 
-				openAccordion();
-				goToEditItemNameWelsh();
-				saveAndReturnClick();
+				openAccordion(Cypress.env('currentCreatedItem'));
+				examTimetablePage.clickChangeLink('Item name in Welsh');
+				examTimetablePage.clickSaveAndReturn();
 				examTimetablePage.validateErrorMessage('Enter item name in Welsh');
 
-				enterText('#nameWelsh', 'Name that is too long'.repeat(10));
-				saveAndReturnClick();
+				examTimetablePage.fillInput('Name that is too long'.repeat(10));
+				examTimetablePage.clickSaveAndReturn();
 				examTimetablePage.validateErrorMessage('Item name in Welsh must be 200 characters or less');
 
-				enterText('#nameWelsh', 'Valid welsh name');
-				saveAndReturnClick();
+				examTimetablePage.fillInput('Valid welsh name');
+				examTimetablePage.clickSaveAndReturn();
 				validateBannerMessage('Item name in Welsh updated');
 			}
 		});
@@ -298,7 +279,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
 				updateProjectRegions(['Wales']);
-				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = {
 					...timetableItem(),
@@ -309,24 +290,23 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.fillItemDetailsStartAndEnd(options);
 				examTimetablePage.clickButtonByText('Continue');
 				examTimetablePage.clickButtonByText('Save item');
-				cy.contains('a', 'Go back to examination timetable').click();
+				examTimetablePage.clickLinkByText('Go back to examination timetable');
 
-				openAccordion();
-				goToEditItemDescriptionWelsh();
-				saveAndReturnClick();
+				openAccordion(Cypress.env('currentCreatedItem'));
+				examTimetablePage.clickChangeLink('Item description in Welsh');
+				examTimetablePage.clickSaveAndReturn();
 				examTimetablePage.validateErrorMessage('Enter item description in Welsh');
 
-				enterText(
-					'#descriptionWelsh',
+				examTimetablePage.fillTextArea(
 					'Description that has more bulletpoints than the english counterpart \n*bullet1\n*bullet2\n*bullet3'
 				);
-				saveAndReturnClick();
+				examTimetablePage.clickSaveAndReturn();
 				examTimetablePage.validateErrorMessage(
 					'Item description in Welsh must contain the same number of bullets as the item description in English'
 				);
 
-				enterText('#descriptionWelsh', 'Valid welsh description \n*bullet1');
-				saveAndReturnClick();
+				examTimetablePage.fillTextArea('Valid welsh description \n*bullet1');
+				examTimetablePage.clickSaveAndReturn();
 				validateBannerMessage('Item description in Welsh updated');
 			}
 		});
