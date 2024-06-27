@@ -34,7 +34,9 @@ export const mapApplicationDetails = (caseDetails) => {
 				'id',
 				'reference',
 				'title',
+				'titleWelsh',
 				'description',
+				'descriptionWelsh',
 				'modifiedAt',
 				'caseStatus',
 				'casePublishedState',
@@ -92,6 +94,7 @@ export const mapApplicationDetails = (caseDetails) => {
 		geographicalInformation: {
 			mapZoomLevel: zoomLevelFormatted,
 			locationDescription: caseDetails?.ApplicationDetails?.locationDescription,
+			locationDescriptionWelsh: caseDetails?.ApplicationDetails?.locationDescriptionWelsh,
 			gridReference: gridReferenceFormatted,
 			regions: regionsFormatted
 		},

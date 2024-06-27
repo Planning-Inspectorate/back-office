@@ -25,8 +25,6 @@ describe('Upload different types of document and validate the transcript value',
 		createCasePage.createCase(projectInfo);
 	});
 
-
-
 	it('As a user should be able to upload a document to a case', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
@@ -34,10 +32,9 @@ describe('Upload different types of document and validate the transcript value',
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		validateProjectOverview(projectInfo);
-		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUploadPage.fileUpload('sample-doc.pdf',1);
+		fileUploadPage.fileUpload('sample-doc.pdf', 1);
 	});
 	it('As a user  able to upload a html file to a case and validate the transcript value', () => {
 		cy.login(applicationsUsers.caseAdmin);
@@ -46,10 +43,9 @@ describe('Upload different types of document and validate the transcript value',
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		validateProjectOverview(projectInfo);
-		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUploadPage.fileUpload('NI_Video_Template_2.html',2);
+		fileUploadPage.fileUpload('NI_Video_Template_2.html', 2);
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.enterDocRefandValidateTranscriptValue();
 	});
@@ -61,11 +57,10 @@ describe('Upload different types of document and validate the transcript value',
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		validateProjectOverview(projectInfo);
-		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.fileUpload('Sample.mp3',3);
+		fileUploadPage.fileUpload('Sample.mp3', 3);
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.enterDocRefandValidateTranscriptValue();
 	});
@@ -76,10 +71,9 @@ describe('Upload different types of document and validate the transcript value',
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		validateProjectOverview(projectInfo);
-		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUploadPage.fileUpload('sample-video.mp4',4);
+		fileUploadPage.fileUpload('sample-video.mp4', 4);
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.enterDocRefandValidateTranscriptValue();
 	});
@@ -90,11 +84,10 @@ describe('Upload different types of document and validate the transcript value',
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		validateProjectOverview(projectInfo);
-		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUploadPage.fileUpload('NI_Template_2.html',5);
-		fileUploadPage.clickLinkByText('View/Edit properties')
+		fileUploadPage.fileUpload('NI_Template_2.html', 5);
+		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.enterIncorrectDocumentRefNumber(caseRef);
 		documentPropertiesPage.validateDocumentErrorMessage();
 	});

@@ -119,8 +119,8 @@ const validS51AdvicePayload = buildPayloadEventsForSchema(NSIP_S51_ADVICE, {
 	caseReference: 'BC0110001',
 	adviceId: 1,
 	adviceReference: 'BC0110001-Advice-00001',
-	from: 'New Power Company',
-	agent: 'John Keats',
+	from: 'John Keats',
+	agent: 'New Power Company',
 	method: 'email',
 	adviceGivenBy: 'adviser',
 	status: 'unchecked',
@@ -366,8 +366,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
-			errors:
-				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
+			errors: 'Enter missing information about the S51 advice'
 		});
 		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});
@@ -492,8 +491,7 @@ describe('Test S51 advice update status and redacted status', () => {
 		// THEN
 		expect(response.status).toEqual(400);
 		expect(response.body).toEqual({
-			errors:
-				'All mandatory fields must be completed. Return to the S51 advice properties screen to make changes.'
+			errors: 'Enter missing information about the S51 advice'
 		});
 		expect(eventClient.sendEvents).toHaveBeenCalledTimes(0);
 	});

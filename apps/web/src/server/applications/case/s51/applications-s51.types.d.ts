@@ -28,17 +28,20 @@ export interface ApplicationsS51CreatePayload {
 
 export interface ApplicationsS51UpdateBody {
 	title?: string;
+	titleWelsh?: string;
 	enquirer?: string;
 	enquiryMethod?: string;
 	'enquiryDate.day'?: string;
 	'enquiryDate.month'?: string;
 	'enquiryDate.year'?: string;
 	enquiryDetails?: string;
+	enquiryDetailsWelsh?: string;
 	adviser?: string;
 	'adviceDate.day'?: string;
 	'adviceDate.month'?: string;
 	'adviceDate.year'?: string;
 	adviceDetails?: string;
+	adviceDetailsWelsh?: string;
 	firstName?: string;
 	lastName?: string;
 	redactedStatus?: string;
@@ -47,13 +50,16 @@ export interface ApplicationsS51UpdateBody {
 
 export interface ApplicationsS51UpdatePayload {
 	title?: string;
+	titleWelsh?: string;
 	enquirer?: string;
 	enquiryMethod?: string;
 	enquiryDate?: Date;
 	enquiryDetails?: string;
+	enquiryDetailsWelsh?: string;
 	adviser?: string;
 	adviceDate?: Date;
 	adviceDetails?: string;
+	adviceDetailsWelsh?: string;
 	firstName?: string;
 	lastName?: string;
 	redactedStatus?: string;

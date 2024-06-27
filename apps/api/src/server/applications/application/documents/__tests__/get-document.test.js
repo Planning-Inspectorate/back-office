@@ -33,6 +33,7 @@ const document1_Version1 = {
 	description: null,
 	owner: null,
 	author: null,
+	authorWelsh: null,
 	securityClassification: null,
 	mime: 'image/png',
 	horizonDataID: null,
@@ -153,7 +154,8 @@ describe('GET search for non S51 Advice documents in a case', () => {
 									{ fileName: { contains: 'testfile' } },
 									{ description: { contains: 'testfile' } },
 									{ representative: { contains: 'testfile' } },
-									{ author: { contains: 'testfile' } }
+									{ author: { contains: 'testfile' } },
+									{ mime: { contains: 'testfile' } }
 								]
 							}
 						}
@@ -180,6 +182,7 @@ describe('GET search for non S51 Advice documents in a case', () => {
 					privateBlobContainer: '',
 					privateBlobPath: '',
 					author: '',
+					authorWelsh: null,
 					fileName: 'my testfile',
 					originalFilename: '8883cbfd43ed5b261961cd258d2f6fcb (1)',
 					dateCreated: 1678726449,
@@ -189,11 +192,13 @@ describe('GET search for non S51 Advice documents in a case', () => {
 					redactedStatus: '',
 					datePublished: null,
 					description: null,
+					descriptionWelsh: null,
 					version: 1,
 					representative: null,
 					stage: null,
 					documentType: '',
 					filter1: null,
+					filter1Welsh: null,
 					filter2: null,
 					examinationRefNo: '',
 					fromFrontOffice: false,

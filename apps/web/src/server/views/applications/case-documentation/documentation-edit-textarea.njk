@@ -1,0 +1,17 @@
+{% extends "../layouts/document-edit-property.layout.njk" %}
+{% from "../components/textarea-form-component.njk" import textareaFormComponent %}
+
+{% block formContent %}
+	{{ textareaFormComponent({
+		pageTitle: layout.pageTitle,
+		value: errors[layout.metaDataName].value if errors[layout.metaDataName] else documentMetaData[layout.metaDataName],
+		name: layout.metaDataName,
+		label: layout.label,
+		englishValue: documentMetaData[layout.metaDataEnglishName] if documentMetaData[layout.metaDataEnglishName] else null,
+		englishLabel: layout.englishLabel,
+		hint: layout.hint,
+		maxLength: layout.maxLength,
+		errorMessage: errors[layout.metaDataName]
+	}) }}
+{% endblock %}
+

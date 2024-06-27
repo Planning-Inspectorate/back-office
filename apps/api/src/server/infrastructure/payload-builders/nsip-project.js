@@ -18,7 +18,9 @@ export const buildNsipProjectPayload = (projectEntity) => {
 		caseId: projectEntity.id,
 		caseReference: projectEntity.reference,
 		projectName: projectEntity.title,
+		projectNameWelsh: projectEntity.titleWelsh,
 		projectDescription: projectEntity.description,
+		projectDescriptionWelsh: projectEntity.descriptionWelsh,
 		publishStatus: projectEntity.CasePublishedState?.[0]?.isPublished ? 'published' : 'unpublished',
 		sourceSystem,
 		...application,
@@ -56,15 +58,21 @@ const mapApplicationDetails = (projectEntity) => {
 		? mapKeyDatesToISOStrings(projectEntity?.ApplicationDetails)
 		: {};
 
+	const isWelshLanguage = Boolean(
+		projectEntity?.titleWelsh ||
+			projectEntity?.descriptionWelsh ||
+			appDetails?.locationDescriptionWelsh
+	);
+
 	return {
 		stage,
 		projectLocation: appDetails?.locationDescription,
+		projectLocationWelsh: appDetails?.locationDescriptionWelsh,
 		projectEmailAddress: appDetails?.caseEmail,
 		regions,
 		easting,
 		northing,
-		// For MVP we're not supporting Welsh Language
-		welshLanguage: false,
+		welshLanguage: isWelshLanguage,
 		mapZoomLevel,
 		secretaryOfState: null,
 		...pick(keyDates, keyDateNames),

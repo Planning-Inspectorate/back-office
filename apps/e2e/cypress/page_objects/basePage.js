@@ -13,6 +13,7 @@ export class Page {
 		accordionSectionExpanded: 'govuk-accordion__section.govuk-accordion__section--expanded',
 		backLink: '.govuk-back-link',
 		bannerHeader: '.govuk-notification-banner__heading',
+		breadcrumbLink: '.govuk-breadcrumbs__link',
 		publish_bannerHeader: '#main-content > div > div > div > h1',
 		button: '.govuk-button',
 		body: '.govuk-body',
@@ -48,15 +49,15 @@ export class Page {
 		summaryListActions: '.govuk-summary-list__actions',
 		summaryListKey: '.govuk-summary-list__key',
 		summaryListValue: '.govuk-summary-list__value',
-		summaryErrorMessages: '.govuk-list.govuk-error-summary__list',
+		summaryErrorMessages: '.govuk-list.govuk-error-summary__list > li',
 		xlHeader: '.govuk-heading-xl',
 		projectManagement: 'span.font-weight--700:nth-child(2)',
 		unpublish: 'a.govuk-button:nth-child(5)',
-		caseRefTraining :':nth-child(2) > .govuk-table__body > :nth-child(1) > :nth-child(2)',
-		projectDocumentation:':nth-child(1) > .govuk-breadcrumbs__link',
-		backToOverview:'.govuk-grid-column-two-thirds > a:nth-child(3)',
-		backToProjectOverview:'.govuk-back-link',
-		unpublishProject:'.colour--red'
+		caseRefTraining: '.project-details > .govuk-table__body > :nth-child(1) > .govuk-table__header',
+		projectDocumentation: ':nth-child(1) > .govuk-breadcrumbs__link',
+		backToOverview: '.govuk-grid-column-two-thirds > a:nth-child(3)',
+		backToProjectOverview: '.govuk-back-link',
+		unpublishProject: '.colour--red'
 	};
 
 	// E L E M E N T S
@@ -69,6 +70,8 @@ export class Page {
 		applicationHeaderCentral: () => cy.get(`${this.selectors.centralCol} > p`),
 		backLink: () => cy.get(this.selectors.backLink),
 		bannerHeader: () => cy.get(this.selectors.bannerHeader),
+		breadcrumbLinkByText: (text) =>
+			cy.contains(this.selectors.breadcrumbLink, text, { matchCase: true }),
 		publishBannerHeader: () => cy.get(this.selectors.publish_bannerHeader),
 		button: () => cy.get(this.selectors.button),
 		buttonByLabelText: (buttonText) =>
@@ -91,7 +94,7 @@ export class Page {
 		radioButton: () => cy.get(this.selectors.radio),
 		sectionHeader: () => cy.get(this.selectors.headingLeft),
 		selectAllCheckboxes: () => cy.get('#selectAll'),
-		selectElem: () => cy.get(this.selectors.select),
+		selectElem: () => cy.get(this.selectors.select, { timeout: 4000 }).should('be.visible'),
 		saveAndContinue: () => this.clickButtonByText('Save and Continue'),
 		successBanner: () => cy.get(this.selectors.successBanner),
 		summaryListActions: () => cy.get(this.selectors.summaryListActions),
@@ -112,9 +115,10 @@ export class Page {
 		projectManagement: () => cy.get(this.selectors.projectManagement),
 		unpublishLink: () => cy.get(this.selectors.unpublish),
 		projectDocumentationLink: () => cy.get(this.selectors.projectDocumentation),
-		backToOverviewPage:()=>cy.get(this.selectors.backToOverview),
-		backToProjectPage:()=>cy.get(this.selectors.backToProjectOverview),
-		clickOnUnpublishProjectLink:()=>cy.get(this.selectors.unpublishProject)
+		backToOverviewPage: () => cy.get(this.selectors.backToOverview),
+		backToProjectPage: () =>
+			cy.get(this.selectors.backToProjectOverview, { timeout: 6000 }).should('be.visible'),
+		clickOnUnpublishProjectLink: () => cy.get(this.selectors.unpublishProject)
 	};
 
 	// A C T I O N S
@@ -149,6 +153,10 @@ export class Page {
 		this.basePageElements.backLink().click();
 	}
 
+	clickBreadcrumbLinkByText(linkText) {
+		this.basePageElements.breadcrumbLinkByText(linkText).click();
+	}
+
 	clickButtonByText(buttonText) {
 		this.basePageElements.buttonByLabelText(buttonText).click();
 	}
@@ -159,6 +167,10 @@ export class Page {
 
 	clickSaveAndContinue() {
 		this.clickButtonByText('Save And Continue');
+	}
+
+	clickSaveAndReturn() {
+		this.clickButtonByText('Save And Return');
 	}
 
 	clickLinkByText(linkText) {
@@ -177,11 +189,15 @@ export class Page {
 		this.basePageElements.selectElem().select(optionNumber);
 	}
 
+	clearTextArea(index = 0) {
+		this.basePageElements.textArea().eq(index).clear();
+	}
+
 	fillInput(text, index = 0) {
 		this.basePageElements.input().eq(index).clear().type(text);
 	}
 
-	fillTextArea(text, index = 0) {
+	fillTextArea(text = '', index = 0) {
 		this.basePageElements.textArea().eq(index).clear().type(text);
 	}
 
@@ -241,6 +257,10 @@ export class Page {
 		this.basePageElements.errorMessage().should('have.length', numberOfErrors);
 	}
 
+	validateErrorMessageCountInSummary(numberOfErrors) {
+		this.basePageElements.summaryErrorMessages().should('have.length', numberOfErrors);
+	}
+
 	validateNumberOfCheckboxes(checkboxCount) {
 		this.basePageElements.checkbox().should('have.length', checkboxCount);
 	}
@@ -262,8 +282,7 @@ export class Page {
 	}
 
 	verifyFolderDocuments(fileCount) {
-		cy.wait(6000);
-		cy.get('.pins-files-list > .govuk-table .govuk-table__row').should(
+		cy.get('.pins-files-list > .govuk-table .govuk-table__row', { timeout: 6000 }).should(
 			'have.length',
 			2 + fileCount
 		);
@@ -301,25 +320,13 @@ export class Page {
 	goToDashboard() {
 		this.basePageElements.goToDashboardLink().click();
 	}
-	goToFolderDocumentPage(){
+	goToFolderDocumentPage() {
 		this.basePageElements.projectManagement().click();
 	}
-	clickonProjectDocumentation(){
+	clickonProjectDocumentation() {
 		this.basePageElements.projectDocumentationLink().click();
 	}
-	gotoProjectOverviewpage(){
+	gotoProjectOverviewpage() {
 		this.basePageElements.backLink().click();
-	}
-	publishUnpublishProject(){
-		cy.get(':nth-child(1) > .govuk-breadcrumbs__link').click();
-		cy.wait(2000);
-        this.basePageElements.backToProjectPage().click();
-		this.clickButtonByText('Preview and publish project');
-		this.clickButtonByText('Accept and publish project');
-		this.validateSuccessPanelTitle('Project page successfully published');
-		cy.get('#main-content > div > div > a').click();
-		this.basePageElements.clickOnUnpublishProjectLink().click();
-		this.basePageElements.buttonByLabelText('Unpublish project').click();
-		this.validateSuccessPanelTitle('Project page successfully unpublished');
 	}
 }

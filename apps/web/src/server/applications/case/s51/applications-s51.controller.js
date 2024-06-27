@@ -1,3 +1,4 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { getSessionS51, setSessionS51 } from './applications-s51.session.js';
 import {
 	checkS51NameIsUnique,
@@ -14,8 +15,11 @@ import {
 } from './applications-s51.service.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import {
+	deleteSessionBanner,
 	destroySuccessBanner,
+	getSessionBanner,
 	getSuccessBanner,
+	setSessionBanner,
 	setSuccessBanner
 } from '../../common/services/session.service.js';
 import { deleteCaseDocumentationFile } from '../documentation/applications-documentation.service.js';
@@ -25,7 +29,7 @@ import {
 	mapS51AdviceToPage,
 	mapUpdateBodyToPayload
 } from './applications-s51.mapper.js';
-import { generalSection51CaseReference as gs51CaseReference } from '../general-s51/applications-general-s51.config.js';
+import addEnteredDateToValidationErrors from '../../../lib/add-entered-date-to-validation-errors.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -40,14 +44,33 @@ import { generalSection51CaseReference as gs51CaseReference } from '../general-s
 /** @typedef {import('express-session').Session & { s51?: Partial<S51Advice> }} SessionWithS51 */
 /** @typedef {import('./applications-s51.types.js').S51AdviceForm} S51AdviceForm */
 
-/** @type {Record<any, {nextPage: string}>} */
-const createS51Journey = {
-	title: { nextPage: 'enquirer' },
-	enquirer: { nextPage: 'method' },
-	method: { nextPage: 'enquiry-details' },
-	'enquiry-details': { nextPage: 'person' },
-	person: { nextPage: 'advice-details' },
-	'advice-details': { nextPage: 'check-your-answers' }
+/** @type {Record<any, any>} */
+const s51Steps = {
+	title: { name: 'S51 title', nextPage: 'enquirer' },
+	'title-in-welsh': { name: 'S51 title in Welsh' },
+	enquirer: { name: 'Enquirer', nextPage: 'method' },
+	method: { name: 'Enquiry method', nextPage: 'enquiry-details' },
+	'enquiry-date': { name: 'Enquiry date' },
+	'enquiry-detail': { name: 'Enquiry details' },
+	'enquiry-details': {
+		name: 'Enquiry details',
+		nextPage: 'person'
+	},
+	'enquiry-detail-in-welsh': {
+		name: 'Enquiry details in Welsh'
+	},
+	person: { name: 'Advice given by', nextPage: 'advice-details' },
+	'advice-date': { name: 'Date advice given' },
+	'advice-detail': { name: 'Advice given' },
+	'advice-details': {
+		name: 'Advice given',
+		nextPage: 'check-your-answers'
+	},
+	'advice-detail-in-welsh': {
+		name: 'Advice given in Welsh'
+	},
+	redaction: { name: 'Redaction' },
+	status: { name: 'Status' }
 };
 
 /**
@@ -62,7 +85,7 @@ export async function viewApplicationsCaseS51Folder({ query }, response) {
 	response.render(`applications/components/folder/folder`, {
 		items,
 		pagination,
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -119,13 +142,17 @@ export async function viewApplicationsCaseS51Item({ params, session }, response)
 
 	const s51Advice = await getS51Advice(caseId, Number(adviceId));
 
-	const showSuccessBanner = getSuccessBanner(session);
+	const updateBannerText = getSessionBanner(session);
+	const showSuccessBanner = !!updateBannerText || getSuccessBanner(session);
+
+	deleteSessionBanner(session);
 	destroySuccessBanner(session);
 
 	response.render(`applications/case-s51/properties/s51-properties`, {
 		s51Advice,
 		showSuccessBanner,
-		gs51CaseReference
+		updateBannerText,
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -152,12 +179,20 @@ export async function viewApplicationsCaseEditS51Item({ params }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51UpdateBody, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
 export async function postApplicationsCaseEditS51Item(
-	{ body: values, params, errors: validationErrors },
+	{ body: values, params, errors: validationErrors, session },
 	response
 ) {
 	const { adviceId, step } = params;
-	const { caseId, title, folderId } = response.locals;
-	const payload = mapUpdateBodyToPayload(values);
+	const { caseId, title, folderId, caseIsWelsh } = response.locals;
+	const payload = mapUpdateBodyToPayload(values, caseIsWelsh);
+
+	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
+	// @ts-ignore
+	const valueHasChanged = Object.keys(values).some((key) => values[key] !== s51Advice[key]);
+
+	if (!valueHasChanged) {
+		return response.redirect('../properties');
+	}
 
 	let titleErrors;
 	if (step === 'title') {
@@ -169,7 +204,14 @@ export async function postApplicationsCaseEditS51Item(
 		}
 	}
 
+	if (validationErrors) {
+		// Make sure any date errors have the value populated with the entered data
+		// @ts-ignore
+		addEnteredDateToValidationErrors(validationErrors, values);
+	}
+
 	let apiErrors;
+
 	if (!titleErrors && !validationErrors) {
 		const { errors } = await updateS51Advice(caseId, Number(adviceId), payload);
 		apiErrors = errors;
@@ -179,10 +221,13 @@ export async function postApplicationsCaseEditS51Item(
 		return response.render(`applications/case-s51/properties/edit/s51-edit-${step}`, {
 			adviceId,
 			folderId,
-			values,
+			values: { ...s51Advice, ...values },
 			errors: titleErrors || validationErrors || apiErrors
 		});
 	}
+
+	const { name } = s51Steps[step];
+	setSessionBanner(session, `${name} updated`);
 
 	return response.redirect('../properties');
 }
@@ -212,7 +257,10 @@ export async function viewApplicationsCaseS51CreatePage(request, response) {
 	const { session, params } = request;
 	const values = getSessionS51(session);
 
-	response.render(`applications/case-s51/s51-${params.step}`, { values, gs51CaseReference });
+	response.render(`applications/case-s51/s51-${params.step}`, {
+		values,
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
+	});
 }
 
 /**
@@ -225,9 +273,13 @@ export async function updateApplicationsCaseS51CreatePage(request, response) {
 	const { caseId, title } = response.locals;
 
 	let apiErrors;
-	if (params.step === 'title' && body.title) {
+
+	if (!validationErrors && params.step === 'title' && body.title) {
 		const { errors } = await checkS51NameIsUnique(Number(caseId), title);
 		apiErrors = errors;
+	} else if (validationErrors) {
+		// Make sure any date errors have the value populated with the entered data
+		addEnteredDateToValidationErrors(validationErrors, body);
 	}
 
 	if (validationErrors || apiErrors) {
@@ -238,7 +290,7 @@ export async function updateApplicationsCaseS51CreatePage(request, response) {
 	}
 
 	setSessionS51(session, body);
-	const { nextPage } = createS51Journey[params.step];
+	const { nextPage } = s51Steps[params.step];
 	response.redirect(`../create/${nextPage}`);
 }
 
@@ -258,7 +310,7 @@ export async function viewApplicationsCaseS51CheckYourAnswers(request, response)
 			id: params.folderId,
 			displayNameEn: 's51-advice'
 		},
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -310,7 +362,7 @@ export async function viewApplicationsCaseS51Delete({ params }, response) {
 
 	response.render('applications/case-s51/s51-delete.njk', {
 		s51Advice,
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -333,7 +385,9 @@ export async function deleteApplicationsCaseS51({ params }, response) {
 			errors
 		});
 	}
-	return response.render('applications/case-s51/s51-successfully-deleted', { gs51CaseReference });
+	return response.render('applications/case-s51/s51-successfully-deleted', {
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
+	});
 }
 
 /**
@@ -396,7 +450,7 @@ export async function viewApplicationsCaseS51PublishingQueue({ query }, response
 	response.render(`applications/case-s51/s51-publishing-queue`, {
 		s51Advices,
 		paginationButtons,
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -433,7 +487,7 @@ export async function publishApplicationsCaseS51Items(request, response) {
 
 	return response.render('applications/case-s51/s51-successfully-published', {
 		items: body.selectedFilesIds.length,
-		gs51CaseReference
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});
 }
 
@@ -534,5 +588,7 @@ export async function postUnpublishAdvice({ params }, response) {
 	}
 
 	await unpublishS51Advice(Number(caseId), Number(adviceId));
-	response.render('applications/case-s51/s51-successfully-unpublished', { gs51CaseReference });
+	response.render('applications/case-s51/s51-successfully-unpublished', {
+		gs51CaseReference: BO_GENERAL_S51_CASE_REF
+	});
 }

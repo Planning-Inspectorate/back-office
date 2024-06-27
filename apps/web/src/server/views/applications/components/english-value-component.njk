@@ -1,0 +1,14 @@
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% macro englishValueComponent(options) %}
+	{% if options.englishValue != null %}
+		<h1 class="govuk-heading-l">
+			{{ options.pageTitle if options.englishValue != null and options.pageTitle != null else options.label }}
+		</h1>
+		<p class='govuk-body govuk-!-margin-bottom-0'>{{ options.englishLabel }}:</p>
+
+		{{ govukInsetText({
+			text: options.englishValue
+		}) }}
+	{% endif %}
+{% endmacro %}

@@ -1,0 +1,22 @@
+{% extends "./applications.layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+    href: 's51-item' | url({ caseId: caseId, folderId: folderId, adviceId: adviceId, step: 'properties' })
+	}) }}
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds-from-desktop">
+			<form method="post" action="" novalidate="novalidate">
+				{% block formContent %}{% endblock %}
+				{{ govukButton({ text: 'Save and return' }) }}
+			</form>
+		</div>
+	</div>
+{% endblock %}

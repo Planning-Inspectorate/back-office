@@ -1,6 +1,11 @@
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import { buildQueryString } from '../../common/components/build-query-string.js';
 import { getPaginationInfo } from '../../common/components/pagination/pagination.js';
+import {
+	deleteSessionBanner,
+	getSessionBanner,
+	setSessionBanner
+} from '../../common/services/session.service.js';
 import { tableSortingHeaderLinks } from '../../common/components/table/table-sorting-header-links.js';
 import { bodyToCreateRequest, bodyToUpdateRequest } from './project-updates.mapper.js';
 import { projectUpdateRoutes } from './project-updates.router.js';
@@ -11,11 +16,6 @@ import {
 	getProjectUpdates,
 	patchProjectUpdate
 } from './project-updates.service.js';
-import {
-	deleteSessionBanner,
-	getSessionBanner,
-	setSessionBanner
-} from './project-updates.session.js';
 import {
 	createDetailsView,
 	createContentFormView,

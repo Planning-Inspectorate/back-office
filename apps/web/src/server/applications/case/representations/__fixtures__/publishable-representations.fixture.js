@@ -34,3 +34,30 @@ export const publishableRepresentationsFixture = {
 		}
 	]
 };
+
+/**
+ * Used to generate large number of representation items
+ *
+ * @param {any} fixture
+ * @param {number} count
+ * @return {any}
+ */
+export function generateAdditionalItems(fixture, count) {
+	const baseItems = fixture.items;
+	const newItems = [...baseItems];
+
+	let currentId = baseItems.length + 1;
+
+	for (let i = 0; i < count; i++) {
+		const baseItem = baseItems[i % baseItems.length];
+		const newItem = { ...baseItem, id: currentId };
+		newItems.push(newItem);
+		currentId++;
+	}
+
+	return {
+		...fixture,
+		itemCount: newItems.length,
+		items: newItems
+	};
+}

@@ -1,10 +1,13 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { sortBy } from 'lodash-es';
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import {
 	getSessionFilesNumberOnList,
 	setSessionFilesNumberOnList,
 	getSuccessBanner,
-	destroySuccessBanner
+	destroySuccessBanner,
+	getSessionBanner,
+	deleteSessionBanner
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -28,7 +31,6 @@ import {
 } from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
-import { generalSection51CaseReference } from '../general-s51/applications-general-s51.config.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -53,7 +55,7 @@ export async function viewApplicationsCaseDocumentationCategories(_, response) {
 		case: { reference }
 	} = response.locals;
 	// hide the page when attempting to view general section 51 case documentation categories
-	if (reference === generalSection51CaseReference) {
+	if (reference === BO_GENERAL_S51_CASE_REF) {
 		return response.render(`app/404`);
 	}
 	const documentationCategories = await getCaseFolders(caseId);
@@ -207,20 +209,26 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
 /**
  * View the documentation properties page
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], showSuccessBanner: boolean|undefined}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], updateBannerText: string|undefined, showSuccessBanner: boolean|undefined, caseIsWelsh: boolean}, {}>}
  */
 export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
-	const { caseId, documentGuid } = response.locals;
+	const { caseId, caseIsWelsh, documentGuid } = response.locals;
 
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
-	const showSuccessBanner = getSuccessBanner(session);
+
+	const updateBannerText = getSessionBanner(session);
+	const showSuccessBanner = !!updateBannerText || getSuccessBanner(session);
+
+	deleteSessionBanner(session);
 	destroySuccessBanner(session);
 
 	response.render(`applications/case-documentation/properties/documentation-properties`, {
 		documentationFile,
 		documentVersions,
-		showSuccessBanner
+		updateBannerText,
+		showSuccessBanner,
+		caseIsWelsh
 	});
 }
 

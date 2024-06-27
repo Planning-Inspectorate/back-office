@@ -39,7 +39,7 @@ export async function migrateExamTimetablesForCase(log, caseReference) {
 			log.warn(`No Exam Timetable found for case ${caseReference}`);
 		}
 	} catch (e) {
-		log.error(`Failed to migrate Exam Timetable for case ${caseReference}`, e);
+		log.error(`Failed to migrate Exam Timetable for case ${caseReference}`, e?.response?.body, e);
 		throw e;
 	}
 }
@@ -50,7 +50,7 @@ export async function migrateExamTimetablesForCase(log, caseReference) {
  *
  * @returns {Promise<import('pins-data-model').Schemas.ExaminationTimetable | null>} timetable
  */
-const getExamTimetable = async (log, caseReference) => {
+export const getExamTimetable = async (log, caseReference) => {
 	/** @type {ExamTimetableItemRow[]}} */
 	const timetableItems = await SynapseDB.query(
 		'SELECT * FROM [odw_curated_db].[dbo].[examination_timetable] WHERE caseReference = ?;',
@@ -71,12 +71,14 @@ const getExamTimetable = async (log, caseReference) => {
 
 /**
  * @typedef {Object} ExamTimetableItemRow
- * @property {string} eventID
- * @property {'Accompanied Site Inspection' | 'Compulsory Acquisition Hearing' | 'Deadline' | 'Deadline For Close Of Examination' | 'Issued By' | 'Issue Specific Hearing' | 'Open Floor Hearing' | 'Other Meeting' | 'Preliminary Meeting' | 'Procedural Deadline (Pre-Examination)' | 'Procedural Decision' | 'Publication Of'} eventType
- * @property {string} eventTitle
+ * @property {string} eventId
+ * @property {'Accompanied Site Inspection' | 'Compulsory Acquisition Hearing' | 'Deadline' | 'Deadline For Close Of Examination' | 'Issued By' | 'Issue Specific Hearing' | 'Open Floor Hearing' | 'Other Meeting' | 'Preliminary Meeting' | 'Procedural Deadline (Pre-Examination)' | 'Procedural Decision' | 'Publication Of'} type
  * @property {string} eventDeadlineStartDate
- * @property {string} eventDate
- * @property {string} eventLineItemDescription
+ * @property {string} eventTitle
+ * @property {string} date
+ * @property {string} description
+ * @property {string[]} eventLineItems
+ * @property {string} published
  */
 
 /**
@@ -96,22 +98,28 @@ const mapTimetableFromItems = (caseReference, timetableItems) => {
 		(
 			timetable,
 			{
-				eventID,
-				eventType,
+				eventId,
+				type,
 				eventTitle,
-				eventDate,
+				date,
 				eventDeadlineStartDate,
-				eventLineItemDescription
+				description,
+				eventLineItems,
+				published
 			}
 		) => {
 			timetable.events.push(
 				removeNullValues({
-					eventId: Number(eventID),
-					type: eventType,
+					eventId: Number(eventId),
+					type,
 					eventTitle,
-					description: eventLineItemDescription,
-					date: eventDate,
-					eventDeadlineStartDate
+					description,
+					date,
+					eventDeadlineStartDate,
+					// seem to be all null in ODW and we need an array to pass validation
+					eventLineItems: eventLineItems?.length > 0 ? eventLineItems : [],
+					// published is a string '1' or '0' or null in ODW
+					published: published === '1'
 				})
 			);
 

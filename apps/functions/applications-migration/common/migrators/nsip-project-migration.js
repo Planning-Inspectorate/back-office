@@ -21,12 +21,13 @@ export const migrateNsipProjects = async (log, caseReferences) => {
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} overrideMigrationStatus
  */
-export async function migrateNsipProjectByReference(log, caseReference) {
+export async function migrateNsipProjectByReference(log, caseReference, overrideMigrationStatus) {
 	try {
 		log.info(`Migrating NSIP Project for case ${caseReference}`);
 
-		const projects = await getNsipProjects(log, caseReference);
+		const projects = await getNsipProjects(log, caseReference, overrideMigrationStatus);
 
 		if (projects.length > 0) {
 			log.info(`Migrating ${projects.length} NSIP Projects for case ${caseReference}`);
@@ -38,7 +39,7 @@ export async function migrateNsipProjectByReference(log, caseReference) {
 			log.warn(`No NSIP Project found for case ${caseReference}`);
 		}
 	} catch (e) {
-		log.error(`Failed to migrate NSIP Project for case ${caseReference}`, e);
+		log.error(`Failed to migrate NSIP Project for case ${caseReference}`, e?.response?.body, e);
 		throw e;
 	}
 }
@@ -46,12 +47,13 @@ export async function migrateNsipProjectByReference(log, caseReference) {
 /**
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} overrideMigrationStatus
  */
-const getNsipProjects = async (log, caseReference) => {
+export const getNsipProjects = async (log, caseReference, overrideMigrationStatus) => {
 	const projects = await SynapseDB.query(
-		'SELECT * FROM [odw_curated_db].[dbo].[nsip_data] WHERE caseReference = ?;',
+		'SELECT * FROM [odw_curated_db].[dbo].[nsip_data] WHERE caseReference = ? AND sourceSystem = ?;',
 		{
-			replacements: [caseReference],
+			replacements: [caseReference, 'horizon'],
 			type: QueryTypes.SELECT
 		}
 	);
@@ -59,22 +61,22 @@ const getNsipProjects = async (log, caseReference) => {
 	log.info(`Retrieved projects ${JSON.stringify(projects)}`);
 
 	return projects.map((project) => ({
-		dateIAPIDue: null,
-		jRPeriodEndDate: null,
-		operationsLeadId: null,
-		operationsManagerId: null,
-		caseManagerId: null,
-		nsipOfficerIds: [],
-		nsipAdministrationOfficerIds: [],
-		leadInspectorId: null,
-		inspectorIds: [],
-		environmentalServicesOfficerId: null,
-		legalOfficerId: null,
-		applicantId: null,
-		migrationStatus: null,
-		dateOfReOpenRelevantRepresentationStart: null,
-		dateOfReOpenRelevantRepresentationClose: null,
 		...project,
-		regions: project.region ? [project.region] : []
+		nsipOfficerIds: valueToArray(project.nsipOfficerIds),
+		nsipAdministrationOfficerIds: valueToArray(project.nsipAdministrationOfficerIds),
+		inspectorIds: valueToArray(project.inspectorIds),
+		migrationStatus: overrideMigrationStatus ? true : Boolean(project.migrationStatus),
+		regions: valueToArray(project.region),
+		projectType: mapProjectType(project.projectType)
 	}));
 };
+
+const valueToArray = (value) => (value ? [value] : []);
+
+/**
+ * temporary workaround to fix casing issue
+ * TODO: remove once ODW-1184 resolved
+ */
+const mapProjectType = (projectType) =>
+	({ 'WW01 - Waste Water treatment Plants': 'WW01 - Waste Water Treatment Plants' }[projectType] ||
+	projectType);

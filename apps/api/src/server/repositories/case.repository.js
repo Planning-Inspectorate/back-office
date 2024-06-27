@@ -1,10 +1,10 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { forEach, isEmpty, isString, map } from 'lodash-es';
 import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import { databaseConnector } from '../utils/database-connector.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
-import { generalSection51CaseReference } from '../applications/application/application.config.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
@@ -61,7 +61,7 @@ export const getByStatus = (statusArray) => {
 			OR: [
 				{
 					reference: {
-						not: generalSection51CaseReference
+						not: BO_GENERAL_S51_CASE_REF
 					}
 				},
 				{
@@ -118,7 +118,7 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 					OR: [
 						{
 							reference: {
-								not: generalSection51CaseReference
+								not: BO_GENERAL_S51_CASE_REF
 							}
 						},
 						{
@@ -172,7 +172,7 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 					OR: [
 						{
 							reference: {
-								not: generalSection51CaseReference
+								not: BO_GENERAL_S51_CASE_REF
 							}
 						},
 						{

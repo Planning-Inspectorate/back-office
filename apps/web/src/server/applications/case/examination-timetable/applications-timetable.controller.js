@@ -1,5 +1,8 @@
 import { dateString, displayDate } from '../../../lib/nunjucks-filters/date.js';
-import { mapExaminationTimetableToFormBody } from './applications-timetable.mappers.js';
+import {
+	convertExamDescriptionToInputText,
+	mapExaminationTimetableToFormBody
+} from './applications-timetable.mappers.js';
 import {
 	createCaseTimetableItem,
 	getCaseTimetableItemTypes,
@@ -14,6 +17,12 @@ import {
 } from './applications-timetable.service.js';
 import pino from '../../../lib/logger.js';
 import sanitizeHtml from 'sanitize-html';
+import { isCaseRegionWales } from '../../common/isCaseWelsh.js';
+import {
+	deleteSessionBanner,
+	getSessionBanner,
+	setSessionBanner
+} from '../../common/services/session.service.js';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
@@ -110,30 +119,37 @@ export const timetableTemplatesSchema = {
 /**
  * View the list of examination timetables for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean, selectedPageType: string, republishStatus: boolean}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Record<string, any>, publishedStatus: boolean, selectedPageType: string, republishStatus: boolean, isCaseWelsh: boolean, successBannerText: string | undefined}>}
  */
-export async function viewApplicationsCaseTimetableList(_, response) {
+export async function viewApplicationsCaseTimetableList({ session }, response) {
 	const examinationTimetable = await getCaseTimetableItems(response.locals.caseId);
 	const timetableItemsViewData = examinationTimetable?.items?.map(getTimetableRows) ?? [];
 	const republishStatus =
 		examinationTimetable.updatedAt > examinationTimetable.publishedAt ||
 		examinationTimetable.items?.some((item) => item.createdAt > examinationTimetable.publishedAt);
 
+	const isCaseWelsh = isCaseRegionWales(response.locals.case?.geographicalInformation?.regions);
+	const successBannerText = getSessionBanner(session);
+	deleteSessionBanner(session);
+
 	response.render(`applications/case-timetable/timetable-list`, {
 		timetableItems: timetableItemsViewData,
 		publishedStatus: examinationTimetable?.published,
 		selectedPageType: 'examination-timetable',
-		republishStatus
+		republishStatus,
+		isCaseWelsh,
+		successBannerText
 	});
 }
 
 /**
  * View the preview page of the examination timetables for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string, stage: string}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string, stage: string, isCaseWelsh: boolean}>}
  */
 export async function viewApplicationsCaseTimetablesPreview(_, response) {
 	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+	const isCaseWelsh = isCaseRegionWales(response.locals.case?.geographicalInformation?.regions);
 
 	const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
 		getTimetableRows(timetableItem)
@@ -142,17 +158,19 @@ export async function viewApplicationsCaseTimetablesPreview(_, response) {
 	response.render(`applications/case-timetable/timetable-preview.njk`, {
 		timetableItems: timetableItemsViewData,
 		backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`,
-		stage: 'publish'
+		stage: 'publish',
+		isCaseWelsh
 	});
 }
 
 /**
  * View the unpublish preview page of the examination timetables for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string, stage: string}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItems: Array<Record<string, any>>, backLink: string, stage: string, isCaseWelsh: boolean}>}
  */
 export async function viewApplicationsCaseTimetablesUnpublishPreview(_, response) {
 	const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+	const isCaseWelsh = isCaseRegionWales(response.locals.case?.geographicalInformation?.regions);
 
 	const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
 		getTimetableRows(timetableItem)
@@ -161,7 +179,8 @@ export async function viewApplicationsCaseTimetablesUnpublishPreview(_, response
 	response.render(`applications/case-timetable/timetable-preview.njk`, {
 		timetableItems: timetableItemsViewData,
 		backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`,
-		stage: 'unpublish'
+		stage: 'unpublish',
+		isCaseWelsh
 	});
 }
 
@@ -171,11 +190,25 @@ export async function viewApplicationsCaseTimetablesUnpublishPreview(_, response
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function publishApplicationsCaseTimetables(_, response) {
-	const { errors } = await publishCaseTimetableItems(response.locals.caseId);
+	const {
+		locals: { caseIsWelsh, caseId }
+	} = response;
+	const timetableItems = await getCaseTimetableItems(caseId);
 
-	if (errors) {
-		const timetableItems = await getCaseTimetableItems(response.locals.caseId);
+	let errors = {};
+	if (caseIsWelsh) {
+		//we shouldn't publish a timetable for a welsh case without welsh name
+		errors = validateWelshNameBeforePublish(timetableItems.items)
+			? { ...generateExamTimetablePublishingErrors(timetableItems.items) }
+			: {};
+	}
 
+	errors = {
+		...errors,
+		...(await publishCaseTimetableItems(response.locals.caseId)).errors
+	};
+
+	if (Object.keys(errors).length) {
 		const timetableItemsViewData = timetableItems?.items?.map((timetableItem) =>
 			getTimetableRows(timetableItem)
 		);
@@ -183,7 +216,9 @@ export async function publishApplicationsCaseTimetables(_, response) {
 		return response.render(`applications/case-timetable/timetable-preview.njk`, {
 			timetableItems: timetableItemsViewData,
 			errors,
-			backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`
+			stage: 'publish',
+			backLink: `/applications-service/case/${response.locals.caseId}/examination-timetable`,
+			isCaseWelsh: caseIsWelsh
 		});
 	}
 
@@ -218,10 +253,11 @@ export async function unpublishApplicationsCaseTimetables(_, response) {
 /**
  * View the delete page for the examination timetable for a single case
  *
- * @type {import('@pins/express').RenderHandler<{timetableItem: Record<string, string>}, {}, {}, {}, {timetableId: string}>}
+ * @type {import('@pins/express').RenderHandler<{timetableItem: Record<string, string>, isCaseWelsh: boolean}, {}, {}, {}, {timetableId: string}>}
  */
 export async function viewApplicationsCaseTimetableDelete(request, response) {
 	const timetableItem = await getCaseTimetableItemById(+request.params.timetableId);
+	const isCaseWelsh = isCaseRegionWales(response.locals.case?.geographicalInformation?.regions);
 
 	if (timetableItem.submissions) {
 		pino.error(
@@ -234,7 +270,8 @@ export async function viewApplicationsCaseTimetableDelete(request, response) {
 	const timetableItemViewData = getTimetableRows(timetableItem);
 
 	response.render(`applications/case-timetable/timetable-delete.njk`, {
-		timetableItem: timetableItemViewData
+		timetableItem: timetableItemViewData,
+		isCaseWelsh
 	});
 }
 
@@ -373,10 +410,6 @@ export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, re
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
 export async function postApplicationsCaseTimetableSave({ body }, response) {
-	const splitDescription = sanitizeHtml(body.description, {}).split('*');
-	const preText = splitDescription.shift();
-	const bulletPoints = splitDescription;
-
 	const startDate = body['startDate.year']
 		? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
 		: null;
@@ -390,7 +423,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		caseId: response.locals.caseId,
 		examinationTypeId: Number.parseInt(body['timetableTypeId'], 10),
 		name: body.name,
-		description: JSON.stringify({ preText, bulletPoints }),
+		description: prepareDescriptionPayload(body.description),
 		date,
 		startDate,
 		startTime: body['startTime.hours']
@@ -433,6 +466,143 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 	}
 
 	response.redirect(`../../${payload.id ? 'edited' : 'created'}/success`);
+}
+/**
+ * view examination timetable item-welsh name
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
+ */
+export async function viewApplicationsCaseTimetableItemNameWelsh({ params }, response) {
+	const { timetableId } = params;
+	const { name, nameWelsh, submissions } = await getCaseTimetableItemById(+timetableId);
+
+	// if there are submissions against timetable item, we shouldn't edit it
+	if (submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${params.timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
+
+	return response.render('applications/case-timetable/timetable-item-name-welsh.njk', {
+		itemName: name,
+		itemNameWelsh: nameWelsh,
+		pageTitle: 'Item name in Welsh'
+	});
+}
+
+/**
+ * create/edit examination timetable item-welsh name
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
+ */
+export async function postApplicationsCaseTimetableItemNameWelsh(
+	{ params, body, baseUrl, errors, session },
+	response
+) {
+	const { timetableId } = params;
+	const { name, submissions } = await getCaseTimetableItemById(+timetableId);
+
+	// if there are submissions, we shouldn't edit the item
+	if (submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
+
+	if (errors) {
+		return response.render('applications/case-timetable/timetable-item-name-welsh.njk', {
+			itemName: name,
+			itemNameWelsh: errors.nameWelsh.value,
+			pageTitle: 'Item name in Welsh',
+			errors
+		});
+	}
+
+	/** @type {ApplicationsTimetablePayload} */
+	const payload = {
+		id: +timetableId,
+		nameWelsh: body.nameWelsh
+	};
+
+	await updateCaseTimetableItem(payload);
+
+	//on update, return to examination timetable and display success banner
+	setSessionBanner(session, 'Item name in Welsh updated');
+	return response.redirect(`${baseUrl}`);
+}
+
+/**
+ * view examination timetable item- welsh description
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
+ */
+export async function viewApplicationsCaseTimetableItemDescriptionWelsh({ params }, response) {
+	const { timetableId } = params;
+	const { description, descriptionWelsh, submissions } = await getCaseTimetableItemById(
+		+timetableId
+	);
+
+	// if there are submissions against timetable item, we shouldn't edit it
+	if (submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
+
+	return response.render('applications/case-timetable/timetable-item-description-welsh.njk', {
+		itemDescription: JSON.parse(description),
+		itemDescriptionWelsh: convertExamDescriptionToInputText(descriptionWelsh),
+		pageTitle: 'Item description in Welsh'
+	});
+}
+
+/**
+ * create/edit examination timetable item-welsh description
+ *
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
+ */
+export async function postApplicationsCaseTimetableItemDescriptionWelsh(
+	{ params, body, baseUrl, errors, session },
+	response
+) {
+	const { timetableId } = params;
+	const { description, submissions } = await getCaseTimetableItemById(+params.timetableId);
+
+	// if there are submissions against timetable item, we shouldn't edit it
+	if (submissions) {
+		pino.error(`[WEB] Cannot edit Examination Timetable ${timetableId}: submissions found`);
+		return response.render('app/500.njk');
+	}
+
+	if (!validateWelshItemDescriptionBulletPoints(description, body.descriptionWelsh)) {
+		errors = {
+			descriptionWelsh: {
+				value: body.descriptionWelsh,
+				msg: 'Item description in Welsh must contain the same number of bullets as the item description in English',
+				param: 'descriptionWelsh',
+				location: 'body'
+			},
+			...errors //errors from validator should supersede bullet point error
+		};
+	}
+
+	if (errors) {
+		return response.render('applications/case-timetable/timetable-item-description-welsh.njk', {
+			itemDescription: JSON.parse(description),
+			itemDescriptionWelsh: body.descriptionWelsh,
+			pageTitle: 'Item description in Welsh',
+			errors
+		});
+	}
+
+	/** @type {ApplicationsTimetablePayload} */
+	const payload = {
+		id: +timetableId,
+		descriptionWelsh: prepareDescriptionPayload(body.descriptionWelsh)
+	};
+
+	await updateCaseTimetableItem(payload);
+
+	//on update, return to examination timetable and display success banner
+	setSessionBanner(session, 'Item description in Welsh updated');
+	return response.redirect(`${baseUrl}`);
 }
 
 /**
@@ -505,8 +675,10 @@ const getTimetableRows = (timetableItem) => {
 	const {
 		id,
 		description,
+		descriptionWelsh,
 		submissions,
 		name,
+		nameWelsh,
 		ExaminationTimetableType,
 		date,
 		startDate,
@@ -541,12 +713,70 @@ const getTimetableRows = (timetableItem) => {
 		itemTypeName: ExaminationTimetableType.name,
 		templateType: templateType,
 		name,
+		nameWelsh,
 		submissions,
 		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
 		startDate: startDateDisplay(),
 		endDate: shouldShowField('endDate') ? displayDate(date, { condensed: true }) || '' : null,
 		startTime: shouldShowField('startTime') ? startTime || '' : null,
 		endTime: shouldShowField('endTime') ? endTime || '' : null,
-		description: JSON.parse(description)
+		description: description ? JSON.parse(description) : null,
+		descriptionWelsh: descriptionWelsh ? JSON.parse(descriptionWelsh) : null
 	};
+};
+
+/**
+ * Prepare the payload for the description
+ * @param {string|undefined} descriptionBody
+ * @returns {string}
+ */
+const prepareDescriptionPayload = (descriptionBody) => {
+	if (typeof descriptionBody !== 'string') {
+		throw new Error('Description body must be a string');
+	}
+	const splitDescription = sanitizeHtml(descriptionBody, {}).split('*');
+	const preText = splitDescription.shift();
+	const bulletPoints = splitDescription;
+
+	return JSON.stringify({ preText, bulletPoints });
+};
+
+/**
+ * Validate the welsh and english timetable item descriptions to both have the same number of bulletpoints
+ * @param {string} englishDescription
+ * @param {string|undefined} welshDescriptionBody
+ * @returns {boolean}
+ */
+const validateWelshItemDescriptionBulletPoints = (englishDescription, welshDescriptionBody) => {
+	const { bulletPoints: englishBulletPointsArr } = JSON.parse(englishDescription);
+
+	const welshDescription = prepareDescriptionPayload(welshDescriptionBody);
+	const { bulletPoints: welshBulletPointsArr } = JSON.parse(welshDescription);
+
+	return englishBulletPointsArr.length === welshBulletPointsArr.length;
+};
+
+/**
+ * Validate the welsh timetable item names to have a value before publishing
+ * @param {Array<ApplicationExaminationTimetableItem>} timetableItems
+ * @returns {boolean}
+ */
+const validateWelshNameBeforePublish = (timetableItems) =>
+	timetableItems.some((item) => !item.nameWelsh || item.nameWelsh.trim() === '');
+
+/**
+ * Create errors object to be passed to the template
+ * @param {Array<ApplicationExaminationTimetableItem>} timetableItems
+ */
+const generateExamTimetablePublishingErrors = (timetableItems) => {
+	/** @type {Record<string, {msg: string}>}*/
+	const errors = {};
+	timetableItems.forEach((item) => {
+		if (!item.nameWelsh || item.nameWelsh.trim() === '') {
+			errors[`nameWelsh-${item.id}`] = {
+				msg: `Enter examination timetable item name in welsh - ${item.name}`
+			};
+		}
+	});
+	return errors;
 };

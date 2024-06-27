@@ -1,0 +1,20 @@
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "./english-value-component.njk" import englishValueComponent %}
+
+{% macro textareaFormComponent(options) %}
+	{{ englishValueComponent(options) }}
+
+	{{ govukTextarea({
+		id: options.name,
+		pageTitle: options.pageTitle if options.pageTitle else options.layout,
+		name: options.name,
+		label: {
+			text: options.pageTitle if options.englishValue == null and options.pageTitle != null else options.label,
+			classes: "govuk-label--l" if options.englishValue == null else "govuk-label--m",
+			isPageHeading: true if options.englishValue == null
+		},
+		hint: { text: options.hint } if options.hint,
+		errorMessage: options.errorMessage | errorMessage,
+		value: options.value
+	}) }}
+{% endmacro %}

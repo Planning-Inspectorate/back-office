@@ -98,7 +98,7 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/properties')
 	.get(
-		[locals.registerFolder, locals.registerDocumentGuid],
+		[locals.registerCase, locals.registerFolder, locals.registerDocumentGuid],
 		asyncHandler(controller.viewApplicationsCaseDocumentationProperties)
 	);
 

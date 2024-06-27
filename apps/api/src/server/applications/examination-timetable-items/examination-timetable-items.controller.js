@@ -52,7 +52,10 @@ export const getExaminationTimetableItems = async ({ params }, response) => {
 							resolve({
 								...item,
 								submissions,
-								description: mapExaminationTimetableItemDescriptionToView(item.description)
+								description: mapExaminationTimetableItemDescriptionToView(item.description),
+								descriptionWelsh: item.descriptionWelsh
+									? mapExaminationTimetableItemDescriptionToView(item.descriptionWelsh)
+									: null
 							})
 						)
 						.catch(reject);
@@ -87,8 +90,11 @@ export const getExaminationTimetableItem = async (_request, response) => {
 	const description = mapExaminationTimetableItemDescriptionToView(
 		examinationTimetableItem.description
 	);
+	const descriptionWelsh = examinationTimetableItem.descriptionWelsh
+		? mapExaminationTimetableItemDescriptionToView(examinationTimetableItem.descriptionWelsh)
+		: null;
 
-	response.send({ ...examinationTimetableItem, submissions, description });
+	response.send({ ...examinationTimetableItem, submissions, description, descriptionWelsh });
 };
 
 /**
@@ -306,11 +312,20 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 		throw new BackOfficeAppError('Can not delete examination timetable item.', 400);
 	}
 
-	body.description = mapExaminationTimetableItemDescriptionToSave(body.description);
+	if (body.description) {
+		body.description = mapExaminationTimetableItemDescriptionToSave(body.description);
+	}
+	if (body.descriptionWelsh) {
+		body.descriptionWelsh = mapExaminationTimetableItemDescriptionToSave(body.descriptionWelsh);
+	}
+
 	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
 
 	// if changing the name, check the new timetable item name is unique
-	if (timetableBeforeUpdate.name !== mappedExamTimetableDetails.name) {
+	if (
+		mappedExamTimetableDetails.name &&
+		timetableBeforeUpdate.name !== mappedExamTimetableDetails.name
+	) {
 		const examinationTimetableMatchingItems =
 			await examinationTimetableItemsRepository.getByExaminationTimetableName(
 				timetableBeforeUpdate.examinationTimetableId,
@@ -333,8 +348,10 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 	// if name or dates have changed, then need to rename matching folders
 	let folder;
 	if (
-		timetableBeforeUpdate.name !== mappedExamTimetableDetails.name ||
-		timetableBeforeUpdate.date !== mappedExamTimetableDetails.date
+		(mappedExamTimetableDetails.name &&
+			timetableBeforeUpdate.name !== mappedExamTimetableDetails.name) ||
+		(mappedExamTimetableDetails.date &&
+			timetableBeforeUpdate.date !== mappedExamTimetableDetails.date)
 	) {
 		const newFolderName = `${format(new Date(mappedExamTimetableDetails.date), 'dd MMM yyyy')} - ${
 			mappedExamTimetableDetails.name
@@ -364,7 +381,10 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 		folder = await folderRepository.getById(timetableBeforeUpdate.folderId);
 	}
 
-	if (timetableBeforeUpdate.description !== mappedExamTimetableDetails.description) {
+	if (
+		mappedExamTimetableDetails.description &&
+		timetableBeforeUpdate.description !== mappedExamTimetableDetails.description
+	) {
 		// @ts-ignore
 		const caseId = timetableBeforeUpdate.ExaminationTimetable.caseId;
 

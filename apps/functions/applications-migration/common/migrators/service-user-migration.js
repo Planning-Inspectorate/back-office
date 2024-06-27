@@ -26,9 +26,7 @@ export async function migrateServiceUsersForCase(log, caseReference) {
 	try {
 		log.info(`reading Service Users with caseReference ${caseReference}`);
 
-		const [serviceUsers, count] = await SynapseDB.query(serviceUserQuery, {
-			replacements: [caseReference]
-		});
+		const { serviceUsers, count } = await getServiceUsers(log, caseReference);
 
 		log.info(`found ${count} Service Users: ${JSON.stringify(serviceUsers.map((u) => u.id))}`);
 
@@ -40,3 +38,15 @@ export async function migrateServiceUsersForCase(log, caseReference) {
 		throw e;
 	}
 }
+
+/**
+ * @param {import('@azure/functions').Logger} log
+ * @param {string} caseReference
+ *
+ */
+export const getServiceUsers = async (log, caseReference) => {
+	const [serviceUsers, count] = await SynapseDB.query(serviceUserQuery, {
+		replacements: [caseReference]
+	});
+	return { serviceUsers, count };
+};

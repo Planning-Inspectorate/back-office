@@ -187,6 +187,8 @@ export interface DocumentDetails {
 	privateBlobContainer?: string;
 	/** @example "John Smith" */
 	author?: string;
+	/** @example "John Smith (Welsh)" */
+	authorWelsh?: string;
 	/** @example 1646822400 */
 	dateCreated?: number;
 	/** @example "published" */
@@ -745,6 +747,8 @@ export interface DocumentProperties {
 	privateBlobPath?: string;
 	/** @example null */
 	author?: string;
+	/** @example null */
+	authorWelsh?: string;
 	/**
 	 * File Title
 	 * @example "Small Doc 1"
@@ -787,6 +791,8 @@ export interface DocumentProperties {
 	datePublished?: number;
 	/** @example null */
 	description?: string;
+	/** @example null */
+	descriptionWelsh?: string;
 	/**
 	 * Document version
 	 * @example 2
@@ -800,6 +806,8 @@ export interface DocumentProperties {
 	documentType?: string;
 	/** @example "some filter" */
 	filter1?: string;
+	/** @example "some filter" */
+	filter1Welsh?: string;
 	/** @example "some filter" */
 	filter2?: string;
 	/**

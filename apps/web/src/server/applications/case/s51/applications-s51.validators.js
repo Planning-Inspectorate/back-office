@@ -5,6 +5,7 @@ import {
 	validationDateMandatory,
 	validationDateValid
 } from '../../common/validators/dates.validators.js';
+import { getS51Advice } from './applications-s51.service.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -19,15 +20,18 @@ export const s51ValidatorsDispatcher = async (request, response, next) => {
 	/** @type {Record<string, RequestHandler>} */
 	const validators = {
 		title: validateS51Title,
+		'title-in-welsh': validateS51TitleWelsh,
 		enquirer: validateS51Enquirer,
 		method: validateS51Method,
 		'enquiry-date': validateS51Details('enquiry', 'enquiry details', ['date']),
 		'enquiry-detail': validateS51Details('enquiry', 'enquiry details', ['details']),
 		'enquiry-details': validateS51Details('enquiry', 'enquiry details', ['date', 'details']),
+		'enquiry-detail-in-welsh': validateS1EnquiryDetailsWelsh,
 		person: validateS51Person,
 		'advice-date': validateS51Details('advice', 'advice given', ['date']),
 		'advice-detail': validateS51Details('advice', 'advice given', ['details']),
-		'advice-details': validateS51Details('advice', 'advice given', ['date', 'details'])
+		'advice-details': validateS51Details('advice', 'advice given', ['date', 'details']),
+		'advice-detail-in-welsh': validateS1AdviceDetailsWelsh
 	};
 
 	if (Object.keys(validators).includes(step)) {
@@ -47,6 +51,15 @@ export const validateS51Title = createValidator(
 		.withMessage('You must enter a S51 advice title')
 		.isLength({ max: 255 })
 		.withMessage('The name must be 255 characters or fewer')
+);
+
+export const validateS51TitleWelsh = createValidator(
+	body('titleWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the S51 title in Welsh')
+		.isLength({ max: 255 })
+		.withMessage('The S51 title in Welsh must be 255 characters or fewer')
 );
 
 export const validateS51Method = createValidator(
@@ -159,6 +172,24 @@ export const validateS51Details =
 		])(request, response, next);
 	};
 
+export const validateS1EnquiryDetailsWelsh = createValidator(
+	body('enquiryDetailsWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the S51 Enquiry details in Welsh')
+		.isLength({ max: 255 })
+		.withMessage('The S51 Enquiry details in Welsh must be 255 characters or fewer')
+);
+
+export const validateS1AdviceDetailsWelsh = createValidator(
+	body('adviceDetailsWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the S51 Advice given in Welsh')
+		.isLength({ max: 255 })
+		.withMessage('The S51 Advice given in Welsh must be 255 characters or fewer')
+);
+
 export const validateS51AdviceToChange = createValidator(
 	body('selectedFilesIds')
 		.isArray({ min: 1 })
@@ -174,6 +205,45 @@ export const validateS51AdviceActions = createValidator(
 		.custom((value, { req }) => !!value || !!req?.body?.status)
 		.withMessage('Select a status to apply a change')
 );
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
+export const validateS51AdviceReadyToPublish = async (req, res, next) => {
+	// @ts-ignore
+	const { status = '', /** @type {{selectedFilesIds: string[]}} */ selectedFilesIds = [] } =
+		req.body || {};
+	const { caseIsWelsh = false, caseId } = res.locals || {};
+
+	if (!caseIsWelsh || status !== 'ready_to_publish') {
+		return next();
+	}
+
+	const s51AdviceItems = await Promise.all(
+		selectedFilesIds.map((/** @type {{adviceId: string}} */ adviceId) =>
+			getS51Advice(caseId, Number(adviceId))
+		)
+	);
+
+	const incompleteS51AdviceItems = s51AdviceItems.filter(
+		(adviceItem) =>
+			!adviceItem.titleWelsh || !adviceItem.enquiryDetailsWelsh || !adviceItem.adviceDetailsWelsh
+	);
+
+	if (incompleteS51AdviceItems.length === 0) {
+		return next();
+	}
+
+	return createValidator(
+		incompleteS51AdviceItems.map((adviceItem) =>
+			body('edit-id-' + Number(adviceItem.id))
+				.custom(() => false)
+				.withMessage('Enter missing information about the S51 advice')
+		)
+	)(req, res, next);
+};
 
 /**
  * @param {import("express").Request} req

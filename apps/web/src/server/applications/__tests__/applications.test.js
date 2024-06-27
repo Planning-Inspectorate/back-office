@@ -42,6 +42,22 @@ describe('applications', () => {
 
 			expect(element.innerHTML).toContain('Create case');
 		});
+
+		it('should render there is a problem with the service', async () => {
+			nock('http://test/').get('/applications').reply(500, fixtureCases);
+
+			const response = await request.get(baseUrl);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+
+			expect(element.innerHTML).toContain('Sorry, there is a problem with the service');
+
+			expect(element.innerHTML).toContain(
+				'https://intranet.planninginspectorate.gov.uk/task/report-it-problem/'
+			);
+		});
 	});
 });
 
@@ -64,6 +80,10 @@ describe('Applications homepage when user belongs to wrong group', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toContain('You are not permitted to access this URL');
+
+			expect(element.innerHTML).toContain(
+				'https://intranet.planninginspectorate.gov.uk/task/report-it-problem/'
+			);
 		});
 	});
 });

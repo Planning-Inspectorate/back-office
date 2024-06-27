@@ -1,11 +1,14 @@
 import { migrateNsipProjects } from '../common/migrators/nsip-project-migration.js';
-
+import { handleMigrationWithResponse } from '../common/handle-migration-with-response.js';
 /**
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
 export default async function (context, { body: { caseReferences } }) {
-	console.info('Migrating NSIP Projects for', JSON.stringify(caseReferences));
-
-	await migrateNsipProjects(context.log, caseReferences);
+	await handleMigrationWithResponse(
+		context,
+		caseReferences,
+		() => migrateNsipProjects(context.log, caseReferences),
+		'project'
+	);
 }

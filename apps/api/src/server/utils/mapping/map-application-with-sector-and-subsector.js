@@ -12,7 +12,13 @@ import { mapSector } from './map-sector.js';
  * @returns {ApplicationSummary}
  */
 export const mapApplicationWithSectorAndSubSector = (application) => {
-	const applicationData = mapApplication(application, ['id', 'title', 'reference', 'modifiedAt']);
+	const applicationData = mapApplication(application, [
+		'id',
+		'title',
+		'titleWelsh',
+		'reference',
+		'modifiedAt'
+	]);
 
 	const applicationStatus = mapCaseStatus(application.CaseStatus);
 

@@ -59,7 +59,7 @@
 							{{ folderActions(isS51folder) }}
 
 							{% if isS51folder %}
-								{{ folderS51Table(items, pagination, caseId, folderId, isGeneralS51folder) }}
+								{{ folderS51Table(items, pagination, caseId, folderId, isGeneralS51folder, errors) }}
 							{% else %}
 								{{ folderDocumentsTable(items, pagination, caseId, folderId) }}
 							{% endif %}

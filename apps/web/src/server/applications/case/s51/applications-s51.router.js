@@ -7,7 +7,8 @@ import {
 	validateS51AdviceToChange,
 	validateS51AdviceActions,
 	validateS51AdviceToPublish,
-	validateS51UniqueTitle
+	validateS51UniqueTitle,
+	validateS51AdviceReadyToPublish
 } from './applications-s51.validators.js';
 
 const applicationsS51Router = createRouter({ mergeParams: true });
@@ -19,7 +20,12 @@ applicationsS51Router
 applicationsS51Router
 	.route('/change-status')
 	.post(
-		[validateS51AdviceToChange, validateS51AdviceActions, locals.registerFolder],
+		[
+			validateS51AdviceToChange,
+			validateS51AdviceActions,
+			validateS51AdviceReadyToPublish,
+			locals.registerFolder
+		],
 		asyncHandler(controller.updateApplicationsCaseS51ItemStatus)
 	);
 
@@ -59,13 +65,17 @@ applicationsS51Router
 	.route('/:adviceId/edit/:step')
 	.get(locals.registerFolderId, asyncHandler(controller.viewApplicationsCaseEditS51Item))
 	.post(
-		[locals.registerFolderId, s51ValidatorsDispatcher, validateS51UniqueTitle],
+		[locals.registerCase, locals.registerFolderId, s51ValidatorsDispatcher, validateS51UniqueTitle],
 		asyncHandler(controller.postApplicationsCaseEditS51Item)
 	);
 
 applicationsS51Router
 	.route('/:adviceId/:step')
-	.get(locals.registerFolderId, asyncHandler(controller.viewApplicationsCaseS51Item));
+	.get(
+		locals.registerCase,
+		locals.registerFolderId,
+		asyncHandler(controller.viewApplicationsCaseS51Item)
+	);
 
 applicationsS51Router
 	.route('/publishing-queue')

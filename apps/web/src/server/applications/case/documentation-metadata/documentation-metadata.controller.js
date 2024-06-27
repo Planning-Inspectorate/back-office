@@ -1,9 +1,10 @@
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
+import { setSessionBanner } from '../../common/services/session.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description"| "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter"|"agent"| "author"| "transcript"} MetaDataNames */
-/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle: string, backLink?: string, maxLength?: number, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
+/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript"} MetaDataNames */
+/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
 /** @typedef {{caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
@@ -11,39 +12,50 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 /** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
 const layouts = {
 	name: {
-		label: 'What is the file name?',
-		hint: 'There is a limit of 255 characters',
-		pageTitle: 'Enter file name',
+		label: 'Document file name',
 		metaDataName: 'fileName',
-		maxLength: 255
+		template: 'documentation-edit-textinput.njk'
 	},
 	description: {
-		label: 'Description of the document',
-		hint: 'There is a limit of 800 characters',
-		pageTitle: 'Enter document description',
+		label: 'Document description',
 		metaDataName: 'description',
-		maxLength: 800
+		template: 'documentation-edit-textarea.njk'
+	},
+	descriptionWelsh: {
+		label: 'Document description in Welsh',
+		metaDataName: 'descriptionWelsh',
+		englishLabel: 'Document description in English',
+		metaDataEnglishName: 'description',
+		template: 'documentation-edit-textarea.njk'
 	},
 	webfilter: {
 		label: 'Webfilter',
-		hint: 'There is a limit of 100 characters',
-		pageTitle: 'Enter the webfilter',
 		metaDataName: 'filter1',
-		maxLength: 100
+		template: 'documentation-edit-textarea.njk'
+	},
+	webfilterWelsh: {
+		label: 'Webfilter in Welsh',
+		metaDataName: 'filter1Welsh',
+		englishLabel: 'Webfilter in English',
+		metaDataEnglishName: 'filter1',
+		template: 'documentation-edit-textarea.njk'
 	},
 	agent: {
 		label: 'Agent name (optional)',
-		hint: 'There is a limit of 150 characters',
-		pageTitle: 'Enter the name of the agent',
 		metaDataName: 'representative',
-		maxLength: 150
+		template: 'documentation-edit-textinput.njk'
 	},
 	author: {
-		label: 'Document from',
-		hint: 'There is a limit of 150 characters',
-		pageTitle: 'Enter who the document is from',
+		label: 'Who the document is from',
 		metaDataName: 'author',
-		maxLength: 150
+		template: 'documentation-edit-textarea.njk'
+	},
+	authorWelsh: {
+		label: 'Who the document is from in Welsh',
+		englishLabel: 'Who the document is from in English',
+		metaDataName: 'authorWelsh',
+		metaDataEnglishName: 'author',
+		template: 'documentation-edit-textarea.njk'
 	},
 	'published-date': {
 		label: 'Date document published',
@@ -52,9 +64,9 @@ const layouts = {
 		metaDataName: 'datePublished'
 	},
 	'receipt-date': {
-		label: 'Date document received',
+		label: 'Date received',
 		hint: 'for example, 27 03 2023',
-		pageTitle: 'Enter the document receipt date',
+		pageTitle: 'Enter date received',
 		metaDataName: 'dateCreated'
 	},
 	redaction: {
@@ -63,6 +75,7 @@ const layouts = {
 			{ value: 'not_redacted', text: 'Unredacted' }
 		],
 		pageTitle: 'Select the redaction status',
+		label: 'Redaction',
 		metaDataName: 'redactedStatus'
 	},
 	'published-status': {
@@ -73,13 +86,14 @@ const layouts = {
 			{ value: 'do_not_publish', text: 'Do not publish' }
 		],
 		pageTitle: 'Select the document status',
+		label: 'Status',
 		metaDataName: 'publishedStatus'
 	},
 	transcript: {
 		label: 'Transcript (optional)',
 		hint: 'E.g. TR010060-000110',
-		pageTitle: 'Enter the document reference number of the associated transcript',
-		metaDataName: 'transcript'
+		metaDataName: 'transcript',
+		template: 'documentation-edit-textinput.njk'
 	},
 	type: {
 		items: [
@@ -138,7 +152,9 @@ export async function viewDocumentationMetaData({ params }, response) {
 		return response.status(403).redirect('/app/403');
 	}
 
-	response.render(`applications/case-documentation/documentation-edit.njk`, { layout, noPublish });
+	const template = layout.template ?? 'documentation-edit.njk';
+
+	response.render(`applications/case-documentation/${template}`, { layout, noPublish });
 }
 
 /**
@@ -148,7 +164,7 @@ export async function viewDocumentationMetaData({ params }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, Partial<Record<string, any>>, {}, RequestParams, ResponseLocals>}
  */
 export async function updateDocumentationMetaData(request, response) {
-	const { errors: validationErrors, params, body } = request;
+	const { errors: validationErrors, params, body, session } = request;
 	const { caseId, documentGuid } = response.locals;
 	const { metaDataName } = params;
 
@@ -156,11 +172,16 @@ export async function updateDocumentationMetaData(request, response) {
 
 	if (metaDataName === 'published-date' || metaDataName === 'receipt-date') {
 		const fieldName = layouts[metaDataName].metaDataName;
-		const newValue = `${body[`${fieldName}.year`]}-${body[`${fieldName}.month`]}-${
-			body[`${fieldName}.day`]
-		}`;
 
-		newMetaData = { [fieldName]: new Date(newValue) };
+		const day = body[`${fieldName}.day`];
+		const month = body[`${fieldName}.month`];
+		const year = body[`${fieldName}.year`];
+
+		if (validationErrors && validationErrors[fieldName]) {
+			validationErrors[fieldName].value = { year, month, day };
+		} else {
+			newMetaData = { [fieldName]: new Date(`${year}-${month}-${day}`) };
+		}
 	}
 	// special case for documentType "No document type" - we need to send null to the api
 	if (metaDataName === 'type' && newMetaData.documentType === '') {
@@ -174,11 +195,23 @@ export async function updateDocumentationMetaData(request, response) {
 	if (validationErrors || apiErrors) {
 		const layout = getLayoutParameters(params, response.locals);
 
-		return response.render(`applications/case-documentation/documentation-edit.njk`, {
-			errors: validationErrors || apiErrors,
-			layout
-		});
+		// @ts-ignore
+		const errors = Object.entries(validationErrors || apiErrors).reduce((result, [key, value]) => {
+			if (typeof value === 'string') {
+				return { ...result, [key]: { msg: value } };
+			} else {
+				return { ...result, [key]: value };
+			}
+		}, {});
+
+		return response.render(
+			`applications/case-documentation/${layout.template ?? 'documentation-edit.njk'}`,
+			{ errors, layout }
+		);
 	}
+
+	setSessionBanner(session, `${layouts[metaDataName].label} updated`);
+
 	response.redirect('../properties');
 }
 

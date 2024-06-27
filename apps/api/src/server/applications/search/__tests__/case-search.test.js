@@ -1,6 +1,6 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { request } from '../../../app-test.js';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
-import { generalSection51CaseReference } from '../../application/application.config.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 const searchString = 'EN010003 - NI Case 3 Name';
@@ -39,7 +39,7 @@ const expectedSearchParameters = (skip, take, query) => {
 					OR: [
 						{
 							reference: {
-								not: generalSection51CaseReference
+								not: BO_GENERAL_S51_CASE_REF
 							}
 						},
 						{

@@ -24,14 +24,22 @@ export const buildNsipS51AdvicePayload = async (s51Advice) => {
 	const caseReference = c?.reference ?? '';
 
 	return {
-		...pick(s51Advice, ['caseId', 'title', 'enquiryDetails', 'adviceDetails']),
+		...pick(s51Advice, [
+			'caseId',
+			'title',
+			'titleWelsh',
+			'enquiryDetails',
+			'enquiryDetailsWelsh',
+			'adviceDetails',
+			'adviceDetailsWelsh'
+		]),
 		enquiryDate: s51Advice.enquiryDate.toISOString(),
 		adviceDate: s51Advice.adviceDate.toISOString(),
 		caseReference,
 		adviceId: s51Advice.id,
 		adviceReference: formatS51AdviceReferenceCode(caseReference, s51Advice.referenceNumber),
-		from: s51Advice.enquirer ?? '',
-		agent: `${s51Advice.firstName} ${s51Advice.lastName}`,
+		from: `${s51Advice.firstName} ${s51Advice.lastName}`,
+		agent: s51Advice.enquirer ?? '',
 		method: /** @type {Method} */ (s51Advice.enquiryMethod),
 		adviceGivenBy: s51Advice.adviser,
 		status: mapS51AdviceStatusToSchemaStatus(s51Advice.publishedStatus),

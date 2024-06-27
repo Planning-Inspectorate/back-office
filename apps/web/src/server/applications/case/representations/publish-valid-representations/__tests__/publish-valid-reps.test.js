@@ -2,7 +2,10 @@ import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../../testing/index.js';
-import { publishableRepresentationsFixture } from '../../__fixtures__/publishable-representations.fixture.js';
+import {
+	publishableRepresentationsFixture,
+	generateAdditionalItems
+} from '../../__fixtures__/publishable-representations.fixture.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -101,6 +104,35 @@ describe('publish-valid-representations', () => {
 
 				expect(response?.headers?.location).toContain(
 					'/applications-service/case/1/relevant-representations?published=3'
+				);
+			});
+		});
+		describe('and publish api calls are batched', () => {
+			const largeNumberOfReps = generateAdditionalItems(publishableRepresentationsFixture, 1000);
+			const firstBatchOfIds = Array.from({ length: 1000 }, (i) => (i + 1).toString());
+
+			const nocks = () => {
+				nock('http://test/')
+					.get('/applications/1/representations/publishable')
+					.reply(200, largeNumberOfReps);
+				nock('http://test/')
+					.patch('/applications/1/representations/publish')
+					.reply(200, { publishedRepIds: firstBatchOfIds });
+				nock('http://test/')
+					.patch('/applications/1/representations/publish')
+					.reply(200, { publishedRepIds: [1001, 1002, 1003] });
+			};
+
+			beforeEach(async () => {
+				nocks();
+			});
+
+			it('should redirect to the correct URL', async () => {
+				const ids = Array.from({ length: 1003 }, (i) => (i + 1).toString());
+				const response = await request.post(baseUrl).send({ representationId: ids });
+
+				expect(response?.headers?.location).toContain(
+					'/applications-service/case/1/relevant-representations?published=1003'
 				);
 			});
 		});

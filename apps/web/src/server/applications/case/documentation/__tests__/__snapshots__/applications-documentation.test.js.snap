@@ -76,7 +76,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -910,7 +910,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -1771,7 +1771,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/36/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-36 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/36/version//\\">Download</a>
                             </td>
@@ -1884,7 +1884,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/42/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-42 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/version//\\">Download</a>
                             </td>
@@ -1932,7 +1932,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/44/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-44 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/version//\\">Download</a>
                             </td>
@@ -1979,7 +1979,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/46/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-46 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/version//\\">Download</a>
                             </td>
@@ -2225,7 +2225,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -2480,7 +2480,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/36/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-36 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/36/version//\\">Download</a>
                             </td>
@@ -2593,7 +2593,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/42/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-42 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/version//\\">Download</a>
                             </td>
@@ -2641,7 +2641,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/44/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-44 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/version//\\">Download</a>
                             </td>
@@ -2688,7 +2688,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/46/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-46 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/version//\\">Download</a>
                             </td>
@@ -2880,7 +2880,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/55/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-55 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/55/version//\\">Download</a>
                             </td>
@@ -3081,7 +3081,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -3942,7 +3942,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/36/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-36 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/36/version//\\">Download</a>
                             </td>
@@ -4055,7 +4055,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/42/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-42 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/version//\\">Download</a>
                             </td>
@@ -4103,7 +4103,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/44/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-44 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/version//\\">Download</a>
                             </td>
@@ -4150,7 +4150,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/46/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-46 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/version//\\">Download</a>
                             </td>
@@ -4336,7 +4336,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -5197,7 +5197,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/36/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-36 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/36/version//\\">Download</a>
                             </td>
@@ -5310,7 +5310,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/42/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-42 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/version//\\">Download</a>
                             </td>
@@ -5358,7 +5358,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/44/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-44 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/version//\\">Download</a>
                             </td>
@@ -5405,7 +5405,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/46/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-46 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/version//\\">Download</a>
                             </td>
@@ -5589,7 +5589,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class=\\"pins-files-list\\" method=\\"post\\">
                 <caption><span class=\\"display--sr-only\\">Manage Documents in this location</span>
                 </caption>
-                <div class=\\"govuk-grid-row display--flex\\">
+                <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
                     <div class=\\"govuk-grid-column-two-thirds\\">
                         <div class=\\"pins-files-list__statuses\\">
                             <h3 class=\\"govuk-heading-s\\">Statuses</h3>
@@ -6450,7 +6450,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/36/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-36 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/36/version//\\">Download</a>
                             </td>
@@ -6563,7 +6563,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/42/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-42 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/42/version//\\">Download</a>
                             </td>
@@ -6611,7 +6611,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/44/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-44 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/44/version//\\">Download</a>
                             </td>
@@ -6658,7 +6658,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             </td>
                             <td class=\\"govuk-table__cell\\">01/12/2022</td>
                             <td class=\\"govuk-table__cell\\">Redacted</td>
-                            <td class=\\"govuk-table__cell\\">Unchecked</td>
+                            <td class=\\"govuk-table__cell\\">Not checked</td>
                             <td class=\\"govuk-table__cell\\"><a class=\\"govuk-link govuk-body-s\\" href=\\"/applications-service/case/123/project-documentation/21/document/46/properties\\">View/Edit properties</a>
                                 <a                                 data-action=download-46 class=\\"govuk-link govuk-body-s\\" href=\\"/documents/123/download/46/version//\\">Download</a>
                             </td>
@@ -6900,10 +6900,10 @@ exports[`applications documentation Document properties page page should render 
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> From</dt>
-                            <dd class=\\"govuk-summary-list__value\\">Consectetur adipiscing</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
-                            </dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Who the document is from</dt>
+                            <dd                             class=\\"govuk-summary-list__value\\">Consectetur adipiscing</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> Who the document is from</span></a>
+                                </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent (optional)</dt>
                             <dd class=\\"govuk-summary-list__value\\">Elit Sed</dd>
@@ -7055,10 +7055,10 @@ exports[`applications documentation Document properties page page should render 
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> From</dt>
-                            <dd class=\\"govuk-summary-list__value\\">Tempor incididunt</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
-                            </dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Who the document is from</dt>
+                            <dd                             class=\\"govuk-summary-list__value\\">Tempor incididunt</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> Who the document is from</span></a>
+                                </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent (optional)</dt>
                             <dd class=\\"govuk-summary-list__value\\">Ullamco Aliqua</dd>
@@ -7218,10 +7218,10 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> From</dt>
-                            <dd class=\\"govuk-summary-list__value\\">Consectetur adipiscing</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
-                            </dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Who the document is from</dt>
+                            <dd                             class=\\"govuk-summary-list__value\\">Consectetur adipiscing</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> Who the document is from</span></a>
+                                </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent (optional)</dt>
                             <dd class=\\"govuk-summary-list__value\\">Elit Sed</dd>
@@ -7373,10 +7373,10 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> From</dt>
-                            <dd class=\\"govuk-summary-list__value\\">Tempor incididunt</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
-                            </dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Who the document is from</dt>
+                            <dd                             class=\\"govuk-summary-list__value\\">Tempor incididunt</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/11/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> Who the document is from</span></a>
+                                </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent (optional)</dt>
                             <dd class=\\"govuk-summary-list__value\\">Ullamco Aliqua</dd>
@@ -7536,10 +7536,10 @@ exports[`applications documentation Document properties page should show publish
                             <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/description\\"> Change<span class=\\"govuk-visually-hidden\\"> Description</span></a>
                             </dd>
                         </div>
-                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> From</dt>
-                            <dd class=\\"govuk-summary-list__value\\">Consectetur adipiscing</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> From</span></a>
-                            </dd>
+                        <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Who the document is from</dt>
+                            <dd                             class=\\"govuk-summary-list__value\\">Consectetur adipiscing</dd>
+                                <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/123/project-documentation/21/document/3/edit/author\\"> Change<span class=\\"govuk-visually-hidden\\"> Who the document is from</span></a>
+                                </dd>
                         </div>
                         <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Agent (optional)</dt>
                             <dd class=\\"govuk-summary-list__value\\">Elit Sed</dd>
@@ -13929,7 +13929,7 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
 exports[`applications documentation Document publishing queue POST /case/123/project-documentation/publishing-queue\` should return backend errors if request is not ok 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -17846,7 +17846,7 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
 exports[`applications documentation Document publishing queue POST /case/123/project-documentation/publishing-queue\` should return frontend validation errors if no file is selected 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -21763,7 +21763,7 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
 exports[`applications documentation Document search GET /case/123/project-documentation/search-results page should render with errors if api failed 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -22115,7 +22115,7 @@ exports[`applications documentation GET /case/123/project-documentation should r
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row display--flex\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
         <div class=\\"govuk-grid-column-full\\">
             <h2 class=\\"govuk-heading-m\\">Project documentation</h2>
             <p class=\\"govuk-body-s colour--secondary\\">All documents relating to the project</p>

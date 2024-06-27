@@ -1,4 +1,6 @@
 import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
+import { setSessionBanner } from '../../../common/services/session.service.js';
+import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import {
 	applicantAddressData,
 	applicantAddressDataUpdate,
@@ -13,6 +15,7 @@ import {
 	applicantWebsiteData,
 	applicantWebsiteDataUpdate
 } from '../../../common/components/form/form-applicant.component.js';
+import { getUpdatedField } from '../applications-edit.service.js';
 
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesProps} ApplicationsCreateApplicantTypesProps */
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantTypesBody} ApplicationsCreateApplicantTypesBody */
@@ -56,15 +59,26 @@ const applicantEmailLayout = {
 	isEdit: true
 };
 const addressLayout = {
-	pageTitle: 'Enter the Applicant’s address',
+	pageTitle: 'Enter the Applicant’s address (optional)',
 	components: ['address'],
 	isEdit: true
 };
 
 const addressReadOnlyLayout = {
-	pageTitle: 'Enter the Applicant’s address',
+	pageTitle: 'Enter the Applicant’s address (optional)',
 	components: ['address-view'],
 	isEdit: true
+};
+
+/** @type {Record<string, string>} */
+const fullFieldNames = {
+	'applicant.organisationName': 'Organisation name',
+	'applicant.phoneNumber': 'Telephone number',
+	'applicant.firstName': 'Contact name',
+	'applicant.lastName': 'Contact name',
+	'applicant.email': 'Email address',
+	'applicant.postcode': 'Address',
+	'applicant.website': 'Website'
 };
 
 /**
@@ -96,7 +110,13 @@ export async function updateApplicationsEditApplicantOrganisationName(request, r
 		return handleErrors(properties, organisationNameLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(request.session, `${fullFieldNames['applicant.organisationName']} updated.`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -125,7 +145,15 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 		return handleErrors(properties, fullNameLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	const updatedField = getUpdatedField(request.body, ['applicant.firstName', 'applicant.lastName']);
+
+	setSessionBanner(request.session, `${fullFieldNames[updatedField]} updated.`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -154,7 +182,13 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 		return handleErrors(properties, applicantEmailLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(request.session, `${fullFieldNames['applicant.email']} updated.`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -203,7 +237,14 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 	if (shouldShowErrors) {
 		return handleErrors(properties, addressLayout, response);
 	}
-	response.redirect(`/applications-service/case/${caseId}/project-information`);
+
+	setSessionBanner(request.session, `${fullFieldNames['applicant.postcode']} updated.`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${caseId}`
+			: `/applications-service/case/${caseId}/project-information`
+	);
 }
 
 /**
@@ -232,7 +273,13 @@ export async function updateApplicationsEditApplicantWebsite(request, response) 
 		return handleErrors(properties, websiteLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(request.session, `${fullFieldNames['applicant.website']} updated.`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -264,5 +311,11 @@ export async function updateApplicationsEditApplicantTelephoneNumber(request, re
 		return handleErrors(properties, telephoneNumberLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(request.session, `${fullFieldNames['applicant.phoneNumber']} updated.`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }

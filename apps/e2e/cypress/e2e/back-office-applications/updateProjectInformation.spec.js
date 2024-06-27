@@ -21,10 +21,9 @@ const searchResultsPage = new SearchResultsPage();
 const { applications: applicationsUsers } = users;
 
 describe('Update Project Information', () => {
-
 	context('As a user', () => {
-		let projectInfo = projectInformation();
-		let projectInfoNew = projectInformation();
+		const projectInfo = projectInformation({ excludeWales: true });
+		const projectInfoNew = projectInformation({ excludeWales: true });
 
 		before(() => {
 			cy.login(applicationsUsers.caseAdmin);
@@ -38,17 +37,15 @@ describe('Update Project Information', () => {
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.clickTopSearchResult();
 			validateProjectOverview(projectInfo, true);
-			casePage.clickLinkByText('Update project information');
 			casePage.showAllSections();
 			validateProjectInformation(projectInfo, true);
 			updateProjectInformation(projectInfoNew);
 			validateProjectInformation(projectInfoNew, false, true);
 			casePage.clickLinkByText('Overview');
-			casePage.clickButtonByText('Preview and publish project');
+			casePage.clickPublishProjectButton();
 			validatePreviewAndPublishInfo(projectInfoNew);
 			casePage.clickButtonByText('Accept and publish project');
 			casePage.validatePublishBannerMessage('Project page successfully published');
-
 		});
 	});
 });

@@ -103,3 +103,13 @@ Cypress.Commands.add('setCurrentCookies', (cookies) => {
 		Cypress.Cookies.preserveOnce(cookie.name);
 	});
 });
+
+Cypress.Commands.add('ifFlag', (flagName, test) => {
+	if (Cypress.env('featureFlags')[flagName]) {
+		cy.wait(1).then(test);
+	}
+});
+
+Cypress.Commands.add('switchFlag', (flagName, test1, test2) => {
+	cy.wait(1).then(Cypress.env('featureFlags')[flagName] ? test1 : test2);
+});

@@ -10,6 +10,7 @@ import {
 import * as caseRepository from '#repositories/case.repository.js';
 import { EventType } from '@pins/event-client';
 import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
+import logger from '#utils/logger.js';
 
 const keyDateNames = allKeyDateNames.filter(
 	(name) =>
@@ -17,12 +18,13 @@ const keyDateNames = allKeyDateNames.filter(
 );
 
 /**
+ *
  * Handle an HTTP trigger/request to run the migration
  *
  * @param {import('pins-data-model').Schemas.NSIPProject[]} models
  */
 export const migrateNsipProjects = async (models) => {
-	console.info(`Migrating ${models.length} models`);
+	logger.info(`Migrating ${models.length} models`);
 
 	for (const model of models) {
 		await migrateCase(model);
@@ -54,7 +56,10 @@ export const migrateNsipProjects = async (models) => {
 
 		const eventType = model.publishStatus === 'published' ? EventType.Publish : EventType.Update;
 
-		await broadcastNsipProjectEvent(nsipProject, eventType);
+		if (model.migrationStatus) {
+			logger.info(`Broadcasting event for case ${model.caseId}`);
+			await broadcastNsipProjectEvent(nsipProject, eventType);
+		}
 	}
 };
 
@@ -62,12 +67,19 @@ export const migrateNsipProjects = async (models) => {
  *
  * @param {import('pins-data-model').Schemas.NSIPProject} m
  */
-const migrateCase = ({ caseId, caseReference, projectName, projectDescription }) => {
+const migrateCase = ({
+	caseId,
+	caseReference,
+	projectName,
+	projectDescription,
+	migrationStatus
+}) => {
 	const entity = {
 		id: caseId,
 		reference: caseReference,
 		title: projectName,
-		description: projectDescription
+		description: projectDescription,
+		migrationStatus
 	};
 
 	const { statement, parameters } = buildUpsertForEntity('Case', entity, 'id');

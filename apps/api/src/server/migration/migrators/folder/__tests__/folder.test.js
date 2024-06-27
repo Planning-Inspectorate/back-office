@@ -165,6 +165,15 @@ const folders = [
 		displayNameCy: null
 	},
 	{
+		id: 100014075,
+		displayNameEn: 'Examination timetable',
+		displayOrder: 300,
+		parentFolderId: 100011421,
+		caseId: 15360347,
+		stage: 'Examination',
+		displayNameCy: null
+	},
+	{
 		id: 100011422,
 		displayNameEn: 'Land rights',
 		displayOrder: 400,
@@ -1039,6 +1048,8 @@ const folders = [
 	}
 ];
 
+const caseId = 15360347;
+
 describe('folder migration utils', () => {
 	describe('getDocumentFolderId', () => {
 		beforeAll(() => databaseConnector.folder.findMany.mockResolvedValue(folders));
@@ -1069,7 +1080,6 @@ describe('folder migration utils', () => {
 			const document = {
 				path: 'TR020002 - Manston Airport/Foo/Bar/Baz'
 			};
-			const caseId = 100001;
 
 			const archiveFolder = { id: 100011419, displayNameEn: 'Archived documentation' };
 
@@ -1094,6 +1104,9 @@ describe('folder migration utils', () => {
 
 			const result = await getDocumentFolderId(document, caseId);
 
+			expect(databaseConnector.folder.findFirst).toHaveBeenCalledWith({
+				where: { caseId, displayNameEn: 'Archived documentation' }
+			});
 			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
 				where: {
 					caseId_displayNameEn_parentFolderId: folderInput1
@@ -1123,17 +1136,127 @@ describe('folder migration utils', () => {
 			const document = {
 				path: 'TR020002 - Manston Airport/02 - Section 51 Advice/TR020002-Advice-00001 - TEST'
 			};
-			const caseId = 100001;
 
 			const s51AdviceFolder = { id: 100011407, displayNameEn: 'S51 advice' };
-
 			databaseConnector.folder.findFirst.mockResolvedValueOnce(s51AdviceFolder);
 
 			const result = await getDocumentFolderId(document, caseId);
 
+			expect(databaseConnector.folder.findFirst).toHaveBeenCalledWith({
+				where: { caseId, displayNameEn: 'S51 advice' }
+			});
 			expect(databaseConnector.folder.upsert).not.toHaveBeenCalled();
 
 			expect(result).toEqual(s51AdviceFolder.id); // function returns last created folder ID
+		});
+
+		it('creates Exam Timetable deadline folder', async () => {
+			const document = {
+				path: 'TR020002 - Manston Airport/07 - Acceptance, Pre-Exam and Exam/05 - Exam Timetable/20181113 Deadline 1'
+			};
+
+			const examTimetableFolder = { id: 100014075, displayNameEn: 'Examination timetable' };
+
+			// '20181113 Deadline 1' folder
+			const folderInput1 = {
+				caseId,
+				displayNameEn: '20181113 Deadline 1',
+				parentFolderId: examTimetableFolder.id
+			};
+			const folderOutput1 = { id: 1, ...folderInput1 };
+
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(examTimetableFolder);
+
+			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput1);
+
+			const result = await getDocumentFolderId(document, caseId);
+
+			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
+				where: {
+					caseId_displayNameEn_parentFolderId: folderInput1
+				},
+				update: {},
+				create: folderInput1
+			});
+
+			expect(result).toEqual(folderOutput1.id); // function returns last created folder ID
+		});
+
+		it('creates Exam Timetable deadline folder and subfolders', async () => {
+			const document = {
+				path: 'TR020002 - Manston Airport/07 - Acceptance, Pre-Exam and Exam/05 - Exam Timetable/20181113 Deadline 1/LL - ES/Penrhos ES Documents/ES Volume 2 - Main Text'
+			};
+
+			const examTimetableFolder = { id: 100014075, displayNameEn: 'Examination timetable' };
+
+			// '20181113 Deadline 1' folder
+			const folderInput1 = {
+				caseId,
+				displayNameEn: '20181113 Deadline 1',
+				parentFolderId: examTimetableFolder.id
+			};
+			const folderOutput1 = { id: 1, ...folderInput1 };
+
+			// 'LL - ES' folder
+			const folderInput2 = { caseId, displayNameEn: 'LL - ES', parentFolderId: folderOutput1.id };
+			const folderOutput2 = { id: 2, ...folderInput2 };
+
+			// 'Penrhos ES Documents' folder
+			const folderInput3 = {
+				caseId,
+				displayNameEn: 'Penrhos ES Documents',
+				parentFolderId: folderOutput2.id
+			};
+			const folderOutput3 = { id: 3, ...folderInput3 };
+
+			// 'ES Volume 2 - Main Text' folder
+			const folderInput4 = {
+				caseId,
+				displayNameEn: 'ES Volume 2 - Main Text',
+				parentFolderId: folderOutput3.id
+			};
+			const folderOutput4 = { id: 4, ...folderInput4 };
+
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(examTimetableFolder);
+
+			// mock return value from creation of folders
+			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput1);
+			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput2);
+			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput3);
+			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput4);
+
+			const result = await getDocumentFolderId(document, caseId);
+
+			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
+				where: {
+					caseId_displayNameEn_parentFolderId: folderInput1
+				},
+				update: {},
+				create: folderInput1
+			});
+			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
+				where: {
+					caseId_displayNameEn_parentFolderId: folderInput2
+				},
+				update: {},
+				create: folderInput2
+			});
+			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
+				where: {
+					caseId_displayNameEn_parentFolderId: folderInput3
+				},
+				update: {},
+				create: folderInput3
+			});
+			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
+				where: {
+					caseId_displayNameEn_parentFolderId: folderInput4
+				},
+				update: {},
+				create: folderInput4
+			});
+
+			expect(result).toEqual(folderOutput4.id); // function returns last created folder ID
 		});
 	});
 });

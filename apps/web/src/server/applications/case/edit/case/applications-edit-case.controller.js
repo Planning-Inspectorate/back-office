@@ -1,4 +1,6 @@
 import { handleErrors } from '../../../common/components/error-handler/error-handler.component.js';
+import { setSessionBanner } from '../../../common/services/session.service.js';
+import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import {
 	caseGeographicalInformationData,
 	caseGeographicalInformationDataUpdate,
@@ -13,16 +15,38 @@ import {
 	caseZoomLevelData,
 	caseZoomLevelDataUpdate
 } from '../../../common/components/form/form-case.component.js';
+import { getUpdatedField } from '../applications-edit.service.js';
 
 const nameLayout = {
-	pageTitle: 'Enter project name',
+	pageTitle: 'Project name',
 	components: ['title'],
+	isEdit: true
+};
+
+const welshNameLayout = {
+	pageTitle: 'Project name in Welsh',
+	components: ['titleWelsh'],
 	isEdit: true
 };
 
 const descriptionLayout = {
 	pageTitle: 'Enter project description',
 	components: ['description'],
+	label: 'Project description',
+	name: 'description',
+	hint: 'for example, An offshore wind generating station of capacity up to 285 MW',
+	template: 'case-edit-textarea.njk',
+	isEdit: true
+};
+
+const welshDescriptionLayout = {
+	pageTitle: 'Project description in Welsh',
+	components: ['descriptionWelsh'],
+	label: 'Project description in Welsh',
+	englishLabel: 'Project description in English',
+	name: 'descriptionWelsh',
+	englishName: 'description',
+	template: 'case-edit-textarea.njk',
 	isEdit: true
 };
 
@@ -41,6 +65,21 @@ const teamEmailLayout = {
 const caseLocationLayout = {
 	pageTitle: 'Enter project location',
 	components: ['project-location'],
+	label: 'Project location',
+	name: 'geographicalInformation.locationDescription',
+	hint: 'for example, approximately 8km off the coast of Kent, in areas surrounding Thanet Offshore Wind Farm',
+	template: 'case-edit-textarea.njk',
+	isEdit: true
+};
+
+const caseLocationWelshLayout = {
+	pageTitle: 'Project location in Welsh',
+	components: ['project-location-welsh'],
+	label: 'Project location in Welsh',
+	englishLabel: 'Project location in English',
+	name: 'geographicalInformation.locationDescriptionWelsh',
+	englishName: 'geographicalInformation.locationDescription',
+	template: 'case-edit-textarea.njk',
 	isEdit: true
 };
 
@@ -60,6 +99,22 @@ const zoomLevelLayout = {
 	pageTitle: 'Choose map zoom level',
 	components: ['zoom-level'],
 	isEdit: true
+};
+
+/** @type {Record<string, string>} */
+const fullFieldNames = {
+	title: 'Project name',
+	titleWelsh: 'Project name in Welsh',
+	description: 'Project description',
+	descriptionWelsh: 'Project description in Welsh',
+	caseEmail: 'Project email address',
+	stage: 'Case stage',
+	'geographicalInformation.locationDescription': 'Project location',
+	'geographicalInformation.locationDescriptionWelsh': 'Project location in Welsh',
+	'geographicalInformation.gridReference.easting': 'Grid references',
+	'geographicalInformation.gridReference.northing': 'Grid references',
+	'geographicalInformation.regions': 'Regions',
+	'geographicalInformation.mapZoomLevelName': 'Map zoom level'
 };
 
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -85,11 +140,45 @@ const zoomLevelLayout = {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditCaseDescription(request, response) {
-	const properties = await caseNameAndDescriptionData(request, response.locals);
+	const properties = caseNameAndDescriptionData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(descriptionLayout), {
 		...properties,
 		layout: descriptionLayout
+	});
+}
+
+/**
+ * Resolves the expected template to render
+ *
+ * @param {import('../../../applications.types.js').FormCaseLayout} layout
+ * @returns {string}
+ */
+function resolveTemplate(layout) {
+	const { template } = layout || {};
+	if (template) {
+		return `applications/case/case-form/${template}`;
+	}
+	return `applications/components/case-form/case-form-layout`;
+}
+
+/**
+ * View the form step for editing the Welsh case description
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
+ * */
+export async function viewApplicationsEditCaseDescriptionWelsh(request, response) {
+	if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
+		return response.redirect(
+			`/applications-service/case/${response.locals.caseId}/project-information`
+		);
+	}
+
+	const properties = caseNameAndDescriptionData(request, response.locals);
+
+	response.render(resolveTemplate(welshDescriptionLayout), {
+		...properties,
+		layout: welshDescriptionLayout
 	});
 }
 
@@ -99,11 +188,31 @@ export async function viewApplicationsEditCaseDescription(request, response) {
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditCaseName(request, response) {
-	const properties = await caseNameAndDescriptionData(request, response.locals);
+	const properties = caseNameAndDescriptionData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(nameLayout), {
 		...properties,
 		layout: nameLayout
+	});
+}
+
+/**
+ * View the form step for editing the Welsh case name
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseNameProps, {}, {}, {}, {}>}
+ * */
+export async function viewApplicationsEditCaseNameWelsh(request, response) {
+	if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
+		return response.redirect(
+			`/applications-service/case/${response.locals.caseId}/project-information`
+		);
+	}
+
+	const properties = caseNameAndDescriptionData(request, response.locals);
+
+	response.render(resolveTemplate(welshNameLayout), {
+		...properties,
+		layout: welshNameLayout
 	});
 }
 
@@ -117,14 +226,54 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 		request,
 		response.locals
 	);
-	const isNamePage = Object.prototype.hasOwnProperty.call(request.body, 'title');
-	const layout = isNamePage ? nameLayout : descriptionLayout;
+
+	const updatedField = getUpdatedField(request.body, [
+		'title',
+		'titleWelsh',
+		'description',
+		'descriptionWelsh'
+	]);
+
+	let layout;
+
+	switch (updatedField) {
+		case 'title':
+			layout = nameLayout;
+			break;
+		case 'titleWelsh': {
+			layout = welshNameLayout;
+			// Include english equivalent if entered
+			const { title } = response.locals.currentCase || {};
+			if (title) {
+				properties.values.title = title;
+			}
+			break;
+		}
+		case 'description':
+			layout = descriptionLayout;
+			break;
+		default: {
+			layout = welshDescriptionLayout;
+			// Include english equivalent if entered
+			const { description } = response.locals.currentCase || {};
+			if (description) {
+				properties.values.description = description;
+			}
+			break;
+		}
+	}
 
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(request.session, `${fullFieldNames[updatedField]} updated.`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -135,9 +284,9 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditCaseTeamEmail(request, response) {
-	const properties = await caseTeamEmailData(request, response.locals);
+	const properties = caseTeamEmailData(request, response.locals);
 
-	return response.render('applications/components/case-form/case-form-layout', {
+	return response.render(resolveTemplate(teamEmailLayout), {
 		...properties,
 		layout: teamEmailLayout
 	});
@@ -156,7 +305,13 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 		return handleErrors(properties, teamEmailLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(request.session, `${fullFieldNames.caseEmail} updated.`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -168,7 +323,7 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 export async function viewApplicationsEditCaseStage(request, response) {
 	const properties = await caseStageData(request, response.locals);
 
-	return response.render('applications/components/case-form/case-form-layout', {
+	return response.render(resolveTemplate(stageLayout), {
 		...properties,
 		layout: stageLayout
 	});
@@ -187,7 +342,13 @@ export async function updateApplicationsEditCaseStage(request, response) {
 		return handleErrors(properties, stageLayout, response);
 	}
 
-	return response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(request.session, `${fullFieldNames.stage} updated.`);
+
+	return response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -200,9 +361,29 @@ export async function updateApplicationsEditCaseStage(request, response) {
 export async function viewApplicationsCreateCaseLocation(request, response) {
 	const properties = await caseGeographicalInformationData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(caseLocationLayout), {
 		...properties,
 		layout: caseLocationLayout
+	});
+}
+
+/**
+ * View the form step for editing the Welsh case location
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps, {}, {}, {}, {}>}
+ * */
+export async function viewApplicationsCreateCaseLocationWelsh(request, response) {
+	if (!featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
+		return response.redirect(
+			`/applications-service/case/${response.locals.caseId}/project-information`
+		);
+	}
+
+	const properties = await caseGeographicalInformationData(request, response.locals);
+
+	response.render(resolveTemplate(caseLocationWelshLayout), {
+		...properties,
+		layout: caseLocationWelshLayout
 	});
 }
 
@@ -216,7 +397,7 @@ export async function viewApplicationsCreateCaseLocation(request, response) {
 export async function viewApplicationsCreateCaseGridReferences(request, response) {
 	const properties = await caseGeographicalInformationData(request, response.locals);
 
-	response.render('applications/components/case-form/case-form-layout', {
+	response.render(resolveTemplate(gridReferencesLayout), {
 		...properties,
 		layout: gridReferencesLayout
 	});
@@ -234,17 +415,44 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 		response.locals
 	);
 
-	const isCaseLocationPage = Object.prototype.hasOwnProperty.call(
-		request.body,
-		'geographicalInformation.locationDescription'
-	);
-	const layout = isCaseLocationPage ? caseLocationLayout : gridReferencesLayout;
+	const updatedField = getUpdatedField(request.body, [
+		'geographicalInformation.locationDescription',
+		'geographicalInformation.locationDescriptionWelsh',
+		'geographicalInformation.gridReference.easting',
+		'geographicalInformation.gridReference.northing'
+	]);
+
+	let layout;
+
+	switch (updatedField) {
+		case 'geographicalInformation.locationDescription':
+			layout = caseLocationLayout;
+			break;
+		case 'geographicalInformation.locationDescriptionWelsh': {
+			layout = caseLocationWelshLayout;
+			// Include english equivalent if entered
+			const { locationDescription } = response.locals.currentCase?.geographicalInformation || {};
+			if (locationDescription) {
+				properties.values['geographicalInformation.locationDescription'] = locationDescription;
+			}
+			break;
+		}
+		default:
+			layout = gridReferencesLayout;
+			break;
+	}
 
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, layout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(request.session, `${fullFieldNames[updatedField]} updated.`);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -257,7 +465,7 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 export async function viewApplicationsEditCaseRegions(request, response) {
 	const properties = await caseRegionsData(request, response.locals);
 
-	return response.render('applications/components/case-form/case-form-layout', {
+	return response.render(resolveTemplate(regionsLayout), {
 		...properties,
 		layout: regionsLayout
 	});
@@ -276,7 +484,16 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 		return handleErrors(properties, regionsLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(
+		request.session,
+		`${fullFieldNames['geographicalInformation.regions']} updated.`
+	);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
 
 /**
@@ -289,7 +506,7 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 export async function viewApplicationsEditCaseZoomLevel(request, response) {
 	const properties = await caseZoomLevelData(request, response.locals);
 
-	return response.render('applications/components/case-form/case-form-layout', {
+	return response.render(resolveTemplate(zoomLevelLayout), {
 		...properties,
 		layout: zoomLevelLayout
 	});
@@ -308,5 +525,14 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
 		return handleErrors(properties, zoomLevelLayout, response);
 	}
 
-	response.redirect(`/applications-service/case/${updatedCaseId}/project-information`);
+	setSessionBanner(
+		request.session,
+		`${fullFieldNames['geographicalInformation.mapZoomLevelName']} updated.`
+	);
+
+	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }

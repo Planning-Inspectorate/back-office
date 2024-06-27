@@ -20,6 +20,11 @@ export type FormCaseLayout = {
 	pageTitle: string;
 	components: string[];
 	isEdit?: boolean;
+	label?: string;
+	englishLabel?: string;
+	name?: string;
+	englishName?: string;
+	template?: string;
 	backLink?: string;
 };
 
@@ -110,6 +115,7 @@ export interface DocumentationFile {
 	privateBlobContainer?: string;
 	privateBlobPath?: string;
 	filter1: string;
+	filter1Welsh?: string;
 	author: string;
 	representative: string;
 	stage: string;

@@ -1,30 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applications edit Description GET edit/description should render page with resumed data 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter project description</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
-        <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"description\\">Description of the project</label>
-            <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
-                MW</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\" id=\\"description\\"
-            name=\\"description\\" rows=\\"5\\" aria-describedby=\\"description-hint\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
-                et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
-                ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
-        </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
-                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
-            </div>
-        </div>
-    </form>
-</main>"
-`;
-
 exports[`applications edit Grid references GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter grid references</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter grid references</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label font-weight--700\\" for=\\"geographicalInformation.gridReference.easting\\">Grid reference Easting</label>
@@ -43,11 +21,54 @@ exports[`applications edit Grid references GET /edit/:caseId/project-location sh
             type=\\"text\\" value=\\"987654\\" aria-describedby=\\"geographicalInformation.gridReference.northing-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
             </div>
         </div>
     </form>
+</main>"
+`;
+
+exports[`applications edit Name Description GET edit/description should render page with resumed data 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"description\\"> Project description</label></h1>
+                    <div id=\\"description-hint\\" class=\\"govuk-hint\\">for example, An offshore wind generating station of capacity up to 285
+                        MW</div>
+                    <textarea class=\\"govuk-textarea\\" id=\\"description\\" name=\\"description\\"
+                    rows=\\"5\\" aria-describedby=\\"description-hint\\">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                        et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications edit Name Description GET edit/description-welsh When feature flag is active should render page with english inset 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Project description in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Project description in English:</p>
+                <div class=\\"govuk-inset-text\\">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim
+                    ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    ex ea commodo consequat</div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"descriptionWelsh\\">Project description in Welsh</label>
+                    <textarea class=\\"govuk-textarea\\" id=\\"descriptionWelsh\\"
+                    name=\\"descriptionWelsh\\" rows=\\"5\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </form>
+        </div>
+    </div>
 </main>"
 `;
 
@@ -66,16 +87,14 @@ exports[`applications edit Name GET /edit/name When status is Draft: should not 
 
 exports[`applications edit Name GET /edit/name When status is Non-draft: should render the page with resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter project name</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Project name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title CASE/04\\" aria-describedby=\\"title-hint\\">
+            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\" name=\\"title\\"
+            rows=\\"5\\">Title CASE/04</textarea>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
             </div>
         </div>
@@ -85,16 +104,14 @@ exports[`applications edit Name GET /edit/name When status is Non-draft: should 
 
 exports[`applications edit Name GET /edit/name should render form 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter project name</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Project name</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
-            <label class=\\"govuk-label font-weight--700\\" for=\\"title\\">Name of the project</label>
-            <div id=\\"title-hint\\" class=\\"govuk-hint\\">for example, Bridge over a very long canyon</div>
-            <input class=\\"govuk-input govuk-!-width-one-third\\"
-            id=\\"title\\" name=\\"title\\" type=\\"text\\" value=\\"Title CASE/04\\" aria-describedby=\\"title-hint\\">
+            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\" id=\\"title\\" name=\\"title\\"
+            rows=\\"5\\">Title CASE/04</textarea>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
             </div>
         </div>
@@ -102,29 +119,68 @@ exports[`applications edit Name GET /edit/name should render form 1`] = `
 </main>"
 `;
 
-exports[`applications edit Project location GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
+exports[`applications edit Name GET edit/name-welsh When feature flag is active should render page with english inset 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter project location</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Project name in Welsh</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
+        <p class='govuk-body govuk-!-margin-bottom-0'>Project name in English:</p>
+        <div class=\\"govuk-inset-text govuk-!-margin-top-4\\">Title CASE/08</div>
         <div class=\\"govuk-form-group\\">
-            <div id=\\"geographicalInformation.locationDescription-hint\\" class=\\"govuk-hint govuk-!-width-three-quarters\\">for example, approximately 8km off the coast of Kent, in areas surrounding
-                Thanet Offshore Wind Farm</div>
-            <textarea class=\\"govuk-textarea govuk-!-width-three-quarters\\"
-            id=\\"geographicalInformation.locationDescription\\" name=\\"geographicalInformation.locationDescription\\"
-            rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint\\">London</textarea>
+            <label class=\\"govuk-label font-weight--700\\" for=\\"titleWelsh\\">Project name in Welsh</label>
+            <textarea class=\\"govuk-textarea govuk-!-width-two-thirds\\"
+            id=\\"titleWelsh\\" name=\\"titleWelsh\\" rows=\\"5\\"></textarea>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
             </div>
         </div>
     </form>
+</main>"
+`;
+
+exports[`applications edit Name Project location GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <div class=\\"govuk-form-group\\">
+                    <h1 class=\\"govuk-label-wrapper\\"><label class=\\"govuk-label govuk-label--l\\" for=\\"geographicalInformation.locationDescription\\"> Project location</label></h1>
+                    <div id=\\"geographicalInformation.locationDescription-hint\\" class=\\"govuk-hint\\">for example, approximately 8km off the coast of Kent, in areas surrounding
+                        Thanet Offshore Wind Farm</div>
+                    <textarea class=\\"govuk-textarea\\" id=\\"geographicalInformation.locationDescription\\"
+                    name=\\"geographicalInformation.locationDescription\\" rows=\\"5\\" aria-describedby=\\"geographicalInformation.locationDescription-hint\\">London</textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications edit Name Project location GET edit/:caseId/project-location-welsh When feature flag is active should render page with english inset 1`] = `
+"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
+    <div class=\\"govuk-grid-row\\">
+        <div class=\\"govuk-grid-column-two-thirds-from-desktop\\">
+            <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
+                <h1 class=\\"govuk-heading-l\\"> Project location in Welsh</h1>
+                <p class='govuk-body govuk-!-margin-bottom-0'>Project location in English:</p>
+                <div class=\\"govuk-inset-text\\">London</div>
+                <div class=\\"govuk-form-group\\">
+                    <label class=\\"govuk-label govuk-label--m\\" for=\\"geographicalInformation.locationDescriptionWelsh\\">Project location in Welsh</label>
+                    <textarea class=\\"govuk-textarea\\" id=\\"geographicalInformation.locationDescriptionWelsh\\"
+                    name=\\"geographicalInformation.locationDescriptionWelsh\\" rows=\\"5\\"></textarea>
+                </div>
+                <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
+            </form>
+        </div>
+    </div>
 </main>"
 `;
 
 exports[`applications edit Regions GET /edit/regions should render the page with checked options if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Choose one or multiple regions</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose one or multiple regions</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
@@ -163,7 +219,7 @@ exports[`applications edit Regions GET /edit/regions should render the page with
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
             </div>
         </div>
@@ -173,16 +229,16 @@ exports[`applications edit Regions GET /edit/regions should render the page with
 
 exports[`applications edit Team email GET /edit/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the project email (optional)</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the project email (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
+            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" aria-describedby=\\"caseEmail-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
             </div>
         </div>
@@ -192,16 +248,16 @@ exports[`applications edit Team email GET /edit/team-email should render the pag
 
 exports[`applications edit Team email GET /edit/team-email should render the page with the resumed data if the api returns something 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Enter the project email (optional)</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Enter the project email (optional)</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <label class=\\"govuk-label govuk-visually-hidden\\" for=\\"caseEmail\\">Team mail address</label>
-            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gsi.gov.uk</div>
+            <div id=\\"caseEmail-hint\\" class=\\"govuk-hint\\">for example, NIEnquiries@planninginspectorate.gov.uk</div>
             <input class=\\"govuk-input govuk-!-width-one-third\\"
             id=\\"caseEmail\\" name=\\"caseEmail\\" type=\\"text\\" value=\\"some@ema.il\\" aria-describedby=\\"caseEmail-hint\\">
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
             </div>
         </div>
@@ -211,7 +267,7 @@ exports[`applications edit Team email GET /edit/team-email should render the pag
 
 exports[`applications edit Zoom Level GET edit/zoom-level should render the page with the checked option from the resumed data 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <h1 class=\\"govuk-heading-l\\"> Choose map zoom level</h1>
+    <h1 class=\\"govuk-heading-l govuk-!-margin-bottom-3\\"> Choose map zoom level</h1>
     <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\" class=\\"pins-applications-create\\">
         <div class=\\"govuk-form-group\\">
             <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
@@ -249,7 +305,7 @@ exports[`applications edit Zoom Level GET edit/zoom-level should render the page
             </div>
         </div>
         <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-button-group pins-button-group govuk-grid-column-one-half\\">
+            <div class=\\"govuk-button-group govuk-grid-column-one-half\\">
                 <button class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save changes</button>
             </div>
         </div>

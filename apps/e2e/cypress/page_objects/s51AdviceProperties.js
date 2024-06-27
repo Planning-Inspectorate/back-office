@@ -21,8 +21,8 @@ export class S51AdvicePropertiesPage extends Page {
 		this.elements.changeLink(question).click();
 	}
 
-	checkAllProperties(details, enquirerDetails) {
-		cy.get(':nth-child(1) > .govuk-summary-list__value').contains('title');
+	checkAllProperties(details, enquirerDetails, titledetails) {
+		this.checkAnswer('S51 title', titledetails);
 		this.checkAnswer('Enquirer', enquirerString({ ...enquirerDetails }), false);
 		this.checkAnswer('Enquiry method', details.methodOfEnquiry);
 		this.checkAnswer('Enquiry date', details.dateFullFormatted);

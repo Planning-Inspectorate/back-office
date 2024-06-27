@@ -1,48 +1,68 @@
-{% from "govuk/components/table/macro.njk" import govukTable %}
-{% from "./case-edit-link.component.njk" import caseEditLink %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% macro caseDetailsTable(case, isPublishPage) %}
+{% macro caseDetailsTable(params, isPublishPage, isWelsh) %}
 	{% set regionNames = [] %}
-	{% for item in case.geographicalInformation.regions %}
+	{% for item in params.case.geographicalInformation.regions %}
 		{% set regionNames = (regionNames.push(item.displayNameEn), regionNames) %}
 	{% endfor %}
 
 	{% set gridReferences = '' %}
-	{% if case.geographicalInformation.gridReference.easting %}
-		{% set gridReferences = case.geographicalInformation.gridReference.easting + ' (Easting)' %}
+	{% if params.case.geographicalInformation.gridReference.easting %}
+		{% set gridReferences = params.case.geographicalInformation.gridReference.easting + ' (Easting)' %}
 	{% endif %}
 	{% set gridReferences = gridReferences + '<br>' %}
-	{% if case.geographicalInformation.gridReference.northing %}
-		{% set gridReferences = gridReferences + case.geographicalInformation.gridReference.northing + ' (Northing)' %}
+	{% if params.case.geographicalInformation.gridReference.northing %}
+		{% set gridReferences = gridReferences + params.case.geographicalInformation.gridReference.northing + ' (Northing)' %}
 	{% endif %}
 
-	{% set rowsData = [
-		{title: 'Project name', text: case.title, url: 'name', classes: 'project-details__name' },
-		{title: 'Project description', html: case.description | sanitize, url: 'description', classes: 'project-details__project-description' },
-		{title: 'Project email address', text: case.caseEmail, url: 'team-email', classes: 'project-details__team-email' },
-		{title: 'Project location', html: case.geographicalInformation.locationDescription | sanitize, url: 'project-location', classes: 'project-details__project-location' },
-		{title: 'Grid references', html: gridReferences, url: 'grid-references', classes: 'project-details__grid-references' },
-		{title: 'Region(s)', html: regionNames, url: 'regions', classes: 'project-details__regions' },
-		{title: 'Map zoom level', text: case.geographicalInformation.mapZoomLevel.displayNameEn, url: 'zoom-level', classes: 'project-details__zoom-level' }
-	] %}
+	{% set publishedTag %}
+	{% if params.case.publishedDate %}
+		<strong class="govuk-tag govuk-tag--green">PUBLISHED</strong>
+    &nbsp;
+    <span class="govuk-body-s colour--secondary">Last updated
+    {{ params.case.publishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
+	{% else %}
+		<strong class="govuk-tag govuk-tag--grey">NOT PUBLISHED</strong>
+		{% if params.case.unpublishedDate %}
+      &nbsp;
+      <span class="govuk-body-s colour--secondary">Last updated
+      {{ params.case.unpublishedDate | datestamp({format: 'h:mma dd MMM yyyy'}) }}</span>
+		{% endif %}
+	{% endif %}
+	{% endset %}
+
+  {% set rowsData = buildCaseInformation({
+    case: params.case,
+    keyMembers: params.keyMembers,
+    gridReferences: gridReferences,
+    regionNames: regionNames,
+    publishedTag: publishedTag
+  }, isWelsh) %}
 
 	{% set tableRows = [] %}
 	{% for rowData in rowsData %}
 		{#  In the value column, rowData can be used because "title" and "url" are ignored	#}
-		{% set cols = [{text: rowData.title}, rowData] %}
-		{% set linkCol =  {
-			html: caseEditLink({editStepUrl:rowData.url, caseId: case.id}),
-			classes: 'text-align--right pins-table__cell--s'
-		} %}
-		{% if not isPublishPage %}
-			{% set cols = (cols.push(linkCol), cols) %}
-		{% endif %}
+    {% set row = {
+      key: {
+        text: rowData.title
+      },
+      value: rowData,
+      actions: {
+        items: [
+          {
+            href: 'case-edit' | url({ caseId: params.case.id, step: rowData.url }),
+            text: 'Change',
+            id: rowData.id
+          }
+        ] if rowData.url and not isPublishPage else []
+      }
+    } %}
 
-		{% set tableRows = (tableRows.push(cols), tableRows) %}
+		{% set tableRows = (tableRows.push(row), tableRows) %}
 	{% endfor %}
 
 
-	{{ govukTable({
+	{{ govukSummaryList({
 		caption: 'Project details',
 		captionClasses: 'govuk-visually-hidden',
 		firstCellIsHeader: true,

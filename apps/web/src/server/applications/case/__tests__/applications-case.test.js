@@ -14,6 +14,8 @@ const nocks = () => {
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 };
 
+const baseUrl = '/applications-service/case/123';
+
 describe('Applications case pages', () => {
 	beforeEach(installMockApi);
 	afterEach(teardown);
@@ -22,58 +24,11 @@ describe('Applications case pages', () => {
 		nock.cleanAll();
 	});
 
-	const baseUrl = '/applications-service/case/123';
+	beforeEach(async () => {
+		nocks();
+		await request.get('/applications-service/');
 
-	describe('Project overview page', () => {
-		describe('GET /case/123', () => {
-			beforeEach(async () => {
-				nocks();
-				await request.get('/applications-service/');
-
-				installMockADToken(fixtureProjectTeamMembers);
-			});
-
-			it('should render the page with no project team members', async () => {
-				const response = await request.get(baseUrl);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Overview');
-				expect(element.innerHTML).toContain('No project members have been added yet');
-			});
-
-			it('should render the page with no displayable members', async () => {
-				const mockedTeamMembersWithRole = [{ ...fixtureProjectTeamMembers[0], role: 'inspector' }];
-				nock('http://test/')
-					.get('/applications/123/project-team')
-					.reply(200, mockedTeamMembersWithRole);
-
-				const response = await request.get(baseUrl);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Overview');
-				expect(element.innerHTML).toContain(
-					'Some team members have been added, but only Case Managers and NSIP Officers'
-				);
-			});
-
-			it('should render the page with displayable members', async () => {
-				const mockedTeamMembersWithRole = [
-					{ ...fixtureProjectTeamMembers[0], role: 'case_manager' }
-				];
-				nock('http://test/')
-					.get('/applications/123/project-team')
-					.reply(200, mockedTeamMembersWithRole);
-
-				const response = await request.get(baseUrl);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Overview');
-				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
-			});
-		});
+		installMockADToken(fixtureProjectTeamMembers);
 	});
 
 	describe('Project information page', () => {
@@ -139,7 +94,7 @@ describe('Applications case pages', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Accept and publish changes');
+				expect(element.innerHTML).toContain('Accept and publish project');
 			});
 
 			it('if not yet published, should render the page with no previous publishing info', async () => {

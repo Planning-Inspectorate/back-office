@@ -5,6 +5,7 @@ import {
 	getCaseDocumentationFolderPath,
 	getCaseFolder
 } from './documentation/applications-documentation.service.js';
+import { featureFlagClient } from '../../../common/feature-flags.js';
 
 /**
  * @typedef {object} ApplicationCaseLocals
@@ -32,6 +33,11 @@ export const registerCase = async (request, response, next) => {
 
 	try {
 		response.locals.case = await getCase(response.locals.caseId);
+		response.locals.caseIsWelsh =
+			(await featureFlagClient.isFeatureActive('applic-55-welsh-translation')) &&
+			response.locals.case?.geographicalInformation?.regions?.some(
+				(/** @type {{name: string}} */ r) => r.name === 'wales'
+			);
 	} catch (/** @type {*} */ error) {
 		return response.render(`app/${error.message === '404' ? 404 : 500}.njk`, { error });
 	}

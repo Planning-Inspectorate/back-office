@@ -16,7 +16,7 @@ import logger from '#utils/logger.js';
  * Project management > Internal ExA meetings
  * Pre-application > Draft documents > SOCC
  * Pre-application > Events / meetings > Outreach
- * Pre-application > Developer's consulation > Statutory > PEIR
+ * Pre-application > Developer's consultation > Statutory > PEIR
  * Pre-application > Correspondence > External
  * Pre-application > Correspondence > Internal
  * Acceptance > Correspondence > 01 - Internal
@@ -868,15 +868,15 @@ export const folderMapping = {
 		'Pre-application > Correspondence > External',
 	'05 - Pre-App > 06 - Meetings': 'Pre-application > Events / meetings',
 	'05 - Pre-App > 06 - Meetings > 01 - Outreach': 'Pre-application > Events / meetings > Outreach',
-	'05 - Pre-App > 07 - Developers Consultation': "Pre-application > Developer's consulation",
+	'05 - Pre-App > 07 - Developers Consultation': "Pre-application > Developer's consultation",
 	'05 - Pre-App > 07 - Developers Consultation > 01 - Statutory':
-		"Pre-application > Developer's consulation > Statutory",
+		"Pre-application > Developer's consultation > Statutory",
 	'05 - Pre-App > 07 - Developers Consultation > 01 - Statutory > 01 - PEIR':
-		"Pre-application > Developer's consulation > Statutory > PEIR",
+		"Pre-application > Developer's consultation > Statutory > PEIR",
 	'05 - Pre-App > 07 - Developers Consultation > 02 - Non-Statutory':
-		"Pre-application > Developer's consulation > Non-statutory",
+		"Pre-application > Developer's consultation > Non-statutory",
 	'05 - Pre-App > 07 - Developers Consultation > 03 - Consultation Feedback':
-		"Pre-application > Developer's consulation > Consultation feedback",
+		"Pre-application > Developer's consultation > Consultation feedback",
 
 	'06 - Post-Submission Correspondence > 01 - Acceptance': 'Acceptance > Correspondence',
 	'06 - Post-Submission Correspondence > 01 - Acceptance > 01 - Internal':
@@ -1059,6 +1059,12 @@ const getS51AdviceFolderId = memoize(async (caseId) => {
 	return s51AdviceFolder?.id;
 });
 
+const getExamTimetableFolderId = memoize(async (caseId) => {
+	const examTimetableFolder = await getFolderByNameAndCaseId(caseId, 'Examination timetable');
+	if (!examTimetableFolder) throw `Examination timetable folder not found for caseId ${caseId}`;
+	return examTimetableFolder?.id;
+});
+
 /**
  * look up path in maps, or create it if not found
  * @param documentPath
@@ -1072,9 +1078,14 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 
 	logger.info(`path: ${documentPath}, documentCaseStage: ${documentCaseStage}`);
 
-	if (folders[0] === '02 - Section 51 Advice') {
+	if (isS51AdviceFolder(path)) {
 		logger.info('Path is S51 advice folder');
 		return getS51AdviceFolderId(caseId);
+	}
+
+	if (isExamTimetableSubfolder(path)) {
+		logger.info('Creating Exam Timetable subfolder');
+		return createExamTimetableSubfolder(folders, caseId);
 	}
 
 	let folderId;
@@ -1095,6 +1106,19 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 	if (!folderId) throw `folderId not found`;
 
 	return folderId;
+};
+
+const isExamTimetableSubfolder = (documentPath) => /Exam Timetable\/(.*)/.test(documentPath);
+
+const isS51AdviceFolder = (documentPath) => /02 - Section 51 Advice/.test(documentPath);
+
+const createExamTimetableSubfolder = async (folders, caseId) => {
+	const parentFolderId = await getExamTimetableFolderId(caseId);
+
+	const folderIndex = folders.findIndex((folderName) => /Exam Timetable$/.test(folderName));
+	const subFolders = folders.slice(folderIndex + 1);
+
+	return createFolders(subFolders, caseId, parentFolderId);
 };
 
 /**

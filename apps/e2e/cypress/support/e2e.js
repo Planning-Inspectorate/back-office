@@ -18,8 +18,13 @@
 
 // Import commands.js using ES2015 syntax:
 import { users } from '../fixtures/users';
+import { loadFlags } from '../fixtures/feature-flags';
 import './commands';
 import { isCI } from './utils/isCI';
+
+before(async () => {
+	Cypress.env('featureFlags', await loadFlags());
+});
 
 after(() => {
 	cy.deleteUnwantedFixtures();
@@ -28,8 +33,7 @@ after(() => {
 after(() => {
 	//cy.clearAllSessionStorage();
 	//cy.clearCookies();
-
-	});
+});
 Cypress.on('uncaught:exception', (err, runnable) => {
-		return false
-	  })
+	return false;
+});

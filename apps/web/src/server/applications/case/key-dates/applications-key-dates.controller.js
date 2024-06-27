@@ -56,31 +56,39 @@ export async function updateKeyDatesSection({ params, body, errors: validationEr
 
 	/** @type {Record<string, string|number>} */
 	let payload = body;
+	let validDates = {};
 	let apiErrors;
 
-	if (!validationErrors) {
-		// get all fields
-		// they could be inferred by the API but this way we avoid an API call
-		const allDateFields = Object.keys(body)
-			.filter((key) => key.indexOf('year') > 1)
-			.map((key) => key.replace('.year', ''));
+	// get all fields
+	// they could be inferred by the API but this way we avoid an API call
+	const allDateFields = Object.keys(body)
+		.filter((key) => key.indexOf('year') > 1)
+		.map((key) => key.replace('.year', ''));
 
-		// transform {field.day:1, field.month:2, field.year: 1990} to {field: 1234567}
-		allDateFields.forEach((dateField) => {
-			const day = body[`${dateField}.day`];
-			const month = body[`${dateField}.month`];
-			const year = body[`${dateField}.year`];
+	// transform {field.day:1, field.month:2, field.year: 1990} to {field: 1234567}
+	allDateFields.forEach((dateField) => {
+		const day = body[`${dateField}.day`];
+		const month = body[`${dateField}.month`];
+		const year = body[`${dateField}.year`];
 
+		if (validationErrors && validationErrors[dateField]) {
+			validationErrors[dateField].value = { day, month, year };
+		} else {
 			const date = new Date(`${year}-${month}-${day}`);
 
 			const unixTimeStamp = Math.floor(date.getTime() / 1000);
 
 			if (!isNaN(unixTimeStamp)) {
-				payload = { ...payload, [dateField]: unixTimeStamp };
+				// @ts-ignore
+				validDates[dateField] = unixTimeStamp;
 			}
-		});
+		}
+	});
 
-		const { errors } = await updateKeyDates(+caseId, { [sectionName]: payload });
+	if (!validationErrors) {
+		const { errors } = await updateKeyDates(+caseId, {
+			[sectionName]: { ...payload, ...validDates }
+		});
 		apiErrors = errors;
 	}
 
@@ -89,7 +97,7 @@ export async function updateKeyDatesSection({ params, body, errors: validationEr
 
 		return response.render(`applications/case-key-dates/key-dates-section.njk`, {
 			sectionName,
-			sectionValues: sections[sectionName] || {},
+			sectionValues: { ...sections[sectionName], ...validDates } || {},
 			errors: validationErrors || apiErrors
 		});
 	}

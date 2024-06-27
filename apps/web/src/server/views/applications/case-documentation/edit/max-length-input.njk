@@ -1,5 +1,8 @@
 {% macro maxLengthInput(layout, value, errors) %}
 	{% set error = errors[layout.metaDataName] %}
+	{% if error %}
+		{% set value=error.value %}
+	{% endif %}
 
     <div class="govuk-form-group {{ "govuk-form-group--error" if error else "" }}">
 
@@ -11,7 +14,7 @@
             {{ layout.hint }}
         </div>
 
-        {% if errors[layout.metaDataName] %}
+        {% if error %}
             <p id="{{layout.metaDataName}}-error" class="govuk-error-message">
                 <span class="govuk-visually-hidden">Error:</span>
                 {{ (error | errorMessage).text }}

@@ -487,6 +487,23 @@ export const addApplicationRepresentationAttachment = async (representationId, d
 
 /**
  *
+ * @param {number} representationId
+ * @param {string} documentId
+ * @returns {Promise<*>}
+ */
+export const upsertApplicationRepresentationAttachment = async (representationId, documentId) => {
+	return databaseConnector.representationAttachment.upsert({
+		where: { documentGuid: documentId },
+		update: { representationId },
+		create: {
+			documentGuid: documentId,
+			representationId
+		}
+	});
+};
+
+/**
+ *
  * @param {number} repId
  * @param {number} attachmentId
  * @returns {Promise<*>}
@@ -599,6 +616,22 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
 	);
 
 	await databaseConnector.$transaction(transactionItems);
+};
+
+/**
+ * Sets representations as 'published' in batches
+ * This is required as there is a limit in prisma for the amount of parameters to update in one go
+ * @param {Prisma.RepresentationSelect[]} representations
+ * @param {string} actionBy User performing publish action
+ * @returns {Promise<void>}
+ */
+export const setRepresentationsAsPublishedBatch = async (representations, actionBy) => {
+	const batchSize = 1000;
+	for (let i = 0; i < representations.length; i += batchSize) {
+		const batch = representations.slice(i, i + batchSize);
+		await setRepresentationsAsPublished(batch, actionBy);
+		console.info(`updated representations from range ${i} - ${i + batch.length}`);
+	}
 };
 
 /**

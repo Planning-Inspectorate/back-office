@@ -3,6 +3,8 @@ import { MigratedEntityIdCeiling } from '../migrator.consts.js';
 import { buildUpsertForEntity } from './sql-tools.js';
 import { databaseConnector } from '#utils/database-connector.js';
 import { omit } from 'lodash-es';
+import * as documentRepository from '#repositories/document.repository.js';
+import * as representationAttachmentRepository from '#repositories/representation.repository.js';
 
 /**
  * @typedef {import('pins-data-model').Schemas.Representation} RepresentationModel
@@ -42,11 +44,20 @@ export const migrateRepresentations = async (representations) => {
 				await databaseConnector.representationAction.create({ data: redaction });
 			}
 		}
+		await Promise.all(
+			representation.attachmentIds.map(async (attachmentId) => {
+				return documentRepository.getById(attachmentId).then((documentRow) => {
+					if (!documentRow || !documentRow.guid) {
+						throw Error(`Failed to get document with ID ${attachmentId}`);
+					}
 
-		// TODO attachments
-		// for (const attachmentId in representationEntity.attachmentIds) {
-		// 	// create RepresentationAttachment, Document
-		// }
+					return representationAttachmentRepository.upsertApplicationRepresentationAttachment(
+						representationEntity.id,
+						documentRow.guid
+					);
+				});
+			})
+		);
 	}
 };
 
@@ -82,7 +93,7 @@ const mapModelToRepresentationEntity = async ({
 		received: dateReceived,
 		type: representationType,
 		unpublishedUpdates: false,
-		representativeId,
+		representativeId: representativeId ? parseInt(representativeId) : null,
 		representedId,
 		representedType: representationFrom
 	};

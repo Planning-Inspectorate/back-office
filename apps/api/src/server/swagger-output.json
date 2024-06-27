@@ -5745,6 +5745,10 @@
 					"type": "string",
 					"example": "John Smith"
 				},
+				"authorWelsh": {
+					"type": "string",
+					"example": "John Smith (Welsh)"
+				},
 				"dateCreated": {
 					"type": "number",
 					"example": 1646822400

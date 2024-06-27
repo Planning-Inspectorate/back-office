@@ -1,4 +1,4 @@
-import msal, { LogLevel } from '@azure/msal-node';
+import { LogLevel, ConfidentialClientApplication } from '@azure/msal-node';
 import config from '@pins/applications.web/environment/config.js';
 import pino from './logger.js';
 import redisClient from './redis.js';
@@ -38,12 +38,12 @@ const msalConfig = {
 				}
 			},
 			piiLoggingEnabled: false,
-			logLevel: msal.LogLevel.Warning
+			logLevel: LogLevel.Warning
 		}
 	}
 };
 
-/** @type {msal.ConfidentialClientApplication | null} */
+/** @type {ConfidentialClientApplication | null} */
 let msalClient = null;
 
 /**
@@ -51,18 +51,18 @@ let msalClient = null;
  * If using Redis, generate an MSAL client specific to the user's session ID.
  *
  * @param {string} sessionId
- * @returns {msal.ConfidentialClientApplication}
+ * @returns {ConfidentialClientApplication}
  * */
 export const getMsalClient = (sessionId) => {
 	if (redisClient) {
-		return new msal.ConfidentialClientApplication({
+		return new ConfidentialClientApplication({
 			...msalConfig,
 			cache: { cachePlugin: redisClient.makeCachePlugin(sessionId) }
 		});
 	}
 
 	if (!msalClient) {
-		msalClient = new msal.ConfidentialClientApplication(msalConfig);
+		msalClient = new ConfidentialClientApplication(msalConfig);
 	}
 
 	return msalClient;

@@ -11,27 +11,29 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.4.0
+      ref: refs/tags/release/3.16.1
 
 extends:
   template: stages/wrapper_ci.yml@templates
   parameters:
+    gitFetchDepth: 0
     globalVariables:
       - template: azure-pipelines-variables.yml@self
     validationJobs:
       - name: Run Linting & Tests
         steps:
+          - script: git fetch origin main:main
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm ci
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm run commitlint
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm run tscheck
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)
@@ -39,19 +41,19 @@ extends:
                 TURBO_TOKEN: $(TURBO_TOKEN)
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm run lint:js
           - template: ../steps/node_script.yml
             parameters:
               script: npm run test
-              nodeVersion: 18
+              nodeVersion: 20
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)
                 TURBO_API: $(TURBO_API)
                 TURBO_TOKEN: $(TURBO_TOKEN)
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 18
+              nodeVersion: 20
               script: npm run build:release
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)

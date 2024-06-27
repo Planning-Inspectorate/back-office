@@ -127,19 +127,15 @@ export const validateS51AdviceIsNotPublished = composeMiddleware(
 /**
  * Verifies if the given array of S51 Advice IDs have the correct required fields, so that they are ready to publish
  *
- * TODO: Let's make this return an error instead of throwing one
- *
  * @param {number[]} s51AdviceIds
- * @throws {Error}
- * @returns {Promise<{id: number}[]>}
+ * @returns {Promise<Error | null>}
  */
 export const verifyAllS51AdviceHasRequiredPropertiesForPublishing = async (s51AdviceIds) => {
 	const publishableS51Advice = await s51AdviceRepository.getPublishableS51Advice(s51AdviceIds);
 
 	if (s51AdviceIds.length !== publishableS51Advice.length) {
 		const publishableIds = new Set(publishableS51Advice.map((pAdvice) => pAdvice.id));
-		// TODO: Return instead?
-		throw new Error(
+		return new Error(
 			JSON.stringify(
 				s51AdviceIds
 					.filter((adviceId) => !publishableIds.has(adviceId))
@@ -150,9 +146,7 @@ export const verifyAllS51AdviceHasRequiredPropertiesForPublishing = async (s51Ad
 		);
 	}
 
-	return publishableS51Advice.map(({ id }) => ({
-		id: id
-	}));
+	return null;
 };
 
 /**

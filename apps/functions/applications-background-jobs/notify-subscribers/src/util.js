@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { loadConfig } from './config.js';
+import { JSDOM } from 'jsdom';
 
 /**
  * Returns a promise that waits for the given time before resolving.
@@ -50,4 +51,19 @@ export function encrypt(value) {
 	const encrypted = Buffer.concat([cipher.update(value), cipher.final()]);
 
 	return `${iv.toString('hex')}${encrypted.toString('hex')}`;
+}
+
+/**
+ * Encodes the links within the html for markdown
+ *
+ * @param {string} htmlString
+ * @returns {string}
+ */
+export function encodeLinksForMarkdown(htmlString) {
+	const dom = new JSDOM(htmlString);
+	const links = dom.window.document.querySelectorAll('a'); // Select all anchor elements
+	links.forEach((link) => {
+		link.href = link.href.replaceAll("'", '%27').replaceAll('(', '%28').replaceAll(')', '%29');
+	});
+	return dom.serialize();
 }

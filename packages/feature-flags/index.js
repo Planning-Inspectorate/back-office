@@ -1,1 +1,1 @@
-export * from './src/index.js';
+export * from './src/feature-flag-client.js';

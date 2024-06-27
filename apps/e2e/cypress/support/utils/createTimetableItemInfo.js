@@ -1,57 +1,50 @@
 // @ts-nocheck
 import { faker } from '@faker-js/faker';
-import { getShortMonthNameExamTimeTable } from './utils.js';
-import { getShortMonthName} from './utils.js';
+import { getShortFormattedDate } from './utils.js';
 
 export const timetableItem = () => {
 	const now = Date.now();
 	const currentYear = new Date().getFullYear();
 
 	const itemName = `Test_Item_${now}`;
-	const description = 'Exam time table example'
+	const description = 'Exam time table example';
 
-	const day = faker.datatype
-		.number({
-			min: 10,
-			max: 28
-		})
-		.toString()
-		.padStart(2, '0');
+	const dayAsInteger = faker.datatype.number({
+		min: 10,
+		max: 28
+	});
 
-	const month = faker.datatype
-		.number({
-			min: 1,
-			max: 12
-		})
-		.toString()
-		.padStart(2, '0');
+	const monthAsInteger = faker.datatype.number({
+		min: 1,
+		max: 12
+	});
 
-	const startYear = faker.datatype
-		.number({
-			min: currentYear + 1,
-			max: currentYear + 5
-		})
-		.toString();
+	const yearAsInteger = faker.datatype.number({
+		min: currentYear + 1,
+		max: currentYear + 5
+	});
 
-	const endYear = (parseInt(startYear) + 1).toString().padStart(2, '0');
+	const day = dayAsInteger.toString().padStart(2, '0');
+	const month = monthAsInteger.toString().padStart(2, '0');
+	const startYear = yearAsInteger.toString();
+	const endYear = (yearAsInteger + 1).toString();
+
+	const startDate = getShortFormattedDate(new Date(`${startYear}-${month}-${day}`));
+	const endDate = getShortFormattedDate(new Date(`${endYear}-${month}-${day}`));
+
+	const startDateFull = startDate;
+	const endDateFull = endDate;
+	const startDateFullDeadLine = startDate;
+	const endDateFullDeadLine = endDate;
 
 	const minutes = '00';
+	const startHourAsInteger = faker.datatype.number({
+		min: 1,
+		max: 11
+	});
 
-	const startHour = faker.datatype
-		.number({
-			min: 1,
-			max: 11
-		})
-		.toString()
-		.padStart(2, '0');
-
-	const endHour = (parseInt(startHour) + 1).toString().padStart(2, '0');
-
-	const startDateFull = `${day} ${getShortMonthNameExamTimeTable(month).substring(0, 3)} ${startYear}`;
-	const endDateFull = `${day} ${getShortMonthNameExamTimeTable(month).substring(0, 3)} ${endYear}`;
-
-	const startDateFullDeadLine = `${day} ${getShortMonthName(month).substring(0, 3)} ${startYear}`;
-	const endDateFulldeadLine = `${day} ${getShortMonthName(month).substring(0, 3)} ${endYear}`;
+	const startHour = startHourAsInteger.toString().padStart(2, '0');
+	const endHour = (startHourAsInteger + 1).toString().padStart(2, '0');
 
 	const startTimeFormatted = `${startHour}:${minutes}`;
 	const endTimeFormatted = `${endHour}:${minutes}`;
@@ -72,6 +65,6 @@ export const timetableItem = () => {
 		startTimeFormatted,
 		endTimeFormatted,
 		startDateFullDeadLine,
-		endDateFulldeadLine
+		endDateFullDeadLine
 	};
 };

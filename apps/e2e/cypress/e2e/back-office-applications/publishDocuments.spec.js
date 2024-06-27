@@ -36,7 +36,6 @@ describe('Publish Documents', () => {
 		caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 	});
@@ -55,13 +54,25 @@ describe('Publish Documents', () => {
 
 	it('As a user able to set document for "Ready to publish" and see it in the publishing queue', () => {
 		fileUploadPage.clickLinkByText('View/Edit properties');
-		documentPropertiesPage.updateAllProperties('Redacted');
-		folderPage.markAllReadyToPublish();
-		folderPage.clickLinkByText('View publishing queue');
-		folderPage.validatePublishingQueueCase(projectInfo, caseRef);
-		publishingQueuePage.validateDocumentCountInList(1);
-		folderPage.publishAllDocumentsInList();
-		folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
+		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
+			const text = $elem.text().trim();
+			if (text === 'Description in Welsh') {
+				documentPropertiesPage.updateAllPropertiesIncludingWelsh('Redacted');
+				folderPage.markAllReadyToPublish();
+				folderPage.clickLinkByText('View publishing queue');
+				folderPage.validatePublishingQueueCase(projectInfo, caseRef);
+				publishingQueuePage.validateDocumentCountList(1);
+				folderPage.publishAllDocumentsInList();
+				folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
+			} else {
+				documentPropertiesPage.updateAllProperties('Redacted');
+				folderPage.markAllReadyToPublish();
+				folderPage.clickLinkByText('View publishing queue');
+				folderPage.validatePublishingQueueCase(projectInfo, caseRef);
+				publishingQueuePage.validateDocumentCountList(1);
+				folderPage.publishAllDocumentsInList();
+				folderPage.validateSuccessfulPublish(projectInfo, caseRef, 1);
+			}
+		});
 	});
-
 });

@@ -1,27 +1,7 @@
 import { SynapseDB } from '../synapse-db.js';
 import { makePostRequest } from '../back-office-api-client.js';
-import { removeValues } from '../utils.js';
 
-const representationProperties = [
-	'representationId',
-	'referenceId',
-	'examinationLibraryRef',
-	'caseRef',
-	'caseId',
-	'status',
-	'originalRepresentation',
-	'redacted',
-	'redactedRepresentation',
-	'redactedBy',
-	'redactedNotes',
-	'representationFrom',
-	'representedId',
-	'representativeId',
-	'representationType',
-	'dateReceived'
-];
-
-const query = `SELECT ${representationProperties.join(', ')}
+const query = `SELECT *
 			   FROM [odw_curated_db].[dbo].[relevant_representation]
 			   WHERE caseRef = ?`;
 
@@ -47,19 +27,7 @@ export async function migrationRepresentationsForCase(log, caseReference) {
 	try {
 		log.info(`reading Representations with caseReference ${caseReference}`);
 
-		const [representationRows, count] = await SynapseDB.query(query, {
-			replacements: [caseReference]
-		});
-
-		const representationEntities = representationRows.map((row) => {
-			removeValues(row, [null, '']);
-
-			return {
-				...row,
-				originalRepresentation: row.originalRepresentation || ''
-				// attachmentIds: row.attachmentIds?.split(',')
-			};
-		});
+		const { representationEntities, count } = await getRepresentationsForCase(log, caseReference);
 
 		log.info(
 			`found ${count} Representations: ${JSON.stringify(
@@ -75,3 +43,25 @@ export async function migrationRepresentationsForCase(log, caseReference) {
 		throw e;
 	}
 }
+
+/**
+ * Get Representations for a case
+ * @param {import('@azure/functions').Logger} log
+ * @param {string} caseReference
+d */
+export const getRepresentationsForCase = async (log, caseReference) => {
+	log.info`Getting Representations for case ${caseReference}`;
+	const [representationRows, count] = await SynapseDB.query(query, {
+		replacements: [caseReference]
+	});
+
+	const representationEntities = representationRows.map((row) => {
+		return {
+			...row,
+			originalRepresentation: row.originalRepresentation || '',
+			attachmentIds: row.attachmentIds?.split(',') ?? []
+		};
+	});
+
+	return { representationEntities, count };
+};

@@ -84,10 +84,10 @@ const timeSplitTimeIntoComponents = (timeString) => {
 /**
  * converts the string containing the JSON formatted description into text suitable for HTML display in an input text area
  *
- * @param {string} description
- * @returns
+ * @param {string|undefined} description
+ * @returns {string}
  */
-const convertExamDescriptionToInputText = (description) => {
+export const convertExamDescriptionToInputText = (description) => {
 	let descriptionText;
 	if (description) {
 		const descriptionObj = JSON.parse(description);

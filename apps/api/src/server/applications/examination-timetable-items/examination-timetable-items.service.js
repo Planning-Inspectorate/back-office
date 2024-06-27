@@ -73,7 +73,8 @@ async function buildExamTimetableItemsPayload(examinationTimetableId) {
 		events:
 			examinationTimetable.ExaminationTimetableItem?.map(
 				buildSingleExaminationTimetableItemPayload
-			) ?? []
+			) ?? [],
+		published: examinationTimetable.published
 	};
 }
 
@@ -91,7 +92,9 @@ function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
 		type: examinationTimetableItem.ExaminationTimetableType.name,
 		date: examinationTimetableItem.date.toISOString().replace('Z', ''),
 		description,
+		descriptionWelsh: examinationTimetableItem.descriptionWelsh,
 		eventTitle: examinationTimetableItem.name,
+		eventTitleWelsh: examinationTimetableItem.nameWelsh,
 		eventDeadlineStartDate: examinationTimetableItem.startDate?.toISOString().replace('Z', ''),
 		eventId: examinationTimetableItem.id,
 		eventLineItems

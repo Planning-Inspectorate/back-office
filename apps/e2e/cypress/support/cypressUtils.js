@@ -72,6 +72,7 @@ const deleteUnwantedFixtures = () => {
 	const keepList = [
 		'browser-auth-data.js',
 		'case-search.json',
+		'feature-flags.js',
 		'folder-structure.json',
 		'sample-doc.pdf',
 		'sample-file.doc',

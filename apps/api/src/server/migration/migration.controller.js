@@ -16,7 +16,7 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
 
 	for (const model of body) {
 		if (!validator(model)) {
-			throw Error(`Model ${JSON.stringify(model)} failed model validation`);
+			throw Error(`Model ${modelType} failed with errors ${JSON.stringify(validator.errors)}`);
 		}
 	}
 

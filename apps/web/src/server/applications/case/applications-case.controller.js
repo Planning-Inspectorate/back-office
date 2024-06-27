@@ -1,32 +1,34 @@
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
-import { generalSection51CaseReference } from './general-s51/applications-general-s51.config.js';
+import { deleteSessionBanner, getSessionBanner } from '../common/services/session.service.js';
 import { allRoles } from './project-team/applications-project-team.controller.js';
 import {
-	getManyProjectTeamMembersInfo,
-	getProjectTeamMembers
-} from './project-team/applications-project-team.service.js';
+	getProjectTeam,
+	getManyProjectTeamMembersInfo
+} from '../common/services/project-team.service.js';
+import { isCaseRegionWales } from '../common/isCaseWelsh.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 /**
- * View the overview for a single case
+ * View the overview for a single case (legacy)
  *
  * @type {import('@pins/express').RenderHandler<{}>}
  */
-export async function viewApplicationsCaseOverview({ session }, response) {
+export async function viewApplicationsCaseOverviewLegacy({ session }, response) {
 	const {
 		caseId,
 		case: { reference }
 	} = response.locals;
 
 	//hide the page when attempting to view general section 51 case
-	if (reference === generalSection51CaseReference) {
+	if (reference === BO_GENERAL_S51_CASE_REF) {
 		return response.render(`app/404`);
 	}
 
 	// query the internal database to retrieve roles and ids
-	const { projectTeamMembers } = await getProjectTeamMembers(caseId);
+	const projectTeamMembers = await getProjectTeam(caseId);
 
 	const displayableMembers = (projectTeamMembers || [])
 		// filter NSIP Officer and Case Manager role
@@ -51,20 +53,88 @@ export async function viewApplicationsCaseOverview({ session }, response) {
 		session
 	);
 
-	response.render(`applications/case/overview`, {
+	response.render(`applications/case/overview-legacy`, {
 		selectedPageType: 'overview',
 		displayableMembers: displayableMembersInfo,
 		notDisplayableMembersExist
 	});
 }
+
+/**
+ * View the overview for a single case
+ *
+ * @type {import('@pins/express').RenderHandler<{}>}
+ */
+export async function viewApplicationsCaseOverview(request, response) {
+	const {
+		case: { id: caseId, reference }
+	} = response.locals;
+
+	//hide the page when attempting to view general section 51 case
+	if (reference === BO_GENERAL_S51_CASE_REF) {
+		return response.render(`app/404`);
+	}
+
+	const projectTeam = await getProjectTeam(caseId);
+	const teamMembers = await getManyProjectTeamMembersInfo(projectTeam, request.session);
+	const caseIsWelsh = await isCaseRegionWales(
+		response.locals.case?.geographicalInformation?.regions
+	);
+
+	/** @type {string | null} */
+	const caseManager = (() => {
+		const userInfo = teamMembers.find((m) => m.role === 'case_manager');
+		if (!userInfo) {
+			return null;
+		}
+
+		return `${userInfo.givenName} ${userInfo.surname}`;
+	})();
+
+	/** @type {string[]} */
+	const nsipOfficers = teamMembers
+		.filter((m) => m.role === 'NSIP_officer')
+		.map((m) => `${m.givenName} ${m.surname}`);
+
+	const keyMembers = {
+		caseManager,
+		nsipOfficers
+	};
+
+	const banner = getSessionBanner(request.session);
+	deleteSessionBanner(request.session);
+
+	response.render(`applications/case/overview`, {
+		errors: request.errors,
+		selectedPageType: 'overview',
+		keyMembers,
+		caseIsWelsh,
+		banner
+	});
+}
+
+/**
+ * Validate applications case overview
+ *
+ * @type {import('@pins/express').RenderHandler<{}>}
+ */
+export async function validateApplicationsCaseOverview(request, response) {
+	if (request.errors) {
+		viewApplicationsCaseOverview(request, response);
+	} else {
+		response.redirect(`${request.baseUrl}/preview-and-publish`);
+	}
+}
+
 /**
  * View the project information page for a single case
  *
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function viewApplicationsCaseInformation(_, response) {
-	response.render(`applications/case/project-information`, {
-		selectedPageType: 'project-information'
+	response.render('applications/case/project-information', {
+		selectedPageType: 'project-information',
+		caseIsWelsh: false
 	});
 }
 

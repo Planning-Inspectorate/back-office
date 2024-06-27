@@ -33,7 +33,7 @@
 			<form method="post" action="{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id}) }}">
 				{% include 'app/includes/csrf.njk' %}
 
-				{{timetableItemSummary(timetableItem)}}
+				{{timetableItemSummary(timetableItem, isCaseWelsh)}}
 
 				{{ govukButton({ text: 'Delete timetable item', classes: 'govuk-!-margin-top-6 govuk-button--warning'}) }}
 			</form>

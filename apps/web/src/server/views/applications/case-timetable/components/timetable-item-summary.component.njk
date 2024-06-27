@@ -1,9 +1,9 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% macro timetableItemSummary(timetableItem) %}
+{% macro timetableItemSummary(timetableItem, isCaseWelsh='', caseId='') %}
 
-	{% set descriptionHtml %}
+	{% set descriptionHtmlEn %}
 		<p class="govuk-body">{{timetableItem.description.preText | sanitize}}</p>
 
 		{% if timetableItem.description.bulletPoints | length %}
@@ -15,43 +15,123 @@
 		{% endif %}
 	{% endset %}
 
-	{% set rowsData = [
+	{% set rowsDataEn = [
 		{
-			key: 'Item Type',
+			key: 'Item type',
 			text: timetableItem.itemTypeName
-		}, {
-			key: 'Item Name',
+		},
+		{
+			key: 'Item name',
 			text: timetableItem.name
-		}, {
+		},
+		{
 			key: "Date",
 			text: timetableItem.date
-		}, {
-			key: "Start Date",
+		},
+		{
+			key: "Start date",
 			text: timetableItem.startDate
-		}, {
+		},
+		{
 			key: "Start time",
 			text: timetableItem.startTime
-		}, {
-			key: "End Date",
+		},
+		{
+			key: "End date",
 			text: timetableItem.endDate
-		}, {
-			key: "End Time",
+		},
+		{
+			key: "End time",
 			text: timetableItem.endTime
-		}, {
-			key: "Description",
-			html: descriptionHtml
+		},
+		{
+			key: "Item description",
+			html: descriptionHtmlEn
 		}
-
 	] %}
+
+	{# add actions for each row, we need the same link for all fields except the welsh variants #}
+	{% for row in rowsDataEn %}
+		{% set row = row | assign(row, { actions: caseId and {
+				items: [
+					{
+						href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}),
+						text: "Change",
+						visuallyHiddenText: row.key
+					}
+				]
+			} } ) %}
+	{% endfor %}
+
+	{# for welsh cases, include welsh fields #}
+	{% set rowsDataCy = [] %}
+
+	{% for row in rowsDataEn %}
+		{% if loop.index0 == 2 %}
+			{% set rowsDataCy = (rowsDataCy.push({
+				key: 'Item name in Welsh',
+				text: timetableItem.nameWelsh,
+				actions: caseId and {
+					items: [
+						{
+							href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}) + "/name-welsh",
+							text: "Change",
+							visuallyHiddenText: 'Item name in Welsh',
+							attributes: {
+							id: "nameWelsh-" ~ timetableItem.id
+						}
+						}
+					]
+			}
+				
+			}), rowsDataCy) %}
+		{% endif %}
+		{% set rowsDataCy = (rowsDataCy.push(row), rowsDataCy) %}
+	{% endfor %}
+
+
+	{# set/display cy description only if en version is present #}
+	{% if timetableItem.description.preText | trim %}
+		{% set descriptionHtmlCy %}
+			<p class="govuk-body">{{timetableItem.descriptionWelsh.preText | sanitize}}</p>
+
+			{% if timetableItem.description.bulletPoints | length %}
+				<ul class='govuk-list govuk-list--bullet'>
+					{% for bulletPoint in timetableItem.descriptionWelsh.bulletPoints %}
+						<li>{{bulletPoint | sanitize}}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endset %}
+
+		{% set rowsDataCy = (rowsDataCy.push({
+			key: "Item description in Welsh",
+			html: descriptionHtmlCy,
+			actions: caseId and {
+				items: [
+					{
+						href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}) + "/description-welsh",
+						text: "Change",
+						visuallyHiddenText: 'Item description in Welsh'
+					}
+				]
+			}
+		}), rowsDataCy) %}
+	{% endif %}
+
+
+	{% set rowsData = [] %}
+	{% set rowsData = rowsDataCy if isCaseWelsh else rowsDataEn %}
 
 	{% set tableRows = [] %}
 	{% for row in rowsData %}
-		{% if (row.text or row.html) %}
+		{% if (row.text or row.html or row.key == 'Item name in Welsh' or row.key == 'Item description in Welsh') %}
 			{#  In the value column, the row can be used because the "key" will be ignored	#}
 			{% set tableRows = tableRows.concat([
 				{
 					key: { text: row.key },
-					value: row
+					value: row,
+					actions: row.actions
 				}
 			]) %}
 

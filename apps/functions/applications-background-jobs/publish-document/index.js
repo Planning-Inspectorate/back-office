@@ -14,7 +14,7 @@ import { blobClient } from '../common/blob-client.js';
  */
 export const index = async (
 	context,
-	{ caseId, documentId, version, documentURI, documentReference, filename, originalFilename }
+	{ caseId, documentId, version, documentURI, documentReference, filename, originalFilename, mime }
 ) => {
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
@@ -28,7 +28,8 @@ export const index = async (
 		!documentURI ||
 		!filename ||
 		!originalFilename ||
-		!documentReference
+		!documentReference ||
+		!mime
 	) {
 		throw Error('One or more required properties are missing.');
 	}
@@ -56,7 +57,8 @@ export const index = async (
 	await blobClient.copyFileFromUrl({
 		sourceUrl: documentURI,
 		destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
-		destinationBlobName: publishFileName
+		destinationBlobName: publishFileName,
+		newContentType: mime
 	});
 
 	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-published`;

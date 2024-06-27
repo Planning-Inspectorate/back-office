@@ -5,7 +5,8 @@ import { fixtureCases } from '../../../../../../testing/applications/fixtures/ca
 import {
 	fixtureTimetableTypes,
 	fixtureTimetableItems,
-	fixtureTimetable
+	fixtureTimetable,
+	fixtureTimetableWelshCase
 } from '../../../../../../testing/applications/fixtures/timetable-types.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 
@@ -16,6 +17,15 @@ const nocks = () => {
 	nock('http://test/').get('/applications').times(2).reply(200, {});
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/')
+		.get('/applications/1234')
+		.reply(200, {
+			...fixtureCases[3],
+			geographicalInformation: {
+				locationDescription: 'Wales',
+				regions: [{ name: 'wales' }]
+			}
+		});
+	nock('http://test/')
 		.get('/applications/examination-timetable-type')
 		.times(2)
 		.reply(200, fixtureTimetableTypes);
@@ -23,9 +33,13 @@ const nocks = () => {
 		.get('/applications/examination-timetable-items/case/123')
 		.times(3)
 		.reply(200, fixtureTimetable);
+	nock('http://test/')
+		.get('/applications/examination-timetable-items/case/1234')
+		.reply(200, fixtureTimetableWelshCase);
 	nock('http://test/').post('/applications/examination-timetable-items').reply(200, []);
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/1')
+		.times(2)
 		.reply(200, fixtureTimetableItems[0]);
 	nock('http://test/')
 		.patch('/applications/examination-timetable-items/publish/123')
@@ -48,6 +62,20 @@ describe('Examination timetable page', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Examination timetable');
+		});
+	});
+	describe('GET /case/1234/examination-timetable', () => {
+		beforeEach(async () => {
+			await request.get('/applications-service/');
+			nocks();
+		});
+
+		it('should render welsh fields for welsh cases', async () => {
+			const response = await request.get(`/applications-service/case/1234/examination-timetable`);
+			const element = parseHtml(response.text, { rootElement: '.timetable-table' });
+
+			expect(element.innerHTML).toContain('Item name in Welsh');
+			expect(element.innerHTML).toContain('Item description in Welsh');
 		});
 	});
 });
@@ -265,6 +293,153 @@ describe('Edit examination timetable', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Edit timetable item');
+		});
+	});
+	describe('Edit welsh fields', () => {
+		describe('GET /case/123/examination-timetable/item/edit/1/name-welsh', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+				nocks();
+			});
+
+			it('should render the page', async () => {
+				const response = await request.get(
+					`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`
+				);
+
+				const element = parseHtml(response.text, { rootElement: 'h1' });
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Item name in Welsh');
+			});
+		});
+
+		describe('POST /case/123/examination-timetable/item/edit/1/name-welsh', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+				nocks();
+			});
+			describe('when the form is submitted with a welsh name', () => {
+				describe('and there are validation errors', () => {
+					it('should show an error when submitted welsh name is empty', async () => {
+						const response = await request
+							.post(`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`)
+							.send({
+								id: 1,
+								nameWelsh: ''
+							});
+
+						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
+
+						expect(element.innerHTML).toContain('Enter item name in Welsh');
+					});
+					it('should show an error when submitted welsh name is too long', async () => {
+						const response = await request
+							.post(`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`)
+							.send({
+								id: 1,
+								nameWelsh: 'mock welsh name'.repeat(100)
+							});
+
+						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
+
+						expect(element.innerHTML).toContain(
+							'Item name in Welsh must be 200 characters or less'
+						);
+					});
+				});
+
+				describe('and there are no validation errors', () => {
+					it('redirect to /examination-timetable', async () => {
+						const response = await request
+							.post(`/applications-service/case/123/examination-timetable/item/edit/1/name-welsh`)
+							.send({
+								id: 1,
+								nameWelsh: 'mock welsh name'
+							});
+
+						expect(response?.headers?.location).toBe(
+							'/applications-service/case/123/examination-timetable'
+						);
+					});
+				});
+			});
+		});
+
+		describe('GET /case/123/examination-timetable/item/edit/1/description-welsh', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+				nocks();
+			});
+
+			it('should render the page', async () => {
+				const response = await request.get(
+					`/applications-service/case/123/examination-timetable/item/edit/1/description-welsh`
+				);
+
+				const element = parseHtml(response.text, { rootElement: 'h1' });
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Item description in Welsh');
+			});
+		});
+
+		describe('POST /case/123/examination-timetable/item/edit/1/description-welsh', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+				nocks();
+			});
+			describe('when the form is submitted with a welsh description', () => {
+				describe('and there are validation errors', () => {
+					it('should show an error when submitted welsh description is empty', async () => {
+						const response = await request
+							.post(
+								`/applications-service/case/123/examination-timetable/item/edit/1/description-welsh`
+							)
+							.send({
+								id: 1,
+								descriptionWelsh: ''
+							});
+
+						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
+
+						expect(element.innerHTML).toContain('Enter item description in Welsh');
+					});
+					it('should show an error when submitted welsh description bulletpoint number doesnt match english counterpart', async () => {
+						const response = await request
+							.post(
+								`/applications-service/case/123/examination-timetable/item/edit/1/description-welsh`
+							)
+							.send({
+								id: 1,
+								descriptionWelsh: 'mock welsh description without bulletpoints'
+							});
+
+						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
+
+						expect(element.innerHTML).toContain(
+							'Item description in Welsh must contain the same number of bullets as the item description in English'
+						);
+					});
+				});
+
+				describe('and there are no validation errors', () => {
+					it('redirects to /examination-timetable', async () => {
+						const response = await request
+							.post(
+								`/applications-service/case/123/examination-timetable/item/edit/1/description-welsh`
+							)
+							.send({
+								id: 1,
+								descriptionWelsh: 'mock welsh description \n *bulletpoint \n*bulletpoint'
+							});
+
+						expect(response?.headers?.location).toBe(
+							'/applications-service/case/123/examination-timetable'
+						);
+					});
+				});
+			});
 		});
 	});
 });

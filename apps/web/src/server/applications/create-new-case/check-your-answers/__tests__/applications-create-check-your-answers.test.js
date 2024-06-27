@@ -84,7 +84,7 @@ describe('applications create: check your answers', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Enter the project location');
+				expect(element.innerHTML).toContain('Enter project location');
 				expect(element.innerHTML).toContain('Choose the subsector of the project');
 				expect(element.innerHTML).toContain('Choose the sector of the project');
 				expect(element.innerHTML).toContain('Choose at least one region');

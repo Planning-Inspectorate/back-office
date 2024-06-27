@@ -10,6 +10,8 @@
 {% set pageTitle = case.title %}
 {% set serviceName = 'Project documentation' %}
 
+{% set bannerText = updateBannerText if updateBannerText else 'New version uploaded' %}
+
 {% block beforeContent %}
 <aside>
     {{ govukBackLink({
@@ -27,9 +29,10 @@
 					classes: 'govuk-!-margin-top-0',
 					items: breadcrumbItems
 				}) }}
+
 				{% set html %}
 					<h3 class="govuk-notification-banner__heading">
-						New version uploaded
+						{{ bannerText }}
 					</h3>
 				{% endset %}
 
@@ -106,6 +109,22 @@
 								classes: "govuk-button--secondary"
 							}) }}
 						{% endif %}
+
+						{% set oneVersionIsPublished = false %}
+						{%for documentVersion in documentVersions %}
+							{% if documentVersion.publishedStatus === 'published'%}
+								{% set oneVersionIsPublished = true %}
+							{% endif %}
+						{% endfor %}
+						{% if documentationFile.publishedStatus !== 'published' and oneVersionIsPublished === true %}
+							{{ govukButton({
+								element: 'a',
+								text: "Unpublish previous version",
+								href: "./unpublish",
+								classes: "govuk-button--secondary"
+							}) }}
+						{% endif %}
+
 					</div>
 					{% if documentationFile.publishedStatus == 'ready_to_publish' %}
 						<a class="govuk-link govuk-body-m govuk-!-text-align-right pins-nav-right-aligned-link" href= "{{'documents-queue'|url({caseId:caseId})}}">View publishing queue</a>
@@ -116,7 +135,7 @@
 							{
 								label: "Document properties",
 								id: "document-properties",
-								panel: { html: documentationDetailsTab(documentationFile, caseId, folderId)}
+								panel: { html: documentationDetailsTab(documentationFile, caseId, folderId, caseIsWelsh)}
 							},
 							{
 								label: "Document history",

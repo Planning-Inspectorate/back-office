@@ -4,10 +4,10 @@ import { Page } from './basePage';
 export class CasePage extends Page {
 	elements = {
 		answerCell: (question) =>
-			cy.contains(this.selectors.tableHeader, question, { matchCase: false }).next(),
+			cy.contains(this.selectors.summaryListKey, question, { matchCase: false }).next(),
 		changeLink: (question) =>
 			cy
-				.contains(this.selectors.tableHeader, question, { matchCase: false })
+				.contains(this.selectors.summaryListKey, question, { matchCase: false })
 				.siblings()
 				.last()
 				.find('a'),
@@ -19,7 +19,8 @@ export class CasePage extends Page {
 			cy.contains(this.selectors.fullColumn, `${sector}, ${subector}`),
 		summaryValue: (keyText) =>
 			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next(),
-			caseRefTRAIN:()=>cy.get(this.selectors.caseRefTraining)
+		summaryTableValue: (keyText) =>
+			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next()
 	};
 
 	checkProjectAnswer(question, answer) {
@@ -27,13 +28,23 @@ export class CasePage extends Page {
 			.answerCell(question)
 			.scrollIntoView()
 			.then(($elem) => {
-				expect($elem.text().trim().replaceAll("\n", "")).to.eq(answer);
+				expect($elem.text().trim().replaceAll('\n', '')).to.eq(answer);
 			});
 	}
 
 	validateSummaryItem(keyText, valueText) {
 		this.elements
 			.summaryValue(keyText)
+			.scrollIntoView()
+			.invoke('text')
+			.then((text) => {
+				expect(text.trim()).to.equal(valueText);
+			});
+	}
+
+	validateSummaryTableItem(keyText, valueText) {
+		this.elements
+			.summaryTableValue(keyText)
 			.scrollIntoView()
 			.invoke('text')
 			.then((text) => {
@@ -55,5 +66,25 @@ export class CasePage extends Page {
 
 	validateUserIsUnableToEdit() {
 		this.elements.changeLink('Project name').should('not.exist');
+	}
+
+	clickPublishProjectButton() {
+		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+			this.clickButtonByText('Publish project');
+		} else {
+			this.clickButtonByText('Preview and publish project');
+		}
+	}
+
+	publishUnpublishProject() {
+		this.clickBreadcrumbLinkByText('Project documentation');
+		this.basePageElements.backToProjectPage().click();
+		this.clickPublishProjectButton();
+		this.clickButtonByText('Accept and publish project');
+		this.validateSuccessPanelTitle('Project page successfully published');
+		this.clickLinkByText('Go back to Overview');
+		this.basePageElements.clickOnUnpublishProjectLink().click();
+		this.basePageElements.buttonByLabelText('Unpublish project').click();
+		this.validateSuccessPanelTitle('Project page successfully unpublished');
 	}
 }

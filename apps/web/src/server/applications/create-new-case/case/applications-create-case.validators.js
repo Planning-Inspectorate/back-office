@@ -6,7 +6,16 @@ export const validateApplicationsCreateCaseName = createValidator(
 	body('title')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Enter the name of the project')
+		.withMessage('Enter project name')
+		.isLength({ max: 500 })
+		.withMessage('The name must be 500 characters or fewer')
+);
+
+export const validateApplicationsCreateCaseNameWelsh = createValidator(
+	body('titleWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter project name in Welsh')
 		.isLength({ max: 500 })
 		.withMessage('The name must be 500 characters or fewer')
 );
@@ -15,9 +24,18 @@ export const validateApplicationsCreateCaseDescription = createValidator(
 	body('description')
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage('Enter the description of the project')
+		.withMessage('Enter project description')
 		.isLength({ max: 2000 })
-		.withMessage('The description of the project must be 2000 characters or fewer')
+		.withMessage('Project description must be 2000 characters or less')
+);
+
+export const validateApplicationsCreateCaseDescriptionWelsh = createValidator(
+	body('descriptionWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter project description in Welsh')
+		.isLength({ max: 2000 })
+		.withMessage('Project description in Welsh must be 2000 characters or less')
 );
 
 export const validateApplicationsCreateCaseSector = createValidator(
@@ -43,7 +61,16 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 		.isLength({ min: 1 })
 		.withMessage(getErrorMessageCaseCreate('projectLocation'))
 		.isLength({ max: 500 })
-		.withMessage('The project location must be 500 characters or fewer')
+		.withMessage('Project location must be 500 characters or less')
+);
+
+export const validateApplicationsCreateCaseLocationWelsh = createValidator(
+	body('geographicalInformation.locationDescriptionWelsh')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage(getErrorMessageCaseCreate('projectLocationWelsh'))
+		.isLength({ max: 500 })
+		.withMessage('Project location in Welsh must be 500 characters or less')
 );
 
 export const validateApplicationsCreateCaseEasting = createValidator(

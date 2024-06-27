@@ -6,4 +6,8 @@ export class PublishingQueuePage extends Page {
 	validateDocumentCountInList(count) {
 		cy.get(this.basePageElements.tableRow).should('have.length', 2 + count);
 	}
+
+	validateDocumentCountList(count) {
+		cy.get(this.basePageElements.tableRow).should('have.length', count);
+	}
 }

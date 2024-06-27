@@ -15,15 +15,13 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row display--flex\\">
+    <div class=\\"govuk-grid-row govuk-!-margin-left-0 display--flex\\">
         <div class=\\"pins-list-menu-container\\">
             <aside class=\\"govuk-!-margin-bottom-8 pins-list-menu\\">
                 <h2 class=\\"govuk-visually-hidden\\">Case Details Menu</h2>
                 <nav>
                     <ul class=\\"gov-list pins-list-menu\\">
                         <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/\\"> Overview</a>
-                        </li>
-                        <li><a class=\\"govuk-link \\" href=\\"/applications-service/case/4/project-information\\"> Project information</a>
                         </li>
                         <li><a class=\\"govuk-link pins-selected-item\\" href=\\"/applications-service/case/4/key-dates\\"> Key dates</a>
                         </li>
@@ -1347,7 +1345,7 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 1`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1373,17 +1371,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"datePINSFirstNotifiedOfProject.day\\">Day</label>
                             <input class=\\"govuk-input\\" id=\\"datePINSFirstNotifiedOfProject.day\\"
-                            name=\\"datePINSFirstNotifiedOfProject.day\\" type=\\"text\\" value=\\"20\\">
+                            name=\\"datePINSFirstNotifiedOfProject.day\\" type=\\"text\\" value=\\"01\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"datePINSFirstNotifiedOfProject.month\\">Month</label>
                             <input class=\\"govuk-input\\" id=\\"datePINSFirstNotifiedOfProject.month\\"
-                            name=\\"datePINSFirstNotifiedOfProject.month\\" type=\\"text\\" value=\\"08\\">
+                            name=\\"datePINSFirstNotifiedOfProject.month\\" type=\\"text\\" value=\\"02\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"datePINSFirstNotifiedOfProject.year\\">Year</label>
                             <input class=\\"govuk-input\\" id=\\"datePINSFirstNotifiedOfProject.year\\"
-                            name=\\"datePINSFirstNotifiedOfProject.year\\" type=\\"text\\" value=\\"2023\\">
+                            name=\\"datePINSFirstNotifiedOfProject.year\\" type=\\"text\\" value=\\"2000\\">
                         </div>
                     </div>
                 </div>
@@ -1586,7 +1584,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 2`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1613,17 +1611,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOSubmission.day\\">Day</label>
                             <input class=\\"govuk-input\\" id=\\"dateOfDCOSubmission.day\\" name=\\"dateOfDCOSubmission.day\\"
-                            type=\\"text\\" value=\\"08\\">
+                            type=\\"text\\" value=\\"01\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOSubmission.month\\">Month</label>
                             <input class=\\"govuk-input\\" id=\\"dateOfDCOSubmission.month\\"
-                            name=\\"dateOfDCOSubmission.month\\" type=\\"text\\" value=\\"04\\">
+                            name=\\"dateOfDCOSubmission.month\\" type=\\"text\\" value=\\"02\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfDCOSubmission.year\\">Year</label>
                             <input class=\\"govuk-input\\" id=\\"dateOfDCOSubmission.year\\" name=\\"dateOfDCOSubmission.year\\"
-                            type=\\"text\\" value=\\"2023\\">
+                            type=\\"text\\" value=\\"2000\\">
                         </div>
                     </div>
                 </div>
@@ -1715,7 +1713,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 3`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -1744,17 +1742,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRepresentationPeriodOpen.day\\">Day</label>
                             <input class=\\"govuk-input\\" id=\\"dateOfRepresentationPeriodOpen.day\\"
-                            name=\\"dateOfRepresentationPeriodOpen.day\\" type=\\"text\\" value=\\"22\\">
+                            name=\\"dateOfRepresentationPeriodOpen.day\\" type=\\"text\\" value=\\"01\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRepresentationPeriodOpen.month\\">Month</label>
                             <input class=\\"govuk-input\\" id=\\"dateOfRepresentationPeriodOpen.month\\"
-                            name=\\"dateOfRepresentationPeriodOpen.month\\" type=\\"text\\" value=\\"09\\">
+                            name=\\"dateOfRepresentationPeriodOpen.month\\" type=\\"text\\" value=\\"02\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"dateOfRepresentationPeriodOpen.year\\">Year</label>
                             <input class=\\"govuk-input\\" id=\\"dateOfRepresentationPeriodOpen.year\\"
-                            name=\\"dateOfRepresentationPeriodOpen.year\\" type=\\"text\\" value=\\"2023\\">
+                            name=\\"dateOfRepresentationPeriodOpen.year\\" type=\\"text\\" value=\\"2000\\">
                         </div>
                     </div>
                 </div>
@@ -2034,7 +2032,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 4`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -2060,17 +2058,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"dateSection58NoticeReceived.day\\">Day</label>
                             <input class=\\"govuk-input\\" id=\\"dateSection58NoticeReceived.day\\"
-                            name=\\"dateSection58NoticeReceived.day\\" type=\\"text\\" value=\\"26\\">
+                            name=\\"dateSection58NoticeReceived.day\\" type=\\"text\\" value=\\"01\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"dateSection58NoticeReceived.month\\">Month</label>
                             <input class=\\"govuk-input\\" id=\\"dateSection58NoticeReceived.month\\"
-                            name=\\"dateSection58NoticeReceived.month\\" type=\\"text\\" value=\\"10\\">
+                            name=\\"dateSection58NoticeReceived.month\\" type=\\"text\\" value=\\"02\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"dateSection58NoticeReceived.year\\">Year</label>
                             <input class=\\"govuk-input\\" id=\\"dateSection58NoticeReceived.year\\"
-                            name=\\"dateSection58NoticeReceived.year\\" type=\\"text\\" value=\\"2023\\">
+                            name=\\"dateSection58NoticeReceived.year\\" type=\\"text\\" value=\\"2000\\">
                         </div>
                     </div>
                 </div>
@@ -2216,7 +2214,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 5`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -2243,17 +2241,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForSubmissionOfRecommendation.day\\">Day</label>
                             <input class=\\"govuk-input\\" id=\\"deadlineForSubmissionOfRecommendation.day\\"
-                            name=\\"deadlineForSubmissionOfRecommendation.day\\" type=\\"text\\" value=\\"14\\">
+                            name=\\"deadlineForSubmissionOfRecommendation.day\\" type=\\"text\\" value=\\"01\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForSubmissionOfRecommendation.month\\">Month</label>
                             <input class=\\"govuk-input\\" id=\\"deadlineForSubmissionOfRecommendation.month\\"
-                            name=\\"deadlineForSubmissionOfRecommendation.month\\" type=\\"text\\" value=\\"06\\">
+                            name=\\"deadlineForSubmissionOfRecommendation.month\\" type=\\"text\\" value=\\"02\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForSubmissionOfRecommendation.year\\">Year</label>
                             <input class=\\"govuk-input\\" id=\\"deadlineForSubmissionOfRecommendation.year\\"
-                            name=\\"deadlineForSubmissionOfRecommendation.year\\" type=\\"text\\" value=\\"2023\\">
+                            name=\\"deadlineForSubmissionOfRecommendation.year\\" type=\\"text\\" value=\\"2000\\">
                         </div>
                     </div>
                 </div>
@@ -2320,7 +2318,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 6`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -2345,17 +2343,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForDecision.day\\">Day</label>
                             <input class=\\"govuk-input\\" id=\\"deadlineForDecision.day\\" name=\\"deadlineForDecision.day\\"
-                            type=\\"text\\" value=\\"21\\">
+                            type=\\"text\\" value=\\"01\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForDecision.month\\">Month</label>
                             <input class=\\"govuk-input\\" id=\\"deadlineForDecision.month\\"
-                            name=\\"deadlineForDecision.month\\" type=\\"text\\" value=\\"08\\">
+                            name=\\"deadlineForDecision.month\\" type=\\"text\\" value=\\"02\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"deadlineForDecision.year\\">Year</label>
                             <input class=\\"govuk-input\\" id=\\"deadlineForDecision.year\\" name=\\"deadlineForDecision.year\\"
-                            type=\\"text\\" value=\\"2023\\">
+                            type=\\"text\\" value=\\"2000\\">
                         </div>
                     </div>
                 </div>
@@ -2421,7 +2419,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 7`] = `
 "<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
     <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
+        <div class=\\"govuk-grid-column-full\\">
             <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
                 <div role=\\"alert\\">
                     <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
@@ -2447,17 +2445,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"jRPeriodEndDate.day\\">Day</label>
                             <input class=\\"govuk-input\\" id=\\"jRPeriodEndDate.day\\" name=\\"jRPeriodEndDate.day\\"
-                            type=\\"text\\" value=\\"15\\">
+                            type=\\"text\\" value=\\"01\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"jRPeriodEndDate.month\\">Month</label>
                             <input class=\\"govuk-input\\" id=\\"jRPeriodEndDate.month\\" name=\\"jRPeriodEndDate.month\\"
-                            type=\\"text\\" value=\\"06\\">
+                            type=\\"text\\" value=\\"02\\">
                         </div>
                         <div class=\\"govuk-form-group\\">
                             <label class=\\"govuk-label govuk-hint\\" for=\\"jRPeriodEndDate.year\\">Year</label>
                             <input class=\\"govuk-input\\" id=\\"jRPeriodEndDate.year\\" name=\\"jRPeriodEndDate.year\\"
-                            type=\\"text\\" value=\\"2023\\">
+                            type=\\"text\\" value=\\"2000\\">
                         </div>
                     </div>
                 </div>

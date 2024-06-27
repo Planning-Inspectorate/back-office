@@ -44,9 +44,10 @@ export const mapS51AdviceToPage = (payload) => {
  * Transform ApplicationsS51UpdateBody to ApplicationsS51UpdatePayload
  *
  * @param {ApplicationsS51UpdateBody} body
+ * @param {Boolean} caseIsWelsh
  * @returns {ApplicationsS51UpdatePayload}
  * */
-export const mapUpdateBodyToPayload = (body) => {
+export const mapUpdateBodyToPayload = (body, caseIsWelsh = false) => {
 	/** @type {ApplicationsS51UpdatePayload} */
 	let payload = {
 		title: body.title,
@@ -60,6 +61,12 @@ export const mapUpdateBodyToPayload = (body) => {
 		redactedStatus: body.redactedStatus,
 		publishedStatus: body.publishedStatus
 	};
+
+	if (caseIsWelsh) {
+		payload.titleWelsh = body.titleWelsh;
+		payload.enquiryDetailsWelsh = body.enquiryDetailsWelsh;
+		payload.adviceDetailsWelsh = body.adviceDetailsWelsh;
+	}
 
 	if (body['enquiryDate.day'] && body['enquiryDate.month'] && body['enquiryDate.year']) {
 		payload.enquiryDate = new Date(

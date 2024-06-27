@@ -5,11 +5,13 @@ import applicationsDocumentationMetadataRouter from '@pins/applications.web/src/
 import applicationsEditRouter from '@pins/applications.web/src/server/applications/case/edit/applications-edit.router.js';
 import { asyncHandler } from '@pins/express';
 import { Router as createRouter } from 'express';
+import { featureFlagClient } from '../../../common/feature-flags.js';
 import applicationsTimetableRouter from './examination-timetable/applications-timetable.router.js';
 import relevantRepsRouter from './representations/applications-relevant-reps.router.js';
 import projectUpdatesRouter from './project-updates/project-updates.router.js';
 import applicationsKeyDateRouter from './key-dates/applications-key-dates.router.js';
 import applicationsProjectTeamRouter from './project-team/applications-project-team.router.js';
+import * as validators from '../create-new-case/case/applications-create-case.validators.js';
 
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
@@ -46,6 +48,19 @@ applicationsCaseSummaryRouter
 
 applicationsCaseSummaryRouter
 	.route('/:overview?')
-	.get(asyncHandler(controller.viewApplicationsCaseOverview));
+	.get(
+		asyncHandler(
+			/** @type {import('@pins/express').RenderHandler<{}>} */ (req, res) =>
+				featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+					? controller.viewApplicationsCaseOverview(req, res)
+					: controller.viewApplicationsCaseOverviewLegacy(req, res)
+		)
+	)
+	.post(
+		[validators.validateApplicationsCreateCaseNameWelsh],
+		[validators.validateApplicationsCreateCaseDescriptionWelsh],
+		[validators.validateApplicationsCreateCaseLocationWelsh],
+		asyncHandler(controller.validateApplicationsCaseOverview)
+	);
 
 export default applicationsCaseRouter;

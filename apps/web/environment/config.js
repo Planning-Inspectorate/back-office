@@ -38,8 +38,8 @@ export function loadConfig() {
 		AUTH_REDIRECT_PATH = '/auth/redirect',
 		AUTH_TENANT_ID = '*',
 		AZURE_BLOB_STORE_HOST,
-		FEATURE_FLAG_BOAS_1_TEST_FEATURE,
-		FEATURE_FLAG_AZURE_ENDPOINT,
+		STATIC_FEATURE_FLAGS_ENABLED,
+		PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING,
 		HTTP_PORT = 8080,
 		HTTPS_ENABLED,
 		HTTPS_PORT,
@@ -97,12 +97,8 @@ export function loadConfig() {
 				inspectorGroupId: APPLICATIONS_INSPECTOR_GROUP_ID
 			}
 		},
-		// flag name convention: featureFlag[ jira number ][ferature shoret description]
-		// set Feature Flag default val here [default: false] - will be overwritted by values cming from the .env file
-		featureFlags: {
-			featureFlagBoas1TestFeature: FEATURE_FLAG_BOAS_1_TEST_FEATURE === 'true'
-		},
-		featureFlagEndpoint: FEATURE_FLAG_AZURE_ENDPOINT,
+		featureFlagsStatic: STATIC_FEATURE_FLAGS_ENABLED,
+		featureFlagConnectionString: PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING,
 		// Indicates the json file "dummy_address_data.json" will be used when true.
 		dummyAddressData: !OS_PLACES_API_KEY && DUMMY_ADDRESS_DATA,
 		// Indicates the json file "dummy_user_data.json" will be used when true.

@@ -13,6 +13,7 @@ import {
 } from '#utils/create-enums.js';
 import logger from '#utils/logger.js';
 import { verifyNotTraining } from '../application.validators.js';
+import { featureFlagClient } from '#utils/feature-flags.js';
 
 /** @typedef {{ guid: string}} documentGuid */
 
@@ -88,9 +89,11 @@ export const validateDocumentVersionMetadataBody = (documentVersionEventBody) =>
 			.optional(),
 		representative: joi.string().allow('').optional(),
 		description: joi.string().optional(),
+		descriptionWelsh: joi.string().optional(),
 		documentGuid: joi.string().optional(),
 		owner: joi.string().optional(),
 		author: joi.string().optional(),
+		authorWelsh: joi.string().optional(),
 		securityClassification: joi
 			.string()
 			.valid(...securityClassificationEnum.values())
@@ -109,6 +112,7 @@ export const validateDocumentVersionMetadataBody = (documentVersionEventBody) =>
 			.valid(...publishedStatusEnum.values())
 			.optional(),
 		filter1: joi.string().optional(),
+		filter1Welsh: joi.string().optional(),
 		filter2: joi.string().optional(),
 		examinationRefNo: joi.string().optional(),
 		transcript: joi.string().allow('').optional()
@@ -218,6 +222,20 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 			await DocumentRepository.getPublishableDocumentsWithoutRequiredPropertiesCheck(documentIds);
 	} else {
 		completeDocuments = await DocumentRepository.getPublishableDocuments(documentIds);
+	}
+
+	// if welsh feature is active
+	if (await featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
+		// remove documents of Welsh cases with incomplete Welsh fields
+		completeDocuments = completeDocuments.filter((doc) => {
+			const { Document, filter1Welsh, authorWelsh, descriptionWelsh } = doc.latestDocumentVersion;
+			const caseRegions = Document?.case?.ApplicationDetails?.regions || [];
+			const caseIsWelsh = caseRegions.find((r) => r.region?.name === 'wales');
+
+			return (
+				!caseIsWelsh || (filter1Welsh !== null && authorWelsh !== null && descriptionWelsh !== null)
+			);
+		});
 	}
 
 	const completeDocumentsIds = new Set(completeDocuments.map((pDoc) => pDoc.guid));

@@ -135,11 +135,11 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             </div>
             <div class=\\"govuk-grid-column-one-half text-align--right\\">
                 <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                    <span                     class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                        </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
+                    <span                     class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
+                        </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
                         <span                         class=\\"govuk-visually-hidden\\">results per page</span>
                             </a>
-                            </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span> 100
+                            </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
                             <span                             class=\\"govuk-visually-hidden\\">results per page</span>
                                 </a>
                                 </span>
@@ -327,11 +327,11 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             </div>
             <div class=\\"govuk-grid-column-one-half text-align--right\\">
                 <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                    <span                     class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span> 25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                        </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span> 50
+                    <span                     class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
+                        </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
                         <span                         class=\\"govuk-visually-hidden\\">results per page</span>
                             </a>
-                            </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span> 100
+                            </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
                             <span                             class=\\"govuk-visually-hidden\\">results per page</span>
                                 </a>
                                 </span>

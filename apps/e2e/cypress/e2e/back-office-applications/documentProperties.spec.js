@@ -29,10 +29,15 @@ describe('Document Properties', () => {
 
 	const getDate = (received) => {
 		const today = new Date();
-		let day = today.getDate().toString().padStart(2, '0');
-		if(day==='29'){
-			day='28';
-		   }
+		const day = (() => {
+			const d = today.getDate().toString().padStart(2, '0');
+			if (d === '29') {
+				return '28';
+			}
+
+			return d;
+		})();
+
 		const month = (today.getMonth() + 1).toString().padStart(2, '0');
 		const year = today.getFullYear();
 		return `${day}/${month}/${received ? year - 1 : year}`;
@@ -51,7 +56,6 @@ describe('Document Properties', () => {
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		validateProjectOverview(projectInfo);
-		searchResultsPage.clickLinkByText('Update project information');
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
@@ -61,13 +65,12 @@ describe('Document Properties', () => {
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.updateDocumentProperty('File name', fileName());
-		documentPropertiesPage.updateDocumentProperty('Description', description());
-		documentPropertiesPage.updateDocumentProperty('From', from());
+		documentPropertiesPage.updateDocumentProperty('Description', description(), 'textarea');
+		documentPropertiesPage.updateDocumentProperty('Who the document is from', from(), 'textarea');
 		documentPropertiesPage.updateDocumentProperty('Agent (optional)', agent());
-		documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter());
+		documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter(), 'textarea');
 		documentPropertiesPage.updateDocumentType('No document type');
 		documentPropertiesPage.updateDate('Date received', getDate(true));
 		documentPropertiesPage.updateRedactionStatus('Redacted');
 	});
-
 });

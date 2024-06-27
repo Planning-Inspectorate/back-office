@@ -16,9 +16,12 @@ export class DocumentPropertiesPage extends Page {
 
 	fileName = () => 'Filename';
 	description = () => 'description';
+	descriptionWelsh = () => 'description Welsh';
 	from = () => 'From';
+	fromWelsh = () => 'From Welsh';
 	agent = () => 'Agentname';
 	webfilter = () => 'Webfilter name';
+	webfilterWelsh = () => 'Welsh filter';
 	getDate = (received) => {
 		const today = new Date();
 		const day = today.getDate().toString().padStart(2, '0');
@@ -34,11 +37,16 @@ export class DocumentPropertiesPage extends Page {
 	/**
 	 * @param {string} property - Label text of the property. i.e `File name`
 	 * @param {string} newValue - this is the new value for this property
+	 * @param {string} type - this is the type of control in the page
 	 * @returns {void}
 	 */
-	updateDocumentProperty(property, newValue) {
+	updateDocumentProperty(property, newValue, type = 'input') {
 		this.elements.changeLink(property).click();
-		this.fillInput(newValue);
+		if (type === 'textarea') {
+			this.fillTextArea(newValue);
+		} else {
+			this.fillInput(newValue);
+		}
 		this.#save();
 		this.elements.propertyValue(property).then((elem) => {
 			expect(elem.text().trim()).to.eq(newValue);
@@ -96,10 +104,24 @@ export class DocumentPropertiesPage extends Page {
 	 */
 	updateAllProperties(status) {
 		this.updateDocumentProperty('File name', this.fileName());
-		this.updateDocumentProperty('Description', this.description());
-		this.updateDocumentProperty('From', this.from());
+		this.updateDocumentProperty('Description', this.description(), 'textarea');
+		this.updateDocumentProperty('Who the document is from', this.from(), 'textarea');
 		this.updateDocumentProperty('Agent (optional)', this.agent());
-		this.updateDocumentProperty('Webfilter', this.webfilter());
+		this.updateDocumentProperty('Webfilter', this.webfilter(), 'textarea');
+		this.updateDocumentType('No document type');
+		this.updateDate('Date received', this.getDate(true));
+		this.updateRedactionStatus(status);
+		this.clickBackLink();
+	}
+	updateAllPropertiesIncludingWelsh(status) {
+		this.updateDocumentProperty('File name', this.fileName());
+		this.updateDocumentProperty('Description', this.description(), 'textarea');
+		this.updateDocumentProperty('Description in Welsh', this.descriptionWelsh(), 'textarea');
+		this.updateDocumentProperty('Who the document is from', this.from(), 'textarea');
+		this.updateDocumentProperty('Who the document is from in Welsh', this.fromWelsh(), 'textarea');
+		this.updateDocumentProperty('Agent (optional)', this.agent());
+		this.updateDocumentProperty('Webfilter', this.webfilter(), 'textarea');
+		this.updateDocumentProperty('Webfilter in Welsh', this.webfilterWelsh(), 'textarea');
 		this.updateDocumentType('No document type');
 		this.updateDate('Date received', this.getDate(true));
 		this.updateRedactionStatus(status);
@@ -140,22 +162,47 @@ export class DocumentPropertiesPage extends Page {
 		});
 	}
 	enterDocumentRefNumber(docmentNumber) {
-		cy.get(
-			'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
-		).click();
-		cy.get('#transcript').type(docmentNumber);
-		cy.get('.govuk-button').click();
+		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
+			const text = $elem.text().trim();
+			if (text === 'Description in Welsh') {
+				cy.get('div.govuk-summary-list__row:nth-child(11) > dd:nth-child(3) > a').click();
+				cy.get('#transcript').type(docmentNumber);
+				cy.get('.govuk-button').click();
+			} else {
+				cy.get(
+					'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
+				).click();
+				cy.get('#transcript').type(docmentNumber);
+				cy.get('.govuk-button').click();
+			}
+		});
 	}
 	validateTranscriptValue() {
 		const caseRef = Cypress.env('currentCreatedCase');
-		cy.get('.govuk-summary-list__row:nth-child(8) > dd:nth-child(2)').contains(caseRef);
+		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
+			const text = $elem.text().trim();
+			if (text === 'Description in Welsh') {
+				cy.get('.govuk-summary-list__row:nth-child(11) > dd').contains(caseRef);
+			} else {
+				cy.get('.govuk-summary-list__row:nth-child(8) > dd').contains(caseRef);
+			}
+		});
 	}
 	enterIncorrectDocumentRefNumber(docmentNumber) {
-		cy.get(
-			'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
-		).click();
-		cy.get('#transcript').type(docmentNumber);
-		cy.get('.govuk-button').click();
+		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
+			const text = $elem.text().trim();
+			if (text === 'Description in Welsh') {
+				cy.get('div.govuk-summary-list__row:nth-child(11) > dd:nth-child(3) > a').click();
+				cy.get('#transcript').type(docmentNumber);
+				cy.get('.govuk-button').click();
+			} else {
+				cy.get(
+					'#document-properties > dl > div:nth-child(8) > dd.govuk-summary-list__actions > a'
+				).click();
+				cy.get('#transcript').type(docmentNumber);
+				cy.get('.govuk-button').click();
+			}
+		});
 	}
 	validateDocumentErrorMessage() {
 		cy.get('#transcript-error').contains('Please enter a valid document reference number.');
@@ -164,21 +211,21 @@ export class DocumentPropertiesPage extends Page {
 		cy.get('.govuk-caption-xl').contains('Document properties');
 	}
 
-	goBackToPrjdocumentationPage(){
-		cy.wait(2000);
-		cy.get('li.govuk-breadcrumbs__list-item:nth-child(1) > a:nth-child(1)').click();
+	goBackToPrjdocumentationPage() {
+		cy.get('li.govuk-breadcrumbs__list-item:nth-child(1) > a:nth-child(1)', {
+			timeout: 2000
+		}).click();
 	}
-	goBackToOverviewPage(){
-		cy.wait(1000);
-		cy.get('.govuk-back-link').click();
+	goBackToOverviewPage() {
+		cy.get('.govuk-back-link', { timeout: 1000 }).click();
 	}
-	enterDocRefandValidateTranscriptValue(){
-		cy.wrap(this.getDocumentRefNumber()).then(()=>{
-		cy.log("Printing the cypress env value: " + Cypress.env("DocRef"));
-		const docRefer=Cypress.env("DocRef")
-		var splitRef=docRefer.split(' ')[3]
-		this.enterDocumentRefNumber(splitRef);
-		this.validateTranscriptValue();
-		})
-	  }
+	enterDocRefandValidateTranscriptValue() {
+		cy.wrap(this.getDocumentRefNumber()).then(() => {
+			cy.log('Printing the cypress env value: ' + Cypress.env('DocRef'));
+			const docRefer = Cypress.env('DocRef');
+			var splitRef = docRefer.split(' ')[3];
+			this.enterDocumentRefNumber(splitRef);
+			this.validateTranscriptValue();
+		});
+	}
 }

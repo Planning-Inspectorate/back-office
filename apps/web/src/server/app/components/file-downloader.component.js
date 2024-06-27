@@ -21,8 +21,13 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 
 	const accessToken = await getActiveDirectoryAccessToken(session);
 
-	const { privateBlobContainer, privateBlobPath, fileName, originalFilename } =
-		await getCaseDocumentationVersionFileInfo(caseId, fileGuid, version);
+	const {
+		privateBlobContainer,
+		privateBlobPath,
+		fileName,
+		originalFilename,
+		mime: contentType
+	} = await getCaseDocumentationVersionFileInfo(caseId, fileGuid, version);
 
 	// perform simulated download if auth disabled
 	if (accessToken?.token === 'AUTH_DISABLED') {
@@ -44,8 +49,8 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 		return response.status(404);
 	}
 
-	if (preview && blobProperties?.contentType) {
-		response.setHeader('content-type', blobProperties.contentType);
+	if (preview && contentType) {
+		response.setHeader('content-type', contentType);
 	} else {
 		const downloadFileName = buildFileName({ fileName, originalFilename });
 		response.setHeader('content-disposition', `attachment; filename=${downloadFileName}`);
