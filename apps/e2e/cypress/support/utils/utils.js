@@ -88,26 +88,37 @@ const validateApplicantInfoSection = (
 	mandatoryOnly = false,
 	updated = false
 ) => {
-	casePage.checkProjectAnswer('Organisation name', mandatoryOnly ? '' : projectInformation.orgName);
-	casePage.checkProjectAnswer('Website', mandatoryOnly ? '' : projectInformation.applicantWebsite);
+	casePage.checkProjectAnswer(
+		'Organisation name',
+		mandatoryOnly ? '' : projectInformation.orgName,
+		true
+	);
+	casePage.checkProjectAnswer(
+		'Website',
+		mandatoryOnly ? '' : projectInformation.applicantWebsite,
+		true
+	);
 	casePage.checkProjectAnswer(
 		fullStringWithWhitespace('Email address'),
-		mandatoryOnly ? '' : projectInformation.applicantEmail
+		mandatoryOnly ? '' : projectInformation.applicantEmail,
+		true
 	);
 	casePage.checkProjectAnswer(
 		'Telephone number',
-		mandatoryOnly ? '' : projectInformation.applicantPhoneNumber
+		mandatoryOnly ? '' : projectInformation.applicantPhoneNumber,
+		true
 	);
 	casePage.checkProjectAnswer(
 		'Contact name (Internal use only)',
 		mandatoryOnly
 			? ''
-			: `${projectInformation.applicantFirstName}  ${projectInformation.applicantLastName}`
+			: `${projectInformation.applicantFirstName}  ${projectInformation.applicantLastName}`,
+		true
 	);
 	const address = updated
 		? projectInformation.applicantFullAddress2
 		: projectInformation.applicantFullAddress;
-	casePage.checkProjectAnswer('Address (Internal use only)', mandatoryOnly ? '' : address);
+	casePage.checkProjectAnswer('Address (Internal use only)', mandatoryOnly ? '' : address, true);
 };
 
 const validatePreviewAndPublishInfo = (projectInformation) => {
@@ -115,31 +126,33 @@ const validatePreviewAndPublishInfo = (projectInformation) => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 		casePage.checkProjectAnswer('Reference number', Cypress.env('currentCreatedCase'));
 	} else {
-		casePage.checkProjectAnswer('case reference number', Cypress.env('currentCreatedCase'));
+		casePage.checkProjectAnswer('case reference number', Cypress.env('currentCreatedCase'), true);
 	}
-	casePage.checkProjectAnswer('Sector', projectInformation.sector);
-	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
-	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription);
-	casePage.checkProjectAnswer('Project email address', projectInformation.projectEmail);
-	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation);
+	casePage.checkProjectAnswer('Sector', projectInformation.sector, true);
+	casePage.checkProjectAnswer('Subsector', projectInformation.subsector, true);
+	casePage.checkProjectAnswer('Project description', projectInformation.projectDescription, true);
+	casePage.checkProjectAnswer('Project email address', projectInformation.projectEmail, true);
+	casePage.checkProjectAnswer('Project location', projectInformation.projectLocation, true);
 	casePage.checkProjectAnswer(
 		'Grid references',
-		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
+		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`,
+		true
 	);
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 		casePage.checkProjectAnswer('Regions', projectInformation.regions.join(', '));
 	} else {
-		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(', '));
+		casePage.checkProjectAnswer('Region(s)', projectInformation.regions.join(', '), true);
 	}
 
-	casePage.checkProjectAnswer('Map zoom level', projectInformation.zoomLevel);
+	casePage.checkProjectAnswer('Map zoom level', projectInformation.zoomLevel, true);
 
 	// A P P L I C A T I O N  I N F O R M A T I O N
-	casePage.checkProjectAnswer('Organisation name', projectInformation.orgName);
-	casePage.checkProjectAnswer('Website', projectInformation.applicantWebsite);
+	casePage.checkProjectAnswer('Organisation name', projectInformation.orgName, true);
+	casePage.checkProjectAnswer('Website', projectInformation.applicantWebsite, true);
 	casePage.checkProjectAnswer(
 		fullStringWithWhitespace('Email address'),
-		projectInformation.applicantEmail
+		projectInformation.applicantEmail,
+		true
 	);
 };
 
@@ -220,31 +233,31 @@ const updateProjectInformation = (projectInformation) => {
 	casePage.clickButtonByText('Save changes');
 
 	// A P P L I C A T I O N  I N F O R M A T I O N
-	casePage.clickChangeLink('Organisation name');
+	casePage.clickChangeLink('Organisation name', true);
 	casePage.fillInput(projectInformation.orgName);
 	casePage.clickButtonByText('Save changes');
 
-	casePage.clickChangeLink('Contact name (Internal use only)');
+	casePage.clickChangeLink('Contact name (Internal use only)', true);
 	casePage.fillInput(projectInformation.applicantFirstName);
 	casePage.fillInput(projectInformation.applicantLastName, 1);
 	casePage.clickButtonByText('Save changes');
 
-	casePage.clickChangeLink('Address (Internal use only)');
+	casePage.clickChangeLink('Address (Internal use only)', true);
 
 	casePage.fillInput(projectInformation.postcode2);
 	casePage.clickButtonByText('Find address');
 	casePage.chooseSelectItemByIndex(1);
 	casePage.clickButtonByText('Save changes');
 
-	casePage.clickChangeLink('Website');
+	casePage.clickChangeLink('Website', true);
 	casePage.fillInput(projectInformation.applicantWebsite);
 	casePage.clickButtonByText('Save changes');
 
-	casePage.clickChangeLink(fullStringWithWhitespace('Email address'));
+	casePage.clickChangeLink(fullStringWithWhitespace('Email address'), true);
 	casePage.fillInput(projectInformation.applicantEmail);
 	casePage.clickButtonByText('Save changes');
 
-	casePage.clickChangeLink('Telephone number');
+	casePage.clickChangeLink('Telephone number', true);
 	casePage.fillInput(projectInformation.applicantPhoneNumber);
 	casePage.clickButtonByText('Save changes');
 };
@@ -304,13 +317,12 @@ const getRandomQuarterDate = (direction = 'future') => {
 	return `${quarter} ${year}`;
 };
 
-const validateSectorSubsectorValues = () => {
+const validateSectorSubsectorValues = (caseRef) => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.validateSummaryTableItem('Reference number', Cypress.env('currentCreatedCase'));
+		casePage.validateSummaryItem('Reference number', caseRef);
 	} else {
-		casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
 		casePage.clickLinkByText('Update project information');
-		casePage.elements.caseReference().contains(fullStringWithWhitespace('TRAIN[0-9]*'));
+		casePage.checkProjectAnswer('Case reference number', caseRef);
 	}
 	casePage.checkProjectAnswer('Sector', 'Training');
 	casePage.checkProjectAnswer('Subsector', 'Training');
