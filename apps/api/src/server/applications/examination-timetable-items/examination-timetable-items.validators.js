@@ -4,11 +4,12 @@ import { param } from 'express-validator';
 import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
 import * as examinationTimetableItemsRepository from '#repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
+import * as caseRepository from '#repositories/case.repository.js';
 import {
 	validateExistingApplication,
 	verifyNotTraining
 } from '../application/application.validators.js';
-import { validationErrorHandler } from '#middleware/error-handler.js';
+import { customErrorValidationHandler, validationErrorHandler } from '#middleware/error-handler.js';
 import logger from '#utils/logger.js';
 
 /**
@@ -125,3 +126,67 @@ export const verifyNotTrainingExamTimetable = async (id) => {
 		logger.info(`Could not verify examination timetable with ID ${id}`, err.message);
 	}
 };
+
+/**
+ * Generate errors for examination timetable items
+ * @param {import('@pins/applications.api').Schema.ExaminationTimetableItem[]} timetableItems
+ */
+
+const generateExamTimetablePublishingErrors = (timetableItems) => {
+	/** @type {Record<string, {msg: string}>}*/
+	const errors = {};
+	timetableItems.forEach((item) => {
+		if (!item.nameWelsh || item.nameWelsh.trim() === '') {
+			errors[`nameWelsh-${item.id}`] = {
+				msg: `Enter examination timetable item name in welsh - ${item.name}`
+			};
+		}
+	});
+	return errors;
+};
+
+/**
+ * Validate that all examination timetable items have a welsh name
+ * @param {number} value
+ * @throws {Error}
+ * @returns {Promise<void>}
+ *
+ */
+
+export const validateExamTimetableWelshName = async (value) => {
+	const caseData = await caseRepository.getById(value, { regions: true });
+	if (!caseData) throw new Error(`Could not find examination a case with ID ${value}`);
+
+	const caseIsWelsh = Boolean(
+		caseData.ApplicationDetails?.regions?.find((item) => item.region.name === 'wales')
+	);
+
+	if (!caseIsWelsh) return;
+
+	const timetableData = await examinationTimetableRepository.getByCaseId(value);
+	if (!timetableData) throw new Error(`Could not find examination timetable with ID ${value}`);
+
+	const examinationTimetableItems = await examinationTimetableRepository.getWithItems(
+		timetableData.id
+	);
+	if (!examinationTimetableItems)
+		throw new Error(`Could not find examination timetable items with ID ${value}`);
+
+	const welshNamesNotValid = examinationTimetableItems.ExaminationTimetableItem.some(
+		(item) => !item.nameWelsh || item.nameWelsh.trim() === ''
+	);
+
+	if (welshNamesNotValid) {
+		const errors = generateExamTimetablePublishingErrors(
+			examinationTimetableItems.ExaminationTimetableItem
+		);
+		if (Object.keys(errors).length > 0) {
+			throw new Error(JSON.stringify(errors));
+		}
+	}
+};
+
+export const validatePublishExamTimetable = composeMiddleware(
+	param('id').custom(validateExamTimetableWelshName),
+	customErrorValidationHandler
+);

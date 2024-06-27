@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator';
 import logger from '../utils/logger.js';
 import { TransitionStateError } from '../utils/transition-state.js';
+import { isStringJSON } from '#utils/is-string-json.js';
 
 /**
  * The default catch-all error handler.
@@ -92,4 +93,19 @@ export const validationErrorHandler = (request, response, next) => {
  */
 export const validationErrorHandlerUnauthorised = (request, response, next) => {
 	validationErrorHandlerTemplate(request, response, next, 403);
+};
+
+/**
+ * Handles custom (stringified JSON) error validation messages
+ * @type {import('express').RequestHandler}
+ * @returns {*}
+ */
+export const customErrorValidationHandler = (request, response, next) => {
+	const result = validationResult(request);
+
+	if (result.array().length && isStringJSON(result.array()[0].msg)) {
+		const errors = JSON.parse(result.array()[0].msg);
+		return response.status(400).send({ errors });
+	}
+	next();
 };
