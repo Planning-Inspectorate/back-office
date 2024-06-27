@@ -174,7 +174,7 @@ export class Page {
 	}
 
 	clickLinkByText(linkText) {
-		this.basePageElements.linkByText(linkText).click();
+		this.basePageElements.linkByText(linkText).scrollIntoView().click();
 	}
 
 	clickTabByText(tabText) {
