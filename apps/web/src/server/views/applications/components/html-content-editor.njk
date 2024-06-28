@@ -18,13 +18,16 @@
             classes: params.label.classes,
             isPageHeading: params.label.isPageHeading,
             attributes: params.label.attributes,
-            for: params.id
+            for: params.name
         }) | indent(2) | trim }}
         {% if params.errorMessage %}
-            {{ govukErrorMessage({text: errorMessage}) }}
+            {{ govukErrorMessage({text: params.errorMessage.msg}) }}
         {% endif %}
+		{% if params.hint %}
+			<div class="govuk-hint" id="{{ params.name }}-hint">{{ params.hint.text }}</div>
+		{% endif %}
         <input type="hidden" name="{{ params.name }}" value="{{ params.editorValue }}">
-        <div class="html-content-editor" id="{{ params.name }}"></div>
+        <div class="html-content-editor" aria-describedby="{{ params.name }}-hint" id="{{ params.name }}"></div>
         {% if params.characterCount %}
             <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
         {% endif %}
