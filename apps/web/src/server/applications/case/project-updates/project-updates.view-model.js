@@ -48,6 +48,7 @@ export function projectUpdatesRows(projectUpdates) {
  * @param {Record<string, any>} opts.values
  * @param {string} [opts.title]
  * @param {boolean} [opts.emailSubscribersEditable]
+ * @param {boolean} [opts.caseIsWelsh]
  * @returns {import('./project-updates-views').ProjectUpdatesFormView}
  */
 export function createContentFormView({
@@ -55,65 +56,87 @@ export function createContentFormView({
 	errors,
 	values,
 	title,
-	emailSubscribersEditable = true
+	emailSubscribersEditable = true,
+	caseIsWelsh = false
 }) {
 	let emailSubscribers = true;
+	const characterCountLimit = 500;
+
 	if (Object.prototype.hasOwnProperty.call(values, 'emailSubscribers')) {
 		emailSubscribers = values.emailSubscribers;
 	}
+
 	if (!title) {
-		title = 'Create a project update';
+		title = 'Create project update';
 	}
+
+	const htmlContentEditorComponent = {
+		type: 'html-content-editor',
+		// specific field name to allow more specific WAF exception
+		// see ASB-1692
+		name: 'backOfficeProjectUpdateContent',
+		label: {
+			text: 'Details about the update',
+			classes: 'govuk-!-font-weight-bold'
+		},
+		hint: {
+			text: `The recommended length is ${characterCountLimit} characters`
+		},
+		value: values.backOfficeProjectUpdateContent,
+		// The editorValue contains the content converted to the format expected by the toastUI editor
+		editorValue: values.backOfficeProjectUpdateContent?.replaceAll(`<br />`, `<p><br></p>`),
+		errorMessage: errors?.backOfficeProjectUpdateContent
+	};
+
+	const htmlContentEditorWelshComponent = {
+		type: 'html-content-editor',
+		name: 'backOfficeProjectUpdateContentWelsh',
+		label: {
+			text: 'Details about the update in Welsh',
+			classes: 'govuk-!-font-weight-bold'
+		},
+		hint: {
+			text: `The recommended length is ${characterCountLimit} characters`
+		},
+		value: values.backOfficeProjectUpdateContentWelsh,
+		// The editorValue contains the content converted to the format expected by the toastUI editor
+		editorValue: values.backOfficeProjectUpdateContentWelsh?.replaceAll(`<br />`, `<p><br></p>`),
+		errorMessage: errors?.backOfficeProjectUpdateContentWelsh
+	};
+
+	const checkboxesComponent = {
+		type: 'checkboxes',
+		name: 'emailSubscribers',
+		fieldset: {
+			legend: {
+				text: 'Email to subscribers?',
+				classes: 'govuk-!-font-weight-bold'
+			}
+		},
+		hint: {
+			text: 'De-select if you do not want to send an email notification to subcribers'
+		},
+		items: [
+			{
+				value: true,
+				text: 'Send to subscribers',
+				checked: emailSubscribers,
+				disabled: !emailSubscribersEditable
+			}
+		],
+		errorMessage: errors?.emailSubscribers
+	};
+
+	const components = caseIsWelsh
+		? [htmlContentEditorComponent, htmlContentEditorWelshComponent, checkboxesComponent]
+		: [htmlContentEditorComponent, checkboxesComponent];
+
 	return {
 		case: caseInfo,
 		title,
 		buttonText: 'Save and continue',
 		errors, // for error summary
-		form: {
-			components: [
-				{
-					type: 'html-content-editor',
-					// specific field name to allow more specific WAF exception
-					// see ASB-1692
-					name: 'backOfficeProjectUpdateContent',
-					label: {
-						text: 'Content',
-						classes: 'govuk-!-font-weight-bold'
-					},
-					characterCount: true,
-					characterCountWarning: true,
-					characterCountWarningLimit: 500,
-					characterCountWarningMessage:
-						'You have exceeded the recommended length for a project update. Consider reviewing the content to make it shorter and easier to understand',
-					value: values.backOfficeProjectUpdateContent,
-					// The editorValue contains the content converted to the format expected by the toastUI editor
-					editorValue: values.backOfficeProjectUpdateContent?.replaceAll(`<br />`, `<p><br></p>`),
-					errorMessage: errors?.backOfficeProjectUpdateContent
-				},
-				{
-					type: 'checkboxes',
-					name: 'emailSubscribers',
-					fieldset: {
-						legend: {
-							text: 'Email to subscribers?',
-							classes: 'govuk-!-font-weight-bold'
-						}
-					},
-					hint: {
-						text: 'De-select if you do not want to send an email notification to subcribers'
-					},
-					items: [
-						{
-							value: true,
-							text: 'Send to subscribers',
-							checked: emailSubscribers,
-							disabled: !emailSubscribersEditable
-						}
-					],
-					errorMessage: errors?.emailSubscribers
-				}
-			]
-		}
+		form: { components }
 	};
 }
 

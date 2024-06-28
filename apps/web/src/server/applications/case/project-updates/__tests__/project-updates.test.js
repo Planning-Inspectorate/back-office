@@ -37,10 +37,10 @@ function testUpdate() {
 		type: 'general'
 	};
 }
-const nocks = () => {
+const nocks = (caseProperties = {}) => {
 	nock('http://test/')
 		.get(`/applications/${mockCaseReference.id}`)
-		.reply(200, mockCaseReference)
+		.reply(200, { ...mockCaseReference, ...caseProperties })
 		.persist();
 	nock('http://test/')
 		.get(`/applications/${mockCaseReference.id}/project-updates`)
@@ -106,42 +106,94 @@ describe('project-updates', () => {
 			expect(element.innerHTML).toContain(mockCaseReference.title);
 
 			// check - project updates form present
-			expect(element.innerHTML).toContain('Create a project update');
+			expect(element.innerHTML).toContain('Details about the update');
 			expect(element.innerHTML).toContain('Content');
 			expect(element.innerHTML).toContain('Email to subscribers?');
 		});
 	});
 
 	describe('POST /applications-service/:caseId/project-updates/create', () => {
-		beforeEach(async () => {
-			nocks();
-			await request.get('/applications-service/');
-		});
+		describe('where Case is English:', () => {
+			beforeEach(async () => {
+				nocks();
+				await request.get('/applications-service/');
+			});
 
-		const tests = [
-			{
-				name: 'should check content',
-				body: {},
-				expectContains: ['The project update needs to be at least 12 characters long']
-			},
-			{
-				name: 'should render the next step',
-				body: {
-					content: 'hello, world',
-					emailSubscribers: true
+			const testsInEnglish = [
+				{
+					name: 'should check content exists',
+					body: {},
+					expectContains: ['Enter details about the update']
 				},
-				expectContains: []
-			}
-		];
+				{
+					name: 'should check content is more than 12 characters',
+					body: {
+						backOfficeProjectUpdateContent: '123456789012'
+					},
+					expectContains: ['Details about the update must be 12 characters or more']
+				},
+				{
+					name: 'should render the next step',
+					body: {
+						backOfficeProjectUpdateContent: '1234567890123',
+						emailSubscribers: true
+					},
+					expectContains: []
+				}
+			];
 
-		it.each(tests)(`$name`, async ({ body, expectContains }) => {
-			const response = await request.post(baseUrl + '/create').send(body);
-			const element = parseHtml(response.text);
+			it.each(testsInEnglish)(`$name`, async ({ body, expectContains }) => {
+				const response = await request.post(baseUrl + '/create').send(body);
+				const element = parseHtml(response.text);
 
-			expect(element.innerHTML).toMatchSnapshot();
-			for (const str of expectContains) {
-				expect(element.innerHTML).toContain(str);
-			}
+				expect(element.innerHTML).toMatchSnapshot();
+				for (const str of expectContains) {
+					expect(element.innerHTML).toContain(str);
+				}
+			});
+		});
+		describe('where Case is Welsh:', () => {
+			beforeEach(async () => {
+				nocks({ geographicalInformation: { regions: [{ name: 'wales' }] } });
+				await request.get('/applications-service/');
+			});
+
+			const testsInWelsh = [
+				{
+					name: 'should check content exists',
+					body: {
+						backOfficeProjectUpdateContent: '1234567890123'
+					},
+					expectContains: ['Enter details about the update in Welsh']
+				},
+				{
+					name: 'should check content is more than 12 characters',
+					body: {
+						backOfficeProjectUpdateContent: '1234567890123',
+						backOfficeProjectUpdateContentWelsh: '123456789012'
+					},
+					expectContains: ['Details about the update in Welsh must be 12 characters or more']
+				},
+				{
+					name: 'should render the next step',
+					body: {
+						backOfficeProjectUpdateContent: '1234567890123',
+						backOfficeProjectUpdateContentWelsh: '1234567890123',
+						emailSubscribers: true
+					},
+					expectContains: []
+				}
+			];
+
+			it.each(testsInWelsh)(`$name`, async ({ body, expectContains }) => {
+				const response = await request.post(baseUrl + '/create').send(body);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				for (const str of expectContains) {
+					expect(element.innerHTML).toContain(str);
+				}
+			});
 		});
 	});
 

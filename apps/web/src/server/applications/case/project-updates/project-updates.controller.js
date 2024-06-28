@@ -72,12 +72,15 @@ export async function projectUpdatesTable({ query, session }, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesCreateGet(req, res) {
+	const { errors, body: values } = req;
+	const { case: caseInfo, caseIsWelsh } = res.locals;
 	return res.render(
 		formView,
 		createContentFormView({
-			caseInfo: res.locals.case,
-			errors: req.errors,
-			values: req.body
+			caseInfo,
+			errors,
+			values,
+			caseIsWelsh
 		})
 	);
 }
@@ -103,10 +106,11 @@ export async function projectUpdatesCreatePost(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesContentGet(req, res) {
-	const { caseId, projectUpdateId } = res.locals;
+	const { caseId, projectUpdateId, caseIsWelsh } = res.locals;
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	const values = {
 		backOfficeProjectUpdateContent: projectUpdate.htmlContent,
+		backOfficeProjectUpdateContentWelsh: projectUpdate.htmlContentWelsh,
 		emailSubscribers: projectUpdate.emailSubscribers,
 		...req.body
 	};
@@ -118,7 +122,8 @@ export async function projectUpdatesContentGet(req, res) {
 			caseInfo: res.locals.case,
 			errors: req.errors,
 			values,
-			emailSubscribersEditable
+			emailSubscribersEditable,
+			caseIsWelsh
 		})
 	);
 }
