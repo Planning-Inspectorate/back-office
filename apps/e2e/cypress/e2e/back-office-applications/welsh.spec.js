@@ -310,5 +310,60 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				validateBannerMessage('Item description in Welsh updated');
 			}
 		});
+
+		it('Publishing fails when Item name in welsh is missing', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.visit('/');
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.clickTopSearchResult();
+				updateProjectRegions(['Wales']);
+				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickButtonByText('Create timetable item');
+				const options = timetableItem();
+				examTimetablePage.selectTimetableItem('Deadline');
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.fillItemDetailsStartAndEnd(options);
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.clickButtonByText('Save item');
+				examTimetablePage.clickLinkByText('Go back to examination timetable');
+
+				cy.get('.govuk-button').contains('Preview and publish').click();
+				cy.get('.govuk-button').contains('Publish examination timetable').click();
+				casePage.validateErrorMessageIsInSummary(
+					`Enter examination timetable item name in welsh - ${options.itemName}`
+				);
+			}
+		});
+
+		it('Publishing succeeds when Item name in welsh is present', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.visit('/');
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.clickTopSearchResult();
+				updateProjectRegions(['Wales']);
+				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickButtonByText('Create timetable item');
+				const options = timetableItem();
+				examTimetablePage.selectTimetableItem('Deadline');
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.fillItemDetailsStartAndEnd(options);
+				examTimetablePage.clickButtonByText('Continue');
+				examTimetablePage.clickButtonByText('Save item');
+				examTimetablePage.clickLinkByText('Go back to examination timetable');
+
+				openAccordion(Cypress.env('currentCreatedItem'));
+				examTimetablePage.clickChangeLink('Item name in Welsh');
+				examTimetablePage.fillInput('Valid welsh name');
+				examTimetablePage.clickSaveAndReturn();
+				validateBannerMessage('Item name in Welsh updated');
+
+				cy.get('.govuk-button').contains('Preview and publish').click();
+				cy.get('.govuk-button').contains('Publish examination timetable').click();
+
+				cy.get('.govuk-panel__title').contains('Timetable item successfully published');
+			}
+		});
 	});
 });
