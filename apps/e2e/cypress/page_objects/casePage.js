@@ -5,12 +5,21 @@ export class CasePage extends Page {
 	elements = {
 		answerCell: (question) =>
 			cy.contains(this.selectors.summaryListKey, question, { matchCase: false }).next(),
+		answerTableCell: (question) =>
+			cy.contains(this.selectors.tableHeader, question, { matchCase: false }).next(),
 		changeLink: (question) =>
 			cy
 				.contains(this.selectors.summaryListKey, question, { matchCase: false })
 				.siblings()
 				.last()
 				.find('a'),
+		changeTableLink: (question) =>
+			cy
+				.contains(this.selectors.tableHeader, question, { matchCase: false })
+				.siblings()
+				.last()
+				.find('a'),
+
 		caseReference: (reference) => cy.contains(this.selectors.mediumHeader, reference),
 		caseName: () => cy.get(this.selectors.xlHeader),
 		keyDatesSubmission: () => cy.get(this.selectors.list).children().eq(0),
@@ -23,28 +32,27 @@ export class CasePage extends Page {
 			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next()
 	};
 
-	checkProjectAnswer(question, answer) {
-		this.elements
-			.answerCell(question)
-			.scrollIntoView()
-			.then(($elem) => {
-				expect($elem.text().trim().replaceAll('\n', '')).to.eq(answer);
-			});
+	checkProjectAnswer(question, answer, forceSummaryTest = false) {
+		if (Cypress.env('featureFlags')['applic-55-welsh-translation'] || forceSummaryTest) {
+			this.elements
+				.answerCell(question)
+				.scrollIntoView()
+				.then(($elem) => {
+					expect($elem.text().trim().replaceAll('\n', '')).to.eq(answer);
+				});
+		} else {
+			this.elements
+				.answerTableCell(question)
+				.scrollIntoView()
+				.then(($elem) => {
+					expect($elem.text().trim().replaceAll('\n', '')).to.eq(answer);
+				});
+		}
 	}
 
 	validateSummaryItem(keyText, valueText) {
 		this.elements
 			.summaryValue(keyText)
-			.scrollIntoView()
-			.invoke('text')
-			.then((text) => {
-				expect(text.trim()).to.equal(valueText);
-			});
-	}
-
-	validateSummaryTableItem(keyText, valueText) {
-		this.elements
-			.summaryTableValue(keyText)
 			.scrollIntoView()
 			.invoke('text')
 			.then((text) => {
@@ -60,8 +68,12 @@ export class CasePage extends Page {
 			.should('contain.text', internalDate);
 	}
 
-	clickChangeLink(question) {
-		this.elements.changeLink(question).click();
+	clickChangeLink(question, forceSummaryTest) {
+		if (Cypress.env('featureFlags')['applic-55-welsh-translation'] || forceSummaryTest) {
+			this.elements.changeLink(question).click();
+		} else {
+			this.elements.changeTableLink(question).click();
+		}
 	}
 
 	validateUserIsUnableToEdit() {
