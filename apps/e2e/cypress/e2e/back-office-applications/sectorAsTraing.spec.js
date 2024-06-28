@@ -43,8 +43,9 @@ describe('Create Case with sector as training', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		const caseRef = Cypress.env('currentCreatedCase');
+		assert(caseRef.startsWith('TRAIN'));
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
-		validateSectorSubsectorValues();
+		validateSectorSubsectorValues(caseRef);
 	});
 });

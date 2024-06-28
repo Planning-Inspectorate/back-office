@@ -19,7 +19,14 @@ export class ExaminationTimetablePage extends Page {
 		endTimeHoursInput: () => cy.get('#endTime\\.hours'),
 		endTimeMinutesInput: () => cy.get('#endTime\\.minutes'),
 		description: () => cy.get('#description'),
-		timetableSelectInput: () => cy.get('#timetable-type')
+		timetableSelectInput: () => cy.get('#timetable-type'),
+		changeLink: (question) =>
+			cy
+				.contains(this.selectors.summaryListKey, question, { matchCase: false })
+				.siblings()
+				.last()
+				.find('a')
+				.scrollIntoView()
 	};
 
 	fillItemDetails(options) {
@@ -102,5 +109,9 @@ export class ExaminationTimetablePage extends Page {
 		cy.get('.govuk-button').click();
 		cy.get('.govuk-panel__title').contains('Timetable item successfully unpublished');
 		cy.get('div.govuk-body > a:nth-child(2)').click();
+	}
+
+	clickChangeLink(question) {
+		this.elements.changeLink(question).click({ force: true });
 	}
 }

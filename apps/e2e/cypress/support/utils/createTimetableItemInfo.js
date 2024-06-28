@@ -7,6 +7,7 @@ export const timetableItem = () => {
 	const currentYear = new Date().getFullYear();
 
 	const itemName = `Test_Item_${now}`;
+	Cypress.env('currentCreatedItem', itemName);
 	const description = 'Exam time table example';
 
 	const dayAsInteger = faker.datatype.number({

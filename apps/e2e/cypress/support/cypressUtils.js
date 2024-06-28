@@ -135,6 +135,16 @@ const getCookiesFileContents = (userId) => {
 	return JSON.parse(fs.readFileSync(fileName, 'utf8'));
 };
 
+/**
+ * Logs a message to the terminal
+ * @param {string} message
+ * @param {string} type
+ */
+const logToTerminal = (message, type = 'info') => {
+	console[type](message);
+	return null;
+};
+
 module.exports = {
 	clearAllCookies,
 	cookiesFileExists,
@@ -142,5 +152,6 @@ module.exports = {
 	deleteUnwantedFixtures,
 	deleteDownloads,
 	getConfigByFile,
-	validateDownloadedFile
+	validateDownloadedFile,
+	logToTerminal
 };
