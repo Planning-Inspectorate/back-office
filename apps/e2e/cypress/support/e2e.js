@@ -26,6 +26,17 @@ before(async () => {
 	Cypress.env('featureFlags', await loadFlags());
 });
 
+before(() => {
+	const featureFlags = Cypress.env('featureFlags');
+	if (featureFlags) {
+		cy.task('LogToTerminal', '  Feature flags: ');
+		Object.entries(featureFlags).forEach(([flag, value]) => {
+			cy.task('LogToTerminal', `    ${flag.padEnd(35, ' ')}${value ? 'ON ' : 'OFF'}`);
+		});
+		cy.task('LogToTerminal', '');
+	}
+});
+
 after(() => {
 	cy.deleteUnwantedFixtures();
 });

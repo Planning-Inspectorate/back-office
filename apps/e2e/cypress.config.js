@@ -8,7 +8,8 @@ const {
 	getConfigByFile,
 	deleteDownloads,
 	deleteUnwantedFixtures,
-	validateDownloadedFile
+	validateDownloadedFile,
+	logToTerminal
 } = require('./cypress/support/cypressUtils');
 const { getSpecPattern } = require('./cypress/support/utils/getSpecPattern');
 
@@ -27,6 +28,7 @@ module.exports = defineConfig({
 			on('task', { GetConfigByFile: getConfigByFile });
 			on('task', { GetCookiesFileContents: getCookiesFileContents });
 			on('task', { ValidateDownloadedFile: validateDownloadedFile });
+			on('task', { LogToTerminal: logToTerminal });
 			return config;
 		},
 		baseUrl: process.env.BASE_URL,
