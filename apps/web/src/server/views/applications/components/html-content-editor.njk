@@ -21,8 +21,11 @@
             for: params.id
         }) | indent(2) | trim }}
         {% if params.errorMessage %}
-            {{ govukErrorMessage({text: errorMessage}) }}
+            {{ govukErrorMessage({text: params.errorMessage.msg}) }}
         {% endif %}
+		{% if params.hint %}
+			<div class="govuk-hint">{{ params.hint.text }}</div>
+		{% endif %}
         <input type="hidden" name="{{ params.name }}" value="{{ params.editorValue }}">
         <div class="html-content-editor" id="{{ params.name }}"></div>
         {% if params.characterCount %}
