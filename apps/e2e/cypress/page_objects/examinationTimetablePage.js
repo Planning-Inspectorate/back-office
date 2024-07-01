@@ -78,14 +78,16 @@ export class ExaminationTimetablePage extends Page {
 
 	toggleExaminationTimetableItem(itemName, hide = true) {
 		const actionText = hide ? 'Hide' : 'Show';
-		cy.contains(itemName).within(() => {
-			cy.get(this.selectors.accordionToggleText).then(($elem) => {
-				const text = $elem.text().trim();
-				if (text === actionText) {
-					cy.wrap($elem).click();
-				}
-			});
-		});
+		cy.get('.timetable-table').within(() =>
+			cy.contains(itemName).within(() => {
+				cy.get(this.selectors.accordionToggleText).then(($elem) => {
+					const text = $elem.text().trim();
+					if (text === actionText) {
+						cy.wrap($elem).click();
+					}
+				});
+			})
+		);
 	}
 
 	hideAllItems() {
@@ -95,11 +97,12 @@ export class ExaminationTimetablePage extends Page {
 			}
 		});
 	}
-	deleteExaminationTimetableItem() {
-		cy.get(1000);
-		cy.get('#accordion-examination-content-1 > a').click();
-		cy.get('#main-content > div > div > form > button').click();
+
+	openExaminationTimetableItemAccordion(itemName) {
+		this.hideAllItems();
+		this.toggleExaminationTimetableItem(itemName, false);
 	}
+
 	verifyPublishAndUnpublishExamtimetable() {
 		cy.get('.govuk-button').contains('Preview and publish').click();
 		cy.get('.govuk-button').click();
@@ -109,6 +112,22 @@ export class ExaminationTimetablePage extends Page {
 		cy.get('.govuk-button').click();
 		cy.get('.govuk-panel__title').contains('Timetable item successfully unpublished');
 		cy.get('div.govuk-body > a:nth-child(2)').click();
+	}
+
+	deleteAllExaminationTimetableItems() {
+		cy.get('body').then(($body) => {
+			const exists = $body.find(this.selectors.accordionToggleText).length > 0;
+			if (exists) {
+				this.hideAllItems();
+				cy.get(this.selectors.accordionToggleText).each(($elem) => {
+					if ($elem.text() === 'Show') {
+						cy.wrap($elem).click();
+						this.clickLinkByText('Delete timetable item', { force: true });
+						this.clickButtonByText('Delete timetable item');
+					}
+				});
+			}
+		});
 	}
 
 	clickChangeLink(question) {

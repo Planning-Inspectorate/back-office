@@ -120,6 +120,15 @@ describe('Examination Timetable', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
+	beforeEach(() => {
+		cy.visit('/');
+		const caseRef = Cypress.env('currentCreatedCase');
+		applicationsHomePage.searchFor(caseRef);
+		searchResultsPage.clickTopSearchResult();
+		examTimetablePage.clickLinkByText('Examination timetable');
+		examTimetablePage.deleteAllExaminationTimetableItems();
+	});
+
 	it('As a user able to create timetable item - only start dates (StartTime Mandatory Template)', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
