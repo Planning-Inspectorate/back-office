@@ -196,10 +196,6 @@ describe('Update project information to add a Welsh region', () => {
 
 describe('Display and edit welsh fields in Examination Timetable', () => {
 	context('As a user', () => {
-		function openAccordion(text) {
-			cy.contains(text).find('.govuk-accordion__section-toggle-text').scrollIntoView().click();
-		}
-
 		function validateBannerMessage(bannerText) {
 			cy.get('.govuk-notification-banner__content')
 				.invoke('text')
@@ -218,13 +214,24 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 			}
 		});
 
-		it('Welsh fields are present on the examination timetable item', () => {
+		beforeEach(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 				cy.visit('/');
 				const caseRef = Cypress.env('currentCreatedCase');
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
 				updateProjectRegions(['Wales']);
+				examTimetablePage.clickLinkByText('Examination timetable');
+				examTimetablePage.deleteAllExaminationTimetableItems();
+			}
+		});
+
+		it('Welsh fields are present on the examination timetable item', () => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				cy.visit('/');
+				const caseRef = Cypress.env('currentCreatedCase');
+				applicationsHomePage.searchFor(caseRef);
+				searchResultsPage.clickTopSearchResult();
 				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
@@ -234,7 +241,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.clickButtonByText('Continue');
 				examTimetablePage.clickButtonByText('Save item');
 				examTimetablePage.clickLinkByText('Go back to examination timetable');
-				cy.get('.govuk-accordion__section-button').click();
+				examTimetablePage.openExaminationTimetableItemAccordion(options.itemName);
 				examTimetablePage.checkAnswer('Item name in Welsh', '');
 				examTimetablePage.checkAnswer('Item description in Welsh', '');
 			}
@@ -246,7 +253,6 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				const caseRef = Cypress.env('currentCreatedCase');
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
-				updateProjectRegions(['Wales']);
 				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
@@ -257,7 +263,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.clickButtonByText('Save item');
 				examTimetablePage.clickLinkByText('Go back to examination timetable');
 
-				openAccordion(Cypress.env('currentCreatedItem'));
+				examTimetablePage.openExaminationTimetableItemAccordion(options.itemName);
 				examTimetablePage.clickChangeLink('Item name in Welsh');
 				examTimetablePage.clickSaveAndReturn();
 				examTimetablePage.validateErrorMessage('Enter item name in Welsh');
@@ -278,7 +284,6 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				const caseRef = Cypress.env('currentCreatedCase');
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
-				updateProjectRegions(['Wales']);
 				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.clickButtonByText('Create timetable item');
 				examTimetablePage.selectTimetableItem('Deadline');
@@ -317,8 +322,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				const caseRef = Cypress.env('currentCreatedCase');
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
-				updateProjectRegions(['Wales']);
-				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
 				examTimetablePage.selectTimetableItem('Deadline');
@@ -342,8 +346,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				const caseRef = Cypress.env('currentCreatedCase');
 				applicationsHomePage.searchFor(caseRef);
 				searchResultsPage.clickTopSearchResult();
-				updateProjectRegions(['Wales']);
-				cy.contains('a', 'Examination timetable').click();
+				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
 				examTimetablePage.selectTimetableItem('Deadline');
@@ -353,7 +356,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.clickButtonByText('Save item');
 				examTimetablePage.clickLinkByText('Go back to examination timetable');
 
-				openAccordion(Cypress.env('currentCreatedItem'));
+				examTimetablePage.openExaminationTimetableItemAccordion(options.itemName);
 				examTimetablePage.clickChangeLink('Item name in Welsh');
 				examTimetablePage.fillInput('Valid welsh name');
 				examTimetablePage.clickSaveAndReturn();

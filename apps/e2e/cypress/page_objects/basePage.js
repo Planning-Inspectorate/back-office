@@ -173,8 +173,8 @@ export class Page {
 		this.clickButtonByText('Save And Return');
 	}
 
-	clickLinkByText(linkText) {
-		this.basePageElements.linkByText(linkText).scrollIntoView().click();
+	clickLinkByText(linkText, options) {
+		this.basePageElements.linkByText(linkText).scrollIntoView().click(options);
 	}
 
 	clickTabByText(tabText) {
