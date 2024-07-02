@@ -2,6 +2,7 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '@pins/express';
 import * as controller from './project-updates.controller.js';
 import * as validators from './project-updates.validators.js';
+import * as locals from '../applications-case.locals.js';
 import { registerCase } from '../applications-case.locals.js';
 import { registerProjectUpdateId } from './project-updates.locals.js';
 import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
@@ -26,7 +27,11 @@ projectUpdatesRouter
 	.route(`/${projectUpdateRoutes.create}`)
 	.get(asyncHandler(controller.projectUpdatesCreateGet))
 	.post(
-		[validators.validateProjectUpdatesContent],
+		[
+			locals.registerCase,
+			validators.validateProjectUpdatesContent,
+			validators.validateProjectUpdatesContentWelsh
+		],
 		asyncHandler(controller.projectUpdatesCreatePost)
 	);
 
@@ -35,7 +40,9 @@ projectUpdatesRouter
 	.get(registerProjectUpdateId, asyncHandler(controller.projectUpdatesContentGet))
 	.post(
 		registerProjectUpdateId,
+		locals.registerCase,
 		validators.validateProjectUpdatesContent,
+		validators.validateProjectUpdatesContentWelsh,
 		asyncHandler(controller.projectUpdatesContentPost)
 	);
 
