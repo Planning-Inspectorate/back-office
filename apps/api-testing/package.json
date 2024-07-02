@@ -12,12 +12,12 @@
 	"license": "ISC",
 	"dependencies": {
 		"@pins/e2e": "*",
-		"ajv": "^8.12.0",
-		"chai": "^4.3.7",
-		"dotenv": "^16.0.3",
-		"mocha": "^10.2.0",
-		"supertest": "^6.3.3",
-		"@faker-js/faker": "^7.6.0"
+		"ajv": "*",
+		"chai": "*",
+		"dotenv": "*",
+		"mocha": "*",
+		"supertest": "*",
+		"@faker-js/faker": "*"
 	},
 	"type": "module"
 }

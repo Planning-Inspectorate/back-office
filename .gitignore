@@ -5,6 +5,7 @@
 # Node
 node_modules
 npm-debug.log
+*.tgz
 
 # package-lock.json files that do not belong to the root
 package-lock.json

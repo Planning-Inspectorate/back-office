@@ -1,87 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`project-updates GET /applications-service/:caseId/project-updates should render the project updates table 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
-    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h4 class=\\"govuk-heading-m\\"> mock reference </h4>
-            <h1 class=\\"govuk-heading-xl\\">mock title</h1>
-            <div class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-grid-column-full govuk-body\\">,
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> mock reference </h4>
+            <h1 class="govuk-heading-xl">mock title</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class=\\"govuk-tag govuk-tag--\\">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
                 </div>
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h2 class=\\"govuk-heading-m\\">Project updates</h2><a href=\\"/applications-service/case/1/project-updates/create\\" role=\\"button\\"
-            draggable=\\"false\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Create a project update</a>
-            <form             method=\\"GET\\">
-                <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
-                <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
-                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"-datePublished\\">
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-grid-column-one-half\\">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h2 class="govuk-heading-m">Project updates</h2><a href="/applications-service/case/1/project-updates/create" role="button"
+            draggable="false" class="govuk-button" data-module="govuk-button"> Create a project update</a>
+            <form             method="GET">
+                <input type="hidden" name="page" value="1">
+                <input type="hidden" name="pageSize" value="25">
+                <input type="hidden" name="sortBy" value="-datePublished">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
                         <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
                     </div>
-                    <div class=\\"govuk-grid-column-one-half text-align--right\\">
-                        <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
-                                <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
+                    <div class="govuk-grid-column-one-half text-align--right">
+                        <p><span class="govuk-!-margin-right-2"><strong>Results per page</strong></span>
+                            <span                             class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=25"><span class="govuk-visually-hidden">View </span>25<span class="govuk-visually-hidden"> results per page</span></a>
+                                </span><span class="govuk-!-margin-left-1">|</span><span class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=50"><span class="govuk-visually-hidden">View </span>50
+                                <span                                 class="govuk-visually-hidden">results per page</span>
                                     </a>
-                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
-                                    <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
+                                    </span><span class="govuk-!-margin-left-1">|</span><span class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=100"><span class="govuk-visually-hidden">View </span>100
+                                    <span                                     class="govuk-visually-hidden">results per page</span>
                                         </a>
                                         </span>
                         </p>
                     </div>
                 </div>
-                <table class=\\"govuk-table\\">
-                    <thead class=\\"govuk-table__head\\">
-                        <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished\\"
-                                class=\\"sort-table__link \\"> Date published<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
+                                class="sort-table__link "> Date published<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Project update</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=emailSubscribers\\"
-                                class=\\"sort-table__link \\"> Email<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                            <th scope="col" class="govuk-table__header">Project update</th>
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=emailSubscribers"
+                                class="sort-table__link "> Email<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=status\\"
-                                class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=status"
+                                class="sort-table__link "> Status<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
+                            <th scope="col" class="govuk-table__header">Action</th>
                         </tr>
                     </thead>
-                    <tbody class=\\"govuk-table__body\\">
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
-                            </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
+                            </td>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -93,64 +93,64 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/check-answers should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">Check your project update</h1>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds project-update\\">
-            <h1 class=\\"govuk-heading-m\\">Project update preview</h1>
-            <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
-            data-module=\\"govuk-notification-banner\\">
-                <div class=\\"govuk-notification-banner__header\\">
-                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Important</h2>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <h1 class="govuk-heading-l">Check your project update</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds project-update">
+            <h1 class="govuk-heading-m">Project update preview</h1>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h2>
                 </div>
-                <div class=\\"govuk-notification-banner__content\\">Hello, world!</div>
+                <div class="govuk-notification-banner__content">Hello, world!</div>
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-form-group\\">
-                <dl class=\\"govuk-summary-list\\">
-                    <div class=\\"govuk-summary-list__row no-border\\"><dt class=\\"govuk-summary-list__key\\"><h2 class=\\"govuk-heading-m govuk-!-margin-top-3\\">Content</h2></dt>
-                        <dd                         class=\\"govuk-summary-list__value\\"></dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/content\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row no-border"><dt class="govuk-summary-list__key"><h2 class="govuk-heading-m govuk-!-margin-top-3">Content</h2></dt>
+                        <dd                         class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content"> Change<span class="govuk-visually-hidden"> content</span></a>
                             </dd>
                     </div>
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions no-border\\"><dt class=\\"govuk-summary-list__key\\"> Email to subscribers</dt>
-                        <dd class=\\"govuk-summary-list__value\\">No</dd>
+                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions no-border"><dt class="govuk-summary-list__key"> Email to subscribers</dt>
+                        <dd class="govuk-summary-list__value">No</dd>
                     </div>
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> English</dt>
-                        <dd class=\\"govuk-summary-list__value project-update\\">Hello, world!</dd>
+                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> English</dt>
+                        <dd class="govuk-summary-list__value project-update">Hello, world!</dd>
                     </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> What information does the update contain?</dt>
-                        <dd                         class=\\"govuk-summary-list__value\\">General</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/type\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> What information does the update contain?</dt>
+                        <dd                         class="govuk-summary-list__value">General</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/type"> Change<span class="govuk-visually-hidden"> content</span></a>
                             </dd>
                     </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
-                        <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                        <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/status\\"> Change<span class=\\"govuk-visually-hidden\\"> status</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/status"> Change<span class="govuk-visually-hidden"> status</span></a>
                         </dd>
                     </div>
                 </dl>
             </div>
         </div>
     </div>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
-                    <strong                     class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> Check all the
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong                     class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Check all the
                         information in your project update is correct. When you publish your update
                         an email will be sent to subscribers.</strong>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -158,21 +158,21 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/delete should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">Delete project update</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <h2 class=\\"govuk-heading-m\\">Content</h2>
-                    <div class=\\"project-update\\">Hello, world!</div>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <h1 class="govuk-heading-l">Delete project update</h1>
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <h2 class="govuk-heading-m">Content</h2>
+                    <div class="project-update">Hello, world!</div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Confirm delete</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Confirm delete</button>
             </div>
         </div>
     </form>
@@ -180,54 +180,54 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/review should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds project-update\\">
-            <h1 class=\\"govuk-heading-m\\">Project update preview</h1>
-            <div class=\\"govuk-notification-banner\\" role=\\"region\\" aria-labelledby=\\"govuk-notification-banner-title\\"
-            data-module=\\"govuk-notification-banner\\">
-                <div class=\\"govuk-notification-banner__header\\">
-                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Important</h2>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds project-update">
+            <h1 class="govuk-heading-m">Project update preview</h1>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h2>
                 </div>
-                <div class=\\"govuk-notification-banner__content\\">Hello, world!</div>
+                <div class="govuk-notification-banner__content">Hello, world!</div>
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <div class=\\"govuk-form-group\\">
-                <dl class=\\"govuk-summary-list\\">
-                    <div class=\\"govuk-summary-list__row no-border\\"><dt class=\\"govuk-summary-list__key\\"><h2 class=\\"govuk-heading-m govuk-!-margin-top-3\\">Content</h2></dt>
-                        <dd                         class=\\"govuk-summary-list__value\\"></dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/content\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row no-border"><dt class="govuk-summary-list__key"><h2 class="govuk-heading-m govuk-!-margin-top-3">Content</h2></dt>
+                        <dd                         class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content"> Change<span class="govuk-visually-hidden"> content</span></a>
                             </dd>
                     </div>
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions no-border\\"><dt class=\\"govuk-summary-list__key\\"> Email to subscribers</dt>
-                        <dd class=\\"govuk-summary-list__value\\">No</dd>
+                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions no-border"><dt class="govuk-summary-list__key"> Email to subscribers</dt>
+                        <dd class="govuk-summary-list__value">No</dd>
                     </div>
-                    <div class=\\"govuk-summary-list__row govuk-summary-list__row--no-actions\\"><dt class=\\"govuk-summary-list__key\\"> English</dt>
-                        <dd class=\\"govuk-summary-list__value project-update\\">Hello, world!</dd>
+                    <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> English</dt>
+                        <dd class="govuk-summary-list__value project-update">Hello, world!</dd>
                     </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> What information does the update contain?</dt>
-                        <dd                         class=\\"govuk-summary-list__value\\">General</dd>
-                            <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/type\\"> Change<span class=\\"govuk-visually-hidden\\"> content</span></a>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> What information does the update contain?</dt>
+                        <dd                         class="govuk-summary-list__value">General</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/type"> Change<span class="govuk-visually-hidden"> content</span></a>
                             </dd>
                     </div>
-                    <div class=\\"govuk-summary-list__row\\"><dt class=\\"govuk-summary-list__key\\"> Status</dt>
-                        <dd class=\\"govuk-summary-list__value\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                        <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                         </dd>
-                        <dd class=\\"govuk-summary-list__actions\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates/1/status\\"> Change<span class=\\"govuk-visually-hidden\\"> status</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/status"> Change<span class="govuk-visually-hidden"> status</span></a>
                         </dd>
                     </div>
                 </dl>
             </div>
         </div>
     </div>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\"><a href=\\"/applications-service/case/1/project-updates/1/delete\\" role=\\"button\\"
-                draggable=\\"false\\" class=\\"govuk-button govuk-button--warning\\" data-module=\\"govuk-button\\"> Delete</a>
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half"><a href="/applications-service/case/1/project-updates/1/delete" role="button"
+                draggable="false" class="govuk-button govuk-button--warning" data-module="govuk-button"> Delete</a>
             </div>
         </div>
     </form>
@@ -235,33 +235,33 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/status should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">Set status</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                            <div class=\\"govuk-radios__item\\">
-                                <input class=\\"govuk-radios__input\\" id=\\"status\\" name=\\"status\\" type=\\"radio\\"
-                                value=\\"draft\\" checked>
-                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"status\\">Draft</label>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <h1 class="govuk-heading-l">Set status</h1>
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="status" name="status" type="radio"
+                                value="draft" checked>
+                                <label class="govuk-label govuk-radios__label" for="status">Draft</label>
                             </div>
-                            <div class=\\"govuk-radios__item\\">
-                                <input class=\\"govuk-radios__input\\" id=\\"status-2\\" name=\\"status\\" type=\\"radio\\"
-                                value=\\"ready-to-publish\\">
-                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"status-2\\">Ready to Publish</label>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="status-2" name="status" type="radio"
+                                value="ready-to-publish">
+                                <label class="govuk-label govuk-radios__label" for="status-2">Ready to Publish</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -269,43 +269,43 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/type should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">What information does the update contain?</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <div class=\\"govuk-radios\\" data-module=\\"govuk-radios\\">
-                            <div class=\\"govuk-radios__item\\">
-                                <input class=\\"govuk-radios__input\\" id=\\"type\\" name=\\"type\\" type=\\"radio\\"
-                                value=\\"general\\" checked>
-                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type\\">General</label>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <h1 class="govuk-heading-l">What information does the update contain?</h1>
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="type" name="type" type="radio"
+                                value="general" checked>
+                                <label class="govuk-label govuk-radios__label" for="type">General</label>
                             </div>
-                            <div class=\\"govuk-radios__item\\">
-                                <input class=\\"govuk-radios__input\\" id=\\"type-2\\" name=\\"type\\" type=\\"radio\\"
-                                value=\\"applicationSubmitted\\">
-                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-2\\">The application has been submitted</label>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="type-2" name="type" type="radio"
+                                value="applicationSubmitted">
+                                <label class="govuk-label govuk-radios__label" for="type-2">The application has been submitted</label>
                             </div>
-                            <div class=\\"govuk-radios__item\\">
-                                <input class=\\"govuk-radios__input\\" id=\\"type-3\\" name=\\"type\\" type=\\"radio\\"
-                                value=\\"registrationOpen\\">
-                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-3\\">Register to have your say has opened</label>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="type-3" name="type" type="radio"
+                                value="registrationOpen">
+                                <label class="govuk-label govuk-radios__label" for="type-3">Register to have your say has opened</label>
                             </div>
-                            <div class=\\"govuk-radios__item\\">
-                                <input class=\\"govuk-radios__input\\" id=\\"type-4\\" name=\\"type\\" type=\\"radio\\"
-                                value=\\"applicationDecided\\">
-                                <label class=\\"govuk-label govuk-radios__label\\" for=\\"type-4\\">The final decision has been issued</label>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="type-4" name="type" type="radio"
+                                value="applicationDecided">
+                                <label class="govuk-label govuk-radios__label" for="type-4">The final decision has been issued</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -313,49 +313,49 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/create should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">Create a project update</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\"
-                        value=\\"\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
-                        <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
-                        <div                         class=\\"display--none character-count-warning\\" data-character-count-limit=\\"500\\">
-                            <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
-                                <strong                                 class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> You have exceeded
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <h1 class="govuk-heading-l">Create a project update</h1>
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-!-font-weight-bold">Content</label>
+                        <input type="hidden" name="backOfficeProjectUpdateContent"
+                        value="">
+                        <div class="html-content-editor" id="backOfficeProjectUpdateContent"></div>
+                        <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
+                        <div                         class="display--none character-count-warning" data-character-count-limit="500">
+                            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                                <strong                                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> You have exceeded
                                     the recommended length for a project update. Consider reviewing the content
                                     to make it shorter and easier to understand</strong>
                             </div>
                     </div>
                     <noscript>
-                        <div class=\\"govuk-form-group\\">
-                            <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                            <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
-                            rows=\\"5\\"></textarea>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-!-font-weight-bold">Content</label>
+                            <textarea class="govuk-textarea" id="" name="backOfficeProjectUpdateContent"
+                            rows="5"></textarea>
                         </div>
                     </noscript>
                 </div>
             </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <fieldset class=\\"govuk-fieldset\\" aria-describedby=\\"emailSubscribers-hint\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-!-font-weight-bold\\">Email to subscribers?</legend>
-                            <div id=\\"emailSubscribers-hint\\" class=\\"govuk-hint\\">De-select if you do not want to send an email notification to subcribers</div>
-                            <div                             class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                <div class=\\"govuk-checkboxes__item\\">
-                                    <input class=\\"govuk-checkboxes__input\\" id=\\"emailSubscribers\\" name=\\"emailSubscribers\\"
-                                    type=\\"checkbox\\" value=\\"true\\" checked>
-                                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"emailSubscribers\\">Send to subscribers</label>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" aria-describedby="emailSubscribers-hint">
+                            <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Email to subscribers?</legend>
+                            <div id="emailSubscribers-hint" class="govuk-hint">De-select if you do not want to send an email notification to subcribers</div>
+                            <div                             class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="emailSubscribers" name="emailSubscribers"
+                                    type="checkbox" value="true" checked>
+                                    <label class="govuk-label govuk-checkboxes__label" for="emailSubscribers">Send to subscribers</label>
                                 </div>
                     </div>
                     </fieldset>
@@ -363,9 +363,9 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/creat
             </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -373,98 +373,98 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/creat
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/:projectUpdateId/check-answers should render the next step (draft status) 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
-    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h4 class=\\"govuk-heading-m\\"> mock reference </h4>
-            <h1 class=\\"govuk-heading-xl\\">mock title</h1>
-            <div class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-grid-column-full govuk-body\\">,
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> mock reference </h4>
+            <h1 class="govuk-heading-xl">mock title</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class=\\"govuk-tag govuk-tag--\\">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
                 </div>
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
-            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
-                <div class=\\"govuk-notification-banner__header\\">
-                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-notification-banner govuk-notification-banner--success"
+            role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Success</h2>
                 </div>
-                <div class=\\"govuk-notification-banner__content\\">
-                    <h3 class=\\"govuk-notification-banner__heading\\">You have successfully created a draft project update</h3>
-                    <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/project-updates\\">Clear notification</a>
+                <div class="govuk-notification-banner__content">
+                    <h3 class="govuk-notification-banner__heading">You have successfully created a draft project update</h3>
+                    <p class="govuk-body"><a class="govuk-notification-banner__link" href="/applications-service/case/1/project-updates">Clear notification</a>
                     </p>
                 </div>
             </div>
-            <h2 class=\\"govuk-heading-m\\">Project updates</h2><a href=\\"/applications-service/case/1/project-updates/create\\" role=\\"button\\"
-            draggable=\\"false\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Create a project update</a>
-            <form             method=\\"GET\\">
-                <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
-                <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
-                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"-datePublished\\">
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-grid-column-one-half\\">
+            <h2 class="govuk-heading-m">Project updates</h2><a href="/applications-service/case/1/project-updates/create" role="button"
+            draggable="false" class="govuk-button" data-module="govuk-button"> Create a project update</a>
+            <form             method="GET">
+                <input type="hidden" name="page" value="1">
+                <input type="hidden" name="pageSize" value="25">
+                <input type="hidden" name="sortBy" value="-datePublished">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
                         <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
                     </div>
-                    <div class=\\"govuk-grid-column-one-half text-align--right\\">
-                        <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
-                                <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
+                    <div class="govuk-grid-column-one-half text-align--right">
+                        <p><span class="govuk-!-margin-right-2"><strong>Results per page</strong></span>
+                            <span                             class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=25"><span class="govuk-visually-hidden">View </span>25<span class="govuk-visually-hidden"> results per page</span></a>
+                                </span><span class="govuk-!-margin-left-1">|</span><span class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=50"><span class="govuk-visually-hidden">View </span>50
+                                <span                                 class="govuk-visually-hidden">results per page</span>
                                     </a>
-                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
-                                    <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
+                                    </span><span class="govuk-!-margin-left-1">|</span><span class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=100"><span class="govuk-visually-hidden">View </span>100
+                                    <span                                     class="govuk-visually-hidden">results per page</span>
                                         </a>
                                         </span>
                         </p>
                     </div>
                 </div>
-                <table class=\\"govuk-table\\">
-                    <thead class=\\"govuk-table__head\\">
-                        <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished\\"
-                                class=\\"sort-table__link \\"> Date published<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
+                                class="sort-table__link "> Date published<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Project update</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=emailSubscribers\\"
-                                class=\\"sort-table__link \\"> Email<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                            <th scope="col" class="govuk-table__header">Project update</th>
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=emailSubscribers"
+                                class="sort-table__link "> Email<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=status\\"
-                                class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=status"
+                                class="sort-table__link "> Status<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
+                            <th scope="col" class="govuk-table__header">Action</th>
                         </tr>
                     </thead>
-                    <tbody class=\\"govuk-table__body\\">
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
-                            </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
+                            </td>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -476,98 +476,98 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/:projectUpdateId/check-answers should render the next step 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
-    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h4 class=\\"govuk-heading-m\\"> mock reference </h4>
-            <h1 class=\\"govuk-heading-xl\\">mock title</h1>
-            <div class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-grid-column-full govuk-body\\">,
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> mock reference </h4>
+            <h1 class="govuk-heading-xl">mock title</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class=\\"govuk-tag govuk-tag--\\">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
                 </div>
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
-            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
-                <div class=\\"govuk-notification-banner__header\\">
-                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-notification-banner govuk-notification-banner--success"
+            role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Success</h2>
                 </div>
-                <div class=\\"govuk-notification-banner__content\\">
-                    <h3 class=\\"govuk-notification-banner__heading\\">You have successfully created a draft project update</h3>
-                    <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/project-updates\\">Clear notification</a>
+                <div class="govuk-notification-banner__content">
+                    <h3 class="govuk-notification-banner__heading">You have successfully created a draft project update</h3>
+                    <p class="govuk-body"><a class="govuk-notification-banner__link" href="/applications-service/case/1/project-updates">Clear notification</a>
                     </p>
                 </div>
             </div>
-            <h2 class=\\"govuk-heading-m\\">Project updates</h2><a href=\\"/applications-service/case/1/project-updates/create\\" role=\\"button\\"
-            draggable=\\"false\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Create a project update</a>
-            <form             method=\\"GET\\">
-                <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
-                <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
-                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"-datePublished\\">
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-grid-column-one-half\\">
+            <h2 class="govuk-heading-m">Project updates</h2><a href="/applications-service/case/1/project-updates/create" role="button"
+            draggable="false" class="govuk-button" data-module="govuk-button"> Create a project update</a>
+            <form             method="GET">
+                <input type="hidden" name="page" value="1">
+                <input type="hidden" name="pageSize" value="25">
+                <input type="hidden" name="sortBy" value="-datePublished">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
                         <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
                     </div>
-                    <div class=\\"govuk-grid-column-one-half text-align--right\\">
-                        <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
-                                <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
+                    <div class="govuk-grid-column-one-half text-align--right">
+                        <p><span class="govuk-!-margin-right-2"><strong>Results per page</strong></span>
+                            <span                             class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=25"><span class="govuk-visually-hidden">View </span>25<span class="govuk-visually-hidden"> results per page</span></a>
+                                </span><span class="govuk-!-margin-left-1">|</span><span class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=50"><span class="govuk-visually-hidden">View </span>50
+                                <span                                 class="govuk-visually-hidden">results per page</span>
                                     </a>
-                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
-                                    <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
+                                    </span><span class="govuk-!-margin-left-1">|</span><span class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=100"><span class="govuk-visually-hidden">View </span>100
+                                    <span                                     class="govuk-visually-hidden">results per page</span>
                                         </a>
                                         </span>
                         </p>
                     </div>
                 </div>
-                <table class=\\"govuk-table\\">
-                    <thead class=\\"govuk-table__head\\">
-                        <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished\\"
-                                class=\\"sort-table__link \\"> Date published<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
+                                class="sort-table__link "> Date published<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Project update</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=emailSubscribers\\"
-                                class=\\"sort-table__link \\"> Email<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                            <th scope="col" class="govuk-table__header">Project update</th>
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=emailSubscribers"
+                                class="sort-table__link "> Email<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=status\\"
-                                class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=status"
+                                class="sort-table__link "> Status<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
+                            <th scope="col" class="govuk-table__header">Action</th>
                         </tr>
                     </thead>
-                    <tbody class=\\"govuk-table__body\\">
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
-                            </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
+                            </td>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -579,98 +579,98 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/:projectUpdateId/delete should render the page 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"top-errors-hook\\" role=\\"alert\\"></div>
-    <div class=\\"govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <h4 class=\\"govuk-heading-m\\"> mock reference </h4>
-            <h1 class=\\"govuk-heading-xl\\">mock title</h1>
-            <div class=\\"govuk-grid-row\\">
-                <div class=\\"govuk-grid-column-full govuk-body\\">,
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> mock reference </h4>
+            <h1 class="govuk-heading-xl">mock title</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class=\\"govuk-tag govuk-tag--\\">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
                 </div>
             </div>
         </div>
     </div>
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-notification-banner govuk-notification-banner--success\\"
-            role=\\"alert\\" aria-labelledby=\\"govuk-notification-banner-title\\" data-module=\\"govuk-notification-banner\\">
-                <div class=\\"govuk-notification-banner__header\\">
-                    <h2 class=\\"govuk-notification-banner__title\\" id=\\"govuk-notification-banner-title\\"> Success</h2>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-notification-banner govuk-notification-banner--success"
+            role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Success</h2>
                 </div>
-                <div class=\\"govuk-notification-banner__content\\">
-                    <h3 class=\\"govuk-notification-banner__heading\\">You have successfully deleted a project update</h3>
-                    <p class=\\"govuk-body\\"><a class=\\"govuk-notification-banner__link\\" href=\\"/applications-service/case/1/project-updates\\">Clear notification</a>
+                <div class="govuk-notification-banner__content">
+                    <h3 class="govuk-notification-banner__heading">You have successfully deleted a project update</h3>
+                    <p class="govuk-body"><a class="govuk-notification-banner__link" href="/applications-service/case/1/project-updates">Clear notification</a>
                     </p>
                 </div>
             </div>
-            <h2 class=\\"govuk-heading-m\\">Project updates</h2><a href=\\"/applications-service/case/1/project-updates/create\\" role=\\"button\\"
-            draggable=\\"false\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\"> Create a project update</a>
-            <form             method=\\"GET\\">
-                <input type=\\"hidden\\" name=\\"page\\" value=\\"1\\">
-                <input type=\\"hidden\\" name=\\"pageSize\\" value=\\"25\\">
-                <input type=\\"hidden\\" name=\\"sortBy\\" value=\\"-datePublished\\">
-                <div class=\\"govuk-grid-row\\">
-                    <div class=\\"govuk-grid-column-one-half\\">
+            <h2 class="govuk-heading-m">Project updates</h2><a href="/applications-service/case/1/project-updates/create" role="button"
+            draggable="false" class="govuk-button" data-module="govuk-button"> Create a project update</a>
+            <form             method="GET">
+                <input type="hidden" name="page" value="1">
+                <input type="hidden" name="pageSize" value="25">
+                <input type="hidden" name="sortBy" value="-datePublished">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-one-half">
                         <p>Showing<b>1</b> to <b>3</b> of <b>3</b> results</p>
                     </div>
-                    <div class=\\"govuk-grid-column-one-half text-align--right\\">
-                        <p><span class=\\"govuk-!-margin-right-2\\"><strong>Results per page</strong></span>
-                            <span                             class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=25\\"><span class=\\"govuk-visually-hidden\\">View </span>25<span class=\\"govuk-visually-hidden\\"> results per page</span></a>
-                                </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=50\\"><span class=\\"govuk-visually-hidden\\">View </span>50
-                                <span                                 class=\\"govuk-visually-hidden\\">results per page</span>
+                    <div class="govuk-grid-column-one-half text-align--right">
+                        <p><span class="govuk-!-margin-right-2"><strong>Results per page</strong></span>
+                            <span                             class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=25"><span class="govuk-visually-hidden">View </span>25<span class="govuk-visually-hidden"> results per page</span></a>
+                                </span><span class="govuk-!-margin-left-1">|</span><span class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=50"><span class="govuk-visually-hidden">View </span>50
+                                <span                                 class="govuk-visually-hidden">results per page</span>
                                     </a>
-                                    </span><span class=\\"govuk-!-margin-left-1\\">|</span><span class=\\"govuk-!-margin-left-1\\"><a class=\\"govuk-link\\" href=\\"/applications-service/case/1/project-updates?page=1&amp;pageSize=100\\"><span class=\\"govuk-visually-hidden\\">View </span>100
-                                    <span                                     class=\\"govuk-visually-hidden\\">results per page</span>
+                                    </span><span class="govuk-!-margin-left-1">|</span><span class="govuk-!-margin-left-1"><a class="govuk-link" href="/applications-service/case/1/project-updates?page=1&amp;pageSize=100"><span class="govuk-visually-hidden">View </span>100
+                                    <span                                     class="govuk-visually-hidden">results per page</span>
                                         </a>
                                         </span>
                         </p>
                     </div>
                 </div>
-                <table class=\\"govuk-table\\">
-                    <thead class=\\"govuk-table__head\\">
-                        <tr class=\\"govuk-table__row\\">
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished\\"
-                                class=\\"sort-table__link \\"> Date published<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
+                                class="sort-table__link "> Date published<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Project update</th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=emailSubscribers\\"
-                                class=\\"sort-table__link \\"> Email<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                            <th scope="col" class="govuk-table__header">Project update</th>
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=emailSubscribers"
+                                class="sort-table__link "> Email<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\"><a href=\\"/applications-service/case/1/project-updates?page=1&amp;sortBy=status\\"
-                                class=\\"sort-table__link \\"> Status<span class=\\"sort-table__link-icon  sort-table__link-icon--small \\"></span></a>
+                            <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=status"
+                                class="sort-table__link "> Status<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                             </th>
-                            <th scope=\\"col\\" class=\\"govuk-table__header\\">Action</th>
+                            <th scope="col" class="govuk-table__header">Action</th>
                         </tr>
                     </thead>
-                    <tbody class=\\"govuk-table__body\\">
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
-                            </td>
-                        </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
-                            </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
-                        <tr class=\\"govuk-table__row\\">
-                            <td class=\\"govuk-table__cell\\"></td>
-                            <td class=\\"govuk-table__cell project-update\\">My project update</td>
-                            <td class=\\"govuk-table__cell\\">No</td>
-                            <td class=\\"govuk-table__cell\\"><strong class=\\"govuk-tag govuk-tag--grey single-line\\">draft</strong>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class=\\"govuk-table__cell\\"><a href=\\"/applications-service/case/1/project-updates/3/review\\">Review</a>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell"></td>
+                            <td class="govuk-table__cell project-update">My project update</td>
+                            <td class="govuk-table__cell">No</td>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
+                            </td>
+                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -682,15 +682,15 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create should check content 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#backOfficeProjectUpdateContent\\">The project update needs to be at least 12 characters long</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#backOfficeProjectUpdateContent">The project update needs to be at least 12 characters long</a>
                             </li>
                         </ul>
                     </div>
@@ -698,49 +698,49 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             </div>
         </div>
     </div>
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">Create a project update</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                        <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <h1 class="govuk-heading-l">Create a project update</h1>
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-!-font-weight-bold">Content</label>
+                        <p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
                         </p>
-                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\" value=\\"\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
-                        <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
-                        <div                         class=\\"display--none character-count-warning\\" data-character-count-limit=\\"500\\">
-                            <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
-                                <strong                                 class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> You have exceeded
+                        <input type="hidden" name="backOfficeProjectUpdateContent" value="">
+                        <div class="html-content-editor" id="backOfficeProjectUpdateContent"></div>
+                        <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
+                        <div                         class="display--none character-count-warning" data-character-count-limit="500">
+                            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                                <strong                                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> You have exceeded
                                     the recommended length for a project update. Consider reviewing the content
                                     to make it shorter and easier to understand</strong>
                             </div>
                     </div>
                     <noscript>
-                        <div class=\\"govuk-form-group\\">
-                            <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                            <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
-                            rows=\\"5\\"></textarea>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-!-font-weight-bold">Content</label>
+                            <textarea class="govuk-textarea" id="" name="backOfficeProjectUpdateContent"
+                            rows="5"></textarea>
                         </div>
                     </noscript>
                 </div>
             </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <fieldset class=\\"govuk-fieldset\\" aria-describedby=\\"emailSubscribers-hint\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-!-font-weight-bold\\">Email to subscribers?</legend>
-                            <div id=\\"emailSubscribers-hint\\" class=\\"govuk-hint\\">De-select if you do not want to send an email notification to subcribers</div>
-                            <div                             class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                <div class=\\"govuk-checkboxes__item\\">
-                                    <input class=\\"govuk-checkboxes__input\\" id=\\"emailSubscribers\\" name=\\"emailSubscribers\\"
-                                    type=\\"checkbox\\" value=\\"true\\" checked>
-                                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"emailSubscribers\\">Send to subscribers</label>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" aria-describedby="emailSubscribers-hint">
+                            <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Email to subscribers?</legend>
+                            <div id="emailSubscribers-hint" class="govuk-hint">De-select if you do not want to send an email notification to subcribers</div>
+                            <div                             class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="emailSubscribers" name="emailSubscribers"
+                                    type="checkbox" value="true" checked>
+                                    <label class="govuk-label govuk-checkboxes__label" for="emailSubscribers">Send to subscribers</label>
                                 </div>
                     </div>
                     </fieldset>
@@ -748,9 +748,9 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -758,15 +758,15 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create should render the next step 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#backOfficeProjectUpdateContent\\">The project update needs to be at least 12 characters long</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#backOfficeProjectUpdateContent">The project update needs to be at least 12 characters long</a>
                             </li>
                         </ul>
                     </div>
@@ -774,49 +774,49 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             </div>
         </div>
     </div>
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">Create a project update</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                        <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span>
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <h1 class="govuk-heading-l">Create a project update</h1>
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-!-font-weight-bold">Content</label>
+                        <p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
                         </p>
-                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\" value=\\"\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
-                        <div class=\\"govuk-hint govuk-!-margin-top-4\\">You have entered <span class=\\"character-count\\">0</span> characters.</div>
-                        <div                         class=\\"display--none character-count-warning\\" data-character-count-limit=\\"500\\">
-                            <div class=\\"govuk-warning-text\\"><span class=\\"govuk-warning-text__icon\\" aria-hidden=\\"true\\">!</span>
-                                <strong                                 class=\\"govuk-warning-text__text\\"><span class=\\"govuk-warning-text__assistive\\">Warning</span> You have exceeded
+                        <input type="hidden" name="backOfficeProjectUpdateContent" value="">
+                        <div class="html-content-editor" id="backOfficeProjectUpdateContent"></div>
+                        <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
+                        <div                         class="display--none character-count-warning" data-character-count-limit="500">
+                            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                                <strong                                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> You have exceeded
                                     the recommended length for a project update. Consider reviewing the content
                                     to make it shorter and easier to understand</strong>
                             </div>
                     </div>
                     <noscript>
-                        <div class=\\"govuk-form-group\\">
-                            <label class=\\"govuk-label govuk-!-font-weight-bold\\">Content</label>
-                            <textarea class=\\"govuk-textarea\\" id=\\"\\" name=\\"backOfficeProjectUpdateContent\\"
-                            rows=\\"5\\"></textarea>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-!-font-weight-bold">Content</label>
+                            <textarea class="govuk-textarea" id="" name="backOfficeProjectUpdateContent"
+                            rows="5"></textarea>
                         </div>
                     </noscript>
                 </div>
             </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <fieldset class=\\"govuk-fieldset\\" aria-describedby=\\"emailSubscribers-hint\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-!-font-weight-bold\\">Email to subscribers?</legend>
-                            <div id=\\"emailSubscribers-hint\\" class=\\"govuk-hint\\">De-select if you do not want to send an email notification to subcribers</div>
-                            <div                             class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                <div class=\\"govuk-checkboxes__item\\">
-                                    <input class=\\"govuk-checkboxes__input\\" id=\\"emailSubscribers\\" name=\\"emailSubscribers\\"
-                                    type=\\"checkbox\\" value=\\"true\\" checked>
-                                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"emailSubscribers\\">Send to subscribers</label>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" aria-describedby="emailSubscribers-hint">
+                            <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Email to subscribers?</legend>
+                            <div id="emailSubscribers-hint" class="govuk-hint">De-select if you do not want to send an email notification to subcribers</div>
+                            <div                             class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="emailSubscribers" name="emailSubscribers"
+                                    type="checkbox" value="true" checked>
+                                    <label class="govuk-label govuk-checkboxes__label" for="emailSubscribers">Send to subscribers</label>
                                 </div>
                     </div>
                     </fieldset>
@@ -824,9 +824,9 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
