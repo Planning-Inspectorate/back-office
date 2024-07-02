@@ -321,11 +321,12 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/creat
             <div class=\\"govuk-grid-column-two-thirds\\">
                 <div class=\\"govuk-form-group\\">
                     <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
-                        <div class=\\"govuk-hint\\">The recommended length is 500 characters</div>
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContent\\">Details about the update</label>
+                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContent-hint\\">The recommended length is 500 characters</div>
                         <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\"
                         value=\\"\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
+                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContent-hint\\"
+                        id=\\"backOfficeProjectUpdateContent\\"></div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
@@ -698,13 +699,14 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             <div class=\\"govuk-grid-column-two-thirds\\">
                 <div class=\\"govuk-form-group\\">
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContent\\">Details about the update</label>
                         <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter details about the
                             update</p>
-                        <div class=\\"govuk-hint\\">The recommended length is 500 characters</div>
+                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContent-hint\\">The recommended length is 500 characters</div>
                         <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\"
                         value=\\"\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
+                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContent-hint\\"
+                        id=\\"backOfficeProjectUpdateContent\\"></div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
@@ -768,13 +770,14 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             <div class=\\"govuk-grid-column-two-thirds\\">
                 <div class=\\"govuk-form-group\\">
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContent\\">Details about the update</label>
                         <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Details about the update
                             must be 12 characters or more</p>
-                        <div class=\\"govuk-hint\\">The recommended length is 500 characters</div>
+                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContent-hint\\">The recommended length is 500 characters</div>
                         <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\"
                         value=\\"123456789012\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
+                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContent-hint\\"
+                        id=\\"backOfficeProjectUpdateContent\\"></div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
@@ -851,11 +854,12 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             <div class=\\"govuk-grid-column-two-thirds\\">
                 <div class=\\"govuk-form-group\\">
                     <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
-                        <div class=\\"govuk-hint\\">The recommended length is 500 characters</div>
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContent\\">Details about the update</label>
+                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContent-hint\\">The recommended length is 500 characters</div>
                         <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\"
                         value=\\"1234567890123\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
+                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContent-hint\\"
+                        id=\\"backOfficeProjectUpdateContent\\"></div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
@@ -871,13 +875,14 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             <div class=\\"govuk-grid-column-two-thirds\\">
                 <div class=\\"govuk-form-group\\">
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update in Welsh</label>
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContentWelsh\\">Details about the update in Welsh</label>
                         <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter details about the
                             update in Welsh</p>
-                        <div class=\\"govuk-hint\\">The recommended length is 500 characters</div>
+                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContentWelsh-hint\\">The recommended length is 500 characters</div>
                         <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContentWelsh\\"
                         value=\\"\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContentWelsh\\"></div>
+                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContentWelsh-hint\\"
+                        id=\\"backOfficeProjectUpdateContentWelsh\\"></div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update in Welsh</label>
@@ -941,11 +946,12 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             <div class=\\"govuk-grid-column-two-thirds\\">
                 <div class=\\"govuk-form-group\\">
                     <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
-                        <div class=\\"govuk-hint\\">The recommended length is 500 characters</div>
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContent\\">Details about the update</label>
+                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContent-hint\\">The recommended length is 500 characters</div>
                         <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\"
                         value=\\"1234567890123\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContent\\"></div>
+                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContent-hint\\"
+                        id=\\"backOfficeProjectUpdateContent\\"></div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
@@ -961,13 +967,14 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             <div class=\\"govuk-grid-column-two-thirds\\">
                 <div class=\\"govuk-form-group\\">
                     <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update in Welsh</label>
+                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContentWelsh\\">Details about the update in Welsh</label>
                         <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Details about the update
                             in Welsh must be 12 characters or more</p>
-                        <div class=\\"govuk-hint\\">The recommended length is 500 characters</div>
+                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContentWelsh-hint\\">The recommended length is 500 characters</div>
                         <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContentWelsh\\"
                         value=\\"123456789012\\">
-                        <div class=\\"html-content-editor\\" id=\\"backOfficeProjectUpdateContentWelsh\\"></div>
+                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContentWelsh-hint\\"
+                        id=\\"backOfficeProjectUpdateContentWelsh\\"></div>
                         <noscript>
                             <div class=\\"govuk-form-group\\">
                                 <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update in Welsh</label>
