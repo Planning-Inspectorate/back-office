@@ -21,12 +21,14 @@ export interface FormComponent {
 
 export interface ProjectUpdatesDetailsView {
 	case: any;
+	caseIsWelsh?: boolean;
 	title?: string;
 	warningText?: string;
 	buttonText?: string;
 	buttonLink?: string;
 	buttonClasses?: string;
-	preview: { html: string };
+	deleteButtonLink?: string;
+	preview: { htmlContent?: string; htmlContentWelsh?: string | null };
 	backLink?: string;
 	form?: {
 		name: string;

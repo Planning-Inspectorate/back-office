@@ -126,7 +126,7 @@ describe('project-updates', () => {
 					expectContains: ['Enter details about the update']
 				},
 				{
-					name: 'should check content is more than 12 characters',
+					name: 'should check content is 12 or more characters',
 					body: {
 						backOfficeProjectUpdateContent: '12345678901'
 					},
@@ -167,7 +167,7 @@ describe('project-updates', () => {
 					expectContains: ['Enter details about the update in Welsh']
 				},
 				{
-					name: 'should check content is more than 12 characters',
+					name: 'should check content is 12 or more characters',
 					body: {
 						backOfficeProjectUpdateContent: '1234567890123',
 						backOfficeProjectUpdateContentWelsh: '12345678901'
@@ -307,8 +307,8 @@ describe('project-updates', () => {
 			expect(element.innerHTML).toContain(mockCaseReference.title);
 
 			// check - project updates form present
-			expect(element.innerHTML).toContain('Check your project update');
-			expect(element.innerHTML).toContain('Content');
+			expect(element.innerHTML).toContain('Create your project update');
+			expect(element.innerHTML).toContain('Details about the update');
 			expect(element.innerHTML).toContain('Status');
 		});
 	});
@@ -334,7 +334,7 @@ describe('project-updates', () => {
 			{
 				name: 'should render the next step (draft status)',
 				body: {},
-				expectContains: ['draft project update', 'created']
+				expectContains: ['project update', 'saved']
 			}
 		];
 
@@ -373,8 +373,8 @@ describe('project-updates', () => {
 			expect(element.innerHTML).toContain(mockCaseReference.title);
 
 			// check - project updates details present
-			expect(element.innerHTML).toContain('Project update preview');
-			expect(element.innerHTML).toContain('Content');
+			expect(element.innerHTML).toContain('Check your project update');
+			expect(element.innerHTML).toContain('Details about the update');
 			expect(element.innerHTML).toContain('Status');
 		});
 	});

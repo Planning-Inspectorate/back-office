@@ -58,12 +58,20 @@ projectUpdatesRouter
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.checkAnswers}`)
-	.get(registerProjectUpdateId, asyncHandler(controller.projectUpdatesCheckAnswersGet))
+	.get(
+		registerProjectUpdateId,
+		locals.registerCase,
+		asyncHandler(controller.projectUpdatesCheckAnswersGet)
+	)
 	.post(registerProjectUpdateId, asyncHandler(controller.projectUpdatesCheckAnswersPost));
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.review}`)
-	.get(registerProjectUpdateId, asyncHandler(controller.projectUpdatesReviewGet));
+	.get(
+		registerProjectUpdateId,
+		locals.registerCase,
+		asyncHandler(controller.projectUpdatesReviewGet)
+	);
 
 projectUpdatesRouter
 	.route(`/:projectUpdateId/${projectUpdateRoutes.delete}`)

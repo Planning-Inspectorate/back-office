@@ -30,15 +30,17 @@ function mapContent(content) {
  * Map a request body to an update project update request
  *
  * @param {any} body
- * @returns {any} // todo: specific type
+ * @returns {{emailSubscribers: boolean, htmlContent: string, htmlContentWelsh?: string}}
  */
 export function bodyToUpdateRequest(body) {
-	const htmlContent = mapContent(body.backOfficeProjectUpdateContent);
-	const htmlContentWelsh = mapContent(body.backOfficeProjectUpdateContentWelsh);
-
-	return {
-		htmlContent,
-		htmlContentWelsh,
+	const request = {
+		htmlContent: mapContent(body.backOfficeProjectUpdateContent),
 		emailSubscribers: body.emailSubscribers === 'true'
 	};
+
+	if (body.backOfficeProjectUpdateContentWelsh) {
+		return { ...request, htmlContentWelsh: mapContent(body.backOfficeProjectUpdateContentWelsh) };
+	}
+
+	return request;
 }
