@@ -5,6 +5,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {# don't include the layouts page heading #}
 {% block pageHeading %}{% endblock %}
@@ -27,13 +28,23 @@
 		<h1 class="govuk-heading-l">{{ title }}</h1>
 	{% endif %}
 
-	{% if preview %}
-		<div class="govuk-grid-row">
-			<div class="govuk-grid-column-two-thirds project-update">
-				<h1 class="govuk-heading-m">Project update preview</h1>
-				{{ govukNotificationBanner({html: preview.html}) }}
+	{% if ('applic-55-welsh-translation' | isFeatureActive) %}
+		{% if deleteButtonLink %}
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-4">
+					<a href="{{ deleteButtonLink }}" class="govuk-link govuk-body">Delete</a>
+				</div>
 			</div>
-		</div>
+		{% endif %}
+	{% else %}
+		{% if preview %}
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds project-update">
+					<h1 class="govuk-heading-m">Project update preview</h1>
+					{{ govukNotificationBanner({html: preview.htmlContent}) }}
+				</div>
+			</div>
+		{% endif %}
 	{% endif %}
 
 	<div class="govuk-grid-row">
@@ -43,6 +54,26 @@
 			</div>
 		</div>
 	</div>
+
+	{% if ('applic-55-welsh-translation' | isFeatureActive) %}
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-two-thirds">
+				<h2 class='govuk-heading-m'>Preview</h2>
+
+				{{ govukInsetText({
+					html: preview.htmlContent
+				}) }}
+
+				{% if caseIsWelsh %}
+					<h2 class='govuk-heading-m'>Preview in Welsh</h2>
+
+					{{ govukInsetText({
+						html: preview.htmlContentWelsh
+					}) }}
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
 
 	<form method="post" action="" novalidate="novalidate">
 		{% include 'app/includes/csrf.njk' %}

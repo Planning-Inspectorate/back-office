@@ -79,6 +79,6 @@ export class ProjectUpdate {
 	 * @returns {boolean}
 	 */
 	static isDeleteable(status) {
-		return status === ProjectUpdate.Status.draft;
+		return status === ProjectUpdate.Status.draft || status === ProjectUpdate.Status.readyToPublish;
 	}
 }

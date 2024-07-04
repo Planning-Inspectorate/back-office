@@ -3,6 +3,7 @@ import { booleanAnswer } from '../../../lib/nunjucks-filters/boolean-answer.js';
 import { displayDate } from '../../../lib/nunjucks-filters/date.js';
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import { projectUpdateRoutes } from './project-updates.router.js';
+import { featureFlagClient } from '../../../../common/feature-flags.js';
 
 /**
  * @typedef {Object} projectUpdatesRow
@@ -145,11 +146,13 @@ export function createContentFormView({
  *
  * @param {Object} options
  * @param {any} options.caseInfo
+ * @param {boolean} [options.caseIsWelsh]
  * @param {string} [options.title]
  * @param {string} [options.warningText]
  * @param {string} [options.buttonText]
  * @param {string} [options.buttonLink]
  * @param {boolean} [options.buttonWarning]
+ * @param {string} [options.deleteButtonLink]
  * @param {import('./project-updates-views').ProjectUpdatesDetailsView['form']} [options.form]
  * @param {import('@pins/applications').ProjectUpdate} options.projectUpdate
  * @param {string} [options.backLink]
@@ -158,11 +161,13 @@ export function createContentFormView({
  */
 export function createDetailsView({
 	caseInfo,
+	caseIsWelsh,
 	title,
 	warningText,
 	buttonText,
 	buttonLink,
 	buttonWarning,
+	deleteButtonLink,
 	form,
 	projectUpdate,
 	backLink,
@@ -217,6 +222,43 @@ export function createDetailsView({
 			value: { text: displayDate(projectUpdate.datePublished, { condensed: true }) }
 		});
 	}
+	if (featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
+		rows.push({
+			key: { text: 'Details about the update' },
+			value: { html: projectUpdate.htmlContent, classes: 'project-update' },
+			actions: contentActions
+		});
+		if (caseIsWelsh) {
+			rows.push({
+				key: { text: 'Details about the update in Welsh' },
+				value: { html: projectUpdate.htmlContentWelsh, classes: 'project-update' },
+				actions: contentActions
+			});
+		}
+		rows.push({
+			key: { text: 'Email to subscribers' },
+			value: { text: booleanAnswer(projectUpdate.emailSubscribers) },
+			actions: contentActions
+		});
+	} else {
+		rows.push({
+			classes: 'no-border',
+			key: {
+				html: '<h2 class="govuk-heading-m govuk-!-margin-top-3">Content</h2>'
+			},
+			actions: contentActions
+		});
+		rows.push({
+			classes: 'no-border',
+			key: { text: 'Email to subscribers' },
+			value: { text: booleanAnswer(projectUpdate.emailSubscribers) }
+		});
+		rows.push({
+			key: { text: 'English' },
+			value: { html: projectUpdate.htmlContent, classes: 'project-update' }
+		});
+	}
+
 	return {
 		case: caseInfo,
 		title,
@@ -224,28 +266,16 @@ export function createDetailsView({
 		buttonText,
 		buttonLink,
 		buttonClasses: buttonWarning ? 'govuk-button--warning' : '',
-		preview: { html: projectUpdate.htmlContent },
+		deleteButtonLink,
+		preview: {
+			htmlContent: projectUpdate.htmlContent,
+			htmlContentWelsh: projectUpdate.htmlContentWelsh ?? ''
+		},
 		backLink,
 		form,
 		summary: {
 			rows: [
 				...rows,
-				{
-					classes: 'no-border',
-					key: {
-						html: '<h2 class="govuk-heading-m govuk-!-margin-top-3">Content</h2>'
-					},
-					actions: contentActions
-				},
-				{
-					classes: 'no-border',
-					key: { text: 'Email to subscribers' },
-					value: { text: booleanAnswer(projectUpdate.emailSubscribers) }
-				},
-				{
-					key: { text: 'English' },
-					value: { html: projectUpdate.htmlContent, classes: 'project-update' }
-				},
 				{
 					key: { text: 'What information does the update contain?' },
 					value: { text: typeRadioOption(projectUpdate.type).text },

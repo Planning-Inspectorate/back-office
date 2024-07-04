@@ -26,6 +26,7 @@ import {
 	statusFilter
 } from './project-updates.view-model.js';
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
+import { featureFlagClient } from '../../../../common/feature-flags.js';
 
 const view = 'applications/case/project-updates.njk';
 const formView = 'applications/case/project-updates/project-updates-form.njk';
@@ -252,17 +253,33 @@ export async function projectUpdatesStatusPost(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesCheckAnswersGet(req, res) {
-	const { caseId, projectUpdateId } = res.locals;
+	const { caseId, caseIsWelsh, projectUpdateId } = res.locals;
 
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
+	let title = 'Create your project update';
 	let buttonText = 'Save and continue';
-	const warningText = projectUpdate.datePublished
+	let warningText = projectUpdate.datePublished
 		? 'If you edit this project update, the publication date will change. Subscribers will not be notified. If you need to make a change, you must create a new update so subscribers will be informed.'
+		: projectUpdate.status === ProjectUpdate.Status.draft
+		? undefined
 		: 'Check all the information in your project update is correct. When you publish your update an email will be sent to subscribers.';
 	let form;
 	switch (projectUpdate.status) {
+		case ProjectUpdate.Status.draft:
+			if (featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
+				buttonText = 'Save project update';
+				form = {
+					name: 'status',
+					value: ProjectUpdate.Status.draft
+				};
+			}
+			break;
 		case ProjectUpdate.Status.readyToPublish:
-			buttonText = 'Publish';
+			if (featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
+				buttonText = 'Publish project update';
+			} else {
+				buttonText = 'Publish';
+			}
 			form = {
 				name: 'status',
 				value: ProjectUpdate.Status.published
@@ -275,15 +292,29 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
 				value: ProjectUpdate.Status.unpublished
 			};
 			break;
+		case ProjectUpdate.Status.published:
+			buttonText = 'Publish changes';
+			form = {
+				name: 'status',
+				value: ProjectUpdate.Status.published
+			};
+			break;
 	}
+	let deleteButtonLink;
+	if (ProjectUpdate.isDeleteable(projectUpdate.status)) {
+		deleteButtonLink = stepLink(caseId, projectUpdateId, projectUpdateRoutes.delete);
+	}
+
 	return res.render(
 		detailsView,
 		createDetailsView({
 			caseInfo: res.locals.case,
-			title: 'Check your project update',
+			caseIsWelsh,
+			title,
 			warningText,
 			backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.status),
 			buttonText,
+			deleteButtonLink,
 			form,
 			projectUpdate
 		})
@@ -300,20 +331,20 @@ export async function projectUpdatesCheckAnswersPost(req, res) {
 	if (req.body.status) {
 		await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
 	}
-	let action = 'created a draft';
+	let action = 'saved';
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	switch (projectUpdate.status) {
 		case ProjectUpdate.Status.archived:
-			action = 'archived a';
+			action = 'archived';
 			break;
 		case ProjectUpdate.Status.published:
-			action = 'published a';
+			action = 'published';
 			break;
 		case ProjectUpdate.Status.unpublished:
-			action = 'unpublished a';
+			action = 'unpublished';
 			break;
 	}
-	setSessionBanner(req.session, `You have successfully ${action} project update`);
+	setSessionBanner(req.session, `Project update ${action}`);
 	const nextUrl = url('project-updates', {
 		caseId: parseInt(caseId)
 	});
@@ -325,25 +356,36 @@ export async function projectUpdatesCheckAnswersPost(req, res) {
  * @param {import('express').Response} res
  */
 export async function projectUpdatesReviewGet(req, res) {
-	const { caseId, projectUpdateId } = res.locals;
+	const { caseId, caseIsWelsh, projectUpdateId } = res.locals;
 
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
-	let buttonText;
-	let buttonLink;
+	const title = 'Check your project update';
+	let buttonText = 'Save project update';
+	let buttonLink = url('project-updates-step', {
+		caseId: parseInt(caseId)
+	});
 	let buttonWarning = false;
 	const editable = ProjectUpdate.isEditable(projectUpdate.status);
+	let deleteButtonLink;
 	if (ProjectUpdate.isDeleteable(projectUpdate.status)) {
-		buttonText = 'Delete';
-		buttonWarning = true;
-		buttonLink = stepLink(caseId, projectUpdateId, projectUpdateRoutes.delete);
+		if (featureFlagClient.isFeatureActive('applic-55-welsh-translation')) {
+			deleteButtonLink = stepLink(caseId, projectUpdateId, projectUpdateRoutes.delete);
+		} else {
+			buttonText = 'Delete';
+			buttonWarning = true;
+			buttonLink = stepLink(caseId, projectUpdateId, projectUpdateRoutes.delete);
+		}
 	}
 	return res.render(
 		detailsView,
 		createDetailsView({
 			caseInfo: res.locals.case,
+			caseIsWelsh,
+			title,
 			buttonText,
 			buttonWarning,
 			buttonLink,
+			deleteButtonLink,
 			projectUpdate,
 			editable
 		})
@@ -385,7 +427,7 @@ export async function projectUpdatesDeletePost(req, res) {
 
 	try {
 		await deleteProjectUpdate(caseId, projectUpdateId);
-		setSessionBanner(req.session, `You have successfully deleted a project update`);
+		setSessionBanner(req.session, `Project update deleted`);
 	} catch (e) {
 		res.locals.error = { error: 'The project update could not be deleted' };
 		return projectUpdatesDeleteGet(req, res);
