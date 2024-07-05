@@ -9,7 +9,7 @@ export const validateProjectUpdatesContent = createValidator(
 		.trim()
 		.custom((value) => htmlToText(decodeURI(value)).length !== 0)
 		.withMessage('Enter details about the update')
-		.custom((value) => htmlToText(decodeURI(value)).length > 12)
+		.custom((value) => htmlToText(decodeURI(value)).length >= 12)
 		.withMessage('Details about the update must be 12 characters or more')
 );
 
@@ -27,7 +27,7 @@ export const validateProjectUpdatesContentWelsh = (req, res, next) => {
 				.trim()
 				.custom((value) => htmlToText(decodeURI(value)).length !== 0)
 				.withMessage('Enter details about the update in Welsh')
-				.custom((value) => htmlToText(decodeURI(value)).length > 12)
+				.custom((value) => htmlToText(decodeURI(value)).length >= 12)
 				.withMessage('Details about the update in Welsh must be 12 characters or more')
 		)(req, res, next);
 	}
