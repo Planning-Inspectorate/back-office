@@ -128,14 +128,14 @@ describe('project-updates', () => {
 				{
 					name: 'should check content is more than 12 characters',
 					body: {
-						backOfficeProjectUpdateContent: '123456789012'
+						backOfficeProjectUpdateContent: '12345678901'
 					},
 					expectContains: ['Details about the update must be 12 characters or more']
 				},
 				{
 					name: 'should render the next step',
 					body: {
-						backOfficeProjectUpdateContent: '1234567890123',
+						backOfficeProjectUpdateContent: '123456789012',
 						emailSubscribers: true
 					},
 					expectContains: []
@@ -170,7 +170,7 @@ describe('project-updates', () => {
 					name: 'should check content is more than 12 characters',
 					body: {
 						backOfficeProjectUpdateContent: '1234567890123',
-						backOfficeProjectUpdateContentWelsh: '123456789012'
+						backOfficeProjectUpdateContentWelsh: '12345678901'
 					},
 					expectContains: ['Details about the update in Welsh must be 12 characters or more']
 				},
@@ -178,7 +178,7 @@ describe('project-updates', () => {
 					name: 'should render the next step',
 					body: {
 						backOfficeProjectUpdateContent: '1234567890123',
-						backOfficeProjectUpdateContentWelsh: '1234567890123',
+						backOfficeProjectUpdateContentWelsh: '123456789012',
 						emailSubscribers: true
 					},
 					expectContains: []

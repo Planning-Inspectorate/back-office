@@ -42,14 +42,14 @@ describe('Project Updates', () => {
 		projectUpdatesPage.validateErrorMessageIsInSummary('Enter details about the update');
 
 		// Test english content only 12 characters
-		projectUpdatesPage.fillEnglishContent('E'.repeat(12));
+		projectUpdatesPage.fillEnglishContent('E'.repeat(11));
 		projectUpdatesPage.clickButtonByText('Save and continue');
 		projectUpdatesPage.validateErrorMessageIsInSummary(
 			'Details about the update must be 12 characters or more'
 		);
 
 		// Test english content valid
-		projectUpdatesPage.fillEnglishContent('E'.repeat(13));
+		projectUpdatesPage.fillEnglishContent('E'.repeat(12));
 		projectUpdatesPage.clickButtonByText('Save and continue');
 		projectUpdatesPage.clickButtonByText('Save and continue');
 		projectUpdatesPage.clickButtonByText('Save and continue');
@@ -79,14 +79,14 @@ describe('Project Updates', () => {
 			projectUpdatesPage.validateErrorMessageIsInSummary('Enter details about the update in Welsh');
 
 			// Test welsh content only 12 characters
-			projectUpdatesPage.fillWelshContent('W'.repeat(12));
+			projectUpdatesPage.fillWelshContent('W'.repeat(11));
 			projectUpdatesPage.clickButtonByText('Save and continue');
 			projectUpdatesPage.validateErrorMessageIsInSummary(
 				'Details about the update in Welsh must be 12 characters or more'
 			);
 
 			// Test welsh content valid
-			projectUpdatesPage.fillWelshContent('W'.repeat(13));
+			projectUpdatesPage.fillWelshContent('W'.repeat(12));
 			projectUpdatesPage.clickButtonByText('Save and continue');
 			projectUpdatesPage.clickButtonByText('Save and continue');
 			projectUpdatesPage.clickButtonByText('Save and continue');
