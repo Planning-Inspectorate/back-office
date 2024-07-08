@@ -315,35 +315,28 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 exports[`project-updates GET /applications-service/:caseId/project-updates/create should render the page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
-    <h1 class="govuk-heading-l">Create a project update</h1>
+    <h1 class="govuk-heading-l">Create project update</h1>
     <form method="post" action="" novalidate="novalidate">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-form-group">
                     <div class="govuk-form-group">
-                        <label class="govuk-label govuk-!-font-weight-bold">Content</label>
+                        <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                        <div class="govuk-hint" id="backOfficeProjectUpdateContent-hint">The recommended length is 500 characters</div>
                         <input type="hidden" name="backOfficeProjectUpdateContent"
                         value="">
-                        <div class="html-content-editor" id="backOfficeProjectUpdateContent"></div>
-                        <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
-                        <div                         class="display--none character-count-warning" data-character-count-limit="500">
-                            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                                <strong                                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> You have exceeded
-                                    the recommended length for a project update. Consider reviewing the content
-                                    to make it shorter and easier to understand</strong>
+                        <div class="html-content-editor" aria-describedby="backOfficeProjectUpdateContent-hint"
+                        id="backOfficeProjectUpdateContent"></div>
+                        <noscript>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
+                                <textarea class="govuk-textarea" id=""
+                                name="backOfficeProjectUpdateContent" rows="5"></textarea>
                             </div>
                         </noscript>
                     </div>
-                    <noscript>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-!-font-weight-bold">Content</label>
-                            <textarea class="govuk-textarea" id="" name="backOfficeProjectUpdateContent"
-                            rows="5"></textarea>
-                        </div>
-                    </noscript>
                 </div>
             </div>
-        </div>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
@@ -682,7 +675,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
 </main>"
 `;
 
-exports[`project-updates POST /applications-service/:caseId/project-updates/create should check content 1`] = `
+exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is English: should check content exists 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -691,7 +684,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#backOfficeProjectUpdateContent">The project update needs to be at least 12 characters long</a>
+                            <li><a href="#backOfficeProjectUpdateContent">Enter details about the update</a>
                             </li>
                         </ul>
                     </div>
@@ -700,36 +693,30 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
         </div>
     </div>
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
-    <h1 class="govuk-heading-l">Create a project update</h1>
+    <h1 class="govuk-heading-l">Create project update</h1>
     <form method="post" action="" novalidate="novalidate">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-form-group">
                     <div class="govuk-form-group govuk-form-group--error">
-                        <label class="govuk-label govuk-!-font-weight-bold">Content</label>
-                        <p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
-                        </p>
-                        <input type="hidden" name="backOfficeProjectUpdateContent" value="">
-                        <div class="html-content-editor" id="backOfficeProjectUpdateContent"></div>
-                        <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
-                        <div                         class="display--none character-count-warning" data-character-count-limit="500">
-                            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                                <strong                                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> You have exceeded
-                                    the recommended length for a project update. Consider reviewing the content
-                                    to make it shorter and easier to understand</strong>
+                        <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                        <p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter details about the
+                            update</p>
+                        <div class="govuk-hint" id="backOfficeProjectUpdateContent-hint">The recommended length is 500 characters</div>
+                        <input type="hidden" name="backOfficeProjectUpdateContent"
+                        value="">
+                        <div class="html-content-editor" aria-describedby="backOfficeProjectUpdateContent-hint"
+                        id="backOfficeProjectUpdateContent"></div>
+                        <noscript>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
+                                <textarea class="govuk-textarea" id=""
+                                name="backOfficeProjectUpdateContent" rows="5"></textarea>
                             </div>
                         </noscript>
                     </div>
-                    <noscript>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-!-font-weight-bold">Content</label>
-                            <textarea class="govuk-textarea" id="" name="backOfficeProjectUpdateContent"
-                            rows="5"></textarea>
-                        </div>
-                    </noscript>
                 </div>
             </div>
-        </div>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
@@ -759,7 +746,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 </main>"
 `;
 
-exports[`project-updates POST /applications-service/:caseId/project-updates/create should render the next step 1`] = `
+exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is English: should check content is more than 12 characters 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -768,7 +755,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#backOfficeProjectUpdateContent">The project update needs to be at least 12 characters long</a>
+                            <li><a href="#backOfficeProjectUpdateContent">Details about the update must be 12 characters or more</a>
                             </li>
                         </ul>
                     </div>
@@ -777,36 +764,30 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
         </div>
     </div>
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
-    <h1 class="govuk-heading-l">Create a project update</h1>
+    <h1 class="govuk-heading-l">Create project update</h1>
     <form method="post" action="" novalidate="novalidate">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-form-group">
                     <div class="govuk-form-group govuk-form-group--error">
-                        <label class="govuk-label govuk-!-font-weight-bold">Content</label>
-                        <p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
-                        </p>
-                        <input type="hidden" name="backOfficeProjectUpdateContent" value="">
-                        <div class="html-content-editor" id="backOfficeProjectUpdateContent"></div>
-                        <div class="govuk-hint govuk-!-margin-top-4">You have entered <span class="character-count">0</span> characters.</div>
-                        <div                         class="display--none character-count-warning" data-character-count-limit="500">
-                            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                                <strong                                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> You have exceeded
-                                    the recommended length for a project update. Consider reviewing the content
-                                    to make it shorter and easier to understand</strong>
+                        <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                        <p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Details about the update
+                            must be 12 characters or more</p>
+                        <div class="govuk-hint" id="backOfficeProjectUpdateContent-hint">The recommended length is 500 characters</div>
+                        <input type="hidden" name="backOfficeProjectUpdateContent"
+                        value="12345678901">
+                        <div class="html-content-editor" aria-describedby="backOfficeProjectUpdateContent-hint"
+                        id="backOfficeProjectUpdateContent"></div>
+                        <noscript>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
+                                <textarea class="govuk-textarea" id=""
+                                name="backOfficeProjectUpdateContent" rows="5">12345678901</textarea>
                             </div>
                         </noscript>
                     </div>
-                    <noscript>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-!-font-weight-bold">Content</label>
-                            <textarea class="govuk-textarea" id="" name="backOfficeProjectUpdateContent"
-                            rows="5"></textarea>
-                        </div>
-                    </noscript>
                 </div>
             </div>
-        </div>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
@@ -837,12 +818,12 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is English: should render the next step 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
-            <p class=\\"govuk-body\\">If the problem persists, <a href=\\"https://intranet.planninginspectorate.gov.uk/task/report-it-problem/\\"
-                class=\\"govuk-link\\">report an IT problem or make an IT request.</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">If the problem persists, <a href="https://intranet.planninginspectorate.gov.uk/task/report-it-problem/"
+                class="govuk-link">report an IT problem or make an IT request.</a>
             </p>
         </div>
     </div>
@@ -850,15 +831,15 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is Welsh: should check content exists 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#backOfficeProjectUpdateContentWelsh\\">Enter details about the update in Welsh</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#backOfficeProjectUpdateContentWelsh">Enter details about the update in Welsh</a>
                             </li>
                         </ul>
                     </div>
@@ -866,65 +847,65 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             </div>
         </div>
     </div>
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">Create project update</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContent\\">Details about the update</label>
-                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContent-hint\\">The recommended length is 500 characters</div>
-                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\"
-                        value=\\"1234567890123\\">
-                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContent-hint\\"
-                        id=\\"backOfficeProjectUpdateContent\\"></div>
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <h1 class="govuk-heading-l">Create project update</h1>
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                        <div class="govuk-hint" id="backOfficeProjectUpdateContent-hint">The recommended length is 500 characters</div>
+                        <input type="hidden" name="backOfficeProjectUpdateContent"
+                        value="1234567890123">
+                        <div class="html-content-editor" aria-describedby="backOfficeProjectUpdateContent-hint"
+                        id="backOfficeProjectUpdateContent"></div>
                         <noscript>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
-                                <textarea class=\\"govuk-textarea\\" id=\\"\\"
-                                name=\\"backOfficeProjectUpdateContent\\" rows=\\"5\\">1234567890123</textarea>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
+                                <textarea class="govuk-textarea" id=""
+                                name="backOfficeProjectUpdateContent" rows="5">1234567890123</textarea>
                             </div>
                         </noscript>
                     </div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContentWelsh\\">Details about the update in Welsh</label>
-                        <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Enter details about the
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContentWelsh">Details about the update in Welsh</label>
+                        <p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter details about the
                             update in Welsh</p>
-                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContentWelsh-hint\\">The recommended length is 500 characters</div>
-                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContentWelsh\\"
-                        value=\\"\\">
-                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContentWelsh-hint\\"
-                        id=\\"backOfficeProjectUpdateContentWelsh\\"></div>
+                        <div class="govuk-hint" id="backOfficeProjectUpdateContentWelsh-hint">The recommended length is 500 characters</div>
+                        <input type="hidden" name="backOfficeProjectUpdateContentWelsh"
+                        value="">
+                        <div class="html-content-editor" aria-describedby="backOfficeProjectUpdateContentWelsh-hint"
+                        id="backOfficeProjectUpdateContentWelsh"></div>
                         <noscript>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update in Welsh</label>
-                                <textarea class=\\"govuk-textarea\\"
-                                id=\\"\\" name=\\"backOfficeProjectUpdateContentWelsh\\" rows=\\"5\\"></textarea>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update in Welsh</label>
+                                <textarea class="govuk-textarea"
+                                id="" name="backOfficeProjectUpdateContentWelsh" rows="5"></textarea>
                             </div>
                         </noscript>
                     </div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <fieldset class=\\"govuk-fieldset\\" aria-describedby=\\"emailSubscribers-hint\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-!-font-weight-bold\\">Email to subscribers?</legend>
-                            <div id=\\"emailSubscribers-hint\\" class=\\"govuk-hint\\">De-select if you do not want to send an email notification to subcribers</div>
-                            <div                             class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                <div class=\\"govuk-checkboxes__item\\">
-                                    <input class=\\"govuk-checkboxes__input\\" id=\\"emailSubscribers\\" name=\\"emailSubscribers\\"
-                                    type=\\"checkbox\\" value=\\"true\\" checked>
-                                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"emailSubscribers\\">Send to subscribers</label>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" aria-describedby="emailSubscribers-hint">
+                            <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Email to subscribers?</legend>
+                            <div id="emailSubscribers-hint" class="govuk-hint">De-select if you do not want to send an email notification to subcribers</div>
+                            <div                             class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="emailSubscribers" name="emailSubscribers"
+                                    type="checkbox" value="true" checked>
+                                    <label class="govuk-label govuk-checkboxes__label" for="emailSubscribers">Send to subscribers</label>
                                 </div>
                     </div>
                     </fieldset>
@@ -932,9 +913,9 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -942,15 +923,15 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is Welsh: should check content is more than 12 characters 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-full\\">
-            <div class=\\"govuk-error-summary\\" data-module=\\"govuk-error-summary\\">
-                <div role=\\"alert\\">
-                    <h2 class=\\"govuk-error-summary__title\\"> There is a problem</h2>
-                    <div class=\\"govuk-error-summary__body\\">
-                        <ul class=\\"govuk-list govuk-error-summary__list\\">
-                            <li><a href=\\"#backOfficeProjectUpdateContentWelsh\\">Details about the update in Welsh must be 12 characters or more</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#backOfficeProjectUpdateContentWelsh">Details about the update in Welsh must be 12 characters or more</a>
                             </li>
                         </ul>
                     </div>
@@ -958,65 +939,65 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             </div>
         </div>
     </div>
-    <p class=\\"govuk-body\\"><strong>Project name:</strong> mock title</p>
-    <h1 class=\\"govuk-heading-l\\">Create project update</h1>
-    <form method=\\"post\\" action=\\"\\" novalidate=\\"novalidate\\">
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContent\\">Details about the update</label>
-                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContent-hint\\">The recommended length is 500 characters</div>
-                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContent\\"
-                        value=\\"1234567890123\\">
-                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContent-hint\\"
-                        id=\\"backOfficeProjectUpdateContent\\"></div>
+    <p class="govuk-body"><strong>Project name:</strong> mock title</p>
+    <h1 class="govuk-heading-l">Create project update</h1>
+    <form method="post" action="" novalidate="novalidate">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                        <div class="govuk-hint" id="backOfficeProjectUpdateContent-hint">The recommended length is 500 characters</div>
+                        <input type="hidden" name="backOfficeProjectUpdateContent"
+                        value="1234567890123">
+                        <div class="html-content-editor" aria-describedby="backOfficeProjectUpdateContent-hint"
+                        id="backOfficeProjectUpdateContent"></div>
                         <noscript>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update</label>
-                                <textarea class=\\"govuk-textarea\\" id=\\"\\"
-                                name=\\"backOfficeProjectUpdateContent\\" rows=\\"5\\">1234567890123</textarea>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
+                                <textarea class="govuk-textarea" id=""
+                                name="backOfficeProjectUpdateContent" rows="5">1234567890123</textarea>
                             </div>
                         </noscript>
                     </div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group govuk-form-group--error\\">
-                        <label class=\\"govuk-label govuk-!-font-weight-bold\\" for=\\"backOfficeProjectUpdateContentWelsh\\">Details about the update in Welsh</label>
-                        <p class=\\"govuk-error-message\\"><span class=\\"govuk-visually-hidden\\">Error:</span> Details about the update
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContentWelsh">Details about the update in Welsh</label>
+                        <p class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Details about the update
                             in Welsh must be 12 characters or more</p>
-                        <div class=\\"govuk-hint\\" id=\\"backOfficeProjectUpdateContentWelsh-hint\\">The recommended length is 500 characters</div>
-                        <input type=\\"hidden\\" name=\\"backOfficeProjectUpdateContentWelsh\\"
-                        value=\\"12345678901\\">
-                        <div class=\\"html-content-editor\\" aria-describedby=\\"backOfficeProjectUpdateContentWelsh-hint\\"
-                        id=\\"backOfficeProjectUpdateContentWelsh\\"></div>
+                        <div class="govuk-hint" id="backOfficeProjectUpdateContentWelsh-hint">The recommended length is 500 characters</div>
+                        <input type="hidden" name="backOfficeProjectUpdateContentWelsh"
+                        value="12345678901">
+                        <div class="html-content-editor" aria-describedby="backOfficeProjectUpdateContentWelsh-hint"
+                        id="backOfficeProjectUpdateContentWelsh"></div>
                         <noscript>
-                            <div class=\\"govuk-form-group\\">
-                                <label class=\\"govuk-label govuk-!-font-weight-bold\\">Details about the update in Welsh</label>
-                                <textarea class=\\"govuk-textarea\\"
-                                id=\\"\\" name=\\"backOfficeProjectUpdateContentWelsh\\" rows=\\"5\\">12345678901</textarea>
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update in Welsh</label>
+                                <textarea class="govuk-textarea"
+                                id="" name="backOfficeProjectUpdateContentWelsh" rows="5">12345678901</textarea>
                             </div>
                         </noscript>
                     </div>
                 </div>
             </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-two-thirds\\">
-                <div class=\\"govuk-form-group\\">
-                    <div class=\\"govuk-form-group\\">
-                        <fieldset class=\\"govuk-fieldset\\" aria-describedby=\\"emailSubscribers-hint\\">
-                            <legend class=\\"govuk-fieldset__legend govuk-!-font-weight-bold\\">Email to subscribers?</legend>
-                            <div id=\\"emailSubscribers-hint\\" class=\\"govuk-hint\\">De-select if you do not want to send an email notification to subcribers</div>
-                            <div                             class=\\"govuk-checkboxes\\" data-module=\\"govuk-checkboxes\\">
-                                <div class=\\"govuk-checkboxes__item\\">
-                                    <input class=\\"govuk-checkboxes__input\\" id=\\"emailSubscribers\\" name=\\"emailSubscribers\\"
-                                    type=\\"checkbox\\" value=\\"true\\" checked>
-                                    <label class=\\"govuk-label govuk-checkboxes__label\\" for=\\"emailSubscribers\\">Send to subscribers</label>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" aria-describedby="emailSubscribers-hint">
+                            <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Email to subscribers?</legend>
+                            <div id="emailSubscribers-hint" class="govuk-hint">De-select if you do not want to send an email notification to subcribers</div>
+                            <div                             class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="emailSubscribers" name="emailSubscribers"
+                                    type="checkbox" value="true" checked>
+                                    <label class="govuk-label govuk-checkboxes__label" for="emailSubscribers">Send to subscribers</label>
                                 </div>
                     </div>
                     </fieldset>
@@ -1024,9 +1005,9 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
             </div>
         </div>
         </div>
-        <div class=\\"govuk-grid-row\\">
-            <div class=\\"govuk-grid-column-one-half\\">
-                <button type=\\"submit\\" class=\\"govuk-button\\" data-module=\\"govuk-button\\">Save and continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1034,12 +1015,12 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is Welsh: should render the next step 1`] = `
-"<main class=\\"govuk-main-wrapper \\" id=\\"main-content\\" role=\\"main\\">
-    <div class=\\"govuk-grid-row\\">
-        <div class=\\"govuk-grid-column-two-thirds\\">
-            <h1 class=\\"govuk-heading-xl\\">Sorry, there is a problem with the service</h1>
-            <p class=\\"govuk-body\\">If the problem persists, <a href=\\"https://intranet.planninginspectorate.gov.uk/task/report-it-problem/\\"
-                class=\\"govuk-link\\">report an IT problem or make an IT request.</a>
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">If the problem persists, <a href="https://intranet.planninginspectorate.gov.uk/task/report-it-problem/"
+                class="govuk-link">report an IT problem or make an IT request.</a>
             </p>
         </div>
     </div>

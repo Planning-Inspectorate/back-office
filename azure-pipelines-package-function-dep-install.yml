@@ -1,0 +1,44 @@
+parameters:
+- name: nodeVersion
+  type: number
+- name: appsFolderNames
+  type: object
+
+steps:
+  - script: |
+      source ~/.bashrc
+      nvm use ${{ parameters.nodeVersion }} || nvm install ${{ parameters.nodeVersion }}
+      function_folders=(${{ join(' ',parameters.appsFolderNames) }})
+
+      npm pack $(Build.Repository.LocalPath)/packages/*
+      for folder in "${function_folders[@]}"; do
+        echo "Processing folder: $folder"
+        ln -f $(Build.Repository.LocalPath)/package-lock.json $(Build.Repository.LocalPath)/apps/functions/$folder/package-lock.json
+        npm ci --omit=dev --prefix=$(Build.Repository.LocalPath)/apps/functions/$folder
+
+        required_custom_packages=($( ls $(Build.Repository.LocalPath)/apps/functions/$folder/node_modules/@pins ))
+        paths_to_custom_package_tarballs=()
+
+        if [ ${#required_custom_packages[@]} -gt 0 ]; then
+          for package in "${required_custom_packages[@]}"; do
+            tarball_path=$(ls pins-${package}*.tgz)
+            paths_to_custom_package_tarballs+=($tarball_path)
+          done
+
+          if [ ${#paths_to_custom_package_tarballs[@]} -eq ${#required_custom_packages[@]} ]; then
+            echo "Installing custom packages for $folder"
+            echo "Custom packages: ${paths_to_custom_package_tarballs[@]}"
+
+            npm i "${paths_to_custom_package_tarballs[@]}" --omit=dev --prefix=$(Build.Repository.LocalPath)/apps/functions/$folder --save=false || { echo "Installation failed for $folder"; exit 1; }
+          else
+            echo "Couldn't match any local custom packages to install for $folder"
+            exit 1
+          fi
+        else
+          echo "No custom packages to install for $folder"
+        fi
+
+        rm $(Build.Repository.LocalPath)/apps/functions/$folder/package-lock.json
+      done
+      rm $(Build.Repository.LocalPath)/pins-*.tgz
+    displayName: Import function node_modules
