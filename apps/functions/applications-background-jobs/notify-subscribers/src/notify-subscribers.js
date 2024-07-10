@@ -101,10 +101,15 @@ export class NotifySubscribers {
 		await this.apiClient.patchProjectUpdate(update.id, update.caseId, true);
 
 		const content = NotifySubscribers.htmlToMarkdown(update.htmlContent);
+		const contentWelsh = update.htmlContentWelsh
+			? NotifySubscribers.htmlToMarkdown(update.htmlContentWelsh)
+			: null;
+
 		const subscriptionType = NotifySubscribers.subscriptionType(update.type);
 		await this.notifySubscribers({
 			update,
 			content,
+			contentWelsh,
 			subscriptionType,
 			caseReference: this.msg.caseReference
 		});
@@ -116,10 +121,11 @@ export class NotifySubscribers {
 	 * @param {Object} opts
 	 * @param {import('./types.js').ExtendedProjectUpdate} opts.update
 	 * @param {string} opts.content
+	 * @param {string | null} opts.contentWelsh
 	 * @param {string} opts.subscriptionType
 	 * @param {string} opts.caseReference
 	 */
-	async notifySubscribers({ update, content, subscriptionType, caseReference }) {
+	async notifySubscribers({ update, content, contentWelsh, subscriptionType, caseReference }) {
 		const now = new Date();
 		const subscriptions = new PagedRequest(this.perPage, (page, pageSize) => {
 			return this.apiClient.getSubscriptions(page, pageSize, {
@@ -142,7 +148,7 @@ export class NotifySubscribers {
 			// notify all subscribers (per page) in parallel
 			const logs = await Promise.all(
 				page.items.map((subscription) =>
-					this.notifySubscriber(update, subscription, content, caseReference)
+					this.notifySubscriber(update, subscription, content, contentWelsh, caseReference)
 				)
 			);
 
@@ -162,10 +168,11 @@ export class NotifySubscribers {
 	 * @param {import('./types.js').ExtendedProjectUpdate} update
 	 * @param {import('@pins/applications').Subscription} subscription
 	 * @param {string} content
+	 * @param {string | null} contentWelsh
 	 * @param {string} caseReference
 	 * @returns {Promise<import('@pins/applications').ProjectUpdateNotificationLogCreateReq>}
 	 */
-	async notifySubscriber(update, subscription, content, caseReference) {
+	async notifySubscriber(update, subscription, content, contentWelsh, caseReference) {
 		if (!subscription.id) {
 			throw new Error(`no subscription ID`);
 		}
@@ -189,6 +196,7 @@ export class NotifySubscribers {
 					title: `${projectName} - Project Update`,
 					subject: `${projectName} - Project Update Notification`,
 					content,
+					...(contentWelsh ? { contentWelsh } : {}),
 					unsubscribeUrl
 				},
 				reference
