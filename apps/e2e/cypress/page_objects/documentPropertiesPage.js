@@ -228,4 +228,7 @@ export class DocumentPropertiesPage extends Page {
 			this.validateTranscriptValue();
 		});
 	}
+	validateSummaryErrorMessage(text) {
+		cy.get('.govuk-list.govuk-error-summary__list a').contains(text);
+	}
 }
