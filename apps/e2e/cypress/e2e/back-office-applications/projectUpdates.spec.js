@@ -63,12 +63,13 @@ describe('Project Updates', () => {
 			projectUpdatesPage.clickButtonByText('Save and continue');
 			projectUpdatesPage.clickButtonByText('Save and continue');
 			cy.contains('Create your project update');
-			projectUpdatesPage.checkAnswer('Details about the update', validEnglishContent);
 
 			// Save project update
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				projectUpdatesPage.checkAnswer('Details about the update', validEnglishContent);
 				projectUpdatesPage.clickButtonByText('Save project update');
 			} else {
+				projectUpdatesPage.checkAnswer('English', validEnglishContent);
 				projectUpdatesPage.clickButtonByText('Save and continue');
 			}
 
@@ -104,12 +105,13 @@ describe('Project Updates', () => {
 			projectUpdatesPage.clickButtonByText('Save and continue');
 			projectUpdatesPage.clickButtonByText('Save and continue');
 			cy.contains('Create your project update');
-			projectUpdatesPage.checkAnswer('Details about the update', updatedEnglishContent);
 
 			// Save project update
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				projectUpdatesPage.checkAnswer('Details about the update', updatedEnglishContent);
 				projectUpdatesPage.clickButtonByText('Save project update');
 			} else {
+				projectUpdatesPage.checkAnswer('English', updatedEnglishContent);
 				projectUpdatesPage.clickButtonByText('Save and continue');
 			}
 

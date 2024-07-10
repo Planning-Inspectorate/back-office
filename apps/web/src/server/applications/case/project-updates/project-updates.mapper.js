@@ -23,6 +23,7 @@ function mapContent(content) {
 		.replaceAll('</em>', '')
 		.replaceAll('<br>', '<br />')
 		.replaceAll('<p><br /></p>', '<br />')
+		.replaceAll('&amp;amp;', '&amp;')
 		.replaceAll('&nbsp;', ' '); // these are sometimes included when copy+pasting in an update
 }
 
