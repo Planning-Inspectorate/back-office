@@ -188,6 +188,7 @@ export class NotifySubscribers {
 			const projectLink = this.generateProjectLink(caseReference);
 			const unsubscribeUrl = this.generateUnsubscribeLink(caseReference, subscription.emailAddress);
 			const projectName = update.projectName || caseReference;
+			const projectNameWelsh = update.projectNameWelsh || caseReference;
 
 			await this.notifyClient.sendEmail(this.templateId, subscription.emailAddress, {
 				personalisation: {
@@ -196,7 +197,13 @@ export class NotifySubscribers {
 					title: `${projectName} - Project Update`,
 					subject: `${projectName} - Project Update Notification`,
 					content,
-					...(contentWelsh ? { contentWelsh } : {}),
+					...(contentWelsh
+						? {
+								contentWelsh,
+								titleWelsh: `${projectNameWelsh} - Diweddariad ar Brosiect`,
+								subjectWelsh: `${projectNameWelsh} - Hysbysiad o Ddiweddariad ar Brosiect`
+						  }
+						: {}),
 					unsubscribeUrl
 				},
 				reference

@@ -13,7 +13,8 @@ export interface PageResponse<T> {
 }
 
 export interface ExtendedProjectUpdate extends ProjectUpdate {
-    projectName: string;
+	projectName: string;
+	projectNameWelsh: string;
 }
 
 export type GenerateProjectLink = (caseReference: string) => string;
