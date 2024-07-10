@@ -19,6 +19,7 @@ export default async function (context, msg) {
 		perPage: config.SUBSCRIPTIONS_PER_BATCH,
 		waitPerPage: config.WAIT_PER_BATCH_SECONDS,
 		templateId: config.GOV_NOTIFY_TEMPLATE_ID,
+		templateIdWelsh: config.GOV_NOTIFY_TEMPLATE_WELSH_ID,
 		msg,
 		logger: context.log,
 		invocationId: context.invocationId,

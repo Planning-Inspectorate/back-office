@@ -9,6 +9,7 @@ import joi from 'joi';
  * @property {number} WAIT_PER_BATCH_SECONDS - how long to wait between subscription batches (for crude rate limiting)
  * @property {string} GOV_NOTIFY_API_KEY
  * @property {string} GOV_NOTIFY_TEMPLATE_ID
+ * @property {string} GOV_NOTIFY_TEMPLATE_WELSH_ID
  * @property {string} ENCRYPT_ALGORITHM - must match front office who decrypt email field
  * @property {string} ENCRYPT_KEY - must match front office who decrypt email field
  * @property {number} ENCRYPT_IV_LENGTH - must match front office who decrypt email field
@@ -34,6 +35,7 @@ export function loadConfig() {
 			WAIT_PER_BATCH_SECONDS: joi.number().min(0),
 			GOV_NOTIFY_API_KEY: joi.string(),
 			GOV_NOTIFY_TEMPLATE_ID: joi.string(),
+			GOV_NOTIFY_TEMPLATE_WELSH_ID: joi.string(),
 			ENCRYPT_ALGORITHM: joi.string(),
 			ENCRYPT_KEY: joi.string(),
 			ENCRYPT_IV_LENGTH: joi.number().min(16),

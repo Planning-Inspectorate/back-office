@@ -15,6 +15,8 @@ export class NotifySubscribers {
 	notifyClient;
 	/** @type {string} */
 	templateId;
+	/** @type {string} */
+	templateIdWelsh;
 	/** @type {NSIPProjectUpdate} */
 	msg;
 	/** @type {import('@azure/functions').Logger}  */
@@ -35,6 +37,7 @@ export class NotifySubscribers {
 	 * @param {import('./back-office-api-client.js').BackOfficeApiClient} opts.apiClient
 	 * @param {import('notifications-node-client').NotifyClient} opts.notifyClient
 	 * @param {string} opts.templateId
+	 * @param {string} opts.templateIdWelsh
 	 * @param {NSIPProjectUpdate} opts.msg
 	 * @param {import('@azure/functions').Logger} opts.logger
 	 * @param {string} opts.invocationId
@@ -47,6 +50,7 @@ export class NotifySubscribers {
 		apiClient,
 		notifyClient,
 		templateId,
+		templateIdWelsh,
 		msg,
 		logger,
 		invocationId,
@@ -58,6 +62,7 @@ export class NotifySubscribers {
 		this.apiClient = apiClient;
 		this.notifyClient = notifyClient;
 		this.templateId = templateId;
+		this.templateIdWelsh = templateIdWelsh;
 		this.msg = msg;
 		this.logger = logger;
 		this.invocationId = invocationId;
@@ -190,7 +195,9 @@ export class NotifySubscribers {
 			const projectName = update.projectName || caseReference;
 			const projectNameWelsh = update.projectNameWelsh || caseReference;
 
-			await this.notifyClient.sendEmail(this.templateId, subscription.emailAddress, {
+			const templateId = contentWelsh ? this.templateIdWelsh : this.templateId;
+
+			await this.notifyClient.sendEmail(templateId, subscription.emailAddress, {
 				personalisation: {
 					projectName,
 					projectLink,
