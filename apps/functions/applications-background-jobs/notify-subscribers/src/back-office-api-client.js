@@ -54,18 +54,21 @@ export class BackOfficeApiClient {
 				.get(`${this.baseUrl}/applications/project-updates/${id}`)
 				.json();
 
-			const [updateData, { title: projectName }] = await Promise.all([updateDataPromise, applicationDataPromise])
+			const [updateData, { title: projectName, titleWelsh: projectNameWelsh }] = await Promise.all([
+				updateDataPromise,
+				applicationDataPromise
+			]);
 
 			return {
 				...updateData,
-				projectName
-			}
+				projectName,
+				projectNameWelsh
+			};
 		} catch (e) {
-			if (e instanceof HTTPError) {
-				if (e.response.statusCode === 404) {
-					return null;
-				}
+			if (e instanceof HTTPError && e.response.statusCode === 404) {
+				return null;
 			}
+
 			throw e;
 		}
 	}
