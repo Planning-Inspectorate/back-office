@@ -8,12 +8,14 @@ import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import { FileUploadPage } from '../../page_objects/uploadFiles';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 import { DocumentPropertiesPage } from '../../page_objects/documentPropertiesPage';
+import { FolderDocumentsPage } from '../../page_objects/folderDocumentsPage';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
 const searchResultsPage = new SearchResultsPage();
 const fileUploadPage = new FileUploadPage();
 const documentPropertiesPage = new DocumentPropertiesPage();
+const folderPage = new FolderDocumentsPage();
 const { applications: applicationsUsers } = users;
 
 const fileName = () => 'filename';
@@ -46,7 +48,7 @@ describe('Document Properties including welsh fields', () => {
 		}
 	});
 
-	it('As a user should be able to upload a document to a case and update the fields including Welsh', () => {
+	it('As a user should be able to upload a document to a case and update the fields including Welsh and publish the document', () => {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
@@ -88,6 +90,43 @@ describe('Document Properties including welsh fields', () => {
 			documentPropertiesPage.updateDocumentType('No document type');
 			documentPropertiesPage.updateDate('Date received', getDate(true));
 			documentPropertiesPage.updateRedactionStatus('Redacted');
+			cy.get('.govuk-back-link').click();
+			folderPage.markAllReadyToPublish();
+			folderPage.clickLinkByText('View publishing queue');
+			folderPage.publishAllDocumentsInList();
+		}
+	});
+
+	it('As a user try to pubilish the document without welsh field values and validated the error messages', () => {
+		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+			cy.login(applicationsUsers.caseAdmin);
+			cy.visit('/');
+			const caseRef = Cypress.env('currentCreatedCase');
+			applicationsHomePage.searchFor(caseRef);
+			searchResultsPage.clickTopSearchResult();
+			searchResultsPage.clickLinkByText('Project documentation');
+			searchResultsPage.clickLinkByText('Project management');
+			fileUploadPage.verifyUploadButtonIsVisible();
+			fileUploadPage.uploadFile('sample-doc.pdf');
+			searchResultsPage.clickButtonByText('Save and continue');
+			fileUploadPage.clickLinkByText('View/Edit properties');
+			documentPropertiesPage.updateDocumentProperty('File name', fileName());
+			documentPropertiesPage.updateDocumentProperty('Description', description(), 'textarea');
+			documentPropertiesPage.updateDocumentProperty(
+				'Who the document is from',
+				documentFrom(),
+				'textarea'
+			);
+			documentPropertiesPage.updateDocumentProperty('Agent (optional)', agent());
+			documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter(), 'textarea');
+			documentPropertiesPage.updateDocumentType('No document type');
+			documentPropertiesPage.updateDate('Date received', getDate(true));
+			documentPropertiesPage.updateRedactionStatus('Redacted');
+			cy.get('.govuk-back-link').click();
+			folderPage.markAllReadyToPublish();
+			documentPropertiesPage.validateSummaryErrorMessage(
+				'You must fill in all mandatory document properties to publish a document'
+			);
 		}
 	});
 });
