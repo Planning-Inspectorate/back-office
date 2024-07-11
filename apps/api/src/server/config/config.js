@@ -19,7 +19,6 @@ const { value, error } = schema.validate({
 		hostname: environment.SERVICE_BUS_HOSTNAME
 	},
 	log: {
-		levelFile: environment.LOG_LEVEL_FILE || 'silent',
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
 	},
 	cwd: url.fileURLToPath(new URL('..', import.meta.url)),
