@@ -225,10 +225,11 @@ export const unpublishS51 = async (id) => {
 };
 
 /**
- * @param {number} adviceId
+@param {number} adviceId
+@param {boolean} caseIsWelsh
  * */
-export const checkCanPublish = async (adviceId) => {
-	const err = await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId]);
+export const checkCanPublish = async (adviceId, caseIsWelsh) => {
+	const err = await verifyAllS51AdviceHasRequiredPropertiesForPublishing([adviceId], caseIsWelsh);
 	if (err) {
 		logger.info(`received error from verifyAllS51AdviceHasRequiredPropertiesForPublishing: ${err}`);
 		throw new BackOfficeAppError('Enter missing information about the S51 advice', 400);
