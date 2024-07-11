@@ -18,7 +18,6 @@ export default joi
 			hostname: joi.string().optional()
 		}),
 		log: joi.object({
-			levelFile: joi.string(),
 			levelStdOut: joi.string()
 		}),
 		cwd: joi.string(),

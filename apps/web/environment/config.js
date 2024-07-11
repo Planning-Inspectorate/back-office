@@ -43,7 +43,6 @@ export function loadConfig() {
 		HTTP_PORT = 8080,
 		HTTPS_ENABLED,
 		HTTPS_PORT,
-		LOG_LEVEL_FILE,
 		LOG_LEVEL_STDOUT,
 		REDIS_CONNECTION_STRING,
 		DISABLE_REDIS,
@@ -68,7 +67,6 @@ export function loadConfig() {
 		authRedirectPath: AUTH_REDIRECT_PATH,
 		azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED && environment.KEY_VAULT_ENABLED === 'true',
 		blobStorageUrl: AZURE_BLOB_STORE_HOST,
-		logLevelFile: LOG_LEVEL_FILE,
 		logLevelStdOut: LOG_LEVEL_STDOUT,
 		msal: {
 			clientId: AUTH_CLIENT_ID,
