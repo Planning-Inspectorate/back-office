@@ -119,15 +119,8 @@ extends:
             parameters:
               nodeVersion: 20
               appsFolderNames:
-                - 'applications-migration'
                 - 'applications-background-jobs'
                 - 'applications-command-handlers'
-
-          # package Applications BO migration function
-          - template: azure-pipelines-package-function.yml@self
-            parameters:
-              root: 'apps'
-              folderName: 'applications-migration'
 
           # package Applications BO background jobs function
           - template: azure-pipelines-package-function.yml@self

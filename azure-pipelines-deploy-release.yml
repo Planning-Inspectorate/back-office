@@ -7,10 +7,6 @@ parameters:
     displayName: Deploy Web
     type: boolean
     default: true
-  - name: deployFunctionApplicationsMigration
-    displayName: Deploy Function - Applications Migration
-    type: boolean
-    default: true
   - name: deployFunctionApplicationsBackgroundJobs
     displayName: Deploy Function - Applications Background Jobs
     type: boolean
@@ -120,17 +116,6 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   appStagingSlotName: staging
                   appTargetSlotName: production
-          - name: Deploy Function - Applications Migration
-            condition: eq(${{ parameters.deployFunctionApplicationsMigration }}, 'true')
-            steps:
-              - download: build
-                artifact: function-apps-applications-migration
-                displayName: Download function-apps-applications-migration
-              - template: ../steps/function_app_deploy.yml
-                parameters:
-                  appName: pins-func-apps-migration-apps-migration-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  resourceGroup: $(resourceGroup)
-                  workingDirectory: $(Pipeline.Workspace)/build/function-apps-applications-migration
           - name: Deploy Function - Applications Background Jobs
             condition: eq(${{ parameters.deployFunctionApplicationsBackgroundJobs }}, 'true')
             steps:

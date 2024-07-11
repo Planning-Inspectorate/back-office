@@ -7,7 +7,6 @@ import { defaultErrorHandler, stateMachineErrorHandler } from './middleware/erro
 import versionRoutes from './middleware/version-routes.js';
 import BackOfficeAppError from './utils/app-error.js';
 import { databaseConnector } from './utils/database-connector.js';
-import { migrationRoutes } from './migration/migration.routes.js';
 import { authoriseRequest } from './middleware/authorise-request.js';
 import { asyncHandler } from '@pins/express';
 import { httpLogger } from '#utils/logger.js';
@@ -48,7 +47,6 @@ const buildApp = (
 
 	app.use(asyncHandler(authoriseRequest));
 
-	app.use('/migration', bodyParser.json({ limit: '100mb' }));
 	app.use(bodyParser.json());
 
 	app.use(compression());
@@ -65,8 +63,6 @@ const buildApp = (
 			1: applicationsRoutes
 		})
 	);
-
-	app.use('/migration', migrationRoutes);
 
 	app.all('*', (req, res, next) => {
 		next(new BackOfficeAppError(`Not found`, 404));
