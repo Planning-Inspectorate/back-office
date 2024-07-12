@@ -7,10 +7,6 @@ parameters:
     displayName: Deploy Web
     type: boolean
     default: true
-  - name: deployFunctionApplicationsMigration
-    displayName: Deploy Function - Applications Migration
-    type: boolean
-    default: true
   - name: deployFunctionApplicationsBackgroundJobs
     displayName: Deploy Function - Applications Background Jobs
     type: boolean
@@ -108,16 +104,6 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
-          - name: Deploy Function - Applications Migration
-            artifact:
-              name: function-apps-applications-migration
-              sourcePipeline: Back Office Build
-            condition: eq(${{ parameters.deployFunctionApplicationsMigration }}, 'true')
-            steps:
-              - template: ../steps/function_app_deploy.yml
-                parameters:
-                  appName: pins-func-apps-migration-apps-migration-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  resourceGroup: $(resourceGroup)
           - name: Deploy Function - Applications Background Jobs
             artifact:
               name: function-apps-applications-background-jobs
