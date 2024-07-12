@@ -11,7 +11,8 @@
 		"lint:js": "npx eslint .",
 		"lint:js:fix": "npx eslint . --fix",
 		"tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0",
-		"applications:regenerate-api-keys": "node ./run/regenerate-api-keys-entry.js"
+		"applications:regenerate-api-keys": "node ./run/regenerate-api-keys-entry.js",
+		"applications:remove-all-training-cases": "node ./run/remove-all-training-cases-entry.js"
 	},
 	"dependencies": {
 		"@azure/identity": "*",
