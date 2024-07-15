@@ -101,9 +101,11 @@ const mapTimetableFromItems = (caseReference, timetableItems) => {
 				eventId,
 				type,
 				eventTitle,
+				eventTitleWelsh,
 				date,
 				eventDeadlineStartDate,
 				description,
+				descriptionWelsh,
 				eventLineItems,
 				published
 			}
@@ -113,7 +115,9 @@ const mapTimetableFromItems = (caseReference, timetableItems) => {
 					eventId: Number(eventId),
 					type,
 					eventTitle,
+					eventTitleWelsh,
 					description,
+					descriptionWelsh,
 					date,
 					eventDeadlineStartDate,
 					// seem to be all null in ODW and we need an array to pass validation
