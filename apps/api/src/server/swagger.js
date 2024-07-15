@@ -1752,6 +1752,17 @@ export const spec = {
 				pageSize: { type: 'integer', description: 'Max number of items per page', example: 1 }
 			}
 		},
+		CreateFolderRequestBody: {
+			type: 'object',
+			properties: {
+				parentFolderId: { type: 'integer', description: 'ID of parent folder', example: 1 },
+				name: {
+					type: 'string',
+					description: 'Name of the folder to be created',
+					example: 'My folder'
+				}
+			}
+		},
 		S51AdviceCreateRequestBody: {
 			type: 'object',
 			properties: {

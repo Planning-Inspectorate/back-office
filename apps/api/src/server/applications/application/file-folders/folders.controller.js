@@ -53,3 +53,10 @@ export const getDocuments = async ({ params, body }, response) => {
 
 	response.send(paginatedDocuments);
 };
+
+/**
+ * @type {import('express').RequestHandler<{ id: number }, ?, { parentFolderId?: number }, ?>}
+ * */
+export const createFolder = async ({ params, body }, response) => {
+  response.status(501).end();
+};
