@@ -31,7 +31,7 @@ import {
 import BackOfficeAppError from '#utils/app-error.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import logger from '#utils/logger.js';
-import { featureFlagClient } from '#utils/feature-flags.js';
+import isCaseWelsh from '#utils/is-case-welsh.js';
 
 /**
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
@@ -267,17 +267,6 @@ export const updateS51Advice = async ({ body, params }, response) => {
 	await broadcastNsipS51AdviceEvent(updatedS51Advice, EventType.Update);
 
 	response.send(updatedS51Advice);
-};
-
-const isCaseWelsh = async (caseId) => {
-	const caseData = await caseRepository.getById(caseId, { regions: true });
-
-	const regionsIncludeWelsh = caseData.ApplicationDetails?.regions?.some(
-		(item) => item.region.name === 'wales'
-	);
-	return (
-		regionsIncludeWelsh && (await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))
-	);
 };
 
 /**
