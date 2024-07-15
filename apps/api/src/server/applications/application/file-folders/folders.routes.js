@@ -2,12 +2,13 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '@pins/express';
 import { validateApplicationId } from '../application.validators.js';
 import {
+	createFolder,
 	getDocuments,
 	getFolderPathList,
 	getListOfFolders,
 	getSingleFolder
 } from './folders.controller.js';
-import { validateFolderId } from './folders.validation.js';
+import { validateCreateBody, validateFolderId } from './folders.validation.js';
 
 const router = createRouter();
 
@@ -216,6 +217,46 @@ router.post(
 	validateApplicationId,
 	validateFolderId,
 	asyncHandler(getDocuments)
+);
+
+router.post(
+	'/:id/folders/create-folder',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/folders/create-folder'
+        #swagger.description = 'Creates a folder, either at the top-level or under a parent folder.'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+            in: 'body',
+			description: 'Create document parameters',
+			required: true,
+      schema: { $ref: '#/definitions/CreateFolderRequestBody' }
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+        #swagger.responses[200] = {
+            description: 'The newly created folder',
+            schema: { id: 1, displayNameEn: 'Example', displayOrder: 1100 }
+        }
+    */
+	validateApplicationId,
+	validateCreateBody,
+	asyncHandler(createFolder)
 );
 
 export { router as fileFoldersRoutes };
