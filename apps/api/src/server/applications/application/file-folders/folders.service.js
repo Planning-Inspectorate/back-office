@@ -96,3 +96,27 @@ export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 
 		items: mapDocumentVersionDetails(mapDocument)
 	};
 };
+
+/**
+ * Creates a folder, either at the top-level or inside a parent folder.
+ *
+ * @param {number} applicationId
+ * @param {string} folderName
+ * @param {number} [parentFolderId]
+ * @returns {Promise<FolderDetails>}
+ * */
+export const createFolder = async (applicationId, folderName, parentFolderId) => {
+	const input = {
+		displayNameEn: folderName,
+		caseId: applicationId,
+		parentFolderId: parentFolderId ?? null,
+		displayOrder: 100
+	};
+
+	const folder = await folderRepository.createFolder(input);
+	if (!folder) {
+		throw new Error(`Failed to create folder: ${input}`);
+	}
+
+	return mapSingleFolderDetails(folder);
+};

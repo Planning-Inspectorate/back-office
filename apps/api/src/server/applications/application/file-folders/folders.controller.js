@@ -1,4 +1,5 @@
 import {
+	createFolder as svcCreateFolder,
 	getDocumentsInFolder,
 	getFolder,
 	getFolderPath,
@@ -55,8 +56,9 @@ export const getDocuments = async ({ params, body }, response) => {
 };
 
 /**
- * @type {import('express').RequestHandler<{ id: number }, ?, { parentFolderId?: number }, ?>}
+ * @type {import('express').RequestHandler<{ id: number }, ?, { name: string, parentFolderId?: number }, ?>}
  * */
 export const createFolder = async ({ params, body }, response) => {
-  response.status(501).end();
+	const folder = await svcCreateFolder(params.id, body.name, body.parentFolderId);
+	response.send(folder);
 };
