@@ -20,8 +20,9 @@ const sequelize = new Sequelize(database, username, password, {
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string[]} caseReferences
+ * @param {boolean} skipValidation
  */
-export const migrateProjectUpdates = async (log, caseReferences) => {
+export const migrateProjectUpdates = async (log, caseReferences, skipValidation) => {
 	log.info(`Migrating ${caseReferences.length} Cases`);
 
 	for (const caseReference of caseReferences) {
@@ -35,7 +36,10 @@ export const migrateProjectUpdates = async (log, caseReferences) => {
 
 				const chunkedUpdates = chunkArray(updates, MAX_BODY_ITEMS_LENGTH);
 				for (const chunk of chunkedUpdates) {
-					await makePostRequest(log, '/migration/nsip-project-update', chunk);
+					await makePostRequest(log, '/migration/nsip-project-update', {
+						data: chunk,
+						skipValidation
+					});
 				}
 
 				log.info('Successfully migrated project updates');
@@ -160,41 +164,42 @@ const subscriptionTypes = {
 };
 
 const getUpdatesQuery = `
-SELECT p.id,
-       pr.casereference AS caseReference,
-       p.post_date      AS updateDate,
-       p.post_title     AS updateName,
-       p.post_content   AS updateContentEnglish,
-       p.post_status    AS updateStatus,
-       -- Additional columns we need to migrate to create cases
-       pr.projectname   AS caseName,
-       pr.summary       AS caseDescription,
-       pr.stage         AS caseStage
-FROM   ipclive.wp_posts p
-       INNER JOIN ipclive.wp_term_relationships r ON r.object_id = p.id
-       INNER JOIN ipclive.wp_terms t ON r.term_taxonomy_id = t.term_id
-       INNER JOIN ipclive.wp_ipc_projects pr ON LEFT(t.name, 8) = pr.casereference
-WHERE  p.post_type = 'ipc_project_update'
-       AND p.post_status IN( 'publish', 'draft' )
-       AND pr.casereference = ?
-GROUP  BY id
-UNION
-SELECT *
-FROM ipclive.vw_projectUpdateMigration
-WHERE casereference = ?;`;
+	SELECT p.id,
+		   pr.casereference AS caseReference,
+		   p.post_date      AS updateDate,
+		   p.post_title     AS updateName,
+		   p.post_content   AS updateContentEnglish,
+		   p.post_status    AS updateStatus,
+		   -- Additional columns we need to migrate to create cases
+		   pr.projectname   AS caseName,
+		   pr.summary       AS caseDescription,
+		   pr.stage         AS caseStage
+	FROM ipclive.wp_posts p
+			 INNER JOIN ipclive.wp_term_relationships r ON r.object_id = p.id
+			 INNER JOIN ipclive.wp_terms t ON r.term_taxonomy_id = t.term_id
+			 INNER JOIN ipclive.wp_ipc_projects pr ON LEFT (t.name, 8) = pr.casereference
+	WHERE p.post_type = 'ipc_project_update'
+	  AND p.post_status IN ( 'publish'
+		, 'draft' )
+	  AND pr.casereference = ?
+	GROUP BY id
+	UNION
+	SELECT *
+	FROM ipclive.vw_projectUpdateMigration
+	WHERE casereference = ?;`;
 
 const getSubscriptionsQuery = `
-SELECT s.user_id   AS subscriptionId,
-       s.case_reference     AS caseReference,
-       s.useremail          AS emailAddress,
-       sc.subscription_type AS subscriptionType,
-       sc.subscription_date AS startDate,
-       -- Additional columns we need to migrate to create cases
-       pr.projectname   AS caseName,
-       pr.summary       AS caseDescription,
-       pr.stage         AS caseStage
-FROM   ipclive.wp_ipc_subscribers s
-       INNER JOIN ipclive.wp_ipc_subscriptions sc ON s.user_id = sc.user_id
-       INNER JOIN ipclive.wp_ipc_projects pr ON s.case_reference = pr.casereference
-WHERE  verified = 1
-AND s.case_reference = ?;`;
+	SELECT s.user_id            AS subscriptionId,
+		   s.case_reference     AS caseReference,
+		   s.useremail          AS emailAddress,
+		   sc.subscription_type AS subscriptionType,
+		   sc.subscription_date AS startDate,
+		   -- Additional columns we need to migrate to create cases
+		   pr.projectname       AS caseName,
+		   pr.summary           AS caseDescription,
+		   pr.stage             AS caseStage
+	FROM ipclive.wp_ipc_subscribers s
+			 INNER JOIN ipclive.wp_ipc_subscriptions sc ON s.user_id = sc.user_id
+			 INNER JOIN ipclive.wp_ipc_projects pr ON s.case_reference = pr.casereference
+	WHERE verified = 1
+	  AND s.case_reference = ?;`;

@@ -9,10 +9,11 @@ const serviceUserQuery =
  *
  * @param {import('@azure/functions').Logger} logger
  * @param {string[]} caseReferences
+ * @param {boolean} skipValidation
  */
-export const migrateServiceUsers = async (logger, caseReferences) => {
+export const migrateServiceUsers = async (logger, caseReferences, skipValidation = false) => {
 	for (const caseReference of caseReferences) {
-		await migrateServiceUsersForCase(logger, caseReference);
+		await migrateServiceUsersForCase(logger, caseReference, skipValidation);
 	}
 };
 
@@ -21,8 +22,9 @@ export const migrateServiceUsers = async (logger, caseReferences) => {
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} skipValidation
  */
-export async function migrateServiceUsersForCase(log, caseReference) {
+export async function migrateServiceUsersForCase(log, caseReference, skipValidation = false) {
 	try {
 		log.info(`reading Service Users with caseReference ${caseReference}`);
 
@@ -31,7 +33,7 @@ export async function migrateServiceUsersForCase(log, caseReference) {
 		log.info(`found ${count} Service Users: ${JSON.stringify(serviceUsers.map((u) => u.id))}`);
 
 		if (serviceUsers.length > 0) {
-			await makePostRequest(log, '/migration/service-user', serviceUsers);
+			await makePostRequest(log, '/migration/service-user', { data: serviceUsers, skipValidation });
 		}
 	} catch (e) {
 		log.error(`Failed to migrate Service User for case ${caseReference}`, e?.response?.body, e);

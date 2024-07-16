@@ -22,4 +22,4 @@ export const migrateFoldersForCase = async (logger, caseReference) => {
 		logger.error(`Failed to migrate Folders for case ${caseReference}`, e?.response?.body, e);
 		throw e;
 	}
-}
+};

@@ -7,12 +7,13 @@ import { makePostRequest } from '../back-office-api-client.js';
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string[]} caseReferences
+ * @param {boolean} skipValidation
  */
-export const migrateNsipProjects = async (log, caseReferences) => {
+export const migrateNsipProjects = async (log, caseReferences, skipValidation = false) => {
 	log.info(`Migrating ${caseReferences.length} Cases`);
 
 	for (const caseReference of caseReferences) {
-		await migrateNsipProjectByReference(log, caseReference);
+		await migrateNsipProjectByReference(log, caseReference, false, skipValidation);
 	}
 };
 
@@ -22,8 +23,14 @@ export const migrateNsipProjects = async (log, caseReferences) => {
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  * @param {boolean} overrideMigrationStatus
+ * @param {boolean} skipValidation
  */
-export async function migrateNsipProjectByReference(log, caseReference, overrideMigrationStatus) {
+export async function migrateNsipProjectByReference(
+	log,
+	caseReference,
+	overrideMigrationStatus,
+	skipValidation = false
+) {
 	try {
 		log.info(`Migrating NSIP Project for case ${caseReference}`);
 
@@ -32,7 +39,7 @@ export async function migrateNsipProjectByReference(log, caseReference, override
 		if (projects.length > 0) {
 			log.info(`Migrating ${projects.length} NSIP Projects for case ${caseReference}`);
 
-			await makePostRequest(log, '/migration/nsip-project', projects);
+			await makePostRequest(log, '/migration/nsip-project', { data: projects, skipValidation });
 
 			log.info('Successfully migrated NSIP Project');
 		} else {

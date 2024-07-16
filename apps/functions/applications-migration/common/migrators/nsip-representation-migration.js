@@ -10,10 +10,11 @@ const query = `SELECT *
  *
  * @param {import('@azure/functions').Logger} logger
  * @param {string[]} caseReferences
+ * @param {boolean} skipValidation
  */
-export const migrateRepresentations = async (logger, caseReferences) => {
+export const migrateRepresentations = async (logger, caseReferences, skipValidation = false) => {
 	for (const caseReference of caseReferences) {
-		await migrationRepresentationsForCase(logger, caseReference);
+		await migrationRepresentationsForCase(logger, caseReference, skipValidation);
 	}
 };
 
@@ -22,8 +23,9 @@ export const migrateRepresentations = async (logger, caseReferences) => {
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} skipValidation
  */
-export async function migrationRepresentationsForCase(log, caseReference) {
+export async function migrationRepresentationsForCase(log, caseReference, skipValidation = false) {
 	try {
 		log.info(`reading Representations with caseReference ${caseReference}`);
 
@@ -36,7 +38,10 @@ export async function migrationRepresentationsForCase(log, caseReference) {
 		);
 
 		if (representationEntities.length > 0) {
-			await makePostRequest(log, '/migration/nsip-representation', representationEntities);
+			await makePostRequest(log, '/migration/nsip-representation', {
+				data: representationEntities,
+				skipValidation
+			});
 		}
 	} catch (e) {
 		log.error(`Failed to migrate Representations for case ${caseReference}`, e?.response?.body, e);

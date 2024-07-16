@@ -14,13 +14,13 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
 
 	const { migrator, validator } = migrationMap;
 
-	for (const model of body) {
-		if (!validator(model)) {
+	for (const model of body.data) {
+		if (!body.skipValidation && !validator(model)) {
 			throw Error(`Model ${modelType} failed with errors ${JSON.stringify(validator.errors)}`);
 		}
 	}
 
-	await migrator(body);
+	await migrator(body.data);
 
 	response.sendStatus(200);
 };

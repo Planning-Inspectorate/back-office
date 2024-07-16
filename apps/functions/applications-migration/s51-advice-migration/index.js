@@ -5,11 +5,11 @@ import { handleMigrationWithResponse } from '../common/handle-migration-with-res
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
-export default async function (context, { body: { caseReferences } }) {
+export default async function (context, { body: { caseReferences, skipValidation } }) {
 	await handleMigrationWithResponse(
 		context,
 		caseReferences,
-		() => migrateS51Advice(context.log, caseReferences),
+		() => migrateS51Advice(context.log, caseReferences, skipValidation),
 		'S51 advice'
 	);
 }

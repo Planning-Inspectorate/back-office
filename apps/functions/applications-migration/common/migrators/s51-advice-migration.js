@@ -29,10 +29,11 @@ const s51AdviceProperties = [
  *
  * @param {import('@azure/functions').Logger} logger
  * @param {string[]} caseReferences
+ * @param {boolean} skipValidation
  */
-export const migrateS51Advice = async (logger, caseReferences) => {
+export const migrateS51Advice = async (logger, caseReferences, skipValidation = false) => {
 	for (const caseReference of caseReferences) {
-		await migrateS51AdviceForCase(logger, caseReference);
+		await migrateS51AdviceForCase(logger, caseReference, undefined, skipValidation);
 	}
 };
 
@@ -41,8 +42,15 @@ export const migrateS51Advice = async (logger, caseReferences) => {
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {string} synapseQuery
+ * @param {boolean} skipValidation
  */
-export async function migrateS51AdviceForCase(log, caseReference, synapseQuery = query) {
+export async function migrateS51AdviceForCase(
+	log,
+	caseReference,
+	synapseQuery = query,
+	skipValidation = false
+) {
 	try {
 		log.info(`reading S51 Advice with caseReference ${caseReference}`);
 
@@ -53,7 +61,10 @@ export async function migrateS51AdviceForCase(log, caseReference, synapseQuery =
 		);
 
 		if (s51AdviceEntities.length > 0) {
-			await makePostRequest(log, '/migration/s51-advice', s51AdviceEntities);
+			await makePostRequest(log, '/migration/s51-advice', {
+				data: s51AdviceEntities,
+				skipValidation
+			});
 		}
 	} catch (e) {
 		log.error(`Failed to migrate S51 Advice for case ${caseReference}`, e?.response?.body, e);
