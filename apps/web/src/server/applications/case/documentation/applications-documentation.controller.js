@@ -33,6 +33,7 @@ import {
 } from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
+import { featureFlagClient } from '../../../../common/feature-flags.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -592,6 +593,10 @@ export async function viewFolderCreationPage(request, response) {
  * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
  */
 export async function updateFolderCreate(_request, response) {
+	if (!featureFlagClient.isFeatureActive('applic-625-custom-folders')) {
+		return response.redirect('./');
+	}
+
 	const { folderId } = _request.params;
 	const { folderName } = _request.body;
 	const { caseId } = response.locals;
