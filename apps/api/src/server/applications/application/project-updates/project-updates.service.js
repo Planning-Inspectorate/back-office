@@ -3,6 +3,7 @@ import { eventClient } from '../../../infrastructure/event-client.js';
 import {
 	createProjectUpdate,
 	deleteProjectUpdate,
+	getProjectUpdate,
 	updateProjectUpdate
 } from '#repositories/project-update.respository.js';
 import {
@@ -12,6 +13,7 @@ import {
 	projectUpdateUpdateReq
 } from '#infrastructure/payload-builders/nsip-project-update.js';
 import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';
+import BackOfficeAppError from '#utils/app-error.js';
 import logger from '../../../utils/logger.js';
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';
 import { verifyNotTraining } from '../application.validators.js';
@@ -59,12 +61,24 @@ export async function createProjectUpdateService(body, caseId) {
 export async function updateProjectUpdateService(body, projectUpdateId) {
 	const updateReq = projectUpdateUpdateReq(body);
 
+	const initialUpdate = await getProjectUpdate(projectUpdateId);
+	if (!initialUpdate) {
+		throw new BackOfficeAppError(`Project update with ID ${projectUpdateId} does not exist.`, 404);
+	}
+
 	const update = await updateProjectUpdate(projectUpdateId, updateReq);
 	if (!update.case?.reference) {
 		logger.warn(
 			'updateProjectUpdateService: project update case has no reference. No event(s) sent.'
 		);
 
+		return mapProjectUpdate(update);
+	}
+
+	if (initialUpdate.status === update.status) {
+		logger.info(
+			'updateProjectUpdateService: project update status did not change. No event(s) sent.'
+		);
 		return mapProjectUpdate(update);
 	}
 
