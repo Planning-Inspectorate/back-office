@@ -113,4 +113,9 @@ applicationsDocumentationRouter
 		asyncHandler(controller.viewApplicationsCaseDocumentationPages)
 	);
 
+applicationsDocumentationRouter
+	.route('/:folderId/folder/create')
+	.get(asyncHandler(controller.viewFolderCreationPage))
+	.post(asyncHandler(controller.updateFolderCreate));
+
 export default applicationsDocumentationRouter;
