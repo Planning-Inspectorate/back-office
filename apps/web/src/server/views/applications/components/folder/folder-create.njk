@@ -1,0 +1,8 @@
+{% extends "../../layouts/folder-edit-property.layout.njk" %}
+{% from "../textinput-form-component.njk" import textinputFormComponent %}
+
+{% block formContent %}
+	{{ textinputFormComponent({
+		pageTitle: "Enter folder name"
+	}) }}
+{% endblock %}

@@ -537,3 +537,23 @@ export async function viewApplicationsCaseDocumentationSearchPage(
 		errors
 	});
 }
+
+/**
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function viewFolderCreationPage(request, response) {
+	const { caseId } = response.locals;
+	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+	return response.render('applications/components/folder/folder-create.njk', {
+		backLink
+	});
+}
+
+/**
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function updateFolderCreate(_request, response) {
+	// send api call to create new folder
+
+	response.redirect('./');
+}
