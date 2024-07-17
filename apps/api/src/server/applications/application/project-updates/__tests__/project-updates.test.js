@@ -941,7 +941,9 @@ describe('project-updates', () => {
 				let projectUpdate;
 
 				if (updated) {
-					databaseConnector.projectUpdate.findUnique.mockResolvedValueOnce(updated);
+					databaseConnector.projectUpdate.findUnique
+						.mockResolvedValueOnce(updated)
+						.mockResolvedValueOnce(updated);
 					databaseConnector.projectUpdate.update.mockImplementationOnce((req) => {
 						projectUpdate = {
 							...updated,
