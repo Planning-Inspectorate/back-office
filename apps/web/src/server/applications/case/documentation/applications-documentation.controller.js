@@ -11,6 +11,7 @@ import {
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
+	createFolder,
 	deleteCaseDocumentationFile,
 	getCaseDocumentationFileInfo,
 	getCaseDocumentationFilesInFolder,
@@ -588,10 +589,27 @@ export async function viewFolderCreationPage(request, response) {
 }
 
 /**
- * @type {import('@pins/express').RenderHandler<*>}
+ * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
  */
 export async function updateFolderCreate(_request, response) {
-	// send api call to create new folder
+	const { folderId } = _request.params;
+	const { folderName } = _request.body;
+	const { caseId } = response.locals;
+
+	const { errors } = await createFolder(caseId, folderName, parseInt(folderId));
+	if (errors) {
+		const properties = await documentationFolderData(
+			caseId,
+			response.locals.folderId,
+			_request.query,
+			_request.session
+		);
+
+		return response.render(`applications/components/folder/folder`, {
+			...properties,
+			errors: errors || { msg: 'Something went wrong. Please, try again later.' }
+		});
+	}
 
 	response.redirect('./');
 }

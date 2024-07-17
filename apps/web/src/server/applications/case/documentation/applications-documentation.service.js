@@ -263,3 +263,23 @@ export const searchDocuments = async (caseId, query, pageNumber) => {
 		return { errors: { msg: 'Your search could not be carried out, try again.' } };
 	}
 };
+
+/**
+ * @param {number} caseId
+ * @param {string} name
+ * @param {number} [parentFolderId]
+ * @returns {Promise<{ folder?: DocumentationCategory, errors?: {msg: string} }>}
+ * */
+export const createFolder = async (caseId, name, parentFolderId) => {
+	try {
+		return await post(`applications/${caseId}/folders/create-folder`, {
+			json: {
+				name,
+				parentFolderId
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors)} || Unknown error`);
+		return { errors: { msg: 'Failed to create folder.' } };
+	}
+};
