@@ -15,25 +15,30 @@
 	{% endmacro %}
 
 	{# Add the Create Folder link #}
-	{% set createFolderLink %}
-		<a class="govuk-link govuk-body-m" href="{{'folder-create' |url({caseId: caseId, folderId: currentFolder.id})}}">
-			Create Folder
-		</a>
-	{% endset %}
+	{% if ('applic-625-custom-folders' | isFeatureActive) %}
+		{% set createFolderLink %}
+			<a class="govuk-link govuk-body-m" href="{{'folder-create' |url({caseId: caseId, folderId: currentFolder.id})}}">
+				Create Folder
+			</a>
+		{% endset %}
 
-	{% set folderRows = folderRows | concat([
-		[
-			{
-				html: createFolderLink
-			}
-		]
-	]) %}
+		{% set folderRows = folderRows | concat([
+			[
+				{
+					html: createFolderLink
+				}
+			]
+		]) %}
+	{% endif %}
 
 	{# #1: Create links to each subfolder  #}
 	{% for subFolder in subFolders %}
 
 		{% set subFolderLink %}
-			{{appFolderIcon()}}<a class="govuk-link govuk-body-m" href="{{'document-category' |url({caseId: caseId, documentationCategory: subFolder})}}">
+			{% if ('applic-625-custom-folders' | isFeatureActive) %}
+                {{ appFolderIcon() }}
+            {% endif %}
+			<a class="govuk-link govuk-body-m" href="{{'document-category' |url({caseId: caseId, documentationCategory: subFolder})}}">
 				{{ subFolder.displayNameEn }}
 			</a>
 		{% endset %}
