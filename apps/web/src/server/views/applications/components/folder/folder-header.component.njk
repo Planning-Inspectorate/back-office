@@ -5,14 +5,37 @@
 
 	{% set folderRows = [] %}
 	{% set folderItems = {} %}
+	{% macro appFolderIcon() %}
+		<svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20" aria-hidden="true" focusable="false" class="svg-folder-icon">
+			<path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt" fill="transparent"></path>
+  		</svg>
+	{% endmacro %}
+
+	{# Add the Create Folder link #}
+	{% set createFolderLink %}
+		<a class="govuk-link govuk-body-m" href="{{'folder-create' |url({caseId: caseId, folderId: currentFolder.id})}}">
+			Create Folder
+		</a>
+	{% endset %}
+
+	{% set folderRows = folderRows | concat([
+		[
+			{
+				html: createFolderLink
+			}
+		]
+	]) %}
 
 	{# #1: Create links to each subfolder  #}
 	{% for subFolder in subFolders %}
 
 		{% set subFolderLink %}
-		<a class="govuk-link govuk-body-m" href="{{'document-category' |url({caseId: caseId, documentationCategory: subFolder})}}">
-			{{ subFolder.displayNameEn }}
-		</a>
+			{{appFolderIcon()}}<a class="govuk-link govuk-body-m" href="{{'document-category' |url({caseId: caseId, documentationCategory: subFolder})}}">
+				{{ subFolder.displayNameEn }}
+			</a>
 		{% endset %}
 
 		{% set folderRows = folderRows | concat([
