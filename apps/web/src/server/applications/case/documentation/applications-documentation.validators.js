@@ -26,3 +26,16 @@ export const validateApplicationsDocumentationsDeleteStatus = createValidator(
 		.custom((value) => value !== 'published')
 		.withMessage('This document is published.')
 );
+
+export const validateApplicationsDocumentationsFolders = createValidator(
+	body('folderName')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter folder name')
+		.isLength({ max: 255 })
+		.withMessage('Folder name must be 255 characters or less')
+		.matches(/^[a-zA-Z0-9 _'-]+$/)
+		.withMessage(
+			'Folder name must only include letters A to Z, numbers and special characters such as spaces, underscores, hyphens and apostrophes'
+		)
+);

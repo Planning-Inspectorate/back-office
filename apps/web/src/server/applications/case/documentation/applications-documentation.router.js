@@ -6,6 +6,7 @@ import {
 	validateApplicationsDocumentations,
 	validateApplicationsDocumentationsActions,
 	validateApplicationsDocumentationsDeleteStatus,
+	validateApplicationsDocumentationsFolders,
 	validateApplicationsDocumentsToPublish,
 	validateApplicationsDocumentsToUnpublish
 } from './applications-documentation.validators.js';
@@ -116,6 +117,6 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/folder/create')
 	.get(asyncHandler(controller.viewFolderCreationPage))
-	.post(asyncHandler(controller.updateFolderCreate));
+	.post(validateApplicationsDocumentationsFolders, asyncHandler(controller.updateFolderCreate));
 
 export default applicationsDocumentationRouter;
