@@ -4,6 +4,7 @@ import {
 	getById as getCaseById
 } from '@pins/applications.api/src/server/repositories/case.repository.js';
 import { databaseConnector } from '@pins/applications.api/src/server/utils/database-connector.js';
+import { Prisma } from '@prisma/client';
 
 const isSimulatedTest = process.env.REMOVE_ALL_CASES?.toLowerCase() !== 'true';
 
@@ -103,8 +104,16 @@ const removeServiceUser = async (tx, serviceUser) => {
 const removeDocument = async (tx, document) => {
 	const { guid } = document;
 
-	// TODO: Currently an issue with cyclic references, hence this hack to clear the latestVersionId
-	await tx.$queryRawUnsafe(`UPDATE Document SET latestVersionId = NULL WHERE guid = '${guid}';`);
+	await databaseConnector.document.updateMany({
+		where: { guid },
+		data: {
+			latestVersionId: null
+		}
+	});
+
+	await databaseConnector.document.deleteMany({
+		where: { guid }
+	});
 
 	await tx.documentActivityLog.deleteMany({
 		where: {
@@ -112,18 +121,20 @@ const removeDocument = async (tx, document) => {
 		}
 	});
 
-	// TODO: Currently an issue with cyclic references, hence this hack to clear the transcriptGuid
-	await tx.$queryRawUnsafe(
-		`UPDATE DocumentVersion SET transcriptGuid = NULL WHERE documentGuid = '${guid}';`
-	);
-
-	await tx.documentVersion.deleteMany({
-		where: {
-			documentGuid: guid
+	await databaseConnector.documentVersion.updateMany({
+		where: { guid },
+		data: {
+			transcriptGuid: null
 		}
 	});
 
-	await tx.$queryRawUnsafe(`DELETE Document WHERE guid = '${guid}';`);
+	await databaseConnector.documentVersion.deleteMany({
+		where: { guid }
+	});
+
+	await databaseConnector.document.deleteMany({
+		where: { guid }
+	});
 };
 
 /**
@@ -209,44 +220,47 @@ const removeOtherAssociatedRecords = async (tx, caseId) => {
  */
 const removeCase = async (reference) => {
 	try {
-		await databaseConnector.$transaction(async (tx) => {
-			const { id: caseId } = (await getCaseByRef(reference)) || {};
-			if (!caseId) {
-				throw new Error('No such case ' + reference);
+		await databaseConnector.$transaction(
+			async (tx) => {
+				const { id: caseId } = (await getCaseByRef(reference)) || {};
+				if (!caseId) {
+					throw new Error('No such case ' + reference);
+				}
+				const caseDetails = await getCaseById(caseId, {
+					applicationDetails: true,
+					applicant: true
+				});
+
+				const { applicant, ApplicationDetails } = caseDetails;
+
+				await removeApplicationDetails(tx, ApplicationDetails);
+				await removeExaminationTimetables(tx, caseId);
+				await removeRepresentations(tx, caseId);
+				await removeProjectUpdates(tx, caseId);
+				await removeS51Advices(tx, caseId);
+				await removeOtherAssociatedRecords(tx, caseId);
+				await removeFoldersAndDocuments(tx, caseId);
+				await removeServiceUser(tx, applicant);
+				await removeS51Advices(tx, caseId);
+
+				await tx.case.delete({ where: { id: caseId } });
+
+				console.log(reference + ' Removed');
+
+				if (isSimulatedTest) {
+					throw new Error('Simulated deletion test');
+				}
+			},
+			{
+				maxWait: 5000, // default: 2000
+				timeout: 10000, // default: 5000
+				isolationLevel: Prisma.TransactionIsolationLevel.Serializable // optional, default defined by database configuration
 			}
-			const caseDetails = await getCaseById(caseId, {
-				applicationDetails: true,
-				applicant: true
-			});
-
-			const { applicant, ApplicationDetails } = caseDetails;
-
-			await Promise.all([
-				removeApplicationDetails(tx, ApplicationDetails),
-				removeExaminationTimetables(tx, caseId),
-				removeRepresentations(tx, caseId),
-				removeProjectUpdates(tx, caseId),
-				removeS51Advices(tx, caseId),
-				removeOtherAssociatedRecords(tx, caseId)
-			]);
-
-			await Promise.all([
-				removeFoldersAndDocuments(tx, caseId),
-				removeServiceUser(tx, applicant),
-				removeS51Advices(tx, caseId)
-			]);
-
-			await tx.case.delete({ where: { id: caseId } });
-
-			console.log(reference + ' Removed');
-
-			if (isSimulatedTest) {
-				throw new Error('Simulated deletion test');
-			}
-		});
+		);
 	} catch (e) {
 		if (e.message !== 'Simulated deletion test') {
 			console.log(reference + ' Removal failed');
+			console.log(JSON.stringify(e, null, 2));
 			return e;
 		}
 	}
@@ -313,5 +327,6 @@ const getReferencesPrefixedWith = async (startsWith) => {
  */
 export const removeAllTrainingCase = async () => {
 	const references = await getReferencesPrefixedWith('TRAIN');
+	// const references = await getReferencesPrefixedWith('TRAIN');
 	await removeCases(references);
 };
