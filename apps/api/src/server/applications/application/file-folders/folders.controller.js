@@ -1,9 +1,11 @@
+import BackOfficeAppError from '#utils/app-error.js';
 import {
 	createFolder as svcCreateFolder,
 	getDocumentsInFolder,
 	getFolder,
 	getFolderPath,
 	getFolders,
+	getFolderByName,
 	getAllFolders
 } from './folders.service.js';
 
@@ -59,6 +61,12 @@ export const getDocuments = async ({ params, body }, response) => {
  * @type {import('express').RequestHandler<{ id: number }, ?, { name: string, parentFolderId?: number }, ?>}
  * */
 export const createFolder = async ({ params, body }, response) => {
+	const existingFolder = await getFolderByName(params.id, body.name, body.parentFolderId);
+	if (existingFolder) {
+		throw new BackOfficeAppError(`Duplicate folder exists with name: ${body.name}`, 400);
+	}
+
 	const folder = await svcCreateFolder(params.id, body.name, body.parentFolderId);
+
 	response.send(folder);
 };
