@@ -34,6 +34,7 @@ import {
 import { paginationParams } from '../../../lib/pagination-params.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 import { featureFlagClient } from '../../../../common/feature-flags.js';
+import { validationResult } from 'express-validator';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -584,7 +585,7 @@ export async function viewApplicationsCaseDocumentationSearchPage(
 export async function viewFolderCreationPage(request, response) {
 	const { caseId } = response.locals;
 	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
-	return response.render('applications/components/folder/folder-create.njk', {
+	return response.render('applications/components/folder/folder-create', {
 		backLink
 	});
 }
@@ -592,13 +593,24 @@ export async function viewFolderCreationPage(request, response) {
 /**
  * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
  */
-export async function updateFolderCreate(_request, response) {
+export async function updateFolderCreate(request, response) {
 	if (!featureFlagClient.isFeatureActive('applic-625-custom-folders')) {
 		return response.redirect('./');
 	}
 
-	const { folderId } = _request.params;
-	const { folderName } = _request.body;
+	const validationError = validationResult(request);
+	if (!validationError.isEmpty()) {
+		const { caseId } = response.locals;
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+
+		return response.render(`applications/components/folder/folder-create`, {
+			backLink,
+			errors: validationError.array({ onlyFirstError: true })
+		});
+	}
+
+	const { folderId } = request.params;
+	const { folderName } = request.body;
 	const { caseId } = response.locals;
 
 	const { errors } = await createFolder(caseId, folderName, parseInt(folderId));
@@ -606,8 +618,8 @@ export async function updateFolderCreate(_request, response) {
 		const properties = await documentationFolderData(
 			caseId,
 			response.locals.folderId,
-			_request.query,
-			_request.session
+			request.query,
+			request.session
 		);
 
 		return response.render(`applications/components/folder/folder`, {
