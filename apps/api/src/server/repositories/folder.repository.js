@@ -116,13 +116,17 @@ export const getFolderPath = async (caseId, currentFolderId) => {
  *
  * @param {number} caseId
  * @param {string} folderName
+ * @param {number} [parentFolderId]
  * @returns {Promise<(Folder |null)>}
  */
-export const getFolderByNameAndCaseId = (caseId, folderName) => {
-	return databaseConnector.folder.findFirst({
-		where: { caseId, displayNameEn: folderName }
+export const getFolderByNameAndCaseId = (caseId, folderName, parentFolderId) =>
+	databaseConnector.folder.findFirst({
+		where: {
+			caseId,
+			displayNameEn: folderName,
+			...(parentFolderId ? { parentFolderId } : {})
+		}
 	});
-};
 
 /**
  * @param {Object} folder

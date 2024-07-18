@@ -52,6 +52,22 @@ export const getFolder = async (folderId) => {
 };
 
 /**
+ * @param {number} caseId
+ * @param {string} folderName
+ * @param {number} [parentFolderId]
+ * @returns {Promise<FolderDetails | null>}
+ * */
+export const getFolderByName = async (caseId, folderName, parentFolderId) => {
+	const folder = await folderRepository.getFolderByNameAndCaseId(
+		caseId,
+		folderName,
+		parentFolderId
+	);
+
+	return folder ? mapSingleFolderDetails(folder) : null;
+};
+
+/**
  * Returns parent folder path as an ordered array for a folder on a case
  *
  * @param {number} id
