@@ -7,7 +7,8 @@ import {
 	getSuccessBanner,
 	destroySuccessBanner,
 	getSessionBanner,
-	deleteSessionBanner
+	deleteSessionBanner,
+	setSessionBanner
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -80,8 +81,13 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 		request.query,
 		request.session
 	);
+	const { session } = request;
+	const sessionBannerText = getSessionBanner(session);
 
-	response.render(`applications/components/folder/folder`, properties);
+	response.render(`applications/components/folder/folder`, {
+		...properties,
+		sessionBannerText
+	});
 }
 
 /**
@@ -609,6 +615,7 @@ export async function updateFolderCreate(request, response) {
 		});
 	}
 
+	const { session } = request;
 	const { folderId } = request.params;
 	const { folderName } = request.body;
 	const { caseId } = response.locals;
@@ -621,12 +628,12 @@ export async function updateFolderCreate(request, response) {
 			request.query,
 			request.session
 		);
-
 		return response.render(`applications/components/folder/folder`, {
 			...properties,
-			errors: errors || { msg: 'Something went wrong. Please, try again later.' }
+			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
 		});
 	}
 
-	response.redirect('./');
+	setSessionBanner(session, 'Folder created');
+	return response.redirect('../folder');
 }
