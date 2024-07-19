@@ -99,10 +99,37 @@ const removeServiceUser = async (tx, serviceUser) => {
  *
  * @param {PrismaClient} tx
  * @param document
+ * @param folderPath
  * @returns {Promise<void>}
  */
-const removeDocument = async (tx, document) => {
+const removeDocument = async (tx, document, folderPath) => {
 	const { guid } = document;
+
+	console.log(`Removing document: ${folderPath}/${guid}`);
+
+	await tx.documentActivityLog.deleteMany({
+		where: {
+			documentGuid: guid
+		}
+	});
+
+	// TODO: Currently an issue with cyclic references, hence this hack to clear the transcriptGuid
+	// await tx.$queryRawUnsafe(
+	// 	`UPDATE DocumentVersion SET transcriptGuid = NULL WHERE documentGuid = '${guid}';`
+	// );
+
+	await databaseConnector.documentVersion.updateMany({
+		where: { documentGuid: guid },
+		data: {
+			transcriptGuid: null
+		}
+	});
+
+	await databaseConnector.documentVersion.delete({
+		where: {
+			documentGuid: guid
+		}
+	});
 
 	await databaseConnector.document.updateMany({
 		where: { guid },
@@ -111,28 +138,10 @@ const removeDocument = async (tx, document) => {
 		}
 	});
 
-	await databaseConnector.document.deleteMany({
-		where: { guid }
-	});
+	// TODO: Currently an issue with cyclic references, hence this hack to clear the latestVersionId
+	// await tx.$queryRawUnsafe(`-- UPDATE Document SET latestVersionId = NULL WHERE guid = '${guid}';`);
 
-	await tx.documentActivityLog.deleteMany({
-		where: {
-			documentGuid: guid
-		}
-	});
-
-	await databaseConnector.documentVersion.updateMany({
-		where: { guid },
-		data: {
-			transcriptGuid: null
-		}
-	});
-
-	await databaseConnector.documentVersion.deleteMany({
-		where: { guid }
-	});
-
-	await databaseConnector.document.deleteMany({
+	await databaseConnector.document.delete({
 		where: { guid }
 	});
 };
@@ -158,10 +167,12 @@ const removeS51Advices = async (tx, caseId) => {
 /**
  *
  * @param {PrismaClient} tx
- * @param caseId
+ * @param caseDetails
  * @returns {Promise<void>}
  */
-const removeFoldersAndDocuments = async (tx, caseId) => {
+const removeFoldersAndDocuments = async (tx, caseDetails) => {
+	const { id: caseId, reference } = caseDetails;
+
 	const folders = await tx.folder.findMany({
 		where: { caseId }
 	});
@@ -169,18 +180,21 @@ const removeFoldersAndDocuments = async (tx, caseId) => {
 		where: { caseId }
 	});
 
-	const removeFoldersByParentId = async (folderId) => {
-		await Promise.all(
-			folders
-				.filter((folder) => folder.parentFolderId === folderId)
-				.map((folder) => removeFoldersByParentId(folder.id))
-		);
+	const removeFoldersByParentId = async (folderId, folderPath = reference) => {
+		const childFolders = folders.filter((folder) => folder.parentFolderId === folderId);
+
+		for (const folder of childFolders) {
+			await removeFoldersByParentId(folder.id, `${folderPath}/${folder.displayNameEn}`);
+		}
+
 		if (folderId) {
-			await Promise.all(
-				documents
-					.filter((document) => document.folderId === folderId)
-					.map((document) => removeDocument(tx, document))
-			);
+			console.log(`Removing folder: ${folderPath}`);
+			const folderDocuments = documents.filter((document) => document.folderId === folderId);
+
+			for (const document of folderDocuments) {
+				await removeDocument(tx, document, folderPath);
+			}
+
 			await tx.folder.delete({ where: { id: folderId } });
 		}
 	};
@@ -195,23 +209,21 @@ const removeFoldersAndDocuments = async (tx, caseId) => {
  * @returns {Promise<void>}
  */
 const removeOtherAssociatedRecords = async (tx, caseId) => {
-	await Promise.all([
-		tx.caseStatus.deleteMany({
-			where: { caseId }
-		}),
-		tx.casePublishedState.deleteMany({
-			where: { caseId }
-		}),
-		tx.gridReference.deleteMany({
-			where: { caseId }
-		}),
-		tx.projectTeam.deleteMany({
-			where: { caseId }
-		}),
-		tx.subscription.deleteMany({
-			where: { caseId }
-		})
-	]);
+	await tx.caseStatus.deleteMany({
+		where: { caseId }
+	});
+	await tx.casePublishedState.deleteMany({
+		where: { caseId }
+	});
+	await tx.gridReference.deleteMany({
+		where: { caseId }
+	});
+	await tx.projectTeam.deleteMany({
+		where: { caseId }
+	});
+	await tx.subscription.deleteMany({
+		where: { caseId }
+	});
 };
 
 /**
@@ -239,7 +251,7 @@ const removeCase = async (reference) => {
 				await removeProjectUpdates(tx, caseId);
 				await removeS51Advices(tx, caseId);
 				await removeOtherAssociatedRecords(tx, caseId);
-				await removeFoldersAndDocuments(tx, caseId);
+				await removeFoldersAndDocuments(tx, caseDetails);
 				await removeServiceUser(tx, applicant);
 				await removeS51Advices(tx, caseId);
 
@@ -252,8 +264,8 @@ const removeCase = async (reference) => {
 				}
 			},
 			{
-				maxWait: 5000, // default: 2000
-				timeout: 10000, // default: 5000
+				maxWait: 20000, // default: 2000
+				timeout: 100000, // default: 5000
 				isolationLevel: Prisma.TransactionIsolationLevel.Serializable // optional, default defined by database configuration
 			}
 		);
