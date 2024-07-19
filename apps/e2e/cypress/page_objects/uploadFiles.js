@@ -89,4 +89,16 @@ export class FileUploadPage extends Page {
 		this.verifyFolderDocuments(count);
 		this.verifyUploadIsComplete();
 	}
+
+	showSubfolders() {
+		cy.get('button.govuk-accordion__section-button').click();
+	}
+
+	createFolder() {
+		this.clickLinkByText('Create Folder');
+	}
+
+	hasFolder(text) {
+		this.verifyTableContains(text);
+	}
 }

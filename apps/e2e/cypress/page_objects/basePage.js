@@ -226,6 +226,10 @@ export class Page {
 			});
 	}
 
+	verifyTableContains(text) {
+		this.basePageElements.tableBody().find(this.selectors.tableCell).contains(text);
+	}
+
 	validateBannerMessage(successMessage) {
 		this.basePageElements.bannerHeader().then(($banner) => {
 			expect($banner.text().trim()).eq(successMessage);
