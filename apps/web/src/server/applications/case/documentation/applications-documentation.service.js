@@ -279,7 +279,10 @@ export const createFolder = async (caseId, name, parentFolderId) => {
 			}
 		});
 	} catch (/** @type {*} */ error) {
-		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors)} || Unknown error`);
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
+		if (error.response.statusCode === 409) {
+			return { errors: { msg: 'Folder name already exists' } };
+		}
 		return { errors: { msg: 'Failed to create folder.' } };
 	}
 };

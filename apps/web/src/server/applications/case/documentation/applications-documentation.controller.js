@@ -622,14 +622,9 @@ export async function updateFolderCreate(request, response) {
 
 	const { errors } = await createFolder(caseId, folderName, parseInt(folderId));
 	if (errors) {
-		const properties = await documentationFolderData(
-			caseId,
-			response.locals.folderId,
-			request.query,
-			request.session
-		);
-		return response.render(`applications/components/folder/folder`, {
-			...properties,
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		return response.render('applications/components/folder/folder-create', {
+			backLink,
 			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
 		});
 	}
