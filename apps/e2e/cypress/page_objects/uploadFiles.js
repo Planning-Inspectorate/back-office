@@ -101,4 +101,8 @@ export class FileUploadPage extends Page {
 	hasFolder(text) {
 		this.verifyTableContains(text);
 	}
+
+	clickFolder(text) {
+		cy.get('#pins-subfolder-accordian-content-1 a').contains(text).click();
+	}
 }
