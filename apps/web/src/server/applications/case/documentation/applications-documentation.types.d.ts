@@ -19,6 +19,7 @@ export interface CaseDocumentationProps {
 		buttons: PaginationButtons;
 	};
 	errors?: ValidationErrors;
+	sessionBannerText?: string;
 }
 
 export interface CaseDocumentationBody {
