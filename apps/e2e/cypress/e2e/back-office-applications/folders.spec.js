@@ -46,4 +46,16 @@ describe('Folders', () => {
 
 		fileUploadPage.verifyTableContains(folderName);
 	});
+
+	it('Should be able to create a subfolder of a subfolder', () => {
+		fileUploadPage.clickFolder('Logistics');
+		fileUploadPage.createFolder();
+
+		const folderName = 'Test folder 2';
+
+		page.fillInput(folderName);
+		page.clickButtonByText('Save and return');
+
+		fileUploadPage.verifyTableContains(folderName);
+	});
 });
