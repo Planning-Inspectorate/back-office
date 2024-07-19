@@ -63,10 +63,9 @@ export const getDocuments = async ({ params, body }, response) => {
 export const createFolder = async ({ params, body }, response) => {
 	const existingFolder = await getFolderByName(params.id, body.name, body.parentFolderId);
 	if (existingFolder) {
-		throw new BackOfficeAppError(`Duplicate folder exists with name: ${body.name}`, 400);
+		throw new BackOfficeAppError(`Duplicate folder exists with name: ${body.name}`, 409);
 	}
 
 	const folder = await svcCreateFolder(params.id, body.name, body.parentFolderId);
-
 	response.send(folder);
 };
