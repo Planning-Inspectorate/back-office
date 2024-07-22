@@ -129,6 +129,19 @@ export const getFolderByNameAndCaseId = (caseId, folderName, parentFolderId) =>
 	});
 
 /**
+ * @param {number} parentFolderId
+ * @param {object | null} options
+ */
+export const getFoldersByParentId = (parentFolderId, options = null) => {
+	return databaseConnector.folder.findMany({
+		where: {
+			parentFolderId
+		},
+		...options
+	});
+};
+
+/**
  * @param {Object} folder
  * @param {string} folder.displayNameEn
  * @param {number} folder.caseId

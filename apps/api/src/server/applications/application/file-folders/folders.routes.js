@@ -3,6 +3,7 @@ import { asyncHandler } from '@pins/express';
 import { validateApplicationId } from '../application.validators.js';
 import {
 	createFolder,
+	deleteFolder,
 	getDocuments,
 	getFolderPathList,
 	getListOfFolders,
@@ -234,9 +235,9 @@ router.post(
 		}
 		#swagger.parameters['body'] = {
             in: 'body',
-			description: 'Create document parameters',
+			description: 'Create folder parameters',
 			required: true,
-      schema: { $ref: '#/definitions/CreateFolderRequestBody' }
+      		schema: { $ref: '#/definitions/CreateFolderRequestBody' }
 		}
 		#swagger.parameters['x-service-name'] = {
 			in: 'header',
@@ -304,6 +305,46 @@ router.patch(
 	validateApplicationId,
 	validateFolderId,
 	asyncHandler(updateFolder)
+);
+
+router.delete(
+	'/:id/folders/:folderId',
+	/*
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/{id}/folders/{folderId}'
+		#swagger.description = 'Deletes a folder as long as it is empty'
+		#swagger.parameters['id'] = {
+			in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['folderId'] = {
+			in: 'path',
+			description: 'Folder ID to delete',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+		#swagger.responses[200] = {
+            description: 'The newly deleted folder',
+            schema: { id: 1, displayNameEn: 'Example', displayOrder: 1100 }
+        }
+	*/
+	validateApplicationId,
+	validateFolderId,
+	asyncHandler(deleteFolder)
 );
 
 export { router as fileFoldersRoutes };

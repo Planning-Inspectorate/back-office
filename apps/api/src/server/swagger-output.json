@@ -2727,6 +2727,65 @@
 						}
 					}
 				}
+			},
+			"delete": {
+				"tags": ["Applications"],
+				"description": "Deletes a folder as long as it is empty",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "folderId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Folder ID to delete"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The newly deleted folder",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"displayNameEn": {
+									"type": "string",
+									"example": "Example"
+								},
+								"displayOrder": {
+									"type": "number",
+									"example": 1100
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/applications/{id}/folders/{folderId}/parent-folders": {
@@ -2861,7 +2920,7 @@
 					{
 						"name": "body",
 						"in": "body",
-						"description": "Create document parameters",
+						"description": "Create folder parameters",
 						"required": true,
 						"schema": {
 							"$ref": "#/definitions/CreateFolderRequestBody"

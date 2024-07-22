@@ -1,4 +1,6 @@
 import BackOfficeAppError from '#utils/app-error.js';
+import * as folderRepository from '#repositories/folder.repository.js';
+import logger from '#utils/logger.js';
 import {
 	createFolder as svcCreateFolder,
 	getDocumentsInFolder,
@@ -7,7 +9,9 @@ import {
 	getFolders,
 	getFolderByName,
 	getAllFolders,
-	updateFolder as svcUpdateFolder
+	updateFolder as svcUpdateFolder,
+	getChildFolders,
+	checkFoldersHaveNoDocuments
 } from './folders.service.js';
 
 /**
@@ -86,4 +90,31 @@ export const updateFolder = async ({ params, body }, response) => {
 
 	const updatedFolder = await svcUpdateFolder(params.folderId, body);
 	response.send(updatedFolder);
+};
+
+/**
+ * @type {import('express').RequestHandler<{ id: number , folderId: number }, ?, { name: string, parentFolderId?: number }, ?>}
+ */
+export const deleteFolder = async ({ params }, response) => {
+	/** @type {Array<{ id: number, parentFolderId?: number | null, containsDocuments?: boolean }>}*/
+	const folderList = [{ id: params.folderId }];
+	try {
+		folderList.push(...(await getChildFolders(params.folderId)));
+		await checkFoldersHaveNoDocuments(folderList);
+	} catch (error) {
+		logger.error('Error retrieving child folders or checking documents: ', error);
+		throw new BackOfficeAppError('Failed to delete folder due to internal error.', 500);
+	}
+
+	if (folderList.some((folder) => folder.containsDocuments)) {
+		throw new BackOfficeAppError('Folder or child folders are not empty', 409);
+	}
+
+	try {
+		await folderRepository.deleteFolderMany(folderList.map((folder) => folder.id));
+		response.status(204).send();
+	} catch (error) {
+		logger.error('Failed to delete folders: ', error);
+		throw new BackOfficeAppError('Failed to delete folder due to internal error.', 500);
+	}
 };
