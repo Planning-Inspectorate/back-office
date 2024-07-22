@@ -8,8 +8,12 @@
  */
 export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 	if (parameters.model === 'Document' && parameters.action === 'delete') {
-		parameters.action = 'update';
-		parameters.args.data = { isDeleted: true };
+		if (parameters.args.isTraining) {
+			delete parameters.args.isTraining;
+		} else {
+			parameters.action = 'update';
+			parameters.args.data = { isDeleted: true };
+		}
 	}
 	if (process.env.NODE_ENV !== 'seeding' && parameters.model === 'Folder') {
 		if (parameters.action === 'delete') {
