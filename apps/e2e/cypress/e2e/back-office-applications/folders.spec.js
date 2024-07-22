@@ -37,6 +37,10 @@ describe('Folders', () => {
 	});
 
 	it('Should be able to create a subfolder of one of the hardcoded folders', () => {
+		if (!Cypress.env('featureFlags')['applic-625-custom-folders']) {
+			return;
+		}
+
 		fileUploadPage.createFolder();
 
 		const folderName = 'Test folder 1';
@@ -48,6 +52,10 @@ describe('Folders', () => {
 	});
 
 	it('Should be able to create a subfolder of a subfolder', () => {
+		if (!Cypress.env('featureFlags')['applic-625-custom-folders']) {
+			return;
+		}
+
 		fileUploadPage.clickFolder('Logistics');
 		fileUploadPage.createFolder();
 
