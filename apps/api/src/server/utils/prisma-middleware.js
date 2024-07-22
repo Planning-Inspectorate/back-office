@@ -18,9 +18,13 @@ export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 	}
 	if (process.env.NODE_ENV !== 'seeding' && parameters.model === 'Folder') {
 		if (parameters.action === 'delete') {
-			parameters.action = 'update';
-			parameters.args = parameters.args || {};
-			parameters.args.data = { deletedAt: new Date() };
+			if (parameters.args.hardDelete) {
+				delete parameters.args.hardDelete;
+			} else {
+				parameters.action = 'update';
+				parameters.args = parameters.args || {};
+				parameters.args.data = { deletedAt: new Date() };
+			}
 		}
 		if (parameters.action === 'deleteMany') {
 			parameters.action = 'updateMany';

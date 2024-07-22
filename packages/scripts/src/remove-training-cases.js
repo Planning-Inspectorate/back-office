@@ -229,7 +229,7 @@ const removeFoldersAndDocuments = async (tx, caseDetails) => {
 
 			console.log(`Removing folder: ${folderPath}`);
 
-			await tx.folder.delete({ where: { id: folderId } });
+			await tx.folder.delete({ where: { id: folderId }, hardDelete: true });
 		}
 	};
 
