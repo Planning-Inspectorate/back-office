@@ -73,12 +73,23 @@
 			<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-2">
 		{% else %}
 			<div class="pins-dashboard-list--hide-controls">
-				<h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
-				{% if folderRows.length > 0 %}
-					{{ govukAccordion(folderItems) }}
-				{% else %}
-					<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-				{% endif %}
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
+          </div>
+          {% if ('applic-625-custom-folders' | isFeatureActive) %}
+            <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+              <a class="govuk-link govuk-body-m" href="#">
+                Rename folder
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        {% if folderRows.length > 0 %}
+          {{ govukAccordion(folderItems) }}
+        {% else %}
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+        {% endif %}
 			</div>
 		{% endif %}
 

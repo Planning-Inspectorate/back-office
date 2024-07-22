@@ -18,7 +18,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -29,7 +35,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create Folder</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
@@ -872,7 +878,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -883,7 +895,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create Folder</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
@@ -2130,7 +2142,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -2141,7 +2159,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create Folder</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
@@ -2227,7 +2245,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -2238,7 +2262,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create Folder</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
@@ -3103,7 +3127,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -3114,7 +3144,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create Folder</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
@@ -4378,7 +4408,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -4389,7 +4425,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create Folder</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
@@ -5651,7 +5687,13 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -5662,7 +5704,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create Folder</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">

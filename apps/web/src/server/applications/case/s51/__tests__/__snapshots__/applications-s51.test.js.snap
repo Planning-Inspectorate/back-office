@@ -1785,7 +1785,13 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">S51 advice folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">S51 advice folder</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id=""></div>
             </div>
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
