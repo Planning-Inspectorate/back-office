@@ -4,7 +4,6 @@ import {
 	getById as getCaseById
 } from '@pins/applications.api/src/server/repositories/case.repository.js';
 import { databaseConnector } from '@pins/applications.api/src/server/utils/database-connector.js';
-import { Prisma } from '@prisma/client';
 
 const isSimulatedTest = process.env.REMOVE_ALL_CASES?.toLowerCase() !== 'true';
 
@@ -18,11 +17,12 @@ const isSimulatedTest = process.env.REMOVE_ALL_CASES?.toLowerCase() !== 'true';
  * @returns {Promise<void>}
  */
 const removeApplicationDetails = async (tx, applicationDetails) => {
-	if (applicationDetails?.id) {
+	const { id } = applicationDetails || {};
+	if (id) {
 		await tx.regionsOnApplicationDetails.deleteMany({
-			where: { applicationDetailsId: applicationDetails.id }
+			where: { applicationDetailsId: id }
 		});
-		await tx.applicationDetails.delete({ where: { id: applicationDetails.id } });
+		await tx.applicationDetails.delete({ where: { id } });
 	}
 };
 
@@ -32,7 +32,7 @@ const removeApplicationDetails = async (tx, applicationDetails) => {
  * @returns {Promise<void>}
  */
 const removeProjectUpdates = async (tx, caseId) => {
-	const projectUpdates = await databaseConnector.projectUpdate.findMany({
+	const projectUpdates = await tx.projectUpdate.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
@@ -50,7 +50,7 @@ const removeProjectUpdates = async (tx, caseId) => {
  * @returns {Promise<void>}
  */
 const removeRepresentations = async (tx, caseId) => {
-	const representations = await databaseConnector.representation.findMany({
+	const representations = await tx.representation.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
@@ -68,7 +68,7 @@ const removeRepresentations = async (tx, caseId) => {
  * @returns {Promise<void>}
  */
 const removeExaminationTimetables = async (tx, caseId) => {
-	const examinationTimetables = await databaseConnector.examinationTimetable.findMany({
+	const examinationTimetables = await tx.examinationTimetable.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
@@ -107,15 +107,17 @@ const removeDocument = async (tx, document, folderPath) => {
 
 	console.log(`Removing document: ${folderPath}/${documentReference}`);
 
-	// TODO: Currently an issue with cyclic references, hence this hack to clear the transcriptGuid
-	// await tx.$queryRawUnsafe(
-	// 	`UPDATE DocumentVersion SET transcriptGuid = NULL, version = NULL WHERE documentGuid = '${guid}';`
-	// );
-
 	await tx.document.updateMany({
 		where: { guid },
 		data: {
 			latestVersionId: null
+		}
+	});
+
+	await tx.documentVersion.updateMany({
+		where: { guid },
+		data: {
+			transcriptGuid: null
 		}
 	});
 
@@ -131,12 +133,9 @@ const removeDocument = async (tx, document, folderPath) => {
 		}
 	});
 
-	// TODO: Currently an issue with cyclic references, hence this hack to clear the latestVersionId
-	// await tx.$queryRawUnsafe(`-- UPDATE Document SET latestVersionId = NULL WHERE guid = '${guid}';`);
-
 	await tx.document.delete({
 		where: { guid },
-		isTraining: true
+		hardDelete: true
 	});
 };
 /**
@@ -146,7 +145,7 @@ const removeDocument = async (tx, document, folderPath) => {
  * @returns {Promise<void>}
  */
 const removeS51Advices = async (tx, caseId) => {
-	const advices = await databaseConnector.s51Advice.findMany({
+	const advices = await tx.s51Advice.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
@@ -166,10 +165,15 @@ const removeS51Advices = async (tx, caseId) => {
 const removeFoldersAndDocuments = async (tx, caseDetails) => {
 	const { id: caseId, reference } = caseDetails;
 
-	const folders = await databaseConnector.folder.findMany({
+	const folders = await tx.folder.findMany({
 		where: { caseId }
 	});
-	const documents = await databaseConnector.document.findMany({
+
+	if (folders.length) {
+		return;
+	}
+
+	const documents = await tx.document.findMany({
 		where: { caseId }
 	});
 
@@ -188,8 +192,9 @@ const removeFoldersAndDocuments = async (tx, caseDetails) => {
 			}
 
 			console.log(`Removing folder: ${folderPath}`);
-
-			await tx.folder.delete({ where: { id: folderId } });
+		} else {
+			// Now safe to delete all folders for a case as all the dependencies have been deleted
+			// tx.folder.deleteMany({ where: { caseId: caseDetails.caseId } });
 		}
 	};
 
@@ -259,8 +264,7 @@ const removeCase = async (reference) => {
 			},
 			{
 				maxWait: 20000, // default: 2000
-				timeout: 100000, // default: 5000
-				isolationLevel: Prisma.TransactionIsolationLevel.Serializable // optional, default defined by database configuration
+				timeout: 100000 // default: 5000
 			}
 		);
 	} catch (e) {
@@ -299,7 +303,7 @@ export const removeCases = async (references) => {
 	console.log(`Removed ${successes.length} case${successes.length === 1 ? '' : 's'}`);
 	successes.forEach(({ reference }) => console.log('- ' + reference));
 	if (errors.length > 0) {
-		console.log(`\nSkipped ${errors.length} cases due to errors:`);
+		console.log(`\nSkipped ${errors.length} case${errors.length === 1 ? '' : 's'} due to errors:`);
 		errors.forEach(({ reference }) => console.log('- ' + reference));
 	}
 	console.log('*************************************\n');
@@ -332,7 +336,7 @@ const getReferencesPrefixedWith = async (startsWith) => {
  * @returns {Promise<void>}
  */
 export const removeAllTrainingCase = async () => {
-	// const references = await getReferencesPrefixedWith('TRAIN0110001');
+	// const references = await getReferencesPrefixedWith('TRAIN0110002');
 	const references = await getReferencesPrefixedWith('TRAIN');
 	await removeCases(references);
 };
