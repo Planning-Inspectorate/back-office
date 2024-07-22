@@ -95,7 +95,7 @@ export class FileUploadPage extends Page {
 	}
 
 	createFolder() {
-		this.clickLinkByText('Create Folder');
+		this.clickLinkByText('Create folder');
 	}
 
 	hasFolder(text) {
