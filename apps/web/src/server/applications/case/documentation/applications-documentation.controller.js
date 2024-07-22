@@ -88,6 +88,8 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 		...properties,
 		sessionBannerText
 	});
+
+	deleteSessionBanner(session);
 }
 
 /**
