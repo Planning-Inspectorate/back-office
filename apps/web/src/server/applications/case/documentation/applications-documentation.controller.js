@@ -25,7 +25,8 @@ import {
 	updateCaseDocumentationFiles,
 	unpublishCaseDocumentationFiles,
 	getCaseManyDocumentationFilesInfo,
-	searchDocuments
+	searchDocuments,
+	renameFolder
 } from './applications-documentation.service.js';
 import {
 	destroySessionFolderPage,
@@ -516,7 +517,8 @@ const documentationFolderData = async (caseId, folderId, query = {}, session) =>
 	return {
 		subFolders,
 		items: documentationFiles,
-		pagination
+		pagination,
+		isCustomFolder: folderDetails.isCustom
 	};
 };
 
@@ -599,6 +601,17 @@ export async function viewFolderCreationPage(request, response) {
 }
 
 /**
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function viewFolderRenamePage(request, response) {
+	const { caseId } = response.locals;
+	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+	return response.render('applications/components/folder/folder-rename', {
+		backLink
+	});
+}
+
+/**
  * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
  */
 export async function updateFolderCreate(request, response) {
@@ -632,5 +645,38 @@ export async function updateFolderCreate(request, response) {
 	}
 
 	setSessionBanner(session, 'Folder created');
+	return response.redirect('../folder');
+}
+
+/**
+ * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
+ */
+export async function updateFolderRename(request, response) {
+	const validationError = validationResult(request);
+	if (!validationError.isEmpty()) {
+		const { caseId } = response.locals;
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+
+		return response.render('applications/components/folder/folder-create', {
+			backLink,
+			errors: validationError.array({ onlyFirstError: true })
+		});
+	}
+
+	const { session } = request;
+	const { folderId } = request.params;
+	const { folderName } = request.body;
+	const { caseId } = response.locals;
+
+	const { errors } = await renameFolder(caseId, parseInt(folderId), folderName);
+	if (errors) {
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		return response.render('applications/components/folder/folder-rename', {
+			backLink,
+			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
+		});
+	}
+
+	setSessionBanner(session, 'Folder renamed');
 	return response.redirect('../folder');
 }

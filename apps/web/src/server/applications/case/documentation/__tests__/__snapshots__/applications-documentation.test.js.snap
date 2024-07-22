@@ -22,8 +22,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     <div class="govuk-grid-column-two-thirds">
                         <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
                     </div>
-                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
-                    </div>
                 </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
@@ -881,8 +879,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-column-two-thirds">
                         <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
-                    </div>
-                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
                     </div>
                 </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
@@ -2146,8 +2142,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     <div class="govuk-grid-column-two-thirds">
                         <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
                     </div>
-                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
-                    </div>
                 </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
@@ -2248,8 +2242,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-column-two-thirds">
                         <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
-                    </div>
-                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
                     </div>
                 </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
@@ -3130,8 +3122,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-column-two-thirds">
                         <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
-                    </div>
-                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
                     </div>
                 </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
@@ -4412,8 +4402,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     <div class="govuk-grid-column-two-thirds">
                         <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
                     </div>
-                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
-                    </div>
                 </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
@@ -5690,8 +5678,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-column-two-thirds">
                         <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
-                    </div>
-                    <div class="govuk-grid-column-one-third govuk-!-text-align-right"><a class="govuk-link govuk-body-m" href="#"> Rename folder</a>
                     </div>
                 </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
