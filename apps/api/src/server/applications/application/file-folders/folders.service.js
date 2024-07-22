@@ -92,10 +92,9 @@ export const getFolderPath = async (id, folderId) => {
 export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 50) => {
 	const skipValue = getSkipValue(pageNumber, pageSize);
 	const documentsCount = await documentRepository.getDocumentsCountInFolder(folderId);
-	const documents = await documentRepository.getDocumentsInFolder({
-		folderId,
-		skipValue,
-		pageSize
+	const documents = await documentRepository.getDocumentsInFolder(folderId, {
+		skip: skipValue,
+		take: pageSize
 	});
 
 	// @ts-ignore
@@ -111,6 +110,23 @@ export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 
 		itemCount: documentsCount,
 		items: mapDocumentVersionDetails(mapDocument)
 	};
+};
+
+/**
+ * Returns a list of folderIds and their parentFolderIds
+ *
+ * @param {number} folderId
+ * @param {Array<{ id: number, parentFolderId: number | null }>} folderList
+ * @returns {Promise<Array<{ id: number, parentFolderId: number | null }>>}
+ */
+export const getChildFolders = async (folderId, folderList = []) => {
+	const currentLevelFolderList = await folderRepository.getFoldersByParentId(folderId, {
+		select: { id: true, parentFolderId: true }
+	});
+	folderList.push(...currentLevelFolderList);
+
+	await Promise.all(currentLevelFolderList.map((folder) => getChildFolders(folder.id, folderList)));
+	return folderList;
 };
 
 /**
@@ -154,4 +170,19 @@ export const updateFolder = async (id, { name }) => {
 	}
 
 	return mapSingleFolderDetails(folder);
+};
+
+/**
+ *
+ * @param {Array<{ id: number, parentFolderId?: number | null, containsDocuments?: boolean | null }>} folderList
+ */
+export const checkFoldersHaveNoDocuments = async (folderList) => {
+	await Promise.all(
+		folderList.map(async (folder) =>
+			documentRepository.doesDocumentsExistInFolder(folder.id).then((result) => {
+				folder.containsDocuments = result;
+			})
+		)
+	);
+	return folderList;
 };
