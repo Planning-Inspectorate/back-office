@@ -34,8 +34,7 @@ export async function migrateServiceUsersForCase(log, caseReference) {
 			await makePostRequest(log, '/migration/service-user', serviceUsers);
 		}
 	} catch (e) {
-		log.error(`Failed to migrate Service User for case ${caseReference}`, e?.response?.body, e);
-		throw e;
+		throw new Error(`Failed to migrate Service User for case ${caseReference}`, { cause: e });
 	}
 }
 

@@ -40,8 +40,7 @@ export async function migrationRepresentationsForCase(log, caseReference) {
 			await makePostRequest(log, '/migration/nsip-representation', representationEntities);
 		}
 	} catch (e) {
-		log.error(`Failed to migrate Representations for case ${caseReference}`, e?.response?.body, e);
-		throw e;
+		throw new Error(`Failed to migrate Representations for case ${caseReference}`, { cause: e });
 	}
 }
 

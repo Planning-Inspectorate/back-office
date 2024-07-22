@@ -19,7 +19,6 @@ export const migrateFoldersForCase = async (logger, caseReference) => {
 			caseReference
 		});
 	} catch (e) {
-		logger.error(`Failed to migrate Folders for case ${caseReference}`, e?.response?.body, e);
-		throw e;
+		throw new Error(`Failed to migrate Folders for case ${caseReference}`, { cause: e });
 	}
 }
