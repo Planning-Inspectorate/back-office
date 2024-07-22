@@ -31,12 +31,10 @@ export const validateFolderId = composeMiddleware(
 );
 
 export const validateCreateBody = composeMiddleware(
-  body('name')
-    .exists()
-    .withMessage('Folder must have a name'),
-  body('parentFolderId')
-    .toInt()
-    .isInt()
-    .withMessage('parentFolderId must be a valid folder ID')
-    .optional({ nullable: true })
+	body('name').exists().withMessage('Folder must have a name'),
+	body('parentFolderId')
+		.toInt()
+		.isInt()
+		.withMessage('parentFolderId must be a valid folder ID')
+		.optional({ nullable: true })
 );

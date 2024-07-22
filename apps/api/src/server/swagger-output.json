@@ -2659,6 +2659,74 @@
 						}
 					}
 				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Updates the details of a folder",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "folderId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Folder ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Create document parameters",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/UpdateFolderRequestBody"
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The newly created folder",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "number",
+									"example": 1
+								},
+								"displayNameEn": {
+									"type": "string",
+									"example": "Example"
+								},
+								"displayOrder": {
+									"type": "number",
+									"example": 1100
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/applications/{id}/folders/{folderId}/parent-folders": {
@@ -8114,6 +8182,16 @@
 				"name": {
 					"type": "string",
 					"description": "Name of the folder to be created",
+					"example": "My folder"
+				}
+			}
+		},
+		"UpdateFolderRequestBody": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "New name for the folder",
 					"example": "My folder"
 				}
 			}

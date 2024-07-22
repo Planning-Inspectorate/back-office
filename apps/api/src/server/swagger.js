@@ -1763,6 +1763,16 @@ export const spec = {
 				}
 			}
 		},
+		UpdateFolderRequestBody: {
+			type: 'object',
+			properties: {
+				name: {
+					type: 'string',
+					description: 'New name for the folder',
+					example: 'My folder'
+				}
+			}
+		},
 		S51AdviceCreateRequestBody: {
 			type: 'object',
 			properties: {

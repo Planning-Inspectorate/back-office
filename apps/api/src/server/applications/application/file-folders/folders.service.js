@@ -136,3 +136,22 @@ export const createFolder = async (applicationId, folderName, parentFolderId) =>
 
 	return mapSingleFolderDetails(folder);
 };
+
+/**
+ * Updates a folder by its ID
+ *
+ * @param {number} id
+ * @param {{ name: string }} payload
+ * @throws {Error}
+ * @returns {Promise<FolderDetails>}
+ * */
+export const updateFolder = async (id, { name }) => {
+	const input = { displayNameEn: name };
+
+	const folder = await folderRepository.updateFolderById(id, input);
+	if (!folder) {
+		throw new Error(`Failed to update folder ${id} with payload ${input}`);
+	}
+
+	return mapSingleFolderDetails(folder);
+};
