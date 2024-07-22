@@ -35,8 +35,7 @@ export const migrationNsipDocumentsByReference = async (log, caseReference) => {
 			log.warn(`No NSIP Document found for case ${caseReference}`);
 		}
 	} catch (e) {
-		log.error(`Failed to migrate NSIP Document for case ${caseReference}`, e?.response?.body, e);
-		throw e;
+		throw new Error(`Failed to migrate NSIP Document for case ${caseReference}`, { cause: e });
 	}
 };
 

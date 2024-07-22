@@ -57,8 +57,7 @@ export async function migrateS51AdviceForCase(log, caseReference, synapseQuery =
 			await makePostRequest(log, '/migration/s51-advice', s51AdviceEntities);
 		}
 	} catch (e) {
-		log.error(`Failed to migrate S51 Advice for case ${caseReference}`, e?.response?.body, e);
-		throw e;
+		throw new Error(`Failed to migrate S51 Advice for case ${caseReference}`, { cause: e });
 	}
 }
 

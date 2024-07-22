@@ -20,7 +20,7 @@ export const handleMigrationWithResponse = async (
 		};
 		return;
 	}
-	console.info(`Starting migration for ${entityName}s:`, JSON.stringify(caseReferences));
+	context.log(`Starting migration for ${entityName}s:`, JSON.stringify(caseReferences));
 
 	try {
 		await migrationFunction();
@@ -30,15 +30,30 @@ export const handleMigrationWithResponse = async (
 				migration: `Successfully ran migration for ${entityName}`,
 				validation:
 					entityName === 'case' ? await validateMigration(context.log, caseReferences) : null
-			}
+			},
+			headers: { 'Content-Type': 'application/json; charset=utf-8' }
 		};
 	} catch (error) {
-		console.error(`Failed to run migration for ${entityName}`, error);
+		context.log.error(`Failed to run migration for ${entityName}`, error);
+
+		let responseBody;
+		if (error?.cause?.response?.body) {
+			responseBody = {
+				message: error.message,
+				...JSON.parse(error.cause.response.body)
+			};
+		} else {
+			responseBody = {
+				message: `Failed to run migration for ${entityName} with error: ${
+					error?.cause.message || error.message
+				}`
+			};
+		}
+
 		context.res = {
 			status: 500,
-			body: {
-				message: `Failed to run migration for ${entityName} with error: ${error.message}`
-			}
+			body: responseBody,
+			headers: { 'Content-Type': 'application/json; charset=utf-8' }
 		};
 	}
 };
