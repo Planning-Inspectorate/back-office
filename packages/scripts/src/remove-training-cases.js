@@ -32,7 +32,7 @@ const removeApplicationDetails = async (tx, applicationDetails) => {
  * @returns {Promise<void>}
  */
 const removeProjectUpdates = async (tx, caseId) => {
-	const projectUpdates = await tx.projectUpdate.findMany({
+	const projectUpdates = await databaseConnector.projectUpdate.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
@@ -50,7 +50,7 @@ const removeProjectUpdates = async (tx, caseId) => {
  * @returns {Promise<void>}
  */
 const removeRepresentations = async (tx, caseId) => {
-	const representations = await tx.representation.findMany({
+	const representations = await databaseConnector.representation.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
@@ -68,7 +68,7 @@ const removeRepresentations = async (tx, caseId) => {
  * @returns {Promise<void>}
  */
 const removeExaminationTimetables = async (tx, caseId) => {
-	const examinationTimetables = await tx.examinationTimetable.findMany({
+	const examinationTimetables = await databaseConnector.examinationTimetable.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
@@ -103,9 +103,21 @@ const removeServiceUser = async (tx, serviceUser) => {
  * @returns {Promise<void>}
  */
 const removeDocument = async (tx, document, folderPath) => {
-	const { guid } = document;
+	const { guid, documentReference } = document;
 
-	console.log(`Removing document: ${folderPath}/${guid}`);
+	console.log(`Removing document: ${folderPath}/${documentReference}`);
+
+	// TODO: Currently an issue with cyclic references, hence this hack to clear the transcriptGuid
+	// await tx.$queryRawUnsafe(
+	// 	`UPDATE DocumentVersion SET transcriptGuid = NULL, version = NULL WHERE documentGuid = '${guid}';`
+	// );
+
+	await tx.document.updateMany({
+		where: { guid },
+		data: {
+			latestVersionId: null
+		}
+	});
 
 	await tx.documentActivityLog.deleteMany({
 		where: {
@@ -113,39 +125,20 @@ const removeDocument = async (tx, document, folderPath) => {
 		}
 	});
 
-	// TODO: Currently an issue with cyclic references, hence this hack to clear the transcriptGuid
-	// await tx.$queryRawUnsafe(
-	// 	`UPDATE DocumentVersion SET transcriptGuid = NULL WHERE documentGuid = '${guid}';`
-	// );
-
-	await databaseConnector.documentVersion.updateMany({
-		where: { documentGuid: guid },
-		data: {
-			transcriptGuid: null
-		}
-	});
-
-	await databaseConnector.documentVersion.delete({
+	await tx.documentVersion.deleteMany({
 		where: {
 			documentGuid: guid
-		}
-	});
-
-	await databaseConnector.document.updateMany({
-		where: { guid },
-		data: {
-			latestVersionId: null
 		}
 	});
 
 	// TODO: Currently an issue with cyclic references, hence this hack to clear the latestVersionId
 	// await tx.$queryRawUnsafe(`-- UPDATE Document SET latestVersionId = NULL WHERE guid = '${guid}';`);
 
-	await databaseConnector.document.delete({
-		where: { guid }
+	await tx.document.delete({
+		where: { guid },
+		isTraining: true
 	});
 };
-
 /**
  *
  * @param {PrismaClient} tx
@@ -153,7 +146,7 @@ const removeDocument = async (tx, document, folderPath) => {
  * @returns {Promise<void>}
  */
 const removeS51Advices = async (tx, caseId) => {
-	const advices = await tx.s51Advice.findMany({
+	const advices = await databaseConnector.s51Advice.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
@@ -173,10 +166,10 @@ const removeS51Advices = async (tx, caseId) => {
 const removeFoldersAndDocuments = async (tx, caseDetails) => {
 	const { id: caseId, reference } = caseDetails;
 
-	const folders = await tx.folder.findMany({
+	const folders = await databaseConnector.folder.findMany({
 		where: { caseId }
 	});
-	const documents = await tx.document.findMany({
+	const documents = await databaseConnector.document.findMany({
 		where: { caseId }
 	});
 
@@ -188,12 +181,13 @@ const removeFoldersAndDocuments = async (tx, caseDetails) => {
 		}
 
 		if (folderId) {
-			console.log(`Removing folder: ${folderPath}`);
 			const folderDocuments = documents.filter((document) => document.folderId === folderId);
 
 			for (const document of folderDocuments) {
 				await removeDocument(tx, document, folderPath);
 			}
+
+			console.log(`Removing folder: ${folderPath}`);
 
 			await tx.folder.delete({ where: { id: folderId } });
 		}
@@ -272,7 +266,7 @@ const removeCase = async (reference) => {
 	} catch (e) {
 		if (e.message !== 'Simulated deletion test') {
 			console.log(reference + ' Removal failed');
-			console.log(JSON.stringify(e, null, 2));
+			console.log(e.message);
 			return e;
 		}
 	}
@@ -338,7 +332,7 @@ const getReferencesPrefixedWith = async (startsWith) => {
  * @returns {Promise<void>}
  */
 export const removeAllTrainingCase = async () => {
+	// const references = await getReferencesPrefixedWith('TRAIN0110001');
 	const references = await getReferencesPrefixedWith('TRAIN');
-	// const references = await getReferencesPrefixedWith('TRAIN');
 	await removeCases(references);
 };
