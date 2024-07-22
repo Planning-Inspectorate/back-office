@@ -137,7 +137,9 @@ export const getFolderByNameAndCaseId = (caseId, folderName, parentFolderId) =>
  * @returns {Promise<(Folder |null)>}
  */
 export const createFolder = (folder) => {
-	return databaseConnector.folder.create({ data: folder });
+	return databaseConnector.folder.create({
+		data: { ...folder, isCustom: true }
+	});
 };
 
 /**
@@ -211,6 +213,7 @@ const createCorrespondenceFolders = () => {
  */
 const mapFolderTemplateWithCaseId = (caseId, folder) => {
 	folder.caseId = caseId;
+	folder.isCustom = folder.isCustom ?? false;
 
 	if (folder.childFolders && folder.childFolders.create) {
 		for (let /** @type {FolderTemplate} */ child of folder.childFolders.create) {
@@ -225,6 +228,8 @@ const mapFolderTemplateWithCaseId = (caseId, folder) => {
  * Creates the top level folders on a case using the folder template
  * and recursively creates all sub folders.
  * Returns an array of promises
+ *
+ * ! Only used for creating non-custom folders. !
  *
  * @param {number} caseId
  * @param {FolderTemplate[]} folders

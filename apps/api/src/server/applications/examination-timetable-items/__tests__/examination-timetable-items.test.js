@@ -113,7 +113,8 @@ const examinationFolder = {
 	displayNameEn: 'Examination',
 	stage: 'Examination',
 	parentFolderId: null,
-	displayOrder: 100
+	displayOrder: 100,
+	isCustom: false
 };
 
 const examinationSubFolders = [
@@ -123,7 +124,8 @@ const examinationSubFolders = [
 		displayNameEn: 'pointone',
 		stage: 'Examination',
 		parentFolderId: 1,
-		displayOrder: 100
+		displayOrder: 100,
+		isCustom: false
 	},
 	{
 		id: 3,
@@ -131,7 +133,8 @@ const examinationSubFolders = [
 		displayNameEn: 'pointtwo',
 		stage: 'Examination',
 		parentFolderId: 1,
-		displayOrder: 200
+		displayOrder: 200,
+		isCustom: false
 	},
 	{
 		id: 4,
@@ -140,7 +143,8 @@ const examinationSubFolders = [
 		displayNameCy: 'Arall',
 		stage: 'Examination',
 		parentFolderId: 1,
-		displayOrder: 300
+		displayOrder: 300,
+		isCustom: false
 	}
 ];
 
@@ -356,7 +360,8 @@ describe('Test examination timetable items API', () => {
 				displayNameEn: '27 Feb 2023 - Examination Timetable Item',
 				stage: 'Examination',
 				parentFolderId: 1,
-				displayOrder: 20230227
+				displayOrder: 20230227,
+				isCustom: true
 			}
 		});
 		expect(databaseConnector.examinationTimetable.create).toHaveBeenCalledTimes(1);
@@ -391,7 +396,8 @@ describe('Test examination timetable items API', () => {
 				displayNameEn: '27 Feb 2023 - Examination Timetable Item',
 				stage: 'Pre-examination',
 				parentFolderId: 1,
-				displayOrder: 20230227
+				displayOrder: 20230227,
+				isCustom: true
 			}
 		});
 		expect(databaseConnector.examinationTimetable.create).toHaveBeenCalledTimes(1);
@@ -465,7 +471,8 @@ describe('Test examination timetable items API', () => {
 				displayOrder: 20230227,
 				displayNameEn: '27 Feb 2023 - Examination Timetable Item',
 				parentFolderId: 1,
-				stage: 'Examination'
+				stage: 'Examination',
+				isCustom: true
 			}
 		});
 
@@ -473,7 +480,8 @@ describe('Test examination timetable items API', () => {
 			caseId: 1,
 			displayOrder: 100,
 			parentFolderId: 1,
-			stage: 'Examination'
+			stage: 'Examination',
+			isCustom: true
 		};
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(2, {
@@ -691,7 +699,8 @@ describe('Test examination timetable items API', () => {
 			caseId: 1,
 			displayOrder: 100,
 			parentFolderId: 1234,
-			stage: 'Examination'
+			stage: 'Examination',
+			isCustom: true
 		};
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(1, {
