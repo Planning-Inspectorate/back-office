@@ -6,7 +6,8 @@ import {
 	getDocuments,
 	getFolderPathList,
 	getListOfFolders,
-	getSingleFolder
+	getSingleFolder,
+	updateFolder
 } from './folders.controller.js';
 import { validateCreateBody, validateFolderId } from './folders.validation.js';
 
@@ -257,6 +258,52 @@ router.post(
 	validateApplicationId,
 	validateCreateBody,
 	asyncHandler(createFolder)
+);
+
+router.patch(
+	'/:id/folders/:folderId',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/folders/{folderId}'
+        #swagger.description = 'Updates the details of a folder'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+    #swagger.parameters['folderId'] = {
+      in: 'path',
+      description: 'Folder ID',
+      required: true,
+      type: 'integer'
+    }
+		#swagger.parameters['body'] = {
+            in: 'body',
+			description: 'Create document parameters',
+			required: true,
+      schema: { $ref: '#/definitions/UpdateFolderRequestBody' }
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+        #swagger.responses[200] = {
+            description: 'The newly created folder',
+            schema: { id: 1, displayNameEn: 'Example', displayOrder: 1100 }
+        }
+    */
+	validateApplicationId,
+	validateFolderId,
+	asyncHandler(updateFolder)
 );
 
 export { router as fileFoldersRoutes };

@@ -1849,6 +1849,14 @@ export interface CreateFolderRequestBody {
 	name?: string;
 }
 
+export interface UpdateFolderRequestBody {
+	/**
+	 * New name for the folder
+	 * @example "My folder"
+	 */
+	name?: string;
+}
+
 export interface S51AdviceCreateRequestBody {
 	/**
 	 * The application id

@@ -6,7 +6,8 @@ import {
 	getFolderPath,
 	getFolders,
 	getFolderByName,
-	getAllFolders
+	getAllFolders,
+	updateFolder as svcUpdateFolder
 } from './folders.service.js';
 
 /**
@@ -68,4 +69,21 @@ export const createFolder = async ({ params, body }, response) => {
 
 	const folder = await svcCreateFolder(params.id, body.name, body.parentFolderId);
 	response.send(folder);
+};
+
+/**
+ * @type {import('express').RequestHandler<{ folderId: number }, ?, { name: string}, ?>}
+ * */
+export const updateFolder = async ({ params, body }, response) => {
+	const folder = await getFolder(params.folderId);
+	if (!folder) {
+		throw new BackOfficeAppError(`No folder exists with ID: ${params.folderId}`, 404);
+	}
+
+	if (!folder.isCustom) {
+		throw new BackOfficeAppError('Must be a custom folder created by a CBOS user', 405);
+	}
+
+	const updatedFolder = await svcUpdateFolder(params.folderId, body);
+	response.send(updatedFolder);
 };
