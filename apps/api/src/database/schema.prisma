@@ -243,6 +243,7 @@ model Folder {
   displayOrder             Int?
   parentFolderId           Int?
   caseId                   Int?
+  isCustom                 Boolean                    @default(false)
   document                 Document[]
   case                     Case?                      @relation(fields: [caseId], references: [id])
   parentFolder             Folder?                    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)

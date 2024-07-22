@@ -59,7 +59,8 @@ const folders = [
 		displayNameEn: 'Project management',
 		displayNameCy: null,
 		parentFolderId: null,
-		stage: 'developers_application'
+		stage: 'developers_application',
+		isCustom: false
 	},
 	{
 		id: 78672,
@@ -67,7 +68,8 @@ const folders = [
 		displayNameEn: 'Logistics',
 		displayNameCy: null,
 		parentFolderId: 78671,
-		stage: 'developers_application'
+		stage: 'developers_application',
+		isCustom: false
 	},
 	{
 		id: 78673,
@@ -75,7 +77,8 @@ const folders = [
 		displayNameEn: 'Travel',
 		displayNameCy: 'Teithio',
 		parentFolderId: 78672,
-		stage: 'developers_application'
+		stage: 'developers_application',
+		isCustom: false
 	},
 	{
 		id: 78674,
@@ -83,7 +86,8 @@ const folders = [
 		displayNameEn: 'Welsh',
 		displayNameCy: null,
 		parentFolderId: 78672,
-		stage: 'developers_application'
+		stage: 'developers_application',
+		isCustom: false
 	}
 ];
 
@@ -132,6 +136,7 @@ describe('Start case', () => {
 				displayOrder: 100,
 				caseId: 1,
 				stage: null,
+				isCustom: false,
 				childFolders: {
 					create: [
 						{
@@ -139,19 +144,22 @@ describe('Start case', () => {
 							displayOrder: 100,
 							caseId: 1,
 							stage: null,
+							isCustom: false,
 							childFolders: {
 								create: [
 									{
 										displayNameEn: 'Travel',
 										displayOrder: 100,
 										caseId: 1,
-										stage: null
+										stage: null,
+										isCustom: false
 									},
 									{
 										displayNameEn: 'Welsh',
 										displayOrder: 200,
 										caseId: 1,
-										stage: null
+										stage: null,
+										isCustom: false
 									}
 								]
 							}
@@ -160,13 +168,15 @@ describe('Start case', () => {
 							displayNameEn: 'Mail merges',
 							displayOrder: 200,
 							caseId: 1,
-							stage: null
+							stage: null,
+							isCustom: false
 						},
 						{
 							displayNameEn: 'Fees',
 							displayOrder: 300,
 							caseId: 1,
-							stage: null
+							stage: null,
+							isCustom: false
 						}
 					]
 				}
@@ -179,7 +189,8 @@ describe('Start case', () => {
 				displayNameEn: 'Legal advice',
 				displayOrder: 200,
 				caseId: 1,
-				stage: null
+				stage: null,
+				isCustom: false
 			}
 		});
 		// 3rd top level folder
@@ -188,19 +199,22 @@ describe('Start case', () => {
 				displayNameEn: 'Transboundary',
 				displayOrder: 300,
 				stage: 'Pre-application',
+				isCustom: false,
 				childFolders: {
 					create: [
 						{
 							displayNameEn: 'First screening',
 							displayOrder: 100,
 							caseId: 1,
-							stage: 'Pre-application'
+							stage: 'Pre-application',
+							isCustom: false
 						},
 						{
 							displayNameEn: 'Second screening',
 							displayOrder: 200,
 							caseId: 1,
-							stage: 'Pre-application'
+							stage: 'Pre-application',
+							isCustom: false
 						}
 					]
 				},
