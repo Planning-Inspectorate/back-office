@@ -286,3 +286,24 @@ export const createFolder = async (caseId, name, parentFolderId) => {
 		return { errors: { msg: 'Failed to create folder.' } };
 	}
 };
+
+/**
+ * @param {number} caseId
+ * @param {number} folderId
+ * @param {string} name
+ * @returns {Promise<{ folder?: DocumentationCategory, errors?: {msg: string} }>}
+ * */
+export const renameFolder = async (caseId, folderId, name) => {
+	try {
+		return await patch(`applications/${caseId}/folders/${folderId}`, {
+			json: { name }
+		});
+	} catch (/** @type {*} */ error) {
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
+		if (error.response.statusCode === 405) {
+			return { errors: { msg: 'This folder cannot be renamed.' } };
+		}
+
+		return { errors: { msg: 'Failed to rename folder.' } };
+	}
+};

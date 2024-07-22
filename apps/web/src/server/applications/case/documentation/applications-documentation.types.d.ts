@@ -20,6 +20,7 @@ export interface CaseDocumentationProps {
 	};
 	errors?: ValidationErrors;
 	sessionBannerText?: string;
+	isCustomFolder: boolean;
 }
 
 export interface CaseDocumentationBody {

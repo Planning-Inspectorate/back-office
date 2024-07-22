@@ -119,4 +119,9 @@ applicationsDocumentationRouter
 	.get(asyncHandler(controller.viewFolderCreationPage))
 	.post(validateApplicationsDocumentationsFolders, asyncHandler(controller.updateFolderCreate));
 
+applicationsDocumentationRouter
+	.route('/:folderId/folder/rename')
+	.get(asyncHandler(controller.viewFolderRenamePage))
+	.post(validateApplicationsDocumentationsFolders, asyncHandler(controller.updateFolderRename));
+
 export default applicationsDocumentationRouter;

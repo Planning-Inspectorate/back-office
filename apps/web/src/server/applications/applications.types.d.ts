@@ -89,7 +89,9 @@ export interface OptionsItem {
 export interface Sector extends OptionsItem {}
 export interface Region extends OptionsItem {}
 export interface ZoomLevel extends OptionsItem {}
-export interface DocumentationCategory extends OptionsItem {}
+export interface DocumentationCategory extends OptionsItem {
+	isCustom: boolean;
+}
 export interface ExaminationTimetableType extends OptionsItem {
 	templateType?: string;
 }

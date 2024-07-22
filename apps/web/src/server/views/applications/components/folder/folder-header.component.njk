@@ -1,7 +1,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 
-{% macro folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce, isGeneralS51folder) %}
+{% macro folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce, isGeneralS51folder, isCustomFolder) %}
 
 	{% set folderRows = [] %}
 	{% set folderItems = {} %}
@@ -78,11 +78,13 @@
             <h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
           </div>
           {% if ('applic-625-custom-folders' | isFeatureActive) %}
-            <div class="govuk-grid-column-one-third govuk-!-text-align-right">
-              <a class="govuk-link govuk-body-m" href="#">
-                Rename folder
-              </a>
-            </div>
+            {% if isCustomFolder %}
+              <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+                <a class="govuk-link govuk-body-m" href="{{'folder-rename' |url({caseId: caseId, folderId: currentFolder.id})}}">
+                  Rename folder
+                </a>
+              </div>
+            {% endif %}
           {% endif %}
         </div>
         {% if folderRows.length > 0 %}

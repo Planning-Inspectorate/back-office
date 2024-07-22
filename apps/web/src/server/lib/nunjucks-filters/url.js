@@ -91,6 +91,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/search-results`;
 		case 'folder-create':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/folder/create`;
+		case 'folder-rename':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/folder/rename`;
 		case 'project-updates':
 			return `${domainUrl}/case/${caseId}/project-updates`;
 		case 'project-updates-create':
