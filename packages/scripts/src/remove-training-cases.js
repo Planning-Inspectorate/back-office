@@ -13,12 +13,14 @@ const isSimulatedTest = process.env.REMOVE_ALL_CASES?.toLowerCase() !== 'true';
 
 /**
  * @param {PrismaClient} tx
- * @param {any} applicationDetails
+ * @param {any} caseDetails
  * @returns {Promise<void>}
  */
-const removeApplicationDetails = async (tx, applicationDetails) => {
-	const { id } = applicationDetails || {};
+const removeApplicationDetails = async (tx, caseDetails) => {
+	const { reference, ApplicationDetails } = caseDetails || {};
+	const { id } = ApplicationDetails || {};
 	if (id) {
+		console.log(`Removing application details: ${reference}-${id}`);
 		await tx.regionsOnApplicationDetails.deleteMany({
 			where: { applicationDetailsId: id }
 		});
@@ -28,16 +30,18 @@ const removeApplicationDetails = async (tx, applicationDetails) => {
 
 /**
  * @param {import('@prisma/client')} tx
- * @param caseId
+ * @param caseDetails
  * @returns {Promise<void>}
  */
-const removeProjectUpdates = async (tx, caseId) => {
+const removeProjectUpdates = async (tx, caseDetails) => {
+	const { id: caseId, reference } = caseDetails || {};
 	const projectUpdates = await tx.projectUpdate.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
 		projectUpdates.map(async (projectUpdate) => {
 			const { id } = projectUpdate;
+			console.log(`Removing project updates: ${reference}-${id}`);
 			await tx.projectUpdateNotificationLog.deleteMany({ where: { projectUpdateId: id } });
 			await tx.projectUpdate.delete({ where: { id } });
 		})
@@ -46,16 +50,18 @@ const removeProjectUpdates = async (tx, caseId) => {
 
 /**
  * @param {import('@prisma/client')} tx
- * @param caseId
+ * @param caseDetails
  * @returns {Promise<void>}
  */
-const removeRepresentations = async (tx, caseId) => {
+const removeRepresentations = async (tx, caseDetails) => {
+	const { id: caseId } = caseDetails || {};
 	const representations = await tx.representation.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
 		representations.map(async (representation) => {
-			const { id } = representation;
+			const { id, reference } = representation;
+			console.log(`Removing representation: ${reference}`);
 			await tx.representationAction.deleteMany({ where: { representationId: id } });
 			await tx.representation.delete({ where: { id } });
 		})
@@ -64,16 +70,18 @@ const removeRepresentations = async (tx, caseId) => {
 
 /**
  * @param {import('@prisma/client')} tx
- * @param caseId
+ * @param caseDetails
  * @returns {Promise<void>}
  */
-const removeExaminationTimetables = async (tx, caseId) => {
+const removeExaminationTimetables = async (tx, caseDetails) => {
+	const { id: caseId, reference } = caseDetails || {};
 	const examinationTimetables = await tx.examinationTimetable.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
 		examinationTimetables.map(async (examinationTimetable) => {
 			const { id } = examinationTimetable;
+			console.log(`Removing examination timetable: ${reference}`);
 			await tx.examinationTimetableItem.deleteMany({ where: { examinationTimetableId: id } });
 			await tx.examinationTimetable.delete({ where: { id } });
 		})
@@ -82,16 +90,18 @@ const removeExaminationTimetables = async (tx, caseId) => {
 
 /**
  * @param {PrismaClient} tx
- * @param {any} serviceUser
+ * @param {any} caseDetails
  * @returns {Promise<void>}
  */
-const removeServiceUser = async (tx, serviceUser) => {
-	if (serviceUser?.id) {
-		const { address } = serviceUser;
+const removeApplicant = async (tx, caseDetails) => {
+	const { applicant, reference } = caseDetails;
+	if (applicant?.id) {
+		console.log(`Removing examination timetable: ${reference}`);
+		const { address } = applicant;
 		if (address?.id) {
 			await tx.address.delete({ where: { id: address.id } });
 		}
-		await tx.serviceUser.delete({ where: { id: serviceUser.id } });
+		await tx.serviceUser.delete({ where: { id: applicant.id } });
 	}
 };
 
@@ -141,17 +151,19 @@ const removeDocument = async (tx, document, folderPath) => {
 /**
  *
  * @param {PrismaClient} tx
- * @param caseId
+ * @param caseDetails
  * @returns {Promise<void>}
  */
-const removeS51Advices = async (tx, caseId) => {
+const removeS51Advices = async (tx, caseDetails) => {
+	const { id: caseId, reference } = caseDetails || {};
 	const advices = await tx.s51Advice.findMany({
 		where: { caseId }
 	});
 	await Promise.all(
-		advices.map(async ({ id: adviceId }) =>
-			tx.s51AdviceDocument.deleteMany({ where: { adviceId } })
-		)
+		advices.map(async ({ id: adviceId, title }) => {
+			console.log(`Removing S51 Advice: ${reference}-${title}`);
+			await tx.s51AdviceDocument.deleteMany({ where: { adviceId } });
+		})
 	);
 	await tx.s51Advice.deleteMany({ where: { caseId } });
 };
@@ -199,22 +211,28 @@ const removeFoldersAndDocuments = async (tx, caseDetails) => {
 /**
  *
  * @param {PrismaClient} tx
- * @param caseId
+ * @param caseDetails
  * @returns {Promise<void>}
  */
-const removeOtherAssociatedRecords = async (tx, caseId) => {
+const removeOtherAssociatedRecords = async (tx, caseDetails) => {
+	const { id: caseId, reference } = caseDetails || {};
+	console.log(`Removing case status: ${reference}`);
 	await tx.caseStatus.deleteMany({
 		where: { caseId }
 	});
+	console.log(`Removing published state: ${reference}`);
 	await tx.casePublishedState.deleteMany({
 		where: { caseId }
 	});
+	console.log(`Removing grid reference: ${reference}`);
 	await tx.gridReference.deleteMany({
 		where: { caseId }
 	});
+	console.log(`Removing project team: ${reference}`);
 	await tx.projectTeam.deleteMany({
 		where: { caseId }
 	});
+	console.log(`Removing subscription: ${reference}`);
 	await tx.subscription.deleteMany({
 		where: { caseId }
 	});
@@ -226,6 +244,7 @@ const removeOtherAssociatedRecords = async (tx, caseId) => {
  */
 const removeCase = async (reference) => {
 	try {
+		const startTime = Date.now();
 		await databaseConnector.$transaction(
 			async (tx) => {
 				const { id: caseId } = (await getCaseByRef(reference)) || {};
@@ -237,21 +256,19 @@ const removeCase = async (reference) => {
 					applicant: true
 				});
 
-				const { applicant, ApplicationDetails } = caseDetails;
-
-				await removeApplicationDetails(tx, ApplicationDetails);
-				await removeExaminationTimetables(tx, caseId);
-				await removeRepresentations(tx, caseId);
-				await removeProjectUpdates(tx, caseId);
-				await removeS51Advices(tx, caseId);
-				await removeOtherAssociatedRecords(tx, caseId);
+				await removeApplicationDetails(tx, caseDetails);
+				await removeExaminationTimetables(tx, caseDetails);
+				await removeRepresentations(tx, caseDetails);
+				await removeProjectUpdates(tx, caseDetails);
+				await removeS51Advices(tx, caseDetails);
+				await removeOtherAssociatedRecords(tx, caseDetails);
 				await removeFoldersAndDocuments(tx, caseDetails);
-				await removeServiceUser(tx, applicant);
-				await removeS51Advices(tx, caseId);
+				await removeApplicant(tx, caseDetails);
+				await removeS51Advices(tx, caseDetails);
 
 				await tx.case.delete({ where: { id: caseId } });
 
-				console.log(reference + ' Removed');
+				console.log(`${reference} Removed in ${(Date.now() - startTime) / 1000} seconds`);
 
 				if (isSimulatedTest) {
 					throw new Error('Simulated deletion test');
