@@ -190,7 +190,7 @@ const removeFoldersAndDocuments = async (tx, caseDetails) => {
 			console.log(`Removing folder: ${folderPath}`);
 		} else {
 			// Now safe to delete all folders for a case as all the dependencies have been deleted
-			tx.folder.deleteMany({ where: { caseId: caseDetails.caseId } });
+			await tx.folder.deleteMany({ where: { caseId } });
 		}
 	};
 
@@ -254,7 +254,13 @@ const removeCase = async (reference) => {
 				if (skippedDocs.length) {
 					console.log(`Skipped docs: ${JSON.stringify(skippedDocs, null, 2)}`);
 				}
-				await tx.case.delete({ where: { id: caseId } });
+				const skippedFolders = await tx.folder.findMany({ where: { caseId } });
+				if (skippedFolders.length) {
+					console.log(`Skipped folders: ${JSON.stringify(skippedFolders, null, 2)}`);
+				}
+				const result = await tx.case.delete({ where: { id: caseId } });
+
+				console.log(result);
 
 				console.log(reference + ' Removed');
 
