@@ -330,6 +330,8 @@ export const removeCases = async (references) => {
 		console.log('SIMULATED DELETION TEST, NO CASES WILL BE REMOVED\n');
 	}
 
+	console.log(`Attempting to delete ${references.length} cases\n`);
+
 	for (const reference of references) {
 		const error = await removeCase(reference);
 		if (error) {
