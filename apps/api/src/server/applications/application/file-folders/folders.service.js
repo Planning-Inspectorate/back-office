@@ -1,6 +1,7 @@
 import * as documentRepository from '#repositories/document.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import logger from '#utils/logger.js';
 import { mapDocumentVersionDetails } from '#utils/mapping/map-document-details.js';
 import {
 	mapBreadcrumbFolderDetails,
@@ -116,18 +117,32 @@ export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 
  * Returns a list of folderIds and their parentFolderIds
  *
  * @param {number} folderId
- * @param {Array<{ id: number, parentFolderId: number | null }>} folderList
  * @returns {Promise<Array<{ id: number, parentFolderId: number | null }>>}
  */
-export const getChildFolders = async (folderId, folderList = []) => {
-	const currentLevelFolderList = await folderRepository.getFoldersByParentId(folderId, {
-		select: { id: true, parentFolderId: true },
-		where: { parentFolderId: folderId, isCustom: true }
-	});
-	folderList.push(...currentLevelFolderList);
+export const getChildFolders = async (folderId) => {
+	try {
+		const currentLevelFolderList = await folderRepository.getFoldersByParentId(folderId, {
+			select: { id: true, parentFolderId: true },
+			where: { parentFolderId: folderId, isCustom: true }
+		});
 
-	await Promise.all(currentLevelFolderList.map((folder) => getChildFolders(folder.id, folderList)));
-	return folderList;
+		const childFoldersPromises = currentLevelFolderList.map((folder) => getChildFolders(folder.id));
+		const results = await Promise.allSettled(childFoldersPromises);
+
+		const childFolders = results.flatMap((result) => {
+			if (result.status === 'fulfilled') {
+				return result.value;
+			} else {
+				logger.error(`Failed to fetch child folders for folderId ${folderId}: ${result.reason}`);
+				return [];
+			}
+		});
+
+		return [...currentLevelFolderList, ...childFolders];
+	} catch (error) {
+		logger.error(`Failed to fetch folders for parentFolderId ${folderId}: ${error}`);
+		throw error;
+	}
 };
 
 /**

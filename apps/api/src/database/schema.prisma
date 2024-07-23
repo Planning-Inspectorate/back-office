@@ -244,6 +244,7 @@ model Folder {
   parentFolderId           Int?
   caseId                   Int?
   isCustom                 Boolean                    @default(false)
+  deletedAt                DateTime?
   document                 Document[]
   case                     Case?                      @relation(fields: [caseId], references: [id])
   parentFolder             Folder?                    @relation("FolderTree", fields: [parentFolderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -251,7 +252,7 @@ model Folder {
   stage                    String?
   ExaminationTimetableItem ExaminationTimetableItem[]
 
-  @@unique([caseId, displayNameEn, parentFolderId])
+  @@unique([caseId, displayNameEn, parentFolderId, deletedAt])
 }
 
 /// Document model
