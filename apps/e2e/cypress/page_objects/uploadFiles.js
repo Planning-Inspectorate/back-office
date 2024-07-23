@@ -90,12 +90,20 @@ export class FileUploadPage extends Page {
 		this.verifyUploadIsComplete();
 	}
 
+	verifyFolderTitle(title) {
+		cy.get('h2.govuk-heading-l').contains(title);
+	}
+
 	showSubfolders() {
 		cy.get('button.govuk-accordion__section-button').click();
 	}
 
 	createFolder() {
 		this.clickLinkByText('Create folder');
+	}
+
+	renameFolder() {
+		this.clickLinkByText('Rename folder');
 	}
 
 	hasFolder(text) {

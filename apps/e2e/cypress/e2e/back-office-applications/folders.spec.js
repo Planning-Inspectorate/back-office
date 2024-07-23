@@ -32,8 +32,6 @@ describe('Folders', () => {
 		searchResultsPage.clickTopSearchResult();
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-
-		fileUploadPage.showSubfolders();
 	});
 
 	it('Should be able to create a subfolder of one of the hardcoded folders', () => {
@@ -41,6 +39,7 @@ describe('Folders', () => {
 			return;
 		}
 
+		fileUploadPage.showSubfolders();
 		fileUploadPage.createFolder();
 
 		const folderName = 'Test folder 1';
@@ -56,6 +55,7 @@ describe('Folders', () => {
 			return;
 		}
 
+		fileUploadPage.showSubfolders();
 		fileUploadPage.clickFolder('Logistics');
 		fileUploadPage.createFolder();
 
@@ -65,5 +65,35 @@ describe('Folders', () => {
 		page.clickButtonByText('Save and return');
 
 		fileUploadPage.verifyTableContains(folderName);
+	});
+
+	it('Should be able to rename a custom folder', () => {
+		if (!Cypress.env('featureFlags')['applic-625-custom-folders']) {
+			return;
+		}
+
+		fileUploadPage.showSubfolders();
+		fileUploadPage.createFolder();
+
+		const folderName = 'Folder to rename 1';
+		page.fillInput(folderName);
+		page.clickButtonByText('Save and return');
+
+		fileUploadPage.clickFolder(folderName);
+		fileUploadPage.renameFolder();
+
+		const updatedFolderName = 'Folder to rename 1 - updated';
+		page.fillInput(updatedFolderName);
+		page.clickButtonByText('Save and return');
+
+		fileUploadPage.verifyFolderTitle(updatedFolderName);
+	});
+
+	it('Should not be able to rename a non-custom folder', () => {
+		if (!Cypress.env('featureFlags')['applic-625-custom-folders']) {
+			return;
+		}
+
+		page.basePageElements.linkByText('Rename folder').should('not.exist');
 	});
 });
