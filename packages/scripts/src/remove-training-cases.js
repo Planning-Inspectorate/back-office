@@ -250,17 +250,7 @@ const removeCase = async (reference) => {
 				await removeServiceUser(tx, applicant);
 				await removeS51Advices(tx, caseId);
 
-				const skippedDocs = await tx.document.findMany({ where: { caseId } });
-				if (skippedDocs.length) {
-					console.log(`Skipped docs: ${JSON.stringify(skippedDocs, null, 2)}`);
-				}
-				const skippedFolders = await tx.folder.findMany({ where: { caseId } });
-				if (skippedFolders.length) {
-					console.log(`Skipped folders: ${JSON.stringify(skippedFolders, null, 2)}`);
-				}
-				const result = await tx.case.delete({ where: { id: caseId } });
-
-				console.log(result);
+				await tx.case.delete({ where: { id: caseId } });
 
 				console.log(reference + ' Removed');
 
