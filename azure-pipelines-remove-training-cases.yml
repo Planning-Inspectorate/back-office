@@ -6,6 +6,7 @@ parameters:
       values:
           - Dev
           - Test
+          - Training
           - Prod
 
 pool: pins-odt-agent-pool
@@ -60,6 +61,9 @@ jobs:
                           environmentVariables:
                               DATABASE_URL: $(DATABASE_URL)
                               REMOVE_ALL_CASES: $(REMOVE_ALL_CASES)
+                              MAX_CASES_TO_DELETE: $(MAX_CASES_TO_DELETE)
+                              TRANSACTION_MAX_WAIT_IN_SECONDS: $(TRANSACTION_MAX_WAIT_IN_SECONDS)
+                              TRANSACTION_TIMEOUT_IN_SECONDS: $(TRANSACTION_TIMEOUT_IN_SECONDS)
                           script: npm run applications:remove-all-training-cases
                           workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
       workspace:

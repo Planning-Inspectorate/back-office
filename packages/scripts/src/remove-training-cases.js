@@ -1,11 +1,17 @@
 // @ts-nocheck
 import {
-	getByRef as getCaseByRef,
-	getById as getCaseById
+	getById as getCaseById,
+	getByRef as getCaseByRef
 } from '@pins/applications.api/src/server/repositories/case.repository.js';
 import { databaseConnector } from '@pins/applications.api/src/server/utils/database-connector.js';
 
 const isSimulatedTest = process.env.REMOVE_ALL_CASES?.toLowerCase() !== 'true';
+const maxCasesToDelete =
+	parseInt(process.env.MAX_CASES_TO_DELETE ?? '0') || Number.MAX_SAFE_INTEGER;
+const maxWaitInSeconds = parseInt(process.env.TRANSACTION_MAX_WAIT_IN_SECONDS ?? '0') || 20;
+const maxTimeoutInSeconds = parseInt(process.env.TRANSACTION_TIMEOUT_IN_SECONDS ?? '0') || 100;
+
+const blobs = [];
 
 /**
  * @typedef {import('@prisma/client')} PrismaClient
@@ -96,7 +102,7 @@ const removeExaminationTimetables = async (tx, caseDetails) => {
 const removeApplicant = async (tx, caseDetails) => {
 	const { applicant, reference } = caseDetails;
 	if (applicant?.id) {
-		console.log(`Removing examination timetable: ${reference}`);
+		console.log(`Removing applicant: ${reference}`);
 		const { address } = applicant;
 		if (address?.id) {
 			await tx.address.delete({ where: { id: address.id } });
@@ -121,6 +127,28 @@ const removeDocument = async (tx, document, folderPath) => {
 		where: { guid },
 		data: {
 			latestVersionId: null
+		}
+	});
+
+	const documentVersions = await tx.documentVersion.findMany({
+		where: { documentGuid: guid }
+	});
+
+	documentVersions.forEach((documentVersion) => {
+		const {
+			privateBlobContainer,
+			privateBlobPath,
+			publishedBlobContainer,
+			publishedBlobPath,
+			fileName
+		} = documentVersion;
+		const privateBlob = `${privateBlobContainer}${privateBlobPath}/${fileName}`;
+		console.log(`Private blob can be safely deleted: ${privateBlob}`);
+		blobs.push(privateBlob);
+		if (publishedBlobContainer && publishedBlobPath) {
+			const publishedBlob = `${publishedBlobContainer}${publishedBlobPath}/${fileName}`;
+			console.log(`Published blob can be safely deleted: ${publishedBlob}`);
+			blobs.push(publishedBlob);
 		}
 	});
 
@@ -275,8 +303,8 @@ const removeCase = async (reference) => {
 				}
 			},
 			{
-				maxWait: 20000, // default: 2000
-				timeout: 100000 // default: 5000
+				maxWait: maxWaitInSeconds * 1000,
+				timeout: maxTimeoutInSeconds * 1000
 			}
 		);
 	} catch (e) {
@@ -318,7 +346,12 @@ export const removeCases = async (references) => {
 		console.log(`\nSkipped ${errors.length} case${errors.length === 1 ? '' : 's'} due to errors:`);
 		errors.forEach(({ reference }) => console.log('- ' + reference));
 	}
+	if (blobs.length > 0) {
+		console.log(`\nThere are ${blobs.length} blobs that can be safely deleted:`);
+		blobs.forEach((blob) => console.log('- ' + blob));
+	}
 	console.log('*************************************\n');
+
 	if (errors.length > 0) {
 		throw errors;
 	}
@@ -332,6 +365,7 @@ export const removeCases = async (references) => {
  */
 const getReferencesPrefixedWith = async (startsWith) => {
 	const cases = await databaseConnector.case.findMany({
+		take: maxCasesToDelete,
 		where: {
 			reference: {
 				startsWith
@@ -347,7 +381,7 @@ const getReferencesPrefixedWith = async (startsWith) => {
  *
  * @returns {Promise<void>}
  */
-export const removeAllTrainingCase = async () => {
+export const removeAllTrainingCases = async () => {
 	// const references = await getReferencesPrefixedWith('TRAIN0110004');
 	const references = await getReferencesPrefixedWith('TRAIN');
 	await removeCases(references);

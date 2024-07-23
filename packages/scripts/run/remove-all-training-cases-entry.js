@@ -1,6 +1,6 @@
-import { removeAllTrainingCase } from '../src/remove-training-cases.js';
+import { removeAllTrainingCases } from '../src/remove-training-cases.js';
 
-removeAllTrainingCase()
+removeAllTrainingCases()
 	.then(() => {
 		console.log('Successfully removed all training cases from backoffice-applications');
 	})
