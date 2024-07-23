@@ -115,7 +115,7 @@ const removeDocument = async (tx, document, folderPath) => {
 	});
 
 	await tx.documentVersion.updateMany({
-		where: { guid },
+		where: { documentGuid: guid },
 		data: {
 			transcriptGuid: null
 		}
@@ -169,10 +169,6 @@ const removeFoldersAndDocuments = async (tx, caseDetails) => {
 		where: { caseId }
 	});
 
-	if (folders.length) {
-		return;
-	}
-
 	const documents = await tx.document.findMany({
 		where: { caseId }
 	});
@@ -194,7 +190,7 @@ const removeFoldersAndDocuments = async (tx, caseDetails) => {
 			console.log(`Removing folder: ${folderPath}`);
 		} else {
 			// Now safe to delete all folders for a case as all the dependencies have been deleted
-			// tx.folder.deleteMany({ where: { caseId: caseDetails.caseId } });
+			tx.folder.deleteMany({ where: { caseId: caseDetails.caseId } });
 		}
 	};
 
@@ -254,6 +250,10 @@ const removeCase = async (reference) => {
 				await removeServiceUser(tx, applicant);
 				await removeS51Advices(tx, caseId);
 
+				const skippedDocs = await tx.document.findMany({ where: { caseId } });
+				if (skippedDocs.length) {
+					console.log(`Skipped docs: ${JSON.stringify(skippedDocs, null, 2)}`);
+				}
 				await tx.case.delete({ where: { id: caseId } });
 
 				console.log(reference + ' Removed');
@@ -336,7 +336,7 @@ const getReferencesPrefixedWith = async (startsWith) => {
  * @returns {Promise<void>}
  */
 export const removeAllTrainingCase = async () => {
-	// const references = await getReferencesPrefixedWith('TRAIN0110002');
+	// const references = await getReferencesPrefixedWith('TRAIN0110004');
 	const references = await getReferencesPrefixedWith('TRAIN');
 	await removeCases(references);
 };
