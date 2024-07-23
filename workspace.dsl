@@ -105,17 +105,21 @@ workspace "Applications service" {
 
 		##################################################################################
 		# Relationships
-		userCaseWorker -> systemAppsBo "Manages cases through" "HTTPS, HTML, Active Directory Auth"
-		userCaseManager -> systemAppsBo "Manages cases through" "HTTPS, HTML, Active Directory Auth"
-		userInspector -> systemAppsBo "Manages cases through" "HTTPS, HTML, Active Directory Auth"
+		userCaseWorker -> containerBoWeb "Manages cases through" "HTTPS, HTML, Active Directory Auth"
+		userCaseManager -> containerBoWeb "Manages cases through" "HTTPS, HTML, Active Directory Auth"
+		userInspector -> containerBoWeb "Manages cases through" "HTTPS, HTML, Active Directory Auth"
 
 		# Back-office
 		containerBoWeb -> containerBoApi "Renders page, gets and posts data using" "HTTPS, JSON"
 		containerBoApi -> containerBoAzureSql "Reads and writes case data to"
-		containerBoApi -> containerBoFileStorage "Reads and writes appeal documents to"
+		containerBoApi -> containerBoFileStorage "Reads and writes applications documents to"
+		containerBoApi -> containerBoFileStoragePublished "Reads and writes published applications documents to"
 
 		containerFunctionApp -> systemAppsFo "Broadcasts message on entity changes" "Azure Service Bus" "ServiceBus"
 		containerFunctionApp -> systemOdw "Broadcasts message on entity change" "Azure Service Bus" "ServiceBus"
+
+		# Front-Office also talks directly to the published file storage
+		systemAppsFo -> containerBoFileStoragePublished "reads published documents from"
 
 		# TODO Determine if it's more suitable to list each topic as below, rather than grouping all Function Apps together
 		# containerBoApi -> systemAppsFo "Broadcasts message on Advice changes" "Azure Service via topic s51-advice" "ServiceBus"
