@@ -5,28 +5,29 @@ workspace "Applications service" {
 				"structurizr.groupSeparator" "/"
 		}
 
-		userPublicIndividual = person "Private individual" "Member of public interested in nationally significant infrastructure projects"
-		userMemberOfOrg = person "Member of organisation" "Member of an organisation interested in nationally significant infrastructure projects"
-		userAgent = person "Agent" "Represent a private individual family or organisation"
-
 		group "Planning Inspectorate"{
 			userCaseWorker = person "Case worker" "Member of PINS staff who administers project information"
+			userCaseManager = person "Case manager" "Member of PINS staff who manages case workers"
+			userInspector = person "Inspector" "Member of PINS Inspector staff who decides cases"
 
-			systemAppsBo = softwareSystem "Applications Back-Office" "Internally facing service allowing for management of cases relating to Nationally Significant Infrastructure Projects (NSIPs) within England and Wales"  {
+			systemAppsBo = softwareSystem "CBOS - Casework Back-Office System" "Internally facing service allowing for management of cases relating to Nationally Significant Infrastructure Projects (NSIPs) within England and Wales"  {
 
-				containerBoFileStorage = container "File storage" "### NEEDS DESCRIPTION ###"{
-					tags "Microsoft Azure - Blob Storage"
+				containerBoFileStorage = container "File storage" "Azure Blob Storage that contains all documents and document versions in CBOS"{
+					tags "Microsoft Azure - Blob Block"
+				}
+				containerBoFileStoragePublished = container "Published File storage" "Azure Blob Storage that contains all Published documents, also accessible by Front Office"{
+					tags "Microsoft Azure - Blob Block"
 				}
 
 				containerBoWeb = container "BO Web" "Back-office website used to manage cases" "Node.js, Azure Web App"{
 					tags "Microsoft Azure - App Services"
 				}
 
-				containerBoApi = container "Web BO API" "" "Node.js, Azure Web App" {
+				containerBoApi = container "Web BO API" "CBOS API to perform CRUD operations on NSIP cases, documents, S51 Advice, Relevant Representations, Exam Timetables etc, on the database, and broadcast events to the Azure Service Bus" "Node.js, Azure Web App" {
 					tags "Microsoft Azure - App Services"
 				}
 
-				containerBoAzureSql = container "Database" "Source of truth for cases" "Azure SQL" {
+				containerBoAzureSql = container "Database" "Source of truth for cases, built and maintained from model using Prisma" "Azure SQL, Prisma" {
 					tags "Database" "Microsoft Azure - Azure SQL"
 				}
 
@@ -103,11 +104,10 @@ workspace "Applications service" {
 		}
 
 		##################################################################################
-		# Releationships
-		userPublicIndividual -> systemAppsFo "Finds project information and registers interest" "HTTPS, HTML"
-		userMemberOfOrg -> systemAppsFo "Finds project information and registers interest" "HTTPS, HTML"
-		userAgent -> systemAppsFo "Finds project information and registers interest" "HTTPS, HTML"
+		# Relationships
 		userCaseWorker -> systemAppsBo "Manages cases through" "HTTPS, HTML, Active Directory Auth"
+		userCaseManager -> systemAppsBo "Manages cases through" "HTTPS, HTML, Active Directory Auth"
+		userInspector -> systemAppsBo "Manages cases through" "HTTPS, HTML, Active Directory Auth"
 
 		# Back-office
 		containerBoWeb -> containerBoApi "Renders page, gets and posts data using" "HTTPS, JSON"
@@ -140,7 +140,7 @@ workspace "Applications service" {
 			"structurizr.sort" "created"
 		}
 
-		# Azure icons only
+		# Azure icons only, latest version
 		theme default
 		theme https://static.structurizr.com/themes/microsoft-azure-2023.01.24/icons.json
 
