@@ -67,7 +67,7 @@ export const getNsipProjects = async (log, caseReference, overrideMigrationStatu
 		nsipAdministrationOfficerIds: valueToArray(project.nsipAdministrationOfficerIds),
 		inspectorIds: valueToArray(project.inspectorIds),
 		migrationStatus: overrideMigrationStatus ? true : Boolean(project.migrationStatus),
-		regions: valueToArray(project.region),
+		regions: valueToArray(project.regions),
 		projectType: mapProjectType(project.projectType)
 	}));
 };
