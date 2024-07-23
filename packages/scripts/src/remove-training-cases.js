@@ -188,9 +188,8 @@ const removeFoldersAndDocuments = async (tx, caseDetails) => {
 			}
 
 			console.log(`Removing folder: ${folderPath}`);
-		} else {
-			// Now safe to delete all folders for a case as all the dependencies have been deleted
-			await tx.folder.deleteMany({ where: { caseId } });
+
+			await tx.folder.delete({ where: { id: folderId } });
 		}
 	};
 
