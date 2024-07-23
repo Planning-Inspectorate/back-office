@@ -11,7 +11,8 @@ import {
 	getAllFolders,
 	updateFolder as svcUpdateFolder,
 	getChildFolders,
-	checkFoldersHaveNoDocuments
+	checkFoldersHaveNoDocuments,
+	checkIfFolderIsCustom
 } from './folders.service.js';
 
 /**
@@ -96,6 +97,14 @@ export const updateFolder = async ({ params, body }, response) => {
  * @type {import('express').RequestHandler<{ id: number , folderId: number }, ?, { name: string, parentFolderId?: number }, ?>}
  */
 export const deleteFolder = async ({ params }, response) => {
+	const isCustomFolder = await checkIfFolderIsCustom(params.folderId);
+	if (isCustomFolder === undefined) {
+		throw new BackOfficeAppError(`Folder with id: ${params.folderId} not found`, 404);
+	}
+	if (!isCustomFolder) {
+		throw new BackOfficeAppError('Cannot delete a non-custom folder', 403);
+	}
+
 	/** @type {Array<{ id: number, parentFolderId?: number | null, containsDocuments?: boolean }>}*/
 	const folderList = [{ id: params.folderId }];
 	try {
@@ -114,7 +123,7 @@ export const deleteFolder = async ({ params }, response) => {
 		await folderRepository.deleteFolderMany(folderList.map((folder) => folder.id));
 		response.status(204).send();
 	} catch (error) {
-		logger.error('Failed to delete folders: ', error);
+		logger.error(`Failed to delete folders: ${error}`);
 		throw new BackOfficeAppError('Failed to delete folder due to internal error.', 500);
 	}
 };

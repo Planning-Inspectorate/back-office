@@ -121,7 +121,8 @@ export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 
  */
 export const getChildFolders = async (folderId, folderList = []) => {
 	const currentLevelFolderList = await folderRepository.getFoldersByParentId(folderId, {
-		select: { id: true, parentFolderId: true }
+		select: { id: true, parentFolderId: true },
+		where: { parentFolderId: folderId, isCustom: true }
 	});
 	folderList.push(...currentLevelFolderList);
 
@@ -170,6 +171,16 @@ export const updateFolder = async (id, { name }) => {
 	}
 
 	return mapSingleFolderDetails(folder);
+};
+
+/**
+ *
+ * @param {number} folderId
+ * @returns {Promise<boolean | undefined>}
+ */
+export const checkIfFolderIsCustom = async (folderId) => {
+	const folder = await folderRepository.getById(folderId);
+	return folder?.isCustom;
 };
 
 /**
