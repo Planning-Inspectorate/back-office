@@ -67,10 +67,27 @@ export const getNsipProjects = async (log, caseReference, overrideMigrationStatu
 		nsipAdministrationOfficerIds: valueToArray(project.nsipAdministrationOfficerIds),
 		inspectorIds: valueToArray(project.inspectorIds),
 		migrationStatus: overrideMigrationStatus ? true : Boolean(project.migrationStatus),
-		regions: valueToArray(project.regions),
-		projectType: mapProjectType(project.projectType)
+		regions: mapRegions(valueToArray(project.regions)),
+		projectType: mapProjectType(project.projectType),
+
+		// TODO: remove fields manually mapped below once ODW-1329 resolved
+		// ensures required fields are present and corrects casing inconsistencies whilst curated layer is incorrect
+		welshLanguage: project.welshLanguage || project.WelshLanguage || null,
+		secretaryOfState: project.secretaryOfState || project.SecretaryOfState || null,
+		projectNameWelsh: project.projectNameWelsh || null,
+		projectLocationWelsh: project.projectLocationWelsh || null,
+		projectDescriptionWelsh: project.projectDescriptionWelsh || null,
+		examTimetablePublishStatus: project.examTimetablePublishStatus || null,
+		confirmedDateOfDecision: project.confirmedDateOfDecision || null
 	}));
 };
+
+/**
+ * temporary workaround to mitigate formatting issue ODW-1329
+ * replaces whitespaces with underscores
+ * TODO: remove once ODW-1329 resolved
+ */
+const mapRegions = (regions) => regions.map((region) => region.replaceAll(' ', '_'));
 
 /**
  * temporary workaround to fix casing issue
