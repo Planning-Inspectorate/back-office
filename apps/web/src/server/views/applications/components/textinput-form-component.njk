@@ -4,6 +4,10 @@
 {% macro textinputFormComponent(options) %}
 	{{ englishValueComponent(options) }}
 
+  {% if options.contextLabel %}
+    <p class="govuk-body-l govuk-!-margin-0 colour--secondary">{{ options.contextLabel }}</p>
+  {% endif %}
+
 	{{ govukInput({
 		id: options.name,
 		pageTitle: options.pageTitle if options.pageTitle else options.layout,
