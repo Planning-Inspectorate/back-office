@@ -9,6 +9,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% set isS51folder = currentFolder.displayNameEn === 'S51 advice' %}
 {% set isGeneralS51folder = case.reference === gs51CaseReference %}
@@ -38,10 +39,19 @@
 {% endblock %}
 
 {% block pageContent %}
+	{% if sessionBannerText %}
+		{% set sessionBannerHtml %}
+			<p class="govuk-notification-banner__heading">{{ sessionBannerText }}</p>
+		{% endset %}
+		{{ govukNotificationBanner({
+			type: 'success',
+			html: sessionBannerHtml
+		}) }}
+	{% endif %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{% block sectionContent %}
-				{{ folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce, isGeneralS51folder) }}
+				{{ folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce, isGeneralS51folder, isCustomFolder) }}
 
 				{{ folderStatus(currentFolder, items, caseId, isS51folder, isGeneralS51folder) }}
 

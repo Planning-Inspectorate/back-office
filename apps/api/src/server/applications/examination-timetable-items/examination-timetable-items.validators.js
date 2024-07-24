@@ -4,13 +4,13 @@ import { param } from 'express-validator';
 import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
 import * as examinationTimetableItemsRepository from '#repositories/examination-timetable-items.repository.js';
 import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
-import * as caseRepository from '#repositories/case.repository.js';
 import {
 	validateExistingApplication,
 	verifyNotTraining
 } from '../application/application.validators.js';
 import { customErrorValidationHandler, validationErrorHandler } from '#middleware/error-handler.js';
 import logger from '#utils/logger.js';
+import isCaseWelsh from '#utils/is-case-welsh.js';
 
 /**
  * Validate that an exam timetable item type exists
@@ -146,7 +146,7 @@ const generateExamTimetablePublishingErrors = (timetableItems) => {
 };
 
 /**
- * Validate that all examination timetable items have a welsh name
+ * Validate that all welsh case examination timetable items have a welsh name
  * @param {number} value
  * @throws {Error}
  * @returns {Promise<void>}
@@ -154,12 +154,7 @@ const generateExamTimetablePublishingErrors = (timetableItems) => {
  */
 
 export const validateExamTimetableWelshName = async (value) => {
-	const caseData = await caseRepository.getById(value, { regions: true });
-	if (!caseData) throw new Error(`Could not find examination a case with ID ${value}`);
-
-	const caseIsWelsh = Boolean(
-		caseData.ApplicationDetails?.regions?.find((item) => item.region.name === 'wales')
-	);
+	const caseIsWelsh = await isCaseWelsh(value);
 
 	if (!caseIsWelsh) return;
 

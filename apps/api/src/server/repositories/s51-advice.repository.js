@@ -116,48 +116,54 @@ export const updateForCase = (caseId, s51AdviceDetails) => {
  * From a given list of S51 advice ids, retrieve the ones which are publishable
  *
  * @param {number[]} s51AdviceIds
+ * @param {boolean} caseIsWelsh
  * @returns {Promise<{id: number}[]>}
  */
-export const getPublishableS51Advice = (s51AdviceIds) => {
+export const getPublishableS51Advice = (s51AdviceIds, caseIsWelsh) => {
 	// most of the fields have a not null constraint in DB already, so dont need to check them
 	// need to check has title, and (either (enquirer || (firstName + lastName) or all))
+	const orQuery = [
+		{
+			title: ''
+		},
+		{
+			AND: [
+				{
+					enquirer: ''
+				},
+				{
+					OR: [
+						{
+							firstName: ''
+						},
+						{
+							lastName: ''
+						}
+					]
+				}
+			]
+		}
+	];
 	return databaseConnector.s51Advice.findMany({
 		where: {
 			id: {
 				in: s51AdviceIds
 			},
 			NOT: {
-				OR: [
-					{
-						title: ''
-					},
-					{
-						AND: [
+				OR: caseIsWelsh
+					? [
+							...orQuery,
 							{
-								enquirer: ''
+								titleWelsh: null
 							},
 							{
-								OR: [
-									{
-										firstName: ''
-									},
-									{
-										lastName: ''
-									}
-								]
+								adviceDetailsWelsh: null
+							},
+							{
+								enquiryDetailsWelsh: null
 							}
-						]
-					},
-					{
-						titleWelsh: null
-					},
-					{
-						adviceDetailsWelsh: null
-					},
-					{
-						enquiryDetailsWelsh: null
-					}
-				]
+					  ]
+					: orQuery
 			}
 		},
 		select: {

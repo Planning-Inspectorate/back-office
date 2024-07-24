@@ -1,6 +1,7 @@
 import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
 import { makePostRequest } from '../back-office-api-client.js';
+import { valueToArray } from '../utils.js';
 
 /**
  * Migrate multiple nsip-projects
@@ -66,12 +67,10 @@ export const getNsipProjects = async (log, caseReference, overrideMigrationStatu
 		nsipAdministrationOfficerIds: valueToArray(project.nsipAdministrationOfficerIds),
 		inspectorIds: valueToArray(project.inspectorIds),
 		migrationStatus: overrideMigrationStatus ? true : Boolean(project.migrationStatus),
-		regions: valueToArray(project.region),
+		regions: valueToArray(project.regions),
 		projectType: mapProjectType(project.projectType)
 	}));
 };
-
-const valueToArray = (value) => (value ? [value] : []);
 
 /**
  * temporary workaround to fix casing issue

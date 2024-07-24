@@ -3,6 +3,7 @@ export interface FolderDetails {
 	displayNameEn: string;
 	displayOrder?: number | null;
 	stage?: string;
+	isCustom: boolean;
 }
 
 export interface ChildFolderTemplate {
@@ -14,4 +15,5 @@ export interface FolderTemplate {
 	caseId?: number;
 	childFolders?: ChildFolderTemplate;
 	stage?: string | null;
+	isCustom?: boolean;
 }

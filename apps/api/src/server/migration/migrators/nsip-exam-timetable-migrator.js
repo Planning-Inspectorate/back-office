@@ -103,7 +103,16 @@ const mapModelToTimetableEntity = async ({ caseReference }) => {
 const mapModelToEventEntity = async (
 	examinationTimetableId,
 	examTimetableFolderId,
-	{ eventId, date, eventDeadlineStartDate, type, eventTitle, description }
+	{
+		eventId,
+		date,
+		eventDeadlineStartDate,
+		type,
+		eventTitle,
+		eventTitleWelsh,
+		description,
+		descriptionWelsh
+	}
 ) => {
 	const examinationTypeId = await getExamTimetableTypeIdFromName(type);
 
@@ -120,7 +129,9 @@ const mapModelToEventEntity = async (
 		// When we are migrating folders, refactor this to fetch the actual folder ID
 		folderId: examTimetableFolderId,
 		name: eventTitle,
+		nameWelsh: eventTitleWelsh,
 		description: formatEventDescription(description),
+		descriptionWelsh: formatEventDescription(descriptionWelsh),
 		examinationTypeId
 	};
 };

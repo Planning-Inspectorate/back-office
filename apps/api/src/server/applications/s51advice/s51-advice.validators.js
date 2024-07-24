@@ -128,10 +128,17 @@ export const validateS51AdviceIsNotPublished = composeMiddleware(
  * Verifies if the given array of S51 Advice IDs have the correct required fields, so that they are ready to publish
  *
  * @param {number[]} s51AdviceIds
+ * @param {boolean} caseIsWelsh
  * @returns {Promise<Error | null>}
  */
-export const verifyAllS51AdviceHasRequiredPropertiesForPublishing = async (s51AdviceIds) => {
-	const publishableS51Advice = await s51AdviceRepository.getPublishableS51Advice(s51AdviceIds);
+export const verifyAllS51AdviceHasRequiredPropertiesForPublishing = async (
+	s51AdviceIds,
+	caseIsWelsh
+) => {
+	const publishableS51Advice = await s51AdviceRepository.getPublishableS51Advice(
+		s51AdviceIds,
+		caseIsWelsh
+	);
 
 	if (s51AdviceIds.length !== publishableS51Advice.length) {
 		const publishableIds = new Set(publishableS51Advice.map((pAdvice) => pAdvice.id));

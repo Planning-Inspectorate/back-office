@@ -272,18 +272,17 @@ export const deleteDocument = (documentGuid) => {
 
 /**
  *
- * @param {{folderId: number, skipValue: number, pageSize: number, documentVersion?: number}} folderId
+ * @param {number} folderId
+ * @param {import('@prisma/client').Prisma.DocumentFindManyArgs} [options={}]
  * @returns {import('@prisma/client').PrismaPromise<Document[]>}
  */
-export const getDocumentsInFolder = ({ folderId, skipValue, pageSize }) => {
+export const getDocumentsInFolder = (folderId, options = {}) => {
 	return databaseConnector.document.findMany({
 		include: {
 			documentVersion: true,
 			latestDocumentVersion: true,
 			folder: true
 		},
-		skip: skipValue,
-		take: pageSize,
 		orderBy: [
 			{
 				createdAt: 'desc'
@@ -292,8 +291,24 @@ export const getDocumentsInFolder = ({ folderId, skipValue, pageSize }) => {
 		where: {
 			folderId,
 			isDeleted: false
+		},
+		...options
+	});
+};
+
+/**
+ *
+ * @param {number} folderId
+ * @returns {Promise<boolean>}
+ */
+export const doesDocumentsExistInFolder = async (folderId) => {
+	const count = await databaseConnector.document.count({
+		where: {
+			folderId,
+			isDeleted: false
 		}
 	});
+	return count > 0;
 };
 
 /**

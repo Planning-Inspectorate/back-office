@@ -1,5 +1,5 @@
 import { composeMiddleware } from '@pins/express';
-import { param } from 'express-validator';
+import { body, param } from 'express-validator';
 import { validationErrorHandler } from '#middleware/error-handler.js';
 import * as FolderRepository from '#repositories/folder.repository.js';
 
@@ -28,4 +28,13 @@ export const validateFolderId = composeMiddleware(
 		.custom(validateExistingFolderBelongsToCase)
 		.withMessage('Must be an existing folder that belongs to this case'),
 	validationErrorHandler
+);
+
+export const validateCreateBody = composeMiddleware(
+	body('name').exists().withMessage('Folder must have a name'),
+	body('parentFolderId')
+		.toInt()
+		.isInt()
+		.withMessage('parentFolderId must be a valid folder ID')
+		.optional({ nullable: true })
 );

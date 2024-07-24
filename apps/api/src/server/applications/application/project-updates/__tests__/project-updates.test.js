@@ -18,29 +18,30 @@ import { NotFound } from '#utils/api-errors.js';
 import { jest } from '@jest/globals';
 import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
 
+/**
+ * @param {Date} now
+ * @returns {(caseId: number) => import('@prisma/client').ProjectUpdate}
+ */
+const makeDummyProjectUpdate = (now) => (caseId) => ({
+	id: 1,
+	caseId,
+	dateCreated: now,
+	status: 'draft',
+	emailSubscribers: true,
+	sentToSubscribers: true,
+	authorId: 1,
+	htmlContent: 'content',
+	htmlContentWelsh: null,
+	title: null,
+	datePublished: null,
+	type: 'general'
+});
+
 describe('project-updates', () => {
 	describe('get', () => {
 		const now = new Date();
-		/**
-		 * @param {number} caseId
-		 * @returns {import('@prisma/client').ProjectUpdate}
-		 */
-		const dummyProjectUpdate = (caseId) => {
-			return {
-				id: 1,
-				caseId,
-				dateCreated: now,
-				status: 'draft',
-				emailSubscribers: true,
-				sentToSubscribers: true,
-				authorId: 1,
-				htmlContent: 'content',
-				htmlContentWelsh: null,
-				title: null,
-				datePublished: null,
-				type: 'general'
-			};
-		};
+		const dummyProjectUpdate = makeDummyProjectUpdate(now);
+
 		const tests = [
 			{
 				name: 'no updates',
@@ -168,7 +169,6 @@ describe('project-updates', () => {
 
 		for (const { name, query, updates, totalUpdates, want } of tests) {
 			test('' + name, async () => {
-				// setup
 				databaseConnector.projectUpdate.findMany.mockReset();
 
 				if (updates) {
@@ -176,40 +176,19 @@ describe('project-updates', () => {
 					databaseConnector.projectUpdate.findMany.mockResolvedValueOnce(updates);
 				}
 
-				// action
-				let url = `/applications/project-updates`;
-				if (query) {
-					url += '?' + query;
-				}
+				const url = `/applications/project-updates${query ? '?' + query : ''}`;
 				const response = await request.get(url);
-				// checks
+
 				expect(response.status).toEqual(want.status);
 				expect(response.body).toEqual(want.body);
 			});
 		}
 	});
+
 	describe('get by case', () => {
 		const now = new Date();
-		/**
-		 * @param {number} caseId
-		 * @returns {import('@prisma/client').ProjectUpdate}
-		 */
-		const dummyProjectUpdate = (caseId) => {
-			return {
-				id: 1,
-				caseId,
-				dateCreated: now,
-				status: 'draft',
-				emailSubscribers: true,
-				sentToSubscribers: true,
-				authorId: 1,
-				htmlContent: 'content',
-				htmlContentWelsh: null,
-				title: null,
-				datePublished: null,
-				type: 'general'
-			};
-		};
+		const dummyProjectUpdate = makeDummyProjectUpdate(now);
+
 		const tests = [
 			{
 				name: 'invalid caseId',
@@ -365,7 +344,6 @@ describe('project-updates', () => {
 
 		for (const { name, id, query, caseEntry, updates, totalUpdates, want } of tests) {
 			test('' + name, async () => {
-				// setup
 				databaseConnector.case.findUnique.mockReset();
 				databaseConnector.projectUpdate.findMany.mockReset();
 
@@ -378,14 +356,9 @@ describe('project-updates', () => {
 					databaseConnector.projectUpdate.findMany.mockResolvedValueOnce(updates);
 				}
 
-				// action
-				let url = `/applications/${id}/project-updates`;
-				if (query) {
-					url += '?' + query;
-				}
+				const url = `/applications/${id}/project-updates${query ? '?' + query : ''}`;
 				const response = await request.get(url);
 
-				// checks
 				expect(response.status).toEqual(want.status);
 				expect(response.body).toEqual(want.body);
 			});
@@ -543,8 +516,6 @@ describe('project-updates', () => {
 		];
 
 		it.each(tests)('$name', async ({ body, created, existingCase, want }) => {
-			// setup
-			// mock case
 			databaseConnector.case.findUnique.mockReset();
 			databaseConnector.case.findUnique
 				.mockResolvedValueOnce({ id: 1, reference: 'TEST' })
@@ -565,12 +536,11 @@ describe('project-updates', () => {
 				});
 			}
 
-			// action
 			const response = await request.post('/applications/1/project-updates').send(body);
 
-			// checks
 			expect(response.status).toEqual(want.status);
 			expect(response.body).toEqual(want.body);
+
 			if (created) {
 				// this is OK because we always run some checks
 				// eslint-disable-next-line jest/no-conditional-expect
@@ -586,26 +556,8 @@ describe('project-updates', () => {
 	describe('project-update', () => {
 		describe('get', () => {
 			const now = new Date();
-			/**
-			 * @param {number} caseId
-			 * @returns {import('@prisma/client').ProjectUpdate}
-			 */
-			const dummyProjectUpdate = (caseId) => {
-				return {
-					id: 1,
-					caseId,
-					dateCreated: now,
-					status: 'draft',
-					emailSubscribers: true,
-					sentToSubscribers: true,
-					authorId: 1,
-					htmlContent: 'content',
-					htmlContentWelsh: null,
-					title: null,
-					datePublished: null,
-					type: 'general'
-				};
-			};
+			const dummyProjectUpdate = makeDummyProjectUpdate(now);
+
 			const tests = [
 				{
 					name: 'invalid caseId',
@@ -682,7 +634,6 @@ describe('project-updates', () => {
 
 			for (const { name, id, projectUpdateId, projectUpdate, caseEntry, want } of tests) {
 				test('' + name, async () => {
-					// setup
 					databaseConnector.case.findUnique.mockReset();
 					databaseConnector.projectUpdate.findUnique.mockReset();
 
@@ -694,11 +645,9 @@ describe('project-updates', () => {
 						databaseConnector.projectUpdate.findUnique.mockResolvedValueOnce(projectUpdate);
 					}
 
-					// action
 					const url = `/applications/${id}/project-updates/${projectUpdateId}`;
 					const response = await request.get(url);
 
-					// checks
 					expect(response.status).toEqual(want.status);
 					expect(response.body).toEqual(want.body);
 				});
@@ -714,6 +663,7 @@ describe('project-updates', () => {
 			afterAll(() => {
 				jest.useRealTimers();
 			});
+
 			const tests = [
 				{
 					name: 'should check for numerical IDs',
@@ -928,8 +878,6 @@ describe('project-updates', () => {
 			];
 
 			it.each(tests)('$name', async ({ body, projectUpdateId, updated, existingCase, want }) => {
-				// setup
-				// mock case
 				databaseConnector.case.findUnique.mockReset();
 				databaseConnector.case.findUnique
 					.mockResolvedValueOnce({ id: 1, reference: 'TEST' })
@@ -941,7 +889,9 @@ describe('project-updates', () => {
 				let projectUpdate;
 
 				if (updated) {
-					databaseConnector.projectUpdate.findUnique.mockResolvedValueOnce(updated);
+					databaseConnector.projectUpdate.findUnique
+						.mockResolvedValueOnce(updated)
+						.mockResolvedValueOnce(updated);
 					databaseConnector.projectUpdate.update.mockImplementationOnce((req) => {
 						projectUpdate = {
 							...updated,
@@ -952,14 +902,13 @@ describe('project-updates', () => {
 					});
 				}
 
-				// action
 				const response = await request
 					.patch(`/applications/1/project-updates/${projectUpdateId}`)
 					.send(body);
 
-				// checks
 				expect(response.status).toEqual(want.status);
 				expect(response.body).toEqual(want.body);
+
 				if (updated && want.event) {
 					// this is OK because we always run some checks
 					// eslint-disable-next-line jest/no-conditional-expect
@@ -981,6 +930,7 @@ describe('project-updates', () => {
 			afterAll(() => {
 				jest.useRealTimers();
 			});
+
 			const tests = [
 				{
 					name: 'should check for numerical IDs',
@@ -1041,8 +991,6 @@ describe('project-updates', () => {
 			it.each(tests)(
 				'$name',
 				async ({ projectUpdateId, existingProjectUpdate, existingCase, want }) => {
-					// setup
-					// mock case
 					databaseConnector.case.findUnique.mockReset();
 					databaseConnector.case.findUnique
 						.mockImplementationOnce(mockApplicationGet({ id: 1, reference: 'TEST' }))
@@ -1064,14 +1012,13 @@ describe('project-updates', () => {
 						});
 					}
 
-					// action
 					const response = await request.delete(
 						`/applications/1/project-updates/${projectUpdateId}`
 					);
 
-					// checks
 					expect(response.status).toEqual(want.status);
 					expect(response.body).toEqual(want.body);
+
 					if (existingProjectUpdate && want.event) {
 						// this is OK because we always run some checks
 						// eslint-disable-next-line jest/no-conditional-expect

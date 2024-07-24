@@ -31,6 +31,7 @@ import {
 import BackOfficeAppError from '#utils/app-error.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import logger from '#utils/logger.js';
+import isCaseWelsh from '#utils/is-case-welsh.js';
 
 /**
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
@@ -242,10 +243,11 @@ export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
  */
 export const updateS51Advice = async ({ body, params }, response) => {
 	const adviceId = params.adviceId;
+	const caseIsWelsh = await isCaseWelsh(params.id);
 	const payload = body[''];
 
 	if (payload.publishedStatus === 'ready_to_publish') {
-		await checkCanPublish(adviceId);
+		await checkCanPublish(adviceId, caseIsWelsh);
 	}
 
 	if (payload.publishedStatus && payload.publishedStatus !== 'unpublished') {
@@ -273,10 +275,11 @@ export const updateS51Advice = async ({ body, params }, response) => {
  *
  * @type {import('express').RequestHandler<{id: number}, any, any, any>}
  */
-export const updateManyS51Advices = async ({ body }, response) => {
+export const updateManyS51Advices = async ({ body, params }, response) => {
 	const { status: publishedStatus, redacted: isRedacted, items } = body[''];
 	const formattedResponseList = [];
 	const adviceIds = items.map((/** @type {{ id: number }} */ advice) => advice.id);
+	const caseIsWelsh = await isCaseWelsh(params.id);
 
 	let redactedStatus;
 
@@ -288,7 +291,7 @@ export const updateManyS51Advices = async ({ body }, response) => {
 
 	// special case - for Ready to Publish, need to check that required metadata is set on all the advice - else error
 	if (publishedStatus === 'ready_to_publish') {
-		const err = await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds);
+		const err = await verifyAllS51AdviceHasRequiredPropertiesForPublishing(adviceIds, caseIsWelsh);
 		if (err) {
 			logger.info(`received error from verifyAllS51DocumentsAreVirusChecked: ${err}`);
 			throw new BackOfficeAppError('Enter missing information about the S51 advice', 400);

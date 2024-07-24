@@ -7,22 +7,26 @@ import {
 	getSuccessBanner,
 	destroySuccessBanner,
 	getSessionBanner,
-	deleteSessionBanner
+	deleteSessionBanner,
+	setSessionBanner
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
+	createFolder,
 	deleteCaseDocumentationFile,
 	getCaseDocumentationFileInfo,
 	getCaseDocumentationFilesInFolder,
 	getCaseDocumentationFileVersions,
 	getCaseDocumentationReadyToPublish,
+	getCaseFolder,
 	getCaseFolders,
 	publishCaseDocumentationFiles,
 	removeCaseDocumentationPublishingQueue,
 	updateCaseDocumentationFiles,
 	unpublishCaseDocumentationFiles,
 	getCaseManyDocumentationFilesInfo,
-	searchDocuments
+	searchDocuments,
+	renameFolder
 } from './applications-documentation.service.js';
 import {
 	destroySessionFolderPage,
@@ -31,6 +35,8 @@ import {
 } from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
+import { featureFlagClient } from '../../../../common/feature-flags.js';
+import { validationResult } from 'express-validator';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -70,9 +76,21 @@ export async function viewApplicationsCaseDocumentationCategories(_, response) {
  * @type {import('@pins/express').RenderHandler<CaseDocumentationProps, ApplicationCaseLocals, {}, {size?: string, number?: string}, {folderName: string}>}
  */
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
-	const properties = await documentationFolderData(request, response);
+	const properties = await documentationFolderData(
+		response.locals.caseId,
+		response.locals.folderId,
+		request.query,
+		request.session
+	);
+	const { session } = request;
+	const sessionBannerText = getSessionBanner(session);
 
-	response.render(`applications/components/folder/folder`, properties);
+	response.render(`applications/components/folder/folder`, {
+		...properties,
+		sessionBannerText
+	});
+
+	deleteSessionBanner(session);
 }
 
 /**
@@ -87,7 +105,12 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 	const { status, isRedacted, selectedFilesIds } = body;
 	const redacted = typeof isRedacted === 'string' ? { redacted: isRedacted === '1' } : {};
 
-	const properties = await documentationFolderData(request, response);
+	const properties = await documentationFolderData(
+		response.locals.caseId,
+		response.locals.folderId,
+		request.query,
+		request.session
+	);
 
 	const payload = {
 		status,
@@ -151,7 +174,12 @@ export async function viewApplicationsCaseDocumentationVersionUpload(_, response
  */
 export async function viewApplicationsCaseDocumentationUnpublishPage(request, response) {
 	if (request.errors) {
-		const properties = await documentationFolderData(request, response);
+		const properties = await documentationFolderData(
+			response.locals.caseId,
+			response.locals.folderId,
+			request.query,
+			request.session
+		);
 
 		return response.render('applications/components/folder/folder', {
 			...properties,
@@ -165,7 +193,12 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 	);
 
 	if (!documentationFiles.every((file) => file.publishedStatus === 'published')) {
-		const properties = await documentationFolderData(request, response);
+		const properties = await documentationFolderData(
+			response.locals.caseId,
+			response.locals.folderId,
+			request.query,
+			request.session
+		);
 
 		return response.render('applications/components/folder/folder', {
 			...properties,
@@ -426,27 +459,44 @@ export async function postUnpublishDocuments({ body, session }, response) {
 /**
  * Get all the data for the display folder page (used by POST and GET) to retrieve shared template properties
  *
- * @param {{params: {folderName: string}, query: {number?: string, size?: string}, session: SessionWithFilesNumberOnList}} request
- * @param {{locals: Record<string, any>}} response
+ * @param {number} caseId
+ * @param {number} folderId
+ * @param {{ number?: string, size?: string }} query
+ * @param {SessionWithFilesNumberOnList} session
  * @returns {Promise<CaseDocumentationProps>}
  */
-const documentationFolderData = async (request, response) => {
-	const { caseId, folderId } = response.locals;
-	const { folderName } = request.params;
-	const number = +(request.query.number || '1');
-	const sizeInSession = getSessionFilesNumberOnList(request.session);
-	const sizeInQuery =
-		request.query?.size && !Number.isNaN(+request.query.size) ? +request.query.size : null;
+const documentationFolderData = async (caseId, folderId, query = {}, session) => {
+	const number = Number(query.number || '1');
+
+	const sizeInSession = getSessionFilesNumberOnList(session);
+
+	/** @type {number | null} */
+	const sizeInQuery = (() => {
+		if (!query.size) {
+			return null;
+		}
+
+		const size = Number(query.size);
+		if (Number.isNaN(size)) {
+			return null;
+		}
+
+		return size;
+	})();
+
 	const size = sizeInQuery || sizeInSession || 50;
 
-	setSessionFilesNumberOnList(request.session, size);
+	const folderDetails = await getCaseFolder(caseId, folderId);
+
+	setSessionFilesNumberOnList(session, size);
+
 	// clear session folder back link
-	destroySessionFolderPage(request.session);
+	destroySessionFolderPage(session);
 	setSessionFolderPage(
-		request.session,
+		session,
 		url('document-category', {
 			caseId,
-			documentationCategory: { id: folderId, displayNameEn: folderName }
+			documentationCategory: { id: folderId, displayNameEn: folderDetails.displayNameEn }
 		})
 	);
 
@@ -467,7 +517,8 @@ const documentationFolderData = async (request, response) => {
 	return {
 		subFolders,
 		items: documentationFiles,
-		pagination
+		pagination,
+		isCustomFolder: folderDetails.isCustom
 	};
 };
 
@@ -536,4 +587,96 @@ export async function viewApplicationsCaseDocumentationSearchPage(
 		pagination,
 		errors
 	});
+}
+
+/**
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function viewFolderCreationPage(request, response) {
+	const { caseId } = response.locals;
+	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+	return response.render('applications/components/folder/folder-create', {
+		backLink
+	});
+}
+
+/**
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function viewFolderRenamePage(request, response) {
+	const { caseId } = response.locals;
+	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+	return response.render('applications/components/folder/folder-rename', {
+		backLink
+	});
+}
+
+/**
+ * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
+ */
+export async function updateFolderCreate(request, response) {
+	if (!featureFlagClient.isFeatureActive('applic-625-custom-folders')) {
+		return response.redirect('./');
+	}
+
+	const validationError = validationResult(request);
+	if (!validationError.isEmpty()) {
+		const { caseId } = response.locals;
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+
+		return response.render(`applications/components/folder/folder-create`, {
+			backLink,
+			errors: validationError.array({ onlyFirstError: true })
+		});
+	}
+
+	const { session } = request;
+	const { folderId } = request.params;
+	const { folderName } = request.body;
+	const { caseId } = response.locals;
+
+	const { errors } = await createFolder(caseId, folderName, parseInt(folderId));
+	if (errors) {
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		return response.render('applications/components/folder/folder-create', {
+			backLink,
+			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
+		});
+	}
+
+	setSessionBanner(session, 'Folder created');
+	return response.redirect('../folder');
+}
+
+/**
+ * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
+ */
+export async function updateFolderRename(request, response) {
+	const validationError = validationResult(request);
+	if (!validationError.isEmpty()) {
+		const { caseId } = response.locals;
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+
+		return response.render('applications/components/folder/folder-create', {
+			backLink,
+			errors: validationError.array({ onlyFirstError: true })
+		});
+	}
+
+	const { session } = request;
+	const { folderId } = request.params;
+	const { folderName } = request.body;
+	const { caseId } = response.locals;
+
+	const { errors } = await renameFolder(caseId, parseInt(folderId), folderName);
+	if (errors) {
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		return response.render('applications/components/folder/folder-rename', {
+			backLink,
+			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
+		});
+	}
+
+	setSessionBanner(session, 'Folder renamed');
+	return response.redirect('../folder');
 }

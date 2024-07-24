@@ -18,7 +18,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -29,11 +33,31 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -852,7 +876,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -863,11 +891,31 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2090,7 +2138,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -2101,11 +2153,31 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -2167,7 +2239,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -2178,11 +2254,31 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -3023,7 +3119,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -3034,11 +3134,31 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -4278,7 +4398,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -4289,11 +4413,31 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -5531,7 +5675,11 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="pins-dashboard-list--hide-controls">
-                <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
                     <div class="govuk-accordion__section">
                         <div class="govuk-accordion__section-header">
@@ -5542,11 +5690,31 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
                                         </td>
                                     </tr>
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
                                     </tr>
                                 </tbody>

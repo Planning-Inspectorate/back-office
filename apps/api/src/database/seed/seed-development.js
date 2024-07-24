@@ -11,6 +11,7 @@ import { deleteAllRecords } from './seed-clear.js';
  * @returns {Promise<void>}
  */
 const seedDevelopment = async () => {
+	process.env.NODE_ENV = 'seeding';
 	try {
 		await deleteAllRecords(databaseConnector);
 		await seedStaticData(databaseConnector);

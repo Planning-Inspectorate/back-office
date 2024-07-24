@@ -71,14 +71,18 @@ const migrateCase = ({
 	caseId,
 	caseReference,
 	projectName,
+	projectNameWelsh,
 	projectDescription,
+	projectDescriptionWelsh,
 	migrationStatus
 }) => {
 	const entity = {
 		id: caseId,
 		reference: caseReference,
 		title: projectName,
+		titleWelsh: projectNameWelsh,
 		description: projectDescription,
+		descriptionWelsh: projectDescriptionWelsh,
 		migrationStatus
 	};
 
@@ -110,6 +114,7 @@ const migrateApplicationDetails = async (model) => {
 		subSectorId,
 		zoomLevelId,
 		locationDescription: model.projectLocation,
+		locationDescriptionWelsh: model.projectLocationWelsh,
 		caseEmail: model.projectEmailAddress,
 		// These two dates have different public-facing names
 		submissionAtInternal: model.anticipatedDateOfSubmission

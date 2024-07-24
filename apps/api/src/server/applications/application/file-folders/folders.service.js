@@ -1,6 +1,7 @@
 import * as documentRepository from '#repositories/document.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
+import logger from '#utils/logger.js';
 import { mapDocumentVersionDetails } from '#utils/mapping/map-document-details.js';
 import {
 	mapBreadcrumbFolderDetails,
@@ -52,6 +53,22 @@ export const getFolder = async (folderId) => {
 };
 
 /**
+ * @param {number} caseId
+ * @param {string} folderName
+ * @param {number} [parentFolderId]
+ * @returns {Promise<FolderDetails | null>}
+ * */
+export const getFolderByName = async (caseId, folderName, parentFolderId) => {
+	const folder = await folderRepository.getFolderByNameAndCaseId(
+		caseId,
+		folderName,
+		parentFolderId
+	);
+
+	return folder ? mapSingleFolderDetails(folder) : null;
+};
+
+/**
  * Returns parent folder path as an ordered array for a folder on a case
  *
  * @param {number} id
@@ -76,10 +93,9 @@ export const getFolderPath = async (id, folderId) => {
 export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 50) => {
 	const skipValue = getSkipValue(pageNumber, pageSize);
 	const documentsCount = await documentRepository.getDocumentsCountInFolder(folderId);
-	const documents = await documentRepository.getDocumentsInFolder({
-		folderId,
-		skipValue,
-		pageSize
+	const documents = await documentRepository.getDocumentsInFolder(folderId, {
+		skip: skipValue,
+		take: pageSize
 	});
 
 	// @ts-ignore
@@ -95,4 +111,104 @@ export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 
 		itemCount: documentsCount,
 		items: mapDocumentVersionDetails(mapDocument)
 	};
+};
+
+/**
+ * Returns a list of folderIds and their parentFolderIds
+ *
+ * @param {number} folderId
+ * @returns {Promise<Array<{ id: number, parentFolderId: number | null }>>}
+ */
+export const getChildFolders = async (folderId) => {
+	try {
+		const currentLevelFolderList = await folderRepository.getFoldersByParentId(folderId, {
+			select: { id: true, parentFolderId: true },
+			where: { parentFolderId: folderId, isCustom: true }
+		});
+
+		const childFoldersPromises = currentLevelFolderList.map((folder) => getChildFolders(folder.id));
+		const results = await Promise.allSettled(childFoldersPromises);
+
+		const childFolders = results.flatMap((result) => {
+			if (result.status === 'fulfilled') {
+				return result.value;
+			} else {
+				logger.error(`Failed to fetch child folders for folderId ${folderId}: ${result.reason}`);
+				return [];
+			}
+		});
+
+		return [...currentLevelFolderList, ...childFolders];
+	} catch (error) {
+		logger.error(`Failed to fetch folders for parentFolderId ${folderId}: ${error}`);
+		throw error;
+	}
+};
+
+/**
+ * Creates a folder, either at the top-level or inside a parent folder.
+ *
+ * @param {number} applicationId
+ * @param {string} folderName
+ * @param {number} [parentFolderId]
+ * @returns {Promise<FolderDetails>}
+ * */
+export const createFolder = async (applicationId, folderName, parentFolderId) => {
+	const input = {
+		displayNameEn: folderName,
+		caseId: applicationId,
+		parentFolderId: parentFolderId ?? null,
+		displayOrder: 100
+	};
+
+	const folder = await folderRepository.createFolder(input);
+	if (!folder) {
+		throw new Error(`Failed to create folder: ${input}`);
+	}
+
+	return mapSingleFolderDetails(folder);
+};
+
+/**
+ * Updates a folder by its ID
+ *
+ * @param {number} id
+ * @param {{ name: string }} payload
+ * @throws {Error}
+ * @returns {Promise<FolderDetails>}
+ * */
+export const updateFolder = async (id, { name }) => {
+	const input = { displayNameEn: name };
+
+	const folder = await folderRepository.updateFolderById(id, input);
+	if (!folder) {
+		throw new Error(`Failed to update folder ${id} with payload ${input}`);
+	}
+
+	return mapSingleFolderDetails(folder);
+};
+
+/**
+ *
+ * @param {number} folderId
+ * @returns {Promise<boolean | undefined>}
+ */
+export const checkIfFolderIsCustom = async (folderId) => {
+	const folder = await folderRepository.getById(folderId);
+	return folder?.isCustom;
+};
+
+/**
+ *
+ * @param {Array<{ id: number, parentFolderId?: number | null, containsDocuments?: boolean | null }>} folderList
+ */
+export const checkFoldersHaveNoDocuments = async (folderList) => {
+	await Promise.all(
+		folderList.map(async (folder) =>
+			documentRepository.doesDocumentsExistInFolder(folder.id).then((result) => {
+				folder.containsDocuments = result;
+			})
+		)
+	);
+	return folderList;
 };

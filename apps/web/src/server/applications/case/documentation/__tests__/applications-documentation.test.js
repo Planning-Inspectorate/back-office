@@ -28,7 +28,7 @@ const nocks = () => {
 		.reply(200, fixtureDocumentationTopLevelFolders);
 	nock('http://test/')
 		.get('/applications/123/folders/21')
-		.times(3)
+		.times(4)
 		.reply(200, fixtureDocumentationSingleFolder);
 	nock('http://test/')
 		.get('/applications/123/folders/21/parent-folders')

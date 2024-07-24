@@ -8,10 +8,7 @@ import fs from 'fs/promises';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-const endpointsFiles = [
-	'./src/server/migration/**/*.routes.js',
-	'./src/server/applications/**/*.routes.js'
-];
+const endpointsFiles = ['./migration/**/*.routes.js', './applications/**/*.routes.js'];
 
 const specFile = path.join(__dirname, 'swagger-output.json');
 const typesFile = path.join(__dirname, 'swagger-types.ts');

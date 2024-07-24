@@ -11,6 +11,28 @@ export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 		parameters.action = 'update';
 		parameters.args.data = { isDeleted: true };
 	}
+	if (process.env.NODE_ENV !== 'seeding' && parameters.model === 'Folder') {
+		if (parameters.action === 'delete') {
+			parameters.action = 'update';
+			parameters.args = parameters.args || {};
+			parameters.args.data = { deletedAt: new Date() };
+		}
+		if (parameters.action === 'deleteMany') {
+			parameters.action = 'updateMany';
+			parameters.args = parameters.args || {};
+			parameters.args.data = { deletedAt: new Date() };
+		}
+		if (
+			(parameters.action.startsWith('find') || parameters.action === 'count') &&
+			!parameters.args.includeDeleted
+		) {
+			parameters.args = parameters.args || {};
+			parameters.args.where = {
+				...parameters.args.where,
+				deletedAt: { equals: null }
+			};
+		}
+	}
 
 	return next(parameters);
 }
