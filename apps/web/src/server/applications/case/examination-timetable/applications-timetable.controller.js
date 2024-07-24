@@ -697,6 +697,11 @@ const getTimetableRows = (timetableItem) => {
 		return null;
 	};
 
+	const descriptionObj = description ? JSON.parse(description) : null;
+	const hasDescription = Boolean(
+		descriptionObj.preText.trim() || descriptionObj.bulletPoints.length > 0
+	);
+
 	return {
 		id,
 		itemTypeName: ExaminationTimetableType.name,
@@ -709,6 +714,7 @@ const getTimetableRows = (timetableItem) => {
 		endDate: shouldShowField('endDate') ? displayDate(date, { condensed: true }) || '' : null,
 		startTime: shouldShowField('startTime') ? startTime || '' : null,
 		endTime: shouldShowField('endTime') ? endTime || '' : null,
+		hasDescription,
 		description: description ? JSON.parse(description) : null,
 		descriptionWelsh: descriptionWelsh ? JSON.parse(descriptionWelsh) : null
 	};

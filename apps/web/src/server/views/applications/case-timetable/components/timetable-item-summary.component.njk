@@ -91,7 +91,7 @@
 
 
 	{# set/display cy description only if en version is present #}
-	{% if timetableItem.description.preText | trim %}
+  {% if timetableItem.hasDescription %}
 		{% set descriptionHtmlCy %}
 			<p class="govuk-body">{{timetableItem.descriptionWelsh.preText | sanitize}}</p>
 
