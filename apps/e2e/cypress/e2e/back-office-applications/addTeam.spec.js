@@ -33,7 +33,7 @@ describe('Project team related scenarios ', () => {
 		searchResultsPage.clickTopSearchResult();
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
-		email=Cypress.env('CASE_ADMIN_EMAIL');
+		email = Cypress.env('CASE_ADMIN_EMAIL');
 		projectTeamPage.addTeamMeber(email);
 		projectTeamPage.verifyCaseManagerRoleAdded();
 	});
@@ -46,9 +46,9 @@ describe('Project team related scenarios ', () => {
 		searchResultsPage.clickTopSearchResult();
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
-		email=Cypress.env('CASE_ADMIN_EMAIL');
+		email = Cypress.env('CASE_ADMIN_EMAIL');
 		projectTeamPage.searchTeamMemberByEmail(email);
-        projectTeamPage.verifyTeamMemberIsAdded();
+		projectTeamPage.verifyTeamMemberIsAdded();
 	});
 
 	it('As a user able to enter valid input and verify multiple results count', () => {
@@ -85,5 +85,4 @@ describe('Project team related scenarios ', () => {
 		searchResultsPage.clickButtonByText('Add team member');
 		projectTeamPage.validateErrorMessageWithoutEnteringAnything();
 	});
-
 });
