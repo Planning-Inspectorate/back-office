@@ -6,20 +6,26 @@ import { makePostRequest } from '../back-office-api-client.js';
  * Handle an HTTP trigger/request to run the migration
  * @param {import('@azure/functions').Logger} log
  * @param {string[]} caseReferences
+ * @param {boolean} skipValidation
  */
-export const migrationNsipDocuments = async (log, caseReferences) => {
+export const migrationNsipDocuments = async (log, caseReferences, skipValidation = false) => {
 	log.info(`Migrating Documents for ${caseReferences.length} Cases`);
 
 	for (const caseReference of caseReferences) {
-		await migrationNsipDocumentsByReference(log, caseReference);
+		await migrationNsipDocumentsByReference(log, caseReference, skipValidation);
 	}
 };
 
 /**
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} skipValidation
  */
-export const migrationNsipDocumentsByReference = async (log, caseReference) => {
+export const migrationNsipDocumentsByReference = async (
+	log,
+	caseReference,
+	skipValidation = false
+) => {
 	try {
 		log.info(`Migrating NSIP Documents for case ${caseReference}`);
 
@@ -28,7 +34,7 @@ export const migrationNsipDocumentsByReference = async (log, caseReference) => {
 		if (documents.length > 0) {
 			log.info(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
 
-			await makePostRequest(log, '/migration/nsip-document', documents);
+			await makePostRequest(log, '/migration/nsip-document', { data: documents, skipValidation });
 
 			log.info('Successfully migrated NSIP Document');
 		} else {

@@ -8,12 +8,13 @@ import { QueryTypes } from 'sequelize';
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string[]} caseReferences
+ * @param {boolean} skipValidation
  */
-export async function migrateExamTimetables(log, caseReferences) {
+export async function migrateExamTimetables(log, caseReferences, skipValidation = false) {
 	log.info(`Migrating Timetables for ${caseReferences.length} Cases`);
 
 	for (const caseReference of caseReferences) {
-		await migrateExamTimetablesForCase(log, caseReference);
+		await migrateExamTimetablesForCase(log, caseReference, skipValidation);
 	}
 }
 
@@ -22,8 +23,9 @@ export async function migrateExamTimetables(log, caseReferences) {
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} skipValidation
  */
-export async function migrateExamTimetablesForCase(log, caseReference) {
+export async function migrateExamTimetablesForCase(log, caseReference, skipValidation = false) {
 	try {
 		log.info(`Migrating Exam Timetable for case ${caseReference}`);
 
@@ -32,7 +34,10 @@ export async function migrateExamTimetablesForCase(log, caseReference) {
 		if (examTimetable) {
 			log.info(`Migrating Exam Timetable Items for case ${caseReference}`);
 
-			await makePostRequest(log, '/migration/nsip-exam-timetable', [examTimetable]);
+			await makePostRequest(log, '/migration/nsip-exam-timetable', {
+				data: [examTimetable],
+				skipValidation
+			});
 
 			log.info(`Successfully migrated Exam Timetable for case ${caseReference}`);
 		} else {
