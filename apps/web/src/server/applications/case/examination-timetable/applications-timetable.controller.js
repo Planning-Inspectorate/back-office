@@ -246,13 +246,12 @@ export async function unpublishApplicationsCaseTimetables(_, response) {
  * @type {import('@pins/express').RenderHandler<{timetableItem: Record<string, string>, isCaseWelsh: boolean}, {}, {}, {}, {timetableId: string}>}
  */
 export async function viewApplicationsCaseTimetableDelete(request, response) {
-	const timetableItem = await getCaseTimetableItemById(+request.params.timetableId);
+	const timetableId = parseInt(request.params.timetableId);
+	const timetableItem = await getCaseTimetableItemById(timetableId);
 	const isCaseWelsh = isCaseRegionWales(response.locals.case?.geographicalInformation?.regions);
 
 	if (timetableItem.submissions) {
-		pino.error(
-			`[WEB] Cannot delete Examination Timetable ${+request.params.timetableId}: submissions found`
-		);
+		pino.error(`[WEB] Cannot delete Examination Timetable ${timetableId}: submissions found`);
 
 		return response.render('app/500.njk');
 	}
@@ -271,10 +270,12 @@ export async function viewApplicationsCaseTimetableDelete(request, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {timetableId: string}>}
  */
 export async function deleteApplicationsCaseTimetable(request, response) {
-	const { errors } = await deleteCaseTimetableItem(+request.params.timetableId);
+	const timetableId = parseInt(request.params.timetableId);
+
+	const { errors } = await deleteCaseTimetableItem(timetableId);
 
 	if (errors) {
-		const timetableItem = await getCaseTimetableItemById(+request.params.timetableId);
+		const timetableItem = await getCaseTimetableItemById(timetableId);
 		const timetableItemViewData = getTimetableRows(timetableItem);
 
 		return response.render(`applications/case-timetable/timetable-delete.njk`, {
@@ -320,7 +321,7 @@ export async function viewApplicationsCaseTimetableDetailsNew({ body }, response
 		selectedItemType,
 		templateFields,
 		values: body,
-		isEditing: !!body.timetableId
+		isEditing: Boolean(body.timetableId)
 	});
 }
 
@@ -330,7 +331,7 @@ export async function viewApplicationsCaseTimetableDetailsNew({ body }, response
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
  */
 export async function viewApplicationsCaseTimetableDetailsEdit({ params }, response) {
-	const timetableItem = await getCaseTimetableItemById(+params.timetableId);
+	const timetableItem = await getCaseTimetableItemById(parseInt(params.timetableId));
 
 	if (timetableItem.submissions) {
 		pino.error(`[WEB] Cannot edit Examination Timetable ${params.timetableId}: submissions found`);
@@ -390,7 +391,7 @@ export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, re
 	response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
 		rows,
 		values: body,
-		isEditing: !!body.timetableId
+		isEditing: Boolean(body.timetableId)
 	});
 }
 
@@ -448,7 +449,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		const rows = await getCheckYourAnswersRows(body, response.locals.caseId);
 
 		return response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
-			isEditing: !!payload.id,
+			isEditing: Boolean(payload.id),
 			rows,
 			values: body,
 			errors
@@ -463,8 +464,8 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
  */
 export async function viewApplicationsCaseTimetableItemNameWelsh({ params }, response) {
-	const { timetableId } = params;
-	const { name, nameWelsh, submissions } = await getCaseTimetableItemById(+timetableId);
+	const timetableId = parseInt(params.timetableId);
+	const { name, nameWelsh, submissions } = await getCaseTimetableItemById(timetableId);
 
 	// if there are submissions against timetable item, we shouldn't edit it
 	if (submissions) {
@@ -488,8 +489,8 @@ export async function postApplicationsCaseTimetableItemNameWelsh(
 	{ params, body, baseUrl, errors, session },
 	response
 ) {
-	const { timetableId } = params;
-	const { name, submissions } = await getCaseTimetableItemById(+timetableId);
+	const timetableId = parseInt(params.timetableId);
+	const { name, submissions } = await getCaseTimetableItemById(timetableId);
 
 	// if there are submissions, we shouldn't edit the item
 	if (submissions) {
@@ -508,7 +509,7 @@ export async function postApplicationsCaseTimetableItemNameWelsh(
 
 	/** @type {ApplicationsTimetablePayload} */
 	const payload = {
-		id: +timetableId,
+		id: timetableId,
 		nameWelsh: body.nameWelsh
 	};
 
@@ -525,9 +526,9 @@ export async function postApplicationsCaseTimetableItemNameWelsh(
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {timetableId: string}>}
  */
 export async function viewApplicationsCaseTimetableItemDescriptionWelsh({ params }, response) {
-	const { timetableId } = params;
+	const timetableId = parseInt(params.timetableId);
 	const { description, descriptionWelsh, submissions } = await getCaseTimetableItemById(
-		+timetableId
+		timetableId
 	);
 
 	// if there are submissions against timetable item, we shouldn't edit it
@@ -552,8 +553,8 @@ export async function postApplicationsCaseTimetableItemDescriptionWelsh(
 	{ params, body, baseUrl, errors, session },
 	response
 ) {
-	const { timetableId } = params;
-	const { description, submissions } = await getCaseTimetableItemById(+params.timetableId);
+	const timetableId = parseInt(params.timetableId);
+	const { description, submissions } = await getCaseTimetableItemById(timetableId);
 
 	// if there are submissions against timetable item, we shouldn't edit it
 	if (submissions) {
@@ -584,7 +585,7 @@ export async function postApplicationsCaseTimetableItemDescriptionWelsh(
 
 	/** @type {ApplicationsTimetablePayload} */
 	const payload = {
-		id: +timetableId,
+		id: timetableId,
 		descriptionWelsh: prepareDescriptionPayload(body.descriptionWelsh)
 	};
 
