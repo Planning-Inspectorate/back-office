@@ -55,6 +55,7 @@ describe('Section 51 Advice', () => {
 				},
 				titlefirst
 			);
+			s51AdvicePage.publishS51WithoutWelshFields();
 		});
 
 		it('As a user able to create S51 Advice - Enquirer Name Only', () => {
