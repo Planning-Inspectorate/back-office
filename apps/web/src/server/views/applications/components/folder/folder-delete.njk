@@ -1,0 +1,17 @@
+{% extends "../../layouts/folder-edit-property.layout.njk" %}
+
+{% block pageHeading %}
+	<p class="govuk-body-l govuk-!-margin-0 colour--secondary">{{ folderName }}</p>
+	<h1 class="govuk-label-wrapper">
+		<label class="govuk-label govuk-label--l">
+			Confirm that you want to delete this folder
+		</label>
+	</h1>
+{% endblock %}
+
+{% block formSubmitButton %}
+		{{ govukButton({ text: 'Delete folder', classes: "govuk-button--warning pins-folder-button-delete" }) }}
+		<a class="govuk-link govuk-body-m" href="{{ backLink }}">
+			Cancel
+		</a>
+{% endblock %}
