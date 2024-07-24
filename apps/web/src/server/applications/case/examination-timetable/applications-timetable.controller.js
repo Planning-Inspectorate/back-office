@@ -1,4 +1,5 @@
 import { dateString, displayDate } from '../../../lib/nunjucks-filters/date.js';
+import { sanitize } from '../../../lib/nunjucks-filters/sanitize.js';
 import {
 	convertExamDescriptionToInputText,
 	mapExaminationTimetableToFormBody
@@ -17,7 +18,7 @@ import {
 } from './applications-timetable.service.js';
 import pino from '../../../lib/logger.js';
 import sanitizeHtml from 'sanitize-html';
-import { isCaseRegionWales } from '../../common/isCaseWelsh.js';
+import { isCaseRegionWales, isCaseWelsh } from '../../common/isCaseWelsh.js';
 import {
 	deleteSessionBanner,
 	getSessionBanner,
@@ -384,7 +385,7 @@ export async function postApplicationsCaseTimetableDetails(
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
 export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, response) {
-	const rows = getCheckYourAnswersRows(body);
+	const rows = await getCheckYourAnswersRows(body, response.locals.caseId);
 
 	response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
 		rows,
@@ -444,7 +445,7 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		// otherwise the type value is lost
 		body.templateId = body.timetableTypeId;
 
-		const rows = getCheckYourAnswersRows(body);
+		const rows = await getCheckYourAnswersRows(body, response.locals.caseId);
 
 		return response.render(`applications/case-timetable/timetable-check-your-answers.njk`, {
 			isEditing: !!payload.id,
@@ -610,9 +611,10 @@ export async function viewApplicationsCaseTimetableSuccessBanner(request, respon
 /**
  *
  * @param {ApplicationsTimetableCreateBody} body
- * @returns {{key: {text: string}, value: {html?: string} | {text?: string}}[]}
+ * @param {number} caseId
+ * @returns {Promise<{key: {text: string}, value: {html?: string} | {text?: string}}[]>}
  */
-const getCheckYourAnswersRows = (body) => {
+const getCheckYourAnswersRows = async (body, caseId) => {
 	const { description, name, itemTypeName, templateType } = body;
 	const shouldShowField = (/** @type {string} */ fieldName) =>
 		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
@@ -631,10 +633,47 @@ const getCheckYourAnswersRows = (body) => {
 		? `${body['endTime.hours']}:${body['endTime.minutes']}`
 		: null;
 
+	const caseIsWelsh = await isCaseWelsh(caseId);
+
+	const timetableItem = await (async () => {
+		if (!(caseIsWelsh && body.timetableId)) {
+			return null;
+		}
+
+		return await getCaseTimetableItemById(parseInt(body.timetableId));
+	})();
+
+	const descriptionWelsh = timetableItem?.descriptionWelsh
+		? JSON.parse(timetableItem.descriptionWelsh)
+		: null;
+
+	/* This is a nasty solution but we only have access to the descriptionWelsh field in its object form, so it needs to be rendered.
+	 * The `rowsItems` variables defined further down is passed directly into a `govukSummaryList`, so there isn't an opportunity to render it using Nunjucks.
+	 */
+	const descriptionWelshHtml = (() => {
+		if (!descriptionWelsh) {
+			return null;
+		}
+
+		let accumulator = `<p class="govuk-body">${sanitize(descriptionWelsh?.preText)}</p> `;
+		if (descriptionWelsh.bulletPoints.length === 0) {
+			return accumulator;
+		}
+
+		accumulator += '<ul class="govuk-list govuk-list--bullet">';
+		for (const bullet of descriptionWelsh.bulletPoints) {
+			accumulator += `<li>${sanitize(bullet)}</li>`;
+		}
+		accumulator += '</ul>';
+
+		return accumulator;
+	})();
+
 	/** @type {{key: string, text?: string, html?: string}[]} */
 	const rowsItems = [
 		{ key: 'Item type', text: itemTypeName },
 		{ key: 'Item name', text: name },
+		...(caseIsWelsh ? [{ key: 'Item name in Welsh', text: timetableItem?.nameWelsh ?? '' }] : []),
 		...(shouldShowField('date') ? [{ key: 'Date', text: date || '' }] : []),
 		...(shouldShowField('startDate') ? [{ key: 'Start date', text: startDate || '' }] : []),
 		...(shouldShowField('endDate') ? [{ key: 'End date', text: endDate || '' }] : []),
@@ -645,7 +684,15 @@ const getCheckYourAnswersRows = (body) => {
 			html: (sanitizeHtml(description, {}) || '')
 				.replace(/\*/g, '&middot;')
 				.replace(/\n/g, '<br />')
-		}
+		},
+		...(caseIsWelsh
+			? [
+					{
+						key: 'Timetable item description in Welsh',
+						html: descriptionWelshHtml ?? ''
+					}
+			  ]
+			: [])
 	];
 
 	return rowsItems.map((rowItem) => {
