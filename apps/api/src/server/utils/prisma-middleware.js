@@ -29,7 +29,7 @@ export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
 			parameters.args = parameters.args || {};
 			parameters.args.where = {
 				...parameters.args.where,
-				deletedAt: { equals: null }
+				deletedAt: null
 			};
 		}
 	}
