@@ -16,9 +16,7 @@
 			<form method="post" action="" novalidate="novalidate">
 				{% include '../../app/includes/csrf.njk' %}
 				{% block formContent %}{% endblock %}
-				{% block formSubmitButton %}
-					{{ govukButton({ text: 'Save and return' }) }}
-				{% endblock %}
+				{% block formSubmitButton %}{% endblock %}
 			</form>
 		</div>
 	</div>

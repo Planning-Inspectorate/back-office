@@ -79,9 +79,12 @@
           </div>
           {% if ('applic-625-custom-folders' | isFeatureActive) %}
             {% if isCustomFolder %}
-              <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+              <div class="govuk-grid-column-one-third govuk-!-text-align-right pins-folder-button-group">
                 <a class="govuk-link govuk-body-m" href="{{'folder-rename' |url({caseId: caseId, folderId: currentFolder.id})}}">
                   Rename folder
+                </a>
+                <a class="govuk-link govuk-body-m" href="{{'folder-delete' |url({caseId: caseId, folderId: currentFolder.id})}}">
+                  Delete folder
                 </a>
               </div>
             {% endif %}
