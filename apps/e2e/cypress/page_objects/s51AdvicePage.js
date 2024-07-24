@@ -207,4 +207,23 @@ export class S51AdvicePage extends Page {
 	verifyTile(title) {
 		this.elements.verifyTitle().contains(title);
 	}
+	publishS51IncludingWelshFields() {
+		cy.get('.govuk-body-m').click();
+		cy.get('#selectAll').click();
+		cy.get('.govuk-button').click();
+		cy.get('.govuk-panel__title').contains('S51 advice item successfully published');
+	}
+
+	publishS51WithoutWelshFields() {
+		cy.get('.govuk-back-link').click();
+		this.selectAllDocuments();
+		this.setOverallStatus('Ready to publish');
+		this.clickButtonByText('Apply changes');
+		cy.get(
+			'#main-content > div:nth-child(3) > div > div.govuk-width-container > div:nth-child(2) > div.govuk-grid-column-one-third > a'
+		).click();
+		cy.get('#selectAll').click();
+		cy.get('.govuk-button').click();
+		cy.get('.govuk-panel__title').contains('S51 advice item successfully published');
+	}
 }
