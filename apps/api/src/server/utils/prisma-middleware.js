@@ -8,25 +8,21 @@
  * @returns {Promise<(arg0: any) => any>} The result of the next middleware in the chain.
  */
 export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
-	if (parameters.model === 'Document' && parameters.action === 'delete') {
-		if (parameters.args.hardDelete) {
-			delete parameters.args.hardDelete;
-		} else {
-			parameters.action = 'update';
-			parameters.args.data = { isDeleted: true };
-		}
+	const { hardDelete = false } = parameters.args;
+	if (hardDelete) {
+		delete parameters.args.hardDelete;
+	}
+	if (parameters.model === 'Document' && parameters.action === 'delete' && !hardDelete) {
+		parameters.action = 'update';
+		parameters.args.data = { isDeleted: true };
 	}
 	if (process.env.NODE_ENV !== 'seeding' && parameters.model === 'Folder') {
-		if (parameters.action === 'delete') {
-			if (parameters.args.hardDelete) {
-				delete parameters.args.hardDelete;
-			} else {
-				parameters.action = 'update';
-				parameters.args = parameters.args || {};
-				parameters.args.data = { deletedAt: new Date() };
-			}
+		if (parameters.action === 'delete' && !hardDelete) {
+			parameters.action = 'update';
+			parameters.args = parameters.args || {};
+			parameters.args.data = { deletedAt: new Date() };
 		}
-		if (parameters.action === 'deleteMany') {
+		if (parameters.action === 'deleteMany' && !hardDelete) {
 			parameters.action = 'updateMany';
 			parameters.args = parameters.args || {};
 			parameters.args.data = { deletedAt: new Date() };
