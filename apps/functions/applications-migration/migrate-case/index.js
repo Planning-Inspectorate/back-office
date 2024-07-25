@@ -3,7 +3,6 @@ import { migrateNsipProjectByReference } from '../common/migrators/nsip-project-
 import { migrationRepresentationsForCase } from '../common/migrators/nsip-representation-migration.js';
 import { migrateS51AdviceForCase } from '../common/migrators/s51-advice-migration.js';
 import { migrateServiceUsersForCase } from '../common/migrators/service-user-migration.js';
-import { migrateFoldersForCase } from '../common/migrators/folder-migration.js';
 import { migrationNsipDocumentsByReference } from '../common/migrators/nsip-document-migration.js';
 import { handleMigrationWithResponse } from '../common/handle-migration-with-response.js';
 
@@ -33,7 +32,6 @@ export async function migrateCase(log, caseReference, dryRun = true) {
 
 	await migrateServiceUsersForCase(log, caseReference);
 
-	await migrateFoldersForCase(log, caseReference);
 	await migrationNsipDocumentsByReference(log, caseReference);
 
 	// todo: s51-advice attachments, once we have docs

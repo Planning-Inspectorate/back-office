@@ -2,6 +2,7 @@ import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
 import { makePostRequest } from '../back-office-api-client.js';
 import { valueToArray } from '../utils.js';
+import { migrateFoldersForCase } from './folder-migration.js';
 
 /**
  * Migrate multiple nsip-projects
@@ -14,6 +15,7 @@ export const migrateNsipProjects = async (log, caseReferences) => {
 
 	for (const caseReference of caseReferences) {
 		await migrateNsipProjectByReference(log, caseReference);
+		await migrateFoldersForCase(log, caseReference);
 	}
 };
 
