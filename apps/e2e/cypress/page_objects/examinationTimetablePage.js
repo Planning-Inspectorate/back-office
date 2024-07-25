@@ -133,4 +133,13 @@ export class ExaminationTimetablePage extends Page {
 	clickChangeLink(question) {
 		this.elements.changeLink(question).click({ force: true });
 	}
+	publishUnpublishExamTimetable() {
+		cy.get('.govuk-button').contains('Preview and publish').click();
+		cy.get('.govuk-button').click();
+		cy.get('.govuk-panel__title').contains('Timetable item successfully published');
+		cy.get('div.govuk-body > a:nth-child(2)').click();
+		cy.get('a.colour--red:nth-child(1)').click();
+		cy.get('.govuk-button').click();
+		cy.get('.govuk-panel__title').contains('Timetable item successfully unpublished');
+	}
 }
