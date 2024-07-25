@@ -115,7 +115,7 @@ describe('Examination Timetable', () => {
 	let projectInfo;
 
 	before(() => {
-		projectInfo = projectInformation();
+		projectInfo = projectInformation({ excludeWales: true });
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
@@ -223,7 +223,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('Timetable item description', options.description);
 		examTimetablePage.clickButtonByText('Save item');
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
-		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
-		examTimetablePage.validateSuccessPanelBody(caseRef);
+		examTimetablePage.clickLinkByText('Go back to examination timetable');
+		examTimetablePage.publishUnpublishExamTimetable();
 	});
 });
