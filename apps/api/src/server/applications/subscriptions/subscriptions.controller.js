@@ -144,7 +144,10 @@ export async function updateSubscription(request, response) {
 				EventType.Update
 			);
 		} catch (/** @type {*} */ err) {
-			logger.info(`Blocked sending event for subscription with ID ${res.id}`, err.message);
+			logger.error(
+				{ error: err.message },
+				`Blocked sending event for subscription with ID ${res.id}`
+			);
 		}
 
 		response.send(subscriptionToResponse(res));

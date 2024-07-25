@@ -1,4 +1,5 @@
 import { eventClient } from './event-client.js';
+import logger from '#utils/logger.js';
 
 const EVENT_BATCH_SIZE = 100;
 
@@ -18,9 +19,12 @@ export const batchSendEvents = async (topic, events, eventType, additionalProper
 
 		try {
 			await eventClient.sendEvents(topic, batch, eventType, additionalProperties);
-			console.info(`Broadcasted ${topic} events from range ${i} - ${i + batchSize}`);
+			logger.info(`Broadcasted ${topic} events from range ${i} - ${i + batchSize}`);
 		} catch (error) {
-			console.error(`Failed to broadcast ${topic} events at range ${i} - ${i + batchSize}`, error);
+			logger.error(
+				{ error: error.message },
+				`Failed to broadcast ${topic} events at range ${i} - ${i + batchSize}`
+			);
 			throw error;
 		}
 	}

@@ -14,7 +14,11 @@ export class LocalEventClient extends GenericEventClient {
 	constructor(logger) {
 		super(logger);
 		this.logger = {
-			info: (/** @type {any} */ ...args) => console.log(chalk.yellow(...args))
+			info: (/** @type {any} */ ...args) => console.log(chalk.yellow(...args)),
+			error: (/** @type {any} */ ...args) => {
+				// some stuff here
+				return console.log(chalk.red(...args));
+			}
 		};
 	}
 

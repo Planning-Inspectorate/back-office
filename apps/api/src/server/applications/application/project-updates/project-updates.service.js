@@ -45,7 +45,7 @@ export async function createProjectUpdateService(body, caseId) {
 			EventType.Create
 		);
 	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for project update', err.message);
+		logger.error({ error: err.message }, 'Blocked sending event for project update');
 	}
 
 	return mapProjectUpdate(created);
@@ -91,7 +91,7 @@ export async function updateProjectUpdateService(body, projectUpdateId) {
 			statusToEventType(update.status)
 		);
 	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for project update', err.message);
+		logger.error({ error: err.message }, 'Blocked sending event for project update');
 	}
 
 	return mapProjectUpdate(update);
@@ -122,7 +122,7 @@ export async function deleteProjectUpdateService(projectUpdateId) {
 			EventType.Delete
 		);
 	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for project update', err.message);
+		logger.error({ error: err.message }, 'Blocked sending event for project update');
 	}
 }
 
