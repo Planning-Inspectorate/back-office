@@ -606,8 +606,13 @@ export async function viewFolderCreationPage(request, response) {
 export async function viewFolderRenamePage(request, response) {
 	const { caseId } = response.locals;
 	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+
+	const folder = await getCaseFolder(caseId, parseInt(request.params.folderId));
+	const currentName = folder?.displayNameEn;
+
 	return response.render('applications/components/folder/folder-rename', {
-		backLink
+		backLink,
+		currentName
 	});
 }
 
@@ -652,15 +657,23 @@ export async function updateFolderCreate(request, response) {
  * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
  */
 export async function updateFolderRename(request, response) {
-	const validationError = validationResult(request);
-	if (!validationError.isEmpty()) {
+	async function returnToRenameForm() {
 		const { caseId } = response.locals;
 		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
 
-		return response.render('applications/components/folder/folder-create', {
+		const folder = await getCaseFolder(caseId, parseInt(request.params.folderId));
+		const currentName = folder?.displayNameEn;
+
+		return response.render('applications/components/folder/folder-rename', {
 			backLink,
+			currentName,
 			errors: validationError.array({ onlyFirstError: true })
 		});
+	}
+
+	const validationError = validationResult(request);
+	if (!validationError.isEmpty()) {
+		return await returnToRenameForm();
 	}
 
 	const { session } = request;
@@ -670,11 +683,7 @@ export async function updateFolderRename(request, response) {
 
 	const { errors } = await renameFolder(caseId, parseInt(folderId), folderName);
 	if (errors) {
-		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
-		return response.render('applications/components/folder/folder-rename', {
-			backLink,
-			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
-		});
+		return await returnToRenameForm();
 	}
 
 	setSessionBanner(session, 'Folder renamed');
