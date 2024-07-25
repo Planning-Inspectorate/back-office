@@ -173,7 +173,7 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 			EventType.Create
 		);
 	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for folder create', err.message);
+		logger.error({ error: err.message }, 'Blocked sending event for folder create');
 	}
 
 	body.description = mapExaminationTimetableItemDescriptionToSave(body.description);
@@ -278,7 +278,7 @@ export const deleteExaminationTimetableItem = async ({ params }, response) => {
 			EventType.Delete
 		);
 	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for folder delete', err.message);
+		logger.error({ error: err.message }, 'Blocked sending event for folder delete');
 	}
 
 	await examinationTimetableRepository.update(examinationTimetableItem.examinationTimetableId, {
@@ -375,7 +375,7 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 				EventType.Update
 			);
 		} catch (/** @type {*} */ err) {
-			logger.info('Blocked sending event for folder update', err.message);
+			logger.error({ error: err.message }, 'Blocked sending event for folder update');
 		}
 	} else {
 		folder = await folderRepository.getById(timetableBeforeUpdate.folderId);

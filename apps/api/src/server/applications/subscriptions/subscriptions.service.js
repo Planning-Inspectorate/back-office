@@ -41,18 +41,28 @@ export async function createOrUpdateSubscription(request) {
 				EventType.Create
 			);
 		} catch (/** @type {*} */ err) {
-			logger.info(`Blocked sending event for subscription with ID ${res.id}`, err.message);
+			logger.error(
+				{ error: err.message },
+				`Blocked sending event for subscription with ID ${res.id}`
+			);
 		}
 
 		if (!isExistingUser) {
-			await eventClient.sendEvents(
-				SERVICE_USER,
-				[buildServiceUserPayload(res.serviceUser, res.caseReference, 'Subscriber')],
-				EventType.Create,
-				{
-					entityType: 'Subscriber'
-				}
-			);
+			try {
+				await eventClient.sendEvents(
+					SERVICE_USER,
+					[buildServiceUserPayload(res.serviceUser, res.caseReference, 'Subscriber')],
+					EventType.Create,
+					{
+						entityType: 'Subscriber'
+					}
+				);
+			} catch (/** @type {*} */ err) {
+				logger.error(
+					{ error: err.message },
+					`Blocked sending event for service user with ID ${res.id}`
+				);
+			}
 		}
 
 		return { id: res.id, created: true };
@@ -71,7 +81,7 @@ export async function createOrUpdateSubscription(request) {
 
 			await eventClient.sendEvents(NSIP_SUBSCRIPTION, payloads, type);
 		} catch (/** @type {*} */ err) {
-			logger.info(`Blocked sending event for subscription ${res.id}`, err.message);
+			logger.error({ error: err.message }, `Blocked sending event for subscription ${res.id}`);
 		}
 	}
 

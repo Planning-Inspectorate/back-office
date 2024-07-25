@@ -134,7 +134,7 @@ export async function publish(id) {
 			await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, [examTimetablePayload], EventType.Publish);
 		}
 	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for examination timetable', err.message);
+		logger.error({ error: err.message }, 'Blocked sending event for examination timetable');
 	}
 
 	const now = new Date();
@@ -165,7 +165,7 @@ export async function unPublish(id) {
 			);
 		}
 	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for examination timetable', err.message);
+		logger.error({ error: err.message }, 'Blocked sending event for examination timetable');
 	}
 
 	await examinationTimetableRepository.update(id, {
@@ -183,7 +183,14 @@ export async function sendUpdateEvent(id) {
 	const examTimetablePayload = await buildExamTimetableItemsPayload(id);
 
 	if (examTimetablePayload) {
-		await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, [examTimetablePayload], EventType.Update);
+		try {
+			await eventClient.sendEvents(NSIP_EXAM_TIMETABLE, [examTimetablePayload], EventType.Update);
+		} catch (/** @type {*} */ err) {
+			logger.error(
+				{ error: err.message },
+				'Blocked sending event for examination timetable update'
+			);
+		}
 	}
 }
 
@@ -266,7 +273,7 @@ export const createDeadlineSubFolders = async (
 			EventType.Create
 		);
 	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for folder create', err.message);
+		logger.error({ error: err.message }, 'Blocked sending event for folder create');
 	}
 };
 
@@ -299,7 +306,7 @@ export const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 			EventType.Delete
 		);
 	} catch (/** @type {*} */ err) {
-		logger.info('Blocked sending event for folder delete', err.message);
+		logger.error({ error: err.message }, 'Blocked sending event for folder delete');
 	}
 };
 
