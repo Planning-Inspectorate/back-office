@@ -130,12 +130,14 @@ describe('Get folder details', () => {
 			{
 				id: 1,
 				displayNameEn: 'Project documentation',
-				displayOrder: 100
+				displayOrder: 100,
+				parentFolderId: null
 			},
 			{
 				id: 2,
 				displayNameEn: 'Legal advice',
-				displayOrder: 200
+				displayOrder: 200,
+				parentFolderId: null
 			}
 		]);
 	});
@@ -153,7 +155,8 @@ describe('Get folder details', () => {
 		expect(response.body).toEqual({
 			displayNameEn: 'Sub Folder 1',
 			displayOrder: 100,
-			id: 201
+			id: 201,
+			parentFolderId: 20
 		});
 	});
 
@@ -172,12 +175,14 @@ describe('Get folder details', () => {
 			{
 				id: 101,
 				displayNameEn: 'Sub Folder 1',
-				displayOrder: 100
+				displayOrder: 100,
+				parentFolderId: 201
 			},
 			{
 				id: 102,
 				displayNameEn: 'Sub Folder 2',
-				displayOrder: 200
+				displayOrder: 200,
+				parentFolderId: 201
 			}
 		]);
 	});

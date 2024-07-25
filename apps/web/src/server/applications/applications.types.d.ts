@@ -84,6 +84,7 @@ export interface OptionsItem {
 	displayNameCy: string;
 	abbreviation?: string;
 	displayOrder?: number;
+	parentFolderId?: number;
 }
 
 export interface Sector extends OptionsItem {}

@@ -1,5 +1,5 @@
 import logger from '../../../lib/logger.js';
-import { get, patch, post } from '../../../lib/request.js';
+import { deleteRequest, get, patch, post } from '../../../lib/request.js';
 
 /**
  * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
@@ -304,6 +304,27 @@ export const renameFolder = async (caseId, folderId, name) => {
 			return { errors: { msg: 'This folder cannot be renamed.' } };
 		}
 
+		return { errors: { msg: 'Failed to rename folder.' } };
+	}
+};
+
+/**
+ *
+ * @param {number} caseId
+ * @param {number} folderId
+ * @returns
+ */
+export const deleteFolder = async (caseId, folderId) => {
+	try {
+		return await deleteRequest(`applications/${caseId}/folders/${folderId}`);
+	} catch (/** @type {*} */ error) {
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unkown error'}`);
+		if (error?.response?.statusCode === 403) {
+			return { errors: { msg: 'Cannot delete a non-custom folder' } };
+		}
+		if (error?.response?.statusCode === 409) {
+			return { errors: { msg: 'Folder or child folders are not empty' } };
+		}
 		return { errors: { msg: 'Failed to rename folder.' } };
 	}
 };
