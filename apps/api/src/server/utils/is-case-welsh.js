@@ -8,13 +8,12 @@ import { featureFlagClient } from '#utils/feature-flags.js';
  * @returns {Promise<false|*>}
  */
 export default async function isCaseWelsh(caseId) {
-	const caseData = await caseRepository.getById(caseId, { regions: true });
-	if (!caseData) throw new Error(`Could not find examination a case with ID ${caseId}`);
+	if (!(await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))) {
+		return false;
+	}
 
-	const regionsIncludeWelsh = caseData.ApplicationDetails?.regions?.some(
-		(item) => item.region.name === 'wales'
-	);
-	return (
-		regionsIncludeWelsh && (await featureFlagClient.isFeatureActive('applic-55-welsh-translation'))
-	);
+	const caseData = await caseRepository.getById(caseId, { regions: true });
+	if (!caseData) throw new Error(`Could not find a case with ID ${caseId}`);
+
+	return caseData.ApplicationDetails?.regions?.some((item) => item.region.name === 'wales');
 }
