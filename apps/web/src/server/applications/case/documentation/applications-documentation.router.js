@@ -124,4 +124,9 @@ applicationsDocumentationRouter
 	.get(asyncHandler(controller.viewFolderRenamePage))
 	.post(validateApplicationsDocumentationsFolders, asyncHandler(controller.updateFolderRename));
 
+applicationsDocumentationRouter
+	.route('/:folderId/folder/delete')
+	.get(asyncHandler(controller.viewFolderDeletionPage))
+	.post(asyncHandler(controller.updateFolderDelete));
+
 export default applicationsDocumentationRouter;

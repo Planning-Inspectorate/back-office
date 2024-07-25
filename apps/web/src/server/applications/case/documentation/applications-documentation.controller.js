@@ -26,7 +26,8 @@ import {
 	unpublishCaseDocumentationFiles,
 	getCaseManyDocumentationFilesInfo,
 	searchDocuments,
-	renameFolder
+	renameFolder,
+	deleteFolder
 } from './applications-documentation.service.js';
 import {
 	destroySessionFolderPage,
@@ -37,6 +38,7 @@ import { paginationParams } from '../../../lib/pagination-params.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 import { featureFlagClient } from '../../../../common/feature-flags.js';
 import { validationResult } from 'express-validator';
+import logger from '../../../lib/logger.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -496,7 +498,10 @@ const documentationFolderData = async (caseId, folderId, query = {}, session) =>
 		session,
 		url('document-category', {
 			caseId,
-			documentationCategory: { id: folderId, displayNameEn: folderDetails.displayNameEn }
+			documentationCategory: {
+				id: folderId,
+				displayNameEn: folderDetails.displayNameEn
+			}
 		})
 	);
 
@@ -617,6 +622,22 @@ export async function viewFolderRenamePage(request, response) {
 }
 
 /**
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function viewFolderDeletionPage(request, response) {
+	const { caseId } = response.locals;
+	const { folderId } = request.params;
+
+	const folderObject = await getCaseFolder(caseId, parseInt(folderId));
+	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+
+	return response.render('applications/components/folder/folder-delete', {
+		backLink,
+		folderName: folderObject.displayNameEn
+	});
+}
+
+/**
  * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
  */
 export async function updateFolderCreate(request, response) {
@@ -688,4 +709,44 @@ export async function updateFolderRename(request, response) {
 
 	setSessionBanner(session, 'Folder renamed');
 	return response.redirect('../folder');
+}
+
+/**
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function updateFolderDelete(request, response) {
+	const { folderId } = request.params;
+	const { caseId } = response.locals;
+
+	const currentFolderObject = await getCaseFolder(caseId, parseInt(folderId));
+	if (!currentFolderObject.parentFolderId) {
+		logger.error(
+			'No parentFolderId found - illegal action of deleting root folder, stopping deletion'
+		);
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		return response.render('applications/components/folder/folder-delete', {
+			backLink,
+			errors: [{ msg: 'Folder has no parent. You cannot delete root folders' }]
+		});
+	}
+	const parentFolderForRedirect = await getCaseFolder(caseId, currentFolderObject.parentFolderId);
+
+	const { errors } = await deleteFolder(caseId, parseInt(folderId));
+	if (errors) {
+		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		return response.render('applications/components/folder/folder-delete', {
+			backLink,
+			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
+		});
+	}
+
+	response.redirect(
+		url('document-category', {
+			caseId,
+			documentationCategory: {
+				id: parentFolderForRedirect.id,
+				displayNameEn: parentFolderForRedirect.displayNameEn
+			}
+		})
+	);
 }

@@ -12,7 +12,8 @@ export const mapSingleFolderDetails = (folderDetails) => {
 		displayNameEn: folderDetails.displayNameEn,
 		displayOrder: folderDetails.displayOrder,
 		stage: folderDetails.stage,
-		isCustom: folderDetails.isCustom
+		isCustom: folderDetails.isCustom,
+		parentFolderId: folderDetails.parentFolderId
 	};
 };
 
