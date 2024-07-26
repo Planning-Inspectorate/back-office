@@ -175,6 +175,7 @@ const publishExaminationTimetableItemsData = [
 		examinationTypeId: 3,
 		name: 'Test deadline',
 		description: '{"preText":"Description","bulletPoints":["Line item 1","Line item 2"]}',
+		descriptionWelsh: '',
 		date: new Date('2023-06-20T00:00:00.000Z'),
 		startDate: new Date('2022-12-12T00:00:00.000Z'),
 		startTime: '13:00',
@@ -236,39 +237,47 @@ const expectedPublishExaminationTimetablePayload = {
 		{
 			date: '2022-01-01T00:00:00.000',
 			description: 'Some description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3',
+			descriptionWelsh: '',
 			eventDeadlineStartDate: undefined,
 			eventId: 1,
 			eventLineItems: [],
 			eventTitle: 'My timetable',
+			eventTitleWelsh: undefined,
 			type: 'Accompanied Site Inspection'
 		},
 		{
 			date: '2023-06-20T00:00:00.000',
 			description: 'Description',
+			descriptionWelsh: '',
 			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
 			eventId: 2,
 			eventLineItems: [{ description: 'Line item 1' }, { description: 'Line item 2' }],
 			eventTitle: 'Test deadline',
+			eventTitleWelsh: undefined,
 			type: 'Deadline'
 		},
 		{
 			date: '2023-06-20T00:00:00.000',
 			description:
 				'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
+			descriptionWelsh: '',
 			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
 			eventId: 3,
 			eventLineItems: [],
 			eventTitle: 'Deadline For Close Of Examination',
+			eventTitleWelsh: undefined,
 			type: 'Deadline For Close Of Examination'
 		},
 		{
 			date: '2023-06-20T00:00:00.000',
 			description:
 				'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
+			descriptionWelsh: '',
 			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
 			eventId: 4,
 			eventLineItems: [],
 			eventTitle: 'Preliminary Meeting',
+			eventTitleWelsh: undefined,
 			type: 'Preliminary Meeting'
 		}
 	]
@@ -556,6 +565,102 @@ describe('Test examination timetable items API', () => {
 		expect(resp.status).toEqual(200);
 	});
 
+	test('publish examination timetable item publishes examination items for the case with welsh fields', async () => {
+		databaseConnector.case.findUnique.mockResolvedValueOnce({});
+		const publishExaminationTimetableItemsDataWithWelshFields =
+			publishExaminationTimetableItemsData.map((item) => {
+				return {
+					...item,
+					descriptionWelsh:
+						'{"preText":"welsh description","bulletPoints":["Welsh item 1","Welsh item 2","Welsh item 3"]}'
+				};
+			});
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue({
+			id: 1,
+			ExaminationTimetableItem: publishExaminationTimetableItemsDataWithWelshFields,
+			case: { id: 123, reference: 'REF-ID-1' }
+		});
+
+		databaseConnector.examinationTimetable.update.mockResolvedValueOnce({ id: 123 });
+
+		const resp = await request
+			.patch('/applications/examination-timetable-items/publish/123')
+			.send({});
+
+		expect(databaseConnector.examinationTimetable.update).toHaveBeenCalledWith({
+			where: {
+				id: 1
+			},
+			data: { published: true, publishedAt: expect.any(Date), updatedAt: expect.any(Date) }
+		});
+
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(1);
+		const expectedPublishExaminationTimetableWithWelshFieldsPayload = {
+			caseReference: 'REF-ID-1',
+			events: [
+				{
+					date: '2022-01-01T00:00:00.000',
+					description: 'Some description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3',
+					descriptionWelsh:
+						'welsh description\r\n* Welsh item 1\r\n* Welsh item 2\r\n* Welsh item 3',
+					eventDeadlineStartDate: undefined,
+					eventId: 1,
+					eventLineItems: [],
+					eventTitle: 'My timetable',
+					eventTitleWelsh: undefined,
+					type: 'Accompanied Site Inspection'
+				},
+				{
+					date: '2023-06-20T00:00:00.000',
+					description: 'Description',
+					descriptionWelsh: 'welsh description',
+					eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+					eventId: 2,
+					eventLineItems: [
+						{ description: 'Line item 1', descriptionWelsh: 'Welsh item 1' },
+						{ description: 'Line item 2', descriptionWelsh: 'Welsh item 2' }
+					],
+					eventTitle: 'Test deadline',
+					eventTitleWelsh: undefined,
+					type: 'Deadline'
+				},
+				{
+					date: '2023-06-20T00:00:00.000',
+					description:
+						'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
+					descriptionWelsh:
+						'welsh description\r\n* Welsh item 1\r\n* Welsh item 2\r\n* Welsh item 3',
+					eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+					eventId: 3,
+					eventLineItems: [],
+					eventTitle: 'Deadline For Close Of Examination',
+					eventTitleWelsh: undefined,
+					type: 'Deadline For Close Of Examination'
+				},
+				{
+					date: '2023-06-20T00:00:00.000',
+					description:
+						'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
+					descriptionWelsh:
+						'welsh description\r\n* Welsh item 1\r\n* Welsh item 2\r\n* Welsh item 3',
+					eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+					eventId: 4,
+					eventLineItems: [],
+					eventTitle: 'Preliminary Meeting',
+					eventTitleWelsh: undefined,
+					type: 'Preliminary Meeting'
+				}
+			]
+		};
+		expect(eventClient.sendEvents).toHaveBeenCalledWith(
+			NSIP_EXAM_TIMETABLE,
+			[expectedPublishExaminationTimetableWithWelshFieldsPayload],
+			EventType.Publish
+		);
+
+		expect(resp.status).toEqual(200);
+	});
+
 	test('unpublish examination timetable item returns 404 when invalid case is not exists', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(null);
 		const resp = await request
@@ -725,10 +830,14 @@ describe('Test examination timetable items API', () => {
 					type: 'Deadline',
 					date: '2023-03-28T10:00:00.000',
 					description: 'deadline category updated',
+					descriptionWelsh: '',
 					eventTitle: 'Examination Timetable Item updated',
 					eventDeadlineStartDate: '2023-03-27T10:00:00.000',
 					eventId: 1,
-					eventLineItems: [{ description: 'pointone updated' }, { description: 'pointtwo updated' }]
+					eventLineItems: [
+						{ description: 'pointone updated', descriptionWelsh: undefined },
+						{ description: 'pointtwo updated', descriptionWelsh: undefined }
+					]
 				}
 			]
 		};
