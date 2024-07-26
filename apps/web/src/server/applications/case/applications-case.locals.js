@@ -108,16 +108,21 @@ export const registerDocumentGuid = async ({ params }, response, next) => {
  * @returns {Promise<BreadcrumbItem[]>}
  */
 export const buildBreadcrumbItems = async (caseId, folderId) => {
-	// get the folderTree for breadcrumbs
 	const folderPath = await getCaseDocumentationFolderPath(caseId, folderId);
-	const breadcrumbItems = folderPath.map((folder) => ({
+	const folderItems = folderPath.map((folder) => ({
 		href: url('document-category', { caseId, documentationCategory: folder }),
 		text: folder.displayNameEn
 	}));
 
-	breadcrumbItems.unshift({
-		href: url('case-view', { caseId, step: 'project-documentation' }),
-		text: 'Project documentation'
-	});
-	return breadcrumbItems;
+	return [
+		{
+			href: url('case-view', { caseId }),
+			text: 'Project overview'
+		},
+		{
+			href: url('case-view', { caseId, step: 'project-documentation' }),
+			text: 'Project documentation'
+		},
+		...folderItems
+	];
 };

@@ -155,9 +155,9 @@ export class DocumentPropertiesPage extends Page {
 		cy.get('#tab_document-history').should('exist');
 	}
 	getDocumentRefNumber() {
-		cy.get('li:nth-child(3)').then(($value) => {
+		cy.get('li:nth-child(3):not(.govuk-breadcrumbs__list-item)').then(($value) => {
 			const getElementText = $value.text();
-			cy.log('printling the text value :-> ' + getElementText);
+			cy.log('printing the text value :-> ' + getElementText);
 			Cypress.env('DocRef', getElementText);
 		});
 	}
@@ -212,7 +212,7 @@ export class DocumentPropertiesPage extends Page {
 	}
 
 	goBackToPrjdocumentationPage() {
-		cy.get('li.govuk-breadcrumbs__list-item:nth-child(1) > a:nth-child(1)', {
+		cy.get('li.govuk-breadcrumbs__list-item:nth-child(2) > a:nth-child(1)', {
 			timeout: 2000
 		}).click();
 	}
