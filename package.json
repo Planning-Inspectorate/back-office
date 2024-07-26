@@ -108,7 +108,7 @@
 		"pino": "^8.1.0",
 		"pino-http": "^8.1.0",
 		"pino-pretty": "^8.1.0",
-		"pins-data-model": "github:Planning-Inspectorate/data-model#1.4.1",
+		"pins-data-model": "github:Planning-Inspectorate/data-model#1.7.4",
 		"pluralize": "8.0.0",
 		"randexp": "^0.5.3",
 		"redis": "^4.6.10",

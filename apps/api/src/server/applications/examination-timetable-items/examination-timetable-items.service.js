@@ -23,31 +23,45 @@ import { verifyNotTraining } from '../application/application.validators.js';
  * NSIPExamTimetableItemDescriptionLineItem array when the categoryType is Deadline
  *
  * @param {import('@prisma/client').ExaminationTimetableItem} examinationTimetableItem
- * @returns { { description: string, eventLineItems: { description: string }[] | string } }
+ * @returns { { description: string, descriptionWelsh: string, eventLineItems: { description: string, descriptionWelsh: string }[] | string } }
  */
 function extractDescriptionAndLineItems(examinationTimetableItem) {
 	const isDeadline = examinationTimetableItem?.ExaminationTimetableType?.name === 'Deadline';
 
-	if (!examinationTimetableItem.description) {
-		return {
-			description: '',
-			eventLineItems: []
-		};
-	}
+	let descriptionAndLineItems = {
+		description: '',
+		descriptionWelsh: '',
+		eventLineItems: []
+	};
 
-	/** @type {{ preText: string, bulletPoints: string[] }} */
-	const parsedDescription = JSON.parse(examinationTimetableItem.description);
+	const parseDescription = (description, isDeadline) => {
+		if (!description) return { description: '', eventLineItems: [] };
 
-	if (isDeadline) {
-		return {
-			description: parsedDescription.preText,
-			eventLineItems: parsedDescription.bulletPoints.map((bp) => ({ description: bp }))
-		};
-	} else {
-		return {
-			description: [parsedDescription.preText, ...parsedDescription.bulletPoints].join('\r\n* ')
-		};
-	}
+		const { preText, bulletPoints } = JSON.parse(description);
+		if (isDeadline) {
+			return { description: preText, eventLineItems: bulletPoints };
+		} else {
+			return {
+				description: [preText, ...bulletPoints].join('\r\n* '),
+				eventLineItems: []
+			};
+		}
+	};
+
+	const parsedEnglish = parseDescription(examinationTimetableItem.description, isDeadline);
+	descriptionAndLineItems.description = parsedEnglish.description;
+	descriptionAndLineItems.eventLineItems = parsedEnglish.eventLineItems;
+
+	const parsedWelsh = parseDescription(examinationTimetableItem.descriptionWelsh, isDeadline);
+	descriptionAndLineItems.descriptionWelsh = parsedWelsh.description;
+	descriptionAndLineItems.eventLineItems = descriptionAndLineItems.eventLineItems.map(
+		(lineItem, index) => ({
+			description: lineItem,
+			descriptionWelsh: parsedWelsh.eventLineItems[index]
+		})
+	);
+
+	return descriptionAndLineItems;
 }
 
 /**
@@ -85,14 +99,17 @@ async function buildExamTimetableItemsPayload(examinationTimetableId) {
  * @returns {NSIPExamTimetableItem}
  */
 function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
-	const { description = '', eventLineItems = [] } =
-		extractDescriptionAndLineItems(examinationTimetableItem);
+	const {
+		description = '',
+		descriptionWelsh,
+		eventLineItems = []
+	} = extractDescriptionAndLineItems(examinationTimetableItem);
 
 	return {
 		type: examinationTimetableItem.ExaminationTimetableType.name,
 		date: examinationTimetableItem.date.toISOString().replace('Z', ''),
 		description,
-		descriptionWelsh: examinationTimetableItem.descriptionWelsh,
+		descriptionWelsh,
 		eventTitle: examinationTimetableItem.name,
 		eventTitleWelsh: examinationTimetableItem.nameWelsh,
 		eventDeadlineStartDate: examinationTimetableItem.startDate?.toISOString().replace('Z', ''),
