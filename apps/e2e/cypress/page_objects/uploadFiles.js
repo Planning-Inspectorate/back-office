@@ -106,6 +106,10 @@ export class FileUploadPage extends Page {
 		this.clickLinkByText('Rename folder');
 	}
 
+	deleteFolder() {
+		this.clickLinkByText('Delete folder');
+	}
+
 	hasFolder(text) {
 		this.verifyTableContains(text);
 	}
