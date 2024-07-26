@@ -8,7 +8,7 @@
  * @returns {Promise<(arg0: any) => any>} The result of the next middleware in the chain.
  */
 export async function modifyPrismaDocumentQueryMiddleware(parameters, next) {
-	const { hardDelete = false } = parameters.args;
+	const { hardDelete = false } = parameters?.args || {};
 	if (hardDelete) {
 		delete parameters.args.hardDelete;
 	}
