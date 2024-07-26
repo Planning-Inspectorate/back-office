@@ -1049,11 +1049,29 @@ const folders = [
 ];
 
 const caseId = 15360347;
+const examTimetableFolder = { id: 100014075, displayNameEn: 'Examination timetable' };
+const archiveFolder = { id: 100011419, displayNameEn: 'Archived documentation' };
 
 describe('folder migration utils', () => {
 	describe('getDocumentFolderId', () => {
-		beforeAll(() => databaseConnector.folder.findMany.mockResolvedValue(folders));
-		afterEach(() => databaseConnector.folder.upsert.mockClear());
+		beforeAll(() => {
+			databaseConnector.folder.findMany.mockResolvedValue(folders);
+
+			databaseConnector.folder.findFirst.mockImplementation((params = {}) => {
+				switch (params?.where?.displayNameEn) {
+					case 'Examination timetable':
+						return Promise.resolve(examTimetableFolder);
+					case 'Archived documentation':
+						return Promise.resolve(archiveFolder);
+					default:
+						return Promise.resolve(null);
+				}
+			});
+		});
+		afterEach(() => {
+			databaseConnector.folder.findFirst.mockClear();
+			databaseConnector.folder.create.mockClear();
+		});
 
 		it('returns correct folderId for path with a direct mapping', async () => {
 			const document = {
@@ -1081,8 +1099,6 @@ describe('folder migration utils', () => {
 				path: 'TR020002 - Manston Airport/Foo/Bar/Baz'
 			};
 
-			const archiveFolder = { id: 100011419, displayNameEn: 'Archived documentation' };
-
 			// 'Foo' folder
 			const folderInput1 = { caseId, displayNameEn: 'Foo', parentFolderId: archiveFolder.id };
 			const folderOutput1 = { id: 1, ...folderInput1 };
@@ -1096,37 +1112,28 @@ describe('folder migration utils', () => {
 			const folderOutput3 = { id: 3, ...folderInput3 };
 
 			databaseConnector.folder.findFirst.mockResolvedValueOnce(archiveFolder);
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(null);
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(null);
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(null);
 
 			// mock return value from creation of folders 'Foo', 'Bar' and 'Baz'
-			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput1);
-			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput2);
-			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput3);
+			databaseConnector.folder.create.mockResolvedValueOnce(folderOutput1);
+			databaseConnector.folder.create.mockResolvedValueOnce(folderOutput2);
+			databaseConnector.folder.create.mockResolvedValueOnce(folderOutput3);
 
 			const result = await getDocumentFolderId(document, caseId);
 
 			expect(databaseConnector.folder.findFirst).toHaveBeenCalledWith({
 				where: { caseId, displayNameEn: 'Archived documentation' }
 			});
-			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
-				where: {
-					caseId_displayNameEn_parentFolderId: folderInput1
-				},
-				update: {},
-				create: folderInput1
+			expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+				data: folderInput1
 			});
-			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
-				where: {
-					caseId_displayNameEn_parentFolderId: folderInput2
-				},
-				update: {},
-				create: folderInput2
+			expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+				data: folderInput2
 			});
-			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
-				where: {
-					caseId_displayNameEn_parentFolderId: folderInput3
-				},
-				update: {},
-				create: folderInput3
+			expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+				data: folderInput3
 			});
 
 			expect(result).toEqual(folderOutput3.id); // function returns last created folder ID
@@ -1145,7 +1152,7 @@ describe('folder migration utils', () => {
 			expect(databaseConnector.folder.findFirst).toHaveBeenCalledWith({
 				where: { caseId, displayNameEn: 'S51 advice' }
 			});
-			expect(databaseConnector.folder.upsert).not.toHaveBeenCalled();
+			expect(databaseConnector.folder.create).not.toHaveBeenCalled();
 
 			expect(result).toEqual(s51AdviceFolder.id); // function returns last created folder ID
 		});
@@ -1154,8 +1161,6 @@ describe('folder migration utils', () => {
 			const document = {
 				path: 'TR020002 - Manston Airport/07 - Acceptance, Pre-Exam and Exam/05 - Exam Timetable/20181113 Deadline 1'
 			};
-
-			const examTimetableFolder = { id: 100014075, displayNameEn: 'Examination timetable' };
 
 			// '20181113 Deadline 1' folder
 			const folderInput1 = {
@@ -1166,17 +1171,14 @@ describe('folder migration utils', () => {
 			const folderOutput1 = { id: 1, ...folderInput1 };
 
 			databaseConnector.folder.findFirst.mockResolvedValueOnce(examTimetableFolder);
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(null);
 
-			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput1);
+			databaseConnector.folder.create.mockResolvedValueOnce(folderOutput1);
 
 			const result = await getDocumentFolderId(document, caseId);
 
-			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
-				where: {
-					caseId_displayNameEn_parentFolderId: folderInput1
-				},
-				update: {},
-				create: folderInput1
+			expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+				data: folderInput1
 			});
 
 			expect(result).toEqual(folderOutput1.id); // function returns last created folder ID
@@ -1217,43 +1219,32 @@ describe('folder migration utils', () => {
 			};
 			const folderOutput4 = { id: 4, ...folderInput4 };
 
-			databaseConnector.folder.findFirst.mockResolvedValueOnce(examTimetableFolder);
+			// databaseConnector.folder.findFirst.mockResolvedValueOnce(examTimetableFolder);
+
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(null);
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(null);
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(null);
+			databaseConnector.folder.findFirst.mockResolvedValueOnce(null);
 
 			// mock return value from creation of folders
-			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput1);
-			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput2);
-			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput3);
-			databaseConnector.folder.upsert.mockResolvedValueOnce(folderOutput4);
+			databaseConnector.folder.create.mockResolvedValueOnce(folderOutput1);
+			databaseConnector.folder.create.mockResolvedValueOnce(folderOutput2);
+			databaseConnector.folder.create.mockResolvedValueOnce(folderOutput3);
+			databaseConnector.folder.create.mockResolvedValueOnce(folderOutput4);
 
 			const result = await getDocumentFolderId(document, caseId);
 
-			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
-				where: {
-					caseId_displayNameEn_parentFolderId: folderInput1
-				},
-				update: {},
-				create: folderInput1
+			expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+				data: folderInput1
 			});
-			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
-				where: {
-					caseId_displayNameEn_parentFolderId: folderInput2
-				},
-				update: {},
-				create: folderInput2
+			expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+				data: folderInput2
 			});
-			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
-				where: {
-					caseId_displayNameEn_parentFolderId: folderInput3
-				},
-				update: {},
-				create: folderInput3
+			expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+				data: folderInput3
 			});
-			expect(databaseConnector.folder.upsert).toHaveBeenCalledWith({
-				where: {
-					caseId_displayNameEn_parentFolderId: folderInput4
-				},
-				update: {},
-				create: folderInput4
+			expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+				data: folderInput4
 			});
 
 			expect(result).toEqual(folderOutput4.id); // function returns last created folder ID
