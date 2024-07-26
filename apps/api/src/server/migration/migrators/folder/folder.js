@@ -1141,12 +1141,22 @@ const createArchivedFolders = async (folders, caseId) => {
  */
 const createFolders = async (folders, caseId, parentFolderId) => {
 	for (const folderName of folders) {
-		const folderUpsertInput = { caseId, parentFolderId, displayNameEn: folderName };
-		const folderObject = await databaseConnector.folder.upsert({
-			where: { caseId_displayNameEn_parentFolderId: folderUpsertInput },
-			update: {},
-			create: folderUpsertInput
+		const folderUpsertInput = {
+			caseId,
+			parentFolderId,
+			displayNameEn: folderName
+		};
+
+		let folderObject = await databaseConnector.folder.findFirst({
+			where: { ...folderUpsertInput, deletedAt: null }
 		});
+
+		if (!folderObject) {
+			folderObject = await databaseConnector.folder.create({
+				data: folderUpsertInput
+			});
+		}
+
 		parentFolderId = folderObject.id;
 	}
 	return parentFolderId;
