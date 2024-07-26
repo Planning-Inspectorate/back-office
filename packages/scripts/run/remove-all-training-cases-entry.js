@@ -1,4 +1,4 @@
-import { removeAllTrainingCases } from '../src/remove-training-cases.js';
+import { removeAllTrainingCases } from '../src/remove-cases.js';
 
 removeAllTrainingCases()
 	.then(() => {

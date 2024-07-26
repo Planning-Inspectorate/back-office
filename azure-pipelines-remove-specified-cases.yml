@@ -1,0 +1,71 @@
+parameters:
+    - name: environment
+      displayName: Environment
+      type: string
+      default: Dev
+      values:
+          - Dev
+          - Test
+          - Specified
+          - Prod
+
+pool: pins-odt-agent-pool
+
+pr: none
+
+trigger: none
+
+resources:
+    repositories:
+        - repository: templates
+          type: github
+          endpoint: Planning-Inspectorate
+          name: Planning-Inspectorate/common-pipeline-templates
+          ref: refs/tags/release/3.16.1
+
+variables:
+    - template: variables/environments/${{ lower(parameters.environment )}}.yml@templates
+    - group: pipeline_secrets
+
+
+jobs:
+    - deployment: Remove_specified_cases_from_DB
+      displayName: Remove specified cases from ${{ parameters.environment }} Database
+      environment: ${{ parameters.environment }}
+      strategy:
+        runOnce:
+            deploy:
+                steps:
+                    - download: none
+                    - checkout: self
+                    - template: steps/node_script.yml@templates
+                      parameters:
+                          nodeVersion: 20
+                          script: npm ci
+                    - template: steps/azure_auth.yml@templates
+                    - template: steps/azure_get_secrets.yml@templates
+                      parameters:
+                          secrets:
+                              - name: back-office-sql-server-connection-string
+                                variable: DATABASE_URL
+                    - template: steps/node_script.yml@templates
+                      parameters:
+                          nodeVersion: 20
+                          environmentVariables:
+                              DATABASE_URL: $(DATABASE_URL)
+                          script: npm run prisma-generate
+                          workingDirectory: $(Build.Repository.LocalPath)/apps/api
+                    - template: steps/node_script.yml@templates
+                      parameters:
+                          nodeVersion: 20
+                          environmentVariables:
+                              DATABASE_URL: $(DATABASE_URL)
+                              REMOVE_ALL_CASES: $(REMOVE_ALL_CASES)
+                              SPECIFIED_CASES: $(SPECIFIED_CASES)
+                              TRANSACTION_MAX_WAIT_IN_SECONDS: $(TRANSACTION_MAX_WAIT_IN_SECONDS)
+                              TRANSACTION_TIMEOUT_IN_SECONDS: $(TRANSACTION_TIMEOUT_IN_SECONDS)
+                          script: npm run applications:remove-all-specified-cases
+                          workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
+      workspace:
+        clean: all
+

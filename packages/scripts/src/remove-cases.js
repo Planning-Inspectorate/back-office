@@ -10,6 +10,8 @@ const maxCasesToDelete =
 	parseInt(process.env.MAX_CASES_TO_DELETE ?? '0') || Number.MAX_SAFE_INTEGER;
 const maxWaitInSeconds = parseInt(process.env.TRANSACTION_MAX_WAIT_IN_SECONDS ?? '0') || 20;
 const maxTimeoutInSeconds = parseInt(process.env.TRANSACTION_TIMEOUT_IN_SECONDS ?? '0') || 100;
+const specifiedCases =
+	process.env.SPECIFIED_CASES?.split(',').map((reference) => reference.trim()) ?? [];
 
 const blobs = [];
 
@@ -322,7 +324,7 @@ const removeCase = async (reference) => {
  * @param {string[]} references
  * @returns {Promise<{successes,errors}>}
  */
-export const removeCases = async (references) => {
+const removeCases = async (references) => {
 	const errors = [];
 	const successes = [];
 
@@ -384,7 +386,20 @@ const getReferencesPrefixedWith = async (startsWith) => {
  * @returns {Promise<void>}
  */
 export const removeAllTrainingCases = async () => {
-	// const references = await getReferencesPrefixedWith('TRAIN0110004');
 	const references = await getReferencesPrefixedWith('TRAIN');
 	await removeCases(references);
+};
+
+/**
+ * Remove all specified cases and associated records
+ *
+ * @returns {Promise<void>}
+ */
+export const removeSpecifiedCases = async () => {
+	if (specifiedCases.length > 0) {
+		console.log('Specified cases to be removed:');
+		specifiedCases.forEach((reference) => console.log('- ' + reference));
+		console.log('');
+	}
+	await removeCases(specifiedCases);
 };
