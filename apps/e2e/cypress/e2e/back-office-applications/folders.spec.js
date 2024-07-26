@@ -96,4 +96,33 @@ describe('Folders', () => {
 
 		page.basePageElements.linkByText('Rename folder').should('not.exist');
 	});
+
+	it('Should be able to delete a custom folder', () => {
+		if (!Cypress.env('featureFlags')['applic-625-custom-folders']) {
+			return;
+		}
+
+		fileUploadPage.showSubfolders();
+		fileUploadPage.createFolder();
+
+		const folderName = 'Folder to delete 1';
+		page.fillInput(folderName);
+		page.clickButtonByText('Save and return');
+		fileUploadPage.verifyTableContains(folderName);
+
+		fileUploadPage.clickFolder(folderName);
+		fileUploadPage.deleteFolder();
+		page.clickButtonByText('Delete folder');
+
+		fileUploadPage.verifyFolderTitle('Project management');
+		fileUploadPage.verifyTableDoesNotContain(folderName);
+	});
+
+	it('Should not be able to delete a non-custom folder', () => {
+		if (!Cypress.env('featureFlags')['applic-625-custom-folders']) {
+			return;
+		}
+
+		page.basePageElements.linkByText('Delete folder').should('not.exist');
+	});
 });

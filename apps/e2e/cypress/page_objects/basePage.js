@@ -230,6 +230,10 @@ export class Page {
 		this.basePageElements.tableBody().find(this.selectors.tableCell).contains(text);
 	}
 
+	verifyTableDoesNotContain(text) {
+		this.basePageElements.tableBody().find(this.selectors.tableCell).should('not.contain', text);
+	}
+
 	validateBannerMessage(successMessage) {
 		this.basePageElements.bannerHeader().then(($banner) => {
 			expect($banner.text().trim()).eq(successMessage);
