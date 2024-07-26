@@ -55,31 +55,52 @@ export const broadcastNsipProjectEvent = async (project, eventType, options = {}
 	try {
 		await verifyNotTraining(project.id);
 	} catch (/** @type {*} */ err) {
-		logger.info('Aborted broadcasting event for project:', err.message);
+		logger.error({ error: err.message }, 'Aborted broadcasting event for project');
 		return;
 	}
 
-	await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(project)], eventType);
+	try {
+		await eventClient.sendEvents(NSIP_PROJECT, [buildNsipProjectPayload(project)], eventType);
+	} catch (/** @type {*} */ err) {
+		logger.error(
+			{ error: err.message },
+			`Blocked sending event for nsip project with ID: ${project.id}`
+		);
+	}
 
 	if (project.applicant && project.reference) {
 		// We can't broadcast a service user until they have a role (i.e. there's a case reference)
 		// This means that the consumers won't know about the applicant until the case creation has finished
-		await eventClient.sendEvents(
-			SERVICE_USER,
-			[buildServiceUserPayload(project.applicant, project.reference, applicant)],
-			eventType,
-			{ entityType: applicant }
-		);
+		try {
+			await eventClient.sendEvents(
+				SERVICE_USER,
+				[buildServiceUserPayload(project.applicant, project.reference, applicant)],
+				eventType,
+				{ entityType: applicant }
+			);
+		} catch (/** @type {*} */ err) {
+			logger.error(
+				{ error: err.message },
+				`Blocked sending event for applicant with ID: ${applicant.id}`
+			);
+		}
 	}
 
 	if (options?.isCaseStart) {
 		// We can safely call get all by case as it will only be the folders we have created.
 		const caseFolders = await folderRepository.getAllByCaseId(project.id);
-		await eventClient.sendEvents(
-			FOLDER,
-			buildFoldersPayload(caseFolders, project.reference),
-			EventType.Create
-		);
+		try {
+			await eventClient.sendEvents(
+				FOLDER,
+				buildFoldersPayload(caseFolders, project.reference),
+				EventType.Create
+			);
+		} catch (/** @type {*} */ err) {
+			logger.error(
+				{ error: err.message },
+				`Blocked sending event for folders with project ID: ${project.id}`
+			);
+		}
 	}
 };
 
@@ -107,9 +128,9 @@ export const broadcastNsipDocumentEvent = async (
 					await verifyNotTraining(doc.Document.caseId);
 					return true;
 				} catch (/** @type {*} */ err) {
-					logger.info(
-						`Blocked sending event for document with guid ${doc.documentGuid}: `,
-						err.message
+					logger.error(
+						{ error: err.message },
+						`Blocked sending event for document with guid: ${doc.documentGuid}`
 					);
 					return false;
 				}
@@ -126,7 +147,11 @@ export const broadcastNsipDocumentEvent = async (
 	);
 
 	if (eventPayloads.length) {
-		await eventClient.sendEvents(NSIP_DOCUMENT, eventPayloads, eventType, additionalProperties);
+		try {
+			await eventClient.sendEvents(NSIP_DOCUMENT, eventPayloads, eventType, additionalProperties);
+		} catch (/** @type {*} */ err) {
+			logger.error({ error: err.message }, `Blocked sending events for documents`);
+		}
 	}
 };
 
@@ -148,7 +173,10 @@ export const broadcastNsipS51AdviceEvent = async (s51Advice, eventType) => {
 					await verifyNotTrainingS51(advice.id);
 					return true;
 				} catch (/** @type {*} */ err) {
-					logger.info(`Blocked sending event for S51 with id ${advice.id}: `, err.message);
+					logger.error(
+						{ error: err.message },
+						`Blocked sending event for S51 with ID: ${advice.id}`
+					);
 					return false;
 				}
 			}, s51AdviceEvents)
@@ -156,7 +184,11 @@ export const broadcastNsipS51AdviceEvent = async (s51Advice, eventType) => {
 	);
 
 	if (eventPayloads.length) {
-		await eventClient.sendEvents(NSIP_S51_ADVICE, eventPayloads, eventType);
+		try {
+			await eventClient.sendEvents(NSIP_S51_ADVICE, eventPayloads, eventType);
+		} catch (/** @type {*} */ err) {
+			logger.error({ error: err.message }, `Blocked sending events for S51 Advices`);
+		}
 	}
 };
 
@@ -176,13 +208,25 @@ export const broadcastNsipRepresentationEvent = async (
 	if (!isTrainingCase(representationFullDetails.case.reference)) {
 		const nsipRepresentationPayload = buildNsipRepresentationPayload(representationFullDetails);
 		const serviceUsersPayload = buildRepresentationServiceUserPayload(representationFullDetails);
-
-		await eventClient.sendEvents(NSIP_REPRESENTATION, [nsipRepresentationPayload], eventType);
-
-		// and service users
-		await eventClient.sendEvents(SERVICE_USER, serviceUsersPayload, eventType, {
-			entityType: 'RepresentationContact'
-		});
+		try {
+			await eventClient.sendEvents(NSIP_REPRESENTATION, [nsipRepresentationPayload], eventType);
+		} catch (/** @type {*} */ err) {
+			logger.error(
+				{ error: err.message },
+				`Blocked sending event for Representation with ID: ${representation.id}`
+			);
+		}
+		try {
+			// and service users
+			await eventClient.sendEvents(SERVICE_USER, serviceUsersPayload, eventType, {
+				entityType: 'RepresentationContact'
+			});
+		} catch (/** @type {*} */ err) {
+			logger.error(
+				{ error: err.message },
+				`Blocked sending events for Service users with representation ID: ${representation.id}`
+			);
+		}
 	}
 };
 
@@ -214,6 +258,9 @@ export const broadcastNsipRepresentationPublishEventBatch = async (
 			entityType: 'RepresentationContact'
 		});
 	} catch (/** @type {*} */ err) {
-		logger.info(`Blocked sending event for representations: ${representationIds}`, err.message);
+		logger.error(
+			{ error: err.message },
+			`Blocked sending event for representations: ${representationIds}`
+		);
 	}
 };
