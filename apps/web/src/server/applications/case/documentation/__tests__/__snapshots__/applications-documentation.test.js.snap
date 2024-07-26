@@ -6939,8 +6939,9 @@ exports[`applications documentation Document properties delete page GET /case/12
                     </tr>
                 </tbody>
             </table>
-            <p class="govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7">You are deleting the document from:<span class="font-weight--700"> Project documentation > </span>
-                <span                 class="font-weight--700">Project management ></span><span class="font-weight--700"> Sub folder level 2 </span>
+            <p class="govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7">You are deleting the document from:<span class="font-weight--700"> Project overview > </span>
+                <span                 class="font-weight--700">Project documentation ></span><span class="font-weight--700"> Project management > </span>
+                    <span                     class="font-weight--700">Sub folder level 2</span>
             </p>
             <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> This will delete
@@ -6976,8 +6977,9 @@ exports[`applications documentation Document properties delete page GET /case/12
                     </tr>
                 </tbody>
             </table>
-            <p class="govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7">You are deleting the document from:<span class="font-weight--700"> Project documentation > </span>
-                <span                 class="font-weight--700">Project management ></span><span class="font-weight--700"> Sub folder level 2 </span>
+            <p class="govuk-body govuk-!-margin-top-7 govuk-!-margin-bottom-7">You are deleting the document from:<span class="font-weight--700"> Project overview > </span>
+                <span                 class="font-weight--700">Project documentation ></span><span class="font-weight--700"> Project management > </span>
+                    <span                     class="font-weight--700">Sub folder level 2</span>
             </p>
             <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> This will delete
@@ -7001,7 +7003,7 @@ exports[`applications documentation Document properties delete page POST /case/1
                 </div>
             </div>
             <div class="govuk-body">Return to folder:<a href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/"
-                class="govuk-link"><span> Project documentation  > </span><span> Project management  > </span><span  class="font-weight--700" > Sub folder level 2 </span></a>
+                class="govuk-link"><span> Project overview  > </span><span> Project documentation  > </span><span> Project management  > </span><span  class="font-weight--700" > Sub folder level 2 </span></a>
             </div>
         </div>
     </div>
@@ -7014,6 +7016,8 @@ exports[`applications documentation Document properties page page should render 
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <div class="govuk-breadcrumbs govuk-!-margin-top-0">
                 <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
@@ -7172,6 +7176,8 @@ exports[`applications documentation Document properties page page should render 
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <div class="govuk-breadcrumbs govuk-!-margin-top-0">
                 <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
@@ -7332,6 +7338,8 @@ exports[`applications documentation Document properties page should not show pub
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <div class="govuk-breadcrumbs govuk-!-margin-top-0">
                 <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
@@ -7490,6 +7498,8 @@ exports[`applications documentation Document properties page should not show pub
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <div class="govuk-breadcrumbs govuk-!-margin-top-0">
                 <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
@@ -7650,6 +7660,8 @@ exports[`applications documentation Document properties page should show publish
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <div class="govuk-breadcrumbs govuk-!-margin-top-0">
                 <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
@@ -14087,7 +14099,7 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
             </div>
             <p class="govuk-body">The documents will show on the NI website within the hour.</p>
             <div class="govuk-body">Return to folder:<a href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/"
-                class="govuk-link"><span> Project documentation  > </span><span> Project management  > </span><span  class="font-weight--700" > Sub folder level 2 </span></a>
+                class="govuk-link"><span> Project overview  > </span><span> Project documentation  > </span><span> Project management  > </span><span  class="font-weight--700" > Sub folder level 2 </span></a>
             </div>
         </div>
     </div>

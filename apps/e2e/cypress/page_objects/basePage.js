@@ -51,7 +51,7 @@ export class Page {
 		summaryListValue: '.govuk-summary-list__value',
 		summaryErrorMessages: '.govuk-list.govuk-error-summary__list > li',
 		xlHeader: '.govuk-heading-xl',
-		projectManagement: 'span.font-weight--700:nth-child(2)',
+		projectManagement: 'span.font-weight--700:nth-child(3)',
 		unpublish: 'a.govuk-button:nth-child(5)',
 		caseRefTraining: '.project-details > .govuk-table__body > :nth-child(1) > .govuk-table__header',
 		projectDocumentation: ':nth-child(1) > .govuk-breadcrumbs__link',
