@@ -49,6 +49,12 @@ const decorator = {
 							  }
 							: arg
 					);
+					if (
+						prop === 'error' &&
+						messages.some((message) => message?.error?.toLowerCase().includes('a training case'))
+					) {
+						return; // skip reporting the error as it is related to a training case
+					}
 					target[prop]({ operationId, traceId }, ...messages);
 				}
 			};

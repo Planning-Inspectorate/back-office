@@ -10,6 +10,7 @@ import * as regionRepository from '#repositories/region.repository.js';
 import * as representationRepository from '#repositories/representation.repository.js';
 import * as subSectorRepository from '#repositories/sub-sector.repository.js';
 import * as zoomLevelRepository from '#repositories/zoom-level.repository.js';
+import { isTrainingCase } from '#utils/is-training-case.js';
 
 /**
  *
@@ -331,21 +332,12 @@ export const verifyNotTraining = async (caseId) => {
 		);
 	}
 
-	const isTraining =
-		/^TRAIN/.test(projectWithSector.reference ?? '') ||
-		projectWithSector.ApplicationDetails?.subSector?.sector?.name === 'training';
-	if (isTraining) {
+	if (
+		isTrainingCase(
+			projectWithSector.reference,
+			projectWithSector.ApplicationDetails?.subSector?.sector?.name
+		)
+	) {
 		throw new Error(`Case with ID ${caseId} is a training case.`);
 	}
-};
-
-/**
- * Is this a "Training" case? - checks the reference name and/or the sector name, without querying DB
- *
- * @param {string} [reference]
- * @param {string} [sector]
- * @returns {boolean}
- */
-export const isTrainingCase = (reference, sector) => {
-	return /^TRAIN/.test(reference ?? '') || (sector ?? '') === 'training';
 };

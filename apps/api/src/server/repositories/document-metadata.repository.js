@@ -1,5 +1,6 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import config from '#config/config.js';
+import { isTrainingCase } from '#utils/is-training-case.js';
 
 /**
  * @typedef {import('@prisma/client').Document} Document
@@ -252,13 +253,16 @@ export const publishMany = async (documentVersionIds) => {
 			include: includeClauseDocVersionFullWithSector
 		});
 
-		const isTraining =
-			current?.Document?.folder.case?.ApplicationDetails?.subSector?.sector.name === 'training';
+		const { reference, ApplicationDetails } = current?.Document?.folder.case || {};
 
 		const result = await databaseConnector.documentVersion.update({
 			where: { documentGuid_version },
 			data: {
-				publishedStatus: isTraining || config.authDisabled ? 'published' : 'publishing',
+				publishedStatus:
+					isTrainingCase(reference, ApplicationDetails?.subSector?.sector?.name) ||
+					config.authDisabled
+						? 'published'
+						: 'publishing',
 				publishedStatusPrev: current?.publishedStatus
 			},
 			include: includeClauseDocVersionFull
@@ -303,13 +307,16 @@ export const unpublishMany = async (documentVersionIds) => {
 			}
 		});
 
-		const isTraining =
-			current?.Document?.case?.ApplicationDetails?.subSector?.sector.name === 'training';
+		const { reference, ApplicationDetails } = current?.Document?.folder.case || {};
 
 		const result = await databaseConnector.documentVersion.update({
 			where: { documentGuid_version },
 			data: {
-				publishedStatus: isTraining || config.authDisabled ? 'unpublished' : 'unpublishing',
+				publishedStatus:
+					isTrainingCase(reference, ApplicationDetails?.subSector?.sector?.name) ||
+					config.authDisabled
+						? 'unpublished'
+						: 'unpublishing',
 				publishedStatusPrev: current?.publishedStatus
 			},
 			include: includeClauseDocVersionFull
