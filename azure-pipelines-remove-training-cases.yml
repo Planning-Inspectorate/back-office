@@ -8,6 +8,24 @@ parameters:
           - Test
           - Training
           - Prod
+    - name: removeAllCases
+      displayName: Remove all cases
+      type: string
+      values:
+          - true
+          - false
+    - name: maxCasesToDelete
+      displayName: Max cases to delete
+      type: number
+      default: 40
+    - name: maxWaitInSeconds
+      displayName: Max transaction wait in seconds
+      type: number
+      default: 20
+    - name: maxTimeoutInSeconds
+      displayName: Max transaction timeout in seconds
+      type: number
+      default: 100
 
 pool: pins-odt-agent-pool
 
@@ -60,10 +78,10 @@ jobs:
                           nodeVersion: 20
                           environmentVariables:
                               DATABASE_URL: $(DATABASE_URL)
-                              REMOVE_ALL_CASES: $(REMOVE_ALL_CASES)
-                              MAX_CASES_TO_DELETE: $(MAX_CASES_TO_DELETE)
-                              TRANSACTION_MAX_WAIT_IN_SECONDS: $(TRANSACTION_MAX_WAIT_IN_SECONDS)
-                              TRANSACTION_TIMEOUT_IN_SECONDS: $(TRANSACTION_TIMEOUT_IN_SECONDS)
+                              REMOVE_ALL_CASES: ${{parameters.removeAllCases}}
+                              MAX_CASES_TO_DELETE: ${{parameters.maxCasesToDelete}}
+                              TRANSACTION_MAX_WAIT_IN_SECONDS: ${{parameters.maxWaitInSeconds}}
+                              TRANSACTION_TIMEOUT_IN_SECONDS: ${{parameters.maxTimeoutInSeconds}}
                           script: npm run applications:remove-all-training-cases
                           workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
       workspace:

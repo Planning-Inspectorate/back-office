@@ -277,6 +277,9 @@ const removeCase = async (reference) => {
 		const startTime = Date.now();
 		await databaseConnector.$transaction(
 			async (tx) => {
+				if (!reference.startsWith('TRAIN')) {
+					throw new Error('Case is not a training case ' + reference);
+				}
 				const { id: caseId } = (await getCaseByRef(reference)) || {};
 				if (!caseId) {
 					throw new Error('No such case ' + reference);
@@ -335,7 +338,7 @@ const removeCases = async (references) => {
 	console.log(`Attempting to delete ${references.length} cases\n`);
 
 	for (const reference of references) {
-		const error = await removeCase(reference);
+		const error = await removeCase(reference.toUpperCase());
 		if (error) {
 			errors.push({ reference, error });
 		} else {
