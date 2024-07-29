@@ -8,10 +8,7 @@ import {
 	NSIP_REPRESENTATION,
 	NSIP_DOCUMENT
 } from './topics.js';
-import {
-	isTrainingCase,
-	verifyNotTraining
-} from '../applications/application/application.validators.js';
+import { verifyNotTraining } from '../applications/application/application.validators.js';
 import { EventType } from '@pins/event-client';
 import * as folderRepository from '#repositories/folder.repository.js';
 import { filterAsync } from '#utils/async.js';
@@ -31,6 +28,7 @@ import { verifyNotTrainingS51 } from '../applications/s51advice/s51-advice.valid
 import { batchSendEvents } from './event-batch-broadcaster.js';
 import { buildDocumentFolderPath } from '../applications/application/documents/document.service.js';
 import * as representationRepository from '#repositories/representation.repository.js';
+import { isTrainingCase } from '#utils/is-training-case.js';
 
 const applicant = 'Applicant';
 
