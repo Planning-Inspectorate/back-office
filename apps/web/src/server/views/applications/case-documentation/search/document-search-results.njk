@@ -67,6 +67,7 @@
 
 		{% if searchResult.itemCount > 0 %}
 			{{ govukTable({
+				attributes: { id: 'document-search-results' },
 				classes: 'pins-table--bordered stretch-last-column',
 				head: [
 					{ text: "Document reference" },

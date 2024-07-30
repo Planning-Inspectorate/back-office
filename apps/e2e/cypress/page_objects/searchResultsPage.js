@@ -6,10 +6,9 @@ export class SearchResultsPage extends Page {
 		searchResults: () => cy.get(this.selectors.smallHeader),
 		searchApplicationsError: () => cy.get('#searchApplications-error'),
 		searchResultsCount: () => cy.get('#main-content > div:nth-child(3) > p'),
-		searchResultsTableCount: () => cy.get('#main-content > div:nth-child(3) > table'),
+		searchResultsTableCount: () => cy.get('#document-search-results'),
 		invalidSearchCount: () => cy.get('#main-content > div:nth-child(3) > p:nth-child(1)'),
 		verifyViewLink: () => cy.get('tbody tr:nth-child(1) td:nth-child(3) a:nth-child(1)')
-
 	};
 
 	// U S E R  A C T I O N S
@@ -40,16 +39,16 @@ export class SearchResultsPage extends Page {
 			.find(this.selectors.body)
 			.should('contain.text', caseName);
 	}
-	verifyDocumentSearchResults(documentName){
+	verifyDocumentSearchResults(documentName) {
 		cy.get('#searchDocuments').type(documentName);
 	}
-	verifyDocumentsCount(){
-      	this.elements.searchResultsTableCount().should('have.length.greaterThan',0);
+	verifyDocumentsCount() {
+		this.elements.searchResultsTableCount().should('have.length.greaterThan', 0);
 	}
-	verifyInvalidSearchResultsCount(){
+	verifyInvalidSearchResultsCount() {
 		this.elements.invalidSearchCount().contains('0 results');
 	}
-	clickDocumentViewLink(){
+	clickDocumentViewLink() {
 		this.elements.verifyViewLink().click();
 	}
 }

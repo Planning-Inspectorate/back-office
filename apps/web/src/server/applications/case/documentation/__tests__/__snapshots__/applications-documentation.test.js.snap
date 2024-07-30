@@ -21993,7 +21993,8 @@ exports[`applications documentation Document search GET /case/123/project-docume
     </div>
     <div>
         <p class="govuk-heading-s">200 results</p>
-        <table class="govuk-table pins-table--bordered stretch-last-column">
+        <table class="govuk-table pins-table--bordered stretch-last-column"
+        id="document-search-results">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">Document reference</th>
