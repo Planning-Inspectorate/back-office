@@ -164,7 +164,8 @@ const folderContainingDocumentToDelete = {
 	stage: null,
 	case: {
 		id: 100000001,
-		reference: 'BC0110001'
+		reference: 'BC0110001',
+		CaseStatus: [{ id: 1, valid: true, status: '0' }]
 	}
 };
 

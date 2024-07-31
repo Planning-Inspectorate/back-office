@@ -15,7 +15,8 @@ const application1 = {
 	id: 1,
 	title: `${caseRef} - NI Case 3 Nam`,
 	description: `${caseRef} - NI Case 3 Name Description`,
-	reference: caseRef
+	reference: caseRef,
+	CaseStatus: [{ id: 1, valid: true, stage: 'examination' }]
 };
 
 /**
