@@ -176,7 +176,8 @@ const docVersionAfterUpdate = {
 				description: 'A description of test case 1 which is a case of subsector type Office Use.',
 				title: 'Office Use Test Application 1',
 				hasUnpublishedChanges: true,
-				applicantId: 100000000
+				applicantId: 100000000,
+				CaseStatus: [{ id: 1, valid: true, status: 'draft' }]
 			}
 		}
 	}
@@ -236,6 +237,7 @@ describe('Document service test', () => {
 	test('createDocumentVersion uploads new version of document and does not unblish the document', async () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersionsUnpublished);
+		databaseConnector.documentVersion.update.mockResolvedValue(docVersionAfterUpdate);
 
 		const response = await createDocumentVersion(document, caseId, documentGuid);
 

@@ -27,7 +27,10 @@ describe('validateNsipDocument', () => {
 						createdAt: '2022-01-01T11:59:38.129Z',
 						modifiedAt: '2023-03-10T13:49:09.666Z',
 						publishedAt: null,
-						CaseStatus: [{ id: 1, status: 'draft' }]
+						CaseStatus: [
+							{ id: 1, valid: false, status: 'draft' },
+							{ id: 2, valid: true, status: 'examination' }
+						]
 					}
 				}
 			},
