@@ -56,8 +56,7 @@ export class Page {
 		caseRefTraining: '.project-details > .govuk-table__body > :nth-child(1) > .govuk-table__header',
 		projectDocumentation: ':nth-child(1) > .govuk-breadcrumbs__link',
 		backToOverview: '.govuk-grid-column-two-thirds > a:nth-child(3)',
-		backToProjectOverview: '.govuk-back-link',
-		unpublishProject: '.colour--red'
+		backToProjectOverview: '.govuk-back-link'
 	};
 
 	// E L E M E N T S
@@ -118,7 +117,7 @@ export class Page {
 		backToOverviewPage: () => cy.get(this.selectors.backToOverview),
 		backToProjectPage: () =>
 			cy.get(this.selectors.backToProjectOverview, { timeout: 6000 }).should('be.visible'),
-		clickOnUnpublishProjectLink: () => cy.get(this.selectors.unpublishProject)
+		clickOnUnpublishProjectLink: () => this.basePageElements.linkByText('Unpublish project')
 	};
 
 	// A C T I O N S

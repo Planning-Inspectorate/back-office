@@ -307,7 +307,7 @@ export const unpublishMany = async (documentVersionIds) => {
 			}
 		});
 
-		const { reference, ApplicationDetails } = current?.Document?.folder.case || {};
+		const { reference, ApplicationDetails } = current?.Document?.case || {};
 
 		const result = await databaseConnector.documentVersion.update({
 			where: { documentGuid_version },
