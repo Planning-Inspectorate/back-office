@@ -6,25 +6,6 @@ import { valueToArray } from '../utils.js';
 
 const query = 'SELECT * FROM [odw_curated_db].[dbo].[nsip_s51_advice] WHERE caseReference = ?';
 
-const s51AdviceProperties = [
-	'adviceId',
-	'adviceReference',
-	'caseId',
-	'caseReference',
-	'title',
-	'from',
-	'agent',
-	'method',
-	'enquiryDate',
-	'enquiryDetails',
-	'adviceGivenBy',
-	'adviceDate',
-	'adviceDetails',
-	'status',
-	'redactionStatus',
-	'attachmentIds'
-];
-
 /**
  * Migrate s51-advice
  *
@@ -82,8 +63,22 @@ export const getNsipS51Advice = async (log, caseReference, synapseQuery = query)
 			row.caseReference = BO_GENERAL_S51_CASE_REF;
 		}
 		return {
-			...pick(row, s51AdviceProperties),
-			caseId: Number(row.caseId), // TODO: remove after ODW-1307 is completed
+			...pick(row, [
+				'adviceReference',
+				'caseReference',
+				'title',
+				'from',
+				'agent',
+				'method',
+				'enquiryDate',
+				'enquiryDetails',
+				'adviceGivenBy',
+				'adviceDate',
+				'adviceDetails',
+				'redactionStatus'
+			]),
+			adviceId: Number(row.adviceId),
+			caseId: Number(row.caseId),
 			status: mapStatus(row.status),
 			attachmentIds: valueToArray(row.attachmentIds)
 		};
