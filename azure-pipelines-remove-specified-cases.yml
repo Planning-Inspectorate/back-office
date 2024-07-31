@@ -15,7 +15,7 @@ parameters:
           - true
           - false
     - name: specifiedCases
-      displayName: Max transaction wait in seconds
+      displayName: Comma separated case references
       type: string
     - name: maxCasesToDelete
       displayName: Max cases to delete
