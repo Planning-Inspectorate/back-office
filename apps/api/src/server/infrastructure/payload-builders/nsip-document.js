@@ -56,6 +56,15 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 		return null;
 	})();
 
+	const documentCaseStage = (() => {
+		const status = document.folder?.case?.CaseStatus?.find((cs) => cs.valid)?.status;
+		if (!status) {
+			return null;
+		}
+
+		return mapDocumentCaseStageToSchema(status);
+	})();
+
 	return {
 		documentId: document.guid,
 		caseRef: caseReference,
@@ -105,7 +114,7 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 			'filter1Welsh',
 			'filter2'
 		]),
-		documentCaseStage: mapDocumentCaseStageToSchema(docVersionWithFullDetails.stage)
+		documentCaseStage
 	};
 };
 
@@ -132,7 +141,7 @@ export const mapDocumentCaseStageToSchema = (stage) => {
 			// our DB 'Post-decision' maps to 'post_decision'
 			return 'post_decision';
 		default:
-			return stage.toLowerCase();
+			return stage.toLowerCase().replace(/_/g, '-');
 	}
 };
 
