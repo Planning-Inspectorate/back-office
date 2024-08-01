@@ -1,6 +1,14 @@
+// Run book for Delivering CBOS To Azure Test Environment
+
+// @ts-nocheck
 const readline = require('readline');
 
 const steps = [
+	{
+		instruction: 'Notify developers not to merge PRs into main',
+		links: {},
+		prompt: 'Press enter when done: '
+	},
 	{
 		instruction: 'Run the E2E tests against DEV.',
 		links: {
@@ -11,7 +19,12 @@ const steps = [
 		failMsg: 'Address failing E2E tests before continuing.'
 	},
 	{
-		instruction: 'Approve the most recent deployment DEV deployment for test.',
+		instruction: 'Confirm from testers that it is OK to deliver to Test',
+		links: {},
+		prompt: 'Press enter when done: '
+	},
+	{
+		instruction: 'Approve the most recent DEV deployment for TEST.',
 		links: {
 			'Deployment pipeline':
 				'https://dev.azure.com.mcas.ms/planninginspectorate/back-office/_build?definitionId=130'
@@ -29,6 +42,12 @@ const steps = [
 		},
 		prompt: 'Did they pass? (y/N): ',
 		failMsg: 'Address failing E2E tests before continuing.'
+	},
+	{
+		instruction:
+			'Confirm from testers that it is OK to turn off Feature Flags for 2nd Regression test',
+		links: {},
+		prompt: 'Press enter when done: '
 	},
 	{
 		instruction: 'Run the E2E tests against TEST with flags OFF.',
@@ -50,10 +69,23 @@ const steps = [
 		prompt: 'Press enter when done: '
 	},
 	{
+		instruction: 'Notify all successful delivery to Test - OK to use',
+		links: {},
+		prompt: 'Press enter when done: '
+	},
+	{
 		instruction:
-			"Move tickets in 'Ready for release to test' to 'Ready for test' and set 'CBOS-next' as their fix version.",
+			"Move tickets in 'Ready for release to test' to 'Ready for test' and set 'CBOS-next' as their fix version, and tag the release number in the comments.",
 		links: {
 			'JIRA board': 'https://pins-ds.atlassian.net/jira/software/c/projects/APPLICS/boards/242'
+		},
+		prompt: 'Press enter when done: '
+	},
+	{
+		instruction: 'Add the build number to the list of Release Candidates.',
+		links: {
+			'Confluence Release Candidates':
+				'https://pins-ds.atlassian.net/wiki/spaces/AS2/pages/1677000733/Release+candidates'
 		},
 		prompt: 'Press enter when done: '
 	}
@@ -67,7 +99,7 @@ function runStep(index) {
 
 	const step = steps[index];
 	const links = Object.keys(step.links).reduce(
-		(acc, key) => `${acc}${key}: ${step.links[key]}\n`,
+		(acc, key) => `\x1b[1m${acc}${key}:\x1b[22m ${step.links[key]}\n`,
 		''
 	);
 	const fullText = `${index + 1}: ${step.instruction}\n${links}\n${step.prompt}`;
@@ -95,6 +127,9 @@ function runStep(index) {
 }
 
 async function run() {
+	process.stdout.write('\nRun book for Delivering CBOS To Azure Test Environment');
+	process.stdout.write('\n======================================================\n\n');
+
 	for (const indexStr in steps) {
 		const index = Number(indexStr);
 
