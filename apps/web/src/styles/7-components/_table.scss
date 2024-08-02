@@ -1,4 +1,4 @@
-@use "../govuk-frontend/govuk/helpers/_colour" as color;
+@use "../govuk-frontend/dist/govuk/helpers/_colour" as color;
 
 .govuk-accordion__section-content {
   .govuk-summary-list:last-child {

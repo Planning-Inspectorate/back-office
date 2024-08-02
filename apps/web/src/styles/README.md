@@ -35,7 +35,7 @@ We use the [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend/) design
 In order to import and use the GOV.UK mixins and functions or anything else we have to import them like this:
 
 ```scss
-@use "../govuk-frontend/govuk/base" as govuk;
+@use "../govuk-frontend/dist/govuk/base" as govuk;
 
 .test {
 	@include govuk.govuk-responsive-padding(4);
