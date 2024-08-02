@@ -1,5 +1,5 @@
-@use "../govuk-frontend/govuk/helpers/media-queries" as mixins;
-@use "../govuk-frontend/govuk/settings/media-queries" as settings;
+@use "../govuk-frontend/dist/govuk/helpers/media-queries" as mixins;
+@use "../govuk-frontend/dist/govuk/settings/media-queries" as settings;
 
 .pins-header__navigation--align-right {
   @include mixins.govuk-media-query ($from: map-get(settings.$govuk-breakpoints, 'desktop')) {

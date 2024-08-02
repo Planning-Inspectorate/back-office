@@ -1,4 +1,4 @@
-@use "../govuk-frontend/govuk/helpers/_colour" as color;
+@use "../govuk-frontend/dist/govuk/helpers/_colour" as color;
 @use "../../1-settings/_settings.global.scss" as pins-colours;
 
 .pins-masthead {

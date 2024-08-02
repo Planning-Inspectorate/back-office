@@ -1,7 +1,7 @@
-@import "../govuk-frontend/govuk/settings/_spacing";
-@import "../govuk-frontend/govuk/settings/media-queries";
-@import "../govuk-frontend/govuk/helpers/_spacing";
-@import "../govuk-frontend/govuk/helpers/_media-queries";
+@import "../govuk-frontend/dist/govuk/settings/_spacing";
+@import "../govuk-frontend/dist/govuk/settings/media-queries";
+@import "../govuk-frontend/dist/govuk/helpers/_spacing";
+@import "../govuk-frontend/dist/govuk/helpers/_media-queries";
 
 .pins-applications-create .govuk-form-group {
 	@include govuk-responsive-margin(7, "bottom");
