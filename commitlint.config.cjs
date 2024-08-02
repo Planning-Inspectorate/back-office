@@ -1,23 +1,14 @@
 const { isRegExp } = require('lodash');
 
 const scopes = [
-	'applications',
-	'applications/api',
-	'applications/web',
-	'test/api',
-	'test/e2e',
+	'api',
+	'web',
+	'e2e',
 	'functions',
 	/functions\/(.*)/,
 	/packages\/(.*)/,
 	'tooling',
-
-	// to phase out
-	'api',
-	'api/applications',
-	'web',
-	'web/applications',
-	'api-testing',
-	'e2e'
+	'api-testing'
 ];
 
 // dependabot commit scopes
