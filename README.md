@@ -161,6 +161,16 @@ A normal npm i may not correctly pull the latest version of the schemas.  If you
 ```shell
 npm uninstall pins-data-model && npm prune && npm install github:Planning-Inspectorate/data-model#1.0.1
 ```
+#### Dummy User Data
+
+When running locally there is a DUMMY_USER_DATA flag that allows the application to read in some dummy user data in the form of a dummy_user_data.json file.
+
+```shell
+const dummyUserDataFile = path.join(process.cwd(), 'dummy_user_data.json');
+return JSON.parse(await fs.readFile(dummyUserDataFile, 'utf8'));
+```
+
+This file isn't committed to source control and is included in the Git ignore source file (.gitignore). Please request this file from a team member and place it in your local back-office\apps\web\ folder.  Without this file you will see an error when attempting to view cases on the front end.
 
 ### Running Locally the Applications Stack
 
