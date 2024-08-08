@@ -1094,6 +1094,50 @@ describe('folder migration utils', () => {
 			expect(result).toEqual(100011436);
 		});
 
+		const failedToMatchPart = 'unmappable folder name';
+		it.each([
+			{
+				path: `BC010006 - NSIP Website Test/01 - Project Management/${failedToMatchPart}`,
+				folderIdOfDeepestPartialMap: 100011415,
+				numberOfFoldersToCreate: 1
+			},
+			{
+				path: `BC010006 - NSIP Website Test/05 - Pre-App/02 - EIA/${failedToMatchPart}`,
+				folderIdOfDeepestPartialMap: 100011467,
+				numberOfFoldersToCreate: 1
+			},
+			{
+				path: `BC010006 - NSIP Website Test/07 - Acceptance, Pre-Exam and Exam/01 - Acceptance/01 - Application Documents/${failedToMatchPart}`,
+				folderIdOfDeepestPartialMap: 100011476,
+				numberOfFoldersToCreate: 1
+			},
+			{
+				path: `BC010006 - NSIP Website Test/10 - Post Decision/${failedToMatchPart}/${failedToMatchPart}`,
+				folderIdOfDeepestPartialMap: 100011411,
+				numberOfFoldersToCreate: 2
+			}
+		])(
+			'attempts to partially map a folder path if no initially mapping found',
+			async ({ path, folderIdOfDeepestPartialMap, numberOfFoldersToCreate }) => {
+				const document = { path, documentCaseStage: null };
+				const folderInput = {
+					caseId,
+					displayNameEn: failedToMatchPart,
+					parentFolderId: folderIdOfDeepestPartialMap
+				};
+				const folderOutput = { id: 1, ...folderInput };
+				databaseConnector.folder.create.mockResolvedValue(folderOutput);
+
+				const result = await getDocumentFolderId(document, caseId);
+
+				expect(databaseConnector.folder.create).toHaveBeenCalledTimes(numberOfFoldersToCreate);
+				expect(databaseConnector.folder.create).toHaveBeenCalledWith({
+					data: folderInput
+				});
+				expect(result).toEqual(folderOutput.id);
+			}
+		);
+
 		it('creates new folder within for path with no mapping', async () => {
 			const document = {
 				path: 'TR020002 - Manston Airport/Foo/Bar/Baz'
