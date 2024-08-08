@@ -18,6 +18,18 @@ Most of the apps are built with [Express.js](https://expressjs.com/), and the fr
 * [Node.js](https://nodejs.org/en/) LTS & npm
 * [Docker](https://www.docker.com/products/docker-desktop) (to run a local db)
 
+### Node.js
+
+The current node version can be found in the package.json at the root of the project. It is recommended to use a node version manager, such as [nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+
+Example node installation, using `nvm`: 
+
+```
+nvm install 20.11.1
+nvm use 20.11.1
+nvm alias default 20
+```
+
 ### Database Setup
 
 #### Database Server Setup
@@ -130,6 +142,10 @@ apps/api> npm run db:migrate
 ```shell
 apps/api> npm run db:seed
 ```
+
+### Troubleshooting
+
+You may need to use a terminal running in Admin mode to install dependencies. This is not possible using VS Code on a Windows machine. In this case, open a Git Bash terminal in Admin mode then run `npm i`.
 
 #### Service Bus Schema from the data-model repo
 
