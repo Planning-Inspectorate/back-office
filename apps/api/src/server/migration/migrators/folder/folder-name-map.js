@@ -202,11 +202,9 @@ export const attemptPartialMapping = async (documentPath, caseId, folderIdMap) =
 	if (!cbosPathSections.cbosPathParts.length) {
 		return null;
 	}
-	console.log(folderIdMap);
-	console.log('eyooo: ', cbosPathSections);
+
 	const mappingKey = cbosPathSections.cbosPathParts.join(' > ');
 	const folderIdOfDeepestPartialMap = folderIdMap[mappingKey];
-	console.log('sup: ', folderIdOfDeepestPartialMap);
 	return await createFolders(
 		cbosPathSections.failedToMatchParts,
 		caseId,
