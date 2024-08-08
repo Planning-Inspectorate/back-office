@@ -36,7 +36,7 @@ export const validateMigration = async (log, caseReferences) => {
  * @param {import('@azure/functions').Logger} log
  * @returns {Promise<Object<string, EntitiesObject>>}
  */
-const getODWData = async (log, caseReferences) => {
+export const getODWData = async (log, caseReferences) => {
 	log.info(`Getting ODW data for cases: ${JSON.stringify(caseReferences)}`);
 	/** @type {Object<string, EntitiesObject>} */
 	let data = {};

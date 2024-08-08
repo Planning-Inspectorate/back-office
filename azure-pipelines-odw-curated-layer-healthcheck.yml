@@ -1,0 +1,58 @@
+parameters:
+  - name: caseReference
+    displayName: Case Reference
+    type: string
+    default: TR010020
+
+pool: pins-odt-agent-pool
+
+pr: none
+
+trigger:
+  - none
+
+schedules:
+  - cron: "0 7 * * *"
+    displayName: Daily ODW Curated Layer Healthcheck
+    branches:
+    include:
+      - main
+    always: true
+
+variables:
+  - group: back-office-infrastructure
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.16.1
+
+jobs:
+  - deployment: ODW_Curated_Layer_Healthcheck
+    displayName: ODW Curated Layer Healthcheck
+    environment: Dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - download: none
+            - checkout: self
+            - task: AzureFunction@1
+              inputs:
+                function: https://pins-func-apps-migration-apps-migration-test-ukw-001.azurewebsites.net/api/odw-curated-layer-healthcheck
+                key: $(AZURE_FUNCTION_KEY)
+                method: POST
+                headers: |
+                  {
+                    "Content-Type": "application/json"
+                  }
+                body: |
+                  {
+                    "caseReference": "$(caseReference)"
+                  }
+                waitForCompletion: true
+                successCriteria: |
+                  eq(status, 200)
