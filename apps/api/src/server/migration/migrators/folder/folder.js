@@ -5,6 +5,7 @@ import { memoize } from 'lodash-es';
 import { folderDocumentCaseStageMappings } from '../../../applications/constants.js';
 import { databaseConnector } from '#utils/database-connector.js';
 import logger from '#utils/logger.js';
+import { attemptPartialMapping } from './folder-name-map.js';
 
 /**
  * Folders to be created for cases which are being migrated. Includes all the default Back Office folders that
@@ -819,7 +820,7 @@ export const defaultCaseFoldersForMigration = [
 /**
  * Mapping of folder paths to their equivalent folder in Back Office
  */
-export const folderMapping = {
+const folderMapping = {
 	'01 - Project Management': 'Project management',
 	'01 - Project Management > 01 - Fees': 'Project management > Fees',
 	'01 - Project Management > 02 - Case Management': 'Project management > Case management',
@@ -972,7 +973,7 @@ export const folderMapping = {
 /**
  * Mapping of Horizon folder paths to their Back Office equivalent, depending on the file's stage
  */
-export const stageMap = {
+const stageMap = {
 	'06 - Post-Submission Correspondence': {
 		examination: 'Examination > Correspondence',
 		acceptance: 'Acceptance > Correspondence',
@@ -1099,10 +1100,15 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 		logger.info(`Mapping found for path + stage: ${stageFolderMap[documentCaseStage]}`);
 		folderId = folderIdMap[stageFolderMap[documentCaseStage]];
 	} else {
-		logger.info(`Creating folders within Archive folder: ${documentPath}`);
-		folderId = await createArchivedFolders(folders, caseId);
+		logger.info(`Attempting partial mapping for path: ${documentPath}`);
+		folderId = await attemptPartialMapping(documentPath, caseId, folderIdMap);
+		if (!folderId) {
+			logger.info(
+				`Failed to partially map document path - creating folders within Archive folder: ${documentPath}`
+			);
+			folderId = await createArchivedFolders(folders, caseId);
+		}
 	}
-
 	if (!folderId) throw `folderId not found`;
 
 	return folderId;
@@ -1139,7 +1145,7 @@ const createArchivedFolders = async (folders, caseId) => {
  * @param parentFolderId
  * @return {Promise<number>}
  */
-const createFolders = async (folders, caseId, parentFolderId) => {
+export const createFolders = async (folders, caseId, parentFolderId) => {
 	for (const folderName of folders) {
 		const folderUpsertInput = {
 			caseId,
@@ -1169,7 +1175,7 @@ const createFolders = async (folders, caseId, parentFolderId) => {
  * @param parentPath
  * @return {Map<string, number>} folderPathToIdMap
  */
-export const buildFolderPaths = (folders, paths = {}, parentPath = []) => {
+const buildFolderPaths = (folders, paths = {}, parentPath = []) => {
 	folders.forEach((folder) => {
 		let path = parentPath ? parentPath.concat(folder.displayNameEn) : [folder.displayNameEn];
 		paths[path.join(' > ')] = folder.id;
