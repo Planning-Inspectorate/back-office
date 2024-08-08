@@ -63,8 +63,9 @@ export const getAllADUsers = async (ADToken) => {
 
 	const allResults = await Promise.all(
 		containerGroupsIds.map((groupId) => {
-			// search for members of the group whose name or email (here called userPrincipalName) matches the search term
-			const url = `groups/${groupId}/members/microsoft.graph.user?$select=givenName,surname,userPrincipalName,id`;
+			// use the transitive members API to fetch all members of a group, even if that membership is inherited from another group
+			// https://learn.microsoft.com/en-us/graph/api/group-list-transitivemembers?view=graph-rest-1.0&tabs=http
+			const url = `groups/${groupId}/transitiveMembers/microsoft.graph.user?$select=givenName,surname,userPrincipalName,id`;
 
 			// call the Microsoft Graph REST API
 			return msGraphGet(url, {
