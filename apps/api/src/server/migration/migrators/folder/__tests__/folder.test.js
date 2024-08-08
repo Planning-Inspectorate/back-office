@@ -1122,7 +1122,7 @@ describe('folder migration utils', () => {
 				const document = { path, documentCaseStage: null };
 				const folderInput = {
 					caseId,
-					displayNameEn: failedToMatchPart,
+					displayNameEn: failedToMatchPart + ' - migrated',
 					parentFolderId: folderIdOfDeepestPartialMap
 				};
 				const folderOutput = { id: 1, ...folderInput };

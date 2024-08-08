@@ -206,7 +206,7 @@ export const attemptPartialMapping = async (documentPath, caseId, folderIdMap) =
 	const mappingKey = cbosPathSections.cbosPathParts.join(' > ');
 	const folderIdOfDeepestPartialMap = folderIdMap[mappingKey];
 	return await createFolders(
-		cbosPathSections.failedToMatchParts,
+		cbosPathSections.failedToMatchParts.map((pathParts) => pathParts + ' - migrated'),
 		caseId,
 		folderIdOfDeepestPartialMap
 	);
