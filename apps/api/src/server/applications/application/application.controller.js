@@ -7,7 +7,10 @@ import { mapCaseStatusString } from '#utils/mapping/map-case-status-string.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import { setCaseUnpublishedChangesIfTrue } from '#utils/published-case-fields-changed.js';
 import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
-import { mapCreateApplicationRequestToRepository } from './application.mapper.js';
+import {
+	mapApplicationDetailsToRepository,
+	mapUpdateRequestToRepository
+} from './application.mapper.js';
 import { getCaseDetails, getCaseByRef, startApplication } from './application.service.js';
 
 /**
@@ -16,8 +19,12 @@ import { getCaseDetails, getCaseByRef, startApplication } from './application.se
  * @type {import("express").RequestHandler}
  */
 export const createApplication = async (request, response) => {
-	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(request.body);
-	const application = await caseRepository.createApplication(mappedApplicationDetails);
+	const mappedApplicationDetails = mapApplicationDetailsToRepository(request.body);
+	const application = await caseRepository.createApplication(
+		/** @type {import("../../repositories/case.repository").CreateApplicationParams} */ (
+			mappedApplicationDetails
+		)
+	);
 
 	await broadcastNsipProjectEvent(application, EventType.Create);
 
@@ -28,8 +35,6 @@ export const createApplication = async (request, response) => {
  * @type {import("express").RequestHandler<{id: number}, ?, import("@pins/applications").CreateUpdateApplication>}
  */
 export const updateApplication = async ({ params, body }, response) => {
-	const mappedApplicationDetails = mapCreateApplicationRequestToRepository(body);
-
 	const originalResponse = await caseRepository.getById(params.id, {
 		subSector: true,
 		sector: true,
@@ -46,12 +51,9 @@ export const updateApplication = async ({ params, body }, response) => {
 		throw new BackOfficeAppError(`Application not found with id ${params.id}`, 404);
 	}
 
-	const updateResponse = await caseRepository.updateApplication({
-		caseId: params.id,
-		applicantId: body?.applicant?.id,
-		...mappedApplicationDetails
-	});
+	const dbParams = mapUpdateRequestToRepository(params.id, body);
 
+	const updateResponse = await caseRepository.updateApplication(dbParams);
 	if (!updateResponse) {
 		throw new BackOfficeAppError('Application not found', 500);
 	}
