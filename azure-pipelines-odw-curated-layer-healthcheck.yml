@@ -15,8 +15,8 @@ schedules:
   - cron: "0 7 * * *"
     displayName: Daily ODW Curated Layer Healthcheck
     branches:
-    include:
-      - main
+      include:
+        - main
     always: true
 
 variables:
@@ -32,14 +32,13 @@ resources:
 
 jobs:
   - deployment: ODW_Curated_Layer_Healthcheck
+    pool: server
     displayName: ODW Curated Layer Healthcheck
     environment: Dev
     strategy:
       runOnce:
         deploy:
           steps:
-            - download: none
-            - checkout: self
             - task: AzureFunction@1
               inputs:
                 function: https://pins-func-apps-migration-apps-migration-test-ukw-001.azurewebsites.net/api/odw-curated-layer-healthcheck
@@ -51,8 +50,8 @@ jobs:
                   }
                 body: |
                   {
-                    "caseReference": "$(caseReference)"
+                    "caseReference": "${{ parameters.caseReference }}"
                   }
-                waitForCompletion: true
+                waitForCompletion: 'true'
                 successCriteria: |
                   eq(status, 200)
