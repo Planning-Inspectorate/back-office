@@ -3,9 +3,9 @@ import { mapValuesUsingObject } from '#utils/mapping/map-values-using-object.js'
 
 /**
  * @param {import("@pins/applications").CreateUpdateApplication} applicationDetails
- * @returns {import("../../repositories/case.repository").CreateApplicationParams}
+ * @returns {import("../../repositories/case.repository").CommonCaseParams}
  */
-export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
+export const mapApplicationDetailsToRepository = (applicationDetails) => {
 	const formattedCaseDetails = pick(applicationDetails, [
 		'title',
 		'titleWelsh',
@@ -83,3 +83,14 @@ export const mapCreateApplicationRequestToRepository = (applicationDetails) => {
 		...(applicationDetails.stage && { caseStatus: { status: applicationDetails.stage } })
 	};
 };
+
+/**
+ * @param {number} caseId
+ * @param {import("@pins/applications").CreateUpdateApplication} applicationDetails
+ * @returns {import("../../repositories/case.repository").UpdateApplicationParams}
+ * */
+export const mapUpdateRequestToRepository = (caseId, applicationDetails) => ({
+	...mapApplicationDetailsToRepository(applicationDetails),
+	caseId,
+	applicantId: applicationDetails?.applicant?.id
+});
