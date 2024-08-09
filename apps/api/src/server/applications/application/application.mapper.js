@@ -80,7 +80,10 @@ export const mapApplicationDetailsToRepository = (applicationDetails) => {
 		...(!isEmpty(formattedApplicantAddressDetails) && {
 			applicantAddress: formattedApplicantAddressDetails
 		}),
-		...(applicationDetails.stage && { caseStatus: { status: applicationDetails.stage } })
+		...(applicationDetails.stage && { caseStatus: { status: applicationDetails.stage } }),
+		...(typeof applicationDetails.isMaterialChange !== 'undefined'
+			? { isMaterialChange: applicationDetails.isMaterialChange }
+			: {})
 	};
 };
 
