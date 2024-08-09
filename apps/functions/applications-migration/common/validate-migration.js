@@ -65,7 +65,7 @@ export const getODWData = async (log, caseReferences) => {
 			documents,
 			s51Advice,
 			representations,
-			examTimetableItems: examTimetableItems?.events || []
+			examTimetableItems: examTimetableItems ?? {}
 		};
 	}
 	return data;

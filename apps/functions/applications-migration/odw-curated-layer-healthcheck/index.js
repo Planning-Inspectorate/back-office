@@ -17,22 +17,26 @@ export default async function (context, { body: { caseReference } }) {
 		const errors = {};
 		const entityTypes = Object.keys(data[caseReference]);
 		for (const entityType of entityTypes) {
+			const entityData = data[caseReference][entityType];
 			const validator = await getValidatorForModel(entityType);
 			errors[entityType] = [];
-			if (entityType !== 'project') {
-				for (const entity of data[caseReference][entityType]) {
+			// project and exam timetable are singular entities
+			if (entityType === 'project' || entityType === 'examTimetableItems') {
+				console.log({ entityData });
+				if (!validator(entityData)) {
+					errors[entityType] = validator.errors;
+				}
+			} else {
+				for (const entity of entityData) {
 					if (!validator(entity)) {
 						errors[entityType].push(validator.errors);
 					}
 				}
-			} else {
-				if (!validator(data[caseReference][entityType])) {
-					errors[entityType] = validator.errors;
-				}
 			}
 		}
 
-		if (Object.keys(errors).length > 0) {
+		const isErrors = Object.values(errors).some((error) => error.length > 0);
+		if (isErrors) {
 			const removeDuplicateErrors = (errors) => uniqBy(errors, 'message');
 			const uniqueErrors = Object.keys(errors).reduce((acc, key) => {
 				acc[key] = removeDuplicateErrors(errors[key].flat());
