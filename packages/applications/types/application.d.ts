@@ -68,6 +68,7 @@ export interface CreateUpdateApplication {
 	description?: string;
 	caseEmail?: string;
 	subSectorName?: string;
+	isMaterialChange?: boolean;
 	stage?: ApplicationStageType;
 	geographicalInformation?: GeographicalInformation;
 	applicant?: Applicant;

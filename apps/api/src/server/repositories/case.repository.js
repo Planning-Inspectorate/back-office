@@ -37,7 +37,7 @@ const includeAll = {
 /** @typedef {CommonCaseParams} CreateApplicationParams */
 
 /**
- * @typedef {CommonCaseParams & { caseId: number, applicantId?: number, hasUnpublishedChanges?: boolean }} UpdateApplicationParams
+ * @typedef {CommonCaseParams & { caseId: number, applicantId?: number, hasUnpublishedChanges?: boolean, isMaterialChange?: boolean }} UpdateApplicationParams
  * */
 
 /**
@@ -267,7 +267,8 @@ const updateApplicationSansRegionsRemoval = async ({
 	mapZoomLevelName,
 	applicant,
 	applicantAddress,
-	hasUnpublishedChanges
+	hasUnpublishedChanges,
+	isMaterialChange
 }) => {
 	const formattedRegionNames = map(regionNames, (/** @type {string} */ regionName) => {
 		return { region: { connect: { name: regionName } } };
@@ -352,7 +353,8 @@ const updateApplicationSansRegionsRemoval = async ({
 					}
 				}
 			}),
-			...(hasUnpublishedChanges !== undefined ? { hasUnpublishedChanges } : {})
+			...(hasUnpublishedChanges !== undefined ? { hasUnpublishedChanges } : {}),
+			...(isMaterialChange !== undefined ? { isMaterialChange } : {})
 		},
 		include: {
 			applicant: true
@@ -376,7 +378,8 @@ export const updateApplication = async ({
 	mapZoomLevelName,
 	applicant,
 	applicantAddress,
-	hasUnpublishedChanges
+	hasUnpublishedChanges,
+	isMaterialChange
 }) => {
 	if (typeof regionNames !== 'undefined') {
 		// get the correct ApplicationDetails record id corresponding to this case
@@ -401,7 +404,8 @@ export const updateApplication = async ({
 		mapZoomLevelName,
 		applicant,
 		applicantAddress,
-		hasUnpublishedChanges
+		hasUnpublishedChanges,
+		isMaterialChange
 	});
 
 	return getById(caseId, {

@@ -63,6 +63,8 @@ export interface UpdateApplication {
 	};
 	/** @example false */
 	hasUnpublishedChanges?: boolean;
+	/** @example false */
+	isMaterialChange?: boolean;
 }
 
 export interface CreateApplication {
