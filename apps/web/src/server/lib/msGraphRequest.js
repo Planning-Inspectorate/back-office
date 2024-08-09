@@ -9,7 +9,7 @@ const [requestLogger, responseLogger, retryLogger] = createHttpLoggerHooks(
 );
 const retryParams = createHttpRetryParams(config.retry);
 
-const prefixUrl = 'https://graph.microsoft.com/v1.0/';
+export const prefixUrl = 'https://graph.microsoft.com/v1.0/';
 
 const instance = got.extend({
 	prefixUrl,
