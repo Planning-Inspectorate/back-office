@@ -18,14 +18,13 @@ export const searchProjectTeamMembers = async (searchTerm, allAzureUsers, pageNu
 	const searchResults = allAzureUsers.filter((azureUser) => {
 		const { givenName, surname, userPrincipalName: email } = azureUser;
 
-		// check whether the search matches perfectly the name, the surname or the email
-		// for example, ‘Mil’ will not return ‘Miles’. Users will need to enter ‘Miles’
+		// check whether the search matches partially the name, the surname or the email
 		return (
-			`${givenName || ''} ${surname || ''}`.toLocaleLowerCase() === searchTerm ||
-			`${surname || ''} ${givenName || ''}`.toLocaleLowerCase() === searchTerm ||
-			`${givenName || ''}`.toLocaleLowerCase() === searchTerm ||
-			`${surname || ''}`.toLocaleLowerCase() === searchTerm ||
-			`${email || ''}`.toLocaleLowerCase() === searchTerm
+			`${givenName || ''} ${surname || ''}`.toLocaleLowerCase().includes(searchTerm) ||
+			`${surname || ''} ${givenName || ''}`.toLocaleLowerCase().includes(searchTerm) ||
+			`${givenName || ''}`.toLocaleLowerCase().includes(searchTerm) ||
+			`${surname || ''}`.toLocaleLowerCase().includes(searchTerm) ||
+			`${email || ''}`.toLocaleLowerCase().includes(searchTerm)
 		);
 	});
 

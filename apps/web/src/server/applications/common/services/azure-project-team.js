@@ -1,10 +1,11 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import config from '@pins/applications.web/environment/config.js';
-import { msGraphGet } from '../../../lib/msGraphRequest.js';
+import { msGraphGet, prefixUrl } from '../../../lib/msGraphRequest.js';
 import { fetchFromCache, storeInCache } from '../../../lib/cache-handler.js';
 import getActiveDirectoryAccessToken from '../../../lib/active-directory-token.js';
 import HttpError from '../../../lib/http-error.js';
+import pino from '../../../lib/logger.js';
 
 /**
  * @typedef {import('../../applications.types').ProjectTeamMember} ProjectTeamMember
@@ -18,7 +19,10 @@ import HttpError from '../../../lib/http-error.js';
  */
 const getTokenOrFail = async (session) => {
 	try {
-		const { token } = await getActiveDirectoryAccessToken(session, ['GroupMember.Read.All']);
+		const { token } = await getActiveDirectoryAccessToken(session, [
+			'GroupMember.Read.All',
+			'User.ReadBasic.All'
+		]);
 
 		if (token) return token;
 
@@ -49,6 +53,51 @@ const getAzureDirectoryUsers = async (session) => {
 };
 
 /**
+ * Query the azure Active Directory group using Microsoft Graph REST API with pagination
+ *
+ * @param {string} ADToken
+ * @param {string} groupId
+ * @returns {Promise<*[]>}
+ */
+
+const getUsersByGroupId = async (ADToken, groupId) => {
+	const maximumNumberOfPages = 16;
+	const data = [];
+	let gotAllPages = false;
+	let numberOfPagesReturned = 0;
+	// use the transitive members API to fetch all members of a group, even if that membership is inherited from another group
+	// https://learn.microsoft.com/en-us/graph/api/group-list-transitivemembers?view=graph-rest-1.0&tabs=http
+	let url = `groups/${groupId}/transitiveMembers/microsoft.graph.user?$select=givenName,surname,userPrincipalName,id`;
+
+	while (!gotAllPages) {
+		// call the Microsoft Graph REST API handling pagination of the response
+		const page = await msGraphGet(url, {
+			headers: { authorization: `Bearer ${ADToken}`, ConsistencyLevel: 'eventual' }
+		});
+		data.push(...page.value);
+
+		pino.info(`ADUsers: Returned ${page.value?.length} results in page ${numberOfPagesReturned}`);
+
+		if (++numberOfPagesReturned > maximumNumberOfPages) {
+			gotAllPages = true;
+			break;
+		}
+
+		const nextPageLink = page['@odata.nextLink'];
+
+		if (nextPageLink) {
+			const nextLinkSplitOnPrefix = nextPageLink.split(prefixUrl);
+			const nextLinkWithoutPrefix = nextLinkSplitOnPrefix[nextLinkSplitOnPrefix.length - 1];
+
+			url = nextLinkWithoutPrefix;
+		} else {
+			gotAllPages = true;
+		}
+	}
+	return data;
+};
+
+/**
  *  Search the query in the azure Active Directory groups using Microsoft Graph REST API
  *
  * @param {string} ADToken
@@ -61,24 +110,16 @@ export const getAllADUsers = async (ADToken) => {
 		config.referenceData.applications.inspectorGroupId
 	];
 
-	const allResults = await Promise.all(
-		containerGroupsIds.map((groupId) => {
-			// use the transitive members API to fetch all members of a group, even if that membership is inherited from another group
-			// https://learn.microsoft.com/en-us/graph/api/group-list-transitivemembers?view=graph-rest-1.0&tabs=http
-			const url = `groups/${groupId}/transitiveMembers/microsoft.graph.user?$select=givenName,surname,userPrincipalName,id`;
-
-			// call the Microsoft Graph REST API
-			return msGraphGet(url, {
-				headers: { authorization: `Bearer ${ADToken}`, ConsistencyLevel: 'eventual' }
-			});
-		})
+	const results = await Promise.all(
+		containerGroupsIds.map((groupId) => getUsersByGroupId(ADToken, groupId))
 	);
+
+	const allResults = results.flat(1);
+
+	pino.info(`ADUsers: Returned ${allResults.length} results from the AD`);
 
 	return (
 		allResults
-			// remodel response
-			.map((result) => result.value)
-			.flat(1)
 			// filter out null or duplicate results (same user can be in multiple groups)
 			.filter(
 				(value, index, self) =>
