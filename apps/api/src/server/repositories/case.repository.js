@@ -31,24 +31,14 @@ const includeAll = {
  *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
  *  mapZoomLevelName?: string | null,
  *  regionNames?: string[],
- *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} CreateApplicationParams
+ *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null}}} CommonCaseParams
  */
 
+/** @typedef {CommonCaseParams} CreateApplicationParams */
+
 /**
- * @typedef {{
- *  caseId: number,
- *  applicantId?: number,
- *  caseDetails?: { title?: string | null, description?: string | null },
- * 	gridReference?: { easting?: number | null, northing?: number | null },
- *  applicationDetails?: { locationDescription?: string | null, submissionAtInternal?: Date | null, submissionAtPublished?: string | null, caseEmail?: string | null, dateOfReOpenRelevantRepresentationStart?: Date | null, dateOfReOpenRelevantRepresentationClose?: Date | null },
- *  caseStatus?: { status: import('@pins/applications').ApplicationStageType},
- *  subSectorName?: string | null,
- *  applicant?: { organisationName?: string | null, firstName?: string | null, middleName?: string | null, lastName?: string | null, email?: string | null, website?: string | null, phoneNumber?: string | null},
- *  mapZoomLevelName?: string | null,
- *  regionNames?: string[],
- *  applicantAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null},
- *  hasUnpublishedChanges?: boolean}} UpdateApplicationParams
- */
+ * @typedef {CommonCaseParams & { caseId: number, applicantId?: number, hasUnpublishedChanges?: boolean, isMaterialChange?: boolean }} UpdateApplicationParams
+ * */
 
 /**
  * @param {string[]} statusArray
@@ -277,7 +267,8 @@ const updateApplicationSansRegionsRemoval = async ({
 	mapZoomLevelName,
 	applicant,
 	applicantAddress,
-	hasUnpublishedChanges
+	hasUnpublishedChanges,
+	isMaterialChange
 }) => {
 	const formattedRegionNames = map(regionNames, (/** @type {string} */ regionName) => {
 		return { region: { connect: { name: regionName } } };
@@ -362,7 +353,8 @@ const updateApplicationSansRegionsRemoval = async ({
 					}
 				}
 			}),
-			...(hasUnpublishedChanges !== undefined ? { hasUnpublishedChanges } : {})
+			...(hasUnpublishedChanges !== undefined ? { hasUnpublishedChanges } : {}),
+			...(isMaterialChange !== undefined ? { isMaterialChange } : {})
 		},
 		include: {
 			applicant: true
@@ -386,7 +378,8 @@ export const updateApplication = async ({
 	mapZoomLevelName,
 	applicant,
 	applicantAddress,
-	hasUnpublishedChanges
+	hasUnpublishedChanges,
+	isMaterialChange
 }) => {
 	if (typeof regionNames !== 'undefined') {
 		// get the correct ApplicationDetails record id corresponding to this case
@@ -411,7 +404,8 @@ export const updateApplication = async ({
 		mapZoomLevelName,
 		applicant,
 		applicantAddress,
-		hasUnpublishedChanges
+		hasUnpublishedChanges,
+		isMaterialChange
 	});
 
 	return getById(caseId, {

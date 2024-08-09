@@ -21,6 +21,7 @@ model Case {
   title                 String?
   titleWelsh            String?
   hasUnpublishedChanges Boolean               @default(false)
+  isMaterialChange      Boolean               @default(false)
   applicantId           Int?
   ApplicationDetails    ApplicationDetails?
   applicant             ServiceUser?          @relation(fields: [applicantId], references: [id])

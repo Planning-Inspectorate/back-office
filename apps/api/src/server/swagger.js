@@ -101,7 +101,8 @@ export const spec = {
 					submissionAtInternal: 123
 				}
 			},
-			hasUnpublishedChanges: false
+			hasUnpublishedChanges: false,
+			isMaterialChange: false
 		},
 		CreateApplication: {
 			title: '',

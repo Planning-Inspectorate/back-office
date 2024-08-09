@@ -5711,6 +5711,10 @@
 				"hasUnpublishedChanges": {
 					"type": "boolean",
 					"example": false
+				},
+				"isMaterialChange": {
+					"type": "boolean",
+					"example": false
 				}
 			}
 		},
