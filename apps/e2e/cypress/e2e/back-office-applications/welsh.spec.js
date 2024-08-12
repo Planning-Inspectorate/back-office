@@ -73,11 +73,7 @@ describe('Enable and update Project Information with Welsh fields', () => {
 
 		it('As a user able to update the case information with welsh fields', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationsUsers.caseAdmin);
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				validateProjectOverview(projectInfo, true);
 				casePage.showAllSections();
 				validateWelshProjectInformation(projectInfo, true);
@@ -93,53 +89,33 @@ describe('Enable and update Project Information with Welsh fields', () => {
 
 		it('As a user able to able to update the project name in welsh language', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationsUsers.caseAdmin);
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				clickonWelshProjectName();
 			}
 		});
 
 		it('Able to validate the error message for project name in welsh language field', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationsUsers.caseAdmin);
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				validateErrorMessageForProjectname();
 			}
 		});
 
 		it('As a user able to able to update the project desc in welsh language', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationsUsers.caseAdmin);
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				clickonWelshProjectDesc();
 			}
 		});
 		it('Able to validate the error message for project desc welsh field', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationsUsers.caseAdmin);
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				validateErrorMessageForProjectdesc();
 			}
 		});
 		it('Able to validate the error message for project location welsh field', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationsUsers.caseAdmin);
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				validateErrorMessageForProjectlocation();
 			}
 		});
@@ -160,10 +136,7 @@ describe('Update project information to add a Welsh region', () => {
 
 		it('Publish fails when Welsh fields are not populated', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				updateProjectRegions(['Wales']);
 				casePage.clickPublishProjectButton();
 				casePage.validateErrorMessageCountInSummary(3);
@@ -175,10 +148,7 @@ describe('Update project information to add a Welsh region', () => {
 
 		it('Publish passes when Welsh fields are populated', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				if (!projectInfo.regions.includes('Wales')) {
 					projectInfo.regions = [...projectInfo.regions, 'Wales'].sort();
 				}
@@ -216,24 +186,16 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 
 		beforeEach(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				updateProjectRegions(['Wales']);
 				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.deleteAllExaminationTimetableItems();
+				examTimetablePage.clickButtonByText('Create timetable item');
 			}
 		});
 
 		it('Welsh fields are present on the examination timetable item', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
-				examTimetablePage.clickLinkByText('Examination timetable');
-				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
 				examTimetablePage.selectTimetableItem('Deadline');
 				examTimetablePage.clickButtonByText('Continue');
@@ -249,12 +211,6 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 
 		it('Can edit examination timetable item name in welsh and it is validated', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
-				examTimetablePage.clickLinkByText('Examination timetable');
-				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
 				examTimetablePage.selectTimetableItem('Deadline');
 				examTimetablePage.clickButtonByText('Continue');
@@ -280,12 +236,6 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 
 		it('Can edit examination timetable item description in welsh and it is validated', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
-				examTimetablePage.clickLinkByText('Examination timetable');
-				examTimetablePage.clickButtonByText('Create timetable item');
 				examTimetablePage.selectTimetableItem('Deadline');
 				examTimetablePage.clickButtonByText('Continue');
 				examTimetablePage.fillItemDetailsStartAndEnd(timetableItem());
@@ -318,12 +268,6 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 
 		it('Publishing fails when Item name in welsh is missing', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
-				examTimetablePage.clickLinkByText('Examination timetable');
-				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
 				examTimetablePage.selectTimetableItem('Deadline');
 				examTimetablePage.clickButtonByText('Continue');
@@ -332,8 +276,8 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.clickButtonByText('Save item');
 				examTimetablePage.clickLinkByText('Go back to examination timetable');
 
-				cy.get('.govuk-button').contains('Preview and publish').click();
-				cy.get('.govuk-button').contains('Publish examination timetable').click();
+				cy.contains('.govuk-button', 'Preview and publish').click();
+				cy.contains('.govuk-button', 'Publish examination timetable').click();
 				casePage.validateErrorMessageIsInSummary(
 					`Enter examination timetable item name in welsh - ${options.itemName}`
 				);
@@ -342,12 +286,6 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 
 		it('Publishing succeeds when Item name in welsh is present', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
-				examTimetablePage.clickLinkByText('Examination timetable');
-				examTimetablePage.clickButtonByText('Create timetable item');
 				const options = timetableItem();
 				examTimetablePage.selectTimetableItem('Deadline');
 				examTimetablePage.clickButtonByText('Continue');
@@ -362,10 +300,10 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.clickSaveAndReturn();
 				validateBannerMessage('Item name in Welsh updated');
 
-				cy.get('.govuk-button').contains('Preview and publish').click();
-				cy.get('.govuk-button').contains('Publish examination timetable').click();
+				cy.contains('.govuk-button', 'Preview and publish').click();
+				cy.contains('.govuk-button', 'Publish examination timetable').click();
 
-				cy.get('.govuk-panel__title').contains('Timetable item successfully published');
+				cy.contains('.govuk-panel__title', 'Timetable item successfully published');
 			}
 		});
 	});

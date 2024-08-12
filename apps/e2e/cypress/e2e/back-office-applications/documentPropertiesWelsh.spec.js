@@ -48,15 +48,16 @@ describe('Document Properties including welsh fields', () => {
 		}
 	});
 
-	it('As a user should be able to upload a document to a case and update the fields including Welsh and publish the document', () => {
+	beforeEach(() => {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-			cy.login(applicationsUsers.caseAdmin);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
+			applicationsHomePage.loadCurrentCase();
 			searchResultsPage.clickLinkByText('Project documentation');
 			searchResultsPage.clickLinkByText('Project management');
+		}
+	});
+
+	it('As a user should be able to upload a document to a case and update the fields including Welsh and publish the document', () => {
+		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 			fileUploadPage.verifyUploadButtonIsVisible();
 			fileUploadPage.uploadFile('test.pdf');
 			searchResultsPage.clickButtonByText('Save and continue');
@@ -99,13 +100,6 @@ describe('Document Properties including welsh fields', () => {
 
 	it('As a user try to pubilish the document without welsh field values and validated the error messages', () => {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-			cy.login(applicationsUsers.caseAdmin);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
-			searchResultsPage.clickLinkByText('Project documentation');
-			searchResultsPage.clickLinkByText('Project management');
 			fileUploadPage.verifyUploadButtonIsVisible();
 			fileUploadPage.uploadFile('sample-doc.pdf');
 			searchResultsPage.clickButtonByText('Save and continue');

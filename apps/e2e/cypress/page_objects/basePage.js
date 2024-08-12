@@ -63,7 +63,10 @@ export class Page {
 
 	basePageElements = {
 		accordion: (text) =>
-			cy.get(this.selectors.accordion).contains('span', text, { matchCase: false }),
+			cy.contains(this.selectors.accordion + ' span', text, { matchCase: false }),
+		accordionSectionButton: (text) => cy.contains(this.selectors.accordionSectionButton, text),
+		accordionSectionToggleText: (text) =>
+			cy.contains(this.selectors.accordionToggleText, text, { matchCase: true }),
 		answerCell: (question) =>
 			cy.contains(this.selectors.summaryListKey, question, { matchCase: false }).next(),
 		applicationHeaderCentral: () => cy.get(`${this.selectors.centralCol} > p`),
@@ -88,7 +91,10 @@ export class Page {
 		input: () => cy.get(this.selectors.input),
 		linkByText: (text) => cy.contains(this.selectors.link, text, { matchCase: true }),
 		loggedInUser: () => cy.get(`${this.selectors.rightCol} > span`),
-		panelBody: () => cy.get(`${this.selectors.panelBody}`),
+		panelBody: (text) =>
+			text
+				? cy.contains(`${this.selectors.panelBody}`, text)
+				: cy.get(`${this.selectors.panelBody}`),
 		panelTitle: () => cy.get(`${this.selectors.panelTitle}`),
 		radioButton: () => cy.get(this.selectors.radio),
 		sectionHeader: () => cy.get(this.selectors.headingLeft),
@@ -146,6 +152,10 @@ export class Page {
 
 	clickAccordionByText(text) {
 		this.basePageElements.accordion(text).click();
+	}
+
+	clickAccordionSectionByToggleText(text) {
+		this.basePageElements.accordionSectionToggleText(text).click();
 	}
 
 	clickBackLink(buttonText) {
@@ -317,7 +327,7 @@ export class Page {
 	}
 
 	validateSuccessPanelBody(successMessage) {
-		this.basePageElements.panelBody().contains(successMessage);
+		this.basePageElements.panelBody(successMessage);
 	}
 
 	navigateToAppealsService() {

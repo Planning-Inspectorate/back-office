@@ -60,11 +60,7 @@ describe('Update Key Dates', () => {
 
 			const expectedAfter = generateData();
 
-			cy.login(applicationsUsers.caseAdmin);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
+			applicationsHomePage.loadCurrentCase();
 			validateProjectOverview(projectInfo, true);
 			casePage.clickLinkByText('Key dates');
 			casePage.showAllSections();

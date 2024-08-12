@@ -31,11 +31,7 @@ describe('Update Project Information', () => {
 		});
 
 		it('As a user able to update the case information', () => {
-			cy.login(applicationsUsers.caseAdmin);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
+			applicationsHomePage.loadCurrentCase();
 			validateProjectOverview(projectInfo, true);
 			casePage.showAllSections();
 			validateProjectInformation(projectInfo, true);

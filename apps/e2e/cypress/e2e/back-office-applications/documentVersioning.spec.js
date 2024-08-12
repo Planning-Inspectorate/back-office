@@ -31,11 +31,7 @@ describe('Document Versioning', () => {
 	});
 
 	it('As a user should be able to upload a new version of a document to a case', () => {
-		cy.login(applicationsUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
+		applicationsHomePage.loadCurrentCase();
 		validateProjectOverview(projectInfo);
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');

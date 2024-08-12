@@ -89,11 +89,11 @@ export class FileUploadPage extends Page {
 	}
 
 	verifyFolderTitle(title) {
-		cy.get('h2.govuk-heading-l').contains(title);
+		cy.contains('h2.govuk-heading-l', title);
 	}
 
 	showSubfolders() {
-		cy.get('button.govuk-accordion__section-button').click();
+		cy.contains('button.govuk-accordion__section-button span', 'Show').click();
 	}
 
 	createFolder() {
@@ -113,6 +113,6 @@ export class FileUploadPage extends Page {
 	}
 
 	clickFolder(text) {
-		cy.get('#pins-subfolder-accordian-content-1 a').contains(text).click();
+		cy.contains('#pins-subfolder-accordian-content-1 a', text).click();
 	}
 }
