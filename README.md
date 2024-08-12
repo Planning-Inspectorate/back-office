@@ -187,7 +187,34 @@ npm run dev:applications
 
 ## Structure
 
-The main folders are `apps` (which contains the deployable services, such as the API and web front-end for the Application stack) and `packages` which contains libraries, as well as shared code and configuration. The whole setup is using [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
+```
+.
++-- apps
+|   +-- api-testing
+|   +-- api
+|   +-- e2e
+|   +-- functions
+|   +-- web
++-- docs
++-- packages
+|   +-- add-auth-headers-for-backend
+|   +-- appeals
+|   +-- applications
+|   +-- blob-storage-client
+|   +-- event-client
+|   +-- express
+|   +-- feature-flags
+|   +-- key-vault-secrets-client
+|   +-- platform
+|   +-- redis
+|   +-- scripts
+```
+
+|-|-|
+|------------|-----------------------------------------------------------------|
+| `apps`     | Contains deployable services                                    |
+| `packages` | Contains shared code and configurations for use across the apps |
+
 
 ## Building
 
