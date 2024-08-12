@@ -31,11 +31,8 @@ describe('Publish Documents', () => {
 	});
 
 	beforeEach(() => {
-		cy.login(applicationsUsers.caseAdmin);
-		cy.visit('/');
+		applicationsHomePage.loadCurrentCase();
 		caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 	});

@@ -39,6 +39,7 @@ describe('Create Case with sector as training', () => {
 		createCasePage.clickButtonByText('I accept - confirm creation of a new case');
 		createCasePage.sections.caseCreated.validateCaseCreated();
 	});
+
 	it('As a user able to verify the sector and sub sector names', () => {
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');

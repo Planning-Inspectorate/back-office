@@ -25,51 +25,36 @@ describe('Search Documents for various file types', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
+	beforeEach(() => {
+		applicationsHomePage.loadCurrentCase();
+		searchResultsPage.clickLinkByText('Project documentation');
+	});
+
 	function fileUpload(filename) {
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.uploadFile(filename);
 		searchResultsPage.clickButtonByText('Save and continue');
 		fileUploadPage.verifyFileIsUploaded();
-      }
+	}
 
 	it('As a user able to search and verify the documents count after uploading the .dbf file type to case', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUpload('dmap.dbf');
 		fileUploadPage.backToProjectDocumentationPage();
 		searchResultsPage.verifyDocumentSearchResults('dmap');
 		searchResultsPage.clickButtonByText('Search');
 		searchResultsPage.verifyDocumentsCount();
-
 	});
 
 	it('As a user able to search and verify the documents count after uploading the .shp file type to case', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUpload('smap.shp');
 		fileUploadPage.backToProjectDocumentationPage();
 		searchResultsPage.verifyDocumentSearchResults('smap');
 		searchResultsPage.clickButtonByText('Search');
 		searchResultsPage.verifyDocumentsCount();
-
 	});
 	it('As a user able to search and verify the documents count after uploading the .prj file type to case', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 		fileUpload('ptest-prj.prj');
 		fileUploadPage.backToProjectDocumentationPage();
@@ -79,12 +64,6 @@ describe('Search Documents for various file types', () => {
 	});
 
 	it('As a user able to verify documents search page contains view link next to document filename', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.verifyDocumentSearchResults('map');
 		searchResultsPage.clickButtonByText('Search');
 		searchResultsPage.clickDocumentViewLink();
@@ -92,15 +71,8 @@ describe('Search Documents for various file types', () => {
 	});
 
 	it('As a user able to verify invalid document search result count', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.verifyDocumentSearchResults('abc');
 		searchResultsPage.clickButtonByText('Search');
 		searchResultsPage.verifyInvalidSearchResultsCount();
 	});
-
 });

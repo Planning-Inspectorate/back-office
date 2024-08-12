@@ -49,10 +49,7 @@ describe('Smoke tests', { browser: '!electron' }, () => {
 
 	it('runs the smoke tests successfully', () => {
 		const fileName = 'sample-doc.pdf';
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
+		applicationsHomePage.loadCurrentCase();
 		validateProjectOverview(projectInfo);
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
@@ -91,7 +88,8 @@ describe('Smoke tests', { browser: '!electron' }, () => {
 		examTimetablePage.clickLinkByText('Go back to examination timetable');
 
 		// Verify Publish and Unpublish examtime table
-		examTimetablePage.verifyPublishAndUnpublishExamtimetable();
+		examTimetablePage.publishUnpublishExamTimetable();
+		examTimetablePage.clickLinkByText('Go back to examination timetable');
 
 		// Publish and Unpublish document
 		searchResultsPage.clickLinkByText('Project documentation');

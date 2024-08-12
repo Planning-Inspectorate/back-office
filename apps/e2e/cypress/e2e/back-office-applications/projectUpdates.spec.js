@@ -37,13 +37,12 @@ describe('Project Updates', () => {
 		const validEnglishContent = 'E'.repeat(12);
 		const updatedEnglishContent = 'X'.repeat(12);
 
-		it('As a user able to validate and enter a draft english project update', () => {
-			cy.login(applicationUsers.caseAdmin);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
+		beforeEach(() => {
+			applicationsHomePage.loadCurrentCase();
 			searchResultsPage.clickLinkByText('Project updates');
+		});
+
+		it('As a user able to validate and enter a draft english project update', () => {
 			projectUpdatesPage.clickButtonByText('Create a project update');
 
 			// Test no english content
@@ -85,13 +84,6 @@ describe('Project Updates', () => {
 		});
 
 		it('As a user able to review and update a draft english project update', () => {
-			cy.login(applicationUsers.caseAdmin);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
-			searchResultsPage.clickLinkByText('Project updates');
-
 			projectUpdatesPage.clickReviewLink(validEnglishContent);
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 				projectUpdatesPage.clickChangeLink('Details about the update');
@@ -127,13 +119,6 @@ describe('Project Updates', () => {
 		});
 
 		it('As a user able to delete a draft english project update', () => {
-			cy.login(applicationUsers.caseAdmin);
-			cy.visit('/');
-			const caseRef = Cypress.env('currentCreatedCase');
-			applicationsHomePage.searchFor(caseRef);
-			searchResultsPage.clickTopSearchResult();
-			searchResultsPage.clickLinkByText('Project updates');
-
 			projectUpdatesPage.clickReviewLink(updatedEnglishContent);
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 				projectUpdatesPage.clickLinkByText('Delete');
@@ -155,11 +140,7 @@ describe('Project Updates', () => {
 
 		it('As a user able to validate and enter a welsh project update', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationUsers.caseAdmin);
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 
 				// Make the case Welsh
 				updateProjectRegions([...projectInfo.regions, 'Wales']);
@@ -208,11 +189,7 @@ describe('Project Updates', () => {
 
 		it('As a user able to review and update an welsh project update', () => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationUsers.caseAdmin);
-				cy.visit('/');
-				const caseRef = Cypress.env('currentCreatedCase');
-				applicationsHomePage.searchFor(caseRef);
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				searchResultsPage.clickLinkByText('Project updates');
 
 				projectUpdatesPage.clickReviewLink(validEnglishContent);

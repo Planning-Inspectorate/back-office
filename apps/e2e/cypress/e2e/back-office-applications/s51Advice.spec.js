@@ -34,10 +34,7 @@ describe('Section 51 Advice', () => {
 
 	describe('in an English region', () => {
 		beforeEach(() => {
-			cy.login(applicationsUsers.caseAdmin);
-			cy.visit('/');
-			applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
-			searchResultsPage.clickTopSearchResult();
+			applicationsHomePage.loadCurrentCase();
 			s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
 			s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
 			s51AdvicePage.clickButtonByText(texts.createS51AdviceButtonText);
@@ -80,10 +77,7 @@ describe('Section 51 Advice', () => {
 
 	describe('updating English fields', () => {
 		beforeEach(() => {
-			cy.login(applicationsUsers.caseAdmin);
-			cy.visit('/');
-			applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
-			searchResultsPage.clickTopSearchResult();
+			applicationsHomePage.loadCurrentCase();
 			s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
 			s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
 		});
@@ -97,13 +91,16 @@ describe('Section 51 Advice', () => {
 	});
 
 	describe('updating region to be Wales', () => {
+		before(() => {
+			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				applicationsHomePage.loadCurrentCase();
+				updateProjectRegions(['Wales']);
+			}
+		});
+
 		beforeEach(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationsUsers.caseAdmin);
-				cy.visit('/');
-				applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
-				searchResultsPage.clickTopSearchResult();
-				updateProjectRegions(['Wales']);
+				applicationsHomePage.loadCurrentCase();
 				s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
 				s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
 			}
@@ -203,10 +200,7 @@ describe('Section 51 Advice', () => {
 	describe('in a Welsh region', () => {
 		beforeEach(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationsUsers.caseAdmin);
-				cy.visit('/');
-				applicationsHomePage.searchFor(Cypress.env('currentCreatedCase'));
-				searchResultsPage.clickTopSearchResult();
+				applicationsHomePage.loadCurrentCase();
 				s51AdvicePage.clickLinkByText(texts.projectDocumentationLinkText);
 				s51AdvicePage.clickLinkByText(texts.s51AdviceLinkText);
 				s51AdvicePage.clickButtonByText(texts.createS51AdviceButtonText);

@@ -24,65 +24,35 @@ describe('Project team related scenarios ', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('As a user able to add team member and verify the role is added to project team', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.log(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
+	beforeEach(() => {
+		applicationsHomePage.loadCurrentCase();
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
+	});
+
+	it('As a user able to add team member and verify the role is added to project team', () => {
 		email = Cypress.env('CASE_ADMIN_EMAIL');
 		projectTeamPage.addTeamMeber(email);
 		projectTeamPage.verifyCaseManagerRoleAdded();
 	});
 
 	it('As a user able to verify team member is added', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project team');
-		searchResultsPage.clickButtonByText('Add team member');
 		email = Cypress.env('CASE_ADMIN_EMAIL');
 		projectTeamPage.searchTeamMemberByEmail(email);
 		projectTeamPage.verifyTeamMemberIsAdded();
 	});
 
 	it('As a user able to enter valid input and verify multiple results count', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project team');
-		searchResultsPage.clickButtonByText('Add team member');
 		projectTeamPage.searchTeamMemberByEmail('test');
 		projectTeamPage.validateMultipleSearchCount();
 	});
 
 	it('As a user able to enter invalid input and verify the error and count', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project team');
-		searchResultsPage.clickButtonByText('Add team member');
 		projectTeamPage.searchTeamMemberByEmail('abc');
 		projectTeamPage.verifyInvalidSearchResultsMessageAndCount();
 	});
 
 	it('As a user able to verify the error message without entering the search criteria', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project team');
-		searchResultsPage.clickButtonByText('Add team member');
 		projectTeamPage.validateErrorMessageWithoutEnteringAnything();
 	});
 });
