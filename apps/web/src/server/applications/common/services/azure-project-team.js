@@ -166,6 +166,8 @@ const getAllCachedUsers = async (session) => {
 
 		return users;
 	} catch (/** @type {*} */ error) {
+		// TODO: Once we have an example of the structure of `error`, let's change the HttpError to throw a more informative message.
+		pino.error(error);
 		throw new HttpError(
 			`[GRAPH MICROSOFT API] ${error?.response?.body?.error?.code || 'Unknown error'}`,
 			500
