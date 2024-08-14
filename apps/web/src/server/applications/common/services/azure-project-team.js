@@ -27,7 +27,9 @@ const getTokenOrFail = async (session) => {
 		if (token) return token;
 
 		throw new HttpError('Active Directory token not found', 401);
-	} catch {
+	} catch (error) {
+		// TODO: Lets output the error coming back from getActiveDirectoryAccessToken for now.
+		pino.error(error);
 		throw new HttpError('Error retrieving the Active Directory token', 500);
 	}
 };
