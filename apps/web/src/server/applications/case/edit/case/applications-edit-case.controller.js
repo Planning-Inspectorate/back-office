@@ -13,9 +13,11 @@ import {
 	caseTeamEmailData,
 	caseTeamEmailDataUpdate,
 	caseZoomLevelData,
-	caseZoomLevelDataUpdate
+	caseZoomLevelDataUpdate,
+	isMaterialChangeDataUpdate
 } from '../../../common/components/form/form-case.component.js';
 import { getUpdatedField } from '../applications-edit.service.js';
+import { getIsMaterialChangeStaticDataViewModel } from '../../../../lib/static-data-view-models.js';
 
 const nameLayout = {
 	pageTitle: 'Project name',
@@ -101,6 +103,12 @@ const zoomLevelLayout = {
 	isEdit: true
 };
 
+const isMaterialChangeLayout = {
+	pageTitle: 'Is this an application for a material change?',
+	components: ['material-change'],
+	isEdit: true
+};
+
 /** @type {Record<string, string>} */
 const fullFieldNames = {
 	title: 'Project name',
@@ -114,7 +122,8 @@ const fullFieldNames = {
 	'geographicalInformation.gridReference.easting': 'Grid references',
 	'geographicalInformation.gridReference.northing': 'Grid references',
 	'geographicalInformation.regions': 'Regions',
-	'geographicalInformation.mapZoomLevelName': 'Map zoom level'
+	'geographicalInformation.mapZoomLevelName': 'Map zoom level',
+	isMaterialChange: 'Material change'
 };
 
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -133,6 +142,9 @@ const fullFieldNames = {
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseZoomLevelBody} ApplicationsCreateCaseZoomLevelBody */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseIsMaterialChangeBody} ApplicationsCreateCaseIsMaterialChangeBody */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseIsMaterialChangeProps} ApplicationsCreateCaseIsMaterialChangeProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseIsMaterialChangeRes} ApplicationsCreateCaseIsMaterialChangeRes */
 
 /**
  * View the form step for editing the case description
@@ -531,6 +543,45 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
 	);
 
 	response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
+}
+
+/**
+ * View the form step for editing is material change
+ *
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseIsMaterialChangeRes,
+ * {}, {}, {}, {}>}
+ */
+export function viewApplicationsEditIsMaterialChange(request, response) {
+	const {
+		currentCase: { isMaterialChange }
+	} = response.locals;
+
+	return response.render(resolveTemplate(isMaterialChangeLayout), {
+		values: getIsMaterialChangeStaticDataViewModel(isMaterialChange),
+		layout: isMaterialChangeLayout
+	});
+}
+
+/**
+ * Edit is material change
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseIsMaterialChangeProps,
+ * {}, ApplicationsCreateCaseIsMaterialChangeBody, {}, {}>}
+ */
+export async function updateApplicationsEditIsMaterialChange(request, response) {
+	const { properties, updatedCaseId } = await isMaterialChangeDataUpdate(request, response.locals);
+
+	if (properties.errors || !updatedCaseId)
+		return handleErrors(properties, isMaterialChangeLayout, response);
+
+	setSessionBanner(request.session, 'Application updated');
+
+	return response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? `/applications-service/case/${updatedCaseId}`
 			: `/applications-service/case/${updatedCaseId}/project-information`

@@ -1,5 +1,8 @@
 import { sanitize } from '../nunjucks-filters/sanitize.js';
 import { featureFlagClient } from '../../../common/feature-flags.js';
+import { getIsMaterialChangeStaticDataViewModel } from '../static-data-view-models.js';
+
+const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
 /**
  * @typedef {Object} Row
@@ -16,6 +19,7 @@ import { featureFlagClient } from '../../../common/feature-flags.js';
  * @typedef {Object} Case
  * @property {number} id
  * @property {string} reference
+ * @property {boolean} isMaterialChange
  * @property {{ displayNameEn: string }} sector
  * @property {{ displayNameEn: string }} subSector
  * @property {string | null} title
@@ -40,6 +44,13 @@ export const buildCaseInformation = (params, isWelsh) => [
 	{
 		title: 'Reference number',
 		text: params.case.reference
+	},
+	{
+		title: 'Is this an application for a material change?',
+		text: params.case.isMaterialChange
+			? isMaterialChangeStaticDataViewModel[0].text
+			: isMaterialChangeStaticDataViewModel[1].text,
+		url: 'material-change'
 	},
 	...(params.keyMembers?.caseManager
 		? [
