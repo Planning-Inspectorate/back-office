@@ -166,8 +166,8 @@ npm uninstall pins-data-model && npm prune && npm install github:Planning-Inspec
 
 Ensure a database is running and set up, then:
 
-1. `apps/api` requires an `.env` file, copying `.env.example` gives a good starting point (see also [Database Environment Setup](#environment-setup))
-2. `apps/web` requires a `.env` file, copying `.env.example` gives a good starting point and should work [env var values must be requested to the DevOps team in order to run the application locally]
+1. `apps/api` requires an `.env` file, copying `.env.example` gives a good starting point (see also [Database Environment Setup](#environment-setup)).
+2. `apps/web` requires a `.env` file, copying `.env.example` gives a good starting point. Contact the Tech Lead or Senior Developer for support with this process or to request any environment variable values.
 
 To run the apps, the recommended option is to have 2 terminals, one running the api, and one running the web app:
 
@@ -187,7 +187,34 @@ npm run dev:applications
 
 ## Structure
 
-The main folders are `apps` (which contains the deployable services, such as the API and web front-end for the Application stack) and `packages` which contains libraries, as well as shared code and configuration. The whole setup is using [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
+```
+.
++-- apps
+|   +-- api-testing
+|   +-- api
+|   +-- e2e
+|   +-- functions
+|   +-- web
++-- docs
++-- packages
+|   +-- add-auth-headers-for-backend
+|   +-- appeals
+|   +-- applications
+|   +-- blob-storage-client
+|   +-- event-client
+|   +-- express
+|   +-- feature-flags
+|   +-- key-vault-secrets-client
+|   +-- platform
+|   +-- redis
+|   +-- scripts
+```
+
+|-|-|
+|------------|-----------------------------------------------------------------|
+| `apps`     | Contains deployable services                                    |
+| `packages` | Contains shared code and configurations for use across the apps |
+
 
 ## Building
 

@@ -30,11 +30,12 @@ It is now possible to run the e2e tests against your local branch running in htt
 #### apps/e2e/.env
 - AUTH_DISABLED=true
 - BASE_URL=http://localhost:8080/
-- CASE_TEAM_EMAIL=caseofficer.test@planninginspectorate.gov.uk
-- CASE_ADMIN_EMAIL=caseofficeradmin.test@planninginspectorate.gov.uk
-- INSPECTOR_EMAIL=inspector.test@planninginspectorate.gov.uk
+- CASE_TEAM_EMAIL=
+- CASE_ADMIN_EMAIL=
+- INSPECTOR_EMAIL=
 - APP=applications
 
+The above email addresses can be requested from the Tech Lead or Senior Developer.
 
 #### apps/web/.env
 - AUTH_DISABLED=true
@@ -107,3 +108,10 @@ It is now possible to run the e2e tests against your local branch running in htt
 	]
 }
 ```
+
+### Add the following json files to apps/e2e/cypress/support/browserAuthData
+
+- case-admin-cookies.json
+- inspector-cookies.json
+
+Add the files to .gitignore so they are not tracked by Git. Contact the Tech Lead or Senior Developer to request the file data. 

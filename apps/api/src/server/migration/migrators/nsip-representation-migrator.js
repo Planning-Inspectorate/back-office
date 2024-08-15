@@ -5,6 +5,7 @@ import { databaseConnector } from '#utils/database-connector.js';
 import { omit } from 'lodash-es';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as representationAttachmentRepository from '#repositories/representation.repository.js';
+import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
 
 /**
  * @typedef {import('pins-data-model').Schemas.Representation} RepresentationModel
@@ -30,6 +31,9 @@ export const migrateRepresentations = async (representations) => {
 		await databaseConnector.$transaction([
 			databaseConnector.$executeRawUnsafe(representationStatement, ...representationParameters)
 		]);
+
+		console.info('Broadcasting event for representation');
+		await broadcastNsipRepresentationEvent(representationEntity);
 
 		if (representationEntity.redacted) {
 			console.info(

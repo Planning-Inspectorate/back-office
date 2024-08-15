@@ -51,17 +51,20 @@
 	] %}
 
 	{# add actions for each row, we need the same link for all fields except the welsh variants #}
-	{% for row in rowsDataEn %}
-		{% set row = row | assign(row, { actions: caseId and {
-				items: [
-					{
-						href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}),
-						text: "Change",
-						visuallyHiddenText: row.key
-					}
-				]
-			} } ) %}
-	{% endfor %}
+	{# only add the actions if there are no submissions #}
+	{% if not timetableItem.submissions %}
+		{% for row in rowsDataEn %}
+			{% set row = row | assign(row, { actions: caseId and {
+					items: [
+						{
+							href: "timetable-item" | url({caseId: caseId, timetableId: timetableItem.id, step: 'edit'}),
+							text: "Change",
+							visuallyHiddenText: row.key
+						}
+					]
+				} } ) %}
+		{% endfor %}
+	{% endif %}
 
 	{# for welsh cases, include welsh fields #}
 	{% set rowsDataCy = [] %}
@@ -83,7 +86,7 @@
 						}
 					]
 			}
-				
+
 			}), rowsDataCy) %}
 		{% endif %}
 		{% set rowsDataCy = (rowsDataCy.push(row), rowsDataCy) %}

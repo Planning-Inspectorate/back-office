@@ -18,40 +18,42 @@ import * as s51AdviceDocumentRepository from '#repositories/s51-advice-document.
 export const migrateS51Advice = async (s51AdviceList) => {
 	console.info(`Migrating ${s51AdviceList.length} S51 Advice items`);
 
-	for (const s51Advice of s51AdviceList) {
-		const s51AdviceEntity = await mapModelToS51AdviceEntity(s51Advice);
+	const promiseList = await Promise.allSettled(
+		s51AdviceList.map(async (s51Advice) => {
+			try {
+				const s51AdviceEntity = await mapModelToS51AdviceEntity(s51Advice);
 
-		if (s51AdviceEntity.id >= MigratedEntityIdCeiling) {
-			throw Error(`Unable to migrate entity id=${s51AdviceEntity.id} - identity above threshold`);
-		}
+				if (s51AdviceEntity.id >= MigratedEntityIdCeiling) {
+					throw Error(
+						`Unable to migrate entity id=${s51AdviceEntity.id} - identity above threshold`
+					);
+				}
 
-		const { statement: s51AdviceStatement, parameters: s51AdviceParameters } = buildUpsertForEntity(
-			'S51Advice',
-			s51AdviceEntity,
-			'id'
-		);
+				const { statement: s51AdviceStatement, parameters: s51AdviceParameters } =
+					buildUpsertForEntity('S51Advice', s51AdviceEntity, 'id');
 
-		console.info(`Upserting S51Advice with ID ${s51AdviceEntity.id}`);
+				console.info(`Upserting S51Advice with ID ${s51AdviceEntity.id}`);
 
-		await databaseConnector.$transaction([
-			databaseConnector.$executeRawUnsafe(s51AdviceStatement, ...s51AdviceParameters)
-		]);
+				await databaseConnector.$transaction([
+					databaseConnector.$executeRawUnsafe(s51AdviceStatement, ...s51AdviceParameters)
+				]);
 
-		await Promise.all(
-			s51Advice.attachmentIds.map(async (attachmentId) => {
-				return documentRepository.getById(attachmentId).then((documentRow) => {
+				for await (const attachmentId of s51Advice.attachmentIds) {
+					const documentRow = await documentRepository.getById(attachmentId);
 					if (!documentRow || !documentRow.guid) {
 						throw Error(`Failed to get document with ID ${attachmentId}`);
 					}
-
 					return s51AdviceDocumentRepository.upsertS51AdviceDocument(
 						s51AdviceEntity.id,
 						documentRow.guid
 					);
-				});
-			})
-		);
-	}
+				}
+			} catch (error) {
+				throw Error(`Failed to process S51Advice with ID ${s51Advice.adviceId}: ${error.message}`);
+			}
+		})
+	);
+	handleRejectedPromises(promiseList);
 
 	const { publishEvents, updateEvents } = s51AdviceList.reduce(
 		(memo, s51Advice) => {
@@ -169,5 +171,25 @@ const generateAdviceName = ({ enquirer, firstName, lastName }) => {
 		return `${firstName}`;
 	} else {
 		return 'Anonymous';
+	}
+};
+
+const handleRejectedPromises = (promiseList) => {
+	const rejectedPromises = promiseList.filter((promise) => promise.status === 'rejected');
+	if (rejectedPromises.length > 0) {
+		rejectedPromises.forEach((promise) => console.error(promise.reason));
+		if (rejectedPromises.length > 1) {
+			const uniqueErrors = [...new Set(rejectedPromises.map((promise) => promise.reason.message))];
+			const errorObject = uniqueErrors.reduce((acc, error, index) => {
+				acc[`Error ${index + 1}`] = error;
+				return acc;
+			}, {});
+
+			throw Error(
+				`Multiple S51Advice migrations failed. Error list: ${JSON.stringify(errorObject, null, 2)}`
+			);
+		} else {
+			throw Error(`An S51 Advice migration failed. Error: ${rejectedPromises[0].reason.message}`);
+		}
 	}
 };

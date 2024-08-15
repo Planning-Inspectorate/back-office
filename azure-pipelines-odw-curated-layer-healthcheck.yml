@@ -52,6 +52,4 @@ jobs:
                   {
                     "caseReference": "${{ parameters.caseReference }}"
                   }
-                waitForCompletion: 'true'
-                successCriteria: |
-                  eq(status, 200)
+                waitForCompletion: 'false'

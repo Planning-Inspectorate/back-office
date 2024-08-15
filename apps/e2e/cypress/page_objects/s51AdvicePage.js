@@ -169,22 +169,6 @@ export class S51AdvicePage extends Page {
 		const propertiesPage = new S51AdvicePropertiesPage();
 		propertiesPage.checkAllProperties(mainDetails, enquirerDetails, titledetails);
 	}
-	verifyTitleIsUpdated(newTitle) {
-		this.elements.changetitleLink().click();
-		this.elements.titleInput().clear();
-		this.elements.titleInput().type(newTitle);
-		this.elements.saveAndReturnTile().click();
-		cy.wait(3000);
-		this.elements.verifyTitleUpdated().then((text) => {
-			let actualTitle = text.text();
-			expect(actualTitle).to.include(newTitle);
-		});
-	}
-	verifyS51IsDeleted() {
-		cy.get('.govuk-button--secondary').click();
-		cy.get('.govuk-button').click();
-		cy.get('.govuk-panel__title').contains('S51 advice item successfully deleted');
-	}
 	verifyS51PubishandUnpublish() {
 		cy.get('.govuk-back-link').click();
 		this.setOverallStatus('Ready to publish');

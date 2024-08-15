@@ -1,5 +1,9 @@
 // @ts-nocheck
 import { Page } from './basePage';
+import { SearchResultsPage } from './searchResultsPage';
+import { users } from '../fixtures/users';
+
+const searchResultsPage = new SearchResultsPage();
 
 export class ApplicationsHomePage extends Page {
 	elements = {
@@ -22,6 +26,13 @@ export class ApplicationsHomePage extends Page {
 		if (!pressEnter) {
 			this.elements.searchApplicationsBtn().click();
 		}
+	}
+
+	loadCurrentCase() {
+		cy.login(users.applications.caseAdmin);
+		cy.visit('/');
+		this.searchFor(Cypress.env('currentCreatedCase'));
+		searchResultsPage.clickTopSearchResult();
 	}
 
 	// A S S E R T I O N S

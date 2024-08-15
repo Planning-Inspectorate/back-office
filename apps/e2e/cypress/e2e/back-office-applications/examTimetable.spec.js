@@ -113,6 +113,7 @@ describe('Examination Timetable Errors', () => {
 
 describe('Examination Timetable', () => {
 	let projectInfo;
+	let caseRef;
 
 	before(() => {
 		projectInfo = projectInformation({ excludeWales: true });
@@ -121,22 +122,16 @@ describe('Examination Timetable', () => {
 	});
 
 	beforeEach(() => {
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
+		applicationsHomePage.loadCurrentCase();
 		examTimetablePage.clickLinkByText('Examination timetable');
 		examTimetablePage.deleteAllExaminationTimetableItems();
+		applicationsHomePage.loadCurrentCase();
+		caseRef = Cypress.env('currentCreatedCase');
+		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
+		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 	});
 
 	it('As a user able to create timetable item - only start dates (StartTime Mandatory Template)', () => {
-		cy.login(applicationsUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
-		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		const options = timetableItem();
 		examTimetablePage.selectTimetableItem('Accompanied Site Inspection');
 		examTimetablePage.clickButtonByText('Continue');
@@ -154,13 +149,6 @@ describe('Examination Timetable', () => {
 	});
 
 	it('As a user able to create timetable item - start and end dates (Deadline Template)', () => {
-		cy.login(applicationsUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
-		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		const options = timetableItem();
 		examTimetablePage.selectTimetableItem('Deadline');
 		examTimetablePage.clickButtonByText('Continue');
@@ -180,13 +168,6 @@ describe('Examination Timetable', () => {
 	});
 
 	it('As a user able to create timetable item - (NoTimes Template)', () => {
-		cy.login(applicationsUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
-		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		const options = timetableItem();
 		examTimetablePage.selectTimetableItem('Issued By');
 		examTimetablePage.clickButtonByText('Continue');
@@ -203,13 +184,6 @@ describe('Examination Timetable', () => {
 	});
 
 	it('As a user able to create timetable item - (Deadline StartDate Template)', () => {
-		cy.login(applicationsUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
-		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
 		const options = timetableItem();
 		examTimetablePage.selectTimetableItem('Procedural Deadline (Pre-Examination)');
 		examTimetablePage.clickButtonByText('Continue');

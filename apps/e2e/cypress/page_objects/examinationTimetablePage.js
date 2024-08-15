@@ -103,17 +103,6 @@ export class ExaminationTimetablePage extends Page {
 		this.toggleExaminationTimetableItem(itemName, false);
 	}
 
-	verifyPublishAndUnpublishExamtimetable() {
-		cy.get('.govuk-button').contains('Preview and publish').click();
-		cy.get('.govuk-button').click();
-		cy.get('.govuk-panel__title').contains('Timetable item successfully published');
-		cy.get('div.govuk-body > a:nth-child(2)').click();
-		cy.get('a.colour--red:nth-child(1)').click();
-		cy.get('.govuk-button').click();
-		cy.get('.govuk-panel__title').contains('Timetable item successfully unpublished');
-		cy.get('div.govuk-body > a:nth-child(2)').click();
-	}
-
 	deleteAllExaminationTimetableItems() {
 		cy.get('body').then(($body) => {
 			const exists = $body.find(this.selectors.accordionToggleText).length > 0;
@@ -126,6 +115,7 @@ export class ExaminationTimetablePage extends Page {
 						this.clickButtonByText('Delete timetable item');
 					}
 				});
+				this.clickLinkByText('Go back to examination timetable');
 			}
 		});
 	}
@@ -133,13 +123,14 @@ export class ExaminationTimetablePage extends Page {
 	clickChangeLink(question) {
 		this.elements.changeLink(question).click({ force: true });
 	}
+
 	publishUnpublishExamTimetable() {
-		cy.get('.govuk-button').contains('Preview and publish').click();
-		cy.get('.govuk-button').click();
-		cy.get('.govuk-panel__title').contains('Timetable item successfully published');
-		cy.get('div.govuk-body > a:nth-child(2)').click();
-		cy.get('a.colour--red:nth-child(1)').click();
-		cy.get('.govuk-button').click();
-		cy.get('.govuk-panel__title').contains('Timetable item successfully unpublished');
+		this.clickButtonByText('Preview and publish');
+		this.clickButtonByText('Publish examination timetable');
+		this.validateSuccessPanelTitle('Timetable item successfully published');
+		this.clickLinkByText('Go back to examination timetable');
+		this.clickLinkByText('Unpublish timetable');
+		this.clickButtonByText('Unpublish examination timetable');
+		this.validateSuccessPanelTitle('Timetable item successfully unpublished');
 	}
 }

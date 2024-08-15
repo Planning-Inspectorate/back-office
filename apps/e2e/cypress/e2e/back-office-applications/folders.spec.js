@@ -20,16 +20,19 @@ describe('Folders', () => {
 	let projectInfo;
 
 	before(() => {
+		if (!Cypress.env('featureFlags')['applic-625-custom-folders']) {
+			return;
+		}
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
 	});
 
 	beforeEach(() => {
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
+		if (!Cypress.env('featureFlags')['applic-625-custom-folders']) {
+			return;
+		}
+		applicationsHomePage.loadCurrentCase();
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
 	});

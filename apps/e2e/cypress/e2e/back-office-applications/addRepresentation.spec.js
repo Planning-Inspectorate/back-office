@@ -16,7 +16,6 @@ const { applications: applicationsUsers } = users;
 describe('Add representation scenarios', () => {
 	let projectInfo;
 
-
 	before(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
@@ -24,11 +23,7 @@ describe('Add representation scenarios', () => {
 	});
 
 	it('As a user able to add a representation to the case', () => {
-		cy.login(applicationsUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
+		applicationsHomePage.loadCurrentCase();
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Relevant representations');
 		searchResultsPage.clickButtonByText('Add a representation');

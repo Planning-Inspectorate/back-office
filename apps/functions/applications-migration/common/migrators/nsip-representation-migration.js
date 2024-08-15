@@ -3,7 +3,7 @@ import { makePostRequest } from '../back-office-api-client.js';
 import { valueToArray } from '../utils.js';
 
 const query = `SELECT *
-			   FROM [odw_curated_db].[dbo].[relevant_representation]
+			   FROM [odw_curated_db].[dbo].[nsip_representation]
 			   WHERE caseRef = ?`;
 
 /**
@@ -58,6 +58,8 @@ export const getRepresentationsForCase = async (log, caseReference) => {
 	const representationEntities = representationRows.map((row) => {
 		return {
 			...row,
+			representationId: parseInt(row.representationId),
+			caseId: parseInt(row.caseId),
 			originalRepresentation: row.originalRepresentation || '',
 			attachmentIds: valueToArray(row.attachmentIds)
 		};

@@ -27,7 +27,9 @@ const getTokenOrFail = async (session) => {
 		if (token) return token;
 
 		throw new HttpError('Active Directory token not found', 401);
-	} catch {
+	} catch (error) {
+		// TODO: Lets output the error coming back from getActiveDirectoryAccessToken for now.
+		pino.error(error);
 		throw new HttpError('Error retrieving the Active Directory token', 500);
 	}
 };
@@ -166,6 +168,8 @@ const getAllCachedUsers = async (session) => {
 
 		return users;
 	} catch (/** @type {*} */ error) {
+		// TODO: Once we have an example of the structure of `error`, let's change the HttpError to throw a more informative message.
+		pino.error(error);
 		throw new HttpError(
 			`[GRAPH MICROSOFT API] ${error?.response?.body?.error?.code || 'Unknown error'}`,
 			500

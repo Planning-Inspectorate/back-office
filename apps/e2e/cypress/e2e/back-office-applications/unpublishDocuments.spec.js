@@ -27,14 +27,13 @@ describe('Unpublish Documents', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-	it('As a user able to upload, publish and unpublish the document to a case', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
+	beforeEach(() => {
+		applicationsHomePage.loadCurrentCase();
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
+	});
+
+	it('As a user able to upload, publish and unpublish the document to a case', () => {
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.uploadFile('sample-doc.pdf');
 		searchResultsPage.clickButtonByText('Save and continue');
@@ -47,6 +46,7 @@ describe('Unpublish Documents', () => {
 			if (text === 'Description in Welsh') {
 				cy.log('waiting for dev code');
 			} else {
+				const caseRef = Cypress.env('currentCreatedCase');
 				documentPropertiesPage.updateAllProperties('Redacted');
 				folderPage.markAllReadyToPublish();
 				folderPage.clickLinkByText('View publishing queue');
@@ -62,13 +62,6 @@ describe('Unpublish Documents', () => {
 	});
 
 	it('As a user should not see the unpublish button after unpublishing the document', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
-		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		if (
@@ -80,13 +73,6 @@ describe('Unpublish Documents', () => {
 	});
 
 	it('As a user should see unpublish status in document history tab after unpublishing the document', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
-		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		if (
@@ -97,13 +83,6 @@ describe('Unpublish Documents', () => {
 		}
 	});
 	it('As a user should see delete button on document properties page after publishing the document', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
-		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		if (
@@ -115,24 +94,10 @@ describe('Unpublish Documents', () => {
 	});
 
 	it('As a user trying to apply changes without selecting the document', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
-		searchResultsPage.clickLinkByText('Project management');
 		folderDocumentsPage.applyChangesWithoutSelectingDocument();
 		fileUploadPage.verifyDocumentSelectError();
 	});
 	it('As a user trying to click on publish document button without selecting the document', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
-		searchResultsPage.clickLinkByText('Project management');
 		if (
 			!Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
 			projectInformation.caseIsWelsh
@@ -144,25 +109,11 @@ describe('Unpublish Documents', () => {
 	});
 
 	it('As a user able to navigate back from delete the document page', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
-		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.verifyNaviagtedBackToDocPropertiesPage();
 	});
 
 	it('As a user able to delete the document', () => {
-		cy.login(applicationUsers.caseAdmin);
-		cy.visit('/');
-		const caseRef = Cypress.env('currentCreatedCase');
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		searchResultsPage.clickLinkByText('Project documentation');
-		searchResultsPage.clickLinkByText('Project management');
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.verifyDocumentIsDeleted();
 	});

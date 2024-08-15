@@ -45,7 +45,7 @@ export const handleMigrationWithResponse = async (
 		} else {
 			responseBody = {
 				message: `Failed to run migration for ${entityName} with error: ${
-					error?.cause.message || error.message
+					error?.cause?.message || error?.message
 				}`
 			};
 		}
