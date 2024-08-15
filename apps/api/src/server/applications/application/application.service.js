@@ -208,19 +208,13 @@ export const getCaseDetails = async (id, query) => {
 	const parsedQuery = !isEmpty(query) ? JSON.parse(query.query) : undefined;
 	const modelsToInclude = findModelsToInclude(parsedQuery);
 
-	console.log('modelsToInclude > > > ', modelsToInclude);
-
 	const caseDetails = await caseRepository.getById(id, modelsToInclude);
 
 	if (!caseDetails) {
 		throw new BackOfficeAppError(`no case found with ID: ${id}`, 404);
 	}
 
-	console.log('caseDetails::: ', caseDetails);
-
 	const applicationDetailsFormatted = mapApplicationDetails(caseDetails);
-
-	console.log('applicationDetailsFormatted::: ', applicationDetailsFormatted);
 
 	return typeof parsedQuery !== 'undefined'
 		? filterOutResponse(parsedQuery, applicationDetailsFormatted)
