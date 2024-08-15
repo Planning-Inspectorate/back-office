@@ -151,7 +151,7 @@ const defaultInclusions = {
 
 /**
  *
- * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicant?: boolean | object, hasUnpublishedChanges?: boolean}} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicant?: boolean | object, hasUnpublishedChanges?: boolean, isMaterialChange: boolean }} query
  * @returns {object}
  */
 const inclusionsUsingQuery = (query) => {
@@ -168,7 +168,8 @@ const inclusionsUsingQuery = (query) => {
 		caseStatus: query?.status,
 		applicant: notFalseOrUndefined(query?.applicant),
 		gridReference: notFalseOrUndefined(query.geographicalInformation),
-		hasUnpublishedChanges: notFalseOrUndefined(query.hasUnpublishedChanges)
+		hasUnpublishedChanges: notFalseOrUndefined(query.hasUnpublishedChanges),
+		isMaterialChange: notFalseOrUndefined(query?.isMaterialChange)
 	};
 };
 
@@ -207,13 +208,19 @@ export const getCaseDetails = async (id, query) => {
 	const parsedQuery = !isEmpty(query) ? JSON.parse(query.query) : undefined;
 	const modelsToInclude = findModelsToInclude(parsedQuery);
 
+	console.log('modelsToInclude > > > ', modelsToInclude);
+
 	const caseDetails = await caseRepository.getById(id, modelsToInclude);
 
 	if (!caseDetails) {
 		throw new BackOfficeAppError(`no case found with ID: ${id}`, 404);
 	}
 
+	console.log('caseDetails::: ', caseDetails);
+
 	const applicationDetailsFormatted = mapApplicationDetails(caseDetails);
+
+	console.log('applicationDetailsFormatted::: ', applicationDetailsFormatted);
 
 	return typeof parsedQuery !== 'undefined'
 		? filterOutResponse(parsedQuery, applicationDetailsFormatted)

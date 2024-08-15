@@ -59,8 +59,15 @@ export const setCaseUnpublishedChangesIfTrue = async (original, updated) => {
  * @returns {CaseStatus: Pick<CaseStatus, string> | PartialObject<CaseStatus>, ApplicationDetails: Pick<ApplicationDetails, Exclude<keyof ApplicationDetails, [string[]][number]>> | Omit<ApplicationDetails, keyof ApplicationDetails> | PartialObject<ApplicationDetails>}
  * */
 function mapPublishedCaseFields(caseFields) {
-	const { applicant, ApplicationDetails, CaseStatus, gridReference, title, description } =
-		caseFields || {};
+	const {
+		applicant,
+		ApplicationDetails,
+		CaseStatus,
+		gridReference,
+		title,
+		description,
+		isMaterialChange
+	} = caseFields || {};
 	const { easting, northing } = gridReference || {};
 	const { caseEmail, locationDescription } = ApplicationDetails || {};
 
@@ -83,7 +90,8 @@ function mapPublishedCaseFields(caseFields) {
 		locationDescription, // Project location
 		gridReference: { easting, northing }, // Grid references
 		regions, // Regions
-		zoomLevel // Map zoom level
+		zoomLevel, // Map zoom level
+		isMaterialChange // Is material change
 	};
 
 	const applicantInformation = pick(applicant || {}, [

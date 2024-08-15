@@ -19,6 +19,7 @@ import { camelToSnake } from '../../../../lib/camel-to-snake.js';
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseIsMaterialChangeProps} ApplicationsCreateCaseIsMaterialChangeProps */
 
 /**
  * Format properties for name and description page
@@ -391,6 +392,28 @@ export async function caseZoomLevelDataUpdate({ body }, locals) {
 	if (errors || !updatedCaseId) {
 		properties = { ...properties, zoomLevels: allZoomLevels };
 	}
+
+	return { properties, updatedCaseId };
+}
+
+/**
+ * Format properties for is material change update page
+ *
+ *
+ * @param {import('express').Request} request
+ * @param {Record<string, any>} locals
+ * @returns {Promise<{properties: ApplicationsCreateCaseIsMaterialChangeProps, updatedCaseId?: number}>}
+ */
+export async function isMaterialChangeDataUpdate({ body }, locals) {
+	body['isMaterialChange'] = body['isMaterialChange'] === 'true';
+
+	const values = {
+		isMaterialChange: body['isMaterialChange']
+	};
+
+	const { errors, id: updatedCaseId } = await updateCase(locals.caseId, body);
+
+	const properties = { errors, values };
 
 	return { properties, updatedCaseId };
 }
