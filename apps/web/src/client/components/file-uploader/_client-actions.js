@@ -231,19 +231,33 @@ const clientActions = (uploadForm) => {
 	};
 
 	/**
-	 * @param {File[]} files
-	 * @returns {Promise<{ files: File[], errors: AnError[] }>}
+	 * @param {FileWithRowId[]} files
+	 * @returns {Promise<{ files: FileWithRowId[], errors: AnError[] }>}
 	 * */
 	const prepareFilesForUpload = async (files) => {
-		const { processHTMLForYouTube } = serverActions(uploadForm);
+		const { processHTMLForYouTube, validateFileSignatures } = serverActions(uploadForm);
 
-		/** @type {File[]} */
+		/** @type {FileWithRowId[]} */
 		let processedList = [];
 
 		/** @type {AnError[]} */
 		let errors = [];
 
+		const { invalidSignatures = [] } = await validateFileSignatures(files);
+
+		let idx = 0;
+
 		for (const f of files) {
+			idx++;
+			if (invalidSignatures.find((/** @type {string} */ fileRowId) => fileRowId === f.fileRowId)) {
+				errors.push({
+					message: 'TYPE_INVALID_FILE_CONTENT',
+					name: f.name,
+					fileRowId: `failedUpload${idx - 1}`
+				});
+				continue;
+			}
+
 			if (f.type !== 'text/html') {
 				processedList.push(f);
 				continue;
