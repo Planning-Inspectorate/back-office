@@ -166,8 +166,8 @@ npm uninstall pins-data-model && npm prune && npm install github:Planning-Inspec
 
 Ensure a database is running and set up, then:
 
-1. `apps/api` requires an `.env` file, copying `.env.example` gives a good starting point (see also [Database Environment Setup](#environment-setup))
-2. `apps/web` requires a `.env` file, copying `.env.example` gives a good starting point and should work [env var values must be requested to the DevOps team in order to run the application locally]
+1. `apps/api` requires an `.env` file, copying `.env.example` gives a good starting point (see also [Database Environment Setup](#environment-setup)).
+2. `apps/web` requires a `.env` file, copying `.env.example` gives a good starting point. Contact the Tech Lead or Senior Developer for support with this process or to request any environment variable values.
 
 To run the apps, the recommended option is to have 2 terminals, one running the api, and one running the web app:
 
