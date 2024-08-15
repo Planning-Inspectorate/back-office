@@ -163,12 +163,11 @@ const serverActions = (uploadForm) => {
 				};
 			}
 
-			/** @type {File} */
+			/** @type {FileWithRowId} */
 			const newFile = new File([result.html], file.name, {
 				type: 'text/html'
 			});
 
-			// @ts-ignore
 			newFile.fileRowId = file.fileRowId;
 
 			return {
@@ -188,6 +187,55 @@ const serverActions = (uploadForm) => {
 				]
 			};
 		}
+	};
+
+	/**
+	 * @param {File} file
+	 * @returns {Promise<string>}
+	 */
+	const hexSignature = async (file) => {
+		const data = file.slice(0, 8);
+		const arrayBuffer = await data.arrayBuffer();
+		const uint8Array = new Uint8Array(arrayBuffer);
+
+		/**
+		 * Convert the first 8 bytes to a hex string. Common practice
+		 * for the file signature to be denoted in the first 4 bytes,
+		 *
+		 * but some can take up around 8 bytes.
+		 **/
+		let bytes = [];
+		for (let i = 0; i < 8; i++) {
+			bytes.push(uint8Array[i].toString(16).padStart(2, '0'));
+		}
+		return bytes.join('').toUpperCase();
+	};
+
+	/**
+	 *
+	 * @param {FileWithRowId[]} files
+	 * @returns {Promise<Response>}
+	 */
+	const validateFileSignatures = async (files) => {
+		let checkTypeData = [];
+
+		for (const f of files) {
+			checkTypeData.push({
+				fileRowId: f.fileRowId,
+				fileType: f.type,
+				hexSignature: await hexSignature(f)
+			});
+		}
+
+		const response = await fetch(`/documents/validate-file-signatures`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(checkTypeData)
+		});
+
+		return await response.json();
 	};
 
 	/**
@@ -318,6 +366,7 @@ const serverActions = (uploadForm) => {
 		getUploadInfoFromInternalDB,
 		uploadFiles,
 		uploadFile,
+		validateFileSignatures,
 		getVersionUploadInfoFromInternalDB,
 		processHTMLForYouTube
 	};

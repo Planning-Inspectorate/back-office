@@ -18,6 +18,7 @@ import getDocumentsDownload from './components/file-downloader.component.js';
 import {
 	postDocumentsUpload,
 	postUploadDocumentVersion,
+	postValidateFileSignatures,
 	postProcessHTMLFile
 } from './components/file-uploader.component.js';
 import { registerAdviceId, registerDownloadParams } from './app.locals.js';
@@ -69,6 +70,7 @@ router
 	.route('/documents/:caseId/download/:guid/version/:version/:preview?')
 	.get([registerDownloadParams], asyncHandler(getDocumentsDownload));
 router.route('/documents/process-html').post(asyncHandler(postProcessHTMLFile));
+router.route('/documents/validate-file-signatures').post(asyncHandler(postValidateFileSignatures));
 router.use('/applications-service', applicationsRouter);
 
 export default router;
