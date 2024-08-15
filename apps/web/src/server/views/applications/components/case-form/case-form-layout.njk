@@ -12,6 +12,7 @@
 {% from "./case/regions.njk" import regions %}
 {% from "./case/zoom-level.njk" import zoomLevel %}
 {% from "./case/team-email.njk" import teamEmail %}
+{% from "./case/material-change.njk" import materialChange %}
 {% from "./applicant/info-types.njk" import infoTypes %}
 {% from "./applicant/organisation-name.njk" import organisationName %}
 {% from "./applicant/full-name.njk" import fullName %}
@@ -31,7 +32,7 @@
 {% block beforeContent %}
 	<aside>
 		{% set breadcrumbBackLink = 'dashboard'|url if layout.backLink == 'dashboard' else 'case-create'|url({caseId:caseId, step: layout.backLink}) %}
-		{% set computedBackLink = backPath if backPath else
+		{% set computedBackLink = backPath if backPath else 
 			breadcrumbBackLink %}
 		{{ govukBackLink({
 		classes: 'govuk-!-margin-top-3',
@@ -60,7 +61,7 @@
 				{% block stepButton %}
 					{% if formStage == 'searchPostcode'%}
 					{% else %}
-						{% set stepButtonText = 'Save changes' if layout.isEdit else
+						{% set stepButtonText = 'Save changes' if layout.isEdit else 
 							'Save and continue' %}
 						{{ govukButton({ text: stepButtonText }) }}
 					{% endif %}
@@ -73,12 +74,12 @@
 {% macro renderComponent(componentName, layout) %}
 	{% if componentName == 'title' %}
 		{{ title('title', values, errors) }}
-  {% elif componentName == 'titleWelsh' %}
-    {{ title('titleWelsh', values, errors) }}
+	{% elif componentName == 'titleWelsh' %}
+		{{ title('titleWelsh', values, errors) }}
 	{% elif componentName == 'description' %}
 		{{ description('description', values, errors) }}
-  {% elif componentName == 'descriptionWelsh' %}
-    {{ description('descriptionWelsh', values, errors) }}
+	{% elif componentName == 'descriptionWelsh' %}
+		{{ description('descriptionWelsh', values, errors) }}
 	{% elif componentName == 'grid-references' %}
 		{{ gridReferences(values, errors) }}
 	{% elif componentName == 'project-location' %}
@@ -97,6 +98,8 @@
 		{{ zoomLevel(values, errors, zoomLevels) }}
 	{% elif componentName == 'team-email' %}
 		{{ teamEmail(values, errors) }}
+	{% elif componentName == 'material-change' %}
+		{{ materialChange(values, errors, selectedValue) }}
 	{% elif componentName == 'organisation-name' %}
 		{{ organisationName(values, errors) }}
 	{% elif componentName == 'info-types' %}

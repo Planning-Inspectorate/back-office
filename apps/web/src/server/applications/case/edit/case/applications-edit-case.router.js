@@ -124,4 +124,12 @@ applicationsEditCaseRouter
 		asyncHandler(controller.updateApplicationsEditCaseStage)
 	);
 
+applicationsEditCaseRouter
+	.route('/material-change')
+	.get(
+		registerCaseWithQuery(['isMaterialChange']),
+		asyncHandler(controller.viewApplicationsEditIsMaterialChange)
+	)
+	.post(asyncHandler(controller.updateApplicationsEditIsMaterialChange));
+
 export default applicationsEditCaseRouter;
