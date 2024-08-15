@@ -1,5 +1,11 @@
 import { ValidationErrors } from '@pins/express';
 
+export type isMaterialChangeOption = {
+	text: string;
+	value: string;
+	checked: boolean;
+};
+
 export type PaginatedResponse<T> = {
 	items: T[];
 	page: number;

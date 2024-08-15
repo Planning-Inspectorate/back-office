@@ -4,7 +4,8 @@ import {
 	FormCaseLayout,
 	Sector,
 	SelectItem,
-	ZoomLevel
+	ZoomLevel,
+	isMaterialChangeOption
 } from '../../applications.types';
 import { ValidationErrors } from '@pins/express';
 
@@ -78,3 +79,16 @@ export interface ApplicationsCreateCaseTeamEmailBody extends Record<string, stri
 }
 export interface ApplicationsCreateCaseTeamEmailProps
 	extends CaseCreateProps<ApplicationsCreateCaseTeamEmailBody> {}
+
+// Is material change
+export interface ApplicationsCreateCaseIsMaterialChangeBody
+	extends Record<string, string | undefined> {
+	values?: Array<isMaterialChangeOption>;
+}
+export interface ApplicationsCreateCaseIsMaterialChangeProps
+	extends CaseCreateProps<ApplicationsCreateCaseIsMaterialChangeBody> {}
+
+export interface ApplicationsCreateCaseIsMaterialChangeRes
+	extends CaseCreateProps<ApplicationsCreateCaseIsMaterialChangeBody> {
+	values?: Array<isMaterialChangeOption>;
+}
