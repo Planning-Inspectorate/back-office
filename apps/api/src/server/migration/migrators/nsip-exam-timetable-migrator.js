@@ -3,6 +3,7 @@ import { buildUpsertForEntity } from './sql-tools.js';
 import { MigratedEntityIdCeiling } from '../migrator.consts.js';
 import { getCaseIdFromRef, getExamTimetableTypeIdFromName } from './utils.js';
 import * as folderRepository from '#repositories/folder.repository.js';
+import { publish as BroadcastExamTimetable } from '../../applications/examination-timetable-items/examination-timetable-items.service.js';
 
 /**
  * Migrate NSIP Exam Timetable
@@ -53,6 +54,8 @@ export const migrateExamTimetables = async (examTimetables) => {
 				databaseConnector.$executeRawUnsafe(statement, ...parameters)
 			]);
 		}
+		console.info(`Broadcasting exam timetable id ${id} for case ${caseId}`);
+		await BroadcastExamTimetable(id);
 	}
 };
 
@@ -155,6 +158,12 @@ const bulletPoint = '*';
  * @returns {string} formattedDescription
  */
 const formatEventDescription = (description) => {
+	if (!description) {
+		return JSON.stringify({
+			preText: '',
+			bulletPoints: []
+		});
+	}
 	const splitDescription = description.split(bulletPoint);
 	const preText = trimNewLines(splitDescription.shift() || '');
 
