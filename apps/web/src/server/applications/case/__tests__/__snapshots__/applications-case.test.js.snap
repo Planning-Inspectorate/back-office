@@ -410,6 +410,13 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <td class="govuk-table__cell"></td>
                     </tr>
                     <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Is this an application for a material change</th>
+                        <td class="govuk-table__cell">No</td>
+                        <td class="govuk-table__cell text-align--right"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
+                            id=""> Change</a>
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
                         <th scope="row" class="govuk-table__header">Sector</th>
                         <td class="govuk-table__cell">Transport EN</td>
                         <td class="govuk-table__cell"></td>
@@ -441,6 +448,13 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <th scope="row" class="govuk-table__header">Reference number</th>
                                     <td class="govuk-table__cell">CASE/04</td>
                                     <td class="govuk-table__cell"></td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <th scope="row" class="govuk-table__header">Is this an application for a material change?</th>
+                                    <td class="govuk-table__cell">No</td>
+                                    <td class="govuk-table__cell text-align--right pins-table__cell--s"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
+                                        id=""> Change</a>
+                                    </td>
                                 </tr>
                                 <tr class="govuk-table__row">
                                     <th scope="row" class="govuk-table__header">Sector</th>
@@ -612,6 +626,13 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <td class="govuk-table__cell"></td>
                     </tr>
                     <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Is this an application for a material change</th>
+                        <td class="govuk-table__cell">No</td>
+                        <td class="govuk-table__cell text-align--right"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
+                            id=""> Change</a>
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
                         <th scope="row" class="govuk-table__header">Sector</th>
                         <td class="govuk-table__cell">Transport EN</td>
                         <td class="govuk-table__cell"></td>
@@ -643,6 +664,13 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <th scope="row" class="govuk-table__header">Reference number</th>
                                     <td class="govuk-table__cell">CASE/04</td>
                                     <td class="govuk-table__cell"></td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <th scope="row" class="govuk-table__header">Is this an application for a material change?</th>
+                                    <td class="govuk-table__cell">No</td>
+                                    <td class="govuk-table__cell text-align--right pins-table__cell--s"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
+                                        id=""> Change</a>
+                                    </td>
                                 </tr>
                                 <tr class="govuk-table__row">
                                     <th scope="row" class="govuk-table__header">Sector</th>
@@ -814,6 +842,13 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <td class="govuk-table__cell"></td>
                     </tr>
                     <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">Is this an application for a material change</th>
+                        <td class="govuk-table__cell">No</td>
+                        <td class="govuk-table__cell text-align--right"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
+                            id=""> Change</a>
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
                         <th scope="row" class="govuk-table__header">Sector</th>
                         <td class="govuk-table__cell">Transport EN</td>
                         <td class="govuk-table__cell"></td>
@@ -845,6 +880,13 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <th scope="row" class="govuk-table__header">Reference number</th>
                                     <td class="govuk-table__cell">CASE/04</td>
                                     <td class="govuk-table__cell"></td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <th scope="row" class="govuk-table__header">Is this an application for a material change?</th>
+                                    <td class="govuk-table__cell">No</td>
+                                    <td class="govuk-table__cell text-align--right pins-table__cell--s"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
+                                        id=""> Change</a>
+                                    </td>
                                 </tr>
                                 <tr class="govuk-table__row">
                                     <th scope="row" class="govuk-table__header">Sector</th>
