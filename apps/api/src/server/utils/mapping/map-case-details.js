@@ -13,6 +13,7 @@ import { mapKeyDatesToResponse } from './map-key-dates.js';
 /**
  * @param {import('@pins/applications.api').Schema.Case} caseDetails
  * @returns {{
+ *  isMaterialChange?: boolean
  *  title?: string | undefined,
  *  description?: string | undefined,
  *  caseEmail?: string | undefined,
@@ -98,6 +99,7 @@ export const mapApplicationDetails = (caseDetails) => {
 			gridReference: gridReferenceFormatted,
 			regions: regionsFormatted
 		},
-		keyDates
+		keyDates,
+		isMaterialChange: caseDetails.isMaterialChange
 	};
 };

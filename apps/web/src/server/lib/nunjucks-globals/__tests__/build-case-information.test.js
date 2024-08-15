@@ -5,6 +5,7 @@ const fullParams = {
 	case: {
 		id: 1,
 		reference: 'TEST_REFERENCE',
+		isMaterialChange: true,
 		status: 'Pre-acceptance',
 		title: 'Test case title',
 		titleWelsh: 'Test Welsh case title',
@@ -36,6 +37,11 @@ const fullParams = {
 
 const fullResult = [
 	{ title: 'Reference number', text: 'TEST_REFERENCE' },
+	{
+		text: 'Yes',
+		title: 'Is this an application for a material change?',
+		url: 'material-change'
+	},
 	{ title: 'Case manager', text: 'Test case manager' },
 	{ title: 'NSIP officers', text: 'NSIP Officer 1, NSIP Officer 2' },
 	{ title: 'Sector', text: 'Test sector' },
