@@ -4,7 +4,7 @@ import { validateMigration } from '../common/validate-migration.js';
  * @param {import("@azure/functions").Context} context
  * @param {import("@azure/functions").HttpRequest} req
  */
-export default async function (context, { body: { caseReferences } }) {
+export default async (context, { body: { caseReferences } }) => {
 	context.log(`Starting migration validation for ${JSON.stringify(caseReferences)}`);
 	try {
 		const diff = await validateMigration(context.log, caseReferences);
@@ -21,4 +21,4 @@ export default async function (context, { body: { caseReferences } }) {
 			}
 		};
 	}
-}
+};
