@@ -4,11 +4,11 @@ import { handleMigrationWithResponse } from '../common/handle-migration-with-res
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
-export default async (context, { body: { caseReferences } }) => {
+export default async (context, { body: { caseReference } }) => {
 	await handleMigrationWithResponse(
 		context,
-		caseReferences,
-		() => migrateNsipProjectByReference(context.log, caseReferences),
+		caseReference,
+		() => migrateNsipProjectByReference(context.log, caseReference),
 		'project'
 	);
 };
