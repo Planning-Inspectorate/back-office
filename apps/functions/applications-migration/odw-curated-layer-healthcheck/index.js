@@ -22,7 +22,6 @@ export default async function (context, { body: { caseReference } }) {
 			errors[entityType] = [];
 			// project and exam timetable are singular entities
 			if (entityType === 'project' || entityType === 'examTimetableItems') {
-				console.log({ entityData });
 				if (!validator(entityData)) {
 					errors[entityType] = validator.errors;
 				}
