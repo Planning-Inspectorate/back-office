@@ -10,13 +10,44 @@ import { handleMigrationWithResponse } from '../common/handle-migration-with-res
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
-export default async (context, { body: { caseReferences, dryRun } }) => {
-	const migrationFunction = async () => {
-		for (const caseReference of caseReferences) {
-			await migrateCase(context.log, caseReference, dryRun);
-		}
-	};
-	await handleMigrationWithResponse(context, caseReferences, migrationFunction, 'case');
+export default async (context, { body: { caseReference = '', caseReferences = [], dryRun } }) => {
+	if (typeof caseReference !== 'string') {
+		context.res = {
+			status: 400,
+			body: {
+				message:
+					'Invalid request: "caseReference" should be a string. If you want to provide multiple case references, use the "caseReferences" property as an array.'
+			}
+		};
+		return;
+	}
+	if (!Array.isArray(caseReferences)) {
+		context.res = {
+			status: 400,
+			body: {
+				message: 'Invalid request: "caseReferences" should be an array of strings.'
+			}
+		};
+		return;
+	}
+
+	const isSingleCase = Boolean(caseReference);
+
+	const migrateFunction = isSingleCase
+		? async () => await migrateCase(context.log, caseReference, dryRun)
+		: async () => {
+				for (const reference of caseReferences) {
+					await migrateCase(context.log, reference, dryRun);
+				}
+		  };
+
+	await handleMigrationWithResponse(
+		context,
+		isSingleCase ? caseReference : caseReferences,
+		migrateFunction,
+		'case',
+		true
+	);
 };
 
 /**
