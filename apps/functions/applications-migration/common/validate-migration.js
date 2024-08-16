@@ -114,7 +114,7 @@ const getDiff = (caseReferences, odwData, boData) => {
 			),
 			s51Advice: getEntityDiffCounts(odwCaseData.s51Advice, boCaseData.s51Advice, 'adviceId', 'id'),
 			examTimetableItems: getEntityDiffCounts(
-				odwCaseData.examTimetableItems,
+				odwCaseData.examTimetableItems?.events ?? [],
 				boCaseData.examTimetableItems,
 				'eventId',
 				'id'
