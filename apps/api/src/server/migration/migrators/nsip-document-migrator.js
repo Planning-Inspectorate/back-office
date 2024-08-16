@@ -193,9 +193,6 @@ const buildDocumentVersion = (documentGuid, document) => {
 		redacted: document.redactedStatus === 'redacted',
 		privateBlobContainer: 'document-service-uploads',
 		privateBlobPath
-		// TODO
-		// publishedBlobContainer: isPublished ? 'published-documents' : null,
-		// publishedBlobPath: isPublished ? 'TODO' : null
 	};
 };
 

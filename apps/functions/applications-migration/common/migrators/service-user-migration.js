@@ -6,17 +6,15 @@ import { getNsipProjects } from './nsip-project-migration.js';
  * Migrate service-users
  *
  * @param {import('@azure/functions').Logger} logger
- * @param {string[]} caseReferences
+ * @param {string} caseReference
  */
-export const migrateServiceUsers = async (logger, caseReferences) => {
-	for (const caseReference of caseReferences) {
-		// get project data to retrieve caseId (which is called caseReference in ODW database)
-		const projects = await getNsipProjects(logger, caseReference, false);
-		if (!projects[0]) {
-			logger.warn(`No NSIP Project found for case ${caseReference}`);
-		} else {
-			await migrateServiceUsersForCase(logger, caseReference, projects[0].caseId.toString());
-		}
+export const migrateServiceUsers = async (logger, caseReference) => {
+	// get project data to retrieve caseId (which is called caseReference in ODW database)
+	const projects = await getNsipProjects(logger, caseReference, false);
+	if (!projects[0]) {
+		logger.warn(`No NSIP Project found for case ${caseReference}`);
+	} else {
+		await migrateServiceUsersForCase(logger, caseReference, projects[0].caseId.toString());
 	}
 };
 
@@ -27,7 +25,7 @@ export const migrateServiceUsers = async (logger, caseReferences) => {
  * @param {string} caseReference
  * @param {string} caseId
  */
-export async function migrateServiceUsersForCase(log, caseReference, caseId) {
+export const migrateServiceUsersForCase = async (log, caseReference, caseId) => {
 	try {
 		log.info(`reading Service Users with caseReference ${caseReference} (caseId ${caseId})`);
 
@@ -46,7 +44,7 @@ export async function migrateServiceUsersForCase(log, caseReference, caseId) {
 	} catch (e) {
 		throw new Error(`Failed to migrate Service User for case ${caseReference}`, { cause: e });
 	}
-}
+};
 
 /**
  * @param {import('@azure/functions').Logger} log

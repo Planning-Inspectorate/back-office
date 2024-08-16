@@ -7,40 +7,26 @@ import { valueToArray } from '../utils.js';
 const query = 'SELECT * FROM [odw_curated_db].[dbo].[nsip_s51_advice] WHERE caseReference = ?';
 
 /**
- * Migrate s51-advice
- *
- * @param {import('@azure/functions').Logger} logger
- * @param {string[]} caseReferences
- */
-export const migrateS51Advice = async (logger, caseReferences) => {
-	for (const caseReference of caseReferences) {
-		await migrateS51AdviceForCase(logger, caseReference);
-	}
-};
-
-/**
  * Migrate s51-advice for a case
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-export async function migrateS51AdviceForCase(log, caseReference, synapseQuery = query) {
+export const migrateS51AdviceForCase = async (log, caseReference, synapseQuery = query) => {
 	try {
 		log.info(`reading S51 Advice with caseReference ${caseReference}`);
-
 		const { s51AdviceEntities, count } = await getNsipS51Advice(log, caseReference, synapseQuery);
 
 		log.info(
 			`found ${count} S51 Advice: ${JSON.stringify(s51AdviceEntities.map((u) => u.adviceId))}`
 		);
-
 		if (s51AdviceEntities.length > 0) {
 			await makePostRequest(log, '/migration/s51-advice', s51AdviceEntities);
 		}
 	} catch (e) {
 		throw new Error(`Failed to migrate S51 Advice for case ${caseReference}`, { cause: e });
 	}
-}
+};
 
 /**
  * Get S51 Advice for a case
