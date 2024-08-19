@@ -33,7 +33,9 @@ async function run(context, msg) {
 
 	if (!lib.lineItemExists(timetableItem, msg.submissionType)) {
 		throw new Error(
-			`Line item "${msg.submissionType}" does not exist in timetable item: ${timetableItem}`
+			`Line item "${msg.submissionType}" does not exist in timetable item:\n${JSON.stringify(
+				timetableItem
+			)}`
 		);
 	}
 
