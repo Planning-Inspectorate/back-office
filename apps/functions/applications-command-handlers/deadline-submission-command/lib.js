@@ -36,7 +36,9 @@ function getWelshDetails(timetableItem, englishLineItem) {
 	const lineItemIndex = description.bulletPoints.indexOf(englishLineItem);
 	if (lineItemIndex === -1) {
 		throw new Error(
-			`Line item "${englishLineItem}" does not exist on timetable item: ${timetableItem}`
+			`Line item "${englishLineItem}" does not exist on timetable item:\n${JSON.stringify(
+				timetableItem
+			)}`
 		);
 	}
 
