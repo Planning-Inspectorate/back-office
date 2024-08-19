@@ -33,7 +33,7 @@ function getWelshDetails(timetableItem, englishLineItem) {
 
 	/** @type {{ bulletPoints: string[] }} */
 	const description = JSON.parse(timetableItem.description);
-	const lineItemIndex = description.bulletPoints.indexOf(englishLineItem);
+	const lineItemIndex = description.bulletPoints.indexOf(englishLineItem.trim());
 	if (lineItemIndex === -1) {
 		throw new Error(
 			`Line item "${englishLineItem}" does not exist on timetable item:\n${JSON.stringify(
