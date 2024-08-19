@@ -37,7 +37,7 @@ const fullParams = {
 
 const fullResult = [
 	{ title: 'Reference number', text: 'TEST_REFERENCE' },
-	...((await featureFlagClient.isFeatureActive('applics-156-material-changes'))
+	...(featureFlagClient.isFeatureActive('applics-156-material-changes')
 		? [
 				{
 					text: 'Yes',
