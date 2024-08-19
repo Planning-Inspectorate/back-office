@@ -692,16 +692,22 @@ export const markDocumentVersionAsUnpublished = async ({ guid, version }) => {
 export const extractDuplicatesAndDeleted = async (documents) => {
 	const results = await Promise.allSettled(
 		documents.map(
-			({ folderId, documentName }) =>
-				new Promise((resolve, reject) =>
-					documentRepository.getInFolderByName(folderId, documentName, true).then((existing) => {
-						if (existing) {
-							reject({ documentName, isDeleted: existing.isDeleted });
-						} else {
-							resolve(documentName);
-						}
-					})
-				)
+			({ folderId, documentName, fromFrontOffice }) =>
+				new Promise((resolve, reject) => {
+					if (fromFrontOffice) {
+						// Allow duplicates from the front office
+						return resolve(documentName);
+					}
+					return documentRepository
+						.getInFolderByName(folderId, documentName, true)
+						.then((existing) => {
+							if (existing) {
+								reject({ documentName, isDeleted: existing.isDeleted });
+							} else {
+								resolve(documentName);
+							}
+						});
+				})
 		)
 	);
 
