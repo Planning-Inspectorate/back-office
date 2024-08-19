@@ -35,7 +35,6 @@ export const projectInformation = (options = {}) => {
 	const regions = populateRegions(options);
 	const zoomLevel = faker.helpers.arrayElement(ZOOM_LEVELS);
 	const projectEmail = 'test@projectemail.com';
-	const isMaterialChange = false;
 
 	// A P P L I C A N T  I N F O R M A T I O N
 	let orgName = `Automation_Test_Org_${now}`;
@@ -122,7 +121,6 @@ export const projectInformation = (options = {}) => {
 		internalDateFullFormatted,
 		internalDateMonth,
 		internalDateYear,
-		isMaterialChange,
 		orgName,
 		postcode,
 		postcode2,
