@@ -1,5 +1,6 @@
 import config from './config.js';
 import api from './back-office-api-client.js';
+import lib from './lib.js';
 import blob from './blob-client.js';
 import events from './event-client.js';
 
@@ -25,12 +26,18 @@ async function run(context, msg) {
 		throw new Error(`No case found with reference: ${msg.caseReference}`);
 	}
 
-	const entitiesExist = await api.lineItemExists(caseID, msg.deadline, msg.submissionType);
-	if (!entitiesExist) {
+	const timetableItem = await api.getTimetableItem(caseID, msg.deadline);
+	if (!timetableItem) {
+		throw new Error(`Timetable item "${msg.deadline}" does not exist.`);
+	}
+
+	if (!lib.lineItemExists(timetableItem, msg.submissionType)) {
 		throw new Error(
-			`Timetable item "${msg.deadline}" or line item "${msg.submissionType}" could not be found`
+			`Line item "${msg.submissionType}" does not exist in timetable item: ${timetableItem}`
 		);
 	}
+
+	const { nameWelsh, descriptionWelsh } = lib.getWelshDetails(timetableItem, msg.submissionType);
 
 	const sourceBlobName = `${msg.blobGuid}/${msg.documentName}`;
 
@@ -41,7 +48,7 @@ async function run(context, msg) {
 		caseID,
 		documentName: msg.documentName,
 		description: msg.submissionType,
-		descriptionWelsh: descriptionWelsh,
+		descriptionWelsh,
 		filter1: msg.deadline,
 		filter1Welsh: nameWelsh,
 		documentType: properties?.contentType ?? 'application/octet-stream',

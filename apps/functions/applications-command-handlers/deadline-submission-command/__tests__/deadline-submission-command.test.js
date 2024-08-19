@@ -11,7 +11,13 @@ describe('deadline-submission-command', () => {
 	beforeEach(() => {
 		api.getCaseID = jest.fn().mockResolvedValue(1);
 		api.getFolderID = jest.fn().mockResolvedValue(1);
-		api.lineItemExists = jest.fn().mockResolvedValue(true);
+		api.getTimetableItem = jest.fn().mockResolvedValue({
+			id: 1,
+			name: 'timetableItemName',
+			nameWelsh: 'timetableItemName Welsh',
+			description: '{"bulletPoints": ["Test submission type"]}',
+			descriptionWelsh: '{"bulletPoints": ["Test submission type Welsh"]}'
+		});
 		api.populateDocumentMetadata = jest.fn();
 
 		eventClient.publishFailureEvent = mockSendEvents;
@@ -24,6 +30,7 @@ describe('deadline-submission-command', () => {
 
 	const mockContext = { log: jest.fn() };
 	const mockMsg = {
+		caseReference: 'case-ref',
 		name: 'Test name',
 		email: 'test@email.com',
 		deadline: 'Test deadline',
@@ -47,6 +54,10 @@ describe('deadline-submission-command', () => {
 			expect.objectContaining({
 				caseID: 1,
 				documentName: mockMsg.documentName,
+				description: mockMsg.submissionType,
+				descriptionWelsh: 'Test submission type Welsh',
+				filter1: mockMsg.deadline,
+				filter1Welsh: 'timetableItemName Welsh',
 				documentType: 'application/octet-stream',
 				documentSize: 1,
 				folderID: 1,
