@@ -8,7 +8,7 @@ import { uniqBy } from 'lodash-es';
  * @param {import("@azure/functions").Context} context
  * @param {import("@azure/functions").HttpRequest} req
  */
-export default async function (context, { body: { caseReference } }) {
+export default async (context, { body: { caseReference } }) => {
 	if (!caseReference) throw new Error('CaseReference is required');
 	context.log.info(`Healthcheck using case ${caseReference}`);
 	try {
@@ -22,7 +22,6 @@ export default async function (context, { body: { caseReference } }) {
 			errors[entityType] = [];
 			// project and exam timetable are singular entities
 			if (entityType === 'project' || entityType === 'examTimetableItems') {
-				console.log({ entityData });
 				if (!validator(entityData)) {
 					errors[entityType] = validator.errors;
 				}
@@ -63,7 +62,7 @@ export default async function (context, { body: { caseReference } }) {
 			headers: { 'Content-Type': 'application/json; charset=utf-8' }
 		};
 	}
-}
+};
 
 const entityMap = new Map();
 

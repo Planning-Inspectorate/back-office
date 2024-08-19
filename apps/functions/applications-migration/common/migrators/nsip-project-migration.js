@@ -5,46 +5,38 @@ import { valueToArray } from '../utils.js';
 import { migrateFoldersForCase } from './folder-migration.js';
 
 /**
- * Migrate multiple nsip-projects
- *
- * @param {import('@azure/functions').Logger} log
- * @param {string[]} caseReferences
- */
-export const migrateNsipProjects = async (log, caseReferences) => {
-	log.info(`Migrating ${caseReferences.length} Cases`);
-
-	for (const caseReference of caseReferences) {
-		await migrateNsipProjectByReference(log, caseReference);
-		await migrateFoldersForCase(log, caseReference);
-	}
-};
-
-/**
  * Migrate an nsip-project by case reference
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  * @param {boolean} overrideMigrationStatus
  */
-export async function migrateNsipProjectByReference(log, caseReference, overrideMigrationStatus) {
+export const migrateNsipProjectByReference = async (
+	log,
+	caseReference,
+	overrideMigrationStatus = false
+) => {
 	try {
-		log.info(`Migrating NSIP Project for case ${caseReference}`);
-
+		log.info(`Fetching NSIP Project for case ${caseReference}`);
 		const projects = await getNsipProjects(log, caseReference, overrideMigrationStatus);
 
 		if (projects.length > 0) {
-			log.info(`Migrating ${projects.length} NSIP Projects for case ${caseReference}`);
-
+			log.info(`Posting NSIP Project data to API for case ${caseReference}`);
 			await makePostRequest(log, '/migration/nsip-project', projects);
+			log.info(`Successfully migrated NSIP Project ${caseReference}`);
 
-			log.info('Successfully migrated NSIP Project');
+			log.info(`Migrating folders for case ${caseReference}`);
+			await migrateFoldersForCase(log, caseReference);
+			log.info(`Successfully migrated folders for case ${caseReference}`);
 		} else {
 			log.warn(`No NSIP Project found for case ${caseReference}`);
 		}
 	} catch (e) {
-		throw new Error(`Failed to migrate NSIP Project for case ${caseReference}`, { cause: e });
+		throw new Error(`Failed to migrate NSIP Project and folders for case ${caseReference}`, {
+			cause: e
+		});
 	}
-}
+};
 
 /**
  * @param {import('@azure/functions').Logger} log
@@ -69,14 +61,6 @@ export const getNsipProjects = async (log, caseReference, overrideMigrationStatu
 		inspectorIds: valueToArray(project.inspectorIds),
 		migrationStatus: overrideMigrationStatus ? true : Boolean(project.migrationStatus),
 		regions: valueToArray(project.regions),
-		projectType: mapProjectType(project.projectType)
+		projectType: project.projectType
 	}));
 };
-
-/**
- * temporary workaround to fix casing issue
- * TODO: remove once ODW-1184 resolved
- */
-const mapProjectType = (projectType) =>
-	({ 'WW01 - Waste Water treatment Plants': 'WW01 - Waste Water Treatment Plants' }[projectType] ||
-	projectType);

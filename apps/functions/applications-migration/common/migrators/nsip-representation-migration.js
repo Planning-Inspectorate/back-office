@@ -7,27 +7,14 @@ const query = `SELECT *
 			   WHERE caseRef = ?`;
 
 /**
- * Migrate nsip-respresentations
- *
- * @param {import('@azure/functions').Logger} logger
- * @param {string[]} caseReferences
- */
-export const migrateRepresentations = async (logger, caseReferences) => {
-	for (const caseReference of caseReferences) {
-		await migrationRepresentationsForCase(logger, caseReference);
-	}
-};
-
-/**
  * Migrate nsip-respresentations for a case
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-export async function migrationRepresentationsForCase(log, caseReference) {
+export const migrationRepresentationsForCase = async (log, caseReference) => {
 	try {
 		log.info(`reading Representations with caseReference ${caseReference}`);
-
 		const { representationEntities, count } = await getRepresentationsForCase(log, caseReference);
 
 		log.info(
@@ -35,14 +22,13 @@ export async function migrationRepresentationsForCase(log, caseReference) {
 				representationEntities.map((u) => u.representationId)
 			)}`
 		);
-
 		if (representationEntities.length > 0) {
 			await makePostRequest(log, '/migration/nsip-representation', representationEntities);
 		}
 	} catch (e) {
 		throw new Error(`Failed to migrate Representations for case ${caseReference}`, { cause: e });
 	}
-}
+};
 
 /**
  * Get Representations for a case

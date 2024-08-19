@@ -4,26 +4,12 @@ import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
 
 /**
- * Migrate a nsip-exam-timetables
- *
- * @param {import('@azure/functions').Logger} log
- * @param {string[]} caseReferences
- */
-export async function migrateExamTimetables(log, caseReferences) {
-	log.info(`Migrating Timetables for ${caseReferences.length} Cases`);
-
-	for (const caseReference of caseReferences) {
-		await migrateExamTimetablesForCase(log, caseReference);
-	}
-}
-
-/**
  * Migrate a nsip-exam-timetables for a case
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-export async function migrateExamTimetablesForCase(log, caseReference) {
+export const migrateExamTimetablesForCase = async (log, caseReference) => {
 	try {
 		log.info(`Migrating Exam Timetable for case ${caseReference}`);
 
@@ -41,7 +27,7 @@ export async function migrateExamTimetablesForCase(log, caseReference) {
 	} catch (e) {
 		throw new Error(`Failed to migrate Exam Timetable for case ${caseReference}`, { cause: e });
 	}
-}
+};
 
 /**
  * @param {import('@azure/functions').Logger} log
@@ -120,7 +106,8 @@ const mapTimetableFromItems = (caseReference, timetableItems) => {
 					date,
 					eventDeadlineStartDate,
 					// seem to be all null in ODW and we need an array to pass validation
-					eventLineItems: eventLineItems?.length > 0 ? eventLineItems : [],
+					eventLineItems:
+						Array.isArray(eventLineItems) && eventLineItems?.length > 0 ? eventLineItems : [],
 					// published is a string '1' or '0' or null in ODW
 					published: published === '1'
 				})

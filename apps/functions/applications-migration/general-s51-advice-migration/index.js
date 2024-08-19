@@ -7,10 +7,7 @@ import {
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
-export default async function (
-	context,
-	{ body: { migrationType, adviceIdList = [], offset = 0 } }
-) {
+export default async (context, { body: { migrationType, adviceIdList = [], offset = 0 } }) => {
 	if (migrationType === 'select' && adviceIdList.length > 0) {
 		context.log('Migrating select General S51 Advice: ', adviceIdList);
 		await migrateSelectGeneralS51Advice(context.log, adviceIdList);
@@ -20,4 +17,4 @@ export default async function (
 	} else {
 		throw Error('Request body did not contain expected parameters');
 	}
-}
+};
