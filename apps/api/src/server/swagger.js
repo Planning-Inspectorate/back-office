@@ -584,6 +584,26 @@ export const spec = {
 					description: 'Document file name',
 					example: 'document.pdf'
 				},
+				description: {
+					type: 'string',
+					description: 'Document file description',
+					example: 'Document description'
+				},
+				descriptionWelsh: {
+					type: 'string',
+					description: 'Document file description in Welsh',
+					example: "Disgrifiad o'r ddogfen"
+				},
+				filter1: {
+					type: 'string',
+					description: 'Filter 1 value',
+					example: 'filter 1'
+				},
+				filter1Welsh: {
+					type: 'string',
+					description: 'Filter 1 value in Welsh',
+					example: 'filter 1 Welsh'
+				},
 				documentSize: { type: 'integer', description: 'Document size in bytes', example: 1024 },
 				documentType: {
 					type: 'string',
@@ -618,6 +638,26 @@ export const spec = {
 					type: 'string',
 					description: 'Document file name',
 					example: 'document.pdf'
+				},
+				description: {
+					type: 'string',
+					description: 'Document file description',
+					example: 'Document description'
+				},
+				descriptionWelsh: {
+					type: 'string',
+					description: 'Document file description in Welsh',
+					example: "Disgrifiad o'r ddogfen"
+				},
+				filter1: {
+					type: 'string',
+					description: 'Filter 1 value',
+					example: 'filter 1'
+				},
+				filter1Welsh: {
+					type: 'string',
+					description: 'Filter 1 value in Welsh',
+					example: 'filter 1 Welsh'
 				},
 				documentSize: { type: 'integer', description: 'Document size in bytes', example: 1024 },
 				documentType: {

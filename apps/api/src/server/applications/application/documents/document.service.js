@@ -60,21 +60,22 @@ export const documentName = (documentNameWithExtension) => {
  * @param {DocumentToSaveExtended[]} documents
  * @returns {DocumentToSaveExtended[]}
  */
-const mapDocumentsToSendToDatabase = (caseId, documents) => {
-	return documents?.map((document) => {
-		return {
-			caseId: caseId.toString(),
-			documentName: document.documentName,
-			folderId: document.folderId,
-			documentType: document.documentType,
-			documentSize: document.documentSize,
-			documentReference: document.documentReference,
-			fromFrontOffice: document.fromFrontOffice ?? false,
-			fileRowId: document.fileRowId,
-			username: document.username
-		};
-	});
-};
+const mapDocumentsToSendToDatabase = (caseId, documents) =>
+	documents?.map((document) => ({
+		caseId: caseId.toString(),
+		documentName: document.documentName,
+		description: document.description,
+		descriptionWelsh: document.descriptionWelsh,
+		filter1: document.filter1,
+		filter1Welsh: document.filter1Welsh,
+		folderId: document.folderId,
+		documentType: document.documentType,
+		documentSize: document.documentSize,
+		documentReference: document.documentReference,
+		fromFrontOffice: document.fromFrontOffice ?? false,
+		fileRowId: document.fileRowId,
+		username: document.username
+	}));
 
 /**
  *
@@ -152,6 +153,10 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 				documentGuid: document.guid,
 				fileName,
 				originalFilename: documentToDB.documentName,
+				description: documentToDB.description,
+				descriptionWelsh: documentToDB.descriptionWelsh,
+				filter1: documentToDB.filter1,
+				filter1Welsh: documentToDB.filter1Welsh,
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize,
 				owner: documentToDB.username,

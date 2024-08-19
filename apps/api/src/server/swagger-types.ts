@@ -599,6 +599,26 @@ export interface DocumentToSaveExtended {
 	 */
 	documentName: string;
 	/**
+	 * Document file description
+	 * @example "Document description"
+	 */
+	description?: string;
+	/**
+	 * Document file description in Welsh
+	 * @example "Disgrifiad o'r ddogfen"
+	 */
+	descriptionWelsh?: string;
+	/**
+	 * Filter 1 value
+	 * @example "filter 1"
+	 */
+	filter1?: string;
+	/**
+	 * Filter 1 value in Welsh
+	 * @example "filter 1 Welsh"
+	 */
+	filter1Welsh?: string;
+	/**
 	 * Document size in bytes
 	 * @example 1024
 	 */
@@ -643,6 +663,26 @@ export interface DocumentToSave {
 	 * @example "document.pdf"
 	 */
 	documentName: string;
+	/**
+	 * Document file description
+	 * @example "Document description"
+	 */
+	description?: string;
+	/**
+	 * Document file description in Welsh
+	 * @example "Disgrifiad o'r ddogfen"
+	 */
+	descriptionWelsh?: string;
+	/**
+	 * Filter 1 value
+	 * @example "filter 1"
+	 */
+	filter1?: string;
+	/**
+	 * Filter 1 value in Welsh
+	 * @example "filter 1 Welsh"
+	 */
+	filter1Welsh?: string;
 	/**
 	 * Document size in bytes
 	 * @example 1024
