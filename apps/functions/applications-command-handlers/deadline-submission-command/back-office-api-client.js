@@ -2,6 +2,7 @@ import config from './config.js';
 import { requestWithApiKey } from '../common/backend-api-request.js';
 
 /** @typedef {{ id: number, displayNameEn: string }} FolderJSON */
+/** @typedef {import('./lib.js').ExaminationTimetableItem} ExaminationTimetableItem */
 
 /**
  * @param {string} caseReference
@@ -20,12 +21,30 @@ async function getCaseID(caseReference) {
 }
 
 /**
+ * @typedef {Object} SubmitDocumentParams
+ * @property {number} caseID
+ * @property {string} documentName
+ * @property {string} description
+ * @property {string | null} descriptionWelsh
+ * @property {string} filter1
+ * @property {string | null} filter1Welsh
+ * @property {string} documentType
+ * @property {number} documentSize
+ * @property {number} folderID
+ * @property {string} userEmail
+ * */
+
+/**
  *
- * @param {{ caseID: number, documentName: string, documentType: string, documentSize: number, folderID: number, userEmail: string }} _
+ * @param {SubmitDocumentParams} _
  * */
 async function submitDocument({
 	caseID,
 	documentName,
+	description,
+	descriptionWelsh,
+	filter1,
+	filter1Welsh,
 	documentType,
 	documentSize,
 	folderID,
@@ -37,6 +56,10 @@ async function submitDocument({
 				json: [
 					{
 						documentName,
+						description,
+						descriptionWelsh,
+						filter1,
+						filter1Welsh,
 						documentType,
 						documentSize,
 						folderId: folderID,
@@ -94,33 +117,23 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
 }
 
 /**
- *
  * @param {number} caseID
  * @param {string} timetableItemName
- * @param {string} lineItem
- * @returns {Promise<boolean>}
+ * @returns {Promise<ExaminationTimetableItem | null>}
  * */
-async function lineItemExists(caseID, timetableItemName, lineItem) {
-	/** @type {{ items: { name: string, description: string }[] }} */
+async function getTimetableItem(caseID, timetableItemName) {
+	/** @type {{ items: ExaminationTimetableItem[] }} */
 	const results = await (async () => {
 		try {
 			return await requestWithApiKey
 				.get(`https://${config.apiHost}/applications/examination-timetable-items/case/${caseID}`)
 				.json();
 		} catch (err) {
-			throw new Error(`fetching examinatino timetable items failed for case ID ${caseID}: ${err}`);
+			throw new Error(`Fetch for examination timetable failed for case ID ${caseID}: ${err}`);
 		}
 	})();
 
-	const timetableItem = results?.items?.find((item) => item.name === timetableItemName);
-	if (!timetableItem) {
-		return false;
-	}
-
-	/** @type {{ bulletPoints: string[] }} */
-	const { bulletPoints } = JSON.parse(timetableItem.description);
-
-	return bulletPoints.find((bp) => bp.trim() === lineItem) !== null;
+	return results?.items?.find((item) => item.name === timetableItemName) ?? null;
 }
 
 /**
@@ -151,7 +164,7 @@ async function populateDocumentMetadata(
 export default {
 	getCaseID,
 	getFolderID,
-	lineItemExists,
+	getTimetableItem,
 	submitDocument,
 	populateDocumentMetadata
 };
