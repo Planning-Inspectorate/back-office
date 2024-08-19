@@ -257,6 +257,13 @@ describe('Create documents', () => {
 			},
 			{
 				folderId: 1,
+				documentName: 'test doc',
+				documentType: 'application/pdf',
+				documentSize: 1024,
+				fromFrontOffice: true
+			},
+			{
+				folderId: 1,
 				documentName: 'test doc deleted',
 				documentType: 'application/pdf',
 				documentSize: 1024
@@ -266,7 +273,7 @@ describe('Create documents', () => {
 		// THEN
 		expect(response.status).toEqual(409);
 		expect(response.body).toEqual({
-			failedDocuments: [],
+			failedDocuments: ['test doc'],
 			duplicates: ['test doc'],
 			deleted: ['test doc deleted']
 		});
