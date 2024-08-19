@@ -4,7 +4,6 @@ import blob from './blob-client.js';
 import events from './event-client.js';
 
 /**
- * @typedef {import('@pins/applications.api/src/message-schemas/commands/new-deadline-submission').DeadlineSubmission} PrevDeadlineSubmission
  * @typedef {import('pins-data-model').Schemas.NewDeadlineSubmission} NewDeadlineSubmission
  */
 
@@ -13,10 +12,14 @@ const { submissionsContainer } = config;
 /**
  *
  * @param {import('@azure/functions').Context} context
- * @param {NewDeadlineSubmission | PrevDeadlineSubmission} msg
+ * @param {NewDeadlineSubmission} msg
  * @returns {Promise<string | null>}
  */
 async function run(context, msg) {
+	if (!msg.caseReference) {
+		throw new Error('Deadline submission message does not include a `caseReference`.');
+	}
+
 	const caseID = await api.getCaseID(msg.caseReference);
 	if (!caseID) {
 		throw new Error(`No case found with reference: ${msg.caseReference}`);
@@ -79,14 +82,17 @@ async function run(context, msg) {
 /**
  *
  * @param {import('@azure/functions').Context} context
- * @param {NewDeadlineSubmission | PrevDeadlineSubmission} msg
+ * @param {NewDeadlineSubmission} msg
  */
 export default async function (context, msg) {
 	context.log('Handle new deadline submission', msg);
 
-	let blobStoreUrl = null;
 	try {
-		blobStoreUrl = await run(context, msg);
+		const blobStoreUrl = await run(context, msg);
+
+		context.log(
+			`Successfully copied blob ${msg.blobGuid} from submissions to uploads store with name ${blobStoreUrl}`
+		);
 	} catch (err) {
 		await events.publishFailureEvent(context, {
 			deadline: msg.deadline,
@@ -99,8 +105,4 @@ export default async function (context, msg) {
 
 		throw err;
 	}
-
-	context.log(
-		`Successfully copied blob ${msg.blobGuid} from submissions to uploads store with name ${blobStoreUrl}`
-	);
 }
