@@ -13,28 +13,44 @@
   {% endif %}
   {% endset %}
 
-  {{ govukTable({
-		caption: 'Project information',
-		captionClasses: 'govuk-visually-hidden',
-    firstCellIsHeader: true,
-    rows: [
-      [{ text: "Case reference number" }, { text: case.reference }, {}],
-      [
-        { text: "Is this an application for a material change" },
+  {% set caseInfoTableRows = [
+    [
+      {
+        text: "Case reference number"
+      }, {
+        text: case.reference
+      }, {}
+    ]
+  ]
+ %}
+
+  {% if ('applics-156-material-changes' | isFeatureActive) %}
+    {% set caseInfoTableRows = (caseInfoTableRows.push([
+        { text: "Material change application" },
         { text: "Yes" if case.isMaterialChange else "No" },
         { html: caseEditLink({ editStepUrl: "material-change", caseId: case.id }),
           classes: 'text-align--right'
         }
-      ],
-      [{ text: "Sector" }, { text: case.sector.displayNameEn }, {}],
-      [{ text: "Subsector" }, { text: case.subSector.displayNameEn }, {}],
-      [
-        { text: "Case stage" },
-        { text: case.status },
-        { html: caseEditLink({ editStepUrl: "stage", caseId: case.id }),
-          classes: 'text-align--right'
-        }
-      ]
-    ]
+      ]), caseInfoTableRows) %}
+  {% endif %}
+
+  {% set caseInfoTableRows = (caseInfoTableRows.push(
+    [{ text: "Sector" }, { text: case.sector.displayNameEn }, {}],
+    [{ text: "Subsector" }, { text: case.subSector.displayNameEn }, {}],
+    [
+      { text: "Case stage" },
+      { text: case.status },
+      { html: caseEditLink({ editStepUrl: "stage", caseId: case.id }),
+        classes: 'text-align--right'
+      }
+    ]),
+    caseInfoTableRows)
+  %}
+
+  {{ govukTable({
+		caption: 'Project information',
+		captionClasses: 'govuk-visually-hidden',
+    firstCellIsHeader: true,
+    rows: caseInfoTableRows
   }) }}
 {% endmacro %}
