@@ -40,6 +40,10 @@ async function run(context, msg) {
 	const { privateBlobContainer, documents } = await api.submitDocument({
 		caseID,
 		documentName: msg.documentName,
+		description: msg.submissionType,
+		descriptionWelsh: descriptionWelsh,
+		filter1: msg.deadline,
+		filter1Welsh: nameWelsh,
 		documentType: properties?.contentType ?? 'application/octet-stream',
 		documentSize: properties?.contentLength ?? 0,
 		folderID,
