@@ -23,6 +23,7 @@ export const buildNsipProjectPayload = (projectEntity) => {
 		projectDescriptionWelsh: projectEntity.descriptionWelsh,
 		publishStatus: projectEntity.CasePublishedState?.[0]?.isPublished ? 'published' : 'unpublished',
 		sourceSystem,
+		isMaterialChange: projectEntity.isMaterialChange,
 		...application,
 		...sectorAndType,
 		applicantId: projectEntity.applicantId?.toString() ?? null,
