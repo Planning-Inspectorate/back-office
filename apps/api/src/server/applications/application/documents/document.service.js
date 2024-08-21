@@ -22,6 +22,7 @@ import config from '#config/config.js';
 import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
+import { featureFlagClient } from '#utils/feature-flags.js';
 
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
@@ -694,9 +695,11 @@ export const extractDuplicatesAndDeleted = async (documents) => {
 		documents.map(
 			({ folderId, documentName, fromFrontOffice }) =>
 				new Promise((resolve, reject) => {
-					if (fromFrontOffice) {
-						// Allow duplicates from the front office
-						return resolve(documentName);
+					if (featureFlagClient.isFeatureActive('applics-861-fo-submissions')) {
+						if (fromFrontOffice) {
+							// Allow duplicates from the front office
+							return resolve(documentName);
+						}
 					}
 					return documentRepository
 						.getInFolderByName(folderId, documentName, true)
