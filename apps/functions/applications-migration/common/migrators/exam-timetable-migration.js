@@ -1,4 +1,3 @@
-import { removeNullValues } from '../utils.js';
 import { makePostRequest } from '../back-office-api-client.js';
 import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
@@ -36,9 +35,9 @@ export const migrateExamTimetablesForCase = async (log, caseReference) => {
  * @returns {Promise<import('pins-data-model').Schemas.ExaminationTimetable | null>} timetable
  */
 export const getExamTimetable = async (log, caseReference) => {
-	/** @type {ExamTimetableItemRow[]}} */
+	/** @type {ExamTimetableItemRow[]} */
 	const timetableItems = await SynapseDB.query(
-		'SELECT * FROM [odw_curated_db].[dbo].[examination_timetable] WHERE caseReference = ?;',
+		'SELECT * FROM [odw_curated_db].[dbo].[nsip_exam_timetable] WHERE caseReference = ?;',
 		{
 			replacements: [caseReference],
 			type: QueryTypes.SELECT
@@ -49,72 +48,28 @@ export const getExamTimetable = async (log, caseReference) => {
 		return null;
 	}
 
-	log.info(`Retrieved Timetable Items ${JSON.stringify(timetableItems)}`);
-
-	return mapTimetableFromItems(caseReference, timetableItems);
+	const examTimetableItem = timetableItems[0]; // should only be one item
+	log.info(`Retrieved Timetable Items ${JSON.stringify(examTimetableItem)}`);
+	return mapTimetableFromItems(examTimetableItem);
 };
 
 /**
  * @typedef {Object} ExamTimetableItemRow
- * @property {string} eventId
- * @property {'Accompanied Site Inspection' | 'Compulsory Acquisition Hearing' | 'Deadline' | 'Deadline For Close Of Examination' | 'Issued By' | 'Issue Specific Hearing' | 'Open Floor Hearing' | 'Other Meeting' | 'Preliminary Meeting' | 'Procedural Deadline (Pre-Examination)' | 'Procedural Decision' | 'Publication Of'} type
- * @property {string} eventDeadlineStartDate
- * @property {string} eventTitle
- * @property {string} date
- * @property {string} description
- * @property {string[]} eventLineItems
- * @property {string} published
+ * @property {string} caseReference
+ * @property {boolean} published
+ * @property {string} events
  */
 
 /**
  *
- * @param {string} caseReference
- * @param {ExamTimetableItemRow[]} timetableItems
+ * @param {ExamTimetableItemRow} timetableItems
  * @returns {import('pins-data-model').Schemas.ExaminationTimetable} timetable
  */
-const mapTimetableFromItems = (caseReference, timetableItems) => {
+const mapTimetableFromItems = (timetableItems) => {
 	/** @type {import('pins-data-model').Schemas.ExaminationTimetable} */
-	const timetable = {
-		caseReference,
-		events: []
+	return {
+		caseReference: timetableItems.caseReference,
+		published: timetableItems.published,
+		events: JSON.parse(timetableItems.events)
 	};
-
-	return timetableItems.reduce(
-		(
-			timetable,
-			{
-				eventId,
-				type,
-				eventTitle,
-				eventTitleWelsh,
-				date,
-				eventDeadlineStartDate,
-				description,
-				descriptionWelsh,
-				eventLineItems,
-				published
-			}
-		) => {
-			timetable.events.push(
-				removeNullValues({
-					eventId: Number(eventId),
-					type,
-					eventTitle,
-					eventTitleWelsh,
-					description,
-					descriptionWelsh,
-					date,
-					eventDeadlineStartDate,
-					// seem to be all null in ODW and we need an array to pass validation
-					eventLineItems:
-						Array.isArray(eventLineItems) && eventLineItems?.length > 0 ? eventLineItems : [],
-					// published is a string '1' or '0' or null in ODW
-					published: published === '1'
-				})
-			);
-
-			return timetable;
-		},
-		timetable
-	);
 };
