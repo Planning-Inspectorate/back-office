@@ -92,10 +92,12 @@ export async function createProjectUpdate(req) {
  * Get a project update
  *
  * @param {number} id
+ * @param {*} include
  * @returns {Promise<import('@prisma/client').ProjectUpdate|null>}
  */
-export async function getProjectUpdate(id) {
+export async function getProjectUpdate(id, include = {}) {
 	return databaseConnector.projectUpdate.findUnique({
+		include,
 		where: {
 			id
 		}
@@ -221,3 +223,4 @@ export async function createNotificationLogs(logs) {
 
 export class ProjectUpdateDeleteError extends BackOfficeAppError {}
 export class ProjectUpdateStatusError extends BackOfficeAppError {}
+export class PostProjectUpdateFinaliseStatusError extends BackOfficeAppError {}

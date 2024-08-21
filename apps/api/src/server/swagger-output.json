@@ -3539,6 +3539,68 @@
 				}
 			}
 		},
+		"/applications/{id}/project-updates/{projectUpdateId}/finalise-status": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Update a project update and finalise status",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "projectUpdateId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Project Update ID"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The project update",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdate"
+						}
+					},
+					"400": {
+						"description": "Bad request",
+						"schema": {
+							"$ref": "#/definitions/ApplicationProjectUpdateCreateBadRequest"
+						}
+					},
+					"404": {
+						"description": "Not found",
+						"schema": {
+							"$ref": "#/definitions/NotFound"
+						}
+					},
+					"500": {
+						"description": "Internal server error",
+						"schema": {
+							"$ref": "#/definitions/InternalError"
+						}
+					}
+				}
+			}
+		},
 		"/applications/documents/{documentGUID}/status": {
 			"patch": {
 				"tags": ["Applications"],
