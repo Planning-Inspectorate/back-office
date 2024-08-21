@@ -255,13 +255,14 @@ describe('Create documents', () => {
 				documentType: 'application/pdf',
 				documentSize: 1024
 			},
-			{
-				folderId: 1,
-				documentName: 'test doc',
-				documentType: 'application/pdf',
-				documentSize: 1024,
-				fromFrontOffice: true
-			},
+			// TODO Remove comments when the flag 'applics-861-fo-submissions' is removed
+			// {
+			// 	folderId: 1,
+			// 	documentName: 'test doc',
+			// 	documentType: 'application/pdf',
+			// 	documentSize: 1024,
+			// 	fromFrontOffice: true
+			// },
 			{
 				folderId: 1,
 				documentName: 'test doc deleted',
@@ -273,7 +274,9 @@ describe('Create documents', () => {
 		// THEN
 		expect(response.status).toEqual(409);
 		expect(response.body).toEqual({
-			failedDocuments: ['test doc'],
+			failedDocuments: [],
+			// TODO Replace above with below when the flag 'applics-861-fo-submissions' is removed
+			// failedDocuments: ['test doc'],
 			duplicates: ['test doc'],
 			deleted: ['test doc deleted']
 		});
