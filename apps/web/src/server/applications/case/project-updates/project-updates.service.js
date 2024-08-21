@@ -44,6 +44,15 @@ export async function patchProjectUpdate(caseId, id, update) {
 /**
  * @param {string} caseId
  * @param {string} id
+ * @returns {Promise<any>}
+ */
+export async function postProjectUpdateFinaliseStatus(caseId, id) {
+	return post(`applications/${caseId}/project-updates/${id}/finalise-status`);
+}
+
+/**
+ * @param {string} caseId
+ * @param {string} id
  * @returns {Promise<void>}
  */
 export async function deleteProjectUpdate(caseId, id) {

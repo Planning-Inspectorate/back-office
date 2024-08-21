@@ -56,9 +56,10 @@ export async function createProjectUpdateService(body, caseId) {
  *
  * @param {*} body
  * @param {number} projectUpdateId
+ * @param {boolean} shouldFinalise
  * @returns {Promise<import('@pins/applications').ProjectUpdate>}
  */
-export async function updateProjectUpdateService(body, projectUpdateId) {
+export async function updateProjectUpdateService(body, projectUpdateId, shouldFinalise = false) {
 	const updateReq = projectUpdateUpdateReq(body);
 
 	const initialUpdate = await getProjectUpdate(projectUpdateId);
@@ -75,10 +76,55 @@ export async function updateProjectUpdateService(body, projectUpdateId) {
 		return mapProjectUpdate(update);
 	}
 
-	if (initialUpdate.status === update.status) {
-		logger.info(
-			'updateProjectUpdateService: project update status did not change. No event(s) sent.'
+	try {
+		await verifyNotTraining(update.caseId);
+
+		await eventClient.sendEvents(
+			NSIP_PROJECT_UPDATE,
+			[buildProjectUpdatePayload(update, update.case.reference)],
+			statusToEventType(update.status, shouldFinalise)
 		);
+	} catch (/** @type {*} */ err) {
+		logger.error({ error: err.message }, 'Blocked sending event for project update');
+	}
+
+	return mapProjectUpdate(update);
+}
+
+/**
+ * Finalise a project update, and send the Publish/Unpublish event
+ *
+ * @param {number} projectUpdateId
+ * @returns {Promise<import('@pins/applications').ProjectUpdate>}
+ */
+export async function finaliseProjectUpdateService(projectUpdateId) {
+	const initialUpdate = await getProjectUpdate(projectUpdateId, { case: true });
+	if (!initialUpdate) {
+		throw new BackOfficeAppError(`Project update with ID ${projectUpdateId} does not exist.`, 404);
+	}
+
+	const updateReq = {};
+	switch (initialUpdate.status) {
+		case ProjectUpdate.Status.readyToPublish:
+			updateReq.status = ProjectUpdate.Status.published;
+			updateReq.datePublished = new Date();
+			break;
+		case ProjectUpdate.Status.readyToUnpublish:
+			updateReq.status = ProjectUpdate.Status.unpublished;
+			break;
+		default:
+			throw BackOfficeAppError(
+				`Project update with ID ${projectUpdateId} has invalid status ${initialUpdate.status}.`,
+				409
+			);
+	}
+
+	const update = await updateProjectUpdate(projectUpdateId, updateReq);
+	if (!update.case?.reference) {
+		logger.warn(
+			'updateProjectUpdateService: project update case has no reference. No event(s) sent.'
+		);
+
 		return mapProjectUpdate(update);
 	}
 
@@ -88,7 +134,7 @@ export async function updateProjectUpdateService(body, projectUpdateId) {
 		await eventClient.sendEvents(
 			NSIP_PROJECT_UPDATE,
 			[buildProjectUpdatePayload(update, update.case.reference)],
-			statusToEventType(update.status)
+			statusToEventType(update.status, true)
 		);
 	} catch (/** @type {*} */ err) {
 		logger.error({ error: err.message }, 'Blocked sending event for project update');
@@ -130,14 +176,17 @@ export async function deleteProjectUpdateService(projectUpdateId) {
  * Returns the EventType that should be emitted for the given status.
  *
  * @param {string} status
+ * @param {boolean} shouldFinalise
  * @returns {string}
  */
-function statusToEventType(status) {
+function statusToEventType(status, shouldFinalise) {
+	if (!shouldFinalise) {
+		return EventType.Update;
+	}
 	switch (status) {
 		case ProjectUpdate.Status.published:
 			return EventType.Publish;
 		case ProjectUpdate.Status.unpublished:
 			return EventType.Unpublish;
 	}
-	return EventType.Update;
 }

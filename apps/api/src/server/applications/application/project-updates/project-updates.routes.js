@@ -333,6 +333,59 @@ router.patch(
 	asyncHandler(controller.patchProjectUpdate)
 );
 
+router.post(
+	'/:id/project-updates/:projectUpdateId/finalise-status',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/project-updates/{projectUpdateId}/finalise-status'
+        #swagger.description = 'Update a project update and finalise status'
+        #swagger.parameters['id'] = {
+            in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+        #swagger.parameters['projectUpdateId'] = {
+            in: 'path',
+			description: 'Project Update ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+        #swagger.responses[200] = {
+            description: 'The project update',
+			schema: { $ref: '#/definitions/ApplicationProjectUpdate' },
+        }
+        #swagger.responses[400] = {
+            description: 'Bad request',
+            schema: { $ref: '#/definitions/ApplicationProjectUpdateCreateBadRequest' }
+        }
+        #swagger.responses[404] = {
+            description: 'Not found',
+            schema: { $ref: '#/definitions/NotFound' }
+        }
+        #swagger.responses[500] = {
+            description: 'Internal server error',
+            schema: { $ref: '#/definitions/InternalError' }
+        }
+    */
+	validateApplicationId,
+	validateProjectUpdateId,
+	validateUpdateProjectUpdate,
+	asyncHandler(controller.postProjectUpdateFinaliseStatus)
+);
+
 router.delete(
 	'/:id/project-updates/:projectUpdateId',
 	/*

@@ -14,7 +14,8 @@ import {
 	deleteProjectUpdate,
 	getProjectUpdate,
 	getProjectUpdates,
-	patchProjectUpdate
+	patchProjectUpdate,
+	postProjectUpdateFinaliseStatus
 } from './project-updates.service.js';
 import {
 	createDetailsView,
@@ -329,7 +330,7 @@ export async function projectUpdatesCheckAnswersPost(req, res) {
 	const { caseId, projectUpdateId } = res.locals;
 
 	if (req.body.status) {
-		await patchProjectUpdate(caseId, projectUpdateId, { status: req.body.status });
+		await postProjectUpdateFinaliseStatus(caseId, projectUpdateId);
 	}
 	let action = 'saved';
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);

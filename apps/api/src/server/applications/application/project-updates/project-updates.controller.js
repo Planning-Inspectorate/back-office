@@ -10,10 +10,12 @@ import { sortByFromQuery } from '../../../utils/query/sort-by.js';
 import {
 	createProjectUpdateService,
 	deleteProjectUpdateService,
+	finaliseProjectUpdateService,
 	updateProjectUpdateService
 } from './project-updates.service.js';
 import { NotFound } from '#utils/api-errors.js';
 import { ProjectUpdateStatusError } from '#repositories/project-update.respository.js';
+import { PostProjectUpdateFinaliseStatusError } from '../../../repositories/project-update.respository.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -113,6 +115,28 @@ export async function patchProjectUpdate(req, res) {
 	} catch (e) {
 		// handle status errors from the db transaction
 		if (e instanceof ProjectUpdateStatusError) {
+			res.status(400).send({ errors: { status: e.message } });
+		} else if (e instanceof UnsafeContentError) {
+			res.status(500).send({ errors: { content: e.message } });
+		} else {
+			throw e;
+		}
+	}
+}
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export async function postProjectUpdateFinaliseStatus(req, res) {
+	const caseId = parseInt(req.params.id);
+	const projectUpdateId = parseInt(req.params.projectUpdateId);
+	logger.debug({ caseId, projectUpdateId }, 'postProjectUpdateFinaliseStatus');
+	try {
+		const update = await finaliseProjectUpdateService(projectUpdateId);
+		res.send(update);
+	} catch (e) {
+		// handle status errors from the db transaction
+		if (e instanceof PostProjectUpdateFinaliseStatusError) {
 			res.status(400).send({ errors: { status: e.message } });
 		} else if (e instanceof UnsafeContentError) {
 			res.status(500).send({ errors: { content: e.message } });
