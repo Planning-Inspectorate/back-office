@@ -26,7 +26,7 @@
 
   {% if ('applics-156-material-changes' | isFeatureActive) %}
     {% set caseInfoTableRows = (caseInfoTableRows.push([
-        { text: "Material change application" },
+        { text: "Is this an application for a material change?" },
         { text: "Yes" if case.isMaterialChange else "No" },
         { html: caseEditLink({ editStepUrl: "material-change", caseId: case.id }),
           classes: 'text-align--right'

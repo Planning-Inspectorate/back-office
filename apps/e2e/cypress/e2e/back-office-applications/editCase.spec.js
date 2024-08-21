@@ -45,11 +45,11 @@ describe('Edit a case', () => {
 			return;
 		}
 
-		casePage.clickChangeLink('Material change application');
+		casePage.clickChangeLink('Is this an application for a material change?');
 		page.selectRadioButtonByValue('Yes');
 		page.clickButtonByText('Save changes');
 
-		casePage.checkProjectAnswer('Material change application', 'Yes');
+		casePage.checkProjectAnswer('Is this an application for a material change?', 'Yes');
 	});
 
 	it('Should be able to change the regions', () => {
