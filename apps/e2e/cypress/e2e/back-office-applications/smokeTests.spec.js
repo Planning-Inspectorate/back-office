@@ -49,6 +49,7 @@ describe('Smoke tests', { browser: '!electron' }, () => {
 
 	it('runs the smoke tests successfully', () => {
 		const fileName = 'sample-doc.pdf';
+		const caseRef = Cypress.env('currentCreatedCase');
 		applicationsHomePage.loadCurrentCase();
 		validateProjectOverview(projectInfo);
 		searchResultsPage.clickLinkByText('Project documentation');
