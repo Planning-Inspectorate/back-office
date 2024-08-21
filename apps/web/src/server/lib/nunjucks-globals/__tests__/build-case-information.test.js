@@ -41,7 +41,7 @@ const fullResult = [
 		? [
 				{
 					text: 'Yes',
-					title: 'Material change application',
+					title: 'Is this an application for a material change?',
 					url: 'material-change'
 				}
 		  ]

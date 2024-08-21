@@ -410,7 +410,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <td class="govuk-table__cell"></td>
                     </tr>
                     <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Material change application</th>
+                        <th scope="row" class="govuk-table__header">Is this an application for a material change?</th>
                         <td class="govuk-table__cell">No</td>
                         <td class="govuk-table__cell text-align--right"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
                             id=""> Change</a>
@@ -450,7 +450,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <td class="govuk-table__cell"></td>
                                 </tr>
                                 <tr class="govuk-table__row">
-                                    <th scope="row" class="govuk-table__header">Material change application</th>
+                                    <th scope="row" class="govuk-table__header">Is this an application for a material change?</th>
                                     <td class="govuk-table__cell">No</td>
                                     <td class="govuk-table__cell text-align--right pins-table__cell--s"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
                                         id=""> Change</a>
@@ -626,7 +626,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <td class="govuk-table__cell"></td>
                     </tr>
                     <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Material change application</th>
+                        <th scope="row" class="govuk-table__header">Is this an application for a material change?</th>
                         <td class="govuk-table__cell">No</td>
                         <td class="govuk-table__cell text-align--right"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
                             id=""> Change</a>
@@ -666,7 +666,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <td class="govuk-table__cell"></td>
                                 </tr>
                                 <tr class="govuk-table__row">
-                                    <th scope="row" class="govuk-table__header">Material change application</th>
+                                    <th scope="row" class="govuk-table__header">Is this an application for a material change?</th>
                                     <td class="govuk-table__cell">No</td>
                                     <td class="govuk-table__cell text-align--right pins-table__cell--s"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
                                         id=""> Change</a>
@@ -842,7 +842,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <td class="govuk-table__cell"></td>
                     </tr>
                     <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Material change application</th>
+                        <th scope="row" class="govuk-table__header">Is this an application for a material change?</th>
                         <td class="govuk-table__cell">No</td>
                         <td class="govuk-table__cell text-align--right"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
                             id=""> Change</a>
@@ -882,7 +882,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <td class="govuk-table__cell"></td>
                                 </tr>
                                 <tr class="govuk-table__row">
-                                    <th scope="row" class="govuk-table__header">Material change application</th>
+                                    <th scope="row" class="govuk-table__header">Is this an application for a material change?</th>
                                     <td class="govuk-table__cell">No</td>
                                     <td class="govuk-table__cell text-align--right pins-table__cell--s"><a class="govuk-link" href="/applications-service/case/4/edit/material-change"
                                         id=""> Change</a>

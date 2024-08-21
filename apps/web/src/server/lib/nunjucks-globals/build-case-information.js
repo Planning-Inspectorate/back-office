@@ -48,7 +48,7 @@ export const buildCaseInformation = (params, isWelsh) => [
 	...(featureFlagClient.isFeatureActive('applics-156-material-changes')
 		? [
 				{
-					title: 'Material change application',
+					title: 'Is this an application for a material change?',
 					text: params.case.isMaterialChange
 						? isMaterialChangeStaticDataViewModel[0].text
 						: isMaterialChangeStaticDataViewModel[1].text,
