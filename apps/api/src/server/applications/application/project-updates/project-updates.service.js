@@ -112,6 +112,8 @@ export async function finaliseProjectUpdateService(projectUpdateId) {
 		case ProjectUpdate.Status.readyToUnpublish:
 			updateReq.status = ProjectUpdate.Status.unpublished;
 			break;
+		case ProjectUpdate.Status.draft:
+			return mapProjectUpdate(initialUpdate);
 		default:
 			throw BackOfficeAppError(
 				`Project update with ID ${projectUpdateId} has invalid status ${initialUpdate.status}.`,
