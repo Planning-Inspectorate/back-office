@@ -56,10 +56,9 @@ export async function createProjectUpdateService(body, caseId) {
  *
  * @param {*} body
  * @param {number} projectUpdateId
- * @param {boolean} shouldFinalise
  * @returns {Promise<import('@pins/applications').ProjectUpdate>}
  */
-export async function updateProjectUpdateService(body, projectUpdateId, shouldFinalise = false) {
+export async function updateProjectUpdateService(body, projectUpdateId) {
 	const updateReq = projectUpdateUpdateReq(body);
 
 	const initialUpdate = await getProjectUpdate(projectUpdateId);
@@ -82,7 +81,7 @@ export async function updateProjectUpdateService(body, projectUpdateId, shouldFi
 		await eventClient.sendEvents(
 			NSIP_PROJECT_UPDATE,
 			[buildProjectUpdatePayload(update, update.case.reference)],
-			statusToEventType(update.status, shouldFinalise)
+			statusToEventType(update.status)
 		);
 	} catch (/** @type {*} */ err) {
 		logger.error({ error: err.message }, 'Blocked sending event for project update');
