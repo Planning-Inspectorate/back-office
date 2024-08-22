@@ -782,76 +782,6 @@ describe('project-updates', () => {
 					}
 				},
 				{
-					name: 'should send a publish event',
-					body: {
-						emailSubscribers: true,
-						status: 'published',
-						htmlContent:
-							'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
-					},
-					projectUpdateId: 1,
-					existingCase: {
-						reference: 'abc-123'
-					},
-					updated: {
-						id: 5,
-						caseId: 1,
-						status: 'ready-to-publish',
-						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
-						sentToSubscribers: false,
-						datePublished: fakeNow
-					},
-					want: {
-						event: EventType.Publish,
-						status: 200,
-						body: {
-							id: 5,
-							caseId: 1,
-							dateCreated: '2023-07-04T10:00:00.000Z',
-							emailSubscribers: true,
-							sentToSubscribers: false,
-							status: 'published',
-							datePublished: fakeNow.toISOString(),
-							htmlContent:
-								'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
-						}
-					}
-				},
-				{
-					name: 'should send an unpublish event',
-					body: {
-						status: 'unpublished'
-					},
-					projectUpdateId: 1,
-					existingCase: {
-						reference: 'abc-123'
-					},
-					updated: {
-						id: 5,
-						caseId: 1,
-						status: 'ready-to-unpublish',
-						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
-						sentToSubscribers: false,
-						datePublished: new Date('2023-07-11T10:00:00.000Z'),
-						emailSubscribers: true,
-						htmlContent: 'hello'
-					},
-					want: {
-						event: EventType.Unpublish,
-						status: 200,
-						body: {
-							id: 5,
-							caseId: 1,
-							dateCreated: '2023-07-04T10:00:00.000Z',
-							emailSubscribers: true,
-							sentToSubscribers: false,
-							status: 'unpublished',
-							datePublished: '2023-07-11T10:00:00.000Z',
-							htmlContent: 'hello'
-						}
-					}
-				},
-				{
 					name: 'should check HTML content is safe before sending an event',
 					body: {
 						status: 'published'
@@ -905,6 +835,127 @@ describe('project-updates', () => {
 				const response = await request
 					.patch(`/applications/1/project-updates/${projectUpdateId}`)
 					.send(body);
+
+				expect(response.status).toEqual(want.status);
+				expect(response.body).toEqual(want.body);
+
+				if (updated && want.event) {
+					// this is OK because we always run some checks
+					// eslint-disable-next-line jest/no-conditional-expect
+					expect(eventClient.sendEvents).toHaveBeenLastCalledWith(
+						NSIP_PROJECT_UPDATE,
+						[buildProjectUpdatePayload(projectUpdate, existingCase.reference)],
+						want.event
+					);
+				}
+			});
+		});
+
+		describe('post', () => {
+			const fakeNow = new Date();
+			beforeAll(() => {
+				jest.useFakeTimers({ doNotFake: ['performance'] });
+				jest.setSystemTime(fakeNow);
+			});
+			afterAll(() => {
+				jest.useRealTimers();
+			});
+
+			const tests = [
+				{
+					name: 'should send a publish event',
+					projectUpdateId: 1,
+					existingCase: {
+						reference: 'abc-123'
+					},
+					updated: {
+						id: 5,
+						caseId: 1,
+						status: 'ready-to-publish',
+						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+						emailSubscribers: true,
+						sentToSubscribers: false,
+						datePublished: fakeNow,
+						htmlContent:
+							'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+					},
+					want: {
+						event: EventType.Publish,
+						status: 200,
+						body: {
+							id: 5,
+							caseId: 1,
+							dateCreated: '2023-07-04T10:00:00.000Z',
+							emailSubscribers: true,
+							sentToSubscribers: false,
+							status: 'published',
+							datePublished: fakeNow.toISOString(),
+							htmlContent:
+								'<strong>Something Important</strong> My new update <ul><li>list item 1</li><li>list item 1</li></ul><a href="https://my-important-link.com">More info</a>'
+						}
+					}
+				},
+				{
+					name: 'should send an unpublish event',
+					projectUpdateId: 1,
+					existingCase: {
+						reference: 'abc-123'
+					},
+					updated: {
+						id: 5,
+						caseId: 1,
+						status: 'ready-to-unpublish',
+						dateCreated: new Date('2023-07-04T10:00:00.000Z'),
+						sentToSubscribers: false,
+						datePublished: new Date('2023-07-11T10:00:00.000Z'),
+						emailSubscribers: true,
+						htmlContent: 'hello'
+					},
+					want: {
+						event: EventType.Unpublish,
+						status: 200,
+						body: {
+							id: 5,
+							caseId: 1,
+							dateCreated: '2023-07-04T10:00:00.000Z',
+							emailSubscribers: true,
+							sentToSubscribers: false,
+							status: 'unpublished',
+							datePublished: '2023-07-11T10:00:00.000Z',
+							htmlContent: 'hello'
+						}
+					}
+				}
+			];
+
+			it.each(tests)('$name', async ({ projectUpdateId, updated, existingCase, want }) => {
+				databaseConnector.case.findUnique.mockReset();
+				databaseConnector.case.findUnique
+					.mockResolvedValueOnce({ id: 1, reference: 'TEST' })
+					.mockResolvedValueOnce({ id: 1, reference: 'TEST' });
+
+				databaseConnector.projectUpdate.update.mockReset();
+				databaseConnector.projectUpdate.findUnique.mockReset();
+
+				let projectUpdate;
+
+				if (updated) {
+					databaseConnector.projectUpdate.findUnique
+						.mockResolvedValueOnce(updated)
+						.mockResolvedValueOnce(updated);
+					databaseConnector.projectUpdate.update.mockImplementationOnce((req) => {
+						projectUpdate = {
+							...updated,
+							...req.data,
+							case: existingCase
+						};
+						return projectUpdate;
+					});
+				}
+
+				const response = await request
+					.post(`/applications/1/project-updates/${projectUpdateId}/finalise-status`)
+					.send();
 
 				expect(response.status).toEqual(want.status);
 				expect(response.body).toEqual(want.body);
