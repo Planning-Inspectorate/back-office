@@ -2,6 +2,7 @@ import * as got from 'got';
 import getActiveDirectoryAccessToken from '../../lib/active-directory-token.js';
 import { post } from '../../lib/request.js';
 import { setSuccessBanner } from '../../applications/common/services/session.service.js';
+import logger from '../../lib/logger.js';
 /** @typedef {import('../auth/auth-session.service').SessionWithAuth} SessionWithAuth */
 /** @typedef {import('@azure/core-auth').AccessToken} AccessToken */
 /** @typedef {{documentName: string, fileRowId: string, blobStoreUrl?: string, username?: string, name?: string}} DocumentUploadInfo */
@@ -89,15 +90,21 @@ export async function postValidateFileSignatures({ body }, response) {
 		/* .mov  */ 'video/quicktime': { hexSignature: '0000001466747970' },
 		/* .png  */ 'image/png': { hexSignature: '89504E47' },
 		/* .tif  */ 'image/tiff': { hexSignature: '4D4D002A, 49492A00' }, // 2 possible magic numbers here
-		/* .html */ 'text/html': { hexSignature: '0A3C212D2D207361' },
+		/* .html */ 'text/html': { hexSignature: '3C21646F63747970, 3C21444F43545950' },
 		/* .prj  */ 'application/x-anjuta-project': { hexSignature: '' },
-		/* .dbf  */ 'application/dbf': { hexSignature: '4F504C4461746162, 61736546696C65' },
+		/* .dbf  */ 'application/x-dbf': {
+			hexSignature: '4F504C4461746162, 61736546696C65, 036E0C017E010000'
+		},
 		/* .shp  */ 'application/vnd.shp': { hexSignature: '' },
 		/* .shx  */ 'application/vnd.shx': { hexSignature: '' }
 		// Add more file signatures as needed
 	};
 	const invalidSignatures = body
 		.filter(({ fileType, hexSignature = '' }) => {
+			if (!fileType) {
+				logger.info('Blank filetype detected');
+				return false; // Report and pass when filetype doesn't exist
+			}
 			const /** @type {HexSignature} */ validFileType = fileSignatures[fileType];
 			if (!validFileType) {
 				return true; // Fail when filetype not supported

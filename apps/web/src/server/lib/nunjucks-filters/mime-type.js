@@ -19,7 +19,7 @@ export const MIMEs = {
 	tif: 'image/tiff',
 	html: 'text/html',
 	prj: 'application/x-anjuta-project',
-	dbf: 'application/dbf',
+	dbf: 'application/x-dbf',
 	shp: 'application/vnd.shp',
 	shx: 'application/vnd.shx'
 };
