@@ -317,7 +317,9 @@ describe('project-updates', () => {
 		beforeEach(async () => {
 			nocks();
 			nock('http://test/')
-				.patch(`/applications/${mockCaseReference.id}/project-updates/${mockProjectUpdate.id}`)
+				.post(
+					`/applications/${mockCaseReference.id}/project-updates/${mockProjectUpdate.id}/finalise-status`
+				)
 				.reply(200)
 				.persist();
 			await request.get('/applications-service/');
