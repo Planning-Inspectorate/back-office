@@ -70,6 +70,18 @@ const mapTimetableFromItems = (timetableItems) => {
 	return {
 		caseReference: timetableItems.caseReference,
 		published: timetableItems.published,
-		events: JSON.parse(timetableItems.events)
+		events: JSON.parse(timetableItems.events).map((event) => ({
+			...event,
+			type: timetableEventTypeOverride(event.type)
+		}))
 	};
+};
+
+const timetableEventTypeOverride = (type) => {
+	switch (type) {
+		case 'Site Visit (Accompanied)':
+			return 'Accompanied Site Inspection';
+		default:
+			return type;
+	}
 };
