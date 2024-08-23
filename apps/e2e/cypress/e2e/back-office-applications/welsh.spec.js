@@ -191,6 +191,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.clickLinkByText('Examination timetable');
 				examTimetablePage.deleteAllExaminationTimetableItems();
 				examTimetablePage.clickButtonByText('Create timetable item');
+				cy.log('before each');
 			}
 		});
 
