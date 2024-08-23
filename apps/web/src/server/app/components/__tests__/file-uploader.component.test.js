@@ -37,7 +37,7 @@ describe('file-uploader.component', () => {
 					{ fileRowId: '11', fileType: 'image/png', hexSignature: '89504E471234' },
 					{ fileRowId: '12', fileType: 'image/tiff', hexSignature: '4D4D002A0471234' },
 					{ fileRowId: '13', fileType: 'image/tiff', hexSignature: '49492A004171234' },
-					{ fileRowId: '14', fileType: 'text/html', hexSignature: '0A3C212D2D207361' }
+					{ fileRowId: '14', fileType: 'text/html', hexSignature: '3C21646F63747970' }
 				]
 			};
 			await postValidateFileSignatures(request, response);
@@ -66,7 +66,7 @@ describe('file-uploader.component', () => {
 					{ fileRowId: '11', fileType: 'image/png', hexSignature: '89504E1234' },
 					{ fileRowId: '12', fileType: 'image/tiff', hexSignature: '4D4D002471234' },
 					{ fileRowId: '13', fileType: 'image/tiff', hexSignature: '4949004171234' },
-					{ fileRowId: '14', fileType: 'text/html', hexSignature: '0A3C212D207361' }
+					{ fileRowId: '14', fileType: 'text/html', hexSignature: '3C21646F63747900' }
 				]
 			};
 			await postValidateFileSignatures(request, response);
