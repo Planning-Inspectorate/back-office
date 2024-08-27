@@ -52,14 +52,22 @@ describe('Document Properties', () => {
 	it('As a user should be able to upload a document to a case', () => {
 		applicationsHomePage.loadCurrentCase();
 		validateProjectOverview(projectInfo);
+		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+			searchResultsPage.verifyPageTitle(`${projectInfo.projectName} - Overview`);
+		} else {
+			documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - Project information`);
+		}
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
+		fileUploadPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.uploadFile('test.pdf');
-		searchResultsPage.clickButtonByText('Save and continue');
+		fileUploadPage.clickButtonByText('Save and continue');
+		fileUploadPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
+		documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - Project documentation`);
 		documentPropertiesPage.updateDocumentProperty('File name', fileName());
 		documentPropertiesPage.updateDocumentProperty('Description', description(), 'textarea');
 		documentPropertiesPage.updateDocumentProperty('Who the document is from', from(), 'textarea');
@@ -68,5 +76,6 @@ describe('Document Properties', () => {
 		documentPropertiesPage.updateDocumentType('No document type');
 		documentPropertiesPage.updateDate('Date received', getDate(true));
 		documentPropertiesPage.updateRedactionStatus('Redacted');
+		documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - Project documentation`);
 	});
 });

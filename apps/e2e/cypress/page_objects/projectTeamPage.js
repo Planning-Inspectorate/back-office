@@ -52,6 +52,9 @@ export class ProjectTeamPage extends Page {
 	validateErrorMessageWithoutEnteringAnything() {
 		this.elements.searchTeamMemberButton().click();
 		this.elements.errorMessageForSearch().contains('Enter a search term');
+		this.verifyPageTitle('Search for a team member - Project team', {
+			error: true
+		});
 	}
 	verifyRoleChangedToOperationsManager() {
 		this.elements.changeRoleLink().click();

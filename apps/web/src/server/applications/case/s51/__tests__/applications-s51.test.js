@@ -9,6 +9,7 @@ import {
 import { fixtureCases } from '../../../../../../testing/applications/applications.js';
 import { fixturePaginatedS51Advice } from '../../../../../../testing/applications/fixtures/s51-advice.js';
 import { createS51Advice } from '../../../../../../testing/applications/factory/s51-advice.js';
+import { buildPageTitle, getPageTitle } from '../../../../../../testing/util/title.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -53,10 +54,12 @@ describe('S51 Advice', () => {
 		describe('GET /case/123/project-documentation/21/s51-advice/', () => {
 			it('should render the page', async () => {
 				await request.get('/applications-service/');
-
 				const response = await request.get(`${baseUrl}`);
 				const element = parseHtml(response.text);
 
+				expect(getPageTitle(response)).toEqual(
+					buildPageTitle(['Title CASE/04', 'NSIP Applications'])
+				);
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('S51 advice folder');
 			});
@@ -127,6 +130,9 @@ describe('S51 Advice', () => {
 					const response = await request.get(`${baseUrl}/create/title`);
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enter the S51 advice title', 'S51 advice'])
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter the S51 advice title');
 
@@ -161,6 +167,10 @@ describe('S51 Advice', () => {
 						.post(`${baseUrl}/create/title`)
 						.send({ title: 'existing title' });
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enter the S51 advice title', 'S51 advice'], { error: true })
+					);
+
 					const element = parseHtml(response.text);
 					expect(element.innerHTML).toContain('Enter a new title');
 				});
@@ -180,6 +190,10 @@ describe('S51 Advice', () => {
 					// test value is saved in the session
 					const response2 = await request.get(`${baseUrl}/create/title`);
 					const element = parseHtml(response2.text);
+
+					expect(getPageTitle(response2)).toEqual(
+						buildPageTitle(['Enter the S51 advice title', 'S51 advice'])
+					);
 					expect(element.innerHTML).toContain('sent s51 title');
 				});
 			});
@@ -199,6 +213,10 @@ describe('S51 Advice', () => {
 					expect(element.innerHTML).toContain('Enter who the enquiry was from');
 
 					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
+
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enter who the enquiry was from', 'S51 advice'])
+					);
 					expect(backElement.innerHTML).toContain(`"${baseUrl}/create/title"`);
 				});
 			});
@@ -208,6 +226,9 @@ describe('S51 Advice', () => {
 					const response = await request.post(`${baseUrl}/create/enquirer`).send({});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enter who the enquiry was from', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('You must enter either a name, organisation or both');
 				});
@@ -218,6 +239,9 @@ describe('S51 Advice', () => {
 						.send({ enquirerFirstName: 'Joe' });
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enter who the enquiry was from', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('You must enter a last name');
 				});
@@ -228,6 +252,9 @@ describe('S51 Advice', () => {
 						.send({ enquirerLastName: 'Joe' });
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enter who the enquiry was from', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('You must enter a first name');
 				});
@@ -244,6 +271,9 @@ describe('S51 Advice', () => {
 					// test data is saved in the session
 					const response2 = await request.get(`${baseUrl}/create/enquirer`);
 					const element = parseHtml(response2.text);
+					expect(getPageTitle(response2)).toEqual(
+						buildPageTitle(['Enter who the enquiry was from', 'S51 advice'])
+					);
 					expect(element.innerHTML).toContain('Joe');
 					expect(element.innerHTML).toContain('Doe');
 					expect(element.innerHTML).toContain('Joes Organization');
@@ -261,6 +291,9 @@ describe('S51 Advice', () => {
 					const response = await request.get(`${baseUrl}/create/method`);
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Select the method of enquiry', 'S51 advice'])
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('How was the enquiry made?');
 
@@ -274,6 +307,9 @@ describe('S51 Advice', () => {
 					const response = await request.post(`${baseUrl}/create/method`).send({});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Select the method of enquiry', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toContain('You must select a method of enquiry');
 				});
 
@@ -286,6 +322,9 @@ describe('S51 Advice', () => {
 					// test data is saved in the session
 					const response2 = await request.get(`${baseUrl}/create/method`);
 					const element = parseHtml(response2.text);
+					expect(getPageTitle(response2)).toEqual(
+						buildPageTitle(['Select the method of enquiry', 'S51 advice'])
+					);
 					expect(element.innerHTML).toContain('value="email" checked');
 				});
 			});
@@ -301,6 +340,7 @@ describe('S51 Advice', () => {
 					const response = await request.get(`${baseUrl}/create/enquiry-details`);
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(buildPageTitle(['Enquiry details', 'S51 advice']));
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enquiry details');
 
@@ -314,6 +354,9 @@ describe('S51 Advice', () => {
 					const response = await request.post(`${baseUrl}/create/enquiry-details`).send({});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enquiry details', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toContain('You must enter the date');
 					expect(element.innerHTML).toContain('You must enter the enquiry details');
 				});
@@ -340,6 +383,9 @@ describe('S51 Advice', () => {
 					});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enquiry details', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toContain('The date cannot be in the future');
 				});
 
@@ -355,6 +401,9 @@ describe('S51 Advice', () => {
 					// test data is saved in the session
 					const response2 = await request.get(`${baseUrl}/create/enquiry-details`);
 					const element = parseHtml(response2.text);
+					expect(getPageTitle(response2)).toEqual(
+						buildPageTitle(['Enquiry details', 'S51 advice'])
+					);
 					expect(element.innerHTML).toContain('01');
 					expect(element.innerHTML).toContain('12');
 					expect(element.innerHTML).toContain('2020');
@@ -373,6 +422,9 @@ describe('S51 Advice', () => {
 					const response = await request.get(`${baseUrl}/create/person`);
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enter who gave the advice', 'S51 advice'])
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter the name of the person who gave the advice');
 
@@ -386,6 +438,9 @@ describe('S51 Advice', () => {
 					const response = await request.post(`${baseUrl}/create/person`).send({});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Enter who gave the advice', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toContain('You must enter a name');
 				});
 
@@ -398,6 +453,9 @@ describe('S51 Advice', () => {
 					// test data is saved in the session
 					const response2 = await request.get(`${baseUrl}/create/person`);
 					const element = parseHtml(response2.text);
+					expect(getPageTitle(response2)).toEqual(
+						buildPageTitle(['Enter who gave the advice', 'S51 advice'])
+					);
 					expect(element.innerHTML).toContain('Joe Doe');
 				});
 			});
@@ -414,6 +472,7 @@ describe('S51 Advice', () => {
 
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(buildPageTitle(['Advice details', 'S51 advice']));
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Advice details');
 
@@ -427,6 +486,9 @@ describe('S51 Advice', () => {
 					const response = await request.post(`${baseUrl}/create/advice-details`).send({});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Advice details', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toContain('You must enter the date');
 					expect(element.innerHTML).toContain('You must enter the advice given');
 				});
@@ -441,6 +503,9 @@ describe('S51 Advice', () => {
 
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Advice details', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toContain('Enter a valid');
 				});
 
@@ -453,6 +518,9 @@ describe('S51 Advice', () => {
 					});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['Advice details', 'S51 advice'], { error: true })
+					);
 					expect(element.innerHTML).toContain('The date cannot be in the future');
 				});
 
@@ -468,6 +536,8 @@ describe('S51 Advice', () => {
 					// test data is saved in the session
 					const response2 = await request.get(`${baseUrl}/create/advice-details`);
 					const element = parseHtml(response2.text);
+
+					expect(getPageTitle(response2)).toEqual(buildPageTitle(['Advice details', 'S51 advice']));
 					expect(element.innerHTML).toContain('01');
 					expect(element.innerHTML).toContain('12');
 					expect(element.innerHTML).toContain('2020');
@@ -486,6 +556,7 @@ describe('S51 Advice', () => {
 					const response = await request.get(`${baseUrl}/create/check-your-answers`);
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(buildPageTitle(['NSIP Applications']));
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Check your answers');
 				});
@@ -496,6 +567,9 @@ describe('S51 Advice', () => {
 					const response = await request.post(`${baseUrl}/create/check-your-answers`);
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['NSIP Applications'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('An error occurred, please try again later');
 				});
@@ -521,6 +595,7 @@ describe('S51 Advice', () => {
 					const response2 = await request.get(`${baseUrl}/1/properties`);
 					const element = parseHtml(response2.text);
 
+					expect(getPageTitle(response2)).toEqual(buildPageTitle(['NSIP Applications']));
 					expect(element.innerHTML).toContain('New S51 advice item created');
 				});
 			});
@@ -537,6 +612,7 @@ describe('S51 Advice', () => {
 				const response = await request.get(`${baseUrl}/1/properties`);
 				const element = parseHtml(response.text);
 
+				expect(getPageTitle(response)).toEqual(buildPageTitle(['NSIP Applications']));
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('S51 advice properties');
 
@@ -548,6 +624,7 @@ describe('S51 Advice', () => {
 				const response = await request.get(`${baseUrl}/1/properties#s51-attachments`);
 				const element = parseHtml(response.text);
 
+				expect(getPageTitle(response)).toEqual(buildPageTitle(['NSIP Applications']));
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('File name');
 			});
@@ -564,6 +641,9 @@ describe('S51 Advice', () => {
 				const response = await request.get(`${baseUrl}/1/delete`);
 				const element = parseHtml(response.text);
 
+				expect(getPageTitle(response)).toEqual(
+					buildPageTitle(['Delete selected S51 advice', 'S51 advice'])
+				);
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Delete selected S51 advice');
 
@@ -584,6 +664,9 @@ describe('S51 Advice', () => {
 				const response = await request.get(`${baseUrl}/1/attachments/${documentGuid}/delete`);
 				const element = parseHtml(response.text);
 
+				expect(getPageTitle(response)).toEqual(
+					buildPageTitle(['Delete selected attachment', 'S51 advice'])
+				);
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Delete selected attachment');
 
@@ -609,6 +692,9 @@ describe('S51 Advice', () => {
 
 				const element = parseHtml(response.text);
 
+				expect(getPageTitle(response)).toEqual(
+					buildPageTitle(['Delete selected S51 advice', 'S51 advice'], { error: true })
+				);
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Your item could not be deleted');
 			});
@@ -629,8 +715,9 @@ describe('S51 Advice', () => {
 
 				const element = parseHtml(response.text);
 
+				expect(getPageTitle(response)).toEqual(buildPageTitle(['Attachment deleted successfully']));
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Attachmment deleted successfully');
+				expect(element.innerHTML).toContain('Attachment deleted successfully');
 			});
 		});
 	});
@@ -645,6 +732,7 @@ describe('S51 Advice', () => {
 				const response = await request.get(`${baseUrl}/publishing-queue`);
 				const element = parseHtml(response.text);
 
+				expect(getPageTitle(response)).toEqual(buildPageTitle(['NSIP Applications']));
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Select items for publishing');
 
@@ -658,6 +746,9 @@ describe('S51 Advice', () => {
 				const response = await request.get(`${baseUrl}/publishing-queue/remove/1`);
 				const element = parseHtml(response.text);
 
+				expect(getPageTitle(response)).toEqual(
+					buildPageTitle(['NSIP Applications'], { error: true })
+				);
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Select items for publishing');
 				expect(element.innerHTML).toContain('An error occurred, please try again later');
@@ -681,6 +772,7 @@ describe('S51 Advice', () => {
 					const response = await request.get(`${baseUrl}/222/edit/title-in-welsh`);
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(buildPageTitle(['NSIP Applications']));
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('S51 title in Welsh');
 
@@ -698,6 +790,9 @@ describe('S51 Advice', () => {
 					const response = await request.post(`${baseUrl}/222/edit/title-in-welsh`).send({});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['NSIP Applications'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter the S51 title in Welsh');
 				});
@@ -708,6 +803,9 @@ describe('S51 Advice', () => {
 					});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['NSIP Applications'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain(
 						'The S51 title in Welsh must be 255 characters or fewer'
@@ -724,6 +822,7 @@ describe('S51 Advice', () => {
 					const response = await request.get(`${baseUrl}/222/edit/enquiry-detail-in-welsh`);
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(buildPageTitle(['NSIP Applications']));
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enquiry details in Welsh');
 
@@ -743,6 +842,9 @@ describe('S51 Advice', () => {
 						.send({});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['NSIP Applications'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter the S51 Enquiry details in Welsh');
 				});
@@ -753,6 +855,9 @@ describe('S51 Advice', () => {
 					});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['NSIP Applications'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain(
 						'The S51 Enquiry details in Welsh must be 255 characters or fewer'
@@ -769,6 +874,7 @@ describe('S51 Advice', () => {
 					const response = await request.get(`${baseUrl}/222/edit/advice-detail-in-welsh`);
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(buildPageTitle(['NSIP Applications']));
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Advice given in Welsh');
 
@@ -788,6 +894,9 @@ describe('S51 Advice', () => {
 						.send({});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['NSIP Applications'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain('Enter the S51 Advice given in Welsh');
 				});
@@ -798,6 +907,9 @@ describe('S51 Advice', () => {
 					});
 					const element = parseHtml(response.text);
 
+					expect(getPageTitle(response)).toEqual(
+						buildPageTitle(['NSIP Applications'], { error: true })
+					);
 					expect(element.innerHTML).toMatchSnapshot();
 					expect(element.innerHTML).toContain(
 						'The S51 Advice given in Welsh must be 255 characters or fewer'
@@ -828,6 +940,9 @@ describe('S51 pages when user belongs to wrong group', () => {
 
 			const element = parseHtml(response.text);
 
+			expect(getPageTitle(response)).toEqual(
+				buildPageTitle(['Sorry, there is a problem with your login'])
+			);
 			expect(element.innerHTML).toContain('You are not permitted to access this URL');
 		});
 	});
