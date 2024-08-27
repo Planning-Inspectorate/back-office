@@ -9,6 +9,7 @@ import {
 	fixtureTimetableWelshCase
 } from '../../../../../../testing/applications/fixtures/timetable-types.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
+import { buildPageTitle, getPageTitle } from '../../../../../../testing/util/title.js';
 
 const { app } = createTestEnvironment();
 const request = supertest(app);
@@ -291,6 +292,10 @@ describe('Edit examination timetable', () => {
 
 			const element = parseHtml(response.text);
 
+			expect(getPageTitle(response)).toEqual(
+				buildPageTitle(['Edit timetable item', 'Examination timetable'])
+			);
+
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Edit timetable item');
 		});
@@ -308,6 +313,10 @@ describe('Edit examination timetable', () => {
 				);
 
 				const element = parseHtml(response.text, { rootElement: 'h1' });
+
+				expect(getPageTitle(response)).toEqual(
+					buildPageTitle(['Item name in Welsh', 'Examination timetable'])
+				);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Item name in Welsh');
@@ -331,6 +340,10 @@ describe('Edit examination timetable', () => {
 
 						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
 
+						expect(getPageTitle(response)).toEqual(
+							buildPageTitle(['Item name in Welsh', 'Examination timetable'], { error: true })
+						);
+
 						expect(element.innerHTML).toContain('Enter item name in Welsh');
 					});
 					it('should show an error when submitted welsh name is too long', async () => {
@@ -342,6 +355,10 @@ describe('Edit examination timetable', () => {
 							});
 
 						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
+
+						expect(getPageTitle(response)).toEqual(
+							buildPageTitle(['Item name in Welsh', 'Examination timetable'], { error: true })
+						);
 
 						expect(element.innerHTML).toContain(
 							'Item name in Welsh must be 200 characters or less'
@@ -378,6 +395,10 @@ describe('Edit examination timetable', () => {
 				);
 
 				const element = parseHtml(response.text, { rootElement: 'h1' });
+
+				expect(getPageTitle(response)).toEqual(
+					buildPageTitle(['Item description in Welsh', 'Examination timetable'])
+				);
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).toContain('Item description in Welsh');

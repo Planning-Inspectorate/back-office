@@ -17,11 +17,13 @@
 {% set appName = 'Casework Back Office System' %}
 
 {% block pageTitle %}
+	{% if errors %}
+		Error:
+	{% endif %}
 	{{appName}}
 	{{ '- '+pageTitle if pageTitle or '' }}
 	{{ '- '+serviceName if serviceName or '' }}
-
-{% endblock %}
+{%- endblock %}
 
 {% block header %}
 	{% set domainName = 'Planning Inspectorate'%}

@@ -51,8 +51,10 @@ describe('Document Properties including welsh fields', () => {
 	beforeEach(() => {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 			applicationsHomePage.loadCurrentCase();
+			searchResultsPage.verifyPageTitle(`${projectInfo.projectName} - Overview`);
 			searchResultsPage.clickLinkByText('Project documentation');
 			searchResultsPage.clickLinkByText('Project management');
+			fileUploadPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
 		}
 	});
 
@@ -60,7 +62,8 @@ describe('Document Properties including welsh fields', () => {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 			fileUploadPage.verifyUploadButtonIsVisible();
 			fileUploadPage.uploadFile('test.pdf');
-			searchResultsPage.clickButtonByText('Save and continue');
+			fileUploadPage.clickButtonByText('Save and continue');
+			fileUploadPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
 			fileUploadPage.verifyFolderDocuments(1);
 			fileUploadPage.verifyUploadIsComplete();
 			fileUploadPage.clickLinkByText('View/Edit properties');
@@ -92,9 +95,11 @@ describe('Document Properties including welsh fields', () => {
 			documentPropertiesPage.updateDate('Date received', getDate(true));
 			documentPropertiesPage.updateRedactionStatus('Redacted');
 			cy.get('.govuk-back-link').click();
+			documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
 			folderPage.markAllReadyToPublish();
 			folderPage.clickLinkByText('View publishing queue');
 			folderPage.publishAllDocumentsInList();
+			documentPropertiesPage.verifyPageTitle('Document/s successfully published');
 		}
 	});
 
@@ -117,7 +122,11 @@ describe('Document Properties including welsh fields', () => {
 			documentPropertiesPage.updateDate('Date received', getDate(true));
 			documentPropertiesPage.updateRedactionStatus('Redacted');
 			cy.get('.govuk-back-link').click();
+			documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
 			folderPage.markAllReadyToPublish();
+			documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`, {
+				error: true
+			});
 			documentPropertiesPage.validateSummaryErrorMessage(
 				'You must fill in all mandatory document properties to publish a document'
 			);

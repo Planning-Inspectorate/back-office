@@ -28,12 +28,14 @@ describe('Project team related scenarios ', () => {
 		applicationsHomePage.loadCurrentCase();
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
+		projectTeamPage.verifyPageTitle('Search for a team member - Project team');
 	});
 
 	it('As a user able to add team member and verify the role is added to project team', () => {
 		email = Cypress.env('CASE_ADMIN_EMAIL');
 		projectTeamPage.addTeamMeber(email);
 		projectTeamPage.verifyCaseManagerRoleAdded();
+		projectTeamPage.verifyPageTitle(`${projectInfo.projectName} - Project team`);
 	});
 
 	it('As a user able to verify team member is added', () => {
@@ -54,5 +56,6 @@ describe('Project team related scenarios ', () => {
 
 	it('As a user able to verify the error message without entering the search criteria', () => {
 		projectTeamPage.validateErrorMessageWithoutEnteringAnything();
+		projectTeamPage.verifyPageTitle('Search for a team member - Project team', { error: true });
 	});
 });
