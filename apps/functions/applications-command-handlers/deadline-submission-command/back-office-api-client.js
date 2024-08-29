@@ -63,7 +63,8 @@ async function submitDocument({
 						documentType,
 						documentSize,
 						folderId: folderID,
-						username: userEmail
+						username: userEmail,
+						fromFrontOffice: true
 					}
 				]
 			})
