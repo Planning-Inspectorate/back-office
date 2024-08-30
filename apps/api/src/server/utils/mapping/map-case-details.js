@@ -41,7 +41,8 @@ export const mapApplicationDetails = (caseDetails) => {
 				'modifiedAt',
 				'caseStatus',
 				'casePublishedState',
-				'hasUnpublishedChanges'
+				'hasUnpublishedChanges',
+				'migrationStatus'
 			]),
 			{
 				modifiedAt: 'modifiedDate'
