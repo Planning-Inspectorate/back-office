@@ -82,7 +82,11 @@ export class ServiceBusEventClient extends GenericEventClient {
 		const sender = this.#createSender(topic);
 
 		this.logger.info(
-			`Publishing ${events.length} events to topic ${topic} with type ${eventType}, additional properties ${additionalProperties} and trace id ${traceId}`
+			`Publishing ${
+				events.length
+			} events to topic ${topic} with type ${eventType}, additional properties ${JSON.stringify(
+				additionalProperties
+			)} and trace id ${traceId}`
 		);
 
 		await sender.sendMessages(
