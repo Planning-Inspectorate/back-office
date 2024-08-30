@@ -105,6 +105,7 @@ export async function finaliseProjectUpdateService(projectUpdateId) {
 	const updateReq = {};
 	switch (initialUpdate.status) {
 		case ProjectUpdate.Status.readyToPublish:
+		case ProjectUpdate.Status.published:
 			updateReq.status = ProjectUpdate.Status.published;
 			updateReq.datePublished = new Date();
 			break;
@@ -112,7 +113,6 @@ export async function finaliseProjectUpdateService(projectUpdateId) {
 			updateReq.status = ProjectUpdate.Status.unpublished;
 			break;
 		case ProjectUpdate.Status.draft:
-		case ProjectUpdate.Status.published:
 			return mapProjectUpdate(initialUpdate);
 		default:
 			throw new BackOfficeAppError(
