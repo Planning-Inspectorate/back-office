@@ -1,21 +1,42 @@
+import { makeGetRequest } from './back-office-api-client.js';
 import { validateMigration } from './validate-migration.js';
 
+const headers = { 'Content-Type': 'application/json; charset=utf-8' };
 /**
- * Wrapper function for migration functions that handles error handling and sends useful responses
- * @param {import('@azure/functions').Context} context
- * @param {string | string[]} caseReferences
- * @param {Function} migrationFunction
- * @param {string} entityName
- * @param {boolean} allowCaseReferencesArray
+ * Wrapper function for migration functions that handles error handling and sends useful responses.
+ * @param {import('@azure/functions').Context} context - The Azure function context object.
+ * @param {Object} params - The parameters object.
+ * @param {string | string[]} params.caseReferences - The case reference(s) to be migrated.
+ * @param {Function} params.migrationFunction - The migration function to be executed.
+ * @param {string} params.entityName - The name of the entity being migrated.
+ * @param {boolean} [params.allowCaseReferencesArray=false] - Whether to allow multiple case references as an array.
+ * @param {boolean} [params.migrationOverwrite=false] - Whether to overwrite existing migration data.
  */
 export const handleMigrationWithResponse = async (
 	context,
-	caseReferences,
-	migrationFunction,
-	entityName,
-	allowCaseReferencesArray = false
+	{
+		caseReferences,
+		migrationFunction,
+		entityName,
+		allowCaseReferencesArray = false,
+		migrationOverwrite = false
+	}
 ) => {
 	const validationError = validateRequest(caseReferences, allowCaseReferencesArray);
+	if (!migrationOverwrite) {
+		const areCasesMigrated = await getCaseMigrationStatuses(context.log, caseReferences);
+		if (areCasesMigrated.areMigrated) {
+			context.res = {
+				status: 200,
+				body: {
+					migration: areCasesMigrated.error
+				},
+				headers
+			};
+			return;
+		}
+	}
+
 	if (validationError) {
 		context.res = {
 			status: validationError.status,
@@ -37,7 +58,7 @@ export const handleMigrationWithResponse = async (
 						? await validateMigration(context.log, [caseReferences].flat())
 						: null
 			},
-			headers: { 'Content-Type': 'application/json; charset=utf-8' }
+			headers
 		};
 	} catch (error) {
 		context.log.error(`Failed to run migration for ${entityName}`, error);
@@ -59,10 +80,11 @@ export const handleMigrationWithResponse = async (
 		context.res = {
 			status: 500,
 			body: responseBody,
-			headers: { 'Content-Type': 'application/json; charset=utf-8' }
+			headers
 		};
 	}
 };
+
 /**
  *
  * @param {string | string[]} caseReferences
@@ -84,4 +106,34 @@ const validateRequest = (caseReferences, allowCaseReferencesArray) => {
 			message: 'Invalid request: You must provide a single "caseReference" as a string'
 		};
 	}
+};
+
+const getCaseMigrationStatuses = async (logger, caseReferences) => {
+	if (!Array.isArray(caseReferences)) {
+		caseReferences = [caseReferences];
+	}
+	const migrationStatuses = {
+		areMigrated: false,
+		error: 'The following cases are already migrated: '
+	};
+	for (const caseReference of caseReferences) {
+		try {
+			const { migrationStatus } = await makeGetRequest(
+				logger,
+				`/applications/reference/${caseReference}`
+			);
+			logger.info(`migrationStatus set to ${migrationStatus}`);
+			if (migrationStatus) {
+				migrationStatuses.areMigrated = true;
+				migrationStatuses.error = migrationStatuses.error + caseReference + ', ';
+			}
+		} catch (error) {
+			logger.info(
+				`Case with caseReference ${caseReference} not found in CBOS. Continuing with migration`
+			);
+		}
+	}
+	migrationStatuses.error =
+		migrationStatuses.error + 'Set "migrationOverwrite": true in request body to force migration.';
+	return migrationStatuses;
 };

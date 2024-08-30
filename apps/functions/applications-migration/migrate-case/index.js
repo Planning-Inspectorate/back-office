@@ -10,7 +10,10 @@ import { handleMigrationWithResponse } from '../common/handle-migration-with-res
  * @param {import('@azure/functions').Context} context
  * @param {import('@azure/functions').HttpRequest} req
  */
-export default async (context, { body: { caseReference = '', caseReferences = [], dryRun } }) => {
+export default async (
+	context,
+	{ body: { caseReference = '', caseReferences = [], dryRun, migrationOverwrite = false } }
+) => {
 	if (typeof caseReference !== 'string') {
 		context.res = {
 			status: 400,
@@ -41,13 +44,13 @@ export default async (context, { body: { caseReference = '', caseReferences = []
 				}
 		  };
 
-	await handleMigrationWithResponse(
-		context,
-		isSingleCase ? caseReference : caseReferences,
-		migrateFunction,
-		'case',
-		true
-	);
+	await handleMigrationWithResponse(context, {
+		caseReferences: isSingleCase ? caseReference : caseReferences,
+		migrationFunction: migrateFunction,
+		entityName: 'case',
+		allowCaseReferencesArray: true,
+		migrationOverwrite
+	});
 };
 
 /**
@@ -57,7 +60,7 @@ export default async (context, { body: { caseReference = '', caseReferences = []
  * @param {string} caseReference
  * @param {boolean} dryRun
  */
-const migrateCase = async (log, caseReference, dryRun = true) => {
+const migrateCase = async (log, caseReference, dryRun = false) => {
 	await migrateNsipProjectByReference(log, caseReference, false);
 	await migrateServiceUsers(log, caseReference);
 	await migrationNsipDocumentsByReference(log, caseReference);

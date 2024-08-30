@@ -2,14 +2,14 @@ import { migrationNsipDocumentsByReference } from '../common/migrators/nsip-docu
 import { handleMigrationWithResponse } from '../common/handle-migration-with-response.js';
 
 /**
- * @param {import('@azure/functions').Context} context
- * @param {import('@azure/functions').HttpRequest} req
+ * @param {import("@azure/functions").Context} context
+ * @param {import("@azure/functions").HttpRequest} req
  */
-export default async (context, { body: { caseReference } }) => {
-	await handleMigrationWithResponse(
-		context,
-		caseReference,
-		() => migrationNsipDocumentsByReference(context.log, caseReference),
-		'document'
-	);
+export default async (context, { body: { caseReference, migrationOverwrite = false } }) => {
+	await handleMigrationWithResponse(context, {
+		caseReferences: caseReference,
+		entityName: 'document',
+		migrationFunction: () => migrationNsipDocumentsByReference(context.log, caseReference),
+		migrationOverwrite
+	});
 };
