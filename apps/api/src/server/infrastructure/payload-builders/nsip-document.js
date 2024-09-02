@@ -57,7 +57,13 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 	})();
 
 	const documentCaseStage = (() => {
-		const status = document.folder?.case?.CaseStatus?.find((cs) => cs.valid)?.status;
+		let status = docVersionWithFullDetails.stage;
+		if (status) {
+			return mapDocumentCaseStageToSchema(status.toUpperCase().replace('-', '_'));
+		}
+
+		// Default to case stage if document stage was blank
+		status = document.folder?.case?.CaseStatus?.find((cs) => cs.valid)?.status;
 		if (!status) {
 			return null;
 		}
