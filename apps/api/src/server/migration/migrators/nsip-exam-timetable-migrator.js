@@ -74,7 +74,9 @@ const getExamTimetableFolderId = async (caseId) => {
 	);
 
 	if (!examinationFolder) {
-		throw Error(`Examination timetable folder does not exist for case ${caseId}. Ensure the`);
+		throw Error(
+			`Examination timetable folder does not exist for case ${caseId}. Ensure the folders are migrated`
+		);
 	}
 
 	return examinationFolder.id;
@@ -95,6 +97,36 @@ const mapModelToTimetableEntity = async ({ caseReference }) => {
 	return {
 		caseId
 	};
+};
+
+/**
+ * Extract the date and time from a datetime field
+ * @param datetimeField
+ * @returns {{date: null, time: null}}
+ */
+const extractDateTime = (datetimeField) => {
+	const result = {
+		date: null,
+		time: null
+	};
+
+	if (!datetimeField) return result;
+
+	const dateObj = new Date(datetimeField);
+
+	if (isNaN(dateObj.getTime())) return result;
+
+	// Extract date part in 'YYYY-MM-DD' format
+	const year = dateObj.getFullYear();
+	const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+	const day = String(dateObj.getDate()).padStart(2, '0');
+	result.date = `${year}-${month}-${day}`;
+
+	// Extract time part in 'HH:mm' format
+	const hours = String(dateObj.getHours()).padStart(2, '0');
+	const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+	result.time = `${hours}:${minutes}`;
+	return result;
 };
 
 /**
@@ -123,10 +155,15 @@ const mapModelToEventEntity = async (
 		throw Error(`Unable to find examinationTypeId for type ${type}`);
 	}
 
+	const { date: startDate, time: startTime } = extractDateTime(eventDeadlineStartDate);
+	const { date: endDate, time: endTime } = extractDateTime(date);
+
 	return {
 		id: eventId,
-		date,
-		startDate: eventDeadlineStartDate,
+		date: endDate,
+		endTime,
+		startDate,
+		startTime,
 		examinationTimetableId,
 		// For now, use the root 'Examination timetable' folder ID because we'll get constraints if we don't
 		// When we are migrating folders, refactor this to fetch the actual folder ID
