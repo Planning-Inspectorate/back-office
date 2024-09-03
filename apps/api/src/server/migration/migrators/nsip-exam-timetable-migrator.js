@@ -201,14 +201,15 @@ const formatEventDescription = (description) => {
 			bulletPoints: []
 		});
 	}
-	const splitDescription = description.split(bulletPoint);
-	const preText = trimNewLines(splitDescription.shift() || '');
+	const descriptionWithFormattedBullets = formatBulletPoints(description);
+	const splitDescription = descriptionWithFormattedBullets.split(bulletPoint);
+	const preText = splitDescription.shift() || '';
 
 	/** @type {string[]} */
 	const bulletPoints = [];
 
 	if (splitDescription.length > 0) {
-		bulletPoints.push(...splitDescription.map((lineItem) => trimNewLines(lineItem)));
+		bulletPoints.push(...splitDescription);
 	}
 
 	return JSON.stringify({
@@ -222,4 +223,4 @@ const formatEventDescription = (description) => {
  * @param {string} input
  * @returns
  */
-const trimNewLines = (input) => input.trim().replace(/[\r\n]+$/, '');
+const formatBulletPoints = (input) => input.trim().replaceAll('\r\n?', '\r\n*');
