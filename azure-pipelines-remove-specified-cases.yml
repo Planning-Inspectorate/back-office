@@ -1,15 +1,6 @@
 parameters:
-    - name: environment
-      displayName: Environment
-      type: string
-      default: Dev
-      values:
-          - Dev
-          - Test
-          - Specified
-          - Prod
     - name: removeAllCases
-      displayName: Remove all cases
+      displayName: THIS CHANGE IS NOT FOR MAIN, IT IS INTENDED TO RUN ONCE TO CLEAN UP TEST CASES ON TEST ENV FROM ANOTHER BRANCH
       type: string
       values:
           - true
@@ -45,14 +36,14 @@ resources:
           ref: refs/tags/release/3.16.1
 
 variables:
-    - template: variables/environments/${{ lower(parameters.environment )}}.yml@templates
+    - template: variables/environments/test.yml@templates
     - group: pipeline_secrets
 
 
 jobs:
     - deployment: Remove_specified_cases_from_DB
-      displayName: Remove specified cases from ${{ parameters.environment }} Database
-      environment: ${{ parameters.environment }}
+      displayName: Remove specified cases from test Database
+      environment: test
       strategy:
         runOnce:
             deploy:

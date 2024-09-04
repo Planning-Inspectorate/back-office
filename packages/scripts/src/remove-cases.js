@@ -277,9 +277,9 @@ const removeCase = async (reference) => {
 		const startTime = Date.now();
 		await databaseConnector.$transaction(
 			async (tx) => {
-				if (!reference.startsWith('TRAIN')) {
-					throw new Error('Case is not a training case ' + reference);
-				}
+				// if (!reference.startsWith('TRAIN')) {
+				// 	throw new Error('Case is not a training case ' + reference);
+				// }
 				const { id: caseId } = (await getCaseByRef(reference)) || {};
 				if (!caseId) {
 					throw new Error('No such case ' + reference);
