@@ -77,7 +77,7 @@ jobs:
                               MAX_CASES_TO_DELETE: ${{parameters.maxCasesToDelete}}
                               TRANSACTION_MAX_WAIT_IN_SECONDS: ${{parameters.maxWaitInSeconds}}
                               TRANSACTION_TIMEOUT_IN_SECONDS: ${{parameters.maxTimeoutInSeconds}}
-                          script: npm run applications:remove-all-specified-cases
+                          script: npm run applications:remove-specified-cases
                           workingDirectory: $(Build.Repository.LocalPath)/packages/scripts
       workspace:
         clean: all
