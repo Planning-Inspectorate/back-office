@@ -66,17 +66,24 @@ export const getExamTimetable = async (log, caseReference) => {
  * @returns {import('pins-data-model').Schemas.ExaminationTimetable} timetable
  */
 const mapTimetableFromItems = (timetableItems) => {
+	const events = JSON.parse(timetableItems.events).map((event) => ({
+		...event,
+		type: timetableEventTypeOverride(event.type)
+	}));
+	const filteredEvents = filterEventItems(events);
 	/** @type {import('pins-data-model').Schemas.ExaminationTimetable} */
 	return {
 		caseReference: timetableItems.caseReference,
 		published: timetableItems.published,
-		events: JSON.parse(timetableItems.events).map((event) => ({
-			...event,
-			type: timetableEventTypeOverride(event.type)
-		}))
+		events: filteredEvents
 	};
 };
 
+/**
+ * Override event type to new type
+ * @param type
+ * @returns {*|string}
+ */
 const timetableEventTypeOverride = (type) => {
 	switch (type) {
 		case 'Site Visit (Accompanied)':
@@ -84,4 +91,14 @@ const timetableEventTypeOverride = (type) => {
 		default:
 			return type;
 	}
+};
+
+/**
+ * Filter out unwanted event types that are not to be migrated
+ * @param events
+ * @returns {*}
+ */
+const filterEventItems = (events) => {
+	const eventItemTypesToRemove = ['Site Visit (Unaccompanied)'];
+	return events.filter((event) => !eventItemTypesToRemove.includes(event.type));
 };
