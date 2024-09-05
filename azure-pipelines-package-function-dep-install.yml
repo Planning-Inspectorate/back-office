@@ -1,3 +1,14 @@
+# This script sets up the environment, installs or uses the specified Node.js version,
+# and processes multiple application folders (defined by `parameters.appsFolderNames`).
+# It performs the following tasks:
+# 1. Packs npm packages from the repository's `packages` directory.
+# 2. For each application folder:
+#    - Links the root `package-lock.json` to the folder.
+#    - Installs production dependencies using `npm ci`.
+#    - Finds and installs local custom packages (`@pins` packages).
+#    - Cleans up by removing the linked `package-lock.json`.
+# 3. Deletes all locally packed `.tgz` files.
+
 parameters:
 - name: nodeVersion
   type: number

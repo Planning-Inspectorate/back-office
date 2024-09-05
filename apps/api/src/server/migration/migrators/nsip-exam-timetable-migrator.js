@@ -37,7 +37,6 @@ export const migrateExamTimetables = async (examTimetables) => {
 		// Event entities do have unique IDs which we have to preserve
 		for (const eventModel of timetableModel.events) {
 			const eventEntity = await mapModelToEventEntity(id, examTimetableFolderId, eventModel);
-
 			if (!eventEntity.id || eventEntity.id >= MigratedEntityIdCeiling) {
 				throw Error(`Unable to migrate entity id=${eventEntity.id} - identity above threshold`);
 			}
@@ -228,4 +227,4 @@ const formatEventDescription = (description) => {
  * @param {string} input
  * @returns
  */
-const formatBulletPoints = (input) => input.trim().replaceAll('\r\n?', '\r\n*');
+const formatBulletPoints = (input) => input.trim().replace(/(\r\n[?-])/g, '\r\n*');
