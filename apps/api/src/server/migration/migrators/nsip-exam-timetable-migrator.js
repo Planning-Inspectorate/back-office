@@ -126,6 +126,11 @@ const extractDateTime = (datetimeField) => {
 	const hours = String(dateObj.getHours()).padStart(2, '0');
 	const minutes = String(dateObj.getMinutes()).padStart(2, '0');
 	result.time = `${hours}:${minutes}`;
+
+	// default time comes as 00:00, we convert to 23:59 to match existing behaviour
+	if (result.time === '00:00') {
+		result.time = '23:59';
+	}
 	return result;
 };
 
