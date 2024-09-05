@@ -63,7 +63,8 @@ const getAzureDirectoryUsers = async (session) => {
  */
 
 const getUsersByGroupId = async (ADToken, groupId) => {
-	const maximumNumberOfPages = 16;
+	// Please note that the high limit of 1000 only exists as a stop-gap to prevent infinite loops.
+	const maximumNumberOfPages = 1000;
 	const data = [];
 	let gotAllPages = false;
 	let numberOfPagesReturned = 0;
