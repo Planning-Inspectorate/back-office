@@ -6,11 +6,11 @@ exports[`Representation representation type GET /applications-service/case/1/rel
     <div     class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
             <form method="post" novalidate>
-                <fieldset class="govuk-fieldset">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <h1 class="govuk-fieldset__heading"> Representation type</h1>
-                    </legend>
-                    <div class="govuk-form-group">
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading"> Representation type</h1>
+                        </legend>
                         <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="type" name="type" type="radio"
@@ -38,9 +38,9 @@ exports[`Representation representation type GET /applications-service/case/1/rel
                                 <label class="govuk-label govuk-radios__label" for="type-5">Parish councils</label>
                             </div>
                         </div>
-                    </div>
-                    <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Save and continue</button>
-                </fieldset>
+                    </fieldset>
+                </div>
+                <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Save and continue</button>
             </form>
         </div>
         </div>
@@ -68,11 +68,11 @@ exports[`Representation representation type POST /applications-service/case/1/re
     <div     class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
             <form method="post" novalidate>
-                <fieldset class="govuk-fieldset">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                        <h1 class="govuk-fieldset__heading"> Representation type</h1>
-                    </legend>
-                    <div class="govuk-form-group govuk-form-group--error">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <fieldset class="govuk-fieldset" aria-describedby="type-error">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading"> Representation type</h1>
+                        </legend>
                         <p id="type-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Select one option</p>
                         <div                         class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
@@ -100,10 +100,10 @@ exports[`Representation representation type POST /applications-service/case/1/re
                                 value="Parish councils">
                                 <label class="govuk-label govuk-radios__label" for="type-5">Parish councils</label>
                             </div>
-                    </div>
+                </div>
+                </fieldset>
         </div>
         <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Save and continue</button>
-        </fieldset>
         </form>
         </div>
         </div>

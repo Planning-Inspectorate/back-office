@@ -267,42 +267,46 @@ exports[`applications edit Team email GET /edit/team-email should render the pag
 
 exports[`applications edit Zoom Level GET edit/zoom-level should render the page with the checked option from the resumed data 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose map zoom level</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="none">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">None EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose map zoom level</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="none">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">None EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">Region EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Country EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Junction EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">County EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="city"
+                        checked>
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">City EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">Region EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Country EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Junction EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">County EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="city"
-                    checked>
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">City EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">

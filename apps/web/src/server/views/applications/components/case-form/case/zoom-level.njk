@@ -1,9 +1,10 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% macro zoomLevel(values, errors, zoomLevels) %}
+{% macro zoomLevel(values, errors, zoomLevels, fieldset) %}
 	{{ govukRadios({
 		name: "geographicalInformation.mapZoomLevelName",
 		idPrefix: "geographicalInformation.mapZoomLevelName",
+		fieldset: fieldset,
 		errorMessage: errors['geographicalInformation.mapZoomLevelName'] | errorMessage,
 		items: zoomLevels | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values['geographicalInformation.mapZoomLevelName']})
 	}) }}

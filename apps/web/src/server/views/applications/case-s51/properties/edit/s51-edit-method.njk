@@ -2,12 +2,6 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block formHeading %}
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-    Edit enquiry method
-  </h1>
-{% endblock %}
-
 {% block formContent %}
 	{% set methodsItems = [
 		{
@@ -29,7 +23,13 @@
   {{ govukRadios({
     name: 'enquiryMethod',
     id: 'enquiryMethod',
-
+    fieldset: {
+	  legend: {
+        html: "Edit enquiry method",
+	    isPageHeading: true,
+	    classes: "govuk-fieldset__legend--l"
+	  }
+	},
     items: methodsItems,
     errorMessage: errors.enquiryMethod,
     items: methodsItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.enquiryMethod})

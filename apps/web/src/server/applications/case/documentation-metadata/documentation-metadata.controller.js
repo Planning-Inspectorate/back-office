@@ -4,7 +4,7 @@ import { setSessionBanner } from '../../common/services/session.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber"} MetaDataNames */
-/** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
+/** @typedef {{label?: string, metaDataName: string, metaDataType?: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
 /** @typedef {{caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
@@ -66,13 +66,15 @@ const layouts = {
 		label: 'Date document published',
 		hint: 'for example, 27 03 2023',
 		pageTitle: 'Enter the document published date',
-		metaDataName: 'datePublished'
+		metaDataName: 'datePublished',
+		metaDataType: 'date'
 	},
 	'receipt-date': {
 		label: 'Date received',
 		hint: 'for example, 27 03 2023',
 		pageTitle: 'Enter date received',
-		metaDataName: 'dateCreated'
+		metaDataName: 'dateCreated',
+		metaDataType: 'date'
 	},
 	redaction: {
 		items: [
@@ -81,7 +83,8 @@ const layouts = {
 		],
 		pageTitle: 'Select the redaction status',
 		label: 'Redaction',
-		metaDataName: 'redactedStatus'
+		metaDataName: 'redactedStatus',
+		metaDataType: 'radios'
 	},
 	'published-status': {
 		items: [
@@ -92,7 +95,8 @@ const layouts = {
 		],
 		pageTitle: 'Select the document status',
 		label: 'Status',
-		metaDataName: 'publishedStatus'
+		metaDataName: 'publishedStatus',
+		metaDataType: 'radios'
 	},
 	transcript: {
 		label: 'Transcript (optional)',
@@ -136,6 +140,7 @@ const layouts = {
 			}
 		],
 		metaDataName: 'documentType',
+		metaDataType: 'radios',
 		pageTitle: 'Select the document type'
 	}
 };

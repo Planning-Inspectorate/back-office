@@ -2,61 +2,66 @@
 
 exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the NEW user and no default option 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span> Choose role</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role" name="role" type="radio"
-                    value="case_manager">
-                    <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose role</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="case_manager">
+                        <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-10" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-2" name="role" type="radio"
-                    value="environmental_services">
-                    <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-3" name="role" type="radio"
-                    value="inspector">
-                    <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-4" name="role" type="radio"
-                    value="lead_inspector">
-                    <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-5" name="role" type="radio"
-                    value="legal_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-6" name="role" type="radio"
-                    value="NSIP_administration_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-7" name="role" type="radio"
-                    value="NSIP_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-8" name="role" type="radio"
-                    value="officer">
-                    <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-9" name="role" type="radio"
-                    value="operations_lead">
-                    <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-10" name="role" type="radio"
-                    value="operations_manager">
-                    <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
         <button type="submit" formaction="?toSearchPage=1"
@@ -67,56 +72,61 @@ exports[`Project team Choose role page GET /case/123/project-team/1/choose-role 
 
 exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the NEW user, no default option and no Case Manager option 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span> Choose role</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role" name="role" type="radio"
-                    value="environmental_services">
-                    <label class="govuk-label govuk-radios__label" for="role">Environmental Services</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose role</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-3">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Manager</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-2" name="role" type="radio"
-                    value="inspector">
-                    <label class="govuk-label govuk-radios__label" for="role-2">Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-3" name="role" type="radio"
-                    value="lead_inspector">
-                    <label class="govuk-label govuk-radios__label" for="role-3">Lead Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-4" name="role" type="radio"
-                    value="legal_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-4">Legal Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-5" name="role" type="radio"
-                    value="NSIP_administration_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-5">NSIP Administration Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-6" name="role" type="radio"
-                    value="NSIP_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-6">NSIP Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-7" name="role" type="radio"
-                    value="officer">
-                    <label class="govuk-label govuk-radios__label" for="role-7">Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-8" name="role" type="radio"
-                    value="operations_lead">
-                    <label class="govuk-label govuk-radios__label" for="role-8">Operations Lead</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-9" name="role" type="radio"
-                    value="operations_manager">
-                    <label class="govuk-label govuk-radios__label" for="role-9">Operations Manager</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
         <button type="submit" formaction="?toSearchPage=1"
@@ -127,61 +137,66 @@ exports[`Project team Choose role page GET /case/123/project-team/1/choose-role 
 
 exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the existing user and default option 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span> Change role</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role" name="role" type="radio"
-                    value="case_manager">
-                    <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Change role</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="case_manager">
+                        <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="inspector" checked>
+                        <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-10" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-2" name="role" type="radio"
-                    value="environmental_services">
-                    <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-3" name="role" type="radio"
-                    value="inspector" checked>
-                    <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-4" name="role" type="radio"
-                    value="lead_inspector">
-                    <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-5" name="role" type="radio"
-                    value="legal_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-6" name="role" type="radio"
-                    value="NSIP_administration_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-7" name="role" type="radio"
-                    value="NSIP_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-8" name="role" type="radio"
-                    value="officer">
-                    <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-9" name="role" type="radio"
-                    value="operations_lead">
-                    <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-10" name="role" type="radio"
-                    value="operations_manager">
-                    <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
     </form>
@@ -205,61 +220,66 @@ exports[`Project team Choose role page POST /case/123/project-team/1/choose-role
             </div>
         </div>
     </div>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span> Choose role</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role" name="role" type="radio"
-                    value="case_manager">
-                    <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose role</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="case_manager">
+                        <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-10" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-2" name="role" type="radio"
-                    value="environmental_services">
-                    <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-3" name="role" type="radio"
-                    value="inspector">
-                    <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-4" name="role" type="radio"
-                    value="lead_inspector">
-                    <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-5" name="role" type="radio"
-                    value="legal_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-6" name="role" type="radio"
-                    value="NSIP_administration_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-7" name="role" type="radio"
-                    value="NSIP_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-8" name="role" type="radio"
-                    value="officer">
-                    <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-9" name="role" type="radio"
-                    value="operations_lead">
-                    <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-10" name="role" type="radio"
-                    value="operations_manager">
-                    <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
         <button type="submit" formaction="?toSearchPage=1"
@@ -285,61 +305,67 @@ exports[`Project team Choose role page POST /case/123/project-team/1/choose-role
             </div>
         </div>
     </div>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span> Choose role</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
-        <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role" name="role" type="radio"
-                    value="case_manager">
-                    <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-2" name="role" type="radio"
-                    value="environmental_services">
-                    <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-3" name="role" type="radio"
-                    value="inspector">
-                    <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-4" name="role" type="radio"
-                    value="lead_inspector">
-                    <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-5" name="role" type="radio"
-                    value="legal_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-6" name="role" type="radio"
-                    value="NSIP_administration_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-7" name="role" type="radio"
-                    value="NSIP_officer">
-                    <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-8" name="role" type="radio"
-                    value="officer">
-                    <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-9" name="role" type="radio"
-                    value="operations_lead">
-                    <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="role-10" name="role" type="radio"
-                    value="operations_manager">
-                    <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
-                </div>
-            </div>
+        <div class="govuk-form-group govuk-form-group--error">
+            <fieldset class="govuk-fieldset" aria-describedby="role-error">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose role</h1>
+                </legend>
+                <p id="role-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must select a role</p>
+                <div                 class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="case_manager">
+                        <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-10" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
+                    </div>
+        </div>
+        </fieldset>
         </div>
         <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
         <button type="submit" formaction="?toSearchPage=1"

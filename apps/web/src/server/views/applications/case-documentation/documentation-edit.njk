@@ -5,7 +5,7 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "./edit/max-length-input.njk" import maxLengthInput %}
 {% from "../components/inputs/date-input.component.njk" import dateInput %}
-{% from "./edit/checkboxes-input.njk" import checkboxesInput %}
+{% from "./edit/radios-input.njk" import radiosInput %}
 
 {% block pageHeading %}{% endblock %}
 {% block beforeContent %}
@@ -18,36 +18,66 @@
 </aside>
 {% endblock %}
 
+{% set isWelsh = true if (layout.metaDataName === 'filter1Welsh' and documentMetaData.filter1 != null) %}
+{% set isRadios = true if (layout.metaDataType === 'radios') %}
+{% set isDate = true if (layout.metaDataType === 'date') %}
+{% set componentHasPageHeading = true if isRadios and (not isWelsh) and (not noPublish) %}
+
+
 {% block pageContent %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds">
-			<h1 class="govuk-heading-l">
-				{{ layout.pageTitle }}
-			</h1>
-			{% if noPublish %}
-			{{ govukInsetText({
-				text: "The file's current status is '" + (documentMetaData.publishedStatus | statusName) + "'. The file cannot be published or downloaded."
-			}) }}
+			{% if not componentHasPageHeading %}
+				<h1 class="govuk-heading-l">
+					{{ layout.pageTitle }}
+				</h1>
 			{% endif %}
+
+			{% if noPublish %}
+				{{ govukInsetText({
+					text: "The file's current status is '" + (documentMetaData.publishedStatus | statusName) + "'. The file cannot be published or downloaded."
+				}) }}
+			{% endif %}
+
 			<form method="post" action="" novalidate="novalidate" class="pins-applications-create">
 				{% include 'app/includes/csrf.njk' %}
 
-				{% if layout.metaDataName === 'filter1Welsh' and documentMetaData.filter1 != null %}
+				{% if isWelsh %}
 					<p class='govuk-body'>Webfilter in English:</p>
 					{{ govukInsetText({
   						text: documentMetaData.filter1
 					}) }}
 				{% endif %}
 
-				{{ renderComponent(layout.metaDataName) }}
+				{% if isDate %}
+					{% set dateLayout = layout|setAttribute('classes', 'govuk-grid-column-two-thirds') %}
+					{% set dateLayout = dateLayout|setAttribute('fieldName', layout.metaDataName) %}
+
+					<div class='govuk-grid-row'>
+						{{ dateInput({
+							layout: dateLayout,
+							values: documentMetaData,
+							errors: errors})
+						}}
+					</div>
+					{% elif (isRadios) %}
+					{% set fieldset = {
+						legend: {
+							html: layout.pageTitle,
+							isPageHeading: true,
+							classes: "govuk-fieldset__legend--l"
+						}
+					} if componentHasPageHeading %}
+					{{ radiosInput(layout, documentMetaData[layout.metaDataName], errors, fieldset) }}
+				{% else %}
+					{{ maxLengthInput(layout, documentMetaData[layout.metaDataName], errors) }}
+				{% endif %}
 
 				{% if layout.metaDataName === 'transcript' %}
 					{{ govukInsetText({
   						text: "The transcript will appear underneath this file on the NI website when you publish both documents."
 					}) }}
 				{% endif %}
-
-
 
 				<div class="govuk-grid-row">
 					<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
@@ -60,21 +90,5 @@
 {% endblock %}
 
 {% macro renderComponent(componentName) %}
-    {% if(componentName === 'dateCreated' or componentName === 'datePublished') %}
-		{% set dateLayout = layout|setAttribute('classes', 'govuk-grid-column-two-thirds') %}
-		{% set dateLayout = dateLayout|setAttribute('fieldName', layout.metaDataName) %}
-
-		<div class='govuk-grid-row'>
-			{{ dateInput({
-				layout: dateLayout,
-				values: documentMetaData,
-				errors: errors})
-			}}
-		</div>
-    {% elif(componentName === 'redactedStatus' or componentName === 'documentType' or componentName === 'publishedStatus') %}
-        {{ checkboxesInput(layout, documentMetaData[layout.metaDataName], errors) }}
-    {% else %}
-        {{ maxLengthInput(layout, documentMetaData[layout.metaDataName], errors) }}
-    {% endif %}
 
 {% endmacro %}

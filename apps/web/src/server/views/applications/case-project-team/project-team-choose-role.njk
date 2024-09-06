@@ -22,16 +22,21 @@
 		<span class="govuk-caption-l">
 			{{- projectTeamMember.givenName}} {{projectTeamMember.surname -}}
 		</span>
-
-		{{ pageTitle }}
 	</h1>
 
 	<form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
 
 		{{ govukRadios({
-				name: "role",
-				items: availableRoles | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: projectTeamMember.role})
-
+			name: "role",
+			fieldset: {
+				legend: {
+					html: pageTitle,
+					isPageHeading: true,
+					classes: "govuk-fieldset__legend--l"
+				}
+			},
+			items: availableRoles | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: projectTeamMember.role}),
+			errorMessage: errors.role | errorMessage
 			}) }}
 
 		{{ govukButton({ classes: 'govuk-!-margin-top-4', text: 'Save and return' }) }}

@@ -38,20 +38,19 @@
 	]
  	%}
 
-	<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
-		{{ pageTitle }}
-	</h1>
-
-	<p class='govuk-body colour--secondary'>
-        How was the enquiry made?
-    </p>
-
 	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
 
 		{{ govukRadios({
 			name: 'enquiryMethod',
 			id: 'enquiryMethod',
-
+			fieldset: {
+				legend: {
+					html: pageTitle,
+					isPageHeading: true,
+					classes: "govuk-fieldset__legend--l"
+				}
+			},
+			hint: {text: "How was the enquiry made?"},
 			items: methodsItems,
 			errorMessage: errors.enquiryMethod,
 			items: methodsItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.enquiryMethod})
