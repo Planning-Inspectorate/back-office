@@ -27,12 +27,30 @@
 {% set pageTitle = 'Create new case' %}
 {% set serviceName = layout.pageTitle %}
 
+{# The component will render the page heading if there is only one component and it is specified below #}
+{% set componentCount = 0 %}
+{% set componentHasPageHeading = false %}
+{% for componentName in layout.components %}
+	{% set componentCount = componentCount + 1 %}
+	{% if componentHasPageHeading %}
+		{% set componentHasPageHeading = false %}
+	{% elif componentCount == 1 %}
+		{% if componentName == 'sector'
+			or componentName == 'sub-sector'
+			or componentName == 'stage'
+			or componentName == 'zoom-level'
+			or componentName == 'material-change' %}
+			{% set componentHasPageHeading = true %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}
 	<aside>
 		{% set breadcrumbBackLink = 'dashboard'|url if layout.backLink == 'dashboard' else 'case-create'|url({caseId:caseId, step: layout.backLink}) %}
-		{% set computedBackLink = backPath if backPath else 
+		{% set computedBackLink = backPath if backPath else
 			breadcrumbBackLink %}
 		{{ govukBackLink({
 		classes: 'govuk-!-margin-top-3',
@@ -43,16 +61,18 @@
 {% endblock %}
 
 {% block pageContent %}
-	<h1 class="govuk-heading-l govuk-!-margin-bottom-3">
-		{{ layout.pageTitle }}
-	</h1>
+	{% if componentHasPageHeading == false %}
+		<h1 class="govuk-heading-l govuk-!-margin-bottom-3">
+			{{ layout.pageTitle }}
+		</h1>
+	{%  endif %}
 
 	<form method="post" action="" novalidate="novalidate" class="pins-applications-create">
 		{% include 'app/includes/csrf.njk' %}
 
 		{% block stepForm %}
 			{% for componentName in layout.components %}
-				{{ renderComponent(componentName, layout) }}
+				{{ renderComponent(componentName, layout, componentHasPageHeading) }}
 			{% endfor %}
 		{% endblock %}
 
@@ -61,7 +81,7 @@
 				{% block stepButton %}
 					{% if formStage == 'searchPostcode'%}
 					{% else %}
-						{% set stepButtonText = 'Save changes' if layout.isEdit else 
+						{% set stepButtonText = 'Save changes' if layout.isEdit else
 							'Save and continue' %}
 						{{ govukButton({ text: stepButtonText }) }}
 					{% endif %}
@@ -71,7 +91,14 @@
 	</form>
 {% endblock %}
 
-{% macro renderComponent(componentName, layout) %}
+{% macro renderComponent(componentName, layout, componentHasPageHeading) %}
+	{% set fieldset = {
+		legend: {
+			html: layout.pageTitle,
+			isPageHeading: true,
+			classes: "govuk-fieldset__legend--l"
+		}
+	} if componentHasPageHeading %}
 	{% if componentName == 'title' %}
 		{{ title('title', values, errors) }}
 	{% elif componentName == 'titleWelsh' %}
@@ -87,19 +114,19 @@
 	{% elif componentName == 'project-location-welsh' %}
 		{{ projectLocation(values, errors, layout.isEdit, true) }}
 	{% elif componentName == 'sector' %}
-		{{ sector(values, errors, sectors) }}
+		{{ sector(values, errors, sectors, fieldset) }}
 	{% elif componentName == 'sub-sector' %}
-		{{ subSector(values, errors, subSectors) }}
+		{{ subSector(values, errors, subSectors, fieldset) }}
 	{% elif componentName == 'regions' %}
 		{{ regions(allRegions, errors) }}
 	{% elif componentName == 'stage' %}
-		{{ stage(values, errors, stages) }}
+		{{ stage(values, errors, stages, fieldset) }}
 	{% elif componentName == 'zoom-level' %}
-		{{ zoomLevel(values, errors, zoomLevels) }}
+		{{ zoomLevel(values, errors, zoomLevels, fieldset) }}
 	{% elif componentName == 'team-email' %}
 		{{ teamEmail(values, errors) }}
 	{% elif componentName == 'material-change' %}
-		{{ materialChange(values, errors, selectedValue) }}
+		{{ materialChange(values, errors, selectedValue, fieldset) }}
 	{% elif componentName == 'organisation-name' %}
 		{{ organisationName(values, errors) }}
 	{% elif componentName == 'info-types' %}

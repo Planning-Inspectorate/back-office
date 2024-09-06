@@ -1,8 +1,9 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% macro materialChange(values, errors) %}
+{% macro materialChange(values, errors, selectedValue, fieldset) %}
 	{{ govukRadios({
 		name: "isMaterialChange",
+		fieldset: fieldset,
 		idPrefix: "isMaterialChange",
 		errorMessage: errors['isMaterialChange'] | errorMessage,
 		items: values

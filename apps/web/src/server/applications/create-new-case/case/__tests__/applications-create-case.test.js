@@ -518,7 +518,7 @@ describe('applications create', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="none"\n                    checked');
+				expect(element.innerHTML.replace(/\s/g, '')).toContain('value="none"checked');
 			});
 
 			it('should render the page with the checked option from the resumed data', async () => {
@@ -526,7 +526,7 @@ describe('applications create', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="city"\n                    checked');
+				expect(element.innerHTML.replace(/\s/g, '')).toContain('value="city"checked');
 			});
 		});
 

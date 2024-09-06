@@ -1,8 +1,9 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% macro subSector(values, errors, subSectors) %}
+{% macro subSector(values, errors, subSectors, fieldset) %}
 	{{ govukRadios({
 		name: "subSectorName",
+		fieldset: fieldset,
 		idPrefix: "subSectorName",
 		errorMessage: errors.subSectorName | errorMessage,
 		items: subSectors | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values.subSectorName})

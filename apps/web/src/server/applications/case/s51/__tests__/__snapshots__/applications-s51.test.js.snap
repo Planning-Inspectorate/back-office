@@ -1390,33 +1390,36 @@ exports[`S51 Advice S51 creation journey Enquiry details GET /case/123/project-d
 
 exports[`S51 Advice S51 creation journey Method GET /case/123/project-documentation/21/s51-advice/create/method should render the page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-4"> Select the method of enquiry</h1>
-    <p class='govuk-body colour--secondary'>How was the enquiry made?</p>
-    <form method="post" action="" novalidate="novalidate"
-    class="pins-applications-create govuk-!-margin-top-6">
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="enquiryMethod" name="enquiryMethod"
-                    type="radio" value="phone">
-                    <label class="govuk-label govuk-radios__label" for="enquiryMethod">Phone</label>
+            <fieldset class="govuk-fieldset" aria-describedby="enquiryMethod-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Select the method of enquiry</h1>
+                </legend>
+                <div id="enquiryMethod-hint" class="govuk-hint">How was the enquiry made?</div>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="enquiryMethod" name="enquiryMethod"
+                        type="radio" value="phone">
+                        <label class="govuk-label govuk-radios__label" for="enquiryMethod">Phone</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="enquiryMethod-2" name="enquiryMethod"
+                        type="radio" value="email">
+                        <label class="govuk-label govuk-radios__label" for="enquiryMethod-2">Email</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="enquiryMethod-3" name="enquiryMethod"
+                        type="radio" value="meeting">
+                        <label class="govuk-label govuk-radios__label" for="enquiryMethod-3">Meeting</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="enquiryMethod-4" name="enquiryMethod"
+                        type="radio" value="post">
+                        <label class="govuk-label govuk-radios__label" for="enquiryMethod-4">Post</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="enquiryMethod-2" name="enquiryMethod"
-                    type="radio" value="email">
-                    <label class="govuk-label govuk-radios__label" for="enquiryMethod-2">Email</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="enquiryMethod-3" name="enquiryMethod"
-                    type="radio" value="meeting">
-                    <label class="govuk-label govuk-radios__label" for="enquiryMethod-3">Meeting</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="enquiryMethod-4" name="enquiryMethod"
-                    type="radio" value="post">
-                    <label class="govuk-label govuk-radios__label" for="enquiryMethod-4">Post</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <button class="govuk-button" data-module="govuk-button">Continue</button>
     </form>

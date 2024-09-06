@@ -300,7 +300,7 @@ describe('applications edit', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="city"\n                    checked');
+				expect(element.innerHTML.replace(/\s/g, '')).toContain('value="city"checked');
 			});
 		});
 	});

@@ -2,12 +2,6 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block formHeading %}
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-    Edit redacted status
-  </h1>
-{% endblock %}
-
 {% block formContent %}
 	{% set statusItems = [
 		{
@@ -26,6 +20,13 @@
   {{ govukRadios({
     name: 'redactedStatus',
     id: 'redactedStatus',
+	fieldset: {
+	  legend: {
+		html: "Edit redacted status",
+	  	isPageHeading: true,
+	  	classes: "govuk-fieldset__legend--l"
+	  }
+	},
     items: statusItems,
     errorMessage: errors.redactedStatus,
     items: statusItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: defaultValue})

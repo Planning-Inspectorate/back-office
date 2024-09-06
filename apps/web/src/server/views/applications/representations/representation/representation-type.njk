@@ -17,30 +17,26 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-one-half">
 			<form method="post" novalidate>
-
-			{% call govukFieldset({
-				legend: {
-					text: pageHeading,
-					classes: "govuk-fieldset__legend--l",
-					isPageHeading: true
-				}
-			}) %}
-
 				{{ govukRadios({
 					name: "type",
+					fieldset: {
+						legend: {
+							text: pageHeading,
+							classes: "govuk-fieldset__legend--l",
+							isPageHeading: true
+						}
+					},
 					items: representationTypes,
 					errorMessage: errors["type"] and {
 						text: errors["type"].msg
 					}
 				}) }}
 
-			{{ govukButton({
-				text: "Save and continue",
-				type: "submit",
-				classes: "govuk-!-margin-top-3"
-			}) }}
-
-			{% endcall %}
+				{{ govukButton({
+					text: "Save and continue",
+					type: "submit",
+					classes: "govuk-!-margin-top-3"
+				}) }}
 			</form>
 
 		</div>

@@ -1,9 +1,10 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% macro checkboxesInput(layout, value, errors) %}
+{% macro radiosInput(layout, value, errors, fieldset) %}
     {{ govukRadios({
 		idPrefix: layout.metaDataName,
 		name: layout.metaDataName,
+		fieldset: fieldset,
 		errorMessage: errors[layout.metaDataName] | errorMessage,
 		items: layout.items | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: value if value else ''})
 	}) }}

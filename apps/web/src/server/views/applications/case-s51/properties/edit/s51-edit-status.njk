@@ -2,12 +2,6 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block formHeading %}
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-    Select the S51 advice status
-  </h1>
-{% endblock %}
-
 {% block formContent %}
 	{% set statusItems = [
 		{
@@ -29,6 +23,13 @@
   {{ govukRadios({
     name: 'publishedStatus',
     id: 'publishedStatus',
+	fieldset: {
+	  legend: {
+		html: "Select the S51 advice status",
+		isPageHeading: true,
+		classes: "govuk-fieldset__legend--l"
+	  }
+	},
     items: statusItems,
     errorMessage: errors.publishedStatus,
     items: statusItems | selectItems({valueKey: 'value', labelKey: 'text', selectedValue: values.publishedStatus})

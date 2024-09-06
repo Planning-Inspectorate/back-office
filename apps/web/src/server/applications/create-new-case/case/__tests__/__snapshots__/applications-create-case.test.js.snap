@@ -772,36 +772,40 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
 
 exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should display an option as _checked_ if the API returns a resumed value 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose a sector</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName" name="sectorName" type="radio"
-                    value="transport" checked>
-                    <label class="govuk-label govuk-radios__label" for="sectorName">Transport EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose a sector</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName" name="sectorName" type="radio"
+                        value="transport" checked>
+                        <label class="govuk-label govuk-radios__label" for="sectorName">Transport EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-2" name="sectorName"
+                        type="radio" value="water">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-2">Water EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-3" name="sectorName"
+                        type="radio" value="waste">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-3">Waste EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-4" name="sectorName"
+                        type="radio" value="energy">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-4">Energy EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-5" name="sectorName"
+                        type="radio" value="waste_water">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-5">Waste_water EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-2" name="sectorName"
-                    type="radio" value="water">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-2">Water EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-3" name="sectorName"
-                    type="radio" value="waste">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-3">Waste EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-4" name="sectorName"
-                    type="radio" value="energy">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-4">Energy EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-5" name="sectorName"
-                    type="radio" value="waste_water">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-5">Waste_water EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -814,36 +818,40 @@ exports[`applications create Sector GET /create-new-case/:caseId/sector When cas
 
 exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose a sector</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName" name="sectorName" type="radio"
-                    value="transport">
-                    <label class="govuk-label govuk-radios__label" for="sectorName">Transport EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose a sector</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName" name="sectorName" type="radio"
+                        value="transport">
+                        <label class="govuk-label govuk-radios__label" for="sectorName">Transport EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-2" name="sectorName"
+                        type="radio" value="water">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-2">Water EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-3" name="sectorName"
+                        type="radio" value="waste">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-3">Waste EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-4" name="sectorName"
+                        type="radio" value="energy">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-4">Energy EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-5" name="sectorName"
+                        type="radio" value="waste_water">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-5">Waste_water EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-2" name="sectorName"
-                    type="radio" value="water">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-2">Water EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-3" name="sectorName"
-                    type="radio" value="waste">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-3">Waste EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-4" name="sectorName"
-                    type="radio" value="energy">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-4">Energy EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-5" name="sectorName"
-                    type="radio" value="waste_water">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-5">Waste_water EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -871,38 +879,42 @@ exports[`applications create Sector POST /create-new-case/:caseId/sector Web-sid
             </div>
         </div>
     </div>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose a sector</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group govuk-form-group--error">
-            <p id="sectorName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose the sector of
-                the project</p>
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName" name="sectorName" type="radio"
-                    value="transport">
-                    <label class="govuk-label govuk-radios__label" for="sectorName">Transport EN</label>
+            <fieldset class="govuk-fieldset" aria-describedby="sectorName-error">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose a sector</h1>
+                </legend>
+                <p id="sectorName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose the sector of
+                    the project</p>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName" name="sectorName" type="radio"
+                        value="transport">
+                        <label class="govuk-label govuk-radios__label" for="sectorName">Transport EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-2" name="sectorName"
+                        type="radio" value="water">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-2">Water EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-3" name="sectorName"
+                        type="radio" value="waste">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-3">Waste EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-4" name="sectorName"
+                        type="radio" value="energy">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-4">Energy EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sectorName-5" name="sectorName"
+                        type="radio" value="waste_water">
+                        <label class="govuk-label govuk-radios__label" for="sectorName-5">Waste_water EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-2" name="sectorName"
-                    type="radio" value="water">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-2">Water EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-3" name="sectorName"
-                    type="radio" value="waste">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-3">Waste EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-4" name="sectorName"
-                    type="radio" value="energy">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-4">Energy EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="sectorName-5" name="sectorName"
-                    type="radio" value="waste_water">
-                    <label class="govuk-label govuk-radios__label" for="sectorName-5">Waste_water EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -915,26 +927,30 @@ exports[`applications create Sector POST /create-new-case/:caseId/sector Web-sid
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should display an option as _checked_ if the API returns a resumed value 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose a subsector</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
-                    type="radio" value="highways" checked>
-                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose a subsector</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                        type="radio" value="highways" checked>
+                        <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                        type="radio" value="airports">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                        type="radio" value="railways">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
-                    type="radio" value="airports">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
-                    type="radio" value="railways">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -947,26 +963,30 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose a subsector</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
-                    type="radio" value="highways">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose a subsector</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                        type="radio" value="highways">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                        type="radio" value="airports">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                        type="radio" value="railways">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
-                    type="radio" value="airports">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
-                    type="radio" value="railways">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -979,26 +999,30 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should render subsectors matching with the sectorName in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose a subsector</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
-                    type="radio" value="highways" checked>
-                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose a subsector</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                        type="radio" value="highways" checked>
+                        <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                        type="radio" value="airports">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                        type="radio" value="railways">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
-                    type="radio" value="airports">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
-                    type="radio" value="railways">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -1026,27 +1050,31 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
             </div>
         </div>
     </div>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose a subsector</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group govuk-form-group--error">
-            <p id="subSectorName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Must be existing sub-sector</p>
-            <div             class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
-                    type="radio" value="highways">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
-                    type="radio" value="airports">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
-                    type="radio" value="railways">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
-                </div>
+            <fieldset class="govuk-fieldset" aria-describedby="subSectorName-error">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose a subsector</h1>
+                </legend>
+                <p id="subSectorName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Must be existing sub-sector</p>
+                <div                 class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                        type="radio" value="highways">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                        type="radio" value="airports">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                        type="radio" value="railways">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
+                    </div>
         </div>
+        </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -1074,28 +1102,32 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
             </div>
         </div>
     </div>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose a subsector</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group govuk-form-group--error">
-            <p id="subSectorName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose the subsector
-                of the project</p>
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
-                    type="radio" value="highways">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
+            <fieldset class="govuk-fieldset" aria-describedby="subSectorName-error">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose a subsector</h1>
+                </legend>
+                <p id="subSectorName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose the subsector
+                    of the project</p>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName" name="subSectorName"
+                        type="radio" value="highways">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName">Highways EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
+                        type="radio" value="airports">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
+                        type="radio" value="railways">
+                        <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-2" name="subSectorName"
-                    type="radio" value="airports">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-2">Airports EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="subSectorName-3" name="subSectorName"
-                    type="radio" value="railways">
-                    <label class="govuk-label govuk-radios__label" for="subSectorName-3">Railways EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -1249,42 +1281,46 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
 
 exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with None checked if the api does not return resumed data 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose map zoom level</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="none"
-                    checked>
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">None EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose map zoom level</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="none"
+                        checked>
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">None EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">Region EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Country EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Junction EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">County EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="city">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">City EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">Region EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Country EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Junction EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">County EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="city">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">City EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -1297,42 +1333,46 @@ exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level 
 
 exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with the checked option from the resumed data 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose map zoom level</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="none">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">None EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose map zoom level</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="none">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">None EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">Region EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Country EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Junction EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">County EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="city"
+                        checked>
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">City EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">Region EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Country EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Junction EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">County EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="city"
-                    checked>
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">City EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -1360,43 +1400,47 @@ exports[`applications create Zoom Level POST /create-new-case/:caseId/zoom-level
             </div>
         </div>
     </div>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose map zoom level</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group govuk-form-group--error">
-            <p id="geographicalInformation.mapZoomLevelName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
-            <div class="govuk-radios"
-            data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="city">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">City EN</label>
+            <fieldset class="govuk-fieldset" aria-describedby="geographicalInformation.mapZoomLevelName-error">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose map zoom level</h1>
+                </legend>
+                <p id="geographicalInformation.mapZoomLevelName-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
+                <div class="govuk-radios"
+                data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="city">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName">City EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">County EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Junction EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Country EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">Region EN</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
+                        name="geographicalInformation.mapZoomLevelName" type="radio" value="none">
+                        <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">None EN</label>
+                    </div>
                 </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-2"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="county">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-2">County EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-3"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="junction">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-3">Junction EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-4"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="country">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-4">Country EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-5"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="region">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-5">Region EN</label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="geographicalInformation.mapZoomLevelName-6"
-                    name="geographicalInformation.mapZoomLevelName" type="radio" value="none">
-                    <label class="govuk-label govuk-radios__label" for="geographicalInformation.mapZoomLevelName-6">None EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
