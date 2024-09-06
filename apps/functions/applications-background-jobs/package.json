@@ -14,25 +14,18 @@
     },
     "dependencies": {
         "@azure/functions": "*",
-        "@azure/identity": "*",
         "@pins/add-auth-headers-for-backend": "*",
         "@pins/applications": "*",
         "@pins/blob-storage-client": "*",
-        "@pins/event-client": "*",
         "@pins/platform": "*",
         "docopt": "*",
-        "dotenv": "*",
         "got": "*",
         "joi": "*",
         "jsdom": "*",
-        "lodash-es": "*",
         "notifications-node-client": "*",
-        "pino": "*",
-        "stub-azure-function-context": "*",
         "turndown": "*"
     },
     "devDependencies": {
-        "azure-functions-core-tools": "*",
         "cross-env": "*",
         "eslint": "*",
         "jest": "*"

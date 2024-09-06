@@ -385,20 +385,10 @@ jest.unstable_mockModule('./src/server/infrastructure/event-batch-broadcaster.js
 	batchSendEvents: jest.fn()
 }));
 
-const mockGotGet = jest.fn();
-const mockGotPost = jest.fn();
-
 jest.unstable_mockModule('jsonwebtoken', () => ({
 	default: {
 		decode: jest.fn(),
 		verify: jest.fn()
-	}
-}));
-
-jest.unstable_mockModule('got', () => ({
-	default: {
-		get: mockGotGet,
-		post: mockGotPost
 	}
 }));
 
