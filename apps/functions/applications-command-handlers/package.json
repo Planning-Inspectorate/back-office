@@ -12,7 +12,6 @@
     "@pins/platform": "*",
     "@pins/blob-storage-client": "*",
     "pins-data-model": "*",
-    "dotenv": "*",
     "got": "*",
     "joi": "*",
 		"lodash-es": "*"
