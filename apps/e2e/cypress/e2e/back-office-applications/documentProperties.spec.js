@@ -1,5 +1,4 @@
 // @ts-nocheck
-/// <reference types="cypress"/>
 
 import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
@@ -9,7 +8,6 @@ import { validateProjectOverview } from '../../support/utils/utils';
 import { FileUploadPage } from '../../page_objects/uploadFiles';
 import { projectInformation } from '../../support/utils/createProjectInformation';
 import { DocumentPropertiesPage } from '../../page_objects/documentPropertiesPage';
-import { faker } from '@faker-js/faker';
 
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();

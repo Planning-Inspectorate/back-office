@@ -1,5 +1,5 @@
 // @ts-nocheck
-/// <reference types="cypress"/>
+
 import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
