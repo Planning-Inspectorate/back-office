@@ -1,5 +1,4 @@
 // @ts-nocheck
-/// <reference types="cypress"/>
 
 import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import { users } from '../../fixtures/users';

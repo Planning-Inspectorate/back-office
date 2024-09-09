@@ -1,5 +1,4 @@
 // @ts-nocheck
-/// <reference types="cypress"/>
 
 import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
@@ -20,7 +19,6 @@ describe('Search', () => {
 		createCasePage.createCase(projectInfo);
 	});
 
-
 	context('As a user', () => {
 		beforeEach(() => {
 			cy.login(applicationsUsers.caseAdmin);
@@ -34,13 +32,9 @@ describe('Search', () => {
 			searchResultsPage.verifyTopSearchResultName(projectInfo.projectName);
 		});
 
-
 		it('As a user able to see an error when nothing is entered', () => {
 			applicationsHomePage.searchFor(' ');
 			searchResultsPage.verifySearchError('Enter a search term');
 		});
 	});
-
 });
-
-
