@@ -16,12 +16,6 @@ const fileUploadPage = new FileUploadPage();
 const documentPropertiesPage = new DocumentPropertiesPage();
 const { applications: applicationsUsers } = users;
 
-const fileName = () => 'filename';
-const description = () => 'description';
-const from = () => 'from';
-const agent = () => 'agent';
-const webfilter = () => 'webfilter';
-
 describe('Document Properties', () => {
 	let projectInfo;
 
@@ -66,11 +60,11 @@ describe('Document Properties', () => {
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - Project documentation`);
-		documentPropertiesPage.updateDocumentProperty('File name', fileName());
-		documentPropertiesPage.updateDocumentProperty('Description', description(), 'textarea');
-		documentPropertiesPage.updateDocumentProperty('Who the document is from', from(), 'textarea');
-		documentPropertiesPage.updateDocumentProperty('Agent (optional)', agent());
-		documentPropertiesPage.updateDocumentProperty('Webfilter', webfilter(), 'textarea');
+		documentPropertiesPage.updateDocumentProperty('File name', 'filename');
+		documentPropertiesPage.updateDocumentProperty('Description', 'description', 'textarea');
+		documentPropertiesPage.updateDocumentProperty('Who the document is from', 'from', 'textarea');
+		documentPropertiesPage.updateDocumentProperty('Agent (optional)', agent);
+		documentPropertiesPage.updateDocumentProperty('Webfilter', 'webfilter', 'textarea');
 		documentPropertiesPage.updateDocumentType('No document type');
 		documentPropertiesPage.updateDate('Date received', getDate(true));
 		documentPropertiesPage.updateRedactionStatus('Redacted');
