@@ -88,6 +88,7 @@ export const validateDocumentVersionMetadataBody = (documentVersionEventBody) =>
 			.valid(...originEnum.values())
 			.optional(),
 		representative: joi.string().allow('').optional(),
+		interestedPartyNumber: joi.string().allow('').optional(),
 		description: joi.string().optional(),
 		descriptionWelsh: joi.string().optional(),
 		documentGuid: joi.string().optional(),

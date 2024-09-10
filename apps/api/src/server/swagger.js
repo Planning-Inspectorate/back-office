@@ -1290,6 +1290,7 @@ export const spec = {
 				mime: { type: 'string', description: 'Document mime type', example: 'application/pdf' },
 				description: { type: 'string', description: 'This is a sample document', example: null },
 				representative: { type: 'string', description: '', example: 'Jane Doe' },
+				interestedPartyNumber: { type: 'string', description: '', example: 'IP1234' },
 				filter1: { type: 'string', description: '', example: 'some filter value' },
 				filter2: { type: 'string', description: '', example: 'some filter value' },
 				documentType: { type: 'string', description: '', example: 'contract' },

@@ -3,7 +3,7 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 import { setSessionBanner } from '../../common/services/session.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript"} MetaDataNames */
+/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber"} MetaDataNames */
 /** @typedef {{label?: string, metaDataName: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
@@ -27,6 +27,11 @@ const layouts = {
 		englishLabel: 'Document description in English',
 		metaDataEnglishName: 'description',
 		template: 'documentation-edit-textarea.njk'
+	},
+	interestedPartyNumber: {
+		label: 'Interested Party number',
+		metaDataName: 'interestedPartyNumber',
+		template: 'documentation-edit-textinput.njk'
 	},
 	webfilter: {
 		label: 'Webfilter',

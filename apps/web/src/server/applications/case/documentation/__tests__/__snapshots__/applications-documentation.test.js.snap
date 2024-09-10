@@ -7072,6 +7072,11 @@ exports[`applications documentation Document properties page page should render 
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
                             </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Interested Party number</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> Interested Party number</span></a>
+                            </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
                             <dd                             class="govuk-summary-list__value">Consectetur adipiscing</dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author"> Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
@@ -7227,6 +7232,11 @@ exports[`applications documentation Document properties page page should render 
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
                             <dd class="govuk-summary-list__value">Ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Interested Party number</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> Interested Party number</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
@@ -7394,6 +7404,11 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
                             </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Interested Party number</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> Interested Party number</span></a>
+                            </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
                             <dd                             class="govuk-summary-list__value">Consectetur adipiscing</dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author"> Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
@@ -7549,6 +7564,11 @@ exports[`applications documentation Document properties page should not show pub
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
                             <dd class="govuk-summary-list__value">Ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Interested Party number</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> Interested Party number</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
@@ -7714,6 +7734,11 @@ exports[`applications documentation Document properties page should show publish
                             <dd class="govuk-summary-list__value">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
                                 Ut enim ad</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Interested Party number</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> Interested Party number</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>

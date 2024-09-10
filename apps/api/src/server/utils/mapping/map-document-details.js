@@ -55,6 +55,7 @@ export const mapSingleDocumentDetailsFromVersion = ({
 		descriptionWelsh: documentVersion?.descriptionWelsh ?? null,
 		version: documentVersion?.version,
 		representative: documentVersion?.representative,
+		interestedPartyNumber: documentVersion?.interestedPartyNumber,
 		stage: documentVersion?.stage,
 
 		documentType: documentVersion?.documentType,

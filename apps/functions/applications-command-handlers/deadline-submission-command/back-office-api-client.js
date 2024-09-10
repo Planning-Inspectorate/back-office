@@ -140,11 +140,11 @@ async function getTimetableItem(caseID, timetableItemName) {
 /**
  *
  * @param {number} caseID
- * @param {{ documentGuid: string, documentName: string, userName: string, deadline: string, submissionType: string, representative?: string }} _
+ * @param {{ documentGuid: string, documentName: string, userName: string, deadline: string, submissionType: string, interestedPartyNumber?: string }} _
  * */
 async function populateDocumentMetadata(
 	caseID,
-	{ documentGuid, documentName, userName, deadline, submissionType, representative }
+	{ documentGuid, documentName, userName, deadline, submissionType, interestedPartyNumber }
 ) {
 	await requestWithApiKey.post(
 		`https://${config.apiHost}/applications/${caseID}/documents/${documentGuid}/metadata`,
@@ -154,7 +154,7 @@ async function populateDocumentMetadata(
 				documentGuid,
 				fileName: documentName,
 				author: userName,
-				representative,
+				interestedPartyNumber,
 				filter1: deadline,
 				filter2: submissionType
 			}
