@@ -86,7 +86,7 @@ async function run(context, msg) {
 		userName: msg.name,
 		deadline: msg.deadline,
 		submissionType: msg.submissionType,
-		representative: msg.interestedPartyReference
+		interestedPartyNumber: msg.interestedPartyReference
 	});
 
 	return documents[0].blobStoreUrl;

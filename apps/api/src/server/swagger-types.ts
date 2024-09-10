@@ -1403,6 +1403,8 @@ export interface DocumentVersionUpsertRequestBody {
 	description?: string;
 	/** @example "Jane Doe" */
 	representative?: string;
+	/** @example "IP1234" */
+	interestedPartyNumber?: string;
 	/** @example "some filter value" */
 	filter1?: string;
 	/** @example "some filter value" */

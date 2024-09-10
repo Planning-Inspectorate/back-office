@@ -7740,6 +7740,11 @@
 					"description": "",
 					"example": "Jane Doe"
 				},
+				"interestedPartyNumber": {
+					"type": "string",
+					"description": "",
+					"example": "IP1234"
+				},
 				"filter1": {
 					"type": "string",
 					"description": "",

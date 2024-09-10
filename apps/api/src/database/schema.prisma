@@ -328,6 +328,7 @@ model DocumentVersion {
   transcript             Document?             @relation("TranscriptedDocuments", fields: [transcriptGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
   transcriptGuid         String?
   DocumentActivityLog    DocumentActivityLog[]
+  interestedPartyNumber  String?
 
   @@id([documentGuid, version])
   @@index([filter1], map: "filter1")
