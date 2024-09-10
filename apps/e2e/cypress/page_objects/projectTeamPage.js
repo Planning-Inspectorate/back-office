@@ -29,12 +29,22 @@ export class ProjectTeamPage extends Page {
 	verifyTeamMemberIsAdded() {
 		this.elements.actionAdded().contains('Added');
 	}
-	addTeamMeber(email) {
+	addTeamMember(email) {
 		this.elements.searchTeamMember().type(email);
 		this.elements.searchTeamMemberButton().click();
 		this.elements.actionSelect().click();
+		this.verifyLegend('Choose role');
 		this.elements.selectRole().click();
 		this.elements.saveAndReturn().click();
+	}
+	addTeamMemberError(email) {
+		this.elements.searchTeamMember().type(email);
+		this.elements.searchTeamMemberButton().click();
+		this.elements.actionSelect().click();
+		this.verifyLegend('Choose role');
+		this.elements.saveAndReturn().click();
+		this.validateErrorMessageIsInSummary('You must select a role');
+		this.validateErrorMessage('You must select a role');
 	}
 	verifyCaseManagerRoleAdded() {
 		this.elements.caseManager().contains('Case Manager');

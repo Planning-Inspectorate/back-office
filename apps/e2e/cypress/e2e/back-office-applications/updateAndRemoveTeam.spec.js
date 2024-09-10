@@ -28,7 +28,7 @@ describe('Update and remove team related scenarios ', () => {
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
 		email = Cypress.env('INSPECTOR_EMAIL');
-		projectTeamPage.addTeamMeber(email);
+		projectTeamPage.addTeamMember(email);
 		projectTeamPage.verifyCaseManagerRoleAdded();
 	});
 

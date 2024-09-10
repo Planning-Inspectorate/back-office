@@ -30,9 +30,14 @@ describe('Project team related scenarios ', () => {
 		projectTeamPage.verifyPageTitle('Search for a team member - Project team');
 	});
 
+	it('As a user able to add team member and error when no role selected', () => {
+		email = Cypress.env('CASE_ADMIN_EMAIL');
+		projectTeamPage.addTeamMemberError(email);
+	});
+
 	it('As a user able to add team member and verify the role is added to project team', () => {
 		email = Cypress.env('CASE_ADMIN_EMAIL');
-		projectTeamPage.addTeamMeber(email);
+		projectTeamPage.addTeamMember(email);
 		projectTeamPage.verifyCaseManagerRoleAdded();
 		projectTeamPage.verifyPageTitle(`${projectInfo.projectName} - Project team`);
 	});
