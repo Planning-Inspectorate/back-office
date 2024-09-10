@@ -140,8 +140,11 @@ const layouts = {
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, RequestParams, ResponseLocals>}
  */
-export async function viewDocumentationMetaData({ params }, response) {
+export async function viewDocumentationMetaData({ params }, response, next) {
 	const layout = getLayoutParameters(params, response.locals);
+	if (!layout) {
+		return next();
+	}
 
 	const noPublish = ['awaiting_upload', 'awaiting_virus_check', 'failed_virus_check'].includes(
 		response.locals.documentMetaData.publishedStatus
@@ -205,7 +208,7 @@ export async function updateDocumentationMetaData(request, response) {
 		}, {});
 
 		return response.render(
-			`applications/case-documentation/${layout.template ?? 'documentation-edit.njk'}`,
+			`applications/case-documentation/${layout?.template ?? 'documentation-edit.njk'}`,
 			{ errors, layout }
 		);
 	}
@@ -220,7 +223,7 @@ export async function updateDocumentationMetaData(request, response) {
  *
  * @param {RequestParams} requestParameters
  * @param {ResponseLocals} responseLocals
- * @returns {MetaDataLayoutParams}
+ * @returns {MetaDataLayoutParams | null}
  */
 const getLayoutParameters = (requestParameters, responseLocals) => {
 	const { documentGuid, metaDataName } = requestParameters;
@@ -234,6 +237,9 @@ const getLayoutParameters = (requestParameters, responseLocals) => {
 	});
 
 	const layout = layouts[metaDataName];
+	if (!layout) {
+		return null;
+	}
 
 	return { ...layout, backLink };
 };
