@@ -22,6 +22,7 @@ export class Page {
 		checkbox: '.govuk-checkboxes__item',
 		errorMessage: '.govuk-error-message',
 		formGroup: '.govuk-form-group',
+		legend: '.govuk-fieldset__legend',
 		fullColumn: '.govuk-grid-column-full',
 		headingLeft: '.govuk-heading-l',
 		input: '.govuk-input',
@@ -89,6 +90,7 @@ export class Page {
 				matchCase: true
 			}),
 		input: () => cy.get(this.selectors.input),
+		legend: () => cy.get(this.selectors.legend),
 		linkByText: (text) => cy.contains(this.selectors.link, text, { matchCase: true }),
 		loggedInUser: () => cy.get(`${this.selectors.rightCol} > span`),
 		panelBody: (text) =>
@@ -309,6 +311,10 @@ export class Page {
 
 	verifyInspectorIsSignedIn() {
 		this.basePageElements.loggedInUser().should('have.text', users.applications.inspector.typeName);
+	}
+
+	verifyLegend(text) {
+		this.basePageElements.legend().should('contain.text', text);
 	}
 
 	verifyFolderDocuments(fileCount) {
