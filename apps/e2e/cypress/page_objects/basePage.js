@@ -140,6 +140,14 @@ export class Page {
 		});
 	}
 
+	checkPartialAnswer(question, answer) {
+		this.basePageElements.answerCell(question).then(($elem) => {
+			cy.wrap($elem)
+				.invoke('text')
+				.then((text) => expect(text.trim()).to.contains(answer));
+		});
+	}
+
 	clickChangeLink(question) {
 		this.basePageElements.changeLink(question).click();
 	}
