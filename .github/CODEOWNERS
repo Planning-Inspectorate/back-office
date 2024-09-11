@@ -1,0 +1,17 @@
+# any GitHub configuration
+.github @Planning-Inspectorate/pins-developer-leads
+
+# commit hook configuration
+.husky/ @Planning-Inspectorate/pins-developer-leads
+
+# Azure DevOps pipeline definitions
+azure-pipelines-* @Planning-Inspectorate/pins-devops
+
+# Jest configuration
+*/jest.config.js @Planning-Inspectorate/pins-developer-leads
+
+# ESLint configuration
+.eslintrc.cjs @Planning-Inspectorate/pins-developer-leads
+
+# Commit lint configuration
+commitlint.config.cjs  @Planning-Inspectorate/pins-developer-leads
