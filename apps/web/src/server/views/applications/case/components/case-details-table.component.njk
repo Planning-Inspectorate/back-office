@@ -31,18 +31,20 @@
 	{% endif %}
 	{% endset %}
 
-  {% set rowsData = buildCaseInformation({
-    case: params.case,
-    keyMembers: params.keyMembers,
-    gridReferences: gridReferences,
-    regionNames: regionNames,
-    publishedTag: publishedTag
-  }, isWelsh) %}
+	{% set rowsData = buildCaseInformation({
+		case: params.case,
+		keyMembers: params.keyMembers,
+		gridReferences: gridReferences,
+		regionNames: regionNames,
+		publishedTag: publishedTag
+	}, isWelsh) %}
 
 	{% set tableRows = [] %}
 	{% for rowData in rowsData %}
+		{% set hasAction = rowData.url and not isPublishPage %}
 		{#  In the value column, rowData can be used because "title" and "url" are ignored	#}
-    {% set row = {
+		{% set row = {
+			classes: '' if hasAction else 'govuk-summary-list__row--no-actions',
       key: {
         text: rowData.title
       },
@@ -54,13 +56,12 @@
             text: 'Change',
             id: rowData.id
           }
-        ] if rowData.url and not isPublishPage else []
+        ] if hasAction else []
       }
     } %}
 
 		{% set tableRows = (tableRows.push(row), tableRows) %}
 	{% endfor %}
-
 
 	{{ govukSummaryList({
 		caption: 'Project details',
