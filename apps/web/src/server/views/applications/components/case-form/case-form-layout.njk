@@ -38,6 +38,8 @@
 		{% if componentName == 'sector'
 			or componentName == 'sub-sector'
 			or componentName == 'stage'
+			or componentName == 'regions'
+			or componentName == 'info-types'
 			or componentName == 'zoom-level'
 			or componentName == 'material-change' %}
 			{% set componentHasPageHeading = true %}
@@ -118,7 +120,7 @@
 	{% elif componentName == 'sub-sector' %}
 		{{ subSector(values, errors, subSectors, fieldset) }}
 	{% elif componentName == 'regions' %}
-		{{ regions(allRegions, errors) }}
+		{{ regions(allRegions, errors, fieldset) }}
 	{% elif componentName == 'stage' %}
 		{{ stage(values, errors, stages, fieldset) }}
 	{% elif componentName == 'zoom-level' %}
@@ -130,7 +132,7 @@
 	{% elif componentName == 'organisation-name' %}
 		{{ organisationName(values, errors) }}
 	{% elif componentName == 'info-types' %}
-		{{ infoTypes(applicantInfoTypes) }}
+		{{ infoTypes(applicantInfoTypes, fieldset) }}
 	{% elif componentName == 'full-name' %}
 		{{ fullName(values, errors) }}
 	{% elif componentName == 'applicant-email' %}

@@ -224,24 +224,29 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/status should render the page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
-    <h1 class="govuk-heading-l">Set status</h1>
-    <form method="post" action="" novalidate="novalidate">
+    <form method="post" action=""
+    novalidate="novalidate">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-form-group">
                     <div class="govuk-form-group">
-                        <div class="govuk-radios" data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="status" name="status" type="radio"
-                                value="draft" checked>
-                                <label class="govuk-label govuk-radios__label" for="status">Draft</label>
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                                <h1 class="govuk-fieldset__heading"> Set status</h1>
+                            </legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="status" name="status" type="radio"
+                                    value="draft" checked>
+                                    <label class="govuk-label govuk-radios__label" for="status">Draft</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="status-2" name="status" type="radio"
+                                    value="ready-to-publish">
+                                    <label class="govuk-label govuk-radios__label" for="status-2">Ready to Publish</label>
+                                </div>
                             </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="status-2" name="status" type="radio"
-                                value="ready-to-publish">
-                                <label class="govuk-label govuk-radios__label" for="status-2">Ready to Publish</label>
-                            </div>
-                        </div>
+                        </fieldset>
                     </div>
                 </div>
             </div>
@@ -258,34 +263,39 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/type should render the page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
-    <h1 class="govuk-heading-l">What information does the update contain?</h1>
-    <form method="post" action="" novalidate="novalidate">
+    <form method="post" action=""
+    novalidate="novalidate">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-form-group">
                     <div class="govuk-form-group">
-                        <div class="govuk-radios" data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="type" name="type" type="radio"
-                                value="general" checked>
-                                <label class="govuk-label govuk-radios__label" for="type">General</label>
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                                <h1 class="govuk-fieldset__heading"> What information does the update contain?</h1>
+                            </legend>
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="type" name="type" type="radio"
+                                    value="general" checked>
+                                    <label class="govuk-label govuk-radios__label" for="type">General</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="type-2" name="type" type="radio"
+                                    value="applicationSubmitted">
+                                    <label class="govuk-label govuk-radios__label" for="type-2">The application has been submitted</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="type-3" name="type" type="radio"
+                                    value="registrationOpen">
+                                    <label class="govuk-label govuk-radios__label" for="type-3">Register to have your say has opened</label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="type-4" name="type" type="radio"
+                                    value="applicationDecided">
+                                    <label class="govuk-label govuk-radios__label" for="type-4">The final decision has been issued</label>
+                                </div>
                             </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="type-2" name="type" type="radio"
-                                value="applicationSubmitted">
-                                <label class="govuk-label govuk-radios__label" for="type-2">The application has been submitted</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="type-3" name="type" type="radio"
-                                value="registrationOpen">
-                                <label class="govuk-label govuk-radios__label" for="type-3">Register to have your say has opened</label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="type-4" name="type" type="radio"
-                                value="applicationDecided">
-                                <label class="govuk-label govuk-radios__label" for="type-4">The final decision has been issued</label>
-                            </div>
-                        </div>
+                        </fieldset>
                     </div>
                 </div>
             </div>
