@@ -477,43 +477,47 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
 
 exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page with checked options if the api returns something 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose one or multiple regions</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="london"
-                    checked>
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose one or multiple regions</h1>
+                </legend>
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="london"
+                        checked>
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire"
+                        checked>
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="east">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="north">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="south">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="west">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
+                    </div>
                 </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire"
-                    checked>
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="east">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="north">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="south">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="west">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -526,41 +530,45 @@ exports[`applications create Regions GET /create-new-case/:caseId/regions should
 
 exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page without checked options 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose one or multiple regions</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="london">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose one or multiple regions</h1>
+                </legend>
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="london">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="east">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="north">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="south">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="west">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
+                    </div>
                 </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="east">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="north">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="south">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="west">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -588,49 +596,48 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Api v
             </div>
         </div>
     </div>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose one or multiple regions</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group govuk-form-group--error">
-            <p id="geographicalInformation.regionNames-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
-            <div class="govuk-checkboxes"
-            data-module="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="london"
-                    checked aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
+            <fieldset class="govuk-fieldset" aria-describedby="geographicalInformation.regionNames-error">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose one or multiple regions</h1>
+                </legend>
+                <p id="geographicalInformation.regionNames-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Error msg</p>
+                <div class="govuk-checkboxes"
+                data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="london"
+                        checked>
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="east">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="north">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="south">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="west">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
+                    </div>
                 </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="east"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="north"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="south"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="west"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -655,42 +662,46 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
             </div>
         </div>
     </div>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose one or multiple regions</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="london"
-                    checked>
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose one or multiple regions</h1>
+                </legend>
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="london"
+                        checked>
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="east">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="north">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="south">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="west">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
+                    </div>
                 </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="east">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="north">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="south">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="west">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
@@ -718,48 +729,46 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
             </div>
         </div>
     </div>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose one or multiple regions</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group govuk-form-group--error">
-            <p id="geographicalInformation.regionNames-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose at least one region</p>
-            <div             class="govuk-checkboxes" data-module="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="london"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="east"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="north"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="south"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
-                    name="geographicalInformation.regionNames[]" type="checkbox" value="west"
-                    aria-describedby="geographicalInformation.regionNames-error">
-                    <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
-                </div>
+            <fieldset class="govuk-fieldset" aria-describedby="geographicalInformation.regionNames-error">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose one or multiple regions</h1>
+                </legend>
+                <p id="geographicalInformation.regionNames-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Choose at least one region</p>
+                <div                 class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="london">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames">London EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-2"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="yorkshire">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-2">Yorkshire EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-3"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="east">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-3">East EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-4"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="north">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-4">North EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-5"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="south">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-5">South EN</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="geographicalInformation.regionNames-6"
+                        name="geographicalInformation.regionNames[]" type="checkbox" value="west">
+                        <label class="govuk-label govuk-checkboxes__label" for="geographicalInformation.regionNames-6">West EN</label>
+                    </div>
         </div>
+        </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">

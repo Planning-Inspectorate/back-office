@@ -24,7 +24,9 @@
 {% block pageContent %}
     <p class="govuk-body"><strong>Project name:</strong> {{ case.title }}</p>
 
-	<h1 class="govuk-heading-l">{{ title }}</h1>
+	{% if (not form.components[0].fieldset) %}
+		<h1 class="govuk-heading-l">{{ title }}</h1>
+	{% endif %}
 
 	<form method="post" action="" novalidate="novalidate">
 		{% include 'app/includes/csrf.njk' %}

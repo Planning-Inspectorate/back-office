@@ -1,9 +1,10 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% macro regions(regions, errors) %}
+{% macro regions(regions, errors, fieldset) %}
 	{{ govukCheckboxes({
 		idPrefix: "geographicalInformation.regionNames",
 		name: "geographicalInformation.regionNames[]",
+		fieldset: fieldset,
 		items: regions,
 		errorMessage: errors['geographicalInformation.regionNames'] | errorMessage
 	}) }}

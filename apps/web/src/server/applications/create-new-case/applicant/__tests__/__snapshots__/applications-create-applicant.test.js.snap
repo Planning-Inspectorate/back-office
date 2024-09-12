@@ -311,41 +311,45 @@ exports[`applications create applicant GET /applicant-full-name should render th
 
 exports[`applications create applicant GET /applicant-information-types should render the page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Choose the Applicant information you have available</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes"
-                    name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-organisation-name">
-                    <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes">Organisation name</label>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose the Applicant information you have available</h1>
+                </legend>
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes"
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-organisation-name">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes">Organisation name</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-2"
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-full-name">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-2">Applicant’s contact name</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-3"
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-address">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-3">Address</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-4"
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-website">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-4">Website</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-5"
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-email">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-5">Email address</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-6"
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-telephone-number">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-6">Telephone number</label>
+                    </div>
                 </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-2"
-                    name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-full-name">
-                    <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-2">Applicant’s contact name</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-3"
-                    name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-address">
-                    <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-3">Address</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-4"
-                    name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-website">
-                    <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-4">Website</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-5"
-                    name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-email">
-                    <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-5">Email address</label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-6"
-                    name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-telephone-number">
-                    <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-6">Telephone number</label>
-                </div>
-            </div>
+            </fieldset>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">

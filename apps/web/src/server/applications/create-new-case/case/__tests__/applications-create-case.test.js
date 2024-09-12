@@ -431,8 +431,8 @@ describe('applications create', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('value="london"\n                    checked');
-				expect(element.innerHTML).toContain('value="yorkshire"\n                    checked');
+				expect(element.innerHTML.replace(/\s/g, '')).toContain('value="london"checked');
+				expect(element.innerHTML.replace(/\s/g, '')).toContain('value="yorkshire"checked');
 			});
 
 			it('should render the page without checked options', async () => {

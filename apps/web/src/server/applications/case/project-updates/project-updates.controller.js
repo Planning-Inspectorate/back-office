@@ -158,7 +158,6 @@ export async function projectUpdatesTypeGet(req, res) {
 
 	return res.render(formView, {
 		case: res.locals.case,
-		title: 'What information does the update contain?',
 		buttonText: 'Save and continue',
 		backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.content),
 		errors, // for error summary
@@ -167,6 +166,13 @@ export async function projectUpdatesTypeGet(req, res) {
 				{
 					type: 'radios',
 					name: 'type',
+					fieldset: {
+						legend: {
+							html: 'What information does the update contain?',
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
+					},
 					value: projectUpdate.type,
 					items: ProjectUpdate.TypesList.map(typeRadioOption),
 					errorMessage: errors?.type
@@ -216,7 +222,6 @@ export async function projectUpdatesStatusGet(req, res) {
 
 	return res.render(formView, {
 		case: res.locals.case,
-		title,
 		buttonText: 'Save and continue',
 		backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.type),
 		errors, // for error summary
@@ -225,6 +230,13 @@ export async function projectUpdatesStatusGet(req, res) {
 				{
 					type: 'radios',
 					name: 'status',
+					fieldset: {
+						legend: {
+							html: title,
+							isPageHeading: true,
+							classes: 'govuk-fieldset__legend--l'
+						}
+					},
 					value: projectUpdate.status,
 					items: statusOptions.map(statusRadioOption),
 					errorMessage: errors?.status
