@@ -28,17 +28,35 @@
  * @returns {SelectItem[]}
  */
 export function selectItems(source, options) {
+	let isChecked = false;
 	const items = source.map((sourceItem) => {
 		const value = typeof sourceItem === 'object' ? sourceItem[options.valueKey] : sourceItem;
 		const text = typeof sourceItem === 'object' ? sourceItem[options.labelKey] : sourceItem;
+		const checked = typeof sourceItem === 'object' ? value === options.selectedValue : sourceItem;
+
+		if (checked) {
+			isChecked = true;
+		}
 
 		return {
 			value,
 			text,
-			checked: value === options.selectedValue,
-			selected: value === options.selectedValue
+			checked: checked,
+			selected: checked
 		};
 	});
+
+	if (!isChecked) {
+		// Set default if there is any
+		const itemIndex = source.findIndex((sourceItem) =>
+			typeof sourceItem === 'object' ? sourceItem.checked : false
+		);
+		if (itemIndex > -1) {
+			items[itemIndex].selected = true;
+			items[itemIndex].checked = true;
+		}
+		console.log(itemIndex);
+	}
 
 	if (options.placeholder) {
 		return [
