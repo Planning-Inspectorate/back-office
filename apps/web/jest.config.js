@@ -17,5 +17,13 @@ export default {
 		'^uuid$': 'uuid',
 		'^@toast-ui/editor$': toastUiRequirePath
 	},
-	testTimeout: 30000
+	testTimeout: 30000,
+	coverageThreshold: {
+		global: {
+			branches: 56,
+			functions: 76,
+			lines: 72,
+			statements: 72
+		}
+	}
 };
