@@ -50,6 +50,8 @@ const nocks = () => {
 		.reply(200, {});
 };
 
+const projectName = 'Title CASE/04';
+
 describe('Examination timetable page', () => {
 	describe('GET /case/123/examination-timetable', () => {
 		beforeEach(async () => {
@@ -292,9 +294,7 @@ describe('Edit examination timetable', () => {
 
 			const element = parseHtml(response.text);
 
-			expect(getPageTitle(response)).toEqual(
-				buildPageTitle(['Edit timetable item', 'Examination timetable'])
-			);
+			expect(getPageTitle(response)).toEqual(buildPageTitle(['Edit timetable item', projectName]));
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Edit timetable item');
@@ -315,7 +315,7 @@ describe('Edit examination timetable', () => {
 				const element = parseHtml(response.text, { rootElement: 'h1' });
 
 				expect(getPageTitle(response)).toEqual(
-					buildPageTitle(['Item name in Welsh', 'Examination timetable'])
+					buildPageTitle(['Item name in Welsh', 'Title CASE/04'])
 				);
 
 				expect(element.innerHTML).toMatchSnapshot();
@@ -341,7 +341,7 @@ describe('Edit examination timetable', () => {
 						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
 
 						expect(getPageTitle(response)).toEqual(
-							buildPageTitle(['Item name in Welsh', 'Examination timetable'], { error: true })
+							buildPageTitle(['Item name in Welsh', 'Title CASE/04'], { error: true })
 						);
 
 						expect(element.innerHTML).toContain('Enter item name in Welsh');
@@ -357,7 +357,7 @@ describe('Edit examination timetable', () => {
 						const element = parseHtml(response.text, { rootElement: '.govuk-error-summary' });
 
 						expect(getPageTitle(response)).toEqual(
-							buildPageTitle(['Item name in Welsh', 'Examination timetable'], { error: true })
+							buildPageTitle(['Item name in Welsh', 'Title CASE/04'], { error: true })
 						);
 
 						expect(element.innerHTML).toContain(
@@ -397,7 +397,7 @@ describe('Edit examination timetable', () => {
 				const element = parseHtml(response.text, { rootElement: 'h1' });
 
 				expect(getPageTitle(response)).toEqual(
-					buildPageTitle(['Item description in Welsh', 'Examination timetable'])
+					buildPageTitle(['Item description in Welsh', projectName])
 				);
 
 				expect(element.innerHTML).toMatchSnapshot();

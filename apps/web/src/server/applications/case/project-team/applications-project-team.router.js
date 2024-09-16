@@ -1,7 +1,5 @@
-import { registerCase } from '@pins/applications.web/src/server/applications/case/applications-case.locals.js';
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '@pins/express';
-import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
 import * as controller from './applications-project-team.controller.js';
 import {
 	validateApplicationsProjectTeamMinLengthSearch,
@@ -12,11 +10,7 @@ import { registerUserId } from './application-project-team.locals.js';
 
 const applicationsProjectTeamRouter = createRouter({ mergeParams: true });
 
-applicationsProjectTeamRouter.use(registerCaseId);
-
-applicationsProjectTeamRouter
-	.route('/')
-	.get(registerCase, asyncHandler(controller.viewProjectTeamListPage));
+applicationsProjectTeamRouter.route('/').get(asyncHandler(controller.viewProjectTeamListPage));
 
 applicationsProjectTeamRouter
 	.route('/:userId/choose-role')

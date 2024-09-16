@@ -2,10 +2,10 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set pageTitle = 'Edit the S51 adviser' %}
+
 {% block formHeading %}
-  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-    Edit the S51 adviser
-  </h1>
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ pageTitle }}</h1>
 {% endblock %}
 
 {% block formContent %}

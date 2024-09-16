@@ -7,8 +7,8 @@
 {% from "./tab-history.component.njk" import documentationHistoryTab %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
-{% set pageTitle = case.title %}
-{% set serviceName = 'Project documentation' %}
+{% set serviceName = case.title %}
+{% set pageTitle = 'Document properties' %}
 
 {% set bannerText = updateBannerText if updateBannerText else 'New version uploaded' %}
 
@@ -44,7 +44,7 @@
 				{% endif %}
 
                 <h1 class="govuk-heading-xl govuk-!-margin-top-4">
-                    <span class="govuk-caption-xl">Document properties</span>
+                    <span class="govuk-caption-xl">{{ pageTitle }}</span>
                     {{ documentationFile.fileName }}
                 </h1>
                 <ul class="govuk-list">

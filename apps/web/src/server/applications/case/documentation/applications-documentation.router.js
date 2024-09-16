@@ -15,8 +15,6 @@ import { assertFolderIsNotReps } from './applications-documentation.guard.js';
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 
-applicationsDocumentationRouter.use(locals.registerCase);
-
 applicationsDocumentationRouter.use('/:folderId/s51-advice', applicationsS51Router);
 
 applicationsDocumentationRouter

@@ -29,6 +29,9 @@
 	{% set bannerText = updateBannerText %}
 {% endif %}
 
+{% set serviceName = case.title if case.title else "S51 advice" %}
+{% set pageTitle = headingCaptionText %}
+
 {% block beforeContent %}
 	<aside>
 		{{ govukBackLink({

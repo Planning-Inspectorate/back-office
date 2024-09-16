@@ -6,11 +6,8 @@ import {
 	postPublishUpdatedRepresentationsController
 } from './publish-updated-representations.controller.js';
 import { publishUpdatedRepresentationsValidation } from './publish-updated-representations.controller.validators.js';
-import { registerCaseId } from '../../../create-new-case/applications-create.locals.js';
 
 const publishUpdatedRepresentationsRouter = createRouter({ mergeParams: true });
-
-publishUpdatedRepresentationsRouter.use(registerCaseId);
 
 publishUpdatedRepresentationsRouter
 	.route(`/${publishUpdatedRepresentationsRoute}`)

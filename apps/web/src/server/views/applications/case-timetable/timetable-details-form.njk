@@ -7,7 +7,7 @@
 {% from '../components/inputs/time-input.component.njk' import timeInput %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
-{% set serviceName = "Examination timetable" %}
+{% set serviceName = case.title %}
 {% set pageTitle = 'Edit timetable item' if isEditing else 'Create new item' %}
 
 {% block sectionMenu %}{% endblock %}

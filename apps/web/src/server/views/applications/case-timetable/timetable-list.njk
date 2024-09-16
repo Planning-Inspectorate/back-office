@@ -4,12 +4,12 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "./components/timetable-items-list.component.njk" import timetableItemsList %}
 
-{% set serviceName = 'Examination timetable' %}
+{% set pageTitle = 'Examination timetable' %}
 
 {% block sectionContent %}
 	{% if successBannerText %}
-		{{ govukNotificationBanner({ 
-			type: 'success', 
+		{{ govukNotificationBanner({
+			type: 'success',
 			html: '<strong>' + successBannerText + '</strong>'
 		}) }}
 	{% endif %}
@@ -18,7 +18,7 @@
     <div>
 		<div class='govuk-grid-row'>
 			<div class='govuk-grid-column-two-thirds'>
-				<h2 class="govuk-heading-l">{{serviceName}}</h2>
+				<h2 class="govuk-heading-l">{{pageTitle}}</h2>
 			</div>
 			<div class='govuk-grid-column-one-third'>
 				{% if publishedStatus %}

@@ -50,10 +50,10 @@ describe('Document Properties including welsh fields', () => {
 	beforeEach(() => {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 			applicationsHomePage.loadCurrentCase();
-			searchResultsPage.verifyPageTitle(`${projectInfo.projectName} - Overview`);
+			searchResultsPage.verifyPageTitle(`Overview - ${projectInfo.projectName}`);
 			searchResultsPage.clickLinkByText('Project documentation');
 			searchResultsPage.clickLinkByText('Project management');
-			fileUploadPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
+			fileUploadPage.verifyPageTitle(`Project management folder - ${projectInfo.projectName}`);
 		}
 	});
 
@@ -62,7 +62,7 @@ describe('Document Properties including welsh fields', () => {
 			fileUploadPage.verifyUploadButtonIsVisible();
 			fileUploadPage.uploadFile('test.pdf');
 			fileUploadPage.clickButtonByText('Save and continue');
-			fileUploadPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
+			fileUploadPage.verifyPageTitle(`Project management folder - ${projectInfo.projectName}`);
 			fileUploadPage.verifyFolderDocuments(1);
 			fileUploadPage.verifyUploadIsComplete();
 			fileUploadPage.clickLinkByText('View/Edit properties');
@@ -94,7 +94,9 @@ describe('Document Properties including welsh fields', () => {
 			documentPropertiesPage.updateDate('Date received', getDate(true));
 			documentPropertiesPage.updateRedactionStatus('Redacted');
 			cy.get('.govuk-back-link').click();
-			documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
+			documentPropertiesPage.verifyPageTitle(
+				`Project management folder - ${projectInfo.projectName}`
+			);
 			folderPage.markAllReadyToPublish();
 			folderPage.clickLinkByText('View publishing queue');
 			folderPage.publishAllDocumentsInList();
@@ -121,11 +123,16 @@ describe('Document Properties including welsh fields', () => {
 			documentPropertiesPage.updateDate('Date received', getDate(true));
 			documentPropertiesPage.updateRedactionStatus('Redacted');
 			cy.get('.govuk-back-link').click();
-			documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
+			documentPropertiesPage.verifyPageTitle(
+				`Project management folder - ${projectInfo.projectName}`
+			);
 			folderPage.markAllReadyToPublish();
-			documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`, {
-				error: true
-			});
+			documentPropertiesPage.verifyPageTitle(
+				`Project management folder - ${projectInfo.projectName}`,
+				{
+					error: true
+				}
+			);
 			documentPropertiesPage.validateSummaryErrorMessage(
 				'You must fill in all mandatory document properties to publish a document'
 			);

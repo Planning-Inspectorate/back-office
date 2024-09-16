@@ -45,21 +45,21 @@ describe('Document Properties', () => {
 		applicationsHomePage.loadCurrentCase();
 		validateProjectOverview(projectInfo);
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-			searchResultsPage.verifyPageTitle(`${projectInfo.projectName} - Overview`);
+			searchResultsPage.verifyPageTitle(`Overview - ${projectInfo.projectName}`);
 		} else {
-			documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - Project information`);
+			documentPropertiesPage.verifyPageTitle(`Project information - ${projectInfo.projectName}`);
 		}
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Project management');
-		fileUploadPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
+		fileUploadPage.verifyPageTitle(`Project management folder - ${projectInfo.projectName}`);
 		fileUploadPage.verifyUploadButtonIsVisible();
 		fileUploadPage.uploadFile('test.pdf');
 		fileUploadPage.clickButtonByText('Save and continue');
-		fileUploadPage.verifyPageTitle(`${projectInfo.projectName} - NSIP Applications`);
+		fileUploadPage.verifyPageTitle(`Project management folder - ${projectInfo.projectName}`);
 		fileUploadPage.verifyFolderDocuments(1);
 		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
-		documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - Project documentation`);
+		documentPropertiesPage.verifyPageTitle(`Document properties - ${projectInfo.projectName}`);
 		documentPropertiesPage.updateDocumentProperty('File name', 'filename');
 		documentPropertiesPage.updateDocumentProperty('Description', 'description', 'textarea');
 		documentPropertiesPage.updateDocumentProperty('Interested Party number', 'IP1234');
@@ -69,6 +69,6 @@ describe('Document Properties', () => {
 		documentPropertiesPage.updateDocumentType('No document type');
 		documentPropertiesPage.updateDate('Date received', getDate(true));
 		documentPropertiesPage.updateRedactionStatus('Redacted');
-		documentPropertiesPage.verifyPageTitle(`${projectInfo.projectName} - Project documentation`);
+		documentPropertiesPage.verifyPageTitle(`Document properties - ${projectInfo.projectName}`);
 	});
 });

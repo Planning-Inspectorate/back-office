@@ -4,8 +4,8 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 
-{% set pageTitle = case.title %}
-{% set serviceName = 'Unpublish the project' %}
+{% set serviceName = case.title %}
+{% set pageTitle = 'Unpublish the project' %}
 
 {% block pageHeading %}{% endblock %}
 
@@ -21,7 +21,7 @@
 {% block pageContent %}
 	<form id="pins-publish-case" class="govuk-grid-row " method="post" action="">
 		<div class="govuk-grid-column-full">
-			<h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{ serviceName }}</h1>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-8">{{ pageTitle }}</h1>
 			<p class="govuk-body govuk-!-margin-bottom-2">Case: {{case.title}}</p>
 			<p class="govuk-body govuk-!-margin-bottom-6">Reference: {{case.reference}}</p>
 		</div>

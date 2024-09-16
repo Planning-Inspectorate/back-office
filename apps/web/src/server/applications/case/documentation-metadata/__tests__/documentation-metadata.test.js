@@ -7,12 +7,14 @@ import {
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
+import { fixtureCases } from '../../../../../../testing/applications/fixtures/cases.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, {});
+	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get('/applications/123/documents/456/properties')
 		.reply(200, fixturePublishedDocumentationFile);

@@ -3,8 +3,8 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% set serviceName = "Examination timetable" %}
-{% set pageTitle = "Check your answers" %}
+{% set serviceName = case.title %}
+{% set pageTitle = 'Check your answers before editing an item' if isEditing else 'Check your answers before creating a new item' %}
 {% set formAction = ('timetable-item'|url({caseId: caseId, step: 'edit' if isEditing else 'new',  timetableId: values.timetableId})) if isEditing else ('timetable'|url({caseId: caseId, step: 'item/new'}))  %}
 
 {% block sectionMenu %}{% endblock %}
@@ -40,7 +40,7 @@
 		<div class='govuk-grid-column-full'>
 
 			<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-				{{ 'Check your answers before editing an item' if isEditing else 'Check your answers before creating a new item' }}
+				{{ pageTitle }}
 			</h1>
 
 			<form method="post" action="{{ ('timetable-item'|url({caseId: caseId, step: 'edit' if isEditing else 'new',  timetableId: values.timetableId})) }}">
