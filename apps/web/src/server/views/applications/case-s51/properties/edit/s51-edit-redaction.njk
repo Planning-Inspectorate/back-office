@@ -2,6 +2,8 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set pageTitle = 'Edit redacted status' %}
+
 {% block formContent %}
 	{% set statusItems = [
 		{
@@ -22,7 +24,7 @@
     id: 'redactedStatus',
 	fieldset: {
 	  legend: {
-		html: "Edit redacted status",
+		html: pageTitle,
 	  	isPageHeading: true,
 	  	classes: "govuk-fieldset__legend--l"
 	  }

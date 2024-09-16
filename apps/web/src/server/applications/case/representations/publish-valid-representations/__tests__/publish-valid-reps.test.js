@@ -66,6 +66,7 @@ describe('publish-valid-representations', () => {
 	describe('POST /applications-service/:caseId/relevant-representations/publish-valid-representations', () => {
 		describe('unsuccessful', () => {
 			const nocks = () => {
+				nock('http://test/').get('/applications/1').reply(200, mockCaseData);
 				nock('http://test/')
 					.get('/applications/1/representations/publishable')
 					.reply(200, publishableRepresentationsFixture);
@@ -87,6 +88,7 @@ describe('publish-valid-representations', () => {
 
 		describe('successful', () => {
 			const nocks = () => {
+				nock('http://test/').get('/applications/1').reply(200, mockCaseData);
 				nock('http://test/')
 					.get('/applications/1/representations/publishable')
 					.reply(200, publishableRepresentationsFixture);
@@ -112,6 +114,7 @@ describe('publish-valid-representations', () => {
 			const firstBatchOfIds = Array.from({ length: 1000 }, (i) => (i + 1).toString());
 
 			const nocks = () => {
+				nock('http://test/').get('/applications/1').reply(200, mockCaseData);
 				nock('http://test/')
 					.get('/applications/1/representations/publishable')
 					.reply(200, largeNumberOfReps);

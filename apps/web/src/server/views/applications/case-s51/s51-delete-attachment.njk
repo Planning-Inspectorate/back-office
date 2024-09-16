@@ -4,7 +4,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
 
-{% set serviceName = "S51 advice" %}
+{% set serviceName = case.title if case.title else "S51 advice" %}
 {% set pageTitle = "Delete selected attachment" %}
 
 {% block sectionMenu %}{% endblock %}

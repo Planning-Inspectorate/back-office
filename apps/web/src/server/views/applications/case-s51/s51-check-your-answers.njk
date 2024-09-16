@@ -5,6 +5,9 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
+{% set serviceName = case.title if case.title else "S51 advice" %}
+{% set pageTitle = "Check your answers before creating a new item" %}
+
 {% block pageHeading %}{% endblock %}
 
 {% macro formValues() %}
@@ -93,7 +96,7 @@
 	<h1 class="govuk-heading-l">
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-full">
-				Check your answers before creating a new item
+				{{ pageTitle }}
 			</div>
 		</div>
 	</h1>

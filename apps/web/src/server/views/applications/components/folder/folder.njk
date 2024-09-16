@@ -14,6 +14,8 @@
 {% set isS51folder = currentFolder.displayNameEn === 'S51 advice' %}
 {% set isGeneralS51folder = case.reference === gs51CaseReference %}
 
+{% set pageTitle = currentFolder.displayNameEn + ' folder' %}
+
 {% block errorSummary %}
 	{% if errors %}
 		<div class="govuk-grid-row">
@@ -54,7 +56,6 @@
 				{{ folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce, isGeneralS51folder, isCustomFolder) }}
 
 				{{ folderStatus(currentFolder, items, caseId, isS51folder, isGeneralS51folder) }}
-
 					{% if items.itemCount %}
 						<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 						{% if isS51folder %}

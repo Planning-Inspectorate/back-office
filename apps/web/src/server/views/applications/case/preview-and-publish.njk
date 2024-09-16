@@ -5,8 +5,8 @@
 {% from "./components/case-applicant-table.component.njk" import caseApplicantTable %}
 {% from "./components/case-key-dates-table.component.njk" import caseKeyDatesTable %}
 
-{% set pageTitle = case.title %}
-{% set serviceName = 'Preview and publish project' %}
+{% set serviceName = case.title %}
+{% set pageTitle = 'Preview and publish project' %}
 {% set isPublishPage = 1 %}
 {% set overviewLink = 'case-view'|url({caseId: case.id, step: 'overview' if ('applic-55-welsh-translation' | isFeatureActive) else 'project-information'}) %}
 
@@ -25,7 +25,7 @@
 {% block pageContent %}
 	<form id="pins-publish-case" class="govuk-grid-row " method="post" action="">
 		<div class="govuk-grid-column-full">
-			<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ serviceName }}</h1>
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ pageTitle }}</h1>
 			<p class="govuk-body govuk-!-margin-bottom-6">Check details before publishing</p>
 		</div>
 		<div class="govuk-grid-column-two-thirds">

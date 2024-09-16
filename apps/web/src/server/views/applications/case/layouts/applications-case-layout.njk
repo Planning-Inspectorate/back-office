@@ -7,7 +7,7 @@
 {% from "../../components/status-tag.component.njk" import statusTag %}
 
 
-{% set pageTitle = case.title %}
+{% set serviceName = case.title %}
 {% set isPageWithRepublishBanner = selectedPageType === 'overview' or selectedPageType === 'project-information' or selectedPageType === 'key-dates' %}
 {% set isGeneralS51folder = case.reference === gs51CaseReference %}
 {% block beforeContent %}
@@ -29,7 +29,7 @@
 				<h1 class="govuk-heading-xl">
 				{% if pageCaption %}
 					<span class="govuk-caption-xl">{{ pageCaption }}</span>
-				{% endif %}{{ pageHeading or pageTitle }}
+				{% endif %}{{ pageHeading or serviceName or pageTitle }}
 				</h1>
 
 				{% block pageHeadingData %}

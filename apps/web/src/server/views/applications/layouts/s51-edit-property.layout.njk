@@ -1,6 +1,8 @@
 {% extends "./applications.layout.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set serviceName = case.title if case.title else "S51 advice" %}
+
 {% block pageHeading %}{% endblock %}
 
 {% block beforeContent %}

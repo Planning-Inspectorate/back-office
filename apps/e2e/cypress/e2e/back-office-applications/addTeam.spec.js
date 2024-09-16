@@ -27,7 +27,7 @@ describe('Project team related scenarios ', () => {
 		applicationsHomePage.loadCurrentCase();
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
-		projectTeamPage.verifyPageTitle('Search for a team member - Project team');
+		projectTeamPage.verifyPageTitle(`Search for a team member - ${projectInfo.projectName}`);
 	});
 
 	it('As a user able to add team member and error when no role selected', () => {
@@ -39,7 +39,7 @@ describe('Project team related scenarios ', () => {
 		email = Cypress.env('CASE_ADMIN_EMAIL');
 		projectTeamPage.addTeamMember(email);
 		projectTeamPage.verifyCaseManagerRoleAdded();
-		projectTeamPage.verifyPageTitle(`${projectInfo.projectName} - Project team`);
+		projectTeamPage.verifyPageTitle(`Project team - ${projectInfo.projectName}`);
 	});
 
 	it('As a user able to verify team member is added', () => {
@@ -59,7 +59,9 @@ describe('Project team related scenarios ', () => {
 	});
 
 	it('As a user able to verify the error message without entering the search criteria', () => {
-		projectTeamPage.validateErrorMessageWithoutEnteringAnything();
-		projectTeamPage.verifyPageTitle('Search for a team member - Project team', { error: true });
+		projectTeamPage.validateErrorMessageWithoutEnteringAnything(projectInfo);
+		projectTeamPage.verifyPageTitle(`Search for a team member - ${projectInfo.projectName}`, {
+			error: true
+		});
 	});
 });

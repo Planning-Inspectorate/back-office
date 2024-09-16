@@ -4,7 +4,7 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% set serviceName = "Examination timetable" %}
+{% set serviceName = case.title %}
 
 {% block sectionMenu %}{% endblock %}
 
@@ -28,7 +28,7 @@
 					{{ pageTitle }}
 				</h1>
 				<p class="govuk-body">
-					Item name in English: 
+					Item name in English:
 				</p>
 
 				{{ govukInsetText({
@@ -40,7 +40,7 @@
 
 				{{ govukInput({
 					label: {
-						text: "Item name in Welsh",
+						text: pageTitle,
 						classes: "govuk-label--m"
 					},
 					id: "nameWelsh",

@@ -4,7 +4,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from '../components/inputs/date-input.component.njk' import dateInput %}
 
-{% set serviceName = "Key dates" %}
+{% set serviceName = case.title %}
 {% set pageTitle = sectionName | keyDatesProperty + " dates" %}
 
 {% block sectionMenu %}{% endblock %}

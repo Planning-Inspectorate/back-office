@@ -5,6 +5,9 @@
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 {% from './components/enquirer-string.njk' import enquirerString %}
 
+{% set serviceName = case.title if case.title else "S51 advice" %}
+{% set pageTitle = ("General " if isGeneralS51) + "S51 advice publishing queue" %}
+
 {% set isGeneralS51 = case.reference === gs51CaseReference %}
 {% set publishButtonText = 'Publish S51 advice' %}
 
@@ -29,8 +32,7 @@
 		<div class="govuk-grid-column-full">
 			{% block sectionContent %}
 				<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-8">
-					<span class="govuk-caption-m">
-						{% if isGeneralS51 %}General {% endif %}S51 advice publishing queue</span>
+					<span class="govuk-caption-m">{{ pageTitle }}</span>
                     Select items for publishing
                 </h1>
 				{% if not isGeneralS51 %}

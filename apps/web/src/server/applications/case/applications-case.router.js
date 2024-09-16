@@ -16,6 +16,7 @@ import * as validators from '../create-new-case/case/applications-create-case.va
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
 
+applicationsCaseRouter.use('/:caseId', locals.registerCase);
 applicationsCaseRouter.use('/:caseId/relevant-representations', relevantRepsRouter);
 applicationsCaseRouter.use('/:caseId/project-updates', projectUpdatesRouter);
 
@@ -31,17 +32,16 @@ applicationsCaseRouter.use('/:caseId/project-team', applicationsProjectTeamRoute
 
 applicationsCaseRouter
 	.route('/:caseId/preview-and-publish')
-	.get([locals.registerCase], asyncHandler(controller.viewApplicationsCasePublishPage))
-	.post([locals.registerCase], asyncHandler(controller.updateApplicationsCasePublishPage));
+	.get(asyncHandler(controller.viewApplicationsCasePublishPage))
+	.post(asyncHandler(controller.updateApplicationsCasePublishPage));
 
 applicationsCaseRouter
 	.route('/:caseId/unpublish')
-	.get(locals.registerCase, asyncHandler(controller.viewApplicationsCaseUnpublishPage))
-	.post([locals.registerCase], asyncHandler(controller.unpublishApplicationsCase));
+	.get(asyncHandler(controller.viewApplicationsCaseUnpublishPage))
+	.post(asyncHandler(controller.unpublishApplicationsCase));
 
 applicationsCaseRouter.use('/:caseId', applicationsCaseSummaryRouter);
 
-applicationsCaseSummaryRouter.use(locals.registerCase);
 applicationsCaseSummaryRouter
 	.route('/project-information')
 	.get(asyncHandler(controller.viewApplicationsCaseInformation));

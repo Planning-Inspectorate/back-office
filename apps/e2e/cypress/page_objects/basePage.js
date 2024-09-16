@@ -231,7 +231,9 @@ export class Page {
 	// A S S E R T I O N S
 
 	verifyPageTitle(title, options) {
-		const pageTitle = `${options?.error ? 'Error: ' : ''}Casework Back Office System - ${title}`;
+		const pageTitle = `${options?.error ? 'Error: ' : ''}${
+			title ? `${title} - ` : ''
+		}NSIP applications`;
 		cy.title().should('eq', pageTitle);
 	}
 

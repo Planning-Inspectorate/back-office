@@ -2,6 +2,8 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set pageTitle = 'Select the S51 advice status' %}
+
 {% block formContent %}
 	{% set statusItems = [
 		{
@@ -25,7 +27,7 @@
     id: 'publishedStatus',
 	fieldset: {
 	  legend: {
-		html: "Select the S51 advice status",
+		html: pageTitle,
 		isPageHeading: true,
 		classes: "govuk-fieldset__legend--l"
 	  }

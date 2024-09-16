@@ -1,13 +1,11 @@
 import { registerCase } from '@pins/applications.web/src/server/applications/case/applications-case.locals.js';
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '@pins/express';
-import { registerCaseId } from '../../create-new-case/applications-create.locals.js';
 import * as controller from './applications-timetable.controller.js';
 import * as validators from './applications-timetable.validators.js';
 
 const applicationsTimetableRouter = createRouter({ mergeParams: true });
 
-applicationsTimetableRouter.use(registerCaseId);
 applicationsTimetableRouter
 	.route('/')
 	.get(registerCase, asyncHandler(controller.viewApplicationsCaseTimetableList));

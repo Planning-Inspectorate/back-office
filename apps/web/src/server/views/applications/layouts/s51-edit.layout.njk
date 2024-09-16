@@ -1,5 +1,7 @@
 {% extends "./applications.layout.njk" %}
 
+{% set serviceName = case.title if case.title else "S51 advice" %}
+
 {% block beforeContent %}
 <aside>
 	{{ govukBackLink({

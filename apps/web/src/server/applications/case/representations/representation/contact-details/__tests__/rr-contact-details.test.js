@@ -8,7 +8,7 @@ const request = supertest(app);
 
 const mockCaseReference = { title: 'mock title', status: 'in test', reference: 'mock reference' };
 const nocks = () => {
-	nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
+	nock('http://test/').get('/applications/1').times(2).reply(200, mockCaseReference);
 };
 
 describe('Representation details page', () => {

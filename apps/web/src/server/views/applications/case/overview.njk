@@ -5,7 +5,7 @@
 {% from "./components/case-details-table.component.njk" import caseDetailsTable %}
 {% from "./components/case-applicant-table.component.njk" import caseApplicantTable %}
 
-{% set serviceName = 'Overview'%}
+{% set pageTitle = 'Overview'%}
 
 {% block pageSuccessBanner %}
 	{% if banner %}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block sectionContent %}
-	<h2 class="govuk-heading-m">{{serviceName}}</h2>
+	<h2 class="govuk-heading-m">{{pageTitle}}</h2>
 	<div class="govuk-!-margin-top-6">
 		<form method="post">
       {% if ('applic-55-welsh-translation' | isFeatureActive) %}

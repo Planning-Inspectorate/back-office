@@ -2,6 +2,8 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set pageTitle = 'Edit enquiry method' %}
+
 {% block formContent %}
 	{% set methodsItems = [
 		{
@@ -25,7 +27,7 @@
     id: 'enquiryMethod',
     fieldset: {
 	  legend: {
-        html: "Edit enquiry method",
+        html: pageTitle,
 	    isPageHeading: true,
 	    classes: "govuk-fieldset__legend--l"
 	  }

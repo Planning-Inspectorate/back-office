@@ -2,7 +2,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% set serviceName = 'Overview'%}
+{% set pageTitle = 'Overview'%}
 
 {% block sectionContent %}
 	{% set applicantFirstOrganisationName = case.applicant.organisationName %}
@@ -14,7 +14,7 @@
 		{% set applicantFirstWebsiteValue = '<a class="govuk-link" href="' + applicantFirstWebsite + '">' + applicantFirstWebsite + '</a>' %}
 	{% endif %}
 
-	<h2 class="govuk-heading-m">{{serviceName}}</h2>
+	<h2 class="govuk-heading-m">{{pageTitle}}</h2>
 
 	{% set publishedTag %}
 	{% if case.publishedDate %}

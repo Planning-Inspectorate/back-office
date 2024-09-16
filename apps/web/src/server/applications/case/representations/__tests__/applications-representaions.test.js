@@ -26,7 +26,7 @@ const mockCaseReference = {
 	}
 };
 const nocks = () => {
-	nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
+	nock('http://test/').get('/applications/1').times(2).reply(200, mockCaseReference);
 	nock('http://test/')
 		.get(`/applications/1/representations`)
 		.query({

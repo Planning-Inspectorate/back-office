@@ -1,11 +1,13 @@
 {% extends "../../../layouts/s51-edit-property.layout.njk" %}
 {% from "../../../components/textarea-form-component.njk" import textareaFormComponent %}
 
+{% set pageTitle = 'Advice given in Welsh' %}
+
 {% block formContent %}
 	{{ textareaFormComponent({
 		value: values.adviceDetailsWelsh,
 		name: 'adviceDetailsWelsh',
-		label: 'Advice given in Welsh',
+		label: pageTitle,
 		englishValue: values.adviceDetails,
 		englishLabel: 'Advice given in English',
 		errorMessage: errors.adviceDetailsWelsh

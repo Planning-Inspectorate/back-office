@@ -5,12 +5,12 @@
 {% from './components/enquirer-string.njk' import enquirerString %}
 
 {% set isGeneralS51 = case.reference === gs51CaseReference %}
-{% set serviceName = "S51 advice" %}
+{% set serviceName = case.title if case.title else "S51 advice" %}
 {% set pageTitle = "Delete selected S51 advice" %}
 {% set s51HeaderColumnText = "S51 title" %}
 
 {% if isGeneralS51 %}
-	{% set serviceName = "General S51 advice" %}
+{#	{% set serviceName = "General S51 advice" %}#}
 	{% set pageTitle = "Delete selected general S51 advice" %}
 	{% set s51HeaderColumnText = "General S51 title" %}
 {% endif %}
