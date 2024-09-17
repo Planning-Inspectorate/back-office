@@ -46,10 +46,19 @@ export const getRepresentationsForCase = async (log, caseReference) => {
 			...row,
 			representationId: parseInt(row.representationId),
 			caseId: parseInt(row.caseId),
-			originalRepresentation: row.originalRepresentation || '',
+			originalRepresentation: constructOriginalRepresentation(
+				row.originalRepresentation,
+				row.redactedRepresentation
+			),
 			attachmentIds: valueToArray(row.attachmentIds)
 		};
 	});
 
 	return { representationEntities, count };
+};
+
+const constructOriginalRepresentation = (originalRepresentation, redactedRepresentation) => {
+	if (originalRepresentation?.trim()) return originalRepresentation.trim();
+	if (redactedRepresentation?.trim()) return redactedRepresentation.trim();
+	return 'No data in original record';
 };
