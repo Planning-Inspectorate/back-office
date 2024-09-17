@@ -94,7 +94,7 @@ const mapModelToRepresentationEntity = async ({
 		originalRepresentation,
 		redactedRepresentation,
 		redacted,
-		received: dateReceived,
+		received: new Date(dateReceived),
 		type: representationType,
 		unpublishedUpdates: false,
 		representativeId: representativeId ? parseInt(representativeId) : null,
@@ -112,6 +112,6 @@ const mapRepresentationRedactionAction = ({
 	representationId,
 	type: 'REDACTION',
 	actionBy: redactedBy || '',
-	actionDate: dateReceived,
+	actionDate: new Date(dateReceived),
 	notes: redactedNotes
 });
