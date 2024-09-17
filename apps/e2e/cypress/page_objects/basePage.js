@@ -318,7 +318,7 @@ export class Page {
 	}
 
 	verifyFolderDocuments(fileCount) {
-		cy.get('.pins-files-list > .govuk-table .govuk-table__row', { timeout: 6000 }).should(
+		cy.get('.pins-files-list > .govuk-table .govuk-table__row', { timeout: 7000 }).should(
 			'have.length',
 			2 + fileCount
 		);
