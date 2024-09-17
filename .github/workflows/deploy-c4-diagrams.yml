@@ -1,0 +1,32 @@
+name: Deploy C4 Diagrams
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            - name: Create output directory
+              run: mkdir -p build/site
+            - name: Set permissions on output directory
+              run: chmod -R 777 build/site
+            - name: Pull Structurizr Site Generator Docker image
+              run: docker pull ghcr.io/avisi-cloud/structurizr-site-generatr
+            - name: Generate C4 Diagrams Site
+              run:  docker run --rm -v ./:/var/model ghcr.io/avisi-cloud/structurizr-site-generatr generate-site -w workspace.dsl
+            - name: Deploy to GitHub Pages
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  BRANCH: gh-pages
+                  FOLDER: build/site

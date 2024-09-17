@@ -30,7 +30,8 @@
 		"web:applications": "npm run dev --workspace=@pins/applications.web",
 		"api:applications": "npm run dev --workspace=@pins/applications.api",
 		"api:test:applications": "npm run start:test --workspace=@pins/applications.api-testing",
-		"e2e:smokeTests": "npm run cy:run --workspace=@pins/e2e -- --browser chrome  --spec cypress/e2e/back-office-applications/smokeTests.spec.js"
+		"e2e:smokeTests": "npm run cy:run --workspace=@pins/e2e -- --browser chrome  --spec cypress/e2e/back-office-applications/smokeTests.spec.js",
+		"c4": "docker pull structurizr/lite && docker run -it --rm -p 8082:8080 -v ${PWD}:/usr/local/structurizr structurizr/lite"
 	},
 	"dependencies": {
 		"@azure/app-configuration": "^1.6.0",
