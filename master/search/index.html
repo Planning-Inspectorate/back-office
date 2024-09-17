@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" data-theme="light" class="has-background-light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search results | Applications service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" rel="stylesheet">
+    <link href="../../style.css" rel="stylesheet">
+    <link href="./../style-branding.css" rel="stylesheet">
+    <script type="text/javascript" src="../../modal.js"></script>
+    <script type="text/javascript" src="../../svg-modal.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript" src="../../header.js"></script>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand has-site-branding"><a href="../" class="navbar-item"><span class="has-text-weight-semibold has-site-branding">Applications service</span></a></div>
+      <div class="navbar-menu has-site-branding">
+        <div class="navbar-end">
+          <div class="navbar-item"><input class="input is-small is-rounded has-site-branding" id="search" type="search" size="30" maxlength="50" placeholder="Search..." onkeyup="redirect(event, value, './')"></div>
+          <div class="navbar-item has-dropdown is-hoverable"><a class="navbar-link has-site-branding">master</a>
+            <div class="navbar-dropdown is-right"><a href="../../master/" class="navbar-item">master</a>
+              <hr class="navbar-divider">
+              <div class="navbar-item has-text-grey-light"><span>v</span><span>0.0.0</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="site-layout" id="site">
+      <aside class="menu p-3">
+        <p class="menu-label">General</p>
+        <ul class="menu-list has-site-branding">
+          <li><a href="../" class="">Home</a><a href="../software-systems/" class="">Software Systems</a></li>
+        </ul>
+        <p class="menu-label">Software systems</p>
+        <ul class="menu-list has-site-branding">
+          <li><a href="../applications-front-office/" class="">Applications Front-Office</a><a href="../cbos---casework-back-office-system/" class="">CBOS - Casework Back-Office System</a><a href="../gov-notify/" class="">GOV Notify</a><a href="../operational-data-warehouse-(odw)/" class="">Operational Data Warehouse (ODW)</a></li>
+        </ul>
+      </aside>
+      <div class="container is-fluid has-background-white">
+        <div class="content p-3">
+          <h2>Search results</h2>
+          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr-languages@1.14.0/min/lunr.stemmer.support.min.js"></script>
+          <script type="text/javascript">const documents = [{"href":"../","type":"Home","title":"NSIP Architecture","text":"NSIP Architecture This document describes the architecture of the NSIP (Nationally Significant Infrastructure Projects) software system including:"},{"href":"../cbos---casework-back-office-system/","type":"Software System Info","title":"CBOS - Casework Back-Office System | Info","text":"systemappscbos"},{"href":"../cbos---casework-back-office-system/context/","type":"Context views","title":"CBOS - Casework Back-Office System | Context views","text":"CBOS - Casework Back-Office System Internally facing service allowing for management of cases relating to Nationally Significant Infrastructure Projects (NSIPs) within England and Wales"},{"href":"../cbos---casework-back-office-system/container/","type":"Container views","title":"CBOS - Casework Back-Office System | Container views","text":"Background Jobs Function App Function App to receive commands from CBOS Function App, JavaScript CBOS File storage (application-service-uploads) - Azure Blob Storage Container that contains all documents and document versions in CBOS CBOS Web Back-office website used to manage cases Node.js, Azure Web App Command Handler Function App Function App to receive commands from Front Office Function App, JavaScript Database Source of truth for cases, built and maintained from model using Prisma Azure SQL, Prisma Front Office Submissions File storage (application-submission-documents) - Azure Blob Storage Container that contains documents submitted from Front Office, also accessible by CBOS Migration Function App Function App to process migrated case and document data from Horizon Function App, JavaScript, Azure SQL, Prisma, SynapseDB Published File storage (published-documents) - Azure Blob Storage Container that contains all Published documents, also accessible by Front Office Web CBOS API CBOS API to perform CRUD operations on NSIP cases, documents, S51 Advice, Relevant Representations, Exam Timetables etc, on the database, and broadcast events to the Azure Service Bus Node.js, Azure Web App"},{"href":"../cbos---casework-back-office-system/component/","type":"Component views","title":"CBOS - Casework Back-Office System | Component views","text":"Publish Document Publish a document to Front Office Function App, JavaScript Send Email to Subscribers Send an Email to Subscribers via Gov Notify Function App, JavaScript Unpublish Document Unpublish a document from Front Office Function App, JavaScript Updates document Malware Scan Status Updates Malware status of documents to CBOS Function App, JavaScript Force Test a Deadine Submission Process written submissions from the Front Office Function App, JavaScript Process Front Office Deadine Submissions Process written submissions from the Front Office Function App, JavaScript Process Front Office Subscriptions Process Email Subscription Updates from Front Office Function App, JavaScript Process Relevant Representations Process Relevant Representatios from Front Office Function App, JavaScript Migrate Case Migrate whole case and all component parts - Exam Timetable, Folders, Documents, S51 Advice, Relevant Representations, Project Updates and Service Users from Horizon JavaScript, SynapseDB Migrate Documents Migrate Documents from Horizon JavaScript, SynapseDB Migrate Exam Timetable Migrate exam timetable records from Horizon JavaScript, SynapseDB Migrate Folder Migrate Folders from Horizon JavaScript, SynapseDB Migrate General S51 Advice Migrate General S51 Advice from Horizon JavaScript, SynapseDB Migrate Project Migrate Case data only from Horizon JavaScript, SynapseDB Migrate Project Updates Migrate Project Updates from Horizon JavaScript, SynapseDB Migrate Relevant Representations Migrate Relevant Representations from Horizon JavaScript, SynapseDB Migrate S51 Advice on a case Migrate S51 Advice on a case from Horizon JavaScript, SynapseDB Migrate Service User Migrate Service Users from Horizon JavaScript, SynapseDB"},{"href":"../cbos---casework-back-office-system/dependencies/","type":"Dependencies","title":"CBOS - Casework Back-Office System | Dependencies","text":"GOV Notify Sends subscriber emails through HTTPS, JSON Operational Data Warehouse (ODW) Broadcasts Service Bus events to Applications Front-Office Reads published documents from"},{"href":"../applications-front-office/","type":"Software System Info","title":"Applications Front-Office | Info","text":"systemappsfo"},{"href":"../applications-front-office/context/","type":"Context views","title":"Applications Front-Office | Context views","text":"Applications Front-Office External facing service providing ability to participate in the application process for Nationally Significant Infrastructure Projects (NSIPs) within England and Wales"},{"href":"../applications-front-office/dependencies/","type":"Dependencies","title":"Applications Front-Office | Dependencies","text":"CBOS - Casework Back-Office System Reads published documents from Published File storage Reads published documents from"},{"href":"../operational-data-warehouse-(odw)/","type":"Software System Info","title":"Operational Data Warehouse (ODW) | Info","text":"systemodw"},{"href":"../operational-data-warehouse-(odw)/context/","type":"Context views","title":"Operational Data Warehouse (ODW) | Context views","text":"Operational Data Warehouse (ODW) Holds all Planning Inspectorate data so that it can be used for internal purposes"},{"href":"../operational-data-warehouse-(odw)/dependencies/","type":"Dependencies","title":"Operational Data Warehouse (ODW) | Dependencies","text":"CBOS - Casework Back-Office System Broadcasts Service Bus events to"},{"href":"../gov-notify/","type":"Software System Info","title":"GOV Notify | Info","text":"systemgovnotify"},{"href":"../gov-notify/context/","type":"Context views","title":"GOV Notify | Context views","text":"GOV Notify UK government messaging platform for sending emails, text and letters to users"},{"href":"../gov-notify/dependencies/","type":"Dependencies","title":"GOV Notify | Dependencies","text":"CBOS - Casework Back-Office System Sends subscriber emails through HTTPS, JSON"}];const idx = lunr(function () {
+                        this.ref('href')
+                        this.field('text')
+
+                        documents.forEach(function (doc) {
+                          this.add(doc)
+                        }, this)
+                      });
+                    </script>
+          <script type="text/javascript" src="../../search.js"></script>
+          <div id="search-results"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="../../reformat-mermaid.js"></script>
+    <script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.2.0/dist/mermaid.esm.min.mjs';</script>
+  </body>
+</html>

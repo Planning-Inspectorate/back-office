@@ -1,0 +1,1514 @@
+{
+  "configuration" : { },
+  "description" : "Description",
+  "documentation" : {
+    "sections" : [ {
+      "content" : "# NSIP Architecture\n\nThis document describes the architecture of the NSIP (Nationally Significant Infrastructure Projects) software system including:\n\n- Front-Office Applications\n- Back-Office Applications\n- Operational Data Warehouse\n- Horizon (Legacy System)\n",
+      "filename" : "index.md",
+      "format" : "Markdown",
+      "order" : 1,
+      "title" : ""
+    } ]
+  },
+  "id" : 0,
+  "model" : {
+    "people" : [ {
+      "description" : "Member of PINS staff who administers project information",
+      "group" : "Planning Inspectorate",
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "Case worker",
+      "properties" : {
+        "structurizr.dsl.identifier" : "usercaseworker"
+      },
+      "relationships" : [ {
+        "description" : "Manages cases through",
+        "destinationId" : "9",
+        "id" : "36",
+        "properties" : {
+          "structurizr.dsl.identifier" : "6ffc7ae6-fe32-4456-8b99-f66df2416bc5"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship",
+        "technology" : "HTTPS, HTML, Active Directory Auth"
+      }, {
+        "description" : "Manages cases through",
+        "destinationId" : "5",
+        "id" : "37",
+        "linkedRelationshipId" : "36",
+        "sourceId" : "1",
+        "technology" : "HTTPS, HTML, Active Directory Auth"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "Member of PINS staff who manages case workers",
+      "group" : "Planning Inspectorate",
+      "id" : "2",
+      "location" : "Unspecified",
+      "name" : "Case manager",
+      "properties" : {
+        "structurizr.dsl.identifier" : "usercasemanager"
+      },
+      "relationships" : [ {
+        "description" : "Manages cases through",
+        "destinationId" : "9",
+        "id" : "38",
+        "properties" : {
+          "structurizr.dsl.identifier" : "417bb831-1bad-4f3e-87a8-0dbe63977bb8"
+        },
+        "sourceId" : "2",
+        "tags" : "Relationship",
+        "technology" : "HTTPS, HTML, Active Directory Auth"
+      }, {
+        "description" : "Manages cases through",
+        "destinationId" : "5",
+        "id" : "39",
+        "linkedRelationshipId" : "38",
+        "sourceId" : "2",
+        "technology" : "HTTPS, HTML, Active Directory Auth"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "Member of PINS Inspector staff who decides cases",
+      "group" : "Planning Inspectorate",
+      "id" : "3",
+      "location" : "Unspecified",
+      "name" : "Inspector",
+      "properties" : {
+        "structurizr.dsl.identifier" : "userinspector"
+      },
+      "relationships" : [ {
+        "description" : "Manages cases through",
+        "destinationId" : "9",
+        "id" : "40",
+        "properties" : {
+          "structurizr.dsl.identifier" : "56af43d0-4fcc-4700-9ad4-829fff76f957"
+        },
+        "sourceId" : "3",
+        "tags" : "Relationship",
+        "technology" : "HTTPS, HTML, Active Directory Auth"
+      }, {
+        "description" : "Manages cases through",
+        "destinationId" : "5",
+        "id" : "41",
+        "linkedRelationshipId" : "40",
+        "sourceId" : "3",
+        "technology" : "HTTPS, HTML, Active Directory Auth"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "Member of PINS staff who can trigger a case migration",
+      "group" : "Planning Inspectorate",
+      "id" : "4",
+      "location" : "Unspecified",
+      "name" : "Migration Admin",
+      "properties" : {
+        "structurizr.dsl.identifier" : "usermigrationadmin"
+      },
+      "relationships" : [ {
+        "description" : "Triggers a migration",
+        "destinationId" : "24",
+        "id" : "73",
+        "properties" : {
+          "structurizr.dsl.identifier" : "59db3eaa-cfe2-487c-b0ac-ff9514e9a3e0"
+        },
+        "sourceId" : "4",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Triggers a migration",
+        "destinationId" : "22",
+        "id" : "74",
+        "linkedRelationshipId" : "73",
+        "sourceId" : "4"
+      }, {
+        "description" : "Triggers a migration",
+        "destinationId" : "5",
+        "id" : "75",
+        "linkedRelationshipId" : "73",
+        "sourceId" : "4"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "properties" : {
+      "structurizr.groupSeparator" : "/"
+    },
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "description" : "(application-service-uploads) - Azure Blob Storage Container that contains all documents and document versions in CBOS",
+        "documentation" : { },
+        "group" : "Applications Service Storage Account",
+        "id" : "6",
+        "name" : "CBOS File storage",
+        "properties" : {
+          "structurizr.dsl.identifier" : "containercbosfilestorage"
+        },
+        "relationships" : [ {
+          "description" : "MS Defender sends result of document malware scan",
+          "destinationId" : "21",
+          "id" : "70",
+          "properties" : {
+            "structurizr.dsl.identifier" : "0582e757-35c4-40e6-a466-b1ec8a327df5"
+          },
+          "sourceId" : "6",
+          "tags" : "Relationship",
+          "technology" : "HTTPS, EventGrid"
+        }, {
+          "description" : "MS Defender sends result of document malware scan",
+          "destinationId" : "17",
+          "id" : "71",
+          "linkedRelationshipId" : "70",
+          "sourceId" : "6",
+          "technology" : "HTTPS, EventGrid"
+        } ],
+        "tags" : "Element,Container,Microsoft Azure - Blob Block"
+      }, {
+        "description" : "(published-documents) - Azure Blob Storage Container that contains all Published documents, also accessible by Front Office",
+        "documentation" : { },
+        "group" : "Applications Service Storage Account",
+        "id" : "7",
+        "name" : "Published File storage",
+        "properties" : {
+          "structurizr.dsl.identifier" : "containercbosfilestoragepublished"
+        },
+        "tags" : "Element,Container,Microsoft Azure - Blob Block"
+      }, {
+        "description" : "(application-submission-documents) - Azure Blob Storage Container that contains documents submitted from Front Office, also accessible by CBOS",
+        "documentation" : { },
+        "group" : "Applications Service Storage Account",
+        "id" : "8",
+        "name" : "Front Office Submissions File storage",
+        "properties" : {
+          "structurizr.dsl.identifier" : "containersharedfilesubmissionsstorage"
+        },
+        "tags" : "Element,Container,Microsoft Azure - Blob Block"
+      }, {
+        "description" : "Back-office website used to manage cases",
+        "documentation" : { },
+        "id" : "9",
+        "name" : "CBOS Web",
+        "properties" : {
+          "structurizr.dsl.identifier" : "containercbosweb"
+        },
+        "relationships" : [ {
+          "description" : "Renders page, gets and posts data using",
+          "destinationId" : "10",
+          "id" : "42",
+          "properties" : {
+            "structurizr.dsl.identifier" : "9c583db5-0684-41b1-8b2b-78029a0664ac"
+          },
+          "sourceId" : "9",
+          "tags" : "Relationship",
+          "technology" : "HTTPS, JSON"
+        } ],
+        "tags" : "Element,Container,Microsoft Azure - App Services",
+        "technology" : "Node.js, Azure Web App"
+      }, {
+        "description" : "CBOS API to perform CRUD operations on NSIP cases, documents, S51 Advice, Relevant Representations, Exam Timetables etc, on the database, and broadcast events to the Azure Service Bus",
+        "documentation" : { },
+        "id" : "10",
+        "name" : "Web CBOS API",
+        "properties" : {
+          "structurizr.dsl.identifier" : "containercbosapi"
+        },
+        "relationships" : [ {
+          "description" : "Reads and writes case data to",
+          "destinationId" : "11",
+          "id" : "43",
+          "properties" : {
+            "structurizr.dsl.identifier" : "dd1ecc69-5c8a-44d1-ba51-f6037b8d6a8a"
+          },
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Reads and writes applications documents to",
+          "destinationId" : "6",
+          "id" : "44",
+          "properties" : {
+            "structurizr.dsl.identifier" : "7c7f0e6a-26a9-4ab4-a06d-e4ce0b1a6f03"
+          },
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Writes published applications documents to",
+          "destinationId" : "7",
+          "id" : "45",
+          "properties" : {
+            "structurizr.dsl.identifier" : "36b02f52-7c2f-4dd4-bfa9-b021358a88dd"
+          },
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Broadcasts Service Bus events to",
+          "destinationId" : "34",
+          "id" : "46",
+          "properties" : {
+            "structurizr.dsl.identifier" : "9d176c5e-f40b-4d9b-b28f-8b8ad4816c42"
+          },
+          "sourceId" : "10",
+          "tags" : "Relationship,ServiceBus"
+        } ],
+        "tags" : "Element,Container,Microsoft Azure - App Services",
+        "technology" : "Node.js, Azure Web App"
+      }, {
+        "description" : "Source of truth for cases, built and maintained from model using Prisma",
+        "documentation" : { },
+        "id" : "11",
+        "name" : "Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "containercbosazuresql"
+        },
+        "tags" : "Element,Container,Database,Microsoft Azure - Azure SQL",
+        "technology" : "Azure SQL, Prisma"
+      }, {
+        "components" : [ {
+          "description" : "Process written submissions from the Front Office",
+          "documentation" : { },
+          "id" : "13",
+          "name" : "Process Front Office Deadine Submissions",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctiondeadlinesubmissions"
+          },
+          "relationships" : [ {
+            "description" : "Creates document records",
+            "destinationId" : "10",
+            "id" : "48",
+            "properties" : {
+              "structurizr.dsl.identifier" : "ea298657-8fc7-4b44-b529-9985e7a9cca5"
+            },
+            "sourceId" : "13",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Reads documents submitted via Front Office",
+            "destinationId" : "8",
+            "id" : "50",
+            "properties" : {
+              "structurizr.dsl.identifier" : "c56c01ca-15da-427b-89e3-541a8dd41875"
+            },
+            "sourceId" : "13",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes documents submitted via Front Office into CBOS",
+            "destinationId" : "6",
+            "id" : "52",
+            "properties" : {
+              "structurizr.dsl.identifier" : "d74ca736-6772-4316-ab82-7bdac7ff6c19"
+            },
+            "sourceId" : "13",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Function App, JavaScript"
+        }, {
+          "description" : "Process written submissions from the Front Office",
+          "documentation" : { },
+          "id" : "14",
+          "name" : "Force Test a Deadine Submission",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctiontestdeadlinesubmissions"
+          },
+          "relationships" : [ {
+            "description" : "Write a test document",
+            "destinationId" : "8",
+            "id" : "56",
+            "properties" : {
+              "structurizr.dsl.identifier" : "f5eacf6e-ca09-4e24-a442-aa36146e139d"
+            },
+            "sourceId" : "14",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Broadcast a test Deadline Submission message",
+            "destinationId" : "13",
+            "id" : "57",
+            "properties" : {
+              "structurizr.dsl.identifier" : "c12ad4d3-422b-4521-bc8d-0fdbf35b9350"
+            },
+            "sourceId" : "14",
+            "tags" : "Relationship,ServiceBus",
+            "technology" : "Azure Service Bus Topic deadline-submission-topic"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Function App, JavaScript"
+        }, {
+          "description" : "Process Email Subscription Updates from Front Office",
+          "documentation" : { },
+          "id" : "15",
+          "name" : "Process Front Office Subscriptions",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionhandlesubscription"
+          },
+          "relationships" : [ {
+            "description" : "Creates and updates email subscription records",
+            "destinationId" : "10",
+            "id" : "54",
+            "properties" : {
+              "structurizr.dsl.identifier" : "d75844d9-cda5-4628-9335-85beacb93644"
+            },
+            "sourceId" : "15",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Function App, JavaScript"
+        }, {
+          "description" : "Process Relevant Representatios from Front Office",
+          "documentation" : { },
+          "id" : "16",
+          "name" : "Process Relevant Representations",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionregisterrepresentation"
+          },
+          "relationships" : [ {
+            "description" : "Creates relevant representation records",
+            "destinationId" : "10",
+            "id" : "55",
+            "properties" : {
+              "structurizr.dsl.identifier" : "23f0352a-de2c-432b-9090-6dec6573f499"
+            },
+            "sourceId" : "16",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Function App, JavaScript"
+        } ],
+        "description" : "Function App to receive commands from Front Office",
+        "documentation" : { },
+        "id" : "12",
+        "name" : "Command Handler Function App",
+        "properties" : {
+          "structurizr.dsl.identifier" : "containercommandhandlerfunctionapp"
+        },
+        "relationships" : [ {
+          "description" : "Creates document records",
+          "destinationId" : "10",
+          "id" : "49",
+          "linkedRelationshipId" : "48",
+          "sourceId" : "12"
+        }, {
+          "description" : "Reads documents submitted via Front Office",
+          "destinationId" : "8",
+          "id" : "51",
+          "linkedRelationshipId" : "50",
+          "sourceId" : "12"
+        }, {
+          "description" : "Writes documents submitted via Front Office into CBOS",
+          "destinationId" : "6",
+          "id" : "53",
+          "linkedRelationshipId" : "52",
+          "sourceId" : "12"
+        } ],
+        "tags" : "Element,Container,Microsoft Azure - Function Apps,FunctionApp",
+        "technology" : "Function App, JavaScript"
+      }, {
+        "components" : [ {
+          "description" : "Publish a document to Front Office",
+          "documentation" : { },
+          "id" : "18",
+          "name" : "Publish Document",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionpublishdoc"
+          },
+          "relationships" : [ {
+            "description" : "Reads and updates applications documents records",
+            "destinationId" : "10",
+            "id" : "63",
+            "properties" : {
+              "structurizr.dsl.identifier" : "1e12b21c-2aff-4584-8b0a-95dce498d399"
+            },
+            "sourceId" : "18",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Reads applications documents from CBOS",
+            "destinationId" : "6",
+            "id" : "64",
+            "properties" : {
+              "structurizr.dsl.identifier" : "b66cb4b0-e723-4d7c-a7db-5ae167f149e0"
+            },
+            "sourceId" : "18",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Copies published applications documents to",
+            "destinationId" : "7",
+            "id" : "66",
+            "properties" : {
+              "structurizr.dsl.identifier" : "04c7a427-23f3-4906-b49f-9c887185a4c2"
+            },
+            "sourceId" : "18",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Function App, JavaScript"
+        }, {
+          "description" : "Unpublish a document from Front Office",
+          "documentation" : { },
+          "id" : "19",
+          "name" : "Unpublish Document",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionunpublishdoc"
+          },
+          "relationships" : [ {
+            "description" : "Reads and updates applications documents records",
+            "destinationId" : "10",
+            "id" : "68",
+            "properties" : {
+              "structurizr.dsl.identifier" : "01635da5-442b-4b6f-a537-0879e873f639"
+            },
+            "sourceId" : "19",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Deletes published applications documents from",
+            "destinationId" : "7",
+            "id" : "69",
+            "properties" : {
+              "structurizr.dsl.identifier" : "3eda9602-8c71-49d5-a08e-3a9928422e84"
+            },
+            "sourceId" : "19",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Function App, JavaScript"
+        }, {
+          "description" : "Send an Email to Subscribers via Gov Notify",
+          "documentation" : { },
+          "id" : "20",
+          "name" : "Send Email to Subscribers",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionnotifysubscribers"
+          },
+          "relationships" : [ {
+            "description" : "Sends subscriber emails through",
+            "destinationId" : "35",
+            "id" : "58",
+            "properties" : {
+              "structurizr.dsl.identifier" : "77bbfea5-b29e-44c6-bde8-6fa64c63df1b"
+            },
+            "sourceId" : "20",
+            "tags" : "Relationship",
+            "technology" : "HTTPS, JSON"
+          }, {
+            "description" : "Reads and updates subscription and project records",
+            "destinationId" : "10",
+            "id" : "61",
+            "properties" : {
+              "structurizr.dsl.identifier" : "9c6cd61b-ecd8-47e2-a8da-de2fac6d3b9a"
+            },
+            "sourceId" : "20",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Function App, JavaScript"
+        }, {
+          "description" : "Updates Malware status of documents to CBOS",
+          "documentation" : { },
+          "id" : "21",
+          "name" : "Updates document Malware Scan Status",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmalwaredetected"
+          },
+          "relationships" : [ {
+            "description" : "Updates applications documents records malware check status",
+            "destinationId" : "10",
+            "id" : "72",
+            "properties" : {
+              "structurizr.dsl.identifier" : "1c045476-621e-46a8-bfb3-2e7d1d23b1df"
+            },
+            "sourceId" : "21",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Function App, JavaScript"
+        } ],
+        "description" : "Function App to receive commands from CBOS",
+        "documentation" : { },
+        "id" : "17",
+        "name" : "Background Jobs Function App",
+        "properties" : {
+          "structurizr.dsl.identifier" : "containerbackgroundjobsfunctionapp"
+        },
+        "relationships" : [ {
+          "description" : "Sends subscriber emails through",
+          "destinationId" : "35",
+          "id" : "59",
+          "linkedRelationshipId" : "58",
+          "sourceId" : "17",
+          "technology" : "HTTPS, JSON"
+        }, {
+          "description" : "Reads and updates subscription and project records",
+          "destinationId" : "10",
+          "id" : "62",
+          "linkedRelationshipId" : "61",
+          "sourceId" : "17"
+        }, {
+          "description" : "Reads applications documents from CBOS",
+          "destinationId" : "6",
+          "id" : "65",
+          "linkedRelationshipId" : "64",
+          "sourceId" : "17"
+        }, {
+          "description" : "Copies published applications documents to",
+          "destinationId" : "7",
+          "id" : "67",
+          "linkedRelationshipId" : "66",
+          "sourceId" : "17"
+        } ],
+        "tags" : "Element,Container,Microsoft Azure - Function Apps,FunctionApp",
+        "technology" : "Function App, JavaScript"
+      }, {
+        "components" : [ {
+          "description" : "Migrate General S51 Advice from Horizon",
+          "documentation" : { },
+          "id" : "23",
+          "name" : "Migrate General S51 Advice",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigrates51advicegeneral"
+          },
+          "relationships" : [ {
+            "description" : "Reads records from curated layer",
+            "destinationId" : "34",
+            "id" : "102",
+            "properties" : {
+              "structurizr.dsl.identifier" : "820284ba-d1fa-4d78-a64a-7ee930133828"
+            },
+            "sourceId" : "23",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes records",
+            "destinationId" : "10",
+            "id" : "103",
+            "properties" : {
+              "structurizr.dsl.identifier" : "3b9a1271-53fb-4df1-ab7a-23b6aec65489"
+            },
+            "sourceId" : "23",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        }, {
+          "description" : "Migrate whole case and all component parts - Exam Timetable, Folders, Documents, S51 Advice, Relevant Representations, Project Updates and Service Users from Horizon",
+          "documentation" : { },
+          "id" : "24",
+          "name" : "Migrate Case",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigratecase"
+          },
+          "relationships" : [ {
+            "description" : "Migrates case data",
+            "destinationId" : "25",
+            "id" : "76",
+            "properties" : {
+              "structurizr.dsl.identifier" : "4c3db834-4d47-4b9a-bafa-5df794c00f95"
+            },
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Migrates Exam Timetable",
+            "destinationId" : "26",
+            "id" : "77",
+            "properties" : {
+              "structurizr.dsl.identifier" : "2155ec87-c2db-47cd-bba5-b9d902784fac"
+            },
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Migrates Folders",
+            "destinationId" : "27",
+            "id" : "78",
+            "properties" : {
+              "structurizr.dsl.identifier" : "e6a1b0b3-a8a2-4c56-950f-5c90364be4da"
+            },
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Migrates Project Updates",
+            "destinationId" : "28",
+            "id" : "79",
+            "properties" : {
+              "structurizr.dsl.identifier" : "e4645e8a-c72a-4b95-a78c-e848274b3cd3"
+            },
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Migrates Service Users",
+            "destinationId" : "29",
+            "id" : "80",
+            "properties" : {
+              "structurizr.dsl.identifier" : "0c46e6dc-540d-44d8-ae7d-bcaeeb44e7e8"
+            },
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Migrates S51 Advice",
+            "destinationId" : "30",
+            "id" : "81",
+            "properties" : {
+              "structurizr.dsl.identifier" : "63e747e9-9828-4907-82d0-e34a6624fbca"
+            },
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Migrates Documents and Versions",
+            "destinationId" : "31",
+            "id" : "82",
+            "properties" : {
+              "structurizr.dsl.identifier" : "a552676c-421d-46d3-9a8f-028054b8db0f"
+            },
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Migrates Relevant Representations",
+            "destinationId" : "32",
+            "id" : "83",
+            "properties" : {
+              "structurizr.dsl.identifier" : "1d9d9b19-223f-4915-b3c5-1847cf534193"
+            },
+            "sourceId" : "24",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        }, {
+          "description" : "Migrate Case data only from Horizon",
+          "documentation" : { },
+          "group" : "Case Components",
+          "id" : "25",
+          "name" : "Migrate Project",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigrateprojectonly"
+          },
+          "relationships" : [ {
+            "description" : "Reads records from curated layer",
+            "destinationId" : "34",
+            "id" : "84",
+            "properties" : {
+              "structurizr.dsl.identifier" : "6a803830-5e08-4e42-800c-fc20fb6ceee0"
+            },
+            "sourceId" : "25",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes records",
+            "destinationId" : "10",
+            "id" : "86",
+            "properties" : {
+              "structurizr.dsl.identifier" : "ecee0301-792d-4482-9b09-a1bc0feb4043"
+            },
+            "sourceId" : "25",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        }, {
+          "description" : "Migrate exam timetable records from Horizon",
+          "documentation" : { },
+          "group" : "Case Components",
+          "id" : "26",
+          "name" : "Migrate Exam Timetable",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigrateexamtimetable"
+          },
+          "relationships" : [ {
+            "description" : "Reads records from curated layer",
+            "destinationId" : "34",
+            "id" : "88",
+            "properties" : {
+              "structurizr.dsl.identifier" : "d7e1e770-0d6b-47a0-9981-dc3be9a0397f"
+            },
+            "sourceId" : "26",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes records",
+            "destinationId" : "10",
+            "id" : "89",
+            "properties" : {
+              "structurizr.dsl.identifier" : "cf647352-de2f-4cae-8bc8-e04a6ea8200c"
+            },
+            "sourceId" : "26",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        }, {
+          "description" : "Migrate Folders from Horizon",
+          "documentation" : { },
+          "group" : "Case Components",
+          "id" : "27",
+          "name" : "Migrate Folder",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigratefolder"
+          },
+          "relationships" : [ {
+            "description" : "Reads records from curated layer",
+            "destinationId" : "34",
+            "id" : "90",
+            "properties" : {
+              "structurizr.dsl.identifier" : "535ef6ac-8248-42af-8486-60b3c5da0755"
+            },
+            "sourceId" : "27",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes records",
+            "destinationId" : "10",
+            "id" : "91",
+            "properties" : {
+              "structurizr.dsl.identifier" : "c78b7cbd-75a0-4285-9d60-50495891dc18"
+            },
+            "sourceId" : "27",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        }, {
+          "description" : "Migrate Project Updates from Horizon",
+          "documentation" : { },
+          "group" : "Case Components",
+          "id" : "28",
+          "name" : "Migrate Project Updates",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigrateprojectupdate"
+          },
+          "relationships" : [ {
+            "description" : "Reads records from curated layer",
+            "destinationId" : "34",
+            "id" : "92",
+            "properties" : {
+              "structurizr.dsl.identifier" : "13d59125-c249-47fd-b31a-c36334fdc284"
+            },
+            "sourceId" : "28",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes records",
+            "destinationId" : "10",
+            "id" : "93",
+            "properties" : {
+              "structurizr.dsl.identifier" : "6f3a51bb-2214-4daf-9fc2-787553e8fc2e"
+            },
+            "sourceId" : "28",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        }, {
+          "description" : "Migrate Service Users from Horizon",
+          "documentation" : { },
+          "group" : "Case Components",
+          "id" : "29",
+          "name" : "Migrate Service User",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigrateserviceuser"
+          },
+          "relationships" : [ {
+            "description" : "Reads records from curated layer",
+            "destinationId" : "34",
+            "id" : "94",
+            "properties" : {
+              "structurizr.dsl.identifier" : "b71cc7c8-53fd-40e8-a7c6-9a555be60e6a"
+            },
+            "sourceId" : "29",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes records",
+            "destinationId" : "10",
+            "id" : "95",
+            "properties" : {
+              "structurizr.dsl.identifier" : "f8ff9c53-403c-4a4b-bda2-a889af859ac6"
+            },
+            "sourceId" : "29",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        }, {
+          "description" : "Migrate S51 Advice on a case from Horizon",
+          "documentation" : { },
+          "group" : "Case Components",
+          "id" : "30",
+          "name" : "Migrate S51 Advice on a case",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigrates51advicecase"
+          },
+          "relationships" : [ {
+            "description" : "Reads records from curated layer",
+            "destinationId" : "34",
+            "id" : "96",
+            "properties" : {
+              "structurizr.dsl.identifier" : "52b71300-5ad9-4281-b98b-ce7775a96af8"
+            },
+            "sourceId" : "30",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes records",
+            "destinationId" : "10",
+            "id" : "97",
+            "properties" : {
+              "structurizr.dsl.identifier" : "41c48143-e95d-40b2-b181-8bbdde130125"
+            },
+            "sourceId" : "30",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        }, {
+          "description" : "Migrate Documents from Horizon",
+          "documentation" : { },
+          "group" : "Case Components",
+          "id" : "31",
+          "name" : "Migrate Documents",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigratedocument"
+          },
+          "relationships" : [ {
+            "description" : "Reads records from curated layer",
+            "destinationId" : "34",
+            "id" : "98",
+            "properties" : {
+              "structurizr.dsl.identifier" : "0e5c83b4-2dd4-48bf-991c-647e3f3fbd8e"
+            },
+            "sourceId" : "31",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes records",
+            "destinationId" : "10",
+            "id" : "99",
+            "properties" : {
+              "structurizr.dsl.identifier" : "1609ba7a-4767-49c6-b1a1-700c7ef106a5"
+            },
+            "sourceId" : "31",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        }, {
+          "description" : "Migrate Relevant Representations from Horizon",
+          "documentation" : { },
+          "group" : "Case Components",
+          "id" : "32",
+          "name" : "Migrate Relevant Representations",
+          "properties" : {
+            "structurizr.dsl.identifier" : "componentfunctionmigraterepresentation"
+          },
+          "relationships" : [ {
+            "description" : "Reads records from curated layer",
+            "destinationId" : "34",
+            "id" : "100",
+            "properties" : {
+              "structurizr.dsl.identifier" : "e9391b69-29b7-419c-9f5e-aeab79161986"
+            },
+            "sourceId" : "32",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Writes records",
+            "destinationId" : "10",
+            "id" : "101",
+            "properties" : {
+              "structurizr.dsl.identifier" : "a0711db8-6844-4f06-82e3-78150d9a969f"
+            },
+            "sourceId" : "32",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "JavaScript, SynapseDB"
+        } ],
+        "description" : "Function App to process migrated case and document data from Horizon",
+        "documentation" : { },
+        "id" : "22",
+        "name" : "Migration Function App",
+        "properties" : {
+          "structurizr.dsl.identifier" : "containermigrationfunctionapp"
+        },
+        "relationships" : [ {
+          "description" : "Reads records from curated layer",
+          "destinationId" : "34",
+          "id" : "85",
+          "linkedRelationshipId" : "84",
+          "sourceId" : "22"
+        }, {
+          "description" : "Writes records",
+          "destinationId" : "10",
+          "id" : "87",
+          "linkedRelationshipId" : "86",
+          "sourceId" : "22"
+        } ],
+        "tags" : "Element,Container,Microsoft Azure - Function Apps,FunctionApp",
+        "technology" : "Function App, JavaScript, Azure SQL, Prisma, SynapseDB"
+      } ],
+      "description" : "Internally facing service allowing for management of cases relating to Nationally Significant Infrastructure Projects (NSIPs) within England and Wales",
+      "documentation" : { },
+      "group" : "Planning Inspectorate",
+      "id" : "5",
+      "location" : "Unspecified",
+      "name" : "CBOS - Casework Back-Office System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "systemappscbos"
+      },
+      "relationships" : [ {
+        "description" : "Broadcasts Service Bus events to",
+        "destinationId" : "34",
+        "id" : "47",
+        "linkedRelationshipId" : "46",
+        "sourceId" : "5"
+      }, {
+        "description" : "Sends subscriber emails through",
+        "destinationId" : "35",
+        "id" : "60",
+        "linkedRelationshipId" : "58",
+        "sourceId" : "5",
+        "technology" : "HTTPS, JSON"
+      } ],
+      "tags" : "Element,Software System"
+    }, {
+      "description" : "External facing service providing ability to participate in the application process for Nationally Significant Infrastructure Projects (NSIPs) within England and Wales",
+      "documentation" : { },
+      "group" : "Planning Inspectorate",
+      "id" : "33",
+      "location" : "Unspecified",
+      "name" : "Applications Front-Office",
+      "properties" : {
+        "structurizr.dsl.identifier" : "systemappsfo"
+      },
+      "relationships" : [ {
+        "description" : "Reads published documents from",
+        "destinationId" : "7",
+        "id" : "104",
+        "properties" : {
+          "structurizr.dsl.identifier" : "02ec103c-7860-4dec-9fa2-e5d1349678ee"
+        },
+        "sourceId" : "33",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Reads published documents from",
+        "destinationId" : "5",
+        "id" : "105",
+        "linkedRelationshipId" : "104",
+        "sourceId" : "33"
+      } ],
+      "tags" : "Element,Software System,Node.js,Azure Web App,Azure Function App,InternalCollaboratorSystem"
+    }, {
+      "description" : "Holds all Planning Inspectorate data so that it can be used for internal purposes",
+      "documentation" : { },
+      "group" : "Planning Inspectorate",
+      "id" : "34",
+      "location" : "Unspecified",
+      "name" : "Operational Data Warehouse (ODW)",
+      "properties" : {
+        "structurizr.dsl.identifier" : "systemodw"
+      },
+      "tags" : "Element,Software System,Microsoft Azure - Azure Synapse Analytics,InternalCollaboratorSystem"
+    }, {
+      "description" : "UK government messaging platform for sending emails, text and letters to users",
+      "documentation" : { },
+      "id" : "35",
+      "location" : "Unspecified",
+      "name" : "GOV Notify",
+      "properties" : {
+        "structurizr.dsl.identifier" : "systemgovnotify"
+      },
+      "tags" : "Element,Software System,=,ExternalSystem"
+    } ]
+  },
+  "name" : "Applications service",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlICJBcHBsaWNhdGlvbnMgc2VydmljZSIgewoKCSFkb2NzIGFyY2hpdGVjdHVyZQoKCW1vZGVsIHsKCQkjIFJlcXVpcmVkIGZvciBuZXN0ZWQgZ3JvdXBzIC0gaHR0cHM6Ly9kb2NzLnN0cnVjdHVyaXpyLmNvbS9kc2wvY29va2Jvb2svZ3JvdXBzLwoJCXByb3BlcnRpZXMgewoJCQkJInN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIiAiLyIKCQl9CgoJCWdyb3VwICJQbGFubmluZyBJbnNwZWN0b3JhdGUiewoJCQl1c2VyQ2FzZVdvcmtlciA9IHBlcnNvbiAiQ2FzZSB3b3JrZXIiICJNZW1iZXIgb2YgUElOUyBzdGFmZiB3aG8gYWRtaW5pc3RlcnMgcHJvamVjdCBpbmZvcm1hdGlvbiIKCQkJdXNlckNhc2VNYW5hZ2VyID0gcGVyc29uICJDYXNlIG1hbmFnZXIiICJNZW1iZXIgb2YgUElOUyBzdGFmZiB3aG8gbWFuYWdlcyBjYXNlIHdvcmtlcnMiCgkJCXVzZXJJbnNwZWN0b3IgPSBwZXJzb24gIkluc3BlY3RvciIgIk1lbWJlciBvZiBQSU5TIEluc3BlY3RvciBzdGFmZiB3aG8gZGVjaWRlcyBjYXNlcyIKCQkJdXNlck1pZ3JhdGlvbkFkbWluID0gcGVyc29uICJNaWdyYXRpb24gQWRtaW4iICJNZW1iZXIgb2YgUElOUyBzdGFmZiB3aG8gY2FuIHRyaWdnZXIgYSBjYXNlIG1pZ3JhdGlvbiIKCgkJCXN5c3RlbUFwcHNDYm9zID0gc29mdHdhcmVTeXN0ZW0gIkNCT1MgLSBDYXNld29yayBCYWNrLU9mZmljZSBTeXN0ZW0iICJJbnRlcm5hbGx5IGZhY2luZyBzZXJ2aWNlIGFsbG93aW5nIGZvciBtYW5hZ2VtZW50IG9mIGNhc2VzIHJlbGF0aW5nIHRvIE5hdGlvbmFsbHkgU2lnbmlmaWNhbnQgSW5mcmFzdHJ1Y3R1cmUgUHJvamVjdHMgKE5TSVBzKSB3aXRoaW4gRW5nbGFuZCBhbmQgV2FsZXMiICB7CgoJCQkJZ3JvdXAgIkFwcGxpY2F0aW9ucyBTZXJ2aWNlIFN0b3JhZ2UgQWNjb3VudCIgewoJCQkJCWNvbnRhaW5lckNib3NGaWxlU3RvcmFnZSA9IGNvbnRhaW5lciAiQ0JPUyBGaWxlIHN0b3JhZ2UiICIoYXBwbGljYXRpb24tc2VydmljZS11cGxvYWRzKSAtIEF6dXJlIEJsb2IgU3RvcmFnZSBDb250YWluZXIgdGhhdCBjb250YWlucyBhbGwgZG9jdW1lbnRzIGFuZCBkb2N1bWVudCB2ZXJzaW9ucyBpbiBDQk9TIiB7CgkJCQkJCXRhZ3MgIk1pY3Jvc29mdCBBenVyZSAtIEJsb2IgQmxvY2siCgkJCQkJfQoJCQkJCWNvbnRhaW5lckNib3NGaWxlU3RvcmFnZVB1Ymxpc2hlZCA9IGNvbnRhaW5lciAiUHVibGlzaGVkIEZpbGUgc3RvcmFnZSIgIihwdWJsaXNoZWQtZG9jdW1lbnRzKSAtIEF6dXJlIEJsb2IgU3RvcmFnZSBDb250YWluZXIgdGhhdCBjb250YWlucyBhbGwgUHVibGlzaGVkIGRvY3VtZW50cywgYWxzbyBhY2Nlc3NpYmxlIGJ5IEZyb250IE9mZmljZSJ7CgkJCQkJCXRhZ3MgIk1pY3Jvc29mdCBBenVyZSAtIEJsb2IgQmxvY2siCgkJCQkJfQoJCQkJCWNvbnRhaW5lclNoYXJlZEZpbGVTdWJtaXNzaW9uc1N0b3JhZ2UgPSBjb250YWluZXIgIkZyb250IE9mZmljZSBTdWJtaXNzaW9ucyBGaWxlIHN0b3JhZ2UiICIoYXBwbGljYXRpb24tc3VibWlzc2lvbi1kb2N1bWVudHMpIC0gQXp1cmUgQmxvYiBTdG9yYWdlIENvbnRhaW5lciB0aGF0IGNvbnRhaW5zIGRvY3VtZW50cyBzdWJtaXR0ZWQgZnJvbSBGcm9udCBPZmZpY2UsIGFsc28gYWNjZXNzaWJsZSBieSBDQk9TInsKCQkJCQkJdGFncyAiTWljcm9zb2Z0IEF6dXJlIC0gQmxvYiBCbG9jayIKCQkJCQl9CgkJCQl9CgoJCQkJY29udGFpbmVyQ2Jvc1dlYiA9IGNvbnRhaW5lciAiQ0JPUyBXZWIiICJCYWNrLW9mZmljZSB3ZWJzaXRlIHVzZWQgdG8gbWFuYWdlIGNhc2VzIiAiTm9kZS5qcywgQXp1cmUgV2ViIEFwcCIgewoJCQkJCXRhZ3MgIk1pY3Jvc29mdCBBenVyZSAtIEFwcCBTZXJ2aWNlcyIKCQkJCX0KCgkJCQljb250YWluZXJDYm9zQXBpID0gY29udGFpbmVyICJXZWIgQ0JPUyBBUEkiICJDQk9TIEFQSSB0byBwZXJmb3JtIENSVUQgb3BlcmF0aW9ucyBvbiBOU0lQIGNhc2VzLCBkb2N1bWVudHMsIFM1MSBBZHZpY2UsIFJlbGV2YW50IFJlcHJlc2VudGF0aW9ucywgRXhhbSBUaW1ldGFibGVzIGV0Yywgb24gdGhlIGRhdGFiYXNlLCBhbmQgYnJvYWRjYXN0IGV2ZW50cyB0byB0aGUgQXp1cmUgU2VydmljZSBCdXMiICJOb2RlLmpzLCBBenVyZSBXZWIgQXBwIiB7CgkJCQkJdGFncyAiTWljcm9zb2Z0IEF6dXJlIC0gQXBwIFNlcnZpY2VzIgoJCQkJfQoKCQkJCWNvbnRhaW5lckNib3NBenVyZVNxbCA9IGNvbnRhaW5lciAiRGF0YWJhc2UiICJTb3VyY2Ugb2YgdHJ1dGggZm9yIGNhc2VzLCBidWlsdCBhbmQgbWFpbnRhaW5lZCBmcm9tIG1vZGVsIHVzaW5nIFByaXNtYSIgIkF6dXJlIFNRTCwgUHJpc21hIiB7CgkJCQkJdGFncyAiRGF0YWJhc2UiICJNaWNyb3NvZnQgQXp1cmUgLSBBenVyZSBTUUwiCgkJCQl9CgoJCQkJY29udGFpbmVyQ29tbWFuZEhhbmRsZXJGdW5jdGlvbkFwcCA9IGNvbnRhaW5lciAiQ29tbWFuZCBIYW5kbGVyIEZ1bmN0aW9uIEFwcCIgIkZ1bmN0aW9uIEFwcCB0byByZWNlaXZlIGNvbW1hbmRzIGZyb20gRnJvbnQgT2ZmaWNlIiAiRnVuY3Rpb24gQXBwLCBKYXZhU2NyaXB0IiB7CgkJCQkJdGFncyAiTWljcm9zb2Z0IEF6dXJlIC0gRnVuY3Rpb24gQXBwcyIsICJGdW5jdGlvbkFwcCIKCQkJCQljb21wb25lbnRGdW5jdGlvbkRlYWRsaW5lU3VibWlzc2lvbnMgPSBjb21wb25lbnQgIlByb2Nlc3MgRnJvbnQgT2ZmaWNlIERlYWRpbmUgU3VibWlzc2lvbnMiICJQcm9jZXNzIHdyaXR0ZW4gc3VibWlzc2lvbnMgZnJvbSB0aGUgRnJvbnQgT2ZmaWNlIiAiRnVuY3Rpb24gQXBwLCBKYXZhU2NyaXB0IiB7CgkJCQkJfQoJCQkJCWNvbXBvbmVudEZ1bmN0aW9uVGVzdERlYWRsaW5lU3VibWlzc2lvbnMgPSBjb21wb25lbnQgIkZvcmNlIFRlc3QgYSBEZWFkaW5lIFN1Ym1pc3Npb24iICJQcm9jZXNzIHdyaXR0ZW4gc3VibWlzc2lvbnMgZnJvbSB0aGUgRnJvbnQgT2ZmaWNlIiAiRnVuY3Rpb24gQXBwLCBKYXZhU2NyaXB0IiB7CgkJCQkJfQoJCQkJCWNvbXBvbmVudEZ1bmN0aW9uSGFuZGxlU3Vic2NyaXB0aW9uID0gY29tcG9uZW50ICJQcm9jZXNzIEZyb250IE9mZmljZSBTdWJzY3JpcHRpb25zIiAiUHJvY2VzcyBFbWFpbCBTdWJzY3JpcHRpb24gVXBkYXRlcyBmcm9tIEZyb250IE9mZmljZSIgIkZ1bmN0aW9uIEFwcCwgSmF2YVNjcmlwdCIgewoJCQkJCX0KCQkJCQljb21wb25lbnRGdW5jdGlvblJlZ2lzdGVyUmVwcmVzZW50YXRpb24gPSBjb21wb25lbnQgIlByb2Nlc3MgUmVsZXZhbnQgUmVwcmVzZW50YXRpb25zIiAiUHJvY2VzcyBSZWxldmFudCBSZXByZXNlbnRhdGlvcyBmcm9tIEZyb250IE9mZmljZSIgIkZ1bmN0aW9uIEFwcCwgSmF2YVNjcmlwdCJ7CgkJCQkJfQoJCQkJfQoKCQkJCWNvbnRhaW5lckJhY2tncm91bmRKb2JzRnVuY3Rpb25BcHAgPSBjb250YWluZXIgIkJhY2tncm91bmQgSm9icyBGdW5jdGlvbiBBcHAiICJGdW5jdGlvbiBBcHAgdG8gcmVjZWl2ZSBjb21tYW5kcyBmcm9tIENCT1MiICJGdW5jdGlvbiBBcHAsIEphdmFTY3JpcHQiIHsKCQkJCQl0YWdzICJNaWNyb3NvZnQgQXp1cmUgLSBGdW5jdGlvbiBBcHBzIiwgIkZ1bmN0aW9uQXBwIgoJCQkJCWNvbXBvbmVudEZ1bmN0aW9uUHVibGlzaERvYyA9IGNvbXBvbmVudCAiUHVibGlzaCBEb2N1bWVudCIgIlB1Ymxpc2ggYSBkb2N1bWVudCB0byBGcm9udCBPZmZpY2UiICJGdW5jdGlvbiBBcHAsIEphdmFTY3JpcHQiCgkJCQkJY29tcG9uZW50RnVuY3Rpb25VbnB1Ymxpc2hEb2MgPSBjb21wb25lbnQgIlVucHVibGlzaCBEb2N1bWVudCIgIlVucHVibGlzaCBhIGRvY3VtZW50IGZyb20gRnJvbnQgT2ZmaWNlIiAiRnVuY3Rpb24gQXBwLCBKYXZhU2NyaXB0IgoJCQkJCWNvbXBvbmVudEZ1bmN0aW9uTm90aWZ5U3Vic2NyaWJlcnMgPSBjb21wb25lbnQgIlNlbmQgRW1haWwgdG8gU3Vic2NyaWJlcnMiICJTZW5kIGFuIEVtYWlsIHRvIFN1YnNjcmliZXJzIHZpYSBHb3YgTm90aWZ5IiAiRnVuY3Rpb24gQXBwLCBKYXZhU2NyaXB0IgoJCQkJCWNvbXBvbmVudEZ1bmN0aW9uTWFsd2FyZURldGVjdGVkICA9IGNvbXBvbmVudCAiVXBkYXRlcyBkb2N1bWVudCBNYWx3YXJlIFNjYW4gU3RhdHVzIiAiVXBkYXRlcyBNYWx3YXJlIHN0YXR1cyBvZiBkb2N1bWVudHMgdG8gQ0JPUyIgIkZ1bmN0aW9uIEFwcCwgSmF2YVNjcmlwdCIKCQkJCX0KCgkJCQljb250YWluZXJNaWdyYXRpb25GdW5jdGlvbkFwcCA9IGNvbnRhaW5lciAiTWlncmF0aW9uIEZ1bmN0aW9uIEFwcCIgIkZ1bmN0aW9uIEFwcCB0byBwcm9jZXNzIG1pZ3JhdGVkIGNhc2UgYW5kIGRvY3VtZW50IGRhdGEgZnJvbSBIb3Jpem9uIiAiRnVuY3Rpb24gQXBwLCBKYXZhU2NyaXB0LCBBenVyZSBTUUwsIFByaXNtYSwgU3luYXBzZURCIiB7CgkJCQkJdGFncyAiTWljcm9zb2Z0IEF6dXJlIC0gRnVuY3Rpb24gQXBwcyIsICJGdW5jdGlvbkFwcCIKCQkJCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVTNTFBZHZpY2VHZW5lcmFsID0gY29tcG9uZW50ICJNaWdyYXRlIEdlbmVyYWwgUzUxIEFkdmljZSIgIk1pZ3JhdGUgR2VuZXJhbCBTNTEgQWR2aWNlIGZyb20gSG9yaXpvbiIgIkphdmFTY3JpcHQsIFN5bmFwc2VEQiIKCQkJCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVDYXNlID0gY29tcG9uZW50ICJNaWdyYXRlIENhc2UiICJNaWdyYXRlIHdob2xlIGNhc2UgYW5kIGFsbCBjb21wb25lbnQgcGFydHMgLSBFeGFtIFRpbWV0YWJsZSwgRm9sZGVycywgRG9jdW1lbnRzLCBTNTEgQWR2aWNlLCBSZWxldmFudCBSZXByZXNlbnRhdGlvbnMsIFByb2plY3QgVXBkYXRlcyBhbmQgU2VydmljZSBVc2VycyBmcm9tIEhvcml6b24iICJKYXZhU2NyaXB0LCBTeW5hcHNlREIiCgoJCQkJCWdyb3VwICJDYXNlIENvbXBvbmVudHMiIHsKCQkJCQkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlUHJvamVjdE9ubHkgPSBjb21wb25lbnQgIk1pZ3JhdGUgUHJvamVjdCIgIk1pZ3JhdGUgQ2FzZSBkYXRhIG9ubHkgZnJvbSBIb3Jpem9uIiAiSmF2YVNjcmlwdCwgU3luYXBzZURCIgoJCQkJCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVFeGFtVGltZXRhYmxlID0gY29tcG9uZW50ICJNaWdyYXRlIEV4YW0gVGltZXRhYmxlIiAiTWlncmF0ZSBleGFtIHRpbWV0YWJsZSByZWNvcmRzIGZyb20gSG9yaXpvbiIgIkphdmFTY3JpcHQsIFN5bmFwc2VEQiIKCQkJCQkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlRm9sZGVyID0gY29tcG9uZW50ICJNaWdyYXRlIEZvbGRlciIgIk1pZ3JhdGUgRm9sZGVycyBmcm9tIEhvcml6b24iICJKYXZhU2NyaXB0LCBTeW5hcHNlREIiCgkJCQkJCWNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZVByb2plY3RVcGRhdGUgPSBjb21wb25lbnQgIk1pZ3JhdGUgUHJvamVjdCBVcGRhdGVzIiAiTWlncmF0ZSBQcm9qZWN0IFVwZGF0ZXMgZnJvbSBIb3Jpem9uIiAiSmF2YVNjcmlwdCwgU3luYXBzZURCIgoJCQkJCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVTZXJ2aWNlVXNlciA9IGNvbXBvbmVudCAiTWlncmF0ZSBTZXJ2aWNlIFVzZXIiICJNaWdyYXRlIFNlcnZpY2UgVXNlcnMgZnJvbSBIb3Jpem9uIiAiSmF2YVNjcmlwdCwgU3luYXBzZURCIgoJCQkJCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVTNTFBZHZpY2VDYXNlID0gY29tcG9uZW50ICJNaWdyYXRlIFM1MSBBZHZpY2Ugb24gYSBjYXNlIiAiTWlncmF0ZSBTNTEgQWR2aWNlIG9uIGEgY2FzZSBmcm9tIEhvcml6b24iICJKYXZhU2NyaXB0LCBTeW5hcHNlREIiCgkJCQkJCWNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZURvY3VtZW50ID0gY29tcG9uZW50ICJNaWdyYXRlIERvY3VtZW50cyIgIk1pZ3JhdGUgRG9jdW1lbnRzIGZyb20gSG9yaXpvbiIgIkphdmFTY3JpcHQsIFN5bmFwc2VEQiIKCQkJCQkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlUmVwcmVzZW50YXRpb24gPSBjb21wb25lbnQgIk1pZ3JhdGUgUmVsZXZhbnQgUmVwcmVzZW50YXRpb25zIiAiTWlncmF0ZSBSZWxldmFudCBSZXByZXNlbnRhdGlvbnMgZnJvbSBIb3Jpem9uIiAiSmF2YVNjcmlwdCwgU3luYXBzZURCIgoJCQkJCX0KCQkJCX0KCQkJfQoKCQkJc3lzdGVtQXBwc0ZvID0gc29mdHdhcmVTeXN0ZW0gIkFwcGxpY2F0aW9ucyBGcm9udC1PZmZpY2UiICJFeHRlcm5hbCBmYWNpbmcgc2VydmljZSBwcm92aWRpbmcgYWJpbGl0eSB0byBwYXJ0aWNpcGF0ZSBpbiB0aGUgYXBwbGljYXRpb24gcHJvY2VzcyBmb3IgTmF0aW9uYWxseSBTaWduaWZpY2FudCBJbmZyYXN0cnVjdHVyZSBQcm9qZWN0cyAoTlNJUHMpIHdpdGhpbiBFbmdsYW5kIGFuZCBXYWxlcyIgIk5vZGUuanMsIEF6dXJlIFdlYiBBcHAsIEF6dXJlIEZ1bmN0aW9uIEFwcCIgewoJCQkJdGFncyAiSW50ZXJuYWxDb2xsYWJvcmF0b3JTeXN0ZW0iCgkJCX0KCgkJCXN5c3RlbU9kdyA9IHNvZnR3YXJlU3lzdGVtICJPcGVyYXRpb25hbCBEYXRhIFdhcmVob3VzZSAoT0RXKSIgIkhvbGRzIGFsbCBQbGFubmluZyBJbnNwZWN0b3JhdGUgZGF0YSBzbyB0aGF0IGl0IGNhbiBiZSB1c2VkIGZvciBpbnRlcm5hbCBwdXJwb3NlcyIgewoJCQkJdGFncyAiTWljcm9zb2Z0IEF6dXJlIC0gQXp1cmUgU3luYXBzZSBBbmFseXRpY3MiICJJbnRlcm5hbENvbGxhYm9yYXRvclN5c3RlbSIKCQkJfQoJCX0KCgkJc3lzdGVtR292Tm90aWZ5ID0gc29mdHdhcmVTeXN0ZW0gIkdPViBOb3RpZnkiICJVSyBnb3Zlcm5tZW50IG1lc3NhZ2luZyBwbGF0Zm9ybSBmb3Igc2VuZGluZyBlbWFpbHMsIHRleHQgYW5kIGxldHRlcnMgdG8gdXNlcnMiIHsKCQkJdGFncyA9ICJFeHRlcm5hbFN5c3RlbSIKCQl9CgoJCSMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKCQkjIFJlbGF0aW9uc2hpcHMKCQl1c2VyQ2FzZVdvcmtlciAtPiBjb250YWluZXJDYm9zV2ViICJNYW5hZ2VzIGNhc2VzIHRocm91Z2giICJIVFRQUywgSFRNTCwgQWN0aXZlIERpcmVjdG9yeSBBdXRoIgoJCXVzZXJDYXNlTWFuYWdlciAtPiBjb250YWluZXJDYm9zV2ViICJNYW5hZ2VzIGNhc2VzIHRocm91Z2giICJIVFRQUywgSFRNTCwgQWN0aXZlIERpcmVjdG9yeSBBdXRoIgoJCXVzZXJJbnNwZWN0b3IgLT4gY29udGFpbmVyQ2Jvc1dlYiAiTWFuYWdlcyBjYXNlcyB0aHJvdWdoIiAiSFRUUFMsIEhUTUwsIEFjdGl2ZSBEaXJlY3RvcnkgQXV0aCIKCgkJIyBCYWNrLW9mZmljZQoJCWNvbnRhaW5lckNib3NXZWIgLT4gY29udGFpbmVyQ2Jvc0FwaSAiUmVuZGVycyBwYWdlLCBnZXRzIGFuZCBwb3N0cyBkYXRhIHVzaW5nIiAiSFRUUFMsIEpTT04iCgkJY29udGFpbmVyQ2Jvc0FwaSAtPiBjb250YWluZXJDYm9zQXp1cmVTcWwgIlJlYWRzIGFuZCB3cml0ZXMgY2FzZSBkYXRhIHRvIgoJCWNvbnRhaW5lckNib3NBcGkgLT4gY29udGFpbmVyQ2Jvc0ZpbGVTdG9yYWdlICJSZWFkcyBhbmQgd3JpdGVzIGFwcGxpY2F0aW9ucyBkb2N1bWVudHMgdG8iCgkJY29udGFpbmVyQ2Jvc0FwaSAtPiBjb250YWluZXJDYm9zRmlsZVN0b3JhZ2VQdWJsaXNoZWQgIldyaXRlcyBwdWJsaXNoZWQgYXBwbGljYXRpb25zIGRvY3VtZW50cyB0byIKCQljb250YWluZXJDYm9zQXBpIC0+IHN5c3RlbU9kdyAiQnJvYWRjYXN0cyBTZXJ2aWNlIEJ1cyBldmVudHMgdG8iIHsKCQkJdGFncyAiU2VydmljZUJ1cyIKCQl9CgoJCSMgRnVuY3Rpb24gQXBwIC0gQ29tbWFuZCBIYW5kbGVycwoJCWNvbXBvbmVudEZ1bmN0aW9uRGVhZGxpbmVTdWJtaXNzaW9ucyAtPiBjb250YWluZXJDYm9zQXBpICJDcmVhdGVzIGRvY3VtZW50IHJlY29yZHMiCgkJY29tcG9uZW50RnVuY3Rpb25EZWFkbGluZVN1Ym1pc3Npb25zIC0+IGNvbnRhaW5lclNoYXJlZEZpbGVTdWJtaXNzaW9uc1N0b3JhZ2UgIlJlYWRzIGRvY3VtZW50cyBzdWJtaXR0ZWQgdmlhIEZyb250IE9mZmljZSIKCQljb21wb25lbnRGdW5jdGlvbkRlYWRsaW5lU3VibWlzc2lvbnMgLT4gY29udGFpbmVyQ2Jvc0ZpbGVTdG9yYWdlICJXcml0ZXMgZG9jdW1lbnRzIHN1Ym1pdHRlZCB2aWEgRnJvbnQgT2ZmaWNlIGludG8gQ0JPUyIKCgkJY29tcG9uZW50RnVuY3Rpb25IYW5kbGVTdWJzY3JpcHRpb24gLT4gY29udGFpbmVyQ2Jvc0FwaSAiQ3JlYXRlcyBhbmQgdXBkYXRlcyBlbWFpbCBzdWJzY3JpcHRpb24gcmVjb3JkcyIKCQljb21wb25lbnRGdW5jdGlvblJlZ2lzdGVyUmVwcmVzZW50YXRpb24gLT4gY29udGFpbmVyQ2Jvc0FwaSAiQ3JlYXRlcyByZWxldmFudCByZXByZXNlbnRhdGlvbiByZWNvcmRzIgoKCQljb21wb25lbnRGdW5jdGlvblRlc3REZWFkbGluZVN1Ym1pc3Npb25zIC0+IGNvbnRhaW5lclNoYXJlZEZpbGVTdWJtaXNzaW9uc1N0b3JhZ2UgIldyaXRlIGEgdGVzdCBkb2N1bWVudCIKCQljb21wb25lbnRGdW5jdGlvblRlc3REZWFkbGluZVN1Ym1pc3Npb25zIC0+IGNvbXBvbmVudEZ1bmN0aW9uRGVhZGxpbmVTdWJtaXNzaW9ucyAiQnJvYWRjYXN0IGEgdGVzdCBEZWFkbGluZSBTdWJtaXNzaW9uIG1lc3NhZ2UiICJBenVyZSBTZXJ2aWNlIEJ1cyBUb3BpYyBkZWFkbGluZS1zdWJtaXNzaW9uLXRvcGljIiAiU2VydmljZUJ1cyIKCgkJIyBGdW5jdGlvbiBBcHAgLSBCYWNrZ3JvdW5kIFRhc2tzCgkJY29tcG9uZW50RnVuY3Rpb25Ob3RpZnlTdWJzY3JpYmVycyAtPiBzeXN0ZW1Hb3ZOb3RpZnkgIlNlbmRzIHN1YnNjcmliZXIgZW1haWxzIHRocm91Z2giICJIVFRQUywgSlNPTiIKCQljb21wb25lbnRGdW5jdGlvbk5vdGlmeVN1YnNjcmliZXJzIC0+IGNvbnRhaW5lckNib3NBcGkgIlJlYWRzIGFuZCB1cGRhdGVzIHN1YnNjcmlwdGlvbiBhbmQgcHJvamVjdCByZWNvcmRzIgoKCQljb21wb25lbnRGdW5jdGlvblB1Ymxpc2hEb2MgLT4gY29udGFpbmVyQ2Jvc0FwaSAiUmVhZHMgYW5kIHVwZGF0ZXMgYXBwbGljYXRpb25zIGRvY3VtZW50cyByZWNvcmRzIgoJCWNvbXBvbmVudEZ1bmN0aW9uUHVibGlzaERvYyAtPiBjb250YWluZXJDYm9zRmlsZVN0b3JhZ2UgIlJlYWRzIGFwcGxpY2F0aW9ucyBkb2N1bWVudHMgZnJvbSBDQk9TIgoJCWNvbXBvbmVudEZ1bmN0aW9uUHVibGlzaERvYyAtPiBjb250YWluZXJDYm9zRmlsZVN0b3JhZ2VQdWJsaXNoZWQgIkNvcGllcyBwdWJsaXNoZWQgYXBwbGljYXRpb25zIGRvY3VtZW50cyB0byIKCgkJY29tcG9uZW50RnVuY3Rpb25VbnB1Ymxpc2hEb2MgLT4gY29udGFpbmVyQ2Jvc0FwaSAiUmVhZHMgYW5kIHVwZGF0ZXMgYXBwbGljYXRpb25zIGRvY3VtZW50cyByZWNvcmRzIgoJCWNvbXBvbmVudEZ1bmN0aW9uVW5wdWJsaXNoRG9jIC0+IGNvbnRhaW5lckNib3NGaWxlU3RvcmFnZVB1Ymxpc2hlZCAiRGVsZXRlcyBwdWJsaXNoZWQgYXBwbGljYXRpb25zIGRvY3VtZW50cyBmcm9tIgoKCQljb250YWluZXJDYm9zRmlsZVN0b3JhZ2UgLT4gY29tcG9uZW50RnVuY3Rpb25NYWx3YXJlRGV0ZWN0ZWQgIk1TIERlZmVuZGVyIHNlbmRzIHJlc3VsdCBvZiBkb2N1bWVudCBtYWx3YXJlIHNjYW4iICJIVFRQUywgRXZlbnRHcmlkIgoJCWNvbXBvbmVudEZ1bmN0aW9uTWFsd2FyZURldGVjdGVkIC0+IGNvbnRhaW5lckNib3NBcGkgIlVwZGF0ZXMgYXBwbGljYXRpb25zIGRvY3VtZW50cyByZWNvcmRzIG1hbHdhcmUgY2hlY2sgc3RhdHVzIgoKCgkJIyBGdW5jdGlvbiBBcHAgLSBNaWdyYXRpb24KCQl1c2VyTWlncmF0aW9uQWRtaW4gLT4gY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlQ2FzZSAiVHJpZ2dlcnMgYSBtaWdyYXRpb24iCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlQ2FzZSAtPiBjb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVQcm9qZWN0T25seSAiTWlncmF0ZXMgY2FzZSBkYXRhIgoJCWNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZUNhc2UgLT4gY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlRXhhbVRpbWV0YWJsZSAiTWlncmF0ZXMgRXhhbSBUaW1ldGFibGUiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlQ2FzZSAtPiBjb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVGb2xkZXIgIk1pZ3JhdGVzIEZvbGRlcnMiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlQ2FzZSAtPiBjb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVQcm9qZWN0VXBkYXRlICJNaWdyYXRlcyBQcm9qZWN0IFVwZGF0ZXMiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlQ2FzZSAtPiBjb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVTZXJ2aWNlVXNlciAiTWlncmF0ZXMgU2VydmljZSBVc2VycyIKCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVDYXNlIC0+IGNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZVM1MUFkdmljZUNhc2UgIk1pZ3JhdGVzIFM1MSBBZHZpY2UiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlQ2FzZSAtPiBjb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVEb2N1bWVudCAiTWlncmF0ZXMgRG9jdW1lbnRzIGFuZCBWZXJzaW9ucyIKCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVDYXNlIC0+IGNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZVJlcHJlc2VudGF0aW9uICJNaWdyYXRlcyBSZWxldmFudCBSZXByZXNlbnRhdGlvbnMiCgoJCWNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZVByb2plY3RPbmx5IC0+IHN5c3RlbU9kdyAiUmVhZHMgcmVjb3JkcyBmcm9tIGN1cmF0ZWQgbGF5ZXIiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlUHJvamVjdE9ubHkgLT4gY29udGFpbmVyQ2Jvc0FwaSAiV3JpdGVzIHJlY29yZHMiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlRXhhbVRpbWV0YWJsZSAtPiBzeXN0ZW1PZHcgIlJlYWRzIHJlY29yZHMgZnJvbSBjdXJhdGVkIGxheWVyIgoJCWNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZUV4YW1UaW1ldGFibGUgLT4gY29udGFpbmVyQ2Jvc0FwaSAiV3JpdGVzIHJlY29yZHMiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlRm9sZGVyIC0+IHN5c3RlbU9kdyAiUmVhZHMgcmVjb3JkcyBmcm9tIGN1cmF0ZWQgbGF5ZXIiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlRm9sZGVyIC0+IGNvbnRhaW5lckNib3NBcGkgIldyaXRlcyByZWNvcmRzIgoJCWNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZVByb2plY3RVcGRhdGUgLT4gc3lzdGVtT2R3ICJSZWFkcyByZWNvcmRzIGZyb20gY3VyYXRlZCBsYXllciIKCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVQcm9qZWN0VXBkYXRlIC0+IGNvbnRhaW5lckNib3NBcGkgIldyaXRlcyByZWNvcmRzIgoJCWNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZVNlcnZpY2VVc2VyIC0+IHN5c3RlbU9kdyAiUmVhZHMgcmVjb3JkcyBmcm9tIGN1cmF0ZWQgbGF5ZXIiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlU2VydmljZVVzZXIgLT4gY29udGFpbmVyQ2Jvc0FwaSAiV3JpdGVzIHJlY29yZHMiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlUzUxQWR2aWNlQ2FzZSAtPiBzeXN0ZW1PZHcgIlJlYWRzIHJlY29yZHMgZnJvbSBjdXJhdGVkIGxheWVyIgoJCWNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZVM1MUFkdmljZUNhc2UgLT4gY29udGFpbmVyQ2Jvc0FwaSAiV3JpdGVzIHJlY29yZHMiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlRG9jdW1lbnQgLT4gc3lzdGVtT2R3ICJSZWFkcyByZWNvcmRzIGZyb20gY3VyYXRlZCBsYXllciIKCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVEb2N1bWVudCAtPiBjb250YWluZXJDYm9zQXBpICJXcml0ZXMgcmVjb3JkcyIKCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVSZXByZXNlbnRhdGlvbiAtPiBzeXN0ZW1PZHcgIlJlYWRzIHJlY29yZHMgZnJvbSBjdXJhdGVkIGxheWVyIgoJCWNvbXBvbmVudEZ1bmN0aW9uTWlncmF0ZVJlcHJlc2VudGF0aW9uIC0+IGNvbnRhaW5lckNib3NBcGkgIldyaXRlcyByZWNvcmRzIgoKCQljb21wb25lbnRGdW5jdGlvbk1pZ3JhdGVTNTFBZHZpY2VHZW5lcmFsIC0+IHN5c3RlbU9kdyAiUmVhZHMgcmVjb3JkcyBmcm9tIGN1cmF0ZWQgbGF5ZXIiCgkJY29tcG9uZW50RnVuY3Rpb25NaWdyYXRlUzUxQWR2aWNlR2VuZXJhbCAtPiBjb250YWluZXJDYm9zQXBpICJXcml0ZXMgcmVjb3JkcyIKCgoJCSMgRnJvbnQtT2ZmaWNlIGFsc28gdGFsa3MgZGlyZWN0bHkgdG8gdGhlIHB1Ymxpc2hlZCBmaWxlIHN0b3JhZ2UKCQlzeXN0ZW1BcHBzRm8gLT4gY29udGFpbmVyQ2Jvc0ZpbGVTdG9yYWdlUHVibGlzaGVkICJSZWFkcyBwdWJsaXNoZWQgZG9jdW1lbnRzIGZyb20iCgl9CgoJdmlld3MgewoKCQlwcm9wZXJ0aWVzIHsKCQkJInN0cnVjdHVyaXpyLnNvcnQiICJjcmVhdGVkIgoJCX0KCgkJc3lzdGVtQ29udGV4dCBzeXN0ZW1BcHBzRm8gIkFwcGxpY2F0aW9uc0NCT1NDb250ZXh0IiB7CgkJCWluY2x1ZGUgKgoJCQlhdXRvTGF5b3V0IGxyCgkJCXRpdGxlICJBcHBsaWNhdGlvbnMgQmFjay1PZmZpY2UgQ29udGV4dCIKCQl9CgoJCWNvbXBvbmVudCBjb250YWluZXJDb21tYW5kSGFuZGxlckZ1bmN0aW9uQXBwICJDb21tYW5kSGFuZGxlckZ1bmN0aW9uQXBwQ29udGV4dCIgewoJCQlpbmNsdWRlICoKCQkJYXV0b0xheW91dCBscgoJCQl0aXRsZSAiRnVuY3Rpb24gQXBwIC0gQ29tbWFuZCBIYW5kbGVyIgoJCX0KCgkJY29tcG9uZW50IGNvbnRhaW5lckJhY2tncm91bmRKb2JzRnVuY3Rpb25BcHAgIkJhY2tncm91bmRKb2JzRnVuY3Rpb25BcHBDb250ZXh0IiB7CgkJCWluY2x1ZGUgKgoJCQlhdXRvTGF5b3V0IGxyCgkJCXRpdGxlICJGdW5jdGlvbiBBcHAgLSBCYWNrZ3JvdW5kIEpvYnMiCgkJfQoKCQljb21wb25lbnQgY29udGFpbmVyTWlncmF0aW9uRnVuY3Rpb25BcHAgIk1pZ3JhdGlvbkZ1bmN0aW9uQXBwQ29udGV4dCIgewoJCQlpbmNsdWRlICoKCQkJaW5jbHVkZSBjb250YWluZXJDYm9zQXp1cmVTcWwKCQkJYXV0b0xheW91dCBscgoJCQl0aXRsZSAiRnVuY3Rpb24gQXBwIC0gTWlncmF0aW9uIgoJCX0KCgkJY29udGFpbmVyIHN5c3RlbUFwcHNDYm9zICJBcHBsaWNhdGlvbnNDQk9TQ29udGFpbmVyIiB7CgkJCWluY2x1ZGUgKgoJCQlhdXRvTGF5b3V0IGxyCgkJCXRpdGxlICJBcHBsaWNhdGlvbnMgQmFjay1PZmZpY2UgQ29udGFpbmVyIgoJCQlkZXNjcmlwdGlvbiAiU2hvd3MgdGhlIGNvbnRhaW5lcnMgd2l0aGluIHRoZSBBcHBsaWNhdGlvbnMgRnJvbnQtT2ZmaWNlIHN5c3RlbS4gR28gdG8gdGhlIG5leHQgdmlldyB0byBzZWUgdGhlIHJlc3QuIgoJCX0KCgkJY29udGFpbmVyIHN5c3RlbUFwcHNDYm9zICJBcHBsaWNhdGlvbnNDQk9TRnVuY3Rpb25BcHBzIiB7CgkJCWluY2x1ZGUgZWxlbWVudC50YWc9PUZ1bmN0aW9uQXBwCgkJCWluY2x1ZGUgY29udGFpbmVyQ2Jvc0F6dXJlU3FsCgkJCWluY2x1ZGUgY29udGFpbmVyQ2Jvc0FwaQoJCQlpbmNsdWRlIGNvbnRhaW5lclNoYXJlZEZpbGVTdWJtaXNzaW9uc1N0b3JhZ2UKCQkJaW5jbHVkZSBjb250YWluZXJDYm9zRmlsZVN0b3JhZ2UKICAgICAgICAJYXV0b0xheW91dCB0YgoJCQl0aXRsZSAiQXBwbGljYXRpb25zIEJhY2stT2ZmaWNlIEZ1bmN0aW9uIEFwcHMiCgkJCWRlc2NyaXB0aW9uICJTaG93cyB0aGUgZnVuY3Rpb24gYXBwcyB3aXRoaW4gdGhlIEFwcGxpY2F0aW9ucyBCYWNrLU9mZmljZSBzeXN0ZW0gQ0JPUyAtIHRoZXNlIGFyZSByZXNwb25zaWJsZSBmb3IgY29uc3VtaW5nIG1lc3NhZ2VzIGZyb20gdGhlIFNlcnZpY2UgQnVzIGFuZCB1cGRhdGluZyB0aGUgQXp1cmUgU1FMIGRhdGFiYXNlLiIKCQl9CgoJCSMgQXp1cmUgaWNvbnMgb25seSwgbGF0ZXN0IHZlcnNpb24KCQl0aGVtZSBkZWZhdWx0CgkJdGhlbWUgaHR0cHM6Ly9zdGF0aWMuc3RydWN0dXJpenIuY29tL3RoZW1lcy9taWNyb3NvZnQtYXp1cmUtMjAyMy4wMS4yNC9pY29ucy5qc29uCgoJCXN0eWxlcyB7CgoJCQllbGVtZW50IERhdGFiYXNlIHsKCQkJCXNoYXBlIEN5bGluZGVyCgkJCX0KCgkJCWVsZW1lbnQgRXh0ZXJuYWxTeXN0ZW0gewoJCQkJYmFja2dyb3VuZCAjQUFBQUFBCgkJCX0KCgkJCWVsZW1lbnQgSW50ZXJuYWxDb2xsYWJvcmF0b3JTeXN0ZW0gewoJCQkJYmFja2dyb3VuZCAjODg4ODg4CgkJCX0KCgkJCXJlbGF0aW9uc2hpcCBTZXJ2aWNlQnVzIHsKCQkJCQlzdHlsZSBkb3R0ZWQKCQkJfQoJCX0KCX0KfQo="
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "12",
+      "elements" : [ {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "CommandHandlerFunctionAppContext",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "44"
+      }, {
+        "id" : "48"
+      }, {
+        "id" : "50"
+      }, {
+        "id" : "52"
+      }, {
+        "id" : "54"
+      }, {
+        "id" : "55"
+      }, {
+        "id" : "56"
+      }, {
+        "id" : "57"
+      } ],
+      "title" : "Function App - Command Handler"
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "17",
+      "elements" : [ {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "18",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "19",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "21",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "35",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "BackgroundJobsFunctionAppContext",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "44"
+      }, {
+        "id" : "45"
+      }, {
+        "id" : "58"
+      }, {
+        "id" : "61"
+      }, {
+        "id" : "63"
+      }, {
+        "id" : "64"
+      }, {
+        "id" : "66"
+      }, {
+        "id" : "68"
+      }, {
+        "id" : "69"
+      }, {
+        "id" : "70"
+      }, {
+        "id" : "72"
+      } ],
+      "title" : "Function App - Background Jobs"
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "22",
+      "elements" : [ {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "26",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "34",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "MigrationFunctionAppContext",
+      "order" : 4,
+      "relationships" : [ {
+        "id" : "100"
+      }, {
+        "id" : "101"
+      }, {
+        "id" : "102"
+      }, {
+        "id" : "103"
+      }, {
+        "id" : "43"
+      }, {
+        "id" : "46"
+      }, {
+        "id" : "73"
+      }, {
+        "id" : "76"
+      }, {
+        "id" : "77"
+      }, {
+        "id" : "78"
+      }, {
+        "id" : "79"
+      }, {
+        "id" : "80"
+      }, {
+        "id" : "81"
+      }, {
+        "id" : "82"
+      }, {
+        "id" : "83"
+      }, {
+        "id" : "84"
+      }, {
+        "id" : "86"
+      }, {
+        "id" : "88"
+      }, {
+        "id" : "89"
+      }, {
+        "id" : "90"
+      }, {
+        "id" : "91"
+      }, {
+        "id" : "92"
+      }, {
+        "id" : "93"
+      }, {
+        "id" : "94"
+      }, {
+        "id" : "95"
+      }, {
+        "id" : "96"
+      }, {
+        "id" : "97"
+      }, {
+        "id" : "98"
+      }, {
+        "id" : "99"
+      } ],
+      "title" : "Function App - Migration"
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "properties" : {
+        "structurizr.sort" : "created"
+      },
+      "styles" : {
+        "elements" : [ {
+          "shape" : "Cylinder",
+          "tag" : "Database"
+        }, {
+          "background" : "#aaaaaa",
+          "tag" : "ExternalSystem"
+        }, {
+          "background" : "#888888",
+          "tag" : "InternalCollaboratorSystem"
+        } ],
+        "relationships" : [ {
+          "style" : "Dotted",
+          "tag" : "ServiceBus"
+        } ]
+      },
+      "terminology" : { },
+      "themes" : [ "https://static.structurizr.com/themes/default/theme.json", "https://static.structurizr.com/themes/microsoft-azure-2023.01.24/icons.json" ]
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Shows the containers within the Applications Front-Office system. Go to the next view to see the rest.",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "22",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "33",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "34",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "35",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "ApplicationsCBOSContainer",
+      "order" : 5,
+      "relationships" : [ {
+        "id" : "104"
+      }, {
+        "id" : "36"
+      }, {
+        "id" : "38"
+      }, {
+        "id" : "40"
+      }, {
+        "id" : "42"
+      }, {
+        "id" : "43"
+      }, {
+        "id" : "44"
+      }, {
+        "id" : "45"
+      }, {
+        "id" : "46"
+      }, {
+        "id" : "49"
+      }, {
+        "id" : "51"
+      }, {
+        "id" : "53"
+      }, {
+        "id" : "59"
+      }, {
+        "id" : "62"
+      }, {
+        "id" : "65"
+      }, {
+        "id" : "67"
+      }, {
+        "id" : "71"
+      }, {
+        "id" : "74"
+      }, {
+        "id" : "85"
+      }, {
+        "id" : "87"
+      } ],
+      "softwareSystemId" : "5",
+      "title" : "Applications Back-Office Container"
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Shows the function apps within the Applications Back-Office system CBOS - these are responsible for consuming messages from the Service Bus and updating the Azure SQL database.",
+      "elements" : [ {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "22",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "ApplicationsCBOSFunctionApps",
+      "order" : 6,
+      "relationships" : [ {
+        "id" : "43"
+      }, {
+        "id" : "44"
+      }, {
+        "id" : "49"
+      }, {
+        "id" : "51"
+      }, {
+        "id" : "53"
+      }, {
+        "id" : "62"
+      }, {
+        "id" : "65"
+      }, {
+        "id" : "71"
+      }, {
+        "id" : "87"
+      } ],
+      "softwareSystemId" : "5",
+      "title" : "Applications Back-Office Function Apps"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "33",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "ApplicationsCBOSContext",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "105"
+      } ],
+      "softwareSystemId" : "33",
+      "title" : "Applications Back-Office Context"
+    } ]
+  }
+}

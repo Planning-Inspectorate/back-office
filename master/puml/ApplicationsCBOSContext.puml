@@ -1,0 +1,20 @@
+@startuml
+set separator none
+title Applications Back-Office Context
+
+left to right direction
+
+!include <C4/C4>
+!include <C4/C4_Context>
+
+AddBoundaryTag("Planning Inspectorate", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
+Boundary(group_1, "Planning Inspectorate", $tags="Planning Inspectorate") {
+  System(ApplicationsFrontOffice, "Applications Front-Office", $descr="External facing service providing ability to participate in the application process for Nationally Significant Infrastructure Projects (NSIPs) within England and Wales", $tags="", $link="")
+  System(CBOSCaseworkBackOfficeSystem, "CBOS - Casework Back-Office System", $descr="Internally facing service allowing for management of cases relating to Nationally Significant Infrastructure Projects (NSIPs) within England and Wales", $tags="", $link="")
+}
+
+
+Rel(ApplicationsFrontOffice, CBOSCaseworkBackOfficeSystem, "Reads published documents from", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+@enduml

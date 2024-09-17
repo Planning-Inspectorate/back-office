@@ -1,0 +1,65 @@
+@startuml
+set separator none
+title Function App - Migration
+
+left to right direction
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Component>
+
+Person(MigrationAdmin, "Migration Admin", $descr="Member of PINS staff who can trigger a case migration", $tags="", $link="")
+Container(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Web CBOS API", $techn="Node.js, Azure Web App", $descr="CBOS API to perform CRUD operations on NSIP cases, documents, S51 Advice, Relevant Representations, Exam Timetables etc, on the database, and broadcast events to the Azure Service Bus", $tags="", $link="")
+ContainerDb(CBOSCaseworkBackOfficeSystem.Database, "Database", $techn="Azure SQL, Prisma", $descr="Source of truth for cases, built and maintained from model using Prisma", $tags="", $link="")
+System(OperationalDataWarehouseODW, "Operational Data Warehouse (ODW)", $descr="Holds all Planning Inspectorate data so that it can be used for internal purposes", $tags="", $link="")
+
+Container_Boundary("CBOSCaseworkBackOfficeSystem.MigrationFunctionApp_boundary", "Migration Function App", $tags="") {
+  AddBoundaryTag("Case Components", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
+  Boundary(group_1, "Case Components", $tags="Case Components") {
+    Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateProject, "Migrate Project", $techn="JavaScript, SynapseDB", $descr="Migrate Case data only from Horizon", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateExamTimetable, "Migrate Exam Timetable", $techn="JavaScript, SynapseDB", $descr="Migrate exam timetable records from Horizon", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateFolder, "Migrate Folder", $techn="JavaScript, SynapseDB", $descr="Migrate Folders from Horizon", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateProjectUpdates, "Migrate Project Updates", $techn="JavaScript, SynapseDB", $descr="Migrate Project Updates from Horizon", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateServiceUser, "Migrate Service User", $techn="JavaScript, SynapseDB", $descr="Migrate Service Users from Horizon", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateS51Adviceonacase, "Migrate S51 Advice on a case", $techn="JavaScript, SynapseDB", $descr="Migrate S51 Advice on a case from Horizon", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateDocuments, "Migrate Documents", $techn="JavaScript, SynapseDB", $descr="Migrate Documents from Horizon", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateRelevantRepresentations, "Migrate Relevant Representations", $techn="JavaScript, SynapseDB", $descr="Migrate Relevant Representations from Horizon", $tags="", $link="")
+  }
+
+  Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateGeneralS51Advice, "Migrate General S51 Advice", $techn="JavaScript, SynapseDB", $descr="Migrate General S51 Advice from Horizon", $tags="", $link="")
+  Component(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, "Migrate Case", $techn="JavaScript, SynapseDB", $descr="Migrate whole case and all component parts - Exam Timetable, Folders, Documents, S51 Advice, Relevant Representations, Project Updates and Service Users from Horizon", $tags="", $link="")
+}
+
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateRelevantRepresentations, OperationalDataWarehouseODW, "Reads records from curated layer", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateRelevantRepresentations, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateGeneralS51Advice, OperationalDataWarehouseODW, "Reads records from curated layer", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateGeneralS51Advice, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, CBOSCaseworkBackOfficeSystem.Database, "Reads and writes case data to", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, OperationalDataWarehouseODW, "Broadcasts Service Bus events to", $techn="", $tags="", $link="")
+Rel(MigrationAdmin, CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, "Triggers a migration", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateProject, "Migrates case data", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateExamTimetable, "Migrates Exam Timetable", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateFolder, "Migrates Folders", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateProjectUpdates, "Migrates Project Updates", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateServiceUser, "Migrates Service Users", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateS51Adviceonacase, "Migrates S51 Advice", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateDocuments, "Migrates Documents and Versions", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateCase, CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateRelevantRepresentations, "Migrates Relevant Representations", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateProject, OperationalDataWarehouseODW, "Reads records from curated layer", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateProject, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateExamTimetable, OperationalDataWarehouseODW, "Reads records from curated layer", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateExamTimetable, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateFolder, OperationalDataWarehouseODW, "Reads records from curated layer", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateFolder, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateProjectUpdates, OperationalDataWarehouseODW, "Reads records from curated layer", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateProjectUpdates, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateServiceUser, OperationalDataWarehouseODW, "Reads records from curated layer", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateServiceUser, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateS51Adviceonacase, OperationalDataWarehouseODW, "Reads records from curated layer", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateS51Adviceonacase, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateDocuments, OperationalDataWarehouseODW, "Reads records from curated layer", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp.MigrateDocuments, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+@enduml

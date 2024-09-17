@@ -1,0 +1,36 @@
+@startuml
+set separator none
+title Applications Back-Office Function Apps
+
+top to bottom direction
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+
+System_Boundary("CBOSCaseworkBackOfficeSystem_boundary", "CBOS - Casework Back-Office System", $tags="") {
+  AddBoundaryTag("Applications Service Storage Account", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
+  Boundary(group_1, "Applications Service Storage Account", $tags="Applications Service Storage Account") {
+    Container(CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "CBOS File storage", $techn="", $descr="(application-service-uploads) - Azure Blob Storage Container that contains all documents and document versions in CBOS", $tags="", $link="")
+    Container(CBOSCaseworkBackOfficeSystem.FrontOfficeSubmissionsFilestorage, "Front Office Submissions File storage", $techn="", $descr="(application-submission-documents) - Azure Blob Storage Container that contains documents submitted from Front Office, also accessible by CBOS", $tags="", $link="")
+  }
+
+  Container(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Web CBOS API", $techn="Node.js, Azure Web App", $descr="CBOS API to perform CRUD operations on NSIP cases, documents, S51 Advice, Relevant Representations, Exam Timetables etc, on the database, and broadcast events to the Azure Service Bus", $tags="", $link="")
+  ContainerDb(CBOSCaseworkBackOfficeSystem.Database, "Database", $techn="Azure SQL, Prisma", $descr="Source of truth for cases, built and maintained from model using Prisma", $tags="", $link="")
+  Container(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp, "Command Handler Function App", $techn="Function App, JavaScript", $descr="Function App to receive commands from Front Office", $tags="", $link="")
+  Container(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp, "Background Jobs Function App", $techn="Function App, JavaScript", $descr="Function App to receive commands from CBOS", $tags="", $link="")
+  Container(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp, "Migration Function App", $techn="Function App, JavaScript, Azure SQL, Prisma, SynapseDB", $descr="Function App to process migrated case and document data from Horizon", $tags="", $link="")
+}
+
+Rel(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, CBOSCaseworkBackOfficeSystem.Database, "Reads and writes case data to", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "Reads and writes applications documents to", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Creates document records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp, CBOSCaseworkBackOfficeSystem.FrontOfficeSubmissionsFilestorage, "Reads documents submitted via Front Office", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp, CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "Writes documents submitted via Front Office into CBOS", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Reads and updates subscription and project records", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp, CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "Reads applications documents from CBOS", $techn="", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.CBOSFilestorage, CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp, "MS Defender sends result of document malware scan", $techn="HTTPS, EventGrid", $tags="", $link="")
+Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+@enduml
