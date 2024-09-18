@@ -209,7 +209,6 @@ npm run dev:applications
 +-- docs
 +-- packages
 |   +-- add-auth-headers-for-backend
-|   +-- appeals
 |   +-- applications
 |   +-- blob-storage-client
 |   +-- event-client
