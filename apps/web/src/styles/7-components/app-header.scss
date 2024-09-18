@@ -12,6 +12,10 @@
   border-bottom: .5rem solid pins-colours.$pins-colours-green-200;
   margin-bottom: 1rem;
 
+	&[data-env="test"] {
+		background: #ffef88;
+	}
+
   .pins-row--decentered {
 	display: flex;
   }
