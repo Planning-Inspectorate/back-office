@@ -8,7 +8,7 @@
 azure-pipelines-* @Planning-Inspectorate/pins-devops
 
 # Jest configuration
-*/jest.config.js @Planning-Inspectorate/pins-developer-leads
+**/jest.config.js @Planning-Inspectorate/pins-developer-leads
 
 # ESLint configuration
 .eslintrc.cjs @Planning-Inspectorate/pins-developer-leads
