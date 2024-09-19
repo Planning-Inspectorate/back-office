@@ -37,3 +37,18 @@ export const registerDownloadParams = ({ params }, response, next) => {
 
 	next();
 };
+
+/**
+ * Determine web environment from hostname
+ *
+ * @type {import('express').RequestHandler<*, *, *, *, *>}
+ */
+export const setWebEnvironmentLocals = (request, response, next) => {
+	let env = '';
+
+	if (request.hostname === 'back-office-training.planninginspectorate.gov.uk') env = 'training';
+
+	response.locals.webEnvironment = env;
+
+	next();
+};

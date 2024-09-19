@@ -5,7 +5,7 @@
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from '../components/global-header.njk' import globalHeader %}
+{% from '../components/global-header.njk' import globalHeader with context %}
 
 {% set containerClasses = 'pins-width-container' if containerSize === 'xl' else 'govuk-width-container' %}
 
