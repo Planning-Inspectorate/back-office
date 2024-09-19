@@ -16,7 +16,7 @@ Most of the apps are built with [Express.js](https://expressjs.com/), and the fr
 
 ### Prerequisites
 
-* [Node.js](https://nodejs.org/en/) LTS & npm
+* [Node.js](https://nodejs.org/en/) LTS & NPM (Ensure that NPM is installed globally)
 * [Docker](https://www.docker.com/products/docker-desktop) (to run a local db)
 
 ### Node.js
@@ -38,7 +38,7 @@ nvm alias default 20
 Use Docker to run an instance of SQL Server, replace "<YourStrong@Passw0rd>":
 
 ```shell
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" -p 1433:1433 --name pins_sql_server --hostname pins_sql_server -d mcr.microsoft.com/mssql/server:2019-latest
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" -p 1433:1433 --name pins_sql_server --hostname pins_sql_server -d mcr.microsoft.com/mssql/server:2019-CU27-ubuntu-20.04
 ```
 
 **Note:** `SA_PASSWORD` must meet the complexity requirements: at least 8 characters including uppercase, lowercase letters, base-10 digits and/or non-alphanumeric symbols. (see [Microsoft SQL Server - Ubuntu based images](https://hub.docker.com/_/microsoft-mssql-server)).
@@ -72,6 +72,8 @@ docker exec -it pins_sql_server "bash"
 or use the Docker Desktop Terminal tab for the container.
 
 2. Start `sqlcmd`
+
+Sqlcmd is a SQL command-line utility that enables interaction with SQL Server instances.  It is installed as part of the SQL Server instance in your Docker container.
 
 ```shell
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourStrong@Passw0rd>"
@@ -162,7 +164,14 @@ A normal npm i may not correctly pull the latest version of the schemas.  If you
 ```shell
 npm uninstall pins-data-model && npm prune && npm install github:Planning-Inspectorate/data-model#1.0.1
 ```
-#### Dummy User Data
+
+If you run into any issues during setup and encounter the error below, it's likely that the file is locked by a node.js process.  To resolve, open Task Manager and kill the node.js process that has a lock on the file.
+
+```shell
+EPERM: operation not permitted, unlink '....back-office\node_modules\.prisma\client\query_engine-windows.dll.node']
+```
+
+### Dummy User Data
 
 When running locally there is a DUMMY_USER_DATA flag that allows the application to read in some dummy user data in the form of a dummy_user_data.json file.
 
@@ -185,15 +194,15 @@ To run the apps, the recommended option is to have 2 terminals, one running the 
 For applications:
 ```shell
 # terminal 1
-npm run api:applications
+npm run api
 # terminal 2
-npm run web:applications
+npm run web
 ```
 
 You can also run the dev script in all apps via [Turbo](https://turbo.build/repo/docs), from root (although this sometimes fails due to an [npm bug](https://github.com/npm/cli/issues/5066)):
 
 ```shell
-npm run dev:applications
+npm run dev
 ```
 
 ## Structure
