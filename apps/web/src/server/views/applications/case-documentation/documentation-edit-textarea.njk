@@ -1,6 +1,8 @@
 {% extends "../layouts/document-edit-property.layout.njk" %}
 {% from "../components/textarea-form-component.njk" import textareaFormComponent %}
 
+{% set pageTitle = layout.pageTitle if layout.pageTitle else layout.label %}
+
 {% block formContent %}
 	{{ textareaFormComponent({
 		pageTitle: layout.pageTitle,

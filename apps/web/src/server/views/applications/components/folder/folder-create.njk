@@ -1,9 +1,11 @@
 {% extends "../../layouts/folder-edit-property.layout.njk" %}
 {% from "../textinput-form-component.njk" import textinputFormComponent %}
 
+{% set pageTitle = "Folder name" %}
+
 {% block formContent %}
 	{{ textinputFormComponent({
-    pageTitle: "Folder name",
+    pageTitle: pageTitle,
     name: "folderName",
     contextLabel: "Create folder"
 	}) }}

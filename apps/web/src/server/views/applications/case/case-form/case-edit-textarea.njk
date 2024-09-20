@@ -1,6 +1,8 @@
 {% extends "../layouts/case-property.layout.njk" %}
 {% from "../../components/textarea-form-component.njk" import textareaFormComponent %}
 
+{% set pageTitle = layout.pageTitle if layout.pageTitle else layout.label %}
+
 {% block formContent %}
 	{{ textareaFormComponent({
 		value: errors[layout.name].value if errors[layout.name] else values[layout.name],

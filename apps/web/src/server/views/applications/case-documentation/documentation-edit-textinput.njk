@@ -1,6 +1,8 @@
 {% extends "../layouts/document-edit-property.layout.njk" %}
 {% from "../components/textinput-form-component.njk" import textinputFormComponent %}
 
+{% set pageTitle = layout.pageTitle if layout.pageTitle else layout.label %}
+
 {% block formContent %}
 	{{ textinputFormComponent({
 		pageTitle: layout.pageTitle,
