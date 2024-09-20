@@ -1784,6 +1784,48 @@
 				}
 			}
 		},
+		"/applications/{id}/documents/move": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Moves documents to a new folder",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "documentIds and newParentFolderId",
+						"schema": {
+							"$ref": "#/definitions/DocumentsToMoveRequestBody"
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Documents that have been moved"
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/unpublish": {
 			"patch": {
 				"tags": ["Applications"],
@@ -2901,6 +2943,49 @@
 						"schema": {
 							"$ref": "#/definitions/PaginatedDocumentDetails"
 						}
+					}
+				}
+			}
+		},
+		"/applications/{id}/folders/move": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Moves folders to a new parent folder",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "folderIds and newParentFolderId",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/MoveFoldersRequestBody"
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The folders have been moved successfully"
 					}
 				}
 			}
@@ -7794,6 +7879,24 @@
 				}
 			}
 		},
+		"DocumentsToMoveRequestBody": {
+			"type": "object",
+			"properties": {
+				"newParentFolderId": {
+					"type": "integer",
+					"description": "Folder Id",
+					"example": 123
+				},
+				"documentIds": {
+					"type": "array",
+					"items": {
+						"type": "strings"
+					},
+					"description": "Array of documents IDs to be moved",
+					"example": ["documentId1", "documentId2"]
+				}
+			}
+		},
 		"DocumentsUnpublishResponseBody": {
 			"type": "object",
 			"properties": {
@@ -8353,6 +8456,24 @@
 					"type": "string",
 					"description": "Name of the folder to be created",
 					"example": "My folder"
+				}
+			}
+		},
+		"MoveFoldersRequestBody": {
+			"type": "object",
+			"properties": {
+				"newParentFolderId": {
+					"type": "integer",
+					"description": "ID of parent folder",
+					"example": 1
+				},
+				"folderIds": {
+					"type": "array",
+					"items": {
+						"type": "integer"
+					},
+					"description": "Array of folder IDs to be moved",
+					"example": [1, 2]
 				}
 			}
 		},

@@ -8,7 +8,8 @@ import {
 	getFolderPathList,
 	getListOfFolders,
 	getSingleFolder,
-	updateFolder
+	updateFolder,
+	moveFolders
 } from './folders.controller.js';
 import { validateCreateBody, validateFolderId } from './folders.validation.js';
 
@@ -219,6 +220,43 @@ router.post(
 	validateApplicationId,
 	validateFolderId,
 	asyncHandler(getDocuments)
+);
+
+router.patch(
+	'/:id/folders/move',
+	/*
+        #swagger.tags = ['Applications']
+        #swagger.path = '/applications/{id}/folders/move'
+        #swagger.description = 'Moves folders to a new parent folder'
+        #swagger.parameters['id'] = {
+        		in: 'path',
+        		description: 'Application ID',
+        		required: true,
+        		type: 'integer'
+				}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'folderIds and newParentFolderId',
+			required: true,
+			schema: { $ref: '#/definitions/MoveFoldersRequestBody' }
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+		#swagger.responses[200] = {
+						description: 'The folders have been moved successfully'
+				}
+		*/
+	asyncHandler(moveFolders)
 );
 
 router.post(

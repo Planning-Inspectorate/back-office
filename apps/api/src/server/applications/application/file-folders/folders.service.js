@@ -82,6 +82,10 @@ export const getFolderPath = async (id, folderId) => {
 	return mapBreadcrumbFolderDetails(folders);
 };
 
+export const moveFolders = async (folderIds, newParentFolderId) => {
+	return folderRepository.moveFolders(folderIds, newParentFolderId);
+};
+
 /**
  * Returns paginated array of documents in a folder on a case
  *

@@ -585,3 +585,28 @@ export const getInFolderByName = (folderId, fileName, includeDeleted) =>
 			...(includeDeleted ? {} : { isDeleted: false })
 		}
 	});
+
+export const moveDocuments = async (documentIds, newParentFolderId) => {
+	newParentFolderId = parseInt(newParentFolderId);
+
+	const parentFolder = await databaseConnector.folder.findUnique({
+		where: {
+			id: newParentFolderId
+		}
+	});
+
+	if (!parentFolder) {
+		throw new Error(`Parent folder with ID ${newParentFolderId} not found`);
+	}
+
+	return await databaseConnector.document.updateMany({
+		where: {
+			guid: {
+				in: documentIds
+			}
+		},
+		data: {
+			folderId: newParentFolderId
+		}
+	});
+};

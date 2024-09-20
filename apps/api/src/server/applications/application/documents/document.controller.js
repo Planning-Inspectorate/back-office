@@ -28,7 +28,8 @@ import {
 	upsertDocumentVersionAndReturnDetails,
 	unpublishDocuments as unpublishDocumentGuids,
 	deleteDocument,
-	revertDocumentStatusToPrevious
+	revertDocumentStatusToPrevious,
+	moveDocuments as svcMoveDocuments
 } from './document.service.js';
 import { getRedactionStatus, validateDocumentVersionMetadataBody } from './document.validators.js';
 
@@ -628,4 +629,14 @@ export const searchDocuments = async ({ params, query }, response) => {
 
 	const paginatedDocuments = await getDocumentsInCase(caseId, criteria, page, pageSize);
 	response.send(paginatedDocuments);
+};
+
+/**
+ * Moves documents to a new parent folder
+ * @type {import('express').RequestHandler<{ id: number }, ?, { documentIds: number[], newParentFolderId: number }, any>}
+ */
+export const moveDocuments = async ({ body }, response) => {
+	const { documentIds, newParentFolderId } = body;
+	await svcMoveDocuments(documentIds, newParentFolderId);
+	response.send(200);
 };

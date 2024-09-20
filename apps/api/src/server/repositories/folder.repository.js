@@ -296,6 +296,40 @@ export const getS51AdviceFolder = (caseId) => {
 	});
 };
 
+export const moveFolders = async (folderIds, newParentFolderId) => {
+	newParentFolderId = parseInt(newParentFolderId);
+	const folders = await databaseConnector.folder.findMany({
+		where: {
+			id: {
+				in: folderIds
+			}
+		}
+	});
+
+	const parentFolder = await databaseConnector.folder.findUnique({
+		where: {
+			id: newParentFolderId
+		}
+	});
+
+	if (!parentFolder) {
+		throw new Error('Parent folder not found');
+	}
+
+	return await Promise.all(
+		folders.map((folder) =>
+			databaseConnector.folder.update({
+				where: {
+					id: folder.id
+				},
+				data: {
+					parentFolderId: newParentFolderId
+				}
+			})
+		)
+	);
+};
+
 /**
  * The default template folder structure for a new NI Applications type case
  *

@@ -1324,6 +1324,18 @@ export const spec = {
 				}
 			}
 		},
+		DocumentsToMoveRequestBody: {
+			type: 'object',
+			properties: {
+				newParentFolderId: { type: 'integer', description: 'Folder Id', example: 123 },
+				documentIds: {
+					type: 'array',
+					items: { type: 'strings' },
+					description: 'Array of documents IDs to be moved',
+					example: ['documentId1', 'documentId2']
+				}
+			}
+		},
 		DocumentsUnpublishResponseBody: {
 			type: 'object',
 			properties: {
@@ -1802,6 +1814,18 @@ export const spec = {
 					type: 'string',
 					description: 'Name of the folder to be created',
 					example: 'My folder'
+				}
+			}
+		},
+		MoveFoldersRequestBody: {
+			type: 'object',
+			properties: {
+				newParentFolderId: { type: 'integer', description: 'ID of parent folder', example: 1 },
+				folderIds: {
+					type: 'array',
+					items: { type: 'integer' },
+					description: 'Array of folder IDs to be moved',
+					example: [1, 2]
 				}
 			}
 		},

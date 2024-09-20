@@ -21,7 +21,8 @@ import {
 	markAsUnpublished,
 	unpublishDocuments,
 	searchDocuments,
-	getManyDocumentsProperties
+	getManyDocumentsProperties,
+	moveDocuments
 } from './document.controller.js';
 import {
 	validateDocumentIds,
@@ -123,6 +124,42 @@ router.post(
 	validateFolderIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(createDocumentsOnCase)
+);
+
+router.patch(
+	'/:id/documents/move',
+	/*
+				#swagger.tags = ['Applications']
+				#swagger.path = '/applications/{id}/documents/move'
+				#swagger.description = 'Moves documents to a new folder'
+				#swagger.parameters['id'] = {
+					in: 'path',
+					description: 'Application ID',
+					required: true,
+					type: 'integer'
+				}
+				#swagger.parameters['body'] = {
+					in: 'body',
+					description: 'documentIds and newParentFolderId',
+					schema: { $ref: '#/definitions/DocumentsToMoveRequestBody' }
+				}
+				#swagger.parameters['x-service-name'] = {
+					in: 'header',
+					type: 'string',
+					description: 'Service name header',
+					default: 'swagger'
+				}
+				#swagger.parameters['x-api-key'] = {
+					in: 'header',
+					type: 'string',
+					description: 'API key header',
+					default: '123'
+				}
+				#swagger.responses[200] = {
+					description: 'Documents that have been moved',
+				}
+	 */
+	asyncHandler(moveDocuments)
 );
 
 router.patch(

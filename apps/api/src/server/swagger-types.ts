@@ -1435,6 +1435,19 @@ export interface DocumentsToUnpublishRequestBody {
 	}[];
 }
 
+export interface DocumentsToMoveRequestBody {
+	/**
+	 * Folder Id
+	 * @example 123
+	 */
+	newParentFolderId?: number;
+	/**
+	 * Array of documents IDs to be moved
+	 * @example ["documentId1","documentId2"]
+	 */
+	documentIds?: strings[];
+}
+
 export interface DocumentsUnpublishResponseBody {
 	errors?: {
 		guid?: string;
@@ -1891,6 +1904,19 @@ export interface CreateFolderRequestBody {
 	 * @example "My folder"
 	 */
 	name?: string;
+}
+
+export interface MoveFoldersRequestBody {
+	/**
+	 * ID of parent folder
+	 * @example 1
+	 */
+	newParentFolderId?: number;
+	/**
+	 * Array of folder IDs to be moved
+	 * @example [1,2]
+	 */
+	folderIds?: number[];
 }
 
 export interface UpdateFolderRequestBody {

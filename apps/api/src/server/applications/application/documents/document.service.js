@@ -1021,3 +1021,7 @@ export const buildDocumentFolderPath = async (folderId, caseRef, filename) => {
 
 	return folderPath;
 };
+
+export const moveDocuments = async (folderIds, newParentFolderId) => {
+	return documentRepository.moveDocuments(folderIds, newParentFolderId);
+};

@@ -12,7 +12,8 @@ import {
 	updateFolder as svcUpdateFolder,
 	getChildFolders,
 	checkFoldersHaveNoDocuments,
-	checkIfFolderIsCustom
+	checkIfFolderIsCustom,
+	moveFolders as svcMoveFolders
 } from './folders.service.js';
 
 /**
@@ -49,6 +50,16 @@ export const getFolderPathList = async ({ params }, response) => {
 	const folderDetails = await getFolderPath(params.id, params.folderId);
 
 	response.send(folderDetails);
+};
+
+/**
+ * Moves folders to a new parent folder
+ * @type {import('express').RequestHandler<{ id: number }, ?, { folderIds: number[], parentFolderId: number }, any>}
+ */
+export const moveFolders = async ({ body }, response) => {
+	const { folderIds, newParentFolderId } = body;
+	await svcMoveFolders(folderIds, newParentFolderId);
+	response.send(200);
 };
 
 /**
