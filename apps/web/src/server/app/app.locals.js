@@ -43,10 +43,10 @@ export const registerDownloadParams = ({ params }, response, next) => {
  *
  * @type {import('express').RequestHandler<*, *, *, *, *>}
  */
-export const setWebEnvironmentLocals = (request, response, next) => {
+export const setWebEnvironmentLocals = ({ hostname }, response, next) => {
 	let env = '';
 
-	if (request.hostname === 'back-office-training.planninginspectorate.gov.uk') env = 'training';
+	if (hostname.includes('training')) env = 'training';
 
 	response.locals.webEnvironment = env;
 

@@ -22,7 +22,7 @@ describe('apps/web/src/server/app/app.locals', () => {
 			});
 
 			it('should set the web environment local to training and call next', () => {
-				expect(res.locals).toEqual('training');
+				expect(res.locals.webEnvironment).toEqual('training');
 				expect(next).toHaveBeenCalled();
 			});
 		});
