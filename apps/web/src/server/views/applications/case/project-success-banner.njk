@@ -2,7 +2,7 @@
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
-{% set serviceName = "Project page successfully "+ ('unpublished' if isUnpublished else 'published') %}
+{% set pageTitle = "Project page successfully "+ ('unpublished' if isUnpublished else 'published') %}
 
 {% block beforeContent %}{% endblock %}
 {% block pageHeading %}{% endblock %}
@@ -19,7 +19,7 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds">
 			{{ govukPanel({
-				titleText: serviceName,
+				titleText: pageTitle,
 				html: bannerDetails
 			}) }}
 

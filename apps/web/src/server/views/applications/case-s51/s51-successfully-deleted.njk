@@ -3,14 +3,15 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% set isGeneralS51 = case.reference === gs51CaseReference %}
-{% set serviceName = ["S51 advice item successfully deleted ", action] | join %}
+{% set serviceName = case.title if case.title else "S51 advice" %}
+{% set pageTitle = ["S51 advice item successfully deleted ", action] | join %}
 
 {% block beforeContent %}{% endblock %}
 {% block pageHeading %}{% endblock %}
 
 
 {% if isGeneralS51 %}
-	{% set serviceName = ["General S51 advice item successfully deleted ", action] | join %}
+	{% set pageTitle = ["General S51 advice item successfully deleted ", action] | join %}
 {% endif %}
 
 
@@ -27,7 +28,7 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
 			{{ govukPanel({
-				titleText: serviceName,
+				titleText: pageTitle,
 				html: bannerDetails
 			}) }}
 

@@ -1,9 +1,9 @@
-{% extends "../layouts/applications.layout.njk" %}
+{% extends "../case/layouts/applications-case-layout.njk" %}
 
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% set serviceName = "Examination timetable" %}
+{% set serviceName = case.title %}
 {% set pageTitle = "Create new item" %}
 
 {% block sectionMenu %}{% endblock %}

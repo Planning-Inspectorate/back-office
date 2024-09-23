@@ -7,11 +7,11 @@
 {% from "./components/case-details-table-legacy.component.njk" import caseDetailsTableLegacy %}
 {% from "./components/case-applicant-table.component.njk" import caseApplicantTable %}
 
-{% set serviceName = 'Project information'%}
+{% set pageTitle = 'Project information'%}
 
 {% block sectionContent %}
 
-	<h2 class="govuk-heading-m">{{serviceName}}</h2>
+	<h2 class="govuk-heading-m">{{pageTitle}}</h2>
 
 	{{ caseInfoTable(case) }}
 

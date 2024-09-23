@@ -19,7 +19,6 @@ const nocks = () => {
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
 		.get(/\/applications\/1(.*)/g)
-		.times(2)
 		.reply(200, fixtureCases[0]);
 
 	nock('http://test/')

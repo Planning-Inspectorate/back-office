@@ -3,7 +3,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% set serviceName = "Project team" %}
+{% set serviceName = case.title %}
 {% set pageTitle = ('Choose' if projectTeamMember.role == '' else 'Change') +" role" %}
 
 {% block beforeContent %}

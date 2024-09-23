@@ -14,9 +14,7 @@ import { getCase } from './common/services/case.service.js';
  * @type {import('express').RequestHandler<*, *, *, *, ApplicationsLocals>}
  */
 export const registerLocals = ({ baseUrl }, response, next) => {
-	response.locals.serviceName = 'NSIP Applications';
 	response.locals.serviceUrl = baseUrl;
-
 	next();
 };
 

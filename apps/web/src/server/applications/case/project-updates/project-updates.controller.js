@@ -155,12 +155,14 @@ export async function projectUpdatesTypeGet(req, res) {
 
 	const projectUpdate = await getProjectUpdate(caseId, projectUpdateId);
 	const errors = req.errors;
+	const pageTitle = 'What information does the update contain?';
 
 	return res.render(formView, {
 		case: res.locals.case,
 		buttonText: 'Save and continue',
 		backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.content),
 		errors, // for error summary
+		pageTitle,
 		form: {
 			components: [
 				{
@@ -168,7 +170,7 @@ export async function projectUpdatesTypeGet(req, res) {
 					name: 'type',
 					fieldset: {
 						legend: {
-							html: 'What information does the update contain?',
+							html: pageTitle,
 							isPageHeading: true,
 							classes: 'govuk-fieldset__legend--l'
 						}
@@ -217,13 +219,14 @@ export async function projectUpdatesStatusGet(req, res) {
 
 	const statusOptions = sortStatuses(allowedStatuses);
 
-	const title =
+	const pageTitle =
 		projectUpdate.status === ProjectUpdate.Status.draft ? 'Set status' : 'Change status';
 
 	return res.render(formView, {
 		case: res.locals.case,
 		buttonText: 'Save and continue',
 		backLink: stepLink(caseId, projectUpdateId, projectUpdateRoutes.type),
+		pageTitle,
 		errors, // for error summary
 		form: {
 			components: [
@@ -232,7 +235,7 @@ export async function projectUpdatesStatusGet(req, res) {
 					name: 'status',
 					fieldset: {
 						legend: {
-							html: title,
+							html: pageTitle,
 							isPageHeading: true,
 							classes: 'govuk-fieldset__legend--l'
 						}

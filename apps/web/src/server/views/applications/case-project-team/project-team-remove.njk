@@ -3,7 +3,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-{% set serviceName = "Project team" %}
+{% set serviceName = case.title %}
 {% set pageTitle = "Remove team member" %}
 
 {% block beforeContent %}

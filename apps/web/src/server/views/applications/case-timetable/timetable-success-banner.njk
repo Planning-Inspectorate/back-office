@@ -3,7 +3,8 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% set action = 'added' if action === 'created' else action %}
-{% set serviceName = ["Timetable item successfully ", action]|join  %}
+{% set pageTitle = ["Timetable item successfully ", action]|join  %}
+{% set serviceName = case.title %}
 
 {% block beforeContent %}{% endblock %}
 {% block pageHeading %}{% endblock %}
@@ -12,7 +13,7 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
 			{{ govukPanel({
-				titleText: serviceName,
+				titleText: pageTitle,
 				html: [case.title, '<br> The case reference number <br> <strong>', case.reference, '</strong>']|join
 			}) }}
 

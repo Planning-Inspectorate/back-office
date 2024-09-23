@@ -24,8 +24,8 @@
 {% from "./key-dates/date-published.njk" import datePublished %}
 {% from "./key-dates/date-internal.njk" import dateInternal %}
 
-{% set pageTitle = 'Create new case' %}
-{% set serviceName = layout.pageTitle %}
+{% set serviceName = case.title if case.title else 'Create new case' %}
+{% set pageTitle = layout.pageTitle %}
 
 {# The component will render the page heading if there is only one component and it is specified below #}
 {% set componentCount = 0 %}

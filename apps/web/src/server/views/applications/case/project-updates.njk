@@ -5,7 +5,7 @@
 {% from "applications/case/project-updates/project-updates-table.njk" import projectUpdatesTable %}
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 
-{% set serviceName = 'Project updates'%}
+{% set pageTitle = 'Project updates'%}
 
 {% block sectionMenu %}{% endblock %}
 
@@ -30,7 +30,7 @@
 				{% endset %}
 				{{ govukNotificationBanner({type: 'success', html: bannerHtml}) }}
 			{% endif %}
-			<h2 class="govuk-heading-m">{{serviceName}}</h2>
+			<h2 class="govuk-heading-m">{{pageTitle}}</h2>
 
 			{{ govukButton({
 				text: "Create a project update",

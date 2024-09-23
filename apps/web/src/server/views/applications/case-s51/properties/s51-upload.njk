@@ -3,7 +3,8 @@
 {% from 'app/components/file-uploader.component.njk' import fileUploader %}
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
-{% set serviceName = ["Upload files in ", currentFolder.displayNameEn, " folder"] | join  %}
+{% set serviceName = case.title if case.title else "S51 advice" %}
+{% set pageTitle = ["Upload files in ", currentFolder.displayNameEn, " folder"] | join  %}
 
 {% block pageHeading %}{% endblock %}
 
@@ -26,7 +27,7 @@
 		caseId: caseId,
 		folderId: currentFolder.id,
 		adviceId: s51Advice.id,
-		formTitle: serviceName,
+		formTitle: pageTitle,
     	nextPageUrl: 's51-item' | url({ caseId: caseId, folderId: currentFolder.id, adviceId: s51Advice.id, step: 'properties' }),
 		allowedTypes: ['pdf','doc','docx','ppt','pptx','xls','xlsx','jpg','jpeg','mpeg','mp3','mp4','mov','png','tif','tiff','prj','dbf','shp','shx'],
 		multiple: true
