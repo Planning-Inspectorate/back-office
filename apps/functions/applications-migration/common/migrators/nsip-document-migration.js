@@ -29,7 +29,7 @@ export const migrationNsipDocumentsByReference = async (log, caseReference) => {
  */
 export const getNsipDocuments = async (log, caseReference) => {
 	return await SynapseDB.query(
-		'SELECT * FROM [odw_curated_db].[dbo].[document_meta_data] WHERE caseRef = ? AND sourceSystem = ?;',
+		'SELECT * FROM [odw_curated_db].[dbo].[nsip_document] WHERE caseRef = ? AND sourceSystem = ?;',
 		{
 			replacements: [caseReference, 'horizon'],
 			type: QueryTypes.SELECT
