@@ -18,6 +18,7 @@ import { EventType } from '@pins/event-client';
 import { buildFolderPayload } from '#infrastructure/payload-builders/folder.js';
 import { verifyNotTraining } from '../application/application.validators.js';
 import { folderDocumentCaseStageMappings } from '../constants.js';
+import { mapExaminationTimetableItemDateTime } from './examination-timetable-items.service.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
@@ -179,6 +180,10 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 	body.description = mapExaminationTimetableItemDescriptionToSave(body.description);
 	body.folderId = itemFolder.id;
 	body.examinationTimetableId = examinationTimetable.id;
+	console.log('this is body before: ', body);
+	console.log('this is examinationTimetableType: ', examinationTimetableType);
+	mapExaminationTimetableItemDateTime(body, examinationTimetableType);
+	console.log('this is body after: ', body);
 	delete body.caseId;
 	delete body.published;
 	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
