@@ -21,6 +21,7 @@
 		"cypress-wait-until": "*",
 		"dotenv": "*",
 		"fs-extra": "*",
-		"lodash-es": "*"
+		"lodash-es": "*",
+		"puppeteer": "*"
 	}
 }
