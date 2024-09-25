@@ -53,9 +53,7 @@
 						fieldName: key,
 						label: key | keyDatesProperty,
 						classes: 'govuk-grid-column-one-third',
-							hint: {
-								html: getDatesHint(key)
-							}
+							hint: {	html: getDatesHint(key)	} if (getDatesHint(key) | length > 3)
 						},
 						errors: errors,
 						values: sectionValues
