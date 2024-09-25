@@ -15,18 +15,13 @@
 		"@pins/feature-flags": "*"
 	},
 	"devDependencies": {
-		"@azure/app-configuration": "*",
-		"@badeball/cypress-cucumber-preprocessor": "*",
-		"@bahmutov/cypress-esbuild-preprocessor": "*",
 		"@cypress/webpack-preprocessor": "*",
 		"@faker-js/faker": "*",
 		"cypress": "*",
 		"cypress-wait-until": "*",
 		"dotenv": "*",
-		"eslint-plugin-cypress": "*",
 		"fs-extra": "*",
 		"lodash-es": "*",
-		"nodemon": "*",
 		"puppeteer": "*"
 	}
 }
