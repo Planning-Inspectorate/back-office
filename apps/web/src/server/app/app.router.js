@@ -21,7 +21,7 @@ import {
 	postValidateFileSignatures,
 	postProcessHTMLFile
 } from './components/file-uploader.component.js';
-import { registerAdviceId, registerDownloadParams } from './app.locals.js';
+import { registerAdviceId, registerDownloadParams, setWebEnvironmentLocals } from './app.locals.js';
 import { registerCaseId } from '../applications/create-new-case/applications-create.locals.js';
 import { registerDocumentGuid } from '../applications/case/applications-case.locals.js';
 
@@ -56,6 +56,9 @@ const groupIds = [
 	appsConfig.inspectorGroupId
 ];
 router.use(assertGroupAccess(...groupIds));
+
+// Add web environment values to locals
+router.use(setWebEnvironmentLocals);
 
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(asyncHandler(handleSignout));

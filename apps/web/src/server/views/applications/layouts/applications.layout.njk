@@ -1,8 +1,7 @@
 {% extends "app/layouts/app.layout.njk" %}
 {% from 'app/components/global-header.njk' import globalHeader %}
 
-
 {% block header %}
-	{% set domainName = 'NSIP Applications'%}
+	{% set domainName = 'C-BOS Training Environment' if webEnvironment == 'training' else 'NSIP Applications' %}
 	{{ globalHeader(domainName) }}
 {% endblock %}
