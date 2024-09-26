@@ -1,6 +1,9 @@
 {% extends "./../layouts/applications.layout.njk" %}
 {% from "./components/timetable-items-list.component.njk" import timetableItemsList%}
 
+{% set serviceName = case.title %}
+{% set pageTitle = "Check details and " + ('publish' if stage == 'publish' else 'unpublish' ) + " examination timetable" %}
+
 {% block beforeContent %}
 <aside>
 	<div class="govuk-width-container">
@@ -10,7 +13,7 @@
 {% endblock %}
 
 {% block pageContent %}
-    <h1 class="govuk-heading-l">Check details and {{ 'publish' if stage == 'publish' else 'unpublish' }} examination timetable</h1>
+    <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
 
     {{ timetableItemsList(timetableItems, caseId, isCaseWelsh) }}
     <form method="post">

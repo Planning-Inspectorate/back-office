@@ -15,19 +15,15 @@
     "@pins/platform": "*",
     "ajv": "*",
     "ajv-formats": "*",
-    "dotenv": "*",
     "got": "*",
     "joi": "*",
     "json-diff": "*",
     "lodash-es": "*",
-    "mysql2": "*",
     "pins-data-model": "*",
     "sequelize": "*",
     "tedious": "*"
   },
   "devDependencies": {
-    "azure-functions-core-tools": "*",
-    "cross-env": "*",
     "jest": "*",
     "prisma": "*"
   }

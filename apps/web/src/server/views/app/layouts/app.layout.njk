@@ -14,16 +14,12 @@
   <script defer="defer" src="{{ pathToJs | stripQueryParamsDev }}"></script>
 {% endblock %}
 
-{% set appName = 'Casework Back Office System' %}
+{% set appName = 'NSIP applications' %}
 
-{% block pageTitle %}
-	{% if errors %}
-		Error:
-	{% endif %}
-	{{appName}}
-	{{ '- '+pageTitle if pageTitle or '' }}
-	{{ '- '+serviceName if serviceName or '' }}
-{%- endblock %}
+{%- block pageTitle -%}
+	{{ 'Error: ' if errors }}
+	{{ buildTitle(pageTitle, serviceName, appName) }}
+{%- endblock -%}
 
 {% block header %}
 	{% set domainName = 'Planning Inspectorate'%}

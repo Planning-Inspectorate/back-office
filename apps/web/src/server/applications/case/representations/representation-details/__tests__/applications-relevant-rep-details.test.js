@@ -29,7 +29,7 @@ const nocks = (inDraft = false) => {
 			status: 'DRAFT'
 		};
 
-	nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
+	nock('http://test/').get('/applications/1').times(2).reply(200, mockCaseReference);
 	nock('http://test/').get('/applications/1/representations/1').reply(200, representationDetails);
 	nock('http://test/').get('/applications/1/folders').reply(200, mockFolders);
 };
@@ -214,7 +214,7 @@ describe('/applications-service/case/1/relevant-representations/1/representation
 
 		describe('and the representation has been depublished', () => {
 			beforeEach(async () => {
-				nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
+				nock('http://test/').get('/applications/1').times(2).reply(200, mockCaseReference);
 				nock('http://test/')
 					.get('/applications/1/representations/1')
 					.reply(200, {
@@ -236,7 +236,7 @@ describe('/applications-service/case/1/relevant-representations/1/representation
 	describe('POST /applications-service/case/1/relevant-representations/1/representation-details', () => {
 		describe('and there are errors', () => {
 			beforeEach(async () => {
-				nock('http://test/').get('/applications/1').reply(200, mockCaseReference);
+				nock('http://test/').get('/applications/1').times(2).reply(200, mockCaseReference);
 				nock('http://test/')
 					.get('/applications/1/representations/1')
 					.reply(200, {

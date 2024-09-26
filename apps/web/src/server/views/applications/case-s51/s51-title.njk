@@ -4,7 +4,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set isGeneralS51folder = case.reference === gs51CaseReference %}
-{% set serviceName = "S51 advice" %}
+{% set serviceName = case.title if case.title else "S51 advice" %}
 {% set pageTitle = "Enter the S51 advice title" %}
 {% set labelText = "S51 title" %}
 

@@ -11,11 +11,11 @@ const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, {});
 	nock('http://test/')
 		.get(/\/applications\/123(.*)/g)
-		.times(2)
+		.times(3)
 		.reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get(/\/applications\/456(.*)/g)
-		.times(2)
+		.times(3)
 		.reply(200, fixtureCases[4]);
 };
 

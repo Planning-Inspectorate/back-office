@@ -15,18 +15,22 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications').reply(200, {});
+	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
 	nock('http://test/')
-		.get(/\/applications\/3(.*)/g)
+		.get(/\/applications\/3(.*)?/g)
+		.times(2)
 		.reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get(/\/applications\/4(.*)/g)
+		.times(2)
 		.reply(200, fixtureCases[4]);
 	// welsh case
 	nock('http://test/')
-		.get(/\/applications\/7(.*)/g)
+		.get(/\/applications\/7(.*)?/g)
+		.times(2)
 		.reply(200, fixtureCases[7]);
+
 	nock('http://test/')
 		.get('/applications/sector?sectorName=transport')
 		.reply(200, fixtureSubSectors);

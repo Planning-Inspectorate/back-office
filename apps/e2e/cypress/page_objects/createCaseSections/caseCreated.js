@@ -8,7 +8,7 @@ export class CaseCreatedSection extends SectionBase {
 			.then((text) => {
 				cy.wrap(text.trim()).should('equal', 'New case has been created');
 			});
-		this.verifyPageTitle('NSIP Applications');
+		this.verifyPageTitle('');
 		this.saveCaseReference();
 		this.saveCaseIdFromUrl();
 	}

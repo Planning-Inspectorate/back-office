@@ -5,13 +5,12 @@ import {
 	postPublishValidRepsController
 } from './publish-valid-reps.controller.js';
 import { publishAllValidRepsUrl } from '../config.js';
-import { registerCaseId } from '../../../create-new-case/applications-create.locals.js';
 
 const publishValidRepresentationsRouter = createRouter({ mergeParams: true });
 
 publishValidRepresentationsRouter
 	.route(`/${publishAllValidRepsUrl}`)
-	.get(registerCaseId, asyncHandler(getPublishValidRepsController))
-	.post(registerCaseId, asyncHandler(postPublishValidRepsController));
+	.get(asyncHandler(getPublishValidRepsController))
+	.post(asyncHandler(postPublishValidRepsController));
 
 export default publishValidRepresentationsRouter;

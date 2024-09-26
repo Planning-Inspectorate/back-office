@@ -356,8 +356,6 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Project published on website</legend>
-                <div id="dateProjectAppearsOnWebsite-hint"
-                class="govuk-hint">Applicant notifies the Planning Inspectorate of a project.</div>
                 <div class="govuk-grid-column-one-third">
                     <div class="govuk-grid-row pins-date-form-group">
                         <div class="govuk-form-group">
@@ -1390,8 +1388,6 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Project published on website</legend>
-                <div id="dateProjectAppearsOnWebsite-hint"
-                class="govuk-hint">Applicant notifies the Planning Inspectorate of a project.</div>
                 <div class="govuk-grid-column-one-third">
                     <div class="govuk-grid-row pins-date-form-group">
                         <div class="govuk-form-group">

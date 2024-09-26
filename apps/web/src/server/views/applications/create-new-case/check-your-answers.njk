@@ -4,8 +4,8 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
-{% set pageTitle = 'Create new case' %}
-{% set serviceName = 'Check your answers' %}
+{% set serviceName = '' %}
+{% set pageTitle = 'Check your answers before creating a new project' %}
 
 {% block pageHeading %}{% endblock %}
 {% block pageContent %}
@@ -64,7 +64,7 @@
     <h1 class="govuk-heading-l">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-full">
-                Check your answers before creating a new project
+                {{ pageTitle }}
             </div>
         </div>
     </h1>

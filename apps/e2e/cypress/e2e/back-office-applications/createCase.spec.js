@@ -22,10 +22,10 @@ describe('Create A Case', () => {
 		it('As a user able to validate that all input validation errors in the create case flow', () => {
 			cy.login(applicationsUsers.caseAdmin);
 			cy.visit('/');
-			applicationsHomePage.verifyPageTitle('Applications - NSIP Applications');
+			applicationsHomePage.verifyPageTitle('Applications');
 			applicationsHomePage.clickCreateNewCaseButton();
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Enter name and description', {
+			applicationsHomePage.verifyPageTitle('Enter name and description - Create new case', {
 				error: true
 			});
 			createCasePage.validateErrorMessageCountOnPage(2);
@@ -36,26 +36,26 @@ describe('Create A Case', () => {
 				projectInfo.projectDescription
 			);
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Choose a sector');
+			applicationsHomePage.verifyPageTitle('Choose a sector - Create new case');
 
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Choose a sector', { error: true });
+			applicationsHomePage.verifyPageTitle('Choose a sector - Create new case', { error: true });
 			createCasePage.validateErrorMessageCountOnPage(1);
 			createCasePage.validateErrorMessage('Choose the sector of the project');
 
 			createCasePage.sections.sector.chooseSector(projectInfo.sector);
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Choose a subsector');
+			applicationsHomePage.verifyPageTitle('Choose a subsector - Create new case');
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Choose a subsector', { error: true });
+			applicationsHomePage.verifyPageTitle('Choose a subsector - Create new case', { error: true });
 			createCasePage.validateErrorMessageCountOnPage(1);
 			createCasePage.validateErrorMessage('Choose the subsector of the project');
 			createCasePage.sections.subSector.chooseSubsector(projectInfo.sector, projectInfo.subsector);
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Enter geographical information');
+			applicationsHomePage.verifyPageTitle('Enter geographical information - Create new case');
 
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Enter geographical information', {
+			applicationsHomePage.verifyPageTitle('Enter geographical information - Create new case', {
 				error: true
 			});
 			createCasePage.validateErrorMessageCountOnPage(3);
@@ -70,28 +70,27 @@ describe('Create A Case', () => {
 				projectInfo.gridRefNorthing
 			);
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Choose one or multiple regions');
+			applicationsHomePage.verifyPageTitle('Choose one or multiple regions - Create new case');
 
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Choose one or multiple regions', {
+			applicationsHomePage.verifyPageTitle('Choose one or multiple regions - Create new case', {
 				error: true
 			});
 			createCasePage.validateErrorMessageCountOnPage(1);
 			createCasePage.validateErrorMessage('Choose at least one region');
 			createCasePage.sections.regions.chooseRegions(projectInfo.regions);
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Choose map zoom level');
-
+			applicationsHomePage.verifyPageTitle('Choose map zoom level - Create new case');
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Enter the project email (optional)');
+			applicationsHomePage.verifyPageTitle('Enter the project email (optional) - Create new case');
 			createCasePage.clickSaveAndContinue();
 			applicationsHomePage.verifyPageTitle(
-				'Create new case - Choose the Applicant information you have available'
+				'Choose the Applicant information you have available - Create new case'
 			);
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Enter the key dates of the project');
+			applicationsHomePage.verifyPageTitle('Enter the key dates of the project - Create new case');
 			createCasePage.clickSaveAndContinue();
-			applicationsHomePage.verifyPageTitle('Create new case - Check your answers');
+			applicationsHomePage.verifyPageTitle('Check your answers before creating a new project');
 			createCasePage.sections.checkYourAnswers.checkAllAnswers(projectInfo, true);
 			createCasePage.clickButtonByText('I accept - confirm creation of a new case');
 			createCasePage.sections.caseCreated.validateCaseCreated();

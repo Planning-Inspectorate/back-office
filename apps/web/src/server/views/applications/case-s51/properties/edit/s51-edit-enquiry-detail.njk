@@ -2,10 +2,10 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
+{% set pageTitle = 'Edit enquiry details' %}
+
 {% block formHeading %}
-	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">
-    Edit enquiry details
-	</h1>
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-5">{{ pageTitle }}</h1>
 {% endblock %}
 
 {% block formContent %}

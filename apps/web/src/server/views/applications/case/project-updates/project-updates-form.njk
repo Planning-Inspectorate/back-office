@@ -7,6 +7,9 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "applications/components/html-content-editor.njk" import htmlContentEditor %}
 
+{% set pageTitle = title if title else pageTitle %}
+{% set serviceName = case.title %}
+
 {# don't include the layouts page heading #}
 {% block pageHeading %}{% endblock %}
 
@@ -22,10 +25,10 @@
 {% endblock %}
 
 {% block pageContent %}
-    <p class="govuk-body"><strong>Project name:</strong> {{ case.title }}</p>
+    <p class="govuk-body"><strong>Project name:</strong> {{ serviceName }}</p>
 
 	{% if (not form.components[0].fieldset) %}
-		<h1 class="govuk-heading-l">{{ title }}</h1>
+		<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
 	{% endif %}
 
 	<form method="post" action="" novalidate="novalidate">

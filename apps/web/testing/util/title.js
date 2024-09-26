@@ -19,7 +19,5 @@ export const getPageTitle = (response) => {
  * @returns {`${string}${string}`}
  */
 export const buildPageTitle = (pageElements, options = {}) => {
-	return `${options?.error ? 'Error: ' : ''}${['Casework Back Office System', ...pageElements].join(
-		' - '
-	)}`;
+	return `${options?.error ? 'Error: ' : ''}${[...pageElements, 'NSIP applications'].join(' - ')}`;
 };

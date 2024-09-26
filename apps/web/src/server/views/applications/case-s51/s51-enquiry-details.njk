@@ -5,7 +5,7 @@
 
 {% from '../components/inputs/date-input.component.njk' import dateInput %}
 
-{% set serviceName = "S51 advice" %}
+{% set serviceName = case.title if case.title else "S51 advice" %}
 {% set pageTitle = "Enquiry details" %}
 
 {% block sectionMenu %}{% endblock %}

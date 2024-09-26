@@ -24,7 +24,7 @@ describe('publish-updated-representations.controller', () => {
 
 	describe('GET /applications-service/:caseId/relevant-representations/select-representations-for-publishing', () => {
 		const nocks = () => {
-			nock('http://test/').get('/applications/1').reply(200, mockCaseData);
+			nock('http://test/').get('/applications/1').times(2).reply(200, mockCaseData);
 			nock('http://test/')
 				.get('/applications/1/representations/publishable')
 				.reply(200, publishableRepresentationsFixture);
@@ -44,7 +44,7 @@ describe('publish-updated-representations.controller', () => {
 	describe('POST /applications-service/:caseId/relevant-representations/select-representations-for-publishing', () => {
 		describe('error', () => {
 			const nocks = () => {
-				nock('http://test/').get('/applications/1').reply(200, mockCaseData);
+				nock('http://test/').get('/applications/1').times(2).reply(200, mockCaseData);
 				nock('http://test/')
 					.get('/applications/1/representations/publishable')
 					.reply(200, publishableRepresentationsFixture);
@@ -65,6 +65,7 @@ describe('publish-updated-representations.controller', () => {
 
 		describe('unsuccessful', () => {
 			const nocks = () => {
+				nock('http://test/').get('/applications/1').times(2).reply(200, mockCaseData);
 				nock('http://test/')
 					.patch('/applications/1/representations/publish')
 					.reply(200, { publishedRepIds: [] });
@@ -83,6 +84,7 @@ describe('publish-updated-representations.controller', () => {
 
 		describe('successful', () => {
 			const nocks = () => {
+				nock('http://test/').get('/applications/1').times(2).reply(200, mockCaseData);
 				nock('http://test/')
 					.patch('/applications/1/representations/publish')
 					.reply(200, { publishedRepIds: [1, 2, 3] });

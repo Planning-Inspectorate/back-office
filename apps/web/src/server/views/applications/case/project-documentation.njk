@@ -2,7 +2,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../../applications/case-documentation/search/document-search.component.njk" import applicationDocumentSearch %}
 
-{% set serviceName = 'Project documentation'%}
+{% set pageTitle = 'Project documentation'%}
 
 {% block sectionMenu %}{% endblock %}
 
@@ -19,7 +19,7 @@
 
 {% block sectionContent %}
 
-	<h2 class="govuk-heading-m">{{serviceName}}</h2>
+	<h2 class="govuk-heading-m">{{pageTitle}}</h2>
 
 	<p class="govuk-body-s colour--secondary">All documents relating to the project</p>
 

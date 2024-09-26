@@ -59,10 +59,10 @@ export class ProjectTeamPage extends Page {
 			expect(list).to.not.equal(0);
 		});
 	}
-	validateErrorMessageWithoutEnteringAnything() {
+	validateErrorMessageWithoutEnteringAnything(projectInfo) {
 		this.elements.searchTeamMemberButton().click();
 		this.elements.errorMessageForSearch().contains('Enter a search term');
-		this.verifyPageTitle('Search for a team member - Project team', {
+		this.verifyPageTitle(`Search for a team member - ${projectInfo.projectName}`, {
 			error: true
 		});
 	}
