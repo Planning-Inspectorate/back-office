@@ -101,3 +101,45 @@ export const convertExamDescriptionToInputText = (description) => {
 	}
 	return descriptionText;
 };
+
+/**
+ * Params are expected to be in the format '01/02/2025, 13:00:00'
+ * This can be achieved using the .toLocaleString() function of the date class
+ * Reasoning behind dateOrEndDateField name and purpose can be found here
+ * https://pins-ds.atlassian.net/wiki/spaces/AS2/pages/1775894531/Changes+to+the+ExaminationTimetableItem+table
+ *
+ * @param {string} dateOrEndDateField
+ * @param {string | null} startDateField
+ */
+export const mapLocalTimeToDisplayFields = (dateOrEndDateField, startDateField) => {
+	const [dateOrEndDate, endTime] = [dateOrEndDateField?.split(', ')].flat();
+	const [startDate, startTime] = [startDateField?.split(', ')].flat();
+	const formattedStartTime = startTime?.slice(0, 5);
+	const formattedEndTime = isEndTimeSpecified(endTime) ? endTime?.slice(0, 5) : null;
+
+	return {
+		formattedDate: dateOrEndDate,
+		formattedEndDate: dateOrEndDate,
+		formattedEndTime,
+		formattedStartDate: startDate,
+		formattedStartTime
+	};
+};
+/**
+ *
+ * @param {string | undefined} timeString
+ * @returns
+ */
+const isEndTimeSpecified = (timeString) => timeString !== '00:00:00';
+
+/**
+ *
+ * @param  {...Date | string | null} dateTimes
+ */
+export const convertDatetimeToLocalTime = (...dateTimes) => {
+	return dateTimes.map((dateTime) => {
+		if (!dateTime) return null;
+		const localDateTime = new Date(dateTime);
+		return localDateTime.toLocaleString();
+	});
+};
