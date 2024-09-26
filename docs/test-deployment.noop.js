@@ -5,21 +5,18 @@ const readline = require('readline');
 
 const steps = [
 	{
-		instruction: 'Notify developers not to merge PRs into main',
+		instruction: 'Notify developers not to merge PRs into main.',
 		links: {},
 		prompt: 'Press enter when done: '
 	},
 	{
-		instruction: 'Run the E2E tests against DEV.',
-		links: {
-			'Test pipeline':
-				'https://dev.azure.com.mcas.ms/planninginspectorate/back-office/_build?definitionId=159'
-		},
+		instruction:
+			'Run the E2E tests against DEV from localhost when a PR is merged or before initiating the Release process.',
 		prompt: 'Did they pass? (y/N): ',
 		failMsg: 'Address failing E2E tests before continuing.'
 	},
 	{
-		instruction: 'Confirm from testers that it is OK to deliver to Test',
+		instruction: 'Confirm from testers that it is OK to deliver to Test.',
 		links: {},
 		prompt: 'Press enter when done: '
 	},
@@ -45,7 +42,7 @@ const steps = [
 	},
 	{
 		instruction:
-			'Confirm from testers that it is OK to turn off Feature Flags for 2nd Regression test',
+			'Confirm from testers that it is OK to turn off Feature Flags for 2nd Regression test.',
 		links: {},
 		prompt: 'Press enter when done: '
 	},
@@ -69,7 +66,7 @@ const steps = [
 		prompt: 'Press enter when done: '
 	},
 	{
-		instruction: 'Notify all successful delivery to Test - OK to use',
+		instruction: 'Notify all successful delivery to Test - OK to use.',
 		links: {},
 		prompt: 'Press enter when done: '
 	},
