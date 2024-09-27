@@ -52,10 +52,7 @@ describe('Examination Timetable Errors', () => {
 		searchResultsPage.clickTopSearchResult();
 		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
 		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
-		cy.get('#timetable-type option').then((options) => {
-			const optionValues = [...options].map((o) => o.value);
-			expect(optionValues).to.deep.equal(itemOptions);
-		});
+		examTimetablePage.validateTimeTableOptions(itemOptions);
 	});
 
 	it('Should trigger validation errors - name, start time', () => {
@@ -66,7 +63,7 @@ describe('Examination Timetable Errors', () => {
 		searchResultsPage.clickTopSearchResult();
 		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
 		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
-		cy.get('#timetable-type').select(itemOptions[0]);
+		examTimetablePage.selectTimetableItem(itemOptions[0]);
 		examTimetablePage.clickButtonByText('Continue');
 		examTimetablePage.clickButtonByText('Continue');
 		createCasePage.validateErrorMessageCountOnPage(5);
@@ -82,7 +79,7 @@ describe('Examination Timetable Errors', () => {
 		searchResultsPage.clickTopSearchResult();
 		examTimetablePage.clickLinkByText(texts.examTimetableLinkText);
 		examTimetablePage.clickButtonByText(texts.createTimetableButtonText);
-		cy.get('#timetable-type').select(itemOptions[2]);
+		examTimetablePage.selectTimetableItem(itemOptions[2]);
 		examTimetablePage.clickButtonByText('Continue');
 		examTimetablePage.clickButtonByText('Continue');
 		createCasePage.validateErrorMessageCountOnPage(9);
@@ -101,7 +98,7 @@ describe('Examination Timetable Errors', () => {
 		const itemType = itemOptions[2];
 		const options = timetableItem();
 		options.endYear = (options.currentYear - 2).toString();
-		cy.get('#timetable-type').select(itemType);
+		examTimetablePage.selectTimetableItem(itemType);
 		examTimetablePage.clickButtonByText('Continue');
 		examTimetablePage.fillItemDetailsStartAndEnd(options);
 		examTimetablePage.clickButtonByText('Continue');

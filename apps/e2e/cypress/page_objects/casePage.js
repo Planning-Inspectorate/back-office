@@ -90,7 +90,7 @@ export class CasePage extends Page {
 
 	publishUnpublishProject() {
 		this.clickBreadcrumbLinkByText('Project documentation');
-		this.basePageElements.backToProjectPage().click();
+		this.clickBackLink();
 		this.clickPublishProjectButton();
 		this.clickButtonByText('Accept and publish project');
 		this.validateSuccessPanelTitle('Project page successfully published');

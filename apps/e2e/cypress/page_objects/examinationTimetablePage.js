@@ -3,7 +3,6 @@ import { Page } from './basePage';
 
 export class ExaminationTimetablePage extends Page {
 	elements = {
-		createNewItemOptions: () => cy.get('#timetable-type option'),
 		itemNameInput: () => cy.get('#name'),
 		dateDayInput: () => cy.get('#date\\.day'),
 		dateMonthInput: () => cy.get('#date\\.month'),
@@ -20,6 +19,7 @@ export class ExaminationTimetablePage extends Page {
 		endTimeMinutesInput: () => cy.get('#endTime\\.minutes'),
 		description: () => cy.get('#description'),
 		timetableSelectInput: () => cy.get('#timetable-type'),
+		timetableOptions: () => cy.get('#timetable-type option'),
 		changeLink: (question) =>
 			cy
 				.contains(this.selectors.summaryListKey, question, { matchCase: false })
@@ -74,6 +74,13 @@ export class ExaminationTimetablePage extends Page {
 
 	selectTimetableItem(itemType) {
 		this.elements.timetableSelectInput().select(itemType);
+	}
+
+	validateTimeTableOptions(itemOptions) {
+		this.elements.timetableOptions().then((options) => {
+			const optionValues = [...options].map((o) => o.value);
+			expect(optionValues).to.deep.equal(itemOptions);
+		});
 	}
 
 	toggleExaminationTimetableItem(itemName, hide = true) {

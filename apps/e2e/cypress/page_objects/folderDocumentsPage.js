@@ -66,7 +66,4 @@ export class FolderDocumentsPage extends Page {
 	clickOnPublishButton() {
 		this.clickButtonByText('Publish documents');
 	}
-	verifyDocumentSelectError() {
-		cy.get('li:nth-child(1) > a').contains('You must select documents to publish');
-	}
 }

@@ -93,7 +93,7 @@ describe('Document Properties including welsh fields', () => {
 			documentPropertiesPage.updateDocumentType('No document type');
 			documentPropertiesPage.updateDate('Date received', getDate(true));
 			documentPropertiesPage.updateRedactionStatus('Redacted');
-			cy.get('.govuk-back-link').click();
+			documentPropertiesPage.clickBackLink();
 			documentPropertiesPage.verifyPageTitle(
 				`Project management folder - ${projectInfo.projectName}`
 			);
@@ -122,7 +122,7 @@ describe('Document Properties including welsh fields', () => {
 			documentPropertiesPage.updateDocumentType('No document type');
 			documentPropertiesPage.updateDate('Date received', getDate(true));
 			documentPropertiesPage.updateRedactionStatus('Redacted');
-			cy.get('.govuk-back-link').click();
+			documentPropertiesPage.clickBackLink();
 			documentPropertiesPage.verifyPageTitle(
 				`Project management folder - ${projectInfo.projectName}`
 			);

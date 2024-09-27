@@ -24,13 +24,13 @@
 		{% endset %}
 
 		{% set activity %}
-		<p>
+		<p class="pins-document-activity-uploaded">
 			<strong>Uploaded:</strong>
 			{{ documentVersion.history.uploaded.date|datestamp({format: 'HH:mm, dd MMM yyyy'}) }},
 			{{ documentVersion.history.uploaded.name }}
 		</p>
 
-		<p class='govuk-!-margin-top-2'>
+		<p class='govuk-!-margin-top-2 pins-document-activity-published'>
 			<strong>Published:</strong>
 			{% if documentVersion.history.published %}
 				{{ documentVersion.history.published.date|datestamp({format: 'HH:mm, dd MMM yyyy'}) }},
@@ -41,7 +41,7 @@
 		</p>
 
 		{% if documentVersion.history.unpublished %}
-			<p class='govuk-!-margin-top-2'>
+			<p class='govuk-!-margin-top-2 pins-document-activity-unpublished'>
 				<strong>Unpublished:</strong>
 				{{ documentVersion.history.unpublished.date|datestamp({format: 'HH:mm, dd MMM yyyy'}) }},
 				{{ documentVersion.history.unpublished.name }}

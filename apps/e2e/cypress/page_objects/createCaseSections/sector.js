@@ -15,10 +15,8 @@ export class SectorSection extends SectionBase {
 	validatePage() {
 		this.validateSectionHeader('Choose a sector');
 	}
-	validatePage() {
-		this.validateSectionHeader('Choose a sector');
-	}
-	selectTrainingAsSectorSubsector(){
+
+	selectTrainingAsSectorSubsector() {
 		cy.get('#sectorName-7').click();
 		cy.get('.govuk-button').click();
 		cy.get('#subSectorName').click();

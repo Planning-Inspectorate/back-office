@@ -157,7 +157,7 @@ describe('Edit a case', () => {
 		casePage.clickChangeLink('Address (Internal use only)', true);
 		page.clickLinkByText('Change');
 		createCasePage.sections.applicantAddress.fillApplicantPostcode(projectInfo.postcode2);
-		cy.get('button.govuk-button:nth-child(4)').click();
+		page.clickButtonByText('Find address');
 		page.chooseSelectItemByIndex(1);
 		page.clickButtonByText('Save changes');
 
