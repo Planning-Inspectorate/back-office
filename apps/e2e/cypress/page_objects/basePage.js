@@ -12,7 +12,7 @@ export class Page {
 		accordionSectionHeader: '.govuk-accordion__section-header',
 		accordionSectionExpanded: 'govuk-accordion__section.govuk-accordion__section--expanded',
 		backLink: '.govuk-back-link',
-		bannerHeader: '.govuk-notification-banner__heading',
+		bannerContent: '.govuk-notification-banner__content',
 		breadcrumbLink: '.govuk-breadcrumbs__link',
 		publish_bannerHeader: '#main-content > div > div > div > h1',
 		button: '.govuk-button',
@@ -56,8 +56,7 @@ export class Page {
 		unpublish: 'a.govuk-button:nth-child(5)',
 		caseRefTraining: '.project-details > .govuk-table__body > :nth-child(1) > .govuk-table__header',
 		projectDocumentation: ':nth-child(1) > .govuk-breadcrumbs__link',
-		backToOverview: '.govuk-grid-column-two-thirds > a:nth-child(3)',
-		backToProjectOverview: '.govuk-back-link'
+		backToOverview: '.govuk-grid-column-two-thirds > a:nth-child(3)'
 	};
 
 	// E L E M E N T S
@@ -71,8 +70,8 @@ export class Page {
 		answerCell: (question) =>
 			cy.contains(this.selectors.summaryListKey, question, { matchCase: false }).next(),
 		applicationHeaderCentral: () => cy.get(`${this.selectors.centralCol} > p`),
-		backLink: () => cy.get(this.selectors.backLink),
-		bannerHeader: () => cy.get(this.selectors.bannerHeader),
+		backLink: () => cy.get(this.selectors.backLink, { timeout: 6000 }).should('be.visible'),
+		bannerContent: () => cy.get(this.selectors.bannerContent),
 		breadcrumbLinkByText: (text) =>
 			cy.contains(this.selectors.breadcrumbLink, text, { matchCase: true }),
 		publishBannerHeader: () => cy.get(this.selectors.publish_bannerHeader),
@@ -123,8 +122,6 @@ export class Page {
 		unpublishLink: () => cy.get(this.selectors.unpublish),
 		projectDocumentationLink: () => cy.get(this.selectors.projectDocumentation),
 		backToOverviewPage: () => cy.get(this.selectors.backToOverview),
-		backToProjectPage: () =>
-			cy.get(this.selectors.backToProjectOverview, { timeout: 6000 }).should('be.visible'),
 		clickOnUnpublishProjectLink: () => this.basePageElements.linkByText('Unpublish project')
 	};
 
@@ -168,7 +165,7 @@ export class Page {
 		this.basePageElements.accordionSectionToggleText(text).click();
 	}
 
-	clickBackLink(buttonText) {
+	clickBackLink() {
 		this.basePageElements.backLink().click();
 	}
 
@@ -261,8 +258,8 @@ export class Page {
 	}
 
 	validateBannerMessage(successMessage) {
-		this.basePageElements.bannerHeader().then(($banner) => {
-			expect($banner.text().trim()).eq(successMessage);
+		this.basePageElements.bannerContent().then(($banner) => {
+			expect($banner.text().trim()).contains(successMessage);
 		});
 	}
 	validatePublishBannerMessage(successMessage) {

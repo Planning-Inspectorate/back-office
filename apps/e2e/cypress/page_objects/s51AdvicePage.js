@@ -170,7 +170,7 @@ export class S51AdvicePage extends Page {
 		propertiesPage.checkAllProperties(mainDetails, enquirerDetails, titledetails);
 	}
 	verifyS51PubishandUnpublish() {
-		cy.get('.govuk-back-link').click();
+		this.clickBackLink();
 		this.setOverallStatus('Ready to publish');
 		this.selectAllDocuments();
 		this.clickButtonByText('Apply changes');
@@ -199,7 +199,7 @@ export class S51AdvicePage extends Page {
 	}
 
 	publishS51WithoutWelshFields() {
-		cy.get('.govuk-back-link').click();
+		this.clickBackLink();
 		this.selectAllDocuments();
 		this.setOverallStatus('Ready to publish');
 		this.clickButtonByText('Apply changes');

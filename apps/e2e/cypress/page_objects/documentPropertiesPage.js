@@ -138,20 +138,20 @@ export class DocumentPropertiesPage extends Page {
 	}
 	verifyUnpublishStatus() {
 		cy.get('#tab_document-history').click();
-		cy.get('p:nth-child(3) strong').should('have.text', 'Unpublished:');
+		cy.contains('.pins-document-activity-unpublished', 'Unpublished:');
 	}
 	verifyPublishStatus() {
 		cy.get('#tab_document-history').click();
-		cy.get('p:nth-child(2) strong').should('have.text', 'Published:');
+		cy.contains('.pins-document-activity-published', 'Published:');
 	}
 	verifyDocumentIsDeleted() {
 		this.clickButtonByText('Delete');
-		cy.get('.govuk-button').click();
-		cy.get('.govuk-panel').contains('Document successfully deleted');
+		this.clickButtonByText('Delete');
+		this.validateSuccessPanelTitle('Document successfully deleted');
 	}
 	verifyNaviagtedBackToDocPropertiesPage() {
 		this.clickButtonByText('Delete');
-		cy.get('.govuk-back-link').click();
+		this.clickBackLink();
 		cy.get('#tab_document-history').should('exist');
 	}
 	getDocumentRefNumber() {

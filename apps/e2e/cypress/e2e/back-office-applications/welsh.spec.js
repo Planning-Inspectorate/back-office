@@ -3,7 +3,6 @@
 import { users } from '../../fixtures/users';
 import { ApplicationsHomePage } from '../../page_objects/applicationsHomePage';
 import { CreateCasePage } from '../../page_objects/createCasePage';
-import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 import {
 	updateProjectInformation,
 	updateProjectNameInWelsh,
@@ -23,7 +22,6 @@ import { timetableItem } from '../../support/utils/createTimetableItemInfo.js';
 const applicationsHomePage = new ApplicationsHomePage();
 const casePage = new CasePage();
 const createCasePage = new CreateCasePage();
-const searchResultsPage = new SearchResultsPage();
 const examTimetablePage = new ExaminationTimetablePage();
 const { applications: applicationsUsers } = users;
 
@@ -165,14 +163,6 @@ describe('Update project information to add a Welsh region', () => {
 
 describe('Display and edit welsh fields in Examination Timetable', () => {
 	context('As a user', () => {
-		function validateBannerMessage(bannerText) {
-			cy.get('.govuk-notification-banner__content')
-				.invoke('text')
-				.then((text) => {
-					expect(text.trim()).to.equal(bannerText);
-				});
-		}
-
 		let projectInfo;
 
 		before(() => {
@@ -229,7 +219,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 
 				examTimetablePage.fillInput('Valid welsh name');
 				examTimetablePage.clickSaveAndReturn();
-				validateBannerMessage('Item name in Welsh updated');
+				examTimetablePage.validateBannerMessage('Item name in Welsh updated');
 			}
 		});
 
@@ -261,7 +251,7 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 
 				examTimetablePage.fillTextArea('Valid welsh description \n*bullet1');
 				examTimetablePage.clickSaveAndReturn();
-				validateBannerMessage('Item description in Welsh updated');
+				examTimetablePage.validateBannerMessage('Item description in Welsh updated');
 			}
 		});
 
@@ -275,8 +265,8 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.clickButtonByText('Save item');
 				examTimetablePage.clickLinkByText('Go back to examination timetable');
 
-				cy.contains('.govuk-button', 'Preview and publish').click();
-				cy.contains('.govuk-button', 'Publish examination timetable').click();
+				examTimetablePage.clickButtonByText('Preview and publish');
+				examTimetablePage.clickButtonByText('Publish examination timetable');
 				casePage.validateErrorMessageIsInSummary(
 					`Enter examination timetable item name in welsh - ${options.itemName}`
 				);
@@ -297,12 +287,11 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 				examTimetablePage.clickChangeLink('Item name in Welsh');
 				examTimetablePage.fillInput('Valid welsh name');
 				examTimetablePage.clickSaveAndReturn();
-				validateBannerMessage('Item name in Welsh updated');
+				examTimetablePage.validateBannerMessage('Item name in Welsh updated');
 
-				cy.contains('.govuk-button', 'Preview and publish').click();
-				cy.contains('.govuk-button', 'Publish examination timetable').click();
-
-				cy.contains('.govuk-panel__title', 'Timetable item successfully published');
+				examTimetablePage.clickButtonByText('Preview and publish');
+				examTimetablePage.clickButtonByText('Publish examination timetable');
+				examTimetablePage.validateSuccessPanelTitle('Timetable item successfully published');
 			}
 		});
 	});
