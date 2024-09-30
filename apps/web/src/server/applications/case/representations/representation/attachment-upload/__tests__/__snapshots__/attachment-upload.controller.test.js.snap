@@ -35,7 +35,7 @@ exports[`Representation attachment-upload page GET /applications-service/case/1/
                 <div class="progress-hook"></div>
         </div>
         </form>
-        </div><a href="/applications-service/case/1/relevant-representations/1/representation-details"> Skip this step</a>
+        </div><a class="govuk-link" href="/applications-service/case/1/relevant-representations/1/representation-details"> Skip this step</a>
         </div>
         </div>
 </main>"
