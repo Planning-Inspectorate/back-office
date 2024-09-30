@@ -7,9 +7,7 @@ export class RepresentationPage extends Page {
 	elements = {
 		firstName: () => cy.get('#firstName'),
 		secondName: () => cy.get('#lastName'),
-		saveAndContinue: () => cy.get('.govuk-button'),
 		postCode: () => cy.get('#lookupPostcode'),
-		findAddress: () => cy.get('.govuk-button'),
 		selectAddress: () => cy.get('#address'),
 		preferredContact: () => cy.get('#contactMethod-2'),
 		representativeType: () => cy.get('#type'),
@@ -19,8 +17,7 @@ export class RepresentationPage extends Page {
 		month: () => cy.get('#received-date-month'),
 		year: () => cy.get('#received-date-year'),
 		reprsentationContent: () => cy.get('#originalRepresentation'),
-		skipLink: () => cy.get('#main-content > div > div > a'),
-		submitForReview: () => cy.get('.govuk-button'),
+		submitForReview: () => this.basePageElements.linkByText('Submit for review'),
 		searchRepresentation: () => cy.get('#searchTerm'),
 		searchRepresentationButton: () => cy.get(':nth-child(7) > :nth-child(2) > .govuk-button'),
 		searchResults: () => cy.get('div.govuk-grid-row:nth-child(7) > div:nth-child(1) > p'),
@@ -30,7 +27,6 @@ export class RepresentationPage extends Page {
 				'#main-content > div > div > dl:nth-child(10) > div:nth-child(2) > dd.govuk-summary-list__actions > a'
 			),
 		statusOption: () => cy.get('#changeStatus-4'),
-		gobackLink: () => cy.get('.govuk-back-link'),
 		keyDates: () => this.basePageElements.linkByText('Key dates'),
 		preexmaninationToggle: () =>
 			cy.get(
@@ -65,26 +61,26 @@ export class RepresentationPage extends Page {
 
 		this.elements.firstName().type('Representation First Name');
 		this.elements.secondName().type('Surname');
-		this.elements.saveAndContinue().click();
+		this.clickSaveAndContinue();
 		this.elements.postCode().type('GU21 3HB');
-		this.elements.saveAndContinue().click();
+		this.clickButtonByText('Find address');
 		this.chooseAddressDetails(1);
-		this.elements.saveAndContinue().click();
+		this.clickSaveAndContinue();
 		this.elements.preferredContact().click();
-		this.elements.saveAndContinue().click();
+		this.clickSaveAndContinue();
 		this.elements.representativeType().click();
-		this.elements.saveAndContinue().click();
+		this.clickSaveAndContinue();
 		this.elements.under18().click();
-		this.elements.saveAndContinue().click();
+		this.clickSaveAndContinue();
 		this.elements.representationEntity().click();
-		this.elements.saveAndContinue().click();
+		this.clickSaveAndContinue();
 		this.elements.day().type(day);
 		this.elements.month().type(mon);
 		this.elements.year().type(year);
 		this.elements.reprsentationContent().type('reprsentation content');
-		this.elements.saveAndContinue().click();
-		this.elements.skipLink().click();
-		this.elements.submitForReview().click();
+		this.clickSaveAndContinue();
+		this.clickLinkByText('Skip this step');
+		this.clickButtonByText('submit for review');
 		this.elements.searchResults().contains('results');
 	}
 
@@ -96,8 +92,8 @@ export class RepresentationPage extends Page {
 		this.elements.reviewLink().click();
 		this.elements.statusLink().click();
 		this.elements.statusOption().click();
-		this.elements.saveAndContinue().click();
-		this.elements.gobackLink().click();
+		this.clickContinue();
+		this.clickBackLink();
 		this.clickonProjectDocumentation();
 		this.gotoProjectOverviewpage();
 		this.elements.keyDates().click();
@@ -106,18 +102,18 @@ export class RepresentationPage extends Page {
 		this.elements.repDay().type(dayrp);
 		this.elements.repMonth().type(monrp);
 		this.elements.repYear().type(yearrp - 1);
-		this.elements.saveAndContinue().click();
+		this.clickSaveAndReturn();
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Relevant representations');
 		this.elements.viewPublishQueue().click();
-		this.elements.saveAndContinue().click();
+		this.clickButtonByText('Publish representations');
 		this.elements.statusVerify().contains('PUBLISHED');
 		this.elements.reviewLink().click();
 		this.elements.statusLink().click();
 		this.elements.optionStatusInvalid().click();
-		this.elements.saveAndContinue().click();
-		this.elements.saveAndContinue().click();
-		this.elements.gobackLink().click();
+		this.clickContinue();
+		this.clickButtonByText('Save changes');
+		this.clickBackLink();
 		this.elements.statusVerify().contains('AWAITING REVIEW');
 	}
 }
