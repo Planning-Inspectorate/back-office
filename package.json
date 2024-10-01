@@ -54,6 +54,7 @@
 		"@pins/blob-storage-client": "^0.0.0",
 		"@pins/e2e": "^1.0.0",
 		"@pins/event-client": "^0.0.0",
+		"@pins/examination-timetable-utils": "^0.0.0",
 		"@pins/express": "^0.0.0",
 		"@pins/feature-flags": "^0.0.0",
 		"@pins/key-vault-secrets-client": "^0.0.0",

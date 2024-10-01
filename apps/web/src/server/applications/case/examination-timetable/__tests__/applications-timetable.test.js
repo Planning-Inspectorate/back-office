@@ -55,7 +55,6 @@ const projectName = 'Title CASE/04';
 describe('Examination timetable page', () => {
 	describe('GET /case/123/examination-timetable', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -69,7 +68,6 @@ describe('Examination timetable page', () => {
 	});
 	describe('GET /case/1234/examination-timetable', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -86,7 +84,6 @@ describe('Examination timetable page', () => {
 describe('Select examination timetable type page', () => {
 	describe('GET /case/123/examination-timetable/item/new', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -105,7 +102,6 @@ describe('Select examination timetable type page', () => {
 describe('Create examination timetable page', () => {
 	describe('POST /case/123/examination-timetable/item/new', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -127,7 +123,6 @@ describe('Create examination timetable page', () => {
 
 	describe('POST /case/123/examination-timetable/item/validate', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -283,7 +278,6 @@ describe('Create examination timetable page', () => {
 describe('Edit examination timetable', () => {
 	describe('GET /case/123/examination-timetable/item/1/edit', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -303,7 +297,6 @@ describe('Edit examination timetable', () => {
 	describe('Edit welsh fields', () => {
 		describe('GET /case/123/examination-timetable/item/edit/1/name-welsh', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/');
 				nocks();
 			});
 
@@ -325,7 +318,6 @@ describe('Edit examination timetable', () => {
 
 		describe('POST /case/123/examination-timetable/item/edit/1/name-welsh', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/');
 				nocks();
 			});
 			describe('when the form is submitted with a welsh name', () => {
@@ -385,7 +377,6 @@ describe('Edit examination timetable', () => {
 
 		describe('GET /case/123/examination-timetable/item/edit/1/description-welsh', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/');
 				nocks();
 			});
 
@@ -407,7 +398,6 @@ describe('Edit examination timetable', () => {
 
 		describe('POST /case/123/examination-timetable/item/edit/1/description-welsh', () => {
 			beforeEach(async () => {
-				await request.get('/applications-service/');
 				nocks();
 			});
 			describe('when the form is submitted with a welsh description', () => {
@@ -467,7 +457,6 @@ describe('Edit examination timetable', () => {
 
 describe('POST /case/123/examination-timetable/item/check-your-answers', () => {
 	beforeEach(async () => {
-		await request.get('/applications-service/');
 		nocks();
 	});
 
@@ -519,7 +508,6 @@ describe('POST /case/123/examination-timetable/item/check-your-answers', () => {
 
 describe('POST /case/123/examination-timetable/item/save', () => {
 	beforeEach(async () => {
-		await request.get('/applications-service/');
 		nocks();
 	});
 
@@ -527,12 +515,14 @@ describe('POST /case/123/examination-timetable/item/save', () => {
 		const response = await request
 			.post(`/applications-service/case/123/examination-timetable/item/save`)
 			.send({
-				templateType: 'preliminary-meeting',
-				itemTypeName: 'preliminary-meeting',
-				examinationTypeId: 1,
+				'timetable-type': 'Preliminary Meeting',
 				name: 'Lorem',
-				date: new Date('2000-01-01'),
-				description: 'Some text with \n * one point \n* another point '
+				description: 'Some description',
+				'date.day': '10',
+				'date.month': '10',
+				'date.year': '2023',
+				'startTime.hours': '10',
+				'startTime.minutes': '10'
 			});
 
 		expect(response?.headers?.location).toEqual('../../created/success');
@@ -542,7 +532,6 @@ describe('POST /case/123/examination-timetable/item/save', () => {
 describe('Publish examination timetable preview page', () => {
 	describe('GET /case/123/examination-timetable/preview', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -561,7 +550,6 @@ describe('Publish examination timetable preview page', () => {
 describe('Unpublish examination timetable preview page', () => {
 	describe('GET /case/123/examination-timetable/unpublish-preview', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -579,7 +567,6 @@ describe('Unpublish examination timetable preview page', () => {
 
 describe('Delete examination timetable', () => {
 	beforeEach(async () => {
-		await request.get('/applications-service/');
 		nocks();
 	});
 	describe('GET /case/123/examination-timetable/item/delete/1', () => {
@@ -633,7 +620,6 @@ describe('Delete examination timetable', () => {
 describe('Publish examination timetable success page', () => {
 	describe('POST /case/123/examination-timetable/preview', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 
@@ -659,7 +645,6 @@ describe('Publish examination timetable success page', () => {
 describe('Unpublish examination timetable success page', () => {
 	describe('POST /case/123/examination-timetable/unpublish-preview', () => {
 		beforeEach(async () => {
-			await request.get('/applications-service/');
 			nocks();
 		});
 

@@ -235,7 +235,7 @@ const expectedPublishExaminationTimetablePayload = {
 	caseReference: 'REF-ID-1',
 	events: [
 		{
-			date: '2022-01-01T00:00:00.000',
+			date: '2022-01-01T00:00:00.000Z',
 			description: 'Some description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3',
 			descriptionWelsh: '',
 			eventDeadlineStartDate: undefined,
@@ -246,10 +246,10 @@ const expectedPublishExaminationTimetablePayload = {
 			type: 'Accompanied Site Inspection'
 		},
 		{
-			date: '2023-06-20T00:00:00.000',
+			date: '2023-06-20T00:00:00.000Z',
 			description: 'Description',
 			descriptionWelsh: '',
-			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+			eventDeadlineStartDate: '2022-12-12T00:00:00.000Z',
 			eventId: 2,
 			eventLineItems: [{ description: 'Line item 1' }, { description: 'Line item 2' }],
 			eventTitle: 'Test deadline',
@@ -257,11 +257,11 @@ const expectedPublishExaminationTimetablePayload = {
 			type: 'Deadline'
 		},
 		{
-			date: '2023-06-20T00:00:00.000',
+			date: '2023-06-20T00:00:00.000Z',
 			description:
 				'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
 			descriptionWelsh: '',
-			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+			eventDeadlineStartDate: '2022-12-12T00:00:00.000Z',
 			eventId: 3,
 			eventLineItems: [],
 			eventTitle: 'Deadline For Close Of Examination',
@@ -269,11 +269,11 @@ const expectedPublishExaminationTimetablePayload = {
 			type: 'Deadline For Close Of Examination'
 		},
 		{
-			date: '2023-06-20T00:00:00.000',
+			date: '2023-06-20T00:00:00.000Z',
 			description:
 				'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
 			descriptionWelsh: '',
-			eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+			eventDeadlineStartDate: '2022-12-12T00:00:00.000Z',
 			eventId: 4,
 			eventLineItems: [],
 			eventTitle: 'Preliminary Meeting',
@@ -599,7 +599,7 @@ describe('Test examination timetable items API', () => {
 			caseReference: 'REF-ID-1',
 			events: [
 				{
-					date: '2022-01-01T00:00:00.000',
+					date: '2022-01-01T00:00:00.000Z',
 					description: 'Some description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3',
 					descriptionWelsh:
 						'welsh description\r\n* Welsh item 1\r\n* Welsh item 2\r\n* Welsh item 3',
@@ -611,10 +611,10 @@ describe('Test examination timetable items API', () => {
 					type: 'Accompanied Site Inspection'
 				},
 				{
-					date: '2023-06-20T00:00:00.000',
+					date: '2023-06-20T00:00:00.000Z',
 					description: 'Description',
 					descriptionWelsh: 'welsh description',
-					eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+					eventDeadlineStartDate: '2022-12-12T00:00:00.000Z',
 					eventId: 2,
 					eventLineItems: [
 						{ description: 'Line item 1', descriptionWelsh: 'Welsh item 1' },
@@ -625,12 +625,12 @@ describe('Test examination timetable items API', () => {
 					type: 'Deadline'
 				},
 				{
-					date: '2023-06-20T00:00:00.000',
+					date: '2023-06-20T00:00:00.000Z',
 					description:
 						'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
 					descriptionWelsh:
 						'welsh description\r\n* Welsh item 1\r\n* Welsh item 2\r\n* Welsh item 3',
-					eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+					eventDeadlineStartDate: '2022-12-12T00:00:00.000Z',
 					eventId: 3,
 					eventLineItems: [],
 					eventTitle: 'Deadline For Close Of Examination',
@@ -638,12 +638,12 @@ describe('Test examination timetable items API', () => {
 					type: 'Deadline For Close Of Examination'
 				},
 				{
-					date: '2023-06-20T00:00:00.000',
+					date: '2023-06-20T00:00:00.000Z',
 					description:
 						'Description\r\n* Line item 1\r\n* Line item 2\r\n* Line item 3\r\n* Line item 4',
 					descriptionWelsh:
 						'welsh description\r\n* Welsh item 1\r\n* Welsh item 2\r\n* Welsh item 3',
-					eventDeadlineStartDate: '2022-12-12T00:00:00.000',
+					eventDeadlineStartDate: '2022-12-12T00:00:00.000Z',
 					eventId: 4,
 					eventLineItems: [],
 					eventTitle: 'Preliminary Meeting',
@@ -828,11 +828,11 @@ describe('Test examination timetable items API', () => {
 			events: [
 				{
 					type: 'Deadline',
-					date: '2023-03-28T10:00:00.000',
+					date: '2023-03-28T10:00:00.000Z',
 					description: 'deadline category updated',
 					descriptionWelsh: '',
 					eventTitle: 'Examination Timetable Item updated',
-					eventDeadlineStartDate: '2023-03-27T10:00:00.000',
+					eventDeadlineStartDate: '2023-03-27T10:00:00.000Z',
 					eventId: 1,
 					eventLineItems: [
 						{ description: 'pointone updated', descriptionWelsh: undefined },

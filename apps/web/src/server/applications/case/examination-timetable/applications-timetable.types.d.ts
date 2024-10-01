@@ -50,8 +50,8 @@ export interface ApplicationsTimetablePayload {
 	nameWelsh?: string;
 	description?: string;
 	descriptionWelsh?: string;
-	date?: Date;
-	startDate?: Date | null;
+	date?: string;
+	startDate?: string | null;
 	startTime?: string | null;
 	endTime?: string | null;
 	submissions?: boolean;

@@ -1,5 +1,6 @@
 {
 	"verbose": false,
 	"ignore": ["src/server/static/**/*.js", "src/client/**/*.js", "scripts/**/*.js"],
+	"watch": ["src/server/**/*.js", "src/server/**/*.njk", "../../packages/**/*.js"],
 	"ext": "js,njk"
 }

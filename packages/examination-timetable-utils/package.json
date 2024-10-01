@@ -1,0 +1,16 @@
+{
+	"name": "@pins/examination-timetable-utils",
+	"version": "0.0.0",
+	"type": "module",
+	"private": true,
+	"main": "index.js",
+    "engines": {
+        "node": ">=20.0.0 <21.0.0"
+	},
+	"scripts": {
+        "clean": "rimraf .turbo node_modules",
+        "lint:js": "npx eslint .",
+        "lint:js:fix": "npx eslint . --fix",
+        "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
+	}
+}
