@@ -59,11 +59,13 @@ const dateSplitTimestampIntoComponents = (dateTimeField) => {
 	let dateComponents = {};
 
 	if (dateTimeField && typeof dateTimeField === 'string') {
-		const mainParts = dateTimeField.split('T');
-		const dateParts = mainParts[0].split('-');
-		dateComponents.day = dateParts[2];
+		const dateInLocalTime = new Date(dateTimeField).toLocaleDateString('en-GB', {
+			timeZone: 'Europe/London'
+		});
+		const dateParts = dateInLocalTime?.split('/');
+		dateComponents.day = dateParts[0];
 		dateComponents.month = dateParts[1];
-		dateComponents.year = dateParts[0];
+		dateComponents.year = dateParts[2];
 	}
 	return dateComponents;
 };
@@ -97,13 +99,11 @@ export const convertExamDescriptionToInputText = (description) => {
  * @param {Date | string | null} startDateField
  */
 export const mapUtcTimeToLocal24hTimeString = (dateOrEndDateField, startDateField) => {
-	const formattedEndTime = new Date(dateOrEndDateField).toISOString().includes('00:00:00')
-		? null
-		: formatUtcDateTimeToLocal24h(dateOrEndDateField);
+	const formattedEndTime = formatUtcDateTimeToLocal24h(dateOrEndDateField);
 	const formattedStartTime = startDateField && formatUtcDateTimeToLocal24h(startDateField);
 
 	return {
-		formattedEndTime,
+		formattedEndTime: formattedEndTime.includes('00:00') ? null : formattedEndTime,
 		formattedStartTime
 	};
 };

@@ -1,4 +1,5 @@
 import { examTimetableItemTypes } from './constants.js';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 /**
  * @typedef {{ startDate: Date | null, date: Date, startTime: string | null, endTime: string | null }} ExaminationDateInputs
@@ -49,25 +50,25 @@ export const mapExaminationTimetableItemDateTime = (examinationTimetableItem, ti
  */
 const mapMandatoryDateAndOptionalTimes = ({ startDate, date, startTime, endTime }) => {
 	if (!startTime && !endTime) {
-		return { startDate: null, date: new Date(date).toISOString() };
+		return { startDate: null, date: europeTimeToUTC(date) };
 	} else if (startTime && !endTime) {
 		startDate = setTimeOnDate(date, startTime);
 		return {
-			startDate: new Date(startDate).toISOString(),
-			date: new Date(date).toISOString()
+			startDate: europeTimeToUTC(startDate),
+			date: europeTimeToUTC(date)
 		};
 	} else if (!startTime && endTime) {
 		date = setTimeOnDate(date, endTime);
 		return {
-			date: new Date(date).toISOString(),
+			date: europeTimeToUTC(date),
 			startDate: null
 		};
 	} else {
 		startDate = setTimeOnDate(date, startTime);
 		date = setTimeOnDate(date, endTime);
 		return {
-			startDate: new Date(startDate).toISOString(),
-			date: new Date(date).toISOString()
+			startDate: europeTimeToUTC(startDate),
+			date: europeTimeToUTC(date)
 		};
 	}
 };
@@ -85,23 +86,23 @@ const mapMandatoryEndDateTimesAndOptionalStartDateTimes = ({
 }) => {
 	if (!startDate && !startTime) {
 		date = setTimeOnDate(date, endTime);
-		return { startDate: null, date: new Date(date).toISOString() };
+		return { startDate: null, date: europeTimeToUTC(date) };
 	} else if (!startDate) {
 		startDate = setTimeOnDate(date, startTime);
 		date = setTimeOnDate(date, endTime);
-		return { startDate: new Date(startDate).toISOString(), date: new Date(date).toISOString() };
+		return { startDate: europeTimeToUTC(startDate), date: europeTimeToUTC(date) };
 	} else if (startDate && !startTime) {
 		date = setTimeOnDate(date, endTime);
 		return {
-			startDate: new Date(startDate).toISOString(),
-			date: new Date(date).toISOString()
+			startDate: europeTimeToUTC(startDate),
+			date: europeTimeToUTC(date)
 		};
 	} else {
 		date = setTimeOnDate(date, endTime);
 		startDate = setTimeOnDate(startDate, startTime);
 		return {
-			startDate: new Date(startDate).toISOString(),
-			date: new Date(date).toISOString()
+			startDate: europeTimeToUTC(startDate),
+			date: europeTimeToUTC(date)
 		};
 	}
 };
@@ -113,7 +114,7 @@ const mapMandatoryEndDateTimesAndOptionalStartDateTimes = ({
  */
 const mapMandatoryDateOnly = ({ date }) => {
 	return {
-		date: new Date(date).toISOString(),
+		date: europeTimeToUTC(date),
 		startDate: null
 	};
 };
@@ -133,14 +134,14 @@ const mapMandatoryDateAndStartTimeAndOptionalEndTime = ({
 		date = setTimeOnDate(date, endTime);
 		startDate = setTimeOnDate(date, startTime);
 		return {
-			startDate: new Date(startDate).toISOString(),
-			date: new Date(date).toISOString()
+			startDate: europeTimeToUTC(startDate),
+			date: europeTimeToUTC(date)
 		};
 	} else {
 		startDate = setTimeOnDate(date, startTime);
 		return {
-			startDate: new Date(startDate).toISOString(),
-			date: new Date(date).toISOString()
+			startDate: europeTimeToUTC(startDate),
+			date: europeTimeToUTC(date)
 		};
 	}
 };
@@ -165,4 +166,13 @@ const setTimeOnDate = (date, time) => {
 	const [hours, minutes] = splitTimeElement(time);
 	const dateWithTime = new Date(date).setHours(Number(hours), Number(minutes));
 	return new Date(dateWithTime);
+};
+
+/**
+ * Converts a date in Europe/London time to a UTC string.
+ * @param {Date} date
+ * @returns {string}
+ */
+const europeTimeToUTC = (date) => {
+	return zonedTimeToUtc(date, 'Europe/London').toISOString();
 };

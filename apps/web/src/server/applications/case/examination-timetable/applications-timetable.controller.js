@@ -742,7 +742,6 @@ const getTimetableRows = (timetableItem) => {
 	}
 
 	const { formattedEndTime, formattedStartTime } = mapUtcTimeToLocal24hTimeString(date, startDate);
-	console.log({ formattedEndTime, formattedStartTime });
 
 	const descriptionObj = description ? JSON.parse(description) : null;
 	const hasDescription = Boolean(
