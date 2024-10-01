@@ -16,8 +16,12 @@ export const mapExaminationTimetableToFormBody = (
 ) => {
 	const mainDate = dateSplitTimestampIntoComponents(examTimetable.date);
 	const startDate = dateSplitTimestampIntoComponents(examTimetable.startDate);
-	const startTime = timeSplitTimeIntoComponents(examTimetable.startTime);
-	const endTime = timeSplitTimeIntoComponents(examTimetable.endTime);
+	const { formattedEndTime, formattedStartTime } = mapUtcTimeToLocal24hTimeString(
+		examTimetable.date,
+		examTimetable.startDate
+	);
+	const [startHours, startMinutes] = [formattedStartTime?.split(':')].flat();
+	const [endHours, endMinutes] = [formattedEndTime?.split(':')].flat();
 
 	// note: some template types have a 'date' and some have 'end date' - one or the other
 	// these are stored in db in 'date' field. So for simplicity, copy db date to both 'date' and 'end date'
@@ -37,12 +41,11 @@ export const mapExaminationTimetableToFormBody = (
 			'startDate.day': startDate.day,
 			'startDate.month': startDate.month,
 			'startDate.year': startDate.year,
-			'startTime.hours': startTime.hours,
-			'startTime.minutes': startTime.minutes,
-			'endTime.hours': endTime.hours,
-			'endTime.minutes': endTime.minutes
+			'startTime.hours': startHours,
+			'startTime.minutes': startMinutes,
+			'endTime.hours': endHours,
+			'endTime.minutes': endMinutes
 		};
-
 	return editFormBody;
 };
 
@@ -66,22 +69,6 @@ const dateSplitTimestampIntoComponents = (dateTimeField) => {
 };
 
 /**
- * splits a time string eg '10:30' into its 2 component parts
- * @param {string |null} timeString
- * @returns { {hours: string, minutes: string} }
- */
-const timeSplitTimeIntoComponents = (timeString) => {
-	let timeComponents = {};
-
-	if (timeString) {
-		const timeParts = timeString.split(':');
-		timeComponents.hours = timeParts[0];
-		timeComponents.minutes = timeParts[1];
-	}
-	return timeComponents;
-};
-
-/**
  * converts the string containing the JSON formatted description into text suitable for HTML display in an input text area
  *
  * @param {string|undefined} description
@@ -100,4 +87,35 @@ export const convertExamDescriptionToInputText = (description) => {
 		}
 	}
 	return descriptionText;
+};
+
+/**
+ * Reasoning behind dateOrEndDateField name and purpose can be found here
+ * https://pins-ds.atlassian.net/wiki/spaces/AS2/pages/1775894531/Changes+to+the+ExaminationTimetableItem+table
+ *
+ * @param {Date | string} dateOrEndDateField
+ * @param {Date | string | null} startDateField
+ */
+export const mapUtcTimeToLocal24hTimeString = (dateOrEndDateField, startDateField) => {
+	const formattedEndTime = new Date(dateOrEndDateField).toISOString().includes('00:00:00')
+		? null
+		: formatUtcDateTimeToLocal24h(dateOrEndDateField);
+	const formattedStartTime = startDateField && formatUtcDateTimeToLocal24h(startDateField);
+
+	return {
+		formattedEndTime,
+		formattedStartTime
+	};
+};
+
+/**
+ *
+ * @param {Date | string} utcDateString
+ * @returns
+ */
+const formatUtcDateTimeToLocal24h = (utcDateString) => {
+	const localTimeString = new Date(utcDateString).toLocaleTimeString('en-GB', {
+		timeZone: 'Europe/London'
+	});
+	return localTimeString.substring(0, 5);
 };

@@ -33,6 +33,7 @@
     "@pins/blob-storage-client": "*",
     "@pins/platform": "*",
     "@pins/redis": "*",
+    "@pins/examination-timetable-utils": "*",
     "@planning-inspectorate/address-lookup": "*",
     "@toast-ui/editor": "*",
     "accessible-autocomplete": "*",

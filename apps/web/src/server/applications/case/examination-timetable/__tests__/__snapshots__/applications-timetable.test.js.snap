@@ -2111,6 +2111,9 @@ exports[`Delete examination timetable GET /case/123/examination-timetable/item/d
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item name</dt>
                         <dd class="govuk-summary-list__value">Test</dd>
                     </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
+                        <dd class="govuk-summary-list__value">10 Oct 2023</dd>
+                    </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start time</dt>
                         <dd class="govuk-summary-list__value">10:10</dd>
                     </div>
@@ -2165,6 +2168,9 @@ exports[`Delete examination timetable POST /case/123/examination-timetable/item/
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item name</dt>
                         <dd class="govuk-summary-list__value">Test</dd>
+                    </div>
+                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
+                        <dd class="govuk-summary-list__value">10 Oct 2023</dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start time</dt>
                         <dd class="govuk-summary-list__value">10:10</dd>
@@ -2251,17 +2257,17 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                                 <div class="govuk-form-group">
                                     <label class="govuk-label govuk-hint" for="startDate.day">Day</label>
                                     <input class="govuk-input" id="startDate.day" name="startDate.day"
-                                    type="text">
+                                    type="text" value="10">
                                 </div>
                                 <div class="govuk-form-group">
                                     <label class="govuk-label govuk-hint" for="startDate.month">Month</label>
                                     <input class="govuk-input" id="startDate.month" name="startDate.month"
-                                    type="text">
+                                    type="text" value="10">
                                 </div>
                                 <div class="govuk-form-group">
                                     <label class="govuk-label govuk-hint" for="startDate.year">Year</label>
                                     <input class="govuk-input" id="startDate.year" name="startDate.year"
-                                    type="text">
+                                    type="text" value="2023">
                                 </div>
                             </div>
                         </div>
@@ -2425,6 +2431,11 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
                                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/2"> Change<span class="govuk-visually-hidden"> Item name</span></a>
                                     </dd>
                                 </div>
+                                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
+                                    <dd class="govuk-summary-list__value">10 Oct 2023</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/2"> Change<span class="govuk-visually-hidden"> Start date</span></a>
+                                    </dd>
+                                </div>
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start time</dt>
                                     <dd class="govuk-summary-list__value">10:10</dd>
                                     <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/2"> Change<span class="govuk-visually-hidden"> Start time</span></a>
@@ -2475,6 +2486,11 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
                                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item name</dt>
                                         <dd class="govuk-summary-list__value">Test</dd>
                                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/1"> Change<span class="govuk-visually-hidden"> Item name</span></a>
+                                        </dd>
+                                    </div>
+                                    <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
+                                        <dd class="govuk-summary-list__value">10 Oct 2023</dd>
+                                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/1"> Change<span class="govuk-visually-hidden"> Start date</span></a>
                                         </dd>
                                     </div>
                                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start time</dt>
@@ -2774,6 +2790,11 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/2"> Change<span class="govuk-visually-hidden"> Item name</span></a>
                             </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
+                            <dd class="govuk-summary-list__value">10 Oct 2023</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/2"> Change<span class="govuk-visually-hidden"> Start date</span></a>
+                            </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start time</dt>
                             <dd class="govuk-summary-list__value">10:10</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/2"> Change<span class="govuk-visually-hidden"> Start time</span></a>
@@ -2824,6 +2845,11 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item name</dt>
                                 <dd class="govuk-summary-list__value">Test</dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/1"> Change<span class="govuk-visually-hidden"> Item name</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
+                                <dd class="govuk-summary-list__value">10 Oct 2023</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/1"> Change<span class="govuk-visually-hidden"> Start date</span></a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start time</dt>
@@ -2943,6 +2969,11 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/2"> Change<span class="govuk-visually-hidden"> Item name</span></a>
                             </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
+                            <dd class="govuk-summary-list__value">10 Oct 2023</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/2"> Change<span class="govuk-visually-hidden"> Start date</span></a>
+                            </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start time</dt>
                             <dd class="govuk-summary-list__value">10:10</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/2"> Change<span class="govuk-visually-hidden"> Start time</span></a>
@@ -2993,6 +3024,11 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item name</dt>
                                 <dd class="govuk-summary-list__value">Test</dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/1"> Change<span class="govuk-visually-hidden"> Item name</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start date</dt>
+                                <dd class="govuk-summary-list__value">10 Oct 2023</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/edit/1"> Change<span class="govuk-visually-hidden"> Start date</span></a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Start time</dt>

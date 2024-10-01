@@ -1,7 +1,8 @@
-import { dateString, displayDate } from '../../../lib/nunjucks-filters/date.js';
+import { dateString } from '../../../lib/nunjucks-filters/date.js';
 import { sanitize } from '../../../lib/nunjucks-filters/sanitize.js';
 import {
 	convertExamDescriptionToInputText,
+	mapUtcTimeToLocal24hTimeString,
 	mapExaminationTimetableToFormBody
 } from './applications-timetable.mappers.js';
 import {
@@ -24,6 +25,8 @@ import {
 	getSessionBanner,
 	setSessionBanner
 } from '../../common/services/session.service.js';
+import { mapExaminationTimetableItemDateTime } from '@pins/examination-timetable-utils';
+import { formatInTimeZone } from 'date-fns-tz';
 
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetableCreateBody} ApplicationsTimetableCreateBody */
 /** @typedef {import('./applications-timetable.types.js').ApplicationsTimetablePayload} ApplicationsTimetablePayload */
@@ -401,13 +404,22 @@ export async function postApplicationsCaseTimetableCheckYourAnswers({ body }, re
  * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsTimetableCreateBody, {}, {}>}
  */
 export async function postApplicationsCaseTimetableSave({ body }, response) {
-	const startDate = body['startDate.year']
-		? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
-		: null;
-	const date =
-		body['endDate.year'] && !body['date.year']
-			? new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`)
-			: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`);
+	const { date, startDate } = mapExaminationTimetableItemDateTime(
+		{
+			date:
+				body['endDate.year'] && !body['date.year']
+					? new Date(`${body['endDate.year']}-${body['endDate.month']}-${body['endDate.day']}`)
+					: new Date(`${body['date.year']}-${body['date.month']}-${body['date.day']}`),
+			startDate: body['startDate.year']
+				? new Date(`${body['startDate.year']}-${body['startDate.month']}-${body['startDate.day']}`)
+				: null,
+			startTime: body['startTime.hours']
+				? `${body['startTime.hours']}:${body['startTime.minutes']}`
+				: null,
+			endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null
+		},
+		body['timetable-type'] || ''
+	);
 
 	/** @type {ApplicationsTimetablePayload} */
 	const payload = {
@@ -417,10 +429,9 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		description: prepareDescriptionPayload(body.description),
 		date,
 		startDate,
-		startTime: body['startTime.hours']
-			? `${body['startTime.hours']}:${body['startTime.minutes']}`
-			: null,
-		endTime: body['endTime.hours'] ? `${body['endTime.hours']}:${body['endTime.minutes']}` : null
+		// These are not going to be used and will soon be removed (the above fields will include times)
+		startTime: null,
+		endTime: null
 	};
 	if (body['timetableId']) {
 		payload.id = Number.parseInt(body['timetableId'], 10);
@@ -718,12 +729,11 @@ const getTimetableRows = (timetableItem) => {
 		nameWelsh,
 		ExaminationTimetableType,
 		date,
-		startDate,
-		startTime,
-		endTime
+		startDate
 	} = timetableItem;
 
 	const templateType = ExaminationTimetableType.templateType;
+	const requiredFields = Object.keys(timetableTemplatesSchema[templateType]);
 
 	if (!templateType) {
 		throw new Error(
@@ -731,25 +741,16 @@ const getTimetableRows = (timetableItem) => {
 		);
 	}
 
-	const shouldShowField = (/** @type {string} */ fieldName) =>
-		Object.prototype.hasOwnProperty.call(timetableTemplatesSchema[templateType], fieldName);
-
-	const startDateDisplay = () => {
-		if (shouldShowField('startDate')) {
-			if (startDate) {
-				return displayDate(startDate, { condensed: true });
-			} else {
-				return '';
-			}
-		}
-		return null;
-	};
+	const { formattedEndTime, formattedStartTime } = mapUtcTimeToLocal24hTimeString(date, startDate);
+	console.log({ formattedEndTime, formattedStartTime });
 
 	const descriptionObj = description ? JSON.parse(description) : null;
 	const hasDescription = Boolean(
 		descriptionObj.preText.trim() || descriptionObj.bulletPoints.length > 0
 	);
 
+	const timezone = 'Europe/London';
+	const dateFormat = 'd MMM yyyy';
 	return {
 		id,
 		itemTypeName: ExaminationTimetableType.name,
@@ -757,11 +758,18 @@ const getTimetableRows = (timetableItem) => {
 		name,
 		nameWelsh,
 		submissions,
-		date: shouldShowField('date') ? displayDate(date, { condensed: true }) || '' : null,
-		startDate: startDateDisplay(),
-		endDate: shouldShowField('endDate') ? displayDate(date, { condensed: true }) || '' : null,
-		startTime: shouldShowField('startTime') ? startTime || '' : null,
-		endTime: shouldShowField('endTime') ? endTime || '' : null,
+		date:
+			requiredFields.includes('date') && date ? formatInTimeZone(date, timezone, dateFormat) : null,
+		startDate:
+			requiredFields.includes('startDate') && startDate
+				? formatInTimeZone(startDate, timezone, dateFormat)
+				: null,
+		endDate:
+			requiredFields.includes('endDate') && date
+				? formatInTimeZone(date, timezone, dateFormat)
+				: null,
+		startTime: requiredFields.includes('startTime') ? formattedStartTime : null,
+		endTime: requiredFields.includes('endTime') ? formattedEndTime : null,
 		hasDescription,
 		description: description ? JSON.parse(description) : null,
 		descriptionWelsh: descriptionWelsh ? JSON.parse(descriptionWelsh) : null

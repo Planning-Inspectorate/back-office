@@ -107,12 +107,12 @@ function buildSingleExaminationTimetableItemPayload(examinationTimetableItem) {
 
 	return {
 		type: examinationTimetableItem.ExaminationTimetableType.name,
-		date: examinationTimetableItem.date.toISOString().replace('Z', ''),
+		date: examinationTimetableItem.date.toISOString(),
 		description,
 		descriptionWelsh,
 		eventTitle: examinationTimetableItem.name,
 		eventTitleWelsh: examinationTimetableItem.nameWelsh,
-		eventDeadlineStartDate: examinationTimetableItem.startDate?.toISOString().replace('Z', ''),
+		eventDeadlineStartDate: examinationTimetableItem.startDate?.toISOString(),
 		eventId: examinationTimetableItem.id,
 		eventLineItems
 	};

@@ -23,11 +23,9 @@ export const fixtureTimetableItems = [
 		examinationTypeId: 2,
 		name: 'Test',
 		description: '{"preText":"test","bulletPoints":["ponintone", "pointtwo"]}',
-		date: '2023-10-10T00:00:00.000Z',
-		startDate: null,
-		startTime: '10:10',
+		date: '2023-10-10T09:10:00.000Z',
+		startDate: '2023-10-10T09:10:00.000Z',
 		endDate: null,
-		endTime: '10:10',
 		examinationTimetableId: 1,
 		ExaminationTimetableType: {
 			id: 2,
@@ -40,11 +38,9 @@ export const fixtureTimetableItems = [
 		examinationTypeId: 3,
 		name: 'Test',
 		description: '{"preText":"test","bulletPoints":["ponintone", "pointtwo"]}',
-		date: '2023-10-10T00:00:00.000Z',
-		startDate: null,
-		startTime: '10:10',
+		date: '2023-10-10T09:10:00.000Z',
+		startDate: '2023-10-10T09:10:00.000Z',
 		endDate: null,
-		endTime: '10:10',
 		examinationTimetableId: 2,
 		ExaminationTimetableType: {
 			id: 3,
@@ -53,6 +49,7 @@ export const fixtureTimetableItems = [
 		}
 	}
 ];
+
 export const fixtureTimetableItemsWelshCase = [
 	{
 		id: 1,
@@ -61,11 +58,9 @@ export const fixtureTimetableItemsWelshCase = [
 		description: '{"preText":"english description","bulletPoints":["ponintone", "pointtwo"]}',
 		nameWelsh: 'name in welsh',
 		descriptionWelsh: '{"preText":"welsh description","bulletPoints":["ponintone", "pointtwo"]}',
-		date: '2023-10-10T00:00:00.000Z',
-		startDate: null,
-		startTime: '10:10',
+		date: '2023-10-10T09:10:00.000Z',
+		startDate: '2023-10-10T09:10:00.000Z',
 		endDate: null,
-		endTime: '10:10',
 		examinationTimetableId: 1,
 		ExaminationTimetableType: {
 			id: 2,
