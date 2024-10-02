@@ -525,7 +525,7 @@ model S51Advice {
   firstName           String?
   lastName            String?
   enquirer            String?
-  enquiryMethod       String
+  enquiryMethod       String?
   enquiryDate         DateTime
   enquiryDetails      String              @db.NText
   enquiryDetailsWelsh String?             @db.NText
