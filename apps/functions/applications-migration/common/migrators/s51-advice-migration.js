@@ -57,16 +57,16 @@ export const getNsipS51Advice = async (log, caseReference, synapseQuery = query)
 				'agent',
 				'method',
 				'enquiryDate',
-				'enquiryDetails',
 				'adviceGivenBy',
 				'adviceDate',
-				'adviceDetails',
 				'redactionStatus'
 			]),
 			adviceId: Number(row.adviceId),
 			caseId: Number(row.caseId),
 			status: mapStatus(row.status),
-			attachmentIds: valueToArray(row.attachmentIds)
+			attachmentIds: valueToArray(row.attachmentIds),
+			enquiryDetails: row.enquiryDetails ?? '',
+			adviceDetails: row.adviceDetails ?? ''
 		};
 	});
 
