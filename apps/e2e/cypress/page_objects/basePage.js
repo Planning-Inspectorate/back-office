@@ -77,7 +77,7 @@ export class Page {
 		publishBannerHeader: () => cy.get(this.selectors.publish_bannerHeader),
 		button: () => cy.get(this.selectors.button),
 		buttonByLabelText: (buttonText) =>
-			cy.contains(this.selectors.button, buttonText, { matchCase: false }),
+			cy.contains(this.selectors.button, buttonText, { matchCase: false, timeout: 3000 }),
 		checkbox: () => cy.get(this.selectors.checkbox).find('input'),
 		changeLink: (question) =>
 			cy.contains(this.selectors.tableCell, question, { matchCase: false }).nextUntil('a'),
@@ -90,7 +90,8 @@ export class Page {
 			}),
 		input: () => cy.get(this.selectors.input),
 		legend: () => cy.get(this.selectors.legend),
-		linkByText: (text) => cy.contains(this.selectors.link, text, { matchCase: true }),
+		linkByText: (text) =>
+			cy.contains(this.selectors.link, text, { matchCase: true, timeout: 3000 }),
 		loggedInUser: () => cy.get(`${this.selectors.rightCol} > span`),
 		panelBody: (text) =>
 			text
