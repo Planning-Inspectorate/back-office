@@ -4,6 +4,7 @@ import { MigratedEntityIdCeiling } from '../migrator.consts.js';
 import { getCaseIdFromRef, getExamTimetableTypeIdFromName } from './utils.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import { publish as BroadcastExamTimetable } from '../../applications/examination-timetable-items/examination-timetable-items.service.js';
+import { handleDateTimeToUTC } from '#utils/migration-dates.js';
 
 /**
  * Migrate NSIP Exam Timetable
@@ -99,41 +100,6 @@ const mapModelToTimetableEntity = async ({ caseReference }) => {
 };
 
 /**
- * Extract the date and time from a datetime field
- * @param datetimeField
- * @returns {{date: null, time: null}}
- */
-const extractDateTime = (datetimeField) => {
-	const result = {
-		date: null,
-		time: null
-	};
-
-	if (!datetimeField) return result;
-
-	const dateObj = new Date(datetimeField);
-
-	if (isNaN(dateObj.getTime())) return result;
-
-	// Extract date part in 'YYYY-MM-DD' format
-	const year = dateObj.getFullYear();
-	const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-	const day = String(dateObj.getDate()).padStart(2, '0');
-	result.date = `${year}-${month}-${day}`;
-
-	// Extract time part in 'HH:mm' format
-	const hours = String(dateObj.getHours()).padStart(2, '0');
-	const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-	result.time = `${hours}:${minutes}`;
-
-	// default time comes as 00:00, we convert to 23:59 to match existing behaviour
-	if (result.time === '00:00') {
-		result.time = '23:59';
-	}
-	return result;
-};
-
-/**
  * @param {number} examinationTimetableId
  * @param {number} examTimetableFolderId
  * @param {import('pins-data-model').Schemas.Event} model
@@ -159,15 +125,20 @@ const mapModelToEventEntity = async (
 		throw Error(`Unable to find examinationTypeId for type ${type}`);
 	}
 
-	const { date: startDate, time: startTime } = extractDateTime(eventDeadlineStartDate);
-	const { date: endDate, time: endTime } = extractDateTime(date);
+	const startDateTime = handleDateTimeToUTC(eventDeadlineStartDate, {
+		isEndDate: false
+	});
+	const dateTimeOrEndDateTime = handleDateTimeToUTC(date, {
+		isEndDate: isDeadlineType(type)
+	});
+	if (!dateTimeOrEndDateTime) {
+		throw Error(`Unable to parse dateTimeOrEndDateTime`);
+	}
 
 	return {
 		id: eventId,
-		date: endDate,
-		endTime,
-		startDate,
-		startTime,
+		date: dateTimeOrEndDateTime,
+		startDate: startDateTime,
 		examinationTimetableId,
 		// For now, use the root 'Examination timetable' folder ID because we'll get constraints if we don't
 		// When we are migrating folders, refactor this to fetch the actual folder ID
@@ -228,3 +199,17 @@ const formatEventDescription = (description) => {
  * @returns
  */
 const formatBulletPoints = (input) => input.trim().replace(/(\r\n[?-])/g, '\r\n*');
+
+/**
+ *
+ * @param {string} examinationTimetableItemType
+ * @returns {boolean}
+ */
+const isDeadlineType = (examinationTimetableItemType) => {
+	const examinationItemDeadlineTypes = [
+		'deadline',
+		'deadline for close of examination',
+		'procedural deadline (pre-examination)'
+	];
+	return examinationItemDeadlineTypes.includes(examinationTimetableItemType.toLowerCase());
+};
