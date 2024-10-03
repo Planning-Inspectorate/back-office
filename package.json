@@ -81,7 +81,7 @@
 		"date-fns-tz": "^2.0.0",
 		"docopt": "^0.6.2",
 		"dotenv": "16.0.3",
-		"express": "^4.19.2",
+		"express": "^4.20.0",
 		"express-pino-logger": "^7.0.0",
 		"express-request-id": "2.0.1",
 		"express-session": "1.17.2",
@@ -120,7 +120,7 @@
 		"slugify": "^1.6.5",
 		"stub-azure-function-context": "^2.0.0-alpha.4",
 		"supertest": "^6.3.3",
-		"swagger-ui-express": "^4.4.0",
+		"swagger-ui-express": "^5.0.1",
 		"tedious": "^18.2.0",
 		"turndown": "^7.1.2",
 		"xstate": "4.32.1"
