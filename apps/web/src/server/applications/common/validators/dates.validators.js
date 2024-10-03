@@ -92,7 +92,7 @@ export const validationDateStartBeforeEnd = (data) => {
 
 	if (stringDay === '0' || startDate === endDate) {
 		return body('startTime')
-			.custom(() => (startDateTime.getTime() ? startDateTime < endDateTime : true))
+			.custom(() => isNaN(startDateTime.getTime()) || startDateTime < endDateTime)
 			.withMessage(`The item end time must be after the item start time`);
 	}
 
@@ -135,4 +135,20 @@ export const validationDateFuture = (field, data, mustBeFuture, allowBlank) => {
 			})
 			.withMessage(`The ${extendedFieldName} ${mustBeFuture ? 'must' : 'cannot'} be in the future`);
 	}
+};
+
+/**
+ *
+ * @param {Record<string, string>} formData
+ * @returns {import("express-validator").ValidationChain}
+ */
+export const validationIncludeStartDateIfStartTime = (formData) => {
+	const startDay = formData['startDate.day'];
+	const startMonth = formData['startDate.month'];
+	const startYear = formData[`startDate.year`];
+
+	const startDate = new Date(`${startYear}-${startMonth}-${startDay}`);
+	return body('startDate')
+		.custom(() => !!startDate.getTime())
+		.withMessage('You must enter the start date if start time is specified');
 };
