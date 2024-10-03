@@ -92,7 +92,7 @@ export const validationDateStartBeforeEnd = (data) => {
 
 	if (stringDay === '0' || startDate === endDate) {
 		return body('startTime')
-			.custom(() => startTime < endTime)
+			.custom(() => (startDateTime.getTime() ? startDateTime < endDateTime : true))
 			.withMessage(`The item end time must be after the item start time`);
 	}
 
