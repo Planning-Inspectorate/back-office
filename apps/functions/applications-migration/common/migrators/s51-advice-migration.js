@@ -57,7 +57,6 @@ export const getNsipS51Advice = async (log, caseReference, synapseQuery = query)
 				'agent',
 				'method',
 				'enquiryDate',
-				'adviceGivenBy',
 				'adviceDate',
 				'redactionStatus'
 			]),
@@ -66,7 +65,8 @@ export const getNsipS51Advice = async (log, caseReference, synapseQuery = query)
 			status: mapStatus(row.status),
 			attachmentIds: valueToArray(row.attachmentIds),
 			enquiryDetails: row.enquiryDetails ?? '',
-			adviceDetails: row.adviceDetails ?? ''
+			adviceDetails: row.adviceDetails ?? '',
+			adviceGivenBy: row.adviceGivenBy ? row.adviceGivenBy : 'Not recorded in Horizon'
 		};
 	});
 
