@@ -3,7 +3,8 @@ import { body } from 'express-validator';
 import {
 	validationDateMandatory,
 	validationDateStartBeforeEnd,
-	validationDateValid
+	validationDateValid,
+	validationIncludeStartDateIfStartTime
 } from '../../common/validators/dates.validators.js';
 import {
 	validationTimeMandatory,
@@ -99,6 +100,12 @@ export const validatorsDispatcher = async (request, response, next) => {
 
 			templateValidations.push(...fieldValidations);
 		}
+	}
+
+	if (
+		['deadline', 'deadline-for-close-of-examination', 'procedural-deadline'].includes(templateType)
+	) {
+		templateValidations.push(validationIncludeStartDateIfStartTime(request.body));
 	}
 
 	if (!['issued-by', 'publication-of'].includes(templateType)) {
