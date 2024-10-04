@@ -207,6 +207,84 @@ describe('Create examination timetable page', () => {
 				});
 			});
 		});
+
+		describe('Should display error when start time is added without a start date for item type:', () => {
+			it.each(['deadline', 'deadline-for-close-of-examination', 'procedural-deadline'])(
+				'%s',
+				async (templateType) => {
+					const response = await request
+						.post(`/applications-service/case/123/examination-timetable/item/validate`)
+						.send({
+							templateType,
+							itemTypeName: templateType,
+							'startTime.hours': '01',
+							'startTime.minutes': '02',
+							'endDate.day': '01',
+							'endDate.month': '02',
+							'endDate.year': '2000',
+							'endTime.hours': '01',
+							'endTime.minutes': '02',
+							description: 'Some text with \n * one point \n* another point '
+						});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain(
+						'You must enter the start date if start time is specified'
+					);
+				}
+			);
+		});
+
+		describe('Should NOT display "missing start date error when start time is present" error when', () => {
+			it('start time is empty', async () => {
+				const response = await request
+					.post(`/applications-service/case/123/examination-timetable/item/validate`)
+					.send({
+						templateType: 'deadline',
+						itemTypeName: 'deadline',
+						'endDate.day': '01',
+						'endDate.month': '02',
+						'endDate.year': '2000',
+						'endTime.hours': '01',
+						'endTime.minutes': '02',
+						description: 'Some text with \n * one point \n* another point '
+					});
+
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain(
+					'You must enter the start date if start time is specified'
+				);
+			});
+
+			it.each([{ 'startTime.hour': '00' }, { 'startTime.minutes': '00' }])(
+				'start time is partially empty',
+				async (startTimeProperty) => {
+					const response = await request
+						.post(`/applications-service/case/123/examination-timetable/item/validate`)
+						.send({
+							templateType: 'deadline',
+							itemTypeName: 'deadline',
+							...startTimeProperty,
+							'endDate.day': '01',
+							'endDate.month': '02',
+							'endDate.year': '2000',
+							'endTime.hours': '01',
+							'endTime.minutes': '02',
+							description: 'Some text with \n * one point \n* another point '
+						});
+
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).not.toContain(
+						'You must enter the start date if start time is specified'
+					);
+				}
+			);
+		});
 	});
 
 	it('should display errors if start date are after end date', async () => {

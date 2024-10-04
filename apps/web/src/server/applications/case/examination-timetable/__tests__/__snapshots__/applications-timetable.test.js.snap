@@ -107,6 +107,953 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
 </main>"
 `;
 
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate Should NOT display "missing start date error when start time is present" error when start time is empty 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#name">You must enter the item name</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method="post" action="/applications-service/case/123/examination-timetable/item/validate/"
+            novalidate="novalidate" class="govuk-grid-row">
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">Timetable item type</label>
+                    <p class='govuk-body'>deadline</p>
+                    <input class="govuk-input" value='deadline' id="itemTypeName"
+                    name="itemTypeName" type="hidden">
+                    <input class="govuk-input" value='deadline' id="templateType" name="templateType"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="templateId" name="templateId"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="timetableId" name="timetableId"
+                    type="hidden">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
+                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
+                        name</p>
+                    <input class="govuk-input govuk-input--error" id="name" name="name"
+                    type="text" aria-describedby="name-hint name-error">
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start date (optional)</legend>
+                        <div id="startDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="startDate.day">Day</label>
+                                    <input class="govuk-input" id="startDate.day" name="startDate.day"
+                                    type="text">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="startDate.month">Month</label>
+                                    <input class="govuk-input" id="startDate.month" name="startDate.month"
+                                    type="text">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="startDate.year">Year</label>
+                                    <input class="govuk-input" id="startDate.year" name="startDate.year"
+                                    type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start time (optional)</legend>
+                        <div id="-hint" class="govuk-hint">For example, 13 : 00</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.hours">Hours</label>
+                                    <input class="govuk-input" id="startTime.hours" name="startTime.hours"
+                                    type="text">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="startTime.minutes" name="startTime.minutes"
+                                    type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End date</legend>
+                        <div id="endDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.day">Day</label>
+                                    <input class="govuk-input" id="endDate.day" name="endDate.day"
+                                    type="text" value="01">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.month">Month</label>
+                                    <input class="govuk-input" id="endDate.month" name="endDate.month"
+                                    type="text" value="02">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.year">Year</label>
+                                    <input class="govuk-input" id="endDate.year" name="endDate.year"
+                                    type="text" value="2000">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End time</legend>
+                        <div id="-hint" class="govuk-hint">For example, 23 : 59</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.hours">Hours</label>
+                                    <input class="govuk-input" id="endTime.hours" name="endTime.hours"
+                                    type="text" value="01">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="endTime.minutes" name="endTime.minutes"
+                                    type="text" value="02">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-inset-text">The portal for this deadline will open when the previous one closes or
+                    on your chosen start and end dates.</div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="description">Timetable item description</label>
+                    <div id="description-hint" class="govuk-hint">Use an asterisk (*) to denote a new bullet point</div>
+                    <textarea class="govuk-textarea"
+                    id="description" name="description" rows="20" aria-describedby="description-hint">Some text with * one point * another point</textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class="govuk-button govuk-!-margin-top-6" data-module="govuk-button">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate Should NOT display "missing start date error when start time is present" error when start time is partially empty 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#name">You must enter the item name</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method="post" action="/applications-service/case/123/examination-timetable/item/validate/"
+            novalidate="novalidate" class="govuk-grid-row">
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">Timetable item type</label>
+                    <p class='govuk-body'>deadline</p>
+                    <input class="govuk-input" value='deadline' id="itemTypeName"
+                    name="itemTypeName" type="hidden">
+                    <input class="govuk-input" value='deadline' id="templateType" name="templateType"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="templateId" name="templateId"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="timetableId" name="timetableId"
+                    type="hidden">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
+                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
+                        name</p>
+                    <input class="govuk-input govuk-input--error" id="name" name="name"
+                    type="text" aria-describedby="name-hint name-error">
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start date (optional)</legend>
+                        <div id="startDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="startDate.day">Day</label>
+                                    <input class="govuk-input" id="startDate.day" name="startDate.day"
+                                    type="text">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="startDate.month">Month</label>
+                                    <input class="govuk-input" id="startDate.month" name="startDate.month"
+                                    type="text">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="startDate.year">Year</label>
+                                    <input class="govuk-input" id="startDate.year" name="startDate.year"
+                                    type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start time (optional)</legend>
+                        <div id="-hint" class="govuk-hint">For example, 13 : 00</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.hours">Hours</label>
+                                    <input class="govuk-input" id="startTime.hours" name="startTime.hours"
+                                    type="text">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="startTime.minutes" name="startTime.minutes"
+                                    type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End date</legend>
+                        <div id="endDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.day">Day</label>
+                                    <input class="govuk-input" id="endDate.day" name="endDate.day"
+                                    type="text" value="01">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.month">Month</label>
+                                    <input class="govuk-input" id="endDate.month" name="endDate.month"
+                                    type="text" value="02">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.year">Year</label>
+                                    <input class="govuk-input" id="endDate.year" name="endDate.year"
+                                    type="text" value="2000">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End time</legend>
+                        <div id="-hint" class="govuk-hint">For example, 23 : 59</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.hours">Hours</label>
+                                    <input class="govuk-input" id="endTime.hours" name="endTime.hours"
+                                    type="text" value="01">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="endTime.minutes" name="endTime.minutes"
+                                    type="text" value="02">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-inset-text">The portal for this deadline will open when the previous one closes or
+                    on your chosen start and end dates.</div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="description">Timetable item description</label>
+                    <div id="description-hint" class="govuk-hint">Use an asterisk (*) to denote a new bullet point</div>
+                    <textarea class="govuk-textarea"
+                    id="description" name="description" rows="20" aria-describedby="description-hint">Some text with * one point * another point</textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class="govuk-button govuk-!-margin-top-6" data-module="govuk-button">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate Should NOT display "missing start date error when start time is present" error when start time is partially empty 2`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#name">You must enter the item name</a>
+                            </li>
+                            <li><a href="#startTime">You must enter the item start time in the correct format</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method="post" action="/applications-service/case/123/examination-timetable/item/validate/"
+            novalidate="novalidate" class="govuk-grid-row">
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">Timetable item type</label>
+                    <p class='govuk-body'>deadline</p>
+                    <input class="govuk-input" value='deadline' id="itemTypeName"
+                    name="itemTypeName" type="hidden">
+                    <input class="govuk-input" value='deadline' id="templateType" name="templateType"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="templateId" name="templateId"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="timetableId" name="timetableId"
+                    type="hidden">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
+                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
+                        name</p>
+                    <input class="govuk-input govuk-input--error" id="name" name="name"
+                    type="text" aria-describedby="name-hint name-error">
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start date (optional)</legend>
+                        <div id="startDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="startDate.day">Day</label>
+                                    <input class="govuk-input" id="startDate.day" name="startDate.day"
+                                    type="text">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="startDate.month">Month</label>
+                                    <input class="govuk-input" id="startDate.month" name="startDate.month"
+                                    type="text">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="startDate.year">Year</label>
+                                    <input class="govuk-input" id="startDate.year" name="startDate.year"
+                                    type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start time (optional)</legend>
+                        <div id="-hint" class="govuk-hint">For example, 13 : 00</div>
+                        <p id="startTime-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
+                            start time in the correct format</p>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.hours">Hours</label>
+                                    <p id="startTime.hours-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startTime.hours" name="startTime.hours"
+                                    type="text" aria-describedby="startTime.hours-error">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.minutes">Minutes</label>
+                                    <p id="startTime.minutes-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startTime.minutes" name="startTime.minutes"
+                                    type="text" value="00" aria-describedby="startTime.minutes-error">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End date</legend>
+                        <div id="endDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.day">Day</label>
+                                    <input class="govuk-input" id="endDate.day" name="endDate.day"
+                                    type="text" value="01">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.month">Month</label>
+                                    <input class="govuk-input" id="endDate.month" name="endDate.month"
+                                    type="text" value="02">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.year">Year</label>
+                                    <input class="govuk-input" id="endDate.year" name="endDate.year"
+                                    type="text" value="2000">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End time</legend>
+                        <div id="-hint" class="govuk-hint">For example, 23 : 59</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.hours">Hours</label>
+                                    <input class="govuk-input" id="endTime.hours" name="endTime.hours"
+                                    type="text" value="01">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="endTime.minutes" name="endTime.minutes"
+                                    type="text" value="02">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-inset-text">The portal for this deadline will open when the previous one closes or
+                    on your chosen start and end dates.</div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="description">Timetable item description</label>
+                    <div id="description-hint" class="govuk-hint">Use an asterisk (*) to denote a new bullet point</div>
+                    <textarea class="govuk-textarea"
+                    id="description" name="description" rows="20" aria-describedby="description-hint">Some text with * one point * another point</textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class="govuk-button govuk-!-margin-top-6" data-module="govuk-button">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate Should display error when start time is added without a start date for item type: deadline 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#name">You must enter the item name</a>
+                            </li>
+                            <li><a href="#startDate">You must enter the start date if start time is specified</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method="post" action="/applications-service/case/123/examination-timetable/item/validate/"
+            novalidate="novalidate" class="govuk-grid-row">
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">Timetable item type</label>
+                    <p class='govuk-body'>deadline</p>
+                    <input class="govuk-input" value='deadline' id="itemTypeName"
+                    name="itemTypeName" type="hidden">
+                    <input class="govuk-input" value='deadline' id="templateType" name="templateType"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="templateId" name="templateId"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="timetableId" name="timetableId"
+                    type="hidden">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
+                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
+                        name</p>
+                    <input class="govuk-input govuk-input--error" id="name" name="name"
+                    type="text" aria-describedby="name-hint name-error">
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start date (optional)</legend>
+                        <div id="startDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <p id="startDate-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the start
+                            date if start time is specified</p>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-hint" for="startDate.day">Day</label>
+                                    <p id="startDate.day-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startDate.day" name="startDate.day"
+                                    type="text" aria-describedby="startDate.day-error">
+                                </div>
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-hint" for="startDate.month">Month</label>
+                                    <p id="startDate.month-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startDate.month" name="startDate.month"
+                                    type="text" aria-describedby="startDate.month-error">
+                                </div>
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-hint" for="startDate.year">Year</label>
+                                    <p id="startDate.year-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startDate.year" name="startDate.year"
+                                    type="text" aria-describedby="startDate.year-error">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start time (optional)</legend>
+                        <div id="-hint" class="govuk-hint">For example, 13 : 00</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.hours">Hours</label>
+                                    <input class="govuk-input" id="startTime.hours" name="startTime.hours"
+                                    type="text" value="01">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="startTime.minutes" name="startTime.minutes"
+                                    type="text" value="02">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End date</legend>
+                        <div id="endDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.day">Day</label>
+                                    <input class="govuk-input" id="endDate.day" name="endDate.day"
+                                    type="text" value="01">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.month">Month</label>
+                                    <input class="govuk-input" id="endDate.month" name="endDate.month"
+                                    type="text" value="02">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.year">Year</label>
+                                    <input class="govuk-input" id="endDate.year" name="endDate.year"
+                                    type="text" value="2000">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End time</legend>
+                        <div id="-hint" class="govuk-hint">For example, 23 : 59</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.hours">Hours</label>
+                                    <input class="govuk-input" id="endTime.hours" name="endTime.hours"
+                                    type="text" value="01">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="endTime.minutes" name="endTime.minutes"
+                                    type="text" value="02">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-inset-text">The portal for this deadline will open when the previous one closes or
+                    on your chosen start and end dates.</div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="description">Timetable item description</label>
+                    <div id="description-hint" class="govuk-hint">Use an asterisk (*) to denote a new bullet point</div>
+                    <textarea class="govuk-textarea"
+                    id="description" name="description" rows="20" aria-describedby="description-hint">Some text with * one point * another point</textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class="govuk-button govuk-!-margin-top-6" data-module="govuk-button">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate Should display error when start time is added without a start date for item type: deadline-for-close-of-examination 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#name">You must enter the item name</a>
+                            </li>
+                            <li><a href="#startDate">You must enter the start date if start time is specified</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method="post" action="/applications-service/case/123/examination-timetable/item/validate/"
+            novalidate="novalidate" class="govuk-grid-row">
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">Timetable item type</label>
+                    <p class='govuk-body'>deadline-for-close-of-examination</p>
+                    <input class="govuk-input" value='deadline-for-close-of-examination'
+                    id="itemTypeName" name="itemTypeName" type="hidden">
+                    <input class="govuk-input" value='deadline-for-close-of-examination' id="templateType"
+                    name="templateType" type="hidden">
+                    <input class="govuk-input" value='' id="templateId" name="templateId"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="timetableId" name="timetableId"
+                    type="hidden">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
+                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
+                        name</p>
+                    <input class="govuk-input govuk-input--error" id="name" name="name"
+                    type="text" aria-describedby="name-hint name-error">
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start date (optional)</legend>
+                        <div id="startDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <p id="startDate-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the start
+                            date if start time is specified</p>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-hint" for="startDate.day">Day</label>
+                                    <p id="startDate.day-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startDate.day" name="startDate.day"
+                                    type="text" aria-describedby="startDate.day-error">
+                                </div>
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-hint" for="startDate.month">Month</label>
+                                    <p id="startDate.month-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startDate.month" name="startDate.month"
+                                    type="text" aria-describedby="startDate.month-error">
+                                </div>
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-hint" for="startDate.year">Year</label>
+                                    <p id="startDate.year-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startDate.year" name="startDate.year"
+                                    type="text" aria-describedby="startDate.year-error">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start time (optional)</legend>
+                        <div id="-hint" class="govuk-hint">For example, 13 : 00</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.hours">Hours</label>
+                                    <input class="govuk-input" id="startTime.hours" name="startTime.hours"
+                                    type="text" value="01">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="startTime.minutes" name="startTime.minutes"
+                                    type="text" value="02">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End date</legend>
+                        <div id="endDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.day">Day</label>
+                                    <input class="govuk-input" id="endDate.day" name="endDate.day"
+                                    type="text" value="01">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.month">Month</label>
+                                    <input class="govuk-input" id="endDate.month" name="endDate.month"
+                                    type="text" value="02">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.year">Year</label>
+                                    <input class="govuk-input" id="endDate.year" name="endDate.year"
+                                    type="text" value="2000">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End time</legend>
+                        <div id="-hint" class="govuk-hint">For example, 23 : 59</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.hours">Hours</label>
+                                    <input class="govuk-input" id="endTime.hours" name="endTime.hours"
+                                    type="text" value="01">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="endTime.minutes" name="endTime.minutes"
+                                    type="text" value="02">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="description">Timetable item description (optional)</label>
+                    <div id="description-hint"
+                    class="govuk-hint">Use an asterisk (*) to denote a new bullet point</div>
+                    <textarea class="govuk-textarea"
+                    id="description" name="description" rows="20" aria-describedby="description-hint">Some text with * one point * another point</textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class="govuk-button govuk-!-margin-top-6" data-module="govuk-button">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate Should display error when start time is added without a start date for item type: procedural-deadline 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#name">You must enter the item name</a>
+                            </li>
+                            <li><a href="#startDate">You must enter the start date if start time is specified</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-two-thirds'>
+            <div>
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Create new item</h1>
+                <p class='govuk-body govuk-!-margin-bottom-5'>Add examination timetable details</p>
+            </div>
+            <form method="post" action="/applications-service/case/123/examination-timetable/item/validate/"
+            novalidate="novalidate" class="govuk-grid-row">
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4 govuk-!-margin-bottom-2">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="item-type">Timetable item type</label>
+                    <p class='govuk-body'>procedural-deadline</p>
+                    <input class="govuk-input" value='procedural-deadline'
+                    id="itemTypeName" name="itemTypeName" type="hidden">
+                    <input class="govuk-input" value='procedural-deadline' id="templateType"
+                    name="templateType" type="hidden">
+                    <input class="govuk-input" value='' id="templateId" name="templateId"
+                    type="hidden">
+                    <input class="govuk-input" value='' id="timetableId" name="timetableId"
+                    type="hidden">
+                </div>
+                <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
+                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
+                        name</p>
+                    <input class="govuk-input govuk-input--error" id="name" name="name"
+                    type="text" aria-describedby="name-hint name-error">
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start date (optional)</legend>
+                        <div id="startDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <p id="startDate-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the start
+                            date if start time is specified</p>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-hint" for="startDate.day">Day</label>
+                                    <p id="startDate.day-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startDate.day" name="startDate.day"
+                                    type="text" aria-describedby="startDate.day-error">
+                                </div>
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-hint" for="startDate.month">Month</label>
+                                    <p id="startDate.month-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startDate.month" name="startDate.month"
+                                    type="text" aria-describedby="startDate.month-error">
+                                </div>
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <label class="govuk-label govuk-hint" for="startDate.year">Year</label>
+                                    <p id="startDate.year-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span>
+                                    </p>
+                                    <input class="govuk-input govuk-input--error" id="startDate.year" name="startDate.year"
+                                    type="text" aria-describedby="startDate.year-error">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Start time (optional)</legend>
+                        <div id="-hint" class="govuk-hint">For example, 13 : 00</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.hours">Hours</label>
+                                    <input class="govuk-input" id="startTime.hours" name="startTime.hours"
+                                    type="text" value="01">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="startTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="startTime.minutes" name="startTime.minutes"
+                                    type="text" value="02">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End date</legend>
+                        <div id="endDate-hint" class="govuk-hint">For example, 01 02 2000</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-date-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.day">Day</label>
+                                    <input class="govuk-input" id="endDate.day" name="endDate.day"
+                                    type="text" value="01">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.month">Month</label>
+                                    <input class="govuk-input" id="endDate.month" name="endDate.month"
+                                    type="text" value="02">
+                                </div>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-hint" for="endDate.year">Year</label>
+                                    <input class="govuk-input" id="endDate.year" name="endDate.year"
+                                    type="text" value="2000">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full ">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">End time</legend>
+                        <div id="-hint" class="govuk-hint">For example, 23 : 59</div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-grid-row pins-time-form-group">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.hours">Hours</label>
+                                    <input class="govuk-input" id="endTime.hours" name="endTime.hours"
+                                    type="text" value="01">
+                                </div><span class='govuk-form-group'>:</span>
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label govuk-visually-hidden" for="endTime.minutes">Minutes</label>
+                                    <input class="govuk-input" id="endTime.minutes" name="endTime.minutes"
+                                    type="text" value="02">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group govuk-grid-column-full govuk-!-margin-top-4">
+                    <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="description">Timetable item description</label>
+                    <div id="description-hint" class="govuk-hint">Use an asterisk (*) to denote a new bullet point</div>
+                    <textarea class="govuk-textarea"
+                    id="description" name="description" rows="20" aria-describedby="description-hint">Some text with * one point * another point</textarea>
+                </div>
+                <div class='govuk-grid-column-full'>
+                    <button class="govuk-button govuk-!-margin-top-6" data-module="govuk-button">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`Create examination timetable page POST /case/123/examination-timetable/item/validate templateType: accompanied-site-inspection should display errors if mandatory fields are missing 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
