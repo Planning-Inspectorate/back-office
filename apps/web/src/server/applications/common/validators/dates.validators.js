@@ -143,12 +143,20 @@ export const validationDateFuture = (field, data, mustBeFuture, allowBlank) => {
  * @returns {import("express-validator").ValidationChain}
  */
 export const validationIncludeStartDateIfStartTime = (formData) => {
+	const startMinutes = formData[`startTime.minutes`];
+	const startHours = formData[`startTime.hours`];
+
 	const startDay = formData['startDate.day'];
 	const startMonth = formData['startDate.month'];
 	const startYear = formData[`startDate.year`];
 
 	const startDate = new Date(`${startYear}-${startMonth}-${startDay}`);
 	return body('startDate')
-		.custom(() => !!startDate.getTime())
+		.custom(() => {
+			if (startMinutes && startHours) {
+				return !!startDate.getTime();
+			}
+			return true;
+		})
 		.withMessage('You must enter the start date if start time is specified');
 };
