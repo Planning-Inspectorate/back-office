@@ -14,6 +14,7 @@ const view = 'applications/representations/representation/address-details/index.
  *  @type {import('@pins/express').RenderHandler<{}, {}, {}, { repType: string, repMode: string|undefined, stage: string|undefined, postcode: string|undefined }, {}>}
  */
 export const getAddressDetailsController = async (req, res) => {
+	console.log('remove');
 	const { query } = req;
 	const { repType, repMode, stage, postcode } = query;
 
