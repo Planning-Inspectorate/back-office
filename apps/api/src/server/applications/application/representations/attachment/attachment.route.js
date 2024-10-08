@@ -20,13 +20,19 @@ router.post(
 			required: true,
 			type: 'integer'
 		},
-				#swagger.parameters['body'] = {
+		#swagger.parameters['body'] = {
             in: 'body',
             description: 'Document Details',
             schema: {
-            documentId: 'a guid',
+            	documentId: 'a guid',
             }
         }
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Representation',
             schema: {
@@ -52,6 +58,30 @@ router.delete(
 			required: true,
 			type: 'integer'
 		},
+		#swagger.parameters['repId'] = {
+			in: 'path',
+			description: 'Representation ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['attachmentId'] = {
+			in: 'path',
+			description: 'Attachment ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
         #swagger.responses[200] = {
             description: 'Attachment',
             schema: {

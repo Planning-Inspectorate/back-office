@@ -1,28 +1,80 @@
-import { request } from '../../../../../app-test.js';
+import { request } from '#app-test';
 
-const { databaseConnector } = await import('../../../../../utils/database-connector.js');
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const existingRepresentations = [
 	{
 		id: 1,
-		caseId: 200,
+		caseId: 1,
 		reference: 'BC0110001-2',
 		status: 'VALID',
 		redacted: true,
 		received: '2023-03-14T14:28:25.704Z',
-		attachment: [{ id: 1 }]
+		attachments: [
+			{
+				id: 1,
+				documentGuid: 'document-guid',
+				Document: {
+					guid: 'document-guid',
+					isDeleted: false,
+					latestDocumentVersion: {
+						fileName: 'file1.pdf'
+					}
+				}
+			}
+		],
+		representationActions: []
 	},
 	{
 		id: 2,
-		caseId: 200,
+		caseId: 1,
 		reference: 'BC0110001-3',
 		status: 'PUBLISHED',
 		redacted: true,
 		received: '2023-03-14T14:28:25.704Z',
 		unpublishedUpdates: false,
-		attachment: [{ id: 2 }]
+		attachments: [
+			{
+				id: 2,
+				documentGuid: 'document-guid-2',
+				Document: {
+					guid: 'document-guid-2',
+					isDeleted: false,
+					latestDocumentVersion: {
+						fileName: 'file2.pdf'
+					}
+				}
+			}
+		],
+		representationActions: []
 	}
 ];
+
+/**
+ * This is  representation[0] after the attached doc has been marked as deleted
+ */
+const repAfterAttachmentDeletion = {
+	id: 1,
+	caseId: 1,
+	reference: 'BC0110001-2',
+	status: 'VALID',
+	redacted: true,
+	received: '2023-03-14T14:28:25.704Z',
+	attachments: [
+		{
+			id: 1,
+			documentGuid: 'document-guid',
+			Document: {
+				guid: 'document-guid',
+				isDeleted: true,
+				latestDocumentVersion: {
+					fileName: 'file1.pdf'
+				}
+			}
+		}
+	],
+	representationActions: []
+};
 
 describe('Delete Application Representation Attachment', () => {
 	beforeAll(() => {
@@ -31,8 +83,10 @@ describe('Delete Application Representation Attachment', () => {
 
 	it('Delete Representation Attachment', async () => {
 		databaseConnector.representation.findFirst.mockResolvedValue(existingRepresentations[0]);
+		databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
 		databaseConnector.representationAttachment.delete.mockResolvedValue({ id: '1' });
 		databaseConnector.document.update.mockResolvedValue({ id: '1' });
+
 		const response = await request
 			.delete('/applications/1/representations/1/attachment/1')
 			.set('Content-Type', 'application/json')
@@ -42,6 +96,13 @@ describe('Delete Application Representation Attachment', () => {
 		expect(response.body).toEqual({
 			attachmentId: '1'
 		});
+
+		// deleting the attachment marks it as isDeleted in the doc table
+		// check that the attachment does not return after being marked as deleted
+		databaseConnector.representation.findUnique.mockResolvedValue(repAfterAttachmentDeletion);
+		const getRepAfterDeletingAttachment = await request.get('/applications/1/representations/1');
+
+		expect(getRepAfterDeletingAttachment.body.attachments).toEqual([]);
 	});
 
 	it('Delete Published Representation Attachment', async () => {
