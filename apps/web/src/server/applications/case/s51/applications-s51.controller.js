@@ -420,6 +420,7 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
 	const { adviceId, attachmentId } = params;
 	const { caseId } = response.locals;
 
+	// NOTE: whilst this soft deletes the document, it does NOT delete the record from the associative table S51AdviceDocument.  This is just in case we want to undelete the doc.
 	const { errors: apiErrors } = await deleteCaseDocumentationFile(
 		caseId,
 		attachmentId,

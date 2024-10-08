@@ -1,5 +1,5 @@
-import { request } from '../../../../app-test.js';
-const { databaseConnector } = await import('../../../../utils/database-connector.js');
+import { request } from '#app-test';
+const { databaseConnector } = await import('#utils/database-connector.js');
 
 const existingRepresentation = {
 	id: 1,
@@ -10,7 +10,11 @@ const existingRepresentation = {
 	attachments: [
 		{
 			id: 1,
-			documentGuid: 'document-guid'
+			documentGuid: 'document-guid',
+			Document: {
+				guid: 'document-guid',
+				isDeleted: false
+			}
 		}
 	],
 	representationActions: []
