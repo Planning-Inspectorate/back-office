@@ -30,6 +30,9 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	authRedirectPath: string;
 	azureKeyVaultEnabled: boolean;
 	blobStorageUrl: string;
+	cacheControl: {
+		maxAge: string;
+	};
 	cwd: string;
 	logLevelFile: LevelWithSilent;
 	logLevelStdOut: LevelWithSilent;
