@@ -123,8 +123,7 @@ nunjucksEnvironment.express(app);
 app.set('view engine', 'njk');
 
 // Serve static files (fonts, images, generated CSS and JS, etc)
-app.use(serveStatic('src/server/static'));
-app.use(serveStatic('src/server/static'));
+app.use(serveStatic('src/server/static', { maxAge: config.cacheControl.maxAge }));
 
 // Mount all routes on / path.
 // All the other subpaths will be defined in the `routes.js` file.

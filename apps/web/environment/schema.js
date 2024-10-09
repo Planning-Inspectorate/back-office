@@ -25,6 +25,7 @@ export default baseSchema
 		authRedirectPath: joi.string(),
 		azureKeyVaultEnabled: joi.boolean().optional(),
 		blobStorageUrl: joi.string(),
+		cacheControl: joi.object({ maxAge: joi.string() }).options({ presence: 'required' }),
 		logLevelStdOut: joi.string().valid(...logLevel),
 		retry: joi.object({
 			maxAttempts: joi.number().optional(),
