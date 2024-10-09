@@ -452,6 +452,7 @@ describe('Representation repository', () => {
 				select: {
 					Document: {
 						select: {
+							isDeleted: true,
 							latestDocumentVersion: {
 								select: {
 									fileName: true

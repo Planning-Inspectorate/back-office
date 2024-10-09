@@ -1377,6 +1377,13 @@
 								}
 							}
 						}
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
 					}
 				],
 				"responses": {
@@ -1414,13 +1421,29 @@
 						"name": "repId",
 						"in": "path",
 						"required": true,
-						"type": "string"
+						"type": "integer",
+						"description": "Representation ID"
 					},
 					{
 						"name": "attachmentId",
 						"in": "path",
 						"required": true,
-						"type": "string"
+						"type": "integer",
+						"description": "Attachment ID"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
 					}
 				],
 				"responses": {

@@ -154,6 +154,7 @@ export const getById = async (id) =>
 				select: {
 					Document: {
 						select: {
+							isDeleted: true,
 							latestDocumentVersion: {
 								select: {
 									fileName: true
@@ -503,12 +504,15 @@ export const upsertApplicationRepresentationAttachment = async (representationId
 };
 
 /**
+ * Soft deletes an attached document on a representation.
  *
  * @param {number} repId
  * @param {number} attachmentId
  * @returns {Promise<*>}
  */
 export const deleteApplicationRepresentationAttachment = async (repId, attachmentId) => {
+	// Note: this does NOT delete the record in the associative table RepresentationAttachment,
+	//		 it just marks the document as isDeleted in the Document table
 	const representation = await getFirstById(repId);
 
 	const transactionItems = [
@@ -517,6 +521,7 @@ export const deleteApplicationRepresentationAttachment = async (repId, attachmen
 		})
 	];
 
+	// if the representation is already published, this also sets the unpublishedUpdates flag on the rep
 	if (representation.status === 'PUBLISHED')
 		transactionItems.push(
 			databaseConnector.representation.update({

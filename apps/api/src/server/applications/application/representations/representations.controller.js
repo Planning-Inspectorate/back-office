@@ -30,7 +30,13 @@ export const getRepresentation = async ({ params }, response) => {
 	}
 
 	const latestRedaction = getLatestRedaction(representation);
-	representation.attachments = mapDocumentRepresentationAttachments(representation.attachments);
+	// Filter the attachments to only get the undeleted docs
+	representation.attachments = mapDocumentRepresentationAttachments(
+		representation.attachments.filter(
+			(/** @type {{ Document: { isDeleted: boolean; }; }} */ attach) =>
+				attach.Document.isDeleted === false
+		)
+	);
 
 	return response.send({
 		...representation,

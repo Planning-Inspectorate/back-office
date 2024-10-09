@@ -1,5 +1,5 @@
-import * as representationsRepository from '../../../../repositories/representation.repository.js';
-import * as documentRepository from '../../../../repositories/document.repository.js';
+import * as representationsRepository from '#repositories/representation.repository.js';
+import * as documentRepository from '#repositories/document.repository.js';
 import { DOCUMENT_TYPES } from '../../../constants.js';
 
 /**
@@ -20,6 +20,8 @@ export const addAttachmentRepresentation = async (repId, documentId) => {
 };
 
 /**
+ * Soft deletes an attached document on a representation.
+ *
  * @param {number} repId
  * @param {number} attachmentId
  * */
