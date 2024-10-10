@@ -7,6 +7,7 @@ const environment = loadEnvironment(process.env.NODE_ENV);
 const { value, error } = schema.validate({
 	NODE_ENV: environment.NODE_ENV,
 	PORT: environment.PORT,
+	gitSha:  process.env.GIT_SHA ?? 'NO GIT SHA FOUND',
 	APPLICATIONINSIGHTS_CONNECTION_STRING: environment.APPLICATIONINSIGHTS_CONNECTION_STRING,
 	SWAGGER_JSON_DIR: environment.SWAGGER_JSON_DIR || './src/server/swagger-output.json',
 	DATABASE_URL: environment.DATABASE_URL,

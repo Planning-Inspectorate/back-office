@@ -13,6 +13,7 @@ export interface BaseEnvironmentConfig {
 	isDevelopment: boolean;
 	isTest: boolean;
 	isRelease?: boolean;
+	gitSha?: string;
 }
 
 /**
