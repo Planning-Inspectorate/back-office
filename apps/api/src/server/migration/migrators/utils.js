@@ -69,7 +69,7 @@ export const getOrCreateMinimalCaseId = async ({
 	caseDescription: description,
 	caseStage
 }) => {
-	let existingCaseId = await getCaseIdFromRef(reference);
+	const existingCaseId = await getCaseIdFromRef(reference);
 
 	if (existingCaseId) {
 		return existingCaseId;

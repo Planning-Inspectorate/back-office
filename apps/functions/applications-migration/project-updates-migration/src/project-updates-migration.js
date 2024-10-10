@@ -1,34 +1,34 @@
 import { chunk as chunkArray } from 'lodash-es';
-import { QueryTypes, Sequelize } from 'sequelize';
-import { loadWordpressConfig } from '../../common/config.js';
 import { makePostRequest } from '../../common/back-office-api-client.js';
+import { executeSequelizeQuery } from './execute-sequelize-query.js';
 
 const MAX_BODY_ITEMS_LENGTH = 100;
-
-const config = loadWordpressConfig();
-const { username, password, database, host, port, dialect } = config.wordpressDatabase;
-
-const sequelize = new Sequelize(database, username, password, {
-	host,
-	port: Number(port),
-	// @ts-ignore
-	dialect
-});
 
 /**
  * Handle an HTTP trigger/request to run the migration
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string[]} caseReferences
+ * @param {boolean} isWelshCase
  */
-export const migrateProjectUpdates = async (log, caseReferences) => {
+export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) => {
 	log.info(`Migrating ${caseReferences.length} Cases`);
 
 	for (const caseReference of caseReferences) {
 		try {
 			log.info(`Migrating project updates and subscriptions for case ${caseReference}`);
 
-			const updates = await getProjectUpdates(log, caseReference);
+			const englishUpdates = await getProjectUpdates(log, caseReference);
+			const welshUpdates = isWelshCase ? await getProjectUpdatesWelsh(log, caseReference) : [];
+			if (isWelshCase && englishUpdates.length !== welshUpdates.length) {
+				throw Error('Update entity count for English and Welsh do not match');
+			}
+
+			const updates = englishUpdates.map((update, i) => ({
+				...update,
+				updateContentEnglish: update.updateContentEnglish || '',
+				updateContentWelsh: welshUpdates[i]?.updateContentWelsh || null
+			}));
 
 			if (updates.length > 0) {
 				log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
@@ -65,19 +65,15 @@ export const migrateProjectUpdates = async (log, caseReferences) => {
 };
 
 /**
- * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-const getProjectUpdates = async (log, caseReference) => {
+const getProjectUpdates = async (caseReference) => {
 	// Get all of the updates (They contain three additional properties; caseName, caseDescription and caseStage (int))
-	const updates = await sequelize.query(getUpdatesQuery, {
-		replacements: [caseReference, caseReference, caseReference, caseReference, caseReference],
-		type: QueryTypes.SELECT
-	});
+	const updates = await executeSequelizeQuery(getUpdatesQuery, [caseReference, caseReference]);
 
 	updates.forEach((update) => {
 		// @ts-ignore
-		update.caseStage = getCaseStageFromId(update.caseStage);
+		update.caseStage = getCaseStageFromId(update.caseStageId);
 
 		// @ts-ignore
 		if (update.updateStatus === 'publish') {
@@ -90,14 +86,18 @@ const getProjectUpdates = async (log, caseReference) => {
 };
 
 /**
+ * @param {string} caseReference
+ */
+const getProjectUpdatesWelsh = async (caseReference) => {
+	return await executeSequelizeQuery(getUpdatesQueryWelsh, [caseReference, caseReference]);
+};
+
+/**
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
 const getProjectSubscriptions = async (log, caseReference) => {
-	const subscribers = await sequelize.query(getSubscriptionsQuery, {
-		replacements: [caseReference],
-		type: QueryTypes.SELECT
-	});
+	const subscribers = await executeSequelizeQuery(getSubscriptionsQuery, [caseReference]);
 
 	subscribers.forEach((subscription) => {
 		// @ts-ignore
@@ -169,7 +169,7 @@ SELECT p.id,
        -- Additional columns we need to migrate to create cases
        pr.projectname   AS caseName,
        pr.summary       AS caseDescription,
-       pr.stage         AS caseStage
+       pr.stage         AS caseStageId
 FROM   ipclive.wp_posts p
        INNER JOIN ipclive.wp_term_relationships r ON r.object_id = p.id
        INNER JOIN ipclive.wp_terms t ON r.term_taxonomy_id = t.term_id
@@ -181,6 +181,23 @@ GROUP  BY id
 UNION
 SELECT *
 FROM ipclive.vw_projectUpdateMigration
+WHERE casereference = ?;`;
+
+const getUpdatesQueryWelsh = `
+SELECT p.id,
+       pr.casereference AS caseReference,
+       p.post_content   AS updateContentWelsh,
+FROM   ipccy.wp_posts p
+       INNER JOIN ipccy.wp_term_relationships r ON r.object_id = p.id
+       INNER JOIN ipccy.wp_terms t ON r.term_taxonomy_id = t.term_id
+       INNER JOIN ipccy.wp_ipc_projects pr ON LEFT(t.name, 8) = pr.casereference
+WHERE  p.post_type = 'ipc_project_update'
+       AND p.post_status IN( 'publish', 'draft' )
+       AND pr.casereference = ?
+GROUP  BY id
+UNION
+SELECT *
+FROM ipccy.vw_projectUpdateMigration_cy
 WHERE casereference = ?;`;
 
 const getSubscriptionsQuery = `
