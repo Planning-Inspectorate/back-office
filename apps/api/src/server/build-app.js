@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
 import helmet from 'helmet';
+import config from './config/config.js';
 import { applicationsRoutes } from './applications/applications.routes.js';
 import { defaultErrorHandler, stateMachineErrorHandler } from './middleware/error-handler.js';
 import versionRoutes from './middleware/version-routes.js';
@@ -43,7 +44,11 @@ const buildApp = (
 			return;
 		}
 
-		res.status(200).send('OK');
+		res.status(200).send({
+			status: 'OK',
+			uptime: process.uptime(),
+			commit: config.gitSha
+		});
 	});
 
 	app.use(asyncHandler(authoriseRequest));

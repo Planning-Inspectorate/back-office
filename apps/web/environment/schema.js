@@ -11,7 +11,8 @@ export const baseSchema = joi
 		isProduction: joi.boolean(),
 		isDevelopment: joi.boolean(),
 		isTest: joi.boolean(),
-		isRelease: joi.boolean().optional()
+		isRelease: joi.boolean().optional(),
+		gitSha: joi.string().optional(),
 	})
 	.options({ presence: 'required' }); // all required by default
 
