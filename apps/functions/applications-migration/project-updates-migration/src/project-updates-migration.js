@@ -1,19 +1,8 @@
 import { chunk as chunkArray } from 'lodash-es';
-import { QueryTypes, Sequelize } from 'sequelize';
-import { loadWordpressConfig } from '../../common/config.js';
 import { makePostRequest } from '../../common/back-office-api-client.js';
+import { executeSequelizeQuery } from './execute-sequelize-query.js';
 
 const MAX_BODY_ITEMS_LENGTH = 100;
-
-const config = loadWordpressConfig();
-const { username, password, database, host, port, dialect } = config.wordpressDatabase;
-
-const sequelize = new Sequelize(database, username, password, {
-	host,
-	port: Number(port),
-	// @ts-ignore
-	dialect
-});
 
 /**
  * Handle an HTTP trigger/request to run the migration
@@ -31,21 +20,22 @@ export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) =>
 
 			const englishUpdates = await getProjectUpdates(log, caseReference);
 			const welshUpdates = isWelshCase ? await getProjectUpdatesWelsh(log, caseReference) : [];
-
-			if (englishUpdates.length !== welshUpdates.length) {
+			if (isWelshCase && englishUpdates.length !== welshUpdates.length) {
 				throw Error('Update entity count for English and Welsh do not match');
 			}
 
-			if (englishUpdates.length > 0) {
-				log.info(`Migrating ${englishUpdates.length} project updates for case ${caseReference}`);
+			const updates = englishUpdates.map((update, i) => ({
+				...update,
+				updateContentEnglish: update.updateContentEnglish || '',
+				updateContentWelsh: welshUpdates[i]?.updateContentWelsh || null
+			}));
 
-				const chunkedEnglishUpdates = chunkArray(englishUpdates, MAX_BODY_ITEMS_LENGTH);
-				const chunkedWelshUpdates = chunkArray(welshUpdates, MAX_BODY_ITEMS_LENGTH);
-				for (let i = 0; i < chunkedEnglishUpdates.length; i++) {
-					await makePostRequest(log, '/migration/nsip-project-update', {
-						englishUpdates: chunkedEnglishUpdates[i],
-						welshUpdates: chunkedWelshUpdates[i]
-					});
+			if (updates.length > 0) {
+				log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
+
+				const chunkedUpdates = chunkArray(updates, MAX_BODY_ITEMS_LENGTH);
+				for (const chunk of chunkedUpdates) {
+					await makePostRequest(log, '/migration/nsip-project-update', chunk);
 				}
 
 				log.info('Successfully migrated project updates');
@@ -75,16 +65,15 @@ export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) =>
 };
 
 /**
- * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-const getProjectUpdates = async (log, caseReference) => {
+const getProjectUpdates = async (caseReference) => {
 	// Get all of the updates (They contain three additional properties; caseName, caseDescription and caseStage (int))
 	const updates = await executeSequelizeQuery(getUpdatesQuery, [caseReference, caseReference]);
 
 	updates.forEach((update) => {
 		// @ts-ignore
-		update.caseStage = getCaseStageFromId(update.caseStage);
+		update.caseStage = getCaseStageFromId(update.caseStageId);
 
 		// @ts-ignore
 		if (update.updateStatus === 'publish') {
@@ -96,20 +85,11 @@ const getProjectUpdates = async (log, caseReference) => {
 	return updates;
 };
 
-const getProjectUpdatesWelsh = async (log, caseReference) => {
-	return await sequelize.query(getUpdatesQueryWelsh, [caseReference, caseReference]);
-};
-
 /**
- *
- * @param {string} query
- * @param {string[]} replacements
+ * @param {string} caseReference
  */
-const executeSequelizeQuery = async (query, replacements) => {
-	return await sequelize.query(query, {
-		replacements,
-		type: QueryTypes.SELECT
-	});
+const getProjectUpdatesWelsh = async (caseReference) => {
+	return await executeSequelizeQuery(getUpdatesQueryWelsh, [caseReference, caseReference]);
 };
 
 /**
@@ -117,10 +97,7 @@ const executeSequelizeQuery = async (query, replacements) => {
  * @param {string} caseReference
  */
 const getProjectSubscriptions = async (log, caseReference) => {
-	const subscribers = await sequelize.query(getSubscriptionsQuery, {
-		replacements: [caseReference],
-		type: QueryTypes.SELECT
-	});
+	const subscribers = await executeSequelizeQuery(getSubscriptionsQuery, [caseReference]);
 
 	subscribers.forEach((subscription) => {
 		// @ts-ignore
@@ -192,7 +169,7 @@ SELECT p.id,
        -- Additional columns we need to migrate to create cases
        pr.projectname   AS caseName,
        pr.summary       AS caseDescription,
-       pr.stage         AS caseStage
+       pr.stage         AS caseStageId
 FROM   ipclive.wp_posts p
        INNER JOIN ipclive.wp_term_relationships r ON r.object_id = p.id
        INNER JOIN ipclive.wp_terms t ON r.term_taxonomy_id = t.term_id
@@ -220,7 +197,7 @@ WHERE  p.post_type = 'ipc_project_update'
 GROUP  BY id
 UNION
 SELECT *
-FROM ipccy.vw_projectUpdateMigration
+FROM ipccy.vw_projectUpdateMigration_cy
 WHERE casereference = ?;`;
 
 const getSubscriptionsQuery = `
