@@ -6,9 +6,15 @@ import { QueryTypes, Sequelize } from 'sequelize';
  * @param {string} query
  * @param {string[]} replacements
  */
-export const executeSequelizeQuery = async (query, replacements) => {
+export const executeSequelizeQuery = async (
+	query,
+	replacements,
+	options = { queryWelshDb: false }
+) => {
 	const config = loadWordpressConfig();
-	const { username, password, database, host, port, dialect } = config.wordpressDatabase;
+	const { username, password, database, host, port, dialect } = options.queryWelshDb
+		? config.wordpressDatabaseWelsh
+		: config.wordpressDatabaseEnglish;
 	const sequelize = new Sequelize(database, username, password, {
 		host,
 		port: Number(port),

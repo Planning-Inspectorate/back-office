@@ -83,7 +83,15 @@ const loadSynapseConfig = memoize(() => {
  */
 const loadWordpressConfig = memoize(() => {
 	const schema = {
-		wordpressDatabase: {
+		wordpressDatabaseEnglish: {
+			username: joi.string(),
+			password: joi.string(),
+			database: joi.string(),
+			host: joi.string(),
+			port: joi.string(),
+			dialect: joi.string()
+		},
+		wordpressDatabaseWelsh: {
 			username: joi.string(),
 			password: joi.string(),
 			database: joi.string(),
@@ -94,13 +102,21 @@ const loadWordpressConfig = memoize(() => {
 	};
 
 	const config = {
-		wordpressDatabase: {
+		wordpressDatabaseEnglish: {
 			username: environment.NI_DB_MYSQL_USERNAME,
 			password: environment.NI_DB_MYSQL_PASSWORD,
 			database: environment.NI_DB_MYSQL_DATABASE,
 			host: environment.NI_DB_MYSQL_HOST,
 			port: environment.NI_DB_MYSQL_PORT,
 			dialect: environment.NI_DB_MYSQL_DIALECT
+		},
+		wordpressDatabaseWelsh: {
+			username: environment.WELSH_NI_DB_MYSQL_USERNAME,
+			password: environment.WELSH_NI_DB_MYSQL_PASSWORD,
+			database: environment.WELSH_NI_DB_MYSQL_DATABASE,
+			host: environment.WELSH_NI_DB_MYSQL_HOST,
+			port: environment.WELSH_NI_DB_MYSQL_PORT,
+			dialect: environment.WELSH_NI_DB_MYSQL_DIALECT
 		}
 	};
 
