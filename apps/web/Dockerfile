@@ -3,6 +3,8 @@ FROM node:20-alpine AS pins-web-builder
 
 RUN apk update
 
+ARG GIT_SHA
+
 # TODO: Remove this once these get fixed:
 # - https://github.com/vercel/turborepo/issues/1097
 # - https://github.com/vercel/turborepo/issues/1103
@@ -21,6 +23,7 @@ RUN npm ci --workspaces --if-present --loglevel notice
 
 ENV NODE_ENV=production
 ENV APP_RELEASE=true
+ENV GIT_SHA=$GIT_SHA
 
 RUN npm run build:release
 
@@ -28,6 +31,8 @@ RUN npm run build:release
 
 # Stage 2/2 - App run
 FROM node:20-alpine
+
+ARG GIT_SHA
 
 WORKDIR /usr/src/app
 
@@ -37,6 +42,7 @@ WORKDIR /usr/src/app/apps/web
 
 ENV NODE_ENV=production
 ENV APP_RELEASE=true
+ENV GIT_SHA=$GIT_SHA
 
 # TODO: Perhaps use `RUN npm ci --production` to shrink the size of the container
 
