@@ -1,5 +1,8 @@
 FROM node:20-alpine
 WORKDIR /src/app
+
+ARG GIT_SHA
+
 COPY package*.json ./
 
 COPY packages ./packages
@@ -11,6 +14,7 @@ RUN npm ci --workspaces --if-present
 # relative to cwd
 ENV SWAGGER_JSON_DIR=./src/server/swagger-output.json
 ENV DATABASE_URL=$DATABASE_URL
+ENV GIT_SHA=$GIT_SHA
 
 WORKDIR /src/app/apps/api
 RUN npx prisma generate

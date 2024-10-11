@@ -3,6 +3,7 @@ import joi from 'joi';
 export default joi
 	.object({
 		NODE_ENV: joi.string().valid('development', 'production', 'test'),
+		gitSha: joi.string().optional(),
 		PORT: joi.number(),
 		APPLICATIONINSIGHTS_CONNECTION_STRING: joi.string().optional(),
 		SWAGGER_JSON_DIR: joi.string(),

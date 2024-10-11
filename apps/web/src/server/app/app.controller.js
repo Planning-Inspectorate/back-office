@@ -50,7 +50,11 @@ export function viewHomepage(request, response, next) {
 
 /** @type {import('express').RequestHandler} */
 export function handleHealthCheck(_, response) {
-	response.send('OK');
+	response.status(200).send({
+		status: 'OK',
+		uptime: process.uptime(),
+		commit: config.gitSha
+	});
 }
 
 /** @type {import('express').RequestHandler} */
