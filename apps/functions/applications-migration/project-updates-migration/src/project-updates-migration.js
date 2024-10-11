@@ -89,7 +89,9 @@ const getProjectUpdates = async (caseReference) => {
  * @param {string} caseReference
  */
 const getProjectUpdatesWelsh = async (caseReference) => {
-	return await executeSequelizeQuery(getUpdatesQueryWelsh, [caseReference, caseReference]);
+	return await executeSequelizeQuery(getUpdatesQueryWelsh, [caseReference, caseReference], {
+		queryWelshDb: true
+	});
 };
 
 /**
