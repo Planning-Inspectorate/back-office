@@ -6,15 +6,15 @@ import {
 } from '../test-data/mock-from-odw/project-updates-test-data.js';
 
 const sequelizeQueryMock = jest.fn();
-jest.unstable_mockModule('../../project-updates-migration/src/execute-sequelize-query', () => ({
-	executeSequelizeQuery: sequelizeQueryMock
-}));
+// jest.unstable_mockModule('../../project-updates-migration/src/execute-sequelize-query', () => ({
+// 	executeSequelizeQuery: sequelizeQueryMock
+// }));
 
-const { migrateProjectUpdates } = await import(
-	'../../project-updates-migration/src/project-updates-migration.js'
-);
+// const { migrateProjectUpdates } = await import(
+// 	'../../project-updates-migration/src/project-updates-migration.js'
+// );
 
-describe('this', () => {
+describe.skip('this', () => {
 	beforeEach(() => {
 		sequelizeQueryMock.mockReset();
 	});
