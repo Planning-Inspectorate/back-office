@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { spawn } from 'node:child_process';
-import { TEST_API_PORT } from './config.js';
+import { TEST_API_PORT, TEST_DATABASE_URL } from './config.js';
 
 let apiProcess;
 
@@ -8,10 +8,9 @@ export const startApi = () => {
 	return new Promise((resolve, reject) => {
 		apiProcess = spawn('npm', ['run', 'api'], {
 			env: {
-				// need to pass in values of .env file of api
-
 				...process.env,
-				PORT: TEST_API_PORT
+				PORT: TEST_API_PORT,
+				DATABASE_URL: TEST_DATABASE_URL
 			},
 			cwd: '../../../',
 			stdio: ['pipe', 'pipe', 'pipe'],
