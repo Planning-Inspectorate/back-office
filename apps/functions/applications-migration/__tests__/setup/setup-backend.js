@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { setupStaticData } from './setup-static-data.js';
 import { startApi } from './start-api.js';
 import { startDb, stopDb } from './start-db.js';
 import kill from 'tree-kill';
@@ -8,11 +9,12 @@ let apiProcess;
 beforeAll(async () => {
 	try {
 		startDb();
-		apiProcess = await startApi(); // Wait for the API to be fully started before running tests
+		apiProcess = await startApi();
+		await setupStaticData();
 		console.log('API started successfully');
 	} catch (error) {
-		console.error('Failed to start API', error);
-		process.exit(1); // Exit if the API fails to start
+		console.error('Failed to setup backend', error);
+		process.exit(1);
 	}
 });
 
