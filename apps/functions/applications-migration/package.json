@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "func start",
-    "test": "echo \"No tests yet...\""
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles"
   },
   "dependencies": {
     "@azure/identity": "*",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "jest": "*",
-    "prisma": "*"
+    "prisma": "*",
+		"tree-kill": "*"
   }
 }
