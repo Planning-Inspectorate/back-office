@@ -3,7 +3,7 @@ import { logger } from '@azure/identity';
 import {
 	mockSequelizeResponseEnglish,
 	mockSequelizeResponseWelsh
-} from './project-updates-test-data.js';
+} from '../test-data/mock-from-odw/project-updates-test-data.js';
 
 const sequelizeQueryMock = jest.fn();
 jest.unstable_mockModule('../../project-updates-migration/src/execute-sequelize-query', () => ({
