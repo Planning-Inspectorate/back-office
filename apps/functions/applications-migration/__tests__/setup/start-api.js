@@ -13,7 +13,7 @@ export const startApi = () => {
 				DATABASE_URL: TEST_DATABASE_URL
 			},
 			cwd: '../../../',
-			stdio: ['pipe', 'pipe', 'pipe'],
+			stdio: 'pipe',
 			shell: true
 		});
 
