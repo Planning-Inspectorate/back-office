@@ -39,3 +39,6 @@ export const startApi = () => {
 		});
 	});
 };
+
+const result = await startApi();
+console.log(result);
