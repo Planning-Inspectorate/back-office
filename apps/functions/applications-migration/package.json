@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "func start",
-    "test": "echo \"No tests yet...\""
+	"test:setup": "docker compose -f ./__tests__/docker-compose-test.yml up -d",
+    "test:start": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles"
   },
   "dependencies": {
     "@azure/identity": "*",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "jest": "*",
-    "prisma": "*"
+    "prisma": "*",
+		"tree-kill": "*"
   }
 }
