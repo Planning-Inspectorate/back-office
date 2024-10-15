@@ -11,6 +11,11 @@ services:
     hostname: mssqlserver
     ports:
       - '1433:1433'
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -f http://localhost:1433 || exit 1']
+      interval: 10s
+      retries: 5
+      start_period: 40s
 
   back-office-api:
     image: node:20-alpine
@@ -27,10 +32,11 @@ services:
       - ../../../../package-lock.json:/opt/app/package-lock.json
       - ../../../../node_modules:/opt/app/node_modules
       - ../../../../apps/api:/opt/app/apps/api
-      - ../../../../apps/functions/applications-migration:/opt/app/apps/functions/applications-migration
       - ../../../../packages:/opt/app/packages
-    command: [npm, run, api]
+    command: sh -c "npm run db:migrate --workspace=@pins/applications.api && npm run api"
     depends_on:
+      - sqlserver
+    links:
       - sqlserver
 
   # Run test after DB, API is up and DB migration is done
