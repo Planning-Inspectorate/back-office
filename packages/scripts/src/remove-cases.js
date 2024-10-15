@@ -20,6 +20,8 @@ const blobs = [];
  */
 
 /**
+ * Remove the RegionsOnApplicationDetails records, and the Application Details record for a case
+ *
  * @param {PrismaClient} tx
  * @param {any} caseDetails
  * @returns {Promise<void>}
@@ -37,6 +39,8 @@ const removeApplicationDetails = async (tx, caseDetails) => {
 };
 
 /**
+ * Delete all the ProjectUpdateNotifications records for a case, and all the ProjectUpdate records on the case
+ *
  * @param {import('@prisma/client')} tx
  * @param caseDetails
  * @returns {Promise<void>}
@@ -57,6 +61,9 @@ const removeProjectUpdates = async (tx, caseDetails) => {
 };
 
 /**
+ * Delete all the RepresentationAction records on Reps on the case, all RepresentationAttachment associative records, and all the Representations on the case,
+ * and associated ServiceUser records and Address records
+ *
  * @param {import('@prisma/client')} tx
  * @param caseDetails
  * @returns {Promise<void>}
@@ -68,15 +75,38 @@ const removeRepresentations = async (tx, caseDetails) => {
 	});
 	await Promise.all(
 		representations.map(async (representation) => {
-			const { id, reference } = representation;
+			const { id, reference, representativeId, representedId } = representation;
 			console.log(`Removing representation: ${reference}`);
 			await tx.representationAction.deleteMany({ where: { representationId: id } });
+			await tx.representationAttachment.deleteMany({ where: { representationId: id } });
 			await tx.representation.delete({ where: { id } });
+
+			// and remove the server users for the representation, and any associated address records
+			if (representedId) {
+				console.log(`Removing representation service user: ${representedId}`);
+				const repServiceUser = await tx.serviceUser.findUnique({ where: { id: representedId } });
+				if (repServiceUser?.addressId) {
+					await tx.address.delete({ where: { id: repServiceUser.addressId } });
+				}
+				await tx.serviceUser.delete({ where: { id: representedId } });
+			}
+			if (representativeId) {
+				console.log(`Removing representative agent service user: ${representativeId}`);
+				const repAgentServiceUser = await tx.serviceUser.findUnique({
+					where: { id: representativeId }
+				});
+				if (repAgentServiceUser?.addressId) {
+					await tx.address.delete({ where: { id: repAgentServiceUser.addressId } });
+				}
+				await tx.serviceUser.delete({ where: { id: representativeId } });
+			}
 		})
 	);
 };
 
 /**
+ * Delete the Exam timetable item records, and the exam timetable parent record on a case
+ *
  * @param {import('@prisma/client')} tx
  * @param caseDetails
  * @returns {Promise<void>}
@@ -97,6 +127,8 @@ const removeExaminationTimetables = async (tx, caseDetails) => {
 };
 
 /**
+ * Delete the Applicant ServiceUser record on a case, and any associated Address record
+ *
  * @param {PrismaClient} tx
  * @param {any} caseDetails
  * @returns {Promise<void>}
@@ -114,6 +146,7 @@ const removeApplicant = async (tx, caseDetails) => {
 };
 
 /**
+ * Soft-Delete a document on a case - DocumentActivityLog, DocumentVersions, Document table
  *
  * @param {PrismaClient} tx
  * @param document
@@ -179,6 +212,7 @@ const removeDocument = async (tx, document, folderPath) => {
 	});
 };
 /**
+ * Delete all the S51AdviceDocument records on the case (associating S51 advice with documents), and all the S51Advice records on the case
  *
  * @param {PrismaClient} tx
  * @param caseDetails
@@ -199,6 +233,7 @@ const removeS51Advices = async (tx, caseDetails) => {
 };
 
 /**
+ * Recursively delete all the folders on the case, and Hard-Delete all the Documents, DocumentVersions and DocumentActivityLog records on the case
  *
  * @param {PrismaClient} tx
  * @param caseDetails
@@ -239,6 +274,7 @@ const removeFoldersAndDocuments = async (tx, caseDetails) => {
 };
 
 /**
+ * Delete various associated records on the case - CaseStatus, CasePublishedState, GridReference, ProjectTeam, and Subscriptions
  *
  * @param {PrismaClient} tx
  * @param caseDetails
@@ -289,6 +325,16 @@ const removeCase = async (reference) => {
 					applicant: true
 				});
 
+				/* To remove a case fully:
+					1 - Delete the RegionsOnApplicationDetails associative records, and the Application Details record
+					2 - Delete the Exam timetable item records, and the exam timetable parent record
+					3 - Delete all the RepresentationAction records on Reps on the case, all RepresentationAttachment associative records and all the Representations on the case, and all associated service users and their address records
+					4 - Delete all the ProjectUpdateNotifications records for a case, and all the ProjectUpdate records on the case
+					5 - Delete all the S51AdviceDocument records on the case (associating S51 advice with documents), and all the S51Advice records on the case
+					6 - Delete various associated records on the case - CaseStatus, CasePublishedState, GridReference, ProjectTeam, and Subscriptions
+					7 - Recursively delete all the folders on the case, and Hard-Deletes all the Documents, DocumentVersions and DocumentActivityLog records on the case
+					8 - Delete the Applicant ServiceUser record on a case, and any associated Address record
+				*/
 				await removeApplicationDetails(tx, caseDetails);
 				await removeExaminationTimetables(tx, caseDetails);
 				await removeRepresentations(tx, caseDetails);
@@ -297,7 +343,6 @@ const removeCase = async (reference) => {
 				await removeOtherAssociatedRecords(tx, caseDetails);
 				await removeFoldersAndDocuments(tx, caseDetails);
 				await removeApplicant(tx, caseDetails);
-				await removeS51Advices(tx, caseDetails);
 
 				await tx.case.delete({ where: { id: caseId } });
 
