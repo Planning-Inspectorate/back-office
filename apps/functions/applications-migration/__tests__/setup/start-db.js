@@ -44,7 +44,7 @@ const runNewContainer = () => {
 	console.log(`Creating and starting new container: ${TEST_CONTAINER_NAME}`);
 	try {
 		execSync(
-			`docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=${TEST_DB_PASSWORD}" -p ${TEST_DB_PORT}:${TEST_DB_PORT} --name ${TEST_CONTAINER_NAME} --hostname ${TEST_CONTAINER_NAME} -d mcr.microsoft.com/mssql/server:2019-CU27-ubuntu-20.04`
+			`docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=${TEST_DB_PASSWORD}" -p ${TEST_DB_PORT}:${TEST_DB_PORT} --name ${TEST_CONTAINER_NAME} --hostname ${TEST_CONTAINER_NAME} --network db_network -d mcr.microsoft.com/azure-sql-edge`
 		);
 		console.log('New container created and started successfully');
 	} catch (error) {
@@ -77,3 +77,5 @@ export const stopDb = () => {
 		console.error('Error stopping container:', error);
 	}
 };
+
+startDb();

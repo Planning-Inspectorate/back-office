@@ -1,47 +1,47 @@
 version: '3.7'
 
 services:
-    sqlserver:
-        image: mcr.microsoft.com/azure-sql-edge
-        container_name: azure-sql-edge
-        environment:
-            ACCEPT_EULA: "Y"
-            MSSQL_SA_PASSWORD: "Password123"
-            MSSQL_PID: "Developer"
-        ports:
-            - "1434:1433"
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: azure-sql-edge
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: 'Password123'
+      MSSQL_PID: 'Developer'
+    hostname: mssqlserver
+    ports:
+      - '1433:1433'
 
-    back-office-api:
-        image: node:20-alpine
-        container_name: back-office-api
-        environment:
-            NODE_ENV: "development"
-            PORT: 3001
-            DATABASE_URL: sqlserver://127.0.0.1:1434;database=pins_development;user=sa;password=Password123;trustServerCertificate=true
-        ports:
-            - "3001:3001"
-        working_dir: /opt/app
-        volumes:
-            - ../../../../package.json:/opt/app/package.json
-            - ../../../../package-lock.json:/opt/app/package-lock.json
-            - ../../../../node_modules:/opt/app/node_modules
-            - ../../../../apps/api:/opt/app/apps/api
-            - ../../../../apps/functions/applications-migration:/opt/app/apps/functions/applications-migration
-            - ../../../../packages:/opt/app/packages
-        command: ./apps/functions/applications-migration/__tests__/setup/start-api.sh
-        depends_on:
-            - sqlserver
+  back-office-api:
+    image: node:20-alpine
+    container_name: back-office-api
+    environment:
+      NODE_ENV: 'development'
+      PORT: 3001
+      DATABASE_URL: sqlserver://mssqlserver:1433;database=pins_development;user=sa;password=Password123;trustServerCertificate=true
+    ports:
+      - '3001:3001'
+    working_dir: /opt/app
+    volumes:
+      - ../../../../package.json:/opt/app/package.json
+      - ../../../../package-lock.json:/opt/app/package-lock.json
+      - ../../../../node_modules:/opt/app/node_modules
+      - ../../../../apps/api:/opt/app/apps/api
+      - ../../../../apps/functions/applications-migration:/opt/app/apps/functions/applications-migration
+      - ../../../../packages:/opt/app/packages
+    command: [npm, run, api]
+    depends_on:
+      - sqlserver
 
-    # Run test after DB, API is up and DB migration is done
-    applications-migration-functions:
-        image: node:20-alpine
-        container_name: applications-migration-functions
-        environment:
-            NODE_ENV: "development"
-            BACK_OFFICE_API_URL: "http://back-office-api:3001"
-        working_dir: /opt/app
-        command: [ "npm", "run", "test:start" ]
-        depends_on:
-            - back-office-api
-            - sqlserver
-
+  # Run test after DB, API is up and DB migration is done
+  applications-migration-functions:
+    image: node:20-alpine
+    container_name: applications-migration-functions
+    environment:
+      NODE_ENV: 'development'
+      BACK_OFFICE_API_URL: 'http://back-office-api:3001'
+    working_dir: /opt/app
+    command: ['npm', 'run', 'test:start']
+    depends_on:
+      - back-office-api
+      - sqlserver
