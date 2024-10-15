@@ -6,7 +6,7 @@ verify_commit_hash() {
   service_url=$2
   build_commit=$3
   max_attempts=$4
-  sleep_time=25
+  sleep_time=50
 
   if [ -z "$max_attempts" ]; then
     max_attempts=5
