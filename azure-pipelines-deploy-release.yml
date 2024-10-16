@@ -65,6 +65,7 @@ extends:
           - name: Stage API
             condition: eq(${{ parameters.deployAPI }}, 'true')
             steps:
+              - checkout: self
               - template: ../steps/azure_web_app_deploy.yml
                 parameters:
                   appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
@@ -72,9 +73,15 @@ extends:
                   appSlotName: staging
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-api
+              - script: |
+                      echo "Verifying API Version (using git hash)..."
+                      bash ./packages/scripts/verify_commit_hash.sh "API" "https://pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001-staging.azurewebsites.net/health" "$(resources.pipeline.build.sourceCommit)" 3
+                displayName: API Verify Version
+                failOnStderr: true
           - name: Stage Web
             condition: eq(${{ parameters.deployWeb }}, 'true')
             steps:
+              - checkout: self
               - template: ../steps/azure_web_app_deploy.yml
                 parameters:
                   appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
@@ -82,6 +89,11 @@ extends:
                   appSlotName: staging
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
+              - script: |
+                      echo "Verifying Web Version (using git hash)..."
+                      bash ./packages/scripts/verify_commit_hash.sh "Web" "https://pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001-staging.azurewebsites.net/health" "$(resources.pipeline.build.sourceCommit)" 3
+                displayName:  Web Verify Version
+                failOnStderr: true
       - name: Deploy
         dependsOn:
           - Stage
