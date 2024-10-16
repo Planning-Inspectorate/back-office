@@ -18,15 +18,20 @@ export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) =>
 		try {
 			log.info(`Migrating project updates and subscriptions for case ${caseReference}`);
 
-			const englishUpdates = await getProjectUpdates(log, caseReference);
-			const welshUpdates = isWelshCase ? await getProjectUpdatesWelsh(log, caseReference) : [];
+			const englishUpdates = await getProjectUpdatesEnglish(caseReference);
+			log.info(`Retrieved ${englishUpdates.length} Project Updates from English DB`);
+			const welshUpdates = isWelshCase ? await getProjectUpdatesWelsh(caseReference) : [];
+			isWelshCase
+				? log.info(`Retrieved ${welshUpdates.length} Project Updates from Welsh DB`)
+				: null;
+
 			if (isWelshCase && englishUpdates.length !== welshUpdates.length) {
 				throw Error('Update entity count for English and Welsh do not match');
 			}
 
-			const updates = englishUpdates.map((update, i) => ({
-				...update,
-				updateContentEnglish: update.updateContentEnglish || '',
+			const updates = englishUpdates.map((englishUpdate, i) => ({
+				...englishUpdate,
+				updateContentEnglish: englishUpdate.updateContentEnglish || '',
 				updateContentWelsh: welshUpdates[i]?.updateContentWelsh || null
 			}));
 
@@ -43,7 +48,7 @@ export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) =>
 				log.warn(`No updates found for case ${caseReference}`);
 			}
 
-			const subscriptions = await getProjectSubscriptions(log, caseReference);
+			const subscriptions = await getProjectSubscriptions(caseReference);
 
 			if (subscriptions.length > 0) {
 				log.info(`Migrating ${subscriptions.length} project updates for case ${caseReference}`);
@@ -67,7 +72,7 @@ export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) =>
 /**
  * @param {string} caseReference
  */
-const getProjectUpdates = async (caseReference) => {
+const getProjectUpdatesEnglish = async (caseReference) => {
 	// Get all of the updates (They contain three additional properties; caseName, caseDescription and caseStage (int))
 	const updates = await executeSequelizeQuery(getUpdatesQuery, [caseReference, caseReference]);
 
@@ -95,10 +100,9 @@ const getProjectUpdatesWelsh = async (caseReference) => {
 };
 
 /**
- * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-const getProjectSubscriptions = async (log, caseReference) => {
+const getProjectSubscriptions = async (caseReference) => {
 	const subscribers = await executeSequelizeQuery(getSubscriptionsQuery, [caseReference]);
 
 	subscribers.forEach((subscription) => {

@@ -7,12 +7,13 @@ import { handleMigrationWithResponse } from '../common/handle-migration-with-res
  */
 export default async (
 	context,
-	{ body: { caseReference, migrationOverwrite = false, isWelshCase = false } }
+	{ body: { caseReferences, migrationOverwrite = false, isWelshCase = false } }
 ) => {
 	await handleMigrationWithResponse(context, {
-		caseReferences: caseReference,
+		caseReferences,
 		entityName: 'project update',
-		migrationFunction: () => migrateProjectUpdates(context.log, caseReference, isWelshCase),
-		migrationOverwrite
+		migrationFunction: () => migrateProjectUpdates(context.log, caseReferences, isWelshCase),
+		migrationOverwrite,
+		allowCaseReferencesArray: true
 	});
 };

@@ -19,6 +19,7 @@
     "joi": "*",
     "json-diff": "*",
     "lodash-es": "*",
+    "mysql2": "*",
     "pins-data-model": "*",
     "sequelize": "*",
     "tedious": "*"
