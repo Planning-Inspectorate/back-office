@@ -37,7 +37,7 @@ export const migrateExamTimetablesForCase = async (log, caseReference) => {
 export const getExamTimetable = async (log, caseReference) => {
 	/** @type {ExamTimetableItemRow[]} */
 	const timetableItems = await SynapseDB.query(
-		'SELECT * FROM [odw_curated_db].[dbo].[nsip_exam_timetable] WHERE caseReference = ?;',
+		'SELECT * FROM [odw_curated_migration_db].[dbo].[nsip_exam_timetable] WHERE caseReference = ?;',
 		{
 			replacements: [caseReference],
 			type: QueryTypes.SELECT
