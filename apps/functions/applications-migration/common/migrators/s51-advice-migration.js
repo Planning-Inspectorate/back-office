@@ -4,7 +4,7 @@ import { pick } from 'lodash-es';
 import { BO_GENERAL_S51_CASE_REF, ODW_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { valueToArray } from '../utils.js';
 
-const query = 'SELECT * FROM [odw_curated_db].[dbo].[nsip_s51_advice] WHERE caseReference = ?';
+const query = 'SELECT * FROM [odw_curated_migration_db].[dbo].[s51_advice] WHERE caseReference = ?';
 
 /**
  * Migrate s51-advice for a case
