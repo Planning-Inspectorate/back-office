@@ -12,6 +12,7 @@ const steps = [
 	{
 		instruction:
 			'Run the E2E tests against DEV from localhost when a PR is merged or before initiating the Release process.',
+		links: {},
 		prompt: 'Did they pass? (y/N): ',
 		failMsg: 'Address failing E2E tests before continuing.'
 	},
