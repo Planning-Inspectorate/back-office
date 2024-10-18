@@ -53,7 +53,16 @@ export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) =>
 			if (subscriptions.length > 0) {
 				log.info(`Migrating ${subscriptions.length} project updates for case ${caseReference}`);
 
-				const chunkedSubscriptions = chunkArray(subscriptions, MAX_BODY_ITEMS_LENGTH);
+				const mappedSubscriptions = subscriptions.map((sub) => ({
+					subscriptionId: sub.subscriptionId ?? null,
+					caseReference: sub.caseReference,
+					emailAddress: sub.emailAddress,
+					subscriptionType: sub.subscriptionType,
+					startDate: sub.startDate ?? null,
+					endDate: sub.endDate ?? null,
+					language: sub.language ?? null
+				}));
+				const chunkedSubscriptions = chunkArray(mappedSubscriptions, MAX_BODY_ITEMS_LENGTH);
 				for (const chunk of chunkedSubscriptions) {
 					await makePostRequest(log, '/migration/nsip-subscription', chunk);
 				}
