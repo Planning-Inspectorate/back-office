@@ -15,23 +15,32 @@ verify_commit_hash() {
   attempt=1
 
   while [ $attempt -le $max_attempts ]; do
-  	echo "Waiting for $service_name to start..."
-  	sleep $sleep_time
+    echo "Waiting for $service_name to start..."
+    sleep $sleep_time
     echo "Calling $service_name /health endpoint (Attempt $attempt/$max_attempts)"
     echo "Service URL: $service_url"
-    response=$(curl -s $service_url || echo "error")
 
-    if [[ "$response" != "error" ]]; then
-      commit=$(echo "$response" | grep -o '"commit":"[^"]*"' | sed 's/"commit":"\([^"]*\)"/\1/')
+    # Get both the HTTP response and the status code
+    response=$(curl -s -w "\n%{http_code}" $service_url || echo "error")
+    http_status=$(echo "$response" | tail -n 1)
+    body=$(echo "$response" | sed '$d')
+
+    # Log the full response and status code for debugging
+    echo "HTTP Status Code: $http_status"
+    echo "Response Body: $body"
+
+    if [[ "$http_status" == "200" ]]; then
+      commit=$(echo "$body" | grep -o '"commit":"[^"]*"' | sed 's/"commit":"\([^"]*\)"/\1/')
       if [[ "$commit" == "$build_commit" ]]; then
         echo "$service_name commit hash matches: $commit"
         return 0
       else
         echo "$service_name commit hash mismatch. Health: $commit, Build: $build_commit"
       fi
+    else
+      echo "$service_name /health check failed with status code: $http_status. Retrying in $sleep_time seconds..."
     fi
 
-    echo "$service_name /health check failed. Retrying in $sleep_time seconds..."
     sleep $sleep_time
     attempt=$((attempt+1))
   done

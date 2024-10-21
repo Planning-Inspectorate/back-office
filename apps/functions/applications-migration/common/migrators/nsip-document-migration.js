@@ -28,11 +28,20 @@ export const migrationNsipDocumentsByReference = async (log, caseReference) => {
  * @param {string} caseReference
  */
 export const getNsipDocuments = async (log, caseReference) => {
-	return await SynapseDB.query(
-		'SELECT * FROM [odw_curated_db].[dbo].[nsip_document] WHERE caseRef = ? AND sourceSystem = ?;',
+	const documents = await SynapseDB.query(
+		'SELECT * FROM [odw_curated_migration_db].[dbo].[nsip_document] WHERE caseRef = ?;',
 		{
-			replacements: [caseReference, 'horizon'],
+			replacements: [caseReference],
 			type: QueryTypes.SELECT
 		}
 	);
+	if (!documents.length) {
+		return [];
+	}
+	return documents.map((document) => ({
+		...document,
+		caseId: parseInt(document?.caseId),
+		version: parseInt(document?.version),
+		size: parseInt(document?.size)
+	}));
 };

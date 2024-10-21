@@ -5,11 +5,15 @@ import { handleMigrationWithResponse } from '../common/handle-migration-with-res
  * @param {import("@azure/functions").Context} context
  * @param {import("@azure/functions").HttpRequest} req
  */
-export default async (context, { body: { caseReference, migrationOverwrite = false } }) => {
+export default async (
+	context,
+	{ body: { caseReferences, migrationOverwrite = false, isWelshCase = false } }
+) => {
 	await handleMigrationWithResponse(context, {
-		caseReferences: caseReference,
+		caseReferences,
 		entityName: 'project update',
-		migrationFunction: () => migrateProjectUpdates(context.log, caseReference),
-		migrationOverwrite
+		migrationFunction: () => migrateProjectUpdates(context.log, caseReferences, isWelshCase),
+		migrationOverwrite,
+		allowCaseReferencesArray: true
 	});
 };

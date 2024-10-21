@@ -198,7 +198,7 @@ const formatEventDescription = (description) => {
  * @param {string} input
  * @returns
  */
-const formatBulletPoints = (input) => input.trim().replace(/(\r\n[?-])/g, '\r\n*');
+const formatBulletPoints = (input) => input.trim().replace(/(\r\n[?•-])/g, '\r\n*');
 
 /**
  *
