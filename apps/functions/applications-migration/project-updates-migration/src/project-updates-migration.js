@@ -201,7 +201,14 @@ WHERE casereference = ?;`;
 const getUpdatesQueryWelsh = `
 SELECT p.id,
        pr.casereference AS caseReference,
+       p.post_date      AS updateDate,
+       p.post_title     AS updateName,
        p.post_content   AS updateContentWelsh,
+       p.post_status    AS updateStatus,
+       -- Additional columns we need to migrate to create cases
+       pr.projectname   AS caseName,
+       pr.summary       AS caseDescription,
+       pr.stage         AS caseStageId
 FROM   ipccy.wp_posts p
        INNER JOIN ipccy.wp_term_relationships r ON r.object_id = p.id
        INNER JOIN ipccy.wp_terms t ON r.term_taxonomy_id = t.term_id

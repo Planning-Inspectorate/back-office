@@ -111,7 +111,8 @@ const mapModelToEntity = async (m) => {
 		status: m.updateStatus,
 		// @ts-ignore
 		title: m.updateName,
-		htmlContent: prepareAndSanitizeHtml(m.updateContentEnglish)
+		htmlContent: prepareAndSanitizeHtml(m.updateContentEnglish),
+		htmlContentWelsh: m.updateContentWelsh ? prepareAndSanitizeHtml(m.updateContentWelsh) : null
 	};
 };
 
