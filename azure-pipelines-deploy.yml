@@ -116,7 +116,12 @@ extends:
                   repository: back-office/back-office-web
               - script: |
                     echo "Verifying Web Version (using git hash)..."
-                    bash ./packages/scripts/verify_commit_hash.sh "Web" "https://pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001.azurewebsites.net/health" "$(resources.pipeline.build.sourceCommit)" 3
+                    if [ "$(ENVIRONMENT)" == "prod" ]; then
+                        url="https://back-office-applications.planninginspectorate.gov.uk/health"
+                    else
+                        url="https://back-office-$(ENVIRONMENT).planninginspectorate.gov.uk/health"
+                    fi
+                    bash ./packages/scripts/verify_commit_hash.sh "Web" "$url" "$(resources.pipeline.build.sourceCommit)" 3
                 displayName: Web Verify Version
                 failOnStderr: true
           - name: Deploy Function - Applications Migration
