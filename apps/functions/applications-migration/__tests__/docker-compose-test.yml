@@ -6,16 +6,26 @@ services:
     container_name: azure-sql-edge
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: 'Password123'
+      MSSQL_SA_PASSWORD: 'test-db-PASSWORD-123'
       MSSQL_PID: 'Developer'
     hostname: mssqlserver
-    ports:
-      - '1433:1433'
+
+  mssql-tools:
+    image: mcr.microsoft.com/mssql-tools
+    container_name: mssql-tools
+    tty: true
+    depends_on:
+      - sqlserver
+    entrypoint: '/bin/bash'
     healthcheck:
-      test: ['CMD-SHELL', 'curl -f http://localhost:1433 || exit 1']
-      interval: 10s
+      test:
+        [
+          'CMD-SHELL',
+          "./opt/mssql-tools/bin/sqlcmd -S mssqlserver -U sa -P 'test-db-PASSWORD-123' -Q 'SELECT 1' || exit 1"
+        ]
+      interval: 5s
       retries: 5
-      start_period: 40s
+      start_period: 150s
 
   back-office-api:
     image: node:20-alpine
@@ -23,31 +33,37 @@ services:
     environment:
       NODE_ENV: 'development'
       PORT: 3001
-      DATABASE_URL: sqlserver://mssqlserver:1433;database=pins_development;user=sa;password=Password123;trustServerCertificate=true
+      DATABASE_URL: sqlserver://mssqlserver:1433;database=pins_development;user=sa;password=test-db-PASSWORD-123;trustServerCertificate=true
     ports:
       - '3001:3001'
     working_dir: /opt/app
     volumes:
       - ../../../../package.json:/opt/app/package.json
-      - ../../../../package-lock.json:/opt/app/package-lock.json
       - ../../../../node_modules:/opt/app/node_modules
       - ../../../../apps/api:/opt/app/apps/api
       - ../../../../packages:/opt/app/packages
     command: sh -c "npm run db:migrate --workspace=@pins/applications.api && npm run api"
     depends_on:
-      - sqlserver
-    links:
-      - sqlserver
+      mssql-tools:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'nc -z localhost 3001 || exit 1']
+      interval: 5s
+      retries: 10
+      start_period: 300s
 
-  # Run test after DB, API is up and DB migration is done
   applications-migration-functions:
     image: node:20-alpine
-    container_name: applications-migration-functions
+    container_name: applications-migration-functions-tests
     environment:
+      API_HOST: 'http://back-office-api:3001'
       NODE_ENV: 'development'
-      BACK_OFFICE_API_URL: 'http://back-office-api:3001'
     working_dir: /opt/app
-    command: ['npm', 'run', 'test:start']
+    volumes:
+      - ../../../../package.json:/opt/app/package.json
+      - ../../../../node_modules:/opt/app/node_modules
+      - ../:/opt/app/apps/functions/applications-migration
+    command: sh -c "npm run test:start --workspace=@pins/functions-applications-migration"
     depends_on:
-      - back-office-api
-      - sqlserver
+      back-office-api:
+        condition: service_healthy
