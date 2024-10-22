@@ -3,8 +3,9 @@ import { forEach, isEmpty, isString, map } from 'lodash-es';
 import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
-import { databaseConnector } from '../utils/database-connector.js';
+import { databaseConnector } from '#utils/database-connector.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
+import { featureFlagClient } from '#utils/feature-flags.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
@@ -19,6 +20,42 @@ const includeAll = {
 	CaseStatus: { where: { valid: true } },
 	gridReference: true,
 	applicant: { include: { address: true } }
+};
+
+// where clause to exclude the General S51 Advice case
+export const whereNotGeneralS51AdviceCase = {
+	OR: [
+		{
+			reference: {
+				not: BO_GENERAL_S51_CASE_REF
+			}
+		},
+		{
+			reference: null
+		}
+	]
+};
+
+// where clause to exclude TRAINING cases unless the feature flag is active
+export const buildTrainingCasesWhereClause = () => {
+	let whereTrainingClause = {};
+	if (!featureFlagClient.isFeatureActive('applics-1036-training-sector')) {
+		whereTrainingClause = {
+			OR: [
+				{
+					reference: {
+						not: {
+							startsWith: 'TRAIN'
+						}
+					}
+				},
+				{
+					reference: null
+				}
+			]
+		};
+	}
+	return whereTrainingClause;
 };
 
 /**
@@ -48,24 +85,20 @@ export const getByStatus = (statusArray) => {
 	return databaseConnector.case.findMany({
 		orderBy: [{ ApplicationDetails: { subSector: { abbreviation: 'asc' } } }],
 		where: {
-			OR: [
+			AND: [
+				whereNotGeneralS51AdviceCase,
+				buildTrainingCasesWhereClause(),
 				{
-					reference: {
-						not: BO_GENERAL_S51_CASE_REF
+					CaseStatus: {
+						some: {
+							status: {
+								in: statusArray
+							},
+							valid: true
+						}
 					}
-				},
-				{
-					reference: null
 				}
-			],
-			CaseStatus: {
-				some: {
-					status: {
-						in: statusArray
-					},
-					valid: true
-				}
-			}
+			]
 		},
 		include: {
 			ApplicationDetails: {
@@ -104,18 +137,8 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 		],
 		where: {
 			AND: [
-				{
-					OR: [
-						{
-							reference: {
-								not: BO_GENERAL_S51_CASE_REF
-							}
-						},
-						{
-							reference: null
-						}
-					]
-				},
+				whereNotGeneralS51AdviceCase,
+				buildTrainingCasesWhereClause(),
 				{
 					OR: [
 						{
@@ -158,18 +181,8 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 	return databaseConnector.case.count({
 		where: {
 			AND: [
-				{
-					OR: [
-						{
-							reference: {
-								not: BO_GENERAL_S51_CASE_REF
-							}
-						},
-						{
-							reference: null
-						}
-					]
-				},
+				whereNotGeneralS51AdviceCase,
+				buildTrainingCasesWhereClause(),
 				{
 					OR: [
 						{
@@ -238,7 +251,7 @@ export const createApplication = ({
 };
 
 /**
- * Removes all regions on a case records from the regionsOnApplicationDetails table.
+ * Removes all 'regions on a case' records from the regionsOnApplicationDetails table.
  * used eg when updating regions selected on a case.
  * The applicationDetailsId is passed in - which may not necessarily be the caseId
  *
