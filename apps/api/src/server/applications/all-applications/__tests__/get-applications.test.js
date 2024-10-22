@@ -1,6 +1,7 @@
-import { request } from '../../../app-test.js';
+import { request } from '#app-test';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
+import { featureFlagClient } from '#utils/feature-flags.js';
 
 const application = applicationFactoryForTests({
 	id: 1,
@@ -16,6 +17,39 @@ const application = applicationFactoryForTests({
 	}
 });
 
+let trainingCase = applicationFactoryForTests({
+	id: 2,
+	title: 'A Training Case',
+	description: 'Description',
+	caseStatus: 'pre_application',
+	dates: {
+		modifiedAt: new Date(1_655_298_882_000)
+	},
+	inclusions: {
+		ApplicationDetails: true,
+		subSector: true
+	}
+});
+if (trainingCase.ApplicationDetails) {
+	trainingCase.ApplicationDetails.subSectorId = 26;
+
+	trainingCase.ApplicationDetails.subSector = {
+		id: 26,
+		abbreviation: 'TRAIN01',
+		name: 'training',
+		displayNameEn: 'Training',
+		displayNameCy: 'Training',
+		sectorId: 7,
+		sector: {
+			id: 7,
+			abbreviation: 'TRAIN',
+			name: 'training',
+			displayNameEn: 'Training',
+			displayNameCy: 'Training'
+		}
+	};
+}
+
 describe('Get applications', () => {
 	test('gets all applications', async () => {
 		// GIVEN
@@ -27,6 +61,7 @@ describe('Get applications', () => {
 		// THEN
 		expect(response.status).toEqual(200);
 
+		expect(response.body).toHaveLength(1);
 		expect(response.body).toEqual([
 			{
 				id: 1,
@@ -49,4 +84,31 @@ describe('Get applications', () => {
 			}
 		]);
 	});
+
+	if (featureFlagClient.isFeatureActive('applics-1036-training-sector')) {
+		test('gets all applications - Training Feature Flag ON', async () => {
+			// GIVEN
+			databaseConnector.case.findMany.mockResolvedValue([trainingCase]);
+
+			// WHEN
+			const response = await request.get('/applications');
+
+			// THEN
+			expect(response.status).toEqual(200);
+			expect(response.body).toHaveLength(1);
+		});
+	} else {
+		// Feature Flag TRAINING not active
+		test('gets all applications - Training Feature Flag OFF', async () => {
+			// GIVEN
+			databaseConnector.case.findMany.mockResolvedValue([trainingCase]);
+
+			// WHEN
+			const response = await request.get('/applications');
+
+			// THEN
+			expect(response.status).toEqual(200);
+			expect(response.body).toEqual([]); // no training case returned
+		});
+	}
 });
