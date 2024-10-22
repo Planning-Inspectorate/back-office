@@ -3,7 +3,7 @@ import { makePostRequest } from '../back-office-api-client.js';
 import { valueToArray } from '../utils.js';
 
 const query = `SELECT *
-			   FROM [odw_curated_db].[dbo].[nsip_representation]
+			   FROM [odw_curated_migration_db].[dbo].[nsip_representation]
 			   WHERE caseRef = ?`;
 
 /**
