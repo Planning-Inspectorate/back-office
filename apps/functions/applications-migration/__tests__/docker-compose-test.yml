@@ -1,21 +1,21 @@
 version: '3.7'
 
 services:
-  sqlserver:
+  azure-sql-edge_migration-testing:
     image: mcr.microsoft.com/azure-sql-edge
-    container_name: azure-sql-edge
+    container_name: azure-sql-edge_migration-testing
     environment:
       ACCEPT_EULA: 'Y'
       MSSQL_SA_PASSWORD: 'test-db-PASSWORD-123'
       MSSQL_PID: 'Developer'
     hostname: mssqlserver
 
-  mssql-tools:
+  mssql-tools_migration-testing:
     image: mcr.microsoft.com/mssql-tools
-    container_name: mssql-tools
+    container_name: mssql-tools_migration-testing
     tty: true
     depends_on:
-      - sqlserver
+      - azure-sql-edge_migration-testing
     entrypoint: '/bin/bash'
     healthcheck:
       test:
@@ -27,9 +27,9 @@ services:
       retries: 5
       start_period: 150s
 
-  back-office-api:
+  back-office-api_migration-testing:
     image: node:20-alpine
-    container_name: back-office-api
+    container_name: back-office-api_migration-testing
     environment:
       NODE_ENV: 'development'
       PORT: 3001
@@ -44,7 +44,7 @@ services:
       - ../../../../packages:/opt/app/packages
     command: sh -c "npm run db:migrate --workspace=@pins/applications.api && npm run api"
     depends_on:
-      mssql-tools:
+      mssql-tools_migration-testing:
         condition: service_healthy
     healthcheck:
       test: ['CMD-SHELL', 'nc -z localhost 3001 || exit 1']
@@ -52,18 +52,20 @@ services:
       retries: 10
       start_period: 300s
 
-  applications-migration-functions:
+  applications-migration-functions_migration-testing:
     image: node:20-alpine
-    container_name: applications-migration-functions-tests
+    container_name: applications-migration-functions_migration-testing
     environment:
-      API_HOST: 'http://back-office-api:3001'
+      API_HOST: 'back-office-api_migration-testing:3001'
+      BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN: 'test-blob-store-domain'
       NODE_ENV: 'development'
     working_dir: /opt/app
     volumes:
       - ../../../../package.json:/opt/app/package.json
       - ../../../../node_modules:/opt/app/node_modules
+      - ../../../../packages:/opt/app/packages
       - ../:/opt/app/apps/functions/applications-migration
-    command: sh -c "npm run test:start --workspace=@pins/functions-applications-migration"
+    command: sh -c "npm run test:entry --workspace=@pins/functions-applications-migration"
     depends_on:
-      back-office-api:
+      back-office-api_migration-testing:
         condition: service_healthy

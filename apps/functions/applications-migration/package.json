@@ -6,7 +6,8 @@
   "scripts": {
     "start": "func start",
 		"test:setup": "docker compose -f ./__tests__/docker-compose-test.yml up -d",
-    "test:start": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles --color"
+		"test:start": "docker start -a applications-migration-functions_migration-testing",
+    "test:entry": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles --color"
   },
   "dependencies": {
     "@azure/identity": "*",
