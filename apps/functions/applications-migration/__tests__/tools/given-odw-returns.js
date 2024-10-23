@@ -9,6 +9,7 @@ import { projectTestData } from '../test-data/mock-from-odw/project-test-data.js
  * @param {Record<string, unknown>} data
  */
 const givenOdwReturns = (data) => {
+	// @ts-ignore
 	odwQueryMock.mockResolvedValue(data);
 };
 
