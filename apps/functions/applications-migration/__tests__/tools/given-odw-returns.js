@@ -1,8 +1,6 @@
 import { odwQueryMock } from '../setup/mock-db-queries.js';
-import { makeDeepCopy } from './utils.js';
-import { projectTestData } from '../test-data/mock-from-odw/project-test-data.js';
-
-/** @typedef {{ add?: object, change?: object, remove?: string[] }} Alterations*/
+import { configureAlterations, makeDeepCopy } from './utils.js';
+import { projectTestDataOdw } from '../test-data/mock-from-odw/project-test-data.js';
 
 /**
  *
@@ -14,19 +12,10 @@ const givenOdwReturns = (data) => {
 };
 
 /**
- * @param {Record<string, unknown>} data
- * @param {Alterations} alterations
- */
-const configureAlterations = (data, alterations) => {
-	data = { ...data, ...alterations.add, ...alterations.change };
-	alterations.remove?.forEach((key) => delete data[key]);
-};
-
-/**
- * @param {Alterations | null} alterations
+ * @param {import('./utils.js').Alterations | null} alterations
  */
 export const givenOdwReturnsProjectData = (alterations = null) => {
-	const projectData = makeDeepCopy(projectTestData);
+	const projectData = makeDeepCopy(projectTestDataOdw);
 	if (alterations) configureAlterations(projectData, alterations);
 
 	givenOdwReturns(projectData);

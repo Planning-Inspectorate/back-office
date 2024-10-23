@@ -9,6 +9,8 @@ services:
       MSSQL_SA_PASSWORD: 'test-db-PASSWORD-123'
       MSSQL_PID: 'Developer'
     hostname: mssqlserver
+    ports:
+      - '1434:1433'
 
   mssql-tools_migration-testing:
     image: mcr.microsoft.com/mssql-tools
@@ -42,7 +44,7 @@ services:
       - ../../../../node_modules:/opt/app/node_modules
       - ../../../../apps/api:/opt/app/apps/api
       - ../../../../packages:/opt/app/packages
-    command: sh -c "npm run db:migrate --workspace=@pins/applications.api && npm run api"
+    command: sh -c "npm run db:migrate:prod --workspace=@pins/applications.api && npm run db:seed:prod --workspace=@pins/applications.api && npm run api"
     depends_on:
       mssql-tools_migration-testing:
         condition: service_healthy
@@ -58,6 +60,7 @@ services:
     environment:
       API_HOST: 'back-office-api_migration-testing:3001'
       BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN: 'test-blob-store-domain'
+      DATABASE_URL: sqlserver://mssqlserver:1433;database=pins_development;user=sa;password=test-db-PASSWORD-123;trustServerCertificate=true
       NODE_ENV: 'development'
     working_dir: /opt/app
     volumes:
