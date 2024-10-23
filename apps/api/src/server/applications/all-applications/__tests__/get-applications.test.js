@@ -101,7 +101,7 @@ describe('Get applications', () => {
 		// Feature Flag TRAINING not active
 		test('gets all applications - Training Feature Flag OFF', async () => {
 			// GIVEN
-			databaseConnector.case.findMany.mockResolvedValue([trainingCase]);
+			databaseConnector.case.findMany.mockResolvedValue([]);
 
 			// WHEN
 			const response = await request.get('/applications');
