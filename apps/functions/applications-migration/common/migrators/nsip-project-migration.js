@@ -1,5 +1,4 @@
-import { SynapseDB } from '../synapse-db.js';
-import { QueryTypes } from 'sequelize';
+import { executeOdwQuery } from '../synapse-db.js';
 import { makePostRequest } from '../back-office-api-client.js';
 import { valueToArray } from '../utils.js';
 import { migrateFoldersForCase } from './folder-migration.js';
@@ -44,14 +43,18 @@ export const migrateNsipProjectByReference = async (
  * @param {boolean} overrideMigrationStatus
  */
 export const getNsipProjects = async (log, caseReference, overrideMigrationStatus) => {
-	const projects = await SynapseDB.query(
-		'SELECT * FROM [odw_curated_migration_db].[dbo].[nsip_project] WHERE caseReference = ?',
-		{
-			replacements: [caseReference],
-			type: QueryTypes.SELECT
-		}
-	);
+	const query =
+		'SELECT * FROM [odw_curated_migration_db].[dbo].[nsip_project] WHERE caseReference = ?';
+	// const projects = await SynapseDB.query(
+	// 	'SELECT * FROM [odw_curated_migration_db].[dbo].[nsip_project] WHERE caseReference = ?',
+	// 	{
+	// 		replacements: [caseReference],
+	// 		type: QueryTypes.SELECT
+	// 	}
+	// );
 
+	const projects = await executeOdwQuery(query, caseReference);
+	console.log('here: ', projects);
 	log.info(`Retrieved projects ${JSON.stringify(projects)}`);
 
 	return projects.map((project) => ({
