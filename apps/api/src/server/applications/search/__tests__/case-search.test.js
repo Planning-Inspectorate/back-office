@@ -1,6 +1,9 @@
-import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
-import { request } from '../../../app-test.js';
+import { request } from '#app-test';
 import { applicationFactoryForTests } from '#utils/application-factory-for-tests.js';
+import {
+	buildTrainingCasesWhereClause,
+	whereNotGeneralS51AdviceCase
+} from '#repositories/case.repository.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 const searchString = 'EN010003 - NI Case 3 Name';
@@ -25,6 +28,7 @@ const application = applicationFactoryForTests({
  * @returns {object}
  */
 const expectedSearchParameters = (skip, take, query) => {
+	const whereTrainingCriteria = buildTrainingCasesWhereClause();
 	return {
 		skip,
 		take,
@@ -35,18 +39,8 @@ const expectedSearchParameters = (skip, take, query) => {
 		],
 		where: {
 			AND: [
-				{
-					OR: [
-						{
-							reference: {
-								not: BO_GENERAL_S51_CASE_REF
-							}
-						},
-						{
-							reference: null
-						}
-					]
-				},
+				whereNotGeneralS51AdviceCase,
+				whereTrainingCriteria,
 				{
 					OR: [
 						{
