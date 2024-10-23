@@ -63,7 +63,9 @@ const constructAuthenticatedRequest = () => {
  */
 const constructUri = (path, params = {}) => {
 	const reqParams = new URLSearchParams();
-	const scheme = config.apiHost?.match(/localhost/) ? 'http' : 'https';
+	const scheme = config.apiHost?.match(/localhost|back-office-api_migration-testing/)
+		? 'http'
+		: 'https';
 	Object.keys(params).forEach((key) => {
 		const value = params[key];
 		if (Array.isArray(value)) {
