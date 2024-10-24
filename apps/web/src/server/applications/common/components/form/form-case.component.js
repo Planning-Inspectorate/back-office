@@ -9,6 +9,7 @@ import {
 } from '../../services/entities.service.js';
 import { getSessionCaseSectorName } from '../../services/session.service.js';
 import { camelToSnake } from '../../../../lib/camel-to-snake.js';
+import { featureFlagClient } from '../../../../../common/feature-flags.js';
 
 /** @typedef {import('../../../applications.types').Region} Region */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -134,7 +135,12 @@ export async function caseNameAndDescriptionDataUpdate(
  */
 export async function caseSectorData({ session }, locals) {
 	const { currentCase } = locals;
-	const allSectors = await getAllSectors();
+	let allSectors = await getAllSectors();
+
+	// If Training Sector Feature is not activated, don't include the Training sector
+	if (!featureFlagClient.isFeatureActive('applics-1036-training-sector')) {
+		allSectors = allSectors.filter((sector) => sector.name !== 'training');
+	}
 
 	const { sector } = currentCase;
 	const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
