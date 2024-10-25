@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "func start",
-		"test:setup": "docker compose -f ./__tests__/docker-compose-test.yml up -d",
-		"test:start": "docker start -a applications-migration-functions_migration-testing",
+    "test:setup": "docker compose --profile test-setup -f ./__tests__/docker-compose-test.yml up -d",
+	"test:execute": "docker compose --profile test-setup --profile test-execute -f ./__tests__/docker-compose-test.yml up -d",
     "test:entry": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles --color"
   },
   "dependencies": {
