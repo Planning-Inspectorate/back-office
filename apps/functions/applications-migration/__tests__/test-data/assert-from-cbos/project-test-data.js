@@ -3,7 +3,7 @@ import {
 	TEST_CONSTANTS_PROJECT_ENTITY
 } from '../../tools/test-constants.js';
 
-export const projectTestDataBackoffice = [
+export const projectTestDataCbos = [
 	{
 		id: TEST_CONSTANTS_GENERIC.caseId,
 		reference: TEST_CONSTANTS_GENERIC.caseReference,

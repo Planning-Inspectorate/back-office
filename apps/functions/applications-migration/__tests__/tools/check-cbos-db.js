@@ -4,9 +4,9 @@ import { getSequelizeInstance } from './sequelize-instance.js';
 const validTableNames = ['Case'];
 /**
  * @param {string} tableToQuery
- * @param {string} caseReference
+ * @param {string} whereClause
  */
-export const getFromBackofficeDb = async (tableToQuery, caseReference) => {
+export const getFromCbosDb = async (tableToQuery, whereClause) => {
 	if (!validTableNames.includes(tableToQuery)) {
 		throw Error('Table with that name does not exist');
 	}
@@ -17,10 +17,9 @@ export const getFromBackofficeDb = async (tableToQuery, caseReference) => {
 		`
 		SELECT *
 		FROM [pins_development].[dbo].[${tableToQuery}]
-		WHERE reference = ?
+		WHERE ${whereClause}
 		`,
 		{
-			replacements: [caseReference],
 			type: QueryTypes.SELECT
 		}
 	);

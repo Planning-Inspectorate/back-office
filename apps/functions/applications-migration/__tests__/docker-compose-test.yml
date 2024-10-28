@@ -4,8 +4,6 @@ services:
   azure-sql-edge_migration-testing:
     image: mcr.microsoft.com/azure-sql-edge
     container_name: azure-sql-edge_migration-testing
-    profiles:
-        - test-setup
     environment:
       ACCEPT_EULA: 'Y'
       MSSQL_SA_PASSWORD: 'test-db-PASSWORD-123'
@@ -16,8 +14,6 @@ services:
 
   mssql-tools_migration-testing:
     image: mcr.microsoft.com/mssql-tools
-    profiles:
-        - test-setup
     container_name: mssql-tools_migration-testing
     tty: true
     depends_on:
@@ -36,8 +32,6 @@ services:
   back-office-api_migration-testing:
     image: node:20-alpine
     container_name: back-office-api_migration-testing
-    profiles:
-        - test-setup
     environment:
       NODE_ENV: 'development'
       PORT: 3001
@@ -62,7 +56,7 @@ services:
 
   applications-migration-functions_migration-testing:
     profiles:
-        - test-execute
+      - test-execute
     image: node:20-alpine
     container_name: applications-migration-functions_migration-testing
     environment:

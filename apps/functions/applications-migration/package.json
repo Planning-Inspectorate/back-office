@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "func start",
-    "test:setup": "docker compose --profile test-setup -f ./__tests__/docker-compose-test.yml up -d",
-	"test:execute": "docker compose --profile test-setup --profile test-execute -f ./__tests__/docker-compose-test.yml up -d",
+    "test:setup": "docker compose -f ./__tests__/docker-compose-test.yml up -d",
+    "test:execute": "./__tests__/run-tests.sh",
+		"test:run": "npm run test:setup && npm run test:execute",
     "test:entry": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles --color"
   },
   "dependencies": {

@@ -45,16 +45,8 @@ export const migrateNsipProjectByReference = async (
 export const getNsipProjects = async (log, caseReference, overrideMigrationStatus) => {
 	const query =
 		'SELECT * FROM [odw_curated_migration_db].[dbo].[nsip_project] WHERE caseReference = ?';
-	// const projects = await SynapseDB.query(
-	// 	'SELECT * FROM [odw_curated_migration_db].[dbo].[nsip_project] WHERE caseReference = ?',
-	// 	{
-	// 		replacements: [caseReference],
-	// 		type: QueryTypes.SELECT
-	// 	}
-	// );
 
 	const projects = await executeOdwQuery(query, caseReference);
-	console.log('here: ', projects);
 	log.info(`Retrieved projects ${JSON.stringify(projects)}`);
 
 	return projects.map((project) => ({
