@@ -1,6 +1,6 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { eventClient } from '#infrastructure/event-client.js';
-import { getOrCreateMinimalCaseId, getOrCreateServiceUserId } from './utils.js';
+import { getCaseIdFromRef, getOrCreateServiceUserId } from './utils.js';
 import {
 	buildSubscriptionPayloads,
 	typesToSubscription
@@ -128,7 +128,10 @@ const mapSubscriptionsToSubscribers = (subscriptions) => {
  * @returns {Promise<import('@prisma/client').Prisma.SubscriptionUncheckedCreateInput>}
  */
 const mapModelToEntity = async (m) => {
-	const caseId = await getOrCreateMinimalCaseId(m);
+	const caseId = await getCaseIdFromRef(m.caseReference);
+	if (!caseId) {
+		throw Error('No caseId found in DB, ensure Project is migrated before migrating Subscriptions');
+	}
 	const serviceUserId = await getOrCreateServiceUserId(m);
 
 	if (!caseId) {

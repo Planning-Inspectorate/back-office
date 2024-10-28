@@ -2,7 +2,7 @@ import { databaseConnector } from '#utils/database-connector.js';
 import sanitizeHtml from 'sanitize-html';
 import { allowedTags } from '../../applications/application/project-updates/project-updates.validators.js';
 import { buildProjectUpdatePayload } from '#infrastructure/payload-builders/nsip-project-update.js';
-import { getOrCreateMinimalCaseId, sendChunkedEvents } from './utils.js';
+import { getCaseIdFromRef, sendChunkedEvents } from './utils.js';
 import { buildUpsertForEntity } from './sql-tools.js';
 import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
@@ -96,7 +96,12 @@ const buildEventPayloads = async (projectUpdateIds) => {
  * @returns {Promise<import('@prisma/client').ProjectUpdate>} projectUpdate
  */
 const mapModelToEntity = async (m) => {
-	const caseId = await getOrCreateMinimalCaseId(m);
+	const caseId = await getCaseIdFromRef(m.caseReference);
+	if (!caseId) {
+		throw Error(
+			'No caseId found in DB, ensure Project is migrated before migrating Project Updates'
+		);
+	}
 
 	return {
 		id: m.id,
