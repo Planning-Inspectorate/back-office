@@ -45,6 +45,7 @@
     "@pins/event-client": "*",
     "@pins/express": "*",
     "@pins/key-vault-secrets-client": "*",
+    "@pins/examination-timetable-utils": "*",
     "@pins/platform": "*",
     "@prisma/instrumentation": "*",
     "@supercharge/promise-pool": "*",
