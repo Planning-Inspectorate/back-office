@@ -30,25 +30,26 @@ let trainingCase = applicationFactoryForTests({
 		subSector: true
 	}
 });
-if (trainingCase.ApplicationDetails) {
-	trainingCase.ApplicationDetails.subSectorId = 26;
 
-	trainingCase.ApplicationDetails.subSector = {
-		id: 26,
-		abbreviation: 'TRAIN01',
+// @ts-ignore
+trainingCase.ApplicationDetails.subSectorId = 26;
+
+// @ts-ignore
+trainingCase.ApplicationDetails.subSector = {
+	id: 26,
+	abbreviation: 'TRAIN01',
+	name: 'training',
+	displayNameEn: 'Training',
+	displayNameCy: 'Training',
+	sectorId: 7,
+	sector: {
+		id: 7,
+		abbreviation: 'TRAIN',
 		name: 'training',
 		displayNameEn: 'Training',
-		displayNameCy: 'Training',
-		sectorId: 7,
-		sector: {
-			id: 7,
-			abbreviation: 'TRAIN',
-			name: 'training',
-			displayNameEn: 'Training',
-			displayNameCy: 'Training'
-		}
-	};
-}
+		displayNameCy: 'Training'
+	}
+};
 
 describe('Get applications', () => {
 	test('gets all applications', async () => {
