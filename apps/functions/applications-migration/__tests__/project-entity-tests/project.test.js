@@ -4,6 +4,7 @@ import { migrateNsipProjectByReference } from '../../common/migrators/nsip-proje
 import { TEST_CONSTANTS_GENERIC } from '../tools/test-constants.js';
 import { getFromCbosDb } from '../tools/check-cbos-db.js';
 import { expectedCbosProjectData } from '../tools/expect-cbos-returns.js';
+import { clearNonStaticDataTables } from '../tear-down/clear-tables.js';
 
 describe('project entity', () => {
 	it('is seen in the CBOS DB after successful migration', async () => {
@@ -17,5 +18,9 @@ describe('project entity', () => {
 		);
 
 		expect(backofficeDbEntry).toMatchObject(expectedCbosProjectData());
+	});
+
+	afterAll(async () => {
+		await clearNonStaticDataTables();
 	});
 });
