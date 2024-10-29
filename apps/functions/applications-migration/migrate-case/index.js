@@ -5,6 +5,7 @@ import { migrateS51AdviceForCase } from '../common/migrators/s51-advice-migratio
 import { migrateServiceUsers } from '../common/migrators/service-user-migration.js';
 import { migrationNsipDocumentsByReference } from '../common/migrators/nsip-document-migration.js';
 import { handleMigrationWithResponse } from '../common/handle-migration-with-response.js';
+import { migrateProjectUpdates } from '../project-updates-migration/src/project-updates-migration.js';
 
 /**
  * @param {import('@azure/functions').Context} context
@@ -12,7 +13,15 @@ import { handleMigrationWithResponse } from '../common/handle-migration-with-res
  */
 export default async (
 	context,
-	{ body: { caseReference = '', caseReferences = [], dryRun, migrationOverwrite = false } }
+	{
+		body: {
+			caseReference = '',
+			caseReferences = [],
+			dryRun,
+			migrationOverwrite = false,
+			isWelshCase = false
+		}
+	}
 ) => {
 	if (typeof caseReference !== 'string') {
 		context.res = {
@@ -37,7 +46,7 @@ export default async (
 	const isSingleCase = Boolean(caseReference);
 
 	const migrateFunction = isSingleCase
-		? async () => await migrateCase(context.log, caseReference, dryRun)
+		? async () => await migrateCase(context.log, caseReference, dryRun, isWelshCase)
 		: async () => {
 				for (const reference of caseReferences) {
 					await migrateCase(context.log, reference, dryRun);
@@ -59,14 +68,19 @@ export default async (
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  * @param {boolean} dryRun
+ * @param {boolean} isWelshCase
  */
-const migrateCase = async (log, caseReference, dryRun = false) => {
+const migrateCase = async (log, caseReference, dryRun = false, isWelshCase = false) => {
 	await migrateNsipProjectByReference(log, caseReference, false);
 	await migrateServiceUsers(log, caseReference);
 	await migrationNsipDocumentsByReference(log, caseReference);
 	await migrateS51AdviceForCase(log, caseReference);
 	await migrationRepresentationsForCase(log, caseReference);
 	await migrateExamTimetablesForCase(log, caseReference);
+
+	if (isWelshCase) {
+		await migrateProjectUpdates(log, [caseReference], true);
+	}
 
 	if (!dryRun) {
 		// re-run the nsip-project migration to update the status and broadcast
