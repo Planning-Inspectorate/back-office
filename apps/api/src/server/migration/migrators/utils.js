@@ -59,50 +59,6 @@ export const getOrCreateServiceUserId = async ({ emailAddress: email }) => {
 };
 
 /**
- * @param {NSIPProjectMinimalCaseData} projectUpdate
- *
- * @returns {Promise<number>} caseId
- */
-export const getOrCreateMinimalCaseId = async ({
-	caseReference: reference,
-	caseName: title,
-	caseDescription: description,
-	caseStage
-}) => {
-	const existingCaseId = await getCaseIdFromRef(reference);
-
-	if (existingCaseId) {
-		return existingCaseId;
-	}
-
-	// We're only creating (and not upserting) cases because upserts could be dangerous.
-	// The stage is likely to change, but if we actually migrate nsip-project entities and re-run this job we would be in trouble
-	const subSectorId = await getSubSectorIdFromReference(reference);
-
-	const caseEntity = {
-		reference,
-		title,
-		description,
-		ApplicationDetails: {
-			create: {
-				subSector: {
-					connect: { id: subSectorId }
-				}
-			}
-		},
-		CaseStatus: {
-			create: { status: caseStage }
-		}
-	};
-
-	const newCase = await databaseConnector.case.create({ data: caseEntity, select: { id: true } });
-
-	caseRefToIdCache.set(reference, newCase.id);
-
-	return newCase.id;
-};
-
-/**
  *
  * @param {string} reference
  *
