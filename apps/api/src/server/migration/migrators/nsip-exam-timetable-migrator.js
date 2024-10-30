@@ -4,12 +4,12 @@ import { MigratedEntityIdCeiling } from '../migrator.consts.js';
 import { getCaseIdFromRef, getExamTimetableTypeIdFromName } from './utils.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import { publish as BroadcastExamTimetable } from '../../applications/examination-timetable-items/examination-timetable-items.service.js';
-import { handleDateTimeToUTC } from '#utils/migration-dates.js';
-
+import { handleDateTimeToUTC, mapDateTimesToCorrectFields } from '#utils/migration-dates.js';
+import { examTimetableItemTypes } from '@pins/examination-timetable-utils';
 /**
  * Migrate NSIP Exam Timetable
  *
- * @param {import('pins-data-model').Schemas.ExaminationTimetable[]} examTimetables
+ * @param {import("pins-data-model").Schemas.ExaminationTimetable[]} examTimetables
  */
 export const migrateExamTimetables = async (examTimetables) => {
 	console.info(`Migrating ${examTimetables.length} NSIP Exam Timetables`);
@@ -84,8 +84,8 @@ const getExamTimetableFolderId = async (caseId) => {
 
 /**
  *
- * @param {import('pins-data-model').Schemas.ExaminationTimetable} model
- * @returns {Promise<import('@prisma/client').Prisma.ExaminationTimetableUncheckedCreateInput>}
+ * @param {import("pins-data-model").Schemas.ExaminationTimetable} model
+ * @returns {Promise<import("@prisma/client").Prisma.ExaminationTimetableUncheckedCreateInput>}
  */
 const mapModelToTimetableEntity = async ({ caseReference }) => {
 	const caseId = await getCaseIdFromRef(caseReference);
@@ -102,8 +102,8 @@ const mapModelToTimetableEntity = async ({ caseReference }) => {
 /**
  * @param {number} examinationTimetableId
  * @param {number} examTimetableFolderId
- * @param {import('pins-data-model').Schemas.Event} model
- * @returns {Promise<import('@prisma/client').Prisma.ExaminationTimetableItemUncheckedCreateInput>}
+ * @param {import("pins-data-model").Schemas.Event} model
+ * @returns {Promise<import("@prisma/client").Prisma.ExaminationTimetableItemUncheckedCreateInput>}
  */
 const mapModelToEventEntity = async (
 	examinationTimetableId,
@@ -125,10 +125,16 @@ const mapModelToEventEntity = async (
 		throw Error(`Unable to find examinationTypeId for type ${type}`);
 	}
 
-	const startDateTime = handleDateTimeToUTC(eventDeadlineStartDate, {
+	const { startDateTimeField, endDateTimeField } = mapDateTimesToCorrectFields(
+		eventDeadlineStartDate,
+		date,
+		type
+	);
+
+	const startDateTime = handleDateTimeToUTC(startDateTimeField, {
 		isEndDate: false
 	});
-	const dateTimeOrEndDateTime = handleDateTimeToUTC(date, {
+	const dateTimeOrEndDateTime = handleDateTimeToUTC(endDateTimeField, {
 		isEndDate: isDeadlineType(type)
 	});
 	if (!dateTimeOrEndDateTime) {
@@ -156,8 +162,8 @@ const bulletPoint = '*';
 /**
  * 	Example input:
 	"List of items
-	* test 1
-	* test 2"
+ * test 1
+ * test 2"
 
 	Example output:
 	{
@@ -206,10 +212,6 @@ const formatBulletPoints = (input) => input.trim().replace(/(\r\n[?•-])/g, '\r
  * @returns {boolean}
  */
 const isDeadlineType = (examinationTimetableItemType) => {
-	const examinationItemDeadlineTypes = [
-		'deadline',
-		'deadline for close of examination',
-		'procedural deadline (pre-examination)'
-	];
-	return examinationItemDeadlineTypes.includes(examinationTimetableItemType.toLowerCase());
+	const examinationItemDeadlineTypes = [examTimetableItemTypes.DEADLINE];
+	return examinationItemDeadlineTypes.includes(examinationTimetableItemType);
 };

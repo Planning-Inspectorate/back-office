@@ -1,6 +1,11 @@
-import { changeEndTime, handleDateTimeToUTC } from '#utils/migration-dates.js';
+import {
+	changeEndTime,
+	handleDateTimeToUTC,
+	mapDateTimesToCorrectFields
+} from '#utils/migration-dates.js';
+import { examTimetableItemTypes } from '@pins/examination-timetable-utils';
 
-describe('odw-date', () => {
+describe('migration-dates', () => {
 	describe('changeEndTime', () => {
 		describe('if time is 00:00', () => {
 			test('should change time to 23:59', () => {
@@ -62,6 +67,58 @@ describe('odw-date', () => {
 					expect(result?.toISOString()).toBe(expectedDate);
 				}
 			);
+		});
+	});
+
+	describe('mapDateTimesToCorrectFields', () => {
+		describe('if type is not in eventItemsToRemap', () => {
+			test('should return startDateTime and endDateTime without changes', () => {
+				const startDateTime = new Date('2022-10-31T00:00:00');
+				const endDateTime = new Date('2022-10-31T12:30:00');
+				const type = 'type';
+				const result = mapDateTimesToCorrectFields(startDateTime, endDateTime, type);
+				expect(result.startDateTimeField).toEqual(startDateTime);
+				expect(result.endDateTimeField).toEqual(endDateTime);
+			});
+		});
+
+		describe('if type is in eventItemsToRemap', () => {
+			describe('and startDateTime is null', () => {
+				test('should return startDateTime and endDateTime with changes', () => {
+					const startDateTime = null;
+					const endDateTime = new Date('2022-10-31T12:30:00');
+					const type = examTimetableItemTypes.PRELIMINARY_MEETING;
+					const result = mapDateTimesToCorrectFields(startDateTime, endDateTime, type);
+					// startDateField should be the value of input endDateTime
+					expect(result.startDateTimeField).toEqual('2022-10-31T12:30:00.000Z');
+					// endDateTimeField should be the value of input endDateTime with time set to 00:00:00
+					expect(result.endDateTimeField).toEqual('2022-10-31T00:00:00.000Z');
+				});
+			});
+		});
+
+		describe('and startDateTime has no time', () => {
+			test('should return startDateTime and endDateTime with changes', () => {
+				const startDateTime = new Date('2022-10-31T00:00:00');
+				const endDateTime = new Date('2022-10-31T12:30:00');
+				const type = examTimetableItemTypes.PRELIMINARY_MEETING;
+				const result = mapDateTimesToCorrectFields(startDateTime, endDateTime, type);
+				// startDateField should be the value of input endDateTime
+				expect(result.startDateTimeField).toEqual('2022-10-31T12:30:00.000Z');
+				// endDateTimeField should be the value of input endDateTime with time set to 00:00:00
+				expect(result.endDateTimeField).toEqual('2022-10-31T00:00:00.000Z');
+			});
+		});
+
+		describe('and startDateTime is not null', () => {
+			test('should return startDateTime and endDateTime without changes', () => {
+				const startDateTime = new Date('2022-10-31T12:30:00');
+				const endDateTime = new Date('2022-10-31T12:30:00');
+				const type = examTimetableItemTypes.PRELIMINARY_MEETING;
+				const result = mapDateTimesToCorrectFields(startDateTime, endDateTime, type);
+				expect(result.startDateTimeField).toEqual(startDateTime);
+				expect(result.endDateTimeField).toEqual(endDateTime);
+			});
 		});
 	});
 });
